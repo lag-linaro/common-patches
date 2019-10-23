@@ -2,7 +2,7 @@
 # android-mainline patches
 #
 # Applies onto mainline 4f5cafb5cb84 Linux v5.4-rc3
-# Matches android-mainline 06dc94f19d2f "ANDROID: sched: Honor sync flag for energy-aware wakeups"
+# Matches android-mainline a025c3a713f5 "ANDROID: Kconfig.gki: Add hidden MMC config support"
 #
 ANDROID-x86-Remove-a-useless-warning-message.patch
 ANDROID-Kbuild-LLVMLinux-allow-overriding-clang-target-triple.patch
@@ -55,10 +55,6 @@ ANDROID-gki_defconfig-sync-with-savedefconfig.patch
 ANDROID-gki_defconfig-remove-more-recommended-configs.patch
 ANDROID-gki_defconfig-more-generic-configs-for-DLKMs.patch
 ANDROID-sync-defconfigs-with-savedefconfig.patch
-ANDROID-Four-part-revert-of-asm-goto-usage-1-4.patch
-ANDROID-Four-part-revert-of-asm-goto-usage-2-4.patch
-ANDROID-Four-part-revert-of-asm-goto-usage-3-4.patch
-ANDROID-Four-part-revert-of-asm-goto-usage-4-4.patch
 ANDROID-Removed-check-for-asm-goto.patch
 ANDROID-Add-initial-x86_64-gki_defconfig.patch
 ANDROID-added-configs-so-that-GKI-boots-on-x86-cuttlefish.patch
@@ -195,3 +191,11 @@ UPSTREAM-base-soc-Handle-custom-soc-information-sysfs-entries.patch
 ANDROID-unconditionally-compile-sig_ok-in-struct-module.patch
 ANDROID-gki_defconfig-remove-PWRSEQ_EMMC-and-PWRSEQ_SIMPLE.patch
 ANDROID-sched-Honor-sync-flag-for-energy-aware-wakeups.patch
+ANDROID-of-property-Add-device-link-support-for-iommus.patch
+ANDROID-Move-from-clang-r353983c-to-r365631c.patch
+ANDROID-Revert-Merge-tag-modules-for-v5.4-of-git-git.kernel.org-pub-scm-linux-kernel-git-jeyu-linux.patch
+ANDROID-Kconfig.gki-Add-extra-GKI_HIDDEN_REGMAP_CONFIGS-selections.patch
+ANDROID-Kconfig.gki-Add-extra-audio-selections.patch
+ANDROID-Kconfig.gki-Add-SND_PCM_ELD-to-HIDDEN_DRM-configs.patch
+ANDROID-Kconfig.gki-Add-Hidden-QCOM-configs.patch
+ANDROID-Kconfig.gki-Add-hidden-MMC-config-support.patch

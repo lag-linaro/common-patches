@@ -1,0 +1,1114 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: Raghavendra Rao Ananta <rananta@codeaurora.org>
+Date: Fri, 18 Oct 2019 11:20:57 -0700
+Subject: ANDROID: Revert "Merge tag 'modules-for-v5.4' of
+ git://git.kernel.org/pub/scm/linux/kernel/git/jeyu/linux"
+
+This reverts commit e0703556644a531e50b5dc61b9f6ea83af5f6604, reversing
+changes made to 8808cf8cbc4da1ceef9307fba7e499563908c211.
+
+Introducing symbol-namespaces into the kernel has caused issues with
+respect to the ABI checker. Hence, revert the changes until a valid
+fix is available. The revert was done based off of 5.4-rc1.
+
+Change-Id: I529ced269661f457ce667a76eb383843002f0a7d
+Signed-off-by: Raghavendra Rao Ananta <rananta@codeaurora.org>
+---
+ .gitignore                               |   1 -
+ Documentation/kbuild/modules.rst         |   7 +-
+ Documentation/kernel-hacking/hacking.rst |  18 ---
+ Makefile                                 |  14 +--
+ arch/m68k/include/asm/export.h           |   1 +
+ drivers/usb/storage/Makefile             |   2 -
+ drivers/usb/storage/alauda.c             |   1 -
+ drivers/usb/storage/cypress_atacb.c      |   1 -
+ drivers/usb/storage/datafab.c            |   1 -
+ drivers/usb/storage/ene_ub6250.c         |   1 -
+ drivers/usb/storage/freecom.c            |   1 -
+ drivers/usb/storage/isd200.c             |   1 -
+ drivers/usb/storage/jumpshot.c           |   1 -
+ drivers/usb/storage/karma.c              |   1 -
+ drivers/usb/storage/onetouch.c           |   1 -
+ drivers/usb/storage/realtek_cr.c         |   1 -
+ drivers/usb/storage/sddr09.c             |   1 -
+ drivers/usb/storage/sddr55.c             |   1 -
+ drivers/usb/storage/shuttle_usbat.c      |   1 -
+ drivers/usb/storage/uas.c                |   1 -
+ include/asm-generic/export.h             |  15 ++-
+ include/linux/export.h                   |  76 ++----------
+ init/Kconfig                             |  35 +-----
+ kernel/module.c                          |  76 ++----------
+ lib/Kconfig.debug                        |  16 +++
+ scripts/Makefile.modpost                 |   5 +-
+ scripts/export_report.pl                 |   2 +-
+ scripts/mod/modpost.c                    | 151 +++--------------------
+ scripts/mod/modpost.h                    |   9 --
+ 29 files changed, 69 insertions(+), 373 deletions(-)
+
+diff --git a/.gitignore b/.gitignore
+index 70580bdd352c..ce2c6348d372 100644
+--- a/.gitignore
++++ b/.gitignore
+@@ -32,7 +32,6 @@
+ *.lzo
+ *.mod
+ *.mod.c
+-*.ns_deps
+ *.o
+ *.o.*
+ *.patch
+diff --git a/Documentation/kbuild/modules.rst b/Documentation/kbuild/modules.rst
+index 774a998dcf37..51050b7642c0 100644
+--- a/Documentation/kbuild/modules.rst
++++ b/Documentation/kbuild/modules.rst
+@@ -470,12 +470,9 @@ build.
+ 
+ 	The syntax of the Module.symvers file is::
+ 
+-	<CRC>       <Symbol>          <Namespace>  <Module>                         <Export Type>
++		<CRC>	    <Symbol>	       <module>
+ 
+-	0xe1cc2a05  usb_stor_suspend  USB_STORAGE  drivers/usb/storage/usb-storage  EXPORT_SYMBOL_GPL
+-
+-	The fields are separated by tabs and values may be empty (e.g.
+-	if no namespace is defined for an exported symbol).
++		0x2d036834  scsi_remove_host   drivers/scsi/scsi_mod
+ 
+ 	For a kernel build without CONFIG_MODVERSIONS enabled, the CRC
+ 	would read 0x00000000.
+diff --git a/Documentation/kernel-hacking/hacking.rst b/Documentation/kernel-hacking/hacking.rst
+index a3ddb213a5e1..5891a701a159 100644
+--- a/Documentation/kernel-hacking/hacking.rst
++++ b/Documentation/kernel-hacking/hacking.rst
+@@ -594,24 +594,6 @@ internal implementation issue, and not really an interface. Some
+ maintainers and developers may however require EXPORT_SYMBOL_GPL()
+ when adding any new APIs or functionality.
+ 
+-:c:func:`EXPORT_SYMBOL_NS()`
+-----------------------------
+-
+-Defined in ``include/linux/export.h``
+-
+-This is the variant of `EXPORT_SYMBOL()` that allows specifying a symbol
+-namespace. Symbol Namespaces are documented in
+-``Documentation/kbuild/namespaces.rst``.
+-
+-:c:func:`EXPORT_SYMBOL_NS_GPL()`
+---------------------------------
+-
+-Defined in ``include/linux/export.h``
+-
+-This is the variant of `EXPORT_SYMBOL_GPL()` that allows specifying a symbol
+-namespace. Symbol Namespaces are documented in
+-``Documentation/kbuild/namespaces.rst``.
+-
+ Routines and Conventions
+ ========================
+ 
+diff --git a/Makefile b/Makefile
+index dd248a6159ee..4efa10256a2d 100644
+--- a/Makefile
++++ b/Makefile
+@@ -1481,9 +1481,6 @@ help:
+ 	@echo  '  headerdep       - Detect inclusion cycles in headers'
+ 	@echo  '  coccicheck      - Check with Coccinelle'
+ 	@echo  ''
+-	@echo  'Tools:'
+-	@echo  '  nsdeps          - Generate missing symbol namespace dependencies'
+-	@echo  ''
+ 	@echo  'Kernel selftest:'
+ 	@echo  '  kselftest       - Build and run kernel selftest (run as root)'
+ 	@echo  '                    Build, install, and boot kernel before'
+@@ -1665,7 +1662,7 @@ clean: $(clean-dirs)
+ 		-o -name '*.ko.*' \
+ 		-o -name '*.dtb' -o -name '*.dtb.S' -o -name '*.dt.yaml' \
+ 		-o -name '*.dwo' -o -name '*.lst' \
+-		-o -name '*.su' -o -name '*.mod' -o -name '*.ns_deps' \
++		-o -name '*.su' -o -name '*.mod' \
+ 		-o -name '.*.d' -o -name '.*.tmp' -o -name '*.mod.c' \
+ 		-o -name '*.lex.c' -o -name '*.tab.[ch]' \
+ 		-o -name '*.asn1.[ch]' \
+@@ -1683,15 +1680,6 @@ quiet_cmd_tags = GEN     $@
+ tags TAGS cscope gtags: FORCE
+ 	$(call cmd,tags)
+ 
+-# Script to generate missing namespace dependencies
+-# ---------------------------------------------------------------------------
+-
+-PHONY += nsdeps
+-
+-nsdeps: modules
+-	$(Q)$(MAKE) -f $(srctree)/scripts/Makefile.modpost nsdeps
+-	$(Q)$(CONFIG_SHELL) $(srctree)/scripts/$@
+-
+ # Scripts to check various things for consistency
+ # ---------------------------------------------------------------------------
+ 
+diff --git a/arch/m68k/include/asm/export.h b/arch/m68k/include/asm/export.h
+index b53008b67ce1..0af20f48bd07 100644
+--- a/arch/m68k/include/asm/export.h
++++ b/arch/m68k/include/asm/export.h
+@@ -1,2 +1,3 @@
++#define KSYM_ALIGN 2
+ #define KCRC_ALIGN 2
+ #include <asm-generic/export.h>
+diff --git a/drivers/usb/storage/Makefile b/drivers/usb/storage/Makefile
+index 46635fa4a340..a67ddcbb4e24 100644
+--- a/drivers/usb/storage/Makefile
++++ b/drivers/usb/storage/Makefile
+@@ -8,8 +8,6 @@
+ 
+ ccflags-y := -I $(srctree)/drivers/scsi
+ 
+-ccflags-y += -DDEFAULT_SYMBOL_NAMESPACE=USB_STORAGE
+-
+ obj-$(CONFIG_USB_UAS)		+= uas.o
+ obj-$(CONFIG_USB_STORAGE)	+= usb-storage.o
+ 
+diff --git a/drivers/usb/storage/alauda.c b/drivers/usb/storage/alauda.c
+index ddab2cd3d2e7..6b8edf6178df 100644
+--- a/drivers/usb/storage/alauda.c
++++ b/drivers/usb/storage/alauda.c
+@@ -36,7 +36,6 @@
+ MODULE_DESCRIPTION("Driver for Alauda-based card readers");
+ MODULE_AUTHOR("Daniel Drake <dsd@gentoo.org>");
+ MODULE_LICENSE("GPL");
+-MODULE_IMPORT_NS(USB_STORAGE);
+ 
+ /*
+  * Status bytes
+diff --git a/drivers/usb/storage/cypress_atacb.c b/drivers/usb/storage/cypress_atacb.c
+index a6f3267bbef6..4825902377eb 100644
+--- a/drivers/usb/storage/cypress_atacb.c
++++ b/drivers/usb/storage/cypress_atacb.c
+@@ -22,7 +22,6 @@
+ MODULE_DESCRIPTION("SAT support for Cypress USB/ATA bridges with ATACB");
+ MODULE_AUTHOR("Matthieu Castet <castet.matthieu@free.fr>");
+ MODULE_LICENSE("GPL");
+-MODULE_IMPORT_NS(USB_STORAGE);
+ 
+ /*
+  * The table of devices
+diff --git a/drivers/usb/storage/datafab.c b/drivers/usb/storage/datafab.c
+index 588818483f4b..09353be199be 100644
+--- a/drivers/usb/storage/datafab.c
++++ b/drivers/usb/storage/datafab.c
+@@ -54,7 +54,6 @@
+ MODULE_DESCRIPTION("Driver for Datafab USB Compact Flash reader");
+ MODULE_AUTHOR("Jimmie Mayfield <mayfield+datafab@sackheads.org>");
+ MODULE_LICENSE("GPL");
+-MODULE_IMPORT_NS(USB_STORAGE);
+ 
+ struct datafab_info {
+ 	unsigned long   sectors;	/* total sector count */
+diff --git a/drivers/usb/storage/ene_ub6250.c b/drivers/usb/storage/ene_ub6250.c
+index 8b1b73065421..c26129d5b943 100644
+--- a/drivers/usb/storage/ene_ub6250.c
++++ b/drivers/usb/storage/ene_ub6250.c
+@@ -26,7 +26,6 @@
+ 
+ MODULE_DESCRIPTION("Driver for ENE UB6250 reader");
+ MODULE_LICENSE("GPL");
+-MODULE_IMPORT_NS(USB_STORAGE);
+ MODULE_FIRMWARE(SD_INIT1_FIRMWARE);
+ MODULE_FIRMWARE(SD_INIT2_FIRMWARE);
+ MODULE_FIRMWARE(SD_RW_FIRMWARE);
+diff --git a/drivers/usb/storage/freecom.c b/drivers/usb/storage/freecom.c
+index 34e7eaff1174..4f542df37a44 100644
+--- a/drivers/usb/storage/freecom.c
++++ b/drivers/usb/storage/freecom.c
+@@ -29,7 +29,6 @@
+ MODULE_DESCRIPTION("Driver for Freecom USB/IDE adaptor");
+ MODULE_AUTHOR("David Brown <usb-storage@davidb.org>");
+ MODULE_LICENSE("GPL");
+-MODULE_IMPORT_NS(USB_STORAGE);
+ 
+ #ifdef CONFIG_USB_STORAGE_DEBUG
+ static void pdump(struct us_data *us, void *ibuffer, int length);
+diff --git a/drivers/usb/storage/isd200.c b/drivers/usb/storage/isd200.c
+index 89f5e33a6e6d..28e1128d53a4 100644
+--- a/drivers/usb/storage/isd200.c
++++ b/drivers/usb/storage/isd200.c
+@@ -53,7 +53,6 @@
+ MODULE_DESCRIPTION("Driver for In-System Design, Inc. ISD200 ASIC");
+ MODULE_AUTHOR("Björn Stenberg <bjorn@haxx.se>");
+ MODULE_LICENSE("GPL");
+-MODULE_IMPORT_NS(USB_STORAGE);
+ 
+ static int isd200_Initialization(struct us_data *us);
+ 
+diff --git a/drivers/usb/storage/jumpshot.c b/drivers/usb/storage/jumpshot.c
+index 229bf0c1afc9..917f170c4124 100644
+--- a/drivers/usb/storage/jumpshot.c
++++ b/drivers/usb/storage/jumpshot.c
+@@ -51,7 +51,6 @@
+ MODULE_DESCRIPTION("Driver for Lexar \"Jumpshot\" Compact Flash reader");
+ MODULE_AUTHOR("Jimmie Mayfield <mayfield+usb@sackheads.org>");
+ MODULE_LICENSE("GPL");
+-MODULE_IMPORT_NS(USB_STORAGE);
+ 
+ /*
+  * The table of devices
+diff --git a/drivers/usb/storage/karma.c b/drivers/usb/storage/karma.c
+index 05cec81dcd3f..395cf8fb5870 100644
+--- a/drivers/usb/storage/karma.c
++++ b/drivers/usb/storage/karma.c
+@@ -23,7 +23,6 @@
+ MODULE_DESCRIPTION("Driver for Rio Karma");
+ MODULE_AUTHOR("Bob Copeland <me@bobcopeland.com>, Keith Bennett <keith@mcs.st-and.ac.uk>");
+ MODULE_LICENSE("GPL");
+-MODULE_IMPORT_NS(USB_STORAGE);
+ 
+ #define RIO_PREFIX "RIOP\x00"
+ #define RIO_PREFIX_LEN 5
+diff --git a/drivers/usb/storage/onetouch.c b/drivers/usb/storage/onetouch.c
+index a989fe930e21..39a5009a41a6 100644
+--- a/drivers/usb/storage/onetouch.c
++++ b/drivers/usb/storage/onetouch.c
+@@ -25,7 +25,6 @@
+ MODULE_DESCRIPTION("Maxtor USB OneTouch hard drive button driver");
+ MODULE_AUTHOR("Nick Sillik <n.sillik@temple.edu>");
+ MODULE_LICENSE("GPL");
+-MODULE_IMPORT_NS(USB_STORAGE);
+ 
+ #define ONETOUCH_PKT_LEN        0x02
+ #define ONETOUCH_BUTTON         KEY_PROG1
+diff --git a/drivers/usb/storage/realtek_cr.c b/drivers/usb/storage/realtek_cr.c
+index 3789698d9d3c..1d9ce9cbc831 100644
+--- a/drivers/usb/storage/realtek_cr.c
++++ b/drivers/usb/storage/realtek_cr.c
+@@ -35,7 +35,6 @@
+ MODULE_DESCRIPTION("Driver for Realtek USB Card Reader");
+ MODULE_AUTHOR("wwang <wei_wang@realsil.com.cn>");
+ MODULE_LICENSE("GPL");
+-MODULE_IMPORT_NS(USB_STORAGE);
+ 
+ static int auto_delink_en = 1;
+ module_param(auto_delink_en, int, S_IRUGO | S_IWUSR);
+diff --git a/drivers/usb/storage/sddr09.c b/drivers/usb/storage/sddr09.c
+index 51bcd4a43690..bc9da736bdfc 100644
+--- a/drivers/usb/storage/sddr09.c
++++ b/drivers/usb/storage/sddr09.c
+@@ -47,7 +47,6 @@
+ MODULE_DESCRIPTION("Driver for SanDisk SDDR-09 SmartMedia reader");
+ MODULE_AUTHOR("Andries Brouwer <aeb@cwi.nl>, Robert Baruch <autophile@starband.net>");
+ MODULE_LICENSE("GPL");
+-MODULE_IMPORT_NS(USB_STORAGE);
+ 
+ static int usb_stor_sddr09_dpcm_init(struct us_data *us);
+ static int sddr09_transport(struct scsi_cmnd *srb, struct us_data *us);
+diff --git a/drivers/usb/storage/sddr55.c b/drivers/usb/storage/sddr55.c
+index ba955d65eb0e..b8527c55335b 100644
+--- a/drivers/usb/storage/sddr55.c
++++ b/drivers/usb/storage/sddr55.c
+@@ -29,7 +29,6 @@
+ MODULE_DESCRIPTION("Driver for SanDisk SDDR-55 SmartMedia reader");
+ MODULE_AUTHOR("Simon Munton");
+ MODULE_LICENSE("GPL");
+-MODULE_IMPORT_NS(USB_STORAGE);
+ 
+ /*
+  * The table of devices
+diff --git a/drivers/usb/storage/shuttle_usbat.c b/drivers/usb/storage/shuttle_usbat.c
+index 54aa1392c9ca..854498e1012c 100644
+--- a/drivers/usb/storage/shuttle_usbat.c
++++ b/drivers/usb/storage/shuttle_usbat.c
+@@ -48,7 +48,6 @@
+ MODULE_DESCRIPTION("Driver for SCM Microsystems (a.k.a. Shuttle) USB-ATAPI cable");
+ MODULE_AUTHOR("Daniel Drake <dsd@gentoo.org>, Robert Baruch <autophile@starband.net>");
+ MODULE_LICENSE("GPL");
+-MODULE_IMPORT_NS(USB_STORAGE);
+ 
+ /* Supported device types */
+ #define USBAT_DEV_HP8200	0x01
+diff --git a/drivers/usb/storage/uas.c b/drivers/usb/storage/uas.c
+index bf80d6f81f58..047c5922618f 100644
+--- a/drivers/usb/storage/uas.c
++++ b/drivers/usb/storage/uas.c
+@@ -1219,6 +1219,5 @@ static struct usb_driver uas_driver = {
+ module_usb_driver(uas_driver);
+ 
+ MODULE_LICENSE("GPL");
+-MODULE_IMPORT_NS(USB_STORAGE);
+ MODULE_AUTHOR(
+ 	"Hans de Goede <hdegoede@redhat.com>, Matthew Wilcox and Sarah Sharp");
+diff --git a/include/asm-generic/export.h b/include/asm-generic/export.h
+index fa577978fbbd..294d6ae785d4 100644
+--- a/include/asm-generic/export.h
++++ b/include/asm-generic/export.h
+@@ -4,24 +4,26 @@
+ #ifndef KSYM_FUNC
+ #define KSYM_FUNC(x) x
+ #endif
+-#ifdef CONFIG_HAVE_ARCH_PREL32_RELOCATIONS
+-#define KSYM_ALIGN 4
+-#elif defined(CONFIG_64BIT)
++#ifdef CONFIG_64BIT
++#ifndef KSYM_ALIGN
+ #define KSYM_ALIGN 8
++#endif
+ #else
++#ifndef KSYM_ALIGN
+ #define KSYM_ALIGN 4
+ #endif
++#endif
+ #ifndef KCRC_ALIGN
+ #define KCRC_ALIGN 4
+ #endif
+ 
+ .macro __put, val, name
+ #ifdef CONFIG_HAVE_ARCH_PREL32_RELOCATIONS
+-	.long	\val - ., \name - ., 0
++	.long	\val - ., \name - .
+ #elif defined(CONFIG_64BIT)
+-	.quad	\val, \name, 0
++	.quad	\val, \name
+ #else
+-	.long	\val, \name, 0
++	.long	\val, \name
+ #endif
+ .endm
+ 
+@@ -55,6 +57,7 @@ __kcrctab_\name:
+ #endif
+ #endif
+ .endm
++#undef __put
+ 
+ #if defined(CONFIG_TRIM_UNUSED_KSYMS)
+ 
+diff --git a/include/linux/export.h b/include/linux/export.h
+index 621158ecd2e2..7d8c112a8b61 100644
+--- a/include/linux/export.h
++++ b/include/linux/export.h
+@@ -18,8 +18,6 @@ extern struct module __this_module;
+ #define THIS_MODULE ((struct module *)0)
+ #endif
+ 
+-#define NS_SEPARATOR "."
+-
+ #ifdef CONFIG_MODVERSIONS
+ /* Mark the CRC weak since genksyms apparently decides not to
+  * generate a checksums for some symbols */
+@@ -28,13 +26,13 @@ extern struct module __this_module;
+ 	asm("	.section \"___kcrctab" sec "+" #sym "\", \"a\"	\n"	\
+ 	    "	.weak	__crc_" #sym "				\n"	\
+ 	    "	.long	__crc_" #sym " - .			\n"	\
+-	    "	.previous					\n")
++	    "	.previous					\n");
+ #else
+ #define __CRC_SYMBOL(sym, sec)						\
+ 	asm("	.section \"___kcrctab" sec "+" #sym "\", \"a\"	\n"	\
+ 	    "	.weak	__crc_" #sym "				\n"	\
+ 	    "	.long	__crc_" #sym "				\n"	\
+-	    "	.previous					\n")
++	    "	.previous					\n");
+ #endif
+ #else
+ #define __CRC_SYMBOL(sym, sec)
+@@ -48,77 +46,44 @@ extern struct module __this_module;
+  * absolute relocations that require runtime processing on relocatable
+  * kernels.
+  */
+-#define __KSYMTAB_ENTRY_NS(sym, sec, ns)				\
+-	__ADDRESSABLE(sym)						\
+-	asm("	.section \"___ksymtab" sec "+" #sym "\", \"a\"	\n"	\
+-	    "	.balign	4					\n"	\
+-	    "__ksymtab_" #ns NS_SEPARATOR #sym ":		\n"	\
+-	    "	.long	" #sym "- .				\n"	\
+-	    "	.long	__kstrtab_" #sym "- .			\n"	\
+-	    "	.long	__kstrtabns_" #sym "- .			\n"	\
+-	    "	.previous					\n")
+-
+ #define __KSYMTAB_ENTRY(sym, sec)					\
+ 	__ADDRESSABLE(sym)						\
+ 	asm("	.section \"___ksymtab" sec "+" #sym "\", \"a\"	\n"	\
+-	    "	.balign 4					\n"	\
++	    "	.balign	8					\n"	\
+ 	    "__ksymtab_" #sym ":				\n"	\
+ 	    "	.long	" #sym "- .				\n"	\
+ 	    "	.long	__kstrtab_" #sym "- .			\n"	\
+-	    "	.long	0					\n"	\
+ 	    "	.previous					\n")
+ 
+ struct kernel_symbol {
+ 	int value_offset;
+ 	int name_offset;
+-	int namespace_offset;
+ };
+ #else
+-#define __KSYMTAB_ENTRY_NS(sym, sec, ns)				\
+-	static const struct kernel_symbol __ksymtab_##sym##__##ns	\
+-	asm("__ksymtab_" #ns NS_SEPARATOR #sym)				\
+-	__attribute__((section("___ksymtab" sec "+" #sym), used))	\
+-	__aligned(sizeof(void *))					\
+-	= { (unsigned long)&sym, __kstrtab_##sym, __kstrtabns_##sym }
+-
+ #define __KSYMTAB_ENTRY(sym, sec)					\
+ 	static const struct kernel_symbol __ksymtab_##sym		\
+-	asm("__ksymtab_" #sym)						\
+ 	__attribute__((section("___ksymtab" sec "+" #sym), used))	\
+-	__aligned(sizeof(void *))					\
+-	= { (unsigned long)&sym, __kstrtab_##sym, NULL }
++	= { (unsigned long)&sym, __kstrtab_##sym }
+ 
+ struct kernel_symbol {
+ 	unsigned long value;
+ 	const char *name;
+-	const char *namespace;
+ };
+ #endif
+ 
+ #ifdef __GENKSYMS__
+ 
+-#define ___EXPORT_SYMBOL(sym,sec)	__GENKSYMS_EXPORT_SYMBOL(sym)
+-#define ___EXPORT_SYMBOL_NS(sym,sec,ns)	__GENKSYMS_EXPORT_SYMBOL(sym)
++#define ___EXPORT_SYMBOL(sym, sec)	__GENKSYMS_EXPORT_SYMBOL(sym)
+ 
+ #else
+ 
+-#define ___export_symbol_common(sym, sec)				\
++/* For every exported symbol, place a struct in the __ksymtab section */
++#define ___EXPORT_SYMBOL(sym, sec)					\
+ 	extern typeof(sym) sym;						\
+-	__CRC_SYMBOL(sym, sec);						\
++	__CRC_SYMBOL(sym, sec)						\
+ 	static const char __kstrtab_##sym[]				\
+ 	__attribute__((section("__ksymtab_strings"), used, aligned(1)))	\
+-	= #sym								\
+-
+-/* For every exported symbol, place a struct in the __ksymtab section */
+-#define ___EXPORT_SYMBOL_NS(sym, sec, ns)				\
+-	___export_symbol_common(sym, sec);				\
+-	static const char __kstrtabns_##sym[]				\
+-	__attribute__((section("__ksymtab_strings"), used, aligned(1)))	\
+-	= #ns;								\
+-	__KSYMTAB_ENTRY_NS(sym, sec, ns)
+-
+-#define ___EXPORT_SYMBOL(sym, sec)					\
+-	___export_symbol_common(sym, sec);				\
++	= #sym;								\
+ 	__KSYMTAB_ENTRY(sym, sec)
+ 
+ #endif
+@@ -130,7 +95,6 @@ struct kernel_symbol {
+  * be reused in other execution contexts such as the UEFI stub or the
+  * decompressor.
+  */
+-#define __EXPORT_SYMBOL_NS(sym, sec, ns)
+ #define __EXPORT_SYMBOL(sym, sec)
+ 
+ #elif defined(CONFIG_TRIM_UNUSED_KSYMS)
+@@ -157,35 +121,15 @@ struct kernel_symbol {
+ #define __cond_export_sym_1(sym, sec) ___EXPORT_SYMBOL(sym, sec)
+ #define __cond_export_sym_0(sym, sec) /* nothing */
+ 
+-#define __EXPORT_SYMBOL_NS(sym, sec, ns)				\
+-	__ksym_marker(sym);						\
+-	__cond_export_ns_sym(sym, sec, ns, __is_defined(__KSYM_##sym))
+-#define __cond_export_ns_sym(sym, sec, ns, conf)			\
+-	___cond_export_ns_sym(sym, sec, ns, conf)
+-#define ___cond_export_ns_sym(sym, sec, ns, enabled)			\
+-	__cond_export_ns_sym_##enabled(sym, sec, ns)
+-#define __cond_export_ns_sym_1(sym, sec, ns) ___EXPORT_SYMBOL_NS(sym, sec, ns)
+-#define __cond_export_ns_sym_0(sym, sec, ns) /* nothing */
+-
+ #else
+ 
+-#define __EXPORT_SYMBOL_NS(sym,sec,ns)	___EXPORT_SYMBOL_NS(sym,sec,ns)
+-#define __EXPORT_SYMBOL(sym,sec)	___EXPORT_SYMBOL(sym,sec)
++#define __EXPORT_SYMBOL(sym, sec)	___EXPORT_SYMBOL(sym, sec)
+ 
+ #endif /* CONFIG_MODULES */
+ 
+-#ifdef DEFAULT_SYMBOL_NAMESPACE
+-#undef __EXPORT_SYMBOL
+-#define __EXPORT_SYMBOL(sym, sec)				\
+-	__EXPORT_SYMBOL_NS(sym, sec, DEFAULT_SYMBOL_NAMESPACE)
+-#endif
+-
+ #define EXPORT_SYMBOL(sym)		__EXPORT_SYMBOL(sym, "")
+ #define EXPORT_SYMBOL_GPL(sym)		__EXPORT_SYMBOL(sym, "_gpl")
+ #define EXPORT_SYMBOL_GPL_FUTURE(sym)	__EXPORT_SYMBOL(sym, "_gpl_future")
+-#define EXPORT_SYMBOL_NS(sym, ns)	__EXPORT_SYMBOL_NS(sym, "", ns)
+-#define EXPORT_SYMBOL_NS_GPL(sym, ns)	__EXPORT_SYMBOL_NS(sym, "_gpl", ns)
+-
+ #ifdef CONFIG_UNUSED_SYMBOLS
+ #define EXPORT_UNUSED_SYMBOL(sym)	__EXPORT_SYMBOL(sym, "_unused")
+ #define EXPORT_UNUSED_SYMBOL_GPL(sym)	__EXPORT_SYMBOL(sym, "_unused_gpl")
+diff --git a/init/Kconfig b/init/Kconfig
+index e3f4463ac31c..1e029150c68c 100644
+--- a/init/Kconfig
++++ b/init/Kconfig
+@@ -2051,7 +2051,8 @@ config MODULE_SRCVERSION_ALL
+ 
+ config MODULE_SIG
+ 	bool "Module signature verification"
+-	select MODULE_SIG_FORMAT
++	depends on MODULES
++	select SYSTEM_DATA_VERIFICATION
+ 	help
+ 	  Check modules for valid signatures upon load: the signature
+ 	  is simply appended to the module. For more information see
+@@ -2132,6 +2133,7 @@ config MODULE_SIG_HASH
+ 
+ config MODULE_COMPRESS
+ 	bool "Compress modules on installation"
++	depends on MODULES
+ 	help
+ 
+ 	  Compresses kernel modules when 'make modules_install' is run; gzip or
+@@ -2167,38 +2169,9 @@ config MODULE_COMPRESS_XZ
+ 
+ endchoice
+ 
+-config MODULE_ALLOW_MISSING_NAMESPACE_IMPORTS
+-	bool "Allow loading of modules with missing namespace imports"
+-	help
+-	  Symbols exported with EXPORT_SYMBOL_NS*() are considered exported in
+-	  a namespace. A module that makes use of a symbol exported with such a
+-	  namespace is required to import the namespace via MODULE_IMPORT_NS().
+-	  There is no technical reason to enforce correct namespace imports,
+-	  but it creates consistency between symbols defining namespaces and
+-	  users importing namespaces they make use of. This option relaxes this
+-	  requirement and lifts the enforcement when loading a module.
+-
+-	  If unsure, say N.
+-
+-config UNUSED_SYMBOLS
+-	bool "Enable unused/obsolete exported symbols"
+-	default y if X86
+-	help
+-	  Unused but exported symbols make the kernel needlessly bigger.  For
+-	  that reason most of these unused exports will soon be removed.  This
+-	  option is provided temporarily to provide a transition period in case
+-	  some external kernel module needs one of these symbols anyway. If you
+-	  encounter such a case in your module, consider if you are actually
+-	  using the right API.  (rationale: since nobody in the kernel is using
+-	  this in a module, there is a pretty good chance it's actually the
+-	  wrong interface to use).  If you really need the symbol, please send a
+-	  mail to the linux kernel mailing list mentioning the symbol and why
+-	  you really need it, and what the merge plan to the mainline kernel for
+-	  your module is.
+-
+ config TRIM_UNUSED_KSYMS
+ 	bool "Trim unused exported kernel symbols"
+-	depends on !UNUSED_SYMBOLS
++	depends on MODULES && !UNUSED_SYMBOLS
+ 	help
+ 	  The kernel and some modules make many symbols available for
+ 	  other modules to use via EXPORT_SYMBOL() and variants. Depending
+diff --git a/kernel/module.c b/kernel/module.c
+index ff2d7359a418..2b9f8c698f09 100644
+--- a/kernel/module.c
++++ b/kernel/module.c
+@@ -545,20 +545,12 @@ static const char *kernel_symbol_name(const struct kernel_symbol *sym)
+ #endif
+ }
+ 
+-static const char *kernel_symbol_namespace(const struct kernel_symbol *sym)
++static int cmp_name(const void *va, const void *vb)
+ {
+-#ifdef CONFIG_HAVE_ARCH_PREL32_RELOCATIONS
+-	if (!sym->namespace_offset)
+-		return NULL;
+-	return offset_to_ptr(&sym->namespace_offset);
+-#else
+-	return sym->namespace;
+-#endif
+-}
+-
+-static int cmp_name(const void *name, const void *sym)
+-{
+-	return strcmp(name, kernel_symbol_name(sym));
++	const char *a;
++	const struct kernel_symbol *b;
++	a = va; b = vb;
++	return strcmp(a, kernel_symbol_name(b));
+ }
+ 
+ static bool find_exported_symbol_in_section(const struct symsearch *syms,
+@@ -1388,41 +1380,6 @@ static inline int same_magic(const char *amagic, const char *bmagic,
+ }
+ #endif /* CONFIG_MODVERSIONS */
+ 
+-static char *get_modinfo(const struct load_info *info, const char *tag);
+-static char *get_next_modinfo(const struct load_info *info, const char *tag,
+-			      char *prev);
+-
+-static int verify_namespace_is_imported(const struct load_info *info,
+-					const struct kernel_symbol *sym,
+-					struct module *mod)
+-{
+-	const char *namespace;
+-	char *imported_namespace;
+-
+-	namespace = kernel_symbol_namespace(sym);
+-	if (namespace) {
+-		imported_namespace = get_modinfo(info, "import_ns");
+-		while (imported_namespace) {
+-			if (strcmp(namespace, imported_namespace) == 0)
+-				return 0;
+-			imported_namespace = get_next_modinfo(
+-				info, "import_ns", imported_namespace);
+-		}
+-#ifdef CONFIG_MODULE_ALLOW_MISSING_NAMESPACE_IMPORTS
+-		pr_warn(
+-#else
+-		pr_err(
+-#endif
+-			"%s: module uses symbol (%s) from namespace %s, but does not import it.\n",
+-			mod->name, kernel_symbol_name(sym), namespace);
+-#ifndef CONFIG_MODULE_ALLOW_MISSING_NAMESPACE_IMPORTS
+-		return -EINVAL;
+-#endif
+-	}
+-	return 0;
+-}
+-
+-
+ /* Resolve a symbol for this module.  I.e. if we find one, record usage. */
+ static const struct kernel_symbol *resolve_symbol(struct module *mod,
+ 						  const struct load_info *info,
+@@ -1451,12 +1408,6 @@ static const struct kernel_symbol *resolve_symbol(struct module *mod,
+ 		goto getname;
+ 	}
+ 
+-	err = verify_namespace_is_imported(info, sym, mod);
+-	if (err) {
+-		sym = ERR_PTR(err);
+-		goto getname;
+-	}
+-
+ 	err = ref_module(mod, owner);
+ 	if (err) {
+ 		sym = ERR_PTR(err);
+@@ -2531,8 +2482,7 @@ static char *next_string(char *string, unsigned long *secsize)
+ 	return string;
+ }
+ 
+-static char *get_next_modinfo(const struct load_info *info, const char *tag,
+-			      char *prev)
++static char *get_modinfo(struct load_info *info, const char *tag)
+ {
+ 	char *p;
+ 	unsigned int taglen = strlen(tag);
+@@ -2543,25 +2493,13 @@ static char *get_next_modinfo(const struct load_info *info, const char *tag,
+ 	 * get_modinfo() calls made before rewrite_section_headers()
+ 	 * must use sh_offset, as sh_addr isn't set!
+ 	 */
+-	char *modinfo = (char *)info->hdr + infosec->sh_offset;
+-
+-	if (prev) {
+-		size -= prev - modinfo;
+-		modinfo = next_string(prev, &size);
+-	}
+-
+-	for (p = modinfo; p; p = next_string(p, &size)) {
++	for (p = (char *)info->hdr + infosec->sh_offset; p; p = next_string(p, &size)) {
+ 		if (strncmp(p, tag, taglen) == 0 && p[taglen] == '=')
+ 			return p + taglen + 1;
+ 	}
+ 	return NULL;
+ }
+ 
+-static char *get_modinfo(const struct load_info *info, const char *tag)
+-{
+-	return get_next_modinfo(info, tag, NULL);
+-}
+-
+ static void setup_modinfo(struct module *mod, struct load_info *info)
+ {
+ 	struct module_attribute *attr;
+diff --git a/lib/Kconfig.debug b/lib/Kconfig.debug
+index 93d97f9b0157..646b6bf69df7 100644
+--- a/lib/Kconfig.debug
++++ b/lib/Kconfig.debug
+@@ -277,6 +277,22 @@ config READABLE_ASM
+           to keep kernel developers who have to stare a lot at assembler listings
+           sane.
+ 
++config UNUSED_SYMBOLS
++	bool "Enable unused/obsolete exported symbols"
++	default y if X86
++	help
++	  Unused but exported symbols make the kernel needlessly bigger.  For
++	  that reason most of these unused exports will soon be removed.  This
++	  option is provided temporarily to provide a transition period in case
++	  some external kernel module needs one of these symbols anyway. If you
++	  encounter such a case in your module, consider if you are actually
++	  using the right API.  (rationale: since nobody in the kernel is using
++	  this in a module, there is a pretty good chance it's actually the
++	  wrong interface to use).  If you really need the symbol, please send a
++	  mail to the linux kernel mailing list mentioning the symbol and why
++	  you really need it, and what the merge plan to the mainline kernel for
++	  your module is.
++
+ config DEBUG_FS
+ 	bool "Debug Filesystem"
+ 	help
+diff --git a/scripts/Makefile.modpost b/scripts/Makefile.modpost
+index 952fff485546..9800a3988f23 100644
+--- a/scripts/Makefile.modpost
++++ b/scripts/Makefile.modpost
+@@ -54,8 +54,7 @@ MODPOST = scripts/mod/modpost						\
+ 	$(if $(KBUILD_EXTMOD),$(addprefix -e ,$(KBUILD_EXTRA_SYMBOLS)))	\
+ 	$(if $(KBUILD_EXTMOD),-o $(modulesymfile))			\
+ 	$(if $(CONFIG_SECTION_MISMATCH_WARN_ONLY),,-E)			\
+-	$(if $(KBUILD_MODPOST_WARN),-w)					\
+-	$(if $(filter nsdeps,$(MAKECMDGOALS)),-d)
++	$(if $(KBUILD_MODPOST_WARN),-w)
+ 
+ ifdef MODPOST_VMLINUX
+ 
+@@ -96,8 +95,6 @@ ifneq ($(KBUILD_MODPOST_NOFINAL),1)
+ 	$(Q)$(MAKE) -f $(srctree)/scripts/Makefile.modfinal
+ endif
+ 
+-nsdeps: __modpost
+-
+ endif
+ 
+ .PHONY: $(PHONY)
+diff --git a/scripts/export_report.pl b/scripts/export_report.pl
+index 548330e8c4e7..7d3030d03a25 100755
+--- a/scripts/export_report.pl
++++ b/scripts/export_report.pl
+@@ -94,7 +94,7 @@ if (defined $opt{'o'}) {
+ #
+ while ( <$module_symvers> ) {
+ 	chomp;
+-	my (undef, $symbol, $namespace, $module, $gpl) = split('\t');
++	my (undef, $symbol, $module, $gpl) = split;
+ 	$SYMBOL { $symbol } =  [ $module , "0" , $symbol, $gpl];
+ }
+ close($module_symvers);
+diff --git a/scripts/mod/modpost.c b/scripts/mod/modpost.c
+index 936d3ad23c83..8d5169b911df 100644
+--- a/scripts/mod/modpost.c
++++ b/scripts/mod/modpost.c
+@@ -38,8 +38,6 @@ static int sec_mismatch_count = 0;
+ static int sec_mismatch_fatal = 0;
+ /* ignore missing files */
+ static int ignore_missing_files;
+-/* write namespace dependencies */
+-static int write_namespace_deps;
+ 
+ enum export {
+ 	export_plain,      export_unused,     export_gpl,
+@@ -166,7 +164,6 @@ struct symbol {
+ 	struct module *module;
+ 	unsigned int crc;
+ 	int crc_valid;
+-	char *namespace;
+ 	unsigned int weak:1;
+ 	unsigned int vmlinux:1;    /* 1 if symbol is defined in vmlinux */
+ 	unsigned int kernel:1;     /* 1 if symbol is from kernel
+@@ -238,37 +235,6 @@ static struct symbol *find_symbol(const char *name)
+ 	return NULL;
+ }
+ 
+-static bool contains_namespace(struct namespace_list *list,
+-			       const char *namespace)
+-{
+-	struct namespace_list *ns_entry;
+-
+-	for (ns_entry = list; ns_entry != NULL; ns_entry = ns_entry->next)
+-		if (strcmp(ns_entry->namespace, namespace) == 0)
+-			return true;
+-
+-	return false;
+-}
+-
+-static void add_namespace(struct namespace_list **list, const char *namespace)
+-{
+-	struct namespace_list *ns_entry;
+-
+-	if (!contains_namespace(*list, namespace)) {
+-		ns_entry = NOFAIL(malloc(sizeof(struct namespace_list) +
+-					 strlen(namespace) + 1));
+-		strcpy(ns_entry->namespace, namespace);
+-		ns_entry->next = *list;
+-		*list = ns_entry;
+-	}
+-}
+-
+-static bool module_imports_namespace(struct module *module,
+-				     const char *namespace)
+-{
+-	return contains_namespace(module->imported_namespaces, namespace);
+-}
+-
+ static const struct {
+ 	const char *str;
+ 	enum export export;
+@@ -348,26 +314,12 @@ static enum export export_from_sec(struct elf_info *elf, unsigned int sec)
+ 		return export_unknown;
+ }
+ 
+-static char *sym_extract_namespace(const char **symname)
+-{
+-	char *namespace = NULL;
+-	char *ns_separator;
+-
+-	ns_separator = strchr(*symname, '.');
+-	if (ns_separator) {
+-		namespace = NOFAIL(strndup(*symname, ns_separator - *symname));
+-		*symname = ns_separator + 1;
+-	}
+-
+-	return namespace;
+-}
+-
+ /**
+  * Add an exported symbol - it may have already been added without a
+  * CRC, in this case just update the CRC
+  **/
+-static struct symbol *sym_add_exported(const char *name, const char *namespace,
+-				       struct module *mod, enum export export)
++static struct symbol *sym_add_exported(const char *name, struct module *mod,
++				       enum export export)
+ {
+ 	struct symbol *s = find_symbol(name);
+ 
+@@ -375,16 +327,15 @@ static struct symbol *sym_add_exported(const char *name, const char *namespace,
+ 		s = new_symbol(name, mod, export);
+ 	} else {
+ 		if (!s->preloaded) {
+-			warn("%s: '%s' exported twice. Previous export was in %s%s\n",
+-			     mod->name, name, s->module->name,
+-			     is_vmlinux(s->module->name) ? "" : ".ko");
++			warn("%s: '%s' exported twice. Previous export "
++			     "was in %s%s\n", mod->name, name,
++			     s->module->name,
++			     is_vmlinux(s->module->name) ?"":".ko");
+ 		} else {
+ 			/* In case Module.symvers was out of date */
+ 			s->module = mod;
+ 		}
+ 	}
+-	free(s->namespace);
+-	s->namespace = namespace ? strdup(namespace) : NULL;
+ 	s->preloaded = 0;
+ 	s->vmlinux   = is_vmlinux(mod->name);
+ 	s->kernel    = 0;
+@@ -671,8 +622,6 @@ static void handle_modversions(struct module *mod, struct elf_info *info,
+ 	unsigned int crc;
+ 	enum export export;
+ 	bool is_crc = false;
+-	const char *name;
+-	char *namespace;
+ 
+ 	if ((!is_vmlinux(mod->name) || mod->is_dot_o) &&
+ 	    strstarts(symname, "__ksymtab"))
+@@ -744,10 +693,8 @@ static void handle_modversions(struct module *mod, struct elf_info *info,
+ 	default:
+ 		/* All exported symbols */
+ 		if (strstarts(symname, "__ksymtab_")) {
+-			name = symname + strlen("__ksymtab_");
+-			namespace = sym_extract_namespace(&name);
+-			sym_add_exported(name, namespace, mod, export);
+-			free(namespace);
++			sym_add_exported(symname + strlen("__ksymtab_"), mod,
++					export);
+ 		}
+ 		if (strcmp(symname, "init_module") == 0)
+ 			mod->has_init = 1;
+@@ -1998,7 +1945,6 @@ static void read_symbols(const char *modname)
+ 	const char *symname;
+ 	char *version;
+ 	char *license;
+-	char *namespace;
+ 	struct module *mod;
+ 	struct elf_info info = { };
+ 	Elf_Sym *sym;
+@@ -2030,12 +1976,6 @@ static void read_symbols(const char *modname)
+ 		license = get_next_modinfo(&info, "license", license);
+ 	}
+ 
+-	namespace = get_modinfo(&info, "import_ns");
+-	while (namespace) {
+-		add_namespace(&mod->imported_namespaces, namespace);
+-		namespace = get_next_modinfo(&info, "import_ns", namespace);
+-	}
+-
+ 	for (sym = info.symtab_start; sym < info.symtab_stop; sym++) {
+ 		symname = remove_dot(info.strtab + sym->st_name);
+ 
+@@ -2195,18 +2135,6 @@ static int check_exports(struct module *mod)
+ 			basename++;
+ 		else
+ 			basename = mod->name;
+-
+-		if (exp->namespace && exp->namespace[0]) {
+-			add_namespace(&mod->required_namespaces,
+-				      exp->namespace);
+-
+-			if (!write_namespace_deps &&
+-			    !module_imports_namespace(mod, exp->namespace)) {
+-				warn("module %s uses symbol %s from namespace %s, but does not import it.\n",
+-				     basename, exp->name, exp->namespace);
+-			}
+-		}
+-
+ 		if (!mod->gpl_compatible)
+ 			check_for_gpl_usage(exp->export, basename, exp->name);
+ 		check_for_unused(exp->export, basename, exp->name);
+@@ -2426,7 +2354,7 @@ static void read_dump(const char *fname, unsigned int kernel)
+ 		return;
+ 
+ 	while ((line = get_next_line(&pos, file, size))) {
+-		char *symname, *namespace, *modname, *d, *export, *end;
++		char *symname, *modname, *d, *export, *end;
+ 		unsigned int crc;
+ 		struct module *mod;
+ 		struct symbol *s;
+@@ -2434,10 +2362,7 @@ static void read_dump(const char *fname, unsigned int kernel)
+ 		if (!(symname = strchr(line, '\t')))
+ 			goto fail;
+ 		*symname++ = '\0';
+-		if (!(namespace = strchr(symname, '\t')))
+-			goto fail;
+-		*namespace++ = '\0';
+-		if (!(modname = strchr(namespace, '\t')))
++		if (!(modname = strchr(symname, '\t')))
+ 			goto fail;
+ 		*modname++ = '\0';
+ 		if ((export = strchr(modname, '\t')) != NULL)
+@@ -2454,8 +2379,7 @@ static void read_dump(const char *fname, unsigned int kernel)
+ 			mod = new_module(modname);
+ 			mod->skip = 1;
+ 		}
+-		s = sym_add_exported(symname, namespace, mod,
+-				     export_no(export));
++		s = sym_add_exported(symname, mod, export_no(export));
+ 		s->kernel    = kernel;
+ 		s->preloaded = 1;
+ 		s->is_static = 0;
+@@ -2485,20 +2409,16 @@ static void write_dump(const char *fname)
+ {
+ 	struct buffer buf = { };
+ 	struct symbol *symbol;
+-	const char *namespace;
+ 	int n;
+ 
+ 	for (n = 0; n < SYMBOL_HASH_SIZE ; n++) {
+ 		symbol = symbolhash[n];
+ 		while (symbol) {
+-			if (dump_sym(symbol)) {
+-				namespace = symbol->namespace;
+-				buf_printf(&buf, "0x%08x\t%s\t%s\t%s\t%s\n",
+-					   symbol->crc, symbol->name,
+-					   namespace ? namespace : "",
+-					   symbol->module->name,
+-					   export_str(symbol->export));
+-			}
++			if (dump_sym(symbol))
++				buf_printf(&buf, "0x%08x\t%s\t%s\t%s\n",
++					symbol->crc, symbol->name,
++					symbol->module->name,
++					export_str(symbol->export));
+ 			symbol = symbol->next;
+ 		}
+ 	}
+@@ -2506,31 +2426,6 @@ static void write_dump(const char *fname)
+ 	free(buf.p);
+ }
+ 
+-static void write_namespace_deps_files(void)
+-{
+-	struct module *mod;
+-	struct namespace_list *ns;
+-	struct buffer ns_deps_buf = {};
+-
+-	for (mod = modules; mod; mod = mod->next) {
+-		char fname[PATH_MAX];
+-
+-		if (mod->skip)
+-			continue;
+-
+-		ns_deps_buf.pos = 0;
+-
+-		for (ns = mod->required_namespaces; ns; ns = ns->next)
+-			buf_printf(&ns_deps_buf, "%s\n", ns->namespace);
+-
+-		if (ns_deps_buf.pos == 0)
+-			continue;
+-
+-		sprintf(fname, "%s.ns_deps", mod->name);
+-		write_if_changed(&ns_deps_buf, fname);
+-	}
+-}
+-
+ struct ext_sym_list {
+ 	struct ext_sym_list *next;
+ 	const char *file;
+@@ -2548,7 +2443,7 @@ int main(int argc, char **argv)
+ 	struct ext_sym_list *extsym_iter;
+ 	struct ext_sym_list *extsym_start = NULL;
+ 
+-	while ((opt = getopt(argc, argv, "i:I:e:mnsT:o:awEd")) != -1) {
++	while ((opt = getopt(argc, argv, "i:I:e:mnsT:o:awE")) != -1) {
+ 		switch (opt) {
+ 		case 'i':
+ 			kernel_read = optarg;
+@@ -2589,9 +2484,6 @@ int main(int argc, char **argv)
+ 		case 'E':
+ 			sec_mismatch_fatal = 1;
+ 			break;
+-		case 'd':
+-			write_namespace_deps = 1;
+-			break;
+ 		default:
+ 			exit(1);
+ 		}
+@@ -2626,9 +2518,6 @@ int main(int argc, char **argv)
+ 
+ 		err |= check_modname_len(mod);
+ 		err |= check_exports(mod);
+-		if (write_namespace_deps)
+-			continue;
+-
+ 		add_header(&buf, mod);
+ 		add_intree_flag(&buf, !external_module);
+ 		add_retpoline(&buf);
+@@ -2641,12 +2530,6 @@ int main(int argc, char **argv)
+ 		sprintf(fname, "%s.mod.c", mod->name);
+ 		write_if_changed(&buf, fname);
+ 	}
+-
+-	if (write_namespace_deps) {
+-		write_namespace_deps_files();
+-		return 0;
+-	}
+-
+ 	if (dump_write)
+ 		write_dump(dump_write);
+ 	if (sec_mismatch_count && sec_mismatch_fatal)
+diff --git a/scripts/mod/modpost.h b/scripts/mod/modpost.h
+index 92a926d375d2..8453d6ac2f77 100644
+--- a/scripts/mod/modpost.h
++++ b/scripts/mod/modpost.h
+@@ -109,11 +109,6 @@ buf_printf(struct buffer *buf, const char *fmt, ...);
+ void
+ buf_write(struct buffer *buf, const char *s, int len);
+ 
+-struct namespace_list {
+-	struct namespace_list *next;
+-	char namespace[0];
+-};
+-
+ struct module {
+ 	struct module *next;
+ 	const char *name;
+@@ -126,10 +121,6 @@ struct module {
+ 	struct buffer dev_table_buf;
+ 	char	     srcversion[25];
+ 	int is_dot_o;
+-	// Required namespace dependencies
+-	struct namespace_list *required_namespaces;
+-	// Actual imported namespaces
+-	struct namespace_list *imported_namespaces;
+ };
+ 
+ struct elf_info {
