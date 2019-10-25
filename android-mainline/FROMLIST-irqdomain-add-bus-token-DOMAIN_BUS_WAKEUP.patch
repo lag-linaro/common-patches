@@ -1,0 +1,39 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: Lina Iyer <ilina@codeaurora.org>
+Date: Fri, 13 Sep 2019 15:59:09 -0600
+Subject: FROMLIST: irqdomain: add bus token DOMAIN_BUS_WAKEUP
+
+A single controller can handle normal interrupts and wake-up interrupts
+independently, with a different numbering space. It is thus crucial to
+allow the driver for such a controller discriminate between the two.
+
+A simple way to do so is to tag the wake-up irqdomain with a "bus token"
+that indicates the wake-up domain. This slightly abuses the notion of
+bus, but also radically simplifies the design of such a driver. Between
+two evils, we choose the least damaging.
+
+Suggested-by: Stephen Boyd <swboyd@chromium.org>
+Signed-off-by: Lina Iyer <ilina@codeaurora.org>
+
+BUG: 141169320
+TEST: Build and boot
+
+Change-Id: I0fd6ccc288d1aa840d88392e5f57197c1e8d1afb
+Signed-off-by: Maulik Shah <mkshah@codeaurora.org>
+Link: https://patchwork.kernel.org/patch/11145365
+---
+ include/linux/irqdomain.h | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/include/linux/irqdomain.h b/include/linux/irqdomain.h
+index 583e7abd07f9..3c340dbc5a1f 100644
+--- a/include/linux/irqdomain.h
++++ b/include/linux/irqdomain.h
+@@ -83,6 +83,7 @@ enum irq_domain_bus_token {
+ 	DOMAIN_BUS_IPI,
+ 	DOMAIN_BUS_FSL_MC_MSI,
+ 	DOMAIN_BUS_TI_SCI_INTA_MSI,
++	DOMAIN_BUS_WAKEUP,
+ };
+ 
+ /**

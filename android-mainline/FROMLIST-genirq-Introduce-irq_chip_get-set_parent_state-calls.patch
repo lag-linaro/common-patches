@@ -1,0 +1,104 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: Maulik Shah <mkshah@codeaurora.org>
+Date: Fri, 13 Sep 2019 15:59:16 -0600
+Subject: FROMLIST: genirq: Introduce irq_chip_get/set_parent_state calls
+
+On certain QTI chipsets some GPIOs are direct-connect interrupts to the
+GIC to be used as regular interrupt lines. When the GPIOs are not used
+for interrupt generation the interrupt line is disabled. But disabling
+the interrupt at GIC does not prevent the interrupt to be reported as
+pending at GIC_ISPEND. Later, when drivers call enable_irq() on the
+interrupt, an unwanted interrupt occurs.
+
+Introduce get and set methods for irqchip's parent to clear it's pending
+irq state. This then can be invoked by the GPIO interrupt controller on
+the parents in it hierarchy to clear the interrupt before enabling the
+interrupt.
+
+Signed-off-by: Maulik Shah <mkshah@codeaurora.org>
+[updated commit text and minor code fixes]
+Signed-off-by: Lina Iyer <ilina@codeaurora.org>
+
+BUG: 141169320
+TEST: Build and boot
+
+Change-Id: I8c849f89bebca892fc8a5c94f1ca9492f2a9d49c
+Signed-off-by: Maulik Shah <mkshah@codeaurora.org>
+Link: https://patchwork.kernel.org/patch/11145351
+---
+ include/linux/irq.h |  6 ++++++
+ kernel/irq/chip.c   | 44 ++++++++++++++++++++++++++++++++++++++++++++
+ 2 files changed, 50 insertions(+)
+
+diff --git a/include/linux/irq.h b/include/linux/irq.h
+index fb301cf29148..7853eb9301f2 100644
+--- a/include/linux/irq.h
++++ b/include/linux/irq.h
+@@ -610,6 +610,12 @@ extern int irq_chip_pm_put(struct irq_data *data);
+ #ifdef	CONFIG_IRQ_DOMAIN_HIERARCHY
+ extern void handle_fasteoi_ack_irq(struct irq_desc *desc);
+ extern void handle_fasteoi_mask_irq(struct irq_desc *desc);
++extern int irq_chip_set_parent_state(struct irq_data *data,
++				     enum irqchip_irq_state which,
++				     bool val);
++extern int irq_chip_get_parent_state(struct irq_data *data,
++				     enum irqchip_irq_state which,
++				     bool *state);
+ extern void irq_chip_enable_parent(struct irq_data *data);
+ extern void irq_chip_disable_parent(struct irq_data *data);
+ extern void irq_chip_ack_parent(struct irq_data *data);
+diff --git a/kernel/irq/chip.c b/kernel/irq/chip.c
+index b76703b2c0af..b3fa2d87d2f3 100644
+--- a/kernel/irq/chip.c
++++ b/kernel/irq/chip.c
+@@ -1297,6 +1297,50 @@ EXPORT_SYMBOL_GPL(handle_fasteoi_mask_irq);
+ 
+ #endif /* CONFIG_IRQ_FASTEOI_HIERARCHY_HANDLERS */
+ 
++/**
++ * irq_chip_set_parent_state - set the state of a parent interrupt.
++ *
++ * @data: Pointer to interrupt specific data
++ * @which: State to be restored (one of IRQCHIP_STATE_*)
++ * @val: Value corresponding to @which
++ *
++ * Conditional success, if the underlying irqchip does not implement it.
++ */
++int irq_chip_set_parent_state(struct irq_data *data,
++			      enum irqchip_irq_state which,
++			      bool val)
++{
++	data = data->parent_data;
++
++	if (!data || !data->chip->irq_set_irqchip_state)
++		return 0;
++
++	return data->chip->irq_set_irqchip_state(data, which, val);
++}
++EXPORT_SYMBOL_GPL(irq_chip_set_parent_state);
++
++/**
++ * irq_chip_get_parent_state - get the state of a parent interrupt.
++ *
++ * @data: Pointer to interrupt specific data
++ * @which: one of IRQCHIP_STATE_* the caller wants to know
++ * @state: a pointer to a boolean where the state is to be stored
++ *
++ * Conditional success, if the underlying irqchip does not implement it.
++ */
++int irq_chip_get_parent_state(struct irq_data *data,
++			      enum irqchip_irq_state which,
++			      bool *state)
++{
++	data = data->parent_data;
++
++	if (!data || !data->chip->irq_get_irqchip_state)
++		return 0;
++
++	return data->chip->irq_get_irqchip_state(data, which, state);
++}
++EXPORT_SYMBOL_GPL(irq_chip_get_parent_state);
++
+ /**
+  * irq_chip_enable_parent - Enable the parent interrupt (defaults to unmask if
+  * NULL)

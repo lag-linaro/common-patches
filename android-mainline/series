@@ -2,7 +2,7 @@
 # android-mainline patches
 #
 # Applies onto mainline 4f5cafb5cb84 Linux v5.4-rc3
-# Matches android-mainline a025c3a713f5 "ANDROID: Kconfig.gki: Add hidden MMC config support"
+# Matches android-mainline 584739f5dd25 ("ANDROID: v4l2-compat-ioctl32.c: copy reserved fields")
 #
 ANDROID-x86-Remove-a-useless-warning-message.patch
 ANDROID-Kbuild-LLVMLinux-allow-overriding-clang-target-triple.patch
@@ -55,7 +55,6 @@ ANDROID-gki_defconfig-sync-with-savedefconfig.patch
 ANDROID-gki_defconfig-remove-more-recommended-configs.patch
 ANDROID-gki_defconfig-more-generic-configs-for-DLKMs.patch
 ANDROID-sync-defconfigs-with-savedefconfig.patch
-ANDROID-Removed-check-for-asm-goto.patch
 ANDROID-Add-initial-x86_64-gki_defconfig.patch
 ANDROID-added-configs-so-that-GKI-boots-on-x86-cuttlefish.patch
 ANDROID-gki_defconfig-enable-CMA-and-increase-CMA_AREAS.patch
@@ -199,3 +198,25 @@ ANDROID-Kconfig.gki-Add-extra-audio-selections.patch
 ANDROID-Kconfig.gki-Add-SND_PCM_ELD-to-HIDDEN_DRM-configs.patch
 ANDROID-Kconfig.gki-Add-Hidden-QCOM-configs.patch
 ANDROID-Kconfig.gki-Add-hidden-MMC-config-support.patch
+ANDROID-move-up-spin_unlock_bh-ahead-of-remove_proc_entry.patch
+ANDROID-fscrypt-add-key-removal-notifier-chain.patch
+ANDROID-sdcardfs-evict-dentries-on-fscrypt-key-removal.patch
+FROMLIST-irqdomain-add-bus-token-DOMAIN_BUS_WAKEUP.patch
+FROMLIST-drivers-irqchip-qcom-pdc-update-max-PDC-interrupts.patch
+FROMLIST-drivers-irqchip-pdc-Do-not-toggle-IRQ_ENABLE-during-mask-unmask.patch
+FROMLIST-drivers-irqchip-add-PDC-irqdomain-for-wakeup-capable-GPIOs.patch
+FROMLIST-of-irq-document-properties-for-wakeup-interrupt-parent.patch
+FROMLIST-dt-bindings-interrupt-controller-pdc-add-SPI-config-register.patch
+FROMLIST-drivers-irqchip-pdc-additionally-set-type-in-SPI-config-registers.patch
+FROMLIST-genirq-Introduce-irq_chip_get-set_parent_state-calls.patch
+FROMLIST-drivers-irqchip-pdc-Add-irqchip-set-get-state-calls.patch
+FROMLIST-drivers-pinctrl-msm-setup-GPIO-chip-in-hierarchy.patch
+FROMGIT-of-property-Minor-code-formatting-style-clean-ups.patch
+FROMGIT-driver-core-Improve-documentation-for-fwnode_operations.add_links.patch
+FROMGIT-docs-driver-model-Add-documentation-for-sync_state.patch
+ANDROID-driver-core-Add-device-link-support-for-SYNC_STATE_ONLY-flag.patch
+ANDROID-driver-core-Allow-a-device-to-wait-on-optional-suppliers.patch
+ANDROID-driver-core-Allow-fwnode_operations.add_links-to-differentiate-errors.patch
+ANDROID-of-property-Make-sure-child-dependencies-don-t-block-probing-of-parent.patch
+ANDROID-of-property-Enable-of_devlink-by-default.patch
+ANDROID-v4l2-compat-ioctl32.c-copy-reserved-fields.patch
