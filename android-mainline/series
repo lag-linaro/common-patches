@@ -2,7 +2,7 @@
 # android-mainline patches
 #
 # Applies onto mainline 7d194c2100ad Linux v5.4-rc4
-# Matches android-mainline 9be46ff3b688 ("Merge 5.4-rc4 into android-mainline")
+# Matches android-mainline f8978f4f6a5e ("ANDROID: add README.md")
 #
 ANDROID-Kbuild-LLVMLinux-allow-overriding-clang-target-triple.patch
 ANDROID-net-xfrm-make-PF_KEY-SHA256-use-RFC-compliant-truncation.patch
@@ -230,3 +230,4 @@ ANDROID-init-GKI-enable-hidden-configs-for-media.patch
 ANDROID-cpufreq-create-dummy-cpufreq-driver.patch
 ANDROID-Allow-DRM_IOCTL_MODE_-_DUMB-for-render-clients.patch
 ANDROID-virt_wifi-Add-data-ops-for-scan-data-simulation.patch
+ANDROID-add-README.md.patch
