@@ -2,7 +2,7 @@
 # android-mainline patches
 #
 # Applies onto mainline d6d5df1db6e9 Linux v5.4-rc5
-# Matches android-mainline 54087918b8d5 ("ANDROID: modpost: fix up merge issues due to namespace removal")
+# Matches android-mainline feaba17c2fd0 ("ANDROID: gki_defconfig: enable CONFIG_CPU_FREQ_GOV_CONSERVATIVE")
 #
 ANDROID-Kbuild-LLVMLinux-allow-overriding-clang-target-triple.patch
 ANDROID-net-xfrm-make-PF_KEY-SHA256-use-RFC-compliant-truncation.patch
@@ -231,3 +231,5 @@ ANDROID-cpufreq-create-dummy-cpufreq-driver.patch
 ANDROID-Allow-DRM_IOCTL_MODE_-_DUMB-for-render-clients.patch
 ANDROID-virt_wifi-Add-data-ops-for-scan-data-simulation.patch
 ANDROID-add-README.md.patch
+ANDROID-fix-VIDEOBUF2_CORE-dependency-in-allmodconfig-builds.patch
+ANDROID-gki_defconfig-enable-CONFIG_CPU_FREQ_GOV_CONSERVATIVE.patch
