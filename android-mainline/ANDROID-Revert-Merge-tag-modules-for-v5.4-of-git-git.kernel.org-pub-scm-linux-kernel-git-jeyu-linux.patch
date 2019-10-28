@@ -106,7 +106,7 @@ index a3ddb213a5e1..5891a701a159 100644
  ========================
  
 diff --git a/Makefile b/Makefile
-index dd248a6159ee..4efa10256a2d 100644
+index c26fc2dabe58..1b1d6b8d4ea3 100644
 --- a/Makefile
 +++ b/Makefile
 @@ -1481,9 +1481,6 @@ help:

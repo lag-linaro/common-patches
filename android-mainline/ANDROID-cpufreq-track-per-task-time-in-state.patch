@@ -66,7 +66,7 @@ index 9a9f5ccd13d9..93d52a112cab 100644
  obj-$(CONFIG_CPU_FREQ_GOV_POWERSAVE)	+= cpufreq_powersave.o
  obj-$(CONFIG_CPU_FREQ_GOV_USERSPACE)	+= cpufreq_userspace.o
 diff --git a/drivers/cpufreq/cpufreq.c b/drivers/cpufreq/cpufreq.c
-index c52d6fa32aac..a6512ee4b8cc 100644
+index bffc11b87247..ecc327207b75 100644
 --- a/drivers/cpufreq/cpufreq.c
 +++ b/drivers/cpufreq/cpufreq.c
 @@ -16,6 +16,7 @@
@@ -386,10 +386,10 @@ index 000000000000..bfef6e62c68a
 +#endif /* CONFIG_CPU_FREQ_TIMES */
 +#endif /* _LINUX_CPUFREQ_TIMES_H */
 diff --git a/include/linux/sched.h b/include/linux/sched.h
-index 2c2e56bd8913..16c499ca096b 100644
+index 67a1d86981a9..2f35afc13de3 100644
 --- a/include/linux/sched.h
 +++ b/include/linux/sched.h
-@@ -840,6 +840,10 @@ struct task_struct {
+@@ -841,6 +841,10 @@ struct task_struct {
  	u64				stimescaled;
  #endif
  	u64				gtime;

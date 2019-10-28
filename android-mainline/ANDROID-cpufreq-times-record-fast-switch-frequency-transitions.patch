@@ -24,7 +24,7 @@ Signed-off-by: Connor O'Brien <connoro@google.com>
  3 files changed, 15 insertions(+), 15 deletions(-)
 
 diff --git a/drivers/cpufreq/cpufreq.c b/drivers/cpufreq/cpufreq.c
-index a6512ee4b8cc..f9de9dece70f 100644
+index ecc327207b75..cc2cfb109e86 100644
 --- a/drivers/cpufreq/cpufreq.c
 +++ b/drivers/cpufreq/cpufreq.c
 @@ -380,7 +380,7 @@ static void cpufreq_notify_transition(struct cpufreq_policy *policy,

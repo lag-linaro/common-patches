@@ -24,10 +24,10 @@ Change-Id: Ie709d3b6cd07ac9e09d1473fc0e0a21a8146a1dc
  2 files changed, 43 insertions(+), 9 deletions(-)
 
 diff --git a/drivers/base/core.c b/drivers/base/core.c
-index acbf0b1414ab..d42e0f533ce4 100644
+index 7ea665a97da2..17ed054c4132 100644
 --- a/drivers/base/core.c
 +++ b/drivers/base/core.c
-@@ -130,6 +130,9 @@ static int device_is_dependent(struct device *dev, void *target)
+@@ -131,6 +131,9 @@ static int device_is_dependent(struct device *dev, void *target)
  		return ret;
  
  	list_for_each_entry(link, &dev->links.consumers, s_node) {
@@ -37,7 +37,7 @@ index acbf0b1414ab..d42e0f533ce4 100644
  		if (link->consumer == target)
  			return 1;
  
-@@ -199,8 +202,11 @@ static int device_reorder_to_tail(struct device *dev, void *not_used)
+@@ -200,8 +203,11 @@ static int device_reorder_to_tail(struct device *dev, void *not_used)
  		device_pm_move_last(dev);
  
  	device_for_each_child(dev, NULL, device_reorder_to_tail);
@@ -50,7 +50,7 @@ index acbf0b1414ab..d42e0f533ce4 100644
  
  	return 0;
  }
-@@ -227,7 +233,8 @@ void device_pm_move_to_tail(struct device *dev)
+@@ -228,7 +234,8 @@ void device_pm_move_to_tail(struct device *dev)
  
  #define DL_MANAGED_LINK_FLAGS (DL_FLAG_AUTOREMOVE_CONSUMER | \
  			       DL_FLAG_AUTOREMOVE_SUPPLIER | \
@@ -60,7 +60,7 @@ index acbf0b1414ab..d42e0f533ce4 100644
  
  #define DL_ADD_VALID_FLAGS (DL_MANAGED_LINK_FLAGS | DL_FLAG_STATELESS | \
  			    DL_FLAG_PM_RUNTIME | DL_FLAG_RPM_ACTIVE)
-@@ -295,6 +302,8 @@ struct device_link *device_link_add(struct device *consumer,
+@@ -296,6 +303,8 @@ struct device_link *device_link_add(struct device *consumer,
  
  	if (!consumer || !supplier || flags & ~DL_ADD_VALID_FLAGS ||
  	    (flags & DL_FLAG_STATELESS && flags & DL_MANAGED_LINK_FLAGS) ||
@@ -69,7 +69,7 @@ index acbf0b1414ab..d42e0f533ce4 100644
  	    (flags & DL_FLAG_AUTOPROBE_CONSUMER &&
  	     flags & (DL_FLAG_AUTOREMOVE_CONSUMER |
  		      DL_FLAG_AUTOREMOVE_SUPPLIER)))
-@@ -315,11 +324,14 @@ struct device_link *device_link_add(struct device *consumer,
+@@ -316,11 +325,14 @@ struct device_link *device_link_add(struct device *consumer,
  
  	/*
  	 * If the supplier has not been fully registered yet or there is a
@@ -87,7 +87,7 @@ index acbf0b1414ab..d42e0f533ce4 100644
  		link = NULL;
  		goto out;
  	}
-@@ -346,9 +358,14 @@ struct device_link *device_link_add(struct device *consumer,
+@@ -347,9 +359,14 @@ struct device_link *device_link_add(struct device *consumer,
  		}
  
  		if (flags & DL_FLAG_STATELESS) {
@@ -104,7 +104,7 @@ index acbf0b1414ab..d42e0f533ce4 100644
  		}
  
  		/*
-@@ -370,6 +387,12 @@ struct device_link *device_link_add(struct device *consumer,
+@@ -371,6 +388,12 @@ struct device_link *device_link_add(struct device *consumer,
  			link->flags |= DL_FLAG_MANAGED;
  			device_link_init_status(link, consumer, supplier);
  		}
@@ -117,7 +117,7 @@ index acbf0b1414ab..d42e0f533ce4 100644
  		goto out;
  	}
  
-@@ -409,6 +432,13 @@ struct device_link *device_link_add(struct device *consumer,
+@@ -410,6 +433,13 @@ struct device_link *device_link_add(struct device *consumer,
  	    flags & DL_FLAG_PM_RUNTIME)
  		pm_runtime_resume(supplier);
  
@@ -131,7 +131,7 @@ index acbf0b1414ab..d42e0f533ce4 100644
  	/*
  	 * Move the consumer and all of the devices depending on it to the end
  	 * of dpm_list and the devices_kset list.
-@@ -634,7 +664,8 @@ int device_links_check_suppliers(struct device *dev)
+@@ -635,7 +665,8 @@ int device_links_check_suppliers(struct device *dev)
  	device_links_write_lock();
  
  	list_for_each_entry(link, &dev->links.suppliers, c_node) {
@@ -141,7 +141,7 @@ index acbf0b1414ab..d42e0f533ce4 100644
  			continue;
  
  		if (link->status != DL_STATE_AVAILABLE) {
-@@ -948,7 +979,8 @@ void device_links_unbind_consumers(struct device *dev)
+@@ -949,7 +980,8 @@ void device_links_unbind_consumers(struct device *dev)
  	list_for_each_entry(link, &dev->links.consumers, s_node) {
  		enum device_link_state status;
  

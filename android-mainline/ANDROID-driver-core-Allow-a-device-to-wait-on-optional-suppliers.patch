@@ -19,10 +19,10 @@ Change-Id: I86a764b67804ed889f17c55632e25d46a72912a8
  2 files changed, 28 insertions(+), 3 deletions(-)
 
 diff --git a/drivers/base/core.c b/drivers/base/core.c
-index d42e0f533ce4..8d86da80db1e 100644
+index 17ed054c4132..48cd43a91ce6 100644
 --- a/drivers/base/core.c
 +++ b/drivers/base/core.c
-@@ -479,13 +479,25 @@ EXPORT_SYMBOL_GPL(device_link_add);
+@@ -480,13 +480,25 @@ EXPORT_SYMBOL_GPL(device_link_add);
   * This function is NOT meant to be called from the probe function of the
   * consumer but rather from code that creates/adds the consumer device.
   */
@@ -49,7 +49,7 @@ index d42e0f533ce4..8d86da80db1e 100644
  /**
   * device_link_add_missing_supplier_links - Add links from consumer devices to
   *					    supplier devices, leaving any
-@@ -655,7 +667,8 @@ int device_links_check_suppliers(struct device *dev)
+@@ -656,7 +668,8 @@ int device_links_check_suppliers(struct device *dev)
  	 * probe.
  	 */
  	mutex_lock(&wfs_lock);
@@ -59,7 +59,7 @@ index d42e0f533ce4..8d86da80db1e 100644
  		mutex_unlock(&wfs_lock);
  		return -EPROBE_DEFER;
  	}
-@@ -759,6 +772,15 @@ void device_links_driver_bound(struct device *dev)
+@@ -760,6 +773,15 @@ void device_links_driver_bound(struct device *dev)
  {
  	struct device_link *link;
  
@@ -75,7 +75,7 @@ index d42e0f533ce4..8d86da80db1e 100644
  	device_links_write_lock();
  
  	list_for_each_entry(link, &dev->links.consumers, s_node) {
-@@ -2392,7 +2414,7 @@ int device_add(struct device *dev)
+@@ -2393,7 +2415,7 @@ int device_add(struct device *dev)
  
  	if (fwnode_has_op(dev->fwnode, add_links)
  	    && fwnode_call_int_op(dev->fwnode, add_links, dev))

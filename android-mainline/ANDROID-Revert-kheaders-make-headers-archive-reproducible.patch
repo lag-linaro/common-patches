@@ -14,8 +14,7 @@ Signed-off-by: Alistair Delva <adelva@google.com>
 Change-Id: I3d406988f23201e5ab824ca7aed215ccc9d43279
 ---
  Documentation/kbuild/reproducible-builds.rst | 13 ++++---------
- kernel/gen_kheaders.sh                       |  5 +----
- 2 files changed, 5 insertions(+), 13 deletions(-)
+ 1 file changed, 4 insertions(+), 9 deletions(-)
 
 diff --git a/Documentation/kbuild/reproducible-builds.rst b/Documentation/kbuild/reproducible-builds.rst
 index 503393854e2e..ab92e98c89c8 100644
@@ -47,19 +46,3 @@ index 503393854e2e..ab92e98c89c8 100644
  
  The kernel does *not* use the ``__DATE__`` and ``__TIME__`` macros,
  and enables warnings if they are used.  If you incorporate external
-diff --git a/kernel/gen_kheaders.sh b/kernel/gen_kheaders.sh
-index aff79e461fc9..9ff449888d9c 100755
---- a/kernel/gen_kheaders.sh
-+++ b/kernel/gen_kheaders.sh
-@@ -71,10 +71,7 @@ done | cpio --quiet -pd $cpio_dir >/dev/null 2>&1
- find $cpio_dir -type f -print0 |
- 	xargs -0 -P8 -n1 perl -pi -e 'BEGIN {undef $/;}; s/\/\*((?!SPDX).)*?\*\///smg;'
- 
--# Create archive and try to normalize metadata for reproducibility
--tar "${KBUILD_BUILD_TIMESTAMP:+--mtime=$KBUILD_BUILD_TIMESTAMP}" \
--    --owner=0 --group=0 --sort=name --numeric-owner \
--    -Jcf $tarfile -C $cpio_dir/ . > /dev/null
-+tar -Jcf $tarfile -C $cpio_dir/ . > /dev/null
- 
- echo "$src_files_md5" >  kernel/kheaders.md5
- echo "$obj_files_md5" >> kernel/kheaders.md5

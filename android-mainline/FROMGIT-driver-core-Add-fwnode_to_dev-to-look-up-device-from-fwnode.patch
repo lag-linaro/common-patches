@@ -23,10 +23,10 @@ Change-Id: I68c36177da083bfb04e73c1b754e740f40faf284
  2 files changed, 9 insertions(+)
 
 diff --git a/drivers/base/core.c b/drivers/base/core.c
-index 2db62d98e395..510fabf8918c 100644
+index 7bd9cd366d41..2cb393bd8b6b 100644
 --- a/drivers/base/core.c
 +++ b/drivers/base/core.c
-@@ -2198,6 +2198,10 @@ int device_add(struct device *dev)
+@@ -2199,6 +2199,10 @@ int device_add(struct device *dev)
  					     BUS_NOTIFY_ADD_DEVICE, dev);
  
  	kobject_uevent(&dev->kobj, KOBJ_ADD);
@@ -37,7 +37,7 @@ index 2db62d98e395..510fabf8918c 100644
  	bus_probe_device(dev);
  	if (parent)
  		klist_add_tail(&dev->p->knode_parent,
-@@ -2342,6 +2346,9 @@ void device_del(struct device *dev)
+@@ -2343,6 +2347,9 @@ void device_del(struct device *dev)
  	kill_device(dev);
  	device_unlock(dev);
  

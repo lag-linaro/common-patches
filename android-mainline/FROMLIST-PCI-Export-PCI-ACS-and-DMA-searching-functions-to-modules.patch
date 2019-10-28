@@ -18,10 +18,10 @@ Link: https://patchwork.kernel.org/patch/10948411/
  2 files changed, 2 insertions(+)
 
 diff --git a/drivers/pci/pci.c b/drivers/pci/pci.c
-index e7982af9a5d8..25794efb4076 100644
+index a97e2571a527..3ec31d9d902e 100644
 --- a/drivers/pci/pci.c
 +++ b/drivers/pci/pci.c
-@@ -3173,6 +3173,7 @@ void pci_request_acs(void)
+@@ -3171,6 +3171,7 @@ void pci_request_acs(void)
  {
  	pci_acs_enable = 1;
  }

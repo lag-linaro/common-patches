@@ -76,7 +76,7 @@ index 1eb81f113786..c0cf9ef5c2f5 100644
  
  DEFINE_PER_CPU(unsigned long, cpu_scale) = SCHED_CAPACITY_SCALE;
 diff --git a/drivers/cpufreq/cpufreq.c b/drivers/cpufreq/cpufreq.c
-index f9de9dece70f..9c15d7f52e1c 100644
+index cc2cfb109e86..1a5cbb965ff5 100644
 --- a/drivers/cpufreq/cpufreq.c
 +++ b/drivers/cpufreq/cpufreq.c
 @@ -153,6 +153,12 @@ __weak void arch_set_freq_scale(struct cpumask *cpus, unsigned long cur_freq,

@@ -52,10 +52,10 @@ index 1b5020ec6517..bc2d89af88ce 100644
    (Call to :c:func:`device_links_check_suppliers()` from
    :c:func:`really_probe()`.)
 diff --git a/drivers/base/core.c b/drivers/base/core.c
-index 510fabf8918c..b3896da73b3d 100644
+index 2cb393bd8b6b..e54fef73f469 100644
 --- a/drivers/base/core.c
 +++ b/drivers/base/core.c
-@@ -44,6 +44,8 @@ early_param("sysfs.deprecated", sysfs_deprecated_setup);
+@@ -45,6 +45,8 @@ early_param("sysfs.deprecated", sysfs_deprecated_setup);
  #endif
  
  /* Device links support. */
@@ -64,7 +64,7 @@ index 510fabf8918c..b3896da73b3d 100644
  
  #ifdef CONFIG_SRCU
  static DEFINE_MUTEX(device_links_lock);
-@@ -430,6 +432,58 @@ struct device_link *device_link_add(struct device *consumer,
+@@ -431,6 +433,58 @@ struct device_link *device_link_add(struct device *consumer,
  }
  EXPORT_SYMBOL_GPL(device_link_add);
  
@@ -123,7 +123,7 @@ index 510fabf8918c..b3896da73b3d 100644
  static void device_link_free(struct device_link *link)
  {
  	while (refcount_dec_not_one(&link->rpm_active))
-@@ -564,6 +618,17 @@ int device_links_check_suppliers(struct device *dev)
+@@ -565,6 +619,17 @@ int device_links_check_suppliers(struct device *dev)
  	struct device_link *link;
  	int ret = 0;
  
@@ -141,7 +141,7 @@ index 510fabf8918c..b3896da73b3d 100644
  	device_links_write_lock();
  
  	list_for_each_entry(link, &dev->links.suppliers, c_node) {
-@@ -848,6 +913,10 @@ static void device_links_purge(struct device *dev)
+@@ -849,6 +914,10 @@ static void device_links_purge(struct device *dev)
  {
  	struct device_link *link, *ln;
  
@@ -152,7 +152,7 @@ index 510fabf8918c..b3896da73b3d 100644
  	/*
  	 * Delete all of the remaining links from this device to any other
  	 * devices (either consumers or suppliers).
-@@ -1712,6 +1781,7 @@ void device_initialize(struct device *dev)
+@@ -1713,6 +1782,7 @@ void device_initialize(struct device *dev)
  #endif
  	INIT_LIST_HEAD(&dev->links.consumers);
  	INIT_LIST_HEAD(&dev->links.suppliers);
@@ -160,7 +160,7 @@ index 510fabf8918c..b3896da73b3d 100644
  	dev->links.status = DL_DEV_NO_DRIVER;
  }
  EXPORT_SYMBOL_GPL(device_initialize);
-@@ -2202,6 +2272,24 @@ int device_add(struct device *dev)
+@@ -2203,6 +2273,24 @@ int device_add(struct device *dev)
  	if (dev->fwnode && !dev->fwnode->dev)
  		dev->fwnode->dev = dev;
  
