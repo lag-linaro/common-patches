@@ -1,8 +1,8 @@
 #
 # android-mainline patches
 #
-# Applies onto mainline 7d194c2100ad Linux v5.4-rc4
-# Matches android-mainline f8978f4f6a5e ("ANDROID: add README.md")
+# Applies onto mainline d6d5df1db6e9 Linux v5.4-rc5
+# Matches android-mainline 54087918b8d5 ("ANDROID: modpost: fix up merge issues due to namespace removal")
 #
 ANDROID-Kbuild-LLVMLinux-allow-overriding-clang-target-triple.patch
 ANDROID-net-xfrm-make-PF_KEY-SHA256-use-RFC-compliant-truncation.patch

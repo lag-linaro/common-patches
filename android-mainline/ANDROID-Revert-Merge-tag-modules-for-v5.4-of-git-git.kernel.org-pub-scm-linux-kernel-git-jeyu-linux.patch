@@ -17,7 +17,7 @@ Signed-off-by: Raghavendra Rao Ananta <rananta@codeaurora.org>
  .gitignore                               |   1 -
  Documentation/kbuild/modules.rst         |   7 +-
  Documentation/kernel-hacking/hacking.rst |  18 ---
- Makefile                                 |  14 +--
+ Makefile                                 |  14 +-
  arch/m68k/include/asm/export.h           |   1 +
  drivers/usb/storage/Makefile             |   2 -
  drivers/usb/storage/alauda.c             |   1 -
@@ -35,15 +35,15 @@ Signed-off-by: Raghavendra Rao Ananta <rananta@codeaurora.org>
  drivers/usb/storage/shuttle_usbat.c      |   1 -
  drivers/usb/storage/uas.c                |   1 -
  include/asm-generic/export.h             |  15 ++-
- include/linux/export.h                   |  76 ++----------
- init/Kconfig                             |  35 +-----
- kernel/module.c                          |  76 ++----------
+ include/linux/export.h                   |  72 ++--------
+ init/Kconfig                             |  35 +----
+ kernel/module.c                          |  76 +----------
  lib/Kconfig.debug                        |  16 +++
  scripts/Makefile.modpost                 |   5 +-
  scripts/export_report.pl                 |   2 +-
- scripts/mod/modpost.c                    | 151 +++--------------------
+ scripts/mod/modpost.c                    | 162 ++---------------------
  scripts/mod/modpost.h                    |   9 --
- 29 files changed, 69 insertions(+), 373 deletions(-)
+ 29 files changed, 66 insertions(+), 383 deletions(-)
 
 diff --git a/.gitignore b/.gitignore
 index 70580bdd352c..ce2c6348d372 100644
@@ -106,7 +106,7 @@ index a3ddb213a5e1..5891a701a159 100644
  ========================
  
 diff --git a/Makefile b/Makefile
-index c26fc2dabe58..1b1d6b8d4ea3 100644
+index a2b9e4767eea..805394648a58 100644
 --- a/Makefile
 +++ b/Makefile
 @@ -1481,9 +1481,6 @@ help:
@@ -378,19 +378,10 @@ index fa577978fbbd..294d6ae785d4 100644
  #if defined(CONFIG_TRIM_UNUSED_KSYMS)
  
 diff --git a/include/linux/export.h b/include/linux/export.h
-index 621158ecd2e2..7d8c112a8b61 100644
+index 941d075f03d6..7d8c112a8b61 100644
 --- a/include/linux/export.h
 +++ b/include/linux/export.h
-@@ -18,8 +18,6 @@ extern struct module __this_module;
- #define THIS_MODULE ((struct module *)0)
- #endif
- 
--#define NS_SEPARATOR "."
--
- #ifdef CONFIG_MODVERSIONS
- /* Mark the CRC weak since genksyms apparently decides not to
-  * generate a checksums for some symbols */
-@@ -28,13 +26,13 @@ extern struct module __this_module;
+@@ -26,13 +26,13 @@ extern struct module __this_module;
  	asm("	.section \"___kcrctab" sec "+" #sym "\", \"a\"	\n"	\
  	    "	.weak	__crc_" #sym "				\n"	\
  	    "	.long	__crc_" #sym " - .			\n"	\
@@ -406,15 +397,15 @@ index 621158ecd2e2..7d8c112a8b61 100644
  #endif
  #else
  #define __CRC_SYMBOL(sym, sec)
-@@ -48,77 +46,44 @@ extern struct module __this_module;
+@@ -46,75 +46,44 @@ extern struct module __this_module;
   * absolute relocations that require runtime processing on relocatable
   * kernels.
   */
--#define __KSYMTAB_ENTRY_NS(sym, sec, ns)				\
+-#define __KSYMTAB_ENTRY_NS(sym, sec)					\
 -	__ADDRESSABLE(sym)						\
 -	asm("	.section \"___ksymtab" sec "+" #sym "\", \"a\"	\n"	\
 -	    "	.balign	4					\n"	\
--	    "__ksymtab_" #ns NS_SEPARATOR #sym ":		\n"	\
+-	    "__ksymtab_" #sym ":				\n"	\
 -	    "	.long	" #sym "- .				\n"	\
 -	    "	.long	__kstrtab_" #sym "- .			\n"	\
 -	    "	.long	__kstrtabns_" #sym "- .			\n"	\
@@ -437,16 +428,14 @@ index 621158ecd2e2..7d8c112a8b61 100644
 -	int namespace_offset;
  };
  #else
--#define __KSYMTAB_ENTRY_NS(sym, sec, ns)				\
--	static const struct kernel_symbol __ksymtab_##sym##__##ns	\
--	asm("__ksymtab_" #ns NS_SEPARATOR #sym)				\
+-#define __KSYMTAB_ENTRY_NS(sym, sec)					\
+-	static const struct kernel_symbol __ksymtab_##sym		\
 -	__attribute__((section("___ksymtab" sec "+" #sym), used))	\
 -	__aligned(sizeof(void *))					\
 -	= { (unsigned long)&sym, __kstrtab_##sym, __kstrtabns_##sym }
 -
  #define __KSYMTAB_ENTRY(sym, sec)					\
  	static const struct kernel_symbol __ksymtab_##sym		\
--	asm("__ksymtab_" #sym)						\
  	__attribute__((section("___ksymtab" sec "+" #sym), used))	\
 -	__aligned(sizeof(void *))					\
 -	= { (unsigned long)&sym, __kstrtab_##sym, NULL }
@@ -483,7 +472,7 @@ index 621158ecd2e2..7d8c112a8b61 100644
 -	static const char __kstrtabns_##sym[]				\
 -	__attribute__((section("__ksymtab_strings"), used, aligned(1)))	\
 -	= #ns;								\
--	__KSYMTAB_ENTRY_NS(sym, sec, ns)
+-	__KSYMTAB_ENTRY_NS(sym, sec)
 -
 -#define ___EXPORT_SYMBOL(sym, sec)					\
 -	___export_symbol_common(sym, sec);				\
@@ -491,7 +480,7 @@ index 621158ecd2e2..7d8c112a8b61 100644
  	__KSYMTAB_ENTRY(sym, sec)
  
  #endif
-@@ -130,7 +95,6 @@ struct kernel_symbol {
+@@ -126,7 +95,6 @@ struct kernel_symbol {
   * be reused in other execution contexts such as the UEFI stub or the
   * decompressor.
   */
@@ -499,7 +488,7 @@ index 621158ecd2e2..7d8c112a8b61 100644
  #define __EXPORT_SYMBOL(sym, sec)
  
  #elif defined(CONFIG_TRIM_UNUSED_KSYMS)
-@@ -157,35 +121,15 @@ struct kernel_symbol {
+@@ -153,35 +121,15 @@ struct kernel_symbol {
  #define __cond_export_sym_1(sym, sec) ___EXPORT_SYMBOL(sym, sec)
  #define __cond_export_sym_0(sym, sec) /* nothing */
  
@@ -784,7 +773,7 @@ index 548330e8c4e7..7d3030d03a25 100755
  }
  close($module_symvers);
 diff --git a/scripts/mod/modpost.c b/scripts/mod/modpost.c
-index 936d3ad23c83..8d5169b911df 100644
+index d2a30a7b3f07..a244ae109562 100644
 --- a/scripts/mod/modpost.c
 +++ b/scripts/mod/modpost.c
 @@ -38,8 +38,6 @@ static int sec_mismatch_count = 0;
@@ -842,36 +831,40 @@ index 936d3ad23c83..8d5169b911df 100644
  static const struct {
  	const char *str;
  	enum export export;
-@@ -348,26 +314,12 @@ static enum export export_from_sec(struct elf_info *elf, unsigned int sec)
+@@ -348,32 +314,6 @@ static enum export export_from_sec(struct elf_info *elf, unsigned int sec)
  		return export_unknown;
  }
  
--static char *sym_extract_namespace(const char **symname)
+-static const char *namespace_from_kstrtabns(struct elf_info *info,
+-					    Elf_Sym *kstrtabns)
 -{
--	char *namespace = NULL;
--	char *ns_separator;
+-	char *value = info->ksymtab_strings + kstrtabns->st_value;
+-	return value[0] ? value : NULL;
+-}
 -
--	ns_separator = strchr(*symname, '.');
--	if (ns_separator) {
--		namespace = NOFAIL(strndup(*symname, ns_separator - *symname));
--		*symname = ns_separator + 1;
+-static void sym_update_namespace(const char *symname, const char *namespace)
+-{
+-	struct symbol *s = find_symbol(symname);
+-
+-	/*
+-	 * That symbol should have been created earlier and thus this is
+-	 * actually an assertion.
+-	 */
+-	if (!s) {
+-		merror("Could not update namespace(%s) for symbol %s\n",
+-		       namespace, symname);
+-		return;
 -	}
 -
--	return namespace;
+-	free(s->namespace);
+-	s->namespace =
+-		namespace && namespace[0] ? NOFAIL(strdup(namespace)) : NULL;
 -}
 -
  /**
   * Add an exported symbol - it may have already been added without a
   * CRC, in this case just update the CRC
-  **/
--static struct symbol *sym_add_exported(const char *name, const char *namespace,
--				       struct module *mod, enum export export)
-+static struct symbol *sym_add_exported(const char *name, struct module *mod,
-+				       enum export export)
- {
- 	struct symbol *s = find_symbol(name);
- 
-@@ -375,16 +327,15 @@ static struct symbol *sym_add_exported(const char *name, const char *namespace,
+@@ -387,9 +327,10 @@ static struct symbol *sym_add_exported(const char *name, struct module *mod,
  		s = new_symbol(name, mod, export);
  	} else {
  		if (!s->preloaded) {
@@ -885,36 +878,26 @@ index 936d3ad23c83..8d5169b911df 100644
  		} else {
  			/* In case Module.symvers was out of date */
  			s->module = mod;
- 		}
- 	}
--	free(s->namespace);
--	s->namespace = namespace ? strdup(namespace) : NULL;
- 	s->preloaded = 0;
- 	s->vmlinux   = is_vmlinux(mod->name);
- 	s->kernel    = 0;
-@@ -671,8 +622,6 @@ static void handle_modversions(struct module *mod, struct elf_info *info,
+@@ -685,7 +626,6 @@ static void handle_modversions(struct module *mod, struct elf_info *info,
  	unsigned int crc;
  	enum export export;
  	bool is_crc = false;
 -	const char *name;
--	char *namespace;
  
  	if ((!is_vmlinux(mod->name) || mod->is_dot_o) &&
  	    strstarts(symname, "__ksymtab"))
-@@ -744,10 +693,8 @@ static void handle_modversions(struct module *mod, struct elf_info *info,
+@@ -757,8 +697,8 @@ static void handle_modversions(struct module *mod, struct elf_info *info,
  	default:
  		/* All exported symbols */
  		if (strstarts(symname, "__ksymtab_")) {
 -			name = symname + strlen("__ksymtab_");
--			namespace = sym_extract_namespace(&name);
--			sym_add_exported(name, namespace, mod, export);
--			free(namespace);
+-			sym_add_exported(name, mod, export);
 +			sym_add_exported(symname + strlen("__ksymtab_"), mod,
 +					export);
  		}
  		if (strcmp(symname, "init_module") == 0)
  			mod->has_init = 1;
-@@ -1998,7 +1945,6 @@ static void read_symbols(const char *modname)
+@@ -2009,7 +1949,6 @@ static void read_symbols(const char *modname)
  	const char *symname;
  	char *version;
  	char *license;
@@ -922,7 +905,7 @@ index 936d3ad23c83..8d5169b911df 100644
  	struct module *mod;
  	struct elf_info info = { };
  	Elf_Sym *sym;
-@@ -2030,12 +1976,6 @@ static void read_symbols(const char *modname)
+@@ -2041,12 +1980,6 @@ static void read_symbols(const char *modname)
  		license = get_next_modinfo(&info, "license", license);
  	}
  
@@ -935,12 +918,29 @@ index 936d3ad23c83..8d5169b911df 100644
  	for (sym = info.symtab_start; sym < info.symtab_stop; sym++) {
  		symname = remove_dot(info.strtab + sym->st_name);
  
-@@ -2195,18 +2135,6 @@ static int check_exports(struct module *mod)
+@@ -2054,16 +1987,6 @@ static void read_symbols(const char *modname)
+ 		handle_moddevtable(mod, &info, sym, symname);
+ 	}
+ 
+-	/* Apply symbol namespaces from __kstrtabns_<symbol> entries. */
+-	for (sym = info.symtab_start; sym < info.symtab_stop; sym++) {
+-		symname = remove_dot(info.strtab + sym->st_name);
+-
+-		if (strstarts(symname, "__kstrtabns_"))
+-			sym_update_namespace(symname + strlen("__kstrtabns_"),
+-					     namespace_from_kstrtabns(&info,
+-								      sym));
+-	}
+-
+ 	// check for static EXPORT_SYMBOL_* functions && global vars
+ 	for (sym = info.symtab_start; sym < info.symtab_stop; sym++) {
+ 		unsigned char bind = ELF_ST_BIND(sym->st_info);
+@@ -2216,18 +2139,6 @@ static int check_exports(struct module *mod)
  			basename++;
  		else
  			basename = mod->name;
 -
--		if (exp->namespace && exp->namespace[0]) {
+-		if (exp->namespace) {
 -			add_namespace(&mod->required_namespaces,
 -				      exp->namespace);
 -
@@ -954,7 +954,7 @@ index 936d3ad23c83..8d5169b911df 100644
  		if (!mod->gpl_compatible)
  			check_for_gpl_usage(exp->export, basename, exp->name);
  		check_for_unused(exp->export, basename, exp->name);
-@@ -2426,7 +2354,7 @@ static void read_dump(const char *fname, unsigned int kernel)
+@@ -2447,7 +2358,7 @@ static void read_dump(const char *fname, unsigned int kernel)
  		return;
  
  	while ((line = get_next_line(&pos, file, size))) {
@@ -963,7 +963,7 @@ index 936d3ad23c83..8d5169b911df 100644
  		unsigned int crc;
  		struct module *mod;
  		struct symbol *s;
-@@ -2434,10 +2362,7 @@ static void read_dump(const char *fname, unsigned int kernel)
+@@ -2455,10 +2366,7 @@ static void read_dump(const char *fname, unsigned int kernel)
  		if (!(symname = strchr(line, '\t')))
  			goto fail;
  		*symname++ = '\0';
@@ -975,17 +975,15 @@ index 936d3ad23c83..8d5169b911df 100644
  			goto fail;
  		*modname++ = '\0';
  		if ((export = strchr(modname, '\t')) != NULL)
-@@ -2454,8 +2379,7 @@ static void read_dump(const char *fname, unsigned int kernel)
- 			mod = new_module(modname);
- 			mod->skip = 1;
- 		}
--		s = sym_add_exported(symname, namespace, mod,
--				     export_no(export));
-+		s = sym_add_exported(symname, mod, export_no(export));
- 		s->kernel    = kernel;
+@@ -2480,7 +2388,6 @@ static void read_dump(const char *fname, unsigned int kernel)
  		s->preloaded = 1;
  		s->is_static = 0;
-@@ -2485,20 +2409,16 @@ static void write_dump(const char *fname)
+ 		sym_update_crc(symname, mod, crc, export_no(export));
+-		sym_update_namespace(symname, namespace);
+ 	}
+ 	release_file(file, size);
+ 	return;
+@@ -2506,20 +2413,16 @@ static void write_dump(const char *fname)
  {
  	struct buffer buf = { };
  	struct symbol *symbol;
@@ -1011,7 +1009,7 @@ index 936d3ad23c83..8d5169b911df 100644
  			symbol = symbol->next;
  		}
  	}
-@@ -2506,31 +2426,6 @@ static void write_dump(const char *fname)
+@@ -2527,31 +2430,6 @@ static void write_dump(const char *fname)
  	free(buf.p);
  }
  
@@ -1043,7 +1041,7 @@ index 936d3ad23c83..8d5169b911df 100644
  struct ext_sym_list {
  	struct ext_sym_list *next;
  	const char *file;
-@@ -2548,7 +2443,7 @@ int main(int argc, char **argv)
+@@ -2569,7 +2447,7 @@ int main(int argc, char **argv)
  	struct ext_sym_list *extsym_iter;
  	struct ext_sym_list *extsym_start = NULL;
  
@@ -1052,7 +1050,7 @@ index 936d3ad23c83..8d5169b911df 100644
  		switch (opt) {
  		case 'i':
  			kernel_read = optarg;
-@@ -2589,9 +2484,6 @@ int main(int argc, char **argv)
+@@ -2610,9 +2488,6 @@ int main(int argc, char **argv)
  		case 'E':
  			sec_mismatch_fatal = 1;
  			break;
@@ -1062,7 +1060,7 @@ index 936d3ad23c83..8d5169b911df 100644
  		default:
  			exit(1);
  		}
-@@ -2626,9 +2518,6 @@ int main(int argc, char **argv)
+@@ -2647,9 +2522,6 @@ int main(int argc, char **argv)
  
  		err |= check_modname_len(mod);
  		err |= check_exports(mod);
@@ -1072,7 +1070,7 @@ index 936d3ad23c83..8d5169b911df 100644
  		add_header(&buf, mod);
  		add_intree_flag(&buf, !external_module);
  		add_retpoline(&buf);
-@@ -2641,12 +2530,6 @@ int main(int argc, char **argv)
+@@ -2662,12 +2534,6 @@ int main(int argc, char **argv)
  		sprintf(fname, "%s.mod.c", mod->name);
  		write_if_changed(&buf, fname);
  	}
@@ -1086,7 +1084,7 @@ index 936d3ad23c83..8d5169b911df 100644
  		write_dump(dump_write);
  	if (sec_mismatch_count && sec_mismatch_fatal)
 diff --git a/scripts/mod/modpost.h b/scripts/mod/modpost.h
-index 92a926d375d2..8453d6ac2f77 100644
+index ad271bc6c313..deaccd0d0ec9 100644
 --- a/scripts/mod/modpost.h
 +++ b/scripts/mod/modpost.h
 @@ -109,11 +109,6 @@ buf_printf(struct buffer *buf, const char *fmt, ...);
