@@ -2,9 +2,8 @@
 # android-mainline patches
 #
 # Applies onto mainline 4f5cafb5cb84 Linux v5.4-rc3
-# Matches android-mainline 584739f5dd25 ("ANDROID: v4l2-compat-ioctl32.c: copy reserved fields")
+# Matches android-mainline 39bb6b4242ff ("ANDROID: virt_wifi: Add data ops for scan data simulation")
 #
-ANDROID-x86-Remove-a-useless-warning-message.patch
 ANDROID-Kbuild-LLVMLinux-allow-overriding-clang-target-triple.patch
 ANDROID-net-xfrm-make-PF_KEY-SHA256-use-RFC-compliant-truncation.patch
 ANDROID-arm64-copy-CONFIG_CMDLINE_EXTEND-from-ARM.patch
@@ -82,7 +81,6 @@ ANDROID-sdcardfs-Add-sdcardfs-filesystem.patch
 ANDROID-cuttlefish-gki-_defconfig-Enable-CONFIG_SDCARD_FS.patch
 ANDROID-mnt-Fix-null-pointer-dereference.patch
 ANDROID-build-configs-switch-prebuilt-path-location.patch
-ANDROID-Revert-x86-mm-Identify-the-end-of-the-kernel-area-to-be-reserved.patch
 ANDROID-xfrm-remove-in_compat_syscall-checks.patch
 ANDROID-Add-initial-rockpi4_defconfig.patch
 ANDROID-label-cuttlefish-modules-for-gki.patch
@@ -220,3 +218,15 @@ ANDROID-driver-core-Allow-fwnode_operations.add_links-to-differentiate-errors.pa
 ANDROID-of-property-Make-sure-child-dependencies-don-t-block-probing-of-parent.patch
 ANDROID-of-property-Enable-of_devlink-by-default.patch
 ANDROID-v4l2-compat-ioctl32.c-copy-reserved-fields.patch
+ANDROID-soc-qcom-Add-required-header-to-irq.h.patch
+FROMLIST-of-Export-of_phandle_iterator_args-to-modules.patch
+FROMLIST-PCI-Export-PCI-ACS-and-DMA-searching-functions-to-modules.patch
+FROMLIST-iommu-Export-core-IOMMU-functions-to-kernel-modules.patch
+ANDROID-ASoC-compress-fix-unsigned-integer-overflow-check.patch
+ANDROID-ALSA-jack-Update-supported-jack-switch-types.patch
+build.config.-Link-android-mainline-kernels-with-LLD.patch
+ANDROID-gki_defconfig-add-FORTIFY_SOURCE-remove-SPMI_MSM_PMIC_ARB.patch
+ANDROID-init-GKI-enable-hidden-configs-for-media.patch
+ANDROID-cpufreq-create-dummy-cpufreq-driver.patch
+ANDROID-Allow-DRM_IOCTL_MODE_-_DUMB-for-render-clients.patch
+ANDROID-virt_wifi-Add-data-ops-for-scan-data-simulation.patch

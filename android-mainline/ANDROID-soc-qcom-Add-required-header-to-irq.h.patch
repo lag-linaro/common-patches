@@ -1,0 +1,30 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: Maulik Shah <mkshah@codeaurora.org>
+Date: Fri, 25 Oct 2019 11:12:35 +0530
+Subject: ANDROID: soc: qcom: Add required header to irq.h
+
+Add required header file to fix compiler reported errors.
+
+BUG: 141169320
+TEST: Build and boot
+
+Fixes: 736036d73892 ("FROMLIST: drivers: irqchip: add PDC irqdomain for wakeup capable GPIOs")
+Signed-off-by: Maulik Shah <mkshah@codeaurora.org>
+Change-Id: Ie1503213bdc7432f36d065f8487e71e37cfe8532
+---
+ include/linux/soc/qcom/irq.h | 2 ++
+ 1 file changed, 2 insertions(+)
+
+diff --git a/include/linux/soc/qcom/irq.h b/include/linux/soc/qcom/irq.h
+index 098d57ca4a52..fcb799c887b9 100644
+--- a/include/linux/soc/qcom/irq.h
++++ b/include/linux/soc/qcom/irq.h
+@@ -3,6 +3,8 @@
+ #ifndef __QCOM_IRQ_H
+ #define __QCOM_IRQ_H
+ 
++#include <linux/irqdomain.h>
++
+ #define GPIO_NO_WAKE_IRQ	~0U
+ 
+ /**

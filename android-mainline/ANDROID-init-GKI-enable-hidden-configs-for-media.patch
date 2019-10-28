@@ -1,0 +1,42 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: Todd Kjos <tkjos@google.com>
+Date: Fri, 25 Oct 2019 11:39:57 -0700
+Subject: ANDROID: init: GKI: enable hidden configs for media
+
+Add hidden configs to GKI_HACKS_to_fIX so they are
+enabled for loadable media modules build out-of-tree
+
+Bug: 142892658
+Test: Built for arm64/x86_64. Boot on cuttlefish
+Change-Id: I137a89f69822332324a1f4a3a1150be9cd66709d
+Signed-off-by: Todd Kjos <tkjos@google.com>
+---
+ init/Kconfig.gki | 8 ++++++++
+ 1 file changed, 8 insertions(+)
+
+diff --git a/init/Kconfig.gki b/init/Kconfig.gki
+index 4db995c2fe92..c9505a791280 100644
+--- a/init/Kconfig.gki
++++ b/init/Kconfig.gki
+@@ -53,6 +53,13 @@ config GKI_HIDDEN_QCOM_CONFIGS
+ 	  These are normally selected implicitely when a module
+ 	  that relies on it is configured.
+ 
++config GKI_HIDDEN_MEDIA_CONFIGS
++	bool "Hidden Media configs needed for GKI"
++	select VIDEOBUF2_CORE
++	help
++	  Dummy config option used to enable hidden media configs.
++	  These are normally selected implicitely when a module
++	  that relies on it is configured.
+ 
+ # LEGACY_WEXT_ALLCONFIG Discussed upstream, soundly rejected as a unique
+ # problem for GKI to solve.  It should be noted that these extensions are
+@@ -89,6 +96,7 @@ config GKI_HACKS_TO_FIX
+ 	select GKI_HIDDEN_GPIO_CONFIGS
+ 	select GKI_HIDDEN_QCOM_CONFIGS
+ 	select GKI_LEGACY_WEXT_ALLCONFIG
++	select GKI_HIDDEN_MEDIA_CONFIGS
+ 	help
+ 	  Dummy config option used to enable core functionality used by
+ 	  modules that may not be selectable in this config.

@@ -1,0 +1,43 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: "Isaac J. Manjarres" <isaacm@codeaurora.org>
+Date: Tue, 10 Sep 2019 15:44:23 -0700
+Subject: FROMLIST: PCI: Export PCI ACS and DMA searching functions to modules
+
+IOMMU drivers that can be compiled as modules may
+want to use pci_for_each_dma_alias() and pci_request_acs(),
+so export those functions.
+
+Change-Id: I8fab4075d151cc3d07a6594685895a189565bb3d
+Signed-off-by: Isaac J. Manjarres <isaacm@codeaurora.org>
+Acked-by: Bjorn Helgaas <bhelgaas@google.com>
+Bug: 140290589
+Link: https://patchwork.kernel.org/patch/10948411/
+---
+ drivers/pci/pci.c    | 1 +
+ drivers/pci/search.c | 1 +
+ 2 files changed, 2 insertions(+)
+
+diff --git a/drivers/pci/pci.c b/drivers/pci/pci.c
+index e7982af9a5d8..25794efb4076 100644
+--- a/drivers/pci/pci.c
++++ b/drivers/pci/pci.c
+@@ -3173,6 +3173,7 @@ void pci_request_acs(void)
+ {
+ 	pci_acs_enable = 1;
+ }
++EXPORT_SYMBOL_GPL(pci_request_acs);
+ 
+ static const char *disable_acs_redir_param;
+ 
+diff --git a/drivers/pci/search.c b/drivers/pci/search.c
+index bade14002fd8..58b3997a2886 100644
+--- a/drivers/pci/search.c
++++ b/drivers/pci/search.c
+@@ -106,6 +106,7 @@ int pci_for_each_dma_alias(struct pci_dev *pdev,
+ 
+ 	return ret;
+ }
++EXPORT_SYMBOL_GPL(pci_for_each_dma_alias);
+ 
+ static struct pci_bus *pci_do_find_bus(struct pci_bus *bus, unsigned char busnr)
+ {

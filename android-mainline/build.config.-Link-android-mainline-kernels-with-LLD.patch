@@ -1,0 +1,31 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: Nick Desaulniers <ndesaulniers@google.com>
+Date: Wed, 7 Aug 2019 15:24:33 -0700
+Subject: build.config.*: Link android-mainline kernels with LLD
+
+We've been building mainline x86_64 with LLD for months now, and don't
+plan to upgrade Android's binutils to work around issues upstream
+related to:
+
+commit c603a309cc75 ("x86/mm: Identify the end of the kernel area to be reserved")
+
+Bug: 138463564
+Signed-off-by: Nick Desaulniers <ndesaulniers@google.com>
+Signed-off-by: Alistair Delva <adelva@google.com>
+Change-Id: Ic52f7f374c494e5d39efb758a7739ebd33799f49
+---
+ build.config.common | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/build.config.common b/build.config.common
+index a879f6282c0f..d9895bb9ad64 100644
+--- a/build.config.common
++++ b/build.config.common
+@@ -2,6 +2,7 @@ BRANCH=android-mainline
+ KERNEL_DIR=common
+ 
+ CC=clang
++LD=ld.lld
+ CLANG_PREBUILT_BIN=prebuilts-master/clang/host/linux-x86/clang-r365631c/bin
+ BUILDTOOLS_PREBUILT_BIN=build/build-tools/path/linux-x86
+ 
