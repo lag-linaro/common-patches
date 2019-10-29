@@ -2,7 +2,7 @@
 # android-mainline patches
 #
 # Applies onto mainline d6d5df1db6e9 Linux v5.4-rc5
-# Matches android-mainline feaba17c2fd0 ("ANDROID: gki_defconfig: enable CONFIG_CPU_FREQ_GOV_CONSERVATIVE")
+# Matches android-mainline 511b851f8057 ("ANDROID: Fix typo for FROMLIST: section")
 #
 ANDROID-Kbuild-LLVMLinux-allow-overriding-clang-target-triple.patch
 ANDROID-net-xfrm-make-PF_KEY-SHA256-use-RFC-compliant-truncation.patch
@@ -175,7 +175,6 @@ FROMGIT-of-property-Create-device-links-for-all-child-supplier-depencencies.patc
 ANDROID-gki_defconfig-Enable-BPF_JIT-and-BPF_JIT_ALWAYS_ON.patch
 ANDROID-gki_defconfig-enable-REGULATOR.patch
 ANDROID-gki_defconfig-enable-CONFIG_NLS_.patch
-ANDROID-Revert-kheaders-make-headers-archive-reproducible.patch
 ANDROID-staging-ion-fix-sparse-warning-in-ion-system-heap.patch
 ANDROID-gki_defconfig-enable-CONFIG_PARAVIRT-and-CONFIG_HYPERVISOR_GUEST.patch
 ANDROID-gki_defconfig-enable-accelerated-AES-and-SHA-256.patch
@@ -224,7 +223,7 @@ FROMLIST-PCI-Export-PCI-ACS-and-DMA-searching-functions-to-modules.patch
 FROMLIST-iommu-Export-core-IOMMU-functions-to-kernel-modules.patch
 ANDROID-ASoC-compress-fix-unsigned-integer-overflow-check.patch
 ANDROID-ALSA-jack-Update-supported-jack-switch-types.patch
-build.config.-Link-android-mainline-kernels-with-LLD.patch
+ANDROID-build.config.-Link-android-mainline-kernels-with-LLD.patch
 ANDROID-gki_defconfig-add-FORTIFY_SOURCE-remove-SPMI_MSM_PMIC_ARB.patch
 ANDROID-init-GKI-enable-hidden-configs-for-media.patch
 ANDROID-cpufreq-create-dummy-cpufreq-driver.patch
@@ -233,3 +232,8 @@ ANDROID-virt_wifi-Add-data-ops-for-scan-data-simulation.patch
 ANDROID-add-README.md.patch
 ANDROID-fix-VIDEOBUF2_CORE-dependency-in-allmodconfig-builds.patch
 ANDROID-gki_defconfig-enable-CONFIG_CPU_FREQ_GOV_CONSERVATIVE.patch
+ANDROID-virtio-virtio_input-Set-the-amount-of-multitouch-slots-in-virtio-input.patch
+ANDROID-gki_defconfig-enable-CONFIG_CPUSETS.patch
+ANDROID-dummy_cpufreq-Implement-get.patch
+ANDROID-Revert-sched-Rework-pick_next_task-slow-path.patch
+ANDROID-media-increase-video-max-frame-number.patch

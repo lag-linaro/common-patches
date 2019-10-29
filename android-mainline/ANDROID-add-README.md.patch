@@ -15,7 +15,7 @@ Signed-off-by: Todd Kjos <tkjos@google.com>
 
 diff --git a/README.md b/README.md
 new file mode 100644
-index 000000000000..8a2dd85e5a3f
+index 000000000000..7012373fe98d
 --- /dev/null
 +++ b/README.md
 @@ -0,0 +1,142 @@
@@ -125,7 +125,7 @@ index 000000000000..8a2dd85e5a3f
 +
 +- If the patch has been submitted to LKML, but not accepted into any maintainer tree
 +    - tag the patch subject with `FROMLIST:`
-+    - add a `List:` tag with a link to the submittal on lore.kernel.org
++    - add a `Link:` tag with a link to the submittal on lore.kernel.org
 +    - if changes were required, use `BACKPORT: FROMLIST:`
 +    - Example:
 +```

@@ -1,7 +1,7 @@
 From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
 From: Nick Desaulniers <ndesaulniers@google.com>
 Date: Wed, 7 Aug 2019 15:24:33 -0700
-Subject: build.config.*: Link android-mainline kernels with LLD
+Subject: ANDROID: build.config.*: Link android-mainline kernels with LLD
 
 We've been building mainline x86_64 with LLD for months now, and don't
 plan to upgrade Android's binutils to work around issues upstream
