@@ -1,7 +1,7 @@
 From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
 From: Murali Nalajala <mnalajal@codeaurora.org>
 Date: Mon, 7 Oct 2019 13:37:42 -0700
-Subject: UPSTREAM: base: soc: Handle custom soc information sysfs entries
+Subject: FROMGIT: base: soc: Handle custom soc information sysfs entries
 
 Soc framework exposed sysfs entries are not sufficient for some
 of the h/w platforms. Currently there is no interface where soc
@@ -15,6 +15,7 @@ Signed-off-by: Murali Nalajala <mnalajal@codeaurora.org>
 Reviewed-by: Bjorn Andersson <bjorn.andersson@linaro.org>
 Reviewed-by: Stephen Boyd <swboyd@chromium.org>
 Link: https://lore.kernel.org/r/1570480662-25252-1-git-send-email-mnalajal@codeaurora.org
+Link: https://git.kernel.org/pub/scm/linux/kernel/git/gregkh/driver-core.git/commit/?id=c31e73121f4c1ec45a3e523ac6ce3ce6dafdcec1
 Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 (cherry-picked from c31e73121f4c1ec45a3e523ac6ce3ce6dafdcec1)
 Signed-off-by: Greg Kroah-Hartman <gregkh@google.com>

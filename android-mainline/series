@@ -183,7 +183,7 @@ ANDROID-gki_defconfig-Enable-CONFIG_DM_SNAPSHOT.patch
 ANDROID-Fix-x86_64-allmodconfig-build.patch
 ANDROID-clk-add-pre-and-post-change-rate-callbacks.patch
 ANDROID-gki_defconfig-enable-fs-verity.patch
-UPSTREAM-base-soc-Handle-custom-soc-information-sysfs-entries.patch
+FROMGIT-base-soc-Handle-custom-soc-information-sysfs-entries.patch
 ANDROID-unconditionally-compile-sig_ok-in-struct-module.patch
 ANDROID-gki_defconfig-remove-PWRSEQ_EMMC-and-PWRSEQ_SIMPLE.patch
 ANDROID-sched-Honor-sync-flag-for-energy-aware-wakeups.patch
