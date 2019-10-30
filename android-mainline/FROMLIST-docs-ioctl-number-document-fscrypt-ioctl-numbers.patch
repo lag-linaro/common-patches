@@ -1,0 +1,32 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: Eric Biggers <ebiggers@google.com>
+Date: Wed, 9 Oct 2019 16:34:18 -0700
+Subject: FROMLIST: docs: ioctl-number: document fscrypt ioctl numbers
+
+The 'f' ioctls with numbers 19-26 decimal are currently used for fscrypt
+(a.k.a. ext4/f2fs/ubifs encryption), and up to 39 decimal is reserved
+for future fscrypt use, as per the comment in fs/ext4/ext4.h.  So the
+reserved range is 13-27 hex.
+
+Document this in ioctl-number.rst.
+
+Change-Id: Id106c59de21d1585c22729bd5b4339b27c298c9c
+Signed-off-by: Eric Biggers <ebiggers@google.com>
+Signed-off-by: Satya Tangirala <satyat@google.com>
+Link: https://patchwork.kernel.org/patch/11182409/
+---
+ Documentation/ioctl/ioctl-number.rst | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/Documentation/ioctl/ioctl-number.rst b/Documentation/ioctl/ioctl-number.rst
+index bef79cd4c6b4..4ef86433bd67 100644
+--- a/Documentation/ioctl/ioctl-number.rst
++++ b/Documentation/ioctl/ioctl-number.rst
+@@ -233,6 +233,7 @@ Code  Seq#    Include File                                           Comments
+ 'f'   00-0F  fs/ext4/ext4.h                                          conflict!
+ 'f'   00-0F  linux/fs.h                                              conflict!
+ 'f'   00-0F  fs/ocfs2/ocfs2_fs.h                                     conflict!
++'f'   13-27  linux/fscrypt.h
+ 'f'   81-8F  linux/fsverity.h
+ 'g'   00-0F  linux/usb/gadgetfs.h
+ 'g'   20-2F  linux/usb/g_printer.h

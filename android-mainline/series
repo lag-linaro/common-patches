@@ -2,7 +2,7 @@
 # android-mainline patches
 #
 # Applies onto mainline d6d5df1db6e9 Linux v5.4-rc5
-# Matches android-mainline 511b851f8057 ("ANDROID: Fix typo for FROMLIST: section")
+# Matches android-mainline ecdebfe423e7 ("ANDROID: scsi: ufs: UFS crypto variant operations API")
 #
 ANDROID-Kbuild-LLVMLinux-allow-overriding-clang-target-triple.patch
 ANDROID-net-xfrm-make-PF_KEY-SHA256-use-RFC-compliant-truncation.patch
@@ -237,3 +237,23 @@ ANDROID-gki_defconfig-enable-CONFIG_CPUSETS.patch
 ANDROID-dummy_cpufreq-Implement-get.patch
 ANDROID-Revert-sched-Rework-pick_next_task-slow-path.patch
 ANDROID-media-increase-video-max-frame-number.patch
+ANDROID-staging-ion-Fix-dynamic-heap-ID-assignment.patch
+FROMLIST-fscrypt-invoke-crypto-API-for-ESSIV-handling.patch
+FROMLIST-fscrypt-remove-struct-fscrypt_ctx.patch
+FROMLIST-fscrypt-zeroize-fscrypt_info-before-freeing.patch
+FROMLIST-docs-ioctl-number-document-fscrypt-ioctl-numbers.patch
+FROMLIST-fscrypt-add-support-for-IV_INO_LBLK_64-policies.patch
+FROMLIST-ext4-add-support-for-IV_INO_LBLK_64-encryption-policies.patch
+FROMLIST-f2fs-add-support-for-IV_INO_LBLK_64-encryption-policies.patch
+FROMLIST-block-Keyslot-Manager-for-Inline-Encryption.patch
+FROMLIST-block-Add-encryption-context-to-struct-bio.patch
+ANDROID-block-Fix-bio_crypt_should_process-WARN_ON.patch
+FROMLIST-block-blk-crypto-for-Inline-Encryption.patch
+FROMLIST-scsi-ufs-UFS-driver-v2.1-spec-crypto-additions.patch
+FROMLIST-scsi-ufs-UFS-crypto-API.patch
+FROMLIST-scsi-ufs-Add-inline-encryption-support-to-UFS.patch
+FROMLIST-fscrypt-add-inline-encryption-support.patch
+FROMLIST-f2fs-add-inline-encryption-support.patch
+FROMLIST-ext4-add-inline-encryption-support.patch
+ANDROID-gki_defconfig-enable-inline-encryption.patch
+ANDROID-scsi-ufs-UFS-crypto-variant-operations-API.patch
