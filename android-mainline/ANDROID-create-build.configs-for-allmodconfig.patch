@@ -6,7 +6,9 @@ Subject: ANDROID: create build.configs for allmodconfig
 Bug: 140224784
 Change-Id: I920e8737ee596e1b80428ff9831981c775570070
 Co-developed-by: Quentin Perret <qperret@google.com>
+Signed-off-by: Quentin Perret <qperret@google.com>
 Co-developed-by: Alistair Delva <adelva@google.com>
+Signed-off-by: Alistair Delva <adelva@google.com>
 Signed-off-by: Matthias Maennich <maennich@google.com>
 ---
  build.config.allmodconfig         | 17 +++++++++++++++++
