@@ -2,7 +2,7 @@
 # android-mainline patches
 #
 # Applies onto mainline d6d5df1db6e9 Linux v5.4-rc5
-# Matches android-mainline ecdebfe423e7 ("ANDROID: scsi: ufs: UFS crypto variant operations API")
+# Matches android-mainline a3b88509ac98 ("ANDROID: Remove KVM_INTEL allmodconfig workaround")
 #
 ANDROID-Kbuild-LLVMLinux-allow-overriding-clang-target-triple.patch
 ANDROID-net-xfrm-make-PF_KEY-SHA256-use-RFC-compliant-truncation.patch
@@ -235,3 +235,7 @@ FROMLIST-f2fs-add-inline-encryption-support.patch
 FROMLIST-ext4-add-inline-encryption-support.patch
 ANDROID-gki_defconfig-enable-inline-encryption.patch
 ANDROID-scsi-ufs-UFS-crypto-variant-operations-API.patch
+FROMLIST-scsi-ufs-export-hibern8-entry-and-exit.patch
+FROMLIST-scsi-ufs-qcom-enter-and-exit-hibern8-during-clock-scaling.patch
+ANDROID-Fix-x86_64-allmodconfig-build-2.patch
+ANDROID-Remove-KVM_INTEL-allmodconfig-workaround.patch

@@ -1,0 +1,38 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: Alistair Delva <adelva@google.com>
+Date: Thu, 31 Oct 2019 10:23:42 -0700
+Subject: ANDROID: Fix x86_64 allmodconfig build
+
+The kernel is now being linked with ld.ldd, but this linker will discard
+the __memcat_p symbol, even if it is exported, if there are no in-kernel
+users. Since the STM driver and test code can be built as a module, they
+will fail at modpost time.
+
+While the solution to this bug is still being discussed, keep the
+allmodconfig build going by suppressing these options.
+
+Bug: 140224784
+Link: https://github.com/ClangBuiltLinux/linux/issues/515
+Test: make -j64 ARCH=x86_64 allmodconfig + tweaks
+Change-Id: I2942e4b3443180e6bff9820a7c5174c03347ae8a
+Signed-off-by: Alistair Delva <adelva@google.com>
+---
+ build.config.allmodconfig | 5 ++++-
+ 1 file changed, 4 insertions(+), 1 deletion(-)
+
+diff --git a/build.config.allmodconfig b/build.config.allmodconfig
+index 854a8f8aa3f2..f91c03b85737 100644
+--- a/build.config.allmodconfig
++++ b/build.config.allmodconfig
+@@ -9,7 +9,10 @@ function update_config() {
+          -d TEST_KMOD  \
+          -d XFS_FS \
+          -d CPU_BIG_ENDIAN \
+-         -d KVM_INTEL
++         -d KVM_INTEL \
++         -d STM \
++         -d TEST_MEMCAT_P \
++
+     (cd ${OUT_DIR} && \
+      make O=${OUT_DIR} $archsubarch CC=${CC} CROSS_COMPILE=${CROSS_COMPILE} olddefconfig)
+ }
