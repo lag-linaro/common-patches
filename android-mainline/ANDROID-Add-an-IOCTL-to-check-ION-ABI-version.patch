@@ -19,7 +19,7 @@ Change-Id: Ie9d9e23c2d8323620832906d33745d599cbce6be
  2 files changed, 13 insertions(+)
 
 diff --git a/drivers/staging/android/ion/ion.c b/drivers/staging/android/ion/ion.c
-index 2c915579f60b..a499a76453ee 100644
+index 68091d17cfb8..1f9096f13877 100644
 --- a/drivers/staging/android/ion/ion.c
 +++ b/drivers/staging/android/ion/ion.c
 @@ -27,6 +27,8 @@

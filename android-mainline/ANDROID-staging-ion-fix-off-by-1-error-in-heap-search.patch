@@ -12,23 +12,14 @@ Test: ion-unit-tests
 Change-Id: I6ac5b0ddc6b31b5409645f62a96781d464b7bdf3
 Signed-off-by: Sandeep Patil <sspatil@google.com>
 ---
- drivers/staging/android/ion/ion.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ drivers/staging/android/ion/ion.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/drivers/staging/android/ion/ion.c b/drivers/staging/android/ion/ion.c
-index c8ed051715bc..aaa02c671a91 100644
+index 026a8fada480..db1a5850ccb0 100644
 --- a/drivers/staging/android/ion/ion.c
 +++ b/drivers/staging/android/ion/ion.c
-@@ -279,7 +279,7 @@ static int ion_assign_heap_id(struct ion_heap *heap, struct ion_device *dev)
- 
- 	if (test_and_set_bit(id_bit - 1, dev->heap_ids))
- 		return -EEXIST;
--	heap->id = id_bit;
-+	heap->id = id_bit - 1;
- 	dev->heap_cnt++;
- 
- 	return 0;
-@@ -392,7 +392,7 @@ void ion_device_remove_heap(struct ion_heap *heap)
+@@ -389,7 +389,7 @@ void ion_device_remove_heap(struct ion_heap *heap)
  			__func__, heap->name);
  	}
  	debugfs_remove_recursive(heap->debugfs_dir);

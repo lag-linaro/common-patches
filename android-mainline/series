@@ -88,7 +88,6 @@ ANDROID-refactor-build.config-files-to-remove-duplication.patch
 ANDROID-staging-ion-move-uapi-ion.h-to-uapi-linux-ion.h.patch
 ANDROID-staging-ion-reserve-specific-heap-ids-for-known-heap-types.patch
 ANDROID-staging-ion-add-support-for-consistent-heap-ids.patch
-ANDROID-staging-ion-Fix-uninitialized-variable-warning.patch
 ANDROID-staging-ion-Add-support-for-heap-specific-dma_buf_ops.patch
 ANDROID-staging-ion-Remove-unnecessary-ion-heap-ops.patch
 ANDROID-GKI-enable-CONFIG_SPI-for-x86.patch
@@ -208,7 +207,6 @@ ANDROID-gki_defconfig-enable-CONFIG_CPUSETS.patch
 ANDROID-dummy_cpufreq-Implement-get.patch
 ANDROID-Revert-sched-Rework-pick_next_task-slow-path.patch
 ANDROID-media-increase-video-max-frame-number.patch
-ANDROID-staging-ion-Fix-dynamic-heap-ID-assignment.patch
 FROMLIST-fscrypt-invoke-crypto-API-for-ESSIV-handling.patch
 FROMLIST-fscrypt-remove-struct-fscrypt_ctx.patch
 FROMLIST-fscrypt-zeroize-fscrypt_info-before-freeing.patch

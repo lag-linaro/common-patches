@@ -18,7 +18,7 @@ Signed-off-by: Sandeep Patil <sspatil@google.com>
  2 files changed, 13 insertions(+)
 
 diff --git a/drivers/staging/android/ion/ion.c b/drivers/staging/android/ion/ion.c
-index aaa02c671a91..2c915579f60b 100644
+index db1a5850ccb0..68091d17cfb8 100644
 --- a/drivers/staging/android/ion/ion.c
 +++ b/drivers/staging/android/ion/ion.c
 @@ -41,6 +41,7 @@ int ion_free(struct ion_buffer *buffer)
