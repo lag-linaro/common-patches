@@ -16,19 +16,22 @@ Signed-off-by: Mohan Srinivasan <srmohan@google.com>
         a5c4dbb05ab7 ("ANDROID: Replace spaces by '_' for some
         android filesystem tracepoints.")]
 Signed-off-by: Amit Pundir <amit.pundir@linaro.org>
-[astrachan: Folded 63066f4acf92 ("ANDROID: fs: Refactor FS
-            readpage/write tracepoints.") into this patch
-Signed-off-by: Alistair Strachan <astrachan@google.com>
+[adelva: Folded 63066f4acf92 ("ANDROID: fs: Refactor FS
+         readpage/write tracepoints.") into this patch]
+Signed-off-by: Alistair Delva <adelva@google.com>
+[maennich: Folded eab894210465 ("ANDROID: fix kernelci build-break")
+           into this patch]
+Signed-off-by: Matthias Maennich <maennich@google.com>
 ---
  fs/ext4/inline.c                           | 14 +++++
  fs/ext4/inode.c                            | 55 ++++++++++++++++++
- fs/ext4/readpage.c                         | 47 ++++++++++++++--
+ fs/ext4/readpage.c                         | 47 +++++++++++++--
  fs/f2fs/data.c                             | 42 ++++++++++++++
  fs/f2fs/inline.c                           | 18 ++++++
  fs/mpage.c                                 | 36 ++++++++++++
- include/trace/events/android_fs.h          | 65 ++++++++++++++++++++++
+ include/trace/events/android_fs.h          | 66 ++++++++++++++++++++++
  include/trace/events/android_fs_template.h | 64 +++++++++++++++++++++
- 8 files changed, 337 insertions(+), 4 deletions(-)
+ 8 files changed, 338 insertions(+), 4 deletions(-)
  create mode 100644 include/trace/events/android_fs.h
  create mode 100644 include/trace/events/android_fs_template.h
 
@@ -493,16 +496,17 @@ index a63620cdb73a..e8281998e690 100644
  	guard_bio_eod(op, bio);
 diff --git a/include/trace/events/android_fs.h b/include/trace/events/android_fs.h
 new file mode 100644
-index 000000000000..49509533d3fa
+index 000000000000..7edb6bcfe482
 --- /dev/null
 +++ b/include/trace/events/android_fs.h
-@@ -0,0 +1,65 @@
+@@ -0,0 +1,66 @@
 +#undef TRACE_SYSTEM
 +#define TRACE_SYSTEM android_fs
 +
 +#if !defined(_TRACE_ANDROID_FS_H) || defined(TRACE_HEADER_MULTI_READ)
 +#define _TRACE_ANDROID_FS_H
 +
++#include <linux/fs.h>
 +#include <linux/tracepoint.h>
 +#include <trace/events/android_fs_template.h>
 +

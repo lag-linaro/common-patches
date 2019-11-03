@@ -17,26 +17,30 @@ This patch is the original unaltered code from:
 Bug: 120445421
 Change-Id: I19d49858840effee9ecf6cff03c23b45a97efdeb
 Signed-off-by: JP Abgrall <jpa@google.com>
-[astrachan: Folded 4d33aa305871 ("netfilter: xt_quota2: fixup the quota2,
-            and enable.") into this patch]
-Signed-off-by: Alistair Strachan <astrachan@google.com>
+[adelva: Folded 4d33aa305871 ("netfilter: xt_quota2: fixup the quota2,
+         and enable.") into this patch]
+Signed-off-by: Alistair Delva <adelva@google.com>
+[maennich: Folded eab894210465 ("ANDROID: fix kernelci build-break")
+           into this patch]
+Signed-off-by: Matthias Maennich <maennich@google.com>
 ---
- include/linux/netfilter/xt_quota2.h |  25 ++
+ include/linux/netfilter/xt_quota2.h |  26 ++
  net/netfilter/Kconfig               |  23 ++
  net/netfilter/Makefile              |   1 +
  net/netfilter/xt_quota2.c           | 401 ++++++++++++++++++++++++++++
- 4 files changed, 450 insertions(+)
+ 4 files changed, 451 insertions(+)
  create mode 100644 include/linux/netfilter/xt_quota2.h
  create mode 100644 net/netfilter/xt_quota2.c
 
 diff --git a/include/linux/netfilter/xt_quota2.h b/include/linux/netfilter/xt_quota2.h
 new file mode 100644
-index 000000000000..eadc6903314e
+index 000000000000..a3918718cbf8
 --- /dev/null
 +++ b/include/linux/netfilter/xt_quota2.h
-@@ -0,0 +1,25 @@
+@@ -0,0 +1,26 @@
 +#ifndef _XT_QUOTA_H
 +#define _XT_QUOTA_H
++#include <linux/types.h>
 +
 +enum xt_quota_flags {
 +	XT_QUOTA_INVERT    = 1 << 0,
