@@ -2,7 +2,7 @@
 # android-mainline patches
 #
 # Applies onto mainline d6d5df1db6e9 Linux v5.4-rc5
-# Matches android-mainline a3b88509ac98 ("ANDROID: Remove KVM_INTEL allmodconfig workaround")
+# Matches android-mainline 94234501f492 ("ANDROID: gki_defconfig: enable CONFIG_KEYBOARD_GPIO")
 #
 ANDROID-Kbuild-LLVMLinux-allow-overriding-clang-target-triple.patch
 ANDROID-net-xfrm-make-PF_KEY-SHA256-use-RFC-compliant-truncation.patch
@@ -234,3 +234,4 @@ ANDROID-gki_defconfig-enable-inline-encryption.patch
 ANDROID-scsi-ufs-UFS-crypto-variant-operations-API.patch
 FROMLIST-scsi-ufs-export-hibern8-entry-and-exit.patch
 FROMLIST-scsi-ufs-qcom-enter-and-exit-hibern8-during-clock-scaling.patch
+ANDROID-gki_defconfig-enable-CONFIG_KEYBOARD_GPIO.patch
