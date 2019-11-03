@@ -14,22 +14,25 @@ Bug: 120446149
 Bug: 122428178
 Change-Id: Ie769d7b3bb2f5972afe05c1bf16cf88c91647ab2
 Signed-off-by: Daniel Rosenberg <drosen@google.com>
-[astrachan: Folded 89a54ed3bf68 ("ANDROID: mnt: Fix next_descendent")
+[adelva: Folded 89a54ed3bf68 ("ANDROID: mnt: Fix next_descendent")
             into this patch]
 [drosen: Folded 138993ea820 ("Android: mnt: Propagate remount
          correctly") into this patch, integrated fs_context things
 	 Now has update_mnt_data instead of needing remount2
-Signed-off-by: Alistair Strachan <astrachan@google.com>
+[maennich: Folded cbfbd9e932de ("ANDROID: mnt: Fix null pointer
+           dereference") into this patch]
+Signed-off-by: Alistair Delva <adelva@google.com>
+Signed-off-by: Matthias Maennich <maennich@google.com>
 ---
- fs/namespace.c        | 28 +++++++++++++++++++++++++++-
+ fs/namespace.c        | 32 +++++++++++++++++++++++++++++++-
  fs/pnode.c            | 16 ++++++++++++++++
  fs/pnode.h            |  1 +
  include/linux/fs.h    |  4 ++++
  include/linux/mount.h |  1 +
- 5 files changed, 49 insertions(+), 1 deletion(-)
+ 5 files changed, 53 insertions(+), 1 deletion(-)
 
 diff --git a/fs/namespace.c b/fs/namespace.c
-index fe0e9e1410fe..4ec782ed6069 100644
+index fe0e9e1410fe..b7eb5f242b86 100644
 --- a/fs/namespace.c
 +++ b/fs/namespace.c
 @@ -198,6 +198,7 @@ static struct mount *alloc_vfsmnt(const char *name)
@@ -48,7 +51,17 @@ index fe0e9e1410fe..4ec782ed6069 100644
  	kfree_const(mnt->mnt_devname);
  #ifdef CONFIG_SMP
  	free_percpu(mnt->mnt_pcp);
-@@ -941,6 +943,15 @@ struct vfsmount *vfs_create_mount(struct fs_context *fc)
+@@ -933,14 +935,26 @@ static struct mount *skip_mnt_tree(struct mount *p)
+ struct vfsmount *vfs_create_mount(struct fs_context *fc)
+ {
+ 	struct mount *mnt;
++	struct super_block *sb;
+ 
+ 	if (!fc->root)
+ 		return ERR_PTR(-EINVAL);
++	sb = fc->root->d_sb;
+ 
+ 	mnt = alloc_vfsmnt(fc->source ?: "none");
  	if (!mnt)
  		return ERR_PTR(-ENOMEM);
  
@@ -59,12 +72,13 @@ index fe0e9e1410fe..4ec782ed6069 100644
 +			free_vfsmnt(mnt);
 +			return ERR_PTR(-ENOMEM);
 +		}
-+		fc->root->d_sb->s_op->update_mnt_data(mnt->mnt.data, fc);
++		if (sb->s_op->update_mnt_data)
++			sb->s_op->update_mnt_data(mnt->mnt.data, fc);
 +	}
  	if (fc->sb_flags & SB_KERNMOUNT)
  		mnt->mnt.mnt_flags = MNT_INTERNAL;
  
-@@ -1024,6 +1035,14 @@ static struct mount *clone_mnt(struct mount *old, struct dentry *root,
+@@ -1024,6 +1038,14 @@ static struct mount *clone_mnt(struct mount *old, struct dentry *root,
  	if (!mnt)
  		return ERR_PTR(-ENOMEM);
  
@@ -79,23 +93,23 @@ index fe0e9e1410fe..4ec782ed6069 100644
  	if (flag & (CL_SLAVE | CL_PRIVATE | CL_SHARED_TO_SLAVE))
  		mnt->mnt_group_id = 0; /* not a peer of original */
  	else
-@@ -2549,8 +2568,15 @@ static int do_remount(struct path *path, int ms_flags, int sb_flags,
+@@ -2549,7 +2571,15 @@ static int do_remount(struct path *path, int ms_flags, int sb_flags,
  		err = -EPERM;
  		if (ns_capable(sb->s_user_ns, CAP_SYS_ADMIN)) {
  			err = reconfigure_super(fc);
 -			if (!err)
-+			if (!err) {
++			if (!err && sb->s_op->update_mnt_data) {
 +				sb->s_op->update_mnt_data(mnt->mnt.data, fc);
- 				set_mount_attributes(mnt, mnt_flags);
++				set_mount_attributes(mnt, mnt_flags);
 +				namespace_lock();
 +				lock_mount_hash();
 +				propagate_remount(mnt);
 +				unlock_mount_hash();
 +				namespace_unlock();
-+			}
++			} else if (!err)
+ 				set_mount_attributes(mnt, mnt_flags);
  		}
  		up_write(&sb->s_umount);
- 	}
 diff --git a/fs/pnode.c b/fs/pnode.c
 index 49f6d7ff2139..16b2d165b5e9 100644
 --- a/fs/pnode.c

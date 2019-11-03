@@ -57,7 +57,6 @@ ANDROID-mnt-Add-filesystem-private-data-to-mount-points.patch
 ANDROID-sdcardfs-Define-magic-value.patch
 ANDROID-sdcardfs-Add-sdcardfs-filesystem.patch
 ANDROID-cuttlefish-gki-_defconfig-Enable-CONFIG_SDCARD_FS.patch
-ANDROID-mnt-Fix-null-pointer-dereference.patch
 ANDROID-build-configs-switch-prebuilt-path-location.patch
 ANDROID-xfrm-remove-in_compat_syscall-checks.patch
 ANDROID-Add-initial-rockpi4_defconfig.patch
