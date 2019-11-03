@@ -199,7 +199,6 @@ ANDROID-cpufreq-create-dummy-cpufreq-driver.patch
 ANDROID-Allow-DRM_IOCTL_MODE_-_DUMB-for-render-clients.patch
 ANDROID-virt_wifi-Add-data-ops-for-scan-data-simulation.patch
 ANDROID-add-README.md.patch
-ANDROID-fix-VIDEOBUF2_CORE-dependency-in-allmodconfig-builds.patch
 ANDROID-create-build.configs-for-allmodconfig.patch
 ANDROID-gki_defconfig-enable-CONFIG_CPU_FREQ_GOV_CONSERVATIVE.patch
 ANDROID-virtio-virtio_input-Set-the-amount-of-multitouch-slots-in-virtio-input.patch
