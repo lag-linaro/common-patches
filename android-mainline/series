@@ -186,7 +186,6 @@ ANDROID-driver-core-Allow-fwnode_operations.add_links-to-differentiate-errors.pa
 ANDROID-of-property-Make-sure-child-dependencies-don-t-block-probing-of-parent.patch
 ANDROID-of-property-Enable-of_devlink-by-default.patch
 ANDROID-v4l2-compat-ioctl32.c-copy-reserved-fields.patch
-ANDROID-soc-qcom-Add-required-header-to-irq.h.patch
 FROMLIST-of-Export-of_phandle_iterator_args-to-modules.patch
 FROMLIST-PCI-Export-PCI-ACS-and-DMA-searching-functions-to-modules.patch
 FROMLIST-iommu-Export-core-IOMMU-functions-to-kernel-modules.patch

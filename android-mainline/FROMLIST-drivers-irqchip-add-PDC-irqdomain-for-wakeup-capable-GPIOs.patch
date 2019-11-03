@@ -18,12 +18,15 @@ BUG: 141169320
 TEST: Build and boot
 
 Change-Id: Iaec0f39c86776d3f8cebe869c4ccaaba541c7ad5
-Signed-off-by: Maulik Shah <mkshah@codeaurora.org>
 Link: https://patchwork.kernel.org/patch/11145357
+Signed-off-by: Maulik Shah <mkshah@codeaurora.org>
+[maennich: Folded 7bb134695480 ("ANDROID: soc: qcom: Add required header
+           to irq.h") into this patch]
+Signed-off-by: Matthias Maennich <maennich@google.com>
 ---
  drivers/irqchip/qcom-pdc.c   | 104 ++++++++++++++++++++++++++++++++---
- include/linux/soc/qcom/irq.h |  19 +++++++
- 2 files changed, 114 insertions(+), 9 deletions(-)
+ include/linux/soc/qcom/irq.h |  21 +++++++
+ 2 files changed, 116 insertions(+), 9 deletions(-)
  create mode 100644 include/linux/soc/qcom/irq.h
 
 diff --git a/drivers/irqchip/qcom-pdc.c b/drivers/irqchip/qcom-pdc.c
@@ -229,14 +232,16 @@ index 5eef5eab78df..4abd775ef655 100644
  	iounmap(pdc_base);
 diff --git a/include/linux/soc/qcom/irq.h b/include/linux/soc/qcom/irq.h
 new file mode 100644
-index 000000000000..85ac4b6cf3fb
+index 000000000000..637c0bfa89e7
 --- /dev/null
 +++ b/include/linux/soc/qcom/irq.h
-@@ -0,0 +1,19 @@
+@@ -0,0 +1,21 @@
 +/* SPDX-License-Identifier: GPL-2.0-only */
 +
 +#ifndef __QCOM_IRQ_H
 +#define __QCOM_IRQ_H
++
++#include <linux/irqdomain.h>
 +
 +#define GPIO_NO_WAKE_IRQ	~0U
 +
