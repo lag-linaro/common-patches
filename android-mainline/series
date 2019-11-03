@@ -41,7 +41,6 @@ ANDROID-cpufreq-times-add-proc-uid_concurrent_-active-policy-_time.patch
 ANDROID-cpufreq-times-record-fast-switch-frequency-transitions.patch
 ANDROID-cpufreq-times-optimize-proc-files.patch
 ANDROID-dm-bow-Add-dm-bow-feature.patch
-ANDROID-dm-bow-Fix-32-bit-compile-errors.patch
 ANDROID-cpufreq-times-don-t-copy-invalid-freqs-from-freq-table.patch
 ANDROID-gki_defconfig-initial-config.patch
 ANDROID-Expose-gki_defconfig-to-build.config.patch

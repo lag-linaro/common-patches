@@ -63,12 +63,15 @@ Test: Dogfooded on Wahoo.
       VtsKernelCheckpointTest tests against 4.19, 4.14 & 4.9 kernels
 Change-Id: Id70988bbd797ebe3e76fc175094388b423c8da8c
 Signed-off-by: Paul Lawrence <paullawrence@google.com>
+[maennich: Folded d00a21b8ebfb ("ANDROID: dm-bow: Fix 32 bit compile errors")
+           into this patch]
+Signed-off-by: Matthias Maennich <maennich@google.com>
 ---
  Documentation/device-mapper/dm-bow.txt |   99 ++
  drivers/md/Kconfig                     |   12 +
  drivers/md/Makefile                    |    1 +
- drivers/md/dm-bow.c                    | 1226 ++++++++++++++++++++++++
- 4 files changed, 1338 insertions(+)
+ drivers/md/dm-bow.c                    | 1231 ++++++++++++++++++++++++
+ 4 files changed, 1343 insertions(+)
  create mode 100644 Documentation/device-mapper/dm-bow.txt
  create mode 100644 drivers/md/dm-bow.c
 
@@ -212,10 +215,10 @@ index 356b32d6b158..a9a602dfc4a3 100644
  dm-mod-objs			+= dm-init.o
 diff --git a/drivers/md/dm-bow.c b/drivers/md/dm-bow.c
 new file mode 100644
-index 000000000000..0d176aa140df
+index 000000000000..9323c7c8580d
 --- /dev/null
 +++ b/drivers/md/dm-bow.c
-@@ -0,0 +1,1226 @@
+@@ -0,0 +1,1231 @@
 +/*
 + * Copyright (C) 2018 Google Limited.
 + *
@@ -484,7 +487,8 @@ index 000000000000..0d176aa140df
 +
 +static sector_t sector_to_page(struct bow_context const *bc, sector_t sector)
 +{
-+	WARN_ON(sector % (bc->block_size / SECTOR_SIZE) != 0);
++	WARN_ON((sector & (((sector_t)1 << (bc->block_shift - SECTOR_SHIFT)) - 1))
++		!= 0);
 +	return sector >> (bc->block_shift - SECTOR_SHIFT);
 +}
 +
@@ -509,7 +513,8 @@ index 000000000000..0d176aa140df
 +
 +		read = dm_bufio_read(bc->bufio, page, &read_buffer);
 +		if (IS_ERR(read)) {
-+			DMERR("Cannot read page %lu", page);
++			DMERR("Cannot read page %llu",
++			      (unsigned long long)page);
 +			return PTR_ERR(read);
 +		}
 +
@@ -1170,8 +1175,9 @@ index 000000000000..0d176aa140df
 +	struct bow_range *br;
 +	struct bvec_iter bi_iter = bio->bi_iter;
 +
-+	DMDEBUG("add_trim: %lu, %u",
-+		bio->bi_iter.bi_sector, bio->bi_iter.bi_size);
++	DMDEBUG("add_trim: %llu, %u",
++		(unsigned long long)bio->bi_iter.bi_sector,
++		bio->bi_iter.bi_size);
 +
 +	do {
 +		br = find_first_overlapping_range(&bc->ranges, &bi_iter);
@@ -1208,8 +1214,9 @@ index 000000000000..0d176aa140df
 +	struct bow_range *br;
 +	struct bvec_iter bi_iter = bio->bi_iter;
 +
-+	DMDEBUG("remove_trim: %lu, %u",
-+		bio->bi_iter.bi_sector, bio->bi_iter.bi_size);
++	DMDEBUG("remove_trim: %llu, %u",
++		(unsigned long long)bio->bi_iter.bi_sector,
++		bio->bi_iter.bi_size);
 +
 +	do {
 +		br = find_first_overlapping_range(&bc->ranges, &bi_iter);
@@ -1334,8 +1341,9 @@ index 000000000000..0d176aa140df
 +	for (i = rb_first(&bc->ranges); i; i = rb_next(i)) {
 +		struct bow_range *br = container_of(i, struct bow_range, node);
 +
-+		result += scnprintf(result, end - result, "%s: %lu",
-+				    readable_type[br->type], br->sector);
++		result += scnprintf(result, end - result, "%s: %llu",
++				    readable_type[br->type],
++				    (unsigned long long)br->sector);
 +		if (result >= end)
 +			return;
 +
