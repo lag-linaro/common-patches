@@ -304,7 +304,7 @@ index b862bdfeca89..548d65dbd3ac 100644
  static int ion_device_create(void)
  {
 diff --git a/drivers/staging/android/ion/ion_buffer.c b/drivers/staging/android/ion/ion_buffer.c
-index adce2d489f56..879b3ddb08c0 100644
+index ef5fbf45c554..961605a35c59 100644
 --- a/drivers/staging/android/ion/ion_buffer.c
 +++ b/drivers/staging/android/ion/ion_buffer.c
 @@ -6,6 +6,7 @@
@@ -313,9 +313,9 @@ index adce2d489f56..879b3ddb08c0 100644
  #include <linux/mm.h>
 +#include <linux/module.h>
  #include <linux/slab.h>
+ #include <linux/vmalloc.h>
  
- #include "ion_private.h"
-@@ -76,6 +77,14 @@ static struct ion_buffer *ion_buffer_create(struct ion_heap *heap,
+@@ -77,6 +78,14 @@ static struct ion_buffer *ion_buffer_create(struct ion_heap *heap,
  	heap->num_of_alloc_bytes += len;
  	if (heap->num_of_alloc_bytes > heap->alloc_bytes_wm)
  		heap->alloc_bytes_wm = heap->num_of_alloc_bytes;
@@ -330,7 +330,7 @@ index adce2d489f56..879b3ddb08c0 100644
  	spin_unlock(&heap->stat_lock);
  
  	INIT_LIST_HEAD(&buffer->attachments);
-@@ -184,6 +193,7 @@ int ion_buffer_zero(struct ion_buffer *buffer)
+@@ -185,6 +194,7 @@ int ion_buffer_zero(struct ion_buffer *buffer)
  
  	return ion_sglist_zero(table->sgl, table->nents, pgprot);
  }
@@ -338,7 +338,7 @@ index adce2d489f56..879b3ddb08c0 100644
  
  void ion_buffer_release(struct ion_buffer *buffer)
  {
-@@ -196,7 +206,10 @@ void ion_buffer_release(struct ion_buffer *buffer)
+@@ -197,7 +207,10 @@ void ion_buffer_release(struct ion_buffer *buffer)
  	spin_lock(&buffer->heap->stat_lock);
  	buffer->heap->num_of_buffers--;
  	buffer->heap->num_of_alloc_bytes -= buffer->size;

@@ -17,17 +17,20 @@ Test: ion-unit-tests
 Change-Id: I73ea59b410c46a02e23f2da5c6bdc15182a50b32
 Co-developed-by: Isaac J. Manjarres <isaacm@codeaurora.org>
 Signed-off-by: Sandeep Patil <sspatil@google.com>
+[maennich: Folded 9fa3dab79332 ("ANDROID: staging: ion: Build fix for mips")
+           into this patch]
+Signed-off-by: Matthias Maennich <maennich@google.com>
 ---
  .../staging/android/ion/heaps/ion_cma_heap.c  |   3 +-
  .../android/ion/heaps/ion_system_heap.c       |   2 +-
  drivers/staging/android/ion/ion.c             |   1 -
  drivers/staging/android/ion/ion.h             | 246 --------------
- drivers/staging/android/ion/ion_buffer.c      |  37 ++-
+ drivers/staging/android/ion/ion_buffer.c      |  38 ++-
  drivers/staging/android/ion/ion_heap.c        |  44 ---
  drivers/staging/android/ion/ion_private.h     |   3 +-
  include/linux/ion.h                           | 312 +++++++++++++++++-
  .../staging/android => include}/uapi/ion.h    |  35 +-
- 9 files changed, 367 insertions(+), 316 deletions(-)
+ 9 files changed, 368 insertions(+), 316 deletions(-)
  delete mode 100644 drivers/staging/android/ion/ion.h
  rename {drivers/staging/android => include}/uapi/ion.h (74%)
 
@@ -335,10 +338,18 @@ index b5b5412507fd..000000000000
 -
 -#endif /* _ION_H */
 diff --git a/drivers/staging/android/ion/ion_buffer.c b/drivers/staging/android/ion/ion_buffer.c
-index 50c2dbc3ebec..adce2d489f56 100644
+index 50c2dbc3ebec..ef5fbf45c554 100644
 --- a/drivers/staging/android/ion/ion_buffer.c
 +++ b/drivers/staging/android/ion/ion_buffer.c
-@@ -92,6 +92,41 @@ static struct ion_buffer *ion_buffer_create(struct ion_heap *heap,
+@@ -7,6 +7,7 @@
+ 
+ #include <linux/mm.h>
+ #include <linux/slab.h>
++#include <linux/vmalloc.h>
+ 
+ #include "ion_private.h"
+ 
+@@ -92,6 +93,41 @@ static struct ion_buffer *ion_buffer_create(struct ion_heap *heap,
  	return ERR_PTR(ret);
  }
  
@@ -380,7 +391,7 @@ index 50c2dbc3ebec..adce2d489f56 100644
  struct ion_buffer *ion_buffer_alloc(struct ion_device *dev, size_t len,
  				    unsigned int heap_id_mask,
  				    unsigned int flags)
-@@ -147,7 +182,7 @@ int ion_buffer_zero(struct ion_buffer *buffer)
+@@ -147,7 +183,7 @@ int ion_buffer_zero(struct ion_buffer *buffer)
  	else
  		pgprot = pgprot_writecombine(PAGE_KERNEL);
  
