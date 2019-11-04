@@ -14,7 +14,7 @@ Signed-off-by: Alistair Delva <adelva@google.com>
  create mode 100644 include/net/virt_wifi.h
 
 diff --git a/drivers/net/wireless/virt_wifi.c b/drivers/net/wireless/virt_wifi.c
-index be92e1220284..355cc629190c 100644
+index 7997cc6de334..07c43e4b750b 100644
 --- a/drivers/net/wireless/virt_wifi.c
 +++ b/drivers/net/wireless/virt_wifi.c
 @@ -13,6 +13,7 @@
@@ -111,8 +111,8 @@ index be92e1220284..355cc629190c 100644
  	return 0;
  }
  
-@@ -617,6 +640,27 @@ static void __exit virt_wifi_cleanup_module(void)
- 	virt_wifi_destroy_wiphy(common_wiphy);
+@@ -667,6 +690,27 @@ static void __exit virt_wifi_cleanup_module(void)
+ 	unregister_netdevice_notifier(&virt_wifi_notifier);
  }
  
 +int virt_wifi_register_network_simulation

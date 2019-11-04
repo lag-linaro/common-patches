@@ -1,8 +1,8 @@
 #
 # android-mainline patches
 #
-# Applies onto mainline d6d5df1db6e9 Linux v5.4-rc5
-# Matches android-mainline 94234501f492 ("ANDROID: gki_defconfig: enable CONFIG_KEYBOARD_GPIO")
+# Applies onto mainline a99d8080aaf3 Linux v5.4-rc6
+# Matches android-mainline 2a71bdee3f00 ("Merge 5.4-rc6 into android-mainline")
 #
 ANDROID-Kbuild-LLVMLinux-allow-overriding-clang-target-triple.patch
 ANDROID-net-xfrm-make-PF_KEY-SHA256-use-RFC-compliant-truncation.patch

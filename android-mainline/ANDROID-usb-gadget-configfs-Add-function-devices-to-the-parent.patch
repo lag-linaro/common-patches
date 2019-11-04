@@ -23,7 +23,7 @@ Signed-off-by: Badhri Jagan Sridharan <badhri@google.com>
  1 file changed, 29 insertions(+), 4 deletions(-)
 
 diff --git a/drivers/usb/gadget/configfs.c b/drivers/usb/gadget/configfs.c
-index bbc166f99893..3237f450d4ab 100644
+index 5b2631a6c412..5033b27e8246 100644
 --- a/drivers/usb/gadget/configfs.c
 +++ b/drivers/usb/gadget/configfs.c
 @@ -21,6 +21,18 @@ extern int acc_ctrlrequest(struct usb_composite_dev *cdev,
@@ -45,7 +45,7 @@ index bbc166f99893..3237f450d4ab 100644
  #endif
  
  int check_user_usb_string(const char *name,
-@@ -1418,19 +1430,22 @@ static void android_work(struct work_struct *data)
+@@ -1421,19 +1433,22 @@ static void android_work(struct work_struct *data)
  	spin_unlock_irqrestore(&cdev->lock, flags);
  
  	if (status[0]) {
@@ -71,7 +71,7 @@ index bbc166f99893..3237f450d4ab 100644
  		pr_info("%s: sent uevent %s\n", __func__, disconnected[0]);
  		uevent_sent = true;
  	}
-@@ -1607,8 +1622,10 @@ static struct config_group *gadgets_make(
+@@ -1708,8 +1723,10 @@ static struct config_group *gadgets_make(
  
  #ifdef CONFIG_USB_CONFIGFS_UEVENT
  	INIT_WORK(&gi->work, android_work);
@@ -83,7 +83,7 @@ index bbc166f99893..3237f450d4ab 100644
  #endif
  
  	if (!gi->composite.gadget_driver.function)
-@@ -1623,6 +1640,9 @@ static struct config_group *gadgets_make(
+@@ -1724,6 +1741,9 @@ static struct config_group *gadgets_make(
  static void gadgets_drop(struct config_group *group, struct config_item *item)
  {
  	config_item_put(item);
@@ -93,7 +93,7 @@ index bbc166f99893..3237f450d4ab 100644
  }
  
  static struct configfs_group_operations gadgets_ops = {
-@@ -1676,5 +1696,10 @@ module_init(gadget_cfs_init);
+@@ -1777,5 +1797,10 @@ module_init(gadget_cfs_init);
  static void __exit gadget_cfs_exit(void)
  {
  	configfs_unregister_subsystem(&gadget_subsys);

@@ -51,7 +51,7 @@ index 032c7cd3cede..172fac5c58b1 100644
  
  
 diff --git a/include/linux/perf_event.h b/include/linux/perf_event.h
-index 61448c19a132..a24e32410915 100644
+index 68ccc5b1913b..a7565ea44938 100644
 --- a/include/linux/perf_event.h
 +++ b/include/linux/perf_event.h
 @@ -1241,6 +1241,11 @@ extern int perf_cpu_time_max_percent_handler(struct ctl_table *table, int write,
@@ -67,7 +67,7 @@ index 61448c19a132..a24e32410915 100644
  {
  	return sysctl_perf_event_paranoid > -1;
 diff --git a/kernel/events/core.c b/kernel/events/core.c
-index bb3748d29b04..9dd158865ac5 100644
+index aec8dba2bea4..9206cc282c6c 100644
 --- a/kernel/events/core.c
 +++ b/kernel/events/core.c
 @@ -398,8 +398,13 @@ static cpumask_var_t perf_online_mask;

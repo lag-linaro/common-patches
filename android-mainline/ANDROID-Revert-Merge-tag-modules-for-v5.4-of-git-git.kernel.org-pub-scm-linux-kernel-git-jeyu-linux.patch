@@ -106,7 +106,7 @@ index a3ddb213a5e1..5891a701a159 100644
  ========================
  
 diff --git a/Makefile b/Makefile
-index a2b9e4767eea..805394648a58 100644
+index fc380f112376..2aa05c088469 100644
 --- a/Makefile
 +++ b/Makefile
 @@ -1481,9 +1481,6 @@ help:
@@ -322,10 +322,10 @@ index 54aa1392c9ca..854498e1012c 100644
  /* Supported device types */
  #define USBAT_DEV_HP8200	0x01
 diff --git a/drivers/usb/storage/uas.c b/drivers/usb/storage/uas.c
-index bf80d6f81f58..047c5922618f 100644
+index 34538253f12c..0d044d59317e 100644
 --- a/drivers/usb/storage/uas.c
 +++ b/drivers/usb/storage/uas.c
-@@ -1219,6 +1219,5 @@ static struct usb_driver uas_driver = {
+@@ -1199,6 +1199,5 @@ static struct usb_driver uas_driver = {
  module_usb_driver(uas_driver);
  
  MODULE_LICENSE("GPL");
