@@ -1,0 +1,87 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: Stanley Chu <stanley.chu@mediatek.com>
+Date: Mon, 16 Sep 2019 23:56:50 +0800
+Subject: FROMGIT: scsi: ufs: override auto suspend tunables for ufs
+
+Rework from previous work by:
+Sujit Reddy Thumma <sthumma@codeaurora.org>
+
+Override auto suspend tunables for UFS device LUNs during initialization so
+as to efficiently manage background operations and the power consumption.
+
+Link: https://lore.kernel.org/r/1568649411-5127-3-git-send-email-stanley.chu@mediatek.com
+Reviewed-by: Avri Altman <avri.altman@wdc.com>
+Reviewed-by: Bean Huo <beanhuo@micron.com>
+Signed-off-by: Stanley Chu <stanley.chu@mediatek.com>
+Signed-off-by: Martin K. Petersen <martin.petersen@oracle.com>
+
+Bug: 140620770
+(cherry pick from 49615ba144a0929c725d08f0d3ba8494c8b77404
+ https://git.kernel.org/pub/scm/linux/kernel/git/jejb/scsi.git misc)
+Change-Id: I35bc8d52c73db5d9e6936c5fbfb728b5436fcf1f
+Signed-off-by: Todd Kjos <tkjos@google.com>
+---
+ drivers/scsi/ufs/ufshcd.c |  7 +++++++
+ drivers/scsi/ufs/ufshcd.h | 10 ++++++++++
+ 2 files changed, 17 insertions(+)
+
+diff --git a/drivers/scsi/ufs/ufshcd.c b/drivers/scsi/ufs/ufshcd.c
+index 126af87ab6d3..8083fe1645ce 100644
+--- a/drivers/scsi/ufs/ufshcd.c
++++ b/drivers/scsi/ufs/ufshcd.c
+@@ -89,6 +89,9 @@
+ /* Interrupt aggregation default timeout, unit: 40us */
+ #define INT_AGGR_DEF_TO	0x02
+ 
++/* default delay of autosuspend: 2000 ms */
++#define RPM_AUTOSUSPEND_DELAY_MS 2000
++
+ #define ufshcd_toggle_vreg(_dev, _vreg, _on)				\
+ 	({                                                              \
+ 		int _ret;                                               \
+@@ -4668,6 +4671,9 @@ static int ufshcd_slave_configure(struct scsi_device *sdev)
+ 
+ 	ufshcd_crypto_setup_rq_keyslot_manager(hba, q);
+ 
++	if (ufshcd_is_rpm_autosuspend_allowed(hba))
++		sdev->rpm_autosuspend = 1;
++
+ 	return 0;
+ }
+ 
+@@ -7109,6 +7115,7 @@ static struct scsi_host_template ufshcd_driver_template = {
+ 	.track_queue_depth	= 1,
+ 	.sdev_groups		= ufshcd_driver_groups,
+ 	.dma_boundary		= PAGE_SIZE - 1,
++	.rpm_autosuspend_delay	= RPM_AUTOSUSPEND_DELAY_MS,
+ };
+ 
+ static int ufshcd_config_vreg_load(struct device *dev, struct ufs_vreg *vreg,
+diff --git a/drivers/scsi/ufs/ufshcd.h b/drivers/scsi/ufs/ufshcd.h
+index b724a6cfe5af..10bac3241c5a 100644
+--- a/drivers/scsi/ufs/ufshcd.h
++++ b/drivers/scsi/ufs/ufshcd.h
+@@ -755,6 +755,12 @@ struct ufs_hba {
+ 	 * inline crypto engine, if it is present
+ 	 */
+ #define UFSHCD_CAP_CRYPTO (1 << 6)
++	/*
++	 * This capability allows host controller driver to automatically
++	 * enable runtime power management by itself instead of waiting
++	 * for userspace to control the power management.
++	 */
++#define UFSHCD_CAP_RPM_AUTOSUSPEND (1 << 6)
+ 
+ 	struct devfreq *devfreq;
+ 	struct ufs_clk_scaling clk_scaling;
+@@ -797,6 +803,10 @@ static inline bool ufshcd_can_autobkops_during_suspend(struct ufs_hba *hba)
+ {
+ 	return hba->caps & UFSHCD_CAP_AUTO_BKOPS_SUSPEND;
+ }
++static inline bool ufshcd_is_rpm_autosuspend_allowed(struct ufs_hba *hba)
++{
++	return hba->caps & UFSHCD_CAP_RPM_AUTOSUSPEND;
++}
+ 
+ static inline bool ufshcd_is_intr_aggr_allowed(struct ufs_hba *hba)
+ {
