@@ -20,19 +20,19 @@ Bug: 120442023
 Change-Id: Ib8bebda53e7a56f45ea3eb0ec9a3153d44188102
 Signed-off-by: Jin Qian <jinqian@google.com>
 [connoro: Used by storaged.]
-[astrachan: Note: this version does not track fsync syscalls; this is
-            implemented in a follow up due to the fact it depends on
-            modifications to the task_xacct feature.]
-[astrachan: Folded in the following changes:
-            e003a91d8f42 ("ANDROID: uid_sys_stats: allow writing same state")
-            89b984bf2efd ("ANDROID: uid_sys_stats: fix negative write bytes.")
-            bb5ee21cc4dd ("ANDROID: uid_sys_stats: change to use rt_mutex")
-            9297d5a160c7 ("ANDROID: uid_sys_stats: reduce update_io_stats overhead")
-            89402d07fe91 ("ANDROID: uid_sys_stats: defer io stats calulation for dead tasks")
-            6dc5d8173a8c ("ANDROID: uid_sys_stats: check previous uid_entry before call find_or_register_uid")
-            0ca2ece8f7ec ("ANDROID: uid_sys_stats: log task io with a debug flag")
-            c9c096ef0e67 ("ANDROID: uid_sys_stats: Copy task_struct comm field to bigger buffer")]
-Signed-off-by: Alistair Strachan <astrachan@google.com>
+[adelva: Note: this version does not track fsync syscalls; this is
+         implemented in a follow up due to the fact it depends on
+         modifications to the task_xacct feature.]
+[adelva: Folded in the following changes:
+         e003a91d8f42 ("ANDROID: uid_sys_stats: allow writing same state")
+         89b984bf2efd ("ANDROID: uid_sys_stats: fix negative write bytes.")
+         bb5ee21cc4dd ("ANDROID: uid_sys_stats: change to use rt_mutex")
+         9297d5a160c7 ("ANDROID: uid_sys_stats: reduce update_io_stats overhead")
+         89402d07fe91 ("ANDROID: uid_sys_stats: defer io stats calulation for dead tasks")
+         6dc5d8173a8c ("ANDROID: uid_sys_stats: check previous uid_entry before call find_or_register_uid")
+         0ca2ece8f7ec ("ANDROID: uid_sys_stats: log task io with a debug flag")
+         c9c096ef0e67 ("ANDROID: uid_sys_stats: Copy task_struct comm field to bigger buffer")]
+Signed-off-by: Alistair Delva <adelva@google.com>
 ---
  drivers/misc/Kconfig         |  11 +-
  drivers/misc/uid_sys_stats.c | 490 +++++++++++++++++++++++++++++++++--

@@ -21,9 +21,9 @@ Signed-off-by: Badhri Jagan Sridharan <badhri@google.com>
 [AmitP: Folded following android-4.9 commit changes into this patch
         9214c899f730 ("ANDROID: usb: gadget: configfs: handle gadget reset request for android")]
 Signed-off-by: Amit Pundir <amit.pundir@linaro.org>
-[astrachan: Folded change 5c899c9fd75d ("ANDROID: usb: gadget: configfs:
-            fix null ptr in android_disconnect") into this patch]
-Signed-off-by: Alistair Strachan <astrachan@google.com>
+[adelva: Folded change 5c899c9fd75d ("ANDROID: usb: gadget: configfs:
+         fix null ptr in android_disconnect") into this patch]
+Signed-off-by: Alistair Delva <adelva@google.com>
 ---
  drivers/usb/gadget/Kconfig    |   8 ++
  drivers/usb/gadget/configfs.c | 165 +++++++++++++++++++++++++++++++++-

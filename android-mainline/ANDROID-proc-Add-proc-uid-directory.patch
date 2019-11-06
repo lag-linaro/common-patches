@@ -18,9 +18,9 @@ Signed-off-by: Connor O'Brien <connoro@google.com>
         0168b9e38c42 ("procfs: switch instantiate_t to d_splice_alias()"),
         switched instantiate() callback to d_splice_alias()]
 Signed-off-by: Amit Pundir <amit.pundir@linaro.org>
-[astrachan: Folded 97b7790f505e ("ANDROID: proc: fix undefined behavior
-            in proc_uid_base_readdir") into this change]
-Signed-off-by: Alistair Strachan <astrachan@google.com>
+[adelva: Folded 97b7790f505e ("ANDROID: proc: fix undefined behavior
+         in proc_uid_base_readdir") into this change]
+Signed-off-by: Alistair Delva <adelva@google.com>
 ---
  fs/proc/Kconfig         |   6 +
  fs/proc/Makefile        |   1 +

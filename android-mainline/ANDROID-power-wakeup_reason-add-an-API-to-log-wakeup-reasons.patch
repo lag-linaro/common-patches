@@ -13,17 +13,17 @@ Signed-off-by: Ruchi Kandoi <kandoiruchi@google.com>
         b4e6247778b0 ("ANDROID: Power: Changes the permission to read only for sysfs file /sys/kernel/wakeup_reasons/last_resume_reason")
         e13dbc7c69cd ("ANDROID: power: wakeup_reason: rename irq_count to irqcount")]
 Signed-off-by: Amit Pundir <amit.pundir@linaro.org>
-[astrachan: Folded the following changes into this patch:
-            39d7c7fe91c0 ("ANDROID: power: wakeup_reason: Add guard condition for maximum wakeup reasons")
-            0730434bdf49 ("ANDROID: power: wakeup_reason: Avoids bogus error messages for the suspend aborts.")
-            4e42dceae54e ("ANDROID: power: wakeup_reason: Adds functionality to log the last suspend abort reason.")
-            f21313b70ac7 ("ANDROID: power: wakeup_reason: Report suspend times from last_suspend_time")
-            f97ec34442ac ("ANDROID: power: wakeup_reason: fix suspend time reporting")
-            cd92df73e504 ("ANDROID: power: wakeup: Add last wake up source logging for suspend abort reason.")
-            546b6ae3c087 ("ANDROID: power: wakeup: Add the guard condition for len in pm_get_active_wakeup_sources")
-            1453d9ffcdbe ("ANDROID: power: wakeup_reason: make logging work in an interrupt context.")]
+[adelva: Folded the following changes into this patch:
+         39d7c7fe91c0 ("ANDROID: power: wakeup_reason: Add guard condition for maximum wakeup reasons")
+         0730434bdf49 ("ANDROID: power: wakeup_reason: Avoids bogus error messages for the suspend aborts.")
+         4e42dceae54e ("ANDROID: power: wakeup_reason: Adds functionality to log the last suspend abort reason.")
+         f21313b70ac7 ("ANDROID: power: wakeup_reason: Report suspend times from last_suspend_time")
+         f97ec34442ac ("ANDROID: power: wakeup_reason: fix suspend time reporting")
+         cd92df73e504 ("ANDROID: power: wakeup: Add last wake up source logging for suspend abort reason.")
+         546b6ae3c087 ("ANDROID: power: wakeup: Add the guard condition for len in pm_get_active_wakeup_sources")
+         1453d9ffcdbe ("ANDROID: power: wakeup_reason: make logging work in an interrupt context.")]
 Change-Id: I81addaf420f1338255c5d0638b0d244a99d777d1
-Signed-off-by: Alistair Strachan <astrachan@google.com>
+Signed-off-by: Alistair Delva <adelva@google.com>
 ---
  .../ABI/testing/sysfs-kernel-wakeup_reasons   |  16 ++
  drivers/base/power/main.c                     |   5 +

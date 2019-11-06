@@ -13,10 +13,10 @@ Bug: 127641090
 Test: Read /proc/<pid>/time_in_state
 Change-Id: Ia6456754f4cb1e83b2bc35efa8fbe9f8696febc8
 Signed-off-by: Connor O'Brien <connoro@google.com>
-[astrachan: Folded the following changes into this patch:
-            a6d3de6a7fba ("ANDROID: Reduce use of #ifdef CONFIG_CPU_FREQ_TIMES")
-            b89ada5d9c09 ("ANDROID: Fix massive cpufreq_times memory leaks")]
-Signed-off-by: Alistair Strachan <astrachan@google.com>
+[adelva: Folded the following changes into this patch:
+         a6d3de6a7fba ("ANDROID: Reduce use of #ifdef CONFIG_CPU_FREQ_TIMES")
+         b89ada5d9c09 ("ANDROID: Fix massive cpufreq_times memory leaks")]
+Signed-off-by: Alistair Delva <adelva@google.com>
 ---
  drivers/cpufreq/Kconfig         |   7 ++
  drivers/cpufreq/Makefile        |   5 +-

@@ -1,11 +1,11 @@
 From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
-From: Alistair Strachan <astrachan@google.com>
+From: Alistair Delva <adelva@google.com>
 Date: Fri, 26 Oct 2018 10:02:08 -0700
 Subject: ANDROID: {cuttlefish,gki}_defconfig: Enable CONFIG_SDCARD_FS
 
 Bug: 118439987
 Change-Id: I020ec721d98c5612bfe76dcfc05caabb1f3588c1
-Signed-off-by: Alistair Strachan <astrachan@google.com>
+Signed-off-by: Alistair Delva <adelva@google.com>
 ---
  arch/arm64/configs/gki_defconfig | 1 +
  arch/x86/configs/gki_defconfig   | 1 +

@@ -24,11 +24,11 @@ Bug: 35142419
 Change-Id: If6e14f0b3bdc858a9f684e6c209927a9232091f0
 Signed-off-by: Daniel Rosenberg <drosen@google.com>
 Signed-off-by: Guenter Roeck <groeck@chromium.org>
-[astrachan: Folded the following changes into this patch:
-            e19f69662df5 ("ANDROID: Revert "fs: unexport vfs_read and vfs_write"")
-            17071a8e1e7d ("ANDROID: fs: Export free_fs_struct and set_fs_pwd")
-            2e9a639597cd ("ANDROID: export security_path_chown")]
-Signed-off-by: Alistair Strachan <astrachan@google.com>
+[adelva: Folded the following changes into this patch:
+         e19f69662df5 ("ANDROID: Revert "fs: unexport vfs_read and vfs_write"")
+         17071a8e1e7d ("ANDROID: fs: Export free_fs_struct and set_fs_pwd")
+         2e9a639597cd ("ANDROID: export security_path_chown")]
+Signed-off-by: Alistair Delva <adelva@google.com>
 Signed-off-by: Yongqin Liu <yongqin.liu@linaro.org>
 ---
  fs/fs_struct.c      | 3 +++

@@ -15,9 +15,9 @@ Signed-off-by: Jin Qian <jinqian@google.com>
 Signed-off-by: Amit Pundir <amit.pundir@linaro.org>
 [tkjos: Needed for storaged fsync accounting ("storaged --uid" and
         "storaged --task").]
-[astrachan: This is modifying a userspace interface and should probably
+[adelva: This is modifying a userspace interface and should probably
             be reworked]
-Signed-off-by: Alistair Strachan <astrachan@google.com>
+Signed-off-by: Alistair Delva <adelva@google.com>
 ---
  drivers/misc/Kconfig                   | 2 +-
  drivers/misc/uid_sys_stats.c           | 2 ++

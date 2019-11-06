@@ -22,9 +22,9 @@ Test: HiKey/X15 + Pie + android-mainline,
 Bug: 70706497
 Change-Id: I09563baffad1711a045e45c1bd0bd8713c2cc0b6
 Signed-off-by: Daniel Rosenberg <drosen@google.com>
-[astrachan: Folded 34df4102216e ("ANDROID: fsnotify: Notify lower fs of
-            open") into this patch]
-Signed-off-by: Alistair Strachan <astrachan@google.com>
+[adelva: Folded 34df4102216e ("ANDROID: fsnotify: Notify lower fs of open")
+         into this patch]
+Signed-off-by: Alistair Delva <adelva@google.com>
 Signed-off-by: Yongqin Liu <yongqin.liu@linaro.org>
 ---
  fs/notify/inotify/inotify_user.c | 15 +++++++++++++--

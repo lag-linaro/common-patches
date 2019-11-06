@@ -23,15 +23,15 @@ Signed-off-by: Jin Qian <jinqian@google.com>
         453ac31cab34 ("ANDROID: proc: uid_cputime: fix show_uid_stat permission")]
 Signed-off-by: Amit Pundir <amit.pundir@linaro.org>
 [connoro: Used by batterystats.]
-[astrachan: Folded in the file/kconfig rename and the following changes:
-            da3687fbc393 ("ANDROID: uid_cputime: fix cputime overflow")
-            71e3eb512d00 ("ANDROID: uid_cputime: Iterates over all the threads instead of processes.")
-            c65f0080c300 ("ANDROID: uid_cputime: Check for the range while removing range of UIDs.")
-            c8212458e3a5 ("ANDROID: uid_sys_stats: fix access of task_uid(task)")
-            bb5ee21cc4dd ("ANDROID: uid_sys_stats: change to use rt_mutex")
-            6dc5d8173a8c ("ANDROID: uid_sys_stats: check previous uid_entry before call find_or_register_uid")
-            82b9872b3894 ("ANDROID: uid_sys_stats: Replace tasklist lock with RCU in uid_cputime_show")]
-Signed-off-by: Alistair Strachan <astrachan@google.com>
+[adelva: Folded in the file/kconfig rename and the following changes:
+         da3687fbc393 ("ANDROID: uid_cputime: fix cputime overflow")
+         71e3eb512d00 ("ANDROID: uid_cputime: Iterates over all the threads instead of processes.")
+         c65f0080c300 ("ANDROID: uid_cputime: Check for the range while removing range of UIDs.")
+         c8212458e3a5 ("ANDROID: uid_sys_stats: fix access of task_uid(task)")
+         bb5ee21cc4dd ("ANDROID: uid_sys_stats: change to use rt_mutex")
+         6dc5d8173a8c ("ANDROID: uid_sys_stats: check previous uid_entry before call find_or_register_uid")
+         82b9872b3894 ("ANDROID: uid_sys_stats: Replace tasklist lock with RCU in uid_cputime_show")]
+Signed-off-by: Alistair Delva <adelva@google.com>
 ---
  drivers/misc/Kconfig         |   6 +
  drivers/misc/Makefile        |   1 +

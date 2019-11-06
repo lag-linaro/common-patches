@@ -1,5 +1,5 @@
 From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
-From: Alistair Strachan <astrachan@google.com>
+From: Alistair Delva <adelva@google.com>
 Date: Mon, 19 Nov 2018 22:38:23 -0800
 Subject: ANDROID: fs: Restore vfs_path_lookup() export
 
@@ -14,7 +14,7 @@ Test: HiKey/X15 + Pie + android-mainline,
       CTS test collecting device infor works
 
 Change-Id: I757f2df9f4dcc66f633939e7833e6fa2ac0ff4f8
-Signed-off-by: Alistair Strachan <astrachan@google.com>
+Signed-off-by: Alistair Delva <adelva@google.com>
 Signed-off-by: Yongqin Liu <yongqin.liu@linaro.org>
 ---
  fs/internal.h         | 2 --

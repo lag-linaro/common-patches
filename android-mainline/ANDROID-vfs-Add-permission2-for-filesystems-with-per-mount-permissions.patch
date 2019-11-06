@@ -28,10 +28,10 @@ Signed-off-by: Daniel Rosenberg <drosen@google.com>
         minor refactoring there as well.
         066cc813e94a ("do_mq_open(): move all work prior to dentry_open() into a helper")]
 Signed-off-by: Amit Pundir <amit.pundir@linaro.org>
-[astrachan: Folded the following changes into this patch:
-            f46c9d62dd81 ("ANDROID: fs: Export vfs_rmdir2")
-            9992eb8b9a1e ("ANDROID: xattr: Pass EOPNOTSUPP to permission2")]
-Signed-off-by: Alistair Strachan <astrachan@google.com>
+[adelva: Folded the following changes into this patch:
+         f46c9d62dd81 ("ANDROID: fs: Export vfs_rmdir2")
+         9992eb8b9a1e ("ANDROID: xattr: Pass EOPNOTSUPP to permission2")]
+Signed-off-by: Alistair Delva <adelva@google.com>
 Signed-off-by: Yongqin Liu <yongqin.liu@linaro.org>
 ---
  fs/attr.c                          |   2 +-

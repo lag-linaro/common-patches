@@ -17,9 +17,9 @@ Bug: 31622239
 Bug: 120445368
 Test: Manually tested (other arch).
 Signed-off-by: David Zeuthen <zeuthen@google.com>
-[astrachan: re-diffed against a kernel without dm-android-verity]
+[adelva: re-diffed against a kernel without dm-android-verity]
 Change-Id: I571b5a75461da38ad832a9bea33c298bef859e26
-Signed-off-by: Alistair Strachan <astrachan@google.com>
+Signed-off-by: Alistair Delva <adelva@google.com>
 ---
  drivers/md/Kconfig            |  11 ++
  drivers/md/Makefile           |   4 +

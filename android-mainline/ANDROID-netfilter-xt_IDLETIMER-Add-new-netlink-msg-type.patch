@@ -18,12 +18,12 @@ Bug: 120445672
 Change-Id: I31677ef00c94b5f82c8457e5bf9e5e584c23c523
 Signed-off-by: Ashish Sharma <ashishsharma@google.com>
 Signed-off-by: JP Abgrall <jpa@google.com>
-[astrachan: Folded the following changes into this patch:
-            ee0b238fada5 ("netfilter: xt_IDLETIMER: time-stamp and suspend/resume handling.")
-            728c058a495e ("netfilter: xt_IDLETIMER: Adds the uid field in the msg")
-            5ebea489d44c ("netfilter: xt_IDLETIMER: Fix use after free condition during work")
-            5ab69d7ba2c5 ("netfilter: xt_IDLETIMER: Use fullsock when querying uid")]
-Signed-off-by: Alistair Strachan <astrachan@google.com>
+[adelva: Folded the following changes into this patch:
+         ee0b238fada5 ("netfilter: xt_IDLETIMER: time-stamp and suspend/resume handling.")
+         728c058a495e ("netfilter: xt_IDLETIMER: Adds the uid field in the msg")
+         5ebea489d44c ("netfilter: xt_IDLETIMER: Fix use after free condition during work")
+         5ab69d7ba2c5 ("netfilter: xt_IDLETIMER: Use fullsock when querying uid")]
+Signed-off-by: Alistair Delva <adelva@google.com>
 ---
  include/uapi/linux/netfilter/xt_IDLETIMER.h |   8 +
  net/netfilter/xt_IDLETIMER.c                | 251 +++++++++++++++++++-
