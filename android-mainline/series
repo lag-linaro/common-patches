@@ -117,7 +117,6 @@ ANDROID-update-gki_defconfig.patch
 ANDROID-update-arm64-gki_defconfig.patch
 ANDROID-GKI-export-cma-symbols-for-cma-heap-as-a-module.patch
 ANDROID-staging-ion-make-cma-heap-a-module.patch
-ANDROID-usb-gadget-Fix-dependency-for-f_accessory.patch
 ANDROID-update-gki_defconfig-2.patch
 ANDROID-sched-fair-EAS-Add-uclamp-support-to-find_energy_efficient_cpu.patch
 ANDROID-sched-Unconditionally-honor-sync-flag-for-energy-aware-wakeups.patch

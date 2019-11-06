@@ -32,7 +32,7 @@ Signed-off-by: Alistair Strachan <astrachan@google.com>
  create mode 100644 drivers/usb/gadget/function/f_audio_source.c
 
 diff --git a/drivers/usb/gadget/Kconfig b/drivers/usb/gadget/Kconfig
-index 7749fb1decb0..920ff2d2c557 100644
+index babd5e5843ad..bcd7f83c9ba0 100644
 --- a/drivers/usb/gadget/Kconfig
 +++ b/drivers/usb/gadget/Kconfig
 @@ -219,6 +219,9 @@ config USB_F_TCM
@@ -45,7 +45,7 @@ index 7749fb1decb0..920ff2d2c557 100644
  # this first set of drivers all depend on bulk-capable hardware.
  
  config USB_CONFIGFS
-@@ -387,6 +390,15 @@ config USB_CONFIGFS_F_ACC
+@@ -388,6 +391,15 @@ config USB_CONFIGFS_F_ACC
  	help
  	  USB gadget Accessory support
  
