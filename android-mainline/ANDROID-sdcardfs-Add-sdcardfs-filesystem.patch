@@ -50,114 +50,117 @@ Bug: 111642636
 Bug: 111860541
 Change-Id: Ic1e01e602ce335d97342be54f3da0c5c65c087cc
 Signed-off-by: Daniel Rosenberg <drosen@google.com>
-[astrachan: Folded the following changes into this patch:
-            903cea7ab0b2 ("ANDROID: Included sdcardfs source code for kernel 3.0")
-            612a725e3d97 ("ANDROID: Port of sdcardfs to 4.4")
-            e4187c55208b ("ANDROID: Changed type-casting in packagelist management")
-            cf76072a5cd8 ("ANDROID: sdcardfs: Bring up to date with Android M permissions:")
-            a43aa502c608 ("ANDROID: sdcardfs: Add support for d_canonical_path")
-            d8fefbf85af2 ("ANDROID: sdcardfs: remove effectless config option")
-            416677409336 ("ANDROID: sdcardfs: Remove unused code")
-            8e49a570d351 ("ANDROID: sdcardfs: remove unneeded __init and __exit")
-            40ee0e93f1d7 ("ANDROID: sdcardfs: Truncate packages_gid.list on overflow")
-            b1d9602aa3fe ("ANDROID: sdcardfs: fix itnull.cocci warnings")
-            60a177f5a167 ("ANDROID: sdcardfs: override umask on mkdir and create")
-            efb3d2695203 ("ANDROID: sdcardfs: Check for other cases on path lookup")
-            0da87f63666f ("ANDROID: sdcardfs: Fix locking for permission fix up")
-            75b93060655e ("ANDROID: sdcardfs: Switch package list to RCU")
-            657b0a00f497 ("ANDROID: sdcardfs: Added top to sdcardfs_inode_info")
-            5008d91cba25 ("ANDROID: sdcardfs: fix external storage exporting incorrect uid")
-            e06c452d0d07 ("ANDROID: sdcardfs: Move directory unlock before touch")
-            72e5443a2816 ("ANDROID: sdcardfs: User new permission2 functions")
-            ae8be7da556d ("ANDROID: sdcardfs: Add gid and mask to private mount data")
-            151a3efe57a6 ("ANDROID: sdcardfs: Use per mount permissions")
-            cff865a370f3 ("ANDROID: sdcardfs: Switch ->d_inode to d_inode()")
-            065ac66804bf ("ANDROID: sdcardfs: Fix locking issue with permision fix up")
-            31ea603eb3c4 ("ANDROID: sdcardfs: use wrappers to access i_mutex")
-            c25c2f5018a2 ("ANDROID: sdcardfs: add parent pointer into dentry name hash")
-            58616bb4ec68 ("ANDROID: sdcardfs: get rid of 'parent' argument of ->d_compare()")
-            1654d7ffdd20 ("ANDROID: sdcardfs: Propagate dentry down to inode_change_ok()")
-            39335cac1d2f ("ANDROID: sdcardfs: make it use new .rename i_op")
-            7622bb3fcc79 ("ANDROID: sdcardfs: eliminate the offset argument to ->direct_IO")
-            843bd7295ee0 ("ANDROID: sdcardfs: Allow non-owners to touch")
-            e3d74804d174 ("ANDROID: sdcardfs: Refactor configfs interface")
-            5833eda87a72 ("ANDROID: sdcardfs: add support for user permission isolation")
-            d83fb1f41dd4 ("ANDROID: sdcardfs: Remove redundant operation")
-            8767af17c0e5 ("ANDROID: sdcardfs: Add GID Derivation to sdcardfs")
-            7119d96ad3ee ("ANDROID: sdcardfs: switch to full_name_hash and qstr")
-            778e02a54859 ("ANDROID: sdcardfs: Switch strcasecmp for internal call")
-            cd4965d04404 ("ANDROID: sdcardfs: Fix incorrect hash")
-            40a2ee053505 ("ANDROID: sdcardfs: Add missing path_put")
-            da5342bac57a ("ANDROID: sdcardfs: Don't bother deleting freelist")
-            c91857b01e05 ("ANDROID: sdcardfs: implement vm_ops->page_mkwrite")
-            f62b3906044b ("ANDROID: sdcardfs: support direct-IO (DIO) operations")
-            c2e216d36d63 ("ANDROID: sdcardfs: Fix case insensitive lookup")
-            57b92ab6f774 ("ANDROID: sdcardfs: rate limit warning print")
-            8534cee39a81 ("ANDROID: sdcardfs: Replace get/put with d_lock")
-            156085b2fccf ("ANDROID: sdcardfs: Use spin_lock_nested")
-            8a260cabac4e ("ANDROID: sdcardfs: Switch to internal case insensitive compare")
-            a8d51569573c ("ANDROID: sdcardfs: Use d_invalidate instead of drop_recurisve")
-            932a6071de63 ("ANDROID: sdcardfs: Get the blocksize from the lower fs")
-            0ad4c0f87527 ("ANDROID: sdcardfs: declare MODULE_ALIAS_FS")
-            b97c83b5b683 ("ANDROID: sdcardfs: Use case insensitive hash function")
-            9920dfb08265 ("ANDROID: sdcardfs: move path_put outside of spinlock")
-            f9a25348b233 ("ANDROID: sdcardfs: Remove uninformative prints")
-            720d9030bea1 ("ANDROID: sdcardfs: Fix gid issue")
-            4cbb7fa6e66c ("ANDROID: sdcardfs: correct order of descriptors")
-            6cff6cc301ed ("ANDROID: sdcardfs: Fix formatting")
-            ac2a40412e26 ("ANDROID: sdcardfs: Fix style issues with comments")
-            2212bb8ec064 ("ANDROID: sdcardfs: remove unneeded null check")
-            4c1a0add8d21 ("ANDROID: sdcardfs: Use pr_[...] instead of printk")
-            74535fe211ac ("ANDROID: sdcardfs: Use to kstrout")
-            e6cf8dffd014 ("ANDROID: sdcardfs: Use seq_puts over seq_printf")
-            2b1ac93a90b6 ("ANDROID: sdcardfs: Fix style issues in macros")
-            bab6d117426f ("ANDROID: sdcardfs: remove unnecessary call to do_munmap")
-            1c0bf09f19b6 ("ANDROID: sdcardfs: copy lower inode attributes in ->ioctl")
-            42f3db55942b ("ANDROID: sdcardfs: fix ->llseek to update upper and lower offset")
-            97ad6205055e ("ANDROID: sdcardfs: add read_iter/write_iter opeations")
-            be9abc81332b ("ANDROID: sdcardfs: use d_splice_alias")
-            4e90114cb1b4 ("ANDROID: sdcardfs: update module info")
-            0e1f7ab14924 ("ANDROID: sdcardfs: Directly pass lower file for mmap")
-            28be4beb43f9 ("ANDROID: sdcardfs: Change cache GID value")
-            9fc2c452aefe ("ANDROID: sdcardfs: ->iget fixes")
-            9bb72cf15cbc ("ANDROID: sdcardfs: Don't do d_add for lower fs")
-            1bc21a04c11b ("ANDROID: sdcardfs: Don't complain in fixup_lower_ownership")
-            0fb5b10b28a9 ("ANDROID: sdcardfs: Use filesystem specific hash")
-            30e2f0aadce2 ("ANDROID: sdcardfs: Copy meta-data from lower inode")
-            f748c7053194 ("ANDROID: sdcardfs: Avoid setting GIDs outside of valid ranges")
-            3d38f08bacdb ("ANDROID: sdcardfs: Call lower fs's revalidate")
-            2d1f1c203978 ("ANDROID: sdcardfs: Don't iput if we didn't igrab")
-            857fc5e717fc ("ANDROID: sdcardfs: fix sdcardfs_destroy_inode for the inode RCU approach")
-            4fceeccf1d23 ("ANDROID: sdcardfs: Move top to its own struct")
-            f51470044a15 ("ANDROID: sdcardfs: Check for NULL in revalidate")
-            8c7f6c97ac81 ("ANDROID: sdcardfs: d_splice_alias can return error values")
-            17da01b37d61 ("ANDROID: sdcardfs: remove dead function open_flags_to_access_mode()")
-            16662dd604be ("ANDROID: sdcardfs: use mount_nodev and fix a issue in sdcardfs_kill_sb")
-            43c0dca6039a ("ANDROID: sdcardfs: Remove unnecessary lock")
-            48960c25cdc1 ("ANDROID: sdcardfs: override credential for ioctl to lower fs")
-            5d6410b9a88d ("ANDROID: Sdcardfs: Move gid derivation under flag")
-            c7dd98431f83 ("ANDROID: sdcardfs: Add default_normal option")
-            db9bf31a5d86 ("ANDROID: sdcardfs: port to 4.14")
-            c70c9d1e82d2 ("ANDROID: sdcardfs: Use lower getattr times/size")
-            04e961477d62 ("ANDROID: sdcardfs: Protect set_top")
-            1ed04b79d281 ("ANDROID: sdcardfs: Hold i_mutex for i_size_write")
-            77f52fc10982 ("ANDROID: sdcardfs: Set num in extension_details during make_item")
-            d71596efa247 ("ANDROID: sdcardfs: fix lock issue on 32 bit/SMP architectures")
-            ee6b07fced4a ("ANDROID: sdcardfs: Fix sdcardfs to stop creating cases-sensitive duplicate entries.")
-            ce12807d5b75 ("ANDROID: sdcardfs: Check for private data earlier")
-            c080450304cd ("ANDROID: sdcardfs: d_make_root calls iput")
-            900e77796781 ("ANDROID: sdcardfs: Set s_root to NULL after putting")
-            49092e89ffa4 ("ANDROID: sdcardfs: Don't d_drop in d_revalidate")
-            e1f978bc9b9c ("ANDROID: sdcardfs: fix potential crash when reserved_mb is not zero")
-            faa148eaf8ed ("ANDROID: sdcardfs: Check stacked filesystem depth")
-            6edd721e972c ("ANDROID: sdcardfs: Don't use OVERRIDE_CRED macro")
-            11ca578b4336 ("ANDROID: sdcardfs: Change current->fs under lock")
-            83dea6ba6ea7 ("ANDROID: sdcardfs: Use inode iversion helpers")
-            12064f3a794e ("ANDROID: sdcardfs: Add option to drop unused dentries")
-            d9fe221bbf84 ("ANDROID: sdcardfs: Add sandbox")
-            f544ad0b1547 ("ANDROID: sdcardfs: Add option to not link obb")]
-Signed-off-by: Alistair Strachan <astrachan@google.com>
+[adelva: Folded the following changes into this patch:
+         903cea7ab0b2 ("ANDROID: Included sdcardfs source code for kernel 3.0")
+         612a725e3d97 ("ANDROID: Port of sdcardfs to 4.4")
+         e4187c55208b ("ANDROID: Changed type-casting in packagelist management")
+         cf76072a5cd8 ("ANDROID: sdcardfs: Bring up to date with Android M permissions:")
+         a43aa502c608 ("ANDROID: sdcardfs: Add support for d_canonical_path")
+         d8fefbf85af2 ("ANDROID: sdcardfs: remove effectless config option")
+         416677409336 ("ANDROID: sdcardfs: Remove unused code")
+         8e49a570d351 ("ANDROID: sdcardfs: remove unneeded __init and __exit")
+         40ee0e93f1d7 ("ANDROID: sdcardfs: Truncate packages_gid.list on overflow")
+         b1d9602aa3fe ("ANDROID: sdcardfs: fix itnull.cocci warnings")
+         60a177f5a167 ("ANDROID: sdcardfs: override umask on mkdir and create")
+         efb3d2695203 ("ANDROID: sdcardfs: Check for other cases on path lookup")
+         0da87f63666f ("ANDROID: sdcardfs: Fix locking for permission fix up")
+         75b93060655e ("ANDROID: sdcardfs: Switch package list to RCU")
+         657b0a00f497 ("ANDROID: sdcardfs: Added top to sdcardfs_inode_info")
+         5008d91cba25 ("ANDROID: sdcardfs: fix external storage exporting incorrect uid")
+         e06c452d0d07 ("ANDROID: sdcardfs: Move directory unlock before touch")
+         72e5443a2816 ("ANDROID: sdcardfs: User new permission2 functions")
+         ae8be7da556d ("ANDROID: sdcardfs: Add gid and mask to private mount data")
+         151a3efe57a6 ("ANDROID: sdcardfs: Use per mount permissions")
+         cff865a370f3 ("ANDROID: sdcardfs: Switch ->d_inode to d_inode()")
+         065ac66804bf ("ANDROID: sdcardfs: Fix locking issue with permision fix up")
+         31ea603eb3c4 ("ANDROID: sdcardfs: use wrappers to access i_mutex")
+         c25c2f5018a2 ("ANDROID: sdcardfs: add parent pointer into dentry name hash")
+         58616bb4ec68 ("ANDROID: sdcardfs: get rid of 'parent' argument of ->d_compare()")
+         1654d7ffdd20 ("ANDROID: sdcardfs: Propagate dentry down to inode_change_ok()")
+         39335cac1d2f ("ANDROID: sdcardfs: make it use new .rename i_op")
+         7622bb3fcc79 ("ANDROID: sdcardfs: eliminate the offset argument to ->direct_IO")
+         843bd7295ee0 ("ANDROID: sdcardfs: Allow non-owners to touch")
+         e3d74804d174 ("ANDROID: sdcardfs: Refactor configfs interface")
+         5833eda87a72 ("ANDROID: sdcardfs: add support for user permission isolation")
+         d83fb1f41dd4 ("ANDROID: sdcardfs: Remove redundant operation")
+         8767af17c0e5 ("ANDROID: sdcardfs: Add GID Derivation to sdcardfs")
+         7119d96ad3ee ("ANDROID: sdcardfs: switch to full_name_hash and qstr")
+         778e02a54859 ("ANDROID: sdcardfs: Switch strcasecmp for internal call")
+         cd4965d04404 ("ANDROID: sdcardfs: Fix incorrect hash")
+         40a2ee053505 ("ANDROID: sdcardfs: Add missing path_put")
+         da5342bac57a ("ANDROID: sdcardfs: Don't bother deleting freelist")
+         c91857b01e05 ("ANDROID: sdcardfs: implement vm_ops->page_mkwrite")
+         f62b3906044b ("ANDROID: sdcardfs: support direct-IO (DIO) operations")
+         c2e216d36d63 ("ANDROID: sdcardfs: Fix case insensitive lookup")
+         57b92ab6f774 ("ANDROID: sdcardfs: rate limit warning print")
+         8534cee39a81 ("ANDROID: sdcardfs: Replace get/put with d_lock")
+         156085b2fccf ("ANDROID: sdcardfs: Use spin_lock_nested")
+         8a260cabac4e ("ANDROID: sdcardfs: Switch to internal case insensitive compare")
+         a8d51569573c ("ANDROID: sdcardfs: Use d_invalidate instead of drop_recurisve")
+         932a6071de63 ("ANDROID: sdcardfs: Get the blocksize from the lower fs")
+         0ad4c0f87527 ("ANDROID: sdcardfs: declare MODULE_ALIAS_FS")
+         b97c83b5b683 ("ANDROID: sdcardfs: Use case insensitive hash function")
+         9920dfb08265 ("ANDROID: sdcardfs: move path_put outside of spinlock")
+         f9a25348b233 ("ANDROID: sdcardfs: Remove uninformative prints")
+         720d9030bea1 ("ANDROID: sdcardfs: Fix gid issue")
+         4cbb7fa6e66c ("ANDROID: sdcardfs: correct order of descriptors")
+         6cff6cc301ed ("ANDROID: sdcardfs: Fix formatting")
+         ac2a40412e26 ("ANDROID: sdcardfs: Fix style issues with comments")
+         2212bb8ec064 ("ANDROID: sdcardfs: remove unneeded null check")
+         4c1a0add8d21 ("ANDROID: sdcardfs: Use pr_[...] instead of printk")
+         74535fe211ac ("ANDROID: sdcardfs: Use to kstrout")
+         e6cf8dffd014 ("ANDROID: sdcardfs: Use seq_puts over seq_printf")
+         2b1ac93a90b6 ("ANDROID: sdcardfs: Fix style issues in macros")
+         bab6d117426f ("ANDROID: sdcardfs: remove unnecessary call to do_munmap")
+         1c0bf09f19b6 ("ANDROID: sdcardfs: copy lower inode attributes in ->ioctl")
+         42f3db55942b ("ANDROID: sdcardfs: fix ->llseek to update upper and lower offset")
+         97ad6205055e ("ANDROID: sdcardfs: add read_iter/write_iter opeations")
+         be9abc81332b ("ANDROID: sdcardfs: use d_splice_alias")
+         4e90114cb1b4 ("ANDROID: sdcardfs: update module info")
+         0e1f7ab14924 ("ANDROID: sdcardfs: Directly pass lower file for mmap")
+         28be4beb43f9 ("ANDROID: sdcardfs: Change cache GID value")
+         9fc2c452aefe ("ANDROID: sdcardfs: ->iget fixes")
+         9bb72cf15cbc ("ANDROID: sdcardfs: Don't do d_add for lower fs")
+         1bc21a04c11b ("ANDROID: sdcardfs: Don't complain in fixup_lower_ownership")
+         0fb5b10b28a9 ("ANDROID: sdcardfs: Use filesystem specific hash")
+         30e2f0aadce2 ("ANDROID: sdcardfs: Copy meta-data from lower inode")
+         f748c7053194 ("ANDROID: sdcardfs: Avoid setting GIDs outside of valid ranges")
+         3d38f08bacdb ("ANDROID: sdcardfs: Call lower fs's revalidate")
+         2d1f1c203978 ("ANDROID: sdcardfs: Don't iput if we didn't igrab")
+         857fc5e717fc ("ANDROID: sdcardfs: fix sdcardfs_destroy_inode for the inode RCU approach")
+         4fceeccf1d23 ("ANDROID: sdcardfs: Move top to its own struct")
+         f51470044a15 ("ANDROID: sdcardfs: Check for NULL in revalidate")
+         8c7f6c97ac81 ("ANDROID: sdcardfs: d_splice_alias can return error values")
+         17da01b37d61 ("ANDROID: sdcardfs: remove dead function open_flags_to_access_mode()")
+         16662dd604be ("ANDROID: sdcardfs: use mount_nodev and fix a issue in sdcardfs_kill_sb")
+         43c0dca6039a ("ANDROID: sdcardfs: Remove unnecessary lock")
+         48960c25cdc1 ("ANDROID: sdcardfs: override credential for ioctl to lower fs")
+         5d6410b9a88d ("ANDROID: Sdcardfs: Move gid derivation under flag")
+         c7dd98431f83 ("ANDROID: sdcardfs: Add default_normal option")
+         db9bf31a5d86 ("ANDROID: sdcardfs: port to 4.14")
+         c70c9d1e82d2 ("ANDROID: sdcardfs: Use lower getattr times/size")
+         04e961477d62 ("ANDROID: sdcardfs: Protect set_top")
+         1ed04b79d281 ("ANDROID: sdcardfs: Hold i_mutex for i_size_write")
+         77f52fc10982 ("ANDROID: sdcardfs: Set num in extension_details during make_item")
+         d71596efa247 ("ANDROID: sdcardfs: fix lock issue on 32 bit/SMP architectures")
+         ee6b07fced4a ("ANDROID: sdcardfs: Fix sdcardfs to stop creating cases-sensitive duplicate entries.")
+         ce12807d5b75 ("ANDROID: sdcardfs: Check for private data earlier")
+         c080450304cd ("ANDROID: sdcardfs: d_make_root calls iput")
+         900e77796781 ("ANDROID: sdcardfs: Set s_root to NULL after putting")
+         49092e89ffa4 ("ANDROID: sdcardfs: Don't d_drop in d_revalidate")
+         e1f978bc9b9c ("ANDROID: sdcardfs: fix potential crash when reserved_mb is not zero")
+         faa148eaf8ed ("ANDROID: sdcardfs: Check stacked filesystem depth")
+         6edd721e972c ("ANDROID: sdcardfs: Don't use OVERRIDE_CRED macro")
+         11ca578b4336 ("ANDROID: sdcardfs: Change current->fs under lock")
+         83dea6ba6ea7 ("ANDROID: sdcardfs: Use inode iversion helpers")
+         12064f3a794e ("ANDROID: sdcardfs: Add option to drop unused dentries")
+         d9fe221bbf84 ("ANDROID: sdcardfs: Add sandbox")
+         f544ad0b1547 ("ANDROID: sdcardfs: Add option to not link obb")]
+Signed-off-by: Alistair Delva <adelva@google.com>
 [drosen: folded in  e6e368c99975 ("fs: sdcardfs: Add missing option to show_options")]
+[maennich: Folded the following patch into this patch:
+           2a8322aa8a90 ("ANDROID: sdcardfs: fix fall through in param parsing")]
+Signed-off-by: Matthias Maennich <maennich@google.com>
 ---
  fs/Kconfig                 |   1 +
  fs/Makefile                |   1 +
@@ -168,13 +171,13 @@ Signed-off-by: Alistair Strachan <astrachan@google.com>
  fs/sdcardfs/file.c         | 467 ++++++++++++++++++++
  fs/sdcardfs/inode.c        | 821 ++++++++++++++++++++++++++++++++++
  fs/sdcardfs/lookup.c       | 470 ++++++++++++++++++++
- fs/sdcardfs/main.c         | 454 +++++++++++++++++++
+ fs/sdcardfs/main.c         | 455 +++++++++++++++++++
  fs/sdcardfs/mmap.c         |  87 ++++
  fs/sdcardfs/multiuser.h    |  53 +++
  fs/sdcardfs/packagelist.c  | 882 +++++++++++++++++++++++++++++++++++++
  fs/sdcardfs/sdcardfs.h     | 662 ++++++++++++++++++++++++++++
  fs/sdcardfs/super.c        | 297 +++++++++++++
- 15 files changed, 4888 insertions(+)
+ 15 files changed, 4889 insertions(+)
  create mode 100644 fs/sdcardfs/Kconfig
  create mode 100644 fs/sdcardfs/Makefile
  create mode 100644 fs/sdcardfs/dentry.c
@@ -2708,10 +2711,10 @@ index 000000000000..a5c9686090e0
 +}
 diff --git a/fs/sdcardfs/main.c b/fs/sdcardfs/main.c
 new file mode 100644
-index 000000000000..b8e5cf2b9ae5
+index 000000000000..818122410bfe
 --- /dev/null
 +++ b/fs/sdcardfs/main.c
-@@ -0,0 +1,454 @@
+@@ -0,0 +1,455 @@
 +/*
 + * fs/sdcardfs/main.c
 + *
@@ -2791,6 +2794,7 @@ index 000000000000..b8e5cf2b9ae5
 +	switch (opt) {
 +	case Opt_debug:
 +		opts->debug = true;
++		break;
 +	case Opt_fsuid:
 +		opts->fs_low_uid = result.uint_32;
 +		break;

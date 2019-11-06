@@ -80,7 +80,6 @@ ANDROID-gki_defconfig-enable-CONFIG_TIPC.patch
 ANDROID-gki_defconfig-set-CONFIG_NR_CPUS-32.patch
 ANDROID-Revert-um-irq-don-t-set-the-chip-for-all-irqs.patch
 ANDROID-Revert-um-remove-uses-of-variable-length-arrays.patch
-ANDROID-sdcardfs-fix-fall-through-in-param-parsing.patch
 ANDROID-gki_defconfig-Minimally-enable-EFI.patch
 ANDROID-gki_defconfig-enable-CONFIG_SPARSEMEM_VMEMMAP.patch
 ANDROID-gki_defconfig-enable-CONFIG_QCOM_-COMMAND_DB-RPMH-PDC.patch
