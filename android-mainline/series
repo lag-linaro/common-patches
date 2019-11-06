@@ -2,7 +2,7 @@
 # android-mainline patches
 #
 # Applies onto mainline a99d8080aaf3 Linux v5.4-rc6
-# Matches android-mainline c5634733fa58 ("FROMGIT: of: property: Skip adding device links to suppliers that aren't devices")
+# Matches android-mainline 0ee40e0e58eb ("FROMLIST: overlayfs: override_creds=off option bypass creator_cred")
 #
 ANDROID-Kbuild-LLVMLinux-allow-overriding-clang-target-triple.patch
 ANDROID-net-xfrm-make-PF_KEY-SHA256-use-RFC-compliant-truncation.patch
@@ -230,3 +230,8 @@ ANDROID-gki_defconfig-enable-CONFIG_KEYBOARD_GPIO.patch
 FROMGIT-scsi-core-allow-auto-suspend-override-by-low-level-driver.patch
 FROMGIT-scsi-ufs-override-auto-suspend-tunables-for-ufs.patch
 FROMGIT-of-property-Skip-adding-device-links-to-suppliers-that-aren-t-devices.patch
+FROMLIST-afs-xattr-use-scnprintf.patch
+FROMLIST-Add-flags-option-to-get-xattr-method-paired-to-__vfs_getxattr.patch
+FROMLIST-overlayfs-handle-XATTR_NOSECURITY-flag-for-get-xattr-method.patch
+FROMLIST-overlayfs-internal-getxattr-operations-without-sepolicy-checking.patch
+FROMLIST-overlayfs-override_creds-off-option-bypass-creator_cred.patch
