@@ -199,7 +199,6 @@ ANDROID-create-build.configs-for-allmodconfig.patch
 ANDROID-gki_defconfig-enable-CONFIG_CPU_FREQ_GOV_CONSERVATIVE.patch
 ANDROID-virtio-virtio_input-Set-the-amount-of-multitouch-slots-in-virtio-input.patch
 ANDROID-gki_defconfig-enable-CONFIG_CPUSETS.patch
-ANDROID-dummy_cpufreq-Implement-get.patch
 ANDROID-Revert-sched-Rework-pick_next_task-slow-path.patch
 ANDROID-media-increase-video-max-frame-number.patch
 FROMLIST-fscrypt-invoke-crypto-API-for-ESSIV-handling.patch

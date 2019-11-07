@@ -19,13 +19,16 @@ Bug: 140796321
 Bug: 141206930
 Change-Id: I8c7fe1007a80c21a9bcba9455bf837947cf42963
 Signed-off-by: Connor O'Brien <connoro@google.com>
+[maennich: Folded the following patch into this patch
+           50118fa88e6a ("ANDROID: dummy_cpufreq: Implement get()")]
+Signed-off-by: Matthias Maennich <maennich@google.com>
 ---
  arch/arm64/configs/gki_defconfig |  1 +
  arch/x86/configs/gki_defconfig   |  1 +
- drivers/cpufreq/Kconfig          |  9 ++++++
+ drivers/cpufreq/Kconfig          |  9 +++++
  drivers/cpufreq/Makefile         |  2 ++
- drivers/cpufreq/dummy-cpufreq.c  | 54 ++++++++++++++++++++++++++++++++
- 5 files changed, 67 insertions(+)
+ drivers/cpufreq/dummy-cpufreq.c  | 60 ++++++++++++++++++++++++++++++++
+ 5 files changed, 73 insertions(+)
  create mode 100644 drivers/cpufreq/dummy-cpufreq.c
 
 diff --git a/arch/arm64/configs/gki_defconfig b/arch/arm64/configs/gki_defconfig
@@ -87,10 +90,10 @@ index 93d52a112cab..33d6b64f9203 100644
  # Link order matters. K8 is preferred to ACPI because of firmware bugs in early
 diff --git a/drivers/cpufreq/dummy-cpufreq.c b/drivers/cpufreq/dummy-cpufreq.c
 new file mode 100644
-index 000000000000..914f3e39ca9b
+index 000000000000..ea40d5c7a9fa
 --- /dev/null
 +++ b/drivers/cpufreq/dummy-cpufreq.c
-@@ -0,0 +1,54 @@
+@@ -0,0 +1,60 @@
 +// SPDX-License-Identifier: GPL-2.0
 +/*
 + * Copyright (C) 2019 Google, Inc.
@@ -116,6 +119,11 @@ index 000000000000..914f3e39ca9b
 +	return 0;
 +}
 +
++static unsigned int dummy_cpufreq_get(unsigned int cpu)
++{
++	return 1;
++}
++
 +static int dummy_cpufreq_verify(struct cpufreq_policy *policy)
 +{
 +	return 0;
@@ -125,6 +133,7 @@ index 000000000000..914f3e39ca9b
 +	.name = "dummy",
 +	.target_index = dummy_cpufreq_target_index,
 +	.init = dummy_cpufreq_driver_init,
++	.get = dummy_cpufreq_get,
 +	.verify = dummy_cpufreq_verify,
 +	.attr = cpufreq_generic_attr,
 +};
