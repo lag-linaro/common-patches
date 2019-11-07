@@ -56,7 +56,6 @@ ANDROID-sdcardfs-Add-sdcardfs-filesystem.patch
 ANDROID-cuttlefish-gki-_defconfig-Enable-CONFIG_SDCARD_FS.patch
 ANDROID-xfrm-remove-in_compat_syscall-checks.patch
 ANDROID-Add-initial-rockpi4_defconfig.patch
-ANDROID-label-cuttlefish-modules-for-gki.patch
 ANDROID-staging-android-ion-Decouple-ION-page-pooling-from-ION-core.patch
 ANDROID-staging-android-ion-Expose-ion_alloc-to-kernel-space.patch
 ANDROID-dma-buf-Add-support-for-partial-cache-maintenance.patch
@@ -64,7 +63,6 @@ ANDROID-dma-buf-Add-support-for-mapping-buffers-with-DMA-attributes.patch
 ANDROID-dma-buf-Add-support-to-get-flags-associated-with-a-buffer.patch
 ANDROID-Removed-hardcoded-kernel-command-line-arguments.patch
 ANDROID-gki_defconfig-disable-IP_PNP-ECRYPT_FS.patch
-ANDROID-Removed-unnecessary-modules-from-cuttlefish.patch
 ANDROID-staging-ion-refactor-ion-s-buffer-manipulators-into-a-separate-file.patch
 ANDROID-staging-ion-refactor-ion-s-dmabuf-manipulators-into-a-separate-file.patch
 ANDROID-staging-ion-refactor-ion-s-heap-manipulators-into-a-separate-file.patch
@@ -72,7 +70,6 @@ ANDROID-staging-ion-Move-ion-heaps-into-their-own-directory.patch
 ANDROID-staging-ion-refactor-ion-s-heap-API-into-linux-ion.h.patch
 ANDROID-staging-ion-split-system-and-system-contig-heaps.patch
 ANDROID-staging-ion-make-system-and-contig-heaps-modular.patch
-ANDROID-gki_defconfig-enable-CONFIG_TIPC.patch
 ANDROID-gki_defconfig-set-CONFIG_NR_CPUS-32.patch
 ANDROID-Revert-um-irq-don-t-set-the-chip-for-all-irqs.patch
 ANDROID-Revert-um-remove-uses-of-variable-length-arrays.patch

@@ -11,7 +11,7 @@ Change-Id: I5a32dcc1bc4faaff08b032f4ff8350adf2bbb5c1
  1 file changed, 2 deletions(-)
 
 diff --git a/arch/x86/configs/gki_defconfig b/arch/x86/configs/gki_defconfig
-index 4016f8be75c5..731cec5e1bc3 100644
+index 87285a347ded..2d5f55d7b966 100644
 --- a/arch/x86/configs/gki_defconfig
 +++ b/arch/x86/configs/gki_defconfig
 @@ -35,8 +35,6 @@ CONFIG_SLAB_FREELIST_RANDOM=y

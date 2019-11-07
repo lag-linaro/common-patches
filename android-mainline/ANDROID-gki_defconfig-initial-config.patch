@@ -9,18 +9,19 @@ Co-developed-by: Ram Muthiah <rammuthiah@google.com>
 Change-Id: I685ccea29efc7ba14f7b0a24f41983e37203f9a2
 Signed-off-by: Matthias Maennich <maennich@google.com>
 ---
- arch/arm64/configs/gki_defconfig | 415 +++++++++++++++++++++++++++++++
- arch/x86/configs/gki_defconfig   | 336 +++++++++++++++++++++++++
- 2 files changed, 751 insertions(+)
+ arch/arm64/configs/gki_defconfig | 417 +++++++++++++++++++++++++++++++
+ arch/x86/configs/gki_defconfig   | 339 +++++++++++++++++++++++++
+ 2 files changed, 756 insertions(+)
  create mode 100644 arch/arm64/configs/gki_defconfig
  create mode 100644 arch/x86/configs/gki_defconfig
 
 diff --git a/arch/arm64/configs/gki_defconfig b/arch/arm64/configs/gki_defconfig
 new file mode 100644
-index 000000000000..140804afdd32
+index 000000000000..2352e387fc28
 --- /dev/null
 +++ b/arch/arm64/configs/gki_defconfig
-@@ -0,0 +1,415 @@
+@@ -0,0 +1,417 @@
++CONFIG_LOCALVERSION="-mainline"
 +CONFIG_AUDIT=y
 +CONFIG_NO_HZ=y
 +CONFIG_HIGH_RES_TIMERS=y
@@ -193,6 +194,7 @@ index 000000000000..140804afdd32
 +CONFIG_IP6_NF_TARGET_REJECT=y
 +CONFIG_IP6_NF_MANGLE=y
 +CONFIG_IP6_NF_RAW=y
++CONFIG_TIPC=y
 +CONFIG_L2TP=y
 +CONFIG_BRIDGE=y
 +CONFIG_NET_SCHED=y
@@ -342,7 +344,7 @@ index 000000000000..140804afdd32
 +CONFIG_USB=y
 +CONFIG_USB_OTG=y
 +CONFIG_USB_GADGET=y
-+CONFIG_USB_DUMMY_HCD=y
++CONFIG_USB_DUMMY_HCD=m
 +CONFIG_USB_CONFIGFS=y
 +CONFIG_USB_CONFIGFS_UEVENT=y
 +CONFIG_USB_CONFIGFS_F_FS=y
@@ -438,10 +440,11 @@ index 000000000000..140804afdd32
 +CONFIG_CORESIGHT_STM=y
 diff --git a/arch/x86/configs/gki_defconfig b/arch/x86/configs/gki_defconfig
 new file mode 100644
-index 000000000000..65c67797fb74
+index 000000000000..43566dcc4b0a
 --- /dev/null
 +++ b/arch/x86/configs/gki_defconfig
-@@ -0,0 +1,336 @@
+@@ -0,0 +1,339 @@
++CONFIG_LOCALVERSION="-mainline"
 +CONFIG_AUDIT=y
 +CONFIG_NO_HZ=y
 +CONFIG_HIGH_RES_TIMERS=y
@@ -687,11 +690,13 @@ index 000000000000..65c67797fb74
 +CONFIG_GPIOLIB=y
 +# CONFIG_HWMON is not set
 +CONFIG_DEVFREQ_THERMAL=y
++# CONFIG_X86_PKG_TEMP_THERMAL is not set
 +CONFIG_MEDIA_SUPPORT=y
 +CONFIG_MEDIA_CAMERA_SUPPORT=y
 +CONFIG_DRM=y
 +# CONFIG_DRM_FBDEV_EMULATION is not set
 +CONFIG_DRM_VIRTIO_GPU=y
++# CONFIG_LCD_CLASS_DEVICE is not set
 +CONFIG_BACKLIGHT_CLASS_DEVICE=y
 +CONFIG_SOUND=y
 +CONFIG_SND=y
@@ -711,7 +716,7 @@ index 000000000000..65c67797fb74
 +CONFIG_USB_HIDDEV=y
 +CONFIG_USB=y
 +CONFIG_USB_GADGET=y
-+CONFIG_USB_DUMMY_HCD=y
++CONFIG_USB_DUMMY_HCD=m
 +CONFIG_USB_CONFIGFS=y
 +CONFIG_USB_CONFIGFS_UEVENT=y
 +CONFIG_USB_CONFIGFS_F_FS=y

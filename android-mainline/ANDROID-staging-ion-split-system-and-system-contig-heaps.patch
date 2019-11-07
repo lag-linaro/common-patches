@@ -22,10 +22,10 @@ Signed-off-by: Sandeep Patil <sspatil@google.com>
  create mode 100644 drivers/staging/android/ion/heaps/ion_system_contig_heap.c
 
 diff --git a/arch/arm64/configs/gki_defconfig b/arch/arm64/configs/gki_defconfig
-index 539f42574383..73acbe383203 100644
+index b5cb07b507e6..b70d608b1ee6 100644
 --- a/arch/arm64/configs/gki_defconfig
 +++ b/arch/arm64/configs/gki_defconfig
-@@ -349,6 +349,8 @@ CONFIG_STAGING=y
+@@ -350,6 +350,8 @@ CONFIG_STAGING=y
  CONFIG_ASHMEM=y
  CONFIG_ANDROID_VSOC=y
  CONFIG_ION=y

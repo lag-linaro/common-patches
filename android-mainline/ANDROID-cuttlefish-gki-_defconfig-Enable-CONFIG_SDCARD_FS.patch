@@ -12,10 +12,10 @@ Signed-off-by: Alistair Delva <adelva@google.com>
  2 files changed, 2 insertions(+)
 
 diff --git a/arch/arm64/configs/gki_defconfig b/arch/arm64/configs/gki_defconfig
-index 140804afdd32..18e8f81cc0fb 100644
+index 2352e387fc28..5520d8f54856 100644
 --- a/arch/arm64/configs/gki_defconfig
 +++ b/arch/arm64/configs/gki_defconfig
-@@ -379,6 +379,7 @@ CONFIG_VFAT_FS=y
+@@ -381,6 +381,7 @@ CONFIG_VFAT_FS=y
  CONFIG_TMPFS=y
  CONFIG_TMPFS_POSIX_ACL=y
  CONFIG_ECRYPT_FS=y
@@ -24,10 +24,10 @@ index 140804afdd32..18e8f81cc0fb 100644
  CONFIG_PSTORE_CONSOLE=y
  CONFIG_PSTORE_RAM=y
 diff --git a/arch/x86/configs/gki_defconfig b/arch/x86/configs/gki_defconfig
-index 65c67797fb74..eacebe96e422 100644
+index 43566dcc4b0a..87285a347ded 100644
 --- a/arch/x86/configs/gki_defconfig
 +++ b/arch/x86/configs/gki_defconfig
-@@ -304,6 +304,7 @@ CONFIG_MSDOS_FS=y
+@@ -307,6 +307,7 @@ CONFIG_MSDOS_FS=y
  CONFIG_VFAT_FS=y
  CONFIG_TMPFS=y
  CONFIG_TMPFS_POSIX_ACL=y
