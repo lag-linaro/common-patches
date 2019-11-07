@@ -44,8 +44,6 @@ ANDROID-dm-bow-Add-dm-bow-feature.patch
 ANDROID-cpufreq-times-don-t-copy-invalid-freqs-from-freq-table.patch
 ANDROID-gki_defconfig-initial-config.patch
 ANDROID-Expose-gki_defconfig-to-build.config.patch
-ANDROID-Move-from-clang-r349610-to-r353983c.patch
-ANDROID-gki-cuttlefish-defconfigs-use-prebuilt-build-tools.patch
 ANDROID-sdcardfs-Enable-modular-sdcardfs.patch
 ANDROID-vfs-Add-setattr2-for-filesystems-with-per-mount-permissions.patch
 ANDROID-vfs-Add-permission2-for-filesystems-with-per-mount-permissions.patch
@@ -56,7 +54,6 @@ ANDROID-mnt-Add-filesystem-private-data-to-mount-points.patch
 ANDROID-sdcardfs-Define-magic-value.patch
 ANDROID-sdcardfs-Add-sdcardfs-filesystem.patch
 ANDROID-cuttlefish-gki-_defconfig-Enable-CONFIG_SDCARD_FS.patch
-ANDROID-build-configs-switch-prebuilt-path-location.patch
 ANDROID-xfrm-remove-in_compat_syscall-checks.patch
 ANDROID-Add-initial-rockpi4_defconfig.patch
 ANDROID-label-cuttlefish-modules-for-gki.patch
@@ -68,7 +65,6 @@ ANDROID-dma-buf-Add-support-to-get-flags-associated-with-a-buffer.patch
 ANDROID-Removed-hardcoded-kernel-command-line-arguments.patch
 ANDROID-gki_defconfig-disable-IP_PNP-ECRYPT_FS.patch
 ANDROID-Removed-unnecessary-modules-from-cuttlefish.patch
-ANDROID-Adding-GKI-Ramdisk-to-gki-config.patch
 ANDROID-staging-ion-refactor-ion-s-buffer-manipulators-into-a-separate-file.patch
 ANDROID-staging-ion-refactor-ion-s-dmabuf-manipulators-into-a-separate-file.patch
 ANDROID-staging-ion-refactor-ion-s-heap-manipulators-into-a-separate-file.patch
@@ -83,7 +79,6 @@ ANDROID-Revert-um-remove-uses-of-variable-length-arrays.patch
 ANDROID-gki_defconfig-Minimally-enable-EFI.patch
 ANDROID-gki_defconfig-enable-CONFIG_SPARSEMEM_VMEMMAP.patch
 ANDROID-gki_defconfig-enable-CONFIG_QCOM_-COMMAND_DB-RPMH-PDC.patch
-ANDROID-refactor-build.config-files-to-remove-duplication.patch
 ANDROID-staging-ion-move-uapi-ion.h-to-uapi-linux-ion.h.patch
 ANDROID-staging-ion-reserve-specific-heap-ids-for-known-heap-types.patch
 ANDROID-staging-ion-add-support-for-consistent-heap-ids.patch
@@ -153,7 +148,6 @@ ANDROID-unconditionally-compile-sig_ok-in-struct-module.patch
 ANDROID-gki_defconfig-remove-PWRSEQ_EMMC-and-PWRSEQ_SIMPLE.patch
 ANDROID-sched-Honor-sync-flag-for-energy-aware-wakeups.patch
 ANDROID-of-property-Add-device-link-support-for-iommus.patch
-ANDROID-Move-from-clang-r353983c-to-r365631c.patch
 ANDROID-Revert-Merge-tag-modules-for-v5.4-of-git-git.kernel.org-pub-scm-linux-kernel-git-jeyu-linux.patch
 ANDROID-Kconfig.gki-Add-extra-GKI_HIDDEN_REGMAP_CONFIGS-selections.patch
 ANDROID-Kconfig.gki-Add-extra-audio-selections.patch
@@ -187,7 +181,6 @@ FROMLIST-PCI-Export-PCI-ACS-and-DMA-searching-functions-to-modules.patch
 FROMLIST-iommu-Export-core-IOMMU-functions-to-kernel-modules.patch
 ANDROID-ASoC-compress-fix-unsigned-integer-overflow-check.patch
 ANDROID-ALSA-jack-Update-supported-jack-switch-types.patch
-ANDROID-build.config.-Link-android-mainline-kernels-with-LLD.patch
 ANDROID-gki_defconfig-add-FORTIFY_SOURCE-remove-SPMI_MSM_PMIC_ARB.patch
 ANDROID-init-GKI-enable-hidden-configs-for-media.patch
 ANDROID-cpufreq-create-dummy-cpufreq-driver.patch
