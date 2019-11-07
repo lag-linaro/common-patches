@@ -211,7 +211,6 @@ FROMLIST-ext4-add-support-for-IV_INO_LBLK_64-encryption-policies.patch
 FROMLIST-f2fs-add-support-for-IV_INO_LBLK_64-encryption-policies.patch
 FROMLIST-block-Keyslot-Manager-for-Inline-Encryption.patch
 FROMLIST-block-Add-encryption-context-to-struct-bio.patch
-ANDROID-block-Fix-bio_crypt_should_process-WARN_ON.patch
 FROMLIST-block-blk-crypto-for-Inline-Encryption.patch
 FROMLIST-scsi-ufs-UFS-driver-v2.1-spec-crypto-additions.patch
 FROMLIST-scsi-ufs-UFS-crypto-API.patch

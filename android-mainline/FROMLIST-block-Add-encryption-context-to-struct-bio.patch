@@ -25,9 +25,12 @@ Test: tested as series; see Ie1b77f7615d6a7a60fdc9105c7ab2200d17636a8
 Change-Id: I479de9ec13758f1978b34d897e6956e680caeb92
 Signed-off-by: Satya Tangirala <satyat@google.com>
 Link: https://patchwork.kernel.org/patch/11214719/
+[maennich: Folded the following patch into this patch
+           d85bf5e12785 ("ANDROID: block: Fix bio_crypt_should_process WARN_ON")]
+Signed-off-by: Matthias Maennich <maennich@google.com>
 ---
  block/Makefile                |   2 +-
- block/bio-crypt-ctx.c         | 137 +++++++++++++++++++++
+ block/bio-crypt-ctx.c         | 140 ++++++++++++++++++++++
  block/bio.c                   |  18 +--
  block/blk-core.c              |   3 +
  block/blk-merge.c             |  35 +++++-
@@ -36,7 +39,7 @@ Link: https://patchwork.kernel.org/patch/11214719/
  include/linux/bio-crypt-ctx.h | 219 ++++++++++++++++++++++++++++++++++
  include/linux/bio.h           |   6 +-
  include/linux/blk_types.h     |   6 +
- 10 files changed, 426 insertions(+), 30 deletions(-)
+ 10 files changed, 429 insertions(+), 30 deletions(-)
  create mode 100644 block/bio-crypt-ctx.c
  create mode 100644 include/linux/bio-crypt-ctx.h
 
@@ -52,10 +55,10 @@ index e922844219c2..f39611ed151f 100644
 +obj-$(CONFIG_BLK_INLINE_ENCRYPTION)	+= keyslot-manager.o bio-crypt-ctx.o
 diff --git a/block/bio-crypt-ctx.c b/block/bio-crypt-ctx.c
 new file mode 100644
-index 000000000000..aa3571f72ee7
+index 000000000000..95fd57896466
 --- /dev/null
 +++ b/block/bio-crypt-ctx.c
-@@ -0,0 +1,137 @@
+@@ -0,0 +1,140 @@
 +// SPDX-License-Identifier: GPL-2.0
 +/*
 + * Copyright 2019 Google LLC
@@ -123,8 +126,11 @@ index 000000000000..aa3571f72ee7
 +	if (!bio_has_crypt_ctx(bio))
 +		return false;
 +
++	if (q->ksm != bio->bi_crypt_context->processing_ksm)
++		return false;
++
 +	WARN_ON(!bio_crypt_has_keyslot(bio));
-+	return q->ksm == bio->bi_crypt_context->processing_ksm;
++	return true;
 +}
 +EXPORT_SYMBOL(bio_crypt_should_process);
 +
