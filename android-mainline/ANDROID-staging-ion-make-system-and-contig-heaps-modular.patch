@@ -11,6 +11,9 @@ Test: ion-unit-test, rmmod, modprobe
 
 Change-Id: Ic5f40936531936c9bfab48ea147108c019d28e2c
 Signed-off-by: Sandeep Patil <sspatil@google.com>
+[maennich: fold the following patch into this patch
+           b395fa76dedd ("ANDROID: staging: ion: fix sparse warning in ion system heap")]
+Signed-off-by: Matthias Maennich <maennich@google.com>
 ---
  drivers/staging/android/ion/heaps/Kconfig     |  4 +-
  drivers/staging/android/ion/heaps/Makefile    |  4 +-
@@ -113,7 +116,7 @@ index 3a07ef931c2e..9cb18e38dc96 100644
 +module_exit(ion_system_contig_heap_exit);
 +MODULE_LICENSE("GPL v2");
 diff --git a/drivers/staging/android/ion/heaps/ion_system_heap.c b/drivers/staging/android/ion/heaps/ion_system_heap.c
-index 25ea31757578..3aed952c219d 100644
+index 25ea31757578..0b24652b77f2 100644
 --- a/drivers/staging/android/ion/heaps/ion_system_heap.c
 +++ b/drivers/staging/android/ion/heaps/ion_system_heap.c
 @@ -11,6 +11,7 @@
@@ -165,7 +168,7 @@ index 25ea31757578..3aed952c219d 100644
  
 -	if (ion_system_heap_create_pools(heap->pools))
 -		goto free_heap;
-+struct ion_system_heap system_heap = {
++static struct ion_system_heap system_heap = {
 +	.heap = {
 +		.ops = &system_heap_ops,
 +		.type = ION_HEAP_TYPE_SYSTEM,

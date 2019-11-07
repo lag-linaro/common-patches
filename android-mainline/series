@@ -143,7 +143,6 @@ FROMGIT-of-property-Create-device-links-for-all-child-supplier-depencencies.patc
 ANDROID-gki_defconfig-Enable-BPF_JIT-and-BPF_JIT_ALWAYS_ON.patch
 ANDROID-gki_defconfig-enable-REGULATOR.patch
 ANDROID-gki_defconfig-enable-CONFIG_NLS_.patch
-ANDROID-staging-ion-fix-sparse-warning-in-ion-system-heap.patch
 ANDROID-gki_defconfig-enable-CONFIG_PARAVIRT-and-CONFIG_HYPERVISOR_GUEST.patch
 ANDROID-gki_defconfig-enable-accelerated-AES-and-SHA-256.patch
 ANDROID-gki_defconfig-enabled-CONFIG_TMPFS-explicitly.patch
