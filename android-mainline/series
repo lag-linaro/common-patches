@@ -2,7 +2,7 @@
 # android-mainline patches
 #
 # Applies onto mainline a99d8080aaf3 Linux v5.4-rc6
-# Matches android-mainline 0ee40e0e58eb ("FROMLIST: overlayfs: override_creds=off option bypass creator_cred")
+# Matches android-mainline 1244a247c007 ("ANDROID: Kconfig.gki: Add SND_SOC_COMPRESS")
 #
 ANDROID-Kbuild-LLVMLinux-allow-overriding-clang-target-triple.patch
 ANDROID-net-xfrm-make-PF_KEY-SHA256-use-RFC-compliant-truncation.patch
@@ -233,3 +233,5 @@ FROMLIST-Add-flags-option-to-get-xattr-method-paired-to-__vfs_getxattr.patch
 FROMLIST-overlayfs-handle-XATTR_NOSECURITY-flag-for-get-xattr-method.patch
 FROMLIST-overlayfs-internal-getxattr-operations-without-sepolicy-checking.patch
 FROMLIST-overlayfs-override_creds-off-option-bypass-creator_cred.patch
+ANDROID-gki_defconfig-enable-FW_LOADER-configs.patch
+ANDROID-Kconfig.gki-Add-SND_SOC_COMPRESS.patch
