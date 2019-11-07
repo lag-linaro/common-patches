@@ -91,7 +91,6 @@ ANDROID-staging-ion-Add-support-for-heap-specific-dma_buf_ops.patch
 ANDROID-staging-ion-Remove-unnecessary-ion-heap-ops.patch
 ANDROID-GKI-enable-CONFIG_SPI-for-x86.patch
 ANDROID-GKI-enable-CONFIG_TIPC-for-x86.patch
-ANDROID-Catch-rockpi4_defconfig-up-with-gki_defconfig.patch
 ANDROID-first-pass-cuttlefish-GKI-modularization.patch
 ANDROID-staging-ion-fix-off-by-1-error-in-heap-search.patch
 ANDROID-staging-ion-uapi-match-the-existing-heap-type-enums.patch
