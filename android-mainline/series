@@ -1,8 +1,8 @@
 #
 # android-mainline patches
 #
-# Applies onto mainline a99d8080aaf3 Linux v5.4-rc6
-# Matches android-mainline 8c36c8518c63 ("Revert "Revert "sched: Rework pick_next_task() slow-path""")
+# Applies onto mainline 31f4f5b495a6 Linux v5.4-rc7
+# Matches android-mainline 682d8bf78446 ("Merge tag 'v5.4-rc7' into android-mainline")
 #
 ANDROID-Kbuild-LLVMLinux-allow-overriding-clang-target-triple.patch
 ANDROID-net-xfrm-make-PF_KEY-SHA256-use-RFC-compliant-truncation.patch
@@ -176,7 +176,6 @@ ANDROID-v4l2-compat-ioctl32.c-copy-reserved-fields.patch
 FROMLIST-of-Export-of_phandle_iterator_args-to-modules.patch
 FROMLIST-PCI-Export-PCI-ACS-and-DMA-searching-functions-to-modules.patch
 FROMLIST-iommu-Export-core-IOMMU-functions-to-kernel-modules.patch
-ANDROID-ASoC-compress-fix-unsigned-integer-overflow-check.patch
 ANDROID-ALSA-jack-Update-supported-jack-switch-types.patch
 ANDROID-gki_defconfig-add-FORTIFY_SOURCE-remove-SPMI_MSM_PMIC_ARB.patch
 ANDROID-init-GKI-enable-hidden-configs-for-media.patch

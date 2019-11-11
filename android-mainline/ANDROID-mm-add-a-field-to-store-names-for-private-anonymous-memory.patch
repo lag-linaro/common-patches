@@ -218,10 +218,10 @@ index f9fd18670e22..fc08951daa62 100644
  			vma = prev;
  			goto next;
 diff --git a/include/linux/mm.h b/include/linux/mm.h
-index cc292273e6ba..3d0c800fe574 100644
+index a2adf95b3f9c..12662251a3b2 100644
 --- a/include/linux/mm.h
 +++ b/include/linux/mm.h
-@@ -2278,7 +2278,7 @@ static inline int vma_adjust(struct vm_area_struct *vma, unsigned long start,
+@@ -2273,7 +2273,7 @@ static inline int vma_adjust(struct vm_area_struct *vma, unsigned long start,
  extern struct vm_area_struct *vma_merge(struct mm_struct *,
  	struct vm_area_struct *prev, unsigned long addr, unsigned long end,
  	unsigned long vm_flags, struct anon_vma *, struct file *, pgoff_t,
@@ -231,10 +231,10 @@ index cc292273e6ba..3d0c800fe574 100644
  extern int __split_vma(struct mm_struct *, struct vm_area_struct *,
  	unsigned long addr, int new_below);
 diff --git a/include/linux/mm_types.h b/include/linux/mm_types.h
-index 2222fa795284..7812502ce65a 100644
+index 270aa8fd2800..9ddfb12308e4 100644
 --- a/include/linux/mm_types.h
 +++ b/include/linux/mm_types.h
-@@ -313,11 +313,18 @@ struct vm_area_struct {
+@@ -318,11 +318,18 @@ struct vm_area_struct {
  	/*
  	 * For areas with an address space and backing store,
  	 * linkage into the address_space->i_mmap interval tree.
@@ -257,7 +257,7 @@ index 2222fa795284..7812502ce65a 100644
  
  	/*
  	 * A file's MAP_PRIVATE vma can be in both i_mmap tree and anon_vma
-@@ -749,4 +756,13 @@ typedef struct {
+@@ -754,4 +761,13 @@ typedef struct {
  	unsigned long val;
  } swp_entry_t;
  

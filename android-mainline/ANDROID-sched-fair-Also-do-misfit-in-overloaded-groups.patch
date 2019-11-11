@@ -18,10 +18,10 @@ Signed-off-by: Quentin Perret <quentin.perret@arm.com>
  1 file changed, 3 insertions(+)
 
 diff --git a/kernel/sched/fair.c b/kernel/sched/fair.c
-index 7faaf156b66c..699f8256dc94 100644
+index c1dfa3636f20..337d113dd34e 100644
 --- a/kernel/sched/fair.c
 +++ b/kernel/sched/fair.c
-@@ -8806,6 +8806,9 @@ static int need_active_balance(struct lb_env *env)
+@@ -8815,6 +8815,9 @@ static int need_active_balance(struct lb_env *env)
  	if (voluntary_active_balance(env))
  		return 1;
  
