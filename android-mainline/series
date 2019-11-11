@@ -2,7 +2,7 @@
 # android-mainline patches
 #
 # Applies onto mainline a99d8080aaf3 Linux v5.4-rc6
-# Matches android-mainline 1244a247c007 ("ANDROID: Kconfig.gki: Add SND_SOC_COMPRESS")
+# Matches android-mainline 8c36c8518c63 ("Revert "Revert "sched: Rework pick_next_task() slow-path""")
 #
 ANDROID-Kbuild-LLVMLinux-allow-overriding-clang-target-triple.patch
 ANDROID-net-xfrm-make-PF_KEY-SHA256-use-RFC-compliant-truncation.patch
@@ -188,7 +188,6 @@ ANDROID-create-build.configs-for-allmodconfig.patch
 ANDROID-gki_defconfig-enable-CONFIG_CPU_FREQ_GOV_CONSERVATIVE.patch
 ANDROID-virtio-virtio_input-Set-the-amount-of-multitouch-slots-in-virtio-input.patch
 ANDROID-gki_defconfig-enable-CONFIG_CPUSETS.patch
-ANDROID-Revert-sched-Rework-pick_next_task-slow-path.patch
 ANDROID-media-increase-video-max-frame-number.patch
 FROMLIST-fscrypt-invoke-crypto-API-for-ESSIV-handling.patch
 FROMLIST-fscrypt-remove-struct-fscrypt_ctx.patch
