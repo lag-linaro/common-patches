@@ -20,10 +20,10 @@ Change-Id: I57c44e74e35d829ae2ae3145dc241ccf348f2eea
  1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/drivers/of/property.c b/drivers/of/property.c
-index dfdc1604f4ad..0fc89e31e087 100644
+index 69a6ec8711bd..297705057ee2 100644
 --- a/drivers/of/property.c
 +++ b/drivers/of/property.c
-@@ -1229,7 +1229,7 @@ static int of_link_to_suppliers(struct device *dev,
+@@ -1221,7 +1221,7 @@ static int of_link_to_suppliers(struct device *dev,
  	return ret;
  }
  

@@ -23,7 +23,7 @@ Change-Id: I0d5a38eec05f5546fe11c23c0d09103ccc35097e
  1 file changed, 3 insertions(+), 1 deletion(-)
 
 diff --git a/drivers/of/property.c b/drivers/of/property.c
-index 0fc89e31e087..7a0346c26acc 100644
+index 297705057ee2..42c79b2ea837 100644
 --- a/drivers/of/property.c
 +++ b/drivers/of/property.c
 @@ -1024,6 +1024,7 @@ static int of_link_to_phandle(struct device *dev, struct device_node *sup_np,

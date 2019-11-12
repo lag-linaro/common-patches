@@ -2,7 +2,7 @@
 # android-mainline patches
 #
 # Applies onto mainline 31f4f5b495a6 Linux v5.4-rc7
-# Matches android-mainline 682d8bf78446 ("Merge tag 'v5.4-rc7' into android-mainline")
+# Matches android-mainline bf868444c2b7 ("FROMGIT: of: property: Add device link support for iommus, mboxes and io-channels")
 #
 ANDROID-Kbuild-LLVMLinux-allow-overriding-clang-target-triple.patch
 ANDROID-net-xfrm-make-PF_KEY-SHA256-use-RFC-compliant-truncation.patch
@@ -144,7 +144,6 @@ FROMGIT-base-soc-Handle-custom-soc-information-sysfs-entries.patch
 ANDROID-unconditionally-compile-sig_ok-in-struct-module.patch
 ANDROID-gki_defconfig-remove-PWRSEQ_EMMC-and-PWRSEQ_SIMPLE.patch
 ANDROID-sched-Honor-sync-flag-for-energy-aware-wakeups.patch
-ANDROID-of-property-Add-device-link-support-for-iommus.patch
 ANDROID-Revert-Merge-tag-modules-for-v5.4-of-git-git.kernel.org-pub-scm-linux-kernel-git-jeyu-linux.patch
 ANDROID-Kconfig.gki-Add-extra-GKI_HIDDEN_REGMAP_CONFIGS-selections.patch
 ANDROID-Kconfig.gki-Add-extra-audio-selections.patch
@@ -219,3 +218,6 @@ FROMLIST-overlayfs-internal-getxattr-operations-without-sepolicy-checking.patch
 FROMLIST-overlayfs-override_creds-off-option-bypass-creator_cred.patch
 ANDROID-gki_defconfig-enable-FW_LOADER-configs.patch
 ANDROID-Kconfig.gki-Add-SND_SOC_COMPRESS.patch
+FROMGIT-of-property-Minor-style-clean-up-of-of_link_to_phandle.patch
+FROMGIT-of-property-Make-it-easy-to-add-device-links-from-DT-properties.patch
+FROMGIT-of-property-Add-device-link-support-for-iommus-mboxes-and-io-channels.patch
