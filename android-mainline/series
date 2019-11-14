@@ -1,8 +1,8 @@
 #
 # android-mainline patches
 #
-# Applies onto mainline 31f4f5b495a6 Linux v5.4-rc7
-# Matches android-mainline 87d2866d54ef ("ANDROID: scsi: ufs-qcom: Enable BROKEN_CRYPTO quirk flag")
+# Applies onto mainline 0e3f1ad80fc8 Linux (that is some random master)
+# Matches android-mainline 32815416dde4 ("Merge branch 'upstream-master' into android-mainline")
 #
 ANDROID-Kbuild-LLVMLinux-allow-overriding-clang-target-triple.patch
 ANDROID-net-xfrm-make-PF_KEY-SHA256-use-RFC-compliant-truncation.patch

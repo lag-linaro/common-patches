@@ -79,10 +79,10 @@ index d05d531b4ec9..6d421694d98e 100644
  	PV_OPS	A paravirtualized kernel is enabled.
  	PARIDE	The ParIDE (parallel port IDE) subsystem is enabled.
 diff --git a/Documentation/admin-guide/kernel-parameters.txt b/Documentation/admin-guide/kernel-parameters.txt
-index a84a83f8881e..dc727fa8c831 100644
+index 8dee8f68fe15..49c6444c6a76 100644
 --- a/Documentation/admin-guide/kernel-parameters.txt
 +++ b/Documentation/admin-guide/kernel-parameters.txt
-@@ -3194,6 +3194,12 @@
+@@ -3221,6 +3221,12 @@
  			This can be set from sysctl after boot.
  			See Documentation/admin-guide/sysctl/vm.rst for details.
  
