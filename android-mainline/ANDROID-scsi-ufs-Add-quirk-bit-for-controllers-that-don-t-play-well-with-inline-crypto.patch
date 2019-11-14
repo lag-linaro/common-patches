@@ -1,0 +1,54 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: John Stultz <john.stultz@linaro.org>
+Date: Fri, 8 Nov 2019 04:42:58 +0000
+Subject: ANDROID: scsi: ufs: Add quirk bit for controllers that don't play
+ well with inline crypto
+
+A number of devices (hikey960 and db845c at least) don't work
+well with the inline crypto enablement, causing them to crash in
+early boot.
+
+In order to allow those boards to continue booting, add a
+BROKEN_CRYPTO quirk flag that the drivers can enable until we
+sort out how/if they can be fixed.
+
+Bug: 137270441
+Change-Id: I9f2c3d75412e0aaa22fe6e7c9929cd18b1efa9ba
+Signed-off-by: John Stultz <john.stultz@linaro.org>
+---
+ drivers/scsi/ufs/ufshcd-crypto.c | 3 ++-
+ drivers/scsi/ufs/ufshcd.h        | 7 +++++++
+ 2 files changed, 9 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/scsi/ufs/ufshcd-crypto.c b/drivers/scsi/ufs/ufshcd-crypto.c
+index 7599d77725e4..75d834180f8b 100644
+--- a/drivers/scsi/ufs/ufshcd-crypto.c
++++ b/drivers/scsi/ufs/ufshcd-crypto.c
+@@ -313,7 +313,8 @@ int ufshcd_hba_init_crypto_spec(struct ufs_hba *hba,
+ 	hba->caps &= ~UFSHCD_CAP_CRYPTO;
+ 
+ 	/* Return 0 if crypto support isn't present */
+-	if (!(hba->capabilities & MASK_CRYPTO_SUPPORT))
++	if (!(hba->capabilities & MASK_CRYPTO_SUPPORT) ||
++	    (hba->quirks & UFSHCD_QUIRK_BROKEN_CRYPTO))
+ 		goto out;
+ 
+ 	/*
+diff --git a/drivers/scsi/ufs/ufshcd.h b/drivers/scsi/ufs/ufshcd.h
+index 10bac3241c5a..717981c531e2 100644
+--- a/drivers/scsi/ufs/ufshcd.h
++++ b/drivers/scsi/ufs/ufshcd.h
+@@ -672,6 +672,13 @@ struct ufs_hba {
+ 	 * enabled via HCE register.
+ 	 */
+ 	#define UFSHCI_QUIRK_BROKEN_HCE				0x400
++
++	/*
++	 * This quirk needs to be enabled if the host controller advertises
++	 * inline encryption support but it doesn't work correctly.
++	 */
++	#define UFSHCD_QUIRK_BROKEN_CRYPTO			0x800
++
+ 	unsigned int quirks;	/* Deviations from standard UFSHCI spec. */
+ 
+ 	/* Device deviations from standard UFS device spec. */

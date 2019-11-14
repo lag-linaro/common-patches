@@ -2,7 +2,7 @@
 # android-mainline patches
 #
 # Applies onto mainline 31f4f5b495a6 Linux v5.4-rc7
-# Matches android-mainline bf868444c2b7 ("FROMGIT: of: property: Add device link support for iommus, mboxes and io-channels")
+# Matches android-mainline 87d2866d54ef ("ANDROID: scsi: ufs-qcom: Enable BROKEN_CRYPTO quirk flag")
 #
 ANDROID-Kbuild-LLVMLinux-allow-overriding-clang-target-triple.patch
 ANDROID-net-xfrm-make-PF_KEY-SHA256-use-RFC-compliant-truncation.patch
@@ -221,3 +221,7 @@ ANDROID-Kconfig.gki-Add-SND_SOC_COMPRESS.patch
 FROMGIT-of-property-Minor-style-clean-up-of-of_link_to_phandle.patch
 FROMGIT-of-property-Make-it-easy-to-add-device-links-from-DT-properties.patch
 FROMGIT-of-property-Add-device-link-support-for-iommus-mboxes-and-io-channels.patch
+ANDROID-scsi-ufs-UFS-init-should-not-require-inline-crypto.patch
+ANDROID-scsi-ufs-Add-quirk-bit-for-controllers-that-don-t-play-well-with-inline-crypto.patch
+ANDROID-scsi-ufs-hisi-Enable-BROKEN_CRYPTO-quirk-flag.patch
+ANDROID-scsi-ufs-qcom-Enable-BROKEN_CRYPTO-quirk-flag.patch
