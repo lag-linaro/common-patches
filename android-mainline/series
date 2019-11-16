@@ -1,8 +1,8 @@
 #
 # android-mainline patches
 #
-# Applies onto mainline 0e3f1ad80fc8 Linux (that is some random master)
-# Matches android-mainline 32815416dde4 ("Merge branch 'upstream-master' into android-mainline")
+# Applies onto mainline 0e3f1ad80fc8 Linux v5.4-rc7-49-g0e3f1ad80fc8
+# Matches android-mainline f9aa2c60711d ("ANDROID: ion: Fix buffer_lock mutex initialization")
 #
 ANDROID-Kbuild-LLVMLinux-allow-overriding-clang-target-triple.patch
 ANDROID-net-xfrm-make-PF_KEY-SHA256-use-RFC-compliant-truncation.patch
@@ -144,7 +144,6 @@ FROMGIT-base-soc-Handle-custom-soc-information-sysfs-entries.patch
 ANDROID-unconditionally-compile-sig_ok-in-struct-module.patch
 ANDROID-gki_defconfig-remove-PWRSEQ_EMMC-and-PWRSEQ_SIMPLE.patch
 ANDROID-sched-Honor-sync-flag-for-energy-aware-wakeups.patch
-ANDROID-Revert-Merge-tag-modules-for-v5.4-of-git-git.kernel.org-pub-scm-linux-kernel-git-jeyu-linux.patch
 ANDROID-Kconfig.gki-Add-extra-GKI_HIDDEN_REGMAP_CONFIGS-selections.patch
 ANDROID-Kconfig.gki-Add-extra-audio-selections.patch
 ANDROID-Kconfig.gki-Add-SND_PCM_ELD-to-HIDDEN_DRM-configs.patch
@@ -225,3 +224,17 @@ ANDROID-scsi-ufs-UFS-init-should-not-require-inline-crypto.patch
 ANDROID-scsi-ufs-Add-quirk-bit-for-controllers-that-don-t-play-well-with-inline-crypto.patch
 ANDROID-scsi-ufs-hisi-Enable-BROKEN_CRYPTO-quirk-flag.patch
 ANDROID-scsi-ufs-qcom-Enable-BROKEN_CRYPTO-quirk-flag.patch
+ANDROID-build-kernels-with-llvm-nm-and-llvm-objcopy.patch
+ANDROID-include-uapi-drm-add-additional-QCOM-modifiers.patch
+ANDROID-drivers-gpu-drm-add-support-for-secure-framebuffer.patch
+ANDROID-include-drm-increase-DRM-max-property-count-to-64.patch
+ANDROID-include-drm-support-unicasting-mipi-cmds-to-dsi-ctrls.patch
+ANDROID-drm-dsi-add-two-DSI-mode-flags-for-BLLP.patch
+ANDROID-include-drm-add-the-definitions-for-DP-Link-Compliance-tests.patch
+ANDROID-driver-gpu-drm-add-notifier-for-panel-related-events.patch
+ANDROID-drivers-gpu-drm-fix-bugs-encountered-while-fuzzing.patch
+ANDROID-include-uapi-drm-add-additional-drm-mode-flags.patch
+ANDROID-drm-edid-add-support-for-additional-CEA-extension-blocks.patch
+ANDROID-uid_sys_stats-avoid-double-accounting-of-dying-threads.patch
+FROMGIT-driver-core-Allow-device-link-operations-inside-sync_state.patch
+ANDROID-ion-Fix-buffer_lock-mutex-initialization.patch
