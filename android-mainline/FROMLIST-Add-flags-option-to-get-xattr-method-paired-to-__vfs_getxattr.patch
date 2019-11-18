@@ -242,10 +242,10 @@ index db4ba8f6077e..e44e562c46fb 100644
  	ssize_t rc = -EOPNOTSUPP;
  	unsigned int xid;
 diff --git a/fs/ecryptfs/inode.c b/fs/ecryptfs/inode.c
-index 18426f4855f1..c710c7533729 100644
+index e23752d9a79f..12616d5510cf 100644
 --- a/fs/ecryptfs/inode.c
 +++ b/fs/ecryptfs/inode.c
-@@ -1018,7 +1018,8 @@ ecryptfs_getxattr_lower(struct dentry *lower_dentry, struct inode *lower_inode,
+@@ -1040,7 +1040,8 @@ ecryptfs_getxattr_lower(struct dentry *lower_dentry, struct inode *lower_inode,
  		goto out;
  	}
  	inode_lock(lower_inode);
@@ -255,7 +255,7 @@ index 18426f4855f1..c710c7533729 100644
  	inode_unlock(lower_inode);
  out:
  	return rc;
-@@ -1103,7 +1104,8 @@ const struct inode_operations ecryptfs_main_iops = {
+@@ -1125,7 +1126,8 @@ const struct inode_operations ecryptfs_main_iops = {
  
  static int ecryptfs_xattr_get(const struct xattr_handler *handler,
  			      struct dentry *dentry, struct inode *inode,

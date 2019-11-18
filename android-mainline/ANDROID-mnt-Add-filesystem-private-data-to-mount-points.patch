@@ -32,7 +32,7 @@ Signed-off-by: Matthias Maennich <maennich@google.com>
  5 files changed, 53 insertions(+), 1 deletion(-)
 
 diff --git a/fs/namespace.c b/fs/namespace.c
-index fe0e9e1410fe..b7eb5f242b86 100644
+index 2adfe7b166a3..5dd3db9abac3 100644
 --- a/fs/namespace.c
 +++ b/fs/namespace.c
 @@ -198,6 +198,7 @@ static struct mount *alloc_vfsmnt(const char *name)
@@ -93,7 +93,7 @@ index fe0e9e1410fe..b7eb5f242b86 100644
  	if (flag & (CL_SLAVE | CL_PRIVATE | CL_SHARED_TO_SLAVE))
  		mnt->mnt_group_id = 0; /* not a peer of original */
  	else
-@@ -2549,7 +2571,15 @@ static int do_remount(struct path *path, int ms_flags, int sb_flags,
+@@ -2551,7 +2573,15 @@ static int do_remount(struct path *path, int ms_flags, int sb_flags,
  		err = -EPERM;
  		if (ns_capable(sb->s_user_ns, CAP_SYS_ADMIN)) {
  			err = reconfigure_super(fc);

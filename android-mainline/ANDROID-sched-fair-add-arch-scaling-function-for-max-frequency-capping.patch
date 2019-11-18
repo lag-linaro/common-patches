@@ -25,10 +25,10 @@ Signed-off-by: Quentin Perret <quentin.perret@arm.com>
  2 files changed, 17 insertions(+), 4 deletions(-)
 
 diff --git a/kernel/sched/fair.c b/kernel/sched/fair.c
-index 0fd9e11d5537..69a1360fccec 100644
+index f3426316b4a6..00a5292c4508 100644
 --- a/kernel/sched/fair.c
 +++ b/kernel/sched/fair.c
-@@ -7742,10 +7742,9 @@ static inline void init_sd_lb_stats(struct sd_lb_stats *sds)
+@@ -7753,10 +7753,9 @@ static inline void init_sd_lb_stats(struct sd_lb_stats *sds)
  	};
  }
  
@@ -40,7 +40,7 @@ index 0fd9e11d5537..69a1360fccec 100644
  	unsigned long used, free;
  	unsigned long irq;
  
-@@ -7767,10 +7766,15 @@ static unsigned long scale_rt_capacity(struct sched_domain *sd, int cpu)
+@@ -7778,10 +7777,15 @@ static unsigned long scale_rt_capacity(struct sched_domain *sd, int cpu)
  
  static void update_cpu_capacity(struct sched_domain *sd, int cpu)
  {

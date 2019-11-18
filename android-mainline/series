@@ -1,8 +1,8 @@
 #
 # android-mainline patches
 #
-# Applies onto mainline 0e3f1ad80fc8 Linux v5.4-rc7-49-g0e3f1ad80fc8
-# Matches android-mainline f9aa2c60711d ("ANDROID: ion: Fix buffer_lock mutex initialization")
+# Applies onto mainline af42d3466bdc Linux v5.4-rc8
+# Matches android-mainline ad5859c6aefa ("Merge 5.4-rc8 into android-mainline")
 #
 ANDROID-Kbuild-LLVMLinux-allow-overriding-clang-target-triple.patch
 ANDROID-net-xfrm-make-PF_KEY-SHA256-use-RFC-compliant-truncation.patch

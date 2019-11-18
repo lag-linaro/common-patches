@@ -15,10 +15,10 @@ Change-Id: I083d32b45ca985cfadfe3ce57d253b63202befde
  2 files changed, 6 deletions(-)
 
 diff --git a/net/xfrm/xfrm_state.c b/net/xfrm/xfrm_state.c
-index c6f3c4a1bd99..c023b27c70e1 100644
+index f3423562d933..787105cc002b 100644
 --- a/net/xfrm/xfrm_state.c
 +++ b/net/xfrm/xfrm_state.c
-@@ -2266,9 +2266,6 @@ int xfrm_user_policy(struct sock *sk, int optname, u8 __user *optval, int optlen
+@@ -2268,9 +2268,6 @@ int xfrm_user_policy(struct sock *sk, int optname, u8 __user *optval, int optlen
  	struct xfrm_mgr *km;
  	struct xfrm_policy *pol = NULL;
  

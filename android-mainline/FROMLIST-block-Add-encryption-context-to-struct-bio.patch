@@ -200,7 +200,7 @@ index 000000000000..95fd57896466
 +	return 0;
 +}
 diff --git a/block/bio.c b/block/bio.c
-index 8f0ed6228fc5..ce8003aadf07 100644
+index b1170ec18464..5e07f5ceacb6 100644
 --- a/block/bio.c
 +++ b/block/bio.c
 @@ -241,6 +241,7 @@ static void bio_free(struct bio *bio)

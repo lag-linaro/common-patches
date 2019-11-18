@@ -23,10 +23,10 @@ Signed-off-by: Quentin Perret <quentin.perret@arm.com>
  1 file changed, 16 insertions(+), 1 deletion(-)
 
 diff --git a/kernel/sched/fair.c b/kernel/sched/fair.c
-index 30b36c882ee5..65a9fa20a6d8 100644
+index 31b955a3133b..3b24b834d286 100644
 --- a/kernel/sched/fair.c
 +++ b/kernel/sched/fair.c
-@@ -8442,7 +8442,22 @@ void fix_small_imbalance(struct lb_env *env, struct sd_lb_stats *sds)
+@@ -8453,7 +8453,22 @@ void fix_small_imbalance(struct lb_env *env, struct sd_lb_stats *sds)
  	capa_move /= SCHED_CAPACITY_SCALE;
  
  	/* Move if we gain throughput */

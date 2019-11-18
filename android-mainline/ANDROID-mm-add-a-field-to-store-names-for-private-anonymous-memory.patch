@@ -461,7 +461,7 @@ index a611d1d58c7d..70660867f50e 100644
  		if (arg3 || arg4 || arg5)
  			return -EINVAL;
 diff --git a/mm/madvise.c b/mm/madvise.c
-index 2be9f3fdb05e..1cfc273b7e25 100644
+index 94c343b4c968..e5f1cd585e41 100644
 --- a/mm/madvise.c
 +++ b/mm/madvise.c
 @@ -134,7 +134,7 @@ static long madvise_behavior(struct vm_area_struct *vma,
@@ -474,10 +474,10 @@ index 2be9f3fdb05e..1cfc273b7e25 100644
  		vma = *prev;
  		goto success;
 diff --git a/mm/mempolicy.c b/mm/mempolicy.c
-index 4ae967bcf954..9271109b7d3a 100644
+index e08c94170ae4..7731dab40126 100644
 --- a/mm/mempolicy.c
 +++ b/mm/mempolicy.c
-@@ -757,7 +757,8 @@ static int mbind_range(struct mm_struct *mm, unsigned long start,
+@@ -759,7 +759,8 @@ static int mbind_range(struct mm_struct *mm, unsigned long start,
  			((vmstart - vma->vm_start) >> PAGE_SHIFT);
  		prev = vma_merge(mm, prev, vmstart, vmend, vma->vm_flags,
  				 vma->anon_vma, vma->vm_file, pgoff,

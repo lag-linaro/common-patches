@@ -25,7 +25,7 @@ Signed-off-by: Quentin Perret <quentin.perret@arm.com>
  1 file changed, 8 insertions(+), 2 deletions(-)
 
 diff --git a/kernel/sched/fair.c b/kernel/sched/fair.c
-index ad72de1ca965..0fd9e11d5537 100644
+index e00f6c43a02b..f3426316b4a6 100644
 --- a/kernel/sched/fair.c
 +++ b/kernel/sched/fair.c
 @@ -6344,7 +6344,7 @@ compute_energy(struct task_struct *p, int dst_cpu, struct perf_domain *pd)
