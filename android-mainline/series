@@ -2,7 +2,7 @@
 # android-mainline patches
 #
 # Applies onto mainline af42d3466bdc Linux v5.4-rc8
-# Matches android-mainline ad5859c6aefa ("Merge 5.4-rc8 into android-mainline")
+# Matches android-mainline 187c49445630 ("ANDROID: virtio_blk: Remove BUG_ON for discard/zero ops")
 #
 ANDROID-Kbuild-LLVMLinux-allow-overriding-clang-target-triple.patch
 ANDROID-net-xfrm-make-PF_KEY-SHA256-use-RFC-compliant-truncation.patch
@@ -238,3 +238,5 @@ ANDROID-drm-edid-add-support-for-additional-CEA-extension-blocks.patch
 ANDROID-uid_sys_stats-avoid-double-accounting-of-dying-threads.patch
 FROMGIT-driver-core-Allow-device-link-operations-inside-sync_state.patch
 ANDROID-ion-Fix-buffer_lock-mutex-initialization.patch
+ANDROID-usb-gadget-configfs-Support-multiple-android-instances.patch
+ANDROID-virtio_blk-Remove-BUG_ON-for-discard-zero-ops.patch
