@@ -24,10 +24,13 @@ Signed-off-by: Amit Pundir <amit.pundir@linaro.org>
 [adelva: Folded change 5c899c9fd75d ("ANDROID: usb: gadget: configfs:
          fix null ptr in android_disconnect") into this patch]
 Signed-off-by: Alistair Delva <adelva@google.com>
+[maennich: Folded change 43e98b082f9e ("ANDROID: usb: gadget: configfs:
+           fix compiler warning") into this patch]
+Signed-off-by: Matthias Maennich <maennich@google.com>
 ---
  drivers/usb/gadget/Kconfig    |   8 ++
- drivers/usb/gadget/configfs.c | 165 +++++++++++++++++++++++++++++++++-
- 2 files changed, 171 insertions(+), 2 deletions(-)
+ drivers/usb/gadget/configfs.c | 168 +++++++++++++++++++++++++++++++++-
+ 2 files changed, 174 insertions(+), 2 deletions(-)
 
 diff --git a/drivers/usb/gadget/Kconfig b/drivers/usb/gadget/Kconfig
 index 02ff850278b1..f5e82dcac583 100644
@@ -49,7 +52,7 @@ index 02ff850278b1..f5e82dcac583 100644
  	bool "Generic serial bulk in/out"
  	depends on USB_CONFIGFS
 diff --git a/drivers/usb/gadget/configfs.c b/drivers/usb/gadget/configfs.c
-index 33852c2b29d1..5b2631a6c412 100644
+index 33852c2b29d1..836fbb8b4ce4 100644
 --- a/drivers/usb/gadget/configfs.c
 +++ b/drivers/usb/gadget/configfs.c
 @@ -10,6 +10,19 @@
@@ -152,7 +155,7 @@ index 33852c2b29d1..5b2631a6c412 100644
  static void configfs_composite_unbind(struct usb_gadget *gadget)
  {
  	struct usb_composite_dev	*cdev;
-@@ -1491,14 +1561,92 @@ static void configfs_composite_resume(struct usb_gadget *gadget)
+@@ -1400,6 +1470,80 @@ static void configfs_composite_unbind(struct usb_gadget *gadget)
  	spin_unlock_irqrestore(&gi->spinlock, flags);
  }
  
@@ -227,9 +230,22 @@ index 33852c2b29d1..5b2631a6c412 100644
 +	schedule_work(&gi->work);
 +	composite_disconnect(gadget);
 +}
-+#endif
 +
- static const struct usb_gadget_driver configfs_driver_template = {
++#else // CONFIG_USB_CONFIGFS_UEVENT
++
+ static int configfs_composite_setup(struct usb_gadget *gadget,
+ 		const struct usb_ctrlrequest *ctrl)
+ {
+@@ -1447,6 +1591,8 @@ static void configfs_composite_disconnect(struct usb_gadget *gadget)
+ 	spin_unlock_irqrestore(&gi->spinlock, flags);
+ }
+ 
++#endif // CONFIG_USB_CONFIGFS_UEVENT
++
+ static void configfs_composite_suspend(struct usb_gadget *gadget)
+ {
+ 	struct usb_composite_dev *cdev;
+@@ -1495,10 +1641,15 @@ static const struct usb_gadget_driver configfs_driver_template = {
  	.bind           = configfs_composite_bind,
  	.unbind         = configfs_composite_unbind,
  
@@ -246,7 +262,7 @@ index 33852c2b29d1..5b2631a6c412 100644
  	.suspend	= configfs_composite_suspend,
  	.resume		= configfs_composite_resume,
  
-@@ -1558,6 +1706,12 @@ static struct config_group *gadgets_make(
+@@ -1558,6 +1709,12 @@ static struct config_group *gadgets_make(
  	gi->composite.gadget_driver.function = kstrdup(name, GFP_KERNEL);
  	gi->composite.name = gi->composite.gadget_driver.function;
  
@@ -259,7 +275,7 @@ index 33852c2b29d1..5b2631a6c412 100644
  	if (!gi->composite.gadget_driver.function)
  		goto err;
  
-@@ -1609,6 +1763,13 @@ static int __init gadget_cfs_init(void)
+@@ -1609,6 +1766,13 @@ static int __init gadget_cfs_init(void)
  	config_group_init(&gadget_subsys.su_group);
  
  	ret = configfs_register_subsystem(&gadget_subsys);

@@ -2,7 +2,7 @@
 # android-mainline patches
 #
 # Applies onto mainline af42d3466bdc Linux v5.4-rc8
-# Matches android-mainline 187c49445630 ("ANDROID: virtio_blk: Remove BUG_ON for discard/zero ops")
+# Matches android-mainline a547c35fa42e ("ANDROID: update ABI representation")
 #
 ANDROID-Kbuild-LLVMLinux-allow-overriding-clang-target-triple.patch
 ANDROID-net-xfrm-make-PF_KEY-SHA256-use-RFC-compliant-truncation.patch
@@ -240,3 +240,7 @@ FROMGIT-driver-core-Allow-device-link-operations-inside-sync_state.patch
 ANDROID-ion-Fix-buffer_lock-mutex-initialization.patch
 ANDROID-usb-gadget-configfs-Support-multiple-android-instances.patch
 ANDROID-virtio_blk-Remove-BUG_ON-for-discard-zero-ops.patch
+ANDROID-drivers-gpu-drm-add-support-to-batch-commands.patch
+ANDROID-SoC-core-Introduce-macro-SOC_SINGLE_MULTI_EXT.patch
+BACKPORT-FROMLIST-pwm-Add-support-for-different-PWM-output-types.patch
+ANDROID-add-unstripped-modules-to-the-distribution.patch
