@@ -2,7 +2,7 @@
 # android-mainline patches
 #
 # Applies onto mainline af42d3466bdc Linux v5.4-rc8
-# Matches android-mainline a547c35fa42e ("ANDROID: update ABI representation")
+# Matches android-mainline 00c013f4a634 ("ANDROID: gki_defconfig: disable FUNCTION_TRACER")
 #
 ANDROID-Kbuild-LLVMLinux-allow-overriding-clang-target-triple.patch
 ANDROID-net-xfrm-make-PF_KEY-SHA256-use-RFC-compliant-truncation.patch
@@ -244,3 +244,4 @@ ANDROID-drivers-gpu-drm-add-support-to-batch-commands.patch
 ANDROID-SoC-core-Introduce-macro-SOC_SINGLE_MULTI_EXT.patch
 BACKPORT-FROMLIST-pwm-Add-support-for-different-PWM-output-types.patch
 ANDROID-add-unstripped-modules-to-the-distribution.patch
+ANDROID-gki_defconfig-disable-FUNCTION_TRACER.patch
