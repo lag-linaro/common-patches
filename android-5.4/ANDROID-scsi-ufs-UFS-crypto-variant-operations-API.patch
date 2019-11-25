@@ -1,0 +1,504 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: Satya Tangirala <satyat@google.com>
+Date: Wed, 8 May 2019 03:44:29 -0700
+Subject: ANDROID: scsi: ufs: UFS crypto variant operations API
+
+Introduce UFS crypto variant operations to handle quirks in individual
+UFS inline encryption hardware.
+
+We also expose a default implementation for crypto operations that
+conforms to the UFSHCI v2.1 specification, so that any user of crypto
+variant operations can fall back on the default implementation
+whenever there aren't any special quirks to handle.
+
+Bug: 137270441
+Change-Id: I8bd9bced66b50cfdd0483bbc3e999b00c0f11386
+Signed-off-by: Satya Tangirala <satyat@google.com>
+---
+ drivers/scsi/ufs/ufshcd-crypto.c | 152 +++++++++++++++++++++++++++++--
+ drivers/scsi/ufs/ufshcd-crypto.h |  83 +++++++++++++++--
+ drivers/scsi/ufs/ufshcd.c        |  48 ++++------
+ drivers/scsi/ufs/ufshcd.h        |  23 +++++
+ 4 files changed, 256 insertions(+), 50 deletions(-)
+
+diff --git a/drivers/scsi/ufs/ufshcd-crypto.c b/drivers/scsi/ufs/ufshcd-crypto.c
+index 3900a07a7e9b..988d8df8f394 100644
+--- a/drivers/scsi/ufs/ufshcd-crypto.c
++++ b/drivers/scsi/ufs/ufshcd-crypto.c
+@@ -34,8 +34,8 @@ static size_t get_keysize_bytes(enum ufs_crypto_key_size size)
+ }
+ 
+ static int ufshcd_crypto_cap_find(void *hba_p,
+-			   enum blk_crypto_mode_num crypto_mode,
+-			   unsigned int data_unit_size)
++				  enum blk_crypto_mode_num crypto_mode,
++				  unsigned int data_unit_size)
+ {
+ 	struct ufs_hba *hba = hba_p;
+ 	enum ufs_crypto_alg ufs_alg;
+@@ -265,7 +265,8 @@ static bool ufshcd_crypto_mode_supported(void *hba_p,
+ 	return ufshcd_crypto_cap_find(hba_p, crypto_mode, data_unit_size) >= 0;
+ }
+ 
+-void ufshcd_crypto_enable(struct ufs_hba *hba)
++/* Functions implementing UFSHCI v2.1 specification behaviour */
++void ufshcd_crypto_enable_spec(struct ufs_hba *hba)
+ {
+ 	union ufs_crypto_cfg_entry *cfg_arr = hba->crypto_cfgs;
+ 	int slot;
+@@ -281,11 +282,13 @@ void ufshcd_crypto_enable(struct ufs_hba *hba)
+ 	for (slot = 0; slot < NUM_KEYSLOTS(hba); slot++)
+ 		program_key(hba, &cfg_arr[slot], slot);
+ }
++EXPORT_SYMBOL(ufshcd_crypto_enable_spec);
+ 
+-void ufshcd_crypto_disable(struct ufs_hba *hba)
++void ufshcd_crypto_disable_spec(struct ufs_hba *hba)
+ {
+ 	hba->caps &= ~UFSHCD_CAP_CRYPTO;
+ }
++EXPORT_SYMBOL(ufshcd_crypto_disable_spec);
+ 
+ static const struct keyslot_mgmt_ll_ops ufshcd_ksm_ops = {
+ 	.keyslot_program	= ufshcd_crypto_keyslot_program,
+@@ -301,7 +304,8 @@ static const struct keyslot_mgmt_ll_ops ufshcd_ksm_ops = {
+  * Returns 0 on success. Returns -ENODEV if such capabilities don't exist, and
+  * -ENOMEM upon OOM.
+  */
+-int ufshcd_hba_init_crypto(struct ufs_hba *hba)
++int ufshcd_hba_init_crypto_spec(struct ufs_hba *hba,
++				const struct keyslot_mgmt_ll_ops *ksm_ops)
+ {
+ 	int cap_idx = 0;
+ 	int err = 0;
+@@ -355,8 +359,7 @@ int ufshcd_hba_init_crypto(struct ufs_hba *hba)
+ 						 cap_idx * sizeof(__le32)));
+ 	}
+ 
+-	hba->ksm = keyslot_manager_create(NUM_KEYSLOTS(hba), &ufshcd_ksm_ops,
+-					  hba);
++	hba->ksm = keyslot_manager_create(NUM_KEYSLOTS(hba), ksm_ops, hba);
+ 
+ 	if (!hba->ksm) {
+ 		err = -ENOMEM;
+@@ -374,18 +377,147 @@ int ufshcd_hba_init_crypto(struct ufs_hba *hba)
+ 	hba->crypto_capabilities.reg_val = 0;
+ 	return err;
+ }
++EXPORT_SYMBOL(ufshcd_hba_init_crypto_spec);
+ 
+-void ufshcd_crypto_setup_rq_keyslot_manager(struct ufs_hba *hba,
+-					    struct request_queue *q)
++void ufshcd_crypto_setup_rq_keyslot_manager_spec(struct ufs_hba *hba,
++						 struct request_queue *q)
+ {
+ 	if (!ufshcd_hba_is_crypto_supported(hba) || !q)
+ 		return;
+ 
+ 	q->ksm = hba->ksm;
+ }
++EXPORT_SYMBOL(ufshcd_crypto_setup_rq_keyslot_manager_spec);
++
++void ufshcd_crypto_destroy_rq_keyslot_manager_spec(struct ufs_hba *hba,
++						   struct request_queue *q)
++{
++	keyslot_manager_destroy(hba->ksm);
++}
++EXPORT_SYMBOL(ufshcd_crypto_destroy_rq_keyslot_manager_spec);
++
++int ufshcd_prepare_lrbp_crypto_spec(struct ufs_hba *hba,
++				    struct scsi_cmnd *cmd,
++				    struct ufshcd_lrb *lrbp)
++{
++	int key_slot;
++
++	if (!cmd->request->bio ||
++	    !bio_crypt_should_process(cmd->request->bio, cmd->request->q)) {
++		lrbp->crypto_enable = false;
++		return 0;
++	}
++
++	if (WARN_ON(!ufshcd_is_crypto_enabled(hba))) {
++		/*
++		 * Upper layer asked us to do inline encryption
++		 * but that isn't enabled, so we fail this request.
++		 */
++		return -EINVAL;
++	}
++	key_slot = bio_crypt_get_keyslot(cmd->request->bio);
++	if (!ufshcd_keyslot_valid(hba, key_slot))
++		return -EINVAL;
++
++	lrbp->crypto_enable = true;
++	lrbp->crypto_key_slot = key_slot;
++	lrbp->data_unit_num = bio_crypt_data_unit_num(cmd->request->bio);
++
++	return 0;
++}
++EXPORT_SYMBOL(ufshcd_prepare_lrbp_crypto_spec);
++
++/* Crypto Variant Ops Support */
++
++void ufshcd_crypto_enable(struct ufs_hba *hba)
++{
++	if (hba->crypto_vops && hba->crypto_vops->enable)
++		return hba->crypto_vops->enable(hba);
++
++	return ufshcd_crypto_enable_spec(hba);
++}
++
++void ufshcd_crypto_disable(struct ufs_hba *hba)
++{
++	if (hba->crypto_vops && hba->crypto_vops->disable)
++		return hba->crypto_vops->disable(hba);
++
++	return ufshcd_crypto_disable_spec(hba);
++}
++
++int ufshcd_hba_init_crypto(struct ufs_hba *hba)
++{
++	if (hba->crypto_vops && hba->crypto_vops->hba_init_crypto)
++		return hba->crypto_vops->hba_init_crypto(hba,
++							 &ufshcd_ksm_ops);
++
++	return ufshcd_hba_init_crypto_spec(hba, &ufshcd_ksm_ops);
++}
++
++void ufshcd_crypto_setup_rq_keyslot_manager(struct ufs_hba *hba,
++					    struct request_queue *q)
++{
++	if (hba->crypto_vops && hba->crypto_vops->setup_rq_keyslot_manager)
++		return hba->crypto_vops->setup_rq_keyslot_manager(hba, q);
++
++	return ufshcd_crypto_setup_rq_keyslot_manager_spec(hba, q);
++}
+ 
+ void ufshcd_crypto_destroy_rq_keyslot_manager(struct ufs_hba *hba,
+ 					      struct request_queue *q)
+ {
+-	keyslot_manager_destroy(hba->ksm);
++	if (hba->crypto_vops && hba->crypto_vops->destroy_rq_keyslot_manager)
++		return hba->crypto_vops->destroy_rq_keyslot_manager(hba, q);
++
++	return ufshcd_crypto_destroy_rq_keyslot_manager_spec(hba, q);
++}
++
++int ufshcd_prepare_lrbp_crypto(struct ufs_hba *hba,
++			       struct scsi_cmnd *cmd,
++			       struct ufshcd_lrb *lrbp)
++{
++	if (hba->crypto_vops && hba->crypto_vops->prepare_lrbp_crypto)
++		return hba->crypto_vops->prepare_lrbp_crypto(hba, cmd, lrbp);
++
++	return ufshcd_prepare_lrbp_crypto_spec(hba, cmd, lrbp);
++}
++
++int ufshcd_complete_lrbp_crypto(struct ufs_hba *hba,
++				struct scsi_cmnd *cmd,
++				struct ufshcd_lrb *lrbp)
++{
++	if (hba->crypto_vops && hba->crypto_vops->complete_lrbp_crypto)
++		return hba->crypto_vops->complete_lrbp_crypto(hba, cmd, lrbp);
++
++	return 0;
++}
++
++void ufshcd_crypto_debug(struct ufs_hba *hba)
++{
++	if (hba->crypto_vops && hba->crypto_vops->debug)
++		hba->crypto_vops->debug(hba);
++}
++
++int ufshcd_crypto_suspend(struct ufs_hba *hba,
++			  enum ufs_pm_op pm_op)
++{
++	if (hba->crypto_vops && hba->crypto_vops->suspend)
++		return hba->crypto_vops->suspend(hba, pm_op);
++
++	return 0;
++}
++
++int ufshcd_crypto_resume(struct ufs_hba *hba,
++			 enum ufs_pm_op pm_op)
++{
++	if (hba->crypto_vops && hba->crypto_vops->resume)
++		return hba->crypto_vops->resume(hba, pm_op);
++
++	return 0;
++}
++
++void ufshcd_crypto_set_vops(struct ufs_hba *hba,
++			    struct ufs_hba_crypto_variant_ops *crypto_vops)
++{
++	hba->crypto_vops = crypto_vops;
+ }
+diff --git a/drivers/scsi/ufs/ufshcd-crypto.h b/drivers/scsi/ufs/ufshcd-crypto.h
+index 73ddc8e493fb..3c03d0e23e87 100644
+--- a/drivers/scsi/ufs/ufshcd-crypto.h
++++ b/drivers/scsi/ufs/ufshcd-crypto.h
+@@ -6,11 +6,9 @@
+ #ifndef _UFSHCD_CRYPTO_H
+ #define _UFSHCD_CRYPTO_H
+ 
+-struct ufs_hba;
+-
+ #ifdef CONFIG_SCSI_UFS_CRYPTO
+ #include <linux/keyslot-manager.h>
+-
++#include "ufshcd.h"
+ #include "ufshci.h"
+ 
+ #define NUM_KEYSLOTS(hba) (hba->crypto_capabilities.config_count + 1)
+@@ -34,6 +32,26 @@ static inline bool ufshcd_is_crypto_enabled(struct ufs_hba *hba)
+ 	return hba->caps & UFSHCD_CAP_CRYPTO;
+ }
+ 
++/* Functions implementing UFSHCI v2.1 specification behaviour */
++int ufshcd_prepare_lrbp_crypto_spec(struct ufs_hba *hba,
++				    struct scsi_cmnd *cmd,
++				    struct ufshcd_lrb *lrbp);
++
++void ufshcd_crypto_enable_spec(struct ufs_hba *hba);
++
++void ufshcd_crypto_disable_spec(struct ufs_hba *hba);
++
++struct keyslot_mgmt_ll_ops;
++int ufshcd_hba_init_crypto_spec(struct ufs_hba *hba,
++				const struct keyslot_mgmt_ll_ops *ksm_ops);
++
++void ufshcd_crypto_setup_rq_keyslot_manager_spec(struct ufs_hba *hba,
++						 struct request_queue *q);
++
++void ufshcd_crypto_destroy_rq_keyslot_manager_spec(struct ufs_hba *hba,
++						   struct request_queue *q);
++
++/* Crypto Variant Ops Support */
+ void ufshcd_crypto_enable(struct ufs_hba *hba);
+ 
+ void ufshcd_crypto_disable(struct ufs_hba *hba);
+@@ -46,6 +64,23 @@ void ufshcd_crypto_setup_rq_keyslot_manager(struct ufs_hba *hba,
+ void ufshcd_crypto_destroy_rq_keyslot_manager(struct ufs_hba *hba,
+ 					      struct request_queue *q);
+ 
++int ufshcd_prepare_lrbp_crypto(struct ufs_hba *hba,
++			       struct scsi_cmnd *cmd,
++			       struct ufshcd_lrb *lrbp);
++
++int ufshcd_complete_lrbp_crypto(struct ufs_hba *hba,
++				struct scsi_cmnd *cmd,
++				struct ufshcd_lrb *lrbp);
++
++void ufshcd_crypto_debug(struct ufs_hba *hba);
++
++int ufshcd_crypto_suspend(struct ufs_hba *hba, enum ufs_pm_op pm_op);
++
++int ufshcd_crypto_resume(struct ufs_hba *hba, enum ufs_pm_op pm_op);
++
++void ufshcd_crypto_set_vops(struct ufs_hba *hba,
++			    struct ufs_hba_crypto_variant_ops *crypto_vops);
++
+ #else /* CONFIG_SCSI_UFS_CRYPTO */
+ 
+ static inline bool ufshcd_keyslot_valid(struct ufs_hba *hba,
+@@ -73,13 +108,43 @@ static inline int ufshcd_hba_init_crypto(struct ufs_hba *hba)
+ 	return 0;
+ }
+ 
+-static inline void ufshcd_crypto_setup_rq_keyslot_manager(
+-					struct ufs_hba *hba,
+-					struct request_queue *q) { }
++static inline void ufshcd_crypto_setup_rq_keyslot_manager(struct ufs_hba *hba,
++						struct request_queue *q) { }
++
++static inline void ufshcd_crypto_destroy_rq_keyslot_manager(struct ufs_hba *hba,
++						struct request_queue *q) { }
++
++static inline int ufshcd_prepare_lrbp_crypto(struct ufs_hba *hba,
++					     struct scsi_cmnd *cmd,
++					     struct ufshcd_lrb *lrbp)
++{
++	lrbp->crypto_enable = false;
++	return 0;
++}
++
++static inline int ufshcd_complete_lrbp_crypto(struct ufs_hba *hba,
++					      struct scsi_cmnd *cmd,
++					      struct ufshcd_lrb *lrbp)
++{
++	return 0;
++}
++
++static inline void ufshcd_crypto_debug(struct ufs_hba *hba) { }
++
++static inline int ufshcd_crypto_suspend(struct ufs_hba *hba,
++					enum ufs_pm_op pm_op)
++{
++	return 0;
++}
++
++static inline int ufshcd_crypto_resume(struct ufs_hba *hba,
++					enum ufs_pm_op pm_op)
++{
++	return 0;
++}
+ 
+-static inline void ufshcd_crypto_destroy_rq_keyslot_manager(
+-				struct ufs_hba *hba,
+-				struct request_queue *q) { }
++static inline void ufshcd_crypto_set_vops(struct ufs_hba *hba,
++			struct ufs_hba_crypto_variant_ops *crypto_vops) { }
+ 
+ #endif /* CONFIG_SCSI_UFS_CRYPTO */
+ 
+diff --git a/drivers/scsi/ufs/ufshcd.c b/drivers/scsi/ufs/ufshcd.c
+index 3a1190f0c672..8ac0157ba9d8 100644
+--- a/drivers/scsi/ufs/ufshcd.c
++++ b/drivers/scsi/ufs/ufshcd.c
+@@ -436,6 +436,8 @@ static void ufshcd_print_host_regs(struct ufs_hba *hba)
+ 
+ 	if (hba->vops && hba->vops->dbg_register_dump)
+ 		hba->vops->dbg_register_dump(hba);
++
++	ufshcd_crypto_debug(hba);
+ }
+ 
+ static
+@@ -2400,37 +2402,6 @@ static inline u16 ufshcd_upiu_wlun_to_scsi_wlun(u8 upiu_wlun_id)
+ 	return (upiu_wlun_id & ~UFS_UPIU_WLUN_ID) | SCSI_W_LUN_BASE;
+ }
+ 
+-static inline int ufshcd_prepare_lrbp_crypto(struct ufs_hba *hba,
+-					     struct scsi_cmnd *cmd,
+-					     struct ufshcd_lrb *lrbp)
+-{
+-	int key_slot;
+-
+-	if (!cmd->request->bio ||
+-	    !bio_crypt_should_process(cmd->request->bio, cmd->request->q)) {
+-		lrbp->crypto_enable = false;
+-		return 0;
+-	}
+-
+-	if (WARN_ON(!ufshcd_is_crypto_enabled(hba))) {
+-		/*
+-		 * Upper layer asked us to do inline encryption
+-		 * but that isn't enabled, so we fail this request.
+-		 */
+-		return -EINVAL;
+-	}
+-	key_slot = bio_crypt_get_keyslot(cmd->request->bio);
+-	if (!ufshcd_keyslot_valid(hba, key_slot))
+-		return -EINVAL;
+-
+-	lrbp->crypto_enable = true;
+-	lrbp->crypto_key_slot = key_slot;
+-	lrbp->data_unit_num = bio_crypt_data_unit_num(cmd->request->bio);
+-
+-	return 0;
+-}
+-
+-
+ /**
+  * ufshcd_queuecommand - main entry point for SCSI requests
+  * @host: SCSI host pointer
+@@ -4892,6 +4863,7 @@ static void __ufshcd_transfer_req_compl(struct ufs_hba *hba,
+ 			result = ufshcd_transfer_rsp_status(hba, lrbp);
+ 			scsi_dma_unmap(cmd);
+ 			cmd->result = result;
++			ufshcd_complete_lrbp_crypto(hba, cmd, lrbp);
+ 			/* Mark completed command as NULL in LRB */
+ 			lrbp->cmd = NULL;
+ 			clear_bit_unlock(index, &hba->lrb_in_use);
+@@ -7830,6 +7802,10 @@ static int ufshcd_suspend(struct ufs_hba *hba, enum ufs_pm_op pm_op)
+ 		req_link_state = UIC_LINK_OFF_STATE;
+ 	}
+ 
++	ret = ufshcd_crypto_suspend(hba, pm_op);
++	if (ret)
++		goto out;
++
+ 	/*
+ 	 * If we can't transition into any of the low power modes
+ 	 * just gate the clocks.
+@@ -7933,6 +7909,7 @@ static int ufshcd_suspend(struct ufs_hba *hba, enum ufs_pm_op pm_op)
+ 		ufshcd_resume_clkscaling(hba);
+ 	hba->clk_gating.is_suspended = false;
+ 	ufshcd_release(hba);
++	ufshcd_crypto_resume(hba, pm_op);
+ out:
+ 	hba->pm_op_in_progress = 0;
+ 	if (ret)
+@@ -7954,9 +7931,11 @@ static int ufshcd_resume(struct ufs_hba *hba, enum ufs_pm_op pm_op)
+ {
+ 	int ret;
+ 	enum uic_link_state old_link_state;
++	enum ufs_dev_pwr_mode old_pwr_mode;
+ 
+ 	hba->pm_op_in_progress = 1;
+ 	old_link_state = hba->uic_link_state;
++	old_pwr_mode = hba->curr_dev_pwr_mode;
+ 
+ 	ufshcd_hba_vreg_set_hpm(hba);
+ 	/* Make sure clocks are enabled before accessing controller */
+@@ -8004,6 +7983,10 @@ static int ufshcd_resume(struct ufs_hba *hba, enum ufs_pm_op pm_op)
+ 			goto set_old_link_state;
+ 	}
+ 
++	ret = ufshcd_crypto_resume(hba, pm_op);
++	if (ret)
++		goto set_old_dev_pwr_mode;
++
+ 	if (ufshcd_keep_autobkops_enabled_except_suspend(hba))
+ 		ufshcd_enable_auto_bkops(hba);
+ 	else
+@@ -8026,6 +8009,9 @@ static int ufshcd_resume(struct ufs_hba *hba, enum ufs_pm_op pm_op)
+ 
+ 	goto out;
+ 
++set_old_dev_pwr_mode:
++	if (old_pwr_mode != hba->curr_dev_pwr_mode)
++		ufshcd_set_dev_pwr_mode(hba, old_pwr_mode);
+ set_old_link_state:
+ 	ufshcd_link_state_transition(hba, old_link_state, 0);
+ vendor_suspend:
+diff --git a/drivers/scsi/ufs/ufshcd.h b/drivers/scsi/ufs/ufshcd.h
+index a106b45f8358..64736a15cf17 100644
+--- a/drivers/scsi/ufs/ufshcd.h
++++ b/drivers/scsi/ufs/ufshcd.h
+@@ -336,6 +336,28 @@ struct ufs_hba_variant_ops {
+ 	void	(*device_reset)(struct ufs_hba *hba);
+ };
+ 
++struct keyslot_mgmt_ll_ops;
++struct ufs_hba_crypto_variant_ops {
++	void (*setup_rq_keyslot_manager)(struct ufs_hba *hba,
++					 struct request_queue *q);
++	void (*destroy_rq_keyslot_manager)(struct ufs_hba *hba,
++					   struct request_queue *q);
++	int (*hba_init_crypto)(struct ufs_hba *hba,
++			       const struct keyslot_mgmt_ll_ops *ksm_ops);
++	void (*enable)(struct ufs_hba *hba);
++	void (*disable)(struct ufs_hba *hba);
++	int (*suspend)(struct ufs_hba *hba, enum ufs_pm_op pm_op);
++	int (*resume)(struct ufs_hba *hba, enum ufs_pm_op pm_op);
++	int (*debug)(struct ufs_hba *hba);
++	int (*prepare_lrbp_crypto)(struct ufs_hba *hba,
++				   struct scsi_cmnd *cmd,
++				   struct ufshcd_lrb *lrbp);
++	int (*complete_lrbp_crypto)(struct ufs_hba *hba,
++				    struct scsi_cmnd *cmd,
++				    struct ufshcd_lrb *lrbp);
++	void *priv;
++};
++
+ /* clock gating state  */
+ enum clk_gating_state {
+ 	CLKS_OFF,
+@@ -583,6 +605,7 @@ struct ufs_hba {
+ 	u32 ufs_version;
+ 	const struct ufs_hba_variant_ops *vops;
+ 	void *priv;
++	const struct ufs_hba_crypto_variant_ops *crypto_vops;
+ 	unsigned int irq;
+ 	bool is_irq_enabled;
+ 	enum ufs_ref_clk_freq dev_ref_clk_freq;

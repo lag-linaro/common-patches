@@ -1,0 +1,102 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: Banajit Goswami <bgoswami@codeaurora.org>
+Date: Mon, 21 Nov 2016 17:39:12 -0800
+Subject: ANDROID: ALSA: jack: Update supported jack switch types
+
+Change adds support for jack switch types supported
+by platform.
+
+This change also squashes the below changes-
+
+include: increase allowed SW INPUT device ID from 15 to 32
+
+Increase the Input device SW ID from 15 to 32. This is needed
+to accommodate more input devices.
+
+Bug: 142489397
+Change-Id: If77f8b37b4db72ada2b5d8a3095265eef90ab62b
+Signed-off-by: Gopikrishnaiah Anandan <agopik@codeaurora.org>
+Signed-off-by: Banajit Goswami <bgoswami@codeaurora.org>
+Signed-off-by: Sudheer Papothi <spapothi@codeaurora.org>
+Signed-off-by: Meng Wang <mwang@codeaurora.org>
+---
+ include/linux/mod_devicetable.h        | 2 +-
+ include/sound/jack.h                   | 3 ---
+ include/uapi/linux/input-event-codes.h | 5 ++++-
+ sound/core/jack.c                      | 7 +++++--
+ 4 files changed, 10 insertions(+), 7 deletions(-)
+
+diff --git a/include/linux/mod_devicetable.h b/include/linux/mod_devicetable.h
+index 5714fd35a83c..3dbed7e030df 100644
+--- a/include/linux/mod_devicetable.h
++++ b/include/linux/mod_devicetable.h
+@@ -318,7 +318,7 @@ struct pcmcia_device_id {
+ #define INPUT_DEVICE_ID_LED_MAX		0x0f
+ #define INPUT_DEVICE_ID_SND_MAX		0x07
+ #define INPUT_DEVICE_ID_FF_MAX		0x7f
+-#define INPUT_DEVICE_ID_SW_MAX		0x0f
++#define INPUT_DEVICE_ID_SW_MAX		0x20
+ #define INPUT_DEVICE_ID_PROP_MAX	0x1f
+ 
+ #define INPUT_DEVICE_ID_MATCH_BUS	1
+diff --git a/include/sound/jack.h b/include/sound/jack.h
+index 9eb2b5ec1ec4..9c2ed0aa7948 100644
+--- a/include/sound/jack.h
++++ b/include/sound/jack.h
+@@ -53,9 +53,6 @@ enum snd_jack_types {
+ 	SND_JACK_BTN_5		= 0x0200,
+ };
+ 
+-/* Keep in sync with definitions above */
+-#define SND_JACK_SWITCH_TYPES 6
+-
+ struct snd_jack {
+ 	struct list_head kctl_list;
+ 	struct snd_card *card;
+diff --git a/include/uapi/linux/input-event-codes.h b/include/uapi/linux/input-event-codes.h
+index 85387c76c24f..35125b6c30de 100644
+--- a/include/uapi/linux/input-event-codes.h
++++ b/include/uapi/linux/input-event-codes.h
+@@ -808,7 +808,10 @@
+ #define SW_LINEIN_INSERT	0x0d  /* set = inserted */
+ #define SW_MUTE_DEVICE		0x0e  /* set = device disabled */
+ #define SW_PEN_INSERTED		0x0f  /* set = pen inserted */
+-#define SW_MAX			0x0f
++#define SW_HPHL_OVERCURRENT	0x10  /* set = over current on left hph */
++#define SW_HPHR_OVERCURRENT	0x11  /* set = over current on right hph */
++#define SW_UNSUPPORT_INSERT	0x12  /* set = unsupported device inserted */
++#define SW_MAX			0x20
+ #define SW_CNT			(SW_MAX+1)
+ 
+ /*
+diff --git a/sound/core/jack.c b/sound/core/jack.c
+index fb26196571a7..e1594d0ca61f 100644
+--- a/sound/core/jack.c
++++ b/sound/core/jack.c
+@@ -19,13 +19,16 @@ struct snd_jack_kctl {
+ };
+ 
+ #ifdef CONFIG_SND_JACK_INPUT_DEV
+-static int jack_switch_types[SND_JACK_SWITCH_TYPES] = {
++static int jack_switch_types[] = {
+ 	SW_HEADPHONE_INSERT,
+ 	SW_MICROPHONE_INSERT,
+ 	SW_LINEOUT_INSERT,
+ 	SW_JACK_PHYSICAL_INSERT,
+ 	SW_VIDEOOUT_INSERT,
+ 	SW_LINEIN_INSERT,
++	SW_HPHL_OVERCURRENT,
++	SW_HPHR_OVERCURRENT,
++	SW_UNSUPPORT_INSERT,
+ };
+ #endif /* CONFIG_SND_JACK_INPUT_DEV */
+ 
+@@ -236,7 +239,7 @@ int snd_jack_new(struct snd_card *card, const char *id, int type,
+ 
+ 		jack->type = type;
+ 
+-		for (i = 0; i < SND_JACK_SWITCH_TYPES; i++)
++		for (i = 0; i < ARRAY_SIZE(jack_switch_types); i++)
+ 			if (type & (1 << i))
+ 				input_set_capability(jack->input_dev, EV_SW,
+ 						     jack_switch_types[i]);

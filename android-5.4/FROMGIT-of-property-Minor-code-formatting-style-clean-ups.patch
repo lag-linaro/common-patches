@@ -1,0 +1,78 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: Saravana Kannan <saravanak@google.com>
+Date: Fri, 11 Oct 2019 12:15:19 -0700
+Subject: FROMGIT: of: property: Minor code formatting/style clean ups
+
+Better variable and function names. Remove "," after the sentinel in an
+array initialization list.
+
+Signed-off-by: Saravana Kannan <saravanak@google.com>
+Acked-by: Rob Herring <robh@kernel.org>
+Link: https://lore.kernel.org/r/20191011191521.179614-2-saravanak@google.com
+Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+
+(cherry-picked from commit af1b967af5ffb94aaed5b9b3259349cc2d398fa7
+ https://git.kernel.org/pub/scm/linux/kernel/git/gregkh/driver-core.git driver-core-next)
+Conflicts: drivers/of/property.c
+[Fixed minor conflict due to 87337fb791b2fad85f6316ea6a31f5a9c0b2f50d]
+Bug: 142657042
+Change-Id: I86356be325b17676452b9ad93fe4a96235dbef0b
+Signed-off-by: Saravana Kannan <saravanak@google.com>
+---
+ drivers/of/property.c | 12 ++++++------
+ 1 file changed, 6 insertions(+), 6 deletions(-)
+
+diff --git a/drivers/of/property.c b/drivers/of/property.c
+index 923d6f88a99c..6f6e1d9644cf 100644
+--- a/drivers/of/property.c
++++ b/drivers/of/property.c
+@@ -1147,11 +1147,11 @@ struct supplier_bindings {
+ 					  const char *prop_name, int index);
+ };
+ 
+-static const struct supplier_bindings bindings[] = {
++static const struct supplier_bindings of_supplier_bindings[] = {
+ 	{ .parse_prop = parse_clocks, },
+ 	{ .parse_prop = parse_interconnects, },
+ 	{ .parse_prop = parse_regulators, },
+-	{},
++	{}
+ };
+ 
+ /**
+@@ -1177,7 +1177,7 @@ static int of_link_property(struct device *dev, struct device_node *con_np,
+ 			     const char *prop_name)
+ {
+ 	struct device_node *phandle;
+-	const struct supplier_bindings *s = bindings;
++	const struct supplier_bindings *s = of_supplier_bindings;
+ 	unsigned int i = 0;
+ 	bool matched = false;
+ 	int ret = 0;
+@@ -1196,7 +1196,7 @@ static int of_link_property(struct device *dev, struct device_node *con_np,
+ 	return ret;
+ }
+ 
+-static int __of_link_to_suppliers(struct device *dev,
++static int of_link_to_suppliers(struct device *dev,
+ 				  struct device_node *con_np)
+ {
+ 	struct device_node *child;
+@@ -1208,7 +1208,7 @@ static int __of_link_to_suppliers(struct device *dev,
+ 			ret = -EAGAIN;
+ 
+ 	for_each_child_of_node(con_np, child)
+-		if (__of_link_to_suppliers(dev, child))
++		if (of_link_to_suppliers(dev, child))
+ 			ret = -EAGAIN;
+ 
+ 	return ret;
+@@ -1226,7 +1226,7 @@ static int of_fwnode_add_links(const struct fwnode_handle *fwnode,
+ 	if (unlikely(!is_of_node(fwnode)))
+ 		return 0;
+ 
+-	return __of_link_to_suppliers(dev, to_of_node(fwnode));
++	return of_link_to_suppliers(dev, to_of_node(fwnode));
+ }
+ 
+ const struct fwnode_operations of_fwnode_ops = {

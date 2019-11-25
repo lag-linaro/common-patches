@@ -1,0 +1,72 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: Saravana Kannan <saravanak@google.com>
+Date: Tue, 15 Oct 2019 17:34:22 -0700
+Subject: ANDROID: driver core: Allow fwnode_operations.add_links to
+ differentiate errors
+
+When add_links() still has suppliers that it needs to link to in the
+future, this patch allows it to differentiate between suppliers that are
+needed for probing vs suppliers are needed for sync_state() correctness.
+
+Signed-off-by: Saravana Kannan <saravanak@google.com>
+Bug: 142657042
+Change-Id: If8b2a11dc6d815287c9242aea0ee1c26ef316d96
+---
+ drivers/base/core.c    | 12 ++++++++----
+ include/linux/fwnode.h | 13 +++++++++----
+ 2 files changed, 17 insertions(+), 8 deletions(-)
+
+diff --git a/drivers/base/core.c b/drivers/base/core.c
+index 48cd43a91ce6..e6d3e6d485da 100644
+--- a/drivers/base/core.c
++++ b/drivers/base/core.c
+@@ -2297,7 +2297,7 @@ int device_add(struct device *dev)
+ 	struct device *parent;
+ 	struct kobject *kobj;
+ 	struct class_interface *class_intf;
+-	int error = -EINVAL;
++	int error = -EINVAL, fw_ret;
+ 	struct kobject *glue_dir = NULL;
+ 
+ 	dev = get_device(dev);
+@@ -2413,9 +2413,13 @@ int device_add(struct device *dev)
+ 	 */
+ 	device_link_add_missing_supplier_links();
+ 
+-	if (fwnode_has_op(dev->fwnode, add_links)
+-	    && fwnode_call_int_op(dev->fwnode, add_links, dev))
+-		device_link_wait_for_mandatory_supplier(dev, true);
++	if (fwnode_has_op(dev->fwnode, add_links)) {
++		fw_ret = fwnode_call_int_op(dev->fwnode, add_links, dev);
++		if (fw_ret == -ENODEV)
++			device_link_wait_for_mandatory_supplier(dev);
++		else if (fw_ret)
++			device_link_wait_for_optional_supplier(dev);
++	}
+ 
+ 	bus_probe_device(dev);
+ 	if (parent)
+diff --git a/include/linux/fwnode.h b/include/linux/fwnode.h
+index 97223e2410bd..766ff9bb5876 100644
+--- a/include/linux/fwnode.h
++++ b/include/linux/fwnode.h
+@@ -94,10 +94,15 @@ struct fwnode_reference_args {
+  *		available suppliers.
+  *
+  *		Return 0 if device links have been successfully created to all
+- *		the suppliers of this device or if the supplier information is
+- *		not known. Return an error if and only if the supplier
+- *		information is known but some of the suppliers are not yet
+- *		available to create device links to.
++ *		the suppliers this device needs to create device links to or if
++ *		the supplier information is not known.
++ *
++ *		Return -ENODEV if and only if the suppliers needed for probing
++ *		the device are not yet available to create device links to.
++ *
++ *		Return -EAGAIN if there are suppliers that need to be linked to
++ *		that are not yet available but none of those suppliers are
++ *		necessary for probing this device.
+  */
+ struct fwnode_operations {
+ 	struct fwnode_handle *(*get)(struct fwnode_handle *fwnode);

@@ -1,0 +1,34 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: Saravana Kannan <saravanak@google.com>
+Date: Thu, 24 Oct 2019 14:46:06 -0700
+Subject: ANDROID: of: property: Enable of_devlink by default
+
+The of_devlink feature creates device links between devices based on
+the common device tree bindings listed in their device node. This
+allows improved probe ordering and also makes sure the sync_state()
+calls to the device drivers come only after all the consumers of a
+device have probed successfully.
+
+Enable this by default on Android since this is required to ease
+modularization efforts for GKI.
+
+Bug: 143308885
+Signed-off-by: Saravana Kannan <saravanak@google.com>
+Change-Id: I57c44e74e35d829ae2ae3145dc241ccf348f2eea
+---
+ drivers/of/property.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/drivers/of/property.c b/drivers/of/property.c
+index 69a6ec8711bd..297705057ee2 100644
+--- a/drivers/of/property.c
++++ b/drivers/of/property.c
+@@ -1221,7 +1221,7 @@ static int of_link_to_suppliers(struct device *dev,
+ 	return ret;
+ }
+ 
+-static bool of_devlink;
++static bool of_devlink = true;
+ core_param(of_devlink, of_devlink, bool, 0);
+ 
+ static int of_fwnode_add_links(const struct fwnode_handle *fwnode,

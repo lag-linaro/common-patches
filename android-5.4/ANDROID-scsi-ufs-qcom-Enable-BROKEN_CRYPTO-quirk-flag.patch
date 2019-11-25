@@ -1,0 +1,36 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: Eric Biggers <ebiggers@google.com>
+Date: Wed, 13 Nov 2019 14:17:25 -0800
+Subject: ANDROID: scsi: ufs-qcom: Enable BROKEN_CRYPTO quirk flag
+
+DragonBoard 845c is currently crashing at boot time because the device
+tree doesn't include the UFS crypto registers.  There are likely to be
+other issues with the crypto support that will need to be addressed too.
+
+Disable crypto support in ufs-qcom until we can get it working properly.
+
+Bug: 137270441
+Change-Id: I54e32fa14431bbbe39f054cda20c646164c687f7
+Signed-off-by: Eric Biggers <ebiggers@google.com>
+---
+ drivers/scsi/ufs/ufs-qcom.c | 7 +++++++
+ 1 file changed, 7 insertions(+)
+
+diff --git a/drivers/scsi/ufs/ufs-qcom.c b/drivers/scsi/ufs/ufs-qcom.c
+index 55b1de5d95a0..97129fcb5808 100644
+--- a/drivers/scsi/ufs/ufs-qcom.c
++++ b/drivers/scsi/ufs/ufs-qcom.c
+@@ -958,6 +958,13 @@ static void ufs_qcom_advertise_quirks(struct ufs_hba *hba)
+ 				| UFSHCD_QUIRK_DME_PEER_ACCESS_AUTO_MODE
+ 				| UFSHCD_QUIRK_BROKEN_PA_RXHSUNTERMCAP);
+ 	}
++
++	/*
++	 * Inline crypto is currently broken with ufs-qcom at least because the
++	 * device tree doesn't include the crypto registers.  There are likely
++	 * to be other issues that will need to be addressed too.
++	 */
++	hba->quirks |= UFSHCD_QUIRK_BROKEN_CRYPTO;
+ }
+ 
+ static void ufs_qcom_set_caps(struct ufs_hba *hba)

@@ -1,0 +1,91 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: Shashank Babu Chinta Venkata <sbchin@codeaurora.org>
+Date: Mon, 9 Sep 2019 17:48:16 -0700
+Subject: ANDROID: drivers: gpu: drm: fix bugs encountered while fuzzing
+
+DRM framework does not have upper bound on number of open
+file descriptors, this resulted in exhaustion
+of file descriptors while fuzzing. Also, adding a
+upper bound on memory allocation for
+drm_propert_blob structure.
+
+Signed-off-by: Shashank Babu Chinta Venkata <sbchin@codeaurora.org>
+Bug: 139653858
+Change-Id: I42bd3696371db6ae37789e3f7f43db045e166898
+---
+ drivers/gpu/drm/drm_file.c     |  7 +++++++
+ drivers/gpu/drm/drm_property.c | 17 +++++++++++++++--
+ 2 files changed, 22 insertions(+), 2 deletions(-)
+
+diff --git a/drivers/gpu/drm/drm_file.c b/drivers/gpu/drm/drm_file.c
+index ea34bc991858..6940812a97d7 100644
+--- a/drivers/gpu/drm/drm_file.c
++++ b/drivers/gpu/drm/drm_file.c
+@@ -49,6 +49,8 @@
+ /* from BKL pushdown */
+ DEFINE_MUTEX(drm_global_mutex);
+ 
++#define MAX_DRM_OPEN_COUNT		128
++
+ /**
+  * DOC: file operations
+  *
+@@ -380,6 +382,11 @@ int drm_open(struct inode *inode, struct file *filp)
+ 	if (!dev->open_count++)
+ 		need_setup = 1;
+ 
++	if (dev->open_count >= MAX_DRM_OPEN_COUNT) {
++		retcode = -EPERM;
++		goto err_undo;
++	}
++
+ 	/* share address_space across all char-devs of a single device */
+ 	filp->f_mapping = dev->anon_inode->i_mapping;
+ 
+diff --git a/drivers/gpu/drm/drm_property.c b/drivers/gpu/drm/drm_property.c
+index 892ce636ef72..29dd4a93838b 100644
+--- a/drivers/gpu/drm/drm_property.c
++++ b/drivers/gpu/drm/drm_property.c
+@@ -31,6 +31,9 @@
+ 
+ #include "drm_crtc_internal.h"
+ 
++#define MAX_BLOB_PROP_SIZE	(PAGE_SIZE * 30)
++#define MAX_BLOB_PROP_COUNT	250
++
+ /**
+  * DOC: overview
+  *
+@@ -561,7 +564,8 @@ drm_property_create_blob(struct drm_device *dev, size_t length,
+ 	struct drm_property_blob *blob;
+ 	int ret;
+ 
+-	if (!length || length > ULONG_MAX - sizeof(struct drm_property_blob))
++	if (!length || length > MAX_BLOB_PROP_SIZE -
++				sizeof(struct drm_property_blob))
+ 		return ERR_PTR(-EINVAL);
+ 
+ 	blob = kvzalloc(sizeof(struct drm_property_blob)+length, GFP_KERNEL);
+@@ -787,12 +791,21 @@ int drm_mode_createblob_ioctl(struct drm_device *dev,
+ 			      void *data, struct drm_file *file_priv)
+ {
+ 	struct drm_mode_create_blob *out_resp = data;
+-	struct drm_property_blob *blob;
++	struct drm_property_blob *blob, *bt;
+ 	int ret = 0;
++	u32 count = 0;
+ 
+ 	if (!drm_core_check_feature(dev, DRIVER_MODESET))
+ 		return -EOPNOTSUPP;
+ 
++	mutex_lock(&dev->mode_config.blob_lock);
++	list_for_each_entry(bt, &file_priv->blobs, head_file)
++		count++;
++	mutex_unlock(&dev->mode_config.blob_lock);
++
++	if (count >= MAX_BLOB_PROP_COUNT)
++		return -EOPNOTSUPP;
++
+ 	blob = drm_property_create_blob(dev, out_resp->length, NULL);
+ 	if (IS_ERR(blob))
+ 		return PTR_ERR(blob);

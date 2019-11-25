@@ -1,0 +1,48 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: Saravana Kannan <saravanak@google.com>
+Date: Mon, 28 Oct 2019 15:00:26 -0700
+Subject: FROMGIT: of: property: Skip adding device links to suppliers that
+ aren't devices
+
+Some devices need to be initialized really early and can't wait for
+driver core or drivers to be functional.  These devices are typically
+initialized without creating a struct device for their device nodes.
+
+If a supplier ends up being one of these devices, skip trying to add
+device links to them.
+
+Signed-off-by: Saravana Kannan <saravanak@google.com>
+Link: https://lore.kernel.org/r/20191028220027.251605-6-saravanak@google.com
+Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+(cherry-pick from commit 15956dad5c1016155c82d094f8c1273a30f79c3d
+ https://git.kernel.org/pub/scm/linux/kernel/git/gregkh/driver-core.git driver-core-next)
+Bug: 143308885
+Change-Id: I0d5a38eec05f5546fe11c23c0d09103ccc35097e
+---
+ drivers/of/property.c | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/of/property.c b/drivers/of/property.c
+index 297705057ee2..42c79b2ea837 100644
+--- a/drivers/of/property.c
++++ b/drivers/of/property.c
+@@ -1024,6 +1024,7 @@ static int of_link_to_phandle(struct device *dev, struct device_node *sup_np,
+ 	struct device *sup_dev;
+ 	int ret = 0;
+ 	struct device_node *tmp_np = sup_np;
++	int is_populated;
+ 
+ 	of_node_get(sup_np);
+ 	/*
+@@ -1048,9 +1049,10 @@ static int of_link_to_phandle(struct device *dev, struct device_node *sup_np,
+ 		return -EINVAL;
+ 	}
+ 	sup_dev = get_dev_from_fwnode(&sup_np->fwnode);
++	is_populated = of_node_check_flag(sup_np, OF_POPULATED);
+ 	of_node_put(sup_np);
+ 	if (!sup_dev)
+-		return -EAGAIN;
++		return is_populated ? 0 : -EAGAIN;
+ 	if (!device_link_add(dev, sup_dev, dl_flags))
+ 		ret = -EAGAIN;
+ 	put_device(sup_dev);
