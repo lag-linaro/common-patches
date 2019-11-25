@@ -1,8 +1,8 @@
 #
 # android-mainline patches
 #
-# Applies onto mainline af42d3466bdc Linux v5.4-rc8
-# Matches android-mainline 00c013f4a634 ("ANDROID: gki_defconfig: disable FUNCTION_TRACER")
+# Applies onto mainline 219d54332a09 Linux v5.4
+# Matches android-mainline 54e301676a79 ("Merge 5.4 into android-mainline")
 #
 ANDROID-Kbuild-LLVMLinux-allow-overriding-clang-target-triple.patch
 ANDROID-net-xfrm-make-PF_KEY-SHA256-use-RFC-compliant-truncation.patch
