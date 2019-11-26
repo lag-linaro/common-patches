@@ -1,0 +1,55 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: Will Deacon <will@kernel.org>
+Date: Wed, 20 Nov 2019 19:00:28 +0000
+Subject: FROMGIT: of: property: Add device link support for "iommu-map"
+
+Commit 8e12257dead7 ("of: property: Add device link support for iommus,
+mboxes and io-channels") added device link support for IOMMU linkages
+described using the "iommus" property. For PCI devices, this property
+is not present and instead the "iommu-map" property is used on the host
+bridge node to map the endpoint RequesterIDs to their corresponding
+IOMMU instance.
+
+Add support for "iommu-map" to the device link supplier bindings so that
+probing of PCI devices can be deferred until after the IOMMU is
+available.
+
+Cc: Rob Herring <robh@kernel.org>
+Cc: Robin Murphy <robin.murphy@arm.com>
+Signed-off-by: Will Deacon <will@kernel.org>
+Acked-by: Saravana Kannan <saravanak@google.com>
+Link: https://lore.kernel.org/r/20191120190028.4722-1-will@kernel.org
+Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+(cherry-picked from commit e149573b2f84d0517648dafc0db625afa681ed54
+ https://git.kernel.org/pub/scm/linux/kernel/git/gregkh/driver-core.git driver-core-next)
+Signed-off-by: Will Deacon <willdeacon@google.com>
+Change-Id: Ife0cf1ed0256af47ed0cae7156f3184de355c42c
+---
+ drivers/of/property.c | 10 ++++++++++
+ 1 file changed, 10 insertions(+)
+
+diff --git a/drivers/of/property.c b/drivers/of/property.c
+index ad20e950c8af..bff44d49519e 100644
+--- a/drivers/of/property.c
++++ b/drivers/of/property.c
+@@ -1190,10 +1190,20 @@ DEFINE_SIMPLE_PROP(mboxes, "mboxes", "#mbox-cells")
+ DEFINE_SIMPLE_PROP(io_channels, "io-channel", "#io-channel-cells")
+ DEFINE_SUFFIX_PROP(regulators, "-supply", NULL)
+ 
++static struct device_node *parse_iommu_maps(struct device_node *np,
++					    const char *prop_name, int index)
++{
++	if (strcmp(prop_name, "iommu-map"))
++		return NULL;
++
++	return of_parse_phandle(np, prop_name, (index * 4) + 1);
++}
++
+ static const struct supplier_bindings of_supplier_bindings[] = {
+ 	{ .parse_prop = parse_clocks, },
+ 	{ .parse_prop = parse_interconnects, },
+ 	{ .parse_prop = parse_iommus, },
++	{ .parse_prop = parse_iommu_maps, },
+ 	{ .parse_prop = parse_mboxes, },
+ 	{ .parse_prop = parse_io_channels, },
+ 	{ .parse_prop = parse_regulators, },

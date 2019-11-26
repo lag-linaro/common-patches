@@ -1,8 +1,8 @@
 #
-# android-mainline patches
+# android-5.4 patches
 #
-# Applies onto mainline 219d54332a09 Linux v5.4
-# Matches android-mainline 54e301676a79 ("Merge 5.4 into android-mainline")
+# Applies onto upstream 219d54332a09 Linux v5.4
+# Matches android-5.4 ea6732f8637d ("ANDROID: gki_defconfig: enable CONFIG_REGULATOR_FIXED_VOLTAGE")
 #
 ANDROID-Kbuild-LLVMLinux-allow-overriding-clang-target-triple.patch
 ANDROID-net-xfrm-make-PF_KEY-SHA256-use-RFC-compliant-truncation.patch
@@ -171,9 +171,6 @@ ANDROID-driver-core-Allow-fwnode_operations.add_links-to-differentiate-errors.pa
 ANDROID-of-property-Make-sure-child-dependencies-don-t-block-probing-of-parent.patch
 ANDROID-of-property-Enable-of_devlink-by-default.patch
 ANDROID-v4l2-compat-ioctl32.c-copy-reserved-fields.patch
-FROMLIST-of-Export-of_phandle_iterator_args-to-modules.patch
-FROMLIST-PCI-Export-PCI-ACS-and-DMA-searching-functions-to-modules.patch
-FROMLIST-iommu-Export-core-IOMMU-functions-to-kernel-modules.patch
 ANDROID-ALSA-jack-Update-supported-jack-switch-types.patch
 ANDROID-gki_defconfig-add-FORTIFY_SOURCE-remove-SPMI_MSM_PMIC_ARB.patch
 ANDROID-init-GKI-enable-hidden-configs-for-media.patch
@@ -245,3 +242,64 @@ ANDROID-SoC-core-Introduce-macro-SOC_SINGLE_MULTI_EXT.patch
 BACKPORT-FROMLIST-pwm-Add-support-for-different-PWM-output-types.patch
 ANDROID-add-unstripped-modules-to-the-distribution.patch
 ANDROID-gki_defconfig-disable-FUNCTION_TRACER.patch
+ANDROID-initial-branch-preparations-for-5.4.patch
+FROMGIT-of-property-Add-device-link-support-for-iommu-map.patch
+FROMLIST-drivers-iommu-Export-core-IOMMU-API-symbols-to-permit-modular-drivers.patch
+FROMLIST-iommu-of-Request-ACS-from-the-PCI-core-when-configuring-IOMMU-linkage.patch
+FROMLIST-PCI-Export-pci_ats_disabled-as-a-GPL-symbol-to-modules.patch
+FROMLIST-drivers-iommu-Take-a-ref-to-the-IOMMU-driver-prior-to-add_device.patch
+FROMLIST-iommu-of-Take-a-ref-to-the-IOMMU-driver-during-of_xlate.patch
+FROMLIST-drivers-iommu-Allow-IOMMU-bus-ops-to-be-unregistered.patch
+FROMLIST-Revert-iommu-arm-smmu-Make-arm-smmu-v3-explicitly-non-modular.patch
+FROMLIST-Revert-iommu-arm-smmu-Make-arm-smmu-explicitly-non-modular.patch
+FROMLIST-iommu-arm-smmu-Prevent-forced-unbinding-of-Arm-SMMU-drivers.patch
+FROMLIST-iommu-arm-smmu-v3-Unregister-IOMMU-and-bus-ops-on-device-removal.patch
+FROMLIST-iommu-arm-smmu-v3-Allow-building-as-a-module.patch
+FROMLIST-iommu-arm-smmu-Unregister-IOMMU-and-bus-ops-on-device-removal.patch
+FROMLIST-iommu-arm-smmu-Allow-building-as-a-module.patch
+FROMLIST-iommu-arm-smmu-Update-my-email-address-in-MODULE_AUTHOR.patch
+FROMLIST-reboot-Export-reboot_mode.patch
+ANDROID-gki_defconfig-enable-CONFIG_IKHEADERS-as-m.patch
+ANDROID-gki_defconfig-removed-CONFIG_PM_WAKELOCKS.patch
+FROMGIT-firmware_class-make-firmware-caching-configurable.patch
+ANDROID-gki_defconfig-FW_CACHE-to-no.patch
+FROMLIST-pwm-Convert-period-and-duty-cycle-to-u64.patch
+ANDROID-clang-update-to-10.0.1.patch
+FROMLIST-arm64-mm-avoid-x18-in-idmap_kpti_install_ng_mappings.patch
+FROMLIST-arm64-lib-copy_page-avoid-x18-register-in-assembler-code.patch
+FROMLIST-arm64-kvm-stop-treating-register-x18-as-caller-save.patch
+FROMLIST-arm64-kernel-avoid-x18-in-__cpu_soft_restart.patch
+FROMLIST-add-support-for-Clang-s-Shadow-Call-Stack-SCS.patch
+FROMLIST-scs-add-accounting.patch
+FROMLIST-scs-add-support-for-stack-usage-debugging.patch
+FROMLIST-arm64-disable-function-graph-tracing-with-SCS.patch
+FROMLIST-arm64-reserve-x18-from-general-allocation-with-SCS.patch
+FROMLIST-arm64-preserve-x18-when-CPU-is-suspended.patch
+FROMLIST-arm64-efi-restore-x18-if-it-was-corrupted.patch
+FROMLIST-arm64-vdso-disable-Shadow-Call-Stack.patch
+FROMLIST-arm64-disable-SCS-for-hypervisor-code.patch
+FROMLIST-arm64-implement-Shadow-Call-Stack.patch
+FROMGIT-driver-core-platform-use-the-correct-callback-type-for-bus_find_device.patch
+ANDROID-kbuild-add-CONFIG_LD_IS_LLD.patch
+ANDROID-kbuild-add-support-for-Clang-LTO.patch
+ANDROID-kbuild-fix-dynamic-ftrace-with-clang-LTO.patch
+ANDROID-scripts-mod-disable-LTO-for-empty.c.patch
+ANDROID-efi-libstub-disable-LTO.patch
+ANDROID-drivers-misc-lkdtm-disable-LTO-for-rodata.o.patch
+ANDROID-init-ensure-initcall-ordering-with-LTO.patch
+ANDROID-soc-tegra-disable-ARCH_TEGRA_210_SOC-with-LTO.patch
+ANDROID-irqchip-gic-v3-rename-gic_of_init-to-work-around-a-ThinLTO-CFI-bug.patch
+ANDROID-arm64-vdso-disable-LTO.patch
+ANDROID-arm64-disable-HAVE_ARCH_PREL32_RELOCATIONS-with-LTO_CLANG.patch
+FROMLIST-arm64-lse-fix-LSE-atomics-with-LLVM-s-integrated-assembler.patch
+FROMLIST-arm64-fix-alternatives-with-LLVM-s-integrated-assembler.patch
+ANDROID-arm64-allow-LTO_CLANG-and-THINLTO-to-be-selected.patch
+ANDROID-add-support-for-Clang-s-Control-Flow-Integrity-CFI.patch
+ANDROID-bpf-validate-bpf_func-when-BPF_JIT-is-enabled-with-CFI.patch
+ANDROID-arm64-bpf-implement-arch_bpf_jit_check_func.patch
+ANDROID-arm64-add-__nocfi-to-functions-that-jump-to-a-physical-address.patch
+ANDROID-arm64-add-__pa_function.patch
+ANDROID-arm64-add-__nocfi-to-__apply_alternatives.patch
+ANDROID-arm64-kvm-disable-CFI.patch
+FROMLIST-crypto-arm64-sha-fix-function-types.patch
+ANDROID-gki_defconfig-enable-CONFIG_REGULATOR_FIXED_VOLTAGE.patch

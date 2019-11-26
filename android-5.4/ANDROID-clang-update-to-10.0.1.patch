@@ -1,0 +1,25 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: Alistair Delva <adelva@google.com>
+Date: Fri, 22 Nov 2019 14:24:33 -0800
+Subject: ANDROID: clang: update to 10.0.1
+
+Bug: 144776928
+Change-Id: Ic1c76a05a54b0001eac6f9c6f248222989aa79bd
+Signed-off-by: Alistair Delva <adelva@google.com>
+---
+ build.config.common | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/build.config.common b/build.config.common
+index f5b49aecf461..d222a9971a60 100644
+--- a/build.config.common
++++ b/build.config.common
+@@ -5,7 +5,7 @@ CC=clang
+ LD=ld.lld
+ NM=llvm-nm
+ OBJCOPY=llvm-objcopy
+-CLANG_PREBUILT_BIN=prebuilts-master/clang/host/linux-x86/clang-r365631c/bin
++CLANG_PREBUILT_BIN=prebuilts-master/clang/host/linux-x86/clang-r370808/bin
+ BUILDTOOLS_PREBUILT_BIN=build/build-tools/path/linux-x86
+ 
+ EXTRA_CMDS=''

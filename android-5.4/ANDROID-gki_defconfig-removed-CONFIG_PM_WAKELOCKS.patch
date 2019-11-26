@@ -1,0 +1,43 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: Ram Muthiah <rammuthiah@google.com>
+Date: Mon, 25 Nov 2019 15:59:27 -0800
+Subject: ANDROID: gki_defconfig: removed CONFIG_PM_WAKELOCKS
+
+Change-Id: I9ff74aea38ee20815d9e0cb2b81ebbb2dae6dd7b
+Signed-off-by: Ram Muthiah <rammuthiah@google.com>
+Bug: 143710295
+Bug: 115946999
+Test: Treehugger
+---
+ arch/arm64/configs/gki_defconfig | 3 ---
+ arch/x86/configs/gki_defconfig   | 3 ---
+ 2 files changed, 6 deletions(-)
+
+diff --git a/arch/arm64/configs/gki_defconfig b/arch/arm64/configs/gki_defconfig
+index 741df0b501e4..481b30973cc9 100644
+--- a/arch/arm64/configs/gki_defconfig
++++ b/arch/arm64/configs/gki_defconfig
+@@ -50,9 +50,6 @@ CONFIG_CP15_BARRIER_EMULATION=y
+ CONFIG_SETEND_EMULATION=y
+ CONFIG_RANDOMIZE_BASE=y
+ # CONFIG_DMI is not set
+-CONFIG_PM_WAKELOCKS=y
+-CONFIG_PM_WAKELOCKS_LIMIT=0
+-# CONFIG_PM_WAKELOCKS_GC is not set
+ CONFIG_ENERGY_MODEL=y
+ CONFIG_CPU_IDLE=y
+ CONFIG_ARM_CPUIDLE=y
+diff --git a/arch/x86/configs/gki_defconfig b/arch/x86/configs/gki_defconfig
+index b77f2e17ffa9..fed81b15d9ba 100644
+--- a/arch/x86/configs/gki_defconfig
++++ b/arch/x86/configs/gki_defconfig
+@@ -42,9 +42,6 @@ CONFIG_HYPERVISOR_GUEST=y
+ CONFIG_PARAVIRT=y
+ CONFIG_NR_CPUS=32
+ CONFIG_EFI=y
+-CONFIG_PM_WAKELOCKS=y
+-CONFIG_PM_WAKELOCKS_LIMIT=0
+-# CONFIG_PM_WAKELOCKS_GC is not set
+ CONFIG_CPU_FREQ_TIMES=y
+ CONFIG_CPU_FREQ_GOV_POWERSAVE=y
+ CONFIG_CPU_FREQ_GOV_CONSERVATIVE=y

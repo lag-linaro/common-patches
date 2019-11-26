@@ -1,0 +1,29 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: Sami Tolvanen <samitolvanen@google.com>
+Date: Wed, 20 Mar 2019 10:15:46 -0700
+Subject: ANDROID: kbuild: add CONFIG_LD_IS_LLD
+
+Similarly to the CC_IS_CLANG config, add LD_IS_LLD to simplify feature
+selection based on the linker.
+
+Bug: 145210207
+Change-Id: I097c52899dcf9829eb0e1ea89211b17972301c1a
+Signed-off-by: Sami Tolvanen <samitolvanen@google.com>
+---
+ init/Kconfig | 3 +++
+ 1 file changed, 3 insertions(+)
+
+diff --git a/init/Kconfig b/init/Kconfig
+index e3f4463ac31c..fecbc6f6a2b4 100644
+--- a/init/Kconfig
++++ b/init/Kconfig
+@@ -20,6 +20,9 @@ config GCC_VERSION
+ config CC_IS_CLANG
+ 	def_bool $(success,$(CC) --version | head -n 1 | grep -q clang)
+ 
++config LD_IS_LLD
++	def_bool $(success,$(LD) -v | head -n 1 | grep -q LLD)
++
+ config CLANG_VERSION
+ 	int
+ 	default $(shell,$(srctree)/scripts/clang-version.sh $(CC))

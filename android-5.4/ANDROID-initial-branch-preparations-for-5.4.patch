@@ -1,0 +1,53 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: Matthias Maennich <maennich@google.com>
+Date: Mon, 25 Nov 2019 17:01:07 +0000
+Subject: ANDROID: initial branch preparations for 5.4
+
+Adjust defconfigs, build.config and initial ABI representation.
+
+Change-Id: I3c859b8a05d35eb3bfd801a04e797ee769f874ee
+Signed-off-by: Matthias Maennich <maennich@google.com>
+---
+ arch/arm64/configs/gki_defconfig     | 1 -
+ arch/arm64/configs/rockpi4_defconfig | 1 -
+ arch/x86/configs/gki_defconfig       | 1 -
+ build.config.common                  | 2 +-
+ 4 files changed, 1 insertion(+), 4 deletions(-)
+
+diff --git a/arch/arm64/configs/gki_defconfig b/arch/arm64/configs/gki_defconfig
+index 70b13d6ebe93..25272865c5fd 100644
+--- a/arch/arm64/configs/gki_defconfig
++++ b/arch/arm64/configs/gki_defconfig
+@@ -1,4 +1,3 @@
+-CONFIG_LOCALVERSION="-mainline"
+ CONFIG_AUDIT=y
+ CONFIG_NO_HZ=y
+ CONFIG_HIGH_RES_TIMERS=y
+diff --git a/arch/arm64/configs/rockpi4_defconfig b/arch/arm64/configs/rockpi4_defconfig
+index 2f97c1a8a60a..57e849f5fab4 100644
+--- a/arch/arm64/configs/rockpi4_defconfig
++++ b/arch/arm64/configs/rockpi4_defconfig
+@@ -1,4 +1,3 @@
+-CONFIG_LOCALVERSION="-mainline"
+ CONFIG_AUDIT=y
+ CONFIG_NO_HZ=y
+ CONFIG_HIGH_RES_TIMERS=y
+diff --git a/arch/x86/configs/gki_defconfig b/arch/x86/configs/gki_defconfig
+index ec9655cce5c4..a5f95577e080 100644
+--- a/arch/x86/configs/gki_defconfig
++++ b/arch/x86/configs/gki_defconfig
+@@ -1,4 +1,3 @@
+-CONFIG_LOCALVERSION="-mainline"
+ # CONFIG_USELIB is not set
+ CONFIG_AUDIT=y
+ CONFIG_NO_HZ=y
+diff --git a/build.config.common b/build.config.common
+index 63912375042d..f5b49aecf461 100644
+--- a/build.config.common
++++ b/build.config.common
+@@ -1,4 +1,4 @@
+-BRANCH=android-mainline
++BRANCH=android-5.4
+ KERNEL_DIR=common
+ 
+ CC=clang

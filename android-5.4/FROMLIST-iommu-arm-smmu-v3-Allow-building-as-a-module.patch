@@ -1,0 +1,52 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: Will Deacon <will@kernel.org>
+Date: Fri, 25 Oct 2019 14:50:46 +0100
+Subject: FROMLIST: iommu/arm-smmu-v3: Allow building as a module
+
+By removing the redundant call to 'pci_request_acs()' we can allow the
+ARM SMMUv3 driver to be built as a module.
+
+Signed-off-by: Will Deacon <will@kernel.org>
+Bug: 140290589
+Link: https://lore.kernel.org/lkml/20191121114918.2293-12-will@kernel.org/
+Signed-off-by: Will Deacon <willdeacon@google.com>
+Change-Id: I1d8fbe26ab7114af6409ea13a68fff8afed49703
+---
+ drivers/iommu/Kconfig       | 2 +-
+ drivers/iommu/arm-smmu-v3.c | 3 +--
+ 2 files changed, 2 insertions(+), 3 deletions(-)
+
+diff --git a/drivers/iommu/Kconfig b/drivers/iommu/Kconfig
+index e3842eabcfdd..7583d47fc4d5 100644
+--- a/drivers/iommu/Kconfig
++++ b/drivers/iommu/Kconfig
+@@ -388,7 +388,7 @@ config ARM_SMMU_DISABLE_BYPASS_BY_DEFAULT
+ 	  config.
+ 
+ config ARM_SMMU_V3
+-	bool "ARM Ltd. System MMU Version 3 (SMMUv3) Support"
++	tristate "ARM Ltd. System MMU Version 3 (SMMUv3) Support"
+ 	depends on ARM64
+ 	select IOMMU_API
+ 	select IOMMU_IO_PGTABLE_LPAE
+diff --git a/drivers/iommu/arm-smmu-v3.c b/drivers/iommu/arm-smmu-v3.c
+index 0e7a135efdfe..f79b14f75107 100644
+--- a/drivers/iommu/arm-smmu-v3.c
++++ b/drivers/iommu/arm-smmu-v3.c
+@@ -2733,6 +2733,7 @@ static struct iommu_ops arm_smmu_ops = {
+ 	.get_resv_regions	= arm_smmu_get_resv_regions,
+ 	.put_resv_regions	= arm_smmu_put_resv_regions,
+ 	.pgsize_bitmap		= -1UL, /* Restricted during device attach */
++	.owner			= THIS_MODULE,
+ };
+ 
+ /* Probing and initialisation functions */
+@@ -3571,8 +3572,6 @@ static int arm_smmu_set_bus_ops(struct iommu_ops *ops)
+ 
+ #ifdef CONFIG_PCI
+ 	if (pci_bus_type.iommu_ops != ops) {
+-		if (ops)
+-			pci_request_acs();
+ 		err = bus_set_iommu(&pci_bus_type, ops);
+ 		if (err)
+ 			return err;

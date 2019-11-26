@@ -1,0 +1,30 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: Will Deacon <will@kernel.org>
+Date: Fri, 25 Oct 2019 14:48:44 +0100
+Subject: FROMLIST: PCI: Export pci_ats_disabled() as a GPL symbol to modules
+
+Building drivers for ATS-aware IOMMUs as modules requires access to
+pci_ats_disabled(). Export it as a GPL symbol to get things working.
+
+Acked-by: Bjorn Helgaas <bhelgaas@google.com>
+Signed-off-by: Will Deacon <will@kernel.org>
+Bug: 140290589
+Link: https://lore.kernel.org/lkml/20191121114918.2293-4-will@kernel.org/
+Signed-off-by: Will Deacon <willdeacon@google.com>
+Change-Id: Ia5457fd6c4593565799b97f40c0def3558a97696
+---
+ drivers/pci/pci.c | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/drivers/pci/pci.c b/drivers/pci/pci.c
+index a97e2571a527..4fbe5b576dd8 100644
+--- a/drivers/pci/pci.c
++++ b/drivers/pci/pci.c
+@@ -123,6 +123,7 @@ bool pci_ats_disabled(void)
+ {
+ 	return pcie_ats_disabled;
+ }
++EXPORT_SYMBOL_GPL(pci_ats_disabled);
+ 
+ /* Disable bridge_d3 for all PCIe ports */
+ static bool pci_bridge_d3_disable;
