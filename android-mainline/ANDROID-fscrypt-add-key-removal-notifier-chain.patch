@@ -24,10 +24,10 @@ Signed-off-by: Eric Biggers <ebiggers@google.com>
  2 files changed, 36 insertions(+)
 
 diff --git a/fs/crypto/keyring.c b/fs/crypto/keyring.c
-index c34fa7c61b43..b3ce0db8b9b8 100644
+index 7788adfa2dc4..05cc274e5c13 100644
 --- a/fs/crypto/keyring.c
 +++ b/fs/crypto/keyring.c
-@@ -704,12 +704,34 @@ static int check_for_busy_inodes(struct super_block *sb,
+@@ -708,12 +708,34 @@ static int check_for_busy_inodes(struct super_block *sb,
  	return -EBUSY;
  }
  
@@ -63,10 +63,10 @@ index c34fa7c61b43..b3ce0db8b9b8 100644
  	 * An inode can't be evicted while it is dirty or has dirty pages.
  	 * Thus, we first have to clean the inodes in ->mk_decrypted_inodes.
 diff --git a/include/linux/fscrypt.h b/include/linux/fscrypt.h
-index f622f7460ed8..4ce4a970bb56 100644
+index 9583837ca37b..607076207f73 100644
 --- a/include/linux/fscrypt.h
 +++ b/include/linux/fscrypt.h
-@@ -146,6 +146,8 @@ extern int fscrypt_ioctl_remove_key(struct file *filp, void __user *arg);
+@@ -135,6 +135,8 @@ extern int fscrypt_ioctl_remove_key(struct file *filp, void __user *arg);
  extern int fscrypt_ioctl_remove_key_all_users(struct file *filp,
  					      void __user *arg);
  extern int fscrypt_ioctl_get_key_status(struct file *filp, void __user *arg);
@@ -75,7 +75,7 @@ index f622f7460ed8..4ce4a970bb56 100644
  
  /* keysetup.c */
  extern int fscrypt_get_encryption_info(struct inode *);
-@@ -410,6 +412,18 @@ static inline int fscrypt_ioctl_get_key_status(struct file *filp,
+@@ -387,6 +389,18 @@ static inline int fscrypt_ioctl_get_key_status(struct file *filp,
  	return -EOPNOTSUPP;
  }
  

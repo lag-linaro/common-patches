@@ -24,7 +24,7 @@ Change-Id: Ie709d3b6cd07ac9e09d1473fc0e0a21a8146a1dc
  2 files changed, 43 insertions(+), 9 deletions(-)
 
 diff --git a/drivers/base/core.c b/drivers/base/core.c
-index 7ea665a97da2..17ed054c4132 100644
+index ec7462d42c93..f8c9a30353c7 100644
 --- a/drivers/base/core.c
 +++ b/drivers/base/core.c
 @@ -131,6 +131,9 @@ static int device_is_dependent(struct device *dev, void *target)
@@ -141,7 +141,7 @@ index 7ea665a97da2..17ed054c4132 100644
  			continue;
  
  		if (link->status != DL_STATE_AVAILABLE) {
-@@ -949,7 +980,8 @@ void device_links_unbind_consumers(struct device *dev)
+@@ -1012,7 +1043,8 @@ void device_links_unbind_consumers(struct device *dev)
  	list_for_each_entry(link, &dev->links.consumers, s_node) {
  		enum device_link_state status;
  

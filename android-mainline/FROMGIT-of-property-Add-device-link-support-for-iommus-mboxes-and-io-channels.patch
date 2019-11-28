@@ -18,7 +18,7 @@ Change-Id: I035c27c805380c69110d274b24d81265883bc301
  1 file changed, 6 insertions(+)
 
 diff --git a/drivers/of/property.c b/drivers/of/property.c
-index 5f89a67a3026..ad20e950c8af 100644
+index 9ca0376668ee..ef70cca37711 100644
 --- a/drivers/of/property.c
 +++ b/drivers/of/property.c
 @@ -1185,11 +1185,17 @@ struct supplier_bindings {

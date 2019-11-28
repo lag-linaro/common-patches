@@ -69,10 +69,10 @@ index b3a2cc7c0252..ce493e360814 100644
  #define EXT4_MOUNT_DATA_ERR_ABORT	0x10000000 /* Abort on file data write */
  #define EXT4_MOUNT_BLOCK_VALIDITY	0x20000000 /* Block validity checking */
 diff --git a/fs/ext4/inode.c b/fs/ext4/inode.c
-index ac409eb63100..a32c8755b6da 100644
+index 516faa280ced..43a844affc57 100644
 --- a/fs/ext4/inode.c
 +++ b/fs/ext4/inode.c
-@@ -1238,7 +1238,7 @@ static int ext4_block_write_begin(struct page *page, loff_t pos, unsigned len,
+@@ -1237,7 +1237,7 @@ static int ext4_block_write_begin(struct page *page, loff_t pos, unsigned len,
  	}
  	if (unlikely(err)) {
  		page_zero_new_buffers(page, from, to);
@@ -81,7 +81,7 @@ index ac409eb63100..a32c8755b6da 100644
  		for (i = 0; i < nr_wait; i++) {
  			int err2;
  
-@@ -4089,7 +4089,7 @@ static int __ext4_block_zero_page_range(handle_t *handle,
+@@ -4034,7 +4034,7 @@ static int __ext4_block_zero_page_range(handle_t *handle,
  		/* Uhhuh. Read error. Complain and punt. */
  		if (!buffer_uptodate(bh))
  			goto unlock;
@@ -131,10 +131,10 @@ index 12ceadef32c5..46a4aeef8275 100644
  		unsigned int enc_bytes = round_up(len, i_blocksize(inode));
  
 diff --git a/fs/ext4/readpage.c b/fs/ext4/readpage.c
-index 0d88b82a5929..e21216e7ae24 100644
+index a30b203fa461..643f271b0b8e 100644
 --- a/fs/ext4/readpage.c
 +++ b/fs/ext4/readpage.c
-@@ -198,7 +198,7 @@ static struct bio_post_read_ctx *get_bio_post_read_ctx(struct inode *inode,
+@@ -183,7 +183,7 @@ static struct bio_post_read_ctx *get_bio_post_read_ctx(struct inode *inode,
  	unsigned int post_read_steps = 0;
  	struct bio_post_read_ctx *ctx = NULL;
  
@@ -143,7 +143,7 @@ index 0d88b82a5929..e21216e7ae24 100644
  		post_read_steps |= 1 << STEP_DECRYPT;
  
  	if (ext4_need_verity(inode, first_idx))
-@@ -259,6 +259,7 @@ int ext4_mpage_readpages(struct address_space *mapping,
+@@ -220,6 +220,7 @@ int ext4_mpage_readpages(struct address_space *mapping,
  	const unsigned blkbits = inode->i_blkbits;
  	const unsigned blocks_per_page = PAGE_SIZE >> blkbits;
  	const unsigned blocksize = 1 << blkbits;
@@ -151,7 +151,7 @@ index 0d88b82a5929..e21216e7ae24 100644
  	sector_t block_in_file;
  	sector_t last_block;
  	sector_t last_block_in_file;
-@@ -291,7 +292,8 @@ int ext4_mpage_readpages(struct address_space *mapping,
+@@ -252,7 +253,8 @@ int ext4_mpage_readpages(struct address_space *mapping,
  		if (page_has_buffers(page))
  			goto confused;
  
@@ -161,7 +161,7 @@ index 0d88b82a5929..e21216e7ae24 100644
  		last_block = block_in_file + nr_pages * blocks_per_page;
  		last_block_in_file = (ext4_readpage_limit(inode) +
  				      blocksize - 1) >> blkbits;
-@@ -391,7 +393,8 @@ int ext4_mpage_readpages(struct address_space *mapping,
+@@ -352,7 +354,8 @@ int ext4_mpage_readpages(struct address_space *mapping,
  		 * This page will go to BIO.  Do we need to send this
  		 * BIO off first?
  		 */
@@ -169,9 +169,9 @@ index 0d88b82a5929..e21216e7ae24 100644
 +		if (bio && (last_block_in_bio != blocks[0] - 1 ||
 +			    !fscrypt_mergeable_bio(bio, inode, next_block))) {
  		submit_and_realloc:
- 			ext4_submit_bio_read(bio);
+ 			submit_bio(bio);
  			bio = NULL;
-@@ -403,6 +406,12 @@ int ext4_mpage_readpages(struct address_space *mapping,
+@@ -364,6 +367,12 @@ int ext4_mpage_readpages(struct address_space *mapping,
  				min_t(int, nr_pages, BIO_MAX_PAGES));
  			if (!bio)
  				goto set_error_page;

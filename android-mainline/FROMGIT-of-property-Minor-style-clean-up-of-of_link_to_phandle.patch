@@ -19,10 +19,10 @@ Change-Id: Ie120fde8733b27976951142ef973b01f450bc8a0
  1 file changed, 8 insertions(+), 2 deletions(-)
 
 diff --git a/drivers/of/property.c b/drivers/of/property.c
-index 42c79b2ea837..b544421c748e 100644
+index 563a3203c025..8d58d9eaf890 100644
 --- a/drivers/of/property.c
 +++ b/drivers/of/property.c
-@@ -1051,8 +1051,14 @@ static int of_link_to_phandle(struct device *dev, struct device_node *sup_np,
+@@ -1051,8 +1051,14 @@ static int of_link_to_phandle(struct device *dev, struct device_node *sup_np)
  	sup_dev = get_dev_from_fwnode(&sup_np->fwnode);
  	is_populated = of_node_check_flag(sup_np, OF_POPULATED);
  	of_node_put(sup_np);

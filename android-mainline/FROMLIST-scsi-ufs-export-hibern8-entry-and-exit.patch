@@ -17,7 +17,7 @@ Signed-off-by: Asutosh Das <asutoshd@codeaurora.org>
  2 files changed, 6 insertions(+), 5 deletions(-)
 
 diff --git a/drivers/scsi/ufs/ufshcd.c b/drivers/scsi/ufs/ufshcd.c
-index 8ac0157ba9d8..126af87ab6d3 100644
+index 3a1190f0c672..d2117d32750a 100644
 --- a/drivers/scsi/ufs/ufshcd.c
 +++ b/drivers/scsi/ufs/ufshcd.c
 @@ -248,8 +248,6 @@ static int ufshcd_probe_hba(struct ufs_hba *hba);
@@ -29,7 +29,7 @@ index 8ac0157ba9d8..126af87ab6d3 100644
  static inline void ufshcd_add_delay_before_dme_cmd(struct ufs_hba *hba);
  static int ufshcd_host_reset_and_restore(struct ufs_hba *hba);
  static void ufshcd_resume_clkscaling(struct ufs_hba *hba);
-@@ -3929,7 +3927,7 @@ static int __ufshcd_uic_hibern8_enter(struct ufs_hba *hba)
+@@ -3958,7 +3956,7 @@ static int __ufshcd_uic_hibern8_enter(struct ufs_hba *hba)
  	return ret;
  }
  
@@ -38,7 +38,7 @@ index 8ac0157ba9d8..126af87ab6d3 100644
  {
  	int ret = 0, retries;
  
-@@ -3941,8 +3939,9 @@ static int ufshcd_uic_hibern8_enter(struct ufs_hba *hba)
+@@ -3970,8 +3968,9 @@ static int ufshcd_uic_hibern8_enter(struct ufs_hba *hba)
  out:
  	return ret;
  }
@@ -49,7 +49,7 @@ index 8ac0157ba9d8..126af87ab6d3 100644
  {
  	struct uic_command uic_cmd = {0};
  	int ret;
-@@ -3968,6 +3967,7 @@ static int ufshcd_uic_hibern8_exit(struct ufs_hba *hba)
+@@ -3997,6 +3996,7 @@ static int ufshcd_uic_hibern8_exit(struct ufs_hba *hba)
  
  	return ret;
  }
@@ -58,10 +58,10 @@ index 8ac0157ba9d8..126af87ab6d3 100644
  static void ufshcd_auto_hibern8_enable(struct ufs_hba *hba)
  {
 diff --git a/drivers/scsi/ufs/ufshcd.h b/drivers/scsi/ufs/ufshcd.h
-index 64736a15cf17..b724a6cfe5af 100644
+index a106b45f8358..21624f0ff925 100644
 --- a/drivers/scsi/ufs/ufshcd.h
 +++ b/drivers/scsi/ufs/ufshcd.h
-@@ -1145,5 +1145,6 @@ static inline u8 ufshcd_scsi_to_upiu_lun(unsigned int scsi_lun)
+@@ -1122,5 +1122,6 @@ static inline u8 ufshcd_scsi_to_upiu_lun(unsigned int scsi_lun)
  
  int ufshcd_dump_regs(struct ufs_hba *hba, size_t offset, size_t len,
  		     const char *prefix);

@@ -22,7 +22,7 @@ Change-Id: I162bdb94191b0b556c86b0c519c74de4ef35c356
  1 file changed, 47 insertions(+), 15 deletions(-)
 
 diff --git a/drivers/of/property.c b/drivers/of/property.c
-index b544421c748e..5f89a67a3026 100644
+index 8d58d9eaf890..9ca0376668ee 100644
 --- a/drivers/of/property.c
 +++ b/drivers/of/property.c
 @@ -1101,17 +1101,11 @@ static struct device_node *parse_prop_cells(struct device_node *np,
