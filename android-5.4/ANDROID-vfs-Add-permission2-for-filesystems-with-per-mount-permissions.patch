@@ -61,7 +61,7 @@ index 0a7f9d67bb35..be094ea6a330 100644
  				return error;
  		}
 diff --git a/fs/exec.c b/fs/exec.c
-index 555e93c7dec8..34df3b6cf448 100644
+index c27231234764..6cef87e4416d 100644
 --- a/fs/exec.c
 +++ b/fs/exec.c
 @@ -1313,7 +1313,7 @@ EXPORT_SYMBOL(flush_old_exec);
