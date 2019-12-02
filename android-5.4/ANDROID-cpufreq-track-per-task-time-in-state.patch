@@ -66,7 +66,7 @@ index 9a9f5ccd13d9..93d52a112cab 100644
  obj-$(CONFIG_CPU_FREQ_GOV_POWERSAVE)	+= cpufreq_powersave.o
  obj-$(CONFIG_CPU_FREQ_GOV_USERSPACE)	+= cpufreq_userspace.o
 diff --git a/drivers/cpufreq/cpufreq.c b/drivers/cpufreq/cpufreq.c
-index 48a224a6b178..7fb82b9ce4a2 100644
+index bc19d6c16aaa..f1de5b621932 100644
 --- a/drivers/cpufreq/cpufreq.c
 +++ b/drivers/cpufreq/cpufreq.c
 @@ -16,6 +16,7 @@
@@ -85,7 +85,7 @@ index 48a224a6b178..7fb82b9ce4a2 100644
  		policy->cur = freqs->new;
  	}
  }
-@@ -1457,6 +1459,7 @@ static int cpufreq_online(unsigned int cpu)
+@@ -1463,6 +1465,7 @@ static int cpufreq_online(unsigned int cpu)
  			goto out_destroy_policy;
  
  		cpufreq_stats_create_table(policy);
@@ -386,7 +386,7 @@ index 000000000000..bfef6e62c68a
 +#endif /* CONFIG_CPU_FREQ_TIMES */
 +#endif /* _LINUX_CPUFREQ_TIMES_H */
 diff --git a/include/linux/sched.h b/include/linux/sched.h
-index 67a1d86981a9..2f35afc13de3 100644
+index 775503573ed7..e2f891bb62a2 100644
 --- a/include/linux/sched.h
 +++ b/include/linux/sched.h
 @@ -841,6 +841,10 @@ struct task_struct {
@@ -401,7 +401,7 @@ index 67a1d86981a9..2f35afc13de3 100644
  #ifdef CONFIG_VIRT_CPU_ACCOUNTING_GEN
  	struct vtime			vtime;
 diff --git a/kernel/fork.c b/kernel/fork.c
-index 13b38794efb5..1a38712da4cd 100644
+index 6cabc124378c..d5786c962d52 100644
 --- a/kernel/fork.c
 +++ b/kernel/fork.c
 @@ -93,6 +93,7 @@
@@ -421,7 +421,7 @@ index 13b38794efb5..1a38712da4cd 100644
  #ifndef CONFIG_THREAD_INFO_IN_TASK
  	/*
  	 * The task is finally done with both the stack and thread_info,
-@@ -1852,6 +1855,8 @@ static __latent_entropy struct task_struct *copy_process(
+@@ -1848,6 +1851,8 @@ static __latent_entropy struct task_struct *copy_process(
  	if (!p)
  		goto fork_out;
  
@@ -430,7 +430,7 @@ index 13b38794efb5..1a38712da4cd 100644
  	/*
  	 * This _must_ happen before we call free_task(), i.e. before we jump
  	 * to any of the bad_fork_* labels. This is to avoid freeing
-@@ -2369,6 +2374,8 @@ long _do_fork(struct kernel_clone_args *args)
+@@ -2359,6 +2364,8 @@ long _do_fork(struct kernel_clone_args *args)
  	if (IS_ERR(p))
  		return PTR_ERR(p);
  

@@ -1,8 +1,8 @@
 #
 # android-5.4 patches
 #
-# Applies onto upstream 219d54332a09 Linux v5.4
-# Matches android-5.4 ea6732f8637d ("ANDROID: gki_defconfig: enable CONFIG_REGULATOR_FIXED_VOLTAGE")
+# Applies onto upstream 79438f37a69a Linux v5.4.1
+# Matches android-5.4 b5dc6654f3ba ("ANDROID: Update ABI representation after 5.4.1 merge")
 #
 ANDROID-Kbuild-LLVMLinux-allow-overriding-clang-target-triple.patch
 ANDROID-net-xfrm-make-PF_KEY-SHA256-use-RFC-compliant-truncation.patch
