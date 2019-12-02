@@ -1,0 +1,27 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: Sami Tolvanen <samitolvanen@google.com>
+Date: Wed, 27 Nov 2019 12:57:39 -0800
+Subject: ANDROID: kbuild: suppress llvm-ar errors
+
+These errors are harmless, suppress the output.
+
+Fixes: 310afefe71d4 ("ANDROID: kbuild: add support for Clang LTO")
+Change-Id: Ia78f2edb6aa3a93ffbca37d193f065a51f748679
+Signed-off-by: Sami Tolvanen <samitolvanen@google.com>
+---
+ scripts/link-vmlinux.sh | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/scripts/link-vmlinux.sh b/scripts/link-vmlinux.sh
+index b427d58af739..a99698fadc6c 100755
+--- a/scripts/link-vmlinux.sh
++++ b/scripts/link-vmlinux.sh
+@@ -54,7 +54,7 @@ lto_lds()
+ 
+ 	if [ -n "${CONFIG_MODVERSIONS}" ]; then
+ 		for a in ${KBUILD_VMLINUX_OBJS} ${KBUILD_VMLINUX_LIBS}; do
+-			for o in $(${AR} t $a); do
++			for o in $(${AR} t $a 2>/dev/null); do
+ 				if [ -f ${o}.symversions ]; then
+ 					cat ${o}.symversions >> .tmp_lto.lds
+ 				fi

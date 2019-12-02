@@ -1,8 +1,8 @@
 #
 # android-mainline patches
 #
-# Applies onto mainline 219d54332a09 Linux v5.4
-# Matches android-mainline bc997f754966 ("ANDROID: gki_defconfig: enable CONFIG_IKHEADERS as m")
+# Applies onto upstream 219d54332a09 Linux v5.4
+# Matches android-mainline 96dc079c19ae ("ANDROID: kbuild: suppress llvm-ar errors")
 #
 ANDROID-Kbuild-LLVMLinux-allow-overriding-clang-target-triple.patch
 ANDROID-net-xfrm-make-PF_KEY-SHA256-use-RFC-compliant-truncation.patch
@@ -259,3 +259,50 @@ FROMLIST-iommu-arm-smmu-Allow-building-as-a-module.patch
 FROMLIST-iommu-arm-smmu-Update-my-email-address-in-MODULE_AUTHOR.patch
 FROMLIST-reboot-Export-reboot_mode.patch
 ANDROID-gki_defconfig-enable-CONFIG_IKHEADERS-as-m.patch
+FROMGIT-firmware_class-make-firmware-caching-configurable.patch
+ANDROID-gki_defconfig-FW_CACHE-to-no.patch
+ANDROID-gki_defconfig-removed-CONFIG_PM_WAKELOCKS.patch
+ANDROID-gki_defconfig-m-s-applied-for-virtio-configs-in-arm64.patch
+ANDROID-clang-update-to-10.0.1.patch
+FROMLIST-pwm-Convert-period-and-duty-cycle-to-u64.patch
+FROMLIST-arm64-mm-avoid-x18-in-idmap_kpti_install_ng_mappings.patch
+FROMLIST-arm64-lib-copy_page-avoid-x18-register-in-assembler-code.patch
+FROMLIST-arm64-kvm-stop-treating-register-x18-as-caller-save.patch
+FROMLIST-arm64-kernel-avoid-x18-in-__cpu_soft_restart.patch
+FROMLIST-add-support-for-Clang-s-Shadow-Call-Stack-SCS.patch
+FROMLIST-scs-add-accounting.patch
+FROMLIST-scs-add-support-for-stack-usage-debugging.patch
+FROMLIST-arm64-disable-function-graph-tracing-with-SCS.patch
+FROMLIST-arm64-reserve-x18-from-general-allocation-with-SCS.patch
+FROMLIST-arm64-preserve-x18-when-CPU-is-suspended.patch
+FROMLIST-arm64-efi-restore-x18-if-it-was-corrupted.patch
+FROMLIST-arm64-vdso-disable-Shadow-Call-Stack.patch
+FROMLIST-arm64-disable-SCS-for-hypervisor-code.patch
+FROMLIST-arm64-implement-Shadow-Call-Stack.patch
+FROMGIT-driver-core-platform-use-the-correct-callback-type-for-bus_find_device.patch
+ANDROID-kbuild-add-CONFIG_LD_IS_LLD.patch
+ANDROID-kbuild-add-support-for-Clang-LTO.patch
+ANDROID-kbuild-fix-dynamic-ftrace-with-clang-LTO.patch
+ANDROID-scripts-mod-disable-LTO-for-empty.c.patch
+ANDROID-efi-libstub-disable-LTO.patch
+ANDROID-drivers-misc-lkdtm-disable-LTO-for-rodata.o.patch
+ANDROID-init-ensure-initcall-ordering-with-LTO.patch
+ANDROID-soc-tegra-disable-ARCH_TEGRA_210_SOC-with-LTO.patch
+ANDROID-irqchip-gic-v3-rename-gic_of_init-to-work-around-a-ThinLTO-CFI-bug.patch
+ANDROID-arm64-vdso-disable-LTO.patch
+ANDROID-arm64-disable-HAVE_ARCH_PREL32_RELOCATIONS-with-LTO_CLANG.patch
+FROMLIST-arm64-lse-fix-LSE-atomics-with-LLVM-s-integrated-assembler.patch
+FROMLIST-arm64-fix-alternatives-with-LLVM-s-integrated-assembler.patch
+ANDROID-arm64-allow-LTO_CLANG-and-THINLTO-to-be-selected.patch
+ANDROID-add-support-for-Clang-s-Control-Flow-Integrity-CFI.patch
+ANDROID-bpf-validate-bpf_func-when-BPF_JIT-is-enabled-with-CFI.patch
+ANDROID-arm64-bpf-implement-arch_bpf_jit_check_func.patch
+ANDROID-arm64-add-__nocfi-to-functions-that-jump-to-a-physical-address.patch
+ANDROID-arm64-add-__pa_function.patch
+ANDROID-arm64-add-__nocfi-to-__apply_alternatives.patch
+ANDROID-arm64-kvm-disable-CFI.patch
+FROMLIST-crypto-arm64-sha-fix-function-types.patch
+ANDROID-gki_defconfig-enable-LTO-CFI-and-SCS.patch
+ANDROID-gki_defconfig-enable-CONFIG_REGULATOR_FIXED_VOLTAGE.patch
+ANDROID-kbuild-fix-modfinal-with-LTO.patch
+ANDROID-kbuild-suppress-llvm-ar-errors.patch

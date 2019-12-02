@@ -1,0 +1,26 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: Sami Tolvanen <samitolvanen@google.com>
+Date: Mon, 25 Nov 2019 14:06:33 -0800
+Subject: ANDROID: gki_defconfig: enable LTO, CFI, and SCS
+
+Bug: 145210207
+Change-Id: I10a67f8607bfbd20b699a33cad3f441cd49aad26
+Signed-off-by: Sami Tolvanen <samitolvanen@google.com>
+---
+ arch/arm64/configs/gki_defconfig | 3 +++
+ 1 file changed, 3 insertions(+)
+
+diff --git a/arch/arm64/configs/gki_defconfig b/arch/arm64/configs/gki_defconfig
+index d3f5f2926993..840e9b5b942e 100644
+--- a/arch/arm64/configs/gki_defconfig
++++ b/arch/arm64/configs/gki_defconfig
+@@ -71,6 +71,9 @@ CONFIG_ARM64_CRYPTO=y
+ CONFIG_CRYPTO_SHA2_ARM64_CE=y
+ CONFIG_CRYPTO_AES_ARM64_CE_BLK=y
+ CONFIG_KPROBES=y
++CONFIG_SHADOW_CALL_STACK=y
++CONFIG_LTO_CLANG=y
++CONFIG_CFI_CLANG=y
+ CONFIG_MODULES=y
+ CONFIG_MODULE_UNLOAD=y
+ CONFIG_MODVERSIONS=y
