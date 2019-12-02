@@ -75,7 +75,7 @@ index 2fec62d764fa..2f187da48c83 100644
  
  	unlock_page(page);
 diff --git a/fs/ext4/inode.c b/fs/ext4/inode.c
-index 516faa280ced..ac409eb63100 100644
+index 43a844affc57..a32c8755b6da 100644
 --- a/fs/ext4/inode.c
 +++ b/fs/ext4/inode.c
 @@ -47,6 +47,7 @@
@@ -196,7 +196,7 @@ index 516faa280ced..ac409eb63100 100644
  }
  
 diff --git a/fs/ext4/readpage.c b/fs/ext4/readpage.c
-index a30b203fa461..0d88b82a5929 100644
+index 643f271b0b8e..e21216e7ae24 100644
 --- a/fs/ext4/readpage.c
 +++ b/fs/ext4/readpage.c
 @@ -46,6 +46,7 @@
@@ -266,16 +266,16 @@ index a30b203fa461..0d88b82a5929 100644
  int ext4_mpage_readpages(struct address_space *mapping,
  			 struct list_head *pages, struct page *page,
  			 unsigned nr_pages, bool is_readahead)
-@@ -354,7 +393,7 @@ int ext4_mpage_readpages(struct address_space *mapping,
- 		 */
- 		if (bio && (last_block_in_bio != blocks[0] - 1)) {
+@@ -357,7 +396,7 @@ int ext4_mpage_readpages(struct address_space *mapping,
+ 		if (bio && (last_block_in_bio != blocks[0] - 1 ||
+ 			    !fscrypt_mergeable_bio(bio, inode, next_block))) {
  		submit_and_realloc:
 -			submit_bio(bio);
 +			ext4_submit_bio_read(bio);
  			bio = NULL;
  		}
  		if (bio == NULL) {
-@@ -385,14 +424,14 @@ int ext4_mpage_readpages(struct address_space *mapping,
+@@ -394,14 +433,14 @@ int ext4_mpage_readpages(struct address_space *mapping,
  		if (((map.m_flags & EXT4_MAP_BOUNDARY) &&
  		     (relative_block == map.m_len)) ||
  		    (first_hole != blocks_per_page)) {
@@ -292,7 +292,7 @@ index a30b203fa461..0d88b82a5929 100644
  			bio = NULL;
  		}
  		if (!PageUptodate(page))
-@@ -405,7 +444,7 @@ int ext4_mpage_readpages(struct address_space *mapping,
+@@ -414,7 +453,7 @@ int ext4_mpage_readpages(struct address_space *mapping,
  	}
  	BUG_ON(pages && !list_empty(pages));
  	if (bio)
@@ -302,7 +302,7 @@ index a30b203fa461..0d88b82a5929 100644
  }
  
 diff --git a/fs/f2fs/data.c b/fs/f2fs/data.c
-index 5755e897a5f0..9155256779bf 100644
+index b5a7b540e630..f981bb4a18b8 100644
 --- a/fs/f2fs/data.c
 +++ b/fs/f2fs/data.c
 @@ -25,6 +25,7 @@
@@ -313,7 +313,7 @@ index 5755e897a5f0..9155256779bf 100644
  
  #define NUM_PREALLOC_POST_READ_CTXS	128
  
-@@ -2623,6 +2624,16 @@ static int f2fs_write_begin(struct file *file, struct address_space *mapping,
+@@ -2683,6 +2684,16 @@ static int f2fs_write_begin(struct file *file, struct address_space *mapping,
  	block_t blkaddr = NULL_ADDR;
  	int err = 0;
  
@@ -330,7 +330,7 @@ index 5755e897a5f0..9155256779bf 100644
  	trace_f2fs_write_begin(inode, pos, len, flags);
  
  	if (!f2fs_is_checkpoint_ready(sbi)) {
-@@ -2730,6 +2741,7 @@ static int f2fs_write_end(struct file *file,
+@@ -2790,6 +2801,7 @@ static int f2fs_write_end(struct file *file,
  {
  	struct inode *inode = page->mapping->host;
  
@@ -338,7 +338,7 @@ index 5755e897a5f0..9155256779bf 100644
  	trace_f2fs_write_end(inode, pos, len, copied);
  
  	/*
-@@ -2846,6 +2858,29 @@ static ssize_t f2fs_direct_IO(struct kiocb *iocb, struct iov_iter *iter)
+@@ -2906,6 +2918,29 @@ static ssize_t f2fs_direct_IO(struct kiocb *iocb, struct iov_iter *iter)
  
  	trace_f2fs_direct_IO_enter(inode, offset, count, rw);
  
@@ -368,7 +368,7 @@ index 5755e897a5f0..9155256779bf 100644
  	if (rw == WRITE && whint_mode == WHINT_MODE_OFF)
  		iocb->ki_hint = WRITE_LIFE_NOT_SET;
  
-@@ -2891,6 +2926,13 @@ static ssize_t f2fs_direct_IO(struct kiocb *iocb, struct iov_iter *iter)
+@@ -2951,6 +2986,13 @@ static ssize_t f2fs_direct_IO(struct kiocb *iocb, struct iov_iter *iter)
  	}
  
  out:

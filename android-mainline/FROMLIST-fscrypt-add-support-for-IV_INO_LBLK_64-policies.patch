@@ -240,7 +240,7 @@ index dacf8fcbac3b..b44e445b43a8 100644
  } __randomize_layout;
  
 diff --git a/fs/crypto/keyring.c b/fs/crypto/keyring.c
-index b3ce0db8b9b8..f9cf62590e98 100644
+index c34fa7c61b43..040df1f5e1c8 100644
 --- a/fs/crypto/keyring.c
 +++ b/fs/crypto/keyring.c
 @@ -43,8 +43,10 @@ static void free_master_key(struct fscrypt_master_key *mk)
@@ -420,7 +420,7 @@ index 4072ba644595..96f528071bed 100644
  			       sizeof(policy->__reserved))) {
  			fscrypt_warn(inode,
 diff --git a/include/linux/fscrypt.h b/include/linux/fscrypt.h
-index 367fe16f6cc8..f5037d8e2412 100644
+index 04f5ed628445..1a7bffe78ed5 100644
 --- a/include/linux/fscrypt.h
 +++ b/include/linux/fscrypt.h
 @@ -61,6 +61,9 @@ struct fscrypt_operations {

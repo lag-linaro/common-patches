@@ -764,7 +764,7 @@ index 9aefbb60074f..26e1a74f178e 100644
  	dbg_gen("xattr '%s', ino %lu ('%pd'), buf size %zd", name,
  		inode->i_ino, dentry, size);
 diff --git a/fs/xattr.c b/fs/xattr.c
-index 142fa44fa587..9520365195cf 100644
+index 90dd78f0eb27..71f887518d6f 100644
 --- a/fs/xattr.c
 +++ b/fs/xattr.c
 @@ -281,7 +281,7 @@ vfs_getxattr_alloc(struct dentry *dentry, const char *name, char **xattr_value,

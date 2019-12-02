@@ -19,7 +19,7 @@ Change-Id: I86a764b67804ed889f17c55632e25d46a72912a8
  2 files changed, 28 insertions(+), 3 deletions(-)
 
 diff --git a/drivers/base/core.c b/drivers/base/core.c
-index 17ed054c4132..48cd43a91ce6 100644
+index f8c9a30353c7..340a7d40ea70 100644
 --- a/drivers/base/core.c
 +++ b/drivers/base/core.c
 @@ -480,13 +480,25 @@ EXPORT_SYMBOL_GPL(device_link_add);
@@ -59,9 +59,9 @@ index 17ed054c4132..48cd43a91ce6 100644
  		mutex_unlock(&wfs_lock);
  		return -EPROBE_DEFER;
  	}
-@@ -760,6 +773,15 @@ void device_links_driver_bound(struct device *dev)
- {
+@@ -820,6 +833,15 @@ void device_links_driver_bound(struct device *dev)
  	struct device_link *link;
+ 	LIST_HEAD(sync_list);
  
 +	/*
 +	 * If a device probes successfully, it's expected to have created all
@@ -75,7 +75,7 @@ index 17ed054c4132..48cd43a91ce6 100644
  	device_links_write_lock();
  
  	list_for_each_entry(link, &dev->links.consumers, s_node) {
-@@ -2393,7 +2415,7 @@ int device_add(struct device *dev)
+@@ -2456,7 +2478,7 @@ int device_add(struct device *dev)
  
  	if (fwnode_has_op(dev->fwnode, add_links)
  	    && fwnode_call_int_op(dev->fwnode, add_links, dev))

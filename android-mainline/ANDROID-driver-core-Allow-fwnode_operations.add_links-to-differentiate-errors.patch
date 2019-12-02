@@ -17,10 +17,10 @@ Change-Id: If8b2a11dc6d815287c9242aea0ee1c26ef316d96
  2 files changed, 17 insertions(+), 8 deletions(-)
 
 diff --git a/drivers/base/core.c b/drivers/base/core.c
-index 48cd43a91ce6..e6d3e6d485da 100644
+index 340a7d40ea70..42a672456432 100644
 --- a/drivers/base/core.c
 +++ b/drivers/base/core.c
-@@ -2297,7 +2297,7 @@ int device_add(struct device *dev)
+@@ -2360,7 +2360,7 @@ int device_add(struct device *dev)
  	struct device *parent;
  	struct kobject *kobj;
  	struct class_interface *class_intf;
@@ -29,7 +29,7 @@ index 48cd43a91ce6..e6d3e6d485da 100644
  	struct kobject *glue_dir = NULL;
  
  	dev = get_device(dev);
-@@ -2413,9 +2413,13 @@ int device_add(struct device *dev)
+@@ -2476,9 +2476,13 @@ int device_add(struct device *dev)
  	 */
  	device_link_add_missing_supplier_links();
  

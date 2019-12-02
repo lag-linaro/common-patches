@@ -273,7 +273,7 @@ index 76c64297ce18..dacf8fcbac3b 100644
  					   u32 filenames_mode)
  {
 diff --git a/include/linux/fscrypt.h b/include/linux/fscrypt.h
-index 4ce4a970bb56..367fe16f6cc8 100644
+index f622f7460ed8..04f5ed628445 100644
 --- a/include/linux/fscrypt.h
 +++ b/include/linux/fscrypt.h
 @@ -20,7 +20,6 @@
@@ -312,7 +312,7 @@ index 4ce4a970bb56..367fe16f6cc8 100644
  
  extern struct page *fscrypt_encrypt_pagecache_blocks(struct page *page,
  						     unsigned int len,
-@@ -246,8 +231,6 @@ static inline bool fscrypt_match_name(const struct fscrypt_name *fname,
+@@ -244,8 +229,6 @@ static inline bool fscrypt_match_name(const struct fscrypt_name *fname,
  
  /* bio.c */
  extern void fscrypt_decrypt_bio(struct bio *);
@@ -321,7 +321,7 @@ index 4ce4a970bb56..367fe16f6cc8 100644
  extern int fscrypt_zeroout_range(const struct inode *, pgoff_t, sector_t,
  				 unsigned int);
  
-@@ -297,16 +280,6 @@ static inline void fscrypt_enqueue_decrypt_work(struct work_struct *work)
+@@ -295,16 +278,6 @@ static inline void fscrypt_enqueue_decrypt_work(struct work_struct *work)
  {
  }
  
@@ -338,7 +338,7 @@ index 4ce4a970bb56..367fe16f6cc8 100644
  static inline struct page *fscrypt_encrypt_pagecache_blocks(struct page *page,
  							    unsigned int len,
  							    unsigned int offs,
-@@ -498,11 +471,6 @@ static inline void fscrypt_decrypt_bio(struct bio *bio)
+@@ -484,11 +457,6 @@ static inline void fscrypt_decrypt_bio(struct bio *bio)
  {
  }
  

@@ -23,18 +23,18 @@ Change-Id: I0d5a38eec05f5546fe11c23c0d09103ccc35097e
  1 file changed, 3 insertions(+), 1 deletion(-)
 
 diff --git a/drivers/of/property.c b/drivers/of/property.c
-index 297705057ee2..42c79b2ea837 100644
+index 6f6e1d9644cf..563a3203c025 100644
 --- a/drivers/of/property.c
 +++ b/drivers/of/property.c
-@@ -1024,6 +1024,7 @@ static int of_link_to_phandle(struct device *dev, struct device_node *sup_np,
- 	struct device *sup_dev;
+@@ -1024,6 +1024,7 @@ static int of_link_to_phandle(struct device *dev, struct device_node *sup_np)
+ 	u32 dl_flags = DL_FLAG_AUTOPROBE_CONSUMER;
  	int ret = 0;
  	struct device_node *tmp_np = sup_np;
 +	int is_populated;
  
  	of_node_get(sup_np);
  	/*
-@@ -1048,9 +1049,10 @@ static int of_link_to_phandle(struct device *dev, struct device_node *sup_np,
+@@ -1048,9 +1049,10 @@ static int of_link_to_phandle(struct device *dev, struct device_node *sup_np)
  		return -EINVAL;
  	}
  	sup_dev = get_dev_from_fwnode(&sup_np->fwnode);

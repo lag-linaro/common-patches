@@ -20,7 +20,7 @@ Change-Id: Ifc63e36f6af6f48ec77215d0a2a609ff768e0fcb
  1 file changed, 12 insertions(+), 5 deletions(-)
 
 diff --git a/drivers/of/property.c b/drivers/of/property.c
-index 6f6e1d9644cf..69a6ec8711bd 100644
+index a66d323453ef..37e0d408430d 100644
 --- a/drivers/of/property.c
 +++ b/drivers/of/property.c
 @@ -1018,10 +1018,10 @@ static bool of_is_ancestor_of(struct device_node *test_ancestor,
@@ -35,8 +35,8 @@ index 6f6e1d9644cf..69a6ec8711bd 100644
 -	u32 dl_flags = DL_FLAG_AUTOPROBE_CONSUMER;
  	int ret = 0;
  	struct device_node *tmp_np = sup_np;
- 
-@@ -1181,13 +1181,20 @@ static int of_link_property(struct device *dev, struct device_node *con_np,
+ 	int is_populated;
+@@ -1237,13 +1237,20 @@ static int of_link_property(struct device *dev, struct device_node *con_np,
  	unsigned int i = 0;
  	bool matched = false;
  	int ret = 0;
@@ -58,7 +58,7 @@ index 6f6e1d9644cf..69a6ec8711bd 100644
  				ret = -EAGAIN;
  			of_node_put(phandle);
  		}
-@@ -1205,10 +1212,10 @@ static int of_link_to_suppliers(struct device *dev,
+@@ -1261,10 +1268,10 @@ static int of_link_to_suppliers(struct device *dev,
  
  	for_each_property_of_node(con_np, p)
  		if (of_link_property(dev, con_np, p->name))

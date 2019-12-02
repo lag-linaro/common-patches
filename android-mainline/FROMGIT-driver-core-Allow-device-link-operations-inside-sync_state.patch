@@ -20,10 +20,10 @@ Change-Id: I0787645c410137f9f91fb808675ccf7dd1b5a7c0
  1 file changed, 71 insertions(+), 8 deletions(-)
 
 diff --git a/drivers/base/core.c b/drivers/base/core.c
-index e6d3e6d485da..42a672456432 100644
+index 7ea665a97da2..ec7462d42c93 100644
 --- a/drivers/base/core.c
 +++ b/drivers/base/core.c
-@@ -695,7 +695,26 @@ int device_links_check_suppliers(struct device *dev)
+@@ -651,7 +651,26 @@ int device_links_check_suppliers(struct device *dev)
  	return ret;
  }
  
@@ -51,7 +51,7 @@ index e6d3e6d485da..42a672456432 100644
  {
  	struct device_link *link;
  
-@@ -709,12 +728,45 @@ static void __device_links_supplier_sync_state(struct device *dev)
+@@ -665,12 +684,45 @@ static void __device_links_supplier_sync_state(struct device *dev)
  			return;
  	}
  
@@ -102,7 +102,7 @@ index e6d3e6d485da..42a672456432 100644
  }
  
  void device_links_supplier_sync_state_pause(void)
-@@ -727,6 +779,7 @@ void device_links_supplier_sync_state_pause(void)
+@@ -683,6 +735,7 @@ void device_links_supplier_sync_state_pause(void)
  void device_links_supplier_sync_state_resume(void)
  {
  	struct device *dev, *tmp;
@@ -110,7 +110,7 @@ index e6d3e6d485da..42a672456432 100644
  
  	device_links_write_lock();
  	if (!defer_sync_state_count) {
-@@ -738,11 +791,17 @@ void device_links_supplier_sync_state_resume(void)
+@@ -694,11 +747,17 @@ void device_links_supplier_sync_state_resume(void)
  		goto out;
  
  	list_for_each_entry_safe(dev, tmp, &deferred_sync, links.defer_sync) {
@@ -129,15 +129,15 @@ index e6d3e6d485da..42a672456432 100644
  }
  
  static int sync_state_resume_initcall(void)
-@@ -772,6 +831,7 @@ static void __device_links_supplier_defer_sync(struct device *sup)
+@@ -728,6 +787,7 @@ static void __device_links_supplier_defer_sync(struct device *sup)
  void device_links_driver_bound(struct device *dev)
  {
  	struct device_link *link;
 +	LIST_HEAD(sync_list);
  
- 	/*
- 	 * If a device probes successfully, it's expected to have created all
-@@ -815,12 +875,15 @@ void device_links_driver_bound(struct device *dev)
+ 	device_links_write_lock();
+ 
+@@ -762,12 +822,15 @@ void device_links_driver_bound(struct device *dev)
  		if (defer_sync_state_count)
  			__device_links_supplier_defer_sync(link->supplier);
  		else
