@@ -2,7 +2,7 @@
 # android-mainline patches
 #
 # Applies onto upstream 219d54332a09 Linux v5.4
-# Matches android-mainline 96dc079c19ae ("ANDROID: kbuild: suppress llvm-ar errors")
+# Matches android-mainline c367d587ed33 ("ANDROID: gki_defconfig: IIO=y")
 #
 FROMLIST-reboot-Export-reboot_mode.patch
 FROMLIST-arm64-mm-avoid-x18-in-idmap_kpti_install_ng_mappings.patch
@@ -293,3 +293,12 @@ ANDROID-gki_defconfig-enable-LTO-CFI-and-SCS.patch
 ANDROID-gki_defconfig-enable-CONFIG_REGULATOR_FIXED_VOLTAGE.patch
 ANDROID-kbuild-fix-modfinal-with-LTO.patch
 ANDROID-kbuild-suppress-llvm-ar-errors.patch
+ANDROID-ASoC-core-add-hostless-DAI-support.patch
+UPSTREAM-driver-core-Clarify-documentation-for-fwnode_operations.add_links.patch
+UPSTREAM-regulator-core-Don-t-try-to-remove-device-links-if-add-failed.patch
+UPSTREAM-i2c-of-Populate-fwnode-in-of_i2c_get_board_info.patch
+UPSTREAM-of-property-Fix-the-semantics-of-of_is_ancestor_of.patch
+UPSTREAM-of-property-Add-device-link-support-for-interrupt-parent-dmas-and-gpio-s.patch
+ANDROID-README-fix-cherry-picked-from-instructions.patch
+ANDROID-ASoC-Fix-allmodconfig-build-break.patch
+ANDROID-gki_defconfig-IIO-y.patch
