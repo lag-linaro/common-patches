@@ -1,8 +1,8 @@
 #
 # android-5.4 patches
 #
-# Applies onto upstream 79438f37a69a Linux v5.4.1
-# Matches android-5.4 ecd5799fe7c7 ("ANDROID: Update ABI representation")
+# Applies onto upstream 5f8bc2bb0e0f Linux v5.4.2
+# Matches android-5.4 164bf1a6c4e3 ("Merge 5.4.2 into android-5.4")
 #
 ANDROID-Kbuild-LLVMLinux-allow-overriding-clang-target-triple.patch
 ANDROID-net-xfrm-make-PF_KEY-SHA256-use-RFC-compliant-truncation.patch
@@ -279,7 +279,6 @@ FROMLIST-arm64-efi-restore-x18-if-it-was-corrupted.patch
 FROMLIST-arm64-vdso-disable-Shadow-Call-Stack.patch
 FROMLIST-arm64-disable-SCS-for-hypervisor-code.patch
 FROMLIST-arm64-implement-Shadow-Call-Stack.patch
-FROMGIT-driver-core-platform-use-the-correct-callback-type-for-bus_find_device.patch
 ANDROID-kbuild-add-CONFIG_LD_IS_LLD.patch
 ANDROID-kbuild-add-support-for-Clang-LTO.patch
 ANDROID-kbuild-fix-dynamic-ftrace-with-clang-LTO.patch
