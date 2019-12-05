@@ -2,7 +2,7 @@
 # android-5.4 patches
 #
 # Applies onto upstream 5f8bc2bb0e0f Linux v5.4.2
-# Matches android-5.4 164bf1a6c4e3 ("Merge 5.4.2 into android-5.4")
+# Matches android-5.4 1ff56d858a16 ("ANDROID: Update ABI representation")
 #
 ANDROID-Kbuild-LLVMLinux-allow-overriding-clang-target-triple.patch
 ANDROID-net-xfrm-make-PF_KEY-SHA256-use-RFC-compliant-truncation.patch
@@ -310,3 +310,6 @@ UPSTREAM-regulator-core-Don-t-try-to-remove-device-links-if-add-failed.patch
 UPSTREAM-i2c-of-Populate-fwnode-in-of_i2c_get_board_info.patch
 UPSTREAM-of-property-Fix-the-semantics-of-of_is_ancestor_of.patch
 UPSTREAM-of-property-Add-device-link-support-for-interrupt-parent-dmas-and-gpio-s.patch
+ANDROID-ASoC-Fix-allmodconfig-build-break.patch
+ANDROID-Disable-UNWINDER_ORC-for-allmodconfig.patch
+ANDROID-Don-t-base-allmodconfig-on-gki_defconfig.patch
