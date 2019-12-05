@@ -2,7 +2,7 @@
 # android-5.4 patches
 #
 # Applies onto upstream 79438f37a69a Linux v5.4.1
-# Matches android-5.4 b5dc6654f3ba ("ANDROID: Update ABI representation after 5.4.1 merge")
+# Matches android-5.4 ecd5799fe7c7 ("ANDROID: Update ABI representation")
 #
 ANDROID-Kbuild-LLVMLinux-allow-overriding-clang-target-triple.patch
 ANDROID-net-xfrm-make-PF_KEY-SHA256-use-RFC-compliant-truncation.patch
@@ -303,3 +303,11 @@ ANDROID-arm64-add-__nocfi-to-__apply_alternatives.patch
 ANDROID-arm64-kvm-disable-CFI.patch
 FROMLIST-crypto-arm64-sha-fix-function-types.patch
 ANDROID-gki_defconfig-enable-CONFIG_REGULATOR_FIXED_VOLTAGE.patch
+ANDROID-gki_defconfig-m-s-applied-for-virtio-configs-in-arm64.patch
+ANDROID-ASoC-core-add-hostless-DAI-support.patch
+ANDROID-gki_defconfig-IIO-y.patch
+UPSTREAM-driver-core-Clarify-documentation-for-fwnode_operations.add_links.patch
+UPSTREAM-regulator-core-Don-t-try-to-remove-device-links-if-add-failed.patch
+UPSTREAM-i2c-of-Populate-fwnode-in-of_i2c_get_board_info.patch
+UPSTREAM-of-property-Fix-the-semantics-of-of_is_ancestor_of.patch
+UPSTREAM-of-property-Add-device-link-support-for-interrupt-parent-dmas-and-gpio-s.patch
