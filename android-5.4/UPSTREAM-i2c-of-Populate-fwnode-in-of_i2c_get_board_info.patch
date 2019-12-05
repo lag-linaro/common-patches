@@ -1,0 +1,32 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: Saravana Kannan <saravanak@google.com>
+Date: Thu, 14 Nov 2019 20:50:48 -0800
+Subject: UPSTREAM: i2c: of: Populate fwnode in of_i2c_get_board_info()
+
+This allows the of_devlink feature to work across i2c devices too. This
+avoid unnecessary probe deferrals of i2c devices, defers consumers of
+i2c devices till the i2c devices probe, and allows i2c drivers to
+implement sync_state() callbacks.
+
+Signed-off-by: Saravana Kannan <saravanak@google.com>
+Acked-by: Wolfram Sang <wsa@the-dreams.de>
+Link: https://lore.kernel.org/r/20191115045049.261104-1-saravanak@google.com
+Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+(cherry-picked from 60774d2af07a465dc916321e7428a4c5b7867ed4)
+Change-Id: I843f57f35be8dac96d9903c86350ef6186dce3b4
+---
+ drivers/i2c/i2c-core-of.c | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/drivers/i2c/i2c-core-of.c b/drivers/i2c/i2c-core-of.c
+index 7eb41990bd6d..e4d296b40baa 100644
+--- a/drivers/i2c/i2c-core-of.c
++++ b/drivers/i2c/i2c-core-of.c
+@@ -50,6 +50,7 @@ int of_i2c_get_board_info(struct device *dev, struct device_node *node,
+ 
+ 	info->addr = addr;
+ 	info->of_node = node;
++	info->fwnode = of_fwnode_handle(node);
+ 
+ 	if (of_property_read_bool(node, "host-notify"))
+ 		info->flags |= I2C_CLIENT_HOST_NOTIFY;
