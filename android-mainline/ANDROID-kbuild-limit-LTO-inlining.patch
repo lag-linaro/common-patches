@@ -1,0 +1,38 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: Sami Tolvanen <samitolvanen@google.com>
+Date: Wed, 4 Dec 2019 15:57:39 -0800
+Subject: ANDROID: kbuild: limit LTO inlining
+
+This change limits function inlining across translation unit
+boundaries in order to reduce the binary size with LTO.
+
+The -import-instr-limit flag defines a size limit, as the number
+of LLVM IR instructions, for importing functions from other TUs.
+The default value is 100, and decreasing it to 5 reduces the size
+of a stripped arm64 defconfig vmlinux by 11%.
+
+Bug: 145297228
+Change-Id: Iaf366f843582972a5dfadc4695abb8f9c59882af
+Suggested-by: George Burgess IV <gbiv@google.com>
+Signed-off-by: Sami Tolvanen <samitolvanen@google.com>
+---
+ Makefile | 6 ++++++
+ 1 file changed, 6 insertions(+)
+
+diff --git a/Makefile b/Makefile
+index d8b6ad70a530..13053155234b 100644
+--- a/Makefile
++++ b/Makefile
+@@ -875,6 +875,12 @@ CC_FLAGS_LTO_CLANG := -flto
+ endif
+ CC_FLAGS_LTO_CLANG += -fvisibility=default
+ 
++# Limit inlining across translation units to reduce binary size
++LD_FLAGS_LTO_CLANG := -mllvm -import-instr-limit=5
++
++KBUILD_LDFLAGS += $(LD_FLAGS_LTO_CLANG)
++KBUILD_LDFLAGS_MODULE += $(LD_FLAGS_LTO_CLANG)
++
+ KBUILD_LDS_MODULE += $(srctree)/scripts/module-lto.lds
+ endif
+ 

@@ -2,7 +2,7 @@
 # android-mainline patches
 #
 # Applies onto upstream 219d54332a09 Linux v5.4
-# Matches android-mainline 1499e3df63ec ("ANDROID: Don't base allmodconfig on gki_defconfig")
+# Matches android-mainline 5a17e32413ca ("ANDROID: gki_defconfig: Enable UCLAMP by default")
 #
 FROMLIST-reboot-Export-reboot_mode.patch
 FROMLIST-arm64-mm-avoid-x18-in-idmap_kpti_install_ng_mappings.patch
@@ -304,3 +304,8 @@ ANDROID-ASoC-Fix-allmodconfig-build-break.patch
 ANDROID-gki_defconfig-IIO-y.patch
 ANDROID-Disable-UNWINDER_ORC-for-allmodconfig.patch
 ANDROID-Don-t-base-allmodconfig-on-gki_defconfig.patch
+ANDROID-sound-usb-Add-helper-APIs-to-enable-audio-stream.patch
+ANDROID-make-sure-proc-mount-options-are-applied.patch
+ANDROID-kbuild-merge-module-sections-with-LTO.patch
+ANDROID-kbuild-limit-LTO-inlining.patch
+ANDROID-gki_defconfig-Enable-UCLAMP-by-default.patch
