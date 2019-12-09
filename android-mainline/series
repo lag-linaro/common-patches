@@ -2,7 +2,7 @@
 # android-mainline patches
 #
 # Applies onto upstream 219d54332a09 Linux v5.4
-# Matches android-mainline c367d587ed33 ("ANDROID: gki_defconfig: IIO=y")
+# Matches android-mainline 1499e3df63ec ("ANDROID: Don't base allmodconfig on gki_defconfig")
 #
 FROMLIST-reboot-Export-reboot_mode.patch
 FROMLIST-arm64-mm-avoid-x18-in-idmap_kpti_install_ng_mappings.patch
@@ -302,3 +302,5 @@ UPSTREAM-of-property-Add-device-link-support-for-interrupt-parent-dmas-and-gpio-
 ANDROID-README-fix-cherry-picked-from-instructions.patch
 ANDROID-ASoC-Fix-allmodconfig-build-break.patch
 ANDROID-gki_defconfig-IIO-y.patch
+ANDROID-Disable-UNWINDER_ORC-for-allmodconfig.patch
+ANDROID-Don-t-base-allmodconfig-on-gki_defconfig.patch
