@@ -2,7 +2,7 @@
 # android-5.4 patches
 #
 # Applies onto upstream 5f8bc2bb0e0f Linux v5.4.2
-# Matches android-5.4 1ff56d858a16 ("ANDROID: Update ABI representation")
+# Matches android-5.4 27ffbab29969 ("ANDROID: gki_defconfig: Enable UCLAMP by default")
 #
 ANDROID-Kbuild-LLVMLinux-allow-overriding-clang-target-triple.patch
 ANDROID-net-xfrm-make-PF_KEY-SHA256-use-RFC-compliant-truncation.patch
@@ -313,3 +313,6 @@ UPSTREAM-of-property-Add-device-link-support-for-interrupt-parent-dmas-and-gpio-
 ANDROID-ASoC-Fix-allmodconfig-build-break.patch
 ANDROID-Disable-UNWINDER_ORC-for-allmodconfig.patch
 ANDROID-Don-t-base-allmodconfig-on-gki_defconfig.patch
+ANDROID-sound-usb-Add-helper-APIs-to-enable-audio-stream.patch
+ANDROID-make-sure-proc-mount-options-are-applied.patch
+ANDROID-gki_defconfig-Enable-UCLAMP-by-default.patch
