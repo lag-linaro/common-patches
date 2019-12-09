@@ -27,10 +27,10 @@ Signed-off-by: David Dai <daidavid1@codeaurora.org>
  2 files changed, 23 insertions(+)
 
 diff --git a/drivers/clk/clk.c b/drivers/clk/clk.c
-index 1c677d7f7f53..020fdb8105cc 100644
+index b68e200829f2..a12f73e6efe1 100644
 --- a/drivers/clk/clk.c
 +++ b/drivers/clk/clk.c
-@@ -1980,6 +1980,13 @@ static struct clk_core *clk_propagate_rate_change(struct clk_core *core,
+@@ -1998,6 +1998,13 @@ static struct clk_core *clk_propagate_rate_change(struct clk_core *core,
  			fail_clk = core;
  	}
  
@@ -44,7 +44,7 @@ index 1c677d7f7f53..020fdb8105cc 100644
  	hlist_for_each_entry(child, &core->children, child_node) {
  		/* Skip children who will be reparented to another clock */
  		if (child->new_parent && child->new_parent != core)
-@@ -2082,6 +2089,9 @@ static void clk_change_rate(struct clk_core *core)
+@@ -2100,6 +2107,9 @@ static void clk_change_rate(struct clk_core *core)
  	if (core->flags & CLK_RECALC_NEW_RATES)
  		(void)clk_calc_new_rates(core, core->new_rate);
  
@@ -55,7 +55,7 @@ index 1c677d7f7f53..020fdb8105cc 100644
  	 * Use safe iteration, as change_rate can actually swap parents
  	 * for certain clock types.
 diff --git a/include/linux/clk-provider.h b/include/linux/clk-provider.h
-index 2fdfe8061363..73e4369e8408 100644
+index caf4b9df16eb..80d847841931 100644
 --- a/include/linux/clk-provider.h
 +++ b/include/linux/clk-provider.h
 @@ -199,6 +199,13 @@ struct clk_duty {

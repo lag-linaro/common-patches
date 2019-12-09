@@ -18,10 +18,10 @@ Change-Id: I3c689845ca493fbe037a2def2050a089036fb7d3
  1 file changed, 1 insertion(+)
 
 diff --git a/drivers/iommu/of_iommu.c b/drivers/iommu/of_iommu.c
-index 614a93aa5305..78faa9f73a91 100644
+index 026ad2b29dcd..4d2f02132e7a 100644
 --- a/drivers/iommu/of_iommu.c
 +++ b/drivers/iommu/of_iommu.c
-@@ -177,6 +177,7 @@ const struct iommu_ops *of_iommu_configure(struct device *dev,
+@@ -179,6 +179,7 @@ const struct iommu_ops *of_iommu_configure(struct device *dev,
  			.np = master_np,
  		};
  

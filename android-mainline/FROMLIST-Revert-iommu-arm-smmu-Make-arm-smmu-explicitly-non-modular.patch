@@ -19,7 +19,7 @@ Change-Id: I9779ffa7befa8535a0d7196ef5f728e40ae7d7f7
  1 file changed, 19 insertions(+), 13 deletions(-)
 
 diff --git a/drivers/iommu/arm-smmu.c b/drivers/iommu/arm-smmu.c
-index 7c503a6bc585..53bbe0663b9e 100644
+index 4f1a350d9529..7c768f771001 100644
 --- a/drivers/iommu/arm-smmu.c
 +++ b/drivers/iommu/arm-smmu.c
 @@ -27,8 +27,7 @@
@@ -32,7 +32,7 @@ index 7c503a6bc585..53bbe0663b9e 100644
  #include <linux/of.h>
  #include <linux/of_address.h>
  #include <linux/of_device.h>
-@@ -59,10 +58,6 @@
+@@ -60,10 +59,6 @@
  #define MSI_IOVA_LENGTH			0x100000
  
  static int force_stage;
@@ -43,7 +43,7 @@ index 7c503a6bc585..53bbe0663b9e 100644
  module_param(force_stage, int, S_IRUGO);
  MODULE_PARM_DESC(force_stage,
  	"Force SMMU mappings to be installed at a particular stage of translation. A value of '1' or '2' forces the corresponding stage. All other values are ignored (i.e. no stage is forced). Note that selecting a specific stage will disable support for nested translation.");
-@@ -1878,6 +1873,7 @@ static const struct of_device_id arm_smmu_of_match[] = {
+@@ -1911,6 +1906,7 @@ static const struct of_device_id arm_smmu_of_match[] = {
  	{ .compatible = "qcom,smmu-v2", .data = &qcom_smmuv2 },
  	{ },
  };
@@ -51,7 +51,7 @@ index 7c503a6bc585..53bbe0663b9e 100644
  
  #ifdef CONFIG_ACPI
  static int acpi_smmu_get_data(u32 model, struct arm_smmu_device *smmu)
-@@ -2165,12 +2161,12 @@ static int arm_smmu_legacy_bus_init(void)
+@@ -2196,12 +2192,12 @@ static int arm_smmu_legacy_bus_init(void)
  }
  device_initcall_sync(arm_smmu_legacy_bus_init);
  
@@ -66,7 +66,7 @@ index 7c503a6bc585..53bbe0663b9e 100644
  
  	if (!bitmap_empty(smmu->context_map, ARM_SMMU_MAX_CBS))
  		dev_err(&pdev->dev, "removing device with active domains!\n");
-@@ -2186,6 +2182,12 @@ static void arm_smmu_device_shutdown(struct platform_device *pdev)
+@@ -2217,6 +2213,12 @@ static void arm_smmu_device_shutdown(struct platform_device *pdev)
  		clk_bulk_disable(smmu->num_clks, smmu->clks);
  
  	clk_bulk_unprepare(smmu->num_clks, smmu->clks);
@@ -79,7 +79,7 @@ index 7c503a6bc585..53bbe0663b9e 100644
  }
  
  static int __maybe_unused arm_smmu_runtime_resume(struct device *dev)
-@@ -2235,12 +2237,16 @@ static const struct dev_pm_ops arm_smmu_pm_ops = {
+@@ -2266,12 +2268,16 @@ static const struct dev_pm_ops arm_smmu_pm_ops = {
  
  static struct platform_driver arm_smmu_driver = {
  	.driver	= {

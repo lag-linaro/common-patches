@@ -197,10 +197,10 @@ index 67fca62524dc..134c14621ee0 100644
  	}
  
 diff --git a/drivers/pwm/pwm-sun4i.c b/drivers/pwm/pwm-sun4i.c
-index 6f5840a1a82d..bea85a9f24e8 100644
+index 581d23287333..9b16591bf0d9 100644
 --- a/drivers/pwm/pwm-sun4i.c
 +++ b/drivers/pwm/pwm-sun4i.c
-@@ -245,7 +245,7 @@ static int sun4i_pwm_apply(struct pwm_chip *chip, struct pwm_device *pwm,
+@@ -244,7 +244,7 @@ static int sun4i_pwm_apply(struct pwm_chip *chip, struct pwm_device *pwm,
  		val = (duty & PWM_DTY_MASK) | PWM_PRD(period);
  		sun4i_pwm_writel(sun4i_pwm, val, PWM_CH_PRD(pwm->hwpwm));
  		sun4i_pwm->next_period[pwm->hwpwm] = jiffies +
@@ -254,10 +254,10 @@ index 1f8f9dbf3189..417ecd7c1bb8 100644
  
  static ssize_t output_type_show(struct device *child,
 diff --git a/drivers/video/backlight/pwm_bl.c b/drivers/video/backlight/pwm_bl.c
-index 746eebc411df..c79ea1343f08 100644
+index efb4efc2a13d..3e5dbcf71c39 100644
 --- a/drivers/video/backlight/pwm_bl.c
 +++ b/drivers/video/backlight/pwm_bl.c
-@@ -616,7 +616,8 @@ static int pwm_backlight_probe(struct platform_device *pdev)
+@@ -625,7 +625,8 @@ static int pwm_backlight_probe(struct platform_device *pdev)
  		pb->scale = data->max_brightness;
  	}
  
@@ -268,7 +268,7 @@ index 746eebc411df..c79ea1343f08 100644
  	props.type = BACKLIGHT_RAW;
  	props.max_brightness = data->max_brightness;
 diff --git a/include/linux/pwm.h b/include/linux/pwm.h
-index fac49238730d..af59e3c17ba5 100644
+index 74c9996706b0..ba4f52357213 100644
 --- a/include/linux/pwm.h
 +++ b/include/linux/pwm.h
 @@ -39,7 +39,7 @@ enum pwm_polarity {
@@ -316,7 +316,7 @@ index fac49238730d..af59e3c17ba5 100644
  {
  	struct pwm_state state;
  
-@@ -333,8 +333,8 @@ struct pwm_chip {
+@@ -330,8 +330,8 @@ struct pwm_chip {
   * @duty_cycle: duty cycle of the PWM signal (in nanoseconds)
   */
  struct pwm_capture {

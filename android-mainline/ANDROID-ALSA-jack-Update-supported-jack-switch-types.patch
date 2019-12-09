@@ -54,10 +54,10 @@ index 9eb2b5ec1ec4..9c2ed0aa7948 100644
  	struct list_head kctl_list;
  	struct snd_card *card;
 diff --git a/include/uapi/linux/input-event-codes.h b/include/uapi/linux/input-event-codes.h
-index 85387c76c24f..35125b6c30de 100644
+index 0f1db1cccc3f..69a1b64e3781 100644
 --- a/include/uapi/linux/input-event-codes.h
 +++ b/include/uapi/linux/input-event-codes.h
-@@ -808,7 +808,10 @@
+@@ -885,7 +885,10 @@
  #define SW_LINEIN_INSERT	0x0d  /* set = inserted */
  #define SW_MUTE_DEVICE		0x0e  /* set = device disabled */
  #define SW_PEN_INSERTED		0x0f  /* set = pen inserted */

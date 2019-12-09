@@ -17,10 +17,10 @@ Signed-off-by: Asutosh Das <asutoshd@codeaurora.org>
  2 files changed, 6 insertions(+), 5 deletions(-)
 
 diff --git a/drivers/scsi/ufs/ufshcd.c b/drivers/scsi/ufs/ufshcd.c
-index 3a1190f0c672..d2117d32750a 100644
+index 3bc6efba3314..035f642b2834 100644
 --- a/drivers/scsi/ufs/ufshcd.c
 +++ b/drivers/scsi/ufs/ufshcd.c
-@@ -248,8 +248,6 @@ static int ufshcd_probe_hba(struct ufs_hba *hba);
+@@ -251,8 +251,6 @@ static int ufshcd_probe_hba(struct ufs_hba *hba);
  static int __ufshcd_setup_clocks(struct ufs_hba *hba, bool on,
  				 bool skip_ref_clk);
  static int ufshcd_setup_clocks(struct ufs_hba *hba, bool on);
@@ -29,7 +29,7 @@ index 3a1190f0c672..d2117d32750a 100644
  static inline void ufshcd_add_delay_before_dme_cmd(struct ufs_hba *hba);
  static int ufshcd_host_reset_and_restore(struct ufs_hba *hba);
  static void ufshcd_resume_clkscaling(struct ufs_hba *hba);
-@@ -3958,7 +3956,7 @@ static int __ufshcd_uic_hibern8_enter(struct ufs_hba *hba)
+@@ -3973,7 +3971,7 @@ static int __ufshcd_uic_hibern8_enter(struct ufs_hba *hba)
  	return ret;
  }
  
@@ -38,7 +38,7 @@ index 3a1190f0c672..d2117d32750a 100644
  {
  	int ret = 0, retries;
  
-@@ -3970,8 +3968,9 @@ static int ufshcd_uic_hibern8_enter(struct ufs_hba *hba)
+@@ -3985,8 +3983,9 @@ static int ufshcd_uic_hibern8_enter(struct ufs_hba *hba)
  out:
  	return ret;
  }
@@ -49,19 +49,19 @@ index 3a1190f0c672..d2117d32750a 100644
  {
  	struct uic_command uic_cmd = {0};
  	int ret;
-@@ -3997,6 +3996,7 @@ static int ufshcd_uic_hibern8_exit(struct ufs_hba *hba)
+@@ -4012,6 +4011,7 @@ static int ufshcd_uic_hibern8_exit(struct ufs_hba *hba)
  
  	return ret;
  }
 +EXPORT_SYMBOL_GPL(ufshcd_uic_hibern8_exit);
  
- static void ufshcd_auto_hibern8_enable(struct ufs_hba *hba)
+ void ufshcd_auto_hibern8_enable(struct ufs_hba *hba)
  {
 diff --git a/drivers/scsi/ufs/ufshcd.h b/drivers/scsi/ufs/ufshcd.h
-index a106b45f8358..21624f0ff925 100644
+index f3b99580d637..d76f7faad1f1 100644
 --- a/drivers/scsi/ufs/ufshcd.h
 +++ b/drivers/scsi/ufs/ufshcd.h
-@@ -1122,5 +1122,6 @@ static inline u8 ufshcd_scsi_to_upiu_lun(unsigned int scsi_lun)
+@@ -1134,5 +1134,6 @@ static inline u8 ufshcd_scsi_to_upiu_lun(unsigned int scsi_lun)
  
  int ufshcd_dump_regs(struct ufs_hba *hba, size_t offset, size_t len,
  		     const char *prefix);

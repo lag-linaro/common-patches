@@ -17,7 +17,7 @@ Change-Id: Iae84749b816cd8bc0f598654c018cde475a31df9
  3 files changed, 343 insertions(+), 1 deletion(-)
 
 diff --git a/drivers/gpu/drm/drm_edid.c b/drivers/gpu/drm/drm_edid.c
-index 6b0177112e18..a174d8e6b6eb 100644
+index 474ac04d5600..48e2c189f00e 100644
 --- a/drivers/gpu/drm/drm_edid.c
 +++ b/drivers/gpu/drm/drm_edid.c
 @@ -99,6 +99,14 @@ struct detailed_mode_closure {
@@ -35,7 +35,7 @@ index 6b0177112e18..a174d8e6b6eb 100644
  static const struct edid_quirk {
  	char vendor[4];
  	int product_id;
-@@ -2890,16 +2898,20 @@ add_detailed_modes(struct drm_connector *connector, struct edid *edid,
+@@ -2991,16 +2999,20 @@ add_detailed_modes(struct drm_connector *connector, struct edid *edid,
  
  	return closure.modes;
  }
@@ -57,7 +57,7 @@ index 6b0177112e18..a174d8e6b6eb 100644
  #define EDID_BASIC_AUDIO	(1 << 6)
  #define EDID_CEA_YCRCB444	(1 << 5)
  #define EDID_CEA_YCRCB422	(1 << 4)
-@@ -4013,6 +4025,232 @@ drm_parse_hdmi_vsdb_audio(struct drm_connector *connector, const u8 *db)
+@@ -4106,6 +4118,232 @@ drm_parse_hdmi_vsdb_audio(struct drm_connector *connector, const u8 *db)
  		      connector->audio_latency[1]);
  }
  
@@ -290,7 +290,7 @@ index 6b0177112e18..a174d8e6b6eb 100644
  static void
  monitor_name(struct detailed_timing *t, void *data)
  {
-@@ -4145,6 +4383,9 @@ static void drm_edid_to_eld(struct drm_connector *connector, struct edid *edid)
+@@ -4238,6 +4476,9 @@ static void drm_edid_to_eld(struct drm_connector *connector, struct edid *edid)
  				/* HDMI Vendor-Specific Data Block */
  				if (cea_db_is_hdmi_vsdb(db))
  					drm_parse_hdmi_vsdb_audio(connector, db);
@@ -300,7 +300,7 @@ index 6b0177112e18..a174d8e6b6eb 100644
  				break;
  			default:
  				break;
-@@ -4637,6 +4878,39 @@ drm_reset_display_info(struct drm_connector *connector)
+@@ -4730,6 +4971,39 @@ drm_reset_display_info(struct drm_connector *connector)
  	info->non_desktop = 0;
  }
  
@@ -340,7 +340,7 @@ index 6b0177112e18..a174d8e6b6eb 100644
  u32 drm_add_display_info(struct drm_connector *connector, const struct edid *edid)
  {
  	struct drm_display_info *info = &connector->display_info;
-@@ -4674,6 +4948,11 @@ u32 drm_add_display_info(struct drm_connector *connector, const struct edid *edi
+@@ -4767,6 +5041,11 @@ u32 drm_add_display_info(struct drm_connector *connector, const struct edid *edi
  			  connector->name, info->bpc);
  	}
  
@@ -353,10 +353,10 @@ index 6b0177112e18..a174d8e6b6eb 100644
  	if (edid->revision < 4)
  		return quirks;
 diff --git a/include/drm/drm_connector.h b/include/drm/drm_connector.h
-index 650290a99602..c74e5391efc5 100644
+index f626a4c2c1ce..5f7fdd43af5e 100644
 --- a/include/drm/drm_connector.h
 +++ b/include/drm/drm_connector.h
-@@ -1340,6 +1340,54 @@ struct drm_connector {
+@@ -1344,6 +1344,54 @@ struct drm_connector {
  	/** @bad_edid_counter: track sinks that give us an EDID with invalid checksum */
  	unsigned bad_edid_counter;
  
@@ -412,7 +412,7 @@ index 650290a99602..c74e5391efc5 100644
  	 * @edid_corrupt: Indicates whether the last read EDID was corrupt. Used
  	 * in Displayport compliance testing - Displayport Link CTS Core 1.2
 diff --git a/include/drm/drm_edid.h b/include/drm/drm_edid.h
-index b9719418c3d2..f732a07f9e5b 100644
+index f0b03d401c27..a96e2fbfea45 100644
 --- a/include/drm/drm_edid.h
 +++ b/include/drm/drm_edid.h
 @@ -224,6 +224,16 @@ struct detailed_timing {

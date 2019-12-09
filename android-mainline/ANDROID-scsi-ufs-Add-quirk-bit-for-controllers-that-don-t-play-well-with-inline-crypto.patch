@@ -35,7 +35,7 @@ index 7599d77725e4..75d834180f8b 100644
  
  	/*
 diff --git a/drivers/scsi/ufs/ufshcd.h b/drivers/scsi/ufs/ufshcd.h
-index 10bac3241c5a..717981c531e2 100644
+index b6dcb7a5a711..55e6ff1bd14e 100644
 --- a/drivers/scsi/ufs/ufshcd.h
 +++ b/drivers/scsi/ufs/ufshcd.h
 @@ -672,6 +672,13 @@ struct ufs_hba {

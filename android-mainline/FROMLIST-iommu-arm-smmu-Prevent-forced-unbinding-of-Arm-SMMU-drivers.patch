@@ -36,7 +36,7 @@ Change-Id: I8b1c439f7ba11d6fc38cdf686948ef5909871dfb
  2 files changed, 7 insertions(+), 5 deletions(-)
 
 diff --git a/drivers/iommu/arm-smmu-v3.c b/drivers/iommu/arm-smmu-v3.c
-index 2ad8e2ca0583..3fd75abce3bb 100644
+index 68163b1d680d..9d4c9de6172d 100644
 --- a/drivers/iommu/arm-smmu-v3.c
 +++ b/drivers/iommu/arm-smmu-v3.c
 @@ -3700,8 +3700,9 @@ MODULE_DEVICE_TABLE(of, arm_smmu_of_match);
@@ -52,10 +52,10 @@ index 2ad8e2ca0583..3fd75abce3bb 100644
  	.probe	= arm_smmu_device_probe,
  	.remove	= arm_smmu_device_remove,
 diff --git a/drivers/iommu/arm-smmu.c b/drivers/iommu/arm-smmu.c
-index 53bbe0663b9e..d6c83bd69555 100644
+index 7c768f771001..5cbee88a3b83 100644
 --- a/drivers/iommu/arm-smmu.c
 +++ b/drivers/iommu/arm-smmu.c
-@@ -2237,9 +2237,10 @@ static const struct dev_pm_ops arm_smmu_pm_ops = {
+@@ -2268,9 +2268,10 @@ static const struct dev_pm_ops arm_smmu_pm_ops = {
  
  static struct platform_driver arm_smmu_driver = {
  	.driver	= {

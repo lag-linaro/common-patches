@@ -33,7 +33,7 @@ Signed-off-by: Alistair Delva <adelva@google.com>
  create mode 100644 fs/proc/uid.c
 
 diff --git a/fs/proc/Kconfig b/fs/proc/Kconfig
-index cb5629bd5fff..313ae27bb674 100644
+index 733881a6387b..4fbf7776e9c2 100644
 --- a/fs/proc/Kconfig
 +++ b/fs/proc/Kconfig
 @@ -103,3 +103,9 @@ config PROC_CHILDREN
@@ -59,7 +59,7 @@ index ead487e80510..3f849ca0edce 100644
  proc-$(CONFIG_NET)		+= proc_net.o
  proc-$(CONFIG_PROC_KCORE)	+= kcore.o
 diff --git a/fs/proc/internal.h b/fs/proc/internal.h
-index cd0c8d5ce9a1..95846552ef24 100644
+index 0f3b557c9b77..b996429de6d8 100644
 --- a/fs/proc/internal.h
 +++ b/fs/proc/internal.h
 @@ -253,6 +253,15 @@ static inline void proc_sys_evict_inode(struct  inode *inode,
@@ -387,7 +387,7 @@ index 000000000000..ae720b93a0ed
 +	return 0;
 +}
 diff --git a/include/linux/proc_fs.h b/include/linux/proc_fs.h
-index a705aa2d03f9..35e83f86e51a 100644
+index 0640be56dcbd..633d6a87d58e 100644
 --- a/include/linux/proc_fs.h
 +++ b/include/linux/proc_fs.h
 @@ -131,6 +131,12 @@ static inline struct pid *tgid_pidfd_to_pid(const struct file *file)

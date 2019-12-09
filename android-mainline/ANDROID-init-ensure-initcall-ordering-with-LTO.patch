@@ -328,7 +328,7 @@ index 000000000000..f772b4a01caa
 +
 +print "}\n";
 diff --git a/scripts/link-vmlinux.sh b/scripts/link-vmlinux.sh
-index 1e19c800bfa2..b427d58af739 100755
+index e927960b2331..da5043b31560 100755
 --- a/scripts/link-vmlinux.sh
 +++ b/scripts/link-vmlinux.sh
 @@ -39,28 +39,30 @@ info()
@@ -386,7 +386,7 @@ index 1e19c800bfa2..b427d58af739 100755
  }
  
  # If CONFIG_LTO_CLANG is selected, we postpone running recordmcount until
-@@ -243,7 +245,7 @@ cleanup()
+@@ -245,7 +247,7 @@ cleanup()
  	rm -f .btf.*
  	rm -f .tmp_System.map
  	rm -f .tmp_kallsyms*

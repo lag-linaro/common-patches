@@ -28,7 +28,7 @@ Signed-off-by: Ben Hutchings <ben@decadent.org.uk>
  4 files changed, 26 insertions(+), 1 deletion(-)
 
 diff --git a/Documentation/admin-guide/sysctl/kernel.rst b/Documentation/admin-guide/sysctl/kernel.rst
-index 032c7cd3cede..172fac5c58b1 100644
+index def074807cee..92a709f96012 100644
 --- a/Documentation/admin-guide/sysctl/kernel.rst
 +++ b/Documentation/admin-guide/sysctl/kernel.rst
 @@ -720,7 +720,8 @@ perf_event_paranoid:
@@ -51,10 +51,10 @@ index 032c7cd3cede..172fac5c58b1 100644
  
  
 diff --git a/include/linux/perf_event.h b/include/linux/perf_event.h
-index 68ccc5b1913b..a7565ea44938 100644
+index 6d4c22aee384..e9c8c4e0cc5b 100644
 --- a/include/linux/perf_event.h
 +++ b/include/linux/perf_event.h
-@@ -1241,6 +1241,11 @@ extern int perf_cpu_time_max_percent_handler(struct ctl_table *table, int write,
+@@ -1270,6 +1270,11 @@ extern int perf_cpu_time_max_percent_handler(struct ctl_table *table, int write,
  int perf_event_max_stack_handler(struct ctl_table *table, int write,
  				 void __user *buffer, size_t *lenp, loff_t *ppos);
  
@@ -63,11 +63,11 @@ index 68ccc5b1913b..a7565ea44938 100644
 +	return sysctl_perf_event_paranoid > 2;
 +}
 +
- static inline bool perf_paranoid_tracepoint_raw(void)
- {
- 	return sysctl_perf_event_paranoid > -1;
+ /* Access to perf_event_open(2) syscall. */
+ #define PERF_SECURITY_OPEN		0
+ 
 diff --git a/kernel/events/core.c b/kernel/events/core.c
-index 00a014670ed0..2f177466f34b 100644
+index 4ff86d57f9e5..6c7194381a41 100644
 --- a/kernel/events/core.c
 +++ b/kernel/events/core.c
 @@ -398,8 +398,13 @@ static cpumask_var_t perf_online_mask;
@@ -84,9 +84,9 @@ index 00a014670ed0..2f177466f34b 100644
  
  /* Minimum for 512 kiB + 1 user control page */
  int sysctl_perf_event_mlock __read_mostly = 512 + (PAGE_SIZE / 1024); /* 'free' kiB per user */
-@@ -10897,6 +10902,9 @@ SYSCALL_DEFINE5(perf_event_open,
- 	if (flags & ~PERF_FLAG_ALL)
- 		return -EINVAL;
+@@ -11175,6 +11180,9 @@ SYSCALL_DEFINE5(perf_event_open,
+ 	if (err)
+ 		return err;
  
 +	if (perf_paranoid_any() && !capable(CAP_SYS_ADMIN))
 +		return -EACCES;

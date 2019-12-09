@@ -21,10 +21,10 @@ Signed-off-by: Sandeep Patil <sspatil@google.com>
  2 files changed, 103 insertions(+)
 
 diff --git a/drivers/dma-buf/dma-buf.c b/drivers/dma-buf/dma-buf.c
-index 433d91d710e4..532a854be1b3 100644
+index ce41cd9b758a..29ecdc284406 100644
 --- a/drivers/dma-buf/dma-buf.c
 +++ b/drivers/dma-buf/dma-buf.c
-@@ -957,6 +957,30 @@ int dma_buf_begin_cpu_access(struct dma_buf *dmabuf,
+@@ -1024,6 +1024,30 @@ int dma_buf_begin_cpu_access(struct dma_buf *dmabuf,
  }
  EXPORT_SYMBOL_GPL(dma_buf_begin_cpu_access);
  
@@ -55,7 +55,7 @@ index 433d91d710e4..532a854be1b3 100644
  /**
   * dma_buf_end_cpu_access - Must be called after accessing a dma_buf from the
   * cpu in the kernel context. Calls end_cpu_access to allow exporter-specific
-@@ -983,6 +1007,22 @@ int dma_buf_end_cpu_access(struct dma_buf *dmabuf,
+@@ -1050,6 +1074,22 @@ int dma_buf_end_cpu_access(struct dma_buf *dmabuf,
  }
  EXPORT_SYMBOL_GPL(dma_buf_end_cpu_access);
  
@@ -79,10 +79,10 @@ index 433d91d710e4..532a854be1b3 100644
   * dma_buf_kmap - Map a page of the buffer object into kernel address space. The
   * same restrictions as for kmap and friends apply.
 diff --git a/include/linux/dma-buf.h b/include/linux/dma-buf.h
-index ec212cb27fdc..b1457e6b76d8 100644
+index af73f835c51c..803050d03ff8 100644
 --- a/include/linux/dma-buf.h
 +++ b/include/linux/dma-buf.h
-@@ -178,6 +178,41 @@ struct dma_buf_ops {
+@@ -193,6 +193,41 @@ struct dma_buf_ops {
  	 */
  	int (*begin_cpu_access)(struct dma_buf *, enum dma_data_direction);
  
@@ -124,7 +124,7 @@ index ec212cb27fdc..b1457e6b76d8 100644
  	/**
  	 * @end_cpu_access:
  	 *
-@@ -197,6 +232,28 @@ struct dma_buf_ops {
+@@ -212,6 +247,28 @@ struct dma_buf_ops {
  	 */
  	int (*end_cpu_access)(struct dma_buf *, enum dma_data_direction);
  
@@ -153,8 +153,8 @@ index ec212cb27fdc..b1457e6b76d8 100644
  	/**
  	 * @mmap:
  	 *
-@@ -411,8 +468,14 @@ void dma_buf_unmap_attachment(struct dma_buf_attachment *, struct sg_table *,
- 				enum dma_data_direction);
+@@ -462,8 +519,14 @@ void dma_buf_unmap_attachment(struct dma_buf_attachment *, struct sg_table *,
+ void dma_buf_move_notify(struct dma_buf *dma_buf);
  int dma_buf_begin_cpu_access(struct dma_buf *dma_buf,
  			     enum dma_data_direction dir);
 +int dma_buf_begin_cpu_access_partial(struct dma_buf *dma_buf,

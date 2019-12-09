@@ -29,7 +29,7 @@ Signed-off-by: Matthias Maennich <maennich@google.com>
  2 files changed, 77 insertions(+), 4 deletions(-)
 
 diff --git a/drivers/staging/android/ion/ion.c b/drivers/staging/android/ion/ion.c
-index 548d65dbd3ac..026a8fada480 100644
+index a744a92ddbb6..8623c602e2d4 100644
 --- a/drivers/staging/android/ion/ion.c
 +++ b/drivers/staging/android/ion/ion.c
 @@ -7,6 +7,7 @@
@@ -48,7 +48,7 @@ index 548d65dbd3ac..026a8fada480 100644
  
  /* Entry into ION allocator for rest of the kernel */
  struct dma_buf *ion_alloc(size_t len, unsigned int heap_id_mask,
-@@ -222,6 +222,66 @@ static int debug_shrink_get(void *data, u64 *val)
+@@ -220,6 +220,66 @@ static int debug_shrink_get(void *data, u64 *val)
  DEFINE_SIMPLE_ATTRIBUTE(debug_shrink_fops, debug_shrink_get,
  			debug_shrink_set, "%llu\n");
  
@@ -115,7 +115,7 @@ index 548d65dbd3ac..026a8fada480 100644
  int __ion_device_add_heap(struct ion_heap *heap, struct module *owner)
  {
  	struct ion_device *dev = internal_dev;
-@@ -283,7 +343,14 @@ int __ion_device_add_heap(struct ion_heap *heap, struct module *owner)
+@@ -281,7 +341,14 @@ int __ion_device_add_heap(struct ion_heap *heap, struct module *owner)
  
  	heap->debugfs_dir = heap_root;
  	down_write(&dev->lock);
@@ -131,7 +131,7 @@ index 548d65dbd3ac..026a8fada480 100644
  	/*
  	 * use negative heap->id to reverse the priority -- when traversing
  	 * the list later attempt higher id numbers first
-@@ -291,11 +358,12 @@ int __ion_device_add_heap(struct ion_heap *heap, struct module *owner)
+@@ -289,11 +356,12 @@ int __ion_device_add_heap(struct ion_heap *heap, struct module *owner)
  	plist_node_init(&heap->node, -heap->id);
  	plist_add(&heap->node, &dev->heaps);
  
@@ -145,7 +145,7 @@ index 548d65dbd3ac..026a8fada480 100644
  out_heap_cleanup:
  	ion_heap_cleanup(heap);
  out:
-@@ -321,6 +389,8 @@ void ion_device_remove_heap(struct ion_heap *heap)
+@@ -319,6 +387,8 @@ void ion_device_remove_heap(struct ion_heap *heap)
  			__func__, heap->name);
  	}
  	debugfs_remove_recursive(heap->debugfs_dir);

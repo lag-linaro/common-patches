@@ -30,7 +30,7 @@ Signed-off-by: Alistair Delva <adelva@google.com>
  create mode 100644 drivers/md/dm-verity-avb.c
 
 diff --git a/drivers/md/Kconfig b/drivers/md/Kconfig
-index aa98953f4462..a744ba61ad21 100644
+index d6d5ab23c088..87f5fe451f00 100644
 --- a/drivers/md/Kconfig
 +++ b/drivers/md/Kconfig
 @@ -517,6 +517,17 @@ config DM_VERITY_VERIFY_ROOTHASH_SIG

@@ -20,21 +20,21 @@ Signed-off-by: Sandeep Patil <sspatil@google.com>
  1 file changed, 3 insertions(+)
 
 diff --git a/include/linux/dma-buf.h b/include/linux/dma-buf.h
-index b1457e6b76d8..0458da673ec5 100644
+index 803050d03ff8..0df9504cda8e 100644
 --- a/include/linux/dma-buf.h
 +++ b/include/linux/dma-buf.h
-@@ -384,6 +384,8 @@ struct dma_buf {
-  * @sgt: cached mapping.
-  * @dir: direction of cached mapping.
+@@ -403,6 +403,8 @@ struct dma_buf {
   * @priv: exporter specific attachment data.
+  * @dynamic_mapping: true if dma_buf_map/unmap_attachment() is called with the
+  * dma_resv lock held.
 + * @dma_map_attrs: DMA attributes to be used when the exporter maps the buffer
 + * through dma_buf_map_attachment.
   *
   * This structure holds the attachment information between the dma_buf buffer
   * and its user device(s). The list contains one attachment struct per device
-@@ -401,6 +403,7 @@ struct dma_buf_attachment {
- 	struct sg_table *sgt;
+@@ -421,6 +423,7 @@ struct dma_buf_attachment {
  	enum dma_data_direction dir;
+ 	bool dynamic_mapping;
  	void *priv;
 +	unsigned long dma_map_attrs;
  };

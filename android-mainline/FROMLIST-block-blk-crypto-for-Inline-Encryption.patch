@@ -237,10 +237,10 @@ index 000000000000..202826cee95e
 +"passthrough KSM" is for IE devices that want to manage their own keyslots/do
 +not have a limited number of keyslots.
 diff --git a/block/Kconfig b/block/Kconfig
-index ae52d42b783b..606a67e47e68 100644
+index 690d1c212b66..d950898a6ac9 100644
 --- a/block/Kconfig
 +++ b/block/Kconfig
-@@ -179,6 +179,8 @@ config BLK_SED_OPAL
+@@ -183,6 +183,8 @@ config BLK_SED_OPAL
  
  config BLK_INLINE_ENCRYPTION
  	bool "Enable inline encryption support in block layer"
@@ -250,10 +250,10 @@ index ae52d42b783b..606a67e47e68 100644
  	  Build the blk-crypto subsystem.
  	  Enabling this lets the block layer handle encryption,
 diff --git a/block/Makefile b/block/Makefile
-index f39611ed151f..8932c7e4fd07 100644
+index 1b791b1dc1a3..0bb0df6e030c 100644
 --- a/block/Makefile
 +++ b/block/Makefile
-@@ -36,4 +36,5 @@ obj-$(CONFIG_BLK_DEBUG_FS)	+= blk-mq-debugfs.o
+@@ -37,4 +37,5 @@ obj-$(CONFIG_BLK_DEBUG_FS)	+= blk-mq-debugfs.o
  obj-$(CONFIG_BLK_DEBUG_FS_ZONED)+= blk-mq-debugfs-zoned.o
  obj-$(CONFIG_BLK_SED_OPAL)	+= sed-opal.o
  obj-$(CONFIG_BLK_PM)		+= blk-pm.o
@@ -279,7 +279,7 @@ index 95fd57896466..0f7641b875e9 100644
  
  	dst->bi_crypt_context = bio_crypt_alloc_ctx(gfp_mask);
 diff --git a/block/bio.c b/block/bio.c
-index 5e07f5ceacb6..07b9ead615e2 100644
+index a3efa189ab82..e01c8c67053c 100644
 --- a/block/bio.c
 +++ b/block/bio.c
 @@ -17,6 +17,7 @@
@@ -290,7 +290,7 @@ index 5e07f5ceacb6..07b9ead615e2 100644
  
  #include <trace/events/block.h>
  #include "blk.h"
-@@ -1788,6 +1789,10 @@ void bio_endio(struct bio *bio)
+@@ -1791,6 +1792,10 @@ void bio_endio(struct bio *bio)
  again:
  	if (!bio_remaining_done(bio))
  		return;
@@ -302,7 +302,7 @@ index 5e07f5ceacb6..07b9ead615e2 100644
  		return;
  
 diff --git a/block/blk-core.c b/block/blk-core.c
-index 3b5959d386fb..0f7e81dbe2ee 100644
+index da08aa947b07..b5c560733952 100644
 --- a/block/blk-core.c
 +++ b/block/blk-core.c
 @@ -38,6 +38,7 @@
@@ -313,7 +313,7 @@ index 3b5959d386fb..0f7e81dbe2ee 100644
  
  #define CREATE_TRACE_POINTS
  #include <trace/events/block.h>
-@@ -1061,7 +1062,9 @@ blk_qc_t generic_make_request(struct bio *bio)
+@@ -1063,7 +1064,9 @@ blk_qc_t generic_make_request(struct bio *bio)
  			/* Create a fresh bio_list for all subordinate requests */
  			bio_list_on_stack[1] = bio_list_on_stack[0];
  			bio_list_init(&bio_list_on_stack[0]);
@@ -324,7 +324,7 @@ index 3b5959d386fb..0f7e81dbe2ee 100644
  
  			blk_queue_exit(q);
  
-@@ -1114,6 +1117,9 @@ blk_qc_t direct_make_request(struct bio *bio)
+@@ -1116,6 +1119,9 @@ blk_qc_t direct_make_request(struct bio *bio)
  	if (!generic_make_request_checks(bio))
  		return BLK_QC_T_NONE;
  
@@ -334,7 +334,7 @@ index 3b5959d386fb..0f7e81dbe2ee 100644
  	if (unlikely(blk_queue_enter(q, nowait ? BLK_MQ_REQ_NOWAIT : 0))) {
  		if (nowait && !blk_queue_dying(q))
  			bio->bi_status = BLK_STS_AGAIN;
-@@ -1810,5 +1816,8 @@ int __init blk_dev_init(void)
+@@ -1812,5 +1818,8 @@ int __init blk_dev_init(void)
  	if (bio_crypt_ctx_init() < 0)
  		panic("Failed to allocate mem for bio crypt ctxs\n");
  

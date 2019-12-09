@@ -71,7 +71,7 @@ index 3e66e6c8f53a..bd16ec03b5fd 100644
  	fdput(f);
  	return ret;
 diff --git a/include/linux/dcache.h b/include/linux/dcache.h
-index 10090f11ab95..d59a73cdb10e 100644
+index c1488cc84fd9..f23f9f790eac 100644
 --- a/include/linux/dcache.h
 +++ b/include/linux/dcache.h
 @@ -147,6 +147,7 @@ struct dentry_operations {

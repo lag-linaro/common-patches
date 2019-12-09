@@ -19,7 +19,7 @@ Signed-off-by: Sandeep Patil <sspatil@google.com>
  create mode 100644 include/linux/ion.h
 
 diff --git a/drivers/staging/android/ion/ion.c b/drivers/staging/android/ion/ion.c
-index e6b1ca141b93..2e5c6ae2f3fc 100644
+index c394686a8e7d..a8eaaf386413 100644
 --- a/drivers/staging/android/ion/ion.c
 +++ b/drivers/staging/android/ion/ion.c
 @@ -3,6 +3,8 @@

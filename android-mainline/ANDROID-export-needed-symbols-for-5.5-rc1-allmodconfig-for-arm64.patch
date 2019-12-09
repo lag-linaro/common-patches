@@ -1,0 +1,34 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: Greg Kroah-Hartman <gregkh@google.com>
+Date: Mon, 9 Dec 2019 13:50:12 +0100
+Subject: ANDROID: export needed symbols for 5.5-rc1 'allmodconfig' for arm64
+
+Turns out we need pci_enable_ats and pci_disable_ats to be able to build
+properly at the moment.
+
+Signed-off-by: Greg Kroah-Hartman <gregkh@google.com>
+Change-Id: I688b87079700bb6ba68dd156e2321e45b4a2c108
+---
+ drivers/pci/ats.c | 2 ++
+ 1 file changed, 2 insertions(+)
+
+diff --git a/drivers/pci/ats.c b/drivers/pci/ats.c
+index 982b46f0a54d..dcbcf1331bb2 100644
+--- a/drivers/pci/ats.c
++++ b/drivers/pci/ats.c
+@@ -69,6 +69,7 @@ int pci_enable_ats(struct pci_dev *dev, int ps)
+ 	dev->ats_enabled = 1;
+ 	return 0;
+ }
++EXPORT_SYMBOL_GPL(pci_enable_ats);
+ 
+ /**
+  * pci_disable_ats - disable the ATS capability
+@@ -87,6 +88,7 @@ void pci_disable_ats(struct pci_dev *dev)
+ 
+ 	dev->ats_enabled = 0;
+ }
++EXPORT_SYMBOL_GPL(pci_disable_ats);
+ 
+ void pci_restore_ats_state(struct pci_dev *dev)
+ {

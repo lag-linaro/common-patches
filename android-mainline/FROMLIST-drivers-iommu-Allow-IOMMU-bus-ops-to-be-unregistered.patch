@@ -21,7 +21,7 @@ Change-Id: Ia89fa2df61d2a9ad04901d4c2e71e293c4c6171d
  1 file changed, 5 insertions(+)
 
 diff --git a/drivers/iommu/iommu.c b/drivers/iommu/iommu.c
-index 4bfecfbbe2cf..e99704c2e06b 100644
+index bc8edf90e729..433101f0853c 100644
 --- a/drivers/iommu/iommu.c
 +++ b/drivers/iommu/iommu.c
 @@ -1558,6 +1558,11 @@ int bus_set_iommu(struct bus_type *bus, const struct iommu_ops *ops)

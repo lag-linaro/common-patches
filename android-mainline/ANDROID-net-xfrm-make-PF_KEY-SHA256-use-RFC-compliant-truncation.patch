@@ -23,7 +23,7 @@ Signed-off-by: Lorenzo Colitti <lorenzo@google.com>
  1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/net/xfrm/xfrm_algo.c b/net/xfrm/xfrm_algo.c
-index 32a378e7011f..8b06ef53d7fc 100644
+index 4dae3ab8d030..d5b95c528d1e 100644
 --- a/net/xfrm/xfrm_algo.c
 +++ b/net/xfrm/xfrm_algo.c
 @@ -237,7 +237,7 @@ static struct xfrm_algo_desc aalg_list[] = {

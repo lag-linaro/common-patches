@@ -86,7 +86,7 @@ index 2389b8669846..1f8f9dbf3189 100644
  };
  ATTRIBUTE_GROUPS(pwm);
 diff --git a/include/linux/pwm.h b/include/linux/pwm.h
-index b2c9c460947d..fac49238730d 100644
+index 0ef808d925bb..74c9996706b0 100644
 --- a/include/linux/pwm.h
 +++ b/include/linux/pwm.h
 @@ -48,6 +48,17 @@ enum {
@@ -132,7 +132,7 @@ index b2c9c460947d..fac49238730d 100644
  static inline void pwm_get_args(const struct pwm_device *pwm,
  				struct pwm_args *args)
  {
-@@ -250,6 +272,7 @@ pwm_set_relative_duty_cycle(struct pwm_state *state, unsigned int duty_cycle,
+@@ -247,6 +269,7 @@ pwm_set_relative_duty_cycle(struct pwm_state *state, unsigned int duty_cycle,
   * @get_state: get the current PWM state. This function is only
   *	       called once per PWM device when the PWM chip is
   *	       registered.
@@ -140,7 +140,7 @@ index b2c9c460947d..fac49238730d 100644
   * @owner: helps prevent removal of modules exporting active PWMs
   * @config: configure duty cycles and period length for this PWM
   * @set_polarity: configure the polarity of this PWM
-@@ -265,6 +288,8 @@ struct pwm_ops {
+@@ -262,6 +285,8 @@ struct pwm_ops {
  		     const struct pwm_state *state);
  	void (*get_state)(struct pwm_chip *chip, struct pwm_device *pwm,
  			  struct pwm_state *state);
@@ -149,7 +149,7 @@ index b2c9c460947d..fac49238730d 100644
  	struct module *owner;
  
  	/* Only used by legacy drivers */
-@@ -319,6 +344,24 @@ void pwm_free(struct pwm_device *pwm);
+@@ -316,6 +341,24 @@ void pwm_free(struct pwm_device *pwm);
  int pwm_apply_state(struct pwm_device *pwm, const struct pwm_state *state);
  int pwm_adjust_config(struct pwm_device *pwm);
  
@@ -174,7 +174,7 @@ index b2c9c460947d..fac49238730d 100644
  /**
   * pwm_config() - change a PWM device configuration
   * @pwm: PWM device
-@@ -437,6 +480,11 @@ static inline int pwm_adjust_config(struct pwm_device *pwm)
+@@ -434,6 +477,11 @@ static inline int pwm_adjust_config(struct pwm_device *pwm)
  	return -ENOTSUPP;
  }
  

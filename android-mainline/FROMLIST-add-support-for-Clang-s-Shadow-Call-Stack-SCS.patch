@@ -30,18 +30,18 @@ Signed-off-by: Sami Tolvanen <samitolvanen@google.com>
  include/linux/scs.h            |  57 ++++++++++
  init/init_task.c               |   8 ++
  kernel/Makefile                |   1 +
- kernel/fork.c                  |   8 ++
+ kernel/fork.c                  |  10 +-
  kernel/sched/core.c            |   2 +
  kernel/scs.c                   | 187 +++++++++++++++++++++++++++++++++
- 10 files changed, 313 insertions(+)
+ 10 files changed, 314 insertions(+), 1 deletion(-)
  create mode 100644 include/linux/scs.h
  create mode 100644 kernel/scs.c
 
 diff --git a/Makefile b/Makefile
-index 9d60aea04b19..80e78ab1cec4 100644
+index c3c7ceace5bd..d33428d42f42 100644
 --- a/Makefile
 +++ b/Makefile
-@@ -850,6 +850,12 @@ ifdef CONFIG_LIVEPATCH
+@@ -849,6 +849,12 @@ ifdef CONFIG_LIVEPATCH
  KBUILD_CFLAGS += $(call cc-option, -flive-patching=inline-clone)
  endif
  
@@ -55,7 +55,7 @@ index 9d60aea04b19..80e78ab1cec4 100644
  NOSTDINC_FLAGS += -nostdinc -isystem $(shell $(CC) -print-file-name=include)
  
 diff --git a/arch/Kconfig b/arch/Kconfig
-index 5f8a5d84dbbe..90a8c5ef4487 100644
+index 48b5e103bdb0..1b16aa9a3fe5 100644
 --- a/arch/Kconfig
 +++ b/arch/Kconfig
 @@ -521,6 +521,40 @@ config STACKPROTECTOR_STRONG
@@ -218,7 +218,7 @@ index 9e5cbe5eab7b..cbd40460e903 100644
   * Initial thread structure. Alignment of this is handled by a special
   * linker map entry.
 diff --git a/kernel/Makefile b/kernel/Makefile
-index daad787fb795..313dbd44d576 100644
+index f2cc0d118a0b..06231f936a7a 100644
 --- a/kernel/Makefile
 +++ b/kernel/Makefile
 @@ -102,6 +102,7 @@ obj-$(CONFIG_TRACEPOINTS) += trace/
@@ -230,18 +230,22 @@ index daad787fb795..313dbd44d576 100644
  obj-$(CONFIG_PERF_EVENTS) += events/
  
 diff --git a/kernel/fork.c b/kernel/fork.c
-index 1a38712da4cd..dd9d22e6c0a6 100644
+index b11eb9471606..a8b525eec2fe 100644
 --- a/kernel/fork.c
 +++ b/kernel/fork.c
-@@ -95,6 +95,7 @@
+@@ -92,9 +92,10 @@
+ #include <linux/kcov.h>
+ #include <linux/livepatch.h>
  #include <linux/thread_info.h>
- #include <linux/cpufreq_times.h>
+-#include <linux/cpufreq_times.h>
  #include <linux/stackleak.h>
 +#include <linux/scs.h>
+ #include <linux/kasan.h>
++#include <linux/cpufreq_times.h>
  
  #include <asm/pgtable.h>
  #include <asm/pgalloc.h>
-@@ -453,6 +454,7 @@ void put_task_stack(struct task_struct *tsk)
+@@ -456,6 +457,7 @@ void put_task_stack(struct task_struct *tsk)
  void free_task(struct task_struct *tsk)
  {
  	cpufreq_task_times_exit(tsk);
@@ -249,7 +253,7 @@ index 1a38712da4cd..dd9d22e6c0a6 100644
  
  #ifndef CONFIG_THREAD_INFO_IN_TASK
  	/*
-@@ -837,6 +839,8 @@ void __init fork_init(void)
+@@ -840,6 +842,8 @@ void __init fork_init(void)
  			  NULL, free_vm_stack_cache);
  #endif
  
@@ -258,7 +262,7 @@ index 1a38712da4cd..dd9d22e6c0a6 100644
  	lockdep_init_task(&init_task);
  	uprobes_init();
  }
-@@ -896,6 +900,10 @@ static struct task_struct *dup_task_struct(struct task_struct *orig, int node)
+@@ -899,6 +903,10 @@ static struct task_struct *dup_task_struct(struct task_struct *orig, int node)
  	if (err)
  		goto free_stack;
  
@@ -270,7 +274,7 @@ index 1a38712da4cd..dd9d22e6c0a6 100644
  	/*
  	 * We must handle setting up seccomp filters once we're under
 diff --git a/kernel/sched/core.c b/kernel/sched/core.c
-index d09e4107b895..7bf0361d9344 100644
+index 219a99ed7b71..3d208e3c01f0 100644
 --- a/kernel/sched/core.c
 +++ b/kernel/sched/core.c
 @@ -11,6 +11,7 @@
@@ -281,7 +285,7 @@ index d09e4107b895..7bf0361d9344 100644
  
  #include <asm/switch_to.h>
  #include <asm/tlb.h>
-@@ -6028,6 +6029,7 @@ void init_idle(struct task_struct *idle, int cpu)
+@@ -6038,6 +6039,7 @@ void init_idle(struct task_struct *idle, int cpu)
  	idle->se.exec_start = sched_clock();
  	idle->flags |= PF_IDLE;
  

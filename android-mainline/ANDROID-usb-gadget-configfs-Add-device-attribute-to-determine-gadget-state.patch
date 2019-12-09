@@ -21,7 +21,7 @@ Signed-off-by: Amit Pundir <amit.pundir@linaro.org>
  1 file changed, 52 insertions(+), 39 deletions(-)
 
 diff --git a/drivers/usb/gadget/configfs.c b/drivers/usb/gadget/configfs.c
-index 4c509adc832a..dffd930490a9 100644
+index 195f67999f12..d17cf05fd62f 100644
 --- a/drivers/usb/gadget/configfs.c
 +++ b/drivers/usb/gadget/configfs.c
 @@ -1709,6 +1709,54 @@ static struct device_attribute *android_usb_attributes[] = {
@@ -89,7 +89,7 @@ index 4c509adc832a..dffd930490a9 100644
  
  	gi = kzalloc(sizeof(*gi), GFP_KERNEL);
  	if (!gi)
-@@ -1762,37 +1807,14 @@ static struct config_group *gadgets_make(
+@@ -1763,37 +1808,14 @@ static struct config_group *gadgets_make(
  	gi->composite.gadget_driver.function = kstrdup(name, GFP_KERNEL);
  	gi->composite.name = gi->composite.gadget_driver.function;
  
@@ -130,7 +130,7 @@ index 4c509adc832a..dffd930490a9 100644
  err:
  	kfree(gi);
  	return ERR_PTR(-ENOMEM);
-@@ -1800,17 +1822,8 @@ static struct config_group *gadgets_make(
+@@ -1801,17 +1823,8 @@ static struct config_group *gadgets_make(
  
  static void gadgets_drop(struct config_group *group, struct config_item *item)
  {

@@ -23,10 +23,10 @@ Link: https://patchwork.kernel.org/patch/11214745/
  create mode 100644 drivers/scsi/ufs/ufshcd-crypto.h
 
 diff --git a/drivers/scsi/ufs/Kconfig b/drivers/scsi/ufs/Kconfig
-index 0b845ab7c3bf..3ee5cede823e 100644
+index d14c2243e02a..c69f1b49167b 100644
 --- a/drivers/scsi/ufs/Kconfig
 +++ b/drivers/scsi/ufs/Kconfig
-@@ -150,3 +150,12 @@ config SCSI_UFS_BSG
+@@ -160,3 +160,12 @@ config SCSI_UFS_BSG
  
  	  Select this if you need a bsg device node for your UFS controller.
  	  If unsure, say N.
@@ -40,13 +40,13 @@ index 0b845ab7c3bf..3ee5cede823e 100644
 +	  capabilities of the UFS device (if present) to perform crypto
 +	  operations on data being transferred to/from the device.
 diff --git a/drivers/scsi/ufs/Makefile b/drivers/scsi/ufs/Makefile
-index 2a9097939bcb..094c39989a37 100644
+index 94c6c5d7334b..e88cdcde83fd 100644
 --- a/drivers/scsi/ufs/Makefile
 +++ b/drivers/scsi/ufs/Makefile
-@@ -11,3 +11,4 @@ obj-$(CONFIG_SCSI_UFSHCD_PCI) += ufshcd-pci.o
- obj-$(CONFIG_SCSI_UFSHCD_PLATFORM) += ufshcd-pltfrm.o
+@@ -12,3 +12,4 @@ obj-$(CONFIG_SCSI_UFSHCD_PLATFORM) += ufshcd-pltfrm.o
  obj-$(CONFIG_SCSI_UFS_HISI) += ufs-hisi.o
  obj-$(CONFIG_SCSI_UFS_MEDIATEK) += ufs-mediatek.o
+ obj-$(CONFIG_SCSI_UFS_TI_J721E) += ti-j721e-ufs.o
 +ufshcd-core-$(CONFIG_SCSI_UFS_CRYPTO) += ufshcd-crypto.o
 diff --git a/drivers/scsi/ufs/ufshcd-crypto.c b/drivers/scsi/ufs/ufshcd-crypto.c
 new file mode 100644
@@ -538,7 +538,7 @@ index 000000000000..73ddc8e493fb
 +
 +#endif /* _UFSHCD_CRYPTO_H */
 diff --git a/drivers/scsi/ufs/ufshcd.h b/drivers/scsi/ufs/ufshcd.h
-index 8f2329b4fe79..31e64f4267dd 100644
+index dbb581244bdb..051fb68a41af 100644
 --- a/drivers/scsi/ufs/ufshcd.h
 +++ b/drivers/scsi/ufs/ufshcd.h
 @@ -525,6 +525,11 @@ struct ufs_stats {
@@ -553,7 +553,7 @@ index 8f2329b4fe79..31e64f4267dd 100644
   */
  struct ufs_hba {
  	void __iomem *mmio_base;
-@@ -735,6 +740,15 @@ struct ufs_hba {
+@@ -741,6 +746,15 @@ struct ufs_hba {
  
  	struct device		bsg_dev;
  	struct request_queue	*bsg_queue;

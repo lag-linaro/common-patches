@@ -21,10 +21,10 @@ Signed-off-by: Steve Muckle <smuckle@google.com>
  1 file changed, 5 insertions(+), 3 deletions(-)
 
 diff --git a/include/linux/module.h b/include/linux/module.h
-index 6d20895e7739..6744ffe9a727 100644
+index bd165ba68617..063af853ae02 100644
 --- a/include/linux/module.h
 +++ b/include/linux/module.h
-@@ -389,10 +389,12 @@ struct module {
+@@ -392,10 +392,12 @@ struct module {
  	const s32 *unused_gpl_crcs;
  #endif
  

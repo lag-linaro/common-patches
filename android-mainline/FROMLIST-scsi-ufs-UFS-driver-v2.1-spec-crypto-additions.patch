@@ -19,10 +19,10 @@ Link: https://patchwork.kernel.org/patch/11214737/
  3 files changed, 72 insertions(+), 2 deletions(-)
 
 diff --git a/drivers/scsi/ufs/ufshcd.c b/drivers/scsi/ufs/ufshcd.c
-index 11a87f51c442..e66eb7a39a02 100644
+index b5966faf3e98..809502c66e25 100644
 --- a/drivers/scsi/ufs/ufshcd.c
 +++ b/drivers/scsi/ufs/ufshcd.c
-@@ -4769,6 +4769,8 @@ ufshcd_transfer_rsp_status(struct ufs_hba *hba, struct ufshcd_lrb *lrbp)
+@@ -4789,6 +4789,8 @@ ufshcd_transfer_rsp_status(struct ufs_hba *hba, struct ufshcd_lrb *lrbp)
  	case OCS_MISMATCH_RESP_UPIU_SIZE:
  	case OCS_PEER_COMM_FAILURE:
  	case OCS_FATAL_ERROR:
@@ -32,23 +32,23 @@ index 11a87f51c442..e66eb7a39a02 100644
  		result |= DID_ERROR << 16;
  		dev_err(hba->dev,
 diff --git a/drivers/scsi/ufs/ufshcd.h b/drivers/scsi/ufs/ufshcd.h
-index c94cfda52829..8f2329b4fe79 100644
+index 2740f6941ec6..dbb581244bdb 100644
 --- a/drivers/scsi/ufs/ufshcd.h
 +++ b/drivers/scsi/ufs/ufshcd.h
-@@ -716,6 +716,11 @@ struct ufs_hba {
- 	 * the performance of ongoing read/write operations.
+@@ -722,6 +722,11 @@ struct ufs_hba {
+ 	 * for userspace to control the power management.
  	 */
- #define UFSHCD_CAP_KEEP_AUTO_BKOPS_ENABLED_EXCEPT_SUSPEND (1 << 5)
+ #define UFSHCD_CAP_RPM_AUTOSUSPEND (1 << 6)
 +	/*
 +	 * This capability allows the host controller driver to use the
 +	 * inline crypto engine, if it is present
 +	 */
-+#define UFSHCD_CAP_CRYPTO (1 << 6)
++#define UFSHCD_CAP_CRYPTO (1 << 7)
  
  	struct devfreq *devfreq;
  	struct ufs_clk_scaling clk_scaling;
 diff --git a/drivers/scsi/ufs/ufshci.h b/drivers/scsi/ufs/ufshci.h
-index dbb75cd28dc8..291f6c3e79db 100644
+index c2961d37cc1c..c0651fe6dbbc 100644
 --- a/drivers/scsi/ufs/ufshci.h
 +++ b/drivers/scsi/ufs/ufshci.h
 @@ -90,6 +90,7 @@ enum {

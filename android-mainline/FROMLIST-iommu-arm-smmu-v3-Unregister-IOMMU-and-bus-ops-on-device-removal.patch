@@ -18,7 +18,7 @@ Change-Id: I54372d917c871231ced86250498fe2e45cf39246
  1 file changed, 43 insertions(+), 21 deletions(-)
 
 diff --git a/drivers/iommu/arm-smmu-v3.c b/drivers/iommu/arm-smmu-v3.c
-index 3fd75abce3bb..0e7a135efdfe 100644
+index 9d4c9de6172d..46160a2fec3e 100644
 --- a/drivers/iommu/arm-smmu-v3.c
 +++ b/drivers/iommu/arm-smmu-v3.c
 @@ -3565,6 +3565,45 @@ static unsigned long arm_smmu_resource_size(struct arm_smmu_device *smmu)

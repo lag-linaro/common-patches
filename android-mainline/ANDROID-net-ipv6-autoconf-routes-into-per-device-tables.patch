@@ -65,7 +65,7 @@ index ea7c7906591e..76cfef3d43f3 100644
  	__s32		accept_source_route;
  	__s32		accept_ra_from_local;
 diff --git a/include/net/addrconf.h b/include/net/addrconf.h
-index 3f62b347b04a..2306098a7f2d 100644
+index 1bab88184d3c..c79d0361bd05 100644
 --- a/include/net/addrconf.h
 +++ b/include/net/addrconf.h
 @@ -266,6 +266,18 @@ static inline bool ipv6_is_mld(struct sk_buff *skb, int nexthdr, int offset)
@@ -88,7 +88,7 @@ index 3f62b347b04a..2306098a7f2d 100644
   *	anycast prototypes (anycast.c)
   */
 diff --git a/net/ipv6/addrconf.c b/net/ipv6/addrconf.c
-index 34ccef18b40e..b2f002624391 100644
+index 98d82305d6de..35354aaf918d 100644
 --- a/net/ipv6/addrconf.c
 +++ b/net/ipv6/addrconf.c
 @@ -217,6 +217,7 @@ static struct ipv6_devconf ipv6_devconf __read_mostly = {
@@ -152,7 +152,7 @@ index 34ccef18b40e..b2f002624391 100644
  
  	table = fib6_get_table(dev_net(dev), tb_id);
  	if (!table)
-@@ -6641,6 +6663,13 @@ static const struct ctl_table addrconf_sysctl[] = {
+@@ -6640,6 +6662,13 @@ static const struct ctl_table addrconf_sysctl[] = {
  	},
  #endif
  #endif
@@ -167,10 +167,10 @@ index 34ccef18b40e..b2f002624391 100644
  		.procname	= "proxy_ndp",
  		.data		= &ipv6_devconf.proxy_ndp,
 diff --git a/net/ipv6/route.c b/net/ipv6/route.c
-index 3f83ea851ebf..b3fb1732dd0b 100644
+index b59940416cb5..e74df973aa8d 100644
 --- a/net/ipv6/route.c
 +++ b/net/ipv6/route.c
-@@ -4086,7 +4086,7 @@ static struct fib6_info *rt6_get_route_info(struct net *net,
+@@ -4083,7 +4083,7 @@ static struct fib6_info *rt6_get_route_info(struct net *net,
  					   const struct in6_addr *gwaddr,
  					   struct net_device *dev)
  {
@@ -179,7 +179,7 @@ index 3f83ea851ebf..b3fb1732dd0b 100644
  	int ifindex = dev->ifindex;
  	struct fib6_node *fn;
  	struct fib6_info *rt = NULL;
-@@ -4140,7 +4140,7 @@ static struct fib6_info *rt6_add_route_info(struct net *net,
+@@ -4137,7 +4137,7 @@ static struct fib6_info *rt6_add_route_info(struct net *net,
  		.fc_nlinfo.nl_net = net,
  	};
  
@@ -188,7 +188,7 @@ index 3f83ea851ebf..b3fb1732dd0b 100644
  	cfg.fc_dst = *prefix;
  	cfg.fc_gateway = *gwaddr;
  
-@@ -4158,7 +4158,7 @@ struct fib6_info *rt6_get_dflt_router(struct net *net,
+@@ -4155,7 +4155,7 @@ struct fib6_info *rt6_get_dflt_router(struct net *net,
  				     const struct in6_addr *addr,
  				     struct net_device *dev)
  {
@@ -197,7 +197,7 @@ index 3f83ea851ebf..b3fb1732dd0b 100644
  	struct fib6_info *rt;
  	struct fib6_table *table;
  
-@@ -4192,7 +4192,7 @@ struct fib6_info *rt6_add_dflt_router(struct net *net,
+@@ -4189,7 +4189,7 @@ struct fib6_info *rt6_add_dflt_router(struct net *net,
  				     unsigned int pref)
  {
  	struct fib6_config cfg = {
@@ -206,7 +206,7 @@ index 3f83ea851ebf..b3fb1732dd0b 100644
  		.fc_metric	= IP6_RT_PRIO_USER,
  		.fc_ifindex	= dev->ifindex,
  		.fc_flags	= RTF_GATEWAY | RTF_ADDRCONF | RTF_DEFAULT |
-@@ -4217,47 +4217,24 @@ struct fib6_info *rt6_add_dflt_router(struct net *net,
+@@ -4214,47 +4214,24 @@ struct fib6_info *rt6_add_dflt_router(struct net *net,
  	return rt6_get_dflt_router(net, gwaddr, dev);
  }
  

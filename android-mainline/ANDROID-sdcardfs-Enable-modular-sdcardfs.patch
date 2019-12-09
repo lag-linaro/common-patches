@@ -86,7 +86,7 @@ index 5bbf587f5bc1..45929fe56cfa 100644
  /* file_ppos returns &file->f_pos or NULL if file is stream */
  static inline loff_t *file_ppos(struct file *file)
 diff --git a/security/security.c b/security/security.c
-index 1bc000f834e2..ab1a1a10c671 100644
+index cd2d18d2d279..f34b1bc34c71 100644
 --- a/security/security.c
 +++ b/security/security.c
 @@ -1101,6 +1101,7 @@ int security_path_chown(const struct path *path, kuid_t uid, kgid_t gid)

@@ -17,10 +17,10 @@ Change-Id: I1d8fbe26ab7114af6409ea13a68fff8afed49703
  2 files changed, 2 insertions(+), 3 deletions(-)
 
 diff --git a/drivers/iommu/Kconfig b/drivers/iommu/Kconfig
-index e3842eabcfdd..7583d47fc4d5 100644
+index 0b9d78a0f3ac..31f0f376ad11 100644
 --- a/drivers/iommu/Kconfig
 +++ b/drivers/iommu/Kconfig
-@@ -388,7 +388,7 @@ config ARM_SMMU_DISABLE_BYPASS_BY_DEFAULT
+@@ -394,7 +394,7 @@ config ARM_SMMU_DISABLE_BYPASS_BY_DEFAULT
  	  config.
  
  config ARM_SMMU_V3
@@ -30,7 +30,7 @@ index e3842eabcfdd..7583d47fc4d5 100644
  	select IOMMU_API
  	select IOMMU_IO_PGTABLE_LPAE
 diff --git a/drivers/iommu/arm-smmu-v3.c b/drivers/iommu/arm-smmu-v3.c
-index 0e7a135efdfe..f79b14f75107 100644
+index 46160a2fec3e..08967090f6b7 100644
 --- a/drivers/iommu/arm-smmu-v3.c
 +++ b/drivers/iommu/arm-smmu-v3.c
 @@ -2733,6 +2733,7 @@ static struct iommu_ops arm_smmu_ops = {

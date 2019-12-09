@@ -43,10 +43,10 @@ Link: https://patchwork.kernel.org/patch/11214713/
  create mode 100644 include/linux/keyslot-manager.h
 
 diff --git a/block/Kconfig b/block/Kconfig
-index 41c0917ce622..ae52d42b783b 100644
+index c23094a14a2b..690d1c212b66 100644
 --- a/block/Kconfig
 +++ b/block/Kconfig
-@@ -177,6 +177,14 @@ config BLK_SED_OPAL
+@@ -181,6 +181,14 @@ config BLK_SED_OPAL
  	Enabling this option enables users to setup/unlock/lock
  	Locking ranges for SED devices using the Opal protocol.
  
@@ -62,10 +62,10 @@ index 41c0917ce622..ae52d42b783b 100644
  
  source "block/partitions/Kconfig"
 diff --git a/block/Makefile b/block/Makefile
-index 9ef57ace90d4..e922844219c2 100644
+index 205a5f2fef17..8efc424a9e96 100644
 --- a/block/Makefile
 +++ b/block/Makefile
-@@ -36,3 +36,4 @@ obj-$(CONFIG_BLK_DEBUG_FS)	+= blk-mq-debugfs.o
+@@ -37,3 +37,4 @@ obj-$(CONFIG_BLK_DEBUG_FS)	+= blk-mq-debugfs.o
  obj-$(CONFIG_BLK_DEBUG_FS_ZONED)+= blk-mq-debugfs-zoned.o
  obj-$(CONFIG_BLK_SED_OPAL)	+= sed-opal.o
  obj-$(CONFIG_BLK_PM)		+= blk-pm.o
@@ -445,7 +445,7 @@ index 3cdb84cdc488..d0cb7c350cdc 100644
   * BIO list management for use by remapping drivers (e.g. DM or MD) and loop.
   *
 diff --git a/include/linux/blkdev.h b/include/linux/blkdev.h
-index f3ea78b0c91c..244e81a8f5d2 100644
+index 47eb22a3b7f9..cb98f4bdff87 100644
 --- a/include/linux/blkdev.h
 +++ b/include/linux/blkdev.h
 @@ -43,6 +43,7 @@ struct pr_ops;
@@ -456,7 +456,7 @@ index f3ea78b0c91c..244e81a8f5d2 100644
  
  #define BLKDEV_MIN_RQ	4
  #define BLKDEV_MAX_RQ	128	/* Default maximum */
-@@ -481,6 +482,11 @@ struct request_queue {
+@@ -474,6 +475,11 @@ struct request_queue {
  	unsigned int		dma_pad_mask;
  	unsigned int		dma_alignment;
  

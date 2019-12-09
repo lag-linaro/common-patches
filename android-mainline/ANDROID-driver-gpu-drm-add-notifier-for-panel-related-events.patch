@@ -17,18 +17,18 @@ Change-Id: I3ac644c1c931b959a511ee4a999a417a4b7bdcd1
  3 files changed, 61 insertions(+)
 
 diff --git a/drivers/gpu/drm/drm_panel.c b/drivers/gpu/drm/drm_panel.c
-index 6b0bf42039cf..bb0f6cad4204 100644
+index ed7985c0535a..2e453ad0068e 100644
 --- a/drivers/gpu/drm/drm_panel.c
 +++ b/drivers/gpu/drm/drm_panel.c
-@@ -51,6 +51,7 @@ static LIST_HEAD(panel_list);
- void drm_panel_init(struct drm_panel *panel)
+@@ -56,6 +56,7 @@ void drm_panel_init(struct drm_panel *panel, struct device *dev,
+ 		    const struct drm_panel_funcs *funcs, int connector_type)
  {
  	INIT_LIST_HEAD(&panel->list);
 +	BLOCKING_INIT_NOTIFIER_HEAD(&panel->nh);
- }
- EXPORT_SYMBOL(drm_panel_init);
- 
-@@ -266,6 +267,27 @@ struct drm_panel *of_drm_find_panel(const struct device_node *np)
+ 	panel->dev = dev;
+ 	panel->funcs = funcs;
+ 	panel->connector_type = connector_type;
+@@ -274,6 +275,27 @@ struct drm_panel *of_drm_find_panel(const struct device_node *np)
  EXPORT_SYMBOL(of_drm_find_panel);
  #endif
  
@@ -57,7 +57,7 @@ index 6b0bf42039cf..bb0f6cad4204 100644
  MODULE_DESCRIPTION("DRM panel infrastructure");
  MODULE_LICENSE("GPL and additional rights");
 diff --git a/include/drm/drm_connector.h b/include/drm/drm_connector.h
-index 681cb590f952..650290a99602 100644
+index 5f8c3389d46f..f626a4c2c1ce 100644
 --- a/include/drm/drm_connector.h
 +++ b/include/drm/drm_connector.h
 @@ -40,6 +40,7 @@ struct drm_encoder;
@@ -68,7 +68,7 @@ index 681cb590f952..650290a99602 100644
  struct edid;
  struct i2c_adapter;
  
-@@ -1410,6 +1411,13 @@ struct drm_connector {
+@@ -1414,6 +1415,13 @@ struct drm_connector {
  
  	/** @hdr_sink_metadata: HDR Metadata Information read from sink */
  	struct hdr_sink_metadata hdr_sink_metadata;
@@ -83,7 +83,7 @@ index 681cb590f952..650290a99602 100644
  
  #define obj_to_connector(x) container_of(x, struct drm_connector, base)
 diff --git a/include/drm/drm_panel.h b/include/drm/drm_panel.h
-index 624bd15ecfab..8997244fc9cf 100644
+index ce8da64022b4..59c915986f6f 100644
 --- a/include/drm/drm_panel.h
 +++ b/include/drm/drm_panel.h
 @@ -27,6 +27,23 @@
@@ -110,7 +110,7 @@ index 624bd15ecfab..8997244fc9cf 100644
  
  struct device_node;
  struct drm_connector;
-@@ -145,6 +162,13 @@ struct drm_panel {
+@@ -154,6 +171,13 @@ struct drm_panel {
  	 * Panel entry in registry.
  	 */
  	struct list_head list;
@@ -123,8 +123,8 @@ index 624bd15ecfab..8997244fc9cf 100644
 +	struct blocking_notifier_head nh;
  };
  
- void drm_panel_init(struct drm_panel *panel);
-@@ -155,6 +179,13 @@ void drm_panel_remove(struct drm_panel *panel);
+ void drm_panel_init(struct drm_panel *panel, struct device *dev,
+@@ -166,6 +190,13 @@ void drm_panel_remove(struct drm_panel *panel);
  int drm_panel_attach(struct drm_panel *panel, struct drm_connector *connector);
  void drm_panel_detach(struct drm_panel *panel);
  

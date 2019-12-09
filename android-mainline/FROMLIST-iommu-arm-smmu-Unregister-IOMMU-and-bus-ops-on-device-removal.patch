@@ -18,10 +18,10 @@ Change-Id: I5dd6e68a609ac60bc704f9f916acc0f31dc1bd67
  1 file changed, 40 insertions(+), 10 deletions(-)
 
 diff --git a/drivers/iommu/arm-smmu.c b/drivers/iommu/arm-smmu.c
-index d6c83bd69555..307026fb58b3 100644
+index 5cbee88a3b83..f7cb52b270df 100644
 --- a/drivers/iommu/arm-smmu.c
 +++ b/drivers/iommu/arm-smmu.c
-@@ -1976,25 +1976,51 @@ static int arm_smmu_device_dt_probe(struct platform_device *pdev,
+@@ -2009,25 +2009,51 @@ static int arm_smmu_device_dt_probe(struct platform_device *pdev,
  	return 0;
  }
  
@@ -81,7 +81,7 @@ index d6c83bd69555..307026fb58b3 100644
  }
  
  static int arm_smmu_device_probe(struct platform_device *pdev)
-@@ -2142,7 +2168,7 @@ static int arm_smmu_device_probe(struct platform_device *pdev)
+@@ -2173,7 +2199,7 @@ static int arm_smmu_device_probe(struct platform_device *pdev)
  	 * ready to handle default domain setup as soon as any SMMU exists.
  	 */
  	if (!using_legacy_binding)
@@ -90,7 +90,7 @@ index d6c83bd69555..307026fb58b3 100644
  
  	return 0;
  }
-@@ -2156,7 +2182,7 @@ static int arm_smmu_device_probe(struct platform_device *pdev)
+@@ -2187,7 +2213,7 @@ static int arm_smmu_device_probe(struct platform_device *pdev)
  static int arm_smmu_legacy_bus_init(void)
  {
  	if (using_legacy_binding)
@@ -99,7 +99,7 @@ index d6c83bd69555..307026fb58b3 100644
  	return 0;
  }
  device_initcall_sync(arm_smmu_legacy_bus_init);
-@@ -2171,6 +2197,10 @@ static int arm_smmu_device_remove(struct platform_device *pdev)
+@@ -2202,6 +2228,10 @@ static int arm_smmu_device_remove(struct platform_device *pdev)
  	if (!bitmap_empty(smmu->context_map, ARM_SMMU_MAX_CBS))
  		dev_err(&pdev->dev, "removing device with active domains!\n");
  

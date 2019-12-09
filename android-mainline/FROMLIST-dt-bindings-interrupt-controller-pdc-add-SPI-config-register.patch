@@ -26,10 +26,10 @@ Link: https://patchwork.kernel.org/patch/11145355
  1 file changed, 12 insertions(+), 1 deletion(-)
 
 diff --git a/Documentation/devicetree/bindings/interrupt-controller/qcom,pdc.txt b/Documentation/devicetree/bindings/interrupt-controller/qcom,pdc.txt
-index 8e0797cb1487..e329f8d27826 100644
+index 1df293953327..004584ef71f7 100644
 --- a/Documentation/devicetree/bindings/interrupt-controller/qcom,pdc.txt
 +++ b/Documentation/devicetree/bindings/interrupt-controller/qcom,pdc.txt
-@@ -24,6 +24,9 @@ Properties:
+@@ -25,6 +25,9 @@ Properties:
  	Usage: required
  	Value type: <prop-encoded-array>
  	Definition: Specifies the base physical address for PDC hardware.
@@ -39,7 +39,7 @@ index 8e0797cb1487..e329f8d27826 100644
  
  - interrupt-cells:
  	Usage: required
-@@ -50,15 +53,23 @@ Properties:
+@@ -51,15 +54,23 @@ Properties:
  		    The second element is the GIC hwirq number for the PDC port.
  		    The third element is the number of interrupts in sequence.
  

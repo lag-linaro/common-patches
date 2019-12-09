@@ -52,7 +52,7 @@ index 02ff850278b1..f5e82dcac583 100644
  	bool "Generic serial bulk in/out"
  	depends on USB_CONFIGFS
 diff --git a/drivers/usb/gadget/configfs.c b/drivers/usb/gadget/configfs.c
-index 33852c2b29d1..836fbb8b4ce4 100644
+index ab9ac48a751a..51007d9adf0c 100644
 --- a/drivers/usb/gadget/configfs.c
 +++ b/drivers/usb/gadget/configfs.c
 @@ -10,6 +10,19 @@
@@ -262,7 +262,7 @@ index 33852c2b29d1..836fbb8b4ce4 100644
  	.suspend	= configfs_composite_suspend,
  	.resume		= configfs_composite_resume,
  
-@@ -1558,6 +1709,12 @@ static struct config_group *gadgets_make(
+@@ -1559,6 +1710,12 @@ static struct config_group *gadgets_make(
  	gi->composite.gadget_driver.function = kstrdup(name, GFP_KERNEL);
  	gi->composite.name = gi->composite.gadget_driver.function;
  
@@ -275,7 +275,7 @@ index 33852c2b29d1..836fbb8b4ce4 100644
  	if (!gi->composite.gadget_driver.function)
  		goto err;
  
-@@ -1609,6 +1766,13 @@ static int __init gadget_cfs_init(void)
+@@ -1610,6 +1767,13 @@ static int __init gadget_cfs_init(void)
  	config_group_init(&gadget_subsys.su_group);
  
  	ret = configfs_register_subsystem(&gadget_subsys);

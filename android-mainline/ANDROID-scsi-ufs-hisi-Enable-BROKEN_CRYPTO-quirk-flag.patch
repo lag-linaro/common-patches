@@ -37,10 +37,10 @@ Signed-off-by: John Stultz <john.stultz@linaro.org>
  1 file changed, 8 insertions(+)
 
 diff --git a/drivers/scsi/ufs/ufs-hisi.c b/drivers/scsi/ufs/ufs-hisi.c
-index 6bbb1679bb91..63bb06acd458 100644
+index 5d6487350a6c..fa9d4d1c43c9 100644
 --- a/drivers/scsi/ufs/ufs-hisi.c
 +++ b/drivers/scsi/ufs/ufs-hisi.c
-@@ -478,6 +478,14 @@ static int ufs_hisi_init_common(struct ufs_hba *hba)
+@@ -475,6 +475,14 @@ static int ufs_hisi_init_common(struct ufs_hba *hba)
  	if (!host)
  		return -ENOMEM;
  

@@ -212,10 +212,10 @@ index 25ea31757578..0b24652b77f2 100644
 +module_exit(ion_system_heap_exit);
 +MODULE_LICENSE("GPL v2");
 diff --git a/drivers/staging/android/ion/ion.c b/drivers/staging/android/ion/ion.c
-index b862bdfeca89..548d65dbd3ac 100644
+index 93f2e1e7ca43..a744a92ddbb6 100644
 --- a/drivers/staging/android/ion/ion.c
 +++ b/drivers/staging/android/ion/ion.c
-@@ -222,28 +222,36 @@ static int debug_shrink_get(void *data, u64 *val)
+@@ -220,28 +220,36 @@ static int debug_shrink_get(void *data, u64 *val)
  DEFINE_SIMPLE_ATTRIBUTE(debug_shrink_fops, debug_shrink_get,
  			debug_shrink_set, "%llu\n");
  
@@ -259,7 +259,7 @@ index b862bdfeca89..548d65dbd3ac 100644
  	}
  
  	heap->num_of_buffers = 0;
-@@ -273,6 +281,7 @@ void ion_device_add_heap(struct ion_heap *heap)
+@@ -271,6 +279,7 @@ void ion_device_add_heap(struct ion_heap *heap)
  				    &debug_shrink_fops);
  	}
  
@@ -267,7 +267,7 @@ index b862bdfeca89..548d65dbd3ac 100644
  	down_write(&dev->lock);
  	heap->id = heap_id++;
  	/*
-@@ -284,8 +293,37 @@ void ion_device_add_heap(struct ion_heap *heap)
+@@ -282,8 +291,37 @@ void ion_device_add_heap(struct ion_heap *heap)
  
  	dev->heap_cnt++;
  	up_write(&dev->lock);

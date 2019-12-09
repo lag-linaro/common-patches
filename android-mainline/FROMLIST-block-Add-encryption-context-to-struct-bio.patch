@@ -44,10 +44,10 @@ Signed-off-by: Matthias Maennich <maennich@google.com>
  create mode 100644 include/linux/bio-crypt-ctx.h
 
 diff --git a/block/Makefile b/block/Makefile
-index e922844219c2..f39611ed151f 100644
+index 8efc424a9e96..1b791b1dc1a3 100644
 --- a/block/Makefile
 +++ b/block/Makefile
-@@ -36,4 +36,4 @@ obj-$(CONFIG_BLK_DEBUG_FS)	+= blk-mq-debugfs.o
+@@ -37,4 +37,4 @@ obj-$(CONFIG_BLK_DEBUG_FS)	+= blk-mq-debugfs.o
  obj-$(CONFIG_BLK_DEBUG_FS_ZONED)+= blk-mq-debugfs-zoned.o
  obj-$(CONFIG_BLK_SED_OPAL)	+= sed-opal.o
  obj-$(CONFIG_BLK_PM)		+= blk-pm.o
@@ -200,10 +200,10 @@ index 000000000000..95fd57896466
 +	return 0;
 +}
 diff --git a/block/bio.c b/block/bio.c
-index b1170ec18464..5e07f5ceacb6 100644
+index 9d54aa37ce6c..a3efa189ab82 100644
 --- a/block/bio.c
 +++ b/block/bio.c
-@@ -241,6 +241,7 @@ static void bio_free(struct bio *bio)
+@@ -244,6 +244,7 @@ static void bio_free(struct bio *bio)
  	struct bio_set *bs = bio->bi_pool;
  	void *p;
  
@@ -211,7 +211,7 @@ index b1170ec18464..5e07f5ceacb6 100644
  	bio_uninit(bio);
  
  	if (bs) {
-@@ -612,15 +613,15 @@ struct bio *bio_clone_fast(struct bio *bio, gfp_t gfp_mask, struct bio_set *bs)
+@@ -615,15 +616,15 @@ struct bio *bio_clone_fast(struct bio *bio, gfp_t gfp_mask, struct bio_set *bs)
  
  	__bio_clone_fast(b, bio);
  
@@ -235,7 +235,7 @@ index b1170ec18464..5e07f5ceacb6 100644
  	}
  
  	return b;
-@@ -992,6 +993,7 @@ void bio_advance(struct bio *bio, unsigned bytes)
+@@ -995,6 +996,7 @@ void bio_advance(struct bio *bio, unsigned bytes)
  	if (bio_integrity(bio))
  		bio_integrity_advance(bio, bytes);
  
@@ -244,10 +244,10 @@ index b1170ec18464..5e07f5ceacb6 100644
  }
  EXPORT_SYMBOL(bio_advance);
 diff --git a/block/blk-core.c b/block/blk-core.c
-index d5e668ec751b..3b5959d386fb 100644
+index a1e228752083..da08aa947b07 100644
 --- a/block/blk-core.c
 +++ b/block/blk-core.c
-@@ -1807,5 +1807,8 @@ int __init blk_dev_init(void)
+@@ -1809,5 +1809,8 @@ int __init blk_dev_init(void)
  	blk_debugfs_root = debugfs_create_dir("block", NULL);
  #endif
  
@@ -257,10 +257,10 @@ index d5e668ec751b..3b5959d386fb 100644
  	return 0;
  }
 diff --git a/block/blk-merge.c b/block/blk-merge.c
-index 48e6725b32ee..c97c02a20c6a 100644
+index d783bdc4559b..43e9797f6fb6 100644
 --- a/block/blk-merge.c
 +++ b/block/blk-merge.c
-@@ -557,6 +557,9 @@ static inline int ll_new_hw_segment(struct request *req, struct bio *bio,
+@@ -572,6 +572,9 @@ static inline int ll_new_hw_segment(struct request *req, struct bio *bio,
  	if (blk_integrity_merge_bio(req->q, req, bio) == false)
  		goto no_merge;
  
@@ -270,7 +270,7 @@ index 48e6725b32ee..c97c02a20c6a 100644
  	/*
  	 * This will form the start of a new hw segment.  Bump both
  	 * counters.
-@@ -711,8 +714,14 @@ static enum elv_merge blk_try_req_merge(struct request *req,
+@@ -726,8 +729,14 @@ static enum elv_merge blk_try_req_merge(struct request *req,
  {
  	if (blk_discard_mergable(req))
  		return ELEVATOR_DISCARD_MERGE;
@@ -286,7 +286,7 @@ index 48e6725b32ee..c97c02a20c6a 100644
  
  	return ELEVATOR_NO_MERGE;
  }
-@@ -748,6 +757,9 @@ static struct request *attempt_merge(struct request_queue *q,
+@@ -763,6 +772,9 @@ static struct request *attempt_merge(struct request_queue *q,
  	if (req->ioprio != next->ioprio)
  		return NULL;
  
@@ -296,7 +296,7 @@ index 48e6725b32ee..c97c02a20c6a 100644
  	/*
  	 * If we are allowed to merge, then append bio list
  	 * from next to rq and release next. merge_requests_fn
-@@ -880,16 +892,31 @@ bool blk_rq_merge_ok(struct request *rq, struct bio *bio)
+@@ -895,16 +907,31 @@ bool blk_rq_merge_ok(struct request *rq, struct bio *bio)
  	if (rq->ioprio != bio_prio(bio))
  		return false;
  
@@ -359,10 +359,10 @@ index f8ed677a1bf7..6f9a2359b22a 100644
  
  	bio_clone_blkg_association(bio, bio_src);
 diff --git a/drivers/md/dm.c b/drivers/md/dm.c
-index 1a5e328c443a..67c24294d7c8 100644
+index e8f9661a10a1..0b0025b66ec0 100644
 --- a/drivers/md/dm.c
 +++ b/drivers/md/dm.c
-@@ -1322,12 +1322,15 @@ static int clone_bio(struct dm_target_io *tio, struct bio *bio,
+@@ -1301,12 +1301,15 @@ static int clone_bio(struct dm_target_io *tio, struct bio *bio,
  		     sector_t sector, unsigned len)
  {
  	struct bio *clone = &tio->clone;
@@ -380,7 +380,7 @@ index 1a5e328c443a..67c24294d7c8 100644
  		if (unlikely(!dm_target_has_integrity(tio->ti->type) &&
  			     !dm_target_passes_integrity(tio->ti->type))) {
  			DMWARN("%s: the target %s doesn't support integrity data.",
-@@ -1336,9 +1339,11 @@ static int clone_bio(struct dm_target_io *tio, struct bio *bio,
+@@ -1315,9 +1318,11 @@ static int clone_bio(struct dm_target_io *tio, struct bio *bio,
  			return -EIO;
  		}
  
@@ -645,7 +645,7 @@ index d0cb7c350cdc..63d0fee423fa 100644
   * BIO list management for use by remapping drivers (e.g. DM or MD) and loop.
   *
 diff --git a/include/linux/blk_types.h b/include/linux/blk_types.h
-index d688b96d1d63..d3ee2dcb634d 100644
+index 70254ae11769..1996689c51d3 100644
 --- a/include/linux/blk_types.h
 +++ b/include/linux/blk_types.h
 @@ -18,6 +18,7 @@ struct block_device;

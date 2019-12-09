@@ -1,8 +1,8 @@
 #
 # android-mainline patches
 #
-# Applies onto upstream 219d54332a09 Linux v5.4
-# Matches android-mainline 5a17e32413ca ("ANDROID: gki_defconfig: Enable UCLAMP by default")
+# Applies onto upstream e42617b825f8 Linux v5.5-rc1
+# Matches android-mainline 23994434c7be ("ANDROID: Fix duplicate code")
 #
 FROMLIST-reboot-Export-reboot_mode.patch
 FROMLIST-arm64-mm-avoid-x18-in-idmap_kpti_install_ng_mappings.patch
@@ -10,43 +10,11 @@ FROMLIST-arm64-preserve-x18-when-CPU-is-suspended.patch
 FROMLIST-arm64-lib-copy_page-avoid-x18-register-in-assembler-code.patch
 FROMLIST-arm64-kvm-stop-treating-register-x18-as-caller-save.patch
 FROMLIST-arm64-kernel-avoid-x18-in-__cpu_soft_restart.patch
-FROMGIT-base-soc-Handle-custom-soc-information-sysfs-entries.patch
-FROMGIT-driver-core-Add-fwnode_to_dev-to-look-up-device-from-fwnode.patch
-FROMGIT-driver-core-Add-support-for-linking-devices-during-device-addition.patch
-FROMGIT-driver-core-Add-sync_state-driver-bus-callback.patch
-FROMGIT-driver-core-Improve-documentation-for-fwnode_operations.add_links.patch
-FROMGIT-driver-core-Allow-device-link-operations-inside-sync_state.patch
-FROMGIT-driver-core-platform-use-the-correct-callback-type-for-bus_find_device.patch
-FROMGIT-of-property-Add-functional-dependency-link-from-DT-bindings.patch
-FROMGIT-of-property-Create-device-links-for-all-child-supplier-depencencies.patch
-FROMGIT-of-property-Minor-code-formatting-style-clean-ups.patch
-FROMGIT-of-property-Skip-adding-device-links-to-suppliers-that-aren-t-devices.patch
-FROMGIT-of-property-Minor-style-clean-up-of-of_link_to_phandle.patch
-FROMGIT-of-property-Make-it-easy-to-add-device-links-from-DT-properties.patch
-FROMGIT-of-property-Add-device-link-support-for-iommus-mboxes-and-io-channels.patch
-FROMGIT-of-property-Add-device-link-support-for-iommu-map.patch
-FROMGIT-of-platform-Pause-resume-sync-state-during-init-and-of_platform_populate.patch
-FROMGIT-docs-driver-model-Add-documentation-for-sync_state.patch
-FROMGIT-firmware_class-make-firmware-caching-configurable.patch
-FROMLIST-docs-ioctl-number-document-fscrypt-ioctl-numbers.patch
-FROMLIST-irqdomain-add-bus-token-DOMAIN_BUS_WAKEUP.patch
-FROMLIST-of-irq-document-properties-for-wakeup-interrupt-parent.patch
-FROMLIST-genirq-Introduce-irq_chip_get-set_parent_state-calls.patch
-FROMLIST-drivers-irqchip-qcom-pdc-update-max-PDC-interrupts.patch
-FROMLIST-drivers-irqchip-pdc-Do-not-toggle-IRQ_ENABLE-during-mask-unmask.patch
-FROMLIST-drivers-irqchip-add-PDC-irqdomain-for-wakeup-capable-GPIOs.patch
-FROMLIST-drivers-irqchip-pdc-Add-irqchip-set-get-state-calls.patch
 FROMLIST-drivers-irqchip-pdc-additionally-set-type-in-SPI-config-registers.patch
 FROMLIST-drivers-pinctrl-msm-setup-GPIO-chip-in-hierarchy.patch
 FROMLIST-dt-bindings-interrupt-controller-pdc-add-SPI-config-register.patch
-FROMLIST-fscrypt-invoke-crypto-API-for-ESSIV-handling.patch
-FROMLIST-fscrypt-remove-struct-fscrypt_ctx.patch
-FROMLIST-fscrypt-zeroize-fscrypt_info-before-freeing.patch
-FROMLIST-fscrypt-add-support-for-IV_INO_LBLK_64-policies.patch
 FROMLIST-fscrypt-add-inline-encryption-support.patch
-FROMLIST-ext4-add-support-for-IV_INO_LBLK_64-encryption-policies.patch
 FROMLIST-ext4-add-inline-encryption-support.patch
-FROMLIST-f2fs-add-support-for-IV_INO_LBLK_64-encryption-policies.patch
 FROMLIST-f2fs-add-inline-encryption-support.patch
 FROMLIST-block-Keyslot-Manager-for-Inline-Encryption.patch
 FROMLIST-block-Add-encryption-context-to-struct-bio.patch
@@ -56,9 +24,6 @@ FROMLIST-scsi-ufs-UFS-crypto-API.patch
 FROMLIST-scsi-ufs-Add-inline-encryption-support-to-UFS.patch
 FROMLIST-scsi-ufs-export-hibern8-entry-and-exit.patch
 FROMLIST-scsi-ufs-qcom-enter-and-exit-hibern8-during-clock-scaling.patch
-FROMGIT-scsi-core-allow-auto-suspend-override-by-low-level-driver.patch
-FROMGIT-scsi-ufs-override-auto-suspend-tunables-for-ufs.patch
-FROMLIST-afs-xattr-use-scnprintf.patch
 FROMLIST-Add-flags-option-to-get-xattr-method-paired-to-__vfs_getxattr.patch
 FROMLIST-overlayfs-handle-XATTR_NOSECURITY-flag-for-get-xattr-method.patch
 FROMLIST-overlayfs-internal-getxattr-operations-without-sepolicy-checking.patch
@@ -185,10 +150,6 @@ ANDROID-sched-Unconditionally-honor-sync-flag-for-energy-aware-wakeups.patch
 ANDROID-sched-fair-add-arch-scaling-function-for-max-frequency-capping.patch
 ANDROID-cpufreq-arch_topology-implement-max-frequency-capping.patch
 ANDROID-sched-Update-max-cpu-capacity-in-case-of-max-frequency-constraints.patch
-ANDROID-sched-Prevent-unnecessary-active-balance-of-single-task-in-sched-group.patch
-ANDROID-sched-fair-Attempt-to-improve-throughput-for-asym-cap-systems.patch
-ANDROID-sched-fair-Don-t-balance-misfits-if-it-would-overload-local-group.patch
-ANDROID-sched-fair-Also-do-misfit-in-overloaded-groups.patch
 ANDROID-arm64-defconfig-Enable-EAS-by-default.patch
 ANDROID-sched-core-Add-a-latency-sensitive-flag-to-uclamp.patch
 ANDROID-sched-Introduce-uclamp-latency-and-boost-wrapper.patch
@@ -215,10 +176,6 @@ ANDROID-Kconfig.gki-Add-hidden-MMC-config-support.patch
 ANDROID-move-up-spin_unlock_bh-ahead-of-remove_proc_entry.patch
 ANDROID-fscrypt-add-key-removal-notifier-chain.patch
 ANDROID-sdcardfs-evict-dentries-on-fscrypt-key-removal.patch
-ANDROID-driver-core-Add-device-link-support-for-SYNC_STATE_ONLY-flag.patch
-ANDROID-driver-core-Allow-a-device-to-wait-on-optional-suppliers.patch
-ANDROID-driver-core-Allow-fwnode_operations.add_links-to-differentiate-errors.patch
-ANDROID-of-property-Make-sure-child-dependencies-don-t-block-probing-of-parent.patch
 ANDROID-of-property-Enable-of_devlink-by-default.patch
 ANDROID-v4l2-compat-ioctl32.c-copy-reserved-fields.patch
 ANDROID-ALSA-jack-Update-supported-jack-switch-types.patch
@@ -294,11 +251,6 @@ ANDROID-gki_defconfig-enable-CONFIG_REGULATOR_FIXED_VOLTAGE.patch
 ANDROID-kbuild-fix-modfinal-with-LTO.patch
 ANDROID-kbuild-suppress-llvm-ar-errors.patch
 ANDROID-ASoC-core-add-hostless-DAI-support.patch
-UPSTREAM-driver-core-Clarify-documentation-for-fwnode_operations.add_links.patch
-UPSTREAM-regulator-core-Don-t-try-to-remove-device-links-if-add-failed.patch
-UPSTREAM-i2c-of-Populate-fwnode-in-of_i2c_get_board_info.patch
-UPSTREAM-of-property-Fix-the-semantics-of-of_is_ancestor_of.patch
-UPSTREAM-of-property-Add-device-link-support-for-interrupt-parent-dmas-and-gpio-s.patch
 ANDROID-README-fix-cherry-picked-from-instructions.patch
 ANDROID-ASoC-Fix-allmodconfig-build-break.patch
 ANDROID-gki_defconfig-IIO-y.patch
@@ -309,3 +261,5 @@ ANDROID-make-sure-proc-mount-options-are-applied.patch
 ANDROID-kbuild-merge-module-sections-with-LTO.patch
 ANDROID-kbuild-limit-LTO-inlining.patch
 ANDROID-gki_defconfig-Enable-UCLAMP-by-default.patch
+ANDROID-update-gki_defconfig-for-5.5-rc1.patch
+ANDROID-export-needed-symbols-for-5.5-rc1-allmodconfig-for-arm64.patch

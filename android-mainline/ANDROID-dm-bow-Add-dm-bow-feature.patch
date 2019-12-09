@@ -181,7 +181,7 @@ index 000000000000..e3fc4d22e0f4
 +log entry to be written.
 +
 diff --git a/drivers/md/Kconfig b/drivers/md/Kconfig
-index a744ba61ad21..2bce42552769 100644
+index 87f5fe451f00..cb719c064235 100644
 --- a/drivers/md/Kconfig
 +++ b/drivers/md/Kconfig
 @@ -608,4 +608,16 @@ config DM_ZONED

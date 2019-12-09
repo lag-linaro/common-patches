@@ -29,18 +29,18 @@ Signed-off-by: Sami Tolvanen <samitolvanen@google.com>
  create mode 100644 arch/arm64/kernel/scs.c
 
 diff --git a/arch/arm64/Kconfig b/arch/arm64/Kconfig
-index 8cda176dad9a..76e32d01d759 100644
+index 49e5f94ff4af..073b19db23f2 100644
 --- a/arch/arm64/Kconfig
 +++ b/arch/arm64/Kconfig
-@@ -66,6 +66,7 @@ config ARM64
+@@ -65,6 +65,7 @@ config ARM64
  	select ARCH_USE_QUEUED_RWLOCKS
  	select ARCH_USE_QUEUED_SPINLOCKS
  	select ARCH_SUPPORTS_MEMORY_FAILURE
 +	select ARCH_SUPPORTS_SHADOW_CALL_STACK if CC_HAVE_SHADOW_CALL_STACK
  	select ARCH_SUPPORTS_ATOMIC_RMW
- 	select ARCH_SUPPORTS_INT128 if GCC_VERSION >= 50000 || CC_IS_CLANG
+ 	select ARCH_SUPPORTS_INT128 if CC_HAS_INT128 && (GCC_VERSION >= 50000 || CC_IS_CLANG)
  	select ARCH_SUPPORTS_NUMA_BALANCING
-@@ -948,6 +949,10 @@ config ARCH_HAS_CACHE_LINE_SIZE
+@@ -994,6 +995,10 @@ config ARCH_HAS_CACHE_LINE_SIZE
  config ARCH_ENABLE_SPLIT_PMD_PTLOCK
  	def_bool y if PGTABLE_LEVELS > 2
  
@@ -124,7 +124,7 @@ index f0cec4160136..8c73764b9ed2 100644
  
  #define thread_saved_pc(tsk)	\
 diff --git a/arch/arm64/kernel/Makefile b/arch/arm64/kernel/Makefile
-index 478491f07b4f..b3995329d9e5 100644
+index fc6488660f64..08fafc4da2cf 100644
 --- a/arch/arm64/kernel/Makefile
 +++ b/arch/arm64/kernel/Makefile
 @@ -63,6 +63,7 @@ obj-$(CONFIG_CRASH_CORE)		+= crash_core.o
@@ -136,7 +136,7 @@ index 478491f07b4f..b3995329d9e5 100644
  obj-y					+= vdso/ probes/
  obj-$(CONFIG_COMPAT_VDSO)		+= vdso32/
 diff --git a/arch/arm64/kernel/asm-offsets.c b/arch/arm64/kernel/asm-offsets.c
-index 214685760e1c..f6762b9ae1e1 100644
+index a5bdce8af65b..d485dc5cd196 100644
 --- a/arch/arm64/kernel/asm-offsets.c
 +++ b/arch/arm64/kernel/asm-offsets.c
 @@ -33,6 +33,9 @@ int main(void)
@@ -150,10 +150,10 @@ index 214685760e1c..f6762b9ae1e1 100644
    DEFINE(TSK_STACK,		offsetof(struct task_struct, stack));
  #ifdef CONFIG_STACKPROTECTOR
 diff --git a/arch/arm64/kernel/entry.S b/arch/arm64/kernel/entry.S
-index cf3bd2976e57..5a02b61fc3e6 100644
+index 7c6a0a41676f..1c62076aad1f 100644
 --- a/arch/arm64/kernel/entry.S
 +++ b/arch/arm64/kernel/entry.S
-@@ -172,6 +172,10 @@ alternative_cb_end
+@@ -173,6 +173,10 @@ alternative_cb_end
  
  	apply_ssbd 1, x22, x23
  
@@ -164,7 +164,7 @@ index cf3bd2976e57..5a02b61fc3e6 100644
  	.else
  	add	x21, sp, #S_FRAME_SIZE
  	get_current_task tsk
-@@ -278,6 +282,12 @@ alternative_else_nop_endif
+@@ -281,6 +285,12 @@ alternative_else_nop_endif
  	ct_user_enter
  	.endif
  
@@ -177,7 +177,7 @@ index cf3bd2976e57..5a02b61fc3e6 100644
  #ifdef CONFIG_ARM64_SW_TTBR0_PAN
  	/*
  	 * Restore access to TTBR0_EL1. If returning to EL0, no need for SPSR
-@@ -383,6 +393,9 @@ alternative_insn eret, nop, ARM64_UNMAP_KERNEL_AT_EL0
+@@ -386,6 +396,9 @@ alternative_insn eret, nop, ARM64_UNMAP_KERNEL_AT_EL0
  
  	.macro	irq_stack_entry
  	mov	x19, sp			// preserve the original sp
@@ -187,7 +187,7 @@ index cf3bd2976e57..5a02b61fc3e6 100644
  
  	/*
  	 * Compare sp with the base of the task stack.
-@@ -400,15 +413,24 @@ alternative_insn eret, nop, ARM64_UNMAP_KERNEL_AT_EL0
+@@ -403,15 +416,24 @@ alternative_insn eret, nop, ARM64_UNMAP_KERNEL_AT_EL0
  
  	/* switch to the irq stack */
  	mov	sp, x26
@@ -214,7 +214,7 @@ index cf3bd2976e57..5a02b61fc3e6 100644
  	.endm
  
  /* GPRs used by entry code */
-@@ -1155,6 +1177,11 @@ ENTRY(cpu_switch_to)
+@@ -895,6 +917,11 @@ ENTRY(cpu_switch_to)
  	ldr	lr, [x8]
  	mov	sp, x9
  	msr	sp_el0, x1
@@ -347,10 +347,10 @@ index 000000000000..eaadf5430baa
 +	}
 +}
 diff --git a/arch/arm64/kernel/smp.c b/arch/arm64/kernel/smp.c
-index dc9fe879c279..cc1938a585d2 100644
+index d4ed9a19d8fe..f2cb344f998c 100644
 --- a/arch/arm64/kernel/smp.c
 +++ b/arch/arm64/kernel/smp.c
-@@ -44,6 +44,7 @@
+@@ -46,6 +46,7 @@
  #include <asm/pgtable.h>
  #include <asm/pgalloc.h>
  #include <asm/processor.h>
@@ -358,7 +358,7 @@ index dc9fe879c279..cc1938a585d2 100644
  #include <asm/smp_plat.h>
  #include <asm/sections.h>
  #include <asm/tlbflush.h>
-@@ -357,6 +358,9 @@ void cpu_die(void)
+@@ -358,6 +359,9 @@ void cpu_die(void)
  {
  	unsigned int cpu = smp_processor_id();
  

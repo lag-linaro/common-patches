@@ -28,7 +28,7 @@ Signed-off-by: Rafael J. Wysocki <rafael.j.wysocki@intel.com>
  1 file changed, 3 insertions(+), 1 deletion(-)
 
 diff --git a/fs/eventpoll.c b/fs/eventpoll.c
-index c4159bcc05d9..6730d92e225a 100644
+index 67a395039268..636c1cca9e1b 100644
 --- a/fs/eventpoll.c
 +++ b/fs/eventpoll.c
 @@ -29,6 +29,7 @@
@@ -39,7 +39,7 @@ index c4159bcc05d9..6730d92e225a 100644
  #include <linux/uaccess.h>
  #include <asm/io.h>
  #include <asm/mman.h>
-@@ -1912,7 +1913,8 @@ static int ep_poll(struct eventpoll *ep, struct epoll_event __user *events,
+@@ -1891,7 +1892,8 @@ static int ep_poll(struct eventpoll *ep, struct epoll_event __user *events,
  			break;
  		}
  

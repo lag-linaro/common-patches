@@ -27,10 +27,10 @@ Signed-off-by: Sami Tolvanen <samitolvanen@google.com>
  create mode 100644 kernel/cfi.c
 
 diff --git a/Makefile b/Makefile
-index 3f0530ef8a35..111b2a92baee 100644
+index 3b5385d86d2f..e53068c50063 100644
 --- a/Makefile
 +++ b/Makefile
-@@ -882,6 +882,25 @@ KBUILD_CFLAGS	+= $(CC_FLAGS_LTO)
+@@ -881,6 +881,25 @@ KBUILD_CFLAGS	+= $(CC_FLAGS_LTO)
  export CC_FLAGS_LTO
  endif
  
@@ -57,7 +57,7 @@ index 3f0530ef8a35..111b2a92baee 100644
  NOSTDINC_FLAGS += -nostdinc -isystem $(shell $(CC) -print-file-name=include)
  
 diff --git a/arch/Kconfig b/arch/Kconfig
-index 12f11fcba9cd..5d862499ac02 100644
+index d5001d3b9a78..a9a02735c052 100644
 --- a/arch/Kconfig
 +++ b/arch/Kconfig
 @@ -602,6 +602,29 @@ config LTO_CLANG
@@ -91,10 +91,10 @@ index 12f11fcba9cd..5d862499ac02 100644
  	bool
  	help
 diff --git a/include/asm-generic/vmlinux.lds.h b/include/asm-generic/vmlinux.lds.h
-index 73a215a7d33f..2f2965fa00fe 100644
+index a88e7fbc9253..d6aa6a16c1c9 100644
 --- a/include/asm-generic/vmlinux.lds.h
 +++ b/include/asm-generic/vmlinux.lds.h
-@@ -71,6 +71,7 @@
+@@ -97,6 +97,7 @@
   */
  #if defined(CONFIG_LD_DEAD_CODE_DATA_ELIMINATION) || defined(CONFIG_LTO_CLANG)
  #define TEXT_MAIN .text .text.[0-9a-zA-Z_]*
@@ -102,7 +102,7 @@ index 73a215a7d33f..2f2965fa00fe 100644
  #define DATA_MAIN .data .data.[0-9a-zA-Z_]* .data..LPBX*
  #define SDATA_MAIN .sdata .sdata.[0-9a-zA-Z_]*
  #define RODATA_MAIN .rodata .rodata.[0-9a-zA-Z_]*
-@@ -78,6 +79,7 @@
+@@ -104,6 +105,7 @@
  #define SBSS_MAIN .sbss .sbss.[0-9a-zA-Z_]*
  #else
  #define TEXT_MAIN .text
@@ -110,7 +110,7 @@ index 73a215a7d33f..2f2965fa00fe 100644
  #define DATA_MAIN .data
  #define SDATA_MAIN .sdata
  #define RODATA_MAIN .rodata
-@@ -520,6 +522,7 @@
+@@ -553,6 +555,7 @@
  #define TEXT_TEXT							\
  		ALIGN_FUNCTION();					\
  		*(.text.hot TEXT_MAIN .text.fixup .text.unlikely)	\
@@ -209,10 +209,10 @@ index 0a16e48e6753..32633ea36f96 100644
  #define __initconst	__section(.init.rodata)
  #define __exitdata	__section(.exit.data)
 diff --git a/include/linux/module.h b/include/linux/module.h
-index 6744ffe9a727..34027a495180 100644
+index 063af853ae02..452ef22cbcdd 100644
 --- a/include/linux/module.h
 +++ b/include/linux/module.h
-@@ -22,6 +22,7 @@
+@@ -25,6 +25,7 @@
  #include <linux/error-injection.h>
  #include <linux/tracepoint-defs.h>
  #include <linux/srcu.h>
@@ -220,7 +220,7 @@ index 6744ffe9a727..34027a495180 100644
  
  #include <linux/percpu.h>
  #include <asm/module.h>
-@@ -365,6 +366,10 @@ struct module {
+@@ -368,6 +369,10 @@ struct module {
  	const s32 *crcs;
  	unsigned int num_syms;
  
@@ -232,10 +232,10 @@ index 6744ffe9a727..34027a495180 100644
  #ifdef CONFIG_SYSFS
  	struct mutex param_lock;
 diff --git a/init/Kconfig b/init/Kconfig
-index fecbc6f6a2b4..7e9fa6466ff8 100644
+index f74a50138593..9015cdb88006 100644
 --- a/init/Kconfig
 +++ b/init/Kconfig
-@@ -2219,7 +2219,7 @@ endif # MODULES
+@@ -2187,7 +2187,7 @@ endif # MODULES
  
  config MODULES_TREE_LOOKUP
  	def_bool y
@@ -245,7 +245,7 @@ index fecbc6f6a2b4..7e9fa6466ff8 100644
  config INIT_ALL_POSSIBLE
  	bool
 diff --git a/kernel/Makefile b/kernel/Makefile
-index 313dbd44d576..ae0751315d29 100644
+index 06231f936a7a..08652a850458 100644
 --- a/kernel/Makefile
 +++ b/kernel/Makefile
 @@ -35,6 +35,9 @@ CFLAGS_kcov.o := $(call cc-option, -fno-conserve-stack -fno-stack-protector)
@@ -580,10 +580,10 @@ index 000000000000..05f589e24f68
 +	handle_cfi_failure(ptr);
 +}
 diff --git a/kernel/module.c b/kernel/module.c
-index ff2d7359a418..47f391bc9ca2 100644
+index 3a486f826224..d8ced64b3df6 100644
 --- a/kernel/module.c
 +++ b/kernel/module.c
-@@ -2179,6 +2179,8 @@ void __weak module_arch_freeing_init(struct module *mod)
+@@ -2181,6 +2181,8 @@ void __weak module_arch_freeing_init(struct module *mod)
  {
  }
  
@@ -592,7 +592,7 @@ index ff2d7359a418..47f391bc9ca2 100644
  /* Free a module, remove from lists, etc. */
  static void free_module(struct module *mod)
  {
-@@ -2218,6 +2220,9 @@ static void free_module(struct module *mod)
+@@ -2220,6 +2222,9 @@ static void free_module(struct module *mod)
  	synchronize_rcu();
  	mutex_unlock(&module_mutex);
  
@@ -602,7 +602,7 @@ index ff2d7359a418..47f391bc9ca2 100644
  	/* This may be empty, but that's OK */
  	module_arch_freeing_init(mod);
  	module_memfree(mod->init_layout.base);
-@@ -3469,6 +3474,8 @@ int __weak module_finalize(const Elf_Ehdr *hdr,
+@@ -3471,6 +3476,8 @@ int __weak module_finalize(const Elf_Ehdr *hdr,
  	return 0;
  }
  
@@ -611,7 +611,7 @@ index ff2d7359a418..47f391bc9ca2 100644
  static int post_relocation(struct module *mod, const struct load_info *info)
  {
  	/* Sort exception table now relocations are done. */
-@@ -3481,6 +3488,9 @@ static int post_relocation(struct module *mod, const struct load_info *info)
+@@ -3483,6 +3490,9 @@ static int post_relocation(struct module *mod, const struct load_info *info)
  	/* Setup kallsyms-specific fields. */
  	add_kallsyms(mod, info);
  
@@ -621,7 +621,7 @@ index ff2d7359a418..47f391bc9ca2 100644
  	/* Arch-specific module finalizing. */
  	return module_finalize(info->hdr, info->sechdrs, mod);
  }
-@@ -4284,6 +4294,24 @@ int module_kallsyms_on_each_symbol(int (*fn)(void *, const char *,
+@@ -4290,6 +4300,24 @@ int module_kallsyms_on_each_symbol(int (*fn)(void *, const char *,
  }
  #endif /* CONFIG_KALLSYMS */
  

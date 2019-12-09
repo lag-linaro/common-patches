@@ -24,14 +24,14 @@ Signed-off-by: Alistair Delva <adelva@google.com>
 Signed-off-by: Matthias Maennich <maennich@google.com>
 ---
  fs/ext4/inline.c                           | 14 +++++
- fs/ext4/inode.c                            | 55 ++++++++++++++++++
+ fs/ext4/inode.c                            | 24 ++++++++
  fs/ext4/readpage.c                         | 47 +++++++++++++--
  fs/f2fs/data.c                             | 42 ++++++++++++++
  fs/f2fs/inline.c                           | 18 ++++++
  fs/mpage.c                                 | 36 ++++++++++++
  include/trace/events/android_fs.h          | 66 ++++++++++++++++++++++
  include/trace/events/android_fs_template.h | 64 +++++++++++++++++++++
- 8 files changed, 338 insertions(+), 4 deletions(-)
+ 8 files changed, 307 insertions(+), 4 deletions(-)
  create mode 100644 include/trace/events/android_fs.h
  create mode 100644 include/trace/events/android_fs_template.h
 
@@ -75,7 +75,7 @@ index 2fec62d764fa..2f187da48c83 100644
  
  	unlock_page(page);
 diff --git a/fs/ext4/inode.c b/fs/ext4/inode.c
-index 43a844affc57..a32c8755b6da 100644
+index 44d9651b8638..20afd2949200 100644
 --- a/fs/ext4/inode.c
 +++ b/fs/ext4/inode.c
 @@ -47,6 +47,7 @@
@@ -86,7 +86,7 @@ index 43a844affc57..a32c8755b6da 100644
  
  #define MPAGE_DA_EXTENT_TAIL 0x01
  
-@@ -1269,6 +1270,16 @@ static int ext4_write_begin(struct file *file, struct address_space *mapping,
+@@ -1122,6 +1123,16 @@ static int ext4_write_begin(struct file *file, struct address_space *mapping,
  	if (unlikely(ext4_forced_shutdown(EXT4_SB(inode->i_sb))))
  		return -EIO;
  
@@ -103,7 +103,7 @@ index 43a844affc57..a32c8755b6da 100644
  	trace_ext4_write_begin(inode, pos, len, flags);
  	/*
  	 * Reserve one block more for addition to orphan list in case
-@@ -1411,6 +1422,7 @@ static int ext4_write_end(struct file *file,
+@@ -1264,6 +1275,7 @@ static int ext4_write_end(struct file *file,
  	int inline_data = ext4_has_inline_data(inode);
  	bool verity = ext4_verity_in_progress(inode);
  
@@ -111,7 +111,7 @@ index 43a844affc57..a32c8755b6da 100644
  	trace_ext4_write_end(inode, pos, len, copied);
  	if (inline_data) {
  		ret = ext4_write_inline_data_end(inode, pos, len,
-@@ -1521,6 +1533,7 @@ static int ext4_journalled_write_end(struct file *file,
+@@ -1374,6 +1386,7 @@ static int ext4_journalled_write_end(struct file *file,
  	int inline_data = ext4_has_inline_data(inode);
  	bool verity = ext4_verity_in_progress(inode);
  
@@ -119,7 +119,7 @@ index 43a844affc57..a32c8755b6da 100644
  	trace_ext4_journalled_write_end(inode, pos, len, copied);
  	from = pos & (PAGE_SIZE - 1);
  	to = from + len;
-@@ -3040,6 +3053,16 @@ static int ext4_da_write_begin(struct file *file, struct address_space *mapping,
+@@ -2942,6 +2955,16 @@ static int ext4_da_write_begin(struct file *file, struct address_space *mapping,
  					len, flags, pagep, fsdata);
  	}
  	*fsdata = (void *)0;
@@ -136,7 +136,7 @@ index 43a844affc57..a32c8755b6da 100644
  	trace_ext4_da_write_begin(inode, pos, len, flags);
  
  	if (ext4_test_inode_state(inode, EXT4_STATE_MAY_INLINE_DATA)) {
-@@ -3158,6 +3181,7 @@ static int ext4_da_write_end(struct file *file,
+@@ -3060,6 +3083,7 @@ static int ext4_da_write_end(struct file *file,
  		return ext4_write_end(file, mapping, pos,
  				      len, copied, page, fsdata);
  
@@ -144,59 +144,8 @@ index 43a844affc57..a32c8755b6da 100644
  	trace_ext4_da_write_end(inode, pos, len, copied);
  	start = pos & (PAGE_SIZE - 1);
  	end = start + copied - 1;
-@@ -3846,6 +3870,7 @@ static ssize_t ext4_direct_IO(struct kiocb *iocb, struct iov_iter *iter)
- 	size_t count = iov_iter_count(iter);
- 	loff_t offset = iocb->ki_pos;
- 	ssize_t ret;
-+	int rw = iov_iter_rw(iter);
- 
- #ifdef CONFIG_FS_ENCRYPTION
- 	if (IS_ENCRYPTED(inode) && S_ISREG(inode->i_mode))
-@@ -3864,12 +3889,42 @@ static ssize_t ext4_direct_IO(struct kiocb *iocb, struct iov_iter *iter)
- 	if (ext4_has_inline_data(inode))
- 		return 0;
- 
-+	if (trace_android_fs_dataread_start_enabled() &&
-+	    (rw == READ)) {
-+		char *path, pathbuf[MAX_TRACE_PATHBUF_LEN];
-+
-+		path = android_fstrace_get_pathname(pathbuf,
-+						    MAX_TRACE_PATHBUF_LEN,
-+						    inode);
-+		trace_android_fs_dataread_start(inode, offset, count,
-+						current->pid, path,
-+						current->comm);
-+	}
-+	if (trace_android_fs_datawrite_start_enabled() &&
-+	    (rw == WRITE)) {
-+		char *path, pathbuf[MAX_TRACE_PATHBUF_LEN];
-+
-+		path = android_fstrace_get_pathname(pathbuf,
-+						    MAX_TRACE_PATHBUF_LEN,
-+						    inode);
-+		trace_android_fs_datawrite_start(inode, offset, count,
-+						 current->pid, path,
-+						 current->comm);
-+	}
- 	trace_ext4_direct_IO_enter(inode, offset, count, iov_iter_rw(iter));
- 	if (iov_iter_rw(iter) == READ)
- 		ret = ext4_direct_IO_read(iocb, iter);
- 	else
- 		ret = ext4_direct_IO_write(iocb, iter);
- 	trace_ext4_direct_IO_exit(inode, offset, count, iov_iter_rw(iter), ret);
-+
-+	if (trace_android_fs_dataread_start_enabled() &&
-+	    (rw == READ))
-+		trace_android_fs_dataread_end(inode, offset, count);
-+	if (trace_android_fs_datawrite_start_enabled() &&
-+	    (rw == WRITE))
-+		trace_android_fs_datawrite_end(inode, offset, count);
-+
- 	return ret;
- }
- 
 diff --git a/fs/ext4/readpage.c b/fs/ext4/readpage.c
-index 643f271b0b8e..e21216e7ae24 100644
+index d4daeb298baa..791eaddafbda 100644
 --- a/fs/ext4/readpage.c
 +++ b/fs/ext4/readpage.c
 @@ -46,6 +46,7 @@
@@ -275,7 +224,7 @@ index 643f271b0b8e..e21216e7ae24 100644
  			bio = NULL;
  		}
  		if (bio == NULL) {
-@@ -394,14 +433,14 @@ int ext4_mpage_readpages(struct address_space *mapping,
+@@ -396,14 +435,14 @@ int ext4_mpage_readpages(struct address_space *mapping,
  		if (((map.m_flags & EXT4_MAP_BOUNDARY) &&
  		     (relative_block == map.m_len)) ||
  		    (first_hole != blocks_per_page)) {
@@ -292,7 +241,7 @@ index 643f271b0b8e..e21216e7ae24 100644
  			bio = NULL;
  		}
  		if (!PageUptodate(page))
-@@ -414,7 +453,7 @@ int ext4_mpage_readpages(struct address_space *mapping,
+@@ -416,7 +455,7 @@ int ext4_mpage_readpages(struct address_space *mapping,
  	}
  	BUG_ON(pages && !list_empty(pages));
  	if (bio)
@@ -302,7 +251,7 @@ index 643f271b0b8e..e21216e7ae24 100644
  }
  
 diff --git a/fs/f2fs/data.c b/fs/f2fs/data.c
-index b5a7b540e630..f981bb4a18b8 100644
+index 2f1b434d46cd..ee41b8dd3a7a 100644
 --- a/fs/f2fs/data.c
 +++ b/fs/f2fs/data.c
 @@ -25,6 +25,7 @@
@@ -313,7 +262,7 @@ index b5a7b540e630..f981bb4a18b8 100644
  
  #define NUM_PREALLOC_POST_READ_CTXS	128
  
-@@ -2683,6 +2684,16 @@ static int f2fs_write_begin(struct file *file, struct address_space *mapping,
+@@ -2785,6 +2786,16 @@ static int f2fs_write_begin(struct file *file, struct address_space *mapping,
  	block_t blkaddr = NULL_ADDR;
  	int err = 0;
  
@@ -330,7 +279,7 @@ index b5a7b540e630..f981bb4a18b8 100644
  	trace_f2fs_write_begin(inode, pos, len, flags);
  
  	if (!f2fs_is_checkpoint_ready(sbi)) {
-@@ -2790,6 +2801,7 @@ static int f2fs_write_end(struct file *file,
+@@ -2892,6 +2903,7 @@ static int f2fs_write_end(struct file *file,
  {
  	struct inode *inode = page->mapping->host;
  
@@ -338,7 +287,7 @@ index b5a7b540e630..f981bb4a18b8 100644
  	trace_f2fs_write_end(inode, pos, len, copied);
  
  	/*
-@@ -2906,6 +2918,29 @@ static ssize_t f2fs_direct_IO(struct kiocb *iocb, struct iov_iter *iter)
+@@ -3008,6 +3020,29 @@ static ssize_t f2fs_direct_IO(struct kiocb *iocb, struct iov_iter *iter)
  
  	trace_f2fs_direct_IO_enter(inode, offset, count, rw);
  
@@ -368,7 +317,7 @@ index b5a7b540e630..f981bb4a18b8 100644
  	if (rw == WRITE && whint_mode == WHINT_MODE_OFF)
  		iocb->ki_hint = WRITE_LIFE_NOT_SET;
  
-@@ -2951,6 +2986,13 @@ static ssize_t f2fs_direct_IO(struct kiocb *iocb, struct iov_iter *iter)
+@@ -3053,6 +3088,13 @@ static ssize_t f2fs_direct_IO(struct kiocb *iocb, struct iov_iter *iter)
  	}
  
  out:

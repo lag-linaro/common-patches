@@ -94,7 +94,7 @@ index 134a8af51511..f545b4526172 100644
  		goto Complete;
  	}
 diff --git a/drivers/base/power/wakeup.c b/drivers/base/power/wakeup.c
-index 5817b51d2b15..06b3ce836a24 100644
+index 70a9edb5f525..57c81d6bec4d 100644
 --- a/drivers/base/power/wakeup.c
 +++ b/drivers/base/power/wakeup.c
 @@ -15,6 +15,7 @@
@@ -105,7 +105,7 @@ index 5817b51d2b15..06b3ce836a24 100644
  #include <trace/events/power.h>
  
  #include "power.h"
-@@ -813,6 +814,37 @@ void pm_wakeup_dev_event(struct device *dev, unsigned int msec, bool hard)
+@@ -867,6 +868,37 @@ void pm_wakeup_dev_event(struct device *dev, unsigned int msec, bool hard)
  }
  EXPORT_SYMBOL_GPL(pm_wakeup_dev_event);
  

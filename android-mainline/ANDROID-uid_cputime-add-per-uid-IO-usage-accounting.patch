@@ -39,10 +39,10 @@ Signed-off-by: Alistair Delva <adelva@google.com>
  2 files changed, 483 insertions(+), 18 deletions(-)
 
 diff --git a/drivers/misc/Kconfig b/drivers/misc/Kconfig
-index ef553e6eb1cd..a067f988d0f4 100644
+index 580256f7e5a8..55d8d9381f9c 100644
 --- a/drivers/misc/Kconfig
 +++ b/drivers/misc/Kconfig
-@@ -460,9 +460,18 @@ config MISC_RTSX
+@@ -459,9 +459,18 @@ config MISC_RTSX
  
  config UID_SYS_STATS
  	bool "Per-UID statistics"

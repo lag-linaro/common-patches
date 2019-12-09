@@ -99,10 +99,10 @@ index 91efae88e8c2..ea957f78a5a9 100644
  	tristate '"rateest" match support'
  	depends on NETFILTER_ADVANCED
 diff --git a/net/netfilter/Makefile b/net/netfilter/Makefile
-index 4fc075b612fe..f3e1af382948 100644
+index 5e9b2eb24349..4b172dc5af15 100644
 --- a/net/netfilter/Makefile
 +++ b/net/netfilter/Makefile
-@@ -192,6 +192,7 @@ obj-$(CONFIG_NETFILTER_XT_MATCH_PHYSDEV) += xt_physdev.o
+@@ -193,6 +193,7 @@ obj-$(CONFIG_NETFILTER_XT_MATCH_PHYSDEV) += xt_physdev.o
  obj-$(CONFIG_NETFILTER_XT_MATCH_PKTTYPE) += xt_pkttype.o
  obj-$(CONFIG_NETFILTER_XT_MATCH_POLICY) += xt_policy.o
  obj-$(CONFIG_NETFILTER_XT_MATCH_QUOTA) += xt_quota.o

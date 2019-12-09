@@ -52,7 +52,7 @@ index e436ff813e7e..99869217fbec 100644
  }
 +EXPORT_SYMBOL_GPL(iommu_device_unlink);
 diff --git a/drivers/iommu/iommu.c b/drivers/iommu/iommu.c
-index d658c7c6a2ab..c1aadb570145 100644
+index db7bfd4f2d20..7c92197d53f3 100644
 --- a/drivers/iommu/iommu.c
 +++ b/drivers/iommu/iommu.c
 @@ -141,6 +141,7 @@ int iommu_device_register(struct iommu_device *iommu)
@@ -111,7 +111,7 @@ index d658c7c6a2ab..c1aadb570145 100644
  
  struct iommu_domain *iommu_group_default_domain(struct iommu_group *group)
  {
-@@ -2185,6 +2192,7 @@ struct iommu_resv_region *iommu_alloc_resv_region(phys_addr_t start,
+@@ -2246,6 +2253,7 @@ struct iommu_resv_region *iommu_alloc_resv_region(phys_addr_t start,
  	region->type = type;
  	return region;
  }

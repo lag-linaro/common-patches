@@ -364,10 +364,10 @@ index c057e51057f7..3f2474fe8574 100644
  	return err;
  }
 diff --git a/fs/overlayfs/namei.c b/fs/overlayfs/namei.c
-index f5aba0a0767b..e9f989a2d57b 100644
+index e90931c9e6c0..8e943ae5dfae 100644
 --- a/fs/overlayfs/namei.c
 +++ b/fs/overlayfs/namei.c
-@@ -1076,7 +1076,7 @@ struct dentry *ovl_lookup(struct inode *dir, struct dentry *dentry,
+@@ -1070,7 +1070,7 @@ struct dentry *ovl_lookup(struct inode *dir, struct dentry *dentry,
  			goto out_free_oe;
  	}
  
@@ -376,7 +376,7 @@ index f5aba0a0767b..e9f989a2d57b 100644
  	if (origin_path) {
  		dput(origin_path->dentry);
  		kfree(origin_path);
-@@ -1103,7 +1103,7 @@ struct dentry *ovl_lookup(struct inode *dir, struct dentry *dentry,
+@@ -1097,7 +1097,7 @@ struct dentry *ovl_lookup(struct inode *dir, struct dentry *dentry,
  	kfree(upperredirect);
  out:
  	kfree(d.redirect);
@@ -385,7 +385,7 @@ index f5aba0a0767b..e9f989a2d57b 100644
  	return ERR_PTR(err);
  }
  
-@@ -1157,7 +1157,7 @@ bool ovl_lower_positive(struct dentry *dentry)
+@@ -1149,7 +1149,7 @@ bool ovl_lower_positive(struct dentry *dentry)
  			dput(this);
  		}
  	}

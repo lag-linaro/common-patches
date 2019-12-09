@@ -21,7 +21,7 @@ Change-Id: I8f6a8aad8c41faa51df9c3a440c8b80c74e3ce8a
  2 files changed, 19 insertions(+), 2 deletions(-)
 
 diff --git a/drivers/iommu/iommu.c b/drivers/iommu/iommu.c
-index c1aadb570145..4bfecfbbe2cf 100644
+index 7c92197d53f3..bc8edf90e729 100644
 --- a/drivers/iommu/iommu.c
 +++ b/drivers/iommu/iommu.c
 @@ -22,6 +22,7 @@
@@ -68,19 +68,19 @@ index c1aadb570145..4bfecfbbe2cf 100644
  
  static struct iommu_domain *__iommu_domain_alloc(struct bus_type *bus,
 diff --git a/include/linux/iommu.h b/include/linux/iommu.h
-index 29bac5345563..d9dab5a3e912 100644
+index f2223cbb5fd5..d3ef8faf8751 100644
 --- a/include/linux/iommu.h
 +++ b/include/linux/iommu.h
-@@ -245,6 +245,7 @@ struct iommu_iotlb_gather {
-  * @sva_get_pasid: Get PASID associated to a SVA handle
-  * @page_response: handle page request response
+@@ -249,6 +249,7 @@ struct iommu_iotlb_gather {
   * @pgsize_bitmap: bitmap of all possible supported page sizes
+  * @sva_bind_gpasid: bind guest pasid and mm
+  * @sva_unbind_gpasid: unbind guest pasid and mm
 + * @owner: Driver module providing these ops
   */
  struct iommu_ops {
  	bool (*capable)(enum iommu_cap);
-@@ -308,6 +309,7 @@ struct iommu_ops {
- 			     struct iommu_page_response *msg);
+@@ -318,6 +319,7 @@ struct iommu_ops {
+ 	int (*sva_unbind_gpasid)(struct device *dev, int pasid);
  
  	unsigned long pgsize_bitmap;
 +	struct module *owner;

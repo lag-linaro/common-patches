@@ -74,10 +74,10 @@ index 8e26016082d4..afb2a6385705 100644
  
  #define NUM_ORDERS ARRAY_SIZE(orders)
 diff --git a/drivers/staging/android/ion/ion.c b/drivers/staging/android/ion/ion.c
-index c80a31da371b..b862bdfeca89 100644
+index 51d13c1f6650..93f2e1e7ca43 100644
 --- a/drivers/staging/android/ion/ion.c
 +++ b/drivers/staging/android/ion/ion.c
-@@ -246,7 +246,6 @@ void ion_device_add_heap(struct ion_heap *heap)
+@@ -244,7 +244,6 @@ void ion_device_add_heap(struct ion_heap *heap)
  			pr_err("%s: Failed to register shrinker\n", __func__);
  	}
  

@@ -20,7 +20,7 @@ Signed-off-by: Sami Tolvanen <samitolvanen@google.com>
  6 files changed, 42 insertions(+)
 
 diff --git a/drivers/base/node.c b/drivers/base/node.c
-index 296546ffed6c..111e58ec231e 100644
+index 98a31bafc8a2..874a8b428438 100644
 --- a/drivers/base/node.c
 +++ b/drivers/base/node.c
 @@ -415,6 +415,9 @@ static ssize_t node_read_meminfo(struct device *dev,
@@ -59,7 +59,7 @@ index 8c1f1bb1a5ce..49768005a79e 100644
  		    global_zone_page_state(NR_PAGETABLE));
  
 diff --git a/include/linux/mmzone.h b/include/linux/mmzone.h
-index bda20282746b..fcb8c1708f9e 100644
+index 89d8ff06c9ce..dfeb8a5a7f7e 100644
 --- a/include/linux/mmzone.h
 +++ b/include/linux/mmzone.h
 @@ -200,6 +200,9 @@ enum zone_stat_item {
@@ -139,10 +139,10 @@ index 28abed21950c..5245e992c692 100644
  	scs_free(s);
  }
 diff --git a/mm/page_alloc.c b/mm/page_alloc.c
-index c41f10295f57..f1674ab7ed7b 100644
+index d3ea0ec6c331..5a92a3d54d80 100644
 --- a/mm/page_alloc.c
 +++ b/mm/page_alloc.c
-@@ -5376,6 +5376,9 @@ void show_free_areas(unsigned int filter, nodemask_t *nodemask)
+@@ -5377,6 +5377,9 @@ void show_free_areas(unsigned int filter, nodemask_t *nodemask)
  			" managed:%lukB"
  			" mlocked:%lukB"
  			" kernel_stack:%lukB"
@@ -152,7 +152,7 @@ index c41f10295f57..f1674ab7ed7b 100644
  			" pagetables:%lukB"
  			" bounce:%lukB"
  			" free_pcp:%lukB"
-@@ -5397,6 +5400,9 @@ void show_free_areas(unsigned int filter, nodemask_t *nodemask)
+@@ -5399,6 +5402,9 @@ void show_free_areas(unsigned int filter, nodemask_t *nodemask)
  			K(zone_managed_pages(zone)),
  			K(zone_page_state(zone, NR_MLOCK)),
  			zone_page_state(zone, NR_KERNEL_STACK_KB),
@@ -163,10 +163,10 @@ index c41f10295f57..f1674ab7ed7b 100644
  			K(zone_page_state(zone, NR_BOUNCE)),
  			K(free_pcp),
 diff --git a/mm/vmstat.c b/mm/vmstat.c
-index a8222041bd44..96d39fbb9a1f 100644
+index 78d53378db99..d0650391c8c1 100644
 --- a/mm/vmstat.c
 +++ b/mm/vmstat.c
-@@ -1118,6 +1118,9 @@ const char * const vmstat_text[] = {
+@@ -1119,6 +1119,9 @@ const char * const vmstat_text[] = {
  	"nr_mlock",
  	"nr_page_table_pages",
  	"nr_kernel_stack",

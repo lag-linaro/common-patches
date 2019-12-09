@@ -17,7 +17,7 @@ Signed-off-by: Badhri Jagan Sridharan <badhri@google.com>
  1 file changed, 65 insertions(+), 1 deletion(-)
 
 diff --git a/drivers/usb/gadget/configfs.c b/drivers/usb/gadget/configfs.c
-index d3f1cf12da13..4c509adc832a 100644
+index 1b2c6b0ba1c2..195f67999f12 100644
 --- a/drivers/usb/gadget/configfs.c
 +++ b/drivers/usb/gadget/configfs.c
 @@ -1676,11 +1676,49 @@ static const struct usb_gadget_driver configfs_driver_template = {
@@ -70,7 +70,7 @@ index d3f1cf12da13..4c509adc832a 100644
  
  	gi = kzalloc(sizeof(*gi), GFP_KERNEL);
  	if (!gi)
-@@ -1730,12 +1768,31 @@ static struct config_group *gadgets_make(
+@@ -1731,12 +1769,31 @@ static struct config_group *gadgets_make(
  				MKDEV(0, 0), NULL, "android0");
  	if (IS_ERR(android_device))
  		goto err;
@@ -103,7 +103,7 @@ index d3f1cf12da13..4c509adc832a 100644
  err:
  	kfree(gi);
  	return ERR_PTR(-ENOMEM);
-@@ -1743,8 +1800,15 @@ static struct config_group *gadgets_make(
+@@ -1744,8 +1801,15 @@ static struct config_group *gadgets_make(
  
  static void gadgets_drop(struct config_group *group, struct config_item *item)
  {

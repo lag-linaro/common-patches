@@ -9,14 +9,14 @@ util-clamp to enable frequency selection biasing.
 Change-Id: Iec9098f27c0353dabc23bd98efbca6479de41796
 Signed-off-by: Quentin Perret <quentin.perret@arm.com>
 ---
- arch/arm64/configs/defconfig | 4 ++++
- 1 file changed, 4 insertions(+)
+ arch/arm64/configs/defconfig | 3 +++
+ 1 file changed, 3 insertions(+)
 
 diff --git a/arch/arm64/configs/defconfig b/arch/arm64/configs/defconfig
-index c9a867ac32d4..7456909a8a64 100644
+index 6a83ba2aea3e..01c2bd11634c 100644
 --- a/arch/arm64/configs/defconfig
 +++ b/arch/arm64/configs/defconfig
-@@ -13,10 +13,12 @@ CONFIG_TASK_XACCT=y
+@@ -11,10 +11,12 @@ CONFIG_TASK_XACCT=y
  CONFIG_TASK_IO_ACCOUNTING=y
  CONFIG_IKCONFIG=y
  CONFIG_IKCONFIG_PROC=y
@@ -29,12 +29,7 @@ index c9a867ac32d4..7456909a8a64 100644
  CONFIG_CGROUP_PIDS=y
  CONFIG_CGROUP_HUGETLB=y
  CONFIG_CPUSETS=y
-@@ -71,10 +73,12 @@ CONFIG_COMPAT=y
- CONFIG_RANDOMIZE_BASE=y
- CONFIG_HIBERNATION=y
- CONFIG_WQ_POWER_EFFICIENT_DEFAULT=y
-+CONFIG_ENERGY_MODEL=y
- CONFIG_ARM_CPUIDLE=y
+@@ -76,6 +78,7 @@ CONFIG_ARM_CPUIDLE=y
  CONFIG_ARM_PSCI_CPUIDLE=y
  CONFIG_CPU_FREQ=y
  CONFIG_CPU_FREQ_STAT=y

@@ -56,7 +56,7 @@ Change-Id: I34d99cc46e9e87a79efc8d05f85980bbc137f7eb
  3 files changed, 24 insertions(+), 14 deletions(-)
 
 diff --git a/fs/overlayfs/namei.c b/fs/overlayfs/namei.c
-index e9717c2f7d45..f5aba0a0767b 100644
+index c269d6033525..e90931c9e6c0 100644
 --- a/fs/overlayfs/namei.c
 +++ b/fs/overlayfs/namei.c
 @@ -106,10 +106,11 @@ int ovl_check_fh_len(struct ovl_fh *fh, int fh_len)

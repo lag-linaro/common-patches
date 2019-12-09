@@ -17,7 +17,7 @@ Change-Id: I7676e5f736fcb31376444bbfee419bc49ef17287
  2 files changed, 2 insertions(+), 2 deletions(-)
 
 diff --git a/drivers/iommu/arm-smmu-v3.c b/drivers/iommu/arm-smmu-v3.c
-index f79b14f75107..7669beafc493 100644
+index 08967090f6b7..9fc6d0dbf694 100644
 --- a/drivers/iommu/arm-smmu-v3.c
 +++ b/drivers/iommu/arm-smmu-v3.c
 @@ -3732,5 +3732,5 @@ static struct platform_driver arm_smmu_driver = {
@@ -28,10 +28,10 @@ index f79b14f75107..7669beafc493 100644
 +MODULE_AUTHOR("Will Deacon <will@kernel.org>");
  MODULE_LICENSE("GPL v2");
 diff --git a/drivers/iommu/arm-smmu.c b/drivers/iommu/arm-smmu.c
-index 100ab5b9c255..d55acc48aee3 100644
+index 6a504f3b4bad..114537d297d9 100644
 --- a/drivers/iommu/arm-smmu.c
 +++ b/drivers/iommu/arm-smmu.c
-@@ -2291,5 +2291,5 @@ static struct platform_driver arm_smmu_driver = {
+@@ -2322,5 +2322,5 @@ static struct platform_driver arm_smmu_driver = {
  module_platform_driver(arm_smmu_driver);
  
  MODULE_DESCRIPTION("IOMMU API for ARM architected SMMU implementations");

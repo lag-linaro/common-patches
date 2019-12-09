@@ -26,10 +26,10 @@ Signed-off-by: Sami Tolvanen <samitolvanen@google.com>
  6 files changed, 22 insertions(+), 5 deletions(-)
 
 diff --git a/arch/arm64/include/asm/memory.h b/arch/arm64/include/asm/memory.h
-index c23c47360664..b66f0631d30a 100644
+index a4f9ca5479b0..0a57e9f21320 100644
 --- a/arch/arm64/include/asm/memory.h
 +++ b/arch/arm64/include/asm/memory.h
-@@ -309,6 +309,22 @@ static inline void *phys_to_virt(phys_addr_t x)
+@@ -303,6 +303,22 @@ static inline void *phys_to_virt(phys_addr_t x)
  #define virt_to_pfn(x)		__phys_to_pfn(__virt_to_phys((unsigned long)(x)))
  #define sym_to_pfn(x)		__phys_to_pfn(__pa_symbol(x))
  
@@ -79,10 +79,10 @@ index 054285f8d858..a05bda363272 100644
  	cpu_install_idmap();
  	restart(el2_switch, entry, arg0, arg1, arg2);
 diff --git a/arch/arm64/kernel/cpufeature.c b/arch/arm64/kernel/cpufeature.c
-index b7db6e25a197..336f95fafe03 100644
+index 0f9337f71e1b..068ac115d23c 100644
 --- a/arch/arm64/kernel/cpufeature.c
 +++ b/arch/arm64/kernel/cpufeature.c
-@@ -1053,7 +1053,7 @@ kpti_install_ng_mappings(const struct arm64_cpu_capabilities *__unused)
+@@ -1054,7 +1054,7 @@ kpti_install_ng_mappings(const struct arm64_cpu_capabilities *__unused)
  	if (kpti_applied || kaslr_offset() > 0)
  		return;
  
@@ -92,7 +92,7 @@ index b7db6e25a197..336f95fafe03 100644
  	cpu_install_idmap();
  	remap_fn(cpu, num_online_cpus(), __pa_symbol(swapper_pg_dir));
 diff --git a/arch/arm64/kernel/psci.c b/arch/arm64/kernel/psci.c
-index c9f72b2665f1..86b32e9eae80 100644
+index 43ae4e0c968f..5fadf6bb358e 100644
 --- a/arch/arm64/kernel/psci.c
 +++ b/arch/arm64/kernel/psci.c
 @@ -38,7 +38,8 @@ static int __init cpu_psci_cpu_prepare(unsigned int cpu)

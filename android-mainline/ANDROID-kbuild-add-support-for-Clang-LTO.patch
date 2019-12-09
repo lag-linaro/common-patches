@@ -32,10 +32,10 @@ Signed-off-by: Sami Tolvanen <samitolvanen@google.com>
  8 files changed, 222 insertions(+), 18 deletions(-)
 
 diff --git a/Makefile b/Makefile
-index 80e78ab1cec4..3f0530ef8a35 100644
+index d33428d42f42..3b5385d86d2f 100644
 --- a/Makefile
 +++ b/Makefile
-@@ -654,6 +654,16 @@ RETPOLINE_VDSO_CFLAGS := $(call cc-option,$(RETPOLINE_VDSO_CFLAGS_GCC),$(call cc
+@@ -653,6 +653,16 @@ RETPOLINE_VDSO_CFLAGS := $(call cc-option,$(RETPOLINE_VDSO_CFLAGS_GCC),$(call cc
  export RETPOLINE_CFLAGS
  export RETPOLINE_VDSO_CFLAGS
  
@@ -52,7 +52,7 @@ index 80e78ab1cec4..3f0530ef8a35 100644
  include arch/$(SRCARCH)/Makefile
  
  ifdef need-config
-@@ -856,6 +866,22 @@ KBUILD_CFLAGS	+= $(CC_FLAGS_SCS)
+@@ -855,6 +865,22 @@ KBUILD_CFLAGS	+= $(CC_FLAGS_SCS)
  export CC_FLAGS_SCS
  endif
  
@@ -75,7 +75,7 @@ index 80e78ab1cec4..3f0530ef8a35 100644
  # arch Makefile may override CC so keep this after arch Makefile is included
  NOSTDINC_FLAGS += -nostdinc -isystem $(shell $(CC) -print-file-name=include)
  
-@@ -1682,7 +1708,8 @@ clean: $(clean-dirs)
+@@ -1724,7 +1750,8 @@ clean: $(clean-dirs)
  		-o -name modules.builtin -o -name '.tmp_*.o.*' \
  		-o -name '*.c.[012]*.*' \
  		-o -name '*.ll' \
@@ -86,7 +86,7 @@ index 80e78ab1cec4..3f0530ef8a35 100644
  # Generate tags for editors
  # ---------------------------------------------------------------------------
 diff --git a/arch/Kconfig b/arch/Kconfig
-index 90a8c5ef4487..1766abf2f5c2 100644
+index 1b16aa9a3fe5..67ed6c12aa83 100644
 --- a/arch/Kconfig
 +++ b/arch/Kconfig
 @@ -554,6 +554,53 @@ config SHADOW_CALL_STACK_VMAP
@@ -144,10 +144,10 @@ index 90a8c5ef4487..1766abf2f5c2 100644
  config HAVE_ARCH_WITHIN_STACK_FRAMES
  	bool
 diff --git a/include/asm-generic/vmlinux.lds.h b/include/asm-generic/vmlinux.lds.h
-index dae64600ccbf..ec4827773569 100644
+index e00f41aa8ec4..9ee28df8a9e4 100644
 --- a/include/asm-generic/vmlinux.lds.h
 +++ b/include/asm-generic/vmlinux.lds.h
-@@ -63,10 +63,13 @@
+@@ -89,10 +89,13 @@
   * .data. We don't want to pull in .data..other sections, which Linux
   * has defined. Same for text and bss.
   *
@@ -163,7 +163,7 @@ index dae64600ccbf..ec4827773569 100644
  #define DATA_MAIN .data .data.[0-9a-zA-Z_]* .data..LPBX*
  #define SDATA_MAIN .sdata .sdata.[0-9a-zA-Z_]*
 diff --git a/scripts/Makefile.build b/scripts/Makefile.build
-index a9e47953ca53..7aefd2a1347e 100644
+index b734ac8a654e..928554436f39 100644
 --- a/scripts/Makefile.build
 +++ b/scripts/Makefile.build
 @@ -93,7 +93,7 @@ endif
@@ -199,7 +199,7 @@ index a9e47953ca53..7aefd2a1347e 100644
  
  ifdef CONFIG_FTRACE_MCOUNT_RECORD
  ifndef CC_USING_RECORD_MCOUNT
-@@ -383,6 +393,21 @@ $(obj)/%.asn1.c $(obj)/%.asn1.h: $(src)/%.asn1 $(objtree)/scripts/asn1_compiler
+@@ -374,6 +384,21 @@ $(obj)/%.asn1.c $(obj)/%.asn1.h: $(src)/%.asn1 $(objtree)/scripts/asn1_compiler
  # To build objects in subdirs, we need to descend into the directories
  $(sort $(subdir-obj-y)): $(subdir-ym) ;
  
@@ -221,7 +221,7 @@ index a9e47953ca53..7aefd2a1347e 100644
  #
  # Rule to compile a set of .o files into one .a file (without symbol table)
  #
-@@ -391,8 +416,11 @@ ifdef builtin-target
+@@ -382,8 +407,11 @@ ifdef builtin-target
  quiet_cmd_ar_builtin = AR      $@
        cmd_ar_builtin = rm -f $@; $(AR) cDPrST $@ $(real-prereqs)
  
@@ -234,7 +234,7 @@ index a9e47953ca53..7aefd2a1347e 100644
  
  targets += $(builtin-target)
  endif # builtin-target
-@@ -412,16 +440,26 @@ $(modorder-target): $(subdir-ym) FORCE
+@@ -403,16 +431,26 @@ $(modorder-target): $(subdir-ym) FORCE
  #
  ifdef lib-target
  
@@ -263,7 +263,7 @@ index a9e47953ca53..7aefd2a1347e 100644
  	sed -ne '/___ksymtab/s/.*+\([^ ]*\).*/EXTERN(\1)/p' >$(ksyms-lds);\
  	rm -f $(dummy-object);\
  	echo | $(CC) $(a_flags) -c -o $(dummy-object) -x assembler -;\
-@@ -439,8 +477,16 @@ endif
+@@ -430,8 +468,16 @@ endif
  # Do not replace $(filter %.o,^) with $(real-prereqs). When a single object
  # module is turned into a multi object module, $^ will contain header file
  # dependencies recorded in the .*.cmd file.
@@ -314,10 +314,10 @@ index 411c1e600e7d..147ed6c243ef 100644
  
  targets += $(modules) $(modules:.ko=.mod.o)
 diff --git a/scripts/Makefile.modpost b/scripts/Makefile.modpost
-index 952fff485546..b8b447b62283 100644
+index 69897d5d3a70..c24b14c0795d 100644
 --- a/scripts/Makefile.modpost
 +++ b/scripts/Makefile.modpost
-@@ -84,12 +84,32 @@ MODPOST += $(subst -i,-n,$(filter -i,$(MAKEFLAGS))) -s -T - $(wildcard vmlinux)
+@@ -84,12 +84,32 @@ endif
  # find all modules listed in modules.order
  modules := $(sort $(shell cat $(MODORDER)))
  
@@ -353,7 +353,7 @@ index 952fff485546..b8b447b62283 100644
  	$(call cmd,modpost)
  ifneq ($(KBUILD_MODPOST_NOFINAL),1)
 diff --git a/scripts/link-vmlinux.sh b/scripts/link-vmlinux.sh
-index 06495379fcd8..22aaec3e4604 100755
+index 436379940356..d93cf9229f44 100755
 --- a/scripts/link-vmlinux.sh
 +++ b/scripts/link-vmlinux.sh
 @@ -39,6 +39,30 @@ info()
@@ -434,7 +434,7 @@ index 06495379fcd8..22aaec3e4604 100755
  
  		${LD} ${KBUILD_LDFLAGS} ${LDFLAGS_vmlinux}	\
  			-o ${output}				\
-@@ -189,6 +230,7 @@ cleanup()
+@@ -191,6 +232,7 @@ cleanup()
  	rm -f .btf.*
  	rm -f .tmp_System.map
  	rm -f .tmp_kallsyms*
@@ -442,7 +442,7 @@ index 06495379fcd8..22aaec3e4604 100755
  	rm -f .tmp_vmlinux*
  	rm -f System.map
  	rm -f vmlinux
-@@ -240,7 +282,6 @@ fi;
+@@ -242,7 +284,6 @@ fi;
  ${MAKE} -f "${srctree}/scripts/Makefile.build" obj=init
  
  #link vmlinux.o
@@ -451,10 +451,10 @@ index 06495379fcd8..22aaec3e4604 100755
  
  # modpost vmlinux.o to check for section mismatches
 diff --git a/scripts/mod/modpost.c b/scripts/mod/modpost.c
-index d2a30a7b3f07..6ef098430b86 100644
+index 6e892c93d104..6d02373165dc 100644
 --- a/scripts/mod/modpost.c
 +++ b/scripts/mod/modpost.c
-@@ -146,6 +146,9 @@ static struct module *new_module(const char *modname)
+@@ -144,6 +144,9 @@ static struct module *new_module(const char *modname)
  		p[strlen(p) - 2] = '\0';
  		mod->is_dot_o = 1;
  	}
@@ -464,7 +464,7 @@ index d2a30a7b3f07..6ef098430b86 100644
  
  	/* add to list */
  	mod->name = p;
-@@ -2000,6 +2003,10 @@ static char *remove_dot(char *s)
+@@ -1999,6 +2002,10 @@ static char *remove_dot(char *s)
  		size_t m = strspn(s + n + 1, "0123456789");
  		if (m && (s[n + m] == '.' || s[n + m] == 0))
  			s[n] = 0;

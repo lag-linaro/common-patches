@@ -37,7 +37,7 @@ index da386dbf3ffd..b6fab2816781 100644
  obj-$(CONFIG_ION_SYSTEM_HEAP) += ion_system_heap.o ion_page_pool.o
  obj-$(CONFIG_ION_CMA_HEAP) += ion_cma_heap.o
 diff --git a/drivers/staging/android/ion/ion.c b/drivers/staging/android/ion/ion.c
-index 19d3e82b2f5b..c80a31da371b 100644
+index 48b62a5aaf58..51d13c1f6650 100644
 --- a/drivers/staging/android/ion/ion.c
 +++ b/drivers/staging/android/ion/ion.c
 @@ -17,276 +17,38 @@

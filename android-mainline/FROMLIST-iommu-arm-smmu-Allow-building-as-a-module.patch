@@ -19,10 +19,10 @@ Change-Id: Id42da5829cb180966a0d051ec636be0c9f90efed
  3 files changed, 47 insertions(+), 22 deletions(-)
 
 diff --git a/drivers/iommu/Kconfig b/drivers/iommu/Kconfig
-index 7583d47fc4d5..fc55f7ba0d18 100644
+index 31f0f376ad11..d66ace717cf4 100644
 --- a/drivers/iommu/Kconfig
 +++ b/drivers/iommu/Kconfig
-@@ -350,7 +350,7 @@ config SPAPR_TCE_IOMMU
+@@ -356,7 +356,7 @@ config SPAPR_TCE_IOMMU
  
  # ARM IOMMU support
  config ARM_SMMU
@@ -31,7 +31,7 @@ index 7583d47fc4d5..fc55f7ba0d18 100644
  	depends on (ARM64 || ARM) && MMU
  	select IOMMU_API
  	select IOMMU_IO_PGTABLE_LPAE
-@@ -362,6 +362,18 @@ config ARM_SMMU
+@@ -368,6 +368,18 @@ config ARM_SMMU
  	  Say Y here if your SoC includes an IOMMU device implementing
  	  the ARM SMMU architecture.
  
@@ -51,24 +51,24 @@ index 7583d47fc4d5..fc55f7ba0d18 100644
  	bool "Default to disabling bypass on ARM SMMU v1 and v2"
  	depends on ARM_SMMU
 diff --git a/drivers/iommu/Makefile b/drivers/iommu/Makefile
-index 4f405f926e73..b52a03d87fc3 100644
+index 97814cc861ea..2104fb8afc06 100644
 --- a/drivers/iommu/Makefile
 +++ b/drivers/iommu/Makefile
-@@ -13,7 +13,8 @@ obj-$(CONFIG_MSM_IOMMU) += msm_iommu.o
+@@ -14,7 +14,8 @@ obj-$(CONFIG_MSM_IOMMU) += msm_iommu.o
  obj-$(CONFIG_AMD_IOMMU) += amd_iommu.o amd_iommu_init.o amd_iommu_quirks.o
  obj-$(CONFIG_AMD_IOMMU_DEBUGFS) += amd_iommu_debugfs.o
  obj-$(CONFIG_AMD_IOMMU_V2) += amd_iommu_v2.o
--obj-$(CONFIG_ARM_SMMU) += arm-smmu.o arm-smmu-impl.o
+-obj-$(CONFIG_ARM_SMMU) += arm-smmu.o arm-smmu-impl.o arm-smmu-qcom.o
 +obj-$(CONFIG_ARM_SMMU) += arm-smmu-mod.o
-+arm-smmu-mod-objs += arm-smmu.o arm-smmu-impl.o
++arm-smmu-mod-objs += arm-smmu.o arm-smmu-impl.o arm-smmu-qcom.o
  obj-$(CONFIG_ARM_SMMU_V3) += arm-smmu-v3.o
  obj-$(CONFIG_DMAR_TABLE) += dmar.o
  obj-$(CONFIG_INTEL_IOMMU) += intel-iommu.o intel-pasid.o
 diff --git a/drivers/iommu/arm-smmu.c b/drivers/iommu/arm-smmu.c
-index 307026fb58b3..100ab5b9c255 100644
+index f7cb52b270df..6a504f3b4bad 100644
 --- a/drivers/iommu/arm-smmu.c
 +++ b/drivers/iommu/arm-smmu.c
-@@ -125,6 +125,12 @@ static struct arm_smmu_domain *to_smmu_domain(struct iommu_domain *dom)
+@@ -126,6 +126,12 @@ static struct arm_smmu_domain *to_smmu_domain(struct iommu_domain *dom)
  	return container_of(dom, struct arm_smmu_domain, domain);
  }
  
@@ -81,7 +81,7 @@ index 307026fb58b3..100ab5b9c255 100644
  static struct device_node *dev_get_dev_node(struct device *dev)
  {
  	if (dev_is_pci(dev)) {
-@@ -160,9 +166,6 @@ static int __find_legacy_master_phandle(struct device *dev, void *data)
+@@ -161,9 +167,6 @@ static int __find_legacy_master_phandle(struct device *dev, void *data)
  	return err == -ENOENT ? 0 : err;
  }
  
@@ -91,7 +91,7 @@ index 307026fb58b3..100ab5b9c255 100644
  static int arm_smmu_register_legacy_master(struct device *dev,
  					   struct arm_smmu_device **smmu)
  {
-@@ -214,6 +217,27 @@ static int arm_smmu_register_legacy_master(struct device *dev,
+@@ -215,6 +218,27 @@ static int arm_smmu_register_legacy_master(struct device *dev,
  	return err;
  }
  
@@ -119,7 +119,7 @@ index 307026fb58b3..100ab5b9c255 100644
  static int __arm_smmu_alloc_bitmap(unsigned long *map, int start, int end)
  {
  	int idx;
-@@ -1566,6 +1590,7 @@ static struct iommu_ops arm_smmu_ops = {
+@@ -1599,6 +1623,7 @@ static struct iommu_ops arm_smmu_ops = {
  	.get_resv_regions	= arm_smmu_get_resv_regions,
  	.put_resv_regions	= arm_smmu_put_resv_regions,
  	.pgsize_bitmap		= -1UL, /* Restricted during device attach */
@@ -127,7 +127,7 @@ index 307026fb58b3..100ab5b9c255 100644
  };
  
  static void arm_smmu_device_reset(struct arm_smmu_device *smmu)
-@@ -1960,8 +1985,10 @@ static int arm_smmu_device_dt_probe(struct platform_device *pdev,
+@@ -1993,8 +2018,10 @@ static int arm_smmu_device_dt_probe(struct platform_device *pdev,
  
  	legacy_binding = of_find_property(dev->of_node, "mmu-masters", NULL);
  	if (legacy_binding && !using_generic_binding) {
@@ -140,7 +140,7 @@ index 307026fb58b3..100ab5b9c255 100644
  		using_legacy_binding = true;
  	} else if (!legacy_binding && !using_legacy_binding) {
  		using_generic_binding = true;
-@@ -1995,7 +2022,6 @@ static int arm_smmu_bus_init(struct iommu_ops *ops)
+@@ -2028,7 +2055,6 @@ static int arm_smmu_bus_init(struct iommu_ops *ops)
  #endif
  #ifdef CONFIG_PCI
  	if (!iommu_present(&pci_bus_type)) {
@@ -148,7 +148,7 @@ index 307026fb58b3..100ab5b9c255 100644
  		err = bus_set_iommu(&pci_bus_type, ops);
  		if (err)
  			goto err_reset_amba_ops;
-@@ -2173,20 +2199,6 @@ static int arm_smmu_device_probe(struct platform_device *pdev)
+@@ -2204,20 +2230,6 @@ static int arm_smmu_device_probe(struct platform_device *pdev)
  	return 0;
  }
  

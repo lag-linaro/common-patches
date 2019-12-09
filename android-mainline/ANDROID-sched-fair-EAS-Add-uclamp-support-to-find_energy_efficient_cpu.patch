@@ -27,10 +27,10 @@ Signed-off-by: Quentin Perret <quentin.perret@arm.com>
  1 file changed, 17 insertions(+)
 
 diff --git a/kernel/sched/fair.c b/kernel/sched/fair.c
-index 69a81a5709ff..e00f6c43a02b 100644
+index 08a233e97a01..c882de3e2adc 100644
 --- a/kernel/sched/fair.c
 +++ b/kernel/sched/fair.c
-@@ -6034,6 +6034,19 @@ static int select_idle_sibling(struct task_struct *p, int prev, int target)
+@@ -5930,6 +5930,19 @@ static int select_idle_sibling(struct task_struct *p, int prev, int target)
  	return target;
  }
  
@@ -50,7 +50,7 @@ index 69a81a5709ff..e00f6c43a02b 100644
  /**
   * Amount of capacity of a CPU that is (estimated to be) used by CFS tasks
   * @cpu: the CPU to get the utilization of
-@@ -6378,6 +6391,10 @@ static int find_energy_efficient_cpu(struct task_struct *p, int prev_cpu)
+@@ -6274,6 +6287,10 @@ static int find_energy_efficient_cpu(struct task_struct *p, int prev_cpu)
  			if (!fits_capacity(util, cpu_cap))
  				continue;
  

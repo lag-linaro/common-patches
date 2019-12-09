@@ -128,7 +128,7 @@ index 1f4b8a277060..956798debf71 100644
  }
  EXPORT_SYMBOL(fscrypt_zeroout_range);
 diff --git a/fs/crypto/fscrypt_private.h b/fs/crypto/fscrypt_private.h
-index b44e445b43a8..c731bd4245c5 100644
+index 130b50e5a011..466fa2b038ec 100644
 --- a/fs/crypto/fscrypt_private.h
 +++ b/fs/crypto/fscrypt_private.h
 @@ -13,6 +13,9 @@
@@ -233,7 +233,7 @@ index b44e445b43a8..c731bd4245c5 100644
  	int keysize;
  	int ivsize;
 +	enum blk_crypto_mode_num blk_crypto_mode;
- 	bool logged_impl_name;
+ 	int logged_impl_name;
  };
  
 +extern struct fscrypt_mode fscrypt_modes[];
@@ -651,7 +651,7 @@ index 040df1f5e1c8..7788adfa2dc4 100644
  	kzfree(mk);
  }
 diff --git a/fs/crypto/keysetup.c b/fs/crypto/keysetup.c
-index f87ab930b92a..8070dad9a541 100644
+index f577bb6613f9..3e6fba4ecdf2 100644
 --- a/fs/crypto/keysetup.c
 +++ b/fs/crypto/keysetup.c
 @@ -13,12 +13,13 @@
@@ -682,7 +682,7 @@ index f87ab930b92a..8070dad9a541 100644
  
  	WARN_ONCE(1, "fscrypt: filesystem tried to load encryption info for inode %lu, which is not encryptable (file type %d)\n",
  		  inode->i_ino, (inode->i_mode & S_IFMT));
-@@ -111,6 +112,9 @@ int fscrypt_set_derived_key(struct fscrypt_info *ci, const u8 *derived_key)
+@@ -109,6 +110,9 @@ int fscrypt_set_derived_key(struct fscrypt_info *ci, const u8 *derived_key)
  {
  	struct crypto_skcipher *tfm;
  
@@ -692,7 +692,7 @@ index f87ab930b92a..8070dad9a541 100644
  	tfm = fscrypt_allocate_skcipher(ci->ci_mode, derived_key, ci->ci_inode);
  	if (IS_ERR(tfm))
  		return PTR_ERR(tfm);
-@@ -128,7 +132,7 @@ static int setup_per_mode_key(struct fscrypt_info *ci,
+@@ -126,7 +130,7 @@ static int setup_per_mode_key(struct fscrypt_info *ci,
  	const struct inode *inode = ci->ci_inode;
  	const struct super_block *sb = inode->i_sb;
  	struct fscrypt_mode *mode = ci->ci_mode;
@@ -701,7 +701,7 @@ index f87ab930b92a..8070dad9a541 100644
  	struct crypto_skcipher *tfm, *prev_tfm;
  	u8 mode_key[FSCRYPT_MAX_KEY_SIZE];
  	u8 hkdf_info[sizeof(mode_num) + sizeof(sb->s_uuid)];
-@@ -204,6 +208,8 @@ static int fscrypt_setup_v2_file_key(struct fscrypt_info *ci,
+@@ -202,6 +206,8 @@ static int fscrypt_setup_v2_file_key(struct fscrypt_info *ci,
  		 * the IVs.  This format is optimized for use with inline
  		 * encryption hardware compliant with the UFS or eMMC standards.
  		 */
@@ -710,7 +710,7 @@ index f87ab930b92a..8070dad9a541 100644
  		return setup_per_mode_key(ci, mk, mk->mk_iv_ino_lblk_64_tfms,
  					  HKDF_CONTEXT_IV_INO_LBLK_64_KEY,
  					  true);
-@@ -330,8 +336,10 @@ static void put_crypt_info(struct fscrypt_info *ci)
+@@ -328,8 +334,10 @@ static void put_crypt_info(struct fscrypt_info *ci)
  
  	if (ci->ci_direct_key)
  		fscrypt_put_direct_key(ci->ci_direct_key);

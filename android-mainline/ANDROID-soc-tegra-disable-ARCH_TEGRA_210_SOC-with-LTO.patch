@@ -15,10 +15,10 @@ Signed-off-by: Sami Tolvanen <samitolvanen@google.com>
  1 file changed, 1 insertion(+)
 
 diff --git a/drivers/soc/tegra/Kconfig b/drivers/soc/tegra/Kconfig
-index c8ef05d6b8c7..8f329061cc4d 100644
+index 84bd615c4a92..1213fe6432b1 100644
 --- a/drivers/soc/tegra/Kconfig
 +++ b/drivers/soc/tegra/Kconfig
-@@ -78,6 +78,7 @@ config ARCH_TEGRA_210_SOC
+@@ -80,6 +80,7 @@ config ARCH_TEGRA_210_SOC
  	select SOC_TEGRA_FLOWCTRL
  	select SOC_TEGRA_PMC
  	select TEGRA_TIMER
