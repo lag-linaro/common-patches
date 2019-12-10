@@ -18,6 +18,7 @@ fs/crypto/ now provides.  This includes:
 - Not doing filesystem-layer crypto on inline-encrypted files.
 
 Bug: 137270441
+Bug: 144791323
 Test: tested as series; see Ie1b77f7615d6a7a60fdc9105c7ab2200d17636a8
 Change-Id: I2ea4da9e251e668b908408ecc091f09ebf8be8f4
 Co-developed-by: Eric Biggers <ebiggers@google.com>
@@ -31,7 +32,7 @@ Link: https://patchwork.kernel.org/patch/11214785/
  3 files changed, 91 insertions(+), 8 deletions(-)
 
 diff --git a/fs/f2fs/data.c b/fs/f2fs/data.c
-index 9155256779bf..f981bb4a18b8 100644
+index 9155256779bf..ce44cda13bfe 100644
 --- a/fs/f2fs/data.c
 +++ b/fs/f2fs/data.c
 @@ -307,6 +307,35 @@ static struct bio *__bio_alloc(struct f2fs_io_info *fio, int npages)
@@ -62,7 +63,7 @@ index 9155256779bf..f981bb4a18b8 100644
 +	 * read/write raw data without encryption.
 +	 */
 +	if (fio && fio->encrypted_page)
-+		return true;
++		return !bio_has_crypt_ctx(bio);
 +
 +	return fscrypt_mergeable_bio(bio, inode, next_idx);
 +}
