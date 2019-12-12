@@ -2,7 +2,7 @@
 # android-mainline patches
 #
 # Applies onto upstream e42617b825f8 Linux v5.5-rc1
-# Matches android-mainline 23994434c7be ("ANDROID: Fix duplicate code")
+# Matches android-mainline e328a18e1cef ("ANDROID: cuttlefish_defconfig: Enable CONFIG_GNSS")
 #
 FROMLIST-reboot-Export-reboot_mode.patch
 FROMLIST-arm64-mm-avoid-x18-in-idmap_kpti_install_ng_mappings.patch
@@ -11,7 +11,6 @@ FROMLIST-arm64-lib-copy_page-avoid-x18-register-in-assembler-code.patch
 FROMLIST-arm64-kvm-stop-treating-register-x18-as-caller-save.patch
 FROMLIST-arm64-kernel-avoid-x18-in-__cpu_soft_restart.patch
 FROMLIST-drivers-irqchip-pdc-additionally-set-type-in-SPI-config-registers.patch
-FROMLIST-drivers-pinctrl-msm-setup-GPIO-chip-in-hierarchy.patch
 FROMLIST-dt-bindings-interrupt-controller-pdc-add-SPI-config-register.patch
 FROMLIST-fscrypt-add-inline-encryption-support.patch
 FROMLIST-ext4-add-inline-encryption-support.patch
@@ -263,3 +262,5 @@ ANDROID-kbuild-limit-LTO-inlining.patch
 ANDROID-gki_defconfig-Enable-UCLAMP-by-default.patch
 ANDROID-update-gki_defconfig-for-5.5-rc1.patch
 ANDROID-export-needed-symbols-for-5.5-rc1-allmodconfig-for-arm64.patch
+ANDROID-gki_defconfig-enable-HID-configs.patch
+ANDROID-cuttlefish_defconfig-Enable-CONFIG_GNSS.patch
