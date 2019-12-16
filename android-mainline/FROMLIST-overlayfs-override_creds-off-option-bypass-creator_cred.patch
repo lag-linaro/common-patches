@@ -55,7 +55,7 @@ Bug: 136124883
 Bug: 129319403
 Change-Id: I6a82338fcb8b30b8e6f5d4c26b473730bdfd4488
 ---
- Documentation/filesystems/overlayfs.txt | 23 +++++++++++++++++++++++
+ Documentation/filesystems/overlayfs.rst | 23 +++++++++++++++++++++++
  fs/overlayfs/copy_up.c                  |  2 +-
  fs/overlayfs/dir.c                      | 17 ++++++++++-------
  fs/overlayfs/file.c                     | 20 ++++++++++----------
@@ -68,11 +68,11 @@ Change-Id: I6a82338fcb8b30b8e6f5d4c26b473730bdfd4488
  fs/overlayfs/util.c                     | 12 ++++++++++--
  11 files changed, 91 insertions(+), 35 deletions(-)
 
-diff --git a/Documentation/filesystems/overlayfs.txt b/Documentation/filesystems/overlayfs.txt
-index 845d689e0fd7..c7ab389571e5 100644
---- a/Documentation/filesystems/overlayfs.txt
-+++ b/Documentation/filesystems/overlayfs.txt
-@@ -102,6 +102,29 @@ Only the lists of names from directories are merged.  Other content
+diff --git a/Documentation/filesystems/overlayfs.rst b/Documentation/filesystems/overlayfs.rst
+index e443be7928db..a9521894c303 100644
+--- a/Documentation/filesystems/overlayfs.rst
++++ b/Documentation/filesystems/overlayfs.rst
+@@ -104,6 +104,29 @@ Only the lists of names from directories are merged.  Other content
  such as metadata and extended attributes are reported for the upper
  directory only.  These attributes of the lower directory are hidden.
  
@@ -103,10 +103,10 @@ index 845d689e0fd7..c7ab389571e5 100644
  --------------------------------
  
 diff --git a/fs/overlayfs/copy_up.c b/fs/overlayfs/copy_up.c
-index b801c6353100..1c1b9415e533 100644
+index 6220642fe113..f7d19efb4783 100644
 --- a/fs/overlayfs/copy_up.c
 +++ b/fs/overlayfs/copy_up.c
-@@ -886,7 +886,7 @@ int ovl_copy_up_flags(struct dentry *dentry, int flags)
+@@ -883,7 +883,7 @@ int ovl_copy_up_flags(struct dentry *dentry, int flags)
  		dput(parent);
  		dput(next);
  	}
@@ -116,7 +116,7 @@ index b801c6353100..1c1b9415e533 100644
  	return err;
  }
 diff --git a/fs/overlayfs/dir.c b/fs/overlayfs/dir.c
-index 702aa63f6774..f4e6e6b6629a 100644
+index 29abdb1d3b5c..abf622da3ce6 100644
 --- a/fs/overlayfs/dir.c
 +++ b/fs/overlayfs/dir.c
 @@ -536,7 +536,7 @@ static int ovl_create_or_link(struct dentry *dentry, struct inode *inode,
@@ -279,7 +279,7 @@ index e235a635d9ec..d94d6ec785a7 100644
  	/* Update size */
  	ovl_copyattr(ovl_inode_real(inode_out), inode_out);
 diff --git a/fs/overlayfs/inode.c b/fs/overlayfs/inode.c
-index c057e51057f7..3f2474fe8574 100644
+index c4769f9d4f06..ad9163abbe0a 100644
 --- a/fs/overlayfs/inode.c
 +++ b/fs/overlayfs/inode.c
 @@ -61,7 +61,7 @@ int ovl_setattr(struct dentry *dentry, struct iattr *attr)
@@ -291,7 +291,7 @@ index c057e51057f7..3f2474fe8574 100644
  		if (!err)
  			ovl_copyattr(upperdentry->d_inode, dentry->d_inode);
  		inode_unlock(upperdentry->d_inode);
-@@ -257,7 +257,7 @@ int ovl_getattr(const struct path *path, struct kstat *stat,
+@@ -263,7 +263,7 @@ int ovl_getattr(const struct path *path, struct kstat *stat,
  		stat->nlink = dentry->d_inode->i_nlink;
  
  out:
@@ -300,7 +300,7 @@ index c057e51057f7..3f2474fe8574 100644
  
  	return err;
  }
-@@ -291,7 +291,7 @@ int ovl_permission(struct inode *inode, int mask)
+@@ -297,7 +297,7 @@ int ovl_permission(struct inode *inode, int mask)
  		mask |= MAY_READ;
  	}
  	err = inode_permission(realinode, mask);
@@ -309,7 +309,7 @@ index c057e51057f7..3f2474fe8574 100644
  
  	return err;
  }
-@@ -308,7 +308,7 @@ static const char *ovl_get_link(struct dentry *dentry,
+@@ -314,7 +314,7 @@ static const char *ovl_get_link(struct dentry *dentry,
  
  	old_cred = ovl_override_creds(dentry->d_sb);
  	p = vfs_get_link(ovl_dentry_real(dentry), done);
@@ -318,7 +318,7 @@ index c057e51057f7..3f2474fe8574 100644
  	return p;
  }
  
-@@ -351,7 +351,7 @@ int ovl_xattr_set(struct dentry *dentry, struct inode *inode, const char *name,
+@@ -357,7 +357,7 @@ int ovl_xattr_set(struct dentry *dentry, struct inode *inode, const char *name,
  		WARN_ON(flags != XATTR_REPLACE);
  		err = vfs_removexattr(realdentry, name);
  	}
@@ -327,7 +327,7 @@ index c057e51057f7..3f2474fe8574 100644
  
  	/* copy c/mtime */
  	ovl_copyattr(d_inode(realdentry), inode);
-@@ -373,7 +373,7 @@ int ovl_xattr_get(struct dentry *dentry, struct inode *inode, const char *name,
+@@ -379,7 +379,7 @@ int ovl_xattr_get(struct dentry *dentry, struct inode *inode, const char *name,
  	old_cred = ovl_override_creds(dentry->d_sb);
  	res = __vfs_getxattr(realdentry, d_inode(realdentry), name,
  			     value, size, flags);
@@ -336,7 +336,7 @@ index c057e51057f7..3f2474fe8574 100644
  	return res;
  }
  
-@@ -398,7 +398,7 @@ ssize_t ovl_listxattr(struct dentry *dentry, char *list, size_t size)
+@@ -404,7 +404,7 @@ ssize_t ovl_listxattr(struct dentry *dentry, char *list, size_t size)
  
  	old_cred = ovl_override_creds(dentry->d_sb);
  	res = vfs_listxattr(realdentry, list, size);
@@ -345,7 +345,7 @@ index c057e51057f7..3f2474fe8574 100644
  	if (res <= 0 || size == 0)
  		return res;
  
-@@ -433,7 +433,7 @@ struct posix_acl *ovl_get_acl(struct inode *inode, int type)
+@@ -439,7 +439,7 @@ struct posix_acl *ovl_get_acl(struct inode *inode, int type)
  
  	old_cred = ovl_override_creds(inode->i_sb);
  	acl = get_acl(realinode, type);
@@ -354,7 +354,7 @@ index c057e51057f7..3f2474fe8574 100644
  
  	return acl;
  }
-@@ -471,7 +471,7 @@ static int ovl_fiemap(struct inode *inode, struct fiemap_extent_info *fieinfo,
+@@ -477,7 +477,7 @@ static int ovl_fiemap(struct inode *inode, struct fiemap_extent_info *fieinfo,
  		filemap_write_and_wait(realinode->i_mapping);
  
  	err = realinode->i_op->fiemap(realinode, fieinfo, start, len);
@@ -364,10 +364,10 @@ index c057e51057f7..3f2474fe8574 100644
  	return err;
  }
 diff --git a/fs/overlayfs/namei.c b/fs/overlayfs/namei.c
-index e90931c9e6c0..8e943ae5dfae 100644
+index 823bca62b58d..273d47adaf04 100644
 --- a/fs/overlayfs/namei.c
 +++ b/fs/overlayfs/namei.c
-@@ -1070,7 +1070,7 @@ struct dentry *ovl_lookup(struct inode *dir, struct dentry *dentry,
+@@ -1078,7 +1078,7 @@ struct dentry *ovl_lookup(struct inode *dir, struct dentry *dentry,
  			goto out_free_oe;
  	}
  
@@ -376,7 +376,7 @@ index e90931c9e6c0..8e943ae5dfae 100644
  	if (origin_path) {
  		dput(origin_path->dentry);
  		kfree(origin_path);
-@@ -1097,7 +1097,7 @@ struct dentry *ovl_lookup(struct inode *dir, struct dentry *dentry,
+@@ -1105,7 +1105,7 @@ struct dentry *ovl_lookup(struct inode *dir, struct dentry *dentry,
  	kfree(upperredirect);
  out:
  	kfree(d.redirect);
@@ -385,7 +385,7 @@ index e90931c9e6c0..8e943ae5dfae 100644
  	return ERR_PTR(err);
  }
  
-@@ -1149,7 +1149,7 @@ bool ovl_lower_positive(struct dentry *dentry)
+@@ -1157,7 +1157,7 @@ bool ovl_lower_positive(struct dentry *dentry)
  			dput(this);
  		}
  	}
@@ -395,10 +395,10 @@ index e90931c9e6c0..8e943ae5dfae 100644
  	return positive;
  }
 diff --git a/fs/overlayfs/overlayfs.h b/fs/overlayfs/overlayfs.h
-index 55b872c28bf9..ab9802242857 100644
+index d6f02b4bed74..843222b0c83b 100644
 --- a/fs/overlayfs/overlayfs.h
 +++ b/fs/overlayfs/overlayfs.h
-@@ -213,6 +213,7 @@ int ovl_want_write(struct dentry *dentry);
+@@ -229,6 +229,7 @@ int ovl_want_write(struct dentry *dentry);
  void ovl_drop_write(struct dentry *dentry);
  struct dentry *ovl_workdir(struct dentry *dentry);
  const struct cred *ovl_override_creds(struct super_block *sb);
@@ -407,7 +407,7 @@ index 55b872c28bf9..ab9802242857 100644
  int ovl_can_decode_fh(struct super_block *sb);
  struct dentry *ovl_indexdir(struct super_block *sb);
 diff --git a/fs/overlayfs/ovl_entry.h b/fs/overlayfs/ovl_entry.h
-index a8279280e88d..e847d7564999 100644
+index 28348c44ea5b..e3b30f53f249 100644
 --- a/fs/overlayfs/ovl_entry.h
 +++ b/fs/overlayfs/ovl_entry.h
 @@ -17,6 +17,7 @@ struct ovl_config {
@@ -441,7 +441,7 @@ index 47a91c9733a5..874a1b3ff99a 100644
  		return err;
  
 diff --git a/fs/overlayfs/super.c b/fs/overlayfs/super.c
-index c91e7b604631..1e70914f2bb4 100644
+index 80414c941f02..b6e23ab1a0a7 100644
 --- a/fs/overlayfs/super.c
 +++ b/fs/overlayfs/super.c
 @@ -53,6 +53,11 @@ module_param_named(xino_auto, ovl_xino_auto_def, bool, 0644);
@@ -507,7 +507,7 @@ index c91e7b604631..1e70914f2bb4 100644
  		default:
  			pr_err("overlayfs: unrecognized mount option \"%s\" or missing value\n", p);
  			return -EINVAL;
-@@ -1695,7 +1716,6 @@ static int ovl_fill_super(struct super_block *sb, void *data, int silent)
+@@ -1705,7 +1726,6 @@ static int ovl_fill_super(struct super_block *sb, void *data, int silent)
  		       ovl_dentry_lower(root_dentry), NULL);
  
  	sb->s_root = root_dentry;

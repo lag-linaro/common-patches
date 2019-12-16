@@ -23,7 +23,7 @@ Signed-off-by: Sami Tolvanen <samitolvanen@google.com>
  2 files changed, 71 insertions(+), 2 deletions(-)
 
 diff --git a/include/linux/filter.h b/include/linux/filter.h
-index a141cb07e76a..ed778e45e0e3 100644
+index 345f3748e0fb..db11f04b8341 100644
 --- a/include/linux/filter.h
 +++ b/include/linux/filter.h
 @@ -518,7 +518,12 @@ struct sock_fprog_kern {

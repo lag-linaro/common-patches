@@ -56,10 +56,10 @@ Change-Id: I34d99cc46e9e87a79efc8d05f85980bbc137f7eb
  3 files changed, 24 insertions(+), 14 deletions(-)
 
 diff --git a/fs/overlayfs/namei.c b/fs/overlayfs/namei.c
-index c269d6033525..e90931c9e6c0 100644
+index 76ff66339173..823bca62b58d 100644
 --- a/fs/overlayfs/namei.c
 +++ b/fs/overlayfs/namei.c
-@@ -106,10 +106,11 @@ int ovl_check_fh_len(struct ovl_fh *fh, int fh_len)
+@@ -106,10 +106,11 @@ int ovl_check_fb_len(struct ovl_fb *fb, int fb_len)
  
  static struct ovl_fh *ovl_get_fh(struct dentry *dentry, const char *name)
  {
@@ -77,8 +77,8 @@ index c269d6033525..e90931c9e6c0 100644
  	if (!fh)
  		return ERR_PTR(-ENOMEM);
  
--	res = vfs_getxattr(dentry, name, fh, res);
-+	res = ovl_do_vfs_getxattr(dentry, name, fh, res);
+-	res = vfs_getxattr(dentry, name, fh->buf, res);
++	res = ovl_do_vfs_getxattr(dentry, name, fh->buf, res);
  	if (res < 0)
  		goto fail;
  
@@ -97,10 +97,10 @@ index c269d6033525..e90931c9e6c0 100644
  }
  
 diff --git a/fs/overlayfs/overlayfs.h b/fs/overlayfs/overlayfs.h
-index ab3d031c422b..55b872c28bf9 100644
+index fcf80548bb65..d6f02b4bed74 100644
 --- a/fs/overlayfs/overlayfs.h
 +++ b/fs/overlayfs/overlayfs.h
-@@ -200,6 +200,14 @@ static inline bool ovl_open_flags_need_copy_up(int flags)
+@@ -216,6 +216,14 @@ static inline bool ovl_open_flags_need_copy_up(int flags)
  	return ((OPEN_FMODE(flags) & FMODE_WRITE) || (flags & O_TRUNC));
  }
  
