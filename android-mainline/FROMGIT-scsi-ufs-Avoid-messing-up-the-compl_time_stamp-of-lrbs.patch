@@ -1,0 +1,53 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: Can Guo <cang@codeaurora.org>
+Date: Mon, 25 Nov 2019 22:53:32 -0800
+Subject: FROMGIT: scsi: ufs: Avoid messing up the compl_time_stamp of lrbs
+
+To be on the safe side, do not touch lrb after clearing its slot in the
+lrb_in_use bitmap to avoid messing up the next task which would possibly
+occupy this lrb.
+
+[mkp: applied by hand]
+
+Bug: 143632303
+(cherry picked from commit 00ba81e1720b83c18f16829f83d3bdb30ee8fa0a
+https://git.kernel.org/pub/scm/linux/kernel/git/mkp/scsi.git 5.6/scsi-queue)
+Change-Id: I487259d93ffe8f3512c6901d8f32b4f8048062c9
+Link: https://lore.kernel.org/r/1574751214-8321-4-git-send-email-cang@qti.qualcomm.com
+Reviewed by: Avri Altman <avri.altman@wdc.com>
+Reviewed-by: Bean Huo <beanhuo@micron.com>
+Signed-off-by: Can Guo <cang@codeaurora.org>
+Signed-off-by: Martin K. Petersen <martin.petersen@oracle.com>
+Signed-off-by: Asutosh Das <asutoshd@codeaurora.org>
+---
+ drivers/scsi/ufs/ufshcd.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/drivers/scsi/ufs/ufshcd.c b/drivers/scsi/ufs/ufshcd.c
+index 03173f06ab96..27f8a1137ebf 100644
+--- a/drivers/scsi/ufs/ufshcd.c
++++ b/drivers/scsi/ufs/ufshcd.c
+@@ -4856,12 +4856,14 @@ static void __ufshcd_transfer_req_compl(struct ufs_hba *hba,
+ 			cmd->result = result;
+ 			/* Mark completed command as NULL in LRB */
+ 			lrbp->cmd = NULL;
++			lrbp->compl_time_stamp = ktime_get();
+ 			clear_bit_unlock(index, &hba->lrb_in_use);
+ 			/* Do not touch lrbp after scsi done */
+ 			cmd->scsi_done(cmd);
+ 			__ufshcd_release(hba);
+ 		} else if (lrbp->command_type == UTP_CMD_TYPE_DEV_MANAGE ||
+ 			lrbp->command_type == UTP_CMD_TYPE_UFS_STORAGE) {
++			lrbp->compl_time_stamp = ktime_get();
+ 			if (hba->dev_cmd.complete) {
+ 				ufshcd_add_command_trace(hba, index,
+ 						"dev_complete");
+@@ -4870,8 +4872,6 @@ static void __ufshcd_transfer_req_compl(struct ufs_hba *hba,
+ 		}
+ 		if (ufshcd_is_clkscaling_supported(hba))
+ 			hba->clk_scaling.active_reqs--;
+-
+-		lrbp->compl_time_stamp = ktime_get();
+ 	}
+ 
+ 	/* clear corresponding bits of completed commands */

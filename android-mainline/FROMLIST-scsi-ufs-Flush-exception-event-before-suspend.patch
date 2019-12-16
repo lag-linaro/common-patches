@@ -1,0 +1,69 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: Sayali Lokhande <sayalil@codeaurora.org>
+Date: Wed, 23 Aug 2017 19:44:14 +0530
+Subject: FROMLIST: scsi: ufs: Flush exception event before suspend
+
+Exception event can be raised by the device when system
+suspend is in progress. This will result in unclocked
+register access in exception event handler as clocks will
+be turned off during suspend. This change makes sure to flush
+exception event handler work in suspend before disabling
+clocks to avoid unclocked register access issue.
+
+Bug: 143632303
+Change-Id: Ic01b5e4c7bc95d1ad9fa3c6fb19b848206a13306
+Link: https://lore.kernel.org/patchwork/patch/1149888/
+Signed-off-by: Sayali Lokhande <sayalil@codeaurora.org>
+Signed-off-by: Asutosh Das <asutoshd@codeaurora.org>
+Signed-off-by: Can Guo <cang@codeaurora.org>
+Signed-off-by: Asutosh Das <asutoshd@codeaurora.org>
+---
+ drivers/scsi/ufs/ufshcd.c | 21 ++++++++++++++++++---
+ 1 file changed, 18 insertions(+), 3 deletions(-)
+
+diff --git a/drivers/scsi/ufs/ufshcd.c b/drivers/scsi/ufs/ufshcd.c
+index 23e1ba6df64b..259d387800cb 100644
+--- a/drivers/scsi/ufs/ufshcd.c
++++ b/drivers/scsi/ufs/ufshcd.c
+@@ -4864,8 +4864,15 @@ ufshcd_transfer_rsp_status(struct ufs_hba *hba, struct ufshcd_lrb *lrbp)
+ 			 * UFS device needs urgent BKOPs.
+ 			 */
+ 			if (!hba->pm_op_in_progress &&
+-			    ufshcd_is_exception_event(lrbp->ucd_rsp_ptr))
+-				schedule_work(&hba->eeh_work);
++			    ufshcd_is_exception_event(lrbp->ucd_rsp_ptr)) {
++				/*
++				 * Prevent suspend once eeh_work is scheduled
++				 * to avoid deadlock between ufshcd_suspend
++				 * and exception event handler.
++				 */
++				if (schedule_work(&hba->eeh_work))
++					pm_runtime_get_noresume(hba->dev);
++			}
+ 			break;
+ 		case UPIU_TRANSACTION_REJECT_UPIU:
+ 			/* TODO: handle Reject UPIU Response */
+@@ -5324,7 +5331,14 @@ static void ufshcd_exception_event_handler(struct work_struct *work)
+ 
+ out:
+ 	scsi_unblock_requests(hba->host);
+-	pm_runtime_put_sync(hba->dev);
++	/*
++	 * pm_runtime_get_noresume is called while scheduling
++	 * eeh_work to avoid suspend racing with exception work.
++	 * Hence decrement usage counter using pm_runtime_put_noidle
++	 * to allow suspend on completion of exception event handler.
++	 */
++	pm_runtime_put_noidle(hba->dev);
++	pm_runtime_put(hba->dev);
+ 	return;
+ }
+ 
+@@ -7998,6 +8012,7 @@ static int ufshcd_suspend(struct ufs_hba *hba, enum ufs_pm_op pm_op)
+ 			goto enable_gating;
+ 	}
+ 
++	flush_work(&hba->eeh_work);
+ 	ret = ufshcd_link_state_transition(hba, req_link_state, 1);
+ 	if (ret)
+ 		goto set_dev_active;

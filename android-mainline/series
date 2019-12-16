@@ -2,8 +2,17 @@
 # android-mainline patches
 #
 # Applies onto upstream e42617b825f8 Linux v5.5-rc1
-# Matches android-mainline e328a18e1cef ("ANDROID: cuttlefish_defconfig: Enable CONFIG_GNSS")
+# Matches android-mainline d128444a8932 ("Merge 5.5-rc2 into android-mainline")
 #
+FROMGIT-scsi-ufs-Recheck-bkops-level-if-bkops-is-disabled.patch
+FROMGIT-scsi-ufs-Update-VCCQ2-and-VCCQ-min-max-voltage-hard-codes.patch
+FROMGIT-scsi-ufs-Avoid-messing-up-the-compl_time_stamp-of-lrbs.patch
+FROMGIT-scsi-ufs-Complete-pending-requests-in-host-reset-and-restore-path.patch
+FROMGIT-scsi-core-Adjust-DBD-setting-in-MODE-SENSE-for-caching-mode-page-per-LLD.patch
+FROMGIT-scsi-ufs-Use-DBD-setting-in-mode-sense.patch
+FROMGIT-scsi-ufs-Release-clock-if-DMA-map-fails.patch
+FROMGIT-scsi-ufs-Do-not-clear-the-DL-layer-timers.patch
+FROMGIT-scsi-ufs-Do-not-free-irq-in-suspend.patch
 FROMLIST-reboot-Export-reboot_mode.patch
 FROMLIST-arm64-mm-avoid-x18-in-idmap_kpti_install_ng_mappings.patch
 FROMLIST-arm64-preserve-x18-when-CPU-is-suspended.patch
@@ -51,6 +60,14 @@ FROMLIST-arm64-disable-SCS-for-hypervisor-code.patch
 FROMLIST-arm64-implement-Shadow-Call-Stack.patch
 FROMLIST-arm64-lse-fix-LSE-atomics-with-LLVM-s-integrated-assembler.patch
 FROMLIST-arm64-fix-alternatives-with-LLVM-s-integrated-assembler.patch
+FROMLIST-scsi-ufs-Fix-up-clock-scaling.patch
+FROMLIST-scsi-ufs-Do-not-rely-on-prefetched-data.patch
+FROMLIST-scsi-ufs-Flush-exception-event-before-suspend.patch
+FROMLIST-scsi-ufs-set-load-before-setting-voltage-in-regulators.patch
+FROMLIST-scsi-ufs-Remove-the-check-before-call-setup-clock-notify-vops.patch
+FROMLIST-scsi-ufs-qcom-Adjust-bus-bandwidth-voting-and-unvoting.patch
+FROMLIST-scsi-ufs-Add-dev-ref-clock-gating-wait-time-support.patch
+FROMLIST-scsi-ufs-Fix-ufshcd_hold-caused-scheduling-while-atomic.patch
 ANDROID-arm64-copy-CONFIG_CMDLINE_EXTEND-from-ARM.patch
 ANDROID-of-Support-CONFIG_CMDLINE_EXTEND-config-option.patch
 ANDROID-Kbuild-LLVMLinux-allow-overriding-clang-target-triple.patch
@@ -264,3 +281,8 @@ ANDROID-update-gki_defconfig-for-5.5-rc1.patch
 ANDROID-export-needed-symbols-for-5.5-rc1-allmodconfig-for-arm64.patch
 ANDROID-gki_defconfig-enable-HID-configs.patch
 ANDROID-cuttlefish_defconfig-Enable-CONFIG_GNSS.patch
+ANDROID-drivers-gpu-drm-export-drm_mode_convert_umode-symbol.patch
+ANDROID-README.md-Fix-indented-bullet.patch
+ANDROID-README.md-add-text-on-upstreaming-patches.patch
+ANDROID-ion-flush-cache-before-exporting-non-cached-buffers.patch
+ANDROID-mm-memory.c-export-mm_trace_rss_stat.patch
