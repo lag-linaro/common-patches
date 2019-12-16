@@ -1,0 +1,84 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: Can Guo <cang@codeaurora.org>
+Date: Thu, 5 Dec 2019 02:14:42 +0000
+Subject: FROMGIT: scsi: ufs: Do not clear the DL layer timers
+
+During power mode change, PACP_PWR_Req frame sends PAPowerModeUserData
+parameters (and they are considered valid by device if Flags[4] -
+UserDataValid bit is set in the same frame).  Currently we don't set these
+PAPowerModeUserData parameters and hardware always sets UserDataValid bit
+which would clear all the DL layer timeout values of the peer device after
+the power mode change.
+
+This change sets the PAPowerModeUserData[0..5] to UniPro specification
+recommended default values, in addition we are also setting the relevant
+DME_LOCAL_* timer attributes as required by UFS HCI specification.
+
+Bug: 143632303
+(cherry picked from commit c0a586dcb11e1c1bd38b022824b6d847940968a6
+https://git.kernel.org/pub/scm/linux/kernel/git/mkp/scsi.git 5.6/scsi-queue)
+Change-Id: I95b3f3e06927a338fe81295fd84b69c1d26f14ba
+Link: https://lore.kernel.org/r/0101016ed3d688a4-cfaeb1c9-238b-46c4-9c89-d48c410ba325-000000@us-west-2.amazonses.com
+Reviewed-by: Avri Altman <avri.altman@wdc.com>
+Reviewed-by: Bean Huo <beanhuo@micron.com>
+Signed-off-by: Can Guo <cang@codeaurora.org>
+Signed-off-by: Martin K. Petersen <martin.petersen@oracle.com>
+Signed-off-by: Asutosh Das <asutoshd@codeaurora.org>
+---
+ drivers/scsi/ufs/ufshcd.c | 20 ++++++++++++++++++++
+ drivers/scsi/ufs/unipro.h | 11 +++++++++++
+ 2 files changed, 31 insertions(+)
+
+diff --git a/drivers/scsi/ufs/ufshcd.c b/drivers/scsi/ufs/ufshcd.c
+index 9badfe519594..9e625a1e8df6 100644
+--- a/drivers/scsi/ufs/ufshcd.c
++++ b/drivers/scsi/ufs/ufshcd.c
+@@ -4112,6 +4112,26 @@ static int ufshcd_change_power_mode(struct ufs_hba *hba,
+ 		ufshcd_dme_set(hba, UIC_ARG_MIB(PA_HSSERIES),
+ 						pwr_mode->hs_rate);
+ 
++	ufshcd_dme_set(hba, UIC_ARG_MIB(PA_PWRMODEUSERDATA0),
++			DL_FC0ProtectionTimeOutVal_Default);
++	ufshcd_dme_set(hba, UIC_ARG_MIB(PA_PWRMODEUSERDATA1),
++			DL_TC0ReplayTimeOutVal_Default);
++	ufshcd_dme_set(hba, UIC_ARG_MIB(PA_PWRMODEUSERDATA2),
++			DL_AFC0ReqTimeOutVal_Default);
++	ufshcd_dme_set(hba, UIC_ARG_MIB(PA_PWRMODEUSERDATA3),
++			DL_FC1ProtectionTimeOutVal_Default);
++	ufshcd_dme_set(hba, UIC_ARG_MIB(PA_PWRMODEUSERDATA4),
++			DL_TC1ReplayTimeOutVal_Default);
++	ufshcd_dme_set(hba, UIC_ARG_MIB(PA_PWRMODEUSERDATA5),
++			DL_AFC1ReqTimeOutVal_Default);
++
++	ufshcd_dme_set(hba, UIC_ARG_MIB(DME_LocalFC0ProtectionTimeOutVal),
++			DL_FC0ProtectionTimeOutVal_Default);
++	ufshcd_dme_set(hba, UIC_ARG_MIB(DME_LocalTC0ReplayTimeOutVal),
++			DL_TC0ReplayTimeOutVal_Default);
++	ufshcd_dme_set(hba, UIC_ARG_MIB(DME_LocalAFC0ReqTimeOutVal),
++			DL_AFC0ReqTimeOutVal_Default);
++
+ 	ret = ufshcd_uic_change_pwr_mode(hba, pwr_mode->pwr_rx << 4
+ 			| pwr_mode->pwr_tx);
+ 
+diff --git a/drivers/scsi/ufs/unipro.h b/drivers/scsi/ufs/unipro.h
+index f539f873f94d..3dc4d8b76509 100644
+--- a/drivers/scsi/ufs/unipro.h
++++ b/drivers/scsi/ufs/unipro.h
+@@ -161,6 +161,17 @@
+ /* PHY Adapter Protocol Constants */
+ #define PA_MAXDATALANES	4
+ 
++#define DL_FC0ProtectionTimeOutVal_Default	8191
++#define DL_TC0ReplayTimeOutVal_Default		65535
++#define DL_AFC0ReqTimeOutVal_Default		32767
++#define DL_FC1ProtectionTimeOutVal_Default	8191
++#define DL_TC1ReplayTimeOutVal_Default		65535
++#define DL_AFC1ReqTimeOutVal_Default		32767
++
++#define DME_LocalFC0ProtectionTimeOutVal	0xD041
++#define DME_LocalTC0ReplayTimeOutVal		0xD042
++#define DME_LocalAFC0ReqTimeOutVal		0xD043
++
+ /* PA power modes */
+ enum {
+ 	FAST_MODE	= 1,

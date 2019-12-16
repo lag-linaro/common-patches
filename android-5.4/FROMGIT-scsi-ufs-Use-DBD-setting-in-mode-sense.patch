@@ -1,0 +1,44 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: Can Guo <cang@codeaurora.org>
+Date: Thu, 5 Dec 2019 02:14:30 +0000
+Subject: FROMGIT: scsi: ufs: Use DBD setting in mode sense
+
+UFS standard requires DBD field to be set to 1 in MODE SENSE(10).
+
+Some card vendors are more strict and check the DBD field, hence respond
+with CHECK_CONDITION (Sense key set to ILLEGAL_REQUEST and ASC set to
+INVALID FIELD IN CDB).  When host sends MODE SENSE for page caching, as a
+result of the CHECK_CONDITION response, host assumes that the device
+doesn't support the cache feature and doesn't send SYNCHRONIZE_CACHE
+commands to flush the device cache. This can result in data corruption in
+case of sudden power down when there is data stored in the device cache.
+
+This patch fixes the DBD field setting as required in UFS standard.
+
+Bug: 143632303
+(cherry picked from commit d3e59f87ee9343b8ebf80a7da960b2c501aacea0
+https://git.kernel.org/pub/scm/linux/kernel/git/mkp/scsi.git 5.6/scsi-queue)
+Change-Id: Ib9bf6b5eb025a889d8621c8b65ac1acf347c8cd7
+Link: https://lore.kernel.org/r/0101016ed3d657e4-32a6dd52-1505-4312-97ff-2bd3bee59eb7-000000@us-west-2.amazonses.com
+Reviewed-by: Bean Huo <beanhuo@micron.com>
+Signed-off-by: Can Guo <cang@codeaurora.org>
+Signed-off-by: Martin K. Petersen <martin.petersen@oracle.com>
+Signed-off-by: Asutosh Das <asutoshd@codeaurora.org>
+---
+ drivers/scsi/ufs/ufshcd.c | 3 +++
+ 1 file changed, 3 insertions(+)
+
+diff --git a/drivers/scsi/ufs/ufshcd.c b/drivers/scsi/ufs/ufshcd.c
+index 8375142de0ed..0e4937aeabd1 100644
+--- a/drivers/scsi/ufs/ufshcd.c
++++ b/drivers/scsi/ufs/ufshcd.c
+@@ -4626,6 +4626,9 @@ static int ufshcd_slave_alloc(struct scsi_device *sdev)
+ 	/* Mode sense(6) is not supported by UFS, so use Mode sense(10) */
+ 	sdev->use_10_for_ms = 1;
+ 
++	/* DBD field should be set to 1 in mode sense(10) */
++	sdev->set_dbd_for_ms = 1;
++
+ 	/* allow SCSI layer to restart the device in case of errors */
+ 	sdev->allow_restart = 1;
+ 

@@ -1,0 +1,68 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: Can Guo <cang@codeaurora.org>
+Date: Thu, 5 Dec 2019 02:14:46 +0000
+Subject: FROMGIT: scsi: ufs: Do not free irq in suspend
+
+Since ufshcd irq resource is allocated with the device resource management
+aware IRQ request implementation, we don't really need to free up irq
+during suspend, disabling it during suspend and reenabling it during resume
+should be good enough.
+
+Bug: 143632303
+(cherry picked from commit 8709c1f68536e256668812788af5b2bb027f49c3
+https://git.kernel.org/pub/scm/linux/kernel/git/mkp/scsi.git 5.6/scsi-queue)
+Change-Id: I1a0534f546fae72b0d77e0bd7e62c1f8e417fd35
+Link: https://lore.kernel.org/r/0101016ed3d69793-22918f99-23bf-495d-8a36-a9c108d1cbce-000000@us-west-2.amazonses.com
+Reviewed-by: Stanley Chu <stanley.chu@mediatek.com>
+Signed-off-by: Can Guo <cang@codeaurora.org>
+Signed-off-by: Martin K. Petersen <martin.petersen@oracle.com>
+Signed-off-by: Asutosh Das <asutoshd@codeaurora.org>
+---
+ drivers/scsi/ufs/ufshcd.c | 18 ++++--------------
+ 1 file changed, 4 insertions(+), 14 deletions(-)
+
+diff --git a/drivers/scsi/ufs/ufshcd.c b/drivers/scsi/ufs/ufshcd.c
+index 9e625a1e8df6..9e6ee07b5296 100644
+--- a/drivers/scsi/ufs/ufshcd.c
++++ b/drivers/scsi/ufs/ufshcd.c
+@@ -265,26 +265,18 @@ static inline bool ufshcd_valid_tag(struct ufs_hba *hba, int tag)
+ 	return tag >= 0 && tag < hba->nutrs;
+ }
+ 
+-static inline int ufshcd_enable_irq(struct ufs_hba *hba)
++static inline void ufshcd_enable_irq(struct ufs_hba *hba)
+ {
+-	int ret = 0;
+-
+ 	if (!hba->is_irq_enabled) {
+-		ret = request_irq(hba->irq, ufshcd_intr, IRQF_SHARED, UFSHCD,
+-				hba);
+-		if (ret)
+-			dev_err(hba->dev, "%s: request_irq failed, ret=%d\n",
+-				__func__, ret);
++		enable_irq(hba->irq);
+ 		hba->is_irq_enabled = true;
+ 	}
+-
+-	return ret;
+ }
+ 
+ static inline void ufshcd_disable_irq(struct ufs_hba *hba)
+ {
+ 	if (hba->is_irq_enabled) {
+-		free_irq(hba->irq, hba);
++		disable_irq(hba->irq);
+ 		hba->is_irq_enabled = false;
+ 	}
+ }
+@@ -7974,9 +7966,7 @@ static int ufshcd_resume(struct ufs_hba *hba, enum ufs_pm_op pm_op)
+ 		goto out;
+ 
+ 	/* enable the host irq as host controller would be active soon */
+-	ret = ufshcd_enable_irq(hba);
+-	if (ret)
+-		goto disable_irq_and_vops_clks;
++	ufshcd_enable_irq(hba);
+ 
+ 	ret = ufshcd_vreg_set_hpm(hba);
+ 	if (ret)

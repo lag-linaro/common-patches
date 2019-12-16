@@ -1,0 +1,49 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: Can Guo <cang@codeaurora.org>
+Date: Thu, 5 Dec 2019 02:14:25 +0000
+Subject: FROMGIT: scsi: core: Adjust DBD setting in MODE SENSE for caching
+ mode page per LLD
+
+UFS JEDEC standards require DBD field to be set to 1 in mode sense
+command.  This patch allows LLD to define the setting of DBD, if
+required.
+
+Bug: 143632303
+(cherry picked from commit f711610be3421363c5358b1a3c34c038c943e8f2
+https://git.kernel.org/pub/scm/linux/kernel/git/mkp/scsi.git 5.6/scsi-queue)
+Link: https://lore.kernel.org/r/0101016ed3d643f9-ffd45d6c-c593-4a13-a18f-a32da3d3bb97-000000@us-west-2.amazonses.com
+Change-Id: I9b81ce59b59cbd2286bd41a2a99d6d189ecfd53d
+Reviewed-by: Avri Altman <avri.altman@wdc.com>
+Signed-off-by: Can Guo <cang@codeaurora.org>
+Signed-off-by: Martin K. Petersen <martin.petersen@oracle.com>
+Signed-off-by: Asutosh Das <asutoshd@codeaurora.org>
+---
+ drivers/scsi/scsi_lib.c    | 2 ++
+ include/scsi/scsi_device.h | 1 +
+ 2 files changed, 3 insertions(+)
+
+diff --git a/drivers/scsi/scsi_lib.c b/drivers/scsi/scsi_lib.c
+index 91c007d26c1e..9f6fff02f9b2 100644
+--- a/drivers/scsi/scsi_lib.c
++++ b/drivers/scsi/scsi_lib.c
+@@ -2109,6 +2109,8 @@ scsi_mode_sense(struct scsi_device *sdev, int dbd, int modepage,
+ 
+ 	memset(data, 0, sizeof(*data));
+ 	memset(&cmd[0], 0, 12);
++
++	dbd = sdev->set_dbd_for_ms ? 8 : dbd;
+ 	cmd[1] = dbd & 0x18;	/* allows DBD and LLBA bits */
+ 	cmd[2] = modepage;
+ 
+diff --git a/include/scsi/scsi_device.h b/include/scsi/scsi_device.h
+index 039e289f295e..51599b2f7df7 100644
+--- a/include/scsi/scsi_device.h
++++ b/include/scsi/scsi_device.h
+@@ -170,6 +170,7 @@ struct scsi_device {
+ 				     * because we did a bus reset. */
+ 	unsigned use_10_for_rw:1; /* first try 10-byte read / write */
+ 	unsigned use_10_for_ms:1; /* first try 10-byte mode sense/select */
++	unsigned set_dbd_for_ms:1; /* Set "DBD" field in mode sense */
+ 	unsigned no_report_opcodes:1;	/* no REPORT SUPPORTED OPERATION CODES */
+ 	unsigned no_write_same:1;	/* no WRITE SAME command */
+ 	unsigned use_16_for_rw:1; /* Use read/write(16) over read/write(10) */

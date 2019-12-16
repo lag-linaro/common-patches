@@ -2,7 +2,7 @@
 # android-5.4 patches
 #
 # Applies onto upstream 5f8bc2bb0e0f Linux v5.4.2
-# Matches android-5.4 5fe7cb903b35 ("ANDROID: update abi_gki_aarch64.xml for CONFIG_GNSS")
+# Matches android-5.4 e92b86005a65 ("ANDROID: update abi_gki_aarch64.xml for ion, drm changes")
 #
 UPSTREAM-arm64-Validate-tagged-addresses-in-access_ok-called-from-kernel-threads.patch
 ANDROID-Kbuild-LLVMLinux-allow-overriding-clang-target-triple.patch
@@ -321,3 +321,23 @@ ANDROID-kbuild-merge-module-sections-with-LTO.patch
 ANDROID-kbuild-limit-LTO-inlining.patch
 ANDROID-gki_defconfig-enable-HID-configs.patch
 ANDROID-cuttlefish_defconfig-Enable-CONFIG_GNSS.patch
+ANDROID-gki_defconfig-enable-LTO-CFI-and-SCS.patch
+FROMGIT-scsi-ufs-Recheck-bkops-level-if-bkops-is-disabled.patch
+FROMGIT-scsi-ufs-Update-VCCQ2-and-VCCQ-min-max-voltage-hard-codes.patch
+FROMGIT-scsi-ufs-Avoid-messing-up-the-compl_time_stamp-of-lrbs.patch
+FROMGIT-scsi-ufs-Complete-pending-requests-in-host-reset-and-restore-path.patch
+FROMGIT-scsi-core-Adjust-DBD-setting-in-MODE-SENSE-for-caching-mode-page-per-LLD.patch
+FROMGIT-scsi-ufs-Use-DBD-setting-in-mode-sense.patch
+FROMGIT-scsi-ufs-Release-clock-if-DMA-map-fails.patch
+FROMGIT-scsi-ufs-Do-not-clear-the-DL-layer-timers.patch
+FROMGIT-scsi-ufs-Do-not-free-irq-in-suspend.patch
+FROMLIST-scsi-ufs-Fix-up-clock-scaling.patch
+FROMLIST-scsi-ufs-Do-not-rely-on-prefetched-data.patch
+FROMLIST-scsi-ufs-Flush-exception-event-before-suspend.patch
+FROMLIST-scsi-ufs-set-load-before-setting-voltage-in-regulators.patch
+FROMLIST-scsi-ufs-Remove-the-check-before-call-setup-clock-notify-vops.patch
+FROMLIST-scsi-ufs-qcom-Adjust-bus-bandwidth-voting-and-unvoting.patch
+FROMLIST-scsi-ufs-Add-dev-ref-clock-gating-wait-time-support.patch
+FROMLIST-scsi-ufs-Fix-ufshcd_hold-caused-scheduling-while-atomic.patch
+ANDROID-ion-flush-cache-before-exporting-non-cached-buffers.patch
+ANDROID-drivers-gpu-drm-export-drm_mode_convert_umode-symbol.patch
