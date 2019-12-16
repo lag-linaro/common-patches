@@ -638,7 +638,7 @@ index 000000000000..e41c6d66ff0d
 +}
 +EXPORT_SYMBOL_GPL(fscrypt_mergeable_bio_bh);
 diff --git a/fs/crypto/keyring.c b/fs/crypto/keyring.c
-index 040df1f5e1c8..7788adfa2dc4 100644
+index 40cca351273f..0370383deda3 100644
 --- a/fs/crypto/keyring.c
 +++ b/fs/crypto/keyring.c
 @@ -48,6 +48,8 @@ static void free_master_key(struct fscrypt_master_key *mk)

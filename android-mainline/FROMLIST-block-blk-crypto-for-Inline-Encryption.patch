@@ -279,7 +279,7 @@ index 95fd57896466..0f7641b875e9 100644
  
  	dst->bi_crypt_context = bio_crypt_alloc_ctx(gfp_mask);
 diff --git a/block/bio.c b/block/bio.c
-index a3efa189ab82..e01c8c67053c 100644
+index 31454118106e..caeec21b8154 100644
 --- a/block/bio.c
 +++ b/block/bio.c
 @@ -17,6 +17,7 @@
@@ -290,7 +290,7 @@ index a3efa189ab82..e01c8c67053c 100644
  
  #include <trace/events/block.h>
  #include "blk.h"
-@@ -1791,6 +1792,10 @@ void bio_endio(struct bio *bio)
+@@ -1793,6 +1794,10 @@ void bio_endio(struct bio *bio)
  again:
  	if (!bio_remaining_done(bio))
  		return;
@@ -302,7 +302,7 @@ index a3efa189ab82..e01c8c67053c 100644
  		return;
  
 diff --git a/block/blk-core.c b/block/blk-core.c
-index da08aa947b07..b5c560733952 100644
+index 5200f4d1fed4..e68a9000cd91 100644
 --- a/block/blk-core.c
 +++ b/block/blk-core.c
 @@ -38,6 +38,7 @@
@@ -334,7 +334,7 @@ index da08aa947b07..b5c560733952 100644
  	if (unlikely(blk_queue_enter(q, nowait ? BLK_MQ_REQ_NOWAIT : 0))) {
  		if (nowait && !blk_queue_dying(q))
  			bio->bi_status = BLK_STS_AGAIN;
-@@ -1812,5 +1818,8 @@ int __init blk_dev_init(void)
+@@ -1813,5 +1819,8 @@ int __init blk_dev_init(void)
  	if (bio_crypt_ctx_init() < 0)
  		panic("Failed to allocate mem for bio crypt ctxs\n");
  

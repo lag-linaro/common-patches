@@ -1,7 +1,7 @@
 #
 # android-mainline patches
 #
-# Applies onto upstream e42617b825f8 Linux v5.5-rc1
+# Applies onto upstream d1eef1c61974 Linux v5.5-rc2
 # Matches android-mainline d128444a8932 ("Merge 5.5-rc2 into android-mainline")
 #
 FROMGIT-scsi-ufs-Recheck-bkops-level-if-bkops-is-disabled.patch

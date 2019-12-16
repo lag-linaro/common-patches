@@ -24,7 +24,7 @@ Signed-off-by: Eric Biggers <ebiggers@google.com>
  2 files changed, 36 insertions(+)
 
 diff --git a/fs/crypto/keyring.c b/fs/crypto/keyring.c
-index 7788adfa2dc4..05cc274e5c13 100644
+index 0370383deda3..7c7c727a4dff 100644
 --- a/fs/crypto/keyring.c
 +++ b/fs/crypto/keyring.c
 @@ -708,12 +708,34 @@ static int check_for_busy_inodes(struct super_block *sb,
