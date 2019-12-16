@@ -1,10 +1,9 @@
 #
 # android-5.4 patches
 #
-# Applies onto upstream 5f8bc2bb0e0f Linux v5.4.2
-# Matches android-5.4 e92b86005a65 ("ANDROID: update abi_gki_aarch64.xml for ion, drm changes")
+# Applies onto upstream f7688b48ac46 Linux v5.4.3
+# Matches android-5.4 7e59225e4e49 ("Merge 5.4.3 into android-5.4")
 #
-UPSTREAM-arm64-Validate-tagged-addresses-in-access_ok-called-from-kernel-threads.patch
 ANDROID-Kbuild-LLVMLinux-allow-overriding-clang-target-triple.patch
 ANDROID-net-xfrm-make-PF_KEY-SHA256-use-RFC-compliant-truncation.patch
 ANDROID-arm64-copy-CONFIG_CMDLINE_EXTEND-from-ARM.patch
