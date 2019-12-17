@@ -749,7 +749,7 @@ index 90dd78f0eb27..142fa44fa587 100644
  
  int
 diff --git a/include/linux/fs.h b/include/linux/fs.h
-index 35e662198dc5..42c2cfc33ce7 100644
+index ae6dfb6a20c6..777772874b1f 100644
 --- a/include/linux/fs.h
 +++ b/include/linux/fs.h
 @@ -1709,13 +1709,21 @@ extern bool inode_owner_or_capable(const struct inode *inode);
@@ -784,7 +784,7 @@ index 35e662198dc5..42c2cfc33ce7 100644
  
  extern long vfs_ioctl(struct file *file, unsigned int cmd, unsigned long arg);
  
-@@ -1857,6 +1868,7 @@ struct inode_operations {
+@@ -1864,6 +1875,7 @@ struct inode_operations {
  	struct dentry * (*lookup) (struct inode *,struct dentry *, unsigned int);
  	const char * (*get_link) (struct dentry *, struct inode *, struct delayed_call *);
  	int (*permission) (struct inode *, int);
@@ -792,7 +792,7 @@ index 35e662198dc5..42c2cfc33ce7 100644
  	struct posix_acl * (*get_acl)(struct inode *, int);
  
  	int (*readlink) (struct dentry *, char __user *,int);
-@@ -2871,6 +2883,7 @@ extern sector_t bmap(struct inode *, sector_t);
+@@ -2878,6 +2890,7 @@ extern sector_t bmap(struct inode *, sector_t);
  extern int notify_change(struct dentry *, struct iattr *, struct inode **);
  extern int notify_change2(struct vfsmount *, struct dentry *, struct iattr *, struct inode **);
  extern int inode_permission(struct inode *, int);

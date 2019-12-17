@@ -14,7 +14,7 @@ Signed-off-by: Alistair Delva <adelva@google.com>
  create mode 100644 include/net/virt_wifi.h
 
 diff --git a/drivers/net/wireless/virt_wifi.c b/drivers/net/wireless/virt_wifi.c
-index 7997cc6de334..07c43e4b750b 100644
+index 01305ba2d3aa..c9798071a578 100644
 --- a/drivers/net/wireless/virt_wifi.c
 +++ b/drivers/net/wireless/virt_wifi.c
 @@ -13,6 +13,7 @@

@@ -1,8 +1,8 @@
 #
 # android-5.4 patches
 #
-# Applies onto upstream f7688b48ac46 Linux 
-# Matches android-5.4 681294e742bf ("BACKPORT: FROMLIST: scsi: ufs: Export query request interfaces")
+# Applies onto upstream dc71226e59c2 Linux v5.4.4
+# Matches android-5.4 7dc11599046c ("Merge 5.4.4 into android-5.4")
 #
 ANDROID-Kbuild-LLVMLinux-allow-overriding-clang-target-triple.patch
 ANDROID-net-xfrm-make-PF_KEY-SHA256-use-RFC-compliant-truncation.patch

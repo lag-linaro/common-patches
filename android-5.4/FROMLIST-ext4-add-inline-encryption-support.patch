@@ -69,10 +69,10 @@ index b3a2cc7c0252..ce493e360814 100644
  #define EXT4_MOUNT_DATA_ERR_ABORT	0x10000000 /* Abort on file data write */
  #define EXT4_MOUNT_BLOCK_VALIDITY	0x20000000 /* Block validity checking */
 diff --git a/fs/ext4/inode.c b/fs/ext4/inode.c
-index f929f4a5398a..d392b76ab7a2 100644
+index eeac6470d182..83a3975b29ec 100644
 --- a/fs/ext4/inode.c
 +++ b/fs/ext4/inode.c
-@@ -1238,7 +1238,7 @@ static int ext4_block_write_begin(struct page *page, loff_t pos, unsigned len,
+@@ -1247,7 +1247,7 @@ static int ext4_block_write_begin(struct page *page, loff_t pos, unsigned len,
  	}
  	if (unlikely(err)) {
  		page_zero_new_buffers(page, from, to);
@@ -81,7 +81,7 @@ index f929f4a5398a..d392b76ab7a2 100644
  		for (i = 0; i < nr_wait; i++) {
  			int err2;
  
-@@ -4089,7 +4089,7 @@ static int __ext4_block_zero_page_range(handle_t *handle,
+@@ -4098,7 +4098,7 @@ static int __ext4_block_zero_page_range(handle_t *handle,
  		/* Uhhuh. Read error. Complain and punt. */
  		if (!buffer_uptodate(bh))
  			goto unlock;
@@ -185,7 +185,7 @@ index 0d88b82a5929..e21216e7ae24 100644
  			if (IS_ERR(ctx)) {
  				bio_put(bio);
 diff --git a/fs/ext4/super.c b/fs/ext4/super.c
-index 15e05fa86e6d..1c5509f47ca2 100644
+index 43961ab3d1e2..1781b885c04f 100644
 --- a/fs/ext4/super.c
 +++ b/fs/ext4/super.c
 @@ -1357,6 +1357,11 @@ static void ext4_get_ino_and_lblk_bits(struct super_block *sb,
