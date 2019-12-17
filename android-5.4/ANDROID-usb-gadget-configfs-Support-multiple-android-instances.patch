@@ -29,7 +29,7 @@ Signed-off-by: Jack Pham <jackp@codeaurora.org>
  1 file changed, 22 insertions(+), 19 deletions(-)
 
 diff --git a/drivers/usb/gadget/configfs.c b/drivers/usb/gadget/configfs.c
-index dffd930490a9..e6a4516a2a75 100644
+index d17cf05fd62f..b77cedce412f 100644
 --- a/drivers/usb/gadget/configfs.c
 +++ b/drivers/usb/gadget/configfs.c
 @@ -23,6 +23,7 @@ void acc_disconnect(void);
@@ -126,7 +126,7 @@ index dffd930490a9..e6a4516a2a75 100644
  {
  }
  #endif
-@@ -1822,8 +1822,11 @@ static struct config_group *gadgets_make(
+@@ -1823,8 +1823,11 @@ static struct config_group *gadgets_make(
  
  static void gadgets_drop(struct config_group *group, struct config_item *item)
  {

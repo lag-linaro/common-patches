@@ -226,10 +226,10 @@ index 1ba3f7883870..93a3a58a4f6d 100644
  	if (delegated_inode) {
  		error = break_deleg_wait(&delegated_inode);
 diff --git a/include/linux/fs.h b/include/linux/fs.h
-index e0d909d35763..35e662198dc5 100644
+index 0b4d8fc79e0f..ae6dfb6a20c6 100644
 --- a/include/linux/fs.h
 +++ b/include/linux/fs.h
-@@ -1871,7 +1871,8 @@ struct inode_operations {
+@@ -1878,7 +1878,8 @@ struct inode_operations {
  	int (*rename) (struct inode *, struct dentry *,
  			struct inode *, struct dentry *, unsigned int);
  	int (*setattr) (struct dentry *, struct iattr *);
@@ -239,7 +239,7 @@ index e0d909d35763..35e662198dc5 100644
  	ssize_t (*listxattr) (struct dentry *, char *, size_t);
  	int (*fiemap)(struct inode *, struct fiemap_extent_info *, u64 start,
  		      u64 len);
-@@ -2519,6 +2520,8 @@ static_assert(offsetof(struct filename, iname) % sizeof(long) == 0);
+@@ -2526,6 +2527,8 @@ static_assert(offsetof(struct filename, iname) % sizeof(long) == 0);
  extern long vfs_truncate(const struct path *, loff_t);
  extern int do_truncate(struct dentry *, loff_t start, unsigned int time_attrs,
  		       struct file *filp);
@@ -248,7 +248,7 @@ index e0d909d35763..35e662198dc5 100644
  extern int vfs_fallocate(struct file *file, int mode, loff_t offset,
  			loff_t len);
  extern long do_sys_open(int dfd, const char __user *filename, int flags,
-@@ -2866,6 +2869,7 @@ extern void emergency_remount(void);
+@@ -2873,6 +2876,7 @@ extern void emergency_remount(void);
  extern sector_t bmap(struct inode *, sector_t);
  #endif
  extern int notify_change(struct dentry *, struct iattr *, struct inode **);

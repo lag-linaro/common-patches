@@ -279,7 +279,7 @@ index cffa0c1ec829..2362be3e3b4d 100644
  		size = 8;
  	put_unaligned_be64(i_size_read(ecryptfs_inode), xattr_virt);
 diff --git a/fs/erofs/xattr.c b/fs/erofs/xattr.c
-index a13a78725c57..144b1713ebab 100644
+index b766c3ee5fa8..59e1d3ece0ee 100644
 --- a/fs/erofs/xattr.c
 +++ b/fs/erofs/xattr.c
 @@ -463,7 +463,8 @@ int erofs_getxattr(struct inode *inode, int index,
@@ -649,7 +649,7 @@ index bdc285aea360..ef4180bff7bb 100644
  	return orangefs_inode_getxattr(inode, name, buffer, size);
  
 diff --git a/fs/overlayfs/super.c b/fs/overlayfs/super.c
-index afbcb116a7f1..57f5f948ae0a 100644
+index 7621ff176d15..659d5971e32e 100644
 --- a/fs/overlayfs/super.c
 +++ b/fs/overlayfs/super.c
 @@ -855,7 +855,7 @@ static unsigned int ovl_split_lowerdirs(char *str)
@@ -895,10 +895,10 @@ index c1395b5bd432..1eba02616274 100644
  
  /* Namespaces */
 diff --git a/mm/shmem.c b/mm/shmem.c
-index 220be9fa2c41..641570ee1c10 100644
+index 7a22e3e03d11..6366cf08c24d 100644
 --- a/mm/shmem.c
 +++ b/mm/shmem.c
-@@ -3221,7 +3221,8 @@ static int shmem_initxattrs(struct inode *inode,
+@@ -3224,7 +3224,8 @@ static int shmem_initxattrs(struct inode *inode,
  
  static int shmem_xattr_handler_get(const struct xattr_handler *handler,
  				   struct dentry *unused, struct inode *inode,

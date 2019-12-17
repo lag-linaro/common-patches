@@ -33,7 +33,7 @@ Signed-off-by: Matthias Maennich <maennich@google.com>
  3 files changed, 320 insertions(+), 32 deletions(-)
 
 diff --git a/drivers/android/binder.c b/drivers/android/binder.c
-index 265d9dd46a5e..bc431dbf94f5 100644
+index 976a69420c16..424eff926d29 100644
 --- a/drivers/android/binder.c
 +++ b/drivers/android/binder.c
 @@ -66,6 +66,7 @@

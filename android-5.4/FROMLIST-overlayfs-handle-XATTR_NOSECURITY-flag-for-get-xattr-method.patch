@@ -56,10 +56,10 @@ Change-Id: Ia39543c5ce617976f14d790fb88e471d575ffd65
  3 files changed, 6 insertions(+), 5 deletions(-)
 
 diff --git a/fs/overlayfs/inode.c b/fs/overlayfs/inode.c
-index bc14781886bf..c057e51057f7 100644
+index b045cf1826fc..c4769f9d4f06 100644
 --- a/fs/overlayfs/inode.c
 +++ b/fs/overlayfs/inode.c
-@@ -363,7 +363,7 @@ int ovl_xattr_set(struct dentry *dentry, struct inode *inode, const char *name,
+@@ -369,7 +369,7 @@ int ovl_xattr_set(struct dentry *dentry, struct inode *inode, const char *name,
  }
  
  int ovl_xattr_get(struct dentry *dentry, struct inode *inode, const char *name,
@@ -68,7 +68,7 @@ index bc14781886bf..c057e51057f7 100644
  {
  	ssize_t res;
  	const struct cred *old_cred;
-@@ -371,7 +371,8 @@ int ovl_xattr_get(struct dentry *dentry, struct inode *inode, const char *name,
+@@ -377,7 +377,8 @@ int ovl_xattr_get(struct dentry *dentry, struct inode *inode, const char *name,
  		ovl_i_dentry_upper(inode) ?: ovl_dentry_lower(dentry);
  
  	old_cred = ovl_override_creds(dentry->d_sb);
@@ -92,7 +92,7 @@ index 6934bcf030f0..ab3d031c422b 100644
  struct posix_acl *ovl_get_acl(struct inode *inode, int type);
  int ovl_update_time(struct inode *inode, struct timespec64 *ts, int flags);
 diff --git a/fs/overlayfs/super.c b/fs/overlayfs/super.c
-index 57f5f948ae0a..c91e7b604631 100644
+index 659d5971e32e..80414c941f02 100644
 --- a/fs/overlayfs/super.c
 +++ b/fs/overlayfs/super.c
 @@ -857,7 +857,7 @@ ovl_posix_acl_xattr_get(const struct xattr_handler *handler,
