@@ -1,8 +1,8 @@
 #
 # android-5.4 patches
 #
-# Applies onto upstream f7688b48ac46 Linux v5.4.3
-# Matches android-5.4 d080cb7f9eeb ("ANDROID: update abi with unbindable_ports sysctl")
+# Applies onto upstream f7688b48ac46 Linux 
+# Matches android-5.4 681294e742bf ("BACKPORT: FROMLIST: scsi: ufs: Export query request interfaces")
 #
 ANDROID-Kbuild-LLVMLinux-allow-overriding-clang-target-triple.patch
 ANDROID-net-xfrm-make-PF_KEY-SHA256-use-RFC-compliant-truncation.patch
@@ -341,3 +341,4 @@ FROMLIST-scsi-ufs-Fix-ufshcd_hold-caused-scheduling-while-atomic.patch
 ANDROID-ion-flush-cache-before-exporting-non-cached-buffers.patch
 ANDROID-drivers-gpu-drm-export-drm_mode_convert_umode-symbol.patch
 BACKPORT-FROMLIST-net-introduce-ip_local_unbindable_ports-sysctl.patch
+BACKPORT-FROMLIST-scsi-ufs-Export-query-request-interfaces.patch
