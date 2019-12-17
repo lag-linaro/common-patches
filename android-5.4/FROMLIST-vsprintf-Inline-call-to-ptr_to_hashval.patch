@@ -1,0 +1,57 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: "Joel Fernandes (Google)" <joel@joelfernandes.org>
+Date: Mon, 18 Nov 2019 14:08:03 -0500
+Subject: FROMLIST: vsprintf: Inline call to ptr_to_hashval
+
+There is concern that ptr_to_hashval not being inlined can cause performance
+issues (unlike before where it was a static branch) with trace_printk being a
+hot path for it. Just create an inline version called __ptr_to_hashval(), and
+have the actual ptr_to_hashval() call it.
+
+Bug: 145972256
+
+Link: http://lore.kernel.org/r/20191113153816.14b95acd@gandalf.local.home
+Link: lore.kernel.org/r/20191114164622.GC233237@google.com
+Suggested-by: Steven Rostedt <rostedt@goodmis.org>
+Change-Id: Ie7133b9f32a8185e244db2634b028b316a3d7ea1
+Signed-off-by: Joel Fernandes <joel@joelfernandes.org>
+Signed-off-by: Joel Fernandes <joelaf@google.com>
+(cherry picked from commit 0f2b4ea6e2356687ce78ff23b8556d2138b6fe28)
+---
+ lib/vsprintf.c | 9 +++++++--
+ 1 file changed, 7 insertions(+), 2 deletions(-)
+
+diff --git a/lib/vsprintf.c b/lib/vsprintf.c
+index 465c5758d222..294468db3fb3 100644
+--- a/lib/vsprintf.c
++++ b/lib/vsprintf.c
+@@ -739,7 +739,7 @@ static int __init initialize_ptr_random(void)
+ }
+ early_initcall(initialize_ptr_random);
+  
+-int ptr_to_hashval(const void *ptr, unsigned long *hashval_out)
++static inline int __ptr_to_hashval(const void *ptr, unsigned long *hashval_out)
+ {
+ 	unsigned long hashval;
+ 
+@@ -760,6 +760,11 @@ int ptr_to_hashval(const void *ptr, unsigned long *hashval_out)
+ 	return 0;
+ }
+ 
++int ptr_to_hashval(const void *ptr, unsigned long *hashval_out)
++{
++	return __ptr_to_hashval(ptr, hashval_out);
++}
++
+ /* Maps a pointer to a 32 bit unique identifier. */
+ static char *ptr_to_id(char *buf, char *end, const void *ptr,
+ 		       struct printf_spec spec)
+@@ -774,7 +779,7 @@ static char *ptr_to_id(char *buf, char *end, const void *ptr,
+ 		return pointer_string(buf, end, (const void *)hashval, spec);
+ 	}
+ 
+-	ret = ptr_to_hashval(ptr, &hashval);
++	ret = __ptr_to_hashval(ptr, &hashval);
+ 	if (ret) {
+ 		spec.field_width = 2 * sizeof(ptr);
+ 		/* string length must be less than default_width */

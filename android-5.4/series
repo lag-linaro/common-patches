@@ -2,7 +2,7 @@
 # android-5.4 patches
 #
 # Applies onto upstream dc71226e59c2 Linux v5.4.4
-# Matches android-5.4 7dc11599046c ("Merge 5.4.4 into android-5.4")
+# Matches android-5.4 fcf7605013af ("ANDROID: abi update for 5.4.4")
 #
 ANDROID-Kbuild-LLVMLinux-allow-overriding-clang-target-triple.patch
 ANDROID-net-xfrm-make-PF_KEY-SHA256-use-RFC-compliant-truncation.patch
@@ -342,3 +342,7 @@ ANDROID-ion-flush-cache-before-exporting-non-cached-buffers.patch
 ANDROID-drivers-gpu-drm-export-drm_mode_convert_umode-symbol.patch
 BACKPORT-FROMLIST-net-introduce-ip_local_unbindable_ports-sysctl.patch
 BACKPORT-FROMLIST-scsi-ufs-Export-query-request-interfaces.patch
+UPSTREAM-mm-emit-tracepoint-when-RSS-changes.patch
+UPSTREAM-rss_stat-Add-support-to-detect-RSS-updates-of-external-mm.patch
+FROMLIST-vsprintf-Inline-call-to-ptr_to_hashval.patch
+ANDROID-mm-Throttle-rss_stat-tracepoint.patch
