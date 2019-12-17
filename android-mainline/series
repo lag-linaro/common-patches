@@ -2,7 +2,7 @@
 # android-mainline patches
 #
 # Applies onto upstream d1eef1c61974 Linux v5.5-rc2
-# Matches android-mainline d128444a8932 ("Merge 5.5-rc2 into android-mainline")
+# Matches android-mainline 77dfeaa02dc3 ("ANDROID: mm: Throttle rss_stat tracepoint")
 #
 FROMGIT-scsi-ufs-Recheck-bkops-level-if-bkops-is-disabled.patch
 FROMGIT-scsi-ufs-Update-VCCQ2-and-VCCQ-min-max-voltage-hard-codes.patch
@@ -286,3 +286,7 @@ ANDROID-README.md-Fix-indented-bullet.patch
 ANDROID-README.md-add-text-on-upstreaming-patches.patch
 ANDROID-ion-flush-cache-before-exporting-non-cached-buffers.patch
 ANDROID-mm-memory.c-export-mm_trace_rss_stat.patch
+BACKPORT-FROMLIST-scsi-ufs-Export-query-request-interfaces.patch
+ANDROID-SoC-core-export-snd_soc_info_multi_ext-as-gpl-only.patch
+ANDROID-export-mm_trace_rss_stat-as-gpl-only.patch
+ANDROID-mm-Throttle-rss_stat-tracepoint.patch
