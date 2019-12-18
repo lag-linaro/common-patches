@@ -1,7 +1,7 @@
 From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
 From: Can Guo <cang@codeaurora.org>
 Date: Thu, 5 Dec 2019 18:16:12 -0800
-Subject: BACKPORT: FROMLIST: scsi: ufs: Export query request interfaces
+Subject: FROMLIST: scsi: ufs: Export query request interfaces
 
 Vendor drivers may need to send query requests in proprietary
 implementations. Hence, export the query request interfaces
@@ -20,10 +20,10 @@ Signed-off-by: Asutosh Das <asutoshd@codeaurora.org>
  1 file changed, 3 insertions(+)
 
 diff --git a/drivers/scsi/ufs/ufshcd.c b/drivers/scsi/ufs/ufshcd.c
-index 1afe3b56a738..f8381aa4b42d 100644
+index f1623c4b53a0..030009487d04 100644
 --- a/drivers/scsi/ufs/ufshcd.c
 +++ b/drivers/scsi/ufs/ufshcd.c
-@@ -2884,6 +2884,7 @@ int ufshcd_query_flag(struct ufs_hba *hba, enum query_opcode opcode,
+@@ -2913,6 +2913,7 @@ int ufshcd_query_flag(struct ufs_hba *hba, enum query_opcode opcode,
  	ufshcd_release(hba);
  	return err;
  }
@@ -31,7 +31,7 @@ index 1afe3b56a738..f8381aa4b42d 100644
  
  /**
   * ufshcd_query_attr - API function for sending attribute requests
-@@ -2948,6 +2949,7 @@ int ufshcd_query_attr(struct ufs_hba *hba, enum query_opcode opcode,
+@@ -2977,6 +2978,7 @@ int ufshcd_query_attr(struct ufs_hba *hba, enum query_opcode opcode,
  	ufshcd_release(hba);
  	return err;
  }
@@ -39,7 +39,7 @@ index 1afe3b56a738..f8381aa4b42d 100644
  
  /**
   * ufshcd_query_attr_retry() - API function for sending query
-@@ -3082,6 +3084,7 @@ int ufshcd_query_descriptor_retry(struct ufs_hba *hba,
+@@ -3111,6 +3113,7 @@ int ufshcd_query_descriptor_retry(struct ufs_hba *hba,
  
  	return err;
  }

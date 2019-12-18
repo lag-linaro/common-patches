@@ -43,7 +43,7 @@ index 000000000000..523bbc0449f7
 +"
 diff --git a/build.config.common b/build.config.common
 new file mode 100644
-index 000000000000..d9895bb9ad64
+index 000000000000..decd1a3a73fe
 --- /dev/null
 +++ b/build.config.common
 @@ -0,0 +1,10 @@
@@ -52,7 +52,7 @@ index 000000000000..d9895bb9ad64
 +
 +CC=clang
 +LD=ld.lld
-+CLANG_PREBUILT_BIN=prebuilts-master/clang/host/linux-x86/clang-r365631c/bin
++CLANG_PREBUILT_BIN=prebuilts-master/clang/host/linux-x86/clang-r370808/bin
 +BUILDTOOLS_PREBUILT_BIN=build/build-tools/path/linux-x86
 +
 +EXTRA_CMDS=''

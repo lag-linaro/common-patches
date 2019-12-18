@@ -14,7 +14,7 @@ Signed-off-by: Peter Collingbourne <pcc@google.com>
  1 file changed, 2 insertions(+)
 
 diff --git a/build.config.common b/build.config.common
-index d9895bb9ad64..8e328b13b082 100644
+index decd1a3a73fe..f3370bcccb55 100644
 --- a/build.config.common
 +++ b/build.config.common
 @@ -3,6 +3,8 @@ KERNEL_DIR=common
@@ -23,6 +23,6 @@ index d9895bb9ad64..8e328b13b082 100644
  LD=ld.lld
 +NM=llvm-nm
 +OBJCOPY=llvm-objcopy
- CLANG_PREBUILT_BIN=prebuilts-master/clang/host/linux-x86/clang-r365631c/bin
+ CLANG_PREBUILT_BIN=prebuilts-master/clang/host/linux-x86/clang-r370808/bin
  BUILDTOOLS_PREBUILT_BIN=build/build-tools/path/linux-x86
  
