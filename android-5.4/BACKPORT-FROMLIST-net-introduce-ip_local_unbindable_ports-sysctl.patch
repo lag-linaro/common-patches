@@ -113,7 +113,7 @@ index 8d4ad1d1ae26..927139f41f28 100644
  	This is a per-namespace sysctl.  It defines the first
  	unprivileged port in the network namespace.  Privileged ports
 diff --git a/include/net/ip.h b/include/net/ip.h
-index a2c61c36dc4a..a28bbbf2075f 100644
+index 4b15cc1c224c..c0db1e75c913 100644
 --- a/include/net/ip.h
 +++ b/include/net/ip.h
 @@ -346,6 +346,13 @@ static inline int inet_is_local_reserved_port(struct net *net, int port)
@@ -216,7 +216,7 @@ index 0902cb32bbad..4af6ef3567e5 100644
  	table = net->ipv4.ipv4_hdr->ctl_table_arg;
  	unregister_net_sysctl_table(net->ipv4.ipv4_hdr);
 diff --git a/net/ipv6/af_inet6.c b/net/ipv6/af_inet6.c
-index ef37e0574f54..d78ab69ab81f 100644
+index 14ac1d911287..ff76df59f569 100644
 --- a/net/ipv6/af_inet6.c
 +++ b/net/ipv6/af_inet6.c
 @@ -292,6 +292,8 @@ static int __inet6_bind(struct sock *sk, struct sockaddr *uaddr, int addr_len,
