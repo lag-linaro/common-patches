@@ -2,7 +2,7 @@
 # android-5.4 patches
 #
 # Applies onto upstream dc71226e59c2 Linux v5.4.4
-# Matches android-5.4 fcf7605013af ("ANDROID: abi update for 5.4.4")
+# Matches android-5.4 b9962accde08 ("ANDROID: add initial ABI whitelist for android-5.4")
 #
 ANDROID-Kbuild-LLVMLinux-allow-overriding-clang-target-triple.patch
 ANDROID-net-xfrm-make-PF_KEY-SHA256-use-RFC-compliant-truncation.patch
@@ -346,3 +346,4 @@ UPSTREAM-mm-emit-tracepoint-when-RSS-changes.patch
 UPSTREAM-rss_stat-Add-support-to-detect-RSS-updates-of-external-mm.patch
 FROMLIST-vsprintf-Inline-call-to-ptr_to_hashval.patch
 ANDROID-mm-Throttle-rss_stat-tracepoint.patch
+ANDROID-add-initial-ABI-whitelist-for-android-5.4.patch
