@@ -1,0 +1,41 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: John Stultz <john.stultz@linaro.org>
+Date: Tue, 3 Sep 2019 22:36:19 +0000
+Subject: ANDROID: drm: kirin: Fix Makefile to correct for module builds
+
+Fix kirin driver module builds
+
+Bug: 146450171
+Signed-off-by: John Stultz <john.stultz@linaro.org>
+Change-Id: I01f4054b49bd5fe41311ac11f51f6d3f56162df3
+---
+ drivers/gpu/drm/hisilicon/kirin/Makefile | 16 +++++++---------
+ 1 file changed, 7 insertions(+), 9 deletions(-)
+
+diff --git a/drivers/gpu/drm/hisilicon/kirin/Makefile b/drivers/gpu/drm/hisilicon/kirin/Makefile
+index ddd47343aca5..d00c948534ec 100644
+--- a/drivers/gpu/drm/hisilicon/kirin/Makefile
++++ b/drivers/gpu/drm/hisilicon/kirin/Makefile
+@@ -2,15 +2,13 @@
+ EXTRA_CFLAGS += \
+ 		-Iinclude/drm
+ 
+-kirin-drm-y :=  kirin_drm_drv.o \
+-		kirin_drm_dsi.o \
+ 
+-kirin-drm-$(CONFIG_DRM_HISI_KIRIN620) += \
+-				kirin_drm_ade.o \
+-				kirin/dw_drm_dsi.o
++kirin-drm-y := kirin_drm_drv.o
++kirin-drm-$(CONFIG_DRM_HISI_KIRIN620) += kirin_drm_ade.o
++kirin-drm-$(CONFIG_DRM_HISI_KIRIN960) += kirin_drm_dpe.o
+ 
+-kirin-drm-$(CONFIG_DRM_HISI_KIRIN960) += \
+-				kirin960/dw_drm_dsi.o \
+-				kirin_drm_dpe.o
++kirin-dsi-y := kirin_drm_dsi.o
++kirin-dsi-$(CONFIG_DRM_HISI_KIRIN620) += kirin/dw_drm_dsi.o
++kirin-dsi-$(CONFIG_DRM_HISI_KIRIN960) += kirin960/dw_drm_dsi.o
+ 
+-obj-$(CONFIG_DRM_HISI_KIRIN) += kirin-drm.o
++obj-$(CONFIG_DRM_HISI_KIRIN) += kirin-drm.o kirin-dsi.o

@@ -1,0 +1,80 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: Youlin Wang <wangyoulin1@hisilicon.com>
+Date: Thu, 28 Feb 2019 21:57:41 +0800
+Subject: ANDROID: ASoC: add hikey960-i2s DT bindings
+
+Adds DT bindings documentation for
+the hikey960-i2s driver and audio card device.
+
+Bug: 146450171
+Signed-off-by: Youlin Wang <wangyoulin1@hisilicon.com>
+Signed-off-by: Tanglei Han <hantanglei@huawei.com>
+Signed-off-by: Guangke Ji <jiguangke@huawei.com>
+Signed-off-by: Feng Chen <puck.chen@hisilicon.com>
+Signed-off-by: Kaihua Zhong <zhongkaihua@huawei.com>
+Signed-off-by: Jun Chen <chenjun14@huawei.com>
+Signed-off-by: John Stultz <john.stultz@linaro.org>
+Signed-off-by: Yiping Xu <xuyiping@hisilicon.com>
+Signed-off-by: Pengcheng Li <lipengcheng8@huawei.com>
+Signed-off-by: John Stultz <john.stultz@linaro.org>
+Change-Id: If9f8ce65c78e1e1e6b2e0439b590e7558763d631
+---
+ .../bindings/sound/hisilicon,hi3660-i2s.txt   | 49 +++++++++++++++++++
+ 1 file changed, 49 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/sound/hisilicon,hi3660-i2s.txt
+
+diff --git a/Documentation/devicetree/bindings/sound/hisilicon,hi3660-i2s.txt b/Documentation/devicetree/bindings/sound/hisilicon,hi3660-i2s.txt
+new file mode 100644
+index 000000000000..654c234da07e
+--- /dev/null
++++ b/Documentation/devicetree/bindings/sound/hisilicon,hi3660-i2s.txt
+@@ -0,0 +1,49 @@
++* Hisilicon 6210 i2s controller
++
++Required properties:
++
++- compatible: should be one of the following:
++   - "hisilicon,hi3660-i2s-1.0"
++- reg: physical base address of the i2s controller unit and length of
++   memory mapped region.
++- interrupts: should contain the i2s interrupt.
++- clocks: a list of phandle + clock-specifier pairs, one for each entry
++  in clock-names.
++- clock-names: should contain following:
++   - "dacodec"
++   - "i2s-base"
++- dmas: DMA specifiers for tx dma. See the DMA client binding,
++  Documentation/devicetree/bindings/dma/dma.txt
++- dma-names: should be "tx" and "rx"
++- hisilicon,sysctrl-syscon: phandle to sysctrl syscon
++- #sound-dai-cells: Should be set to 1 (for multi-dai)
++
++Example for the hi3660 i2s controller:
++
++	i2s2: hisi_i2s {
++		compatible = "hisilicon,hi3660-i2s-1.0";
++		reg = <0x0 0xe804f800 0x0 0x400>,
++			  <0x0 0xe804e000 0x0 0x400>;
++		pinctrl-names = "default";
++		pinctrl-0 = <&i2s2_pmx_func &i2s2_cfg_func>;
++		dmas = <&asp_dmac 18 &asp_dmac 19>;
++		dma-names = "rx", "tx";
++		#sound-dai-cells = <0>;
++	};
++
++	sound {
++		compatible = "simple-audio-card";
++		simple-audio-card,name = "hikey-hdmi";
++		simple-audio-card,format = "i2s";
++
++		simple-audio-card,bitclock-master = <&sound_master>;
++		simple-audio-card,frame-master = <&sound_master>;
++
++		sound_master: simple-audio-card,cpu {
++			sound-dai = <&i2s2>;
++		};
++
++		simple-audio-card,codec {
++			sound-dai = <&adv7533>;
++		};
++	};

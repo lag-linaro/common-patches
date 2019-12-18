@@ -1,0 +1,43 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: John Stultz <john.stultz@linaro.org>
+Date: Wed, 16 May 2018 17:12:43 -0700
+Subject: ANDROID: arm64: dts: hikey960: Fix bootwarning on mapping reboot
+ reason syscon
+
+Avoid bootwarning mapping reboot reason syscon
+
+Bug: 146450171
+Signed-off-by: John Stultz <john.stultz@linaro.org>
+Change-Id: I2f79450c0be8bb19f547159992ee6b54d897f8c5
+---
+ .../boot/dts/hisilicon/hi3660-hikey960.dts      | 17 +++++++++++++++++
+ 1 file changed, 17 insertions(+)
+
+diff --git a/arch/arm64/boot/dts/hisilicon/hi3660-hikey960.dts b/arch/arm64/boot/dts/hisilicon/hi3660-hikey960.dts
+index f5f5d79f2e89..e422b498ee4a 100644
+--- a/arch/arm64/boot/dts/hisilicon/hi3660-hikey960.dts
++++ b/arch/arm64/boot/dts/hisilicon/hi3660-hikey960.dts
+@@ -48,6 +48,23 @@
+ 		#size-cells = <2>;
+ 		ranges;
+ 
++		fastboot_cma: fastboot-cma-mem {
++			reg = <0x0 0x16c00000 0x0 0x4000000>;
++			compatible = "shared-dma-pool";
++			hisi,cma-sec;
++			reusable;
++		};
++
++		uefi-reboot-mode {
++			reg = <0x0 0x32100000 0x0 0x00001000>;
++			no-map;
++		};
++
++		bl31 {
++			reg = <0x0 0x20200000 0x0 0x200000>;
++			no-map;
++		};
++
+ 		ramoops@32000000 {
+ 			compatible = "ramoops";
+ 			reg = <0x0 0x32000000 0x0 0x00100000>;

@@ -2,7 +2,7 @@
 # android-5.4 patches
 #
 # Applies onto upstream 9a088971000c Linux v5.4.5
-# Matches android-5.4 09cdc723def6 ("Merge 5.4.5 into android-5.4")
+# Matches android-5.4 183905b9fd67 ("ANDROID: ASoC: add hikey960-i2s DT bindings")
 #
 ANDROID-Kbuild-LLVMLinux-allow-overriding-clang-target-triple.patch
 ANDROID-net-xfrm-make-PF_KEY-SHA256-use-RFC-compliant-truncation.patch
@@ -347,3 +347,19 @@ UPSTREAM-rss_stat-Add-support-to-detect-RSS-updates-of-external-mm.patch
 FROMLIST-vsprintf-Inline-call-to-ptr_to_hashval.patch
 ANDROID-mm-Throttle-rss_stat-tracepoint.patch
 ANDROID-add-initial-ABI-whitelist-for-android-5.4.patch
+ANDROID-mm-memory.c-export-mm_trace_rss_stat.patch
+ANDROID-arm64-dts-hikey960-Add-CMA-entry-for-ION-framebuffers.patch
+ANDROID-arm64-dts-hi3660-add-display-driver-dts.patch
+ANDROID-arm64-dts-hi3660-hikey960-Add-i2s-sound-device.patch
+ANDROID-arm64-dts-hi3660-enable-gpu.patch
+ANDROID-arm64-dts-hi3660-adb-reboot-node.patch
+ANDROID-arm64-dts-hikey960-Fix-bootwarning-on-mapping-reboot-reason-syscon.patch
+ANDROID-arm64-dts-hi3660-Add-support-for-usb-on-Hikey960.patch
+ANDROID-drm-kirin-Introduce-kirin960.patch
+ANDROID-drm-kirin-Add-kirin960-dpe-driver-support.patch
+ANDROID-drm-kirin-remove-wait-for-VACTIVE-IRQ.patch
+ANDROID-drm-kirin960-Remove-one-mode-line-that-seems-to-be-causing-trouble.patch
+ANDROID-drm-kirin-Fix-Makefile-to-correct-for-module-builds.patch
+ANDROID-HACK-adv7511-Add-poweron-delay-to-allow-for-EDID-probing-to-work.patch
+ANDROID-sound-Add-hikey960-i2s-audio-driver.patch
+ANDROID-ASoC-add-hikey960-i2s-DT-bindings.patch

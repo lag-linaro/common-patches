@@ -1,0 +1,33 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: John Stultz <john.stultz@linaro.org>
+Date: Wed, 10 Apr 2019 13:26:38 -0700
+Subject: ANDROID: drm: kirin960: Remove one mode-line that seems to be causing
+ trouble
+
+Alessio Balsini reported issues with his GeeekPi 7" monitor
+after we added the wider mode support.
+
+While this mode may work ok on HiKey, I suspect its just a bit
+too far off for HiKey960.
+
+So lets remove it for now.
+
+Bug: 146450171
+Signed-off-by: John Stultz <john.stultz@linaro.org>
+Change-Id: I54221c44f2ee6af16d3772831a24c2872a6f738c
+---
+ drivers/gpu/drm/hisilicon/kirin/kirin960/dw_drm_dsi.c | 1 -
+ 1 file changed, 1 deletion(-)
+
+diff --git a/drivers/gpu/drm/hisilicon/kirin/kirin960/dw_drm_dsi.c b/drivers/gpu/drm/hisilicon/kirin/kirin960/dw_drm_dsi.c
+index fa7739234b33..84f0b76aba2d 100644
+--- a/drivers/gpu/drm/hisilicon/kirin/kirin960/dw_drm_dsi.c
++++ b/drivers/gpu/drm/hisilicon/kirin/kirin960/dw_drm_dsi.c
+@@ -106,7 +106,6 @@ static enum drm_mode_status dsi_encoder_phy_mode_valid(
+ 	    (mode->hdisplay == 1024 && mode->vdisplay == 768  && mode->clock == 78800)  ||
+ 	    (mode->hdisplay == 1024 && mode->vdisplay == 768  && mode->clock == 75000)  ||
+ 	    (mode->hdisplay == 1024 && mode->vdisplay == 768  && mode->clock == 81833)  ||
+-	    (mode->hdisplay == 1024 && mode->vdisplay == 600  && mode->clock == 50250)  ||
+ 	    (mode->hdisplay == 800  && mode->vdisplay == 600  && mode->clock == 48907)  ||
+ 	    (mode->hdisplay == 800  && mode->vdisplay == 600  && mode->clock == 40000)  ||
+ 	    (mode->hdisplay == 800  && mode->vdisplay == 480  && mode->clock == 32000)) {

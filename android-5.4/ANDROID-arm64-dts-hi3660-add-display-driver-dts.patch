@@ -1,0 +1,184 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: cailiwei <cailiwei@hisilicon.com>
+Date: Tue, 15 Aug 2017 15:05:23 +0800
+Subject: ANDROID: arm64: dts: hi3660: add display driver dts
+
+Bug: 146450171
+Signed-off-by: Liwei Cai <cailiwei@hisilicon.com>
+Signed-off-by: Xiubin Zhang <zhangxiubin1@huawei.com>
+[jstultz: Cleanup unused hisifb bits]
+Signed-off-by: John Stultz <john.stultz@linaro.org>
+Change-Id: If9df111ad81475caec22fe75168544b010477e04
+---
+ arch/arm64/boot/dts/hisilicon/hi3660-drm.dtsi | 114 ++++++++++++++++++
+ .../boot/dts/hisilicon/hi3660-hikey960.dts    |   2 +
+ arch/arm64/boot/dts/hisilicon/hi3660.dtsi     |  22 +++-
+ 3 files changed, 137 insertions(+), 1 deletion(-)
+ create mode 100644 arch/arm64/boot/dts/hisilicon/hi3660-drm.dtsi
+
+diff --git a/arch/arm64/boot/dts/hisilicon/hi3660-drm.dtsi b/arch/arm64/boot/dts/hisilicon/hi3660-drm.dtsi
+new file mode 100644
+index 000000000000..c7f497c8e1c3
+--- /dev/null
++++ b/arch/arm64/boot/dts/hisilicon/hi3660-drm.dtsi
+@@ -0,0 +1,114 @@
++/{
++		dpe: dpe@E8600000 {
++			compatible = "hisilicon,hi3660-dpe";
++			status = "ok";
++
++			reg = <0x0 0xE8600000 0x0 0x80000>,
++					<0x0 0xFFF35000 0 0x1000>,
++					<0x0 0xFFF0A000 0 0x1000>,
++					<0x0 0xFFF31000 0 0x1000>,
++					<0x0 0xE86C0000 0 0x10000>;
++			interrupts = <0 245 4>;
++
++			clocks = <&crg_ctrl HI3660_ACLK_GATE_DSS>,
++				<&crg_ctrl HI3660_PCLK_GATE_DSS>,
++				<&crg_ctrl HI3660_CLK_GATE_EDC0>,
++				<&crg_ctrl HI3660_CLK_GATE_LDI0>,
++				<&crg_ctrl HI3660_CLK_GATE_LDI1>,
++				<&sctrl HI3660_CLK_GATE_DSS_AXI_MM>,
++				<&sctrl HI3660_PCLK_GATE_MMBUF>;
++			clock-names = "aclk_dss",
++					"pclk_dss",
++					"clk_edc0",
++					"clk_ldi0",
++					"clk_ldi1",
++					"clk_dss_axi_mm",
++					"pclk_mmbuf";
++
++			dma-coherent;
++
++			port {
++				dpe_out: endpoint {
++					remote-endpoint = <&dsi_in>;
++				};
++			};
++
++			iommu_info {
++				start-addr = <0x8000>;
++				size = <0xbfff8000>;
++			};
++		};
++
++		dsi: dsi@E8601000 {
++			compatible = "hisilicon,hi3660-dsi";
++			status = "ok";
++
++			reg = <0 0xE8601000 0 0x7F000>,
++					<0 0xFFF35000 0 0x1000>;
++
++			clocks = <&crg_ctrl HI3660_CLK_GATE_TXDPHY0_REF>,
++					<&crg_ctrl HI3660_CLK_GATE_TXDPHY1_REF>,
++					<&crg_ctrl HI3660_CLK_GATE_TXDPHY0_CFG>,
++					<&crg_ctrl HI3660_CLK_GATE_TXDPHY1_CFG>,
++					<&crg_ctrl HI3660_PCLK_GATE_DSI0>,
++					<&crg_ctrl HI3660_PCLK_GATE_DSI1>;
++			clock-names = "clk_txdphy0_ref",
++						"clk_txdphy1_ref",
++						"clk_txdphy0_cfg",
++						"clk_txdphy1_cfg",
++						"pclk_dsi0",
++						"pclk_dsi1";
++
++			#address-cells = <1>;
++			#size-cells = <0>;
++			mux-gpio = <&gpio2 4 0>;
++
++			ports {
++				#address-cells = <1>;
++				#size-cells = <0>;
++
++				port@0 {
++					reg = <0>;
++					dsi_in: endpoint {
++						remote-endpoint = <&dpe_out>;
++					};
++				};
++
++				port@1 {
++					#address-cells = <1>;
++					#size-cells = <0>;
++					reg = <1>;
++
++					dsi_out0: endpoint@0 {
++						reg = <0>;
++						remote-endpoint = <&adv7533_in>;
++					};
++
++					dsi_out1: endpoint@1 {
++						reg = <1>;
++						remote-endpoint = <&panel0_in>;
++					};
++				};
++			};
++
++			panel@1 {
++				compatible = "hisilicon,mipi-hikey";
++				#address-cells = <2>;
++				#size-cells = <2>;
++				status = "ok";
++				reg = <1>;
++				panel-width-mm = <94>;
++				panel-height-mm = <151>;
++				vdd-supply = <&ldo3>;
++				pwr-en-gpio = <&gpio27 0 0>;
++				bl-en-gpio = <&gpio27 2 0>;
++				pwm-gpio = <&gpio22 6 0>;
++
++				port {
++					panel0_in: endpoint {
++						remote-endpoint = <&dsi_out1>;
++					};
++				};
++			};
++		};
++};
+diff --git a/arch/arm64/boot/dts/hisilicon/hi3660-hikey960.dts b/arch/arm64/boot/dts/hisilicon/hi3660-hikey960.dts
+index 8b7194d7adc1..da937ed7585c 100644
+--- a/arch/arm64/boot/dts/hisilicon/hi3660-hikey960.dts
++++ b/arch/arm64/boot/dts/hisilicon/hi3660-hikey960.dts
+@@ -10,6 +10,8 @@
+ 
+ #include "hi3660.dtsi"
+ #include "hikey960-pinctrl.dtsi"
++#include "hi3660-drm.dtsi"
++
+ #include <dt-bindings/gpio/gpio.h>
+ #include <dt-bindings/input/input.h>
+ #include <dt-bindings/interrupt-controller/irq.h>
+diff --git a/arch/arm64/boot/dts/hisilicon/hi3660.dtsi b/arch/arm64/boot/dts/hisilicon/hi3660.dtsi
+index 253cc345f143..84e9b33e2ad5 100644
+--- a/arch/arm64/boot/dts/hisilicon/hi3660.dtsi
++++ b/arch/arm64/boot/dts/hisilicon/hi3660.dtsi
+@@ -431,7 +431,27 @@
+ 			resets = <&iomcu_rst 0x20 4>;
+ 			pinctrl-names = "default";
+ 			pinctrl-0 = <&i2c1_pmx_func &i2c1_cfg_func>;
+-			status = "disabled";
++			status = "ok";
++
++			adv7533: adv7533@39 {
++				status = "ok";
++				compatible = "adi,adv7533";
++				reg = <0x39>;
++				v1p2-supply = <&ldo3>;
++				vdd-supply = <&ldo3>;
++				interrupt-parent = <&gpio1>;
++				interrupts = <1 2>;
++				pd-gpio = <&gpio5 1 0>;
++				sel-gpio = <&gpio2 4 0>;
++				adi,dsi-lanes = <4>;
++				adi,disable-timing-generator;
++
++				port {
++					adv7533_in: endpoint {
++						remote-endpoint = <&dsi_out0>;
++					};
++				};
++			};
+ 		};
+ 
+ 		i2c3: i2c@fdf0c000 {
