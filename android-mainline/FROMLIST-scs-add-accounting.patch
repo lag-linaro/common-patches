@@ -139,10 +139,10 @@ index 28abed21950c..5245e992c692 100644
  	scs_free(s);
  }
 diff --git a/mm/page_alloc.c b/mm/page_alloc.c
-index d3ea0ec6c331..5a92a3d54d80 100644
+index 4785a8a2040e..6073556fc99a 100644
 --- a/mm/page_alloc.c
 +++ b/mm/page_alloc.c
-@@ -5377,6 +5377,9 @@ void show_free_areas(unsigned int filter, nodemask_t *nodemask)
+@@ -5365,6 +5365,9 @@ void show_free_areas(unsigned int filter, nodemask_t *nodemask)
  			" managed:%lukB"
  			" mlocked:%lukB"
  			" kernel_stack:%lukB"
@@ -152,7 +152,7 @@ index d3ea0ec6c331..5a92a3d54d80 100644
  			" pagetables:%lukB"
  			" bounce:%lukB"
  			" free_pcp:%lukB"
-@@ -5399,6 +5402,9 @@ void show_free_areas(unsigned int filter, nodemask_t *nodemask)
+@@ -5387,6 +5390,9 @@ void show_free_areas(unsigned int filter, nodemask_t *nodemask)
  			K(zone_managed_pages(zone)),
  			K(zone_page_state(zone, NR_MLOCK)),
  			zone_page_state(zone, NR_KERNEL_STACK_KB),

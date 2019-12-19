@@ -68,6 +68,11 @@ FROMLIST-scsi-ufs-Remove-the-check-before-call-setup-clock-notify-vops.patch
 FROMLIST-scsi-ufs-qcom-Adjust-bus-bandwidth-voting-and-unvoting.patch
 FROMLIST-scsi-ufs-Add-dev-ref-clock-gating-wait-time-support.patch
 FROMLIST-scsi-ufs-Fix-ufshcd_hold-caused-scheduling-while-atomic.patch
+FROMLIST-scsi-ufs-Export-query-request-interfaces.patch
+FROMLIST-add-support-for-Clang-s-Shadow-Call-Stack-SCS.patch
+FROMLIST-scs-add-accounting.patch
+FROMLIST-scs-add-support-for-stack-usage-debugging.patch
+FROMLIST-crypto-arm64-sha-fix-function-types.patch
 ANDROID-arm64-copy-CONFIG_CMDLINE_EXTEND-from-ARM.patch
 ANDROID-of-Support-CONFIG_CMDLINE_EXTEND-config-option.patch
 ANDROID-Kbuild-LLVMLinux-allow-overriding-clang-target-triple.patch
@@ -238,11 +243,6 @@ ANDROID-gki_defconfig-enable-CONFIG_IKHEADERS-as-m.patch
 ANDROID-gki_defconfig-FW_CACHE-to-no.patch
 ANDROID-gki_defconfig-removed-CONFIG_PM_WAKELOCKS.patch
 ANDROID-gki_defconfig-m-s-applied-for-virtio-configs-in-arm64.patch
-ANDROID-clang-update-to-10.0.1.patch
-FROMLIST-add-support-for-Clang-s-Shadow-Call-Stack-SCS.patch
-FROMLIST-scs-add-accounting.patch
-FROMLIST-scs-add-support-for-stack-usage-debugging.patch
-FROMLIST-crypto-arm64-sha-fix-function-types.patch
 ANDROID-kbuild-add-CONFIG_LD_IS_LLD.patch
 ANDROID-kbuild-add-support-for-Clang-LTO.patch
 ANDROID-kbuild-fix-dynamic-ftrace-with-clang-LTO.patch
@@ -286,7 +286,6 @@ ANDROID-README.md-Fix-indented-bullet.patch
 ANDROID-README.md-add-text-on-upstreaming-patches.patch
 ANDROID-ion-flush-cache-before-exporting-non-cached-buffers.patch
 ANDROID-mm-memory.c-export-mm_trace_rss_stat.patch
-BACKPORT-FROMLIST-scsi-ufs-Export-query-request-interfaces.patch
 ANDROID-SoC-core-export-snd_soc_info_multi_ext-as-gpl-only.patch
 ANDROID-export-mm_trace_rss_stat-as-gpl-only.patch
 ANDROID-mm-Throttle-rss_stat-tracepoint.patch
