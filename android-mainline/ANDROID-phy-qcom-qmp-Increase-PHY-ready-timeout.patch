@@ -1,0 +1,33 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: Bjorn Andersson <bjorn.andersson@linaro.org>
+Date: Sun, 29 Sep 2019 23:19:32 -0700
+Subject: ANDROID: phy: qcom-qmp: Increase PHY ready timeout
+
+It's typical for the QHP PHY to take slightly above 1ms to initialize,
+so increase the timeout of the PHY ready check to 10ms - as already done
+in the downstream PCIe driver.
+
+Bug: 146449535
+Signed-off-by: Bjorn Andersson <bjorn.andersson@linaro.org>
+(cherry picked from commit d62d7294de98c504a345b0750ad4d0f53587f516
+https://git.linaro.org/landing-teams/working/qualcomm/kernel.git
+qclt/integration-linux-qcomlt  - An unstable rebased branch)
+Signed-off-by: John Stultz <john.stultz@linaro.org>
+Change-Id: I5b1c06406a97b4a2592549bcf668796c141bcccb
+---
+ drivers/phy/qualcomm/phy-qcom-qmp.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/drivers/phy/qualcomm/phy-qcom-qmp.c b/drivers/phy/qualcomm/phy-qcom-qmp.c
+index 091e20303a14..66f91726b8b2 100644
+--- a/drivers/phy/qualcomm/phy-qcom-qmp.c
++++ b/drivers/phy/qualcomm/phy-qcom-qmp.c
+@@ -66,7 +66,7 @@
+ /* QPHY_V3_PCS_MISC_CLAMP_ENABLE register bits */
+ #define CLAMP_EN				BIT(0) /* enables i/o clamp_n */
+ 
+-#define PHY_INIT_COMPLETE_TIMEOUT		1000
++#define PHY_INIT_COMPLETE_TIMEOUT		10000
+ #define POWER_DOWN_DELAY_US_MIN			10
+ #define POWER_DOWN_DELAY_US_MAX			11
+ 
