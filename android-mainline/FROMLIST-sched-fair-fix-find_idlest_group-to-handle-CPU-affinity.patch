@@ -1,0 +1,40 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: Vincent Guittot <vincent.guittot@linaro.org>
+Date: Wed, 4 Dec 2019 19:21:40 +0100
+Subject: FROMLIST: sched/fair: fix find_idlest_group() to handle CPU affinity
+
+Because of CPU affinity, the local group can be skipped which breaks the
+assumption that statistics are always collected for local group. With
+uninitialized local_sgs, the comparison is meaningless and the behavior
+unpredictable. This can even end up to use local pointer which is to
+NULL in this case.
+
+If the local group has been skipped because of CPU affinity, we return
+the idlest group.
+
+Fixes: 57abff067a08 ("sched/fair: Rework find_idlest_group()")
+Reported-by: John Stultz <john.stultz@linaro.org>
+Signed-off-by: Vincent Guittot <vincent.guittot@linaro.org>
+Tested-by: John Stultz <john.stultz@linaro.org>
+Link: https://lkml.org/lkml/2019/12/4/1042
+Signed-off-by: John Stultz <john.stultz@linaro.org>
+Change-Id: Ica9738112b1ee9c485e0354a37f4ce887c983531
+---
+ kernel/sched/fair.c | 4 ++++
+ 1 file changed, 4 insertions(+)
+
+diff --git a/kernel/sched/fair.c b/kernel/sched/fair.c
+index 60ad153716a0..88ca3798b922 100644
+--- a/kernel/sched/fair.c
++++ b/kernel/sched/fair.c
+@@ -8511,6 +8511,10 @@ find_idlest_group(struct sched_domain *sd, struct task_struct *p,
+ 	if (!idlest)
+ 		return NULL;
+ 
++	/* The local group has been skipped because of CPU affinity */
++	if (!local)
++		return idlest;
++
+ 	/*
+ 	 * If the local group is idler than the selected idlest group
+ 	 * don't try and push the task.

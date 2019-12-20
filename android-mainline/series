@@ -2,7 +2,7 @@
 # android-mainline patches
 #
 # Applies onto upstream d1eef1c61974 Linux v5.5-rc2
-# Matches android-mainline ac049f22f119 ("ANDROID: add initial ABI whitelist for android-mainline")
+# Matches android-mainline 2d84e3baa006 ("ANDROID: gki_defconfig: Enable CONFIG_GNSS_CMDLINE_SERIAL")
 #
 FROMGIT-scsi-ufs-Recheck-bkops-level-if-bkops-is-disabled.patch
 FROMGIT-scsi-ufs-Update-VCCQ2-and-VCCQ-min-max-voltage-hard-codes.patch
@@ -287,3 +287,21 @@ ANDROID-SoC-core-export-snd_soc_info_multi_ext-as-gpl-only.patch
 ANDROID-export-mm_trace_rss_stat-as-gpl-only.patch
 ANDROID-mm-Throttle-rss_stat-tracepoint.patch
 ANDROID-add-initial-ABI-whitelist-for-android-mainline.patch
+staging-android-ion-Remove-unused-rbtree-for-ion_buffer.patch
+ANDROID-gki_defconfig-Set-BINFMT_MISC-as-m.patch
+ANDROID-gki_defconfig-enable-ARM64_SW_TTBR0_PAN.patch
+FROMLIST-sched-fair-fix-find_idlest_group-to-handle-CPU-affinity.patch
+ANDROID-phy-qcom-qmp-Increase-PHY-ready-timeout.patch
+ANDROID-phy-qcom-qmp-Use-power_on-off-ops-for-PCIe.patch
+ANDROID-phy-qcom-qmp-Add-SDM845-PCIe-QMP-PHY-support.patch
+ANDROID-phy-qcom-qmp-Add-SDM845-QHP-PCIe-PHY.patch
+ANDROID-PCI-qcom-Fix-the-fixup-of-PCI_VENDOR_ID_QCOM.patch
+ANDROID-PCI-qcom-Add-support-for-SDM845-PCIe-controller.patch
+ANDROID-Kconfig.gki-Add-hidden-CONFIG_WANT_DEV_COREDUMP-for-DRM_MSM-driver.patch
+ANDROID-Kconfig.gki-Add-PINCTRL_MSM-to-QCOM-Hidden-configs.patch
+ANDROID-Kconfig.gki-Add-entries-for-qcom-clk-drivers.patch
+ANDROID-gki_defconfig-Add-qcom-pcie-options-to-gki_defconfig.patch
+ANDROID-tty-serial_core-Export-uart_console_device-so-it-can-be-used-by-modules.patch
+ANDROID-serdev-add-platform-device-support.patch
+ANDROID-gnss-Add-command-line-test-driver.patch
+ANDROID-gki_defconfig-Enable-CONFIG_GNSS_CMDLINE_SERIAL.patch
