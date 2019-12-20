@@ -1,0 +1,67 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: Guenter Roeck <linux@roeck-us.net>
+Date: Tue, 15 Oct 2019 16:51:44 +0200
+Subject: FROMLIST: drivers: firmware: psci: Register with kernel restart
+ handler
+
+Register with kernel restart handler instead of setting arm_pm_restart
+directly. This enables support for replacing the PSCI restart handler
+with a different handler if necessary for a specific board.
+
+Select a priority of 129 to indicate a higher than default priority, but
+keep it as low as possible since PSCI reset is known to fail on some
+boards.
+
+Bug: 146512338
+Change-Id: I15bf41931fa8301e141b4b5d22b6bcede5fd726d
+Link: https://lore.kernel.org/patchwork/patch/1139628/
+Acked-by: Arnd Bergmann <arnd@arndb.de>
+Reviewed-by: Wolfram Sang <wsa+renesas@sang-engineering.com>
+Tested-by: Wolfram Sang <wsa+renesas@sang-engineering.com>
+Signed-off-by: Guenter Roeck <linux@roeck-us.net>
+Acked-by: Lorenzo Pieralisi <lorenzo.pieralisi@arm.com>
+Signed-off-by: Thierry Reding <treding@nvidia.com>
+Reviewed-by: Stefan Agner <stefan.agner@toradex.com>
+---
+ drivers/firmware/psci/psci.c | 12 ++++++++++--
+ 1 file changed, 10 insertions(+), 2 deletions(-)
+
+diff --git a/drivers/firmware/psci/psci.c b/drivers/firmware/psci/psci.c
+index 84f4ff351c62..a41c6ba043a2 100644
+--- a/drivers/firmware/psci/psci.c
++++ b/drivers/firmware/psci/psci.c
+@@ -250,7 +250,8 @@ static int get_set_conduit_method(struct device_node *np)
+ 	return 0;
+ }
+ 
+-static void psci_sys_reset(enum reboot_mode reboot_mode, const char *cmd)
++static int psci_sys_reset(struct notifier_block *nb, unsigned long action,
++			  void *data)
+ {
+ 	if ((reboot_mode == REBOOT_WARM || reboot_mode == REBOOT_SOFT) &&
+ 	    psci_system_reset2_supported) {
+@@ -263,8 +264,15 @@ static void psci_sys_reset(enum reboot_mode reboot_mode, const char *cmd)
+ 	} else {
+ 		invoke_psci_fn(PSCI_0_2_FN_SYSTEM_RESET, 0, 0, 0);
+ 	}
++
++	return NOTIFY_DONE;
+ }
+ 
++static struct notifier_block psci_sys_reset_nb = {
++	.notifier_call = psci_sys_reset,
++	.priority = 129,
++};
++
+ static void psci_sys_poweroff(void)
+ {
+ 	invoke_psci_fn(PSCI_0_2_FN_SYSTEM_OFF, 0, 0, 0);
+@@ -431,7 +439,7 @@ static void __init psci_0_2_set_functions(void)
+ 
+ 	psci_ops.migrate_info_type = psci_migrate_info_type;
+ 
+-	arm_pm_restart = psci_sys_reset;
++	register_restart_handler(&psci_sys_reset_nb);
+ 
+ 	pm_power_off = psci_sys_poweroff;
+ }

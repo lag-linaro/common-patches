@@ -2,7 +2,7 @@
 # android-5.4 patches
 #
 # Applies onto upstream 9a088971000c Linux v5.4.5
-# Matches android-5.4 183905b9fd67 ("ANDROID: ASoC: add hikey960-i2s DT bindings")
+# Matches android-5.4 de9077701090 ("ANDROID: gki_defconfig: Enable CONFIG_GNSS_CMDLINE_SERIAL")
 #
 ANDROID-Kbuild-LLVMLinux-allow-overriding-clang-target-triple.patch
 ANDROID-net-xfrm-make-PF_KEY-SHA256-use-RFC-compliant-truncation.patch
@@ -363,3 +363,15 @@ ANDROID-drm-kirin-Fix-Makefile-to-correct-for-module-builds.patch
 ANDROID-HACK-adv7511-Add-poweron-delay-to-allow-for-EDID-probing-to-work.patch
 ANDROID-sound-Add-hikey960-i2s-audio-driver.patch
 ANDROID-ASoC-add-hikey960-i2s-DT-bindings.patch
+FROMLIST-ARM-prima2-Register-with-kernel-restart-handler.patch
+FROMLIST-ARM-xen-Register-with-kernel-restart-handler.patch
+FROMLIST-drivers-firmware-psci-Register-with-kernel-restart-handler.patch
+FROMLIST-ARM-Register-with-kernel-restart-handler.patch
+FROMLIST-ARM64-Remove-arm_pm_restart.patch
+FROMLIST-ARM-Remove-arm_pm_restart.patch
+ANDROID-gki_defconfig-Set-BINFMT_MISC-as-m.patch
+ANDROID-gki_defconfig-enable-ARM64_SW_TTBR0_PAN.patch
+ANDROID-usb-gadget-Add-configfs-attribuite-for-controling-match_existing_only.patch
+ANDROID-serdev-add-platform-device-support.patch
+ANDROID-gnss-Add-command-line-test-driver.patch
+ANDROID-gki_defconfig-Enable-CONFIG_GNSS_CMDLINE_SERIAL.patch
