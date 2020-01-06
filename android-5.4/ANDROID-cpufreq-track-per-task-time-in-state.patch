@@ -66,7 +66,7 @@ index 9a9f5ccd13d9..93d52a112cab 100644
  obj-$(CONFIG_CPU_FREQ_GOV_POWERSAVE)	+= cpufreq_powersave.o
  obj-$(CONFIG_CPU_FREQ_GOV_USERSPACE)	+= cpufreq_userspace.o
 diff --git a/drivers/cpufreq/cpufreq.c b/drivers/cpufreq/cpufreq.c
-index bc19d6c16aaa..f1de5b621932 100644
+index a7db4f22a077..6b25ba922628 100644
 --- a/drivers/cpufreq/cpufreq.c
 +++ b/drivers/cpufreq/cpufreq.c
 @@ -16,6 +16,7 @@

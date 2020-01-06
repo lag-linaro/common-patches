@@ -88,10 +88,10 @@ index cbd81c58cb8f..b43e7cd502c5 100644
  module_init(cpufreq_gov_userspace_init);
  #endif
 diff --git a/kernel/sched/cpufreq_schedutil.c b/kernel/sched/cpufreq_schedutil.c
-index 86800b4d5453..322ca8860f54 100644
+index b6f56e7c8dd1..9b8916fd00a2 100644
 --- a/kernel/sched/cpufreq_schedutil.c
 +++ b/kernel/sched/cpufreq_schedutil.c
-@@ -915,7 +915,7 @@ static int __init sugov_register(void)
+@@ -913,7 +913,7 @@ static int __init sugov_register(void)
  {
  	return cpufreq_register_governor(&schedutil_gov);
  }

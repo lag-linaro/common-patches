@@ -18,7 +18,7 @@ Signed-off-by: Quentin Perret <quentin.perret@arm.com>
  1 file changed, 28 insertions(+)
 
 diff --git a/kernel/sched/sched.h b/kernel/sched/sched.h
-index a8c084b4d704..be33a384c9e0 100644
+index 45fdba8648dc..9b6586cfa705 100644
 --- a/kernel/sched/sched.h
 +++ b/kernel/sched/sched.h
 @@ -2357,6 +2357,11 @@ static inline unsigned int uclamp_util(struct rq *rq, unsigned int util)
