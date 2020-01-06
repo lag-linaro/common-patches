@@ -200,7 +200,7 @@ index 000000000000..95fd57896466
 +	return 0;
 +}
 diff --git a/block/bio.c b/block/bio.c
-index a5d75f6bf4c7..31454118106e 100644
+index 006bcc52a77e..34d6c2b8ce2c 100644
 --- a/block/bio.c
 +++ b/block/bio.c
 @@ -244,6 +244,7 @@ static void bio_free(struct bio *bio)
@@ -211,7 +211,7 @@ index a5d75f6bf4c7..31454118106e 100644
  	bio_uninit(bio);
  
  	if (bs) {
-@@ -615,15 +616,15 @@ struct bio *bio_clone_fast(struct bio *bio, gfp_t gfp_mask, struct bio_set *bs)
+@@ -654,15 +655,15 @@ struct bio *bio_clone_fast(struct bio *bio, gfp_t gfp_mask, struct bio_set *bs)
  
  	__bio_clone_fast(b, bio);
  
@@ -235,7 +235,7 @@ index a5d75f6bf4c7..31454118106e 100644
  	}
  
  	return b;
-@@ -997,6 +998,7 @@ void bio_advance(struct bio *bio, unsigned bytes)
+@@ -1036,6 +1037,7 @@ void bio_advance(struct bio *bio, unsigned bytes)
  	if (bio_integrity(bio))
  		bio_integrity_advance(bio, bytes);
  
@@ -257,7 +257,7 @@ index 089e890ab208..8b11e455002e 100644
  	return 0;
  }
 diff --git a/block/blk-merge.c b/block/blk-merge.c
-index d783bdc4559b..43e9797f6fb6 100644
+index 347782a24a35..b7a5ab9751cb 100644
 --- a/block/blk-merge.c
 +++ b/block/blk-merge.c
 @@ -572,6 +572,9 @@ static inline int ll_new_hw_segment(struct request *req, struct bio *bio,
@@ -621,7 +621,7 @@ index 000000000000..5cd569f77c31
 +#endif /* CONFIG_BLOCK */
 +#endif /* __LINUX_BIO_CRYPT_CTX_H */
 diff --git a/include/linux/bio.h b/include/linux/bio.h
-index d0cb7c350cdc..63d0fee423fa 100644
+index 4ae9259c1dfd..e5870aaa2d6c 100644
 --- a/include/linux/bio.h
 +++ b/include/linux/bio.h
 @@ -8,6 +8,7 @@
@@ -632,7 +632,7 @@ index d0cb7c350cdc..63d0fee423fa 100644
  
  #ifdef CONFIG_BLOCK
  /* struct bio, bio_vec and BIO_* flags are defined in blk_types.h */
-@@ -564,11 +565,6 @@ static inline void bvec_kunmap_irq(char *buffer, unsigned long *flags)
+@@ -565,11 +566,6 @@ static inline void bvec_kunmap_irq(char *buffer, unsigned long *flags)
  }
  #endif
  

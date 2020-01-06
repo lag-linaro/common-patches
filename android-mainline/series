@@ -1,8 +1,8 @@
 #
 # android-mainline patches
 #
-# Applies onto upstream fd6988496e79 Linux v5.5-rc4
-# Matches android-mainline 9b460a068c2b ("ANDROID: serdev: Fix platform device support")
+# Applies onto upstream c79f46a28239 Linux v5.5-rc5
+# Matches android-mainline a931d512252f ("ANDROID: abi update for 5.5-rc5")
 #
 FROMGIT-scsi-ufs-Recheck-bkops-level-if-bkops-is-disabled.patch
 FROMGIT-scsi-ufs-Update-VCCQ2-and-VCCQ-min-max-voltage-hard-codes.patch

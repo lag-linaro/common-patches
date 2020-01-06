@@ -682,10 +682,10 @@ index 7621ff176d15..659d5971e32e 100644
  	return ovl_xattr_get(dentry, inode, name, buffer, size);
  }
 diff --git a/fs/posix_acl.c b/fs/posix_acl.c
-index 84ad1c90d535..cd55621e570b 100644
+index 249672bf54fe..1a794a136e69 100644
 --- a/fs/posix_acl.c
 +++ b/fs/posix_acl.c
-@@ -832,7 +832,7 @@ EXPORT_SYMBOL (posix_acl_to_xattr);
+@@ -835,7 +835,7 @@ EXPORT_SYMBOL (posix_acl_to_xattr);
  static int
  posix_acl_xattr_get(const struct xattr_handler *handler,
  		    struct dentry *unused, struct inode *inode,

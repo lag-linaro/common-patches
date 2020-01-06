@@ -36,10 +36,10 @@ Link: https://patchwork.kernel.org/patch/11214781/
  6 files changed, 34 insertions(+), 7 deletions(-)
 
 diff --git a/fs/buffer.c b/fs/buffer.c
-index d8c7242426bb..c3dff041a6a2 100644
+index e94a6619464c..1dca03b5b41c 100644
 --- a/fs/buffer.c
 +++ b/fs/buffer.c
-@@ -3108,6 +3108,8 @@ static int submit_bh_wbc(int op, int op_flags, struct buffer_head *bh,
+@@ -3085,6 +3085,8 @@ static int submit_bh_wbc(int op, int op_flags, struct buffer_head *bh,
  	 */
  	bio = bio_alloc(GFP_NOIO, 1);
  
