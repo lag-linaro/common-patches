@@ -1,0 +1,56 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: John Stultz <john.stultz@linaro.org>
+Date: Wed, 9 Oct 2019 23:43:28 +0000
+Subject: ANDROID: gki_defconfig: Add qcom pcie options to gki_defconfig
+
+The qcom PCIE support isn't able to be added as a module, so I
+propose enabling CONFIG_PCIE_QCOM and CONFIG_PCIEPORTBUS in
+the gki_defconfig.
+
+For consistency, this also adds CONFIG_PCIEPORTBUS=y and RAS=y
+(previously missing) to the x86 gki_defconfig
+
+Change-Id: I04941e17f660dd13b2ef2ab3150acae3ce670b19
+Bug: 146449535
+Signed-off-by: John Stultz <john.stultz@linaro.org>
+---
+ arch/arm64/configs/gki_defconfig | 3 +++
+ arch/x86/configs/gki_defconfig   | 3 +++
+ 2 files changed, 6 insertions(+)
+
+diff --git a/arch/arm64/configs/gki_defconfig b/arch/arm64/configs/gki_defconfig
+index 6d0aa14ba762..c807e7420be7 100644
+--- a/arch/arm64/configs/gki_defconfig
++++ b/arch/arm64/configs/gki_defconfig
+@@ -206,7 +206,10 @@ CONFIG_MAC80211=y
+ # CONFIG_MAC80211_RC_MINSTREL is not set
+ CONFIG_RFKILL=y
+ CONFIG_PCI=y
++CONFIG_PCIEPORTBUS=y
++# CONFIG_PCIEAER is not set
+ CONFIG_PCI_HOST_GENERIC=y
++CONFIG_PCIE_QCOM=y
+ CONFIG_PCIE_KIRIN=y
+ CONFIG_FW_LOADER_USER_HELPER=y
+ CONFIG_FW_LOADER_USER_HELPER_FALLBACK=y
+diff --git a/arch/x86/configs/gki_defconfig b/arch/x86/configs/gki_defconfig
+index 8bdf2848c158..2199982a3819 100644
+--- a/arch/x86/configs/gki_defconfig
++++ b/arch/x86/configs/gki_defconfig
+@@ -179,6 +179,8 @@ CONFIG_MAC80211=y
+ # CONFIG_MAC80211_RC_MINSTREL is not set
+ CONFIG_RFKILL=y
+ CONFIG_PCI=y
++CONFIG_PCIEPORTBUS=y
++# CONFIG_PCIEAER is not set
+ CONFIG_FW_LOADER_USER_HELPER=y
+ CONFIG_FW_LOADER_USER_HELPER_FALLBACK=y
+ # CONFIG_FW_CACHE is not set
+@@ -324,6 +326,7 @@ CONFIG_ION_SYSTEM_HEAP=y
+ CONFIG_ION_SYSTEM_CONTIG_HEAP=y
+ CONFIG_PM_DEVFREQ=y
+ CONFIG_IIO=y
++CONFIG_RAS=y
+ CONFIG_ANDROID=y
+ CONFIG_ANDROID_BINDER_IPC=y
+ CONFIG_EXT4_FS=y

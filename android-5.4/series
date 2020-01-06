@@ -2,7 +2,7 @@
 # android-5.4 patches
 #
 # Applies onto upstream 9a088971000c Linux v5.4.5
-# Matches android-5.4 de9077701090 ("ANDROID: gki_defconfig: Enable CONFIG_GNSS_CMDLINE_SERIAL")
+# Matches android-5.4 167420966b36 ("ANDROID: update ABI for db845c changes")
 #
 ANDROID-Kbuild-LLVMLinux-allow-overriding-clang-target-triple.patch
 ANDROID-net-xfrm-make-PF_KEY-SHA256-use-RFC-compliant-truncation.patch
@@ -375,3 +375,20 @@ ANDROID-usb-gadget-Add-configfs-attribuite-for-controling-match_existing_only.pa
 ANDROID-serdev-add-platform-device-support.patch
 ANDROID-gnss-Add-command-line-test-driver.patch
 ANDROID-gki_defconfig-Enable-CONFIG_GNSS_CMDLINE_SERIAL.patch
+ANDROID-phy-qcom-qmp-Increase-PHY-ready-timeout.patch
+ANDROID-phy-qcom-qmp-Use-power_on-off-ops-for-PCIe.patch
+ANDROID-phy-qcom-qmp-Add-SDM845-PCIe-QMP-PHY-support.patch
+ANDROID-phy-qcom-qmp-Add-SDM845-QHP-PCIe-PHY.patch
+ANDROID-PCI-qcom-Fix-the-fixup-of-PCI_VENDOR_ID_QCOM.patch
+ANDROID-PCI-qcom-Add-support-for-SDM845-PCIe-controller.patch
+ANDROID-Kconfig.gki-Add-hidden-CONFIG_WANT_DEV_COREDUMP-for-DRM_MSM-driver.patch
+ANDROID-Kconfig.gki-Add-PINCTRL_MSM-to-QCOM-Hidden-configs.patch
+ANDROID-Kconfig.gki-Add-entries-for-qcom-clk-drivers.patch
+ANDROID-gki_defconfig-Add-qcom-pcie-options-to-gki_defconfig.patch
+ANDROID-tty-serial_core-Export-uart_console_device-so-it-can-be-used-by-modules.patch
+UPSTREAM-cpufreq-Initialize-the-governors-in-core_initcall.patch
+UPSTREAM-cpufreq-Initialize-cpufreq-dt-driver-earlier.patch
+UPSTREAM-cpufreq-qcom-hw-Move-driver-initialization-earlier.patch
+UPSTREAM-firmware-qcom_scm-64-Add-atomic-version-of-qcom_scm_call.patch
+UPSTREAM-firmware-qcom_scm-Add-scm-call-to-handle-smmu-errata.patch
+BACKPORT-iommu-arm-smmu-impl-Add-sdm845-implementation-hook.patch
