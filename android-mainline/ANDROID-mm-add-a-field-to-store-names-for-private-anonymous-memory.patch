@@ -218,7 +218,7 @@ index 37df7c9eedb1..ffda9d514239 100644
  			vma = prev;
  			goto next;
 diff --git a/include/linux/mm.h b/include/linux/mm.h
-index c97ea3b694e6..8b3660e82890 100644
+index 80a9162b406c..deddbf37d88c 100644
 --- a/include/linux/mm.h
 +++ b/include/linux/mm.h
 @@ -2263,7 +2263,7 @@ static inline int vma_adjust(struct vm_area_struct *vma, unsigned long start,

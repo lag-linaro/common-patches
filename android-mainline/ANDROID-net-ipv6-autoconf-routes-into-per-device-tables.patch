@@ -88,7 +88,7 @@ index 1bab88184d3c..c79d0361bd05 100644
   *	anycast prototypes (anycast.c)
   */
 diff --git a/net/ipv6/addrconf.c b/net/ipv6/addrconf.c
-index 98d82305d6de..35354aaf918d 100644
+index 39d861d00377..90518eade111 100644
 --- a/net/ipv6/addrconf.c
 +++ b/net/ipv6/addrconf.c
 @@ -217,6 +217,7 @@ static struct ipv6_devconf ipv6_devconf __read_mostly = {

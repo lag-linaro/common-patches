@@ -61,7 +61,7 @@ index f8578caba40d..aeaa01724d7c 100644
  #define EXT4_MOUNT_DATA_ERR_ABORT	0x10000000 /* Abort on file data write */
  #define EXT4_MOUNT_BLOCK_VALIDITY	0x20000000 /* Block validity checking */
 diff --git a/fs/ext4/inode.c b/fs/ext4/inode.c
-index 28f28de0c1b6..44d9651b8638 100644
+index 629a25d999f0..74ef5bf94ab5 100644
 --- a/fs/ext4/inode.c
 +++ b/fs/ext4/inode.c
 @@ -1090,7 +1090,7 @@ static int ext4_block_write_begin(struct page *page, loff_t pos, unsigned len,
@@ -168,7 +168,7 @@ index fef7755300c3..d4daeb298baa 100644
  			if (IS_ERR(ctx)) {
  				bio_put(bio);
 diff --git a/fs/ext4/super.c b/fs/ext4/super.c
-index 1d82b56d9b11..0a6b60620942 100644
+index 2937a8873fe1..d5b1b48ebda7 100644
 --- a/fs/ext4/super.c
 +++ b/fs/ext4/super.c
 @@ -1357,6 +1357,11 @@ static void ext4_get_ino_and_lblk_bits(struct super_block *sb,

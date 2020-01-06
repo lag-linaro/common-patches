@@ -118,7 +118,7 @@ index 345f3748e0fb..db11f04b8341 100644
  	ret; })
  
 diff --git a/kernel/bpf/core.c b/kernel/bpf/core.c
-index 49e32acad7d8..da311bacdf36 100644
+index af6b738cf435..e11fbb13cd82 100644
 --- a/kernel/bpf/core.c
 +++ b/kernel/bpf/core.c
 @@ -842,6 +842,14 @@ void __weak bpf_jit_free_exec(void *addr)

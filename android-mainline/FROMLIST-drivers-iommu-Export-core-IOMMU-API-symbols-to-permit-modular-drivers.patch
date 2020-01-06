@@ -52,7 +52,7 @@ index e436ff813e7e..99869217fbec 100644
  }
 +EXPORT_SYMBOL_GPL(iommu_device_unlink);
 diff --git a/drivers/iommu/iommu.c b/drivers/iommu/iommu.c
-index db7bfd4f2d20..7c92197d53f3 100644
+index fdd40756dbc1..3abe19ecbcd1 100644
 --- a/drivers/iommu/iommu.c
 +++ b/drivers/iommu/iommu.c
 @@ -141,6 +141,7 @@ int iommu_device_register(struct iommu_device *iommu)

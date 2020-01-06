@@ -27,7 +27,7 @@ Signed-off-by: Quentin Perret <quentin.perret@arm.com>
  1 file changed, 17 insertions(+)
 
 diff --git a/kernel/sched/fair.c b/kernel/sched/fair.c
-index 08a233e97a01..c882de3e2adc 100644
+index ba749f579714..d88da1020b38 100644
 --- a/kernel/sched/fair.c
 +++ b/kernel/sched/fair.c
 @@ -5930,6 +5930,19 @@ static int select_idle_sibling(struct task_struct *p, int prev, int target)

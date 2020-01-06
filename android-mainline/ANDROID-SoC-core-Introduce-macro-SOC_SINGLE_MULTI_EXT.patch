@@ -17,7 +17,7 @@ Signed-off-by: Meng Wang <mwang@codeaurora.org>
  2 files changed, 48 insertions(+)
 
 diff --git a/include/sound/soc.h b/include/sound/soc.h
-index c28a1ed5e8df..ff81d6f540fe 100644
+index 262896799826..73fafa4869ff 100644
 --- a/include/sound/soc.h
 +++ b/include/sound/soc.h
 @@ -239,6 +239,14 @@
@@ -44,7 +44,7 @@ index c28a1ed5e8df..ff81d6f540fe 100644
  
  /**
   * struct snd_soc_jack_pin - Describes a pin to update based on jack detection
-@@ -1207,6 +1217,11 @@ struct soc_mreg_control {
+@@ -1208,6 +1218,11 @@ struct soc_mreg_control {
  	unsigned int regbase, regcount, nbits, invert;
  };
  
@@ -57,10 +57,10 @@ index c28a1ed5e8df..ff81d6f540fe 100644
  struct soc_enum {
  	int reg;
 diff --git a/sound/soc/soc-core.c b/sound/soc/soc-core.c
-index 062653ab03a3..556499e2d39d 100644
+index 1c84ff1a5bf9..819aedc955b7 100644
 --- a/sound/soc/soc-core.c
 +++ b/sound/soc/soc-core.c
-@@ -3206,6 +3206,39 @@ int snd_soc_get_dai_id(struct device_node *ep)
+@@ -3217,6 +3217,39 @@ int snd_soc_get_dai_id(struct device_node *ep)
  }
  EXPORT_SYMBOL_GPL(snd_soc_get_dai_id);
  

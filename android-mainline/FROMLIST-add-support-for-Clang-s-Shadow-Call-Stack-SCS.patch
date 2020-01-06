@@ -38,10 +38,10 @@ Signed-off-by: Sami Tolvanen <samitolvanen@google.com>
  create mode 100644 kernel/scs.c
 
 diff --git a/Makefile b/Makefile
-index f900c23b8291..fc121821c4f9 100644
+index caf14acf1953..0c04ffc58e7e 100644
 --- a/Makefile
 +++ b/Makefile
-@@ -845,6 +845,12 @@ ifdef CONFIG_LIVEPATCH
+@@ -846,6 +846,12 @@ ifdef CONFIG_LIVEPATCH
  KBUILD_CFLAGS += $(call cc-option, -flive-patching=inline-clone)
  endif
  

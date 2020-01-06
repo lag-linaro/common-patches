@@ -21,7 +21,7 @@ Change-Id: I8f6a8aad8c41faa51df9c3a440c8b80c74e3ce8a
  2 files changed, 19 insertions(+), 2 deletions(-)
 
 diff --git a/drivers/iommu/iommu.c b/drivers/iommu/iommu.c
-index 7c92197d53f3..bc8edf90e729 100644
+index 3abe19ecbcd1..32ceda1d5031 100644
 --- a/drivers/iommu/iommu.c
 +++ b/drivers/iommu/iommu.c
 @@ -22,6 +22,7 @@

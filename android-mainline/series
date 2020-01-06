@@ -1,8 +1,8 @@
 #
 # android-mainline patches
 #
-# Applies onto upstream d1eef1c61974 Linux v5.5-rc2
-# Matches android-mainline 7204b56d4d42 ("ANDROID: Kconfig.gki: Add Hidden SPRD DRM configs")
+# Applies onto upstream 46cf053efec6 Linux v5.5-rc3
+# Matches android-mainline 1ada4c526f1b ("ANDROID: update abi definitions for 5.5-rc3")
 #
 FROMGIT-scsi-ufs-Recheck-bkops-level-if-bkops-is-disabled.patch
 FROMGIT-scsi-ufs-Update-VCCQ2-and-VCCQ-min-max-voltage-hard-codes.patch
@@ -290,7 +290,6 @@ ANDROID-add-initial-ABI-whitelist-for-android-mainline.patch
 staging-android-ion-Remove-unused-rbtree-for-ion_buffer.patch
 ANDROID-gki_defconfig-Set-BINFMT_MISC-as-m.patch
 ANDROID-gki_defconfig-enable-ARM64_SW_TTBR0_PAN.patch
-FROMLIST-sched-fair-fix-find_idlest_group-to-handle-CPU-affinity.patch
 ANDROID-phy-qcom-qmp-Increase-PHY-ready-timeout.patch
 ANDROID-phy-qcom-qmp-Use-power_on-off-ops-for-PCIe.patch
 ANDROID-phy-qcom-qmp-Add-SDM845-PCIe-QMP-PHY-support.patch
@@ -309,3 +308,4 @@ ANDROID-gki_defconfig-Disable-TRANSPARENT_HUGEPAGE.patch
 Revert-drm-virtio-fix-DRM_FORMAT_-handling.patch
 ANDROID-Add-a-tracepoint-for-mapping-inode-to-full-path.patch
 ANDROID-Kconfig.gki-Add-Hidden-SPRD-DRM-configs.patch
+ANDROID-update-defconfig-for-5.5-rc3.patch

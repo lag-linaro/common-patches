@@ -40,7 +40,7 @@ index 8a89fa6fdd5e..695e88e6053f 100644
  
  #define SUBSTREAM_BUSY(substream) ((substream)->ref_count > 0)
 diff --git a/include/sound/soc.h b/include/sound/soc.h
-index ff81d6f540fe..9b2be19705cd 100644
+index 73fafa4869ff..262583eca64f 100644
 --- a/include/sound/soc.h
 +++ b/include/sound/soc.h
 @@ -376,6 +376,10 @@
@@ -89,10 +89,10 @@ index 2236b5e0c1f2..a6abac03f30d 100644
  	if (snd_BUG_ON(!substream->ops->copy_user && !runtime->dma_area))
  		return -EINVAL;
 diff --git a/sound/core/pcm_native.c b/sound/core/pcm_native.c
-index 1fe581167b7b..5d3e3c9ce8e6 100644
+index d083225344a0..07c7dce0e2cc 100644
 --- a/sound/core/pcm_native.c
 +++ b/sound/core/pcm_native.c
-@@ -1238,6 +1238,7 @@ static int snd_pcm_pre_start(struct snd_pcm_substream *substream, int state)
+@@ -1242,6 +1242,7 @@ static int snd_pcm_pre_start(struct snd_pcm_substream *substream, int state)
  	if (runtime->status->state != SNDRV_PCM_STATE_PREPARED)
  		return -EBADFD;
  	if (substream->stream == SNDRV_PCM_STREAM_PLAYBACK &&
@@ -101,7 +101,7 @@ index 1fe581167b7b..5d3e3c9ce8e6 100644
  		return -EPIPE;
  	runtime->trigger_tstamp_latched = false;
 diff --git a/sound/soc/soc-pcm.c b/sound/soc/soc-pcm.c
-index 76b7ee637e86..cfe72f6b0b57 100644
+index 01e7bc03d92f..73cfd4ef5bad 100644
 --- a/sound/soc/soc-pcm.c
 +++ b/sound/soc/soc-pcm.c
 @@ -19,6 +19,7 @@
@@ -159,7 +159,7 @@ index 76b7ee637e86..cfe72f6b0b57 100644
  	/* startup the audio subsystem */
  	ret = snd_soc_dai_startup(cpu_dai, substream);
  	if (ret < 0) {
-@@ -866,6 +893,16 @@ static int soc_pcm_hw_params(struct snd_pcm_substream *substream,
+@@ -864,6 +891,16 @@ static int soc_pcm_hw_params(struct snd_pcm_substream *substream,
  	if (ret)
  		goto out;
  
@@ -176,7 +176,7 @@ index 76b7ee637e86..cfe72f6b0b57 100644
  	if (rtd->dai_link->ops->hw_params) {
  		ret = rtd->dai_link->ops->hw_params(substream, params);
  		if (ret < 0) {
-@@ -945,6 +982,20 @@ static int soc_pcm_hw_params(struct snd_pcm_substream *substream,
+@@ -943,6 +980,20 @@ static int soc_pcm_hw_params(struct snd_pcm_substream *substream,
  	}
  	component = NULL;
  
@@ -197,7 +197,7 @@ index 76b7ee637e86..cfe72f6b0b57 100644
  out:
  	mutex_unlock(&rtd->card->pcm_mutex);
  	return ret;
-@@ -1027,6 +1078,8 @@ static int soc_pcm_hw_free(struct snd_pcm_substream *substream)
+@@ -1025,6 +1076,8 @@ static int soc_pcm_hw_free(struct snd_pcm_substream *substream)
  
  	snd_soc_dai_hw_free(cpu_dai, substream);
  
@@ -206,7 +206,7 @@ index 76b7ee637e86..cfe72f6b0b57 100644
  	mutex_unlock(&rtd->card->pcm_mutex);
  	return 0;
  }
-@@ -2902,6 +2955,7 @@ int soc_new_pcm(struct snd_soc_pcm_runtime *rtd, int num)
+@@ -2900,6 +2953,7 @@ int soc_new_pcm(struct snd_soc_pcm_runtime *rtd, int num)
  	struct snd_soc_rtdcom_list *rtdcom;
  	struct snd_soc_component *component;
  	struct snd_pcm *pcm;
@@ -214,7 +214,7 @@ index 76b7ee637e86..cfe72f6b0b57 100644
  	char new_name[64];
  	int ret = 0, playback = 0, capture = 0;
  	int i;
-@@ -2991,6 +3045,22 @@ int soc_new_pcm(struct snd_soc_pcm_runtime *rtd, int num)
+@@ -2988,6 +3042,22 @@ int soc_new_pcm(struct snd_soc_pcm_runtime *rtd, int num)
  		goto out;
  	}
  

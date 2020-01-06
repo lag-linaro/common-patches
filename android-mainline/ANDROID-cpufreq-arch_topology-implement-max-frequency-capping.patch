@@ -121,10 +121,10 @@ index 3015ecbb90b1..7251598adcab 100644
  	int thread_id;
  	int core_id;
 diff --git a/include/linux/cpufreq.h b/include/linux/cpufreq.h
-index 92d5fdc8154e..654812caafcd 100644
+index 31b1b0e03df8..9b5d14dbbdb9 100644
 --- a/include/linux/cpufreq.h
 +++ b/include/linux/cpufreq.h
-@@ -987,6 +987,8 @@ extern unsigned int arch_freq_get_on_cpu(int cpu);
+@@ -976,6 +976,8 @@ extern unsigned int arch_freq_get_on_cpu(int cpu);
  
  extern void arch_set_freq_scale(struct cpumask *cpus, unsigned long cur_freq,
  				unsigned long max_freq);

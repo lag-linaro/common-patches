@@ -76,10 +76,10 @@ index b1ea7dfbd149..a6b542bb4d85 100644
  	}
  
 diff --git a/fs/inode.c b/fs/inode.c
-index fef457a42882..853ce7aa6301 100644
+index 96d62d97694e..d3c34236ef99 100644
 --- a/fs/inode.c
 +++ b/fs/inode.c
-@@ -1810,7 +1810,7 @@ int dentry_needs_remove_privs(struct dentry *dentry)
+@@ -1817,7 +1817,7 @@ int dentry_needs_remove_privs(struct dentry *dentry)
  	return mask;
  }
  
@@ -88,7 +88,7 @@ index fef457a42882..853ce7aa6301 100644
  {
  	struct iattr newattrs;
  
-@@ -1819,7 +1819,7 @@ static int __remove_privs(struct dentry *dentry, int kill)
+@@ -1826,7 +1826,7 @@ static int __remove_privs(struct dentry *dentry, int kill)
  	 * Note we call this on write, so notify_change will not
  	 * encounter any conflicting delegations:
  	 */
@@ -97,7 +97,7 @@ index fef457a42882..853ce7aa6301 100644
  }
  
  /*
-@@ -1846,7 +1846,7 @@ int file_remove_privs(struct file *file)
+@@ -1853,7 +1853,7 @@ int file_remove_privs(struct file *file)
  	if (kill < 0)
  		return kill;
  	if (kill)

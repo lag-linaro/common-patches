@@ -244,10 +244,10 @@ index a5d75f6bf4c7..31454118106e 100644
  }
  EXPORT_SYMBOL(bio_advance);
 diff --git a/block/blk-core.c b/block/blk-core.c
-index e0a094fddee5..5200f4d1fed4 100644
+index 089e890ab208..8b11e455002e 100644
 --- a/block/blk-core.c
 +++ b/block/blk-core.c
-@@ -1810,5 +1810,8 @@ int __init blk_dev_init(void)
+@@ -1813,5 +1813,8 @@ int __init blk_dev_init(void)
  	blk_debugfs_root = debugfs_create_dir("block", NULL);
  #endif
  
