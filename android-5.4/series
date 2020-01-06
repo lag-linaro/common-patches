@@ -1,8 +1,8 @@
 #
 # android-5.4 patches
 #
-# Applies onto upstream 9a088971000c Linux v5.4.5
-# Matches android-5.4 167420966b36 ("ANDROID: update ABI for db845c changes")
+# Applies onto upstream 957a16c3e6e1 Linux v5.4.6
+# Matches android-5.4 63dd580f09bd ("Merge 5.4.6 into android-5.4")
 #
 ANDROID-Kbuild-LLVMLinux-allow-overriding-clang-target-triple.patch
 ANDROID-net-xfrm-make-PF_KEY-SHA256-use-RFC-compliant-truncation.patch
