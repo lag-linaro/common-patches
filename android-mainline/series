@@ -2,7 +2,7 @@
 # android-mainline patches
 #
 # Applies onto upstream fd6988496e79 Linux v5.5-rc4
-# Matches android-mainline 0a94995d7a2a ("Merge tag 5.5-rc4 into android-mainline")
+# Matches android-mainline 9b460a068c2b ("ANDROID: serdev: Fix platform device support")
 #
 FROMGIT-scsi-ufs-Recheck-bkops-level-if-bkops-is-disabled.patch
 FROMGIT-scsi-ufs-Update-VCCQ2-and-VCCQ-min-max-voltage-hard-codes.patch
@@ -309,3 +309,4 @@ Revert-drm-virtio-fix-DRM_FORMAT_-handling.patch
 ANDROID-Add-a-tracepoint-for-mapping-inode-to-full-path.patch
 ANDROID-Kconfig.gki-Add-Hidden-SPRD-DRM-configs.patch
 ANDROID-update-defconfig-for-5.5-rc3.patch
+ANDROID-serdev-Fix-platform-device-support.patch
