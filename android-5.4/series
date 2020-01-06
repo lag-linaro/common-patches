@@ -2,7 +2,7 @@
 # android-5.4 patches
 #
 # Applies onto upstream 122179cb7d64 Linux v5.4.7
-# Matches android-5.4 861433ef0189 ("Merge 5.4.7 into android-5.4")
+# Matches android-5.4 4e24886ec01b ("UPSTREAM: exit: panic before exit_mm() on global init exit")
 #
 ANDROID-Kbuild-LLVMLinux-allow-overriding-clang-target-triple.patch
 ANDROID-net-xfrm-make-PF_KEY-SHA256-use-RFC-compliant-truncation.patch
@@ -397,3 +397,5 @@ ANDROID-gki_defconfig-Disable-TRANSPARENT_HUGEPAGE.patch
 Revert-drm-virtio-fix-DRM_FORMAT_-handling.patch
 ANDROID-Add-a-tracepoint-for-mapping-inode-to-full-path.patch
 ANDROID-Kconfig.gki-Add-Hidden-SPRD-DRM-configs.patch
+ANDROID-serdev-Fix-platform-device-support.patch
+UPSTREAM-exit-panic-before-exit_mm-on-global-init-exit.patch
