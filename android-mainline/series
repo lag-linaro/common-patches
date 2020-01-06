@@ -1,8 +1,8 @@
 #
 # android-mainline patches
 #
-# Applies onto upstream 46cf053efec6 Linux v5.5-rc3
-# Matches android-mainline 1ada4c526f1b ("ANDROID: update abi definitions for 5.5-rc3")
+# Applies onto upstream fd6988496e79 Linux v5.5-rc4
+# Matches android-mainline 0a94995d7a2a ("Merge tag 5.5-rc4 into android-mainline")
 #
 FROMGIT-scsi-ufs-Recheck-bkops-level-if-bkops-is-disabled.patch
 FROMGIT-scsi-ufs-Update-VCCQ2-and-VCCQ-min-max-voltage-hard-codes.patch

@@ -33,7 +33,7 @@ Signed-off-by: Alistair Delva <adelva@google.com>
  create mode 100755 scripts/clang-android.sh
 
 diff --git a/Makefile b/Makefile
-index 0c04ffc58e7e..737f9ad3e6e0 100644
+index 771c50e102be..9e2da5814bea 100644
 --- a/Makefile
 +++ b/Makefile
 @@ -527,7 +527,11 @@ endif
