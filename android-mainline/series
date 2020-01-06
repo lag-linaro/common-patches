@@ -2,7 +2,7 @@
 # android-mainline patches
 #
 # Applies onto upstream d1eef1c61974 Linux v5.5-rc2
-# Matches android-mainline 2d84e3baa006 ("ANDROID: gki_defconfig: Enable CONFIG_GNSS_CMDLINE_SERIAL")
+# Matches android-mainline 7204b56d4d42 ("ANDROID: Kconfig.gki: Add Hidden SPRD DRM configs")
 #
 FROMGIT-scsi-ufs-Recheck-bkops-level-if-bkops-is-disabled.patch
 FROMGIT-scsi-ufs-Update-VCCQ2-and-VCCQ-min-max-voltage-hard-codes.patch
@@ -305,3 +305,7 @@ ANDROID-tty-serial_core-Export-uart_console_device-so-it-can-be-used-by-modules.
 ANDROID-serdev-add-platform-device-support.patch
 ANDROID-gnss-Add-command-line-test-driver.patch
 ANDROID-gki_defconfig-Enable-CONFIG_GNSS_CMDLINE_SERIAL.patch
+ANDROID-gki_defconfig-Disable-TRANSPARENT_HUGEPAGE.patch
+Revert-drm-virtio-fix-DRM_FORMAT_-handling.patch
+ANDROID-Add-a-tracepoint-for-mapping-inode-to-full-path.patch
+ANDROID-Kconfig.gki-Add-Hidden-SPRD-DRM-configs.patch
