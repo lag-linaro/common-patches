@@ -30,7 +30,7 @@ index e3842eabcfdd..7583d47fc4d5 100644
  	select IOMMU_API
  	select IOMMU_IO_PGTABLE_LPAE
 diff --git a/drivers/iommu/arm-smmu-v3.c b/drivers/iommu/arm-smmu-v3.c
-index 0e7a135efdfe..f79b14f75107 100644
+index 2c8f5e28b91f..b9a9c08f56f5 100644
 --- a/drivers/iommu/arm-smmu-v3.c
 +++ b/drivers/iommu/arm-smmu-v3.c
 @@ -2733,6 +2733,7 @@ static struct iommu_ops arm_smmu_ops = {

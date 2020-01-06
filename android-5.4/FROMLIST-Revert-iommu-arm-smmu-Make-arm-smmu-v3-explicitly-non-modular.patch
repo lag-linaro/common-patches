@@ -19,7 +19,7 @@ Change-Id: Ifde3c5dc81a0db600532b305906c67aa065d2f47
  1 file changed, 16 insertions(+), 9 deletions(-)
 
 diff --git a/drivers/iommu/arm-smmu-v3.c b/drivers/iommu/arm-smmu-v3.c
-index 8da93e730d6f..2ad8e2ca0583 100644
+index ed90361b84dc..9cdb8f322d89 100644
 --- a/drivers/iommu/arm-smmu-v3.c
 +++ b/drivers/iommu/arm-smmu-v3.c
 @@ -21,8 +21,7 @@

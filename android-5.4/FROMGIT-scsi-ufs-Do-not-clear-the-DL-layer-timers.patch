@@ -30,10 +30,10 @@ Signed-off-by: Asutosh Das <asutoshd@codeaurora.org>
  2 files changed, 31 insertions(+)
 
 diff --git a/drivers/scsi/ufs/ufshcd.c b/drivers/scsi/ufs/ufshcd.c
-index 9badfe519594..9e625a1e8df6 100644
+index 6a4fdc6585de..43ee7c4de5d2 100644
 --- a/drivers/scsi/ufs/ufshcd.c
 +++ b/drivers/scsi/ufs/ufshcd.c
-@@ -4112,6 +4112,26 @@ static int ufshcd_change_power_mode(struct ufs_hba *hba,
+@@ -4121,6 +4121,26 @@ static int ufshcd_change_power_mode(struct ufs_hba *hba,
  		ufshcd_dme_set(hba, UIC_ARG_MIB(PA_HSSERIES),
  						pwr_mode->hs_rate);
  

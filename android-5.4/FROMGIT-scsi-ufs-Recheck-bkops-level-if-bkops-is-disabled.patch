@@ -28,10 +28,10 @@ Signed-off-by: Asutosh Das <asutoshd@codeaurora.org>
  1 file changed, 3 insertions(+)
 
 diff --git a/drivers/scsi/ufs/ufshcd.c b/drivers/scsi/ufs/ufshcd.c
-index 8083fe1645ce..711674cfc00c 100644
+index 9f2fd6f1fbe1..e1cafb564e72 100644
 --- a/drivers/scsi/ufs/ufshcd.c
 +++ b/drivers/scsi/ufs/ufshcd.c
-@@ -5060,6 +5060,7 @@ static int ufshcd_disable_auto_bkops(struct ufs_hba *hba)
+@@ -5069,6 +5069,7 @@ static int ufshcd_disable_auto_bkops(struct ufs_hba *hba)
  
  	hba->auto_bkops_enabled = false;
  	trace_ufshcd_auto_bkops_state(dev_name(hba->dev), "Disabled");
@@ -39,7 +39,7 @@ index 8083fe1645ce..711674cfc00c 100644
  out:
  	return err;
  }
-@@ -5084,6 +5085,7 @@ static void ufshcd_force_reset_auto_bkops(struct ufs_hba *hba)
+@@ -5093,6 +5094,7 @@ static void ufshcd_force_reset_auto_bkops(struct ufs_hba *hba)
  		hba->ee_ctrl_mask &= ~MASK_EE_URGENT_BKOPS;
  		ufshcd_disable_auto_bkops(hba);
  	}
@@ -47,7 +47,7 @@ index 8083fe1645ce..711674cfc00c 100644
  }
  
  static inline int ufshcd_get_bkops_status(struct ufs_hba *hba, u32 *status)
-@@ -5130,6 +5132,7 @@ static int ufshcd_bkops_ctrl(struct ufs_hba *hba,
+@@ -5139,6 +5141,7 @@ static int ufshcd_bkops_ctrl(struct ufs_hba *hba,
  		err = ufshcd_enable_auto_bkops(hba);
  	else
  		err = ufshcd_disable_auto_bkops(hba);

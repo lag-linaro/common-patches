@@ -75,7 +75,7 @@ index 2fec62d764fa..2f187da48c83 100644
  
  	unlock_page(page);
 diff --git a/fs/ext4/inode.c b/fs/ext4/inode.c
-index 53134e4509b8..f53cc2699c5a 100644
+index 8bba6cd5e870..bd1e1c4a8752 100644
 --- a/fs/ext4/inode.c
 +++ b/fs/ext4/inode.c
 @@ -47,6 +47,7 @@
@@ -144,7 +144,7 @@ index 53134e4509b8..f53cc2699c5a 100644
  	trace_ext4_da_write_end(inode, pos, len, copied);
  	start = pos & (PAGE_SIZE - 1);
  	end = start + copied - 1;
-@@ -3855,6 +3879,7 @@ static ssize_t ext4_direct_IO(struct kiocb *iocb, struct iov_iter *iter)
+@@ -3867,6 +3891,7 @@ static ssize_t ext4_direct_IO(struct kiocb *iocb, struct iov_iter *iter)
  	size_t count = iov_iter_count(iter);
  	loff_t offset = iocb->ki_pos;
  	ssize_t ret;
@@ -152,7 +152,7 @@ index 53134e4509b8..f53cc2699c5a 100644
  
  #ifdef CONFIG_FS_ENCRYPTION
  	if (IS_ENCRYPTED(inode) && S_ISREG(inode->i_mode))
-@@ -3873,12 +3898,42 @@ static ssize_t ext4_direct_IO(struct kiocb *iocb, struct iov_iter *iter)
+@@ -3885,12 +3910,42 @@ static ssize_t ext4_direct_IO(struct kiocb *iocb, struct iov_iter *iter)
  	if (ext4_has_inline_data(inode))
  		return 0;
  

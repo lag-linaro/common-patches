@@ -88,7 +88,7 @@ index 3f62b347b04a..2306098a7f2d 100644
   *	anycast prototypes (anycast.c)
   */
 diff --git a/net/ipv6/addrconf.c b/net/ipv6/addrconf.c
-index 34ccef18b40e..b2f002624391 100644
+index f9b5690e94fd..e13b73af6676 100644
 --- a/net/ipv6/addrconf.c
 +++ b/net/ipv6/addrconf.c
 @@ -217,6 +217,7 @@ static struct ipv6_devconf ipv6_devconf __read_mostly = {
@@ -167,10 +167,10 @@ index 34ccef18b40e..b2f002624391 100644
  		.procname	= "proxy_ndp",
  		.data		= &ipv6_devconf.proxy_ndp,
 diff --git a/net/ipv6/route.c b/net/ipv6/route.c
-index 3f83ea851ebf..b3fb1732dd0b 100644
+index e4ed9c7b43b0..a87b0c708571 100644
 --- a/net/ipv6/route.c
 +++ b/net/ipv6/route.c
-@@ -4086,7 +4086,7 @@ static struct fib6_info *rt6_get_route_info(struct net *net,
+@@ -4094,7 +4094,7 @@ static struct fib6_info *rt6_get_route_info(struct net *net,
  					   const struct in6_addr *gwaddr,
  					   struct net_device *dev)
  {
@@ -179,7 +179,7 @@ index 3f83ea851ebf..b3fb1732dd0b 100644
  	int ifindex = dev->ifindex;
  	struct fib6_node *fn;
  	struct fib6_info *rt = NULL;
-@@ -4140,7 +4140,7 @@ static struct fib6_info *rt6_add_route_info(struct net *net,
+@@ -4148,7 +4148,7 @@ static struct fib6_info *rt6_add_route_info(struct net *net,
  		.fc_nlinfo.nl_net = net,
  	};
  
@@ -188,7 +188,7 @@ index 3f83ea851ebf..b3fb1732dd0b 100644
  	cfg.fc_dst = *prefix;
  	cfg.fc_gateway = *gwaddr;
  
-@@ -4158,7 +4158,7 @@ struct fib6_info *rt6_get_dflt_router(struct net *net,
+@@ -4166,7 +4166,7 @@ struct fib6_info *rt6_get_dflt_router(struct net *net,
  				     const struct in6_addr *addr,
  				     struct net_device *dev)
  {
@@ -197,7 +197,7 @@ index 3f83ea851ebf..b3fb1732dd0b 100644
  	struct fib6_info *rt;
  	struct fib6_table *table;
  
-@@ -4192,7 +4192,7 @@ struct fib6_info *rt6_add_dflt_router(struct net *net,
+@@ -4200,7 +4200,7 @@ struct fib6_info *rt6_add_dflt_router(struct net *net,
  				     unsigned int pref)
  {
  	struct fib6_config cfg = {
@@ -206,7 +206,7 @@ index 3f83ea851ebf..b3fb1732dd0b 100644
  		.fc_metric	= IP6_RT_PRIO_USER,
  		.fc_ifindex	= dev->ifindex,
  		.fc_flags	= RTF_GATEWAY | RTF_ADDRCONF | RTF_DEFAULT |
-@@ -4217,47 +4217,24 @@ struct fib6_info *rt6_add_dflt_router(struct net *net,
+@@ -4225,47 +4225,24 @@ struct fib6_info *rt6_add_dflt_router(struct net *net,
  	return rt6_get_dflt_router(net, gwaddr, dev);
  }
  

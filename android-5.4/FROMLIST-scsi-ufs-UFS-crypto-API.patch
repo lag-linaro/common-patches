@@ -538,7 +538,7 @@ index 000000000000..73ddc8e493fb
 +
 +#endif /* _UFSHCD_CRYPTO_H */
 diff --git a/drivers/scsi/ufs/ufshcd.h b/drivers/scsi/ufs/ufshcd.h
-index 8f2329b4fe79..31e64f4267dd 100644
+index bd45f3893b18..e0a4d2f1e24b 100644
 --- a/drivers/scsi/ufs/ufshcd.h
 +++ b/drivers/scsi/ufs/ufshcd.h
 @@ -525,6 +525,11 @@ struct ufs_stats {

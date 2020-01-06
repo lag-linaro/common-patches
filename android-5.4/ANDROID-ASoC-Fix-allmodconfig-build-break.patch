@@ -35,7 +35,7 @@ index 73a7e88a1e92..4726906d6ac9 100644
  }
 +EXPORT_SYMBOL_GPL(arch_setup_dma_ops);
 diff --git a/arch/arm/mm/dma-mapping-nommu.c b/arch/arm/mm/dma-mapping-nommu.c
-index db9247898300..cbf1632db30a 100644
+index 287ef898a55e..e862b053833f 100644
 --- a/arch/arm/mm/dma-mapping-nommu.c
 +++ b/arch/arm/mm/dma-mapping-nommu.c
 @@ -209,3 +209,4 @@ void arch_setup_dma_ops(struct device *dev, u64 dma_base, u64 size,

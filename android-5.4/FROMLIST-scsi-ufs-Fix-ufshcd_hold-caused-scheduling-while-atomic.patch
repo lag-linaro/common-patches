@@ -19,7 +19,7 @@ Signed-off-by: Asutosh Das <asutoshd@codeaurora.org>
  1 file changed, 5 insertions(+)
 
 diff --git a/drivers/scsi/ufs/ufshcd.c b/drivers/scsi/ufs/ufshcd.c
-index daf2fc90c5b0..21025790b576 100644
+index dd0229c4a6f8..9581686f6bd9 100644
 --- a/drivers/scsi/ufs/ufshcd.c
 +++ b/drivers/scsi/ufs/ufshcd.c
 @@ -1569,6 +1569,11 @@ int ufshcd_hold(struct ufs_hba *hba, bool async)

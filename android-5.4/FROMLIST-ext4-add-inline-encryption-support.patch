@@ -69,7 +69,7 @@ index b3a2cc7c0252..ce493e360814 100644
  #define EXT4_MOUNT_DATA_ERR_ABORT	0x10000000 /* Abort on file data write */
  #define EXT4_MOUNT_BLOCK_VALIDITY	0x20000000 /* Block validity checking */
 diff --git a/fs/ext4/inode.c b/fs/ext4/inode.c
-index f53cc2699c5a..ea22f340ce9c 100644
+index bd1e1c4a8752..a59f57d72d67 100644
 --- a/fs/ext4/inode.c
 +++ b/fs/ext4/inode.c
 @@ -1247,7 +1247,7 @@ static int ext4_block_write_begin(struct page *page, loff_t pos, unsigned len,
@@ -81,7 +81,7 @@ index f53cc2699c5a..ea22f340ce9c 100644
  		for (i = 0; i < nr_wait; i++) {
  			int err2;
  
-@@ -4098,7 +4098,7 @@ static int __ext4_block_zero_page_range(handle_t *handle,
+@@ -4110,7 +4110,7 @@ static int __ext4_block_zero_page_range(handle_t *handle,
  		/* Uhhuh. Read error. Complain and punt. */
  		if (!buffer_uptodate(bh))
  			goto unlock;

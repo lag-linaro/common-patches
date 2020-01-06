@@ -17,7 +17,7 @@ Link: https://patchwork.kernel.org/patch/11214753/
  2 files changed, 84 insertions(+), 5 deletions(-)
 
 diff --git a/drivers/scsi/ufs/ufshcd.c b/drivers/scsi/ufs/ufshcd.c
-index e66eb7a39a02..3a1190f0c672 100644
+index b19cb3c55d39..160032604d22 100644
 --- a/drivers/scsi/ufs/ufshcd.c
 +++ b/drivers/scsi/ufs/ufshcd.c
 @@ -47,6 +47,7 @@
@@ -137,7 +137,7 @@ index e66eb7a39a02..3a1190f0c672 100644
  	hba->dev_cmd.type = cmd_type;
  
  	return ufshcd_comp_devman_upiu(hba, lrbp);
-@@ -4229,6 +4286,8 @@ static inline void ufshcd_hba_stop(struct ufs_hba *hba, bool can_sleep)
+@@ -4238,6 +4295,8 @@ static inline void ufshcd_hba_stop(struct ufs_hba *hba, bool can_sleep)
  {
  	int err;
  
@@ -146,7 +146,7 @@ index e66eb7a39a02..3a1190f0c672 100644
  	ufshcd_writel(hba, CONTROLLER_DISABLE,  REG_CONTROLLER_ENABLE);
  	err = ufshcd_wait_for_register(hba, REG_CONTROLLER_ENABLE,
  					CONTROLLER_ENABLE, CONTROLLER_DISABLE,
-@@ -4632,8 +4691,12 @@ static int ufshcd_change_queue_depth(struct scsi_device *sdev, int depth)
+@@ -4641,8 +4700,12 @@ static int ufshcd_change_queue_depth(struct scsi_device *sdev, int depth)
  static int ufshcd_slave_configure(struct scsi_device *sdev)
  {
  	struct request_queue *q = sdev->request_queue;
@@ -159,7 +159,7 @@ index e66eb7a39a02..3a1190f0c672 100644
  	return 0;
  }
  
-@@ -4644,6 +4707,7 @@ static int ufshcd_slave_configure(struct scsi_device *sdev)
+@@ -4653,6 +4716,7 @@ static int ufshcd_slave_configure(struct scsi_device *sdev)
  static void ufshcd_slave_destroy(struct scsi_device *sdev)
  {
  	struct ufs_hba *hba;
@@ -167,7 +167,7 @@ index e66eb7a39a02..3a1190f0c672 100644
  
  	hba = shost_priv(sdev->host);
  	/* Drop the reference as it won't be needed anymore */
-@@ -4654,6 +4718,8 @@ static void ufshcd_slave_destroy(struct scsi_device *sdev)
+@@ -4663,6 +4727,8 @@ static void ufshcd_slave_destroy(struct scsi_device *sdev)
  		hba->sdev_ufs_device = NULL;
  		spin_unlock_irqrestore(hba->host->host_lock, flags);
  	}
@@ -176,7 +176,7 @@ index e66eb7a39a02..3a1190f0c672 100644
  }
  
  /**
-@@ -8380,6 +8446,13 @@ int ufshcd_init(struct ufs_hba *hba, void __iomem *mmio_base, unsigned int irq)
+@@ -8389,6 +8455,13 @@ int ufshcd_init(struct ufs_hba *hba, void __iomem *mmio_base, unsigned int irq)
  	/* Reset the attached device */
  	ufshcd_vops_device_reset(hba);
  
@@ -191,7 +191,7 @@ index e66eb7a39a02..3a1190f0c672 100644
  	err = ufshcd_hba_enable(hba);
  	if (err) {
 diff --git a/drivers/scsi/ufs/ufshcd.h b/drivers/scsi/ufs/ufshcd.h
-index 31e64f4267dd..a106b45f8358 100644
+index e0a4d2f1e24b..045f625a595d 100644
 --- a/drivers/scsi/ufs/ufshcd.h
 +++ b/drivers/scsi/ufs/ufshcd.h
 @@ -167,6 +167,9 @@ struct ufs_pm_lvl_states {

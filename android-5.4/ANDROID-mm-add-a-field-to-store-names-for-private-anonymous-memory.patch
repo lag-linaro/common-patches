@@ -184,7 +184,7 @@ index 9442631fd4af..1ce1cb08a5d3 100644
  	SEQ_PUT_DEC("Size:           ", vma->vm_end - vma->vm_start);
  	SEQ_PUT_DEC(" kB\nKernelPageSize: ", vma_kernel_pagesize(vma));
 diff --git a/fs/userfaultfd.c b/fs/userfaultfd.c
-index f9fd18670e22..fc08951daa62 100644
+index d99d166fd892..ebf17d7e1093 100644
 --- a/fs/userfaultfd.c
 +++ b/fs/userfaultfd.c
 @@ -912,7 +912,8 @@ static int userfaultfd_release(struct inode *inode, struct file *file)

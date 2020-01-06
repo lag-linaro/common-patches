@@ -14,8 +14,8 @@ Bug: 139653858
 Change-Id: I42bd3696371db6ae37789e3f7f43db045e166898
 ---
  drivers/gpu/drm/drm_file.c     |  7 +++++++
- drivers/gpu/drm/drm_property.c | 17 +++++++++++++++--
- 2 files changed, 22 insertions(+), 2 deletions(-)
+ drivers/gpu/drm/drm_property.c | 14 +++++++++++++-
+ 2 files changed, 20 insertions(+), 1 deletion(-)
 
 diff --git a/drivers/gpu/drm/drm_file.c b/drivers/gpu/drm/drm_file.c
 index ea34bc991858..6940812a97d7 100644
@@ -43,7 +43,7 @@ index ea34bc991858..6940812a97d7 100644
  	filp->f_mapping = dev->anon_inode->i_mapping;
  
 diff --git a/drivers/gpu/drm/drm_property.c b/drivers/gpu/drm/drm_property.c
-index 892ce636ef72..29dd4a93838b 100644
+index 6ee04803c362..b363578f576d 100644
 --- a/drivers/gpu/drm/drm_property.c
 +++ b/drivers/gpu/drm/drm_property.c
 @@ -31,6 +31,9 @@
@@ -56,17 +56,7 @@ index 892ce636ef72..29dd4a93838b 100644
  /**
   * DOC: overview
   *
-@@ -561,7 +564,8 @@ drm_property_create_blob(struct drm_device *dev, size_t length,
- 	struct drm_property_blob *blob;
- 	int ret;
- 
--	if (!length || length > ULONG_MAX - sizeof(struct drm_property_blob))
-+	if (!length || length > MAX_BLOB_PROP_SIZE -
-+				sizeof(struct drm_property_blob))
- 		return ERR_PTR(-EINVAL);
- 
- 	blob = kvzalloc(sizeof(struct drm_property_blob)+length, GFP_KERNEL);
-@@ -787,12 +791,21 @@ int drm_mode_createblob_ioctl(struct drm_device *dev,
+@@ -787,12 +790,21 @@ int drm_mode_createblob_ioctl(struct drm_device *dev,
  			      void *data, struct drm_file *file_priv)
  {
  	struct drm_mode_create_blob *out_resp = data;
