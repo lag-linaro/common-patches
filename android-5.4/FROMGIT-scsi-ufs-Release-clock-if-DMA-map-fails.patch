@@ -22,7 +22,7 @@ Signed-off-by: Asutosh Das <asutoshd@codeaurora.org>
  1 file changed, 1 insertion(+)
 
 diff --git a/drivers/scsi/ufs/ufshcd.c b/drivers/scsi/ufs/ufshcd.c
-index 0e4937aeabd1..9badfe519594 100644
+index c32482266172..6a4fdc6585de 100644
 --- a/drivers/scsi/ufs/ufshcd.c
 +++ b/drivers/scsi/ufs/ufshcd.c
 @@ -2503,6 +2503,7 @@ static int ufshcd_queuecommand(struct Scsi_Host *host, struct scsi_cmnd *cmd)

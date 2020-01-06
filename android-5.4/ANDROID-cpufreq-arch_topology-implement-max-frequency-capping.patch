@@ -76,7 +76,7 @@ index 1eb81f113786..c0cf9ef5c2f5 100644
  
  DEFINE_PER_CPU(unsigned long, cpu_scale) = SCHED_CAPACITY_SCALE;
 diff --git a/drivers/cpufreq/cpufreq.c b/drivers/cpufreq/cpufreq.c
-index bdd9a559b278..b10c706b8ef3 100644
+index c8a5d669b10e..8a9aa5b5e006 100644
 --- a/drivers/cpufreq/cpufreq.c
 +++ b/drivers/cpufreq/cpufreq.c
 @@ -153,6 +153,12 @@ __weak void arch_set_freq_scale(struct cpumask *cpus, unsigned long cur_freq,
@@ -121,10 +121,10 @@ index 42f2b5126094..5402bc0e2b1e 100644
  	int thread_id;
  	int core_id;
 diff --git a/include/linux/cpufreq.h b/include/linux/cpufreq.h
-index 92d5fdc8154e..654812caafcd 100644
+index 31b1b0e03df8..9b5d14dbbdb9 100644
 --- a/include/linux/cpufreq.h
 +++ b/include/linux/cpufreq.h
-@@ -987,6 +987,8 @@ extern unsigned int arch_freq_get_on_cpu(int cpu);
+@@ -976,6 +976,8 @@ extern unsigned int arch_freq_get_on_cpu(int cpu);
  
  extern void arch_set_freq_scale(struct cpumask *cpus, unsigned long cur_freq,
  				unsigned long max_freq);

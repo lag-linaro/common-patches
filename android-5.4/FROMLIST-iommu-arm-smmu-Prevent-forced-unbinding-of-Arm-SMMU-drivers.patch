@@ -36,7 +36,7 @@ Change-Id: I8b1c439f7ba11d6fc38cdf686948ef5909871dfb
  2 files changed, 7 insertions(+), 5 deletions(-)
 
 diff --git a/drivers/iommu/arm-smmu-v3.c b/drivers/iommu/arm-smmu-v3.c
-index 2ad8e2ca0583..3fd75abce3bb 100644
+index 9cdb8f322d89..e6c97bf0104c 100644
 --- a/drivers/iommu/arm-smmu-v3.c
 +++ b/drivers/iommu/arm-smmu-v3.c
 @@ -3700,8 +3700,9 @@ MODULE_DEVICE_TABLE(of, arm_smmu_of_match);

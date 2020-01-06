@@ -24,10 +24,10 @@ Signed-off-by: Asutosh Das <asutoshd@codeaurora.org>
  1 file changed, 2 insertions(+), 2 deletions(-)
 
 diff --git a/drivers/scsi/ufs/ufshcd.c b/drivers/scsi/ufs/ufshcd.c
-index 711674cfc00c..93aa0b6c19b4 100644
+index e1cafb564e72..2fc64985af04 100644
 --- a/drivers/scsi/ufs/ufshcd.c
 +++ b/drivers/scsi/ufs/ufshcd.c
-@@ -4872,12 +4872,14 @@ static void __ufshcd_transfer_req_compl(struct ufs_hba *hba,
+@@ -4881,12 +4881,14 @@ static void __ufshcd_transfer_req_compl(struct ufs_hba *hba,
  			ufshcd_complete_lrbp_crypto(hba, cmd, lrbp);
  			/* Mark completed command as NULL in LRB */
  			lrbp->cmd = NULL;
@@ -42,7 +42,7 @@ index 711674cfc00c..93aa0b6c19b4 100644
  			if (hba->dev_cmd.complete) {
  				ufshcd_add_command_trace(hba, index,
  						"dev_complete");
-@@ -4886,8 +4888,6 @@ static void __ufshcd_transfer_req_compl(struct ufs_hba *hba,
+@@ -4895,8 +4897,6 @@ static void __ufshcd_transfer_req_compl(struct ufs_hba *hba,
  		}
  		if (ufshcd_is_clkscaling_supported(hba))
  			hba->clk_scaling.active_reqs--;

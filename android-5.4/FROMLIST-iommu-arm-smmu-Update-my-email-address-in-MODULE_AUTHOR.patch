@@ -17,7 +17,7 @@ Change-Id: I7676e5f736fcb31376444bbfee419bc49ef17287
  2 files changed, 2 insertions(+), 2 deletions(-)
 
 diff --git a/drivers/iommu/arm-smmu-v3.c b/drivers/iommu/arm-smmu-v3.c
-index f79b14f75107..7669beafc493 100644
+index b9a9c08f56f5..0382a523c4c5 100644
 --- a/drivers/iommu/arm-smmu-v3.c
 +++ b/drivers/iommu/arm-smmu-v3.c
 @@ -3732,5 +3732,5 @@ static struct platform_driver arm_smmu_driver = {

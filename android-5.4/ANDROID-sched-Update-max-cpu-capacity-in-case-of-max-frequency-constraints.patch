@@ -135,7 +135,7 @@ index 00a5292c4508..eeaa334f8832 100644
  }
  
 diff --git a/kernel/sched/sched.h b/kernel/sched/sched.h
-index 0f8648ddea49..4e0b2ea47a04 100644
+index 164dabe58858..fd7523ec864d 100644
 --- a/kernel/sched/sched.h
 +++ b/kernel/sched/sched.h
 @@ -717,6 +717,12 @@ struct perf_domain {

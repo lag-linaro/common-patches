@@ -40,7 +40,7 @@ index c89f21698629..0ded95ee1d13 100644
  
  #define MAX_MODEL_LEN 16
 diff --git a/drivers/scsi/ufs/ufshcd.c b/drivers/scsi/ufs/ufshcd.c
-index 78824bd108f6..daf2fc90c5b0 100644
+index 068997255661..dd0229c4a6f8 100644
 --- a/drivers/scsi/ufs/ufshcd.c
 +++ b/drivers/scsi/ufs/ufshcd.c
 @@ -92,6 +92,9 @@
@@ -91,7 +91,7 @@ index 78824bd108f6..daf2fc90c5b0 100644
  /**
   * ufshcd_memory_alloc - allocate memory for host memory space data structures
   * @hba: per adapter instance
-@@ -6622,6 +6656,10 @@ static int ufs_get_device_desc(struct ufs_hba *hba,
+@@ -6631,6 +6665,10 @@ static int ufs_get_device_desc(struct ufs_hba *hba,
  	dev_desc->wmanufacturerid = desc_buf[DEVICE_DESC_PARAM_MANF_ID] << 8 |
  				     desc_buf[DEVICE_DESC_PARAM_MANF_ID + 1];
  
@@ -102,7 +102,7 @@ index 78824bd108f6..daf2fc90c5b0 100644
  	model_index = desc_buf[DEVICE_DESC_PARAM_PRDCT_NAME];
  	err = ufshcd_read_string_desc(hba, model_index,
  				      &dev_desc->model, SD_ASCII_STD);
-@@ -7048,6 +7086,9 @@ static int ufshcd_probe_hba(struct ufs_hba *hba)
+@@ -7057,6 +7095,9 @@ static int ufshcd_probe_hba(struct ufs_hba *hba)
  
  		/* clear any previous UFS device information */
  		memset(&hba->dev_info, 0, sizeof(hba->dev_info));
@@ -112,7 +112,7 @@ index 78824bd108f6..daf2fc90c5b0 100644
  		if (!ufshcd_query_flag_retry(hba, UPIU_QUERY_OPCODE_READ_FLAG,
  				QUERY_FLAG_IDN_PWR_ON_WPE, &flag))
  			hba->dev_info.f_power_on_wp_en = flag;
-@@ -7374,12 +7415,17 @@ static int __ufshcd_setup_clocks(struct ufs_hba *hba, bool on,
+@@ -7383,12 +7424,17 @@ static int __ufshcd_setup_clocks(struct ufs_hba *hba, bool on,
  	struct ufs_clk_info *clki;
  	struct list_head *head = &hba->clk_list_head;
  	unsigned long flags;

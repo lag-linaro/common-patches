@@ -196,7 +196,7 @@ index 9155256779bf..ce44cda13bfe 100644
  			if (PageWriteback(page))
  				end_page_writeback(page);
 diff --git a/fs/f2fs/f2fs.h b/fs/f2fs/f2fs.h
-index 4024790028aa..e04fda00b4ef 100644
+index 9046432b87c2..14cc2550b1bf 100644
 --- a/fs/f2fs/f2fs.h
 +++ b/fs/f2fs/f2fs.h
 @@ -137,6 +137,9 @@ struct f2fs_mount_info {

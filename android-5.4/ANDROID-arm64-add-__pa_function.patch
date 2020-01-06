@@ -92,7 +92,7 @@ index b7db6e25a197..336f95fafe03 100644
  	cpu_install_idmap();
  	remap_fn(cpu, num_online_cpus(), __pa_symbol(swapper_pg_dir));
 diff --git a/arch/arm64/kernel/psci.c b/arch/arm64/kernel/psci.c
-index c9f72b2665f1..86b32e9eae80 100644
+index 43ae4e0c968f..5fadf6bb358e 100644
 --- a/arch/arm64/kernel/psci.c
 +++ b/arch/arm64/kernel/psci.c
 @@ -38,7 +38,8 @@ static int __init cpu_psci_cpu_prepare(unsigned int cpu)

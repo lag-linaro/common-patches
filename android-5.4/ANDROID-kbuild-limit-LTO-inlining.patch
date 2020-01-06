@@ -20,7 +20,7 @@ Signed-off-by: Sami Tolvanen <samitolvanen@google.com>
  1 file changed, 6 insertions(+)
 
 diff --git a/Makefile b/Makefile
-index 330ac6c71337..62afc127b242 100644
+index 412cd5e3a5e4..44103a5dded1 100644
 --- a/Makefile
 +++ b/Makefile
 @@ -875,6 +875,12 @@ CC_FLAGS_LTO_CLANG := -flto

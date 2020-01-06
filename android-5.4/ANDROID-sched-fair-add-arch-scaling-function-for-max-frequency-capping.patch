@@ -59,7 +59,7 @@ index f3426316b4a6..00a5292c4508 100644
  	if (!capacity)
  		capacity = 1;
 diff --git a/kernel/sched/sched.h b/kernel/sched/sched.h
-index c8870c5bd7df..0f8648ddea49 100644
+index 49ed949f850c..164dabe58858 100644
 --- a/kernel/sched/sched.h
 +++ b/kernel/sched/sched.h
 @@ -1985,6 +1985,15 @@ unsigned long arch_scale_freq_capacity(int cpu)

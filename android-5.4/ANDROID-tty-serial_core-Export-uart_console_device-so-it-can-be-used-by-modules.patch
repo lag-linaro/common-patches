@@ -1,0 +1,29 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: John Stultz <john.stultz@linaro.org>
+Date: Tue, 19 Nov 2019 23:07:47 +0000
+Subject: ANDROID: tty: serial_core: Export uart_console_device so it can be
+ used by modules
+
+In order to support serial console w/ SERIAL_QCOM_GENI=m,
+we need to export the uart_console_device() symbol so things
+will build
+
+Change-Id: I3067c3aaadf84f46ede3162aa8cee4028a3e42d8
+Bug: 146449535
+Signed-off-by: John Stultz <john.stultz@linaro.org>
+---
+ drivers/tty/serial/serial_core.c | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/drivers/tty/serial/serial_core.c b/drivers/tty/serial/serial_core.c
+index b0a6eb106edb..a47730108313 100644
+--- a/drivers/tty/serial/serial_core.c
++++ b/drivers/tty/serial/serial_core.c
+@@ -2603,6 +2603,7 @@ struct tty_driver *uart_console_device(struct console *co, int *index)
+ 	*index = co->index;
+ 	return p->tty_driver;
+ }
++EXPORT_SYMBOL_GPL(uart_console_device);
+ 
+ static ssize_t uart_get_attr_uartclk(struct device *dev,
+ 	struct device_attribute *attr, char *buf)

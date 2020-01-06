@@ -20,10 +20,10 @@ Change-Id: I6cffa3ca884b74122307931e8f6615f31c33ef55
  2 files changed, 7 insertions(+), 2 deletions(-)
 
 diff --git a/drivers/regulator/core.c b/drivers/regulator/core.c
-index a46be221dbdc..6fa790c58db1 100644
+index 87bc06b386a0..547cbb709091 100644
 --- a/drivers/regulator/core.c
 +++ b/drivers/regulator/core.c
-@@ -1844,6 +1844,7 @@ struct regulator *_regulator_get(struct device *dev, const char *id,
+@@ -1846,6 +1846,7 @@ struct regulator *_regulator_get(struct device *dev, const char *id,
  	struct regulator_dev *rdev;
  	struct regulator *regulator;
  	const char *devname = dev ? dev_name(dev) : "deviceless";
@@ -31,7 +31,7 @@ index a46be221dbdc..6fa790c58db1 100644
  	int ret;
  
  	if (get_type >= MAX_GET_TYPE) {
-@@ -1951,7 +1952,9 @@ struct regulator *_regulator_get(struct device *dev, const char *id,
+@@ -1953,7 +1954,9 @@ struct regulator *_regulator_get(struct device *dev, const char *id,
  			rdev->use_count = 0;
  	}
  
@@ -42,7 +42,7 @@ index a46be221dbdc..6fa790c58db1 100644
  
  	return regulator;
  }
-@@ -2046,7 +2049,8 @@ static void _regulator_put(struct regulator *regulator)
+@@ -2048,7 +2051,8 @@ static void _regulator_put(struct regulator *regulator)
  	debugfs_remove_recursive(regulator->debugfs);
  
  	if (regulator->dev) {

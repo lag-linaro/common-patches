@@ -17,10 +17,10 @@ Signed-off-by: Asutosh Das <asutoshd@codeaurora.org>
  1 file changed, 6 insertions(+), 20 deletions(-)
 
 diff --git a/drivers/scsi/ufs/ufshcd.c b/drivers/scsi/ufs/ufshcd.c
-index aca2b9608fde..78824bd108f6 100644
+index 31b44579b015..068997255661 100644
 --- a/drivers/scsi/ufs/ufshcd.c
 +++ b/drivers/scsi/ufs/ufshcd.c
-@@ -7380,16 +7380,9 @@ static int __ufshcd_setup_clocks(struct ufs_hba *hba, bool on,
+@@ -7389,16 +7389,9 @@ static int __ufshcd_setup_clocks(struct ufs_hba *hba, bool on,
  	if (list_empty(head))
  		goto out;
  
@@ -40,7 +40,7 @@ index aca2b9608fde..78824bd108f6 100644
  
  	list_for_each_entry(clki, head, list) {
  		if (!IS_ERR_OR_NULL(clki->clk)) {
-@@ -7413,16 +7406,9 @@ static int __ufshcd_setup_clocks(struct ufs_hba *hba, bool on,
+@@ -7422,16 +7415,9 @@ static int __ufshcd_setup_clocks(struct ufs_hba *hba, bool on,
  		}
  	}
  

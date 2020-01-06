@@ -29,10 +29,10 @@ Signed-off-by: Asutosh Das <asutoshd@codeaurora.org>
  1 file changed, 3 insertions(+)
 
 diff --git a/drivers/scsi/ufs/ufshcd.c b/drivers/scsi/ufs/ufshcd.c
-index 8375142de0ed..0e4937aeabd1 100644
+index 94416fe8b2e3..c32482266172 100644
 --- a/drivers/scsi/ufs/ufshcd.c
 +++ b/drivers/scsi/ufs/ufshcd.c
-@@ -4626,6 +4626,9 @@ static int ufshcd_slave_alloc(struct scsi_device *sdev)
+@@ -4635,6 +4635,9 @@ static int ufshcd_slave_alloc(struct scsi_device *sdev)
  	/* Mode sense(6) is not supported by UFS, so use Mode sense(10) */
  	sdev->use_10_for_ms = 1;
  

@@ -22,7 +22,7 @@ Signed-off-by: Asutosh Das <asutoshd@codeaurora.org>
  1 file changed, 4 insertions(+), 14 deletions(-)
 
 diff --git a/drivers/scsi/ufs/ufshcd.c b/drivers/scsi/ufs/ufshcd.c
-index 9e625a1e8df6..9e6ee07b5296 100644
+index 43ee7c4de5d2..59831a4b2126 100644
 --- a/drivers/scsi/ufs/ufshcd.c
 +++ b/drivers/scsi/ufs/ufshcd.c
 @@ -265,26 +265,18 @@ static inline bool ufshcd_valid_tag(struct ufs_hba *hba, int tag)
@@ -55,7 +55,7 @@ index 9e625a1e8df6..9e6ee07b5296 100644
  		hba->is_irq_enabled = false;
  	}
  }
-@@ -7974,9 +7966,7 @@ static int ufshcd_resume(struct ufs_hba *hba, enum ufs_pm_op pm_op)
+@@ -7983,9 +7975,7 @@ static int ufshcd_resume(struct ufs_hba *hba, enum ufs_pm_op pm_op)
  		goto out;
  
  	/* enable the host irq as host controller would be active soon */

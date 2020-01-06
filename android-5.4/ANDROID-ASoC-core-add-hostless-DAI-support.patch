@@ -24,8 +24,8 @@ Signed-off-by: Sudheer Papothi <spapothi@codeaurora.org>
  include/sound/soc.h     | 11 +++++++
  sound/core/pcm_lib.c    |  2 ++
  sound/core/pcm_native.c |  1 +
- sound/soc/soc-pcm.c     | 71 +++++++++++++++++++++++++++++++++++++++++
- 5 files changed, 86 insertions(+)
+ sound/soc/soc-pcm.c     | 70 +++++++++++++++++++++++++++++++++++++++++
+ 5 files changed, 85 insertions(+)
 
 diff --git a/include/sound/pcm.h b/include/sound/pcm.h
 index bbe6eb1ff5d2..b8f638e075a8 100644
@@ -89,10 +89,10 @@ index 2236b5e0c1f2..a6abac03f30d 100644
  	if (snd_BUG_ON(!substream->ops->copy_user && !runtime->dma_area))
  		return -EINVAL;
 diff --git a/sound/core/pcm_native.c b/sound/core/pcm_native.c
-index 91c6ad58729f..4c0bae1338bc 100644
+index d4280568a41e..b5291eafcc11 100644
 --- a/sound/core/pcm_native.c
 +++ b/sound/core/pcm_native.c
-@@ -1199,6 +1199,7 @@ static int snd_pcm_pre_start(struct snd_pcm_substream *substream, int state)
+@@ -1204,6 +1204,7 @@ static int snd_pcm_pre_start(struct snd_pcm_substream *substream, int state)
  	if (runtime->status->state != SNDRV_PCM_STATE_PREPARED)
  		return -EBADFD;
  	if (substream->stream == SNDRV_PCM_STREAM_PLAYBACK &&
@@ -101,7 +101,7 @@ index 91c6ad58729f..4c0bae1338bc 100644
  		return -EPIPE;
  	runtime->trigger_tstamp_latched = false;
 diff --git a/sound/soc/soc-pcm.c b/sound/soc/soc-pcm.c
-index b600d3eaaf5c..0609cd96e5a2 100644
+index a6e96cf1d8ff..198ebd399a6b 100644
 --- a/sound/soc/soc-pcm.c
 +++ b/sound/soc/soc-pcm.c
 @@ -19,6 +19,7 @@
@@ -159,10 +159,10 @@ index b600d3eaaf5c..0609cd96e5a2 100644
  	/* startup the audio subsystem */
  	ret = snd_soc_dai_startup(cpu_dai, substream);
  	if (ret < 0) {
-@@ -877,6 +904,16 @@ static int soc_pcm_hw_params(struct snd_pcm_substream *substream,
- 	int i, ret = 0;
+@@ -882,6 +909,16 @@ static int soc_pcm_hw_params(struct snd_pcm_substream *substream,
+ 	if (ret)
+ 		goto out;
  
- 	mutex_lock_nested(&rtd->card->pcm_mutex, rtd->card->pcm_subclass);
 +	/* perform any hw_params fixups */
 +	if ((rtd->dai_link->no_host_mode == SND_SOC_DAI_LINK_NO_HOST) &&
 +				rtd->dai_link->be_hw_params_fixup) {
@@ -176,11 +176,10 @@ index b600d3eaaf5c..0609cd96e5a2 100644
  	if (rtd->dai_link->ops->hw_params) {
  		ret = rtd->dai_link->ops->hw_params(substream, params);
  		if (ret < 0) {
-@@ -961,6 +998,21 @@ static int soc_pcm_hw_params(struct snd_pcm_substream *substream,
- 	ret = soc_pcm_params_symmetry(substream, params);
-         if (ret)
- 		goto component_err;
-+
+@@ -963,6 +1000,20 @@ static int soc_pcm_hw_params(struct snd_pcm_substream *substream,
+ 	}
+ 	component = NULL;
+ 
 +	/* malloc a page for hostless IO */
 +	if (rtd->dai_link->no_host_mode == SND_SOC_DAI_LINK_NO_HOST) {
 +		substream->dma_buffer.dev.type = SNDRV_DMA_TYPE_DEV;
@@ -198,7 +197,7 @@ index b600d3eaaf5c..0609cd96e5a2 100644
  out:
  	mutex_unlock(&rtd->card->pcm_mutex);
  	return ret;
-@@ -1043,6 +1095,8 @@ static int soc_pcm_hw_free(struct snd_pcm_substream *substream)
+@@ -1045,6 +1096,8 @@ static int soc_pcm_hw_free(struct snd_pcm_substream *substream)
  
  	snd_soc_dai_hw_free(cpu_dai, substream);
  
@@ -207,7 +206,7 @@ index b600d3eaaf5c..0609cd96e5a2 100644
  	mutex_unlock(&rtd->card->pcm_mutex);
  	return 0;
  }
-@@ -2825,6 +2879,7 @@ int soc_new_pcm(struct snd_soc_pcm_runtime *rtd, int num)
+@@ -2831,6 +2884,7 @@ int soc_new_pcm(struct snd_soc_pcm_runtime *rtd, int num)
  	struct snd_soc_dai *cpu_dai = rtd->cpu_dai;
  	struct snd_soc_rtdcom_list *rtdcom;
  	struct snd_pcm *pcm;
@@ -215,7 +214,7 @@ index b600d3eaaf5c..0609cd96e5a2 100644
  	char new_name[64];
  	int ret = 0, playback = 0, capture = 0;
  	int i;
-@@ -2914,6 +2969,22 @@ int soc_new_pcm(struct snd_soc_pcm_runtime *rtd, int num)
+@@ -2920,6 +2974,22 @@ int soc_new_pcm(struct snd_soc_pcm_runtime *rtd, int num)
  		goto out;
  	}
  
