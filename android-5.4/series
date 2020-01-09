@@ -1,8 +1,8 @@
 #
 # android-5.4 patches
 #
-# Applies onto upstream 506355630487 Linux v5.4.9
-# Matches android-5.4 813bf83282d0 ("Merge 5.4.9 into android-5.4")
+# Applies onto upstream 7a02c193298e Linux v5.4.10
+# Matches android-5.4 9c06e34c69dc ("Merge 5.4.10 into android-5.4")
 #
 ANDROID-Kbuild-LLVMLinux-allow-overriding-clang-target-triple.patch
 ANDROID-net-xfrm-make-PF_KEY-SHA256-use-RFC-compliant-truncation.patch
