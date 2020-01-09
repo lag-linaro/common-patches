@@ -2,7 +2,7 @@
 # android-5.4 patches
 #
 # Applies onto upstream 7a02c193298e Linux v5.4.10
-# Matches android-5.4 9c06e34c69dc ("Merge 5.4.10 into android-5.4")
+# Matches android-5.4 6f8aefdfe0a7 ("ANDROID: Enable HID_STEAM and JOYSTICK_XPAD as y")
 #
 ANDROID-Kbuild-LLVMLinux-allow-overriding-clang-target-triple.patch
 ANDROID-net-xfrm-make-PF_KEY-SHA256-use-RFC-compliant-truncation.patch
@@ -406,3 +406,4 @@ ANDROID-GKI-clk-Add-support-for-clock-providers-with-sync-state.patch
 ANDROID-GKI-clk-Don-t-disable-unused-clocks-with-sync-state-support.patch
 BACKPORT-perf_event-Add-support-for-LSM-and-SELinux-checks.patch
 Revert-BACKPORT-perf_event-Add-support-for-LSM-and-SELinux-checks.patch
+ANDROID-Enable-HID_STEAM-and-JOYSTICK_XPAD-as-y.patch
