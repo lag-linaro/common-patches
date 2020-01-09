@@ -1,0 +1,72 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: Bjorn Andersson <bjorn.andersson@linaro.org>
+Date: Thu, 26 Dec 2019 14:17:07 -0800
+Subject: ANDROID: iommu/arm-smmu: Don't blindly use first SMR to calculate
+ mask
+
+With the SMRs inherited from the bootloader the first SMR might actually
+be valid and in use. As such probing the SMR mask using the first SMR
+might break a stream in use. Search for an unused stream and use this to
+probe the SMR mask.
+
+Signed-off-by: Bjorn Andersson <bjorn.andersson@linaro.org>
+Signed-off-by: John Stultz <john.stultz@linaro.org>
+Bug: 146449535
+Link: https://lore.kernel.org/linux-arm-msm/20191226221709.3844244-2-bjorn.andersson@linaro.org/
+Change-Id: Iebed70e17cc112fcfc081bd8dade6379f00b5a6e
+---
+ drivers/iommu/arm-smmu.c | 27 +++++++++++++++++++++++----
+ 1 file changed, 23 insertions(+), 4 deletions(-)
+
+diff --git a/drivers/iommu/arm-smmu.c b/drivers/iommu/arm-smmu.c
+index 114537d297d9..a59b655891a3 100644
+--- a/drivers/iommu/arm-smmu.c
++++ b/drivers/iommu/arm-smmu.c
+@@ -964,24 +964,43 @@ static void arm_smmu_write_sme(struct arm_smmu_device *smmu, int idx)
+  */
+ static void arm_smmu_test_smr_masks(struct arm_smmu_device *smmu)
+ {
++	u32 s2cr;
+ 	u32 smr;
++	int idx;
+ 
+ 	if (!smmu->smrs)
+ 		return;
+ 
++	for (idx = 0; idx < smmu->num_mapping_groups; idx++) {
++		if (smmu->features & ARM_SMMU_FEAT_EXIDS) {
++			s2cr = arm_smmu_gr0_read(smmu, ARM_SMMU_GR0_S2CR(idx));
++			if (!FIELD_GET(S2CR_EXIDVALID, s2cr))
++				break;
++		} else {
++			smr = arm_smmu_gr0_read(smmu, ARM_SMMU_GR0_SMR(idx));
++			if (!FIELD_GET(SMR_VALID, smr))
++				break;
++		}
++	}
++
++	if (idx == smmu->num_mapping_groups) {
++		dev_err(smmu->dev, "Unable to compute streamid_mask\n");
++		return;
++	}
++
+ 	/*
+ 	 * SMR.ID bits may not be preserved if the corresponding MASK
+ 	 * bits are set, so check each one separately. We can reject
+ 	 * masters later if they try to claim IDs outside these masks.
+ 	 */
+ 	smr = FIELD_PREP(SMR_ID, smmu->streamid_mask);
+-	arm_smmu_gr0_write(smmu, ARM_SMMU_GR0_SMR(0), smr);
+-	smr = arm_smmu_gr0_read(smmu, ARM_SMMU_GR0_SMR(0));
++	arm_smmu_gr0_write(smmu, ARM_SMMU_GR0_SMR(idx), smr);
++	smr = arm_smmu_gr0_read(smmu, ARM_SMMU_GR0_SMR(idx));
+ 	smmu->streamid_mask = FIELD_GET(SMR_ID, smr);
+ 
+ 	smr = FIELD_PREP(SMR_MASK, smmu->streamid_mask);
+-	arm_smmu_gr0_write(smmu, ARM_SMMU_GR0_SMR(0), smr);
+-	smr = arm_smmu_gr0_read(smmu, ARM_SMMU_GR0_SMR(0));
++	arm_smmu_gr0_write(smmu, ARM_SMMU_GR0_SMR(idx), smr);
++	smr = arm_smmu_gr0_read(smmu, ARM_SMMU_GR0_SMR(idx));
+ 	smmu->smr_mask_mask = FIELD_GET(SMR_MASK, smr);
+ }
+ 

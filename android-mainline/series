@@ -2,7 +2,7 @@
 # android-mainline patches
 #
 # Applies onto upstream c79f46a28239 Linux v5.5-rc5
-# Matches android-mainline a931d512252f ("ANDROID: abi update for 5.5-rc5")
+# Matches android-mainline 73c2e8b6d908 ("ANDROID: iommu/arm-smmu: Allow inherting stream mapping from bootloader")
 #
 FROMGIT-scsi-ufs-Recheck-bkops-level-if-bkops-is-disabled.patch
 FROMGIT-scsi-ufs-Update-VCCQ2-and-VCCQ-min-max-voltage-hard-codes.patch
@@ -310,3 +310,13 @@ ANDROID-Add-a-tracepoint-for-mapping-inode-to-full-path.patch
 ANDROID-Kconfig.gki-Add-Hidden-SPRD-DRM-configs.patch
 ANDROID-update-defconfig-for-5.5-rc3.patch
 ANDROID-serdev-Fix-platform-device-support.patch
+CHROMIUM-cgroups-relax-permissions-on-moving-tasks-between-cgroups.patch
+ANDROID-sdcardfs-fix-ENOENT-lookup-race-issue.patch
+ANDROID-GKI-driver-core-Add-dev_has_sync_state.patch
+ANDROID-GKI-clk-Add-support-for-clock-providers-with-sync-state.patch
+ANDROID-GKI-clk-Don-t-disable-unused-clocks-with-sync-state-support.patch
+ANDROID-clk-qcom-Add-sync_state-clk_sync_state-for-db845c-clock-providers.patch
+ANDROID-README-Add-add-user-reference-to-backporting-comment.patch
+ANDROID-iommu-arm-smmu-Don-t-blindly-use-first-SMR-to-calculate-mask.patch
+ANDROID-iommu-arm-smmu-Expose-s2cr-and-smr-structs-to-impl.patch
+ANDROID-iommu-arm-smmu-Allow-inherting-stream-mapping-from-bootloader.patch
