@@ -2,7 +2,7 @@
 # android-5.4 patches
 #
 # Applies onto upstream 5825c88e9651 Linux v5.4.8
-# Matches android-5.4 2ee9b8f70916 ("ANDROID: update abi for 5.4.8 release")
+# Matches android-5.4 c36b51d7828c ("ANDROID: update abi for previous revert")
 #
 ANDROID-Kbuild-LLVMLinux-allow-overriding-clang-target-triple.patch
 ANDROID-net-xfrm-make-PF_KEY-SHA256-use-RFC-compliant-truncation.patch
@@ -399,3 +399,11 @@ ANDROID-Add-a-tracepoint-for-mapping-inode-to-full-path.patch
 ANDROID-Kconfig.gki-Add-Hidden-SPRD-DRM-configs.patch
 ANDROID-serdev-Fix-platform-device-support.patch
 UPSTREAM-exit-panic-before-exit_mm-on-global-init-exit.patch
+UPSTREAM-selinux-sidtab-reverse-lookup-hash-table.patch
+CHROMIUM-cgroups-relax-permissions-on-moving-tasks-between-cgroups.patch
+ANDROID-sdcardfs-fix-ENOENT-lookup-race-issue.patch
+ANDROID-GKI-driver-core-Add-dev_has_sync_state.patch
+ANDROID-GKI-clk-Add-support-for-clock-providers-with-sync-state.patch
+ANDROID-GKI-clk-Don-t-disable-unused-clocks-with-sync-state-support.patch
+BACKPORT-perf_event-Add-support-for-LSM-and-SELinux-checks.patch
+Revert-BACKPORT-perf_event-Add-support-for-LSM-and-SELinux-checks.patch
