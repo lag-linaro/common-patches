@@ -57,7 +57,7 @@ index 265ee4ac4d7a..f7ba5016bd95 100644
  
  /* Optimized variant when page is already known not to be PageAnon */
 diff --git a/mm/memory.c b/mm/memory.c
-index fc9f380dd7fc..772720a2fd9d 100644
+index 3fb5bad0b262..54767b86bb36 100644
 --- a/mm/memory.c
 +++ b/mm/memory.c
 @@ -142,9 +142,21 @@ static int __init init_zero_pfn(void)

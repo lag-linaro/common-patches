@@ -126,10 +126,10 @@ index db91dc76cc91..bfcd9d9b4e6d 100644
  	if (atomic_inc_return(&chip->shutdown) == 1) {
  		struct snd_usb_stream *as;
 diff --git a/sound/usb/card.h b/sound/usb/card.h
-index 2991b9986f66..597ec53f1560 100644
+index 395403a2d33f..6aae28c8d331 100644
 --- a/sound/usb/card.h
 +++ b/sound/usb/card.h
-@@ -175,4 +175,8 @@ struct snd_usb_stream {
+@@ -176,4 +176,8 @@ struct snd_usb_stream {
  	struct list_head list;
  };
  
@@ -139,7 +139,7 @@ index 2991b9986f66..597ec53f1560 100644
 +
  #endif /* __USBAUDIO_CARD_H */
 diff --git a/sound/usb/pcm.c b/sound/usb/pcm.c
-index ff5ab24f3bd1..02d63a0df6fd 100644
+index a04c727dcd19..d2a414ccac5e 100644
 --- a/sound/usb/pcm.c
 +++ b/sound/usb/pcm.c
 @@ -138,6 +138,69 @@ static struct audioformat *find_format(struct snd_usb_substream *subs)
@@ -212,7 +212,7 @@ index ff5ab24f3bd1..02d63a0df6fd 100644
  static int init_pitch_v1(struct snd_usb_audio *chip, int iface,
  			 struct usb_host_interface *alts,
  			 struct audioformat *fmt)
-@@ -570,6 +633,74 @@ static int set_format(struct snd_usb_substream *subs, struct audioformat *fmt)
+@@ -573,6 +636,74 @@ static int set_format(struct snd_usb_substream *subs, struct audioformat *fmt)
  	return 0;
  }
  
@@ -318,7 +318,7 @@ index 11785f9652ad..f40961c7c673 100644
  }
  
 diff --git a/sound/usb/usbaudio.h b/sound/usb/usbaudio.h
-index feb30f9c1716..8fdc6673babb 100644
+index e360680f45f3..502000a641c6 100644
 --- a/sound/usb/usbaudio.h
 +++ b/sound/usb/usbaudio.h
 @@ -57,6 +57,9 @@ struct snd_usb_audio {

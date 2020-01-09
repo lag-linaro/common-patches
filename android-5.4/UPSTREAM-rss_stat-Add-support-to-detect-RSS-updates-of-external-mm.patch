@@ -204,7 +204,7 @@ index e78017a3e1bd..465c5758d222 100644
  }
  
 diff --git a/mm/memory.c b/mm/memory.c
-index bdafc0d204ea..fc9f380dd7fc 100644
+index 499b1916a6b6..3fb5bad0b262 100644
 --- a/mm/memory.c
 +++ b/mm/memory.c
 @@ -142,9 +142,9 @@ static int __init init_zero_pfn(void)

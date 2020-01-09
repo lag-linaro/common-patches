@@ -169,10 +169,10 @@ index ca92e01d0bd1..48604625ab31 100644
  		}
  
 diff --git a/arch/x86/events/intel/bts.c b/arch/x86/events/intel/bts.c
-index 5ee3fed881d3..38de4a7f6752 100644
+index 741540d849f3..6a3b599ee0fe 100644
 --- a/arch/x86/events/intel/bts.c
 +++ b/arch/x86/events/intel/bts.c
-@@ -549,9 +549,11 @@ static int bts_event_init(struct perf_event *event)
+@@ -555,9 +555,11 @@ static int bts_event_init(struct perf_event *event)
  	 * Note that the default paranoia setting permits unprivileged
  	 * users to profile the kernel.
  	 */

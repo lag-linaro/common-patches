@@ -200,7 +200,7 @@ index 000000000000..95fd57896466
 +	return 0;
 +}
 diff --git a/block/bio.c b/block/bio.c
-index 43df756b68c4..d33a43c8df53 100644
+index c822ceb7c4de..79ad272b79f0 100644
 --- a/block/bio.c
 +++ b/block/bio.c
 @@ -241,6 +241,7 @@ static void bio_free(struct bio *bio)
@@ -211,7 +211,7 @@ index 43df756b68c4..d33a43c8df53 100644
  	bio_uninit(bio);
  
  	if (bs) {
-@@ -612,15 +613,15 @@ struct bio *bio_clone_fast(struct bio *bio, gfp_t gfp_mask, struct bio_set *bs)
+@@ -651,15 +652,15 @@ struct bio *bio_clone_fast(struct bio *bio, gfp_t gfp_mask, struct bio_set *bs)
  
  	__bio_clone_fast(b, bio);
  
@@ -235,7 +235,7 @@ index 43df756b68c4..d33a43c8df53 100644
  	}
  
  	return b;
-@@ -994,6 +995,7 @@ void bio_advance(struct bio *bio, unsigned bytes)
+@@ -1033,6 +1034,7 @@ void bio_advance(struct bio *bio, unsigned bytes)
  	if (bio_integrity(bio))
  		bio_integrity_advance(bio, bytes);
  
@@ -621,7 +621,7 @@ index 000000000000..5cd569f77c31
 +#endif /* CONFIG_BLOCK */
 +#endif /* __LINUX_BIO_CRYPT_CTX_H */
 diff --git a/include/linux/bio.h b/include/linux/bio.h
-index d0cb7c350cdc..63d0fee423fa 100644
+index 4ae9259c1dfd..e5870aaa2d6c 100644
 --- a/include/linux/bio.h
 +++ b/include/linux/bio.h
 @@ -8,6 +8,7 @@
@@ -632,7 +632,7 @@ index d0cb7c350cdc..63d0fee423fa 100644
  
  #ifdef CONFIG_BLOCK
  /* struct bio, bio_vec and BIO_* flags are defined in blk_types.h */
-@@ -564,11 +565,6 @@ static inline void bvec_kunmap_irq(char *buffer, unsigned long *flags)
+@@ -565,11 +566,6 @@ static inline void bvec_kunmap_irq(char *buffer, unsigned long *flags)
  }
  #endif
  

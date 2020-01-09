@@ -27,7 +27,7 @@ Signed-off-by: Sami Tolvanen <samitolvanen@google.com>
  create mode 100644 kernel/cfi.c
 
 diff --git a/Makefile b/Makefile
-index 1055be3f118e..65178961c69f 100644
+index ea93298c2850..1f8f7741c843 100644
 --- a/Makefile
 +++ b/Makefile
 @@ -882,6 +882,25 @@ KBUILD_CFLAGS	+= $(CC_FLAGS_LTO)
@@ -580,10 +580,10 @@ index 000000000000..05f589e24f68
 +	handle_cfi_failure(ptr);
 +}
 diff --git a/kernel/module.c b/kernel/module.c
-index ff2d7359a418..47f391bc9ca2 100644
+index cb09a5f37a5f..8dd3097c5932 100644
 --- a/kernel/module.c
 +++ b/kernel/module.c
-@@ -2179,6 +2179,8 @@ void __weak module_arch_freeing_init(struct module *mod)
+@@ -2181,6 +2181,8 @@ void __weak module_arch_freeing_init(struct module *mod)
  {
  }
  
@@ -592,7 +592,7 @@ index ff2d7359a418..47f391bc9ca2 100644
  /* Free a module, remove from lists, etc. */
  static void free_module(struct module *mod)
  {
-@@ -2218,6 +2220,9 @@ static void free_module(struct module *mod)
+@@ -2220,6 +2222,9 @@ static void free_module(struct module *mod)
  	synchronize_rcu();
  	mutex_unlock(&module_mutex);
  
@@ -602,7 +602,7 @@ index ff2d7359a418..47f391bc9ca2 100644
  	/* This may be empty, but that's OK */
  	module_arch_freeing_init(mod);
  	module_memfree(mod->init_layout.base);
-@@ -3469,6 +3474,8 @@ int __weak module_finalize(const Elf_Ehdr *hdr,
+@@ -3471,6 +3476,8 @@ int __weak module_finalize(const Elf_Ehdr *hdr,
  	return 0;
  }
  
@@ -611,7 +611,7 @@ index ff2d7359a418..47f391bc9ca2 100644
  static int post_relocation(struct module *mod, const struct load_info *info)
  {
  	/* Sort exception table now relocations are done. */
-@@ -3481,6 +3488,9 @@ static int post_relocation(struct module *mod, const struct load_info *info)
+@@ -3483,6 +3490,9 @@ static int post_relocation(struct module *mod, const struct load_info *info)
  	/* Setup kallsyms-specific fields. */
  	add_kallsyms(mod, info);
  
@@ -621,7 +621,7 @@ index ff2d7359a418..47f391bc9ca2 100644
  	/* Arch-specific module finalizing. */
  	return module_finalize(info->hdr, info->sechdrs, mod);
  }
-@@ -4284,6 +4294,24 @@ int module_kallsyms_on_each_symbol(int (*fn)(void *, const char *,
+@@ -4286,6 +4296,24 @@ int module_kallsyms_on_each_symbol(int (*fn)(void *, const char *,
  }
  #endif /* CONFIG_KALLSYMS */
  

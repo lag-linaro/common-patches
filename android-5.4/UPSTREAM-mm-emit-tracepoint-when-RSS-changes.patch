@@ -117,7 +117,7 @@ index 69e8bb8963db..5a0666bfcf85 100644
  
  /* This part must be outside protection */
 diff --git a/mm/memory.c b/mm/memory.c
-index b1ca51a079f2..bdafc0d204ea 100644
+index cb7c940cf800..499b1916a6b6 100644
 --- a/mm/memory.c
 +++ b/mm/memory.c
 @@ -72,6 +72,8 @@

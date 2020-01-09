@@ -429,10 +429,10 @@ index 000000000000..020931fc9f7d
 +}
 +EXPORT_SYMBOL(keyslot_manager_destroy);
 diff --git a/include/linux/bio.h b/include/linux/bio.h
-index 3cdb84cdc488..d0cb7c350cdc 100644
+index 853d92ceee64..4ae9259c1dfd 100644
 --- a/include/linux/bio.h
 +++ b/include/linux/bio.h
-@@ -564,6 +564,11 @@ static inline void bvec_kunmap_irq(char *buffer, unsigned long *flags)
+@@ -565,6 +565,11 @@ static inline void bvec_kunmap_irq(char *buffer, unsigned long *flags)
  }
  #endif
  

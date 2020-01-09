@@ -501,10 +501,10 @@ index a72c1eeded77..646acba3045b 100644
  		vma = *prev;
  		goto success;
 diff --git a/mm/mmap.c b/mm/mmap.c
-index a7d8c84d19b7..fa75b568d481 100644
+index 4390dbea4aa5..c6ff45946dff 100644
 --- a/mm/mmap.c
 +++ b/mm/mmap.c
-@@ -1017,7 +1017,8 @@ int __vma_adjust(struct vm_area_struct *vma, unsigned long start,
+@@ -1011,7 +1011,8 @@ int __vma_adjust(struct vm_area_struct *vma, unsigned long start,
   */
  static inline int is_mergeable_vma(struct vm_area_struct *vma,
  				struct file *file, unsigned long vm_flags,
@@ -514,7 +514,7 @@ index a7d8c84d19b7..fa75b568d481 100644
  {
  	/*
  	 * VM_SOFTDIRTY should not prevent from VMA merging, if we
-@@ -1035,6 +1036,8 @@ static inline int is_mergeable_vma(struct vm_area_struct *vma,
+@@ -1029,6 +1030,8 @@ static inline int is_mergeable_vma(struct vm_area_struct *vma,
  		return 0;
  	if (!is_mergeable_vm_userfaultfd_ctx(vma, vm_userfaultfd_ctx))
  		return 0;
@@ -523,7 +523,7 @@ index a7d8c84d19b7..fa75b568d481 100644
  	return 1;
  }
  
-@@ -1067,9 +1070,10 @@ static int
+@@ -1061,9 +1064,10 @@ static int
  can_vma_merge_before(struct vm_area_struct *vma, unsigned long vm_flags,
  		     struct anon_vma *anon_vma, struct file *file,
  		     pgoff_t vm_pgoff,
@@ -536,7 +536,7 @@ index a7d8c84d19b7..fa75b568d481 100644
  	    is_mergeable_anon_vma(anon_vma, vma->anon_vma, vma)) {
  		if (vma->vm_pgoff == vm_pgoff)
  			return 1;
-@@ -1088,9 +1092,10 @@ static int
+@@ -1082,9 +1086,10 @@ static int
  can_vma_merge_after(struct vm_area_struct *vma, unsigned long vm_flags,
  		    struct anon_vma *anon_vma, struct file *file,
  		    pgoff_t vm_pgoff,
@@ -549,7 +549,7 @@ index a7d8c84d19b7..fa75b568d481 100644
  	    is_mergeable_anon_vma(anon_vma, vma->anon_vma, vma)) {
  		pgoff_t vm_pglen;
  		vm_pglen = vma_pages(vma);
-@@ -1101,9 +1106,9 @@ can_vma_merge_after(struct vm_area_struct *vma, unsigned long vm_flags,
+@@ -1095,9 +1100,9 @@ can_vma_merge_after(struct vm_area_struct *vma, unsigned long vm_flags,
  }
  
  /*
@@ -562,7 +562,7 @@ index a7d8c84d19b7..fa75b568d481 100644
   *
   * In most cases - when called for mmap, brk or mremap - [addr,end) is
   * certain not to be mapped by the time vma_merge is called; but when
-@@ -1145,7 +1150,8 @@ struct vm_area_struct *vma_merge(struct mm_struct *mm,
+@@ -1139,7 +1144,8 @@ struct vm_area_struct *vma_merge(struct mm_struct *mm,
  			unsigned long end, unsigned long vm_flags,
  			struct anon_vma *anon_vma, struct file *file,
  			pgoff_t pgoff, struct mempolicy *policy,
@@ -572,7 +572,7 @@ index a7d8c84d19b7..fa75b568d481 100644
  {
  	pgoff_t pglen = (end - addr) >> PAGE_SHIFT;
  	struct vm_area_struct *area, *next;
-@@ -1178,7 +1184,8 @@ struct vm_area_struct *vma_merge(struct mm_struct *mm,
+@@ -1172,7 +1178,8 @@ struct vm_area_struct *vma_merge(struct mm_struct *mm,
  			mpol_equal(vma_policy(prev), policy) &&
  			can_vma_merge_after(prev, vm_flags,
  					    anon_vma, file, pgoff,
@@ -582,7 +582,7 @@ index a7d8c84d19b7..fa75b568d481 100644
  		/*
  		 * OK, it can.  Can we now merge in the successor as well?
  		 */
-@@ -1187,7 +1194,8 @@ struct vm_area_struct *vma_merge(struct mm_struct *mm,
+@@ -1181,7 +1188,8 @@ struct vm_area_struct *vma_merge(struct mm_struct *mm,
  				can_vma_merge_before(next, vm_flags,
  						     anon_vma, file,
  						     pgoff+pglen,
@@ -592,7 +592,7 @@ index a7d8c84d19b7..fa75b568d481 100644
  				is_mergeable_anon_vma(prev->anon_vma,
  						      next->anon_vma, NULL)) {
  							/* cases 1, 6 */
-@@ -1210,7 +1218,8 @@ struct vm_area_struct *vma_merge(struct mm_struct *mm,
+@@ -1204,7 +1212,8 @@ struct vm_area_struct *vma_merge(struct mm_struct *mm,
  			mpol_equal(policy, vma_policy(next)) &&
  			can_vma_merge_before(next, vm_flags,
  					     anon_vma, file, pgoff+pglen,
@@ -602,7 +602,7 @@ index a7d8c84d19b7..fa75b568d481 100644
  		if (prev && addr < prev->vm_end)	/* case 4 */
  			err = __vma_adjust(prev, prev->vm_start,
  					 addr, prev->vm_pgoff, NULL, next);
-@@ -1764,7 +1773,7 @@ unsigned long mmap_region(struct file *file, unsigned long addr,
+@@ -1758,7 +1767,7 @@ unsigned long mmap_region(struct file *file, unsigned long addr,
  	 * Can we just expand an old mapping?
  	 */
  	vma = vma_merge(mm, prev, addr, addr + len, vm_flags,
@@ -611,7 +611,7 @@ index a7d8c84d19b7..fa75b568d481 100644
  	if (vma)
  		goto out;
  
-@@ -3041,7 +3050,7 @@ static int do_brk_flags(unsigned long addr, unsigned long len, unsigned long fla
+@@ -3035,7 +3044,7 @@ static int do_brk_flags(unsigned long addr, unsigned long len, unsigned long fla
  
  	/* Can we just expand an old private anonymous mapping? */
  	vma = vma_merge(mm, prev, addr, addr + len, flags,
@@ -620,7 +620,7 @@ index a7d8c84d19b7..fa75b568d481 100644
  	if (vma)
  		goto out;
  
-@@ -3239,7 +3248,7 @@ struct vm_area_struct *copy_vma(struct vm_area_struct **vmap,
+@@ -3233,7 +3242,7 @@ struct vm_area_struct *copy_vma(struct vm_area_struct **vmap,
  		return NULL;	/* should never get here */
  	new_vma = vma_merge(mm, prev, addr, addr + len, vma->vm_flags,
  			    vma->anon_vma, vma->vm_file, pgoff, vma_policy(vma),

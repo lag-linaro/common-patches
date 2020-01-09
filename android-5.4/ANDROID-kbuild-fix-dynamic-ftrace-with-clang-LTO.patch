@@ -82,7 +82,7 @@ index be5d5be4b1ae..48e7e3396656 100644
  #define asm_volatile_goto(x...) asm goto(x)
  #endif
 diff --git a/kernel/trace/ftrace.c b/kernel/trace/ftrace.c
-index f296d89be757..3feec7020891 100644
+index 0708a41cfe2d..85d9f4931c3e 100644
 --- a/kernel/trace/ftrace.c
 +++ b/kernel/trace/ftrace.c
 @@ -5564,9 +5564,9 @@ static int ftrace_cmp_ips(const void *a, const void *b)

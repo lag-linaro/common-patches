@@ -895,10 +895,10 @@ index c1395b5bd432..1eba02616274 100644
  
  /* Namespaces */
 diff --git a/mm/shmem.c b/mm/shmem.c
-index 7a22e3e03d11..6366cf08c24d 100644
+index 6074714fdbd4..fd1a04f46895 100644
 --- a/mm/shmem.c
 +++ b/mm/shmem.c
-@@ -3224,7 +3224,8 @@ static int shmem_initxattrs(struct inode *inode,
+@@ -3225,7 +3225,8 @@ static int shmem_initxattrs(struct inode *inode,
  
  static int shmem_xattr_handler_get(const struct xattr_handler *handler,
  				   struct dentry *unused, struct inode *inode,
@@ -909,7 +909,7 @@ index 7a22e3e03d11..6366cf08c24d 100644
  	struct shmem_inode_info *info = SHMEM_I(inode);
  
 diff --git a/net/socket.c b/net/socket.c
-index d7a106028f0e..86f9836dab01 100644
+index ca8de9e1582d..956f26813642 100644
 --- a/net/socket.c
 +++ b/net/socket.c
 @@ -300,7 +300,8 @@ static const struct dentry_operations sockfs_dentry_operations = {

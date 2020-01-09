@@ -279,7 +279,7 @@ index 95fd57896466..0f7641b875e9 100644
  
  	dst->bi_crypt_context = bio_crypt_alloc_ctx(gfp_mask);
 diff --git a/block/bio.c b/block/bio.c
-index d33a43c8df53..13eaf39b3499 100644
+index 79ad272b79f0..2d6a840bb67f 100644
 --- a/block/bio.c
 +++ b/block/bio.c
 @@ -17,6 +17,7 @@
@@ -290,7 +290,7 @@ index d33a43c8df53..13eaf39b3499 100644
  
  #include <trace/events/block.h>
  #include "blk.h"
-@@ -1790,6 +1791,10 @@ void bio_endio(struct bio *bio)
+@@ -1829,6 +1830,10 @@ void bio_endio(struct bio *bio)
  again:
  	if (!bio_remaining_done(bio))
  		return;

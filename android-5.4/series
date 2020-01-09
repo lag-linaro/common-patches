@@ -1,8 +1,8 @@
 #
 # android-5.4 patches
 #
-# Applies onto upstream 5825c88e9651 Linux v5.4.8
-# Matches android-5.4 c36b51d7828c ("ANDROID: update abi for previous revert")
+# Applies onto upstream 506355630487 Linux v5.4.9
+# Matches android-5.4 813bf83282d0 ("Merge 5.4.9 into android-5.4")
 #
 ANDROID-Kbuild-LLVMLinux-allow-overriding-clang-target-triple.patch
 ANDROID-net-xfrm-make-PF_KEY-SHA256-use-RFC-compliant-truncation.patch
@@ -398,7 +398,6 @@ Revert-drm-virtio-fix-DRM_FORMAT_-handling.patch
 ANDROID-Add-a-tracepoint-for-mapping-inode-to-full-path.patch
 ANDROID-Kconfig.gki-Add-Hidden-SPRD-DRM-configs.patch
 ANDROID-serdev-Fix-platform-device-support.patch
-UPSTREAM-exit-panic-before-exit_mm-on-global-init-exit.patch
 UPSTREAM-selinux-sidtab-reverse-lookup-hash-table.patch
 CHROMIUM-cgroups-relax-permissions-on-moving-tasks-between-cgroups.patch
 ANDROID-sdcardfs-fix-ENOENT-lookup-race-issue.patch

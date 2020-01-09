@@ -36,7 +36,7 @@ Link: https://patchwork.kernel.org/patch/11214781/
  6 files changed, 40 insertions(+), 7 deletions(-)
 
 diff --git a/fs/buffer.c b/fs/buffer.c
-index 86a38b979323..5d1f420de95b 100644
+index 7744488f7bde..2e64fa95a1ac 100644
 --- a/fs/buffer.c
 +++ b/fs/buffer.c
 @@ -47,6 +47,7 @@
@@ -47,7 +47,7 @@ index 86a38b979323..5d1f420de95b 100644
  
  static int fsync_buffers_list(spinlock_t *lock, struct list_head *list);
  static int submit_bh_wbc(int op, int op_flags, struct buffer_head *bh,
-@@ -3068,6 +3069,8 @@ static int submit_bh_wbc(int op, int op_flags, struct buffer_head *bh,
+@@ -3045,6 +3046,8 @@ static int submit_bh_wbc(int op, int op_flags, struct buffer_head *bh,
  	 */
  	bio = bio_alloc(GFP_NOIO, 1);
  
