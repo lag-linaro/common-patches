@@ -1,0 +1,176 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: Bjorn Andersson <bjorn.andersson@linaro.org>
+Date: Thu, 26 Dec 2019 14:17:09 -0800
+Subject: ANDROID: iommu/arm-smmu: Allow inherting stream mapping from
+ bootloader
+
+The Qualcomm bootloaders leaves the IOMMU with stream mapping for
+the display hardware to be able to read the framebuffer memory in DDR,
+to continuously display a boot splash or to implement EFI framebuffer.
+
+This patch implements support for implementations to pin stream mappings
+and adds the code to the Qualcomm implementation for reading out the
+stream mapping from the bootloader, with the result of maintaining the
+display hardware's access to DDR until the context bank is enabled.
+
+Heavily based on downstream implementation by Patrick Daly
+<pdaly@codeaurora.org>.
+
+Signed-off-by: Bjorn Andersson <bjorn.andersson@linaro.org>
+Signed-off-by: John Stultz <john.stultz@linaro.org>
+Bug: 146449535
+Link: https://lore.kernel.org/linux-arm-msm/20191226221709.3844244-4-bjorn.andersson@linaro.org/
+Change-Id: Ic87cfac8d9e85095d9f8000b37627bf24dd79626
+---
+ drivers/iommu/arm-smmu-qcom.c | 35 +++++++++++++++++++++++++++++++++++
+ drivers/iommu/arm-smmu.c      | 29 +++++++++++++++++++++++------
+ drivers/iommu/arm-smmu.h      |  1 +
+ 3 files changed, 59 insertions(+), 6 deletions(-)
+
+diff --git a/drivers/iommu/arm-smmu-qcom.c b/drivers/iommu/arm-smmu-qcom.c
+index 24c071c1d8b0..06e5799dcb87 100644
+--- a/drivers/iommu/arm-smmu-qcom.c
++++ b/drivers/iommu/arm-smmu-qcom.c
+@@ -3,6 +3,7 @@
+  * Copyright (c) 2019, The Linux Foundation. All rights reserved.
+  */
+ 
++#include <linux/bitfield.h>
+ #include <linux/qcom_scm.h>
+ 
+ #include "arm-smmu.h"
+@@ -11,6 +12,39 @@ struct qcom_smmu {
+ 	struct arm_smmu_device smmu;
+ };
+ 
++static int qcom_sdm845_smmu500_cfg_probe(struct arm_smmu_device *smmu)
++{
++	u32 s2cr;
++	u32 smr;
++	int i;
++
++	for (i = 0; i < smmu->num_mapping_groups; i++) {
++		smr = arm_smmu_gr0_read(smmu, ARM_SMMU_GR0_SMR(i));
++		s2cr = arm_smmu_gr0_read(smmu, ARM_SMMU_GR0_S2CR(i));
++
++		smmu->smrs[i].mask = FIELD_GET(SMR_MASK, smr);
++		smmu->smrs[i].id = FIELD_GET(SMR_ID, smr);
++		if (smmu->features & ARM_SMMU_FEAT_EXIDS)
++			smmu->smrs[i].valid = FIELD_GET(S2CR_EXIDVALID, s2cr);
++		else
++			smmu->smrs[i].valid = FIELD_GET(SMR_VALID, smr);
++
++		smmu->s2crs[i].group = NULL;
++		smmu->s2crs[i].count = 0;
++		smmu->s2crs[i].type = FIELD_GET(S2CR_TYPE, s2cr);
++		smmu->s2crs[i].privcfg = FIELD_GET(S2CR_PRIVCFG, s2cr);
++		smmu->s2crs[i].cbndx = FIELD_GET(S2CR_CBNDX, s2cr);
++
++		if (!smmu->smrs[i].valid)
++			continue;
++
++		smmu->s2crs[i].pinned = true;
++		bitmap_set(smmu->context_map, smmu->s2crs[i].cbndx, 1);
++	}
++
++	return 0;
++}
++
+ static int qcom_sdm845_smmu500_reset(struct arm_smmu_device *smmu)
+ {
+ 	int ret;
+@@ -31,6 +65,7 @@ static int qcom_sdm845_smmu500_reset(struct arm_smmu_device *smmu)
+ }
+ 
+ static const struct arm_smmu_impl qcom_smmu_impl = {
++	.cfg_probe = qcom_sdm845_smmu500_cfg_probe,
+ 	.reset = qcom_sdm845_smmu500_reset,
+ };
+ 
+diff --git a/drivers/iommu/arm-smmu.c b/drivers/iommu/arm-smmu.c
+index 931e245091db..e9301dc5d169 100644
+--- a/drivers/iommu/arm-smmu.c
++++ b/drivers/iommu/arm-smmu.c
+@@ -224,9 +224,19 @@ static int arm_smmu_register_legacy_master(struct device *dev,
+ }
+ #endif /* CONFIG_ARM_SMMU_LEGACY_DT_BINDINGS */
+ 
+-static int __arm_smmu_alloc_bitmap(unsigned long *map, int start, int end)
++static int __arm_smmu_alloc_cb(struct arm_smmu_device *smmu, int start,
++			       struct device *dev)
+ {
++	struct iommu_fwspec *fwspec = dev_iommu_fwspec_get(dev);
++	unsigned long *map = smmu->context_map;
++	int end = smmu->num_context_banks;
+ 	int idx;
++	int i;
++
++	for_each_cfg_sme(fwspec, i, idx) {
++		if (smmu->s2crs[idx].pinned)
++			return smmu->s2crs[idx].cbndx;
++	}
+ 
+ 	do {
+ 		idx = find_next_zero_bit(map, end, start);
+@@ -631,7 +641,8 @@ static void arm_smmu_write_context_bank(struct arm_smmu_device *smmu, int idx)
+ }
+ 
+ static int arm_smmu_init_domain_context(struct iommu_domain *domain,
+-					struct arm_smmu_device *smmu)
++					struct arm_smmu_device *smmu,
++					struct device *dev)
+ {
+ 	int irq, start, ret = 0;
+ 	unsigned long ias, oas;
+@@ -745,8 +756,7 @@ static int arm_smmu_init_domain_context(struct iommu_domain *domain,
+ 		ret = -EINVAL;
+ 		goto out_unlock;
+ 	}
+-	ret = __arm_smmu_alloc_bitmap(smmu->context_map, start,
+-				      smmu->num_context_banks);
++	ret = __arm_smmu_alloc_cb(smmu, start, dev);
+ 	if (ret < 0)
+ 		goto out_unlock;
+ 
+@@ -1018,12 +1028,19 @@ static int arm_smmu_find_sme(struct arm_smmu_device *smmu, u16 id, u16 mask)
+ 
+ static bool arm_smmu_free_sme(struct arm_smmu_device *smmu, int idx)
+ {
++	bool pinned = smmu->s2crs[idx].pinned;
++	u8 cbndx = smmu->s2crs[idx].cbndx;;
++
+ 	if (--smmu->s2crs[idx].count)
+ 		return false;
+ 
+ 	smmu->s2crs[idx] = s2cr_init_val;
+-	if (smmu->smrs)
++	if (pinned) {
++		smmu->s2crs[idx].pinned = true;
++		smmu->s2crs[idx].cbndx = cbndx;
++	} else if (smmu->smrs) {
+ 		smmu->smrs[idx].valid = false;
++	}
+ 
+ 	return true;
+ }
+@@ -1159,7 +1176,7 @@ static int arm_smmu_attach_dev(struct iommu_domain *domain, struct device *dev)
+ 		return ret;
+ 
+ 	/* Ensure that the domain is finalised */
+-	ret = arm_smmu_init_domain_context(domain, smmu);
++	ret = arm_smmu_init_domain_context(domain, smmu, dev);
+ 	if (ret < 0)
+ 		goto rpm_put;
+ 
+diff --git a/drivers/iommu/arm-smmu.h b/drivers/iommu/arm-smmu.h
+index bda90925bdf1..a144c9fa4f12 100644
+--- a/drivers/iommu/arm-smmu.h
++++ b/drivers/iommu/arm-smmu.h
+@@ -228,6 +228,7 @@ struct arm_smmu_s2cr {
+ 	enum arm_smmu_s2cr_type		type;
+ 	enum arm_smmu_s2cr_privcfg	privcfg;
+ 	u8				cbndx;
++	bool				pinned;
+ };
+ 
+ struct arm_smmu_smr {

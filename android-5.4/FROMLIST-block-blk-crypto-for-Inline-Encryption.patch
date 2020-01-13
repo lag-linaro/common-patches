@@ -302,7 +302,7 @@ index 79ad272b79f0..2d6a840bb67f 100644
  		return;
  
 diff --git a/block/blk-core.c b/block/blk-core.c
-index 3b5959d386fb..0f7e81dbe2ee 100644
+index a95f4656d3a2..808adf0bb44b 100644
 --- a/block/blk-core.c
 +++ b/block/blk-core.c
 @@ -38,6 +38,7 @@
@@ -313,7 +313,7 @@ index 3b5959d386fb..0f7e81dbe2ee 100644
  
  #define CREATE_TRACE_POINTS
  #include <trace/events/block.h>
-@@ -1061,7 +1062,9 @@ blk_qc_t generic_make_request(struct bio *bio)
+@@ -1064,7 +1065,9 @@ blk_qc_t generic_make_request(struct bio *bio)
  			/* Create a fresh bio_list for all subordinate requests */
  			bio_list_on_stack[1] = bio_list_on_stack[0];
  			bio_list_init(&bio_list_on_stack[0]);
@@ -324,7 +324,7 @@ index 3b5959d386fb..0f7e81dbe2ee 100644
  
  			blk_queue_exit(q);
  
-@@ -1114,6 +1117,9 @@ blk_qc_t direct_make_request(struct bio *bio)
+@@ -1117,6 +1120,9 @@ blk_qc_t direct_make_request(struct bio *bio)
  	if (!generic_make_request_checks(bio))
  		return BLK_QC_T_NONE;
  
@@ -334,7 +334,7 @@ index 3b5959d386fb..0f7e81dbe2ee 100644
  	if (unlikely(blk_queue_enter(q, nowait ? BLK_MQ_REQ_NOWAIT : 0))) {
  		if (nowait && !blk_queue_dying(q))
  			bio->bi_status = BLK_STS_AGAIN;
-@@ -1810,5 +1816,8 @@ int __init blk_dev_init(void)
+@@ -1813,5 +1819,8 @@ int __init blk_dev_init(void)
  	if (bio_crypt_ctx_init() < 0)
  		panic("Failed to allocate mem for bio crypt ctxs\n");
  
