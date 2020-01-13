@@ -1,0 +1,241 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: Leonard Crestez <leonard.crestez@nxp.com>
+Date: Tue, 26 Nov 2019 17:17:13 +0200
+Subject: UPSTREAM: PM / QoS: Restore DEV_PM_QOS_MIN/MAX_FREQUENCY
+
+Support for adding per-device frequency limits was removed in
+commit 2aac8bdf7a0f ("PM: QoS: Drop frequency QoS types from device PM QoS")
+after cpufreq switched to use a new "freq_constraints" construct.
+
+Restore support for per-device freq limits but base this upon
+freq_constraints. This is primarily meant to be used by the devfreq
+subsystem.
+
+This removes the "static" marking on freq_qos_apply but does not export
+it for modules.
+
+Signed-off-by: Leonard Crestez <leonard.crestez@nxp.com>
+Reviewed-by: Matthias Kaehlcke <mka@chromium.org>
+Tested-by: Matthias Kaehlcke <mka@chromium.org>
+Signed-off-by: Rafael J. Wysocki <rafael.j.wysocki@intel.com>
+
+Bug: 147443391
+Change-Id: Id10ed115ca726e65a7daa827b8ee93700b5a9e2c
+(cherry picked from commit 36a8015f89e40f7c9c91cc7e6d028fa288dad27b)
+Signed-off-by: Todd Kjos <tkjos@google.com>
+---
+ drivers/base/power/qos.c | 73 ++++++++++++++++++++++++++++++++++++----
+ include/linux/pm_qos.h   | 12 +++++++
+ kernel/power/qos.c       |  4 ++-
+ 3 files changed, 82 insertions(+), 7 deletions(-)
+
+diff --git a/drivers/base/power/qos.c b/drivers/base/power/qos.c
+index 350dcafd751f..8e93167f1783 100644
+--- a/drivers/base/power/qos.c
++++ b/drivers/base/power/qos.c
+@@ -115,10 +115,20 @@ s32 dev_pm_qos_read_value(struct device *dev, enum dev_pm_qos_req_type type)
+ 
+ 	spin_lock_irqsave(&dev->power.lock, flags);
+ 
+-	if (type == DEV_PM_QOS_RESUME_LATENCY) {
++	switch (type) {
++	case DEV_PM_QOS_RESUME_LATENCY:
+ 		ret = IS_ERR_OR_NULL(qos) ? PM_QOS_RESUME_LATENCY_NO_CONSTRAINT
+ 			: pm_qos_read_value(&qos->resume_latency);
+-	} else {
++		break;
++	case DEV_PM_QOS_MIN_FREQUENCY:
++		ret = IS_ERR_OR_NULL(qos) ? PM_QOS_MIN_FREQUENCY_DEFAULT_VALUE
++			: freq_qos_read_value(&qos->freq, FREQ_QOS_MIN);
++		break;
++	case DEV_PM_QOS_MAX_FREQUENCY:
++		ret = IS_ERR_OR_NULL(qos) ? PM_QOS_MAX_FREQUENCY_DEFAULT_VALUE
++			: freq_qos_read_value(&qos->freq, FREQ_QOS_MAX);
++		break;
++	default:
+ 		WARN_ON(1);
+ 		ret = 0;
+ 	}
+@@ -159,6 +169,10 @@ static int apply_constraint(struct dev_pm_qos_request *req,
+ 			req->dev->power.set_latency_tolerance(req->dev, value);
+ 		}
+ 		break;
++	case DEV_PM_QOS_MIN_FREQUENCY:
++	case DEV_PM_QOS_MAX_FREQUENCY:
++		ret = freq_qos_apply(&req->data.freq, action, value);
++		break;
+ 	case DEV_PM_QOS_FLAGS:
+ 		ret = pm_qos_update_flags(&qos->flags, &req->data.flr,
+ 					  action, value);
+@@ -209,6 +223,8 @@ static int dev_pm_qos_constraints_allocate(struct device *dev)
+ 	c->no_constraint_value = PM_QOS_LATENCY_TOLERANCE_NO_CONSTRAINT;
+ 	c->type = PM_QOS_MIN;
+ 
++	freq_constraints_init(&qos->freq);
++
+ 	INIT_LIST_HEAD(&qos->flags.list);
+ 
+ 	spin_lock_irq(&dev->power.lock);
+@@ -269,6 +285,20 @@ void dev_pm_qos_constraints_destroy(struct device *dev)
+ 		memset(req, 0, sizeof(*req));
+ 	}
+ 
++	c = &qos->freq.min_freq;
++	plist_for_each_entry_safe(req, tmp, &c->list, data.freq.pnode) {
++		apply_constraint(req, PM_QOS_REMOVE_REQ,
++				 PM_QOS_MIN_FREQUENCY_DEFAULT_VALUE);
++		memset(req, 0, sizeof(*req));
++	}
++
++	c = &qos->freq.max_freq;
++	plist_for_each_entry_safe(req, tmp, &c->list, data.freq.pnode) {
++		apply_constraint(req, PM_QOS_REMOVE_REQ,
++				 PM_QOS_MAX_FREQUENCY_DEFAULT_VALUE);
++		memset(req, 0, sizeof(*req));
++	}
++
+ 	f = &qos->flags;
+ 	list_for_each_entry_safe(req, tmp, &f->list, data.flr.node) {
+ 		apply_constraint(req, PM_QOS_REMOVE_REQ, PM_QOS_DEFAULT_VALUE);
+@@ -314,11 +344,22 @@ static int __dev_pm_qos_add_request(struct device *dev,
+ 		ret = dev_pm_qos_constraints_allocate(dev);
+ 
+ 	trace_dev_pm_qos_add_request(dev_name(dev), type, value);
+-	if (!ret) {
+-		req->dev = dev;
+-		req->type = type;
++	if (ret)
++		return ret;
++
++	req->dev = dev;
++	req->type = type;
++	if (req->type == DEV_PM_QOS_MIN_FREQUENCY)
++		ret = freq_qos_add_request(&dev->power.qos->freq,
++					   &req->data.freq,
++					   FREQ_QOS_MIN, value);
++	else if (req->type == DEV_PM_QOS_MAX_FREQUENCY)
++		ret = freq_qos_add_request(&dev->power.qos->freq,
++					   &req->data.freq,
++					   FREQ_QOS_MAX, value);
++	else
+ 		ret = apply_constraint(req, PM_QOS_ADD_REQ, value);
+-	}
++
+ 	return ret;
+ }
+ 
+@@ -382,6 +423,10 @@ static int __dev_pm_qos_update_request(struct dev_pm_qos_request *req,
+ 	case DEV_PM_QOS_LATENCY_TOLERANCE:
+ 		curr_value = req->data.pnode.prio;
+ 		break;
++	case DEV_PM_QOS_MIN_FREQUENCY:
++	case DEV_PM_QOS_MAX_FREQUENCY:
++		curr_value = req->data.freq.pnode.prio;
++		break;
+ 	case DEV_PM_QOS_FLAGS:
+ 		curr_value = req->data.flr.flags;
+ 		break;
+@@ -507,6 +552,14 @@ int dev_pm_qos_add_notifier(struct device *dev, struct notifier_block *notifier,
+ 		ret = blocking_notifier_chain_register(dev->power.qos->resume_latency.notifiers,
+ 						       notifier);
+ 		break;
++	case DEV_PM_QOS_MIN_FREQUENCY:
++		ret = freq_qos_add_notifier(&dev->power.qos->freq,
++					    FREQ_QOS_MIN, notifier);
++		break;
++	case DEV_PM_QOS_MAX_FREQUENCY:
++		ret = freq_qos_add_notifier(&dev->power.qos->freq,
++					    FREQ_QOS_MAX, notifier);
++		break;
+ 	default:
+ 		WARN_ON(1);
+ 		ret = -EINVAL;
+@@ -546,6 +599,14 @@ int dev_pm_qos_remove_notifier(struct device *dev,
+ 		ret = blocking_notifier_chain_unregister(dev->power.qos->resume_latency.notifiers,
+ 							 notifier);
+ 		break;
++	case DEV_PM_QOS_MIN_FREQUENCY:
++		ret = freq_qos_remove_notifier(&dev->power.qos->freq,
++					       FREQ_QOS_MIN, notifier);
++		break;
++	case DEV_PM_QOS_MAX_FREQUENCY:
++		ret = freq_qos_remove_notifier(&dev->power.qos->freq,
++					       FREQ_QOS_MAX, notifier);
++		break;
+ 	default:
+ 		WARN_ON(1);
+ 		ret = -EINVAL;
+diff --git a/include/linux/pm_qos.h b/include/linux/pm_qos.h
+index 678fec6da5b9..19eafca5680e 100644
+--- a/include/linux/pm_qos.h
++++ b/include/linux/pm_qos.h
+@@ -34,6 +34,8 @@ enum pm_qos_flags_status {
+ #define PM_QOS_RESUME_LATENCY_NO_CONSTRAINT	PM_QOS_LATENCY_ANY
+ #define PM_QOS_RESUME_LATENCY_NO_CONSTRAINT_NS	PM_QOS_LATENCY_ANY_NS
+ #define PM_QOS_LATENCY_TOLERANCE_DEFAULT_VALUE	0
++#define PM_QOS_MIN_FREQUENCY_DEFAULT_VALUE	0
++#define PM_QOS_MAX_FREQUENCY_DEFAULT_VALUE	FREQ_QOS_MAX_DEFAULT_VALUE
+ #define PM_QOS_LATENCY_TOLERANCE_NO_CONSTRAINT	(-1)
+ 
+ #define PM_QOS_FLAG_NO_POWER_OFF	(1 << 0)
+@@ -101,6 +103,8 @@ struct freq_qos_request {
+ enum dev_pm_qos_req_type {
+ 	DEV_PM_QOS_RESUME_LATENCY = 1,
+ 	DEV_PM_QOS_LATENCY_TOLERANCE,
++	DEV_PM_QOS_MIN_FREQUENCY,
++	DEV_PM_QOS_MAX_FREQUENCY,
+ 	DEV_PM_QOS_FLAGS,
+ };
+ 
+@@ -109,6 +113,7 @@ struct dev_pm_qos_request {
+ 	union {
+ 		struct plist_node pnode;
+ 		struct pm_qos_flags_request flr;
++		struct freq_qos_request freq;
+ 	} data;
+ 	struct device *dev;
+ };
+@@ -116,6 +121,7 @@ struct dev_pm_qos_request {
+ struct dev_pm_qos {
+ 	struct pm_qos_constraints resume_latency;
+ 	struct pm_qos_constraints latency_tolerance;
++	struct freq_constraints freq;
+ 	struct pm_qos_flags flags;
+ 	struct dev_pm_qos_request *resume_latency_req;
+ 	struct dev_pm_qos_request *latency_tolerance_req;
+@@ -214,6 +220,10 @@ static inline s32 dev_pm_qos_read_value(struct device *dev,
+ 	switch (type) {
+ 	case DEV_PM_QOS_RESUME_LATENCY:
+ 		return PM_QOS_RESUME_LATENCY_NO_CONSTRAINT;
++	case DEV_PM_QOS_MIN_FREQUENCY:
++		return PM_QOS_MIN_FREQUENCY_DEFAULT_VALUE;
++	case DEV_PM_QOS_MAX_FREQUENCY:
++		return PM_QOS_MAX_FREQUENCY_DEFAULT_VALUE;
+ 	default:
+ 		WARN_ON(1);
+ 		return 0;
+@@ -293,6 +303,8 @@ int freq_qos_add_request(struct freq_constraints *qos,
+ 			 enum freq_qos_req_type type, s32 value);
+ int freq_qos_update_request(struct freq_qos_request *req, s32 new_value);
+ int freq_qos_remove_request(struct freq_qos_request *req);
++int freq_qos_apply(struct freq_qos_request *req,
++		   enum pm_qos_req_action action, s32 value);
+ 
+ int freq_qos_add_notifier(struct freq_constraints *qos,
+ 			  enum freq_qos_req_type type,
+diff --git a/kernel/power/qos.c b/kernel/power/qos.c
+index a45cba7df0ae..83edf8698118 100644
+--- a/kernel/power/qos.c
++++ b/kernel/power/qos.c
+@@ -714,8 +714,10 @@ s32 freq_qos_read_value(struct freq_constraints *qos,
+  * @req: Constraint request to apply.
+  * @action: Action to perform (add/update/remove).
+  * @value: Value to assign to the QoS request.
++ *
++ * This is only meant to be called from inside pm_qos, not drivers.
+  */
+-static int freq_qos_apply(struct freq_qos_request *req,
++int freq_qos_apply(struct freq_qos_request *req,
+ 			  enum pm_qos_req_action action, s32 value)
+ {
+ 	int ret;

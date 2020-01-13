@@ -2,7 +2,7 @@
 # android-5.4 patches
 #
 # Applies onto upstream 7a02c193298e Linux v5.4.10
-# Matches android-5.4 6f8aefdfe0a7 ("ANDROID: Enable HID_STEAM and JOYSTICK_XPAD as y")
+# Matches android-5.4 f5f770e495ba ("ANDROID: Kconfig.gki: Add QCOM_SCM to QCOM Hidden configs")
 #
 ANDROID-Kbuild-LLVMLinux-allow-overriding-clang-target-triple.patch
 ANDROID-net-xfrm-make-PF_KEY-SHA256-use-RFC-compliant-truncation.patch
@@ -407,3 +407,13 @@ ANDROID-GKI-clk-Don-t-disable-unused-clocks-with-sync-state-support.patch
 BACKPORT-perf_event-Add-support-for-LSM-and-SELinux-checks.patch
 Revert-BACKPORT-perf_event-Add-support-for-LSM-and-SELinux-checks.patch
 ANDROID-Enable-HID_STEAM-and-JOYSTICK_XPAD-as-y.patch
+BACKPORT-perf_event-Add-support-for-LSM-and-SELinux-checks-2.patch
+UPSTREAM-USB-dummy-hcd-use-usb_urb_dir_in-instead-of-usb_pipein.patch
+UPSTREAM-PM-QoS-Reorder-pm_qos-freq_qos-dev_pm_qos-structs.patch
+UPSTREAM-PM-QoS-Restore-DEV_PM_QOS_MIN-MAX_FREQUENCY.patch
+UPSTREAM-net-usbnet-Fix-Wcast-function-type.patch
+ANDROID-clk-qcom-Add-sync_state-clk_sync_state-for-db845c-clock-providers.patch
+ANDROID-iommu-arm-smmu-Don-t-blindly-use-first-SMR-to-calculate-mask.patch
+ANDROID-iommu-arm-smmu-Expose-s2cr-and-smr-structs-to-impl.patch
+ANDROID-iommu-arm-smmu-Allow-inherting-stream-mapping-from-bootloader.patch
+ANDROID-Kconfig.gki-Add-QCOM_SCM-to-QCOM-Hidden-configs.patch

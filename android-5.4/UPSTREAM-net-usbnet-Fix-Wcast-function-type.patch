@@ -1,0 +1,45 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: Phong Tran <tranmanphong@gmail.com>
+Date: Tue, 26 Nov 2019 20:54:13 +0700
+Subject: UPSTREAM: net: usbnet: Fix -Wcast-function-type
+
+correct usage prototype of callback in tasklet_init().
+Report by https://github.com/KSPP/linux/issues/20
+
+Signed-off-by: Phong Tran <tranmanphong@gmail.com>
+Signed-off-by: David S. Miller <davem@davemloft.net>
+(cherry picked from commit 2eb1d3f4bcae6c83943214ccb26968a48360db06)
+Bug: 147506196
+Change-Id: Ia9d7fe3e8118c2570ae037645e259082bd813222
+Signed-off-by: Alistair Delva <adelva@google.com>
+---
+ drivers/net/usb/usbnet.c | 9 ++++++++-
+ 1 file changed, 8 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/net/usb/usbnet.c b/drivers/net/usb/usbnet.c
+index dde05e2fdc3e..30e511c2c8d0 100644
+--- a/drivers/net/usb/usbnet.c
++++ b/drivers/net/usb/usbnet.c
+@@ -1573,6 +1573,13 @@ static void usbnet_bh (struct timer_list *t)
+ 	}
+ }
+ 
++static void usbnet_bh_tasklet(unsigned long data)
++{
++	struct timer_list *t = (struct timer_list *)data;
++
++	usbnet_bh(t);
++}
++
+ 
+ /*-------------------------------------------------------------------------
+  *
+@@ -1700,7 +1707,7 @@ usbnet_probe (struct usb_interface *udev, const struct usb_device_id *prod)
+ 	skb_queue_head_init (&dev->txq);
+ 	skb_queue_head_init (&dev->done);
+ 	skb_queue_head_init(&dev->rxq_pause);
+-	dev->bh.func = (void (*)(unsigned long))usbnet_bh;
++	dev->bh.func = usbnet_bh_tasklet;
+ 	dev->bh.data = (unsigned long)&dev->delay;
+ 	INIT_WORK (&dev->kevent, usbnet_deferred_kevent);
+ 	init_usb_anchor(&dev->deferred);
