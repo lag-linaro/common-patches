@@ -2,7 +2,7 @@
 # android-mainline patches
 #
 # Applies onto upstream c79f46a28239 Linux v5.5-rc5
-# Matches android-mainline 73c2e8b6d908 ("ANDROID: iommu/arm-smmu: Allow inherting stream mapping from bootloader")
+# Matches android-mainline 1955a78a6a49 ("ANDROID: Kconfig.gki: Add QCOM_SCM to QCOM Hidden configs")
 #
 FROMGIT-scsi-ufs-Recheck-bkops-level-if-bkops-is-disabled.patch
 FROMGIT-scsi-ufs-Update-VCCQ2-and-VCCQ-min-max-voltage-hard-codes.patch
@@ -320,3 +320,5 @@ ANDROID-README-Add-add-user-reference-to-backporting-comment.patch
 ANDROID-iommu-arm-smmu-Don-t-blindly-use-first-SMR-to-calculate-mask.patch
 ANDROID-iommu-arm-smmu-Expose-s2cr-and-smr-structs-to-impl.patch
 ANDROID-iommu-arm-smmu-Allow-inherting-stream-mapping-from-bootloader.patch
+ANDROID-tty-serdev-Fix-broken-serial-console-input.patch
+ANDROID-Kconfig.gki-Add-QCOM_SCM-to-QCOM-Hidden-configs.patch

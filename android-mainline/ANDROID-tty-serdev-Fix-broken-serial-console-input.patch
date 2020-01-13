@@ -1,0 +1,58 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: John Stultz <john.stultz@linaro.org>
+Date: Wed, 8 Jan 2020 17:09:23 +0000
+Subject: ANDROID: tty: serdev: Fix broken serial console input
+
+Since commit c550a54f2302 ("ANDROID: serdev: add platform device
+support"), the serial console on the db845c has stopped taking
+input.
+
+Digging in it seems when the tty used for the console is
+switched to serdev via serdev_tty_port_register(), the
+client_ops are changed here:
+  https://android.googlesource.com/kernel/common/+/android-mainline/drivers/tty/serdev/serdev-ttyport.c#288
+
+The problem being, the new client_ops->receive_buf function
+ttyport_receive_buf() starts failing on the SERPORT_ACTIVE
+test here:
+  https://android.googlesource.com/kernel/common/+/android-mainline/drivers/tty/serdev/serdev-ttyport.c#32
+
+Which seems to be due to the fact that the tty was already
+opened and being used as the console when it was switched to
+serdev. Thus ctrl_ops->open function never gets called, which
+prevents the SERPORT_ACTIVE bit from being set:
+  https://android.googlesource.com/kernel/common/+/android-mainline/drivers/tty/serdev/serdev-ttyport.c#141
+
+Now this was at first confusing as on the HiKey960 we don't see
+the issue. But in the HiKey960 case it seem the check here:
+  https://android.googlesource.com/kernel/common/+/android-mainline/drivers/tty/serdev/core.c#737
+fails preventing the tty from being switched to serdev.
+
+Thus this patch tries to avoid switching the tty to serdev if
+the tty port's console value is true.
+
+With this, the serial console continues to function.
+
+Signed-off-by: John Stultz <john.stultz@linaro.org>
+Bug: 147453872
+Change-Id: Id2747dc8c4ac633d71afabaf252d2bb69d206123
+---
+ drivers/tty/serdev/serdev-ttyport.c | 5 +++++
+ 1 file changed, 5 insertions(+)
+
+diff --git a/drivers/tty/serdev/serdev-ttyport.c b/drivers/tty/serdev/serdev-ttyport.c
+index d1cdd2ab8b4c..f9c546ac4135 100644
+--- a/drivers/tty/serdev/serdev-ttyport.c
++++ b/drivers/tty/serdev/serdev-ttyport.c
+@@ -273,6 +273,11 @@ struct device *serdev_tty_port_register(struct tty_port *port,
+ 	if (!port || !drv || !parent)
+ 		return ERR_PTR(-ENODEV);
+ 
++	if (port->console) {
++		/* can't convert tty's that are already in use */
++		return ERR_PTR(-ENODEV);
++	}
++
+ 	ctrl = serdev_controller_alloc(parent, sizeof(struct serport));
+ 	if (!ctrl)
+ 		return ERR_PTR(-ENOMEM);
