@@ -36,7 +36,7 @@ Link: https://patchwork.kernel.org/patch/11214781/
  6 files changed, 34 insertions(+), 7 deletions(-)
 
 diff --git a/fs/buffer.c b/fs/buffer.c
-index e94a6619464c..1dca03b5b41c 100644
+index 18a87ec8a465..1d084ec1bdc3 100644
 --- a/fs/buffer.c
 +++ b/fs/buffer.c
 @@ -3085,6 +3085,8 @@ static int submit_bh_wbc(int op, int op_flags, struct buffer_head *bh,

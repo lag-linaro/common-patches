@@ -200,7 +200,7 @@ index 000000000000..95fd57896466
 +	return 0;
 +}
 diff --git a/block/bio.c b/block/bio.c
-index 006bcc52a77e..34d6c2b8ce2c 100644
+index 94d697217887..cc5ff661feeb 100644
 --- a/block/bio.c
 +++ b/block/bio.c
 @@ -244,6 +244,7 @@ static void bio_free(struct bio *bio)
@@ -211,7 +211,7 @@ index 006bcc52a77e..34d6c2b8ce2c 100644
  	bio_uninit(bio);
  
  	if (bs) {
-@@ -654,15 +655,15 @@ struct bio *bio_clone_fast(struct bio *bio, gfp_t gfp_mask, struct bio_set *bs)
+@@ -664,15 +665,15 @@ struct bio *bio_clone_fast(struct bio *bio, gfp_t gfp_mask, struct bio_set *bs)
  
  	__bio_clone_fast(b, bio);
  
@@ -235,7 +235,7 @@ index 006bcc52a77e..34d6c2b8ce2c 100644
  	}
  
  	return b;
-@@ -1036,6 +1037,7 @@ void bio_advance(struct bio *bio, unsigned bytes)
+@@ -1046,6 +1047,7 @@ void bio_advance(struct bio *bio, unsigned bytes)
  	if (bio_integrity(bio))
  		bio_integrity_advance(bio, bytes);
  

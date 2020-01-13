@@ -383,7 +383,7 @@ index 896db0416f0e..59adbfa25bac 100644
  	return 0;
  }
 diff --git a/fs/mpage.c b/fs/mpage.c
-index a63620cdb73a..e8281998e690 100644
+index ccba3c4c4479..f48de1f9bd24 100644
 --- a/fs/mpage.c
 +++ b/fs/mpage.c
 @@ -32,6 +32,14 @@
@@ -442,7 +442,7 @@ index a63620cdb73a..e8281998e690 100644
 +	}
  	bio->bi_end_io = mpage_end_io;
  	bio_set_op_attrs(bio, op, op_flags);
- 	guard_bio_eod(op, bio);
+ 	guard_bio_eod(bio);
 diff --git a/include/trace/events/android_fs.h b/include/trace/events/android_fs.h
 new file mode 100644
 index 000000000000..7edb6bcfe482

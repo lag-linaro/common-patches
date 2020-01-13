@@ -1,8 +1,8 @@
 #
 # android-mainline patches
 #
-# Applies onto upstream c79f46a28239 Linux v5.5-rc5
-# Matches android-mainline 1955a78a6a49 ("ANDROID: Kconfig.gki: Add QCOM_SCM to QCOM Hidden configs")
+# Applies onto upstream b3a987b0264d Linux v5.5-rc6
+# Matches android-mainline 18c5ac37c86d ("Merge 5.5-rc6 into android-mainline")
 #
 FROMGIT-scsi-ufs-Recheck-bkops-level-if-bkops-is-disabled.patch
 FROMGIT-scsi-ufs-Update-VCCQ2-and-VCCQ-min-max-voltage-hard-codes.patch
@@ -290,7 +290,6 @@ ANDROID-add-initial-ABI-whitelist-for-android-mainline.patch
 staging-android-ion-Remove-unused-rbtree-for-ion_buffer.patch
 ANDROID-gki_defconfig-Set-BINFMT_MISC-as-m.patch
 ANDROID-gki_defconfig-enable-ARM64_SW_TTBR0_PAN.patch
-ANDROID-phy-qcom-qmp-Increase-PHY-ready-timeout.patch
 ANDROID-phy-qcom-qmp-Use-power_on-off-ops-for-PCIe.patch
 ANDROID-phy-qcom-qmp-Add-SDM845-PCIe-QMP-PHY-support.patch
 ANDROID-phy-qcom-qmp-Add-SDM845-QHP-PCIe-PHY.patch

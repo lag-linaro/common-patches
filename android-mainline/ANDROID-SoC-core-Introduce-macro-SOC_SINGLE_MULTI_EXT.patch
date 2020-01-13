@@ -57,10 +57,10 @@ index 262896799826..73fafa4869ff 100644
  struct soc_enum {
  	int reg;
 diff --git a/sound/soc/soc-core.c b/sound/soc/soc-core.c
-index 1c84ff1a5bf9..819aedc955b7 100644
+index 8ef0efeed0a7..db43f2a5bd5f 100644
 --- a/sound/soc/soc-core.c
 +++ b/sound/soc/soc-core.c
-@@ -3217,6 +3217,39 @@ int snd_soc_get_dai_id(struct device_node *ep)
+@@ -3219,6 +3219,39 @@ int snd_soc_get_dai_id(struct device_node *ep)
  }
  EXPORT_SYMBOL_GPL(snd_soc_get_dai_id);
  

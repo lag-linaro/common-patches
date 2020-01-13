@@ -29,7 +29,7 @@ Signed-off-by: Sami Tolvanen <samitolvanen@google.com>
  create mode 100644 arch/arm64/kernel/scs.c
 
 diff --git a/arch/arm64/Kconfig b/arch/arm64/Kconfig
-index 49e5f94ff4af..073b19db23f2 100644
+index ce8b1f46dde7..65cd08b63cf6 100644
 --- a/arch/arm64/Kconfig
 +++ b/arch/arm64/Kconfig
 @@ -65,6 +65,7 @@ config ARM64
@@ -40,7 +40,7 @@ index 49e5f94ff4af..073b19db23f2 100644
  	select ARCH_SUPPORTS_ATOMIC_RMW
  	select ARCH_SUPPORTS_INT128 if CC_HAS_INT128 && (GCC_VERSION >= 50000 || CC_IS_CLANG)
  	select ARCH_SUPPORTS_NUMA_BALANCING
-@@ -994,6 +995,10 @@ config ARCH_HAS_CACHE_LINE_SIZE
+@@ -995,6 +996,10 @@ config ARCH_HAS_CACHE_LINE_SIZE
  config ARCH_ENABLE_SPLIT_PMD_PTLOCK
  	def_bool y if PGTABLE_LEVELS > 2
  
@@ -281,7 +281,7 @@ index 04a327ccf84d..fe0ca522ff60 100644
  	if (!handle_arch_irq)
  		panic("No interrupt controller found.");
 diff --git a/arch/arm64/kernel/process.c b/arch/arm64/kernel/process.c
-index 71f788cd2b18..5f0aec285848 100644
+index d54586d5b031..507f1a2cd3da 100644
 --- a/arch/arm64/kernel/process.c
 +++ b/arch/arm64/kernel/process.c
 @@ -52,6 +52,7 @@

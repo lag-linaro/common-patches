@@ -22,10 +22,10 @@ Signed-off-by: Sami Tolvanen <samitolvanen@google.com>
  1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/arch/arm64/Kconfig b/arch/arm64/Kconfig
-index b1b4476ddb83..49e5f94ff4af 100644
+index e688dfad0b72..ce8b1f46dde7 100644
 --- a/arch/arm64/Kconfig
 +++ b/arch/arm64/Kconfig
-@@ -149,7 +149,7 @@ config ARM64
+@@ -150,7 +150,7 @@ config ARM64
  	select HAVE_FTRACE_MCOUNT_RECORD
  	select HAVE_FUNCTION_TRACER
  	select HAVE_FUNCTION_ERROR_INJECTION
