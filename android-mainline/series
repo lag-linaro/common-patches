@@ -2,7 +2,7 @@
 # android-mainline patches
 #
 # Applies onto upstream b3a987b0264d Linux v5.5-rc6
-# Matches android-mainline 18c5ac37c86d ("Merge 5.5-rc6 into android-mainline")
+# Matches android-mainline 8842858bc124 ("ANDROID: gki_defconfig: Enable blk-crypto fallback")
 #
 FROMGIT-scsi-ufs-Recheck-bkops-level-if-bkops-is-disabled.patch
 FROMGIT-scsi-ufs-Update-VCCQ2-and-VCCQ-min-max-voltage-hard-codes.patch
@@ -321,3 +321,5 @@ ANDROID-iommu-arm-smmu-Expose-s2cr-and-smr-structs-to-impl.patch
 ANDROID-iommu-arm-smmu-Allow-inherting-stream-mapping-from-bootloader.patch
 ANDROID-tty-serdev-Fix-broken-serial-console-input.patch
 ANDROID-Kconfig.gki-Add-QCOM_SCM-to-QCOM-Hidden-configs.patch
+FROMLIST-Update-Inline-Encryption-from-v5-to-v6-of-patch-series.patch
+ANDROID-gki_defconfig-Enable-blk-crypto-fallback.patch
