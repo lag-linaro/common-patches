@@ -20,7 +20,7 @@ Change-Id: I6cffa3ca884b74122307931e8f6615f31c33ef55
  2 files changed, 7 insertions(+), 2 deletions(-)
 
 diff --git a/drivers/regulator/core.c b/drivers/regulator/core.c
-index 87bc06b386a0..547cbb709091 100644
+index 1dba0bdf3762..fc91952c4127 100644
 --- a/drivers/regulator/core.c
 +++ b/drivers/regulator/core.c
 @@ -1846,6 +1846,7 @@ struct regulator *_regulator_get(struct device *dev, const char *id,

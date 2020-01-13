@@ -18,7 +18,7 @@ Signed-off-by: Sami Tolvanen <samitolvanen@google.com>
  create mode 100644 scripts/module-lto.lds
 
 diff --git a/Makefile b/Makefile
-index e2c23797b55b..b620f07a9d57 100644
+index 8249748b8f20..3b47bb71cff0 100644
 --- a/Makefile
 +++ b/Makefile
 @@ -874,6 +874,8 @@ else

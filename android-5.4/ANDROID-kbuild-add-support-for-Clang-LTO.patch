@@ -32,7 +32,7 @@ Signed-off-by: Sami Tolvanen <samitolvanen@google.com>
  8 files changed, 221 insertions(+), 17 deletions(-)
 
 diff --git a/Makefile b/Makefile
-index 8b1518c6d60d..99697bddf5f2 100644
+index 13ec331c555b..705a2b9a7516 100644
 --- a/Makefile
 +++ b/Makefile
 @@ -654,6 +654,16 @@ RETPOLINE_VDSO_CFLAGS := $(call cc-option,$(RETPOLINE_VDSO_CFLAGS_GCC),$(call cc
