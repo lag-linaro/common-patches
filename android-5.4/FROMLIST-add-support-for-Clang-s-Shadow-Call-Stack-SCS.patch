@@ -38,7 +38,7 @@ Signed-off-by: Sami Tolvanen <samitolvanen@google.com>
  create mode 100644 kernel/scs.c
 
 diff --git a/Makefile b/Makefile
-index c595701c21e5..13ec331c555b 100644
+index 658d0a1c3748..fa80ee470e4d 100644
 --- a/Makefile
 +++ b/Makefile
 @@ -850,6 +850,12 @@ ifdef CONFIG_LIVEPATCH
@@ -230,7 +230,7 @@ index daad787fb795..313dbd44d576 100644
  obj-$(CONFIG_PERF_EVENTS) += events/
  
 diff --git a/kernel/fork.c b/kernel/fork.c
-index d5786c962d52..fad2776cc007 100644
+index 6d35b467bc5c..96636d6ca956 100644
 --- a/kernel/fork.c
 +++ b/kernel/fork.c
 @@ -95,6 +95,7 @@

@@ -16,7 +16,7 @@ Signed-off-by: John Stultz <john.stultz@linaro.org>
  1 file changed, 1 insertion(+)
 
 diff --git a/drivers/tty/serial/serial_core.c b/drivers/tty/serial/serial_core.c
-index b0a6eb106edb..a47730108313 100644
+index 7c2782785736..7b87c08f5bcb 100644
 --- a/drivers/tty/serial/serial_core.c
 +++ b/drivers/tty/serial/serial_core.c
 @@ -2603,6 +2603,7 @@ struct tty_driver *uart_console_device(struct console *co, int *index)

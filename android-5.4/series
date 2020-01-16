@@ -1,8 +1,8 @@
 #
 # android-5.4 patches
 #
-# Applies onto upstream 9d61432efb21 Linux v5.4.11
-# Matches android-5.4 4eb8e72c3538 ("GKI: enable CONFIG_NETFILTER_XT_MATCH_QUOTA2_LOG=y")
+# Applies onto upstream adc0acf58776 Linux v5.4.12
+# Matches android-5.4 4bbb96064422 ("Merge 5.4.12 into android-5.4")
 #
 ANDROID-Kbuild-LLVMLinux-allow-overriding-clang-target-triple.patch
 ANDROID-net-xfrm-make-PF_KEY-SHA256-use-RFC-compliant-truncation.patch

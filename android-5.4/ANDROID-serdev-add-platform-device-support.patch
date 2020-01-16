@@ -32,7 +32,7 @@ Signed-off-by: Alistair Delva <adelva@google.com>
  1 file changed, 61 insertions(+), 10 deletions(-)
 
 diff --git a/drivers/tty/serdev/core.c b/drivers/tty/serdev/core.c
-index a0ac16ee6575..17ec4dd3a716 100644
+index a9719858c950..37c6defcd6c1 100644
 --- a/drivers/tty/serdev/core.c
 +++ b/drivers/tty/serdev/core.c
 @@ -31,7 +31,18 @@ static ssize_t modalias_show(struct device *dev,
@@ -97,7 +97,7 @@ index a0ac16ee6575..17ec4dd3a716 100644
  }
  
  /**
-@@ -620,6 +642,33 @@ static inline int acpi_serdev_register_devices(struct serdev_controller *ctrl)
+@@ -630,6 +652,33 @@ static inline int acpi_serdev_register_devices(struct serdev_controller *ctrl)
  }
  #endif /* CONFIG_ACPI */
  
@@ -131,7 +131,7 @@ index a0ac16ee6575..17ec4dd3a716 100644
  /**
   * serdev_controller_add() - Add an serdev controller
   * @ctrl:	controller to be registered.
-@@ -629,7 +678,7 @@ static inline int acpi_serdev_register_devices(struct serdev_controller *ctrl)
+@@ -639,7 +688,7 @@ static inline int acpi_serdev_register_devices(struct serdev_controller *ctrl)
   */
  int serdev_controller_add(struct serdev_controller *ctrl)
  {
@@ -140,7 +140,7 @@ index a0ac16ee6575..17ec4dd3a716 100644
  
  	/* Can't register until after driver model init */
  	if (WARN_ON(!is_registered))
-@@ -643,9 +692,11 @@ int serdev_controller_add(struct serdev_controller *ctrl)
+@@ -653,9 +702,11 @@ int serdev_controller_add(struct serdev_controller *ctrl)
  
  	ret_of = of_serdev_register_devices(ctrl);
  	ret_acpi = acpi_serdev_register_devices(ctrl);
