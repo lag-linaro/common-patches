@@ -1,0 +1,27 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: Saravana Kannan <saravanak@google.com>
+Date: Fri, 6 Dec 2019 12:02:55 -0800
+Subject: ANDROID: arm64: dts: db845c: Add clocks entry to display to track
+ real clock inputs
+
+Change-Id: Ib22f32b95a2f46824a28fb9f9fc3eaaccca7e47b
+[jstultz: Fix build issue, reworked commit message]
+Bug: 146449535
+Signed-off-by: Saravana Kannan <saravanak@google.com>
+Signed-off-by: John Stultz <john.stultz@linaro.org>
+---
+ arch/arm64/boot/dts/qcom/sdm845.dtsi | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/arch/arm64/boot/dts/qcom/sdm845.dtsi b/arch/arm64/boot/dts/qcom/sdm845.dtsi
+index 09c1754b9ad3..da19f97a1984 100644
+--- a/arch/arm64/boot/dts/qcom/sdm845.dtsi
++++ b/arch/arm64/boot/dts/qcom/sdm845.dtsi
+@@ -3149,6 +3149,7 @@ opp-200000000 {
+ 		dispcc: clock-controller@af00000 {
+ 			compatible = "qcom,sdm845-dispcc";
+ 			reg = <0 0x0af00000 0 0x10000>;
++			clocks = <&gcc GCC_DISP_GPLL0_CLK_SRC>;
+ 			#clock-cells = <1>;
+ 			#reset-cells = <1>;
+ 			#power-domain-cells = <1>;

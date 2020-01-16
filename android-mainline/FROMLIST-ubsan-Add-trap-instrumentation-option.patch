@@ -1,0 +1,108 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: Kees Cook <keescook@chromium.org>
+Date: Tue, 19 Nov 2019 17:06:34 -0800
+Subject: FROMLIST: ubsan: Add trap instrumentation option
+
+The Undefined Behavior Sanitizer can operate in two modes: warning
+reporting mode via lib/ubsan.c handler calls, or trap mode, which uses
+__builtin_trap() as the handler. Using lib/ubsan.c means the kernel
+image is about 5% larger (due to all the debugging text and reporting
+structures to capture details about the warning conditions). Using the
+trap mode, the image size changes are much smaller, though at the loss
+of the "warning only" mode.
+
+In order to give greater flexibility to system builders that want
+minimal changes to image size and are prepared to deal with kernel
+threads being killed, this introduces CONFIG_UBSAN_TRAP. The resulting
+image sizes comparison:
+
+   text    data     bss       dec       hex     filename
+19533663   6183037  18554956  44271656  2a38828 vmlinux.stock
+19991849   7618513  18874448  46484810  2c54d4a vmlinux.ubsan
+19712181   6284181  18366540  44362902  2a4ec96 vmlinux.ubsan-trap
+
+CONFIG_UBSAN=y:      image +4.8% (text +2.3%, data +18.9%)
+CONFIG_UBSAN_TRAP=y: image +0.2% (text +0.9%, data +1.6%)
+
+Bug: 136249967
+Link: https://lore.kernel.org/kernel-hardening/20191121181519.28637-2-keescook@chromium.org/
+Suggested-by: Elena Petrova <lenaptr@google.com>
+Signed-off-by: Kees Cook <keescook@chromium.org>
+Signed-off-by: Elena Petrova <lenaptr@google.com>
+Change-Id: Ifa36d25f9649958cfc7b78e21777390f128db165
+---
+ lib/Kconfig.ubsan      | 15 +++++++++++++--
+ lib/Makefile           |  2 ++
+ scripts/Makefile.ubsan |  9 +++++++--
+ 3 files changed, 22 insertions(+), 4 deletions(-)
+
+diff --git a/lib/Kconfig.ubsan b/lib/Kconfig.ubsan
+index 0e04fcb3ab3d..d69e8b21ebae 100644
+--- a/lib/Kconfig.ubsan
++++ b/lib/Kconfig.ubsan
+@@ -5,12 +5,23 @@ config ARCH_HAS_UBSAN_SANITIZE_ALL
+ config UBSAN
+ 	bool "Undefined behaviour sanity checker"
+ 	help
+-	  This option enables undefined behaviour sanity checker
++	  This option enables undefined behaviour sanity checker.
+ 	  Compile-time instrumentation is used to detect various undefined
+-	  behaviours in runtime. Various types of checks may be enabled
++	  behaviours at runtime. Various types of checks may be enabled
+ 	  via boot parameter ubsan_handle
+ 	  (see: Documentation/dev-tools/ubsan.rst).
+ 
++config UBSAN_TRAP
++	bool "On Sanitizer warnings, stop the offending kernel thread"
++	depends on UBSAN
++	depends on $(cc-option, -fsanitize-undefined-trap-on-error)
++	help
++	  Building kernels with Sanitizer features enabled tends to grow
++	  the kernel size by over 5%, due to adding all the debugging
++	  text on failure paths. To avoid this, Sanitizer instrumentation
++	  can just issue a trap. This reduces the kernel size overhead but
++	  turns all warnings into full thread-killing exceptions.
++
+ config UBSAN_SANITIZE_ALL
+ 	bool "Enable instrumentation for the entire kernel"
+ 	depends on UBSAN
+diff --git a/lib/Makefile b/lib/Makefile
+index 93217d44237f..3114ef1727f8 100644
+--- a/lib/Makefile
++++ b/lib/Makefile
+@@ -275,7 +275,9 @@ quiet_cmd_build_OID_registry = GEN     $@
+ clean-files	+= oid_registry_data.c
+ 
+ obj-$(CONFIG_UCS2_STRING) += ucs2_string.o
++ifneq ($(CONFIG_UBSAN_TRAP),y)
+ obj-$(CONFIG_UBSAN) += ubsan.o
++endif
+ 
+ UBSAN_SANITIZE_ubsan.o := n
+ KASAN_SANITIZE_ubsan.o := n
+diff --git a/scripts/Makefile.ubsan b/scripts/Makefile.ubsan
+index 019771b845c5..668a91510bfe 100644
+--- a/scripts/Makefile.ubsan
++++ b/scripts/Makefile.ubsan
+@@ -1,5 +1,10 @@
+ # SPDX-License-Identifier: GPL-2.0
+ ifdef CONFIG_UBSAN
++
++ifdef CONFIG_UBSAN_ALIGNMENT
++      CFLAGS_UBSAN += $(call cc-option, -fsanitize=alignment)
++endif
++
+       CFLAGS_UBSAN += $(call cc-option, -fsanitize=shift)
+       CFLAGS_UBSAN += $(call cc-option, -fsanitize=integer-divide-by-zero)
+       CFLAGS_UBSAN += $(call cc-option, -fsanitize=unreachable)
+@@ -9,8 +14,8 @@ ifdef CONFIG_UBSAN
+       CFLAGS_UBSAN += $(call cc-option, -fsanitize=bool)
+       CFLAGS_UBSAN += $(call cc-option, -fsanitize=enum)
+ 
+-ifdef CONFIG_UBSAN_ALIGNMENT
+-      CFLAGS_UBSAN += $(call cc-option, -fsanitize=alignment)
++ifdef CONFIG_UBSAN_TRAP
++      CFLAGS_UBSAN += $(call cc-option, -fsanitize-undefined-trap-on-error)
+ endif
+ 
+       # -fsanitize=* options makes GCC less smart than usual and

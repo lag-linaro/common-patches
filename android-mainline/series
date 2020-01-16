@@ -2,7 +2,7 @@
 # android-mainline patches
 #
 # Applies onto upstream b3a987b0264d Linux v5.5-rc6
-# Matches android-mainline 8842858bc124 ("ANDROID: gki_defconfig: Enable blk-crypto fallback")
+# Matches android-mainline 098b131c6460 ("FROMLIST: lkdtm/bugs: Add arithmetic overflow and array bounds checks")
 #
 FROMGIT-scsi-ufs-Recheck-bkops-level-if-bkops-is-disabled.patch
 FROMGIT-scsi-ufs-Update-VCCQ2-and-VCCQ-min-max-voltage-hard-codes.patch
@@ -73,6 +73,19 @@ FROMLIST-add-support-for-Clang-s-Shadow-Call-Stack-SCS.patch
 FROMLIST-scs-add-accounting.patch
 FROMLIST-scs-add-support-for-stack-usage-debugging.patch
 FROMLIST-crypto-arm64-sha-fix-function-types.patch
+FROMLIST-usb-xhci-export-few-functions.patch
+FROMLIST-usb-renesas-xhci-Add-the-renesas-xhci-driver.patch
+FROMLIST-usb-renesas-xhci-Add-ROM-loader-for-uPD720201.patch
+FROMLIST-usb-renesas-xhci-allow-multiple-firmware-versions.patch
+FROMLIST-usb-xhci-provide-a-debugfs-hook-for-erasing-rom.patch
+FROMLIST-usb-dwc3-gadget-Correct-the-logic-for-finding-last-SG-entry.patch
+FROMLIST-tty-serial-Kconfig-Allow-SERIAL_QCOM_GENI_CONSOLE-to-be-enabled-if-SERIAL_QCOM_GENI-is-a-module.patch
+FROMLIST-reset-qcom-aoss-Allow-CONFIG_RESET_QCOM_AOSS-to-be-a-tristate.patch
+FROMLIST-drm-msm-Quiet-down-plane-errors-in-atomic_check.patch
+FROMLIST-lib-list_sort-fix-function-type-mismatches.patch
+FROMLIST-ubsan-Add-trap-instrumentation-option.patch
+FROMLIST-ubsan-Split-bounds-checker-from-other-options.patch
+FROMLIST-lkdtm-bugs-Add-arithmetic-overflow-and-array-bounds-checks.patch
 ANDROID-arm64-copy-CONFIG_CMDLINE_EXTEND-from-ARM.patch
 ANDROID-of-Support-CONFIG_CMDLINE_EXTEND-config-option.patch
 ANDROID-Kbuild-LLVMLinux-allow-overriding-clang-target-triple.patch
@@ -323,3 +336,13 @@ ANDROID-tty-serdev-Fix-broken-serial-console-input.patch
 ANDROID-Kconfig.gki-Add-QCOM_SCM-to-QCOM-Hidden-configs.patch
 FROMLIST-Update-Inline-Encryption-from-v5-to-v6-of-patch-series.patch
 ANDROID-gki_defconfig-Enable-blk-crypto-fallback.patch
+ANDROID-drm-bridge-Introduce-LT9611-DSI-to-HDMI-bridge.patch
+ANDROID-arm64-dts-sdm845-Enable-FW-implemented-safe-sequence-handler-on-MTP.patch
+ANDROID-arm64-dts-qcom-sdm845-Add-first-PCIe-controller-and-PHY.patch
+ANDROID-arm64-dts-qcom-sdm845-Add-second-PCIe-PHY-and-controller.patch
+ANDROID-arm64-dts-qcom-db845c-Enable-PCIe-controllers.patch
+ANDROID-arm64-dts-qcom-sdm845-db845c-Bring-in-LT9611.patch
+ANDROID-arm64-dts-db845c-add-Low-speed-expansion-i2c-and-spi-nodes.patch
+ANDROID-arm64-dts-db845c-Add-clocks-entry-to-display-to-track-real-clock-inputs.patch
+ANDROID-db845c-add-db845c_gki.fragment.patch
+ANDROID-db845c-Add-build-config.patch

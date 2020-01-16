@@ -1,0 +1,140 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: Kees Cook <keescook@chromium.org>
+Date: Tue, 19 Nov 2019 17:06:36 -0800
+Subject: FROMLIST: lkdtm/bugs: Add arithmetic overflow and array bounds checks
+
+Adds LKDTM tests for arithmetic overflow (both signed and unsigned),
+as well as array bounds checking.
+
+Bug: 136249967
+Link: https://lore.kernel.org/kernel-hardening/20191121181519.28637-4-keescook@chromium.org/
+Signed-off-by: Kees Cook <keescook@chromium.org>
+Signed-off-by: Elena Petrova <lenaptr@google.com>
+Change-Id: I9f0280fe172ba29ebda4c6610efb34f054e84577
+---
+ drivers/misc/lkdtm/bugs.c  | 75 ++++++++++++++++++++++++++++++++++++++
+ drivers/misc/lkdtm/core.c  |  3 ++
+ drivers/misc/lkdtm/lkdtm.h |  3 ++
+ 3 files changed, 81 insertions(+)
+
+diff --git a/drivers/misc/lkdtm/bugs.c b/drivers/misc/lkdtm/bugs.c
+index a4fdad04809a..002144798eb6 100644
+--- a/drivers/misc/lkdtm/bugs.c
++++ b/drivers/misc/lkdtm/bugs.c
+@@ -11,6 +11,7 @@
+ #include <linux/sched/signal.h>
+ #include <linux/sched/task_stack.h>
+ #include <linux/uaccess.h>
++#include <linux/slab.h>
+ 
+ #ifdef CONFIG_X86_32
+ #include <asm/desc.h>
+@@ -175,6 +176,80 @@ void lkdtm_HUNG_TASK(void)
+ 	schedule();
+ }
+ 
++volatile unsigned int huge = INT_MAX - 2;
++volatile unsigned int ignored;
++
++void lkdtm_OVERFLOW_SIGNED(void)
++{
++	int value;
++
++	value = huge;
++	pr_info("Normal signed addition ...\n");
++	value += 1;
++	ignored = value;
++
++	pr_info("Overflowing signed addition ...\n");
++	value += 4;
++	ignored = value;
++}
++
++
++void lkdtm_OVERFLOW_UNSIGNED(void)
++{
++	unsigned int value;
++
++	value = huge;
++	pr_info("Normal unsigned addition ...\n");
++	value += 1;
++	ignored = value;
++
++	pr_info("Overflowing unsigned addition ...\n");
++	value += 4;
++	ignored = value;
++}
++
++/* Intentially using old-style flex array definition of 1 byte. */
++struct array_bounds_flex_array {
++	int one;
++	int two;
++	char data[1];
++};
++
++struct array_bounds {
++	int one;
++	int two;
++	char data[8];
++	int three;
++};
++
++void lkdtm_ARRAY_BOUNDS(void)
++{
++	struct array_bounds_flex_array *not_checked;
++	struct array_bounds *checked;
++	int i;
++
++	not_checked = kmalloc(sizeof(*not_checked) * 2, GFP_KERNEL);
++	checked = kmalloc(sizeof(*checked) * 2, GFP_KERNEL);
++
++	pr_info("Array access within bounds ...\n");
++	/* For both, touch all bytes in the actual member size. */
++	for (i = 0; i < sizeof(checked->data); i++)
++		checked->data[i] = 'A';
++	/*
++	 * For the uninstrumented flex array member, also touch 1 byte
++	 * beyond to verify it is correctly uninstrumented.
++	 */
++	for (i = 0; i < sizeof(not_checked->data) + 1; i++)
++		not_checked->data[i] = 'A';
++
++	pr_info("Array access beyond bounds ...\n");
++	for (i = 0; i < sizeof(checked->data) + 1; i++)
++		checked->data[i] = 'B';
++
++	kfree(not_checked);
++	kfree(checked);
++}
++
+ void lkdtm_CORRUPT_LIST_ADD(void)
+ {
+ 	/*
+diff --git a/drivers/misc/lkdtm/core.c b/drivers/misc/lkdtm/core.c
+index ee0d6e721441..2e04719b503c 100644
+--- a/drivers/misc/lkdtm/core.c
++++ b/drivers/misc/lkdtm/core.c
+@@ -129,6 +129,9 @@ static const struct crashtype crashtypes[] = {
+ 	CRASHTYPE(HARDLOCKUP),
+ 	CRASHTYPE(SPINLOCKUP),
+ 	CRASHTYPE(HUNG_TASK),
++	CRASHTYPE(OVERFLOW_SIGNED),
++	CRASHTYPE(OVERFLOW_UNSIGNED),
++	CRASHTYPE(ARRAY_BOUNDS),
+ 	CRASHTYPE(EXEC_DATA),
+ 	CRASHTYPE(EXEC_STACK),
+ 	CRASHTYPE(EXEC_KMALLOC),
+diff --git a/drivers/misc/lkdtm/lkdtm.h b/drivers/misc/lkdtm/lkdtm.h
+index c56d23e37643..8391081c6f13 100644
+--- a/drivers/misc/lkdtm/lkdtm.h
++++ b/drivers/misc/lkdtm/lkdtm.h
+@@ -22,6 +22,9 @@ void lkdtm_SOFTLOCKUP(void);
+ void lkdtm_HARDLOCKUP(void);
+ void lkdtm_SPINLOCKUP(void);
+ void lkdtm_HUNG_TASK(void);
++void lkdtm_OVERFLOW_SIGNED(void);
++void lkdtm_OVERFLOW_UNSIGNED(void);
++void lkdtm_ARRAY_BOUNDS(void);
+ void lkdtm_CORRUPT_LIST_ADD(void);
+ void lkdtm_CORRUPT_LIST_DEL(void);
+ void lkdtm_CORRUPT_USER_DS(void);
