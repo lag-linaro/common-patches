@@ -1,0 +1,39 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: John Stultz <john.stultz@linaro.org>
+Date: Tue, 19 Nov 2019 23:09:54 +0000
+Subject: FROMLIST: tty: serial: Kconfig: Allow SERIAL_QCOM_GENI_CONSOLE to be
+ enabled if SERIAL_QCOM_GENI is a module
+
+In order to support having SERIAL_QCOM_GENI as a module while
+also still preserving serial console support, tweak the
+Kconfig requirements to not require =y
+
+Cc: Todd Kjos <tkjos@google.com>
+Cc: Alistair Delva <adelva@google.com>
+Cc: Bjorn Andersson <bjorn.andersson@linaro.org>
+Cc: Amit Pundir <amit.pundir@linaro.org>
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: Jiri Slaby <jslaby@suse.com>
+Cc: linux-serial@vger.kernel.org
+Reviewed-by: Bjorn Andersson <bjorn.andersson@linaro.org>
+Signed-off-by: John Stultz <john.stultz@linaro.org>
+Bug: 146449535
+Change-Id: I51b64312c22067b99a27ec70db40047e53db1076
+Link: https://lore.kernel.org/lkml/20200107010311.58584-1-john.stultz@linaro.org/T/#ma12b01d9ffd0680d3a1a3cf8a65a951bad46f006
+---
+ drivers/tty/serial/Kconfig | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/drivers/tty/serial/Kconfig b/drivers/tty/serial/Kconfig
+index 67a9eb3f94ce..a37a57ca3091 100644
+--- a/drivers/tty/serial/Kconfig
++++ b/drivers/tty/serial/Kconfig
+@@ -975,7 +975,7 @@ config SERIAL_QCOM_GENI
+ 
+ config SERIAL_QCOM_GENI_CONSOLE
+ 	bool "QCOM GENI Serial Console support"
+-	depends on SERIAL_QCOM_GENI=y
++	depends on SERIAL_QCOM_GENI
+ 	select SERIAL_CORE_CONSOLE
+ 	select SERIAL_EARLYCON
+ 	help

@@ -2,7 +2,7 @@
 # android-5.4 patches
 #
 # Applies onto upstream adc0acf58776 Linux v5.4.12
-# Matches android-5.4 4bbb96064422 ("Merge 5.4.12 into android-5.4")
+# Matches android-5.4 486ed22a3473 ("ANDROID: db845c: Add build config")
 #
 ANDROID-Kbuild-LLVMLinux-allow-overriding-clang-target-triple.patch
 ANDROID-net-xfrm-make-PF_KEY-SHA256-use-RFC-compliant-truncation.patch
@@ -423,3 +423,24 @@ UPSTREAM-kcov-remote-coverage-support.patch
 UPSTREAM-usb-kcov-collect-coverage-from-hub_event.patch
 UPSTREAM-vhost-kcov-collect-coverage-from-vhost_worker.patch
 GKI-enable-CONFIG_NETFILTER_XT_MATCH_QUOTA2_LOG-y.patch
+UPSTREAM-kcov-fix-struct-layout-for-kcov_remote_arg.patch
+FROMLIST-lib-list_sort-fix-function-type-mismatches.patch
+FROMLIST-tty-serial-Kconfig-Allow-SERIAL_QCOM_GENI_CONSOLE-to-be-enabled-if-SERIAL_QCOM_GENI-is-a-module.patch
+FROMLIST-reset-qcom-aoss-Allow-CONFIG_RESET_QCOM_AOSS-to-be-a-tristate.patch
+FROMLIST-drm-msm-Quiet-down-plane-errors-in-atomic_check.patch
+ANDROID-drm-bridge-Introduce-LT9611-DSI-to-HDMI-bridge.patch
+ANDROID-arm64-dts-sdm845-Enable-FW-implemented-safe-sequence-handler-on-MTP.patch
+ANDROID-arm64-dts-qcom-sdm845-Add-first-PCIe-controller-and-PHY.patch
+ANDROID-arm64-dts-qcom-sdm845-Add-second-PCIe-PHY-and-controller.patch
+ANDROID-arm64-dts-qcom-db845c-Enable-PCIe-controllers.patch
+ANDROID-arm64-dts-qcom-sdm845-db845c-Bring-in-LT9611.patch
+ANDROID-arm64-dts-db845c-add-Low-speed-expansion-i2c-and-spi-nodes.patch
+ANDROID-arm64-dts-db845c-Add-clocks-entry-to-display-to-track-real-clock-inputs.patch
+FROMLIST-usb-xhci-export-few-functions.patch
+FROMLIST-usb-renesas-xhci-Add-the-renesas-xhci-driver.patch
+FROMLIST-usb-renesas-xhci-Add-ROM-loader-for-uPD720201.patch
+FROMLIST-usb-renesas-xhci-allow-multiple-firmware-versions.patch
+FROMLIST-usb-xhci-provide-a-debugfs-hook-for-erasing-rom.patch
+FROMLIST-usb-dwc3-gadget-Correct-the-logic-for-finding-last-SG-entry.patch
+ANDROID-db845c-add-db845c_gki.fragment.patch
+ANDROID-db845c-Add-build-config.patch

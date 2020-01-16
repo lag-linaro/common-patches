@@ -1,0 +1,87 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: John Stultz <john.stultz@linaro.org>
+Date: Fri, 4 Oct 2019 23:14:15 +0000
+Subject: FROMLIST: drm: msm: Quiet down plane errors in atomic_check
+
+With the db845c running AOSP, I see the following error on every
+frame on the home screen:
+  [drm:dpu_plane_atomic_check:915] [dpu error]plane33 invalid src 2880x1620+0+470 line:2560
+
+This is due to the error paths in atomic_check using
+DPU_ERROR_PLANE(), and the drm_hwcomposer using atomic_check
+to decide how to composite the frame (thus it expects to see
+atomic_check to fail).
+
+In order to avoid spamming the logs, this patch converts the
+DPU_ERROR_PLANE() calls to DPU_DEBUG_PLANE() calls in
+atomic_check.
+
+Cc: Todd Kjos <tkjos@google.com>
+Cc: Alistair Delva <adelva@google.com>
+Cc: Amit Pundir <amit.pundir@linaro.org>
+Cc: Rob Clark <robdclark@gmail.com>
+Cc: Sean Paul <sean@poorly.run>
+Cc: David Airlie <airlied@linux.ie>
+Cc: Daniel Vetter <daniel@ffwll.ch>
+Cc: dri-devel@lists.freedesktop.org
+Cc: freedreno@lists.freedesktop.org
+Signed-off-by: John Stultz <john.stultz@linaro.org>
+Bug: 146449535
+Change-Id: I017e1feaafabdb713078aeaaf2259ea0c3705c03
+Link: https://lore.kernel.org/lkml/20200107202852.55819-1-john.stultz@linaro.org/T/#u
+---
+ drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c | 12 ++++++------
+ 1 file changed, 6 insertions(+), 6 deletions(-)
+
+diff --git a/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c b/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c
+index 58d5acbcfc5c..d19ae0b51d1c 100644
+--- a/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c
++++ b/drivers/gpu/drm/msm/disp/dpu1/dpu_plane.c
+@@ -858,7 +858,7 @@ static int dpu_plane_atomic_check(struct drm_plane *plane,
+ 					  pdpu->pipe_sblk->maxupscale << 16,
+ 					  true, true);
+ 	if (ret) {
+-		DPU_ERROR_PLANE(pdpu, "Check plane state failed (%d)\n", ret);
++		DPU_DEBUG_PLANE(pdpu, "Check plane state failed (%d)\n", ret);
+ 		return ret;
+ 	}
+ 	if (!state->visible)
+@@ -884,13 +884,13 @@ static int dpu_plane_atomic_check(struct drm_plane *plane,
+ 		(!(pdpu->features & DPU_SSPP_SCALER) ||
+ 		 !(pdpu->features & (BIT(DPU_SSPP_CSC)
+ 		 | BIT(DPU_SSPP_CSC_10BIT))))) {
+-		DPU_ERROR_PLANE(pdpu,
++		DPU_DEBUG_PLANE(pdpu,
+ 				"plane doesn't have scaler/csc for yuv\n");
+ 		return -EINVAL;
+ 
+ 	/* check src bounds */
+ 	} else if (!dpu_plane_validate_src(&src, &fb_rect, min_src_size)) {
+-		DPU_ERROR_PLANE(pdpu, "invalid source " DRM_RECT_FMT "\n",
++		DPU_DEBUG_PLANE(pdpu, "invalid source " DRM_RECT_FMT "\n",
+ 				DRM_RECT_ARG(&src));
+ 		return -E2BIG;
+ 
+@@ -899,19 +899,19 @@ static int dpu_plane_atomic_check(struct drm_plane *plane,
+ 		   (src.x1 & 0x1 || src.y1 & 0x1 ||
+ 		    drm_rect_width(&src) & 0x1 ||
+ 		    drm_rect_height(&src) & 0x1)) {
+-		DPU_ERROR_PLANE(pdpu, "invalid yuv source " DRM_RECT_FMT "\n",
++		DPU_DEBUG_PLANE(pdpu, "invalid yuv source " DRM_RECT_FMT "\n",
+ 				DRM_RECT_ARG(&src));
+ 		return -EINVAL;
+ 
+ 	/* min dst support */
+ 	} else if (drm_rect_width(&dst) < 0x1 || drm_rect_height(&dst) < 0x1) {
+-		DPU_ERROR_PLANE(pdpu, "invalid dest rect " DRM_RECT_FMT "\n",
++		DPU_DEBUG_PLANE(pdpu, "invalid dest rect " DRM_RECT_FMT "\n",
+ 				DRM_RECT_ARG(&dst));
+ 		return -EINVAL;
+ 
+ 	/* check decimated source width */
+ 	} else if (drm_rect_width(&src) > max_linewidth) {
+-		DPU_ERROR_PLANE(pdpu, "invalid src " DRM_RECT_FMT " line:%u\n",
++		DPU_DEBUG_PLANE(pdpu, "invalid src " DRM_RECT_FMT " line:%u\n",
+ 				DRM_RECT_ARG(&src), max_linewidth);
+ 		return -E2BIG;
+ 	}
