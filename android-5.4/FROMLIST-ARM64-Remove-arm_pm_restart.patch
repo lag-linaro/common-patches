@@ -34,7 +34,7 @@ index 1ab63cfbbaf1..d02c5e5ea015 100644
  
  #endif	/* __ASM_SYSTEM_MISC_H */
 diff --git a/arch/arm64/kernel/process.c b/arch/arm64/kernel/process.c
-index 5f0aec285848..a3a6a64620c8 100644
+index 507f1a2cd3da..4be73ab0b405 100644
 --- a/arch/arm64/kernel/process.c
 +++ b/arch/arm64/kernel/process.c
 @@ -67,8 +67,6 @@ EXPORT_SYMBOL(__stack_chk_guard);

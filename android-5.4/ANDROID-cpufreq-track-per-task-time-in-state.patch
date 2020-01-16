@@ -401,7 +401,7 @@ index 775503573ed7..e2f891bb62a2 100644
  #ifdef CONFIG_VIRT_CPU_ACCOUNTING_GEN
  	struct vtime			vtime;
 diff --git a/kernel/fork.c b/kernel/fork.c
-index 6cabc124378c..d5786c962d52 100644
+index 755d8160e001..6d35b467bc5c 100644
 --- a/kernel/fork.c
 +++ b/kernel/fork.c
 @@ -93,6 +93,7 @@
