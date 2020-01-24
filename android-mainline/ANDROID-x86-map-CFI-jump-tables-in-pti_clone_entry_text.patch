@@ -1,0 +1,76 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: Sami Tolvanen <samitolvanen@google.com>
+Date: Thu, 9 Jan 2020 13:11:05 -0800
+Subject: ANDROID: x86: map CFI jump tables in pti_clone_entry_text
+
+Allow CFI enabled entry code to make indirect calls by also mapping
+CFI jump tables, and add a check to ensure the jump table section is
+not empty.
+
+Bug: 145297900
+Change-Id: I1204c50a139ba62234f3bb4699c50921a831162b
+Signed-off-by: Sami Tolvanen <samitolvanen@google.com>
+---
+ arch/x86/include/asm/sections.h |  1 +
+ arch/x86/kernel/vmlinux.lds.S   | 11 +++++++++++
+ arch/x86/mm/pti.c               |  9 +++++++++
+ 3 files changed, 21 insertions(+)
+
+diff --git a/arch/x86/include/asm/sections.h b/arch/x86/include/asm/sections.h
+index 036c360910c5..9319c5c3a3e2 100644
+--- a/arch/x86/include/asm/sections.h
++++ b/arch/x86/include/asm/sections.h
+@@ -6,6 +6,7 @@
+ #include <asm/extable.h>
+ 
+ extern char __brk_base[], __brk_limit[];
++extern char __cfi_jt_start[], __cfi_jt_end[];
+ extern char __end_rodata_aligned[];
+ 
+ #if defined(CONFIG_X86_64)
+diff --git a/arch/x86/kernel/vmlinux.lds.S b/arch/x86/kernel/vmlinux.lds.S
+index 3a1a819da137..32cd77ed8121 100644
+--- a/arch/x86/kernel/vmlinux.lds.S
++++ b/arch/x86/kernel/vmlinux.lds.S
+@@ -144,6 +144,13 @@ SECTIONS
+ 		*(.text.__x86.indirect_thunk)
+ 		__indirect_thunk_end = .;
+ #endif
++
++#ifdef CONFIG_CFI_CLANG
++		. = ALIGN(PAGE_SIZE);
++		__cfi_jt_start = .;
++		*(.text..L.cfi.jumptable .text..L.cfi.jumptable.*)
++		__cfi_jt_end = .;
++#endif
+ 	} :text =0xcccc
+ 
+ 	/* End of text section, which should occupy whole number of pages */
+@@ -456,3 +463,7 @@ INIT_PER_CPU(irq_stack_backing_store);
+            "kexec control code size is too big");
+ #endif
+ 
++#ifdef CONFIG_CFI_CLANG
++. = ASSERT((__cfi_jt_end - __cfi_jt_start > 0),
++	   "CFI jump table is empty");
++#endif
+diff --git a/arch/x86/mm/pti.c b/arch/x86/mm/pti.c
+index 44a9f068eee0..6b68c19208c9 100644
+--- a/arch/x86/mm/pti.c
++++ b/arch/x86/mm/pti.c
+@@ -505,6 +505,15 @@ static void pti_clone_entry_text(void)
+ 	pti_clone_pgtable((unsigned long) __entry_text_start,
+ 			  (unsigned long) __irqentry_text_end,
+ 			  PTI_CLONE_PMD);
++
++	/*
++	 * If CFI is enabled, also map jump tables, so the entry code can
++	 * make indirect calls.
++	 */
++	if (IS_ENABLED(CONFIG_CFI_CLANG))
++		pti_clone_pgtable((unsigned long) __cfi_jt_start,
++				  (unsigned long) __cfi_jt_end,
++				  PTI_CLONE_PMD);
+ }
+ 
+ /*

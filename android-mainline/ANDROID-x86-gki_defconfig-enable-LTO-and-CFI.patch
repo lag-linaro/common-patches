@@ -1,0 +1,31 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: Sami Tolvanen <samitolvanen@google.com>
+Date: Tue, 21 Jan 2020 13:47:07 -0800
+Subject: ANDROID: x86: gki_defconfig: enable LTO and CFI
+
+Bug: 145297900
+Change-Id: I136ac5c309b58a7f9da5fd0a9cf0d9445e07aae5
+Signed-off-by: Sami Tolvanen <samitolvanen@google.com>
+---
+ arch/x86/configs/gki_defconfig | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
+
+diff --git a/arch/x86/configs/gki_defconfig b/arch/x86/configs/gki_defconfig
+index 5e122786db21..d3e96de34044 100644
+--- a/arch/x86/configs/gki_defconfig
++++ b/arch/x86/configs/gki_defconfig
+@@ -52,6 +52,8 @@ CONFIG_CPU_FREQ_GOV_CONSERVATIVE=y
+ CONFIG_CPUFREQ_DUMMY=m
+ CONFIG_IA32_EMULATION=y
+ CONFIG_KPROBES=y
++CONFIG_LTO_CLANG=y
++CONFIG_CFI_CLANG=y
+ CONFIG_MODULES=y
+ CONFIG_MODULE_UNLOAD=y
+ CONFIG_MODVERSIONS=y
+@@ -427,5 +429,4 @@ CONFIG_PANIC_TIMEOUT=5
+ CONFIG_SOFTLOCKUP_DETECTOR=y
+ # CONFIG_DETECT_HUNG_TASK is not set
+ CONFIG_SCHEDSTATS=y
+-CONFIG_UNWINDER_FRAME_POINTER=y
+ # CONFIG_RUNTIME_TESTING_MENU is not set

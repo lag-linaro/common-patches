@@ -1,0 +1,62 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: Barani Muthukumaran <bmuthuku@codeaurora.org>
+Date: Thu, 2 Jan 2020 11:40:53 -0800
+Subject: ANDROID: ufshcd-crypto: export cap find API
+
+Export symbol ufshcd_crypto_cap_find to find
+the crypto capabilities from the crypto engine
+in the storage controller. This is used to
+validate that the crypto_mode and data_unit_size
+provided is supported by the inline encryption
+hardware. This can be used by all vops.
+
+Bug: 147209885
+
+Change-Id: I1020f88a35664dd1a3829750ba805ea76c93dc89
+Signed-off-by: Barani Muthukumaran <bmuthuku@codeaurora.org>
+Signed-off-by: Eric Biggers <ebiggers@google.com>
+---
+ drivers/scsi/ufs/ufshcd-crypto.c | 7 ++++---
+ drivers/scsi/ufs/ufshcd-crypto.h | 4 ++++
+ 2 files changed, 8 insertions(+), 3 deletions(-)
+
+diff --git a/drivers/scsi/ufs/ufshcd-crypto.c b/drivers/scsi/ufs/ufshcd-crypto.c
+index 1cfd9a327049..2c88398b03c7 100644
+--- a/drivers/scsi/ufs/ufshcd-crypto.c
++++ b/drivers/scsi/ufs/ufshcd-crypto.c
+@@ -37,9 +37,9 @@ static size_t get_keysize_bytes(enum ufs_crypto_key_size size)
+ 	}
+ }
+ 
+-static int ufshcd_crypto_cap_find(struct ufs_hba *hba,
+-				  enum blk_crypto_mode_num crypto_mode,
+-				  unsigned int data_unit_size)
++int ufshcd_crypto_cap_find(struct ufs_hba *hba,
++			   enum blk_crypto_mode_num crypto_mode,
++			   unsigned int data_unit_size)
+ {
+ 	enum ufs_crypto_alg ufs_alg;
+ 	u8 data_unit_mask;
+@@ -71,6 +71,7 @@ static int ufshcd_crypto_cap_find(struct ufs_hba *hba,
+ 
+ 	return -EINVAL;
+ }
++EXPORT_SYMBOL(ufshcd_crypto_cap_find);
+ 
+ /**
+  * ufshcd_crypto_cfg_entry_write_key - Write a key into a crypto_cfg_entry
+diff --git a/drivers/scsi/ufs/ufshcd-crypto.h b/drivers/scsi/ufs/ufshcd-crypto.h
+index 24a587c7a94e..95f37c9f7672 100644
+--- a/drivers/scsi/ufs/ufshcd-crypto.h
++++ b/drivers/scsi/ufs/ufshcd-crypto.h
+@@ -36,6 +36,10 @@ static inline bool ufshcd_is_crypto_enabled(struct ufs_hba *hba)
+ }
+ 
+ /* Functions implementing UFSHCI v2.1 specification behaviour */
++int ufshcd_crypto_cap_find(struct ufs_hba *hba,
++			   enum blk_crypto_mode_num crypto_mode,
++			   unsigned int data_unit_size);
++
+ int ufshcd_prepare_lrbp_crypto_spec(struct ufs_hba *hba,
+ 				    struct scsi_cmnd *cmd,
+ 				    struct ufshcd_lrb *lrbp);

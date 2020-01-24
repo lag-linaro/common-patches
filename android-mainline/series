@@ -2,7 +2,7 @@
 # android-mainline patches
 #
 # Applies onto upstream def9d2780727 Linux v5.5-rc7
-# Matches android-mainline 59db867cf07b ("Merge 5.5-rc7 into android-mainline")
+# Matches android-mainline e92b6ef8fc96 ("Revert "ANDROID: security,perf: Allow further restriction of perf_event_open"")
 #
 FROMGIT-scsi-ufs-Recheck-bkops-level-if-bkops-is-disabled.patch
 FROMGIT-scsi-ufs-Update-VCCQ2-and-VCCQ-min-max-voltage-hard-codes.patch
@@ -349,3 +349,24 @@ ANDROID-db845c-Add-build-config.patch
 GKI-enable-CONFIG_NETFILTER_XT_MATCH_QUOTA2_LOG-y.patch
 GKI-enable-CONFIG_DUMMY-y.patch
 FROMGIT-drivers-iommu-Initialise-module-owner-field-in-iommu_device_set_ops.patch
+ANDROID-ufshcd-crypto-export-cap-find-API.patch
+ANDROID-block-provide-key-size-as-input-to-inline-crypto-APIs.patch
+ANDROID-block-add-KSM-op-to-derive-software-secret-from-wrapped-key.patch
+ANDROID-fscrypt-add-support-for-hardware-wrapped-keys.patch
+FROMLIST-crypto-x86-sha-Eliminate-casts-on-asm-implementations.patch
+ANDROID-x86-vdso-disable-LTO-only-for-VDSO.patch
+ANDROID-x86-disable-HAVE_ARCH_PREL32_RELOCATIONS-with-LTO_CLANG.patch
+ANDROID-x86-disable-STACK_VALIDATION-with-LTO_CLANG.patch
+ANDROID-x86-disable-UNWINDER_ORC-with-LTO_CLANG.patch
+ANDROID-x86-build-allow-LTO_CLANG-and-THINLTO-to-be-selected.patch
+ANDROID-x86-extable-Do-not-mark-exception-callback-as-CFI.patch
+ANDROID-x86-alternatives-Use-C-int3-selftest-but-disable-KASAN.patch
+ANDROID-x86-relocs-Ignore-__typeid__-relocations.patch
+ANDROID-x86-module-Ignore-__typeid__-relocations.patch
+ANDROID-x86-map-CFI-jump-tables-in-pti_clone_entry_text.patch
+ANDROID-x86-gki_defconfig-enable-LTO-and-CFI.patch
+ANDROID-build-config-for-cuttlefish-ramdisk.patch
+ANDROID-virtio-net-Skip-set_features-on-non-cvq-devices.patch
+ANDROID-gki-Make-GKI-specific-modules-builtins.patch
+ANDROID-selinux-modify-RTM_GETLINK-permission.patch
+Revert-ANDROID-security-perf-Allow-further-restriction-of-perf_event_open.patch

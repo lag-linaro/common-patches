@@ -1,0 +1,44 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: Sami Tolvanen <samitolvanen@google.com>
+Date: Wed, 10 Apr 2019 14:17:20 -0700
+Subject: ANDROID: x86, build: allow LTO_CLANG and THINLTO to be selected
+
+Allow CONFIG_LTO_CLANG and CONFIG_THINLTO to be enabled.
+
+Bug: 145297900
+Change-Id: I70ec9d9e897622e8f4810d06186da981fae2d59e
+Signed-off-by: Sami Tolvanen <samitolvanen@google.com>
+---
+ arch/x86/Kconfig  | 2 ++
+ arch/x86/Makefile | 5 +++++
+ 2 files changed, 7 insertions(+)
+
+diff --git a/arch/x86/Kconfig b/arch/x86/Kconfig
+index 35a457119245..a69548417636 100644
+--- a/arch/x86/Kconfig
++++ b/arch/x86/Kconfig
+@@ -89,6 +89,8 @@ config X86
+ 	select ARCH_SUPPORTS_ACPI
+ 	select ARCH_SUPPORTS_ATOMIC_RMW
+ 	select ARCH_SUPPORTS_NUMA_BALANCING	if X86_64
++	select ARCH_SUPPORTS_LTO_CLANG		if X86_64
++	select ARCH_SUPPORTS_THINLTO		if X86_64
+ 	select ARCH_USE_BUILTIN_BSWAP
+ 	select ARCH_USE_QUEUED_RWLOCKS
+ 	select ARCH_USE_QUEUED_SPINLOCKS
+diff --git a/arch/x86/Makefile b/arch/x86/Makefile
+index 94df0868804b..3bafa7ce52af 100644
+--- a/arch/x86/Makefile
++++ b/arch/x86/Makefile
+@@ -209,6 +209,11 @@ ifdef CONFIG_X86_64
+ KBUILD_LDFLAGS += $(call ld-option, -z max-page-size=0x200000)
+ endif
+ 
++ifdef CONFIG_LTO_CLANG
++KBUILD_LDFLAGS	+= -plugin-opt=-code-model=kernel \
++		   -plugin-opt=-stack-alignment=$(if $(CONFIG_X86_32),4,8)
++endif
++
+ # Workaround for a gcc prelease that unfortunately was shipped in a suse release
+ KBUILD_CFLAGS += -Wno-sign-compare
+ #
