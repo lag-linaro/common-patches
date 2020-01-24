@@ -67,7 +67,7 @@ index 6d4c22aee384..e9c8c4e0cc5b 100644
  #define PERF_SECURITY_OPEN		0
  
 diff --git a/kernel/events/core.c b/kernel/events/core.c
-index a1f8bde19b56..e6d6b19608d9 100644
+index 2173c23c25b4..cba40762e802 100644
 --- a/kernel/events/core.c
 +++ b/kernel/events/core.c
 @@ -398,8 +398,13 @@ static cpumask_var_t perf_online_mask;

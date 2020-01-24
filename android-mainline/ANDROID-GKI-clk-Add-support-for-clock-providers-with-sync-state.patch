@@ -21,7 +21,7 @@ Change-Id: Id01bfc15347812faa19802463c088db162c7d117
  2 files changed, 67 insertions(+)
 
 diff --git a/drivers/clk/clk.c b/drivers/clk/clk.c
-index ef958efb79ec..52475b6dfe9f 100644
+index 54d8929b3b83..7b1f8680b497 100644
 --- a/drivers/clk/clk.c
 +++ b/drivers/clk/clk.c
 @@ -72,6 +72,8 @@ struct clk_core {
@@ -123,8 +123,8 @@ index ef958efb79ec..52475b6dfe9f 100644
  	/*
  	 * Enable CLK_IS_CRITICAL clocks so newly added critical clocks
  	 * don't get accidentally disabled when walking the orphan tree and
-@@ -3443,6 +3507,7 @@ static int __clk_core_init(struct clk_core *core)
- 		clk_enable_unlock(flags);
+@@ -3449,6 +3513,7 @@ static int __clk_core_init(struct clk_core *core)
+ 		}
  	}
  
 +	clk_core_hold_state(core);

@@ -15,7 +15,7 @@ Signed-off-by: Thierry Strudel <tstrudel@google.com>
  1 file changed, 7 insertions(+)
 
 diff --git a/kernel/cpu.c b/kernel/cpu.c
-index a59cc980adad..61af3d62f0fb 100644
+index 4dc279ed3b2d..fa64cdfd0536 100644
 --- a/kernel/cpu.c
 +++ b/kernel/cpu.c
 @@ -1276,6 +1276,7 @@ void __weak arch_enable_nonboot_cpus_end(void)

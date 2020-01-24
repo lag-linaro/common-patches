@@ -218,7 +218,7 @@ index 37df7c9eedb1..ffda9d514239 100644
  			vma = prev;
  			goto next;
 diff --git a/include/linux/mm.h b/include/linux/mm.h
-index 80a9162b406c..deddbf37d88c 100644
+index cfaa8feecfe8..184fa8f6b020 100644
 --- a/include/linux/mm.h
 +++ b/include/linux/mm.h
 @@ -2263,7 +2263,7 @@ static inline int vma_adjust(struct vm_area_struct *vma, unsigned long start,
@@ -474,7 +474,7 @@ index bcdb6a042787..4e9cf5ff8532 100644
  		vma = *prev;
  		goto success;
 diff --git a/mm/mempolicy.c b/mm/mempolicy.c
-index 067cf7d3daf5..953b128e4428 100644
+index b2920ae87a61..80f732672c74 100644
 --- a/mm/mempolicy.c
 +++ b/mm/mempolicy.c
 @@ -774,7 +774,8 @@ static int mbind_range(struct mm_struct *mm, unsigned long start,

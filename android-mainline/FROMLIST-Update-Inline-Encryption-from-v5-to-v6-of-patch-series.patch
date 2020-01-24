@@ -1997,10 +1997,10 @@ index 89649655bf4b..2c47e8eec865 100644
 +	return blk_crypto_fallback_evict_key(key);
  }
 diff --git a/block/blk-merge.c b/block/blk-merge.c
-index b7a5ab9751cb..4bdf4335b757 100644
+index 587d19cd9fec..842e6d5fc6d1 100644
 --- a/block/blk-merge.c
 +++ b/block/blk-merge.c
-@@ -572,9 +572,6 @@ static inline int ll_new_hw_segment(struct request *req, struct bio *bio,
+@@ -577,9 +577,6 @@ static inline int ll_new_hw_segment(struct request *req, struct bio *bio,
  	if (blk_integrity_merge_bio(req->q, req, bio) == false)
  		goto no_merge;
  
@@ -2010,7 +2010,7 @@ index b7a5ab9751cb..4bdf4335b757 100644
  	/*
  	 * This will form the start of a new hw segment.  Bump both
  	 * counters.
-@@ -599,6 +596,8 @@ int ll_back_merge_fn(struct request *req, struct bio *bio, unsigned int nr_segs)
+@@ -604,6 +601,8 @@ int ll_back_merge_fn(struct request *req, struct bio *bio, unsigned int nr_segs)
  		req_set_nomerge(req->q, req);
  		return 0;
  	}
@@ -2019,7 +2019,7 @@ index b7a5ab9751cb..4bdf4335b757 100644
  
  	return ll_new_hw_segment(req, bio, nr_segs);
  }
-@@ -615,6 +614,8 @@ int ll_front_merge_fn(struct request *req, struct bio *bio, unsigned int nr_segs
+@@ -620,6 +619,8 @@ int ll_front_merge_fn(struct request *req, struct bio *bio, unsigned int nr_segs
  		req_set_nomerge(req->q, req);
  		return 0;
  	}
@@ -2028,7 +2028,7 @@ index b7a5ab9751cb..4bdf4335b757 100644
  
  	return ll_new_hw_segment(req, bio, nr_segs);
  }
-@@ -659,6 +660,9 @@ static int ll_merge_requests_fn(struct request_queue *q, struct request *req,
+@@ -664,6 +665,9 @@ static int ll_merge_requests_fn(struct request_queue *q, struct request *req,
  	if (blk_integrity_merge_rq(q, req, next) == false)
  		return 0;
  
@@ -2038,7 +2038,7 @@ index b7a5ab9751cb..4bdf4335b757 100644
  	/* Merge is OK... */
  	req->nr_phys_segments = total_phys_segments;
  	return 1;
-@@ -729,14 +733,8 @@ static enum elv_merge blk_try_req_merge(struct request *req,
+@@ -734,14 +738,8 @@ static enum elv_merge blk_try_req_merge(struct request *req,
  {
  	if (blk_discard_mergable(req))
  		return ELEVATOR_DISCARD_MERGE;
@@ -2054,7 +2054,7 @@ index b7a5ab9751cb..4bdf4335b757 100644
  
  	return ELEVATOR_NO_MERGE;
  }
-@@ -772,9 +770,6 @@ static struct request *attempt_merge(struct request_queue *q,
+@@ -777,9 +775,6 @@ static struct request *attempt_merge(struct request_queue *q,
  	if (req->ioprio != next->ioprio)
  		return NULL;
  
@@ -2064,7 +2064,7 @@ index b7a5ab9751cb..4bdf4335b757 100644
  	/*
  	 * If we are allowed to merge, then append bio list
  	 * from next to rq and release next. merge_requests_fn
-@@ -916,22 +911,11 @@ bool blk_rq_merge_ok(struct request *rq, struct bio *bio)
+@@ -921,22 +916,11 @@ bool blk_rq_merge_ok(struct request *rq, struct bio *bio)
  
  enum elv_merge blk_try_merge(struct request *rq, struct bio *bio)
  {

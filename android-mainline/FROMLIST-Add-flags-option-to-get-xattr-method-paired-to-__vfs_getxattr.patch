@@ -895,10 +895,10 @@ index c1395b5bd432..1eba02616274 100644
  
  /* Namespaces */
 diff --git a/mm/shmem.c b/mm/shmem.c
-index 165fa6332993..c51d6f6d19c5 100644
+index 8793e8cc1a48..3437cccfd5a9 100644
 --- a/mm/shmem.c
 +++ b/mm/shmem.c
-@@ -3226,7 +3226,8 @@ static int shmem_initxattrs(struct inode *inode,
+@@ -3227,7 +3227,8 @@ static int shmem_initxattrs(struct inode *inode,
  
  static int shmem_xattr_handler_get(const struct xattr_handler *handler,
  				   struct dentry *unused, struct inode *inode,

@@ -1,8 +1,8 @@
 #
 # android-mainline patches
 #
-# Applies onto upstream b3a987b0264d Linux v5.5-rc6
-# Matches android-mainline 237cd1e40dae ("FROMGIT: drivers/iommu: Initialise module 'owner' field in iommu_device_set_ops()")
+# Applies onto upstream def9d2780727 Linux v5.5-rc7
+# Matches android-mainline 59db867cf07b ("Merge 5.5-rc7 into android-mainline")
 #
 FROMGIT-scsi-ufs-Recheck-bkops-level-if-bkops-is-disabled.patch
 FROMGIT-scsi-ufs-Update-VCCQ2-and-VCCQ-min-max-voltage-hard-codes.patch

@@ -445,7 +445,7 @@ index 853d92ceee64..4ae9259c1dfd 100644
   * BIO list management for use by remapping drivers (e.g. DM or MD) and loop.
   *
 diff --git a/include/linux/blkdev.h b/include/linux/blkdev.h
-index 47eb22a3b7f9..cb98f4bdff87 100644
+index 4c636c42ad68..13fdb350339d 100644
 --- a/include/linux/blkdev.h
 +++ b/include/linux/blkdev.h
 @@ -43,6 +43,7 @@ struct pr_ops;

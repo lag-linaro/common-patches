@@ -18,7 +18,7 @@ Change-Id: I9f0280fe172ba29ebda4c6610efb34f054e84577
  3 files changed, 81 insertions(+)
 
 diff --git a/drivers/misc/lkdtm/bugs.c b/drivers/misc/lkdtm/bugs.c
-index a4fdad04809a..002144798eb6 100644
+index de87693cf557..2e341c969ec3 100644
 --- a/drivers/misc/lkdtm/bugs.c
 +++ b/drivers/misc/lkdtm/bugs.c
 @@ -11,6 +11,7 @@

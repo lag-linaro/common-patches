@@ -139,7 +139,7 @@ index 395403a2d33f..6aae28c8d331 100644
 +
  #endif /* __USBAUDIO_CARD_H */
 diff --git a/sound/usb/pcm.c b/sound/usb/pcm.c
-index a11c8150af58..e9add5336b8e 100644
+index 0e4eab96e23e..c00ca7aa69a6 100644
 --- a/sound/usb/pcm.c
 +++ b/sound/usb/pcm.c
 @@ -138,6 +138,69 @@ static struct audioformat *find_format(struct snd_usb_substream *subs)

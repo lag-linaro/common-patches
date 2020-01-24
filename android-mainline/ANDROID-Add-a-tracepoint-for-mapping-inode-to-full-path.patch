@@ -31,7 +31,7 @@ Signed-off-by: Joel Fernandes <joelaf@google.com>
  create mode 100644 include/trace/events/namei.h
 
 diff --git a/fs/namei.c b/fs/namei.c
-index a752e17066e0..4688f0066f74 100644
+index 74b30d6a3a6b..ab77cb63163d 100644
 --- a/fs/namei.c
 +++ b/fs/namei.c
 @@ -43,6 +43,9 @@

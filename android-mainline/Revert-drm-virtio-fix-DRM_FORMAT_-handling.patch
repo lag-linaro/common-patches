@@ -41,7 +41,7 @@ index e622485ae826..7f5694095b34 100644
  	vgdev->ddev->mode_config.helper_private = &virtio_mode_config_helpers;
  
 diff --git a/drivers/gpu/drm/virtio/virtgpu_plane.c b/drivers/gpu/drm/virtio/virtgpu_plane.c
-index 390524143139..3dd8b1bbefde 100644
+index 1635a9ff4794..cb92a603ccad 100644
 --- a/drivers/gpu/drm/virtio/virtgpu_plane.c
 +++ b/drivers/gpu/drm/virtio/virtgpu_plane.c
 @@ -30,7 +30,14 @@

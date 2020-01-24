@@ -27,7 +27,7 @@ Signed-off-by: David Dai <daidavid1@codeaurora.org>
  2 files changed, 23 insertions(+)
 
 diff --git a/drivers/clk/clk.c b/drivers/clk/clk.c
-index 6a11239ccde3..ef958efb79ec 100644
+index 772258de2d1f..54d8929b3b83 100644
 --- a/drivers/clk/clk.c
 +++ b/drivers/clk/clk.c
 @@ -1998,6 +1998,13 @@ static struct clk_core *clk_propagate_rate_change(struct clk_core *core,

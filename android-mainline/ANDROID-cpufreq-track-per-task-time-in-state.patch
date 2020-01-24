@@ -386,7 +386,7 @@ index 000000000000..bfef6e62c68a
 +#endif /* CONFIG_CPU_FREQ_TIMES */
 +#endif /* _LINUX_CPUFREQ_TIMES_H */
 diff --git a/include/linux/sched.h b/include/linux/sched.h
-index 467d26046416..b584fda88fa0 100644
+index 716ad1d8d95e..6776276c7de5 100644
 --- a/include/linux/sched.h
 +++ b/include/linux/sched.h
 @@ -846,6 +846,10 @@ struct task_struct {
