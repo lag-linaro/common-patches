@@ -1,0 +1,42 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Maciej=20=C5=BBenczykowski?= <maze@google.com>
+Date: Thu, 16 Jan 2020 01:52:49 -0800
+Subject: GKI: enable CONFIG_DUMMY=y
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+Dummy network interface required for upcoming self-tests.
+
+Bug: 147203196
+Signed-off-by: Maciej Żenczykowski <maze@google.com>
+Change-Id: I1989ece6cb95a8fa0c8b03ed756f9962476e0577
+---
+ arch/arm64/configs/gki_defconfig | 1 +
+ arch/x86/configs/gki_defconfig   | 1 +
+ 2 files changed, 2 insertions(+)
+
+diff --git a/arch/arm64/configs/gki_defconfig b/arch/arm64/configs/gki_defconfig
+index 43d9fc79e6fa..608516990e4b 100644
+--- a/arch/arm64/configs/gki_defconfig
++++ b/arch/arm64/configs/gki_defconfig
+@@ -241,6 +241,7 @@ CONFIG_DM_VERITY_AVB=y
+ CONFIG_DM_VERITY_FEC=y
+ CONFIG_DM_BOW=y
+ CONFIG_NETDEVICES=y
++CONFIG_DUMMY=y
+ CONFIG_TUN=y
+ CONFIG_VIRTIO_NET=m
+ # CONFIG_ETHERNET is not set
+diff --git a/arch/x86/configs/gki_defconfig b/arch/x86/configs/gki_defconfig
+index 1e3871ed0227..5e122786db21 100644
+--- a/arch/x86/configs/gki_defconfig
++++ b/arch/x86/configs/gki_defconfig
+@@ -209,6 +209,7 @@ CONFIG_DM_VERITY_AVB=y
+ CONFIG_DM_VERITY_FEC=y
+ CONFIG_DM_BOW=y
+ CONFIG_NETDEVICES=y
++CONFIG_DUMMY=y
+ CONFIG_TUN=y
+ CONFIG_VIRTIO_NET=m
+ # CONFIG_ETHERNET is not set

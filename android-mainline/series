@@ -2,7 +2,7 @@
 # android-mainline patches
 #
 # Applies onto upstream b3a987b0264d Linux v5.5-rc6
-# Matches android-mainline 098b131c6460 ("FROMLIST: lkdtm/bugs: Add arithmetic overflow and array bounds checks")
+# Matches android-mainline 237cd1e40dae ("FROMGIT: drivers/iommu: Initialise module 'owner' field in iommu_device_set_ops()")
 #
 FROMGIT-scsi-ufs-Recheck-bkops-level-if-bkops-is-disabled.patch
 FROMGIT-scsi-ufs-Update-VCCQ2-and-VCCQ-min-max-voltage-hard-codes.patch
@@ -346,3 +346,6 @@ ANDROID-arm64-dts-db845c-add-Low-speed-expansion-i2c-and-spi-nodes.patch
 ANDROID-arm64-dts-db845c-Add-clocks-entry-to-display-to-track-real-clock-inputs.patch
 ANDROID-db845c-add-db845c_gki.fragment.patch
 ANDROID-db845c-Add-build-config.patch
+GKI-enable-CONFIG_NETFILTER_XT_MATCH_QUOTA2_LOG-y.patch
+GKI-enable-CONFIG_DUMMY-y.patch
+FROMGIT-drivers-iommu-Initialise-module-owner-field-in-iommu_device_set_ops.patch

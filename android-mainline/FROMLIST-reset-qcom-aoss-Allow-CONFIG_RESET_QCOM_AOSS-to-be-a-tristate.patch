@@ -20,9 +20,6 @@ Bug: 146449535
 Change-Id: I89e20bc1678f206ffdf4aab86aa82bb5d2fc5ced
 Link: https://lore.kernel.org/lkml/20200108001913.28485-1-john.stultz@linaro.org/T/#u
 ---
-v2: Fix builtin_platform_driver line in driver code
-v3: Add MODULE_DEVICE_TABLE() as suggested by Bjorn
----
  drivers/reset/Kconfig           | 2 +-
  drivers/reset/reset-qcom-aoss.c | 3 ++-
  2 files changed, 3 insertions(+), 2 deletions(-)
