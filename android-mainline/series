@@ -2,7 +2,7 @@
 # android-mainline patches
 #
 # Applies onto upstream def9d2780727 Linux v5.5-rc7
-# Matches android-mainline e92b6ef8fc96 ("Revert "ANDROID: security,perf: Allow further restriction of perf_event_open"")
+# Matches android-mainline 4137c5c749ce ("ANDROID: gki_defconfig: Set IKHEADERS back to =m")
 #
 FROMGIT-scsi-ufs-Recheck-bkops-level-if-bkops-is-disabled.patch
 FROMGIT-scsi-ufs-Update-VCCQ2-and-VCCQ-min-max-voltage-hard-codes.patch
@@ -370,3 +370,15 @@ ANDROID-virtio-net-Skip-set_features-on-non-cvq-devices.patch
 ANDROID-gki-Make-GKI-specific-modules-builtins.patch
 ANDROID-selinux-modify-RTM_GETLINK-permission.patch
 Revert-ANDROID-security-perf-Allow-further-restriction-of-perf_event_open.patch
+FROMLIST-security-selinux-allow-per-file-labelling-for-binderfs.patch
+ANDROID-block-fix-some-inline-crypto-bugs.patch
+ANDROID-block-export-symbols-needed-for-modules-to-use-inline-crypto.patch
+FROMLIST-scsi-ufs-add-program_key-variant-op.patch
+ANDROID-ext4-f2fs-enable-direct-I-O-with-inline-encryption.patch
+ANDROID-block-Introduce-passthrough-keyslot-manager.patch
+ANDROID-dm-add-support-for-passing-through-inline-crypto-support.patch
+ANDROID-dm-enable-may_passthrough_inline_crypto-on-some-targets.patch
+ANDROID-dm-add-dm-default-key-target-for-metadata-encryption.patch
+ANDROID-gki_defconfig-enable-dm-default-key.patch
+ANDROID-gki_defconfig-enable-NVDIMM-PMEM-options.patch
+ANDROID-gki_defconfig-Set-IKHEADERS-back-to-m.patch

@@ -1,0 +1,37 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: Hridya Valsaraju <hridya@google.com>
+Date: Mon, 6 Jan 2020 10:13:29 -0800
+Subject: FROMLIST: security: selinux: allow per-file labelling for binderfs
+
+This patch allows genfscon per-file labeling for binderfs.
+This is required to have separate permissions to allow
+access to binder, hwbinder and vndbinder devices which are
+relocating to binderfs.
+
+Acked-by: Jeff Vander Stoep <jeffv@google.com>
+Acked-by: Mark Salyzyn <salyzyn@android.com>
+Acked-by: Stephen Smalley <sds@tycho.nsa.gov>
+Signed-off-by: Hridya Valsaraju <hridya@google.com>
+
+Bug: 136497735
+(cherry picked from commit 7a4b51947475a7f67e2bd06c4a4c768e2e64a975
+git://git.kernel.org/pub/scm/linux/kernel/git/pcmoore/selinux.git
+master)
+Link: https://lore.kernel.org/patchwork/patch/1175776/
+Change-Id: I105cc54b30ddd4120dc23a363bddc2f9d00e4dc4
+---
+ security/selinux/hooks.c | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/security/selinux/hooks.c b/security/selinux/hooks.c
+index 230e78ed207f..67df68a3b79a 100644
+--- a/security/selinux/hooks.c
++++ b/security/selinux/hooks.c
+@@ -753,6 +753,7 @@ static int selinux_set_mnt_opts(struct super_block *sb,
+ 
+ 	if (!strcmp(sb->s_type->name, "debugfs") ||
+ 	    !strcmp(sb->s_type->name, "tracefs") ||
++	    !strcmp(sb->s_type->name, "binderfs") ||
+ 	    !strcmp(sb->s_type->name, "pstore"))
+ 		sbsec->flags |= SE_SBGENFS;
+ 
