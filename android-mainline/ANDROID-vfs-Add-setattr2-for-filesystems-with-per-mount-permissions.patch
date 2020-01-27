@@ -107,10 +107,10 @@ index 96d62d97694e..d3c34236ef99 100644
  		inode_has_no_xattr(inode);
  
 diff --git a/fs/namei.c b/fs/namei.c
-index d2720dc71d0e..70b55923e882 100644
+index 4fb61e0754ed..f27c2ad4cad7 100644
 --- a/fs/namei.c
 +++ b/fs/namei.c
-@@ -2948,7 +2948,7 @@ static int handle_truncate(struct file *filp)
+@@ -2949,7 +2949,7 @@ static int handle_truncate(struct file *filp)
  	if (!error)
  		error = security_path_truncate(path);
  	if (!error) {

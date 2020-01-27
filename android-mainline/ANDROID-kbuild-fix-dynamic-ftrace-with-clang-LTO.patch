@@ -190,10 +190,10 @@ index d93cf9229f44..e927960b2331 100755
  ${OBJCOPY} -j .modinfo -O binary vmlinux.o modules.builtin.modinfo
  
 diff --git a/scripts/recordmcount.c b/scripts/recordmcount.c
-index 612268eabef4..a9fa776fb881 100644
+index 7225107a9aaf..00f2c3efa87e 100644
 --- a/scripts/recordmcount.c
 +++ b/scripts/recordmcount.c
-@@ -408,7 +408,9 @@ static int is_mcounted_section_name(char const *const txtname)
+@@ -412,7 +412,9 @@ static int is_mcounted_section_name(char const *const txtname)
  		strcmp(".irqentry.text", txtname) == 0 ||
  		strcmp(".softirqentry.text", txtname) == 0 ||
  		strcmp(".kprobes.text", txtname) == 0 ||

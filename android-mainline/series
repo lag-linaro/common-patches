@@ -1,8 +1,8 @@
 #
 # android-mainline patches
 #
-# Applies onto upstream def9d2780727 Linux v5.5-rc7
-# Matches android-mainline 4137c5c749ce ("ANDROID: gki_defconfig: Set IKHEADERS back to =m")
+# Applies onto upstream d5226fa6dbae Linux v5.5
+# Matches android-mainline a1c75da7b284 ("Merge 5.5 into android-mainline")
 #
 FROMGIT-scsi-ufs-Recheck-bkops-level-if-bkops-is-disabled.patch
 FROMGIT-scsi-ufs-Update-VCCQ2-and-VCCQ-min-max-voltage-hard-codes.patch
