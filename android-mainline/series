@@ -2,7 +2,7 @@
 # android-mainline patches
 #
 # Applies onto upstream d5226fa6dbae Linux v5.5
-# Matches android-mainline a1c75da7b284 ("Merge 5.5 into android-mainline")
+# Matches android-mainline f1bdff93debe ("ANDROID: modularize BLK_MQ_VIRTIO")
 #
 FROMGIT-scsi-ufs-Recheck-bkops-level-if-bkops-is-disabled.patch
 FROMGIT-scsi-ufs-Update-VCCQ2-and-VCCQ-min-max-voltage-hard-codes.patch
@@ -382,3 +382,12 @@ ANDROID-dm-add-dm-default-key-target-for-metadata-encryption.patch
 ANDROID-gki_defconfig-enable-dm-default-key.patch
 ANDROID-gki_defconfig-enable-NVDIMM-PMEM-options.patch
 ANDROID-gki_defconfig-Set-IKHEADERS-back-to-m.patch
+ANDROID-Remove-ABI-Monitoring-on-android-mainline.patch
+ANDROID-gki_defconfig-Enable-CONFIG_BTT.patch
+ANDROID-gki_defconfig-Remove-SND_8X0.patch
+ANDROID-gki_defconfig-enabled-INTERCONNECT.patch
+ANDROID-gki_defconfig-Enable-req-modules-in-GKI.patch
+UPSTREAM-staging-most-net-fix-buffer-overflow.patch
+ANDROID-gki_defconfig-Set-IKHEADERS-back-to-y.patch
+ANDROID-gki-Fixed-some-typos-in-Kconfig.gki.patch
+ANDROID-modularize-BLK_MQ_VIRTIO.patch
