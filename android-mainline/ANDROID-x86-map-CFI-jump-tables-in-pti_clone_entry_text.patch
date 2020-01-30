@@ -29,7 +29,7 @@ index 036c360910c5..9319c5c3a3e2 100644
  
  #if defined(CONFIG_X86_64)
 diff --git a/arch/x86/kernel/vmlinux.lds.S b/arch/x86/kernel/vmlinux.lds.S
-index 3a1a819da137..32cd77ed8121 100644
+index e3296aa028fe..0a4ca1954952 100644
 --- a/arch/x86/kernel/vmlinux.lds.S
 +++ b/arch/x86/kernel/vmlinux.lds.S
 @@ -144,6 +144,13 @@ SECTIONS
@@ -46,7 +46,7 @@ index 3a1a819da137..32cd77ed8121 100644
  	} :text =0xcccc
  
  	/* End of text section, which should occupy whole number of pages */
-@@ -456,3 +463,7 @@ INIT_PER_CPU(irq_stack_backing_store);
+@@ -454,3 +461,7 @@ INIT_PER_CPU(irq_stack_backing_store);
             "kexec control code size is too big");
  #endif
  

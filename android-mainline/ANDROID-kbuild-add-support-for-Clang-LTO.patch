@@ -353,7 +353,7 @@ index 69897d5d3a70..c24b14c0795d 100644
  	$(call cmd,modpost)
  ifneq ($(KBUILD_MODPOST_NOFINAL),1)
 diff --git a/scripts/link-vmlinux.sh b/scripts/link-vmlinux.sh
-index 436379940356..d93cf9229f44 100755
+index c287ad9b3a67..c7c1c6acc443 100755
 --- a/scripts/link-vmlinux.sh
 +++ b/scripts/link-vmlinux.sh
 @@ -39,6 +39,30 @@ info()

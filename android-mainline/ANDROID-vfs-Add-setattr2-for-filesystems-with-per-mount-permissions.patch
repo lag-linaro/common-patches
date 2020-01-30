@@ -226,7 +226,7 @@ index c952b6b3d8a0..1250d8c5a67f 100644
  	if (delegated_inode) {
  		error = break_deleg_wait(&delegated_inode);
 diff --git a/include/linux/fs.h b/include/linux/fs.h
-index 98e0349adb52..656be652d57f 100644
+index dddfcbb140a7..4ba537dc8da6 100644
 --- a/include/linux/fs.h
 +++ b/include/linux/fs.h
 @@ -1878,7 +1878,8 @@ struct inode_operations {

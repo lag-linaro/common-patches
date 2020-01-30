@@ -237,10 +237,10 @@ index 000000000000..202826cee95e
 +"passthrough KSM" is for IE devices that want to manage their own keyslots/do
 +not have a limited number of keyslots.
 diff --git a/block/Kconfig b/block/Kconfig
-index 690d1c212b66..d950898a6ac9 100644
+index a8cf349d0752..697edcc74da9 100644
 --- a/block/Kconfig
 +++ b/block/Kconfig
-@@ -183,6 +183,8 @@ config BLK_SED_OPAL
+@@ -187,6 +187,8 @@ config BLK_SED_OPAL
  
  config BLK_INLINE_ENCRYPTION
  	bool "Enable inline encryption support in block layer"
@@ -250,10 +250,10 @@ index 690d1c212b66..d950898a6ac9 100644
  	  Build the blk-crypto subsystem.
  	  Enabling this lets the block layer handle encryption,
 diff --git a/block/Makefile b/block/Makefile
-index 1b791b1dc1a3..0bb0df6e030c 100644
+index 855b8a7fc2cf..66a8186f7943 100644
 --- a/block/Makefile
 +++ b/block/Makefile
-@@ -37,4 +37,5 @@ obj-$(CONFIG_BLK_DEBUG_FS)	+= blk-mq-debugfs.o
+@@ -38,4 +38,5 @@ obj-$(CONFIG_BLK_DEBUG_FS)	+= blk-mq-debugfs.o
  obj-$(CONFIG_BLK_DEBUG_FS_ZONED)+= blk-mq-debugfs-zoned.o
  obj-$(CONFIG_BLK_SED_OPAL)	+= sed-opal.o
  obj-$(CONFIG_BLK_PM)		+= blk-pm.o

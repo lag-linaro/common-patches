@@ -34,10 +34,10 @@ index 7e581748ee9f..23e4324a93dd 100644
  static struct platform_driver qcom_pcie_driver = {
  	.probe = qcom_pcie_probe,
 diff --git a/include/linux/pci_ids.h b/include/linux/pci_ids.h
-index 2302d133af6f..9985b7f821b2 100644
+index 352c0d708720..b29e54a93f0f 100644
 --- a/include/linux/pci_ids.h
 +++ b/include/linux/pci_ids.h
-@@ -2413,6 +2413,8 @@
+@@ -2414,6 +2414,8 @@
  #define PCI_VENDOR_ID_LENOVO		0x17aa
  
  #define PCI_VENDOR_ID_QCOM		0x17cb

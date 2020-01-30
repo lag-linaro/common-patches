@@ -209,7 +209,7 @@ index 0a16e48e6753..32633ea36f96 100644
  #define __initconst	__section(.init.rodata)
  #define __exitdata	__section(.exit.data)
 diff --git a/include/linux/module.h b/include/linux/module.h
-index 063af853ae02..452ef22cbcdd 100644
+index 2021e502ec63..27d585935c94 100644
 --- a/include/linux/module.h
 +++ b/include/linux/module.h
 @@ -25,6 +25,7 @@
@@ -232,10 +232,10 @@ index 063af853ae02..452ef22cbcdd 100644
  #ifdef CONFIG_SYSFS
  	struct mutex param_lock;
 diff --git a/init/Kconfig b/init/Kconfig
-index f74a50138593..9015cdb88006 100644
+index 5e2134ca3f7e..1ca4ca2275be 100644
 --- a/init/Kconfig
 +++ b/init/Kconfig
-@@ -2187,7 +2187,7 @@ endif # MODULES
+@@ -2195,7 +2195,7 @@ endif # MODULES
  
  config MODULES_TREE_LOOKUP
  	def_bool y
@@ -580,10 +580,10 @@ index 000000000000..05f589e24f68
 +	handle_cfi_failure(ptr);
 +}
 diff --git a/kernel/module.c b/kernel/module.c
-index b56f3224b161..692e82718d62 100644
+index ac058a5ad1d1..502bea7d0278 100644
 --- a/kernel/module.c
 +++ b/kernel/module.c
-@@ -2181,6 +2181,8 @@ void __weak module_arch_freeing_init(struct module *mod)
+@@ -2138,6 +2138,8 @@ void __weak module_arch_freeing_init(struct module *mod)
  {
  }
  
@@ -592,7 +592,7 @@ index b56f3224b161..692e82718d62 100644
  /* Free a module, remove from lists, etc. */
  static void free_module(struct module *mod)
  {
-@@ -2220,6 +2222,9 @@ static void free_module(struct module *mod)
+@@ -2177,6 +2179,9 @@ static void free_module(struct module *mod)
  	synchronize_rcu();
  	mutex_unlock(&module_mutex);
  
@@ -602,7 +602,7 @@ index b56f3224b161..692e82718d62 100644
  	/* This may be empty, but that's OK */
  	module_arch_freeing_init(mod);
  	module_memfree(mod->init_layout.base);
-@@ -3471,6 +3476,8 @@ int __weak module_finalize(const Elf_Ehdr *hdr,
+@@ -3428,6 +3433,8 @@ int __weak module_finalize(const Elf_Ehdr *hdr,
  	return 0;
  }
  
@@ -611,7 +611,7 @@ index b56f3224b161..692e82718d62 100644
  static int post_relocation(struct module *mod, const struct load_info *info)
  {
  	/* Sort exception table now relocations are done. */
-@@ -3483,6 +3490,9 @@ static int post_relocation(struct module *mod, const struct load_info *info)
+@@ -3440,6 +3447,9 @@ static int post_relocation(struct module *mod, const struct load_info *info)
  	/* Setup kallsyms-specific fields. */
  	add_kallsyms(mod, info);
  
@@ -621,7 +621,7 @@ index b56f3224b161..692e82718d62 100644
  	/* Arch-specific module finalizing. */
  	return module_finalize(info->hdr, info->sechdrs, mod);
  }
-@@ -4286,6 +4296,24 @@ int module_kallsyms_on_each_symbol(int (*fn)(void *, const char *,
+@@ -4243,6 +4253,24 @@ int module_kallsyms_on_each_symbol(int (*fn)(void *, const char *,
  }
  #endif /* CONFIG_KALLSYMS */
  

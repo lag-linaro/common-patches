@@ -159,7 +159,7 @@ index 604a01a4ede6..2b05e95ab2b5 100644
  	return sha256_base_finish(desc, out);
  }
 diff --git a/arch/arm64/crypto/sha256-glue.c b/arch/arm64/crypto/sha256-glue.c
-index e273faca924f..03ed0358c6eb 100644
+index 999da59f03a9..f6e468a23ed8 100644
 --- a/arch/arm64/crypto/sha256-glue.c
 +++ b/arch/arm64/crypto/sha256-glue.c
 @@ -27,14 +27,26 @@ asmlinkage void sha256_block_data_order(u32 *digest, const void *data,

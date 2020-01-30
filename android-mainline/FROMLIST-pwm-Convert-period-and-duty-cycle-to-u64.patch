@@ -63,10 +63,10 @@ index bc14e9c0285a..ca373b824b68 100644
  				 CRC_PMIC_PWM_PERIOD_NS);
  	panel->backlight.enabled = panel->backlight.level != 0;
 diff --git a/drivers/hwmon/pwm-fan.c b/drivers/hwmon/pwm-fan.c
-index 42ffd2e5182d..283423a29b44 100644
+index 30b7b3ea8836..17bb64299bfd 100644
 --- a/drivers/hwmon/pwm-fan.c
 +++ b/drivers/hwmon/pwm-fan.c
-@@ -437,7 +437,7 @@ static int pwm_fan_resume(struct device *dev)
+@@ -447,7 +447,7 @@ static int pwm_fan_resume(struct device *dev)
  		return 0;
  
  	pwm_get_args(ctx->pwm, &pargs);

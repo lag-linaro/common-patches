@@ -13,10 +13,10 @@ Signed-off-by: Sami Tolvanen <samitolvanen@google.com>
  1 file changed, 2 insertions(+), 2 deletions(-)
 
 diff --git a/drivers/irqchip/irq-gic-v3.c b/drivers/irqchip/irq-gic-v3.c
-index d6218012097b..75c6d7d77825 100644
+index 286f98222878..d30315bb036e 100644
 --- a/drivers/irqchip/irq-gic-v3.c
 +++ b/drivers/irqchip/irq-gic-v3.c
-@@ -1742,7 +1742,7 @@ static void __init gic_of_setup_kvm_info(struct device_node *node)
+@@ -1760,7 +1760,7 @@ static void __init gic_of_setup_kvm_info(struct device_node *node)
  	gic_set_kvm_info(&gic_v3_kvm_info);
  }
  
@@ -25,7 +25,7 @@ index d6218012097b..75c6d7d77825 100644
  {
  	void __iomem *dist_base;
  	struct redist_region *rdist_regs;
-@@ -1812,7 +1812,7 @@ static int __init gic_of_init(struct device_node *node, struct device_node *pare
+@@ -1830,7 +1830,7 @@ static int __init gic_of_init(struct device_node *node, struct device_node *pare
  	return err;
  }
  

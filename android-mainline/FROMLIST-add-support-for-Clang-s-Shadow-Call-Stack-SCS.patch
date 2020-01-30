@@ -230,7 +230,7 @@ index f2cc0d118a0b..06231f936a7a 100644
  obj-$(CONFIG_PERF_EVENTS) += events/
  
 diff --git a/kernel/fork.c b/kernel/fork.c
-index 080809560072..a37738fde422 100644
+index ef82feb4bddc..cabcc07d730b 100644
 --- a/kernel/fork.c
 +++ b/kernel/fork.c
 @@ -93,7 +93,9 @@
@@ -273,7 +273,7 @@ index 080809560072..a37738fde422 100644
  	/*
  	 * We must handle setting up seccomp filters once we're under
 diff --git a/kernel/sched/core.c b/kernel/sched/core.c
-index 90e4b00ace89..a181c536e12e 100644
+index fc1dfc007604..cda46382b28f 100644
 --- a/kernel/sched/core.c
 +++ b/kernel/sched/core.c
 @@ -11,6 +11,7 @@

@@ -17,7 +17,7 @@ Change-Id: Ia5457fd6c4593565799b97f40c0def3558a97696
  1 file changed, 1 insertion(+)
 
 diff --git a/drivers/pci/pci.c b/drivers/pci/pci.c
-index e87196cc1a7f..ad746d903ceb 100644
+index df21e3227b57..14c6b127aaf2 100644
 --- a/drivers/pci/pci.c
 +++ b/drivers/pci/pci.c
 @@ -131,6 +131,7 @@ bool pci_ats_disabled(void)

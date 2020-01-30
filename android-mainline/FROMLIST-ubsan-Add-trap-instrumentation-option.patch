@@ -67,7 +67,7 @@ index 0e04fcb3ab3d..d69e8b21ebae 100644
  	bool "Enable instrumentation for the entire kernel"
  	depends on UBSAN
 diff --git a/lib/Makefile b/lib/Makefile
-index 93217d44237f..3114ef1727f8 100644
+index c20b1debe9b4..f0bbb3c21429 100644
 --- a/lib/Makefile
 +++ b/lib/Makefile
 @@ -275,7 +275,9 @@ quiet_cmd_build_OID_registry = GEN     $@

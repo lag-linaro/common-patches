@@ -42,7 +42,7 @@ index f545b4526172..40657d602be6 100644
  			break;
  		}
 diff --git a/kernel/power/suspend.c b/kernel/power/suspend.c
-index de6b24bc0619..0bb1c1d8c979 100644
+index fbdf1ceae333..0872fcdecb07 100644
 --- a/kernel/power/suspend.c
 +++ b/kernel/power/suspend.c
 @@ -489,7 +489,7 @@ static int suspend_enter(suspend_state_t state, bool *wakeup)

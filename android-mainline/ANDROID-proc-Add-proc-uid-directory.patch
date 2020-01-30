@@ -33,11 +33,11 @@ Signed-off-by: Alistair Delva <adelva@google.com>
  create mode 100644 fs/proc/uid.c
 
 diff --git a/fs/proc/Kconfig b/fs/proc/Kconfig
-index 733881a6387b..4fbf7776e9c2 100644
+index 27ef84d99f59..c23e8a404f4a 100644
 --- a/fs/proc/Kconfig
 +++ b/fs/proc/Kconfig
-@@ -103,3 +103,9 @@ config PROC_CHILDREN
- config PROC_PID_ARCH_STATUS
+@@ -107,3 +107,9 @@ config PROC_PID_ARCH_STATUS
+ config PROC_CPU_RESCTRL
  	def_bool n
  	depends on PROC_FS
 +

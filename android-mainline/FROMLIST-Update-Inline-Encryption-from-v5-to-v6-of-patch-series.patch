@@ -105,10 +105,10 @@ index 202826cee95e..330106b23c09 100644
  simply do nothing with respect to crypto, because some other KSM (perhaps the
  blk-crypto crypto API fallback KSM) is handling the en/decryption.
 diff --git a/block/Kconfig b/block/Kconfig
-index d950898a6ac9..f35358e23ade 100644
+index 697edcc74da9..0af387623774 100644
 --- a/block/Kconfig
 +++ b/block/Kconfig
-@@ -183,13 +183,20 @@ config BLK_SED_OPAL
+@@ -187,13 +187,20 @@ config BLK_SED_OPAL
  
  config BLK_INLINE_ENCRYPTION
  	bool "Enable inline encryption support in block layer"
@@ -135,10 +135,10 @@ index d950898a6ac9..f35358e23ade 100644
  menu "Partition Types"
  
 diff --git a/block/Makefile b/block/Makefile
-index 0bb0df6e030c..bb8d12526f2e 100644
+index 66a8186f7943..39cdbe1adc7c 100644
 --- a/block/Makefile
 +++ b/block/Makefile
-@@ -39,3 +39,4 @@ obj-$(CONFIG_BLK_SED_OPAL)	+= sed-opal.o
+@@ -40,3 +40,4 @@ obj-$(CONFIG_BLK_SED_OPAL)	+= sed-opal.o
  obj-$(CONFIG_BLK_PM)		+= blk-pm.o
  obj-$(CONFIG_BLK_INLINE_ENCRYPTION)	+= keyslot-manager.o bio-crypt-ctx.o \
  					   blk-crypto.o
@@ -3140,7 +3140,7 @@ index 14f384e87600..97ed8f5d7120 100644
  #endif /* CONFIG_SCSI_UFS_CRYPTO */
  };
 diff --git a/fs/buffer.c b/fs/buffer.c
-index 1d084ec1bdc3..983c19e91965 100644
+index 24848739bfc9..31ebacde6e15 100644
 --- a/fs/buffer.c
 +++ b/fs/buffer.c
 @@ -3085,7 +3085,7 @@ static int submit_bh_wbc(int op, int op_flags, struct buffer_head *bh,

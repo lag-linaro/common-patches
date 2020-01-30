@@ -307,18 +307,18 @@ index 000000000000..339a3e9cf082
 +	cpufreq_cpu_put(policy);
 +}
 diff --git a/fs/proc/base.c b/fs/proc/base.c
-index ebea9501afb8..7d13501910ee 100644
+index 915686772f0e..79d85e9c7e53 100644
 --- a/fs/proc/base.c
 +++ b/fs/proc/base.c
-@@ -94,6 +94,7 @@
- #include <linux/sched/debug.h>
- #include <linux/sched/stat.h>
+@@ -96,6 +96,7 @@
  #include <linux/posix-timers.h>
+ #include <linux/time_namespace.h>
+ #include <linux/resctrl.h>
 +#include <linux/cpufreq_times.h>
  #include <trace/events/oom.h>
  #include "internal.h"
  #include "fd.h"
-@@ -3091,6 +3092,9 @@ static const struct pid_entry tgid_base_stuff[] = {
+@@ -3189,6 +3190,9 @@ static const struct pid_entry tgid_base_stuff[] = {
  #ifdef CONFIG_LIVEPATCH
  	ONE("patch_state",  S_IRUSR, proc_pid_patch_state),
  #endif
@@ -328,7 +328,7 @@ index ebea9501afb8..7d13501910ee 100644
  #ifdef CONFIG_STACKLEAK_METRICS
  	ONE("stack_depth", S_IRUGO, proc_stack_depth),
  #endif
-@@ -3487,6 +3491,9 @@ static const struct pid_entry tid_base_stuff[] = {
+@@ -3588,6 +3592,9 @@ static const struct pid_entry tid_base_stuff[] = {
  #ifdef CONFIG_PROC_PID_ARCH_STATUS
  	ONE("arch_status", S_IRUGO, proc_pid_arch_status),
  #endif
@@ -401,7 +401,7 @@ index 716ad1d8d95e..6776276c7de5 100644
  #ifdef CONFIG_VIRT_CPU_ACCOUNTING_GEN
  	struct vtime			vtime;
 diff --git a/kernel/fork.c b/kernel/fork.c
-index a37738fde422..aad7c794b4a6 100644
+index cabcc07d730b..f2f99dbfb440 100644
 --- a/kernel/fork.c
 +++ b/kernel/fork.c
 @@ -456,6 +456,7 @@ void put_task_stack(struct task_struct *tsk)
@@ -412,7 +412,7 @@ index a37738fde422..aad7c794b4a6 100644
  	scs_release(tsk);
  
  #ifndef CONFIG_THREAD_INFO_IN_TASK
-@@ -1922,6 +1923,8 @@ static __latent_entropy struct task_struct *copy_process(
+@@ -1931,6 +1932,8 @@ static __latent_entropy struct task_struct *copy_process(
  	if (!p)
  		goto fork_out;
  
@@ -421,7 +421,7 @@ index a37738fde422..aad7c794b4a6 100644
  	/*
  	 * This _must_ happen before we call free_task(), i.e. before we jump
  	 * to any of the bad_fork_* labels. This is to avoid freeing
-@@ -2434,6 +2437,8 @@ long _do_fork(struct kernel_clone_args *args)
+@@ -2443,6 +2446,8 @@ long _do_fork(struct kernel_clone_args *args)
  	if (IS_ERR(p))
  		return PTR_ERR(p);
  
@@ -431,7 +431,7 @@ index a37738fde422..aad7c794b4a6 100644
  	 * Do this prior waking up the new thread - the thread pointer
  	 * might get invalid after that point, if the thread exits quickly.
 diff --git a/kernel/sched/cputime.c b/kernel/sched/cputime.c
-index d43318a489f2..7dabdf2d3a7f 100644
+index cff3e656566d..d3c160ae2fc5 100644
 --- a/kernel/sched/cputime.c
 +++ b/kernel/sched/cputime.c
 @@ -2,6 +2,7 @@

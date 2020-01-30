@@ -75,7 +75,7 @@ index 64aeee1009ca..9e8470008227 100644
  =================
  
 diff --git a/kernel/sysctl.c b/kernel/sysctl.c
-index 70665934d53e..93be3f131298 100644
+index d396aaaf19a3..7395c814e6f7 100644
 --- a/kernel/sysctl.c
 +++ b/kernel/sysctl.c
 @@ -111,6 +111,7 @@ extern char core_pattern[];

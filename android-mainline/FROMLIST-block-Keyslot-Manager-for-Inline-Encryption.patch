@@ -43,10 +43,10 @@ Link: https://patchwork.kernel.org/patch/11214713/
  create mode 100644 include/linux/keyslot-manager.h
 
 diff --git a/block/Kconfig b/block/Kconfig
-index c23094a14a2b..690d1c212b66 100644
+index 3bc76bb113a0..a8cf349d0752 100644
 --- a/block/Kconfig
 +++ b/block/Kconfig
-@@ -181,6 +181,14 @@ config BLK_SED_OPAL
+@@ -185,6 +185,14 @@ config BLK_SED_OPAL
  	Enabling this option enables users to setup/unlock/lock
  	Locking ranges for SED devices using the Opal protocol.
  
@@ -62,10 +62,10 @@ index c23094a14a2b..690d1c212b66 100644
  
  source "block/partitions/Kconfig"
 diff --git a/block/Makefile b/block/Makefile
-index 205a5f2fef17..8efc424a9e96 100644
+index f6cef6d4363c..e467c1168b1a 100644
 --- a/block/Makefile
 +++ b/block/Makefile
-@@ -37,3 +37,4 @@ obj-$(CONFIG_BLK_DEBUG_FS)	+= blk-mq-debugfs.o
+@@ -38,3 +38,4 @@ obj-$(CONFIG_BLK_DEBUG_FS)	+= blk-mq-debugfs.o
  obj-$(CONFIG_BLK_DEBUG_FS_ZONED)+= blk-mq-debugfs-zoned.o
  obj-$(CONFIG_BLK_SED_OPAL)	+= sed-opal.o
  obj-$(CONFIG_BLK_PM)		+= blk-pm.o

@@ -94,7 +94,7 @@ index 134a8af51511..f545b4526172 100644
  		goto Complete;
  	}
 diff --git a/drivers/base/power/wakeup.c b/drivers/base/power/wakeup.c
-index 70a9edb5f525..57c81d6bec4d 100644
+index 27f3e60608e5..74e888e19ee0 100644
 --- a/drivers/base/power/wakeup.c
 +++ b/drivers/base/power/wakeup.c
 @@ -15,6 +15,7 @@
@@ -167,10 +167,10 @@ index 0d346a307140..f3ca20cc817b 100644
  	list_for_each_entry_continue(ops, &syscore_ops_list, node)
  		if (ops->resume)
 diff --git a/include/linux/suspend.h b/include/linux/suspend.h
-index 6fc8843f1c9e..60113c8a796f 100644
+index 4a230c2f1c31..9fd42d659cec 100644
 --- a/include/linux/suspend.h
 +++ b/include/linux/suspend.h
-@@ -503,6 +503,7 @@ extern bool pm_get_wakeup_count(unsigned int *count, bool block);
+@@ -505,6 +505,7 @@ extern bool pm_get_wakeup_count(unsigned int *count, bool block);
  extern bool pm_save_wakeup_count(unsigned int count);
  extern void pm_wakep_autosleep_enabled(bool set);
  extern void pm_print_active_wakeup_sources(void);
@@ -286,7 +286,7 @@ index 4b6a54da7e65..dfd2494543c1 100644
  			for_each_process_thread(g, p) {
  				if (p != current && !freezer_should_skip(p)
 diff --git a/kernel/power/suspend.c b/kernel/power/suspend.c
-index f3b7239f1892..de6b24bc0619 100644
+index 2c47280fbfc7..fbdf1ceae333 100644
 --- a/kernel/power/suspend.c
 +++ b/kernel/power/suspend.c
 @@ -30,6 +30,7 @@

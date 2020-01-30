@@ -328,7 +328,7 @@ index 000000000000..f772b4a01caa
 +
 +print "}\n";
 diff --git a/scripts/link-vmlinux.sh b/scripts/link-vmlinux.sh
-index e927960b2331..da5043b31560 100755
+index 14798d4e11b2..1d6440b7d83e 100755
 --- a/scripts/link-vmlinux.sh
 +++ b/scripts/link-vmlinux.sh
 @@ -39,28 +39,30 @@ info()

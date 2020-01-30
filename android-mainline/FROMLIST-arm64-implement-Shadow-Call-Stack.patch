@@ -29,7 +29,7 @@ Signed-off-by: Sami Tolvanen <samitolvanen@google.com>
  create mode 100644 arch/arm64/kernel/scs.c
 
 diff --git a/arch/arm64/Kconfig b/arch/arm64/Kconfig
-index ce8b1f46dde7..65cd08b63cf6 100644
+index 502987561f12..7432d201aaef 100644
 --- a/arch/arm64/Kconfig
 +++ b/arch/arm64/Kconfig
 @@ -65,6 +65,7 @@ config ARM64
@@ -40,7 +40,7 @@ index ce8b1f46dde7..65cd08b63cf6 100644
  	select ARCH_SUPPORTS_ATOMIC_RMW
  	select ARCH_SUPPORTS_INT128 if CC_HAS_INT128 && (GCC_VERSION >= 50000 || CC_IS_CLANG)
  	select ARCH_SUPPORTS_NUMA_BALANCING
-@@ -995,6 +996,10 @@ config ARCH_HAS_CACHE_LINE_SIZE
+@@ -1020,6 +1021,10 @@ config ARCH_HAS_CACHE_LINE_SIZE
  config ARCH_ENABLE_SPLIT_PMD_PTLOCK
  	def_bool y if PGTABLE_LEVELS > 2
  
@@ -150,10 +150,10 @@ index a5bdce8af65b..d485dc5cd196 100644
    DEFINE(TSK_STACK,		offsetof(struct task_struct, stack));
  #ifdef CONFIG_STACKPROTECTOR
 diff --git a/arch/arm64/kernel/entry.S b/arch/arm64/kernel/entry.S
-index 7c6a0a41676f..1c62076aad1f 100644
+index 9461d812ae27..509a7b431e9f 100644
 --- a/arch/arm64/kernel/entry.S
 +++ b/arch/arm64/kernel/entry.S
-@@ -173,6 +173,10 @@ alternative_cb_end
+@@ -177,6 +177,10 @@ alternative_cb_end
  
  	apply_ssbd 1, x22, x23
  
@@ -164,7 +164,7 @@ index 7c6a0a41676f..1c62076aad1f 100644
  	.else
  	add	x21, sp, #S_FRAME_SIZE
  	get_current_task tsk
-@@ -281,6 +285,12 @@ alternative_else_nop_endif
+@@ -278,6 +282,12 @@ alternative_else_nop_endif
  	ct_user_enter
  	.endif
  
@@ -177,7 +177,7 @@ index 7c6a0a41676f..1c62076aad1f 100644
  #ifdef CONFIG_ARM64_SW_TTBR0_PAN
  	/*
  	 * Restore access to TTBR0_EL1. If returning to EL0, no need for SPSR
-@@ -386,6 +396,9 @@ alternative_insn eret, nop, ARM64_UNMAP_KERNEL_AT_EL0
+@@ -383,6 +393,9 @@ alternative_insn eret, nop, ARM64_UNMAP_KERNEL_AT_EL0
  
  	.macro	irq_stack_entry
  	mov	x19, sp			// preserve the original sp
@@ -187,7 +187,7 @@ index 7c6a0a41676f..1c62076aad1f 100644
  
  	/*
  	 * Compare sp with the base of the task stack.
-@@ -403,15 +416,24 @@ alternative_insn eret, nop, ARM64_UNMAP_KERNEL_AT_EL0
+@@ -400,15 +413,24 @@ alternative_insn eret, nop, ARM64_UNMAP_KERNEL_AT_EL0
  
  	/* switch to the irq stack */
  	mov	sp, x26
@@ -281,7 +281,7 @@ index 04a327ccf84d..fe0ca522ff60 100644
  	if (!handle_arch_irq)
  		panic("No interrupt controller found.");
 diff --git a/arch/arm64/kernel/process.c b/arch/arm64/kernel/process.c
-index d54586d5b031..507f1a2cd3da 100644
+index bbb0f0c145f6..df45eb09845b 100644
 --- a/arch/arm64/kernel/process.c
 +++ b/arch/arm64/kernel/process.c
 @@ -52,6 +52,7 @@

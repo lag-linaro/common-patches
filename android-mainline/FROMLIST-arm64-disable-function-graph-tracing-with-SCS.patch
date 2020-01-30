@@ -22,7 +22,7 @@ Signed-off-by: Sami Tolvanen <samitolvanen@google.com>
  1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/arch/arm64/Kconfig b/arch/arm64/Kconfig
-index e688dfad0b72..ce8b1f46dde7 100644
+index d2cebf613ec3..502987561f12 100644
 --- a/arch/arm64/Kconfig
 +++ b/arch/arm64/Kconfig
 @@ -150,7 +150,7 @@ config ARM64

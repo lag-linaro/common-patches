@@ -13,10 +13,10 @@ Signed-off-by: Ram Muthiah <rammuthiah@google.com>
  2 files changed, 4 insertions(+), 1 deletion(-)
 
 diff --git a/block/Kconfig b/block/Kconfig
-index f35358e23ade..012026764448 100644
+index 0af387623774..8c9458cf9a8e 100644
 --- a/block/Kconfig
 +++ b/block/Kconfig
-@@ -217,7 +217,7 @@ config BLK_MQ_PCI
+@@ -221,7 +221,7 @@ config BLK_MQ_PCI
  	default y
  
  config BLK_MQ_VIRTIO

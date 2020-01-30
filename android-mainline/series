@@ -1,8 +1,8 @@
 #
 # android-mainline patches
 #
-# Applies onto upstream d5226fa6dbae Linux v5.5
-# Matches android-mainline f1bdff93debe ("ANDROID: modularize BLK_MQ_VIRTIO")
+# Applies onto upstream b5f7ab6b1c4e Linux v5.5-1308-gb5f7ab6b1c4e
+# Matches android-mainline 28b159de8ede ("Merge b5f7ab6b1c4e ("Merge tag 'fs-dedupe-last-block-tag' of git://git.kernel.org/pub/scm/linux/kernel/git/kdave/linux") into android-mainline")
 #
 FROMGIT-scsi-ufs-Recheck-bkops-level-if-bkops-is-disabled.patch
 FROMGIT-scsi-ufs-Update-VCCQ2-and-VCCQ-min-max-voltage-hard-codes.patch
@@ -14,11 +14,7 @@ FROMGIT-scsi-ufs-Release-clock-if-DMA-map-fails.patch
 FROMGIT-scsi-ufs-Do-not-clear-the-DL-layer-timers.patch
 FROMGIT-scsi-ufs-Do-not-free-irq-in-suspend.patch
 FROMLIST-reboot-Export-reboot_mode.patch
-FROMLIST-arm64-mm-avoid-x18-in-idmap_kpti_install_ng_mappings.patch
 FROMLIST-arm64-preserve-x18-when-CPU-is-suspended.patch
-FROMLIST-arm64-lib-copy_page-avoid-x18-register-in-assembler-code.patch
-FROMLIST-arm64-kvm-stop-treating-register-x18-as-caller-save.patch
-FROMLIST-arm64-kernel-avoid-x18-in-__cpu_soft_restart.patch
 FROMLIST-drivers-irqchip-pdc-additionally-set-type-in-SPI-config-registers.patch
 FROMLIST-dt-bindings-interrupt-controller-pdc-add-SPI-config-register.patch
 FROMLIST-fscrypt-add-inline-encryption-support.patch
@@ -58,8 +54,6 @@ FROMLIST-arm64-efi-restore-x18-if-it-was-corrupted.patch
 FROMLIST-arm64-vdso-disable-Shadow-Call-Stack.patch
 FROMLIST-arm64-disable-SCS-for-hypervisor-code.patch
 FROMLIST-arm64-implement-Shadow-Call-Stack.patch
-FROMLIST-arm64-lse-fix-LSE-atomics-with-LLVM-s-integrated-assembler.patch
-FROMLIST-arm64-fix-alternatives-with-LLVM-s-integrated-assembler.patch
 FROMLIST-scsi-ufs-Fix-up-clock-scaling.patch
 FROMLIST-scsi-ufs-Do-not-rely-on-prefetched-data.patch
 FROMLIST-scsi-ufs-Flush-exception-event-before-suspend.patch
@@ -370,7 +364,6 @@ ANDROID-virtio-net-Skip-set_features-on-non-cvq-devices.patch
 ANDROID-gki-Make-GKI-specific-modules-builtins.patch
 ANDROID-selinux-modify-RTM_GETLINK-permission.patch
 Revert-ANDROID-security-perf-Allow-further-restriction-of-perf_event_open.patch
-FROMLIST-security-selinux-allow-per-file-labelling-for-binderfs.patch
 ANDROID-block-fix-some-inline-crypto-bugs.patch
 ANDROID-block-export-symbols-needed-for-modules-to-use-inline-crypto.patch
 FROMLIST-scsi-ufs-add-program_key-variant-op.patch

@@ -79,11 +79,11 @@ index 054285f8d858..a05bda363272 100644
  	cpu_install_idmap();
  	restart(el2_switch, entry, arg0, arg1, arg2);
 diff --git a/arch/arm64/kernel/cpufeature.c b/arch/arm64/kernel/cpufeature.c
-index 0f9337f71e1b..068ac115d23c 100644
+index 42f1f4564faa..595c16258d73 100644
 --- a/arch/arm64/kernel/cpufeature.c
 +++ b/arch/arm64/kernel/cpufeature.c
-@@ -1054,7 +1054,7 @@ kpti_install_ng_mappings(const struct arm64_cpu_capabilities *__unused)
- 	if (kpti_applied || kaslr_offset() > 0)
+@@ -1126,7 +1126,7 @@ kpti_install_ng_mappings(const struct arm64_cpu_capabilities *__unused)
+ 	if (arm64_use_ng_mappings)
  		return;
  
 -	remap_fn = (void *)__pa_symbol(idmap_kpti_install_ng_mappings);

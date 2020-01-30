@@ -749,7 +749,7 @@ index 71f887518d6f..9520365195cf 100644
  
  int
 diff --git a/include/linux/fs.h b/include/linux/fs.h
-index 656be652d57f..67cacf09345b 100644
+index 4ba537dc8da6..3a51cf8f12d6 100644
 --- a/include/linux/fs.h
 +++ b/include/linux/fs.h
 @@ -1709,13 +1709,21 @@ extern bool inode_owner_or_capable(const struct inode *inode);

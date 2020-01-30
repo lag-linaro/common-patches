@@ -43,7 +43,7 @@ Signed-off-by: Jeff Vander Stoep <jeffv@google.com>
  6 files changed, 44 insertions(+), 2 deletions(-)
 
 diff --git a/security/selinux/include/classmap.h b/security/selinux/include/classmap.h
-index 7db24855e12d..562bd1802c99 100644
+index 986f3ac14282..77ccd558890a 100644
 --- a/security/selinux/include/classmap.h
 +++ b/security/selinux/include/classmap.h
 @@ -116,7 +116,7 @@ struct security_class_mapping secclass_map[] = {
@@ -56,18 +56,18 @@ index 7db24855e12d..562bd1802c99 100644
  	  { COMMON_SOCK_PERMS,
  	    "nlmsg_read", "nlmsg_write", NULL } },
 diff --git a/security/selinux/include/security.h b/security/selinux/include/security.h
-index ae840634e3c7..c62cbf12e0c9 100644
+index a39f9565d80b..09dffc78ec9c 100644
 --- a/security/selinux/include/security.h
 +++ b/security/selinux/include/security.h
-@@ -106,6 +106,7 @@ struct selinux_state {
+@@ -108,6 +108,7 @@ struct selinux_state {
  	bool checkreqprot;
  	bool initialized;
  	bool policycap[__POLICYDB_CAPABILITY_MAX];
 +	bool android_netlink_route;
  	struct selinux_avc *avc;
  	struct selinux_ss *ss;
- };
-@@ -178,6 +179,13 @@ static inline bool selinux_policycap_nnp_nosuid_transition(void)
+ } __randomize_layout;
+@@ -209,6 +210,13 @@ static inline bool selinux_policycap_nnp_nosuid_transition(void)
  	return state->policycap[POLICYDB_CAPABILITY_NNP_NOSUID_TRANSITION];
  }
  
@@ -81,10 +81,10 @@ index ae840634e3c7..c62cbf12e0c9 100644
  int security_mls_enabled(struct selinux_state *state);
  int security_load_policy(struct selinux_state *state,
  			 void *data, size_t len);
-@@ -395,5 +403,6 @@ extern int selinux_nlmsg_lookup(u16 sclass, u16 nlmsg_type, u32 *perm);
- extern void avtab_cache_init(void);
+@@ -427,5 +435,6 @@ extern void avtab_cache_init(void);
  extern void ebitmap_cache_init(void);
  extern void hashtab_cache_init(void);
+ extern int security_sidtab_hash_stats(struct selinux_state *state, char *page);
 +extern void selinux_nlmsg_init(void);
  
  #endif /* _SELINUX_SECURITY_H_ */
@@ -130,10 +130,10 @@ index c97fdae8f71b..191d6f2d7c2d 100644
 +		nlmsg_set_getlink_perm(NETLINK_ROUTE_SOCKET__NLMSG_READ);
 +}
 diff --git a/security/selinux/ss/policydb.c b/security/selinux/ss/policydb.c
-index e20624a68f5d..62b8e9243053 100644
+index 2aa7f2e1a8e7..252a217b0889 100644
 --- a/security/selinux/ss/policydb.c
 +++ b/security/selinux/ss/policydb.c
-@@ -2349,6 +2349,10 @@ int policydb_read(struct policydb *p, void *fp)
+@@ -2354,6 +2354,10 @@ int policydb_read(struct policydb *p, void *fp)
  	p->reject_unknown = !!(le32_to_cpu(buf[1]) & REJECT_UNKNOWN);
  	p->allow_unknown = !!(le32_to_cpu(buf[1]) & ALLOW_UNKNOWN);
  
@@ -145,7 +145,7 @@ index e20624a68f5d..62b8e9243053 100644
  		rc = ebitmap_read(&p->policycaps, fp);
  		if (rc)
 diff --git a/security/selinux/ss/policydb.h b/security/selinux/ss/policydb.h
-index bc56b14e2216..052afe1c0a0d 100644
+index 69b24191fa38..6654e03c0b96 100644
 --- a/security/selinux/ss/policydb.h
 +++ b/security/selinux/ss/policydb.h
 @@ -235,6 +235,7 @@ struct genfs {
@@ -165,10 +165,10 @@ index bc56b14e2216..052afe1c0a0d 100644
  /* the config flags related to unknown classes/perms are bits 2 and 3 */
  #define REJECT_UNKNOWN	0x00000002
 diff --git a/security/selinux/ss/services.c b/security/selinux/ss/services.c
-index a5813c7629c1..ef3499fcbd03 100644
+index 216ce602a2b5..639cca4e3249 100644
 --- a/security/selinux/ss/services.c
 +++ b/security/selinux/ss/services.c
-@@ -2066,6 +2066,9 @@ static void security_load_policycaps(struct selinux_state *state)
+@@ -2155,6 +2155,9 @@ static void security_load_policycaps(struct selinux_state *state)
  			pr_info("SELinux:  unknown policy capability %u\n",
  				i);
  	}

@@ -31,19 +31,19 @@ index 8939c87c4dce..0cde2f473971 100644
  
  /*
 diff --git a/arch/arm64/mm/proc.S b/arch/arm64/mm/proc.S
-index fdabf40a83c8..5c8219c55948 100644
+index aafed6902411..7d37e3c70ff5 100644
 --- a/arch/arm64/mm/proc.S
 +++ b/arch/arm64/mm/proc.S
-@@ -49,6 +49,8 @@
+@@ -56,6 +56,8 @@
   * cpu_do_suspend - save CPU registers context
   *
   * x0: virtual address of context pointer
 + *
 + * This must be kept in sync with struct cpu_suspend_ctx in <asm/suspend.h>.
   */
- ENTRY(cpu_do_suspend)
+ SYM_FUNC_START(cpu_do_suspend)
  	mrs	x2, tpidr_el0
-@@ -73,6 +75,11 @@ alternative_endif
+@@ -80,6 +82,11 @@ alternative_endif
  	stp	x8, x9, [x0, #48]
  	stp	x10, x11, [x0, #64]
  	stp	x12, x13, [x0, #80]
@@ -53,9 +53,9 @@ index fdabf40a83c8..5c8219c55948 100644
 +	 */
 +	str	x18, [x0, #96]
  	ret
- ENDPROC(cpu_do_suspend)
+ SYM_FUNC_END(cpu_do_suspend)
  
-@@ -89,6 +96,13 @@ ENTRY(cpu_do_resume)
+@@ -96,6 +103,13 @@ SYM_FUNC_START(cpu_do_resume)
  	ldp	x9, x10, [x0, #48]
  	ldp	x11, x12, [x0, #64]
  	ldp	x13, x14, [x0, #80]

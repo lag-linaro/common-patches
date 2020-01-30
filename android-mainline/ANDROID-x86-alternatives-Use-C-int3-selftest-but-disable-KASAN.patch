@@ -19,7 +19,7 @@ Signed-off-by: Sami Tolvanen <samitolvanen@google.com>
  1 file changed, 4 insertions(+), 17 deletions(-)
 
 diff --git a/arch/x86/kernel/alternative.c b/arch/x86/kernel/alternative.c
-index 9ec463fe96f2..8047a888dbdd 100644
+index 34360ca301a2..b5730330a5b9 100644
 --- a/arch/x86/kernel/alternative.c
 +++ b/arch/x86/kernel/alternative.c
 @@ -625,23 +625,10 @@ extern struct paravirt_patch_site __start_parainstructions[],
