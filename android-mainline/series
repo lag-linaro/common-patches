@@ -2,7 +2,7 @@
 # android-mainline patches
 #
 # Applies onto upstream b5f7ab6b1c4e Linux v5.5-1308-gb5f7ab6b1c4e
-# Matches android-mainline 28b159de8ede ("Merge b5f7ab6b1c4e ("Merge tag 'fs-dedupe-last-block-tag' of git://git.kernel.org/pub/scm/linux/kernel/git/kdave/linux") into android-mainline")
+# Matches android-mainline 05c743211664 ("ANDROID: fix build problem in include/trace/events/android_fs_template.h")
 #
 FROMGIT-scsi-ufs-Recheck-bkops-level-if-bkops-is-disabled.patch
 FROMGIT-scsi-ufs-Update-VCCQ2-and-VCCQ-min-max-voltage-hard-codes.patch
@@ -384,3 +384,5 @@ UPSTREAM-staging-most-net-fix-buffer-overflow.patch
 ANDROID-gki_defconfig-Set-IKHEADERS-back-to-y.patch
 ANDROID-gki-Fixed-some-typos-in-Kconfig.gki.patch
 ANDROID-modularize-BLK_MQ_VIRTIO.patch
+Revert-ANDROID-sched-fair-EAS-Add-uclamp-support-to-find_energy_efficient_cpu.patch
+ANDROID-fix-build-problem-in-include-trace-events-android_fs_template.h.patch
