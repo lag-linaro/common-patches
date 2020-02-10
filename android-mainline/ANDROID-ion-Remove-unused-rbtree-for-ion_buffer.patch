@@ -1,7 +1,7 @@
 From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
 From: Lecopzer Chen <lecopzer.chen@mediatek.com>
 Date: Fri, 12 Jul 2019 16:47:17 +0800
-Subject: staging: android: ion: Remove unused rbtree for ion_buffer
+Subject: ANDROID: ion: Remove unused rbtree for ion_buffer
 
 Re-apply commit 3e6998b17f36 ("staging: android: ion: Remove unused
 rbtree for ion_buffer") which has been inadvertently and partly reverted
@@ -48,10 +48,10 @@ index a1d42cc95227..b43655da4d7c 100644
  	internal_dev = idev;
  	return 0;
 diff --git a/drivers/staging/android/ion/ion_buffer.c b/drivers/staging/android/ion/ion_buffer.c
-index eaca61f1663c..12f180a84ea8 100644
+index 4157f5d040f2..c6fdf3bf48f0 100644
 --- a/drivers/staging/android/ion/ion_buffer.c
 +++ b/drivers/staging/android/ion/ion_buffer.c
-@@ -13,32 +13,6 @@
+@@ -12,32 +12,6 @@
  
  #include "ion_private.h"
  
@@ -84,7 +84,7 @@ index eaca61f1663c..12f180a84ea8 100644
  /* this function should only be called while dev->lock is held */
  static struct ion_buffer *ion_buffer_create(struct ion_heap *heap,
  					    struct ion_device *dev,
-@@ -91,9 +65,6 @@ static struct ion_buffer *ion_buffer_create(struct ion_heap *heap,
+@@ -90,9 +64,6 @@ static struct ion_buffer *ion_buffer_create(struct ion_heap *heap,
  
  	INIT_LIST_HEAD(&buffer->attachments);
  	mutex_init(&buffer->lock);
@@ -94,7 +94,7 @@ index eaca61f1663c..12f180a84ea8 100644
  	return buffer;
  
  err1:
-@@ -244,9 +215,6 @@ int ion_buffer_destroy(struct ion_device *dev, struct ion_buffer *buffer)
+@@ -225,9 +196,6 @@ int ion_buffer_destroy(struct ion_device *dev, struct ion_buffer *buffer)
  	}
  
  	heap = buffer->heap;
@@ -126,7 +126,7 @@ index 2f5376e131c3..ca4ca2389397 100644
  	DECLARE_BITMAP(heap_ids, ION_NUM_MAX_HEAPS);
  	struct plist_head heaps;
 diff --git a/include/linux/ion.h b/include/linux/ion.h
-index 0fdc1e1d4c29..dbcbe0cb7b08 100644
+index 88622fb8f9ea..025071c19240 100644
 --- a/include/linux/ion.h
 +++ b/include/linux/ion.h
 @@ -22,7 +22,6 @@

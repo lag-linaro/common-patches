@@ -1,7 +1,7 @@
 From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
 From: =?UTF-8?q?Maciej=20=C5=BBenczykowski?= <maze@google.com>
 Date: Mon, 13 Jan 2020 23:52:14 -0800
-Subject: GKI: enable CONFIG_NETFILTER_XT_MATCH_QUOTA2_LOG=y
+Subject: ANDROID: GKI: enable CONFIG_NETFILTER_XT_MATCH_QUOTA2_LOG=y
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit

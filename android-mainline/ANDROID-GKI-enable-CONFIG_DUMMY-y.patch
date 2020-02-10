@@ -1,7 +1,7 @@
 From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
 From: =?UTF-8?q?Maciej=20=C5=BBenczykowski?= <maze@google.com>
 Date: Thu, 16 Jan 2020 01:52:49 -0800
-Subject: GKI: enable CONFIG_DUMMY=y
+Subject: ANDROID: GKI: enable CONFIG_DUMMY=y
 MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit

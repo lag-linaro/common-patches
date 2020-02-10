@@ -4,6 +4,13 @@
 # Applies onto upstream b5f7ab6b1c4e Linux v5.5-1308-gb5f7ab6b1c4e
 # Matches android-mainline cedd91c6f4c4 ("ANDROID: bpf: disable CFI for dispatcher functions")
 #
+UPSTREAM-bpf-Move-trampoline-JIT-image-allocation-to-a-function.patch
+UPSTREAM-bpf-Introduce-BPF-dispatcher.patch
+UPSTREAM-bpf-xdp-Start-using-the-BPF-dispatcher-for-XDP.patch
+UPSTREAM-bpf-Start-using-the-BPF-dispatcher-in-BPF_TEST_RUN.patch
+UPSTREAM-bpf-x86-Align-dispatcher-branch-targets-to-16B.patch
+UPSTREAM-staging-most-net-fix-buffer-overflow.patch
+Revert-drm-virtio-fix-DRM_FORMAT_-handling.patch
 FROMGIT-scsi-ufs-Recheck-bkops-level-if-bkops-is-disabled.patch
 FROMGIT-scsi-ufs-Update-VCCQ2-and-VCCQ-min-max-voltage-hard-codes.patch
 FROMGIT-scsi-ufs-Avoid-messing-up-the-compl_time_stamp-of-lrbs.patch
@@ -173,7 +180,6 @@ ANDROID-update-arm64-gki_defconfig.patch
 ANDROID-GKI-export-cma-symbols-for-cma-heap-as-a-module.patch
 ANDROID-staging-ion-make-cma-heap-a-module.patch
 ANDROID-update-gki_defconfig-2.patch
-ANDROID-sched-fair-EAS-Add-uclamp-support-to-find_energy_efficient_cpu.patch
 ANDROID-sched-Unconditionally-honor-sync-flag-for-energy-aware-wakeups.patch
 ANDROID-sched-fair-add-arch-scaling-function-for-max-frequency-capping.patch
 ANDROID-cpufreq-arch_topology-implement-max-frequency-capping.patch
@@ -227,6 +233,7 @@ ANDROID-scsi-ufs-UFS-init-should-not-require-inline-crypto.patch
 ANDROID-scsi-ufs-Add-quirk-bit-for-controllers-that-don-t-play-well-with-inline-crypto.patch
 ANDROID-scsi-ufs-hisi-Enable-BROKEN_CRYPTO-quirk-flag.patch
 ANDROID-scsi-ufs-qcom-Enable-BROKEN_CRYPTO-quirk-flag.patch
+FROMLIST-Update-Inline-Encryption-from-v5-to-v6-of-patch-series.patch
 ANDROID-build-kernels-with-llvm-nm-and-llvm-objcopy.patch
 ANDROID-include-uapi-drm-add-additional-QCOM-modifiers.patch
 ANDROID-drivers-gpu-drm-add-support-for-secure-framebuffer.patch
@@ -240,6 +247,7 @@ ANDROID-include-uapi-drm-add-additional-drm-mode-flags.patch
 ANDROID-drm-edid-add-support-for-additional-CEA-extension-blocks.patch
 ANDROID-uid_sys_stats-avoid-double-accounting-of-dying-threads.patch
 ANDROID-ion-Fix-buffer_lock-mutex-initialization.patch
+ANDROID-ion-Remove-unused-rbtree-for-ion_buffer.patch
 ANDROID-usb-gadget-configfs-Support-multiple-android-instances.patch
 ANDROID-virtio_blk-Remove-BUG_ON-for-discard-zero-ops.patch
 ANDROID-drivers-gpu-drm-add-support-to-batch-commands.patch
@@ -263,8 +271,6 @@ ANDROID-arm64-vdso-disable-LTO.patch
 ANDROID-arm64-disable-HAVE_ARCH_PREL32_RELOCATIONS-with-LTO_CLANG.patch
 ANDROID-arm64-allow-LTO_CLANG-and-THINLTO-to-be-selected.patch
 ANDROID-add-support-for-Clang-s-Control-Flow-Integrity-CFI.patch
-ANDROID-bpf-validate-bpf_func-when-BPF_JIT-is-enabled-with-CFI.patch
-ANDROID-arm64-bpf-implement-arch_bpf_jit_check_func.patch
 ANDROID-arm64-add-__nocfi-to-functions-that-jump-to-a-physical-address.patch
 ANDROID-arm64-add-__pa_function.patch
 ANDROID-arm64-add-__nocfi-to-__apply_alternatives.patch
@@ -294,7 +300,6 @@ ANDROID-SoC-core-export-snd_soc_info_multi_ext-as-gpl-only.patch
 ANDROID-export-mm_trace_rss_stat-as-gpl-only.patch
 ANDROID-mm-Throttle-rss_stat-tracepoint.patch
 ANDROID-add-initial-ABI-whitelist-for-android-mainline.patch
-staging-android-ion-Remove-unused-rbtree-for-ion_buffer.patch
 ANDROID-gki_defconfig-Set-BINFMT_MISC-as-m.patch
 ANDROID-gki_defconfig-enable-ARM64_SW_TTBR0_PAN.patch
 ANDROID-phy-qcom-qmp-Use-power_on-off-ops-for-PCIe.patch
@@ -311,7 +316,6 @@ ANDROID-serdev-add-platform-device-support.patch
 ANDROID-gnss-Add-command-line-test-driver.patch
 ANDROID-gki_defconfig-Enable-CONFIG_GNSS_CMDLINE_SERIAL.patch
 ANDROID-gki_defconfig-Disable-TRANSPARENT_HUGEPAGE.patch
-Revert-drm-virtio-fix-DRM_FORMAT_-handling.patch
 ANDROID-Add-a-tracepoint-for-mapping-inode-to-full-path.patch
 ANDROID-Kconfig.gki-Add-Hidden-SPRD-DRM-configs.patch
 ANDROID-update-defconfig-for-5.5-rc3.patch
@@ -328,7 +332,6 @@ ANDROID-iommu-arm-smmu-Expose-s2cr-and-smr-structs-to-impl.patch
 ANDROID-iommu-arm-smmu-Allow-inherting-stream-mapping-from-bootloader.patch
 ANDROID-tty-serdev-Fix-broken-serial-console-input.patch
 ANDROID-Kconfig.gki-Add-QCOM_SCM-to-QCOM-Hidden-configs.patch
-FROMLIST-Update-Inline-Encryption-from-v5-to-v6-of-patch-series.patch
 ANDROID-gki_defconfig-Enable-blk-crypto-fallback.patch
 ANDROID-drm-bridge-Introduce-LT9611-DSI-to-HDMI-bridge.patch
 ANDROID-arm64-dts-sdm845-Enable-FW-implemented-safe-sequence-handler-on-MTP.patch
@@ -340,8 +343,8 @@ ANDROID-arm64-dts-db845c-add-Low-speed-expansion-i2c-and-spi-nodes.patch
 ANDROID-arm64-dts-db845c-Add-clocks-entry-to-display-to-track-real-clock-inputs.patch
 ANDROID-db845c-add-db845c_gki.fragment.patch
 ANDROID-db845c-Add-build-config.patch
-GKI-enable-CONFIG_NETFILTER_XT_MATCH_QUOTA2_LOG-y.patch
-GKI-enable-CONFIG_DUMMY-y.patch
+ANDROID-GKI-enable-CONFIG_NETFILTER_XT_MATCH_QUOTA2_LOG-y.patch
+ANDROID-GKI-enable-CONFIG_DUMMY-y.patch
 FROMGIT-drivers-iommu-Initialise-module-owner-field-in-iommu_device_set_ops.patch
 ANDROID-ufshcd-crypto-export-cap-find-API.patch
 ANDROID-block-provide-key-size-as-input-to-inline-crypto-APIs.patch
@@ -380,17 +383,8 @@ ANDROID-gki_defconfig-Enable-CONFIG_BTT.patch
 ANDROID-gki_defconfig-Remove-SND_8X0.patch
 ANDROID-gki_defconfig-enabled-INTERCONNECT.patch
 ANDROID-gki_defconfig-Enable-req-modules-in-GKI.patch
-UPSTREAM-staging-most-net-fix-buffer-overflow.patch
 ANDROID-gki_defconfig-Set-IKHEADERS-back-to-y.patch
 ANDROID-gki-Fixed-some-typos-in-Kconfig.gki.patch
 ANDROID-modularize-BLK_MQ_VIRTIO.patch
-Revert-ANDROID-sched-fair-EAS-Add-uclamp-support-to-find_energy_efficient_cpu.patch
 ANDROID-fix-build-problem-in-include-trace-events-android_fs_template.h.patch
-ANDROID-Revert-ANDROID-arm64-bpf-implement-arch_bpf_jit_check_func.patch
-ANDROID-Revert-ANDROID-bpf-validate-bpf_func-when-BPF_JIT-is-enabled-with-CFI.patch
-UPSTREAM-bpf-Move-trampoline-JIT-image-allocation-to-a-function.patch
-UPSTREAM-bpf-Introduce-BPF-dispatcher.patch
-UPSTREAM-bpf-xdp-Start-using-the-BPF-dispatcher-for-XDP.patch
-UPSTREAM-bpf-Start-using-the-BPF-dispatcher-in-BPF_TEST_RUN.patch
-UPSTREAM-bpf-x86-Align-dispatcher-branch-targets-to-16B.patch
 ANDROID-bpf-disable-CFI-for-dispatcher-functions.patch
