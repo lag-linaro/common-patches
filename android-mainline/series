@@ -2,7 +2,7 @@
 # android-mainline patches
 #
 # Applies onto upstream b5f7ab6b1c4e Linux v5.5-1308-gb5f7ab6b1c4e
-# Matches android-mainline 05c743211664 ("ANDROID: fix build problem in include/trace/events/android_fs_template.h")
+# Matches android-mainline cedd91c6f4c4 ("ANDROID: bpf: disable CFI for dispatcher functions")
 #
 FROMGIT-scsi-ufs-Recheck-bkops-level-if-bkops-is-disabled.patch
 FROMGIT-scsi-ufs-Update-VCCQ2-and-VCCQ-min-max-voltage-hard-codes.patch
@@ -386,3 +386,11 @@ ANDROID-gki-Fixed-some-typos-in-Kconfig.gki.patch
 ANDROID-modularize-BLK_MQ_VIRTIO.patch
 Revert-ANDROID-sched-fair-EAS-Add-uclamp-support-to-find_energy_efficient_cpu.patch
 ANDROID-fix-build-problem-in-include-trace-events-android_fs_template.h.patch
+ANDROID-Revert-ANDROID-arm64-bpf-implement-arch_bpf_jit_check_func.patch
+ANDROID-Revert-ANDROID-bpf-validate-bpf_func-when-BPF_JIT-is-enabled-with-CFI.patch
+UPSTREAM-bpf-Move-trampoline-JIT-image-allocation-to-a-function.patch
+UPSTREAM-bpf-Introduce-BPF-dispatcher.patch
+UPSTREAM-bpf-xdp-Start-using-the-BPF-dispatcher-for-XDP.patch
+UPSTREAM-bpf-Start-using-the-BPF-dispatcher-in-BPF_TEST_RUN.patch
+UPSTREAM-bpf-x86-Align-dispatcher-branch-targets-to-16B.patch
+ANDROID-bpf-disable-CFI-for-dispatcher-functions.patch
