@@ -1,8 +1,8 @@
 #
 # android-mainline patches
 #
-# Applies onto upstream bd2463ac7d7e Linux v5.5-3234-gbd2463ac7d7e
-# Matches android-mainline 358c6ef08ac1 ("ANDROID: gki: Enable DRM_GEM_SHMEM_HELPER for GKI")
+# Applies onto upstream b3a608222336 Linux v5.5-3996-gb3a608222336
+# Matches android-mainline 2b0f7f511da4 ("Merge b3a608222336 ("Merge branch 'for-v5.6' of git://git.kernel.org:/pub/scm/linux/kernel/git/jmorris/linux-security") into android-mainline")
 #
 UPSTREAM-staging-most-net-fix-buffer-overflow.patch
 Revert-drm-virtio-fix-DRM_FORMAT_-handling.patch

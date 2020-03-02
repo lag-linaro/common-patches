@@ -70,15 +70,15 @@ index 0f1db1cccc3f..69a1b64e3781 100644
  
  /*
 diff --git a/sound/core/jack.c b/sound/core/jack.c
-index fb26196571a7..e1594d0ca61f 100644
+index 503c8af79d55..92847b510704 100644
 --- a/sound/core/jack.c
 +++ b/sound/core/jack.c
 @@ -19,13 +19,16 @@ struct snd_jack_kctl {
  };
  
  #ifdef CONFIG_SND_JACK_INPUT_DEV
--static int jack_switch_types[SND_JACK_SWITCH_TYPES] = {
-+static int jack_switch_types[] = {
+-static const int jack_switch_types[SND_JACK_SWITCH_TYPES] = {
++static const int jack_switch_types[] = {
  	SW_HEADPHONE_INSERT,
  	SW_MICROPHONE_INSERT,
  	SW_LINEOUT_INSERT,

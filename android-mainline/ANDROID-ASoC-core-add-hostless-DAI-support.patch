@@ -21,17 +21,17 @@ Signed-off-by: Shiv Maliyappanahalli <smaliyap@codeaurora.org>
 Signed-off-by: Sudheer Papothi <spapothi@codeaurora.org>
 ---
  include/sound/pcm.h     |  1 +
- include/sound/soc.h     | 11 +++++++
+ include/sound/soc.h     | 11 ++++++
  sound/core/pcm_lib.c    |  2 ++
  sound/core/pcm_native.c |  1 +
- sound/soc/soc-pcm.c     | 70 +++++++++++++++++++++++++++++++++++++++++
- 5 files changed, 85 insertions(+)
+ sound/soc/soc-pcm.c     | 79 +++++++++++++++++++++++++++++++++++++++++
+ 5 files changed, 94 insertions(+)
 
 diff --git a/include/sound/pcm.h b/include/sound/pcm.h
-index 8a89fa6fdd5e..695e88e6053f 100644
+index 5a31525e2df6..7ac1d04ee729 100644
 --- a/include/sound/pcm.h
 +++ b/include/sound/pcm.h
-@@ -479,6 +479,7 @@ struct snd_pcm_substream {
+@@ -480,6 +480,7 @@ struct snd_pcm_substream {
  	/* misc flags */
  	unsigned int hw_opened: 1;
  	unsigned int managed_buffer_alloc:1;
@@ -40,7 +40,7 @@ index 8a89fa6fdd5e..695e88e6053f 100644
  
  #define SUBSTREAM_BUSY(substream) ((substream)->ref_count > 0)
 diff --git a/include/sound/soc.h b/include/sound/soc.h
-index 73fafa4869ff..262583eca64f 100644
+index 6d537f6289b8..b87e72815997 100644
 --- a/include/sound/soc.h
 +++ b/include/sound/soc.h
 @@ -376,6 +376,10 @@
@@ -54,7 +54,7 @@ index 73fafa4869ff..262583eca64f 100644
  /*
   * Bias levels
   *
-@@ -729,6 +733,7 @@ struct snd_soc_pcm_stream {
+@@ -727,6 +731,7 @@ struct snd_soc_pcm_stream {
  	unsigned int channels_min;	/* min channels */
  	unsigned int channels_max;	/* max channels */
  	unsigned int sig_bits;		/* number of bits of content */
@@ -62,7 +62,7 @@ index 73fafa4869ff..262583eca64f 100644
  };
  
  /* SoC audio ops */
-@@ -845,6 +850,12 @@ struct snd_soc_dai_link {
+@@ -833,6 +838,12 @@ struct snd_soc_dai_link {
  	/* This DAI link can route to other DAI links at runtime (Frontend)*/
  	unsigned int dynamic:1;
  
@@ -76,10 +76,10 @@ index 73fafa4869ff..262583eca64f 100644
  	unsigned int dpcm_capture:1;
  	unsigned int dpcm_playback:1;
 diff --git a/sound/core/pcm_lib.c b/sound/core/pcm_lib.c
-index 2236b5e0c1f2..a6abac03f30d 100644
+index 872a852de75c..44003f001000 100644
 --- a/sound/core/pcm_lib.c
 +++ b/sound/core/pcm_lib.c
-@@ -2050,6 +2050,8 @@ static int pcm_sanity_check(struct snd_pcm_substream *substream)
+@@ -2060,6 +2060,8 @@ static int pcm_sanity_check(struct snd_pcm_substream *substream)
  	struct snd_pcm_runtime *runtime;
  	if (PCM_RUNTIME_CHECK(substream))
  		return -ENXIO;
@@ -89,10 +89,10 @@ index 2236b5e0c1f2..a6abac03f30d 100644
  	if (snd_BUG_ON(!substream->ops->copy_user && !runtime->dma_area))
  		return -EINVAL;
 diff --git a/sound/core/pcm_native.c b/sound/core/pcm_native.c
-index d083225344a0..07c7dce0e2cc 100644
+index bb23f5066654..0c1f74c2ce88 100644
 --- a/sound/core/pcm_native.c
 +++ b/sound/core/pcm_native.c
-@@ -1242,6 +1242,7 @@ static int snd_pcm_pre_start(struct snd_pcm_substream *substream, int state)
+@@ -1305,6 +1305,7 @@ static int snd_pcm_pre_start(struct snd_pcm_substream *substream, int state)
  	if (runtime->status->state != SNDRV_PCM_STATE_PREPARED)
  		return -EBADFD;
  	if (substream->stream == SNDRV_PCM_STREAM_PLAYBACK &&
@@ -101,7 +101,7 @@ index d083225344a0..07c7dce0e2cc 100644
  		return -EPIPE;
  	runtime->trigger_tstamp_latched = false;
 diff --git a/sound/soc/soc-pcm.c b/sound/soc/soc-pcm.c
-index 01e7bc03d92f..73cfd4ef5bad 100644
+index ff1b7c7078e5..701b4617133a 100644
 --- a/sound/soc/soc-pcm.c
 +++ b/sound/soc/soc-pcm.c
 @@ -19,6 +19,7 @@
@@ -137,10 +137,10 @@ index 01e7bc03d92f..73cfd4ef5bad 100644
 +	.buffer_bytes_max	= PAGE_SIZE * 4,
 +};
 +
- /**
-  * snd_soc_runtime_activate() - Increment active count for PCM runtime components
-  * @rtd: ASoC PCM runtime that is activated
-@@ -135,6 +157,8 @@ int snd_soc_set_runtime_hwparams(struct snd_pcm_substream *substream,
+ static int soc_rtd_startup(struct snd_soc_pcm_runtime *rtd,
+ 			   struct snd_pcm_substream *substream)
+ {
+@@ -189,6 +211,8 @@ int snd_soc_set_runtime_hwparams(struct snd_pcm_substream *substream,
  	const struct snd_pcm_hardware *hw)
  {
  	struct snd_pcm_runtime *runtime = substream->runtime;
@@ -149,7 +149,7 @@ index 01e7bc03d92f..73cfd4ef5bad 100644
  	runtime->hw.info = hw->info;
  	runtime->hw.formats = hw->formats;
  	runtime->hw.period_bytes_min = hw->period_bytes_min;
-@@ -500,6 +524,9 @@ static int soc_pcm_open(struct snd_pcm_substream *substream)
+@@ -549,6 +573,9 @@ static int soc_pcm_open(struct snd_pcm_substream *substream)
  
  	mutex_lock_nested(&rtd->card->pcm_mutex, rtd->card->pcm_subclass);
  
@@ -159,7 +159,7 @@ index 01e7bc03d92f..73cfd4ef5bad 100644
  	/* startup the audio subsystem */
  	ret = snd_soc_dai_startup(cpu_dai, substream);
  	if (ret < 0) {
-@@ -864,6 +891,16 @@ static int soc_pcm_hw_params(struct snd_pcm_substream *substream,
+@@ -854,6 +881,25 @@ static int soc_pcm_hw_params(struct snd_pcm_substream *substream,
  	if (ret)
  		goto out;
  
@@ -173,10 +173,19 @@ index 01e7bc03d92f..73cfd4ef5bad 100644
 +				rtd->dai_link->name);
 +	}
 +
- 	if (rtd->dai_link->ops->hw_params) {
- 		ret = rtd->dai_link->ops->hw_params(substream, params);
- 		if (ret < 0) {
-@@ -943,6 +980,20 @@ static int soc_pcm_hw_params(struct snd_pcm_substream *substream,
++	if (rtd->dai_link->ops->hw_params) {
++		ret = rtd->dai_link->ops->hw_params(substream, params);
++		if (ret < 0) {
++			dev_err(rtd->card->dev, "ASoC: machine hw_params"
++				" failed: %d\n", ret);
++			goto out;
++		}
++	}
++
+ 	ret = soc_rtd_hw_params(rtd, substream, params);
+ 	if (ret < 0) {
+ 		dev_err(rtd->card->dev,
+@@ -931,6 +977,20 @@ static int soc_pcm_hw_params(struct snd_pcm_substream *substream,
  	}
  	component = NULL;
  
@@ -197,7 +206,7 @@ index 01e7bc03d92f..73cfd4ef5bad 100644
  out:
  	mutex_unlock(&rtd->card->pcm_mutex);
  	return ret;
-@@ -1025,6 +1076,8 @@ static int soc_pcm_hw_free(struct snd_pcm_substream *substream)
+@@ -1011,6 +1071,8 @@ static int soc_pcm_hw_free(struct snd_pcm_substream *substream)
  
  	snd_soc_dai_hw_free(cpu_dai, substream);
  
@@ -206,15 +215,15 @@ index 01e7bc03d92f..73cfd4ef5bad 100644
  	mutex_unlock(&rtd->card->pcm_mutex);
  	return 0;
  }
-@@ -2900,6 +2953,7 @@ int soc_new_pcm(struct snd_soc_pcm_runtime *rtd, int num)
- 	struct snd_soc_rtdcom_list *rtdcom;
+@@ -2879,6 +2941,7 @@ int soc_new_pcm(struct snd_soc_pcm_runtime *rtd, int num)
+ 	struct snd_soc_dai *cpu_dai = rtd->cpu_dai;
  	struct snd_soc_component *component;
  	struct snd_pcm *pcm;
 +	struct snd_pcm_str *stream;
  	char new_name[64];
  	int ret = 0, playback = 0, capture = 0;
  	int i;
-@@ -2988,6 +3042,22 @@ int soc_new_pcm(struct snd_soc_pcm_runtime *rtd, int num)
+@@ -2967,6 +3030,22 @@ int soc_new_pcm(struct snd_soc_pcm_runtime *rtd, int num)
  		goto out;
  	}
  

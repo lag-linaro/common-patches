@@ -23,7 +23,7 @@ Signed-off-by: Jack Pham <jackp@codeaurora.org>
  6 files changed, 215 insertions(+)
 
 diff --git a/sound/usb/card.c b/sound/usb/card.c
-index 9f743ebae615..1150c44609b3 100644
+index 827fb0bc8b56..5c0b1fb9d237 100644
 --- a/sound/usb/card.c
 +++ b/sound/usb/card.c
 @@ -109,6 +109,72 @@ static DEFINE_MUTEX(register_mutex);
@@ -115,7 +115,7 @@ index 9f743ebae615..1150c44609b3 100644
  	init_waitqueue_head(&chip->shutdown_wait);
  	chip->index = idx;
  	chip->dev = dev;
-@@ -703,6 +771,9 @@ static void usb_audio_disconnect(struct usb_interface *intf)
+@@ -707,6 +775,9 @@ static void usb_audio_disconnect(struct usb_interface *intf)
  
  	card = chip->card;
  
@@ -139,7 +139,7 @@ index 395403a2d33f..6aae28c8d331 100644
 +
  #endif /* __USBAUDIO_CARD_H */
 diff --git a/sound/usb/pcm.c b/sound/usb/pcm.c
-index 0e4eab96e23e..c00ca7aa69a6 100644
+index bd258f1ec2dd..0b12be261f8e 100644
 --- a/sound/usb/pcm.c
 +++ b/sound/usb/pcm.c
 @@ -138,6 +138,69 @@ static struct audioformat *find_format(struct snd_usb_substream *subs)
@@ -212,7 +212,7 @@ index 0e4eab96e23e..c00ca7aa69a6 100644
  static int init_pitch_v1(struct snd_usb_audio *chip, int iface,
  			 struct usb_host_interface *alts,
  			 struct audioformat *fmt)
-@@ -573,6 +636,74 @@ static int set_format(struct snd_usb_substream *subs, struct audioformat *fmt)
+@@ -590,6 +653,74 @@ static int set_format(struct snd_usb_substream *subs, struct audioformat *fmt)
  	return 0;
  }
  
@@ -300,7 +300,7 @@ index 9833627c1eca..6e28e791e761 100644
  
  #endif /* __USBAUDIO_PCM_H */
 diff --git a/sound/usb/stream.c b/sound/usb/stream.c
-index 11785f9652ad..f40961c7c673 100644
+index afd5aa574611..fc5879e7ac5f 100644
 --- a/sound/usb/stream.c
 +++ b/sound/usb/stream.c
 @@ -67,9 +67,13 @@ static void snd_usb_audio_stream_free(struct snd_usb_stream *stream)
