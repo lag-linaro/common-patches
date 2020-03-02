@@ -20,7 +20,7 @@ Signed-off-by: Joel Fernandes <joelaf@google.com>
  2 files changed, 19 insertions(+), 6 deletions(-)
 
 diff --git a/include/linux/mm.h b/include/linux/mm.h
-index 3d7a90074c5c..975ca39c9bc1 100644
+index aa1ed9ef4968..1dba485186b0 100644
 --- a/include/linux/mm.h
 +++ b/include/linux/mm.h
 @@ -1623,27 +1623,28 @@ static inline unsigned long get_mm_counter(struct mm_struct *mm, int member)

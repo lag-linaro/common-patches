@@ -33,7 +33,7 @@ Signed-off-by: Matthias Maennich <maennich@google.com>
  3 files changed, 320 insertions(+), 32 deletions(-)
 
 diff --git a/drivers/android/binder.c b/drivers/android/binder.c
-index 9fcc761031d8..90c1f3ca1939 100644
+index a6b2082c24f8..c5b717c6797f 100644
 --- a/drivers/android/binder.c
 +++ b/drivers/android/binder.c
 @@ -67,6 +67,7 @@
@@ -306,7 +306,7 @@ index 9fcc761031d8..90c1f3ca1939 100644
  	node->txn_security_ctx = !!(flags & FLAT_BINDER_FLAG_TXN_SECURITY_CTX);
  	spin_lock_init(&node->lock);
  	INIT_LIST_HEAD(&node->work.entry);
-@@ -2751,18 +2904,53 @@ static bool binder_proc_transaction(struct binder_transaction *t,
+@@ -2753,18 +2906,53 @@ static bool binder_proc_transaction(struct binder_transaction *t,
  				    struct binder_thread *thread)
  {
  	struct binder_node *node = t->buffer->target_node;
@@ -361,7 +361,7 @@ index 9fcc761031d8..90c1f3ca1939 100644
  	}
  
  	binder_inner_proc_lock(proc);
-@@ -2773,8 +2961,17 @@ static bool binder_proc_transaction(struct binder_transaction *t,
+@@ -2775,8 +2963,17 @@ static bool binder_proc_transaction(struct binder_transaction *t,
  		return false;
  	}
  
@@ -380,7 +380,7 @@ index 9fcc761031d8..90c1f3ca1939 100644
  
  	if (thread)
  		binder_enqueue_thread_work_ilocked(thread, &t->work);
-@@ -2902,7 +3099,6 @@ static void binder_transaction(struct binder_proc *proc,
+@@ -2904,7 +3101,6 @@ static void binder_transaction(struct binder_proc *proc,
  		}
  		thread->transaction_stack = in_reply_to->to_parent;
  		binder_inner_proc_unlock(proc);
@@ -388,7 +388,7 @@ index 9fcc761031d8..90c1f3ca1939 100644
  		target_thread = binder_get_txn_from_and_acq_inner(in_reply_to);
  		if (target_thread == NULL) {
  			/* annotation for sparse */
-@@ -3101,7 +3297,15 @@ static void binder_transaction(struct binder_proc *proc,
+@@ -3103,7 +3299,15 @@ static void binder_transaction(struct binder_proc *proc,
  	t->to_thread = target_thread;
  	t->code = tr->code;
  	t->flags = tr->flags;
@@ -405,7 +405,7 @@ index 9fcc761031d8..90c1f3ca1939 100644
  
  	if (target_node && target_node->txn_security_ctx) {
  		u32 secid;
-@@ -3428,6 +3632,7 @@ static void binder_transaction(struct binder_proc *proc,
+@@ -3430,6 +3634,7 @@ static void binder_transaction(struct binder_proc *proc,
  		binder_enqueue_thread_work_ilocked(target_thread, &t->work);
  		binder_inner_proc_unlock(target_proc);
  		wake_up_interruptible_sync(&target_thread->wait);
@@ -413,7 +413,7 @@ index 9fcc761031d8..90c1f3ca1939 100644
  		binder_free_transaction(in_reply_to);
  	} else if (!(t->flags & TF_ONE_WAY)) {
  		BUG_ON(t->buffer->async_transaction != 0);
-@@ -3538,6 +3743,7 @@ static void binder_transaction(struct binder_proc *proc,
+@@ -3540,6 +3745,7 @@ static void binder_transaction(struct binder_proc *proc,
  
  	BUG_ON(thread->return_error.cmd != BR_OK);
  	if (in_reply_to) {
@@ -421,7 +421,7 @@ index 9fcc761031d8..90c1f3ca1939 100644
  		thread->return_error.cmd = BR_TRANSACTION_COMPLETE;
  		binder_enqueue_thread_work(thread, &thread->return_error.work);
  		binder_send_failed_reply(in_reply_to, return_error);
-@@ -4204,7 +4410,7 @@ static int binder_thread_read(struct binder_proc *proc,
+@@ -4206,7 +4412,7 @@ static int binder_thread_read(struct binder_proc *proc,
  			wait_event_interruptible(binder_user_error_wait,
  						 binder_stop_on_user_error < 2);
  		}
@@ -430,7 +430,7 @@ index 9fcc761031d8..90c1f3ca1939 100644
  	}
  
  	if (non_block) {
-@@ -4426,16 +4632,14 @@ static int binder_thread_read(struct binder_proc *proc,
+@@ -4428,16 +4634,14 @@ static int binder_thread_read(struct binder_proc *proc,
  		BUG_ON(t->buffer == NULL);
  		if (t->buffer->target_node) {
  			struct binder_node *target_node = t->buffer->target_node;
@@ -452,7 +452,7 @@ index 9fcc761031d8..90c1f3ca1939 100644
  			cmd = BR_TRANSACTION;
  		} else {
  			trd->target.ptr = 0;
-@@ -4647,6 +4851,8 @@ static struct binder_thread *binder_get_thread_ilocked(
+@@ -4649,6 +4853,8 @@ static struct binder_thread *binder_get_thread_ilocked(
  	binder_stats_created(BINDER_STAT_THREAD);
  	thread->proc = proc;
  	thread->pid = current->pid;
@@ -461,7 +461,7 @@ index 9fcc761031d8..90c1f3ca1939 100644
  	atomic_set(&thread->tmp_ref, 0);
  	init_waitqueue_head(&thread->wait);
  	INIT_LIST_HEAD(&thread->todo);
-@@ -4697,6 +4903,7 @@ static void binder_free_thread(struct binder_thread *thread)
+@@ -4699,6 +4905,7 @@ static void binder_free_thread(struct binder_thread *thread)
  	BUG_ON(!list_empty(&thread->todo));
  	binder_stats_deleted(BINDER_STAT_THREAD);
  	binder_proc_dec_tmpref(thread->proc);
@@ -469,7 +469,7 @@ index 9fcc761031d8..90c1f3ca1939 100644
  	kfree(thread);
  }
  
-@@ -5216,7 +5423,14 @@ static int binder_open(struct inode *nodp, struct file *filp)
+@@ -5218,7 +5425,14 @@ static int binder_open(struct inode *nodp, struct file *filp)
  	get_task_struct(current->group_leader);
  	proc->tsk = current->group_leader;
  	INIT_LIST_HEAD(&proc->todo);
@@ -485,7 +485,7 @@ index 9fcc761031d8..90c1f3ca1939 100644
  	/* binderfs stashes devices in i_private */
  	if (is_binderfs_device(nodp)) {
  		binder_dev = nodp->i_private;
-@@ -5537,13 +5751,14 @@ static void print_binder_transaction_ilocked(struct seq_file *m,
+@@ -5539,13 +5753,14 @@ static void print_binder_transaction_ilocked(struct seq_file *m,
  	spin_lock(&t->lock);
  	to_proc = t->to_proc;
  	seq_printf(m,
@@ -502,7 +502,7 @@ index 9fcc761031d8..90c1f3ca1939 100644
  	spin_unlock(&t->lock);
  
  	if (proc != to_proc) {
-@@ -5661,8 +5876,9 @@ static void print_binder_node_nilocked(struct seq_file *m,
+@@ -5663,8 +5878,9 @@ static void print_binder_node_nilocked(struct seq_file *m,
  	hlist_for_each_entry(ref, &node->refs, node_entry)
  		count++;
  

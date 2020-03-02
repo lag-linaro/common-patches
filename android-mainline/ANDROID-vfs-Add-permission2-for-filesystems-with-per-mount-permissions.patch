@@ -670,7 +670,7 @@ index 107537a543fd..3e66e6c8f53a 100644
  		path_put(path);
  		return error;
 diff --git a/fs/open.c b/fs/open.c
-index 520d14ff4e59..8de17281ac52 100644
+index a7bdbcf50ab2..3d633d24015d 100644
 --- a/fs/open.c
 +++ b/fs/open.c
 @@ -90,7 +90,7 @@ long vfs_truncate(const struct path *path, loff_t length)

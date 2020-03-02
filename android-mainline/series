@@ -1,8 +1,8 @@
 #
 # android-mainline patches
 #
-# Applies onto upstream 33c84e89abe4 Linux v5.5-5320-g33c84e89abe4
-# Matches android-mainline 4f920409112b ("Revert "Revert "FROMLIST: scsi: ufs: export hibern8 entry and exit""")
+# Applies onto upstream 39bed42de2e7 Linux v5.5-5398-g39bed42de2e7
+# Matches android-mainline 7881aee5449d ("Merge 39bed42de2e7 ("Merge tag 'for-linus-hmm' of git://git.kernel.org/pub/scm/linux/kernel/git/rdma/rdma") into android-mainline")
 #
 Revert-drm-virtio-fix-DRM_FORMAT_-handling.patch
 FROMLIST-reboot-Export-reboot_mode.patch

@@ -386,7 +386,7 @@ index 000000000000..bfef6e62c68a
 +#endif /* CONFIG_CPU_FREQ_TIMES */
 +#endif /* _LINUX_CPUFREQ_TIMES_H */
 diff --git a/include/linux/sched.h b/include/linux/sched.h
-index 716ad1d8d95e..6776276c7de5 100644
+index 04278493bf15..d88d1bc5f278 100644
 --- a/include/linux/sched.h
 +++ b/include/linux/sched.h
 @@ -846,6 +846,10 @@ struct task_struct {
@@ -401,7 +401,7 @@ index 716ad1d8d95e..6776276c7de5 100644
  #ifdef CONFIG_VIRT_CPU_ACCOUNTING_GEN
  	struct vtime			vtime;
 diff --git a/kernel/fork.c b/kernel/fork.c
-index cabcc07d730b..f2f99dbfb440 100644
+index 94d6c504f678..550027ff6071 100644
 --- a/kernel/fork.c
 +++ b/kernel/fork.c
 @@ -456,6 +456,7 @@ void put_task_stack(struct task_struct *tsk)

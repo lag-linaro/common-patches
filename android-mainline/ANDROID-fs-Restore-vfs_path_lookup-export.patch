@@ -22,7 +22,7 @@ Signed-off-by: Yongqin Liu <yongqin.liu@linaro.org>
  2 files changed, 2 insertions(+), 2 deletions(-)
 
 diff --git a/fs/internal.h b/fs/internal.h
-index cf6ca30e93de..72b175a4f6c8 100644
+index f3f280b952a3..17d2d03ffd46 100644
 --- a/fs/internal.h
 +++ b/fs/internal.h
 @@ -62,8 +62,6 @@ extern int finish_clean_context(struct fs_context *fc);
