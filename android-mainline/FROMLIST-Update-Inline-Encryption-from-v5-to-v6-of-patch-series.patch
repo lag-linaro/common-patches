@@ -3074,10 +3074,10 @@ index 3c03d0e23e87..24a587c7a94e 100644
  					      struct scsi_cmnd *cmd,
  					      struct ufshcd_lrb *lrbp)
 diff --git a/drivers/scsi/ufs/ufshcd.c b/drivers/scsi/ufs/ufshcd.c
-index 17c28a931132..5d1a79354faa 100644
+index 85e07d5bfe77..5710204f8ef5 100644
 --- a/drivers/scsi/ufs/ufshcd.c
 +++ b/drivers/scsi/ufs/ufshcd.c
-@@ -2231,13 +2231,15 @@ static void ufshcd_prepare_req_desc_hdr(struct ufshcd_lrb *lrbp,
+@@ -2230,13 +2230,15 @@ static void ufshcd_prepare_req_desc_hdr(struct ufshcd_lrb *lrbp,
  		dword_0 |= UTP_REQ_DESC_INT_CMD;
  
  	/* Transfer request descriptor header fields */
@@ -3096,7 +3096,7 @@ index 17c28a931132..5d1a79354faa 100644
  	} else {
  		/* dword_1 and dword_3 are reserved, hence they are set to 0 */
  		req_desc->header.dword_1 = 0;
-@@ -2525,7 +2527,9 @@ static int ufshcd_compose_dev_cmd(struct ufs_hba *hba,
+@@ -2524,7 +2526,9 @@ static int ufshcd_compose_dev_cmd(struct ufs_hba *hba,
  	lrbp->task_tag = tag;
  	lrbp->lun = 0; /* device management cmd is not specific to any LUN */
  	lrbp->intr_cmd = true; /* No interrupt aggregation */
@@ -3107,7 +3107,7 @@ index 17c28a931132..5d1a79354faa 100644
  
  	return ufshcd_comp_devman_upiu(hba, lrbp);
 diff --git a/drivers/scsi/ufs/ufshcd.h b/drivers/scsi/ufs/ufshcd.h
-index f51069a5254d..5c3c00796ea6 100644
+index 171ddbe7b6b1..cb60d9a9ab77 100644
 --- a/drivers/scsi/ufs/ufshcd.h
 +++ b/drivers/scsi/ufs/ufshcd.h
 @@ -194,9 +194,11 @@ struct ufshcd_lrb {

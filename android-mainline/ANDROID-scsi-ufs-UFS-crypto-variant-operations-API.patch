@@ -351,10 +351,10 @@ index 73ddc8e493fb..3c03d0e23e87 100644
  #endif /* CONFIG_SCSI_UFS_CRYPTO */
  
 diff --git a/drivers/scsi/ufs/ufshcd.c b/drivers/scsi/ufs/ufshcd.c
-index 77207464b4c2..17c28a931132 100644
+index 8e0f9031c103..85e07d5bfe77 100644
 --- a/drivers/scsi/ufs/ufshcd.c
 +++ b/drivers/scsi/ufs/ufshcd.c
-@@ -429,6 +429,8 @@ static void ufshcd_print_host_regs(struct ufs_hba *hba)
+@@ -428,6 +428,8 @@ static void ufshcd_print_host_regs(struct ufs_hba *hba)
  	ufshcd_print_clk_freqs(hba);
  
  	ufshcd_vops_dbg_register_dump(hba);
@@ -363,7 +363,7 @@ index 77207464b4c2..17c28a931132 100644
  }
  
  static
-@@ -2410,37 +2412,6 @@ static inline u16 ufshcd_upiu_wlun_to_scsi_wlun(u8 upiu_wlun_id)
+@@ -2409,37 +2411,6 @@ static inline u16 ufshcd_upiu_wlun_to_scsi_wlun(u8 upiu_wlun_id)
  	return (upiu_wlun_id & ~UFS_UPIU_WLUN_ID) | SCSI_W_LUN_BASE;
  }
  
@@ -462,7 +462,7 @@ index 77207464b4c2..17c28a931132 100644
  	ufshcd_link_state_transition(hba, old_link_state, 0);
  vendor_suspend:
 diff --git a/drivers/scsi/ufs/ufshcd.h b/drivers/scsi/ufs/ufshcd.h
-index 29148c81c58f..8ec6b3449d8a 100644
+index a42f22d05c90..25276a7ff408 100644
 --- a/drivers/scsi/ufs/ufshcd.h
 +++ b/drivers/scsi/ufs/ufshcd.h
 @@ -334,6 +334,28 @@ struct ufs_hba_variant_ops {
