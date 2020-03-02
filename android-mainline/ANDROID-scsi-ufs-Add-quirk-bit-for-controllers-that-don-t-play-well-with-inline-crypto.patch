@@ -35,10 +35,10 @@ index 7599d77725e4..75d834180f8b 100644
  
  	/*
 diff --git a/drivers/scsi/ufs/ufshcd.h b/drivers/scsi/ufs/ufshcd.h
-index f60eadd5f90d..14f384e87600 100644
+index fbfa3a24f6e7..d1c830935ef8 100644
 --- a/drivers/scsi/ufs/ufshcd.h
 +++ b/drivers/scsi/ufs/ufshcd.h
-@@ -662,6 +662,13 @@ struct ufs_hba {
+@@ -673,6 +673,13 @@ struct ufs_hba {
  	 * enabled via HCE register.
  	 */
  	#define UFSHCI_QUIRK_BROKEN_HCE				0x400

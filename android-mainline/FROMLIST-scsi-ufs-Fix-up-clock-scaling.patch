@@ -23,10 +23,10 @@ Signed-off-by: Asutosh Das <asutoshd@codeaurora.org>
  1 file changed, 49 insertions(+), 25 deletions(-)
 
 diff --git a/drivers/scsi/ufs/ufshcd.c b/drivers/scsi/ufs/ufshcd.c
-index b3fe96fb8fd5..5d49f4480d59 100644
+index aa71148be2f5..5a07d707342d 100644
 --- a/drivers/scsi/ufs/ufshcd.c
 +++ b/drivers/scsi/ufs/ufshcd.c
-@@ -901,28 +901,29 @@ static bool ufshcd_is_unipro_pa_params_tuning_req(struct ufs_hba *hba)
+@@ -903,28 +903,29 @@ static bool ufshcd_is_unipro_pa_params_tuning_req(struct ufs_hba *hba)
  		return false;
  }
  
@@ -64,7 +64,7 @@ index b3fe96fb8fd5..5d49f4480d59 100644
  				ret = clk_set_rate(clki->clk, clki->max_freq);
  				if (ret) {
  					dev_err(hba->dev, "%s: %s clk set rate(%dHz) failed, %d\n",
-@@ -941,7 +942,6 @@ static int ufshcd_scale_clks(struct ufs_hba *hba, bool scale_up)
+@@ -943,7 +944,6 @@ static int ufshcd_scale_clks(struct ufs_hba *hba, bool scale_up)
  				if (clki->curr_freq == clki->min_freq)
  					continue;
  
@@ -72,7 +72,7 @@ index b3fe96fb8fd5..5d49f4480d59 100644
  				ret = clk_set_rate(clki->clk, clki->min_freq);
  				if (ret) {
  					dev_err(hba->dev, "%s: %s clk set rate(%dHz) failed, %d\n",
-@@ -960,13 +960,36 @@ static int ufshcd_scale_clks(struct ufs_hba *hba, bool scale_up)
+@@ -962,13 +962,36 @@ static int ufshcd_scale_clks(struct ufs_hba *hba, bool scale_up)
  				clki->name, clk_get_rate(clki->clk));
  	}
  
@@ -114,7 +114,7 @@ index b3fe96fb8fd5..5d49f4480d59 100644
  	return ret;
  }
  
-@@ -1152,35 +1175,36 @@ static int ufshcd_devfreq_scale(struct ufs_hba *hba, bool scale_up)
+@@ -1154,35 +1177,36 @@ static int ufshcd_devfreq_scale(struct ufs_hba *hba, bool scale_up)
  
  	ret = ufshcd_clock_scaling_prepare(hba);
  	if (ret)

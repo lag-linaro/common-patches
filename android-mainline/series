@@ -2,7 +2,7 @@
 # android-mainline patches
 #
 # Applies onto upstream e9f8ca0ae7b7 Linux v5.5-5169-ge9f8ca0ae7b7
-# Matches android-mainline 2fa0ed8af5b0 ("Merge e9f8ca0ae7b7 ("Merge tag 'for-5.6/dm-changes' of git://git.kernel.org/pub/scm/linux/kernel/git/device-mapper/linux-dm") into android-mainline")
+# Matches android-mainline 4b4777168d4d ("Revert "FROMLIST: scsi: ufs: Flush exception event before suspend"")
 #
 Revert-drm-virtio-fix-DRM_FORMAT_-handling.patch
 FROMGIT-scsi-ufs-Recheck-bkops-level-if-bkops-is-disabled.patch
@@ -27,7 +27,6 @@ FROMLIST-block-blk-crypto-for-Inline-Encryption.patch
 FROMLIST-scsi-ufs-UFS-driver-v2.1-spec-crypto-additions.patch
 FROMLIST-scsi-ufs-UFS-crypto-API.patch
 FROMLIST-scsi-ufs-Add-inline-encryption-support-to-UFS.patch
-FROMLIST-scsi-ufs-export-hibern8-entry-and-exit.patch
 FROMLIST-scsi-ufs-qcom-enter-and-exit-hibern8-during-clock-scaling.patch
 FROMLIST-Add-flags-option-to-get-xattr-method-paired-to-__vfs_getxattr.patch
 FROMLIST-overlayfs-handle-XATTR_NOSECURITY-flag-for-get-xattr-method.patch
@@ -56,12 +55,9 @@ FROMLIST-arm64-vdso-disable-Shadow-Call-Stack.patch
 FROMLIST-arm64-disable-SCS-for-hypervisor-code.patch
 FROMLIST-arm64-implement-Shadow-Call-Stack.patch
 FROMLIST-scsi-ufs-Fix-up-clock-scaling.patch
-FROMLIST-scsi-ufs-Do-not-rely-on-prefetched-data.patch
-FROMLIST-scsi-ufs-Flush-exception-event-before-suspend.patch
 FROMLIST-scsi-ufs-set-load-before-setting-voltage-in-regulators.patch
 FROMLIST-scsi-ufs-Remove-the-check-before-call-setup-clock-notify-vops.patch
 FROMLIST-scsi-ufs-qcom-Adjust-bus-bandwidth-voting-and-unvoting.patch
-FROMLIST-scsi-ufs-Add-dev-ref-clock-gating-wait-time-support.patch
 FROMLIST-scsi-ufs-Fix-ufshcd_hold-caused-scheduling-while-atomic.patch
 FROMLIST-scsi-ufs-Export-query-request-interfaces.patch
 FROMLIST-add-support-for-Clang-s-Shadow-Call-Stack-SCS.patch
