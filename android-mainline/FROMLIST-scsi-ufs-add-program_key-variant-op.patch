@@ -87,10 +87,10 @@ index 2c88398b03c7..276b49ad13be 100644
  
  static int ufshcd_crypto_keyslot_evict(struct keyslot_manager *ksm,
 diff --git a/drivers/scsi/ufs/ufshcd.h b/drivers/scsi/ufs/ufshcd.h
-index da26d2118eed..c6ba601ec718 100644
+index 5c3c00796ea6..7acae63e7845 100644
 --- a/drivers/scsi/ufs/ufshcd.h
 +++ b/drivers/scsi/ufs/ufshcd.h
-@@ -280,6 +280,8 @@ struct ufs_pwr_mode_info {
+@@ -278,6 +278,8 @@ struct ufs_pwr_mode_info {
  	struct ufs_pa_layer_attr info;
  };
  
@@ -99,7 +99,7 @@ index da26d2118eed..c6ba601ec718 100644
  /**
   * struct ufs_hba_variant_ops - variant specific callbacks
   * @name: variant name
-@@ -307,6 +309,7 @@ struct ufs_pwr_mode_info {
+@@ -305,6 +307,7 @@ struct ufs_pwr_mode_info {
   * @dbg_register_dump: used to dump controller debug information
   * @phy_initialization: used to initialize phys
   * @device_reset: called to issue a reset pulse on the UFS device
@@ -107,7 +107,7 @@ index da26d2118eed..c6ba601ec718 100644
   */
  struct ufs_hba_variant_ops {
  	const char *name;
-@@ -336,6 +339,8 @@ struct ufs_hba_variant_ops {
+@@ -334,6 +337,8 @@ struct ufs_hba_variant_ops {
  	void	(*dbg_register_dump)(struct ufs_hba *hba);
  	int	(*phy_initialization)(struct ufs_hba *);
  	void	(*device_reset)(struct ufs_hba *hba);

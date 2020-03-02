@@ -226,7 +226,7 @@ index c952b6b3d8a0..1250d8c5a67f 100644
  	if (delegated_inode) {
  		error = break_deleg_wait(&delegated_inode);
 diff --git a/include/linux/fs.h b/include/linux/fs.h
-index dddfcbb140a7..4ba537dc8da6 100644
+index 40be2ccb87f3..d0dab884a4c7 100644
 --- a/include/linux/fs.h
 +++ b/include/linux/fs.h
 @@ -1878,7 +1878,8 @@ struct inode_operations {
@@ -248,7 +248,7 @@ index dddfcbb140a7..4ba537dc8da6 100644
  extern int vfs_fallocate(struct file *file, int mode, loff_t offset,
  			loff_t len);
  extern long do_sys_open(int dfd, const char __user *filename, int flags,
-@@ -2869,6 +2872,7 @@ extern void emergency_remount(void);
+@@ -2865,6 +2868,7 @@ extern void emergency_remount(void);
  extern sector_t bmap(struct inode *, sector_t);
  #endif
  extern int notify_change(struct dentry *, struct iattr *, struct inode **);

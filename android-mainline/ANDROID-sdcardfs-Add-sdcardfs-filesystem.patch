@@ -205,7 +205,7 @@ index 7b623e9fc1b0..c22de231972b 100644
  source "fs/hfsplus/Kconfig"
  source "fs/befs/Kconfig"
 diff --git a/fs/Makefile b/fs/Makefile
-index 1148c555c4d3..ce40b9e78767 100644
+index 98be354fdb61..aadf0c2740f4 100644
 --- a/fs/Makefile
 +++ b/fs/Makefile
 @@ -88,6 +88,7 @@ obj-$(CONFIG_ISO9660_FS)	+= isofs/

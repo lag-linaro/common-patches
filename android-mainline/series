@@ -1,19 +1,10 @@
 #
 # android-mainline patches
 #
-# Applies onto upstream e9f8ca0ae7b7 Linux v5.5-5169-ge9f8ca0ae7b7
-# Matches android-mainline 4b4777168d4d ("Revert "FROMLIST: scsi: ufs: Flush exception event before suspend"")
+# Applies onto upstream 33c84e89abe4 Linux v5.5-5320-g33c84e89abe4
+# Matches android-mainline caca4aee82d9 ("Merge 33c84e89abe4 ("Merge tag 'scsi-misc' of git://git.kernel.org/pub/scm/linux/kernel/git/jejb/scsi") into android-mainline")
 #
 Revert-drm-virtio-fix-DRM_FORMAT_-handling.patch
-FROMGIT-scsi-ufs-Recheck-bkops-level-if-bkops-is-disabled.patch
-FROMGIT-scsi-ufs-Update-VCCQ2-and-VCCQ-min-max-voltage-hard-codes.patch
-FROMGIT-scsi-ufs-Avoid-messing-up-the-compl_time_stamp-of-lrbs.patch
-FROMGIT-scsi-ufs-Complete-pending-requests-in-host-reset-and-restore-path.patch
-FROMGIT-scsi-core-Adjust-DBD-setting-in-MODE-SENSE-for-caching-mode-page-per-LLD.patch
-FROMGIT-scsi-ufs-Use-DBD-setting-in-mode-sense.patch
-FROMGIT-scsi-ufs-Release-clock-if-DMA-map-fails.patch
-FROMGIT-scsi-ufs-Do-not-clear-the-DL-layer-timers.patch
-FROMGIT-scsi-ufs-Do-not-free-irq-in-suspend.patch
 FROMLIST-reboot-Export-reboot_mode.patch
 FROMLIST-arm64-preserve-x18-when-CPU-is-suspended.patch
 FROMLIST-drivers-irqchip-pdc-additionally-set-type-in-SPI-config-registers.patch

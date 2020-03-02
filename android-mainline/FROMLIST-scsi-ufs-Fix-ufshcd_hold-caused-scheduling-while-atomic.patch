@@ -19,10 +19,10 @@ Signed-off-by: Asutosh Das <asutoshd@codeaurora.org>
  1 file changed, 5 insertions(+)
 
 diff --git a/drivers/scsi/ufs/ufshcd.c b/drivers/scsi/ufs/ufshcd.c
-index 1cb35657dc49..5f01ae347fac 100644
+index 55cb22ea6907..2eb3b4085936 100644
 --- a/drivers/scsi/ufs/ufshcd.c
 +++ b/drivers/scsi/ufs/ufshcd.c
-@@ -1566,6 +1566,11 @@ int ufshcd_hold(struct ufs_hba *hba, bool async)
+@@ -1550,6 +1550,11 @@ int ufshcd_hold(struct ufs_hba *hba, bool async)
  		 */
  		if (ufshcd_can_hibern8_during_gating(hba) &&
  		    ufshcd_is_link_hibern8(hba)) {

@@ -250,10 +250,10 @@ index a8cf349d0752..697edcc74da9 100644
  	  Build the blk-crypto subsystem.
  	  Enabling this lets the block layer handle encryption,
 diff --git a/block/Makefile b/block/Makefile
-index 855b8a7fc2cf..66a8186f7943 100644
+index 8af7e08909c2..47ffd04725a5 100644
 --- a/block/Makefile
 +++ b/block/Makefile
-@@ -38,4 +38,5 @@ obj-$(CONFIG_BLK_DEBUG_FS)	+= blk-mq-debugfs.o
+@@ -37,4 +37,5 @@ obj-$(CONFIG_BLK_DEBUG_FS)	+= blk-mq-debugfs.o
  obj-$(CONFIG_BLK_DEBUG_FS_ZONED)+= blk-mq-debugfs-zoned.o
  obj-$(CONFIG_BLK_SED_OPAL)	+= sed-opal.o
  obj-$(CONFIG_BLK_PM)		+= blk-pm.o

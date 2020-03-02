@@ -62,10 +62,10 @@ index 3bc76bb113a0..a8cf349d0752 100644
  
  source "block/partitions/Kconfig"
 diff --git a/block/Makefile b/block/Makefile
-index f6cef6d4363c..e467c1168b1a 100644
+index 1a43750f4b01..ef3a05dcf1f2 100644
 --- a/block/Makefile
 +++ b/block/Makefile
-@@ -38,3 +38,4 @@ obj-$(CONFIG_BLK_DEBUG_FS)	+= blk-mq-debugfs.o
+@@ -37,3 +37,4 @@ obj-$(CONFIG_BLK_DEBUG_FS)	+= blk-mq-debugfs.o
  obj-$(CONFIG_BLK_DEBUG_FS_ZONED)+= blk-mq-debugfs-zoned.o
  obj-$(CONFIG_BLK_SED_OPAL)	+= sed-opal.o
  obj-$(CONFIG_BLK_PM)		+= blk-pm.o
@@ -445,7 +445,7 @@ index 853d92ceee64..4ae9259c1dfd 100644
   * BIO list management for use by remapping drivers (e.g. DM or MD) and loop.
   *
 diff --git a/include/linux/blkdev.h b/include/linux/blkdev.h
-index 4c636c42ad68..13fdb350339d 100644
+index 053ea4b51988..8881b25ef58b 100644
 --- a/include/linux/blkdev.h
 +++ b/include/linux/blkdev.h
 @@ -43,6 +43,7 @@ struct pr_ops;

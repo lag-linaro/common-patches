@@ -134,10 +134,10 @@ index 697edcc74da9..0af387623774 100644
  menu "Partition Types"
  
 diff --git a/block/Makefile b/block/Makefile
-index 66a8186f7943..39cdbe1adc7c 100644
+index 47ffd04725a5..e7efc81d1d42 100644
 --- a/block/Makefile
 +++ b/block/Makefile
-@@ -40,3 +40,4 @@ obj-$(CONFIG_BLK_SED_OPAL)	+= sed-opal.o
+@@ -39,3 +39,4 @@ obj-$(CONFIG_BLK_SED_OPAL)	+= sed-opal.o
  obj-$(CONFIG_BLK_PM)		+= blk-pm.o
  obj-$(CONFIG_BLK_INLINE_ENCRYPTION)	+= keyslot-manager.o bio-crypt-ctx.o \
  					   blk-crypto.o
@@ -3074,10 +3074,10 @@ index 3c03d0e23e87..24a587c7a94e 100644
  					      struct scsi_cmnd *cmd,
  					      struct ufshcd_lrb *lrbp)
 diff --git a/drivers/scsi/ufs/ufshcd.c b/drivers/scsi/ufs/ufshcd.c
-index 10e376b4e7c2..19401b55755c 100644
+index 17c28a931132..5d1a79354faa 100644
 --- a/drivers/scsi/ufs/ufshcd.c
 +++ b/drivers/scsi/ufs/ufshcd.c
-@@ -2245,13 +2245,15 @@ static void ufshcd_prepare_req_desc_hdr(struct ufshcd_lrb *lrbp,
+@@ -2231,13 +2231,15 @@ static void ufshcd_prepare_req_desc_hdr(struct ufshcd_lrb *lrbp,
  		dword_0 |= UTP_REQ_DESC_INT_CMD;
  
  	/* Transfer request descriptor header fields */
@@ -3096,7 +3096,7 @@ index 10e376b4e7c2..19401b55755c 100644
  	} else {
  		/* dword_1 and dword_3 are reserved, hence they are set to 0 */
  		req_desc->header.dword_1 = 0;
-@@ -2554,7 +2556,9 @@ static int ufshcd_compose_dev_cmd(struct ufs_hba *hba,
+@@ -2525,7 +2527,9 @@ static int ufshcd_compose_dev_cmd(struct ufs_hba *hba,
  	lrbp->task_tag = tag;
  	lrbp->lun = 0; /* device management cmd is not specific to any LUN */
  	lrbp->intr_cmd = true; /* No interrupt aggregation */
@@ -3107,7 +3107,7 @@ index 10e376b4e7c2..19401b55755c 100644
  
  	return ufshcd_comp_devman_upiu(hba, lrbp);
 diff --git a/drivers/scsi/ufs/ufshcd.h b/drivers/scsi/ufs/ufshcd.h
-index d1c830935ef8..da26d2118eed 100644
+index f51069a5254d..5c3c00796ea6 100644
 --- a/drivers/scsi/ufs/ufshcd.h
 +++ b/drivers/scsi/ufs/ufshcd.h
 @@ -194,9 +194,11 @@ struct ufshcd_lrb {
@@ -3122,7 +3122,7 @@ index d1c830935ef8..da26d2118eed 100644
  
  	bool req_abort_skip;
  };
-@@ -557,7 +559,6 @@ struct ufs_stats {
+@@ -552,7 +554,6 @@ struct ufs_stats {
   * @crypto_capabilities: Content of crypto capabilities register (0x100)
   * @crypto_cap_array: Array of crypto capabilities
   * @crypto_cfg_register: Start of the crypto cfg array
@@ -3130,7 +3130,7 @@ index d1c830935ef8..da26d2118eed 100644
   * @ksm: the keyslot manager tied to this hba
   */
  struct ufs_hba {
-@@ -790,7 +791,6 @@ struct ufs_hba {
+@@ -782,7 +783,6 @@ struct ufs_hba {
  	union ufs_crypto_capabilities crypto_capabilities;
  	union ufs_crypto_cap_entry *crypto_cap_array;
  	u32 crypto_cfg_register;
