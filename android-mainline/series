@@ -2,7 +2,7 @@
 # android-mainline patches
 #
 # Applies onto upstream 39bed42de2e7 Linux v5.5-5398-g39bed42de2e7
-# Matches android-mainline 7881aee5449d ("Merge 39bed42de2e7 ("Merge tag 'for-linus-hmm' of git://git.kernel.org/pub/scm/linux/kernel/git/rdma/rdma") into android-mainline")
+# Matches android-mainline 72bba4e8f9eb ("ANDROID: support GKI image that contains an uncompressed Kernel Image.")
 #
 Revert-drm-virtio-fix-DRM_FORMAT_-handling.patch
 FROMLIST-reboot-Export-reboot_mode.patch
@@ -370,3 +370,17 @@ ANDROID-kallsyms-strip-hashes-from-static-functions-with-ThinLTO-and-CFI.patch
 ANDROID-Remove-default-y-for-VIRTIO_PCI_LEGACY.patch
 ANDROID-gki-Removed-cf-modules-from-gki_defconfig.patch
 ANDROID-gki-Enable-DRM_GEM_SHMEM_HELPER-for-GKI.patch
+Revert-Revert-FROMLIST-scsi-ufs-Flush-exception-event-before-suspend.patch
+Revert-Revert-FROMLIST-scsi-ufs-Add-dev-ref-clock-gating-wait-time-support.patch
+Revert-security-lockdown-selinux-implement-SELinux-lockdown.patch
+ANDROID-Initial-commit-of-Incremental-FS.patch
+ANDROID-Make-incfs-selftests-pass.patch
+ANDROID-Fixing-incremental-fs-style-issues.patch
+ANDROID-Incremental-fs-Fix-sparse-errors.patch
+ANDROID-Incremental-fs-Enable-incrementalfs-in-GKI.patch
+ANDROID-Incremental-fs-Remove-unneeded-compatibility-typedef.patch
+FROMLIST-selinux-Fix-typo-in-filesystem-name.patch
+ANDROID-gki_defconfig-Set-CONFIG_ANDROID_BINDERFS-y.patch
+ANDROID-db845c-Update-db845c_gki.fragment-to-add-support-for-bluetooth-modules.patch
+ANDROID-Incremental-fs-Remove-C-style-comments.patch
+ANDROID-support-GKI-image-that-contains-an-uncompressed-Kernel-Image.patch
