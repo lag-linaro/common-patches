@@ -4127,7 +4127,7 @@ index 791eaddafbda..a22c17f171f5 100644
  			if (IS_ERR(ctx)) {
  				bio_put(bio);
 diff --git a/fs/f2fs/data.c b/fs/f2fs/data.c
-index ee41b8dd3a7a..822abbb24807 100644
+index d9a02f4f78f4..187b929cb76b 100644
 --- a/fs/f2fs/data.c
 +++ b/fs/f2fs/data.c
 @@ -309,7 +309,7 @@ static struct bio *__bio_alloc(struct f2fs_io_info *fio, int npages)

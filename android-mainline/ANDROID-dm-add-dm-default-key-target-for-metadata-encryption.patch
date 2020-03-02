@@ -580,7 +580,7 @@ index 407fe4049b00..9c830772b7f5 100644
  	return fscrypt_mergeable_bio(bio, inode, next_lblk);
  }
 diff --git a/fs/f2fs/data.c b/fs/f2fs/data.c
-index 822abbb24807..c0ecd35e545c 100644
+index 187b929cb76b..87929acc4e1b 100644
 --- a/fs/f2fs/data.c
 +++ b/fs/f2fs/data.c
 @@ -320,6 +320,8 @@ static void f2fs_set_bio_crypt_ctx(struct bio *bio, const struct inode *inode,

@@ -102,10 +102,10 @@ index 6a7293a5cda2..68212ebdc66b 100644
  		/*
  		 * Fallback to buffered I/O if the inode does not support
 diff --git a/fs/f2fs/f2fs.h b/fs/f2fs/f2fs.h
-index d96cfb74ba31..b31bd0c6a648 100644
+index 9f0054fb5cd5..b4ef4747a86d 100644
 --- a/fs/f2fs/f2fs.h
 +++ b/fs/f2fs/f2fs.h
-@@ -3734,7 +3734,13 @@ static inline bool f2fs_force_buffered_io(struct inode *inode,
+@@ -3737,7 +3737,13 @@ static inline bool f2fs_force_buffered_io(struct inode *inode,
  	struct f2fs_sb_info *sbi = F2FS_I_SB(inode);
  	int rw = iov_iter_rw(iter);
  

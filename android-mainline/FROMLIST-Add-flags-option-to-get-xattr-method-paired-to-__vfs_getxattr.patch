@@ -229,10 +229,10 @@ index cb18ee637cb7..a789f1e802b7 100644
  	if (!ceph_is_valid_xattr(name))
  		return -EOPNOTSUPP;
 diff --git a/fs/cifs/xattr.c b/fs/cifs/xattr.c
-index db4ba8f6077e..e44e562c46fb 100644
+index b8299173ea7e..032df60c4afa 100644
 --- a/fs/cifs/xattr.c
 +++ b/fs/cifs/xattr.c
-@@ -199,7 +199,7 @@ static int cifs_creation_time_get(struct dentry *dentry, struct inode *inode,
+@@ -281,7 +281,7 @@ static int cifs_creation_time_get(struct dentry *dentry, struct inode *inode,
  
  static int cifs_xattr_get(const struct xattr_handler *handler,
  			  struct dentry *dentry, struct inode *inode,

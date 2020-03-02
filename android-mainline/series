@@ -1,8 +1,8 @@
 #
 # android-mainline patches
 #
-# Applies onto upstream f0d874414329 Linux v5.5-1335-gf0d874414329
-# Matches android-mainline 5cc45ee5951e ("Merge f0d874414329 ("Merge tag 'fscrypt-for-linus' of git://git.kernel.org/pub/scm/fs/fscrypt/fscrypt") into android-mainline")
+# Applies onto upstream a78208e24369 Linux v5.5-1611-ga78208e24369
+# Matches android-mainline 13e31084081d ("Merge a78208e24369 ("Merge branch 'linus' of git://git.kernel.org/pub/scm/linux/kernel/git/herbert/crypto-2.6") into android-mainline")
 #
 UPSTREAM-bpf-Move-trampoline-JIT-image-allocation-to-a-function.patch
 UPSTREAM-bpf-Introduce-BPF-dispatcher.patch
@@ -73,7 +73,6 @@ FROMLIST-scsi-ufs-Export-query-request-interfaces.patch
 FROMLIST-add-support-for-Clang-s-Shadow-Call-Stack-SCS.patch
 FROMLIST-scs-add-accounting.patch
 FROMLIST-scs-add-support-for-stack-usage-debugging.patch
-FROMLIST-crypto-arm64-sha-fix-function-types.patch
 FROMLIST-usb-xhci-export-few-functions.patch
 FROMLIST-usb-renesas-xhci-Add-the-renesas-xhci-driver.patch
 FROMLIST-usb-renesas-xhci-Add-ROM-loader-for-uPD720201.patch
@@ -349,7 +348,6 @@ FROMGIT-drivers-iommu-Initialise-module-owner-field-in-iommu_device_set_ops.patc
 ANDROID-ufshcd-crypto-export-cap-find-API.patch
 ANDROID-block-provide-key-size-as-input-to-inline-crypto-APIs.patch
 ANDROID-block-add-KSM-op-to-derive-software-secret-from-wrapped-key.patch
-FROMLIST-crypto-x86-sha-Eliminate-casts-on-asm-implementations.patch
 ANDROID-x86-vdso-disable-LTO-only-for-VDSO.patch
 ANDROID-x86-disable-HAVE_ARCH_PREL32_RELOCATIONS-with-LTO_CLANG.patch
 ANDROID-x86-disable-STACK_VALIDATION-with-LTO_CLANG.patch
