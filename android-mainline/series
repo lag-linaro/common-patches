@@ -1,8 +1,8 @@
 #
 # android-mainline patches
 #
-# Applies onto upstream 39bed42de2e7 Linux v5.5-5398-g39bed42de2e7
-# Matches android-mainline 72bba4e8f9eb ("ANDROID: support GKI image that contains an uncompressed Kernel Image.")
+# Applies onto upstream 893e591b5903 Linux v5.5-5504-g893e591b5903
+# Matches android-mainline 121c64f6b3e9 ("Merge 893e591b5903 ("Merge tag 'devicetree-for-5.6' of git://git.kernel.org/pub/scm/linux/kernel/git/robh/linux") into android-mainline")
 #
 Revert-drm-virtio-fix-DRM_FORMAT_-handling.patch
 FROMLIST-reboot-Export-reboot_mode.patch
