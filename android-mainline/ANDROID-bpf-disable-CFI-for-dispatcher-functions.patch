@@ -1,0 +1,41 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: Sami Tolvanen <samitolvanen@google.com>
+Date: Fri, 31 Jan 2020 08:23:52 +0100
+Subject: ANDROID: bpf: disable CFI for dispatcher functions
+
+BPF dispatcher functions are patched at runtime to perform direct
+instead of indirect calls. Disable CFI for the dispatcher functions
+to avoid conflicts.
+
+(re-add due to merge conflicts previously)
+
+Bug: 145210207
+Signed-off-by: Sami Tolvanen <samitolvanen@google.com>
+Signed-off-by: Greg Kroah-Hartman <gregkh@google.com>
+Change-Id: I7edf6052e121d16ccb0f3d3492ff4eefedfa509e
+---
+ include/linux/bpf.h | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/include/linux/bpf.h b/include/linux/bpf.h
+index 8e9ad3943cd9..f487d8159a89 100644
+--- a/include/linux/bpf.h
++++ b/include/linux/bpf.h
+@@ -512,7 +512,7 @@ struct bpf_dispatcher {
+ 	u32 image_off;
+ };
+ 
+-static __always_inline unsigned int bpf_dispatcher_nopfunc(
++static __always_inline __nocfi unsigned int bpf_dispatcher_nopfunc(
+ 	const void *ctx,
+ 	const struct bpf_insn *insnsi,
+ 	unsigned int (*bpf_func)(const void *,
+@@ -535,7 +535,7 @@ void bpf_trampoline_put(struct bpf_trampoline *tr);
+ }
+ 
+ #define DEFINE_BPF_DISPATCHER(name)					\
+-	noinline unsigned int name##func(				\
++	noinline __nocfi unsigned int name##func(			\
+ 		const void *ctx,					\
+ 		const struct bpf_insn *insnsi,				\
+ 		unsigned int (*bpf_func)(const void *,			\

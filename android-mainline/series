@@ -2,7 +2,7 @@
 # android-mainline patches
 #
 # Applies onto upstream bd2463ac7d7e Linux v5.5-3234-gbd2463ac7d7e
-# Matches android-mainline c37185c6d3bf ("Merge bd2463ac7d7e ("Merge git://git.kernel.org/pub/scm/linux/kernel/git/netdev/net-next") into android-common")
+# Matches android-mainline 358c6ef08ac1 ("ANDROID: gki: Enable DRM_GEM_SHMEM_HELPER for GKI")
 #
 UPSTREAM-staging-most-net-fix-buffer-overflow.patch
 Revert-drm-virtio-fix-DRM_FORMAT_-handling.patch
@@ -380,3 +380,8 @@ ANDROID-gki-Fixed-some-typos-in-Kconfig.gki.patch
 ANDROID-modularize-BLK_MQ_VIRTIO.patch
 ANDROID-fix-build-problem-in-include-trace-events-android_fs_template.h.patch
 ANDROID-fscrypt-extend-max-allowed-size-of-fscrypt_provisioning-keys.patch
+ANDROID-bpf-disable-CFI-for-dispatcher-functions.patch
+ANDROID-kallsyms-strip-hashes-from-static-functions-with-ThinLTO-and-CFI.patch
+ANDROID-Remove-default-y-for-VIRTIO_PCI_LEGACY.patch
+ANDROID-gki-Removed-cf-modules-from-gki_defconfig.patch
+ANDROID-gki-Enable-DRM_GEM_SHMEM_HELPER-for-GKI.patch
