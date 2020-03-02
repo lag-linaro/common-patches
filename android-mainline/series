@@ -1,8 +1,8 @@
 #
 # android-mainline patches
 #
-# Applies onto upstream b5f7ab6b1c4e Linux v5.5-1308-gb5f7ab6b1c4e
-# Matches android-mainline cedd91c6f4c4 ("ANDROID: bpf: disable CFI for dispatcher functions")
+# Applies onto upstream f0d874414329 Linux v5.5-1335-gf0d874414329
+# Matches android-mainline 5cc45ee5951e ("Merge f0d874414329 ("Merge tag 'fscrypt-for-linus' of git://git.kernel.org/pub/scm/fs/fscrypt/fscrypt") into android-mainline")
 #
 UPSTREAM-bpf-Move-trampoline-JIT-image-allocation-to-a-function.patch
 UPSTREAM-bpf-Introduce-BPF-dispatcher.patch
@@ -349,7 +349,6 @@ FROMGIT-drivers-iommu-Initialise-module-owner-field-in-iommu_device_set_ops.patc
 ANDROID-ufshcd-crypto-export-cap-find-API.patch
 ANDROID-block-provide-key-size-as-input-to-inline-crypto-APIs.patch
 ANDROID-block-add-KSM-op-to-derive-software-secret-from-wrapped-key.patch
-ANDROID-fscrypt-add-support-for-hardware-wrapped-keys.patch
 FROMLIST-crypto-x86-sha-Eliminate-casts-on-asm-implementations.patch
 ANDROID-x86-vdso-disable-LTO-only-for-VDSO.patch
 ANDROID-x86-disable-HAVE_ARCH_PREL32_RELOCATIONS-with-LTO_CLANG.patch
@@ -388,3 +387,4 @@ ANDROID-gki-Fixed-some-typos-in-Kconfig.gki.patch
 ANDROID-modularize-BLK_MQ_VIRTIO.patch
 ANDROID-fix-build-problem-in-include-trace-events-android_fs_template.h.patch
 ANDROID-bpf-disable-CFI-for-dispatcher-functions.patch
+ANDROID-fscrypt-extend-max-allowed-size-of-fscrypt_provisioning-keys.patch
