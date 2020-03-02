@@ -41,7 +41,7 @@ index dde2eb02f76f..ffe68ab664dd 100644
  
  /**
 diff --git a/drivers/scsi/ufs/ufshcd.c b/drivers/scsi/ufs/ufshcd.c
-index 6a51eb80c3a1..9e9f1426bf39 100644
+index 26c96c2b5fb3..e46a32daaf0e 100644
 --- a/drivers/scsi/ufs/ufshcd.c
 +++ b/drivers/scsi/ufs/ufshcd.c
 @@ -92,6 +92,9 @@
@@ -54,7 +54,7 @@ index 6a51eb80c3a1..9e9f1426bf39 100644
  #define ufshcd_toggle_vreg(_dev, _vreg, _on)				\
  	({                                                              \
  		int _ret;                                               \
-@@ -3338,6 +3341,37 @@ static inline int ufshcd_read_unit_desc_param(struct ufs_hba *hba,
+@@ -3363,6 +3366,37 @@ static inline int ufshcd_read_unit_desc_param(struct ufs_hba *hba,
  				      param_offset, param_read_buf, param_size);
  }
  
@@ -92,7 +92,7 @@ index 6a51eb80c3a1..9e9f1426bf39 100644
  /**
   * ufshcd_memory_alloc - allocate memory for host memory space data structures
   * @hba: per adapter instance
-@@ -6694,6 +6728,10 @@ static int ufs_get_device_desc(struct ufs_hba *hba)
+@@ -6718,6 +6752,10 @@ static int ufs_get_device_desc(struct ufs_hba *hba)
  	dev_info->wmanufacturerid = desc_buf[DEVICE_DESC_PARAM_MANF_ID] << 8 |
  				     desc_buf[DEVICE_DESC_PARAM_MANF_ID + 1];
  
@@ -103,7 +103,7 @@ index 6a51eb80c3a1..9e9f1426bf39 100644
  	model_index = desc_buf[DEVICE_DESC_PARAM_PRDCT_NAME];
  	err = ufshcd_read_string_desc(hba, model_index,
  				      &dev_info->model, SD_ASCII_STD);
-@@ -7073,6 +7111,8 @@ static int ufshcd_device_params_init(struct ufs_hba *hba)
+@@ -7097,6 +7135,8 @@ static int ufshcd_device_params_init(struct ufs_hba *hba)
  
  	ufs_fixup_device_setup(hba);
  
@@ -112,7 +112,7 @@ index 6a51eb80c3a1..9e9f1426bf39 100644
  	if (!ufshcd_query_flag_retry(hba, UPIU_QUERY_OPCODE_READ_FLAG,
  			QUERY_FLAG_IDN_PWR_ON_WPE, &flag))
  		hba->dev_info.f_power_on_wp_en = flag;
-@@ -7469,12 +7509,17 @@ static int __ufshcd_setup_clocks(struct ufs_hba *hba, bool on,
+@@ -7493,12 +7533,17 @@ static int __ufshcd_setup_clocks(struct ufs_hba *hba, bool on,
  	struct ufs_clk_info *clki;
  	struct list_head *head = &hba->clk_list_head;
  	unsigned long flags;

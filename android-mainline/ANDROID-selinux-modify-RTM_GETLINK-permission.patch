@@ -43,7 +43,7 @@ Signed-off-by: Jeff Vander Stoep <jeffv@google.com>
  6 files changed, 44 insertions(+), 2 deletions(-)
 
 diff --git a/security/selinux/include/classmap.h b/security/selinux/include/classmap.h
-index 986f3ac14282..77ccd558890a 100644
+index 7db24855e12d..562bd1802c99 100644
 --- a/security/selinux/include/classmap.h
 +++ b/security/selinux/include/classmap.h
 @@ -116,7 +116,7 @@ struct security_class_mapping secclass_map[] = {

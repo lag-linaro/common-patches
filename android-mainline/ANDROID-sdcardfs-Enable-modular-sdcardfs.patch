@@ -86,10 +86,10 @@ index 7458fccc59e1..dfcd8328228b 100644
  /* file_ppos returns &file->f_pos or NULL if file is stream */
  static inline loff_t *file_ppos(struct file *file)
 diff --git a/security/security.c b/security/security.c
-index 565bc9b67276..0b7de5e8d805 100644
+index b9771de83cf7..f5ede93a2d61 100644
 --- a/security/security.c
 +++ b/security/security.c
-@@ -1133,6 +1133,7 @@ int security_path_chown(const struct path *path, kuid_t uid, kgid_t gid)
+@@ -1100,6 +1100,7 @@ int security_path_chown(const struct path *path, kuid_t uid, kgid_t gid)
  		return 0;
  	return call_int_hook(path_chown, 0, path, uid, gid);
  }

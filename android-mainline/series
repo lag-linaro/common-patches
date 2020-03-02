@@ -4,6 +4,7 @@
 # Applies onto upstream 893e591b5903 Linux v5.5-5504-g893e591b5903
 # Matches android-mainline 121c64f6b3e9 ("Merge 893e591b5903 ("Merge tag 'devicetree-for-5.6' of git://git.kernel.org/pub/scm/linux/kernel/git/robh/linux") into android-mainline")
 #
+Revert-security-lockdown-selinux-implement-SELinux-lockdown.patch
 Revert-drm-virtio-fix-DRM_FORMAT_-handling.patch
 FROMLIST-reboot-Export-reboot_mode.patch
 FROMLIST-arm64-preserve-x18-when-CPU-is-suspended.patch
@@ -67,6 +68,8 @@ FROMLIST-ubsan-Add-trap-instrumentation-option.patch
 FROMLIST-ubsan-Split-bounds-checker-from-other-options.patch
 FROMLIST-lkdtm-bugs-Add-arithmetic-overflow-and-array-bounds-checks.patch
 Revert-Revert-FROMLIST-scsi-ufs-export-hibern8-entry-and-exit.patch
+Revert-Revert-FROMLIST-scsi-ufs-Flush-exception-event-before-suspend.patch
+Revert-Revert-FROMLIST-scsi-ufs-Add-dev-ref-clock-gating-wait-time-support.patch
 ANDROID-arm64-copy-CONFIG_CMDLINE_EXTEND-from-ARM.patch
 ANDROID-of-Support-CONFIG_CMDLINE_EXTEND-config-option.patch
 ANDROID-Kbuild-LLVMLinux-allow-overriding-clang-target-triple.patch
@@ -370,9 +373,6 @@ ANDROID-kallsyms-strip-hashes-from-static-functions-with-ThinLTO-and-CFI.patch
 ANDROID-Remove-default-y-for-VIRTIO_PCI_LEGACY.patch
 ANDROID-gki-Removed-cf-modules-from-gki_defconfig.patch
 ANDROID-gki-Enable-DRM_GEM_SHMEM_HELPER-for-GKI.patch
-Revert-Revert-FROMLIST-scsi-ufs-Flush-exception-event-before-suspend.patch
-Revert-Revert-FROMLIST-scsi-ufs-Add-dev-ref-clock-gating-wait-time-support.patch
-Revert-security-lockdown-selinux-implement-SELinux-lockdown.patch
 ANDROID-Initial-commit-of-Incremental-FS.patch
 ANDROID-Make-incfs-selftests-pass.patch
 ANDROID-Fixing-incremental-fs-style-issues.patch

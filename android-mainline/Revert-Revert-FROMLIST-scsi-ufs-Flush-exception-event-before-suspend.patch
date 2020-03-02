@@ -20,10 +20,10 @@ Change-Id: I36f2931b04f7963b7121511d6061c13a18891b77
  1 file changed, 18 insertions(+), 3 deletions(-)
 
 diff --git a/drivers/scsi/ufs/ufshcd.c b/drivers/scsi/ufs/ufshcd.c
-index 5710204f8ef5..6a51eb80c3a1 100644
+index 8e0f9031c103..26c96c2b5fb3 100644
 --- a/drivers/scsi/ufs/ufshcd.c
 +++ b/drivers/scsi/ufs/ufshcd.c
-@@ -4800,8 +4800,15 @@ ufshcd_transfer_rsp_status(struct ufs_hba *hba, struct ufshcd_lrb *lrbp)
+@@ -4825,8 +4825,15 @@ ufshcd_transfer_rsp_status(struct ufs_hba *hba, struct ufshcd_lrb *lrbp)
  			 * UFS device needs urgent BKOPs.
  			 */
  			if (!hba->pm_op_in_progress &&
@@ -41,7 +41,7 @@ index 5710204f8ef5..6a51eb80c3a1 100644
  			break;
  		case UPIU_TRANSACTION_REJECT_UPIU:
  			/* TODO: handle Reject UPIU Response */
-@@ -5257,7 +5264,14 @@ static void ufshcd_exception_event_handler(struct work_struct *work)
+@@ -5281,7 +5288,14 @@ static void ufshcd_exception_event_handler(struct work_struct *work)
  
  out:
  	ufshcd_scsi_unblock_requests(hba);
@@ -57,7 +57,7 @@ index 5710204f8ef5..6a51eb80c3a1 100644
  	return;
  }
  
-@@ -7987,6 +8001,7 @@ static int ufshcd_suspend(struct ufs_hba *hba, enum ufs_pm_op pm_op)
+@@ -8007,6 +8021,7 @@ static int ufshcd_suspend(struct ufs_hba *hba, enum ufs_pm_op pm_op)
  			goto enable_gating;
  	}
  

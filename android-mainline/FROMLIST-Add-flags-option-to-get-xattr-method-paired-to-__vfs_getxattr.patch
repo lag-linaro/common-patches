@@ -961,7 +961,7 @@ index f9a81b187fae..921c8f2afcaf 100644
  			if (error == -ENODATA)
  				continue;
 diff --git a/security/selinux/hooks.c b/security/selinux/hooks.c
-index d9e8b2131a65..89fe3a805129 100644
+index 613d916b9c3a..43489803582f 100644
 --- a/security/selinux/hooks.c
 +++ b/security/selinux/hooks.c
 @@ -500,7 +500,8 @@ static int sb_finish_set_opts(struct super_block *sb)
