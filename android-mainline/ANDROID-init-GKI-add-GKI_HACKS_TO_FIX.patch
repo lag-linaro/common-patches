@@ -21,10 +21,10 @@ Signed-off-by: Todd Kjos <tkjos@google.com>
  create mode 100644 init/Kconfig.gki
 
 diff --git a/init/Kconfig b/init/Kconfig
-index 79df8b0046b1..687955fbf275 100644
+index 303b41369181..fc963a489a3b 100644
 --- a/init/Kconfig
 +++ b/init/Kconfig
-@@ -2234,3 +2234,5 @@ config ARCH_HAS_SYNC_CORE_BEFORE_USERMODE
+@@ -2241,3 +2241,5 @@ config ARCH_HAS_SYNC_CORE_BEFORE_USERMODE
  # <asm/syscall_wrapper.h>.
  config ARCH_HAS_SYSCALL_WRAPPER
  	def_bool n

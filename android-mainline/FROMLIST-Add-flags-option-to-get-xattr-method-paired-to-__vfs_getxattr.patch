@@ -909,10 +909,10 @@ index 8793e8cc1a48..3437cccfd5a9 100644
  	struct shmem_inode_info *info = SHMEM_I(inode);
  
 diff --git a/net/socket.c b/net/socket.c
-index 50623218747f..a07216dae47f 100644
+index b79a05de7c6e..3041443da871 100644
 --- a/net/socket.c
 +++ b/net/socket.c
-@@ -301,7 +301,8 @@ static const struct dentry_operations sockfs_dentry_operations = {
+@@ -314,7 +314,8 @@ static const struct dentry_operations sockfs_dentry_operations = {
  
  static int sockfs_xattr_get(const struct xattr_handler *handler,
  			    struct dentry *dentry, struct inode *inode,

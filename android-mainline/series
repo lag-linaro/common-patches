@@ -1,10 +1,9 @@
 #
 # android-mainline patches
 #
-# Applies onto upstream a78208e24369 Linux v5.5-1611-ga78208e24369
-# Matches android-mainline eae549d63ba1 ("Revert "UPSTREAM: bpf: Move trampoline JIT image allocation to a function"")
+# Applies onto upstream bd2463ac7d7e Linux v5.5-3234-gbd2463ac7d7e
+# Matches android-mainline c37185c6d3bf ("Merge bd2463ac7d7e ("Merge git://git.kernel.org/pub/scm/linux/kernel/git/netdev/net-next") into android-common")
 #
-UPSTREAM-bpf-Start-using-the-BPF-dispatcher-in-BPF_TEST_RUN.patch
 UPSTREAM-staging-most-net-fix-buffer-overflow.patch
 Revert-drm-virtio-fix-DRM_FORMAT_-handling.patch
 FROMGIT-scsi-ufs-Recheck-bkops-level-if-bkops-is-disabled.patch

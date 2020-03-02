@@ -89,7 +89,7 @@ index a39f9565d80b..09dffc78ec9c 100644
  
  #endif /* _SELINUX_SECURITY_H_ */
 diff --git a/security/selinux/nlmsgtab.c b/security/selinux/nlmsgtab.c
-index c97fdae8f71b..191d6f2d7c2d 100644
+index b69231918686..7968c2e45e39 100644
 --- a/security/selinux/nlmsgtab.c
 +++ b/security/selinux/nlmsgtab.c
 @@ -25,7 +25,7 @@ struct nlmsg_perm {
@@ -101,7 +101,7 @@ index c97fdae8f71b..191d6f2d7c2d 100644
  {
  	{ RTM_NEWLINK,		NETLINK_ROUTE_SOCKET__NLMSG_WRITE },
  	{ RTM_DELLINK,		NETLINK_ROUTE_SOCKET__NLMSG_WRITE },
-@@ -208,3 +208,27 @@ int selinux_nlmsg_lookup(u16 sclass, u16 nlmsg_type, u32 *perm)
+@@ -211,3 +211,27 @@ int selinux_nlmsg_lookup(u16 sclass, u16 nlmsg_type, u32 *perm)
  
  	return err;
  }

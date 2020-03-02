@@ -14,10 +14,10 @@ Signed-off-by: Sami Tolvanen <samitolvanen@google.com>
  1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/arch/x86/Kconfig b/arch/x86/Kconfig
-index 4d517e74bce3..37c8af036915 100644
+index fb4e0a8839fc..98522cb646d7 100644
 --- a/arch/x86/Kconfig
 +++ b/arch/x86/Kconfig
-@@ -206,7 +206,7 @@ config X86
+@@ -207,7 +207,7 @@ config X86
  	select HAVE_RELIABLE_STACKTRACE		if X86_64 && (UNWINDER_FRAME_POINTER || UNWINDER_ORC) && STACK_VALIDATION
  	select HAVE_FUNCTION_ARG_ACCESS_API
  	select HAVE_STACKPROTECTOR		if CC_HAS_SANE_STACKPROTECTOR
