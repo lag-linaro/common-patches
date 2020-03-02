@@ -2,13 +2,9 @@
 # android-mainline patches
 #
 # Applies onto upstream a78208e24369 Linux v5.5-1611-ga78208e24369
-# Matches android-mainline 13e31084081d ("Merge a78208e24369 ("Merge branch 'linus' of git://git.kernel.org/pub/scm/linux/kernel/git/herbert/crypto-2.6") into android-mainline")
+# Matches android-mainline eae549d63ba1 ("Revert "UPSTREAM: bpf: Move trampoline JIT image allocation to a function"")
 #
-UPSTREAM-bpf-Move-trampoline-JIT-image-allocation-to-a-function.patch
-UPSTREAM-bpf-Introduce-BPF-dispatcher.patch
-UPSTREAM-bpf-xdp-Start-using-the-BPF-dispatcher-for-XDP.patch
 UPSTREAM-bpf-Start-using-the-BPF-dispatcher-in-BPF_TEST_RUN.patch
-UPSTREAM-bpf-x86-Align-dispatcher-branch-targets-to-16B.patch
 UPSTREAM-staging-most-net-fix-buffer-overflow.patch
 Revert-drm-virtio-fix-DRM_FORMAT_-handling.patch
 FROMGIT-scsi-ufs-Recheck-bkops-level-if-bkops-is-disabled.patch
@@ -384,5 +380,4 @@ ANDROID-gki_defconfig-Set-IKHEADERS-back-to-y.patch
 ANDROID-gki-Fixed-some-typos-in-Kconfig.gki.patch
 ANDROID-modularize-BLK_MQ_VIRTIO.patch
 ANDROID-fix-build-problem-in-include-trace-events-android_fs_template.h.patch
-ANDROID-bpf-disable-CFI-for-dispatcher-functions.patch
 ANDROID-fscrypt-extend-max-allowed-size-of-fscrypt_provisioning-keys.patch
