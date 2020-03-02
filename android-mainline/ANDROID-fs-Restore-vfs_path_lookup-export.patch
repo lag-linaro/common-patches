@@ -35,10 +35,10 @@ index e3fa69544b66..b083564e1b5c 100644
  		unsigned int dev);
  long do_mkdirat(int dfd, const char __user *pathname, umode_t mode);
 diff --git a/include/linux/namei.h b/include/linux/namei.h
-index d31a94c085d9..2fe1a1327000 100644
+index 34c4fa04140d..843a3d5da4d8 100644
 --- a/include/linux/namei.h
 +++ b/include/linux/namei.h
-@@ -54,6 +54,8 @@ extern struct dentry *kern_path_create(int, const char *, struct path *, unsigne
+@@ -64,6 +64,8 @@ extern struct dentry *kern_path_create(int, const char *, struct path *, unsigne
  extern struct dentry *user_path_create(int, const char __user *, struct path *, unsigned int);
  extern void done_path_create(struct path *, struct dentry *);
  extern struct dentry *kern_path_locked(const char *, struct path *);

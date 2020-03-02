@@ -2559,7 +2559,7 @@ index 020931fc9f7d..cdf0607019d4 100644
 -EXPORT_SYMBOL(keyslot_manager_destroy);
 +EXPORT_SYMBOL_GPL(keyslot_manager_destroy);
 diff --git a/drivers/md/dm.c b/drivers/md/dm.c
-index 0b0025b66ec0..783e0d5fd130 100644
+index 9af9656949a0..8501d04628dc 100644
 --- a/drivers/md/dm.c
 +++ b/drivers/md/dm.c
 @@ -1301,15 +1301,13 @@ static int clone_bio(struct dm_target_io *tio, struct bio *bio,

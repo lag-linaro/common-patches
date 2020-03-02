@@ -32,7 +32,7 @@ Signed-off-by: Quentin Perret <quentin.perret@arm.com>
  4 files changed, 42 insertions(+), 1 deletion(-)
 
 diff --git a/drivers/base/arch_topology.c b/drivers/base/arch_topology.c
-index 1eb81f113786..c0cf9ef5c2f5 100644
+index 6119e11a9f95..f7456b93b3bd 100644
 --- a/drivers/base/arch_topology.c
 +++ b/drivers/base/arch_topology.c
 @@ -22,6 +22,8 @@

@@ -29,7 +29,7 @@ Signed-off-by: Jack Pham <jackp@codeaurora.org>
  1 file changed, 22 insertions(+), 19 deletions(-)
 
 diff --git a/drivers/usb/gadget/configfs.c b/drivers/usb/gadget/configfs.c
-index d17cf05fd62f..b77cedce412f 100644
+index 2badcb38eded..872fb15186df 100644
 --- a/drivers/usb/gadget/configfs.c
 +++ b/drivers/usb/gadget/configfs.c
 @@ -23,6 +23,7 @@ void acc_disconnect(void);
@@ -40,7 +40,7 @@ index d17cf05fd62f..b77cedce412f 100644
  
  struct device *create_function_device(char *name)
  {
-@@ -1433,22 +1434,19 @@ static void android_work(struct work_struct *data)
+@@ -1476,22 +1477,19 @@ static void android_work(struct work_struct *data)
  	spin_unlock_irqrestore(&cdev->lock, flags);
  
  	if (status[0]) {
@@ -66,7 +66,7 @@ index d17cf05fd62f..b77cedce412f 100644
  		pr_info("%s: sent uevent %s\n", __func__, disconnected[0]);
  		uevent_sent = true;
  	}
-@@ -1716,21 +1714,23 @@ static int android_device_create(struct gadget_info *gi)
+@@ -1759,21 +1757,23 @@ static int android_device_create(struct gadget_info *gi)
  	struct device_attribute *attr;
  
  	INIT_WORK(&gi->work, android_work);
@@ -98,7 +98,7 @@ index d17cf05fd62f..b77cedce412f 100644
  			return err;
  		}
  	}
-@@ -1738,15 +1738,15 @@ static int android_device_create(struct gadget_info *gi)
+@@ -1781,15 +1781,15 @@ static int android_device_create(struct gadget_info *gi)
  	return 0;
  }
  
@@ -117,7 +117,7 @@ index d17cf05fd62f..b77cedce412f 100644
  }
  #else
  static inline int android_device_create(struct gadget_info *gi)
-@@ -1754,7 +1754,7 @@ static inline int android_device_create(struct gadget_info *gi)
+@@ -1797,7 +1797,7 @@ static inline int android_device_create(struct gadget_info *gi)
  	return 0;
  }
  
@@ -126,7 +126,7 @@ index d17cf05fd62f..b77cedce412f 100644
  {
  }
  #endif
-@@ -1823,8 +1823,11 @@ static struct config_group *gadgets_make(
+@@ -1866,8 +1866,11 @@ static struct config_group *gadgets_make(
  
  static void gadgets_drop(struct config_group *group, struct config_item *item)
  {

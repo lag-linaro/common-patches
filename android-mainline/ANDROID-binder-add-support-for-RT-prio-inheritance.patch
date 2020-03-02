@@ -33,7 +33,7 @@ Signed-off-by: Matthias Maennich <maennich@google.com>
  3 files changed, 320 insertions(+), 32 deletions(-)
 
 diff --git a/drivers/android/binder.c b/drivers/android/binder.c
-index b2dad43dbf82..e7a778af56a3 100644
+index 9fcc761031d8..90c1f3ca1939 100644
 --- a/drivers/android/binder.c
 +++ b/drivers/android/binder.c
 @@ -67,6 +67,7 @@
@@ -469,7 +469,7 @@ index b2dad43dbf82..e7a778af56a3 100644
  	kfree(thread);
  }
  
-@@ -5215,7 +5422,14 @@ static int binder_open(struct inode *nodp, struct file *filp)
+@@ -5216,7 +5423,14 @@ static int binder_open(struct inode *nodp, struct file *filp)
  	get_task_struct(current->group_leader);
  	proc->tsk = current->group_leader;
  	INIT_LIST_HEAD(&proc->todo);
@@ -485,7 +485,7 @@ index b2dad43dbf82..e7a778af56a3 100644
  	/* binderfs stashes devices in i_private */
  	if (is_binderfs_device(nodp)) {
  		binder_dev = nodp->i_private;
-@@ -5536,13 +5750,14 @@ static void print_binder_transaction_ilocked(struct seq_file *m,
+@@ -5537,13 +5751,14 @@ static void print_binder_transaction_ilocked(struct seq_file *m,
  	spin_lock(&t->lock);
  	to_proc = t->to_proc;
  	seq_printf(m,
@@ -502,7 +502,7 @@ index b2dad43dbf82..e7a778af56a3 100644
  	spin_unlock(&t->lock);
  
  	if (proc != to_proc) {
-@@ -5660,8 +5875,9 @@ static void print_binder_node_nilocked(struct seq_file *m,
+@@ -5661,8 +5876,9 @@ static void print_binder_node_nilocked(struct seq_file *m,
  	hlist_for_each_entry(ref, &node->refs, node_entry)
  		count++;
  

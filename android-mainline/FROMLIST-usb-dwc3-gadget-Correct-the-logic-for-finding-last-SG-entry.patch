@@ -76,10 +76,10 @@ Change-Id: I5a16c1d9db32755d6e938acf3ab43673a4e46a27
  1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/drivers/usb/dwc3/gadget.c b/drivers/usb/dwc3/gadget.c
-index 154f3f3e8cff..43a96cfb5a60 100644
+index 1b8014ab0b25..b6ee5b39c17f 100644
 --- a/drivers/usb/dwc3/gadget.c
 +++ b/drivers/usb/dwc3/gadget.c
-@@ -1068,7 +1068,7 @@ static void dwc3_prepare_one_trb_sg(struct dwc3_ep *dep,
+@@ -1071,7 +1071,7 @@ static void dwc3_prepare_one_trb_sg(struct dwc3_ep *dep,
  		unsigned int rem = length % maxp;
  		unsigned chain = true;
  

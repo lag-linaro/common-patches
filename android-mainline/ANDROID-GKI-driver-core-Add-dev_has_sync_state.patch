@@ -14,10 +14,10 @@ Change-Id: I86b7d241512a366909645736a0b5abc51a11a5bd
  1 file changed, 11 insertions(+)
 
 diff --git a/include/linux/device.h b/include/linux/device.h
-index 96ff76731e93..f1eeeb9d39d3 100644
+index 0cd7c647c16c..fa04dfd22bbc 100644
 --- a/include/linux/device.h
 +++ b/include/linux/device.h
-@@ -1520,6 +1520,17 @@ static inline struct device_node *dev_of_node(struct device *dev)
+@@ -798,6 +798,17 @@ static inline struct device_node *dev_of_node(struct device *dev)
  	return dev->of_node;
  }
  
@@ -32,6 +32,6 @@ index 96ff76731e93..f1eeeb9d39d3 100644
 +	return false;
 +}
 +
- void driver_init(void);
- 
  /*
+  * High level routines for use by the bus drivers
+  */

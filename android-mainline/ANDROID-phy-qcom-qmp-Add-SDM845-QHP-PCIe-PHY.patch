@@ -17,7 +17,7 @@ Change-Id: I9c85d21d1557a6cf17af57022d9ca31913acbec8
  1 file changed, 157 insertions(+)
 
 diff --git a/drivers/phy/qualcomm/phy-qcom-qmp.c b/drivers/phy/qualcomm/phy-qcom-qmp.c
-index d107563e17c6..ec4da2e7046d 100644
+index 8ece0c0c2288..d03b83c36235 100644
 --- a/drivers/phy/qualcomm/phy-qcom-qmp.c
 +++ b/drivers/phy/qualcomm/phy-qcom-qmp.c
 @@ -166,6 +166,12 @@ static const unsigned int sdm845_qmp_pciephy_regs_layout[] = {
@@ -33,7 +33,7 @@ index d107563e17c6..ec4da2e7046d 100644
  static const unsigned int sdm845_ufsphy_regs_layout[] = {
  	[QPHY_START_CTRL]		= 0x00,
  	[QPHY_PCS_READY_STATUS]		= 0x160,
-@@ -589,6 +595,126 @@ static const struct qmp_phy_init_tbl sdm845_qmp_pcie_pcs_misc_tbl[] = {
+@@ -590,6 +596,126 @@ static const struct qmp_phy_init_tbl sdm845_qmp_pcie_pcs_misc_tbl[] = {
  	QMP_PHY_INIT_CFG(QPHY_V3_PCS_MISC_PCIE_INT_AUX_CLK_CONFIG1, 0x00),
  };
  
@@ -195,7 +195,7 @@ index d107563e17c6..ec4da2e7046d 100644
  static const struct qmp_phy_cfg qmp_v3_usb3phy_cfg = {
  	.type			= PHY_TYPE_USB3,
  	.nlanes			= 1,
-@@ -2256,6 +2410,9 @@ static const struct of_device_id qcom_qmp_phy_of_match_table[] = {
+@@ -2255,6 +2409,9 @@ static const struct of_device_id qcom_qmp_phy_of_match_table[] = {
  	}, {
  		.compatible = "qcom,ipq8074-qmp-pcie-phy",
  		.data = &ipq8074_pciephy_cfg,

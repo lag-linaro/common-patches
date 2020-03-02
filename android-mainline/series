@@ -1,10 +1,9 @@
 #
 # android-mainline patches
 #
-# Applies onto upstream b3a608222336 Linux v5.5-3996-gb3a608222336
-# Matches android-mainline 2b0f7f511da4 ("Merge b3a608222336 ("Merge branch 'for-v5.6' of git://git.kernel.org:/pub/scm/linux/kernel/git/jmorris/linux-security") into android-mainline")
+# Applies onto upstream e9f8ca0ae7b7 Linux v5.5-5169-ge9f8ca0ae7b7
+# Matches android-mainline 2fa0ed8af5b0 ("Merge e9f8ca0ae7b7 ("Merge tag 'for-5.6/dm-changes' of git://git.kernel.org/pub/scm/linux/kernel/git/device-mapper/linux-dm") into android-mainline")
 #
-UPSTREAM-staging-most-net-fix-buffer-overflow.patch
 Revert-drm-virtio-fix-DRM_FORMAT_-handling.patch
 FROMGIT-scsi-ufs-Recheck-bkops-level-if-bkops-is-disabled.patch
 FROMGIT-scsi-ufs-Update-VCCQ2-and-VCCQ-min-max-voltage-hard-codes.patch
@@ -74,7 +73,6 @@ FROMLIST-usb-renesas-xhci-Add-ROM-loader-for-uPD720201.patch
 FROMLIST-usb-renesas-xhci-allow-multiple-firmware-versions.patch
 FROMLIST-usb-xhci-provide-a-debugfs-hook-for-erasing-rom.patch
 FROMLIST-usb-dwc3-gadget-Correct-the-logic-for-finding-last-SG-entry.patch
-FROMLIST-tty-serial-Kconfig-Allow-SERIAL_QCOM_GENI_CONSOLE-to-be-enabled-if-SERIAL_QCOM_GENI-is-a-module.patch
 FROMLIST-reset-qcom-aoss-Allow-CONFIG_RESET_QCOM_AOSS-to-be-a-tristate.patch
 FROMLIST-drm-msm-Quiet-down-plane-errors-in-atomic_check.patch
 FROMLIST-lib-list_sort-fix-function-type-mismatches.patch
@@ -305,7 +303,6 @@ ANDROID-Kconfig.gki-Add-hidden-CONFIG_WANT_DEV_COREDUMP-for-DRM_MSM-driver.patch
 ANDROID-Kconfig.gki-Add-PINCTRL_MSM-to-QCOM-Hidden-configs.patch
 ANDROID-Kconfig.gki-Add-entries-for-qcom-clk-drivers.patch
 ANDROID-gki_defconfig-Add-qcom-pcie-options-to-gki_defconfig.patch
-ANDROID-tty-serial_core-Export-uart_console_device-so-it-can-be-used-by-modules.patch
 ANDROID-serdev-add-platform-device-support.patch
 ANDROID-gnss-Add-command-line-test-driver.patch
 ANDROID-gki_defconfig-Enable-CONFIG_GNSS_CMDLINE_SERIAL.patch

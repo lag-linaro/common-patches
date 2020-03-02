@@ -19,10 +19,10 @@ Change-Id: I90bec4df92abb86984ef617a65d0ed98e8702545
  1 file changed, 3 insertions(+), 3 deletions(-)
 
 diff --git a/drivers/phy/qualcomm/phy-qcom-qmp.c b/drivers/phy/qualcomm/phy-qcom-qmp.c
-index 66f91726b8b2..b9f849d86795 100644
+index 7db2a94f7a99..e107a7eec235 100644
 --- a/drivers/phy/qualcomm/phy-qcom-qmp.c
 +++ b/drivers/phy/qualcomm/phy-qcom-qmp.c
-@@ -1968,7 +1968,7 @@ static const struct phy_ops qcom_qmp_phy_gen_ops = {
+@@ -1967,7 +1967,7 @@ static const struct phy_ops qcom_qmp_phy_gen_ops = {
  	.owner		= THIS_MODULE,
  };
  
@@ -31,7 +31,7 @@ index 66f91726b8b2..b9f849d86795 100644
  	.power_on	= qcom_qmp_phy_enable,
  	.power_off	= qcom_qmp_phy_disable,
  	.set_mode	= qcom_qmp_phy_set_mode,
-@@ -2068,8 +2068,8 @@ int qcom_qmp_phy_create(struct device *dev, struct device_node *np, int id)
+@@ -2067,8 +2067,8 @@ int qcom_qmp_phy_create(struct device *dev, struct device_node *np, int id)
  		}
  	}
  

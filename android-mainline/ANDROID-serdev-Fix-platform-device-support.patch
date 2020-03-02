@@ -21,7 +21,7 @@ Change-Id: I6354aeb4008fff85264a3c848c6c95fb8ca5b07a
  1 file changed, 2 insertions(+), 2 deletions(-)
 
 diff --git a/drivers/tty/serdev/core.c b/drivers/tty/serdev/core.c
-index 5d5ea55b68f2..1e9c4210d302 100644
+index eecfd796bcfd..eb6a9a2298c8 100644
 --- a/drivers/tty/serdev/core.c
 +++ b/drivers/tty/serdev/core.c
 @@ -65,7 +65,7 @@ static int serdev_device_uevent(struct device *dev, struct kobj_uevent_env *env)

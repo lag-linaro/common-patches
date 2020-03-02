@@ -107,10 +107,10 @@ index ea15c6d9f274..8877c427c00e 100644
  		inode_has_no_xattr(inode);
  
 diff --git a/fs/namei.c b/fs/namei.c
-index 4fb61e0754ed..f27c2ad4cad7 100644
+index 4167109297e0..33e8e5d27bb3 100644
 --- a/fs/namei.c
 +++ b/fs/namei.c
-@@ -2949,7 +2949,7 @@ static int handle_truncate(struct file *filp)
+@@ -3080,7 +3080,7 @@ static int handle_truncate(struct file *filp)
  	if (!error)
  		error = security_path_truncate(path);
  	if (!error) {
@@ -120,7 +120,7 @@ index 4fb61e0754ed..f27c2ad4cad7 100644
  				    filp);
  	}
 diff --git a/fs/open.c b/fs/open.c
-index b62f5c0923a8..a189284464a0 100644
+index 8cdb2b675867..520d14ff4e59 100644
 --- a/fs/open.c
 +++ b/fs/open.c
 @@ -35,8 +35,8 @@

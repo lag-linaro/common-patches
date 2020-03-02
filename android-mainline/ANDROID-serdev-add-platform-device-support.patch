@@ -28,11 +28,11 @@ Bug: 146517987
 Change-Id: I3711c9d9ecd66fad638a45a8745e97569ae01791
 Signed-off-by: Alistair Delva <adelva@google.com>
 ---
- drivers/tty/serdev/core.c | 71 +++++++++++++++++++++++++++++++++------
- 1 file changed, 61 insertions(+), 10 deletions(-)
+ drivers/tty/serdev/core.c | 72 +++++++++++++++++++++++++++++++++------
+ 1 file changed, 62 insertions(+), 10 deletions(-)
 
 diff --git a/drivers/tty/serdev/core.c b/drivers/tty/serdev/core.c
-index ce5309d00280..5d5ea55b68f2 100644
+index 42345e79920c..eecfd796bcfd 100644
 --- a/drivers/tty/serdev/core.c
 +++ b/drivers/tty/serdev/core.c
 @@ -31,7 +31,18 @@ static ssize_t modalias_show(struct device *dev,
@@ -97,7 +97,7 @@ index ce5309d00280..5d5ea55b68f2 100644
  }
  
  /**
-@@ -717,6 +739,33 @@ static inline int acpi_serdev_register_devices(struct serdev_controller *ctrl)
+@@ -719,6 +741,33 @@ static inline int acpi_serdev_register_devices(struct serdev_controller *ctrl)
  }
  #endif /* CONFIG_ACPI */
  
@@ -131,7 +131,7 @@ index ce5309d00280..5d5ea55b68f2 100644
  /**
   * serdev_controller_add() - Add an serdev controller
   * @ctrl:	controller to be registered.
-@@ -726,7 +775,7 @@ static inline int acpi_serdev_register_devices(struct serdev_controller *ctrl)
+@@ -728,7 +777,7 @@ static inline int acpi_serdev_register_devices(struct serdev_controller *ctrl)
   */
  int serdev_controller_add(struct serdev_controller *ctrl)
  {
@@ -140,18 +140,19 @@ index ce5309d00280..5d5ea55b68f2 100644
  
  	/* Can't register until after driver model init */
  	if (WARN_ON(!is_registered))
-@@ -740,9 +789,11 @@ int serdev_controller_add(struct serdev_controller *ctrl)
+@@ -742,9 +791,12 @@ int serdev_controller_add(struct serdev_controller *ctrl)
  
  	ret_of = of_serdev_register_devices(ctrl);
  	ret_acpi = acpi_serdev_register_devices(ctrl);
 -	if (ret_of && ret_acpi) {
--		dev_dbg(&ctrl->dev, "no devices registered: of:%d acpi:%d\n",
--			ret_of, ret_acpi);
+-		dev_dbg(&ctrl->dev, "no devices registered: of:%pe acpi:%pe\n",
+-			ERR_PTR(ret_of), ERR_PTR(ret_acpi));
 +	ret_platform = platform_serdev_register_devices(ctrl);
 +	if (ret_of && ret_acpi && ret_platform) {
-+		dev_dbg(&ctrl->dev, "no devices registered: of:%d acpi:%d "
-+				    "platform:%d\n",
-+				    ret_of, ret_acpi, ret_platform);
++		dev_dbg(&ctrl->dev,
++			"no devices registered: of:%pe acpi:%pe platform:%pe\n",
++			ERR_PTR(ret_of), ERR_PTR(ret_acpi),
++			ERR_PTR(ret_platform));
  		ret = -ENODEV;
  		goto err_rpm_disable;
  	}

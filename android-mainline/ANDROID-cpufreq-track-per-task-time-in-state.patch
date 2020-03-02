@@ -307,7 +307,7 @@ index 000000000000..339a3e9cf082
 +	cpufreq_cpu_put(policy);
 +}
 diff --git a/fs/proc/base.c b/fs/proc/base.c
-index 915686772f0e..79d85e9c7e53 100644
+index c7c64272b0fa..832f2d373f50 100644
 --- a/fs/proc/base.c
 +++ b/fs/proc/base.c
 @@ -96,6 +96,7 @@
@@ -318,7 +318,7 @@ index 915686772f0e..79d85e9c7e53 100644
  #include <trace/events/oom.h>
  #include "internal.h"
  #include "fd.h"
-@@ -3189,6 +3190,9 @@ static const struct pid_entry tgid_base_stuff[] = {
+@@ -3188,6 +3189,9 @@ static const struct pid_entry tgid_base_stuff[] = {
  #ifdef CONFIG_LIVEPATCH
  	ONE("patch_state",  S_IRUSR, proc_pid_patch_state),
  #endif
@@ -328,7 +328,7 @@ index 915686772f0e..79d85e9c7e53 100644
  #ifdef CONFIG_STACKLEAK_METRICS
  	ONE("stack_depth", S_IRUGO, proc_stack_depth),
  #endif
-@@ -3588,6 +3592,9 @@ static const struct pid_entry tid_base_stuff[] = {
+@@ -3587,6 +3591,9 @@ static const struct pid_entry tid_base_stuff[] = {
  #ifdef CONFIG_PROC_PID_ARCH_STATUS
  	ONE("arch_status", S_IRUGO, proc_pid_arch_status),
  #endif

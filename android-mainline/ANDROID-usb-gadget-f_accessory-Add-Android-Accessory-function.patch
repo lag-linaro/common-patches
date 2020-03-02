@@ -50,7 +50,7 @@ Signed-off-by: Matthias Maennich <maennich@google.com>
  create mode 100644 include/uapi/linux/usb/f_accessory.h
 
 diff --git a/drivers/usb/gadget/Kconfig b/drivers/usb/gadget/Kconfig
-index f5e82dcac583..babd5e5843ad 100644
+index d3c64faab807..626ee64c25ce 100644
 --- a/drivers/usb/gadget/Kconfig
 +++ b/drivers/usb/gadget/Kconfig
 @@ -216,6 +216,9 @@ config USB_F_PRINTER

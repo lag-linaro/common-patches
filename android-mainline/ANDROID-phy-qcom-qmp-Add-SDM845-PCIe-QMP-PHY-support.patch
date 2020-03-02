@@ -19,7 +19,7 @@ Change-Id: Ia763ff19382898dcbecf538cf001a7402ad7a934
  1 file changed, 156 insertions(+)
 
 diff --git a/drivers/phy/qualcomm/phy-qcom-qmp.c b/drivers/phy/qualcomm/phy-qcom-qmp.c
-index b9f849d86795..d107563e17c6 100644
+index e107a7eec235..8ece0c0c2288 100644
 --- a/drivers/phy/qualcomm/phy-qcom-qmp.c
 +++ b/drivers/phy/qualcomm/phy-qcom-qmp.c
 @@ -160,6 +160,12 @@ static const unsigned int qmp_v3_usb3phy_regs_layout[] = {
@@ -35,7 +35,7 @@ index b9f849d86795..d107563e17c6 100644
  static const unsigned int sdm845_ufsphy_regs_layout[] = {
  	[QPHY_START_CTRL]		= 0x00,
  	[QPHY_PCS_READY_STATUS]		= 0x160,
-@@ -480,6 +486,109 @@ static const struct qmp_phy_init_tbl ipq8074_pcie_pcs_tbl[] = {
+@@ -481,6 +487,109 @@ static const struct qmp_phy_init_tbl ipq8074_pcie_pcs_tbl[] = {
  	QMP_PHY_INIT_CFG_L(QPHY_START_CTRL, 0x3),
  };
  
@@ -213,7 +213,7 @@ index b9f849d86795..d107563e17c6 100644
  static const struct qmp_phy_cfg qmp_v3_usb3phy_cfg = {
  	.type			= PHY_TYPE_USB3,
  	.nlanes			= 1,
-@@ -1564,6 +1713,7 @@ static int qcom_qmp_phy_enable(struct phy *phy)
+@@ -1563,6 +1712,7 @@ static int qcom_qmp_phy_enable(struct phy *phy)
  	void __iomem *tx = qphy->tx;
  	void __iomem *rx = qphy->rx;
  	void __iomem *pcs = qphy->pcs;
@@ -221,7 +221,7 @@ index b9f849d86795..d107563e17c6 100644
  	void __iomem *dp_com = qmp->dp_com;
  	void __iomem *status;
  	unsigned int mask, val, ready;
-@@ -1634,6 +1784,9 @@ static int qcom_qmp_phy_enable(struct phy *phy)
+@@ -1633,6 +1783,9 @@ static int qcom_qmp_phy_enable(struct phy *phy)
  	if (ret)
  		goto err_lane_rst;
  
@@ -231,7 +231,7 @@ index b9f849d86795..d107563e17c6 100644
  	/*
  	 * Pull out PHY from POWER DOWN state.
  	 * This is active low enable signal to power-down PHY.
-@@ -2103,6 +2256,9 @@ static const struct of_device_id qcom_qmp_phy_of_match_table[] = {
+@@ -2102,6 +2255,9 @@ static const struct of_device_id qcom_qmp_phy_of_match_table[] = {
  	}, {
  		.compatible = "qcom,ipq8074-qmp-pcie-phy",
  		.data = &ipq8074_pciephy_cfg,

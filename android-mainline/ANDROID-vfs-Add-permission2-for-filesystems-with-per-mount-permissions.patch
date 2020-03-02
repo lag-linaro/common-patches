@@ -74,7 +74,7 @@ index 74d88dab98dd..68485e775804 100644
  		bprm->interp_flags |= BINPRM_FLAGS_ENFORCE_NONDUMP;
  
 diff --git a/fs/namei.c b/fs/namei.c
-index f27c2ad4cad7..4051ae9f4f18 100644
+index 33e8e5d27bb3..a0ebe0455d97 100644
 --- a/fs/namei.c
 +++ b/fs/namei.c
 @@ -377,9 +377,11 @@ EXPORT_SYMBOL(generic_permission);
@@ -134,7 +134,7 @@ index f27c2ad4cad7..4051ae9f4f18 100644
  }
  EXPORT_SYMBOL(inode_permission);
  
-@@ -1687,13 +1697,13 @@ static struct dentry *lookup_slow(const struct qstr *name,
+@@ -1779,13 +1789,13 @@ static struct dentry *lookup_slow(const struct qstr *name,
  static inline int may_lookup(struct nameidata *nd)
  {
  	if (nd->flags & LOOKUP_RCU) {
@@ -150,7 +150,7 @@ index f27c2ad4cad7..4051ae9f4f18 100644
  }
  
  static inline int handle_dots(struct nameidata *nd, int type)
-@@ -2442,8 +2452,8 @@ int vfs_path_lookup(struct dentry *dentry, struct vfsmount *mnt,
+@@ -2573,8 +2583,8 @@ int vfs_path_lookup(struct dentry *dentry, struct vfsmount *mnt,
  }
  EXPORT_SYMBOL(vfs_path_lookup);
  
@@ -161,7 +161,7 @@ index f27c2ad4cad7..4051ae9f4f18 100644
  {
  	this->name = name;
  	this->len = len;
-@@ -2471,7 +2481,7 @@ static int lookup_one_len_common(const char *name, struct dentry *base,
+@@ -2602,7 +2612,7 @@ static int lookup_one_len_common(const char *name, struct dentry *base,
  			return err;
  	}
  
@@ -170,7 +170,7 @@ index f27c2ad4cad7..4051ae9f4f18 100644
  }
  
  /**
-@@ -2495,7 +2505,7 @@ struct dentry *try_lookup_one_len(const char *name, struct dentry *base, int len
+@@ -2626,7 +2636,7 @@ struct dentry *try_lookup_one_len(const char *name, struct dentry *base, int len
  
  	WARN_ON_ONCE(!inode_is_locked(base->d_inode));
  
@@ -179,7 +179,7 @@ index f27c2ad4cad7..4051ae9f4f18 100644
  	if (err)
  		return ERR_PTR(err);
  
-@@ -2514,7 +2524,7 @@ EXPORT_SYMBOL(try_lookup_one_len);
+@@ -2645,7 +2655,7 @@ EXPORT_SYMBOL(try_lookup_one_len);
   *
   * The caller must hold base->i_mutex.
   */
@@ -188,7 +188,7 @@ index f27c2ad4cad7..4051ae9f4f18 100644
  {
  	struct dentry *dentry;
  	struct qstr this;
-@@ -2522,13 +2532,19 @@ struct dentry *lookup_one_len(const char *name, struct dentry *base, int len)
+@@ -2653,13 +2663,19 @@ struct dentry *lookup_one_len(const char *name, struct dentry *base, int len)
  
  	WARN_ON_ONCE(!inode_is_locked(base->d_inode));
  
@@ -209,7 +209,7 @@ index f27c2ad4cad7..4051ae9f4f18 100644
  EXPORT_SYMBOL(lookup_one_len);
  
  /**
-@@ -2550,7 +2566,7 @@ struct dentry *lookup_one_len_unlocked(const char *name,
+@@ -2681,7 +2697,7 @@ struct dentry *lookup_one_len_unlocked(const char *name,
  	int err;
  	struct dentry *ret;
  
@@ -218,7 +218,7 @@ index f27c2ad4cad7..4051ae9f4f18 100644
  	if (err)
  		return ERR_PTR(err);
  
-@@ -2731,7 +2747,7 @@ EXPORT_SYMBOL(__check_sticky);
+@@ -2862,7 +2878,7 @@ EXPORT_SYMBOL(__check_sticky);
   * 11. We don't allow removal of NFS sillyrenamed files; it's handled by
   *     nfs_async_unlink().
   */
@@ -227,7 +227,7 @@ index f27c2ad4cad7..4051ae9f4f18 100644
  {
  	struct inode *inode = d_backing_inode(victim);
  	int error;
-@@ -2748,7 +2764,7 @@ static int may_delete(struct inode *dir, struct dentry *victim, bool isdir)
+@@ -2879,7 +2895,7 @@ static int may_delete(struct inode *dir, struct dentry *victim, bool isdir)
  
  	audit_inode_child(dir, victim, AUDIT_TYPE_CHILD_DELETE);
  
@@ -236,7 +236,7 @@ index f27c2ad4cad7..4051ae9f4f18 100644
  	if (error)
  		return error;
  	if (IS_APPEND(dir))
-@@ -2780,7 +2796,7 @@ static int may_delete(struct inode *dir, struct dentry *victim, bool isdir)
+@@ -2911,7 +2927,7 @@ static int may_delete(struct inode *dir, struct dentry *victim, bool isdir)
   *  4. We should have write and exec permissions on dir
   *  5. We can't do it if dir is immutable (done in permission())
   */
@@ -245,7 +245,7 @@ index f27c2ad4cad7..4051ae9f4f18 100644
  {
  	struct user_namespace *s_user_ns;
  	audit_inode_child(dir, child, AUDIT_TYPE_CHILD_CREATE);
-@@ -2792,7 +2808,7 @@ static inline int may_create(struct inode *dir, struct dentry *child)
+@@ -2923,7 +2939,7 @@ static inline int may_create(struct inode *dir, struct dentry *child)
  	if (!kuid_has_mapping(s_user_ns, current_fsuid()) ||
  	    !kgid_has_mapping(s_user_ns, current_fsgid()))
  		return -EOVERFLOW;
@@ -254,7 +254,7 @@ index f27c2ad4cad7..4051ae9f4f18 100644
  }
  
  /*
-@@ -2839,10 +2855,10 @@ void unlock_rename(struct dentry *p1, struct dentry *p2)
+@@ -2970,10 +2986,10 @@ void unlock_rename(struct dentry *p1, struct dentry *p2)
  }
  EXPORT_SYMBOL(unlock_rename);
  
@@ -268,7 +268,7 @@ index f27c2ad4cad7..4051ae9f4f18 100644
  	if (error)
  		return error;
  
-@@ -2858,14 +2874,21 @@ int vfs_create(struct inode *dir, struct dentry *dentry, umode_t mode,
+@@ -2989,14 +3005,21 @@ int vfs_create(struct inode *dir, struct dentry *dentry, umode_t mode,
  		fsnotify_create(dir, dentry);
  	return error;
  }
@@ -292,7 +292,7 @@ index f27c2ad4cad7..4051ae9f4f18 100644
  	if (error)
  		return error;
  
-@@ -2879,6 +2902,15 @@ int vfs_mkobj(struct dentry *dentry, umode_t mode,
+@@ -3010,6 +3033,15 @@ int vfs_mkobj(struct dentry *dentry, umode_t mode,
  		fsnotify_create(dir, dentry);
  	return error;
  }
@@ -308,7 +308,7 @@ index f27c2ad4cad7..4051ae9f4f18 100644
  EXPORT_SYMBOL(vfs_mkobj);
  
  bool may_open_dev(const struct path *path)
-@@ -2890,6 +2922,7 @@ bool may_open_dev(const struct path *path)
+@@ -3021,6 +3053,7 @@ bool may_open_dev(const struct path *path)
  static int may_open(const struct path *path, int acc_mode, int flag)
  {
  	struct dentry *dentry = path->dentry;
@@ -316,7 +316,7 @@ index f27c2ad4cad7..4051ae9f4f18 100644
  	struct inode *inode = dentry->d_inode;
  	int error;
  
-@@ -2914,7 +2947,7 @@ static int may_open(const struct path *path, int acc_mode, int flag)
+@@ -3045,7 +3078,7 @@ static int may_open(const struct path *path, int acc_mode, int flag)
  		break;
  	}
  
@@ -325,7 +325,7 @@ index f27c2ad4cad7..4051ae9f4f18 100644
  	if (error)
  		return error;
  
-@@ -2976,7 +3009,7 @@ static int may_o_create(const struct path *dir, struct dentry *dentry, umode_t m
+@@ -3107,7 +3140,7 @@ static int may_o_create(const struct path *dir, struct dentry *dentry, umode_t m
  	    !kgid_has_mapping(s_user_ns, current_fsgid()))
  		return -EOVERFLOW;
  
@@ -334,7 +334,7 @@ index f27c2ad4cad7..4051ae9f4f18 100644
  	if (error)
  		return error;
  
-@@ -3381,7 +3414,8 @@ struct dentry *vfs_tmpfile(struct dentry *dentry, umode_t mode, int open_flag)
+@@ -3512,7 +3545,8 @@ struct dentry *vfs_tmpfile(struct dentry *dentry, umode_t mode, int open_flag)
  	int error;
  
  	/* we want directory to be writable */
@@ -344,7 +344,7 @@ index f27c2ad4cad7..4051ae9f4f18 100644
  	if (error)
  		goto out_err;
  	error = -EOPNOTSUPP;
-@@ -3636,9 +3670,9 @@ inline struct dentry *user_path_create(int dfd, const char __user *pathname,
+@@ -3767,9 +3801,9 @@ inline struct dentry *user_path_create(int dfd, const char __user *pathname,
  }
  EXPORT_SYMBOL(user_path_create);
  
@@ -356,7 +356,7 @@ index f27c2ad4cad7..4051ae9f4f18 100644
  
  	if (error)
  		return error;
-@@ -3662,6 +3696,12 @@ int vfs_mknod(struct inode *dir, struct dentry *dentry, umode_t mode, dev_t dev)
+@@ -3793,6 +3827,12 @@ int vfs_mknod(struct inode *dir, struct dentry *dentry, umode_t mode, dev_t dev)
  		fsnotify_create(dir, dentry);
  	return error;
  }
@@ -369,7 +369,7 @@ index f27c2ad4cad7..4051ae9f4f18 100644
  EXPORT_SYMBOL(vfs_mknod);
  
  static int may_mknod(umode_t mode)
-@@ -3704,12 +3744,12 @@ long do_mknodat(int dfd, const char __user *filename, umode_t mode,
+@@ -3835,12 +3875,12 @@ long do_mknodat(int dfd, const char __user *filename, umode_t mode,
  		goto out;
  	switch (mode & S_IFMT) {
  		case 0: case S_IFREG:
@@ -384,7 +384,7 @@ index f27c2ad4cad7..4051ae9f4f18 100644
  					new_decode_dev(dev));
  			break;
  		case S_IFIFO: case S_IFSOCK:
-@@ -3736,9 +3776,9 @@ SYSCALL_DEFINE3(mknod, const char __user *, filename, umode_t, mode, unsigned, d
+@@ -3867,9 +3907,9 @@ SYSCALL_DEFINE3(mknod, const char __user *, filename, umode_t, mode, unsigned, d
  	return do_mknodat(AT_FDCWD, filename, mode, dev);
  }
  
@@ -396,7 +396,7 @@ index f27c2ad4cad7..4051ae9f4f18 100644
  	unsigned max_links = dir->i_sb->s_max_links;
  
  	if (error)
-@@ -3760,6 +3800,12 @@ int vfs_mkdir(struct inode *dir, struct dentry *dentry, umode_t mode)
+@@ -3891,6 +3931,12 @@ int vfs_mkdir(struct inode *dir, struct dentry *dentry, umode_t mode)
  		fsnotify_mkdir(dir, dentry);
  	return error;
  }
@@ -409,7 +409,7 @@ index f27c2ad4cad7..4051ae9f4f18 100644
  EXPORT_SYMBOL(vfs_mkdir);
  
  long do_mkdirat(int dfd, const char __user *pathname, umode_t mode)
-@@ -3778,7 +3824,7 @@ long do_mkdirat(int dfd, const char __user *pathname, umode_t mode)
+@@ -3909,7 +3955,7 @@ long do_mkdirat(int dfd, const char __user *pathname, umode_t mode)
  		mode &= ~current_umask();
  	error = security_path_mkdir(&path, dentry, mode);
  	if (!error)
@@ -418,7 +418,7 @@ index f27c2ad4cad7..4051ae9f4f18 100644
  	done_path_create(&path, dentry);
  	if (retry_estale(error, lookup_flags)) {
  		lookup_flags |= LOOKUP_REVAL;
-@@ -3797,9 +3843,9 @@ SYSCALL_DEFINE2(mkdir, const char __user *, pathname, umode_t, mode)
+@@ -3928,9 +3974,9 @@ SYSCALL_DEFINE2(mkdir, const char __user *, pathname, umode_t, mode)
  	return do_mkdirat(AT_FDCWD, pathname, mode);
  }
  
@@ -430,7 +430,7 @@ index f27c2ad4cad7..4051ae9f4f18 100644
  
  	if (error)
  		return error;
-@@ -3835,6 +3881,12 @@ int vfs_rmdir(struct inode *dir, struct dentry *dentry)
+@@ -3966,6 +4012,12 @@ int vfs_rmdir(struct inode *dir, struct dentry *dentry)
  		d_delete(dentry);
  	return error;
  }
@@ -443,7 +443,7 @@ index f27c2ad4cad7..4051ae9f4f18 100644
  EXPORT_SYMBOL(vfs_rmdir);
  
  long do_rmdir(int dfd, const char __user *pathname)
-@@ -3880,7 +3932,7 @@ long do_rmdir(int dfd, const char __user *pathname)
+@@ -4011,7 +4063,7 @@ long do_rmdir(int dfd, const char __user *pathname)
  	error = security_path_rmdir(&path, dentry);
  	if (error)
  		goto exit3;
@@ -452,7 +452,7 @@ index f27c2ad4cad7..4051ae9f4f18 100644
  exit3:
  	dput(dentry);
  exit2:
-@@ -3919,10 +3971,10 @@ SYSCALL_DEFINE1(rmdir, const char __user *, pathname)
+@@ -4050,10 +4102,10 @@ SYSCALL_DEFINE1(rmdir, const char __user *, pathname)
   * be appropriate for callers that expect the underlying filesystem not
   * to be NFS exported.
   */
@@ -465,7 +465,7 @@ index f27c2ad4cad7..4051ae9f4f18 100644
  
  	if (error)
  		return error;
-@@ -3958,6 +4010,12 @@ int vfs_unlink(struct inode *dir, struct dentry *dentry, struct inode **delegate
+@@ -4089,6 +4141,12 @@ int vfs_unlink(struct inode *dir, struct dentry *dentry, struct inode **delegate
  
  	return error;
  }
@@ -478,7 +478,7 @@ index f27c2ad4cad7..4051ae9f4f18 100644
  EXPORT_SYMBOL(vfs_unlink);
  
  /*
-@@ -4003,7 +4061,7 @@ long do_unlinkat(int dfd, struct filename *name)
+@@ -4134,7 +4192,7 @@ long do_unlinkat(int dfd, struct filename *name)
  		error = security_path_unlink(&path, dentry);
  		if (error)
  			goto exit2;
@@ -487,7 +487,7 @@ index f27c2ad4cad7..4051ae9f4f18 100644
  exit2:
  		dput(dentry);
  	}
-@@ -4053,9 +4111,9 @@ SYSCALL_DEFINE1(unlink, const char __user *, pathname)
+@@ -4184,9 +4242,9 @@ SYSCALL_DEFINE1(unlink, const char __user *, pathname)
  	return do_unlinkat(AT_FDCWD, getname(pathname));
  }
  
@@ -499,7 +499,7 @@ index f27c2ad4cad7..4051ae9f4f18 100644
  
  	if (error)
  		return error;
-@@ -4072,6 +4130,12 @@ int vfs_symlink(struct inode *dir, struct dentry *dentry, const char *oldname)
+@@ -4203,6 +4261,12 @@ int vfs_symlink(struct inode *dir, struct dentry *dentry, const char *oldname)
  		fsnotify_create(dir, dentry);
  	return error;
  }
@@ -512,7 +512,7 @@ index f27c2ad4cad7..4051ae9f4f18 100644
  EXPORT_SYMBOL(vfs_symlink);
  
  long do_symlinkat(const char __user *oldname, int newdfd,
-@@ -4094,7 +4158,7 @@ long do_symlinkat(const char __user *oldname, int newdfd,
+@@ -4225,7 +4289,7 @@ long do_symlinkat(const char __user *oldname, int newdfd,
  
  	error = security_path_symlink(&path, dentry, from->name);
  	if (!error)
@@ -521,7 +521,7 @@ index f27c2ad4cad7..4051ae9f4f18 100644
  	done_path_create(&path, dentry);
  	if (retry_estale(error, lookup_flags)) {
  		lookup_flags |= LOOKUP_REVAL;
-@@ -4135,7 +4199,7 @@ SYSCALL_DEFINE2(symlink, const char __user *, oldname, const char __user *, newn
+@@ -4266,7 +4330,7 @@ SYSCALL_DEFINE2(symlink, const char __user *, oldname, const char __user *, newn
   * be appropriate for callers that expect the underlying filesystem not
   * to be NFS exported.
   */
@@ -530,7 +530,7 @@ index f27c2ad4cad7..4051ae9f4f18 100644
  {
  	struct inode *inode = old_dentry->d_inode;
  	unsigned max_links = dir->i_sb->s_max_links;
-@@ -4144,7 +4208,7 @@ int vfs_link(struct dentry *old_dentry, struct inode *dir, struct dentry *new_de
+@@ -4275,7 +4339,7 @@ int vfs_link(struct dentry *old_dentry, struct inode *dir, struct dentry *new_de
  	if (!inode)
  		return -ENOENT;
  
@@ -539,7 +539,7 @@ index f27c2ad4cad7..4051ae9f4f18 100644
  	if (error)
  		return error;
  
-@@ -4194,6 +4258,12 @@ int vfs_link(struct dentry *old_dentry, struct inode *dir, struct dentry *new_de
+@@ -4325,6 +4389,12 @@ int vfs_link(struct dentry *old_dentry, struct inode *dir, struct dentry *new_de
  		fsnotify_link(dir, inode, new_dentry);
  	return error;
  }
@@ -552,7 +552,7 @@ index f27c2ad4cad7..4051ae9f4f18 100644
  EXPORT_SYMBOL(vfs_link);
  
  /*
-@@ -4249,7 +4319,7 @@ int do_linkat(int olddfd, const char __user *oldname, int newdfd,
+@@ -4380,7 +4450,7 @@ int do_linkat(int olddfd, const char __user *oldname, int newdfd,
  	error = security_path_link(old_path.dentry, &new_path, new_dentry);
  	if (error)
  		goto out_dput;
@@ -561,7 +561,7 @@ index f27c2ad4cad7..4051ae9f4f18 100644
  out_dput:
  	done_path_create(&new_path, new_dentry);
  	if (delegated_inode) {
-@@ -4331,7 +4401,8 @@ SYSCALL_DEFINE2(link, const char __user *, oldname, const char __user *, newname
+@@ -4462,7 +4532,8 @@ SYSCALL_DEFINE2(link, const char __user *, oldname, const char __user *, newname
   *	   ->i_mutex on parents, which works but leads to some truly excessive
   *	   locking].
   */
@@ -571,7 +571,7 @@ index f27c2ad4cad7..4051ae9f4f18 100644
  	       struct inode *new_dir, struct dentry *new_dentry,
  	       struct inode **delegated_inode, unsigned int flags)
  {
-@@ -4346,19 +4417,19 @@ int vfs_rename(struct inode *old_dir, struct dentry *old_dentry,
+@@ -4477,19 +4548,19 @@ int vfs_rename(struct inode *old_dir, struct dentry *old_dentry,
  	if (source == target)
  		return 0;
  
@@ -595,7 +595,7 @@ index f27c2ad4cad7..4051ae9f4f18 100644
  	}
  	if (error)
  		return error;
-@@ -4372,12 +4443,12 @@ int vfs_rename(struct inode *old_dir, struct dentry *old_dentry,
+@@ -4503,12 +4574,12 @@ int vfs_rename(struct inode *old_dir, struct dentry *old_dentry,
  	 */
  	if (new_dir != old_dir) {
  		if (is_dir) {
@@ -610,7 +610,7 @@ index f27c2ad4cad7..4051ae9f4f18 100644
  			if (error)
  				return error;
  		}
-@@ -4454,6 +4525,14 @@ int vfs_rename(struct inode *old_dir, struct dentry *old_dentry,
+@@ -4585,6 +4656,14 @@ int vfs_rename(struct inode *old_dir, struct dentry *old_dentry,
  
  	return error;
  }
@@ -625,7 +625,7 @@ index f27c2ad4cad7..4051ae9f4f18 100644
  EXPORT_SYMBOL(vfs_rename);
  
  static int do_renameat2(int olddfd, const char __user *oldname, int newdfd,
-@@ -4567,7 +4646,7 @@ static int do_renameat2(int olddfd, const char __user *oldname, int newdfd,
+@@ -4698,7 +4777,7 @@ static int do_renameat2(int olddfd, const char __user *oldname, int newdfd,
  				     &new_path, new_dentry, flags);
  	if (error)
  		goto exit5;
@@ -634,7 +634,7 @@ index f27c2ad4cad7..4051ae9f4f18 100644
  			   new_path.dentry->d_inode, new_dentry,
  			   &delegated_inode, flags);
  exit5:
-@@ -4618,7 +4697,7 @@ SYSCALL_DEFINE2(rename, const char __user *, oldname, const char __user *, newna
+@@ -4749,7 +4828,7 @@ SYSCALL_DEFINE2(rename, const char __user *, oldname, const char __user *, newna
  
  int vfs_whiteout(struct inode *dir, struct dentry *dentry)
  {
@@ -670,7 +670,7 @@ index 107537a543fd..3e66e6c8f53a 100644
  		path_put(path);
  		return error;
 diff --git a/fs/open.c b/fs/open.c
-index a189284464a0..681affa0cb37 100644
+index 520d14ff4e59..8de17281ac52 100644
 --- a/fs/open.c
 +++ b/fs/open.c
 @@ -90,7 +90,7 @@ long vfs_truncate(const struct path *path, loff_t length)
@@ -801,10 +801,10 @@ index 4ba537dc8da6..3a51cf8f12d6 100644
  extern int __check_sticky(struct inode *dir, struct inode *inode);
  
 diff --git a/include/linux/namei.h b/include/linux/namei.h
-index 07bfb0874033..d31a94c085d9 100644
+index 0dd980d7318f..34c4fa04140d 100644
 --- a/include/linux/namei.h
 +++ b/include/linux/namei.h
-@@ -58,6 +58,7 @@ extern int kern_path_mountpoint(int, const char *, struct path *, unsigned int);
+@@ -68,6 +68,7 @@ extern int kern_path_mountpoint(int, const char *, struct path *, unsigned int);
  
  extern struct dentry *try_lookup_one_len(const char *, struct dentry *, int);
  extern struct dentry *lookup_one_len(const char *, struct dentry *, int);
