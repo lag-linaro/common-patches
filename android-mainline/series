@@ -214,7 +214,6 @@ ANDROID-include-drm-add-the-definitions-for-DP-Link-Compliance-tests.patch
 ANDROID-driver-gpu-drm-add-notifier-for-panel-related-events.patch
 ANDROID-drivers-gpu-drm-fix-bugs-encountered-while-fuzzing.patch
 ANDROID-include-uapi-drm-add-additional-drm-mode-flags.patch
-ANDROID-drm-edid-add-support-for-additional-CEA-extension-blocks.patch
 ANDROID-uid_sys_stats-avoid-double-accounting-of-dying-threads.patch
 ANDROID-ion-Fix-buffer_lock-mutex-initialization.patch
 ANDROID-ion-Remove-unused-rbtree-for-ion_buffer.patch
@@ -424,7 +423,6 @@ ANDROID-gki_defconfig-disable-CONFIG_CRYPTO_MD4.patch
 ANDROID-gki-Enable-BINFMT_MISC-as-part-of-GKI.patch
 ANDROID-net-wireless-Add-module_param-mac_prefix-to-mac80211_hwsim.patch
 ANDROID-gki_defconfig-Enable-CONFIG_RD_LZ4.patch
-Revert-ANDROID-drm-edid-add-support-for-additional-CEA-extension-blocks.patch
 ANDROID-GKI-Remove-CONFIG_BRIDGE-from-arm64-config.patch
 ANDROID-ASoC-core-Fix-soc_pcm_hw_params-crash.patch
 ANDROID-scsi-ufs-allow-ufs-variants-to-override-sg-entry-size.patch
