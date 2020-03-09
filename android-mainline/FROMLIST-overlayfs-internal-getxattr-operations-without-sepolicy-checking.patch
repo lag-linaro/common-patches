@@ -50,13 +50,13 @@ Bug: 136124883
 Bug: 129319403
 Change-Id: I34d99cc46e9e87a79efc8d05f85980bbc137f7eb
 ---
- fs/overlayfs/namei.c     |  7 ++++---
+ fs/overlayfs/namei.c     | 11 ++++++-----
  fs/overlayfs/overlayfs.h |  8 ++++++++
- fs/overlayfs/util.c      | 16 ++++++++--------
- 3 files changed, 20 insertions(+), 11 deletions(-)
+ fs/overlayfs/util.c      | 18 +++++++++---------
+ 3 files changed, 23 insertions(+), 14 deletions(-)
 
 diff --git a/fs/overlayfs/namei.c b/fs/overlayfs/namei.c
-index ed9e129fae04..32994a46e46e 100644
+index ed9e129fae04..2a8c00d58365 100644
 --- a/fs/overlayfs/namei.c
 +++ b/fs/overlayfs/namei.c
 @@ -106,10 +106,11 @@ int ovl_check_fb_len(struct ovl_fb *fb, int fb_len)
@@ -82,6 +82,19 @@ index ed9e129fae04..32994a46e46e 100644
  	if (res < 0)
  		goto fail;
  
+@@ -141,10 +142,10 @@ static struct ovl_fh *ovl_get_fh(struct dentry *dentry, const char *name)
+ 	return NULL;
+ 
+ fail:
+-	pr_warn_ratelimited("failed to get origin (%i)\n", res);
++	pr_warn_ratelimited("failed to get origin (%zi)\n", res);
+ 	goto out;
+ invalid:
+-	pr_warn_ratelimited("invalid origin (%*phN)\n", res, fh);
++	pr_warn_ratelimited("invalid origin (%*phN)\n", (int)res, fh);
+ 	goto out;
+ }
+ 
 diff --git a/fs/overlayfs/overlayfs.h b/fs/overlayfs/overlayfs.h
 index c7afa9d7cf25..86da7931938f 100644
 --- a/fs/overlayfs/overlayfs.h
@@ -102,7 +115,7 @@ index c7afa9d7cf25..86da7931938f 100644
  int ovl_want_write(struct dentry *dentry);
  void ovl_drop_write(struct dentry *dentry);
 diff --git a/fs/overlayfs/util.c b/fs/overlayfs/util.c
-index ea005085803f..22acc4e23352 100644
+index ea005085803f..980a017cf263 100644
 --- a/fs/overlayfs/util.c
 +++ b/fs/overlayfs/util.c
 @@ -525,9 +525,9 @@ void ovl_copy_up_end(struct dentry *dentry)
@@ -149,6 +162,15 @@ index ea005085803f..22acc4e23352 100644
  	if (res < 0) {
  		if (res == -ENODATA || res == -EOPNOTSUPP)
  			return 0;
+@@ -840,7 +840,7 @@ int ovl_check_metacopy_xattr(struct dentry *dentry)
+ 
+ 	return 1;
+ out:
+-	pr_warn_ratelimited("failed to get metacopy (%i)\n", res);
++	pr_warn_ratelimited("failed to get metacopy (%zi)\n", res);
+ 	return res;
+ }
+ 
 @@ -866,7 +866,7 @@ ssize_t ovl_getxattr(struct dentry *dentry, char *name, char **value,
  	ssize_t res;
  	char *buf = NULL;

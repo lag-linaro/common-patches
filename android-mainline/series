@@ -35,9 +35,6 @@ FROMLIST-block-Keyslot-Manager-for-Inline-Encryption.patch
 FROMLIST-block-Add-encryption-context-to-struct-bio.patch
 FROMLIST-block-blk-crypto-for-Inline-Encryption.patch
 FROMLIST-Add-flags-option-to-get-xattr-method-paired-to-__vfs_getxattr.patch
-FROMLIST-overlayfs-handle-XATTR_NOSECURITY-flag-for-get-xattr-method.patch
-FROMLIST-overlayfs-internal-getxattr-operations-without-sepolicy-checking.patch
-FROMLIST-overlayfs-override_creds-off-option-bypass-creator_cred.patch
 BACKPORT-FROMLIST-pwm-Add-support-for-different-PWM-output-types.patch
 FROMLIST-arm64-disable-function-graph-tracing-with-SCS.patch
 FROMLIST-arm64-reserve-x18-from-general-allocation-with-SCS.patch
@@ -57,6 +54,9 @@ FROMLIST-lib-list_sort-fix-function-type-mismatches.patch
 FROMLIST-ubsan-Add-trap-instrumentation-option.patch
 FROMLIST-ubsan-Split-bounds-checker-from-other-options.patch
 FROMLIST-lkdtm-bugs-Add-arithmetic-overflow-and-array-bounds-checks.patch
+FROMLIST-overlayfs-handle-XATTR_NOSECURITY-flag-for-get-xattr-method.patch
+FROMLIST-overlayfs-internal-getxattr-operations-without-sepolicy-checking.patch
+FROMLIST-overlayfs-override_creds-off-option-bypass-creator_cred.patch
 ANDROID-arm64-copy-CONFIG_CMDLINE_EXTEND-from-ARM.patch
 ANDROID-of-Support-CONFIG_CMDLINE_EXTEND-config-option.patch
 ANDROID-Kbuild-LLVMLinux-allow-overriding-clang-target-triple.patch
@@ -369,16 +369,10 @@ ANDROID-Incremental-fs-Fix-crash-on-failed-lookup.patch
 ANDROID-gki-x86-Enable-PCI_MSI-WATCHDOG-HPET.patch
 ANDROID-gki_defconfig-Relocate-INCREMENTAL_FS.patch
 ANDROID-remove-map-unmap-from-ion_dma.c.patch
-Revert-FROMLIST-overlayfs-override_creds-off-option-bypass-creator_cred.patch
-Revert-FROMLIST-overlayfs-internal-getxattr-operations-without-sepolicy-checking.patch
-Revert-FROMLIST-overlayfs-handle-XATTR_NOSECURITY-flag-for-get-xattr-method.patch
-Revert-Revert-FROMLIST-overlayfs-handle-XATTR_NOSECURITY-flag-for-get-xattr-method.patch
-Revert-Revert-FROMLIST-overlayfs-internal-getxattr-operations-without-sepolicy-checking.patch
 ANDROID-fix-up-uio_sys_stats-to-handle-recent-proc_ops-changes.patch
 ANDROID-fix-up-xt_quota2-for-proc_ops-changes.patch
 ANDROID-cpufreq_times-fix-up-5.6-rc1-api-changes.patch
 ANDROID-dummy-cpufreq-fix-up-5.6-rc1-API-changes.patch
-FROMLIST-overlayfs-override_creds-off-option-bypass-creator_cred-2.patch
 FROMLIST-pwm-Convert-period-and-duty-cycle-to-u64.patch
 ANDROID-sdcardfs-fix-up-fs-parsing-calls.patch
 ANDROID-dm-prevent-default-key-from-being-enabled-without-needed-hooks.patch
