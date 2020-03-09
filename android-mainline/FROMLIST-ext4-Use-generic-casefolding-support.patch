@@ -79,7 +79,7 @@ index 9aa1f75409b0..04fd68c4adc5 100644
  };
  #endif
 diff --git a/fs/ext4/ext4.h b/fs/ext4/ext4.h
-index 3917f4b3ec30..e349c936f388 100644
+index 9978c012bea9..c8c663805d95 100644
 --- a/fs/ext4/ext4.h
 +++ b/fs/ext4/ext4.h
 @@ -1373,14 +1373,6 @@ struct ext4_super_block {
@@ -122,7 +122,7 @@ index 3e133793a5a3..143b0073b3f4 100644
  	unsigned char *buff;
  	struct qstr qstr = {.name = name, .len = len };
 diff --git a/fs/ext4/namei.c b/fs/ext4/namei.c
-index ceff4b4b1877..792a89f8eca2 100644
+index b05ea72f38fd..1a1c4fdcfd3e 100644
 --- a/fs/ext4/namei.c
 +++ b/fs/ext4/namei.c
 @@ -1286,8 +1286,8 @@ static void dx_insert_block(struct dx_frame *frame, u32 hash, ext4_lblk_t block)
@@ -172,7 +172,7 @@ index ceff4b4b1877..792a89f8eca2 100644
  		if (fname->cf_name.name) {
  			struct qstr cf = {.name = fname->cf_name.name,
  					  .len = fname->cf_name.len};
-@@ -2170,9 +2170,6 @@ static int ext4_add_entry(handle_t *handle, struct dentry *dentry,
+@@ -2171,9 +2171,6 @@ static int ext4_add_entry(handle_t *handle, struct dentry *dentry,
  	struct buffer_head *bh = NULL;
  	struct ext4_dir_entry_2 *de;
  	struct super_block *sb;
@@ -182,7 +182,7 @@ index ceff4b4b1877..792a89f8eca2 100644
  	struct ext4_filename fname;
  	int	retval;
  	int	dx_fallback=0;
-@@ -2189,9 +2186,8 @@ static int ext4_add_entry(handle_t *handle, struct dentry *dentry,
+@@ -2190,9 +2187,8 @@ static int ext4_add_entry(handle_t *handle, struct dentry *dentry,
  		return -EINVAL;
  
  #ifdef CONFIG_UNICODE
@@ -195,10 +195,10 @@ index ceff4b4b1877..792a89f8eca2 100644
  #endif
  
 diff --git a/fs/ext4/super.c b/fs/ext4/super.c
-index f45df975c22e..8063b8b01814 100644
+index a0be59eba012..188d1f2be53f 100644
 --- a/fs/ext4/super.c
 +++ b/fs/ext4/super.c
-@@ -1102,7 +1102,7 @@ static void ext4_put_super(struct super_block *sb)
+@@ -1112,7 +1112,7 @@ static void ext4_put_super(struct super_block *sb)
  	kfree(sbi->s_blockgroup_lock);
  	fs_put_dax(sbi->s_daxdev);
  #ifdef CONFIG_UNICODE
@@ -207,7 +207,7 @@ index f45df975c22e..8063b8b01814 100644
  #endif
  	kfree(sbi);
  }
-@@ -3913,7 +3913,7 @@ static int ext4_fill_super(struct super_block *sb, void *data, int silent)
+@@ -3939,7 +3939,7 @@ static int ext4_fill_super(struct super_block *sb, void *data, int silent)
  		goto failed_mount;
  
  #ifdef CONFIG_UNICODE
@@ -216,7 +216,7 @@ index f45df975c22e..8063b8b01814 100644
  		const struct ext4_sb_encodings *encoding_info;
  		struct unicode_map *encoding;
  		__u16 encoding_flags;
-@@ -3944,8 +3944,8 @@ static int ext4_fill_super(struct super_block *sb, void *data, int silent)
+@@ -3970,8 +3970,8 @@ static int ext4_fill_super(struct super_block *sb, void *data, int silent)
  			 "%s-%s with flags 0x%hx", encoding_info->name,
  			 encoding_info->version?:"\b", encoding_flags);
  
@@ -227,7 +227,7 @@ index f45df975c22e..8063b8b01814 100644
  	}
  #endif
  
-@@ -4552,7 +4552,7 @@ static int ext4_fill_super(struct super_block *sb, void *data, int silent)
+@@ -4584,7 +4584,7 @@ static int ext4_fill_super(struct super_block *sb, void *data, int silent)
  	}
  
  #ifdef CONFIG_UNICODE
@@ -236,7 +236,7 @@ index f45df975c22e..8063b8b01814 100644
  		sb->s_d_op = &ext4_dentry_ops;
  #endif
  
-@@ -4738,7 +4738,7 @@ static int ext4_fill_super(struct super_block *sb, void *data, int silent)
+@@ -4779,7 +4779,7 @@ static int ext4_fill_super(struct super_block *sb, void *data, int silent)
  		crypto_free_shash(sbi->s_chksum_driver);
  
  #ifdef CONFIG_UNICODE

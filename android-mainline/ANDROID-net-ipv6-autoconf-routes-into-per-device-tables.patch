@@ -167,7 +167,7 @@ index cb493e15959c..446dc57d799a 100644
  		.procname	= "proxy_ndp",
  		.data		= &ipv6_devconf.proxy_ndp,
 diff --git a/net/ipv6/route.c b/net/ipv6/route.c
-index 4fbdc60b4e07..f41b9c4ba6f0 100644
+index 2931224b674e..1456d95d331e 100644
 --- a/net/ipv6/route.c
 +++ b/net/ipv6/route.c
 @@ -4112,7 +4112,7 @@ static struct fib6_info *rt6_get_route_info(struct net *net,

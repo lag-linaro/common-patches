@@ -1,8 +1,8 @@
 #
 # android-mainline patches
 #
-# Applies onto upstream 11a48a5a18c6 Linux v5.6-rc2
-# Matches android-mainline 055a6f6264db ("FROMGIT: drm/msm/a6xx: Remove unneeded GBIF unhalt")
+# Applies onto upstream f8788d86ab28 Linux v5.6-rc3
+# Matches android-mainline 5fba1b18cfc7 ("Merge 5.6-rc3 into android-mainline")
 #
 Revert-security-lockdown-selinux-implement-SELinux-lockdown.patch
 Revert-drm-virtio-fix-DRM_FORMAT_-handling.patch
@@ -417,4 +417,3 @@ FROMLIST-dt-bindings-display-msm-Convert-GMU-bindings-to-YAML.patch
 FROMLIST-dt-bindings-display-msm-Add-required-dma-range-property.patch
 FROMLIST-arm64-dts-sdm845-Set-the-virtual-address-range-for-GMU-allocations.patch
 FROMLIST-drm-msm-a6xx-Use-the-DMA-API-for-GMU-memory-objects.patch
-FROMGIT-drm-msm-a6xx-Remove-unneeded-GBIF-unhalt.patch

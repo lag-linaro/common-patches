@@ -75,7 +75,7 @@ index fad82d08fca5..0c456e90d112 100644
  
  	unlock_page(page);
 diff --git a/fs/ext4/inode.c b/fs/ext4/inode.c
-index 9ac1dd131586..b9469237c79c 100644
+index 5714ff6395a1..75152e82321b 100644
 --- a/fs/ext4/inode.c
 +++ b/fs/ext4/inode.c
 @@ -47,6 +47,7 @@

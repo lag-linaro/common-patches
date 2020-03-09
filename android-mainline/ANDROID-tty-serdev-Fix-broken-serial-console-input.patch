@@ -41,10 +41,10 @@ Change-Id: Id2747dc8c4ac633d71afabaf252d2bb69d206123
  1 file changed, 5 insertions(+)
 
 diff --git a/drivers/tty/serdev/serdev-ttyport.c b/drivers/tty/serdev/serdev-ttyport.c
-index d1cdd2ab8b4c..f9c546ac4135 100644
+index d367803e2044..83be10136b90 100644
 --- a/drivers/tty/serdev/serdev-ttyport.c
 +++ b/drivers/tty/serdev/serdev-ttyport.c
-@@ -273,6 +273,11 @@ struct device *serdev_tty_port_register(struct tty_port *port,
+@@ -272,6 +272,11 @@ struct device *serdev_tty_port_register(struct tty_port *port,
  	if (!port || !drv || !parent)
  		return ERR_PTR(-ENODEV);
  

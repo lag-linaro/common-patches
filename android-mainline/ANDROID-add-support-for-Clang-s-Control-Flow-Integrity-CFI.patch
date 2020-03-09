@@ -27,7 +27,7 @@ Signed-off-by: Sami Tolvanen <samitolvanen@google.com>
  create mode 100644 kernel/cfi.c
 
 diff --git a/Makefile b/Makefile
-index 09737ffdb12d..c947b0aae5fc 100644
+index 19c5ec66a201..1c6e0979e592 100644
 --- a/Makefile
 +++ b/Makefile
 @@ -881,6 +881,25 @@ KBUILD_CFLAGS	+= $(CC_FLAGS_LTO)
