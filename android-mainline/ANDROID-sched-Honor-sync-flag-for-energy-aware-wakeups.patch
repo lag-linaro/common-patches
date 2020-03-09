@@ -36,7 +36,7 @@ Signed-off-by: Dietmar Eggemann <dietmar.eggemann@arm.com>
  1 file changed, 2 insertions(+), 1 deletion(-)
 
 diff --git a/kernel/sched/fair.c b/kernel/sched/fair.c
-index 41c42e72f001..baa37f1e74ff 100644
+index 147e0bd1eb67..a8bf94c5d031 100644
 --- a/kernel/sched/fair.c
 +++ b/kernel/sched/fair.c
 @@ -6276,7 +6276,8 @@ static int find_energy_efficient_cpu(struct task_struct *p, int prev_cpu, int sy

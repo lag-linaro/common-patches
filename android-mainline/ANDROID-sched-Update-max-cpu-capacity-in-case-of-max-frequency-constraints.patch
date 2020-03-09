@@ -66,7 +66,7 @@ Signed-off-by: Quentin Perret <quentin.perret@arm.com>
  3 files changed, 44 insertions(+), 15 deletions(-)
 
 diff --git a/kernel/sched/fair.c b/kernel/sched/fair.c
-index c7a57b22c9b5..ec69adc9613b 100644
+index 35655ab2f2ef..9ce0d7ecbd2e 100644
 --- a/kernel/sched/fair.c
 +++ b/kernel/sched/fair.c
 @@ -6115,7 +6115,7 @@ static int wake_cap(struct task_struct *p, int cpu, int prev_cpu)

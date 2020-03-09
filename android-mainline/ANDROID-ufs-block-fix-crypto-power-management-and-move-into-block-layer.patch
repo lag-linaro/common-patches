@@ -295,10 +295,10 @@ index 14364261dab5..6b563c8602d0 100644
  	return err;
  }
 diff --git a/drivers/md/dm.c b/drivers/md/dm.c
-index c9d6eeef5a72..6989c86881e1 100644
+index 927f7ea15889..ed875661ff0b 100644
 --- a/drivers/md/dm.c
 +++ b/drivers/md/dm.c
-@@ -2387,7 +2387,8 @@ static int dm_init_inline_encryption(struct mapped_device *md)
+@@ -2379,7 +2379,8 @@ static int dm_init_inline_encryption(struct mapped_device *md)
  	 */
  	memset(mode_masks, 0xFF, sizeof(mode_masks));
  

@@ -25,7 +25,7 @@ Change-Id: I98f3394b190f097390f980e5d4d57981f91b22a6
  2 files changed, 7 insertions(+), 3 deletions(-)
 
 diff --git a/Makefile b/Makefile
-index fcc7065f99e5..f7630145dcb0 100644
+index a84d64a51cf6..9425eddedf87 100644
 --- a/Makefile
 +++ b/Makefile
 @@ -1126,9 +1126,12 @@ endif

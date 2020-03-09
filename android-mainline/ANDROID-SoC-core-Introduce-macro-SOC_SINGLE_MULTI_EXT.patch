@@ -17,7 +17,7 @@ Signed-off-by: Meng Wang <mwang@codeaurora.org>
  2 files changed, 48 insertions(+)
 
 diff --git a/include/sound/soc.h b/include/sound/soc.h
-index f0e4f36f83bf..6d537f6289b8 100644
+index 8a2266676b2d..b905c7369e28 100644
 --- a/include/sound/soc.h
 +++ b/include/sound/soc.h
 @@ -239,6 +239,14 @@

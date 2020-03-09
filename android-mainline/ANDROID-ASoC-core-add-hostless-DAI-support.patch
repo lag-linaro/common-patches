@@ -40,7 +40,7 @@ index f657ff08f317..95a9a69bf8c5 100644
  
  #define SUBSTREAM_BUSY(substream) ((substream)->ref_count > 0)
 diff --git a/include/sound/soc.h b/include/sound/soc.h
-index 6d537f6289b8..b87e72815997 100644
+index b905c7369e28..92ed051b9549 100644
 --- a/include/sound/soc.h
 +++ b/include/sound/soc.h
 @@ -376,6 +376,10 @@
@@ -101,7 +101,7 @@ index d5443eeb8b63..abedd0cbee31 100644
  		return -EPIPE;
  	runtime->trigger_tstamp_latched = false;
 diff --git a/sound/soc/soc-pcm.c b/sound/soc/soc-pcm.c
-index ff1b7c7078e5..701b4617133a 100644
+index 2c59b3688ca0..a05b3e8df526 100644
 --- a/sound/soc/soc-pcm.c
 +++ b/sound/soc/soc-pcm.c
 @@ -19,6 +19,7 @@

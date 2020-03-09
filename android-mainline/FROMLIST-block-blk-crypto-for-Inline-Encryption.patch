@@ -302,7 +302,7 @@ index cc5ff661feeb..a2ccdc001fea 100644
  		return;
  
 diff --git a/block/blk-core.c b/block/blk-core.c
-index 8b11e455002e..b34ebe06df7f 100644
+index 42d7654d3628..14f9afdb4782 100644
 --- a/block/blk-core.c
 +++ b/block/blk-core.c
 @@ -38,6 +38,7 @@
@@ -334,7 +334,7 @@ index 8b11e455002e..b34ebe06df7f 100644
  	if (unlikely(blk_queue_enter(q, nowait ? BLK_MQ_REQ_NOWAIT : 0))) {
  		if (nowait && !blk_queue_dying(q))
  			bio->bi_status = BLK_STS_AGAIN;
-@@ -1816,5 +1822,8 @@ int __init blk_dev_init(void)
+@@ -1810,5 +1816,8 @@ int __init blk_dev_init(void)
  	if (bio_crypt_ctx_init() < 0)
  		panic("Failed to allocate mem for bio crypt ctxs\n");
  

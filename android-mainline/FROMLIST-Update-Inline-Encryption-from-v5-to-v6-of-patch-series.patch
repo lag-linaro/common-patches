@@ -375,7 +375,7 @@ index a2ccdc001fea..61941a74c117 100644
  	if (bio_integrity(bio) &&
  	    bio_integrity_clone(b, bio, gfp_mask) < 0) {
 diff --git a/block/blk-core.c b/block/blk-core.c
-index b34ebe06df7f..5cffe7ba2365 100644
+index 14f9afdb4782..ad24ada646d3 100644
 --- a/block/blk-core.c
 +++ b/block/blk-core.c
 @@ -1117,14 +1117,11 @@ blk_qc_t direct_make_request(struct bio *bio)
@@ -404,7 +404,7 @@ index b34ebe06df7f..5cffe7ba2365 100644
  	blk_queue_exit(q);
  	return ret;
  }
-@@ -1822,8 +1820,8 @@ int __init blk_dev_init(void)
+@@ -1816,8 +1814,8 @@ int __init blk_dev_init(void)
  	if (bio_crypt_ctx_init() < 0)
  		panic("Failed to allocate mem for bio crypt ctxs\n");
  
@@ -2559,7 +2559,7 @@ index 020931fc9f7d..cdf0607019d4 100644
 -EXPORT_SYMBOL(keyslot_manager_destroy);
 +EXPORT_SYMBOL_GPL(keyslot_manager_destroy);
 diff --git a/drivers/md/dm.c b/drivers/md/dm.c
-index 9af9656949a0..8501d04628dc 100644
+index 623dcbadf922..157e2ecc2d8d 100644
 --- a/drivers/md/dm.c
 +++ b/drivers/md/dm.c
 @@ -1301,15 +1301,13 @@ static int clone_bio(struct dm_target_io *tio, struct bio *bio,

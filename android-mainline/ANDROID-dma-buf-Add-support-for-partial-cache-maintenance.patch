@@ -21,10 +21,10 @@ Signed-off-by: Sandeep Patil <sspatil@google.com>
  2 files changed, 102 insertions(+)
 
 diff --git a/drivers/dma-buf/dma-buf.c b/drivers/dma-buf/dma-buf.c
-index d4097856c86b..43c60663a60c 100644
+index c343c7c10b4c..972eac89990f 100644
 --- a/drivers/dma-buf/dma-buf.c
 +++ b/drivers/dma-buf/dma-buf.c
-@@ -1004,6 +1004,30 @@ int dma_buf_begin_cpu_access(struct dma_buf *dmabuf,
+@@ -1005,6 +1005,30 @@ int dma_buf_begin_cpu_access(struct dma_buf *dmabuf,
  }
  EXPORT_SYMBOL_GPL(dma_buf_begin_cpu_access);
  
@@ -55,7 +55,7 @@ index d4097856c86b..43c60663a60c 100644
  /**
   * dma_buf_end_cpu_access - Must be called after accessing a dma_buf from the
   * cpu in the kernel context. Calls end_cpu_access to allow exporter-specific
-@@ -1030,6 +1054,21 @@ int dma_buf_end_cpu_access(struct dma_buf *dmabuf,
+@@ -1031,6 +1055,21 @@ int dma_buf_end_cpu_access(struct dma_buf *dmabuf,
  }
  EXPORT_SYMBOL_GPL(dma_buf_end_cpu_access);
  

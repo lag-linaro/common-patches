@@ -302,7 +302,7 @@ index 000000000000..a9f102aa379e
 +module_param_string(invalidate_on_error, avb_invalidate_on_error,
 +		    sizeof(avb_invalidate_on_error), 0);
 diff --git a/drivers/md/dm-verity-target.c b/drivers/md/dm-verity-target.c
-index 0d61e9c67986..ed486f38b747 100644
+index eec9f252e935..50cca8c0f7d0 100644
 --- a/drivers/md/dm-verity-target.c
 +++ b/drivers/md/dm-verity-target.c
 @@ -251,8 +251,12 @@ static int verity_handle_err(struct dm_verity *v, enum verity_block_type type,

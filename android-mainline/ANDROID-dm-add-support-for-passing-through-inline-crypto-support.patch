@@ -152,7 +152,7 @@ index 0a2cc197f62b..406071200425 100644
  	 * Some devices don't use blk_integrity but still want stable pages
  	 * because they do their own checksumming.
 diff --git a/drivers/md/dm.c b/drivers/md/dm.c
-index 8501d04628dc..3253b6a1cfae 100644
+index 157e2ecc2d8d..0f220a05a68c 100644
 --- a/drivers/md/dm.c
 +++ b/drivers/md/dm.c
 @@ -25,6 +25,8 @@
@@ -164,16 +164,16 @@ index 8501d04628dc..3253b6a1cfae 100644
  
  #define DM_MSG_PREFIX "core"
  
-@@ -1864,6 +1866,8 @@ static void dm_init_normal_md_queue(struct mapped_device *md)
- 	md->queue->backing_dev_info->congested_fn = dm_any_congested;
- }
+@@ -1856,6 +1858,8 @@ static const struct dax_operations dm_dax_ops;
+ 
+ static void dm_wq_work(struct work_struct *work);
  
 +static void dm_destroy_inline_encryption(struct request_queue *q);
 +
  static void cleanup_mapped_device(struct mapped_device *md)
  {
  	if (md->wq)
-@@ -1885,8 +1889,10 @@ static void cleanup_mapped_device(struct mapped_device *md)
+@@ -1877,8 +1881,10 @@ static void cleanup_mapped_device(struct mapped_device *md)
  		put_disk(md->disk);
  	}
  
@@ -185,7 +185,7 @@ index 8501d04628dc..3253b6a1cfae 100644
  
  	cleanup_srcu_struct(&md->io_barrier);
  
-@@ -2250,6 +2256,89 @@ struct queue_limits *dm_get_queue_limits(struct mapped_device *md)
+@@ -2242,6 +2248,89 @@ struct queue_limits *dm_get_queue_limits(struct mapped_device *md)
  }
  EXPORT_SYMBOL_GPL(dm_get_queue_limits);
  
@@ -272,10 +272,10 @@ index 8501d04628dc..3253b6a1cfae 100644
 +}
 +#endif /* !CONFIG_BLK_INLINE_ENCRYPTION */
 +
- /*
-  * Setup the DM device's queue based on md's type
-  */
-@@ -2282,6 +2371,13 @@ int dm_setup_md_queue(struct mapped_device *md, struct dm_table *t)
+ static void dm_init_congested_fn(struct mapped_device *md)
+ {
+ 	md->queue->backing_dev_info->congested_data = md;
+@@ -2281,6 +2370,13 @@ int dm_setup_md_queue(struct mapped_device *md, struct dm_table *t)
  		DMERR("Cannot calculate initial queue limits");
  		return r;
  	}

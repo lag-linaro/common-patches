@@ -1,8 +1,8 @@
 #
 # android-mainline patches
 #
-# Applies onto upstream 98d54f81e36b Linux v5.6-rc4
-# Matches android-mainline fa37c212ca8e ("ANDROID: cpufreq: times: Remove per-UID time in state tracking")
+# Applies onto upstream 2c523b344dfa Linux v5.6-rc5
+# Matches android-mainline ab9ed608759f ("Merge 5.6-rc5 into android-mainline")
 #
 Revert-security-lockdown-selinux-implement-SELinux-lockdown.patch
 Revert-drm-virtio-fix-DRM_FORMAT_-handling.patch
@@ -45,7 +45,6 @@ FROMLIST-usb-renesas-xhci-Add-the-renesas-xhci-driver.patch
 FROMLIST-usb-renesas-xhci-Add-ROM-loader-for-uPD720201.patch
 FROMLIST-usb-renesas-xhci-allow-multiple-firmware-versions.patch
 FROMLIST-usb-xhci-provide-a-debugfs-hook-for-erasing-rom.patch
-FROMLIST-usb-dwc3-gadget-Correct-the-logic-for-finding-last-SG-entry.patch
 FROMLIST-lib-list_sort-fix-function-type-mismatches.patch
 FROMLIST-ubsan-Add-trap-instrumentation-option.patch
 FROMLIST-ubsan-Split-bounds-checker-from-other-options.patch
@@ -285,7 +284,6 @@ ANDROID-update-defconfig-for-5.5-rc3.patch
 ANDROID-serdev-Fix-platform-device-support.patch
 CHROMIUM-cgroups-relax-permissions-on-moving-tasks-between-cgroups.patch
 ANDROID-sdcardfs-fix-ENOENT-lookup-race-issue.patch
-ANDROID-GKI-driver-core-Add-dev_has_sync_state.patch
 ANDROID-GKI-clk-Add-support-for-clock-providers-with-sync-state.patch
 ANDROID-GKI-clk-Don-t-disable-unused-clocks-with-sync-state-support.patch
 ANDROID-clk-qcom-Add-sync_state-clk_sync_state-for-db845c-clock-providers.patch

@@ -25,7 +25,7 @@ Signed-off-by: Quentin Perret <quentin.perret@arm.com>
  2 files changed, 17 insertions(+), 4 deletions(-)
 
 diff --git a/kernel/sched/fair.c b/kernel/sched/fair.c
-index c47918701b4f..c7a57b22c9b5 100644
+index 26506d4ca9e5..35655ab2f2ef 100644
 --- a/kernel/sched/fair.c
 +++ b/kernel/sched/fair.c
 @@ -7757,10 +7757,9 @@ static inline void init_sd_lb_stats(struct sd_lb_stats *sds)

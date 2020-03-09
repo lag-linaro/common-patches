@@ -32,7 +32,7 @@ Signed-off-by: Sami Tolvanen <samitolvanen@google.com>
  8 files changed, 222 insertions(+), 18 deletions(-)
 
 diff --git a/Makefile b/Makefile
-index db91c42c491e..1fafd203051a 100644
+index 8e4c787e8ad3..cc6de806dba8 100644
 --- a/Makefile
 +++ b/Makefile
 @@ -654,6 +654,16 @@ RETPOLINE_VDSO_CFLAGS := $(call cc-option,$(RETPOLINE_VDSO_CFLAGS_GCC),$(call cc
@@ -86,7 +86,7 @@ index db91c42c491e..1fafd203051a 100644
  # Generate tags for editors
  # ---------------------------------------------------------------------------
 diff --git a/arch/Kconfig b/arch/Kconfig
-index 66b34fd0df54..d0fffd4fc5e5 100644
+index 93593557558b..e73f20a909a0 100644
 --- a/arch/Kconfig
 +++ b/arch/Kconfig
 @@ -559,6 +559,53 @@ config SHADOW_CALL_STACK_VMAP

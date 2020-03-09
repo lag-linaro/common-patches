@@ -32,10 +32,10 @@ Signed-off-by: Alistair Delva <adelva@google.com>
  1 file changed, 62 insertions(+), 10 deletions(-)
 
 diff --git a/drivers/tty/serdev/core.c b/drivers/tty/serdev/core.c
-index 42345e79920c..eecfd796bcfd 100644
+index c5f0d936b003..edee0bce7a2d 100644
 --- a/drivers/tty/serdev/core.c
 +++ b/drivers/tty/serdev/core.c
-@@ -31,7 +31,18 @@ static ssize_t modalias_show(struct device *dev,
+@@ -32,7 +32,18 @@ static ssize_t modalias_show(struct device *dev,
  	if (len != -ENODEV)
  		return len;
  
@@ -55,7 +55,7 @@ index 42345e79920c..eecfd796bcfd 100644
  }
  static DEVICE_ATTR_RO(modalias);
  
-@@ -45,13 +56,18 @@ static int serdev_device_uevent(struct device *dev, struct kobj_uevent_env *env)
+@@ -46,13 +57,18 @@ static int serdev_device_uevent(struct device *dev, struct kobj_uevent_env *env)
  {
  	int rc;
  
@@ -77,7 +77,7 @@ index 42345e79920c..eecfd796bcfd 100644
  }
  
  static void serdev_device_release(struct device *dev)
-@@ -87,11 +103,17 @@ static int serdev_device_match(struct device *dev, struct device_driver *drv)
+@@ -88,11 +104,17 @@ static int serdev_device_match(struct device *dev, struct device_driver *drv)
  	if (!is_serdev_device(dev))
  		return 0;
  
@@ -97,7 +97,7 @@ index 42345e79920c..eecfd796bcfd 100644
  }
  
  /**
-@@ -719,6 +741,33 @@ static inline int acpi_serdev_register_devices(struct serdev_controller *ctrl)
+@@ -729,6 +751,33 @@ static inline int acpi_serdev_register_devices(struct serdev_controller *ctrl)
  }
  #endif /* CONFIG_ACPI */
  
@@ -131,7 +131,7 @@ index 42345e79920c..eecfd796bcfd 100644
  /**
   * serdev_controller_add() - Add an serdev controller
   * @ctrl:	controller to be registered.
-@@ -728,7 +777,7 @@ static inline int acpi_serdev_register_devices(struct serdev_controller *ctrl)
+@@ -738,7 +787,7 @@ static inline int acpi_serdev_register_devices(struct serdev_controller *ctrl)
   */
  int serdev_controller_add(struct serdev_controller *ctrl)
  {
@@ -140,7 +140,7 @@ index 42345e79920c..eecfd796bcfd 100644
  
  	/* Can't register until after driver model init */
  	if (WARN_ON(!is_registered))
-@@ -742,9 +791,12 @@ int serdev_controller_add(struct serdev_controller *ctrl)
+@@ -752,9 +801,12 @@ int serdev_controller_add(struct serdev_controller *ctrl)
  
  	ret_of = of_serdev_register_devices(ctrl);
  	ret_acpi = acpi_serdev_register_devices(ctrl);

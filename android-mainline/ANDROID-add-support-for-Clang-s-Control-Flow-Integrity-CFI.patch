@@ -27,7 +27,7 @@ Signed-off-by: Sami Tolvanen <samitolvanen@google.com>
  create mode 100644 kernel/cfi.c
 
 diff --git a/Makefile b/Makefile
-index 1fafd203051a..347c56202c2d 100644
+index cc6de806dba8..db15fd83260c 100644
 --- a/Makefile
 +++ b/Makefile
 @@ -882,6 +882,25 @@ KBUILD_CFLAGS	+= $(CC_FLAGS_LTO)
@@ -57,7 +57,7 @@ index 1fafd203051a..347c56202c2d 100644
  NOSTDINC_FLAGS += -nostdinc -isystem $(shell $(CC) -print-file-name=include)
  
 diff --git a/arch/Kconfig b/arch/Kconfig
-index db6abf0cc18b..1a2e59624e44 100644
+index 2f91463d3972..3acd18157a5d 100644
 --- a/arch/Kconfig
 +++ b/arch/Kconfig
 @@ -607,6 +607,29 @@ config LTO_CLANG

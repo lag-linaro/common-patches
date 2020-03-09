@@ -401,7 +401,7 @@ index 04278493bf15..d88d1bc5f278 100644
  #ifdef CONFIG_VIRT_CPU_ACCOUNTING_GEN
  	struct vtime			vtime;
 diff --git a/kernel/fork.c b/kernel/fork.c
-index 94d6c504f678..550027ff6071 100644
+index e938cb02cb2b..a2b2978d1306 100644
 --- a/kernel/fork.c
 +++ b/kernel/fork.c
 @@ -456,6 +456,7 @@ void put_task_stack(struct task_struct *tsk)

@@ -244,10 +244,10 @@ index 94d697217887..cc5ff661feeb 100644
  }
  EXPORT_SYMBOL(bio_advance);
 diff --git a/block/blk-core.c b/block/blk-core.c
-index 089e890ab208..8b11e455002e 100644
+index 60dc9552ef8d..42d7654d3628 100644
 --- a/block/blk-core.c
 +++ b/block/blk-core.c
-@@ -1813,5 +1813,8 @@ int __init blk_dev_init(void)
+@@ -1807,5 +1807,8 @@ int __init blk_dev_init(void)
  	blk_debugfs_root = debugfs_create_dir("block", NULL);
  #endif
  
@@ -359,7 +359,7 @@ index f8ed677a1bf7..6f9a2359b22a 100644
  
  	bio_clone_blkg_association(bio, bio_src);
 diff --git a/drivers/md/dm.c b/drivers/md/dm.c
-index b89f07ee2eff..9af9656949a0 100644
+index 0413018c8305..623dcbadf922 100644
 --- a/drivers/md/dm.c
 +++ b/drivers/md/dm.c
 @@ -1301,12 +1301,15 @@ static int clone_bio(struct dm_target_io *tio, struct bio *bio,

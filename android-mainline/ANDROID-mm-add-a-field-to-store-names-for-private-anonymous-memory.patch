@@ -218,7 +218,7 @@ index 37df7c9eedb1..ffda9d514239 100644
  			vma = prev;
  			goto next;
 diff --git a/include/linux/mm.h b/include/linux/mm.h
-index 52269e56c514..9b07950c855b 100644
+index c54fb96cb1e6..8958409bbb2a 100644
 --- a/include/linux/mm.h
 +++ b/include/linux/mm.h
 @@ -2258,7 +2258,7 @@ static inline int vma_adjust(struct vm_area_struct *vma, unsigned long start,
@@ -630,10 +630,10 @@ index d681a20eb4ea..5f4a6ef458cc 100644
  		/*
  		 * Source vma may have been merged into new_vma
 diff --git a/mm/mprotect.c b/mm/mprotect.c
-index 7a8e84f86831..9a7247b01e87 100644
+index 311c0dadf71c..295e7da346b1 100644
 --- a/mm/mprotect.c
 +++ b/mm/mprotect.c
-@@ -394,7 +394,7 @@ mprotect_fixup(struct vm_area_struct *vma, struct vm_area_struct **pprev,
+@@ -428,7 +428,7 @@ mprotect_fixup(struct vm_area_struct *vma, struct vm_area_struct **pprev,
  	pgoff = vma->vm_pgoff + ((start - vma->vm_start) >> PAGE_SHIFT);
  	*pprev = vma_merge(mm, *pprev, start, end, newflags,
  			   vma->anon_vma, vma->vm_file, pgoff, vma_policy(vma),

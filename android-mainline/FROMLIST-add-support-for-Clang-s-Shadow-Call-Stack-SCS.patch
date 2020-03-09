@@ -38,7 +38,7 @@ Signed-off-by: Sami Tolvanen <samitolvanen@google.com>
  create mode 100644 kernel/scs.c
 
 diff --git a/Makefile b/Makefile
-index 86035d866f2c..11fdc0aeb281 100644
+index e25db579ce74..a7965eb70f5f 100644
 --- a/Makefile
 +++ b/Makefile
 @@ -846,6 +846,12 @@ ifdef CONFIG_LIVEPATCH
@@ -55,7 +55,7 @@ index 86035d866f2c..11fdc0aeb281 100644
  NOSTDINC_FLAGS += -nostdinc -isystem $(shell $(CC) -print-file-name=include)
  
 diff --git a/arch/Kconfig b/arch/Kconfig
-index 98de654b79b3..66b34fd0df54 100644
+index 17fe351cdde0..93593557558b 100644
 --- a/arch/Kconfig
 +++ b/arch/Kconfig
 @@ -526,6 +526,40 @@ config STACKPROTECTOR_STRONG
@@ -230,7 +230,7 @@ index 4cb4130ced32..c332eb9d4841 100644
  obj-$(CONFIG_PERF_EVENTS) += events/
  
 diff --git a/kernel/fork.c b/kernel/fork.c
-index 60a1295f4384..94d6c504f678 100644
+index 86425305cd4a..e938cb02cb2b 100644
 --- a/kernel/fork.c
 +++ b/kernel/fork.c
 @@ -93,7 +93,9 @@
