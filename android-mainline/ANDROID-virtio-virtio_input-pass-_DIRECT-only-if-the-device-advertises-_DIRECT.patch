@@ -1,8 +1,8 @@
 From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
 From: Roman Kiryanov <rkir@google.com>
 Date: Fri, 7 Feb 2020 17:06:13 -0800
-Subject: =?UTF-8?q?ANDROID:=20virtio:=20virtio=5Finput:=20pass=20=5FDIRECT?=
- =?UTF-8?q?=20only=20if=20the=20device=0Aadvertises=20=5FDIRECT?=
+Subject: ANDROID: virtio: virtio_input: pass _DIRECT only if the device
+ advertises _DIRECT
 
 INPUT_MT_DIRECT should be used only if the device advertises
 INPUT_PROP_DIRECT.

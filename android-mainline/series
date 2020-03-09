@@ -2,7 +2,7 @@
 # android-mainline patches
 #
 # Applies onto upstream 2c523b344dfa Linux v5.6-rc5
-# Matches android-mainline ab9ed608759f ("Merge 5.6-rc5 into android-mainline")
+# Matches android-mainline a9312bae1b06 ("ANDROID: gki_defconfig: enable CONFIG_TYPEC")
 #
 Revert-security-lockdown-selinux-implement-SELinux-lockdown.patch
 Revert-drm-virtio-fix-DRM_FORMAT_-handling.patch
@@ -393,7 +393,7 @@ ANDROID-staging-ion-delete-unused-heap-types-and-IDs.patch
 ANDROID-gki_defconfig-Disable-SDCARD_FS.patch
 ANDROID-net-bpf-Allow-TC-programs-to-call-BPF_FUNC_skb_change_head.patch
 ANDROID-cf-build-Use-merge_configs.patch
-ANDROID-virtio-virtio_input-pass-_DIRECT-only-if-the-device.patch
+ANDROID-virtio-virtio_input-pass-_DIRECT-only-if-the-device-advertises-_DIRECT.patch
 ANDROID-gki_defconfig-Enable-MAC80211_RC_MINSTREL.patch
 ANDROID-gki_defconfig-Enable-XDP_SOCKETS.patch
 ANDROID-gki_defconfig-Enable-CONFIG_NET_NS.patch
@@ -458,3 +458,4 @@ ANDROID-cpufreq-times-Remove-proc-uid_concurrent_-active-policy-_time.patch
 Revert-ANDROID-cpufreq-Add-time_in_state-to-proc-uid-directories.patch
 Revert-ANDROID-proc-Add-proc-uid-directory.patch
 ANDROID-cpufreq-times-Remove-per-UID-time-in-state-tracking.patch
+ANDROID-gki_defconfig-enable-CONFIG_TYPEC.patch
