@@ -90,11 +90,8 @@ ANDROID-net-ipv6-autoconf-routes-into-per-device-tables.patch
 ANDROID-binder-add-support-for-RT-prio-inheritance.patch
 ANDROID-cpufreq-track-per-task-time-in-state.patch
 ANDROID-cpufreq-times-track-per-uid-time-in-state.patch
-ANDROID-proc-Add-proc-uid-directory.patch
-ANDROID-cpufreq-Add-time_in_state-to-proc-uid-directories.patch
 ANDROID-cpufreq-times-add-proc-uid_concurrent_-active-policy-_time.patch
 ANDROID-cpufreq-times-record-fast-switch-frequency-transitions.patch
-ANDROID-cpufreq-times-optimize-proc-files.patch
 ANDROID-dm-bow-Add-dm-bow-feature.patch
 ANDROID-cpufreq-times-don-t-copy-invalid-freqs-from-freq-table.patch
 ANDROID-sdcardfs-Enable-modular-sdcardfs.patch
@@ -370,7 +367,6 @@ ANDROID-gki_defconfig-Relocate-INCREMENTAL_FS.patch
 ANDROID-remove-map-unmap-from-ion_dma.c.patch
 ANDROID-fix-up-uio_sys_stats-to-handle-recent-proc_ops-changes.patch
 ANDROID-fix-up-xt_quota2-for-proc_ops-changes.patch
-ANDROID-cpufreq_times-fix-up-5.6-rc1-api-changes.patch
 ANDROID-dummy-cpufreq-fix-up-5.6-rc1-API-changes.patch
 FROMLIST-pwm-Convert-period-and-duty-cycle-to-u64.patch
 ANDROID-sdcardfs-fix-up-fs-parsing-calls.patch
@@ -441,7 +437,5 @@ FROMLIST-lib-test_stackinit.c-XFAIL-switch-variable-init-tests.patch
 ANDROID-CC_FLAGS_CFI-add-fno-sanitize-blacklist.patch
 ANDROID-staging-ion-Add-an-in-kernel-interface-to-request-heap-info.patch
 ANDROID-cpufreq-times-Remove-proc-uid_concurrent_-active-policy-_time.patch
-Revert-ANDROID-cpufreq-Add-time_in_state-to-proc-uid-directories.patch
-Revert-ANDROID-proc-Add-proc-uid-directory.patch
 ANDROID-cpufreq-times-Remove-per-UID-time-in-state-tracking.patch
 ANDROID-gki_defconfig-enable-CONFIG_TYPEC.patch

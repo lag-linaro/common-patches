@@ -11,13 +11,13 @@ Bug: 127641090
 Signed-off-by: Connor O'Brien <connoro@google.com>
 Change-Id: Iae3e0abef32cbbb9fdc674079973040be0060ac7
 ---
- drivers/cpufreq/cpufreq_times.c | 191 --------------------------------
- drivers/misc/uid_sys_stats.c    |   4 -
- include/linux/cpufreq_times.h   |   3 -
- 3 files changed, 198 deletions(-)
+ drivers/cpufreq/cpufreq_times.c | 45 ---------------------------------
+ drivers/misc/uid_sys_stats.c    |  4 ---
+ include/linux/cpufreq_times.h   |  3 ---
+ 3 files changed, 52 deletions(-)
 
 diff --git a/drivers/cpufreq/cpufreq_times.c b/drivers/cpufreq/cpufreq_times.c
-index 93e0113182eb..4df55b323fc1 100644
+index 789ce8f42ccc..4df55b323fc1 100644
 --- a/drivers/cpufreq/cpufreq_times.c
 +++ b/drivers/cpufreq/cpufreq_times.c
 @@ -15,30 +15,14 @@
@@ -51,131 +51,7 @@ index 93e0113182eb..4df55b323fc1 100644
  
  /**
   * struct cpu_freqs - per-cpu frequency information
-@@ -58,123 +42,6 @@ static struct cpu_freqs *all_freqs[NR_CPUS];
- 
- static unsigned int next_offset;
- 
--/* Caller must hold uid lock */
--static struct uid_entry *find_uid_entry_locked(uid_t uid)
--{
--	struct uid_entry *uid_entry;
--
--	hash_for_each_possible(uid_hash_table, uid_entry, hash, uid) {
--		if (uid_entry->uid == uid)
--			return uid_entry;
--	}
--	return NULL;
--}
--
--/* Caller must hold uid lock */
--static struct uid_entry *find_or_register_uid_locked(uid_t uid)
--{
--	struct uid_entry *uid_entry, *temp;
--	unsigned int max_state = READ_ONCE(next_offset);
--	size_t alloc_size = sizeof(*uid_entry) + max_state *
--		sizeof(uid_entry->time_in_state[0]);
--
--	uid_entry = find_uid_entry_locked(uid);
--	if (uid_entry) {
--		if (uid_entry->max_state == max_state)
--			return uid_entry;
--		/* uid_entry->time_in_state is too small to track all freqs, so
--		 * expand it.
--		 */
--		/* no more __krealloc() so roll our own */
--		temp = kmalloc(alloc_size, GFP_ATOMIC);
--		if (!temp)
--			return uid_entry;
--		memcpy(temp, uid_entry, alloc_size);
--		temp->max_state = max_state;
--		memset(temp->time_in_state + uid_entry->max_state, 0,
--		       (max_state - uid_entry->max_state) *
--		       sizeof(uid_entry->time_in_state[0]));
--		if (temp != uid_entry) {
--			hlist_replace_rcu(&uid_entry->hash, &temp->hash);
--			kfree_rcu(uid_entry, rcu);
--		}
--		return temp;
--	}
--
--	uid_entry = kzalloc(alloc_size, GFP_ATOMIC);
--	if (!uid_entry)
--		return NULL;
--
--	uid_entry->uid = uid;
--	uid_entry->max_state = max_state;
--
--	hash_add_rcu(uid_hash_table, &uid_entry->hash, uid);
--
--	return uid_entry;
--}
--
--static void *uid_seq_start(struct seq_file *seq, loff_t *pos)
--{
--	if (*pos >= HASH_SIZE(uid_hash_table))
--		return NULL;
--
--	return &uid_hash_table[*pos];
--}
--
--static void *uid_seq_next(struct seq_file *seq, void *v, loff_t *pos)
--{
--	do {
--		(*pos)++;
--
--		if (*pos >= HASH_SIZE(uid_hash_table))
--			return NULL;
--	} while (hlist_empty(&uid_hash_table[*pos]));
--
--	return &uid_hash_table[*pos];
--}
--
--static void uid_seq_stop(struct seq_file *seq, void *v) { }
--
--static int uid_time_in_state_seq_show(struct seq_file *m, void *v)
--{
--	struct uid_entry *uid_entry;
--	struct cpu_freqs *freqs, *last_freqs = NULL;
--	int i, cpu;
--
--	if (v == uid_hash_table) {
--		seq_puts(m, "uid:");
--		for_each_possible_cpu(cpu) {
--			freqs = all_freqs[cpu];
--			if (!freqs || freqs == last_freqs)
--				continue;
--			last_freqs = freqs;
--			for (i = 0; i < freqs->max_state; i++) {
--				seq_put_decimal_ull(m, " ",
--						    freqs->freq_table[i]);
--			}
--		}
--		seq_putc(m, '\n');
--	}
--
--	rcu_read_lock();
--
--	hlist_for_each_entry_rcu(uid_entry, (struct hlist_head *)v, hash) {
--		if (uid_entry->max_state) {
--			seq_put_decimal_ull(m, "", uid_entry->uid);
--			seq_putc(m, ':');
--		}
--		for (i = 0; i < uid_entry->max_state; ++i) {
--			u64 time = nsec_to_clock_t(uid_entry->time_in_state[i]);
--			seq_put_decimal_ull(m, " ", time);
--		}
--		if (uid_entry->max_state)
--			seq_putc(m, '\n');
--	}
--
--	rcu_read_unlock();
--	return 0;
--}
--
- void cpufreq_task_times_init(struct task_struct *p)
- {
- 	unsigned long flags;
-@@ -267,9 +134,7 @@ void cpufreq_acct_update_power(struct task_struct *p, u64 cputime)
+@@ -150,9 +134,7 @@ void cpufreq_acct_update_power(struct task_struct *p, u64 cputime)
  {
  	unsigned long flags;
  	unsigned int state;
@@ -185,7 +61,7 @@ index 93e0113182eb..4df55b323fc1 100644
  
  	if (!freqs || is_idle_task(p) || p->flags & PF_EXITING)
  		return;
-@@ -281,12 +146,6 @@ void cpufreq_acct_update_power(struct task_struct *p, u64 cputime)
+@@ -164,12 +146,6 @@ void cpufreq_acct_update_power(struct task_struct *p, u64 cputime)
  	    p->time_in_state)
  		p->time_in_state[state] += cputime;
  	spin_unlock_irqrestore(&task_time_in_state_lock, flags);
@@ -198,7 +74,7 @@ index 93e0113182eb..4df55b323fc1 100644
  }
  
  static int cpufreq_times_get_index(struct cpu_freqs *freqs, unsigned int freq)
-@@ -338,27 +197,6 @@ void cpufreq_times_create_policy(struct cpufreq_policy *policy)
+@@ -221,27 +197,6 @@ void cpufreq_times_create_policy(struct cpufreq_policy *policy)
  		all_freqs[cpu] = freqs;
  }
  
@@ -226,39 +102,6 @@ index 93e0113182eb..4df55b323fc1 100644
  void cpufreq_times_record_transition(struct cpufreq_policy *policy,
  	unsigned int new_freq)
  {
-@@ -371,32 +209,3 @@ void cpufreq_times_record_transition(struct cpufreq_policy *policy,
- 	if (index >= 0)
- 		WRITE_ONCE(freqs->last_index, index);
- }
--
--static const struct seq_operations uid_time_in_state_seq_ops = {
--	.start = uid_seq_start,
--	.next = uid_seq_next,
--	.stop = uid_seq_stop,
--	.show = uid_time_in_state_seq_show,
--};
--
--static int uid_time_in_state_open(struct inode *inode, struct file *file)
--{
--	return seq_open(file, &uid_time_in_state_seq_ops);
--}
--
--static const struct proc_ops uid_time_in_state_fops = {
--	.proc_open	= uid_time_in_state_open,
--	.proc_read	= seq_read,
--	.proc_lseek	= seq_lseek,
--	.proc_release	= seq_release,
--};
--
--static int __init cpufreq_times_init(void)
--{
--	proc_create_data("uid_time_in_state", 0444, NULL,
--			 &uid_time_in_state_fops, NULL);
--
--	return 0;
--}
--
--early_initcall(cpufreq_times_init);
 diff --git a/drivers/misc/uid_sys_stats.c b/drivers/misc/uid_sys_stats.c
 index 3048edf85b46..0009193b0eb3 100644
 --- a/drivers/misc/uid_sys_stats.c

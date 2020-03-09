@@ -54,10 +54,10 @@ index 6f4a8db27c52..b0a96671fcc1 100644
  EXPORT_SYMBOL_GPL(cpufreq_driver_fast_switch);
  
 diff --git a/drivers/cpufreq/cpufreq_times.c b/drivers/cpufreq/cpufreq_times.c
-index aaded60c9a21..42420c5e1e6f 100644
+index 092d15450238..7057860c5dfd 100644
 --- a/drivers/cpufreq/cpufreq_times.c
 +++ b/drivers/cpufreq/cpufreq_times.c
-@@ -550,24 +550,17 @@ void cpufreq_task_times_remove_uids(uid_t uid_start, uid_t uid_end)
+@@ -289,22 +289,15 @@ void cpufreq_task_times_remove_uids(uid_t uid_start, uid_t uid_end)
  	spin_unlock_irqrestore(&uid_lock, flags);
  }
  
@@ -84,10 +84,8 @@ index aaded60c9a21..42420c5e1e6f 100644
 -
 -	cpufreq_cpu_put(policy);
  }
- 
- static const struct seq_operations uid_time_in_state_seq_ops = {
 diff --git a/include/linux/cpufreq_times.h b/include/linux/cpufreq_times.h
-index 757bf0cb6070..0eb6dc9d0fe2 100644
+index a03157f649a4..881d5026f0db 100644
 --- a/include/linux/cpufreq_times.h
 +++ b/include/linux/cpufreq_times.h
 @@ -27,7 +27,8 @@ int proc_time_in_state_show(struct seq_file *m, struct pid_namespace *ns,
@@ -98,9 +96,9 @@ index 757bf0cb6070..0eb6dc9d0fe2 100644
 +void cpufreq_times_record_transition(struct cpufreq_policy *policy,
 +                                     unsigned int new_freq);
  void cpufreq_task_times_remove_uids(uid_t uid_start, uid_t uid_end);
- int single_uid_time_in_state_open(struct inode *inode, struct file *file);
  #else
-@@ -38,7 +39,7 @@ static inline void cpufreq_acct_update_power(struct task_struct *p,
+ static inline void cpufreq_task_times_init(struct task_struct *p) {}
+@@ -37,7 +38,7 @@ static inline void cpufreq_acct_update_power(struct task_struct *p,
  					     u64 cputime) {}
  static inline void cpufreq_times_create_policy(struct cpufreq_policy *policy) {}
  static inline void cpufreq_times_record_transition(
