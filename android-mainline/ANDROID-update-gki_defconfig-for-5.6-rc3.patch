@@ -1,0 +1,31 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: Greg Kroah-Hartman <gregkh@google.com>
+Date: Mon, 24 Feb 2020 15:14:59 +0100
+Subject: ANDROID: update gki_defconfig for 5.6-rc3
+
+Signed-off-by: Greg Kroah-Hartman <gregkh@google.com>
+Change-Id: Ib73b80782fadd1302d8e7ade231943a1cd65ee99
+---
+ arch/arm64/configs/gki_defconfig | 2 --
+ 1 file changed, 2 deletions(-)
+
+diff --git a/arch/arm64/configs/gki_defconfig b/arch/arm64/configs/gki_defconfig
+index 6358e9b1dd52..26d99b386d87 100644
+--- a/arch/arm64/configs/gki_defconfig
++++ b/arch/arm64/configs/gki_defconfig
+@@ -119,7 +119,6 @@ CONFIG_IPV6_MIP6=y
+ CONFIG_IPV6_VTI=y
+ CONFIG_IPV6_MULTIPLE_TABLES=y
+ CONFIG_NETFILTER=y
+-# CONFIG_BRIDGE_NETFILTER is not set
+ CONFIG_NF_CONNTRACK=y
+ CONFIG_NF_CONNTRACK_SECMARK=y
+ CONFIG_NF_CONNTRACK_EVENTS=y
+@@ -364,7 +363,6 @@ CONFIG_DMADEVICES=y
+ CONFIG_UIO=y
+ CONFIG_STAGING=y
+ CONFIG_ASHMEM=y
+-CONFIG_ANDROID_VSOC=y
+ CONFIG_ION=y
+ CONFIG_ION_SYSTEM_HEAP=y
+ CONFIG_COMMON_CLK_SCPI=y

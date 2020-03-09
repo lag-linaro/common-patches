@@ -1,0 +1,59 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: Quentin Perret <qperret@google.com>
+Date: Tue, 18 Feb 2020 09:41:39 +0000
+Subject: FROMLIST: kbuild: generate autoksyms.h early
+
+When doing a cold build, autoksyms.h starts empty, and is updated late
+in the build process to have visibility over the symbols used by in-tree
+drivers. But since the symbol whitelist is known upfront, it can be used
+to pre-populate autoksyms.h and maximize the amount of code that can be
+compiled to its final state in a single pass, hence reducing build time.
+
+Do this by using gen_autoksyms.sh to initialize autoksyms.h instead of
+creating an empty file.
+
+Bug: 148277666
+Acked-by: Nicolas Pitre <nico@fluxnic.net>
+Tested-by: Matthias Maennich <maennich@google.com>
+Reviewed-by: Matthias Maennich <maennich@google.com>
+Signed-off-by: Quentin Perret <qperret@google.com>
+Link: https://lore.kernel.org/lkml/20200218094139.78835-4-qperret@google.com
+Change-Id: I98f3394b190f097390f980e5d4d57981f91b22a6
+---
+ Makefile                 | 7 +++++--
+ scripts/gen_autoksyms.sh | 3 ++-
+ 2 files changed, 7 insertions(+), 3 deletions(-)
+
+diff --git a/Makefile b/Makefile
+index 2cde2b20c714..a2d4dacfa8e0 100644
+--- a/Makefile
++++ b/Makefile
+@@ -1125,9 +1125,12 @@ endif
+ 
+ autoksyms_h := $(if $(CONFIG_TRIM_UNUSED_KSYMS), include/generated/autoksyms.h)
+ 
++quiet_cmd_autoksyms_h = GEN     $@
++      cmd_autoksyms_h = mkdir -p $(dir $@); $(CONFIG_SHELL) \
++			$(srctree)/scripts/gen_autoksyms.sh $@
++
+ $(autoksyms_h):
+-	$(Q)mkdir -p $(dir $@)
+-	$(Q)touch $@
++	$(call cmd,autoksyms_h)
+ 
+ ARCH_POSTLINK := $(wildcard $(srctree)/arch/$(SRCARCH)/Makefile.postlink)
+ 
+diff --git a/scripts/gen_autoksyms.sh b/scripts/gen_autoksyms.sh
+index 6c625f52118f..679c9f05e4b4 100755
+--- a/scripts/gen_autoksyms.sh
++++ b/scripts/gen_autoksyms.sh
+@@ -39,7 +39,8 @@ cat > "$output_file" << EOT
+ 
+ EOT
+ 
+-sed 's/ko$/mod/' modules.order |
++[ -f modules.order ] && modlist=modules.order || modlist=/dev/null
++sed 's/ko$/mod/' $modlist |
+ xargs -n1 sed -n -e '2{s/ /\n/g;/^$/!p;}' -- |
+ cat - "$ksym_wl" |
+ sort -u |

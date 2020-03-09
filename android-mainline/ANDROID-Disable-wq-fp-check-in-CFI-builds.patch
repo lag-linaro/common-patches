@@ -1,0 +1,33 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: Sami Tolvanen <samitolvanen@google.com>
+Date: Wed, 26 Feb 2020 15:28:50 -0800
+Subject: ANDROID: Disable wq fp check in CFI builds
+
+With non-canonical CFI, LLVM generates jump table entries for external
+symbols in modules and as a result, a function pointer passed from a
+module to the core kernel will have a different address.
+
+Disable the warning for now.
+
+Bug: 145210207
+Change-Id: Ifdcee3479280f7b97abdee6b4c746f447e0944e6
+Signed-off-by: Sami Tolvanen <samitolvanen@google.com>
+Signed-off-by: Alistair Delva <adelva@google.com>
+---
+ kernel/workqueue.c | 2 ++
+ 1 file changed, 2 insertions(+)
+
+diff --git a/kernel/workqueue.c b/kernel/workqueue.c
+index 301db4406bc3..15206e508889 100644
+--- a/kernel/workqueue.c
++++ b/kernel/workqueue.c
+@@ -1619,7 +1619,9 @@ static void __queue_delayed_work(int cpu, struct workqueue_struct *wq,
+ 	struct work_struct *work = &dwork->work;
+ 
+ 	WARN_ON_ONCE(!wq);
++#ifndef CONFIG_CFI
+ 	WARN_ON_ONCE(timer->function != delayed_work_timer_fn);
++#endif
+ 	WARN_ON_ONCE(timer_pending(timer));
+ 	WARN_ON_ONCE(!list_empty(&work->entry));
+ 

@@ -1,0 +1,44 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: John Stultz <john.stultz@linaro.org>
+Date: Tue, 25 Feb 2020 23:41:42 +0000
+Subject: ANDROID: drm/msm/a6xx: Make a6xx_gmu_bo.iova a dma_addr_t
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+With commit 2bc6d0193f13 ("FROMLIST: drm/msm/a6xx: Use the DMA
+API for GMU memory objects") it started using the iova entry in
+the a6xx_gmu_bo structure as a dma_attr_t. Unfortunately this
+runs into type trouble on 32 bit platforms.
+
+Specifically:
+  drivers/gpu/drm/msm/adreno/a6xx_gmu.c:943:49: error: passing
+  argument 3 of ‘dma_alloc_attrs’ from incompatible pointer type
+  [-Werror=incompatible-pointer-types]
+
+as reported by kernelci:
+https://kernelci.org/build/id/5e552216959c29be1c5ea41a/logs/
+
+So this patch changes the type of iova to dma_addr_t to fix
+these build issues.
+
+Fixes: 2bc6d0193f13 ("FROMLIST: drm/msm/a6xx: Use the DMA API for GMU memory objects")
+Signed-off-by: John Stultz <john.stultz@linaro.org>
+Change-Id: Ia3a76acc1d501c629508bf4d10a931353a49568d
+---
+ drivers/gpu/drm/msm/adreno/a6xx_gmu.h | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gmu.h b/drivers/gpu/drm/msm/adreno/a6xx_gmu.h
+index 31bd1987db88..d10cddd009c1 100644
+--- a/drivers/gpu/drm/msm/adreno/a6xx_gmu.h
++++ b/drivers/gpu/drm/msm/adreno/a6xx_gmu.h
+@@ -12,7 +12,7 @@
+ struct a6xx_gmu_bo {
+ 	void *virt;
+ 	size_t size;
+-	u64 iova;
++	dma_addr_t iova;
+ 	unsigned long attrs;
+ };
+ 
