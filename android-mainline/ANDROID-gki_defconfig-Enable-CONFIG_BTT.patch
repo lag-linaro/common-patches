@@ -14,10 +14,10 @@ Signed-off-by: Alistair Delva <adelva@google.com>
  2 files changed, 2 deletions(-)
 
 diff --git a/arch/arm64/configs/gki_defconfig b/arch/arm64/configs/gki_defconfig
-index 4aa65bd93cf2..fd660d4afebb 100644
+index 5553a74e23d5..f8b8151a159a 100644
 --- a/arch/arm64/configs/gki_defconfig
 +++ b/arch/arm64/configs/gki_defconfig
-@@ -403,7 +403,6 @@ CONFIG_ANDROID=y
+@@ -406,7 +406,6 @@ CONFIG_ANDROID=y
  CONFIG_ANDROID_BINDER_IPC=y
  CONFIG_LIBNVDIMM=y
  # CONFIG_ND_BLK is not set
@@ -26,10 +26,10 @@ index 4aa65bd93cf2..fd660d4afebb 100644
  CONFIG_EXT4_FS=y
  CONFIG_EXT4_FS_SECURITY=y
 diff --git a/arch/x86/configs/gki_defconfig b/arch/x86/configs/gki_defconfig
-index 7c83a490d160..7a9076e817a0 100644
+index c82061b64b63..8c55cb50c59b 100644
 --- a/arch/x86/configs/gki_defconfig
 +++ b/arch/x86/configs/gki_defconfig
-@@ -336,7 +336,6 @@ CONFIG_ANDROID=y
+@@ -339,7 +339,6 @@ CONFIG_ANDROID=y
  CONFIG_ANDROID_BINDER_IPC=y
  CONFIG_LIBNVDIMM=y
  # CONFIG_ND_BLK is not set

@@ -26,10 +26,10 @@ index c8b7fc3c3cd1..5ad26f72e3ad 100644
  CONFIG_INTERCONNECT_QCOM_SDM845=m
 +CONFIG_INCREMENTAL_FS=m
 diff --git a/arch/arm64/configs/gki_defconfig b/arch/arm64/configs/gki_defconfig
-index 7779918ff513..863d169b462a 100644
+index 0e4484ec04ed..79e925553f9c 100644
 --- a/arch/arm64/configs/gki_defconfig
 +++ b/arch/arm64/configs/gki_defconfig
-@@ -396,7 +396,6 @@ CONFIG_QUOTA=y
+@@ -399,7 +399,6 @@ CONFIG_QUOTA=y
  CONFIG_QFMT_V2=y
  CONFIG_FUSE_FS=y
  CONFIG_OVERLAY_FS=y
@@ -38,10 +38,10 @@ index 7779918ff513..863d169b462a 100644
  CONFIG_VFAT_FS=y
  CONFIG_TMPFS=y
 diff --git a/arch/x86/configs/gki_defconfig b/arch/x86/configs/gki_defconfig
-index e43112fb64e3..a9d4b4fdd212 100644
+index b6c7a044f644..2f093dee35ce 100644
 --- a/arch/x86/configs/gki_defconfig
 +++ b/arch/x86/configs/gki_defconfig
-@@ -331,7 +331,6 @@ CONFIG_QUOTA=y
+@@ -334,7 +334,6 @@ CONFIG_QUOTA=y
  CONFIG_QFMT_V2=y
  CONFIG_FUSE_FS=y
  CONFIG_OVERLAY_FS=y

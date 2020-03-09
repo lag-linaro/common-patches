@@ -226,7 +226,6 @@ ANDROID-add-unstripped-modules-to-the-distribution.patch
 ANDROID-gki_defconfig-disable-FUNCTION_TRACER.patch
 ANDROID-gki_defconfig-enable-CONFIG_IKHEADERS-as-m.patch
 ANDROID-gki_defconfig-FW_CACHE-to-no.patch
-ANDROID-gki_defconfig-removed-CONFIG_PM_WAKELOCKS.patch
 ANDROID-gki_defconfig-m-s-applied-for-virtio-configs-in-arm64.patch
 ANDROID-kbuild-add-CONFIG_LD_IS_LLD.patch
 ANDROID-kbuild-add-support-for-Clang-LTO.patch
@@ -383,7 +382,6 @@ FROMLIST-overlayfs-override_creds-off-option-bypass-creator_cred-2.patch
 FROMLIST-pwm-Convert-period-and-duty-cycle-to-u64.patch
 ANDROID-sdcardfs-fix-up-fs-parsing-calls.patch
 ANDROID-dm-prevent-default-key-from-being-enabled-without-needed-hooks.patch
-ANDROID-Revert-ANDROID-gki_defconfig-removed-CONFIG_PM_WAKELOCKS.patch
 ANDROID-sdcardfs-use-fsparam_flag-to-replace-fsparam_bool.patch
 ANDROID-block-Prevent-crypto-fallback-for-wrapped-keys.patch
 ANDROID-dm-add-support-for-passing-through-derive_raw_secret.patch

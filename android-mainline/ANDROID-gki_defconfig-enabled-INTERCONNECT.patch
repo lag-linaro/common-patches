@@ -12,10 +12,10 @@ Signed-off-by: Ram Muthiah <rammuthiah@google.com>
  1 file changed, 1 insertion(+)
 
 diff --git a/arch/x86/configs/gki_defconfig b/arch/x86/configs/gki_defconfig
-index 7a9076e817a0..b37155d2df73 100644
+index 8c55cb50c59b..27c6c2b9ace1 100644
 --- a/arch/x86/configs/gki_defconfig
 +++ b/arch/x86/configs/gki_defconfig
-@@ -336,6 +336,7 @@ CONFIG_ANDROID=y
+@@ -339,6 +339,7 @@ CONFIG_ANDROID=y
  CONFIG_ANDROID_BINDER_IPC=y
  CONFIG_LIBNVDIMM=y
  # CONFIG_ND_BLK is not set

@@ -19,7 +19,7 @@ Signed-off-by: Alistair Delva <adelva@google.com>
  2 files changed, 2 insertions(+), 2 deletions(-)
 
 diff --git a/arch/arm64/configs/gki_defconfig b/arch/arm64/configs/gki_defconfig
-index afdd5460cd3b..4aa65bd93cf2 100644
+index 484f699859f4..5553a74e23d5 100644
 --- a/arch/arm64/configs/gki_defconfig
 +++ b/arch/arm64/configs/gki_defconfig
 @@ -9,7 +9,7 @@ CONFIG_TASK_IO_ACCOUNTING=y
@@ -32,7 +32,7 @@ index afdd5460cd3b..4aa65bd93cf2 100644
  CONFIG_MEMCG=y
  CONFIG_MEMCG_SWAP=y
 diff --git a/arch/x86/configs/gki_defconfig b/arch/x86/configs/gki_defconfig
-index 3f563152b31d..7c83a490d160 100644
+index 5667d25bf775..c82061b64b63 100644
 --- a/arch/x86/configs/gki_defconfig
 +++ b/arch/x86/configs/gki_defconfig
 @@ -10,7 +10,7 @@ CONFIG_TASK_IO_ACCOUNTING=y

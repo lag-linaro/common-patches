@@ -16,10 +16,10 @@ Signed-off-by: Kenny Root <kroot@google.com>
  3 files changed, 9 insertions(+)
 
 diff --git a/arch/arm64/configs/gki_defconfig b/arch/arm64/configs/gki_defconfig
-index ab480dc3f264..afdd5460cd3b 100644
+index c1dcc9061d70..484f699859f4 100644
 --- a/arch/arm64/configs/gki_defconfig
 +++ b/arch/arm64/configs/gki_defconfig
-@@ -374,6 +374,7 @@ CONFIG_DMADEVICES=y
+@@ -377,6 +377,7 @@ CONFIG_DMADEVICES=y
  CONFIG_UIO=y
  CONFIG_VIRTIO_PCI=m
  # CONFIG_VIRTIO_PCI_LEGACY is not set
@@ -27,7 +27,7 @@ index ab480dc3f264..afdd5460cd3b 100644
  CONFIG_VIRTIO_INPUT=m
  CONFIG_VIRTIO_MMIO=m
  CONFIG_VIRTIO_MMIO_CMDLINE_DEVICES=y
-@@ -400,6 +401,9 @@ CONFIG_QCOM_PDC=y
+@@ -403,6 +404,9 @@ CONFIG_QCOM_PDC=y
  CONFIG_GENERIC_PHY=y
  CONFIG_ANDROID=y
  CONFIG_ANDROID_BINDER_IPC=y
@@ -38,10 +38,10 @@ index ab480dc3f264..afdd5460cd3b 100644
  CONFIG_EXT4_FS=y
  CONFIG_EXT4_FS_SECURITY=y
 diff --git a/arch/x86/configs/gki_defconfig b/arch/x86/configs/gki_defconfig
-index 99593deed32a..3f563152b31d 100644
+index 84f9d974cf63..5667d25bf775 100644
 --- a/arch/x86/configs/gki_defconfig
 +++ b/arch/x86/configs/gki_defconfig
-@@ -321,6 +321,7 @@ CONFIG_RTC_CLASS=y
+@@ -324,6 +324,7 @@ CONFIG_RTC_CLASS=y
  CONFIG_RTC_DRV_TEST=m
  CONFIG_UIO=y
  CONFIG_VIRTIO_PCI=m
@@ -49,7 +49,7 @@ index 99593deed32a..3f563152b31d 100644
  CONFIG_VIRTIO_INPUT=m
  CONFIG_VIRTIO_MMIO=m
  CONFIG_VIRTIO_MMIO_CMDLINE_DEVICES=y
-@@ -333,6 +334,9 @@ CONFIG_PM_DEVFREQ=y
+@@ -336,6 +337,9 @@ CONFIG_PM_DEVFREQ=y
  CONFIG_IIO=y
  CONFIG_ANDROID=y
  CONFIG_ANDROID_BINDER_IPC=y

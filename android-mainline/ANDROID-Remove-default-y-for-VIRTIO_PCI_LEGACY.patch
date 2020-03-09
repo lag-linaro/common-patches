@@ -14,10 +14,10 @@ Signed-off-by: Ram Muthiah <rammuthiah@google.com>
  3 files changed, 8 deletions(-)
 
 diff --git a/arch/arm64/configs/gki_defconfig b/arch/arm64/configs/gki_defconfig
-index 4585196a544f..baac3d32bd1d 100644
+index 44f72897cc01..cc6f05dfa902 100644
 --- a/arch/arm64/configs/gki_defconfig
 +++ b/arch/arm64/configs/gki_defconfig
-@@ -372,7 +372,6 @@ CONFIG_RTC_DRV_PL031=y
+@@ -375,7 +375,6 @@ CONFIG_RTC_DRV_PL031=y
  CONFIG_DMADEVICES=y
  CONFIG_UIO=y
  CONFIG_VIRTIO_PCI=m

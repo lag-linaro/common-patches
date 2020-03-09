@@ -12,10 +12,10 @@ Signed-off-by: Ram Muthiah <rammuthiah@google.com>
  1 file changed, 3 insertions(+)
 
 diff --git a/arch/x86/configs/gki_defconfig b/arch/x86/configs/gki_defconfig
-index dfc7753e719b..e43112fb64e3 100644
+index f41ef691e03b..b6c7a044f644 100644
 --- a/arch/x86/configs/gki_defconfig
 +++ b/arch/x86/configs/gki_defconfig
-@@ -176,6 +176,7 @@ CONFIG_MAC80211=y
+@@ -179,6 +179,7 @@ CONFIG_MAC80211=y
  CONFIG_RFKILL=y
  CONFIG_PCI=y
  CONFIG_PCIEPORTBUS=y
@@ -23,7 +23,7 @@ index dfc7753e719b..e43112fb64e3 100644
  CONFIG_FW_LOADER_USER_HELPER=y
  CONFIG_FW_LOADER_USER_HELPER_FALLBACK=y
  # CONFIG_FW_CACHE is not set
-@@ -252,6 +253,7 @@ CONFIG_SERIAL_8250_CONSOLE=y
+@@ -255,6 +256,7 @@ CONFIG_SERIAL_8250_CONSOLE=y
  CONFIG_SERIAL_OF_PLATFORM=y
  CONFIG_SERIAL_DEV_BUS=y
  CONFIG_HW_RANDOM=y
@@ -31,7 +31,7 @@ index dfc7753e719b..e43112fb64e3 100644
  # CONFIG_I2C_COMPAT is not set
  # CONFIG_I2C_HELPER_AUTO is not set
  CONFIG_SPI=y
-@@ -259,6 +261,7 @@ CONFIG_GPIOLIB=y
+@@ -262,6 +264,7 @@ CONFIG_GPIOLIB=y
  # CONFIG_HWMON is not set
  CONFIG_DEVFREQ_THERMAL=y
  # CONFIG_X86_PKG_TEMP_THERMAL is not set

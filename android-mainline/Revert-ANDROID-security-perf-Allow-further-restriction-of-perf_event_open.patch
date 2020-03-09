@@ -50,10 +50,10 @@ index 92a709f96012..def074807cee 100644
  
  
 diff --git a/arch/arm64/configs/gki_defconfig b/arch/arm64/configs/gki_defconfig
-index ddc2b7848979..6d4aecd3c7b7 100644
+index 155effb8efab..10c8da8b936a 100644
 --- a/arch/arm64/configs/gki_defconfig
 +++ b/arch/arm64/configs/gki_defconfig
-@@ -470,7 +470,6 @@ CONFIG_NLS_MAC_INUIT=y
+@@ -473,7 +473,6 @@ CONFIG_NLS_MAC_INUIT=y
  CONFIG_NLS_MAC_ROMANIAN=y
  CONFIG_NLS_MAC_TURKISH=y
  CONFIG_NLS_UTF8=y
@@ -62,10 +62,10 @@ index ddc2b7848979..6d4aecd3c7b7 100644
  CONFIG_SECURITY_NETWORK=y
  CONFIG_HARDENED_USERCOPY=y
 diff --git a/arch/x86/configs/gki_defconfig b/arch/x86/configs/gki_defconfig
-index 4cc494239483..f767e5b06e99 100644
+index 67e5f7186b85..6b69cd8840ea 100644
 --- a/arch/x86/configs/gki_defconfig
 +++ b/arch/x86/configs/gki_defconfig
-@@ -403,7 +403,6 @@ CONFIG_NLS_MAC_INUIT=y
+@@ -406,7 +406,6 @@ CONFIG_NLS_MAC_INUIT=y
  CONFIG_NLS_MAC_ROMANIAN=y
  CONFIG_NLS_MAC_TURKISH=y
  CONFIG_NLS_UTF8=y

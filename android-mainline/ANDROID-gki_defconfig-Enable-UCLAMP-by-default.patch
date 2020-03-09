@@ -13,7 +13,7 @@ Signed-off-by: Ram Muthiah <rammuthiah@google.com>
  2 files changed, 5 insertions(+)
 
 diff --git a/arch/arm64/configs/gki_defconfig b/arch/arm64/configs/gki_defconfig
-index 9030b5e4f555..5ca63697e2a2 100644
+index 7e8b287cc83e..50e11ed7a290 100644
 --- a/arch/arm64/configs/gki_defconfig
 +++ b/arch/arm64/configs/gki_defconfig
 @@ -10,10 +10,12 @@ CONFIG_PSI=y
@@ -30,7 +30,7 @@ index 9030b5e4f555..5ca63697e2a2 100644
  CONFIG_CPUSETS=y
  CONFIG_CGROUP_CPUACCT=y
 diff --git a/arch/x86/configs/gki_defconfig b/arch/x86/configs/gki_defconfig
-index 7942356365e3..0266d3ee1d3a 100644
+index 698b4db2c44d..b0a1563aa542 100644
 --- a/arch/x86/configs/gki_defconfig
 +++ b/arch/x86/configs/gki_defconfig
 @@ -11,9 +11,11 @@ CONFIG_PSI=y
@@ -45,9 +45,9 @@ index 7942356365e3..0266d3ee1d3a 100644
  CONFIG_CGROUP_FREEZER=y
  CONFIG_CPUSETS=y
  CONFIG_CGROUP_CPUACCT=y
-@@ -44,6 +46,7 @@ CONFIG_PARAVIRT=y
- CONFIG_NR_CPUS=32
- CONFIG_EFI=y
+@@ -47,6 +49,7 @@ CONFIG_PM_WAKELOCKS=y
+ CONFIG_PM_WAKELOCKS_LIMIT=0
+ # CONFIG_PM_WAKELOCKS_GC is not set
  CONFIG_CPU_FREQ_TIMES=y
 +CONFIG_CPU_FREQ_DEFAULT_GOV_SCHEDUTIL=y
  CONFIG_CPU_FREQ_GOV_POWERSAVE=y
