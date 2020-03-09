@@ -26,17 +26,17 @@ Signed-off-by: Guru Das Srinagesh <gurus@codeaurora.org>
  3 files changed, 74 insertions(+)
 
 diff --git a/drivers/pwm/core.c b/drivers/pwm/core.c
-index f877e77d9184..18d9b816f64b 100644
+index 5a7f6598c05f..289f2bbc46e8 100644
 --- a/drivers/pwm/core.c
 +++ b/drivers/pwm/core.c
-@@ -282,6 +282,7 @@ int pwmchip_add_with_polarity(struct pwm_chip *chip,
+@@ -290,6 +290,7 @@ int pwmchip_add_with_polarity(struct pwm_chip *chip,
  		pwm->pwm = chip->base + i;
  		pwm->hwpwm = i;
  		pwm->state.polarity = polarity;
 +		pwm->state.output_type = PWM_OUTPUT_FIXED;
  
- 		if (chip->ops->get_state)
- 			chip->ops->get_state(chip, pwm, &pwm->state);
+ 		radix_tree_insert(&pwm_tree, pwm->pwm, pwm);
+ 	}
 diff --git a/drivers/pwm/sysfs.c b/drivers/pwm/sysfs.c
 index 2389b8669846..1f8f9dbf3189 100644
 --- a/drivers/pwm/sysfs.c

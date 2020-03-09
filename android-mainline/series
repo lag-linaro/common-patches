@@ -1,8 +1,8 @@
 #
 # android-mainline patches
 #
-# Applies onto upstream 4fc2ea6a8608 Linux v5.5-9516-g4fc2ea6a8608
-# Matches android-mainline e3ae1a989100 ("Revert "FROMLIST: pwm: Convert period and duty cycle to u64"")
+# Applies onto upstream 4c7d00ccf40d Linux v5.5-9560-g4c7d00ccf40d
+# Matches android-mainline 8885e886921b ("Merge 4c7d00ccf40d ("Merge tag 'pwm/for-5.6-rc1' of git://git.kernel.org/pub/scm/linux/kernel/git/thierry.reding/linux-pwm") into android-mainline.")
 #
 Revert-security-lockdown-selinux-implement-SELinux-lockdown.patch
 Revert-drm-virtio-fix-DRM_FORMAT_-handling.patch
