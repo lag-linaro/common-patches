@@ -19,7 +19,7 @@ Signed-off-by: Yongqin Liu <yongqin.liu@linaro.org>
  1 file changed, 2 insertions(+)
 
 diff --git a/include/uapi/linux/magic.h b/include/uapi/linux/magic.h
-index 3ac436376d79..b1fbe1551fc6 100644
+index d78064007b17..0a07db4252d5 100644
 --- a/include/uapi/linux/magic.h
 +++ b/include/uapi/linux/magic.h
 @@ -58,6 +58,8 @@

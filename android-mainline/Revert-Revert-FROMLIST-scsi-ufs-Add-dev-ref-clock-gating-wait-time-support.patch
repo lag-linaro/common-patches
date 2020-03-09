@@ -20,7 +20,7 @@ Change-Id: I69900cab82eb84a384db3b30c5a6311964ec9d91
  2 files changed, 48 insertions(+)
 
 diff --git a/drivers/scsi/ufs/ufs.h b/drivers/scsi/ufs/ufs.h
-index dde2eb02f76f..ffe68ab664dd 100644
+index cfe380348bf0..304076eb1008 100644
 --- a/drivers/scsi/ufs/ufs.h
 +++ b/drivers/scsi/ufs/ufs.h
 @@ -167,6 +167,7 @@ enum attr_idn {

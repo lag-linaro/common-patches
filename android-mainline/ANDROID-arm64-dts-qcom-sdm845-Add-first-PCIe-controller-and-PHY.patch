@@ -14,10 +14,10 @@ Change-Id: I7061bbffa40059c9a454e4af9c63b0059256d71f
  1 file changed, 104 insertions(+)
 
 diff --git a/arch/arm64/boot/dts/qcom/sdm845.dtsi b/arch/arm64/boot/dts/qcom/sdm845.dtsi
-index ee67977cb9fd..bf30fcc7b0ee 100644
+index 5d11bfa38ad0..a28012056d55 100644
 --- a/arch/arm64/boot/dts/qcom/sdm845.dtsi
 +++ b/arch/arm64/boot/dts/qcom/sdm845.dtsi
-@@ -1364,6 +1364,110 @@ cache-controller@1100000 {
+@@ -1364,6 +1364,110 @@ system-cache-controller@1100000 {
  			interrupts = <GIC_SPI 582 IRQ_TYPE_LEVEL_HIGH>;
  		};
  

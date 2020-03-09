@@ -1,8 +1,8 @@
 #
 # android-mainline patches
 #
-# Applies onto upstream c9d35ee049b4 Linux v5.5-10283-gc9d35ee049b4
-# Matches android-mainline bfca9d0cc7d5 ("ANDROID: dm: prevent default-key from being enabled without needed hooks")
+# Applies onto upstream bb6d3fb354c5 Linux v5.6-rc1
+# Matches android-mainline a0c97da7998b ("Merge v5.6-rc1 into android-mainline")
 #
 Revert-security-lockdown-selinux-implement-SELinux-lockdown.patch
 Revert-drm-virtio-fix-DRM_FORMAT_-handling.patch
@@ -46,7 +46,6 @@ FROMLIST-usb-renesas-xhci-Add-ROM-loader-for-uPD720201.patch
 FROMLIST-usb-renesas-xhci-allow-multiple-firmware-versions.patch
 FROMLIST-usb-xhci-provide-a-debugfs-hook-for-erasing-rom.patch
 FROMLIST-usb-dwc3-gadget-Correct-the-logic-for-finding-last-SG-entry.patch
-FROMLIST-reset-qcom-aoss-Allow-CONFIG_RESET_QCOM_AOSS-to-be-a-tristate.patch
 FROMLIST-lib-list_sort-fix-function-type-mismatches.patch
 FROMLIST-ubsan-Add-trap-instrumentation-option.patch
 FROMLIST-ubsan-Split-bounds-checker-from-other-options.patch

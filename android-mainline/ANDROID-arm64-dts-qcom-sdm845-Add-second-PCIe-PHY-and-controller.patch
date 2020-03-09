@@ -15,7 +15,7 @@ Change-Id: Ibd47b697a1167d2b040c08cf698898e84cc4e3fd
  1 file changed, 111 insertions(+)
 
 diff --git a/arch/arm64/boot/dts/qcom/sdm845.dtsi b/arch/arm64/boot/dts/qcom/sdm845.dtsi
-index bf30fcc7b0ee..09c1754b9ad3 100644
+index a28012056d55..3ce411f569a9 100644
 --- a/arch/arm64/boot/dts/qcom/sdm845.dtsi
 +++ b/arch/arm64/boot/dts/qcom/sdm845.dtsi
 @@ -1468,6 +1468,117 @@ pcie0_lane: lanes@1c06200 {

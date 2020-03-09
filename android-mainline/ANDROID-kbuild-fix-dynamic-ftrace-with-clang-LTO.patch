@@ -99,10 +99,10 @@ index 3f7ee102868a..9fe5e974490d 100644
  	struct ftrace_page *start_pg;
  	struct ftrace_page *pg;
 diff --git a/scripts/Makefile.build b/scripts/Makefile.build
-index db951449708f..afe852399a96 100644
+index bf0e6da8b5e6..2c81d790d79f 100644
 --- a/scripts/Makefile.build
 +++ b/scripts/Makefile.build
-@@ -177,6 +177,12 @@ ifdef BUILD_C_RECORDMCOUNT
+@@ -179,6 +179,12 @@ ifdef BUILD_C_RECORDMCOUNT
  ifeq ("$(origin RECORDMCOUNT_WARN)", "command line")
    RECORDMCOUNT_FLAGS = -w
  endif
@@ -115,7 +115,7 @@ index db951449708f..afe852399a96 100644
  # Due to recursion, we must skip empty.o.
  # The empty.o file is created in the make process in order to determine
  # the target endianness and word size. It is made before all other C
-@@ -185,6 +191,8 @@ sub_cmd_record_mcount =					\
+@@ -187,6 +193,8 @@ sub_cmd_record_mcount =					\
  	if [ $(@) != "scripts/mod/empty.o" ]; then	\
  		$(objtree)/scripts/recordmcount $(RECORDMCOUNT_FLAGS) "$(@)";	\
  	fi;
@@ -124,7 +124,7 @@ index db951449708f..afe852399a96 100644
  recordmcount_source := $(srctree)/scripts/recordmcount.c \
  		    $(srctree)/scripts/recordmcount.h
  else
-@@ -194,10 +202,13 @@ sub_cmd_record_mcount = perl $(srctree)/scripts/recordmcount.pl "$(ARCH)" \
+@@ -196,10 +204,13 @@ sub_cmd_record_mcount = perl $(srctree)/scripts/recordmcount.pl "$(ARCH)" \
  	"$(OBJDUMP)" "$(OBJCOPY)" "$(CC) $(KBUILD_CPPFLAGS) $(KBUILD_CFLAGS)" \
  	"$(LD) $(KBUILD_LDFLAGS)" "$(NM)" "$(RM)" "$(MV)" \
  	"$(if $(part-of-module),1,0)" "$(@)";

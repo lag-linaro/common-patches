@@ -13,7 +13,7 @@ Signed-off-by: Sami Tolvanen <samitolvanen@google.com>
  1 file changed, 2 insertions(+), 2 deletions(-)
 
 diff --git a/drivers/irqchip/irq-gic-v3.c b/drivers/irqchip/irq-gic-v3.c
-index 286f98222878..d30315bb036e 100644
+index c1f7af9d9ae7..250a8ed992c3 100644
 --- a/drivers/irqchip/irq-gic-v3.c
 +++ b/drivers/irqchip/irq-gic-v3.c
 @@ -1760,7 +1760,7 @@ static void __init gic_of_setup_kvm_info(struct device_node *node)

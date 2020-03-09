@@ -14,7 +14,7 @@ Change-Id: Ic11f523349ca62f8b1972971f0d41941af9ea842
  1 file changed, 91 insertions(+)
 
 diff --git a/arch/arm64/boot/dts/qcom/sdm845-db845c.dts b/arch/arm64/boot/dts/qcom/sdm845-db845c.dts
-index d100f46791a6..6e97ae7f7a08 100644
+index eb77aaa6a819..5026e3c9f7a4 100644
 --- a/arch/arm64/boot/dts/qcom/sdm845-db845c.dts
 +++ b/arch/arm64/boot/dts/qcom/sdm845-db845c.dts
 @@ -352,6 +352,39 @@ &gcc {
@@ -54,10 +54,10 @@ index d100f46791a6..6e97ae7f7a08 100644
 +	vdda-pll-supply = <&vreg_l26a_1p2>;
 +};
 +
- &pm8998_gpio {
- 	vol_up_pin_a: vol-up-active {
- 		pins = "gpio6";
-@@ -394,6 +427,31 @@ &sdhc_2 {
+ &gpu {
+ 	zap-shader {
+ 		memory-region = <&gpu_mem>;
+@@ -406,6 +439,31 @@ &sdhc_2 {
  };
  
  &tlmm {
@@ -89,7 +89,7 @@ index d100f46791a6..6e97ae7f7a08 100644
  	pcie0_pwren_state: pcie0-pwren {
  		pins = "gpio90";
  		function = "gpio";
-@@ -402,6 +460,39 @@ pcie0_pwren_state: pcie0-pwren {
+@@ -414,6 +472,39 @@ pcie0_pwren_state: pcie0-pwren {
  		bias-disable;
  	};
  

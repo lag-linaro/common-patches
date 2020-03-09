@@ -18,7 +18,7 @@ Change-Id: I7edf6052e121d16ccb0f3d3492ff4eefedfa509e
  1 file changed, 2 insertions(+), 2 deletions(-)
 
 diff --git a/include/linux/bpf.h b/include/linux/bpf.h
-index 8e9ad3943cd9..f487d8159a89 100644
+index 49b1a70e12c8..507cb85aef04 100644
 --- a/include/linux/bpf.h
 +++ b/include/linux/bpf.h
 @@ -512,7 +512,7 @@ struct bpf_dispatcher {

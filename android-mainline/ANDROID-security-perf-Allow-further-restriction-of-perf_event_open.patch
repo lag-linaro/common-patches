@@ -51,7 +51,7 @@ index def074807cee..92a709f96012 100644
  
  
 diff --git a/include/linux/perf_event.h b/include/linux/perf_event.h
-index cf65763af0cb..98aabc568f32 100644
+index 547773f5894e..cc7841047de9 100644
 --- a/include/linux/perf_event.h
 +++ b/include/linux/perf_event.h
 @@ -1270,6 +1270,11 @@ extern int perf_cpu_time_max_percent_handler(struct ctl_table *table, int write,
@@ -67,7 +67,7 @@ index cf65763af0cb..98aabc568f32 100644
  #define PERF_SECURITY_OPEN		0
  
 diff --git a/kernel/events/core.c b/kernel/events/core.c
-index 17f9a4a909eb..6c6ae3009160 100644
+index e453589da97c..73c7131ca17d 100644
 --- a/kernel/events/core.c
 +++ b/kernel/events/core.c
 @@ -398,8 +398,13 @@ static cpumask_var_t perf_online_mask;
@@ -84,7 +84,7 @@ index 17f9a4a909eb..6c6ae3009160 100644
  
  /* Minimum for 512 kiB + 1 user control page */
  int sysctl_perf_event_mlock __read_mostly = 512 + (PAGE_SIZE / 1024); /* 'free' kiB per user */
-@@ -11175,6 +11180,9 @@ SYSCALL_DEFINE5(perf_event_open,
+@@ -11184,6 +11189,9 @@ SYSCALL_DEFINE5(perf_event_open,
  	if (err)
  		return err;
  

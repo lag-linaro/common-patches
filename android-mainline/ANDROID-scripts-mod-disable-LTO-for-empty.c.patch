@@ -15,7 +15,7 @@ Signed-off-by: Sami Tolvanen <samitolvanen@google.com>
  1 file changed, 1 insertion(+)
 
 diff --git a/scripts/mod/Makefile b/scripts/mod/Makefile
-index 42c5d50f2bcc..9cbf4630ddfe 100644
+index 296b6a3878b2..b6e3b40c6eeb 100644
 --- a/scripts/mod/Makefile
 +++ b/scripts/mod/Makefile
 @@ -1,5 +1,6 @@
@@ -23,5 +23,5 @@ index 42c5d50f2bcc..9cbf4630ddfe 100644
  OBJECT_FILES_NON_STANDARD := y
 +CFLAGS_REMOVE_empty.o += $(CC_FLAGS_LTO)
  
- hostprogs-y	:= modpost mk_elfconfig
- always		:= $(hostprogs-y) empty.o
+ hostprogs	:= modpost mk_elfconfig
+ always-y	:= $(hostprogs) empty.o
