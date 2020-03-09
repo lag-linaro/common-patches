@@ -1,8 +1,8 @@
 #
 # android-mainline patches
 #
-# Applies onto upstream 4c7d00ccf40d Linux v5.5-9560-g4c7d00ccf40d
-# Matches android-mainline d2ee0ef1e03f ("FROMLIST: pwm: Convert period and duty cycle to u64")
+# Applies onto upstream 236f45329460 Linux v5.5-10257-g236f45329460
+# Matches android-mainline 32aad4282b87 ("Merge 236f45329460 ("Merge branch 'work.misc' of git://git.kernel.org/pub/scm/linux/kernel/git/viro/vfs") into android-mainline")
 #
 Revert-security-lockdown-selinux-implement-SELinux-lockdown.patch
 Revert-drm-virtio-fix-DRM_FORMAT_-handling.patch

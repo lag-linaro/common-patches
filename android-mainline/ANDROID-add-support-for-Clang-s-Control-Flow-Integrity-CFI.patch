@@ -232,10 +232,10 @@ index 8d5397f9fa4c..33ffec021e72 100644
  #ifdef CONFIG_SYSFS
  	struct mutex param_lock;
 diff --git a/init/Kconfig b/init/Kconfig
-index d4ce4f84aa06..518f612d4aca 100644
+index 4c7a77422bf5..6051b4c3ffd8 100644
 --- a/init/Kconfig
 +++ b/init/Kconfig
-@@ -2203,7 +2203,7 @@ endif # MODULES
+@@ -2217,7 +2217,7 @@ endif # MODULES
  
  config MODULES_TREE_LOOKUP
  	def_bool y

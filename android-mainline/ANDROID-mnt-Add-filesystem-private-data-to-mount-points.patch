@@ -32,7 +32,7 @@ Signed-off-by: Matthias Maennich <maennich@google.com>
  5 files changed, 53 insertions(+), 1 deletion(-)
 
 diff --git a/fs/namespace.c b/fs/namespace.c
-index 5e1bf611a9eb..1f702b9cd127 100644
+index 85b5f7bea82e..cabcc0ee4f47 100644
 --- a/fs/namespace.c
 +++ b/fs/namespace.c
 @@ -198,6 +198,7 @@ static struct mount *alloc_vfsmnt(const char *name)
@@ -147,7 +147,7 @@ index 49a058c73e4c..a95e519b77bf 100644
  int get_dominating_id(struct mount *mnt, const struct path *root);
  unsigned int mnt_get_count(struct mount *mnt);
 diff --git a/include/linux/fs.h b/include/linux/fs.h
-index 4d22dfd812e9..e5744eca0059 100644
+index 13a2970f4738..b64a56f91be9 100644
 --- a/include/linux/fs.h
 +++ b/include/linux/fs.h
 @@ -1968,6 +1968,9 @@ struct super_operations {

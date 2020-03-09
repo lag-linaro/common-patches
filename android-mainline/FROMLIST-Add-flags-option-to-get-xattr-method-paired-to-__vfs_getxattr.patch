@@ -215,10 +215,10 @@ index 95d9aebff2c4..1e522e145344 100644
  	name = xattr_full_name(handler, name);
  	return btrfs_getxattr(inode, name, buffer, size);
 diff --git a/fs/ceph/xattr.c b/fs/ceph/xattr.c
-index cb18ee637cb7..a789f1e802b7 100644
+index 7b8a070a782d..8e4cac77df7e 100644
 --- a/fs/ceph/xattr.c
 +++ b/fs/ceph/xattr.c
-@@ -1153,7 +1153,8 @@ int __ceph_setxattr(struct inode *inode, const char *name,
+@@ -1154,7 +1154,8 @@ int __ceph_setxattr(struct inode *inode, const char *name,
  
  static int ceph_get_xattr_handler(const struct xattr_handler *handler,
  				  struct dentry *dentry, struct inode *inode,
@@ -266,7 +266,7 @@ index e23752d9a79f..12616d5510cf 100644
  	return ecryptfs_getxattr(dentry, inode, name, buffer, size);
  }
 diff --git a/fs/ecryptfs/mmap.c b/fs/ecryptfs/mmap.c
-index cffa0c1ec829..2362be3e3b4d 100644
+index 019572c6b39a..bc1ca4dea751 100644
 --- a/fs/ecryptfs/mmap.c
 +++ b/fs/ecryptfs/mmap.c
 @@ -422,7 +422,7 @@ static int ecryptfs_write_inode_size_to_xattr(struct inode *ecryptfs_inode)
@@ -577,10 +577,10 @@ index d0f7a5abd9a9..a3f3cdc0a230 100644
  	const char *name = xattr_full_name(handler, suffix);
  	struct kernfs_node *kn = inode->i_private;
 diff --git a/fs/nfs/nfs4proc.c b/fs/nfs/nfs4proc.c
-index 76d37161409a..5e389136a152 100644
+index 95d07a3dc5d1..e8b40a4b6f74 100644
 --- a/fs/nfs/nfs4proc.c
 +++ b/fs/nfs/nfs4proc.c
-@@ -7298,7 +7298,8 @@ static int nfs4_xattr_set_nfs4_acl(const struct xattr_handler *handler,
+@@ -7341,7 +7341,8 @@ static int nfs4_xattr_set_nfs4_acl(const struct xattr_handler *handler,
  
  static int nfs4_xattr_get_nfs4_acl(const struct xattr_handler *handler,
  				   struct dentry *unused, struct inode *inode,
@@ -590,7 +590,7 @@ index 76d37161409a..5e389136a152 100644
  {
  	return nfs4_proc_get_acl(inode, buf, buflen);
  }
-@@ -7323,7 +7324,8 @@ static int nfs4_xattr_set_nfs4_label(const struct xattr_handler *handler,
+@@ -7366,7 +7367,8 @@ static int nfs4_xattr_set_nfs4_label(const struct xattr_handler *handler,
  
  static int nfs4_xattr_get_nfs4_label(const struct xattr_handler *handler,
  				     struct dentry *unused, struct inode *inode,
@@ -1001,7 +1001,7 @@ index 613d916b9c3a..43489803582f 100644
  	if (rc < 0) {
  		kfree(context);
 diff --git a/security/smack/smack_lsm.c b/security/smack/smack_lsm.c
-index ecea41ce919b..fe658c17b29c 100644
+index 8bc7b04769a8..25a06eec0e11 100644
 --- a/security/smack/smack_lsm.c
 +++ b/security/smack/smack_lsm.c
 @@ -291,7 +291,8 @@ static struct smack_known *smk_fetch(const char *name, struct inode *ip,
@@ -1014,7 +1014,7 @@ index ecea41ce919b..fe658c17b29c 100644
  	if (rc < 0)
  		skp = ERR_PTR(rc);
  	else if (rc == 0)
-@@ -3439,7 +3440,7 @@ static void smack_d_instantiate(struct dentry *opt_dentry, struct inode *inode)
+@@ -3436,7 +3437,7 @@ static void smack_d_instantiate(struct dentry *opt_dentry, struct inode *inode)
  			} else {
  				rc = __vfs_getxattr(dp, inode,
  					XATTR_NAME_SMACKTRANSMUTE, trattr,

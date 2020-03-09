@@ -251,7 +251,7 @@ index b4c46ae2585b..e387c95b9ba1 100644
  }
  
 diff --git a/fs/f2fs/data.c b/fs/f2fs/data.c
-index b63fd6e7b6fd..165b6f3b3f5d 100644
+index 32bdf437cded..9f69a317025d 100644
 --- a/fs/f2fs/data.c
 +++ b/fs/f2fs/data.c
 @@ -25,6 +25,7 @@

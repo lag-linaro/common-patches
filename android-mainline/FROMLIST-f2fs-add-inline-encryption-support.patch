@@ -31,7 +31,7 @@ Link: https://patchwork.kernel.org/patch/11214785/
  3 files changed, 91 insertions(+), 8 deletions(-)
 
 diff --git a/fs/f2fs/data.c b/fs/f2fs/data.c
-index 8bd9afa81c54..b63fd6e7b6fd 100644
+index b27b72107911..32bdf437cded 100644
 --- a/fs/f2fs/data.c
 +++ b/fs/f2fs/data.c
 @@ -436,6 +436,35 @@ static struct bio *__bio_alloc(struct f2fs_io_info *fio, int npages)

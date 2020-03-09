@@ -63,7 +63,7 @@ index b4bbdbd4c8ca..6dde93f6556f 100644
 +}
  EXPORT_SYMBOL(notify_change);
 diff --git a/fs/coredump.c b/fs/coredump.c
-index b1ea7dfbd149..a6b542bb4d85 100644
+index f8296a82d01d..0f83c8bd13b2 100644
 --- a/fs/coredump.c
 +++ b/fs/coredump.c
 @@ -775,7 +775,7 @@ void do_coredump(const kernel_siginfo_t *siginfo)
@@ -76,10 +76,10 @@ index b1ea7dfbd149..a6b542bb4d85 100644
  	}
  
 diff --git a/fs/inode.c b/fs/inode.c
-index c7418b0b4168..889d71f9a105 100644
+index 7d57068b6b7a..19b797f47135 100644
 --- a/fs/inode.c
 +++ b/fs/inode.c
-@@ -1815,7 +1815,7 @@ int dentry_needs_remove_privs(struct dentry *dentry)
+@@ -1821,7 +1821,7 @@ int dentry_needs_remove_privs(struct dentry *dentry)
  	return mask;
  }
  
@@ -88,7 +88,7 @@ index c7418b0b4168..889d71f9a105 100644
  {
  	struct iattr newattrs;
  
-@@ -1824,7 +1824,7 @@ static int __remove_privs(struct dentry *dentry, int kill)
+@@ -1830,7 +1830,7 @@ static int __remove_privs(struct dentry *dentry, int kill)
  	 * Note we call this on write, so notify_change will not
  	 * encounter any conflicting delegations:
  	 */
@@ -97,7 +97,7 @@ index c7418b0b4168..889d71f9a105 100644
  }
  
  /*
-@@ -1851,7 +1851,7 @@ int file_remove_privs(struct file *file)
+@@ -1857,7 +1857,7 @@ int file_remove_privs(struct file *file)
  	if (kill < 0)
  		return kill;
  	if (kill)
@@ -226,7 +226,7 @@ index 1d17ce98cb80..534fa3cc517f 100644
  	if (delegated_inode) {
  		error = break_deleg_wait(&delegated_inode);
 diff --git a/include/linux/fs.h b/include/linux/fs.h
-index 6eae91c0668f..7df2f1d006aa 100644
+index 320d51b24325..3d8850b69736 100644
 --- a/include/linux/fs.h
 +++ b/include/linux/fs.h
 @@ -1877,7 +1877,8 @@ struct inode_operations {
@@ -248,9 +248,9 @@ index 6eae91c0668f..7df2f1d006aa 100644
  extern int vfs_fallocate(struct file *file, int mode, loff_t offset,
  			loff_t len);
  extern long do_sys_open(int dfd, const char __user *filename, int flags,
-@@ -2880,6 +2883,7 @@ extern void emergency_remount(void);
- extern sector_t bmap(struct inode *, sector_t);
+@@ -2887,6 +2890,7 @@ static inline int bmap(struct inode *inode,  sector_t *block)
  #endif
+ 
  extern int notify_change(struct dentry *, struct iattr *, struct inode **);
 +extern int notify_change2(struct vfsmount *, struct dentry *, struct iattr *, struct inode **);
  extern int inode_permission(struct inode *, int);

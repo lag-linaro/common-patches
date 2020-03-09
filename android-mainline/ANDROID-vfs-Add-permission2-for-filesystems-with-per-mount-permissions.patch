@@ -749,7 +749,7 @@ index 71f887518d6f..9520365195cf 100644
  
  int
 diff --git a/include/linux/fs.h b/include/linux/fs.h
-index 7df2f1d006aa..c5a00f49b90f 100644
+index 3d8850b69736..64ec3abffd84 100644
 --- a/include/linux/fs.h
 +++ b/include/linux/fs.h
 @@ -1708,13 +1708,21 @@ extern bool inode_owner_or_capable(const struct inode *inode);
@@ -792,7 +792,7 @@ index 7df2f1d006aa..c5a00f49b90f 100644
  	struct posix_acl * (*get_acl)(struct inode *, int);
  
  	int (*readlink) (struct dentry *, char __user *,int);
-@@ -2885,6 +2897,7 @@ extern sector_t bmap(struct inode *, sector_t);
+@@ -2892,6 +2904,7 @@ static inline int bmap(struct inode *inode,  sector_t *block)
  extern int notify_change(struct dentry *, struct iattr *, struct inode **);
  extern int notify_change2(struct vfsmount *, struct dentry *, struct iattr *, struct inode **);
  extern int inode_permission(struct inode *, int);

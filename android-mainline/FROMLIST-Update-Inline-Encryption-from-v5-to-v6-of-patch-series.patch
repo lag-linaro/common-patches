@@ -4127,7 +4127,7 @@ index e387c95b9ba1..f822cd928a0a 100644
  			bio->bi_iter.bi_sector = blocks[0] << (blkbits - 9);
  			bio->bi_end_io = mpage_end_io;
 diff --git a/fs/f2fs/data.c b/fs/f2fs/data.c
-index 165b6f3b3f5d..c27a80c917cc 100644
+index 9f69a317025d..8fefc8d8b439 100644
 --- a/fs/f2fs/data.c
 +++ b/fs/f2fs/data.c
 @@ -437,7 +437,7 @@ static struct bio *__bio_alloc(struct f2fs_io_info *fio, int npages)

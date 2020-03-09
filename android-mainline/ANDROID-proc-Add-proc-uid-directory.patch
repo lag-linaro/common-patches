@@ -47,7 +47,7 @@ index 27ef84d99f59..c23e8a404f4a 100644
 +	help
 +	Provides aggregated per-uid information under /proc/uid.
 diff --git a/fs/proc/Makefile b/fs/proc/Makefile
-index ead487e80510..3f849ca0edce 100644
+index bd08616ed8ba..9c01a9e98860 100644
 --- a/fs/proc/Makefile
 +++ b/fs/proc/Makefile
 @@ -27,6 +27,7 @@ proc-y	+= softirqs.o

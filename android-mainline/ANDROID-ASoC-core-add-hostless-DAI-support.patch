@@ -28,7 +28,7 @@ Signed-off-by: Sudheer Papothi <spapothi@codeaurora.org>
  5 files changed, 94 insertions(+)
 
 diff --git a/include/sound/pcm.h b/include/sound/pcm.h
-index 5a31525e2df6..7ac1d04ee729 100644
+index f657ff08f317..95a9a69bf8c5 100644
 --- a/include/sound/pcm.h
 +++ b/include/sound/pcm.h
 @@ -480,6 +480,7 @@ struct snd_pcm_substream {
@@ -89,10 +89,10 @@ index 872a852de75c..44003f001000 100644
  	if (snd_BUG_ON(!substream->ops->copy_user && !runtime->dma_area))
  		return -EINVAL;
 diff --git a/sound/core/pcm_native.c b/sound/core/pcm_native.c
-index bb23f5066654..0c1f74c2ce88 100644
+index 336406bcb59e..1eb36376853b 100644
 --- a/sound/core/pcm_native.c
 +++ b/sound/core/pcm_native.c
-@@ -1305,6 +1305,7 @@ static int snd_pcm_pre_start(struct snd_pcm_substream *substream, int state)
+@@ -1322,6 +1322,7 @@ static int snd_pcm_pre_start(struct snd_pcm_substream *substream,
  	if (runtime->status->state != SNDRV_PCM_STATE_PREPARED)
  		return -EBADFD;
  	if (substream->stream == SNDRV_PCM_STREAM_PLAYBACK &&

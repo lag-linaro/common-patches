@@ -74,7 +74,7 @@ index 4cc494239483..f767e5b06e99 100644
  CONFIG_SECURITY_NETWORK=y
  CONFIG_HARDENED_USERCOPY=y
 diff --git a/kernel/events/core.c b/kernel/events/core.c
-index fe87861c68f0..cf5ed52cad88 100644
+index 6c6ae3009160..07ff83cd3dc8 100644
 --- a/kernel/events/core.c
 +++ b/kernel/events/core.c
 @@ -398,13 +398,8 @@ static cpumask_var_t perf_online_mask;

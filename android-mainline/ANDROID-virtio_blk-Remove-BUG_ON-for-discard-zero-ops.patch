@@ -22,10 +22,10 @@ Signed-off-by: Alistair Delva <adelva@google.com>
  1 file changed, 4 insertions(+), 2 deletions(-)
 
 diff --git a/drivers/block/virtio_blk.c b/drivers/block/virtio_blk.c
-index fbbf18ac1d5d..63c09f58e99b 100644
+index 54158766334b..5a01f9456f32 100644
 --- a/drivers/block/virtio_blk.c
 +++ b/drivers/block/virtio_blk.c
-@@ -282,8 +282,6 @@ static blk_status_t virtio_queue_rq(struct blk_mq_hw_ctx *hctx,
+@@ -195,8 +195,6 @@ static blk_status_t virtio_queue_rq(struct blk_mq_hw_ctx *hctx,
  	bool unmap = false;
  	u32 type;
  
@@ -34,7 +34,7 @@ index fbbf18ac1d5d..63c09f58e99b 100644
  	switch (req_op(req)) {
  	case REQ_OP_READ:
  	case REQ_OP_WRITE:
-@@ -311,6 +309,10 @@ static blk_status_t virtio_queue_rq(struct blk_mq_hw_ctx *hctx,
+@@ -220,6 +218,10 @@ static blk_status_t virtio_queue_rq(struct blk_mq_hw_ctx *hctx,
  		return BLK_STS_IOERR;
  	}
  
