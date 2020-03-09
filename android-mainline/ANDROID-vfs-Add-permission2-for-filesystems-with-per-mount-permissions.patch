@@ -48,10 +48,10 @@ Signed-off-by: Yongqin Liu <yongqin.liu@linaro.org>
  11 files changed, 168 insertions(+), 72 deletions(-)
 
 diff --git a/fs/attr.c b/fs/attr.c
-index 0a7f9d67bb35..be094ea6a330 100644
+index 6dde93f6556f..861c5d1aed43 100644
 --- a/fs/attr.c
 +++ b/fs/attr.c
-@@ -250,7 +250,7 @@ int notify_change2(struct vfsmount *mnt, struct dentry * dentry, struct iattr *
+@@ -244,7 +244,7 @@ int notify_change2(struct vfsmount *mnt, struct dentry * dentry, struct iattr *
  			return -EPERM;
  
  		if (!inode_owner_or_capable(inode)) {
@@ -749,10 +749,10 @@ index 71f887518d6f..9520365195cf 100644
  
  int
 diff --git a/include/linux/fs.h b/include/linux/fs.h
-index 466441936ca0..428014af62b6 100644
+index 7df2f1d006aa..c5a00f49b90f 100644
 --- a/include/linux/fs.h
 +++ b/include/linux/fs.h
-@@ -1709,13 +1709,21 @@ extern bool inode_owner_or_capable(const struct inode *inode);
+@@ -1708,13 +1708,21 @@ extern bool inode_owner_or_capable(const struct inode *inode);
   * VFS helper functions..
   */
  extern int vfs_create(struct inode *, struct dentry *, umode_t, bool);
@@ -774,7 +774,7 @@ index 466441936ca0..428014af62b6 100644
  extern int vfs_whiteout(struct inode *, struct dentry *);
  
  extern struct dentry *vfs_tmpfile(struct dentry *dentry, umode_t mode,
-@@ -1724,6 +1732,9 @@ extern struct dentry *vfs_tmpfile(struct dentry *dentry, umode_t mode,
+@@ -1723,6 +1731,9 @@ extern struct dentry *vfs_tmpfile(struct dentry *dentry, umode_t mode,
  int vfs_mkobj(struct dentry *, umode_t,
  		int (*f)(struct dentry *, umode_t, void *),
  		void *);
@@ -784,7 +784,7 @@ index 466441936ca0..428014af62b6 100644
  
  extern long vfs_ioctl(struct file *file, unsigned int cmd, unsigned long arg);
  
-@@ -1864,6 +1875,7 @@ struct inode_operations {
+@@ -1863,6 +1874,7 @@ struct inode_operations {
  	struct dentry * (*lookup) (struct inode *,struct dentry *, unsigned int);
  	const char * (*get_link) (struct dentry *, struct inode *, struct delayed_call *);
  	int (*permission) (struct inode *, int);
@@ -792,7 +792,7 @@ index 466441936ca0..428014af62b6 100644
  	struct posix_acl * (*get_acl)(struct inode *, int);
  
  	int (*readlink) (struct dentry *, char __user *,int);
-@@ -2886,6 +2898,7 @@ extern sector_t bmap(struct inode *, sector_t);
+@@ -2885,6 +2897,7 @@ extern sector_t bmap(struct inode *, sector_t);
  extern int notify_change(struct dentry *, struct iattr *, struct inode **);
  extern int notify_change2(struct vfsmount *, struct dentry *, struct iattr *, struct inode **);
  extern int inode_permission(struct inode *, int);

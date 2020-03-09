@@ -1,8 +1,8 @@
 #
 # android-mainline patches
 #
-# Applies onto upstream 7f879e1a94ac Linux v5.5-9183-g7f879e1a94ac
-# Matches android-mainline 6120a4d78045 ("FROMLIST: overlayfs: override_creds=off option bypass creator_cred")
+# Applies onto upstream d271ab29230b Linux v5.5-9426-gd271ab29230b
+# Matches android-mainline 8462c9124565 ("Merge d271ab29230b ("Merge tag 'for-linus-5.6-rc1-tag' of git://git.kernel.org/pub/scm/linux/kernel/git/xen/tip") into android-mainline")
 #
 Revert-security-lockdown-selinux-implement-SELinux-lockdown.patch
 Revert-drm-virtio-fix-DRM_FORMAT_-handling.patch

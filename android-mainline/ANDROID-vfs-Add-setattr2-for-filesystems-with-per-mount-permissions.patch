@@ -28,10 +28,10 @@ Signed-off-by: Yongqin Liu <yongqin.liu@linaro.org>
  7 files changed, 37 insertions(+), 16 deletions(-)
 
 diff --git a/fs/attr.c b/fs/attr.c
-index df28035aa23e..0a7f9d67bb35 100644
+index b4bbdbd4c8ca..6dde93f6556f 100644
 --- a/fs/attr.c
 +++ b/fs/attr.c
-@@ -226,7 +226,7 @@ EXPORT_SYMBOL(setattr_copy);
+@@ -220,7 +220,7 @@ EXPORT_SYMBOL(setattr_copy);
   * the file open for write, as there can be no conflicting delegation in
   * that case.
   */
@@ -40,7 +40,7 @@ index df28035aa23e..0a7f9d67bb35 100644
  {
  	struct inode *inode = dentry->d_inode;
  	umode_t mode = inode->i_mode;
-@@ -333,7 +333,9 @@ int notify_change(struct dentry * dentry, struct iattr * attr, struct inode **de
+@@ -332,7 +332,9 @@ int notify_change(struct dentry * dentry, struct iattr * attr, struct inode **de
  	if (error)
  		return error;
  
@@ -51,7 +51,7 @@ index df28035aa23e..0a7f9d67bb35 100644
  		error = inode->i_op->setattr(dentry, attr);
  	else
  		error = simple_setattr(dentry, attr);
-@@ -346,4 +348,10 @@ int notify_change(struct dentry * dentry, struct iattr * attr, struct inode **de
+@@ -345,4 +347,10 @@ int notify_change(struct dentry * dentry, struct iattr * attr, struct inode **de
  
  	return error;
  }
@@ -76,10 +76,10 @@ index b1ea7dfbd149..a6b542bb4d85 100644
  	}
  
 diff --git a/fs/inode.c b/fs/inode.c
-index ea15c6d9f274..8877c427c00e 100644
+index c7418b0b4168..889d71f9a105 100644
 --- a/fs/inode.c
 +++ b/fs/inode.c
-@@ -1818,7 +1818,7 @@ int dentry_needs_remove_privs(struct dentry *dentry)
+@@ -1815,7 +1815,7 @@ int dentry_needs_remove_privs(struct dentry *dentry)
  	return mask;
  }
  
@@ -88,7 +88,7 @@ index ea15c6d9f274..8877c427c00e 100644
  {
  	struct iattr newattrs;
  
-@@ -1827,7 +1827,7 @@ static int __remove_privs(struct dentry *dentry, int kill)
+@@ -1824,7 +1824,7 @@ static int __remove_privs(struct dentry *dentry, int kill)
  	 * Note we call this on write, so notify_change will not
  	 * encounter any conflicting delegations:
  	 */
@@ -97,7 +97,7 @@ index ea15c6d9f274..8877c427c00e 100644
  }
  
  /*
-@@ -1854,7 +1854,7 @@ int file_remove_privs(struct file *file)
+@@ -1851,7 +1851,7 @@ int file_remove_privs(struct file *file)
  	if (kill < 0)
  		return kill;
  	if (kill)
@@ -213,7 +213,7 @@ index 0788b3715731..a7bdbcf50ab2 100644
  	if (delegated_inode) {
  		error = break_deleg_wait(&delegated_inode);
 diff --git a/fs/utimes.c b/fs/utimes.c
-index c952b6b3d8a0..1250d8c5a67f 100644
+index 1d17ce98cb80..534fa3cc517f 100644
 --- a/fs/utimes.c
 +++ b/fs/utimes.c
 @@ -57,7 +57,7 @@ static int utimes_common(const struct path *path, struct timespec64 *times)
@@ -226,10 +226,10 @@ index c952b6b3d8a0..1250d8c5a67f 100644
  	if (delegated_inode) {
  		error = break_deleg_wait(&delegated_inode);
 diff --git a/include/linux/fs.h b/include/linux/fs.h
-index 0f7e39bf4a4b..466441936ca0 100644
+index 6eae91c0668f..7df2f1d006aa 100644
 --- a/include/linux/fs.h
 +++ b/include/linux/fs.h
-@@ -1878,7 +1878,8 @@ struct inode_operations {
+@@ -1877,7 +1877,8 @@ struct inode_operations {
  	int (*rename) (struct inode *, struct dentry *,
  			struct inode *, struct dentry *, unsigned int);
  	int (*setattr) (struct dentry *, struct iattr *);
@@ -239,7 +239,7 @@ index 0f7e39bf4a4b..466441936ca0 100644
  	ssize_t (*listxattr) (struct dentry *, char *, size_t);
  	int (*fiemap)(struct inode *, struct fiemap_extent_info *, u64 start,
  		      u64 len);
-@@ -2538,6 +2539,8 @@ static_assert(offsetof(struct filename, iname) % sizeof(long) == 0);
+@@ -2537,6 +2538,8 @@ static_assert(offsetof(struct filename, iname) % sizeof(long) == 0);
  extern long vfs_truncate(const struct path *, loff_t);
  extern int do_truncate(struct dentry *, loff_t start, unsigned int time_attrs,
  		       struct file *filp);
@@ -248,7 +248,7 @@ index 0f7e39bf4a4b..466441936ca0 100644
  extern int vfs_fallocate(struct file *file, int mode, loff_t offset,
  			loff_t len);
  extern long do_sys_open(int dfd, const char __user *filename, int flags,
-@@ -2881,6 +2884,7 @@ extern void emergency_remount(void);
+@@ -2880,6 +2883,7 @@ extern void emergency_remount(void);
  extern sector_t bmap(struct inode *, sector_t);
  #endif
  extern int notify_change(struct dentry *, struct iattr *, struct inode **);
