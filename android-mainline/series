@@ -2,7 +2,7 @@
 # android-mainline patches
 #
 # Applies onto upstream a45ad71e8995 Linux v5.5-9168-ga45ad71e8995
-# Matches android-mainline 1f77f18bb8ac ("Merge a45ad71e8995 ("Merge tag 'rproc-v5.6' of git://git.kernel.org/pub/scm/linux/kernel/git/andersson/remoteproc") into android-mainline")
+# Matches android-mainline 4e35d38c0cbf ("Revert "FROMLIST: overlayfs: handle XATTR_NOSECURITY flag for get xattr method"")
 #
 Revert-security-lockdown-selinux-implement-SELinux-lockdown.patch
 Revert-drm-virtio-fix-DRM_FORMAT_-handling.patch
@@ -387,3 +387,6 @@ ANDROID-Incremental-fs-Fix-crash-on-failed-lookup.patch
 ANDROID-gki-x86-Enable-PCI_MSI-WATCHDOG-HPET.patch
 ANDROID-gki_defconfig-Relocate-INCREMENTAL_FS.patch
 ANDROID-remove-map-unmap-from-ion_dma.c.patch
+Revert-FROMLIST-overlayfs-override_creds-off-option-bypass-creator_cred.patch
+Revert-FROMLIST-overlayfs-internal-getxattr-operations-without-sepolicy-checking.patch
+Revert-FROMLIST-overlayfs-handle-XATTR_NOSECURITY-flag-for-get-xattr-method.patch
