@@ -32,10 +32,10 @@ Signed-off-by: Sami Tolvanen <samitolvanen@google.com>
  8 files changed, 222 insertions(+), 18 deletions(-)
 
 diff --git a/Makefile b/Makefile
-index 7f5e7a83e5e4..19c5ec66a201 100644
+index db91c42c491e..1fafd203051a 100644
 --- a/Makefile
 +++ b/Makefile
-@@ -653,6 +653,16 @@ RETPOLINE_VDSO_CFLAGS := $(call cc-option,$(RETPOLINE_VDSO_CFLAGS_GCC),$(call cc
+@@ -654,6 +654,16 @@ RETPOLINE_VDSO_CFLAGS := $(call cc-option,$(RETPOLINE_VDSO_CFLAGS_GCC),$(call cc
  export RETPOLINE_CFLAGS
  export RETPOLINE_VDSO_CFLAGS
  
@@ -52,7 +52,7 @@ index 7f5e7a83e5e4..19c5ec66a201 100644
  include arch/$(SRCARCH)/Makefile
  
  ifdef need-config
-@@ -855,6 +865,22 @@ KBUILD_CFLAGS	+= $(CC_FLAGS_SCS)
+@@ -856,6 +866,22 @@ KBUILD_CFLAGS	+= $(CC_FLAGS_SCS)
  export CC_FLAGS_SCS
  endif
  
@@ -75,7 +75,7 @@ index 7f5e7a83e5e4..19c5ec66a201 100644
  # arch Makefile may override CC so keep this after arch Makefile is included
  NOSTDINC_FLAGS += -nostdinc -isystem $(shell $(CC) -print-file-name=include)
  
-@@ -1713,7 +1739,8 @@ clean: $(clean-dirs)
+@@ -1715,7 +1741,8 @@ clean: $(clean-dirs)
  		-o -name '.tmp_*.o.*' \
  		-o -name '*.c.[012]*.*' \
  		-o -name '*.ll' \

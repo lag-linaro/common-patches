@@ -27,10 +27,10 @@ Signed-off-by: Sami Tolvanen <samitolvanen@google.com>
  create mode 100644 kernel/cfi.c
 
 diff --git a/Makefile b/Makefile
-index 19c5ec66a201..1c6e0979e592 100644
+index 1fafd203051a..347c56202c2d 100644
 --- a/Makefile
 +++ b/Makefile
-@@ -881,6 +881,25 @@ KBUILD_CFLAGS	+= $(CC_FLAGS_LTO)
+@@ -882,6 +882,25 @@ KBUILD_CFLAGS	+= $(CC_FLAGS_LTO)
  export CC_FLAGS_LTO
  endif
  
@@ -232,10 +232,10 @@ index 8d5397f9fa4c..33ffec021e72 100644
  #ifdef CONFIG_SYSFS
  	struct mutex param_lock;
 diff --git a/init/Kconfig b/init/Kconfig
-index 0d959b2156a5..a8308246a72b 100644
+index ebd4eb859165..d65e3521dc31 100644
 --- a/init/Kconfig
 +++ b/init/Kconfig
-@@ -2216,7 +2216,7 @@ endif # MODULES
+@@ -2215,7 +2215,7 @@ endif # MODULES
  
  config MODULES_TREE_LOOKUP
  	def_bool y

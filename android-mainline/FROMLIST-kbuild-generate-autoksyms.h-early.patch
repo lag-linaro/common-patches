@@ -25,10 +25,10 @@ Change-Id: I98f3394b190f097390f980e5d4d57981f91b22a6
  2 files changed, 7 insertions(+), 3 deletions(-)
 
 diff --git a/Makefile b/Makefile
-index 2cde2b20c714..a2d4dacfa8e0 100644
+index fcc7065f99e5..f7630145dcb0 100644
 --- a/Makefile
 +++ b/Makefile
-@@ -1125,9 +1125,12 @@ endif
+@@ -1126,9 +1126,12 @@ endif
  
  autoksyms_h := $(if $(CONFIG_TRIM_UNUSED_KSYMS), include/generated/autoksyms.h)
  

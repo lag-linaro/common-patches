@@ -24,7 +24,7 @@ Signed-off-by: Connor O'Brien <connoro@google.com>
  3 files changed, 15 insertions(+), 15 deletions(-)
 
 diff --git a/drivers/cpufreq/cpufreq.c b/drivers/cpufreq/cpufreq.c
-index 1a29647d954c..3f1c4378b6e4 100644
+index 6f4a8db27c52..b0a96671fcc1 100644
 --- a/drivers/cpufreq/cpufreq.c
 +++ b/drivers/cpufreq/cpufreq.c
 @@ -388,7 +388,7 @@ static void cpufreq_notify_transition(struct cpufreq_policy *policy,
@@ -36,7 +36,7 @@ index 1a29647d954c..3f1c4378b6e4 100644
  		policy->cur = freqs->new;
  	}
  }
-@@ -2021,9 +2021,15 @@ EXPORT_SYMBOL(cpufreq_unregister_notifier);
+@@ -2029,9 +2029,15 @@ EXPORT_SYMBOL(cpufreq_unregister_notifier);
  unsigned int cpufreq_driver_fast_switch(struct cpufreq_policy *policy,
  					unsigned int target_freq)
  {

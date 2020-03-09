@@ -168,7 +168,7 @@ index c1769afbf799..b4c46ae2585b 100644
  			bio->bi_iter.bi_sector = blocks[0] << (blkbits - 9);
  			bio->bi_end_io = mpage_end_io;
 diff --git a/fs/ext4/super.c b/fs/ext4/super.c
-index ff1b764b0c0e..a0be59eba012 100644
+index 0c7c4adb664e..5144cdf7ad81 100644
 --- a/fs/ext4/super.c
 +++ b/fs/ext4/super.c
 @@ -1411,6 +1411,11 @@ static void ext4_get_ino_and_lblk_bits(struct super_block *sb,

@@ -1,8 +1,8 @@
 #
 # android-mainline patches
 #
-# Applies onto upstream f8788d86ab28 Linux v5.6-rc3
-# Matches android-mainline 89ff7d0c8625 ("ANDROID: ASoC: core: Fix soc_pcm_hw_params crash")
+# Applies onto upstream 98d54f81e36b Linux v5.6-rc4
+# Matches android-mainline f4bdd2d3e419 ("Merge 5.6-rc4 into android-mainline")
 #
 Revert-security-lockdown-selinux-implement-SELinux-lockdown.patch
 Revert-drm-virtio-fix-DRM_FORMAT_-handling.patch
