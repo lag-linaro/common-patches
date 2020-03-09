@@ -1,0 +1,256 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: Barani Muthukumaran <bmuthuku@codeaurora.org>
+Date: Thu, 6 Feb 2020 18:01:20 -0800
+Subject: ANDROID: block: Prevent crypto fallback for wrapped keys
+
+blk-crypto-fallback does not support wrapped keys, hence
+prevent falling back when program_key fails. Add 'is_hw_wrapped'
+flag to blk-crypto-key to mention if the key is wrapped
+when the key is initialized.
+
+Bug: 147209885
+
+Test: Validate FBE, simulate a failure in the underlying blk
+      device and ensure the call fails without falling back
+      to blk-crypto-fallback.
+
+Change-Id: I8bc301ca1ac9e55ba6ab622e8325486916b45c56
+Signed-off-by: Barani Muthukumaran <bmuthuku@codeaurora.org>
+---
+ block/blk-crypto-fallback.c   |  6 ++++++
+ block/blk-crypto.c            | 17 +++++++++++++----
+ drivers/md/dm-default-key.c   |  2 +-
+ fs/crypto/fscrypt_private.h   |  3 +++
+ fs/crypto/inline_crypt.c      |  3 ++-
+ fs/crypto/keysetup.c          | 14 +++++++-------
+ fs/crypto/keysetup_v1.c       |  2 +-
+ include/linux/bio-crypt-ctx.h |  3 +++
+ include/linux/blk-crypto.h    |  1 +
+ 9 files changed, 37 insertions(+), 14 deletions(-)
+
+diff --git a/block/blk-crypto-fallback.c b/block/blk-crypto-fallback.c
+index 5039087b1168..d55f8b3e0719 100644
+--- a/block/blk-crypto-fallback.c
++++ b/block/blk-crypto-fallback.c
+@@ -572,6 +572,12 @@ int blk_crypto_fallback_submit_bio(struct bio **bio_ptr)
+ 	struct bio_crypt_ctx *bc = bio->bi_crypt_context;
+ 	struct bio_fallback_crypt_ctx *f_ctx;
+ 
++	if (bc->bc_key->is_hw_wrapped) {
++		pr_warn_once("HW wrapped key cannot be used with fallback.\n");
++		bio->bi_status = BLK_STS_NOTSUPP;
++		return -EOPNOTSUPP;
++	}
++
+ 	if (!tfms_inited[bc->bc_key->crypto_mode]) {
+ 		bio->bi_status = BLK_STS_IOERR;
+ 		return -EIO;
+diff --git a/block/blk-crypto.c b/block/blk-crypto.c
+index a8de0d9680e0..88df1c0e7e5f 100644
+--- a/block/blk-crypto.c
++++ b/block/blk-crypto.c
+@@ -175,7 +175,9 @@ bool blk_crypto_endio(struct bio *bio)
+  * @raw_key_size: Size of raw key.  Must be at least the required size for the
+  *                chosen @crypto_mode; see blk_crypto_modes[].  (It's allowed
+  *                to be longer than the mode's actual key size, in order to
+- *                support inline encryption hardware that accepts wrapped keys.)
++ *                support inline encryption hardware that accepts wrapped keys.
++ *                @is_hw_wrapped has to be set for such keys)
++ * @is_hw_wrapped: Denotes @raw_key is wrapped.
+  * @crypto_mode: identifier for the encryption algorithm to use
+  * @data_unit_size: the data unit size to use for en/decryption
+  *
+@@ -184,6 +186,7 @@ bool blk_crypto_endio(struct bio *bio)
+  */
+ int blk_crypto_init_key(struct blk_crypto_key *blk_key,
+ 			const u8 *raw_key, unsigned int raw_key_size,
++			bool is_hw_wrapped,
+ 			enum blk_crypto_mode_num crypto_mode,
+ 			unsigned int data_unit_size)
+ {
+@@ -198,9 +201,14 @@ int blk_crypto_init_key(struct blk_crypto_key *blk_key,
+ 	BUILD_BUG_ON(BLK_CRYPTO_MAX_WRAPPED_KEY_SIZE < BLK_CRYPTO_MAX_KEY_SIZE);
+ 
+ 	mode = &blk_crypto_modes[crypto_mode];
+-	if (raw_key_size < mode->keysize ||
+-	    raw_key_size > BLK_CRYPTO_MAX_WRAPPED_KEY_SIZE)
+-		return -EINVAL;
++	if (is_hw_wrapped) {
++		if (raw_key_size < mode->keysize ||
++		    raw_key_size > BLK_CRYPTO_MAX_WRAPPED_KEY_SIZE)
++			return -EINVAL;
++	} else {
++		if (raw_key_size != mode->keysize)
++			return -EINVAL;
++	}
+ 
+ 	if (!is_power_of_2(data_unit_size))
+ 		return -EINVAL;
+@@ -209,6 +217,7 @@ int blk_crypto_init_key(struct blk_crypto_key *blk_key,
+ 	blk_key->data_unit_size = data_unit_size;
+ 	blk_key->data_unit_size_bits = ilog2(data_unit_size);
+ 	blk_key->size = raw_key_size;
++	blk_key->is_hw_wrapped = is_hw_wrapped;
+ 	memcpy(blk_key->raw, raw_key, raw_key_size);
+ 
+ 	/*
+diff --git a/drivers/md/dm-default-key.c b/drivers/md/dm-default-key.c
+index 1eb9ddfad04c..c8af8df227c8 100644
+--- a/drivers/md/dm-default-key.c
++++ b/drivers/md/dm-default-key.c
+@@ -224,7 +224,7 @@ static int default_key_ctr(struct dm_target *ti, unsigned int argc, char **argv)
+ 	}
+ 
+ 	err = blk_crypto_init_key(&dkc->key, raw_key, cipher->key_size,
+-				  cipher->mode_num, dkc->sector_size);
++				  false, cipher->mode_num, dkc->sector_size);
+ 	if (err) {
+ 		ti->error = "Error initializing blk-crypto key";
+ 		goto bad;
+diff --git a/fs/crypto/fscrypt_private.h b/fs/crypto/fscrypt_private.h
+index 2e7a7a8171a1..bc53caf70497 100644
+--- a/fs/crypto/fscrypt_private.h
++++ b/fs/crypto/fscrypt_private.h
+@@ -319,6 +319,7 @@ extern int fscrypt_prepare_inline_crypt_key(
+ 					struct fscrypt_prepared_key *prep_key,
+ 					const u8 *raw_key,
+ 					unsigned int raw_key_size,
++					bool is_hw_wrapped,
+ 					const struct fscrypt_info *ci);
+ 
+ extern void fscrypt_destroy_inline_crypt_key(
+@@ -363,6 +364,7 @@ static inline bool fscrypt_using_inline_encryption(
+ static inline int
+ fscrypt_prepare_inline_crypt_key(struct fscrypt_prepared_key *prep_key,
+ 				 const u8 *raw_key, unsigned int raw_key_size,
++				 bool is_hw_wrapped,
+ 				 const struct fscrypt_info *ci)
+ {
+ 	WARN_ON(1);
+@@ -557,6 +559,7 @@ extern struct fscrypt_mode fscrypt_modes[];
+ 
+ extern int fscrypt_prepare_key(struct fscrypt_prepared_key *prep_key,
+ 			       const u8 *raw_key, unsigned int raw_key_size,
++			       bool is_hw_wrapped,
+ 			       const struct fscrypt_info *ci);
+ 
+ extern void fscrypt_destroy_prepared_key(struct fscrypt_prepared_key *prep_key);
+diff --git a/fs/crypto/inline_crypt.c b/fs/crypto/inline_crypt.c
+index 9c830772b7f5..00da0effa6c9 100644
+--- a/fs/crypto/inline_crypt.c
++++ b/fs/crypto/inline_crypt.c
+@@ -50,6 +50,7 @@ void fscrypt_select_encryption_impl(struct fscrypt_info *ci)
+ int fscrypt_prepare_inline_crypt_key(struct fscrypt_prepared_key *prep_key,
+ 				     const u8 *raw_key,
+ 				     unsigned int raw_key_size,
++				     bool is_hw_wrapped,
+ 				     const struct fscrypt_info *ci)
+ {
+ 	const struct inode *inode = ci->ci_inode;
+@@ -80,7 +81,7 @@ int fscrypt_prepare_inline_crypt_key(struct fscrypt_prepared_key *prep_key,
+ 		     BLK_CRYPTO_MAX_WRAPPED_KEY_SIZE);
+ 
+ 	err = blk_crypto_init_key(&blk_key->base, raw_key, raw_key_size,
+-				  crypto_mode, sb->s_blocksize);
++				  is_hw_wrapped, crypto_mode, sb->s_blocksize);
+ 	if (err) {
+ 		fscrypt_err(inode, "error %d initializing blk-crypto key", err);
+ 		goto fail;
+diff --git a/fs/crypto/keysetup.c b/fs/crypto/keysetup.c
+index 527b0bcd271e..04c86e489a7a 100644
+--- a/fs/crypto/keysetup.c
++++ b/fs/crypto/keysetup.c
+@@ -117,15 +117,15 @@ fscrypt_allocate_skcipher(struct fscrypt_mode *mode, const u8 *raw_key,
+  */
+ int fscrypt_prepare_key(struct fscrypt_prepared_key *prep_key,
+ 			const u8 *raw_key, unsigned int raw_key_size,
+-			const struct fscrypt_info *ci)
++			bool is_hw_wrapped, const struct fscrypt_info *ci)
+ {
+ 	struct crypto_skcipher *tfm;
+ 
+ 	if (fscrypt_using_inline_encryption(ci))
+ 		return fscrypt_prepare_inline_crypt_key(prep_key,
+-				raw_key, raw_key_size, ci);
++				raw_key, raw_key_size, is_hw_wrapped, ci);
+ 
+-	if (WARN_ON(raw_key_size != ci->ci_mode->keysize))
++	if (WARN_ON(is_hw_wrapped || raw_key_size != ci->ci_mode->keysize))
+ 		return -EINVAL;
+ 
+ 	tfm = fscrypt_allocate_skcipher(ci->ci_mode, raw_key, ci->ci_inode);
+@@ -150,8 +150,8 @@ void fscrypt_destroy_prepared_key(struct fscrypt_prepared_key *prep_key)
+ int fscrypt_set_per_file_enc_key(struct fscrypt_info *ci, const u8 *raw_key)
+ {
+ 	ci->ci_owns_key = true;
+-	return fscrypt_prepare_key(&ci->ci_key, raw_key,
+-				   ci->ci_mode->keysize, ci);
++	return fscrypt_prepare_key(&ci->ci_key, raw_key, ci->ci_mode->keysize,
++				   false /*is_hw_wrapped*/, ci);
+ }
+ 
+ static int setup_per_mode_enc_key(struct fscrypt_info *ci,
+@@ -202,7 +202,7 @@ static int setup_per_mode_enc_key(struct fscrypt_info *ci,
+ 			}
+ 		}
+ 		err = fscrypt_prepare_key(prep_key, mk->mk_secret.raw,
+-					  mk->mk_secret.size, ci);
++					  mk->mk_secret.size, true, ci);
+ 		if (err)
+ 			goto out_unlock;
+ 	} else {
+@@ -221,7 +221,7 @@ static int setup_per_mode_enc_key(struct fscrypt_info *ci,
+ 		if (err)
+ 			goto out_unlock;
+ 		err = fscrypt_prepare_key(prep_key, mode_key, mode->keysize,
+-					  ci);
++					  false /*is_hw_wrapped*/, ci);
+ 		memzero_explicit(mode_key, mode->keysize);
+ 		if (err)
+ 			goto out_unlock;
+diff --git a/fs/crypto/keysetup_v1.c b/fs/crypto/keysetup_v1.c
+index cf290851249b..a39a5fb24e8c 100644
+--- a/fs/crypto/keysetup_v1.c
++++ b/fs/crypto/keysetup_v1.c
+@@ -234,7 +234,7 @@ fscrypt_get_direct_key(const struct fscrypt_info *ci, const u8 *raw_key)
+ 	refcount_set(&dk->dk_refcount, 1);
+ 	dk->dk_mode = ci->ci_mode;
+ 	err = fscrypt_prepare_key(&dk->dk_key, raw_key, ci->ci_mode->keysize,
+-				  ci);
++				  false /*is_hw_wrapped*/, ci);
+ 	if (err)
+ 		goto err_free_dk;
+ 	memcpy(dk->dk_descriptor, ci->ci_policy.v1.master_key_descriptor,
+diff --git a/include/linux/bio-crypt-ctx.h b/include/linux/bio-crypt-ctx.h
+index ab22dbe7b880..8456a409fc21 100644
+--- a/include/linux/bio-crypt-ctx.h
++++ b/include/linux/bio-crypt-ctx.h
+@@ -31,6 +31,8 @@ enum blk_crypto_mode_num {
+  * @data_unit_size_bits: log2 of data_unit_size
+  * @size: size of this key in bytes (determined by @crypto_mode)
+  * @hash: hash of this key, for keyslot manager use only
++ * @is_hw_wrapped: @raw points to a wrapped key to be used by an inline
++ *	encryption hardware that accepts wrapped keys.
+  * @raw: the raw bytes of this key.  Only the first @size bytes are used.
+  *
+  * A blk_crypto_key is immutable once created, and many bios can reference it at
+@@ -42,6 +44,7 @@ struct blk_crypto_key {
+ 	unsigned int data_unit_size_bits;
+ 	unsigned int size;
+ 	unsigned int hash;
++	bool is_hw_wrapped;
+ 	u8 raw[BLK_CRYPTO_MAX_WRAPPED_KEY_SIZE];
+ };
+ 
+diff --git a/include/linux/blk-crypto.h b/include/linux/blk-crypto.h
+index 6dd37961888a..2d871a7a0f5a 100644
+--- a/include/linux/blk-crypto.h
++++ b/include/linux/blk-crypto.h
+@@ -16,6 +16,7 @@ bool blk_crypto_endio(struct bio *bio);
+ 
+ int blk_crypto_init_key(struct blk_crypto_key *blk_key,
+ 			const u8 *raw_key, unsigned int raw_key_size,
++			bool is_hw_wrapped,
+ 			enum blk_crypto_mode_num crypto_mode,
+ 			unsigned int data_unit_size);
+ 

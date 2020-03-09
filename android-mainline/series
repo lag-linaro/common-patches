@@ -2,7 +2,7 @@
 # android-mainline patches
 #
 # Applies onto upstream bb6d3fb354c5 Linux v5.6-rc1
-# Matches android-mainline a0c97da7998b ("Merge v5.6-rc1 into android-mainline")
+# Matches android-mainline 911f3d3f5a74 ("ANDROID: gki_defconfig: Enable MAC80211_RC_MINSTREL")
 #
 Revert-security-lockdown-selinux-implement-SELinux-lockdown.patch
 Revert-drm-virtio-fix-DRM_FORMAT_-handling.patch
@@ -381,3 +381,20 @@ FROMLIST-overlayfs-override_creds-off-option-bypass-creator_cred-2.patch
 FROMLIST-pwm-Convert-period-and-duty-cycle-to-u64.patch
 ANDROID-sdcardfs-fix-up-fs-parsing-calls.patch
 ANDROID-dm-prevent-default-key-from-being-enabled-without-needed-hooks.patch
+ANDROID-Revert-ANDROID-gki_defconfig-removed-CONFIG_PM_WAKELOCKS.patch
+ANDROID-sdcardfs-use-fsparam_flag-to-replace-fsparam_bool.patch
+ANDROID-block-Prevent-crypto-fallback-for-wrapped-keys.patch
+ANDROID-dm-add-support-for-passing-through-derive_raw_secret.patch
+ANDROID-dm-Add-wrapped-key-support-in-dm-default-key.patch
+FROMLIST-rename-missed-uaccess-.fixup-section.patch
+ANDROID-gki_defconfig-Add-CONFIG_UNICODE.patch
+ANDROID-gki_defconfig-enable-heap-and-stack-initialization.patch
+ANDROID-added-memory-initialization-tests-to-cuttlefish-config.patch
+ANDROID-gki_defconfig-enable-CONFIG_RUNTIME_TESTING_MENU.patch
+ANDROID-gki_defconfig-disable-system_contig-ion-heap.patch
+ANDROID-staging-ion-delete-unused-heap-types-and-IDs.patch
+ANDROID-gki_defconfig-Disable-SDCARD_FS.patch
+ANDROID-net-bpf-Allow-TC-programs-to-call-BPF_FUNC_skb_change_head.patch
+ANDROID-cf-build-Use-merge_configs.patch
+ANDROID-virtio-virtio_input-pass-_DIRECT-only-if-the-device.patch
+ANDROID-gki_defconfig-Enable-MAC80211_RC_MINSTREL.patch
