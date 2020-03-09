@@ -1,8 +1,8 @@
 #
 # android-mainline patches
 #
-# Applies onto upstream a45ad71e8995 Linux v5.5-9168-ga45ad71e8995
-# Matches android-mainline 4e35d38c0cbf ("Revert "FROMLIST: overlayfs: handle XATTR_NOSECURITY flag for get xattr method"")
+# Applies onto upstream 7f879e1a94ac Linux v5.5-9183-g7f879e1a94ac
+# Matches android-mainline a1874d42e32b ("Merge 7f879e1a94ac ("Merge tag 'ovl-update-5.6' of git://git.kernel.org/pub/scm/linux/kernel/git/mszeredi/vfs") into android-mainline")
 #
 Revert-security-lockdown-selinux-implement-SELinux-lockdown.patch
 Revert-drm-virtio-fix-DRM_FORMAT_-handling.patch

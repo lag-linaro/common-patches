@@ -649,10 +649,10 @@ index bdc285aea360..ef4180bff7bb 100644
  	return orangefs_inode_getxattr(inode, name, buffer, size);
  
 diff --git a/fs/overlayfs/super.c b/fs/overlayfs/super.c
-index 7621ff176d15..659d5971e32e 100644
+index 319fe0d355b0..ce0510d11be0 100644
 --- a/fs/overlayfs/super.c
 +++ b/fs/overlayfs/super.c
-@@ -855,7 +855,7 @@ static unsigned int ovl_split_lowerdirs(char *str)
+@@ -856,7 +856,7 @@ static unsigned int ovl_split_lowerdirs(char *str)
  static int __maybe_unused
  ovl_posix_acl_xattr_get(const struct xattr_handler *handler,
  			struct dentry *dentry, struct inode *inode,
@@ -661,7 +661,7 @@ index 7621ff176d15..659d5971e32e 100644
  {
  	return ovl_xattr_get(dentry, inode, handler->name, buffer, size);
  }
-@@ -920,7 +920,8 @@ ovl_posix_acl_xattr_set(const struct xattr_handler *handler,
+@@ -921,7 +921,8 @@ ovl_posix_acl_xattr_set(const struct xattr_handler *handler,
  
  static int ovl_own_xattr_get(const struct xattr_handler *handler,
  			     struct dentry *dentry, struct inode *inode,
@@ -671,7 +671,7 @@ index 7621ff176d15..659d5971e32e 100644
  {
  	return -EOPNOTSUPP;
  }
-@@ -935,7 +936,8 @@ static int ovl_own_xattr_set(const struct xattr_handler *handler,
+@@ -936,7 +937,8 @@ static int ovl_own_xattr_set(const struct xattr_handler *handler,
  
  static int ovl_other_xattr_get(const struct xattr_handler *handler,
  			       struct dentry *dentry, struct inode *inode,

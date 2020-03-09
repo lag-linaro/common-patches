@@ -50,13 +50,13 @@ Bug: 136124883
 Bug: 129319403
 Change-Id: I34d99cc46e9e87a79efc8d05f85980bbc137f7eb
 ---
- fs/overlayfs/namei.c     | 12 +++++++-----
+ fs/overlayfs/namei.c     |  7 ++++---
  fs/overlayfs/overlayfs.h |  8 ++++++++
- fs/overlayfs/util.c      | 18 +++++++++---------
- 3 files changed, 24 insertions(+), 14 deletions(-)
+ fs/overlayfs/util.c      | 16 ++++++++--------
+ 3 files changed, 20 insertions(+), 11 deletions(-)
 
 diff --git a/fs/overlayfs/namei.c b/fs/overlayfs/namei.c
-index 76ff66339173..823bca62b58d 100644
+index ed9e129fae04..32994a46e46e 100644
 --- a/fs/overlayfs/namei.c
 +++ b/fs/overlayfs/namei.c
 @@ -106,10 +106,11 @@ int ovl_check_fb_len(struct ovl_fb *fb, int fb_len)
@@ -82,25 +82,11 @@ index 76ff66339173..823bca62b58d 100644
  	if (res < 0)
  		goto fail;
  
-@@ -141,10 +142,11 @@ static struct ovl_fh *ovl_get_fh(struct dentry *dentry, const char *name)
- 	return NULL;
- 
- fail:
--	pr_warn_ratelimited("overlayfs: failed to get origin (%i)\n", res);
-+	pr_warn_ratelimited("overlayfs: failed to get origin (%zi)\n", res);
- 	goto out;
- invalid:
--	pr_warn_ratelimited("overlayfs: invalid origin (%*phN)\n", res, fh);
-+	pr_warn_ratelimited("overlayfs: invalid origin (%*phN)\n",
-+			    (int)res, fh);
- 	goto out;
- }
- 
 diff --git a/fs/overlayfs/overlayfs.h b/fs/overlayfs/overlayfs.h
-index fcf80548bb65..d6f02b4bed74 100644
+index c7afa9d7cf25..86da7931938f 100644
 --- a/fs/overlayfs/overlayfs.h
 +++ b/fs/overlayfs/overlayfs.h
-@@ -216,6 +216,14 @@ static inline bool ovl_open_flags_need_copy_up(int flags)
+@@ -219,6 +219,14 @@ static inline bool ovl_open_flags_need_copy_up(int flags)
  	return ((OPEN_FMODE(flags) & FMODE_WRITE) || (flags & O_TRUNC));
  }
  
@@ -116,10 +102,10 @@ index fcf80548bb65..d6f02b4bed74 100644
  int ovl_want_write(struct dentry *dentry);
  void ovl_drop_write(struct dentry *dentry);
 diff --git a/fs/overlayfs/util.c b/fs/overlayfs/util.c
-index f5678a3f8350..2050c5084a82 100644
+index ea005085803f..22acc4e23352 100644
 --- a/fs/overlayfs/util.c
 +++ b/fs/overlayfs/util.c
-@@ -537,9 +537,9 @@ void ovl_copy_up_end(struct dentry *dentry)
+@@ -525,9 +525,9 @@ void ovl_copy_up_end(struct dentry *dentry)
  
  bool ovl_check_origin_xattr(struct dentry *dentry)
  {
@@ -131,7 +117,7 @@ index f5678a3f8350..2050c5084a82 100644
  
  	/* Zero size value means "copied up but origin unknown" */
  	if (res >= 0)
-@@ -550,13 +550,13 @@ bool ovl_check_origin_xattr(struct dentry *dentry)
+@@ -538,13 +538,13 @@ bool ovl_check_origin_xattr(struct dentry *dentry)
  
  bool ovl_check_dir_xattr(struct dentry *dentry, const char *name)
  {
@@ -147,7 +133,7 @@ index f5678a3f8350..2050c5084a82 100644
  	if (res == 1 && val == 'y')
  		return true;
  
-@@ -837,13 +837,13 @@ int ovl_lock_rename_workdir(struct dentry *workdir, struct dentry *upperdir)
+@@ -825,13 +825,13 @@ int ovl_lock_rename_workdir(struct dentry *workdir, struct dentry *upperdir)
  /* err < 0, 0 if no metacopy xattr, 1 if metacopy xattr found */
  int ovl_check_metacopy_xattr(struct dentry *dentry)
  {
@@ -163,16 +149,7 @@ index f5678a3f8350..2050c5084a82 100644
  	if (res < 0) {
  		if (res == -ENODATA || res == -EOPNOTSUPP)
  			return 0;
-@@ -852,7 +852,7 @@ int ovl_check_metacopy_xattr(struct dentry *dentry)
- 
- 	return 1;
- out:
--	pr_warn_ratelimited("overlayfs: failed to get metacopy (%i)\n", res);
-+	pr_warn_ratelimited("overlayfs: failed to get metacopy (%zi)\n", res);
- 	return res;
- }
- 
-@@ -878,7 +878,7 @@ ssize_t ovl_getxattr(struct dentry *dentry, char *name, char **value,
+@@ -866,7 +866,7 @@ ssize_t ovl_getxattr(struct dentry *dentry, char *name, char **value,
  	ssize_t res;
  	char *buf = NULL;
  
@@ -181,7 +158,7 @@ index f5678a3f8350..2050c5084a82 100644
  	if (res < 0) {
  		if (res == -ENODATA || res == -EOPNOTSUPP)
  			return -ENODATA;
-@@ -890,7 +890,7 @@ ssize_t ovl_getxattr(struct dentry *dentry, char *name, char **value,
+@@ -878,7 +878,7 @@ ssize_t ovl_getxattr(struct dentry *dentry, char *name, char **value,
  		if (!buf)
  			return -ENOMEM;
  

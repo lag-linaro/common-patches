@@ -65,7 +65,7 @@ index ca639ed967b7..57f9817a9808 100644
  int unshare_fs_struct(void)
  {
 diff --git a/fs/read_write.c b/fs/read_write.c
-index 7458fccc59e1..dfcd8328228b 100644
+index 59d819c5b92e..b4c7e92491d0 100644
 --- a/fs/read_write.c
 +++ b/fs/read_write.c
 @@ -469,6 +469,8 @@ ssize_t vfs_read(struct file *file, char __user *buf, size_t count, loff_t *pos)
