@@ -2,7 +2,7 @@
 # android-mainline patches
 #
 # Applies onto upstream 4fc2ea6a8608 Linux v5.5-9516-g4fc2ea6a8608
-# Matches android-mainline 527f6994c4b3 ("Merge 4fc2ea6a8608 ("Merge tag 'iommu-updates-v5.6' of git://git.kernel.org/pub/scm/linux/kernel/git/joro/iommu") into android-mainline")
+# Matches android-mainline e3ae1a989100 ("Revert "FROMLIST: pwm: Convert period and duty cycle to u64"")
 #
 Revert-security-lockdown-selinux-implement-SELinux-lockdown.patch
 Revert-drm-virtio-fix-DRM_FORMAT_-handling.patch
@@ -25,7 +25,6 @@ FROMLIST-overlayfs-handle-XATTR_NOSECURITY-flag-for-get-xattr-method.patch
 FROMLIST-overlayfs-internal-getxattr-operations-without-sepolicy-checking.patch
 FROMLIST-overlayfs-override_creds-off-option-bypass-creator_cred.patch
 BACKPORT-FROMLIST-pwm-Add-support-for-different-PWM-output-types.patch
-FROMLIST-pwm-Convert-period-and-duty-cycle-to-u64.patch
 FROMLIST-arm64-disable-function-graph-tracing-with-SCS.patch
 FROMLIST-arm64-reserve-x18-from-general-allocation-with-SCS.patch
 FROMLIST-arm64-efi-restore-x18-if-it-was-corrupted.patch
