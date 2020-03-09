@@ -2,7 +2,7 @@
 # android-mainline patches
 #
 # Applies onto upstream 11a48a5a18c6 Linux v5.6-rc2
-# Matches android-mainline 57ba579f7f7b ("Merge 5.6-rc2 into android-mainline")
+# Matches android-mainline 055a6f6264db ("FROMGIT: drm/msm/a6xx: Remove unneeded GBIF unhalt")
 #
 Revert-security-lockdown-selinux-implement-SELinux-lockdown.patch
 Revert-drm-virtio-fix-DRM_FORMAT_-handling.patch
@@ -397,3 +397,24 @@ ANDROID-net-bpf-Allow-TC-programs-to-call-BPF_FUNC_skb_change_head.patch
 ANDROID-cf-build-Use-merge_configs.patch
 ANDROID-virtio-virtio_input-pass-_DIRECT-only-if-the-device.patch
 ANDROID-gki_defconfig-Enable-MAC80211_RC_MINSTREL.patch
+ANDROID-gki_defconfig-Enable-XDP_SOCKETS.patch
+ANDROID-gki_defconfig-Enable-CONFIG_NET_NS.patch
+ANDROID-clang-update-to-10.0.4.patch
+ANDROID-Incremental-fs-Support-xattrs.patch
+FROMLIST-of-of_reserved_mem-Increase-limit-on-number-of-reserved-regions.patch
+FROMLIST-ufs-fix-a-bug-on-printing-PRDT.patch
+ANDROID-ufs-add-quirk-to-fix-abnormal-ocs-fatal-error.patch
+FROMLIST-unicode-Add-utf8_casefold_hash.patch
+FROMLIST-Add-standard-casefolding-support.patch
+FROMLIST-f2fs-Use-generic-casefolding-support.patch
+FROMLIST-ext4-Use-generic-casefolding-support.patch
+FROMLIST-fscrypt-Have-filesystems-handle-their-d_ops.patch
+FROMLIST-f2fs-Handle-casefolding-with-Encryption.patch
+ANDROID-ufs-block-fix-crypto-power-management-and-move-into-block-layer.patch
+ANDROID-rtc-class-support-hctosys-from-modular-RTC-drivers.patch
+ANDROID-Kconfig.gki-Remove-most-of-the-built-in-qcom-clks.patch
+FROMLIST-dt-bindings-display-msm-Convert-GMU-bindings-to-YAML.patch
+FROMLIST-dt-bindings-display-msm-Add-required-dma-range-property.patch
+FROMLIST-arm64-dts-sdm845-Set-the-virtual-address-range-for-GMU-allocations.patch
+FROMLIST-drm-msm-a6xx-Use-the-DMA-API-for-GMU-memory-objects.patch
+FROMGIT-drm-msm-a6xx-Remove-unneeded-GBIF-unhalt.patch

@@ -1,0 +1,52 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: Kiwoong Kim <kwmad.kim@samsung.com>
+Date: Sat, 8 Feb 2020 16:14:48 +0900
+Subject: ANDROID: ufs: add quirk to fix abnormal ocs fatal error
+
+Some architectures determines if fatal error for OCS
+occurrs to check status in response upiu. This patch
+is to prevent from reporting command results with that.
+
+Bug: 149781764
+Change-Id: I1b62e620c71e1f3a80922ebbc417fe037a8c12d5
+Signed-off-by: Kiwoong Kim <kwmad.kim@samsung.com>
+Signed-off-by: Greg Kroah-Hartman <gregkh@google.com>
+---
+ drivers/scsi/ufs/ufshcd.c | 6 ++++++
+ drivers/scsi/ufs/ufshcd.h | 6 ++++++
+ 2 files changed, 12 insertions(+)
+
+diff --git a/drivers/scsi/ufs/ufshcd.c b/drivers/scsi/ufs/ufshcd.c
+index 431d0629aafe..2327be1e0bae 100644
+--- a/drivers/scsi/ufs/ufshcd.c
++++ b/drivers/scsi/ufs/ufshcd.c
+@@ -4805,6 +4805,12 @@ ufshcd_transfer_rsp_status(struct ufs_hba *hba, struct ufshcd_lrb *lrbp)
+ 	/* overall command status of utrd */
+ 	ocs = ufshcd_get_tr_ocs(lrbp);
+ 
++	if (hba->quirks & UFSHCD_QUIRK_BROKEN_OCS_FATAL_ERROR) {
++		if (be32_to_cpu(lrbp->ucd_rsp_ptr->header.dword_1) &
++					MASK_RSP_UPIU_RESULT)
++			ocs = OCS_SUCCESS;
++	}
++
+ 	switch (ocs) {
+ 	case OCS_SUCCESS:
+ 		result = ufshcd_get_req_rsp(lrbp->ucd_rsp_ptr);
+diff --git a/drivers/scsi/ufs/ufshcd.h b/drivers/scsi/ufs/ufshcd.h
+index 1a1fc9e34950..8d23c600547e 100644
+--- a/drivers/scsi/ufs/ufshcd.h
++++ b/drivers/scsi/ufs/ufshcd.h
+@@ -681,6 +681,12 @@ struct ufs_hba {
+ 	 */
+ 	#define UFSHCD_QUIRK_BROKEN_CRYPTO			0x800
+ 
++	/*
++	 * This quirk needs to be enabled if the host controller reports
++	 * OCS FATAL ERROR with device error through sense data
++	 */
++	#define UFSHCD_QUIRK_BROKEN_OCS_FATAL_ERROR		0x1000
++
+ 	unsigned int quirks;	/* Deviations from standard UFSHCI spec. */
+ 
+ 	/* Device deviations from standard UFS device spec. */
