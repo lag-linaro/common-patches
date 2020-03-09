@@ -2,7 +2,7 @@
 # android-mainline patches
 #
 # Applies onto upstream c9d35ee049b4 Linux v5.5-10283-gc9d35ee049b4
-# Matches android-mainline aa601dde64e2 ("Merge c9d35ee049b4 ("Merge branch 'merge.nfs-fs_parse.1' of git://git.kernel.org/pub/scm/linux/kernel/git/viro/vfs") into android-mainline")
+# Matches android-mainline bfca9d0cc7d5 ("ANDROID: dm: prevent default-key from being enabled without needed hooks")
 #
 Revert-security-lockdown-selinux-implement-SELinux-lockdown.patch
 Revert-drm-virtio-fix-DRM_FORMAT_-handling.patch
@@ -380,3 +380,5 @@ ANDROID-cpufreq_times-fix-up-5.6-rc1-api-changes.patch
 ANDROID-dummy-cpufreq-fix-up-5.6-rc1-API-changes.patch
 FROMLIST-overlayfs-override_creds-off-option-bypass-creator_cred-2.patch
 FROMLIST-pwm-Convert-period-and-duty-cycle-to-u64.patch
+ANDROID-sdcardfs-fix-up-fs-parsing-calls.patch
+ANDROID-dm-prevent-default-key-from-being-enabled-without-needed-hooks.patch
