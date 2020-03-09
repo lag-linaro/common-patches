@@ -2,7 +2,7 @@
 # android-mainline patches
 #
 # Applies onto upstream 4c7d00ccf40d Linux v5.5-9560-g4c7d00ccf40d
-# Matches android-mainline 8885e886921b ("Merge 4c7d00ccf40d ("Merge tag 'pwm/for-5.6-rc1' of git://git.kernel.org/pub/scm/linux/kernel/git/thierry.reding/linux-pwm") into android-mainline.")
+# Matches android-mainline d2ee0ef1e03f ("FROMLIST: pwm: Convert period and duty cycle to u64")
 #
 Revert-security-lockdown-selinux-implement-SELinux-lockdown.patch
 Revert-drm-virtio-fix-DRM_FORMAT_-handling.patch
@@ -379,3 +379,4 @@ ANDROID-fix-up-xt_quota2-for-proc_ops-changes.patch
 ANDROID-cpufreq_times-fix-up-5.6-rc1-api-changes.patch
 ANDROID-dummy-cpufreq-fix-up-5.6-rc1-API-changes.patch
 FROMLIST-overlayfs-override_creds-off-option-bypass-creator_cred-2.patch
+FROMLIST-pwm-Convert-period-and-duty-cycle-to-u64.patch
