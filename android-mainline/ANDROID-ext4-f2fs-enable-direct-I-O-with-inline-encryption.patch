@@ -60,7 +60,7 @@ index 00b4d15bb811..f4df5fbbc4f3 100644
  	bio->bi_iter.bi_sector = first_sector;
  	bio_set_op_attrs(bio, dio->op, dio->op_flags);
 diff --git a/fs/ext4/file.c b/fs/ext4/file.c
-index 6a7293a5cda2..68212ebdc66b 100644
+index 5f225881176b..eefe69f0137a 100644
 --- a/fs/ext4/file.c
 +++ b/fs/ext4/file.c
 @@ -36,10 +36,16 @@
@@ -92,20 +92,20 @@ index 6a7293a5cda2..68212ebdc66b 100644
  		inode_unlock_shared(inode);
  		/*
  		 * Fallback to buffered I/O if the operation being performed on
-@@ -379,7 +385,7 @@ static ssize_t ext4_dio_write_iter(struct kiocb *iocb, struct iov_iter *from)
- 		inode_lock(inode);
+@@ -483,7 +489,7 @@ static ssize_t ext4_dio_write_iter(struct kiocb *iocb, struct iov_iter *from)
  	}
  
+ 	/* Fallback to buffered I/O if the inode does not support direct I/O. */
 -	if (!ext4_dio_supported(inode)) {
 +	if (!ext4_dio_supported(iocb, from)) {
- 		inode_unlock(inode);
- 		/*
- 		 * Fallback to buffered I/O if the inode does not support
+ 		if (ilock_shared)
+ 			inode_unlock_shared(inode);
+ 		else
 diff --git a/fs/f2fs/f2fs.h b/fs/f2fs/f2fs.h
-index 9f0054fb5cd5..b4ef4747a86d 100644
+index 75817f0dc6f8..19db99691eb6 100644
 --- a/fs/f2fs/f2fs.h
 +++ b/fs/f2fs/f2fs.h
-@@ -3737,7 +3737,13 @@ static inline bool f2fs_force_buffered_io(struct inode *inode,
+@@ -3983,7 +3983,13 @@ static inline bool f2fs_force_buffered_io(struct inode *inode,
  	struct f2fs_sb_info *sbi = F2FS_I_SB(inode);
  	int rw = iov_iter_rw(iter);
  

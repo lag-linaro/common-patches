@@ -835,7 +835,7 @@ index 90dd78f0eb27..71f887518d6f 100644
  EXPORT_SYMBOL_GPL(vfs_getxattr);
  
 diff --git a/fs/xfs/xfs_xattr.c b/fs/xfs/xfs_xattr.c
-index 383f0203d103..7c3f9ffad960 100644
+index b0fedb543f97..14473c386850 100644
 --- a/fs/xfs/xfs_xattr.c
 +++ b/fs/xfs/xfs_xattr.c
 @@ -19,7 +19,8 @@

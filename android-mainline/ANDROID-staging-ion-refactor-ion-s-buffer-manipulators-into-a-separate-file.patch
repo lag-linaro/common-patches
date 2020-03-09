@@ -38,7 +38,7 @@ index 5f4487b1a224..da386dbf3ffd 100644
  obj-$(CONFIG_ION_SYSTEM_HEAP) += ion_system_heap.o ion_page_pool.o
  obj-$(CONFIG_ION_CMA_HEAP) += ion_cma_heap.o
 diff --git a/drivers/staging/android/ion/ion.c b/drivers/staging/android/ion/ion.c
-index a8eaaf386413..48b62a5aaf58 100644
+index a668d2a418d3..4258f2f747e4 100644
 --- a/drivers/staging/android/ion/ion.c
 +++ b/drivers/staging/android/ion/ion.c
 @@ -26,119 +26,11 @@
@@ -170,8 +170,8 @@ index a8eaaf386413..48b62a5aaf58 100644
 +	ion_buffer_destroy(internal_dev, buffer);
  }
  
- static void *ion_dma_buf_kmap(struct dma_buf *dmabuf, unsigned long offset)
-@@ -358,39 +250,14 @@ static const struct dma_buf_ops dma_buf_ops = {
+ static int ion_dma_buf_begin_cpu_access(struct dma_buf *dmabuf,
+@@ -344,39 +236,14 @@ static const struct dma_buf_ops dma_buf_ops = {
  static struct dma_buf *ion_alloc_dmabuf(size_t len, unsigned int heap_id_mask,
  					unsigned int flags)
  {
@@ -213,7 +213,7 @@ index a8eaaf386413..48b62a5aaf58 100644
  	if (IS_ERR(buffer))
  		return ERR_CAST(buffer);
  
-@@ -401,7 +268,7 @@ static struct dma_buf *ion_alloc_dmabuf(size_t len, unsigned int heap_id_mask,
+@@ -387,7 +254,7 @@ static struct dma_buf *ion_alloc_dmabuf(size_t len, unsigned int heap_id_mask,
  
  	dmabuf = dma_buf_export(&exp_info);
  	if (IS_ERR(dmabuf))

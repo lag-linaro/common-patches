@@ -16,15 +16,15 @@ Change-Id: Icce61fc21b1542f5248daea34f713184449a62c3
 Signed-off-by: Isaac J. Manjarres <isaacm@codeaurora.org>
 Signed-off-by: Sandeep Patil <sspatil@google.com>
 ---
- drivers/dma-buf/dma-buf.c | 40 +++++++++++++++++++++++++
+ drivers/dma-buf/dma-buf.c | 39 ++++++++++++++++++++++++
  include/linux/dma-buf.h   | 63 +++++++++++++++++++++++++++++++++++++++
- 2 files changed, 103 insertions(+)
+ 2 files changed, 102 insertions(+)
 
 diff --git a/drivers/dma-buf/dma-buf.c b/drivers/dma-buf/dma-buf.c
-index ce41cd9b758a..29ecdc284406 100644
+index d4097856c86b..43c60663a60c 100644
 --- a/drivers/dma-buf/dma-buf.c
 +++ b/drivers/dma-buf/dma-buf.c
-@@ -1024,6 +1024,30 @@ int dma_buf_begin_cpu_access(struct dma_buf *dmabuf,
+@@ -1004,6 +1004,30 @@ int dma_buf_begin_cpu_access(struct dma_buf *dmabuf,
  }
  EXPORT_SYMBOL_GPL(dma_buf_begin_cpu_access);
  
@@ -55,7 +55,7 @@ index ce41cd9b758a..29ecdc284406 100644
  /**
   * dma_buf_end_cpu_access - Must be called after accessing a dma_buf from the
   * cpu in the kernel context. Calls end_cpu_access to allow exporter-specific
-@@ -1050,6 +1074,22 @@ int dma_buf_end_cpu_access(struct dma_buf *dmabuf,
+@@ -1030,6 +1054,21 @@ int dma_buf_end_cpu_access(struct dma_buf *dmabuf,
  }
  EXPORT_SYMBOL_GPL(dma_buf_end_cpu_access);
  
@@ -74,12 +74,11 @@ index ce41cd9b758a..29ecdc284406 100644
 +	return ret;
 +}
 +EXPORT_SYMBOL_GPL(dma_buf_end_cpu_access_partial);
-+
+ 
  /**
-  * dma_buf_kmap - Map a page of the buffer object into kernel address space. The
-  * same restrictions as for kmap and friends apply.
+  * dma_buf_mmap - Setup up a userspace mmap with the given vma
 diff --git a/include/linux/dma-buf.h b/include/linux/dma-buf.h
-index af73f835c51c..803050d03ff8 100644
+index abf5459a5b9d..6e8b317250b5 100644
 --- a/include/linux/dma-buf.h
 +++ b/include/linux/dma-buf.h
 @@ -193,6 +193,41 @@ struct dma_buf_ops {
@@ -153,7 +152,7 @@ index af73f835c51c..803050d03ff8 100644
  	/**
  	 * @mmap:
  	 *
-@@ -462,8 +519,14 @@ void dma_buf_unmap_attachment(struct dma_buf_attachment *, struct sg_table *,
+@@ -437,8 +494,14 @@ void dma_buf_unmap_attachment(struct dma_buf_attachment *, struct sg_table *,
  void dma_buf_move_notify(struct dma_buf *dma_buf);
  int dma_buf_begin_cpu_access(struct dma_buf *dma_buf,
  			     enum dma_data_direction dir);
@@ -165,6 +164,6 @@ index af73f835c51c..803050d03ff8 100644
 +int dma_buf_end_cpu_access_partial(struct dma_buf *dma_buf,
 +				     enum dma_data_direction dir,
 +				     unsigned int offset, unsigned int len);
- void *dma_buf_kmap(struct dma_buf *, unsigned long);
- void dma_buf_kunmap(struct dma_buf *, unsigned long, void *);
  
+ int dma_buf_mmap(struct dma_buf *, struct vm_area_struct *,
+ 		 unsigned long);

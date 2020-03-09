@@ -23,7 +23,7 @@ Signed-off-by: Todd Kjos <tkjos@google.com>
  1 file changed, 4 insertions(+), 4 deletions(-)
 
 diff --git a/fs/proc/root.c b/fs/proc/root.c
-index 485237e7cce1..e277722f443b 100644
+index feebf48ad410..92f85c7f9cd2 100644
 --- a/fs/proc/root.c
 +++ b/fs/proc/root.c
 @@ -82,8 +82,7 @@ static int proc_parse_param(struct fs_context *fc, struct fs_parameter *param)

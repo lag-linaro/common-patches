@@ -18,10 +18,10 @@ Signed-off-by: Greg Hartman <ghartman@google.com>
  2 files changed, 47 insertions(+), 6 deletions(-)
 
 diff --git a/drivers/gpu/drm/virtio/virtgpu_display.c b/drivers/gpu/drm/virtio/virtgpu_display.c
-index e622485ae826..7f5694095b34 100644
+index 0966208ec30d..fe01aaa037a5 100644
 --- a/drivers/gpu/drm/virtio/virtgpu_display.c
 +++ b/drivers/gpu/drm/virtio/virtgpu_display.c
-@@ -298,10 +298,6 @@ virtio_gpu_user_framebuffer_create(struct drm_device *dev,
+@@ -301,10 +301,6 @@ virtio_gpu_user_framebuffer_create(struct drm_device *dev,
  	struct virtio_gpu_framebuffer *virtio_gpu_fb;
  	int ret;
  
@@ -32,7 +32,7 @@ index e622485ae826..7f5694095b34 100644
  	/* lookup object associated with res handle */
  	obj = drm_gem_object_lookup(file_priv, mode_cmd->handles[0]);
  	if (!obj)
-@@ -350,7 +346,6 @@ void virtio_gpu_modeset_init(struct virtio_gpu_device *vgdev)
+@@ -353,7 +349,6 @@ void virtio_gpu_modeset_init(struct virtio_gpu_device *vgdev)
  	int i;
  
  	drm_mode_config_init(vgdev->ddev);
@@ -41,10 +41,10 @@ index e622485ae826..7f5694095b34 100644
  	vgdev->ddev->mode_config.helper_private = &virtio_mode_config_helpers;
  
 diff --git a/drivers/gpu/drm/virtio/virtgpu_plane.c b/drivers/gpu/drm/virtio/virtgpu_plane.c
-index 1635a9ff4794..cb92a603ccad 100644
+index d1c3f5fbfee4..5f9e37830d4d 100644
 --- a/drivers/gpu/drm/virtio/virtgpu_plane.c
 +++ b/drivers/gpu/drm/virtio/virtgpu_plane.c
-@@ -30,7 +30,14 @@
+@@ -31,7 +31,14 @@
  #include "virtgpu_drv.h"
  
  static const uint32_t virtio_gpu_formats[] = {
@@ -60,7 +60,7 @@ index 1635a9ff4794..cb92a603ccad 100644
  };
  
  static const uint32_t virtio_gpu_cursor_formats[] = {
-@@ -42,6 +49,32 @@ uint32_t virtio_gpu_translate_format(uint32_t drm_fourcc)
+@@ -43,6 +50,32 @@ uint32_t virtio_gpu_translate_format(uint32_t drm_fourcc)
  	uint32_t format;
  
  	switch (drm_fourcc) {
@@ -93,7 +93,7 @@ index 1635a9ff4794..cb92a603ccad 100644
  	case DRM_FORMAT_XRGB8888:
  		format = VIRTIO_GPU_FORMAT_B8G8R8X8_UNORM;
  		break;
-@@ -54,6 +87,19 @@ uint32_t virtio_gpu_translate_format(uint32_t drm_fourcc)
+@@ -55,6 +88,19 @@ uint32_t virtio_gpu_translate_format(uint32_t drm_fourcc)
  	case DRM_FORMAT_BGRA8888:
  		format = VIRTIO_GPU_FORMAT_A8R8G8B8_UNORM;
  		break;

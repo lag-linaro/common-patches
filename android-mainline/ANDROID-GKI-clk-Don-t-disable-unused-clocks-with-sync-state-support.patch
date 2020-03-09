@@ -32,7 +32,7 @@ Change-Id: I1f1dbca4994a5b7085930996e1cc5e848266436c
  1 file changed, 8 insertions(+)
 
 diff --git a/drivers/clk/clk.c b/drivers/clk/clk.c
-index 7b1f8680b497..1913f92c6333 100644
+index 9d446968da18..796ebe287651 100644
 --- a/drivers/clk/clk.c
 +++ b/drivers/clk/clk.c
 @@ -1198,6 +1198,10 @@ static void __init clk_unprepare_unused_subtree(struct clk_core *core)

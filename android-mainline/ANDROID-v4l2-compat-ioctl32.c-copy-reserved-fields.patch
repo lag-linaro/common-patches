@@ -16,7 +16,7 @@ Signed-off-by: Maheshwar Ajja <majja@codeaurora.org>
  2 files changed, 15 insertions(+), 3 deletions(-)
 
 diff --git a/drivers/media/v4l2-core/v4l2-compat-ioctl32.c b/drivers/media/v4l2-core/v4l2-compat-ioctl32.c
-index e1eaf1135c7f..e4e454db2560 100644
+index a99e82ec9ab6..cd8927eabc33 100644
 --- a/drivers/media/v4l2-core/v4l2-compat-ioctl32.c
 +++ b/drivers/media/v4l2-core/v4l2-compat-ioctl32.c
 @@ -465,6 +465,11 @@ struct v4l2_plane32 {
@@ -31,7 +31,7 @@ index e1eaf1135c7f..e4e454db2560 100644
  	__u32			reserved[11];
  };
  
-@@ -499,7 +504,9 @@ static int get_v4l2_plane32(struct v4l2_plane __user *p64,
+@@ -529,7 +534,9 @@ static int get_v4l2_plane32(struct v4l2_plane __user *p64,
  
  	if (copy_in_user(p64, p32, 2 * sizeof(__u32)) ||
  	    copy_in_user(&p64->data_offset, &p32->data_offset,
@@ -42,7 +42,7 @@ index e1eaf1135c7f..e4e454db2560 100644
  		return -EFAULT;
  
  	switch (memory) {
-@@ -531,7 +538,9 @@ static int put_v4l2_plane32(struct v4l2_plane __user *p64,
+@@ -561,7 +568,9 @@ static int put_v4l2_plane32(struct v4l2_plane __user *p64,
  
  	if (copy_in_user(p32, p64, 2 * sizeof(__u32)) ||
  	    copy_in_user(&p32->data_offset, &p64->data_offset,
@@ -54,10 +54,10 @@ index e1eaf1135c7f..e4e454db2560 100644
  
  	switch (memory) {
 diff --git a/include/uapi/linux/videodev2.h b/include/uapi/linux/videodev2.h
-index 04481c717fee..6c7f305541b1 100644
+index 5f9357dcb060..e9184fdc1bd5 100644
 --- a/include/uapi/linux/videodev2.h
 +++ b/include/uapi/linux/videodev2.h
-@@ -942,7 +942,9 @@ struct v4l2_requestbuffers {
+@@ -961,7 +961,9 @@ struct v4l2_requestbuffers {
   *			descriptor associated with this plane
   * @data_offset:	offset in the plane to the start of data; usually 0,
   *			unless there is a header in front of the data
@@ -68,7 +68,7 @@ index 04481c717fee..6c7f305541b1 100644
   * Multi-planar buffers consist of one or more planes, e.g. an YCbCr buffer
   * with two planes can have one plane for Y, and another for interleaved CbCr
   * components. Each plane can reside in a separate memory buffer, or even in
-@@ -957,6 +959,7 @@ struct v4l2_plane {
+@@ -976,6 +978,7 @@ struct v4l2_plane {
  		__s32		fd;
  	} m;
  	__u32			data_offset;

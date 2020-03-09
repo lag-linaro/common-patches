@@ -76,10 +76,10 @@ index 6119e11a9f95..f7456b93b3bd 100644
  
  DEFINE_PER_CPU(unsigned long, cpu_scale) = SCHED_CAPACITY_SCALE;
 diff --git a/drivers/cpufreq/cpufreq.c b/drivers/cpufreq/cpufreq.c
-index 03b5e29b4947..9dbdff54d955 100644
+index 4f4d72dc8d59..f9b70dfe709a 100644
 --- a/drivers/cpufreq/cpufreq.c
 +++ b/drivers/cpufreq/cpufreq.c
-@@ -156,6 +156,12 @@ __weak void arch_set_freq_scale(struct cpumask *cpus, unsigned long cur_freq,
+@@ -159,6 +159,12 @@ __weak void arch_set_freq_scale(struct cpumask *cpus, unsigned long cur_freq,
  }
  EXPORT_SYMBOL_GPL(arch_set_freq_scale);
  
@@ -92,8 +92,8 @@ index 03b5e29b4947..9dbdff54d955 100644
  /*
   * This is a generic cpufreq init() routine which can be used by cpufreq
   * drivers of SMP systems. It will do following:
-@@ -2415,6 +2421,8 @@ int cpufreq_set_policy(struct cpufreq_policy *policy,
- 	policy->max = new_policy->max;
+@@ -2408,6 +2414,8 @@ static int cpufreq_set_policy(struct cpufreq_policy *policy,
+ 	policy->max = new_data.max;
  	trace_cpu_frequency_limits(policy);
  
 +	arch_set_max_freq_scale(policy->cpus, policy->max);
@@ -121,10 +121,10 @@ index 3015ecbb90b1..7251598adcab 100644
  	int thread_id;
  	int core_id;
 diff --git a/include/linux/cpufreq.h b/include/linux/cpufreq.h
-index 31b1b0e03df8..9b5d14dbbdb9 100644
+index 018dce868de6..cf3be353a2cc 100644
 --- a/include/linux/cpufreq.h
 +++ b/include/linux/cpufreq.h
-@@ -976,6 +976,8 @@ extern unsigned int arch_freq_get_on_cpu(int cpu);
+@@ -990,6 +990,8 @@ extern unsigned int arch_freq_get_on_cpu(int cpu);
  
  extern void arch_set_freq_scale(struct cpumask *cpus, unsigned long cur_freq,
  				unsigned long max_freq);

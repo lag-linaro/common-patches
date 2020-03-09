@@ -18,10 +18,10 @@ Signed-off-by: Sami Tolvanen <samitolvanen@google.com>
  create mode 100644 scripts/module-lto.lds
 
 diff --git a/Makefile b/Makefile
-index 11f7cd41b5b3..5294695234db 100644
+index 0e274b04eb15..e5f0a17e6392 100644
 --- a/Makefile
 +++ b/Makefile
-@@ -874,6 +874,8 @@ else
+@@ -873,6 +873,8 @@ else
  CC_FLAGS_LTO_CLANG := -flto
  endif
  CC_FLAGS_LTO_CLANG += -fvisibility=default

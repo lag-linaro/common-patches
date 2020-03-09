@@ -17,7 +17,7 @@ Signed-off-by: Alistair Delva <adelva@google.com>
  1 file changed, 3 insertions(+), 3 deletions(-)
 
 diff --git a/drivers/gpu/drm/drm_ioctl.c b/drivers/gpu/drm/drm_ioctl.c
-index fcd728d7cf72..e293cf7bc35c 100644
+index 5afb39688b55..b33cc0cb1ab1 100644
 --- a/drivers/gpu/drm/drm_ioctl.c
 +++ b/drivers/gpu/drm/drm_ioctl.c
 @@ -676,9 +676,9 @@ static const struct drm_ioctl_desc drm_ioctls[] = {

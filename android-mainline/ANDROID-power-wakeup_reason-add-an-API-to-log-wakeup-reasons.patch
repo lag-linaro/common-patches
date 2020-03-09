@@ -64,7 +64,7 @@ index 000000000000..acb19b91c192
 +		is the time spent in sleep state.
 \ No newline at end of file
 diff --git a/drivers/base/power/main.c b/drivers/base/power/main.c
-index 134a8af51511..f545b4526172 100644
+index 0e99a760aebd..18a2b66023cd 100644
 --- a/drivers/base/power/main.c
 +++ b/drivers/base/power/main.c
 @@ -34,6 +34,7 @@
@@ -75,7 +75,7 @@ index 134a8af51511..f545b4526172 100644
  
  #include "../base.h"
  #include "power.h"
-@@ -1683,6 +1684,7 @@ static int __device_suspend(struct device *dev, pm_message_t state, bool async)
+@@ -1715,6 +1716,7 @@ static int __device_suspend(struct device *dev, pm_message_t state, bool async)
  	pm_callback_t callback = NULL;
  	const char *info = NULL;
  	int error = 0;
@@ -83,7 +83,7 @@ index 134a8af51511..f545b4526172 100644
  	DECLARE_DPM_WATCHDOG_ON_STACK(wd);
  
  	TRACE_DEVICE(dev);
-@@ -1706,6 +1708,9 @@ static int __device_suspend(struct device *dev, pm_message_t state, bool async)
+@@ -1738,6 +1740,9 @@ static int __device_suspend(struct device *dev, pm_message_t state, bool async)
  
  	if (pm_wakeup_pending()) {
  		dev->power.direct_complete = false;

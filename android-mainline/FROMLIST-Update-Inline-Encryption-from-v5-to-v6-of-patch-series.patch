@@ -4108,13 +4108,13 @@ index 801b48c0cd7f..59c520b200cb 100644
  }
  
 diff --git a/fs/ext4/readpage.c b/fs/ext4/readpage.c
-index 791eaddafbda..a22c17f171f5 100644
+index e387c95b9ba1..f822cd928a0a 100644
 --- a/fs/ext4/readpage.c
 +++ b/fs/ext4/readpage.c
-@@ -408,12 +408,8 @@ int ext4_mpage_readpages(struct address_space *mapping,
- 			 */
+@@ -419,12 +419,8 @@ int ext4_mpage_readpages(struct address_space *mapping,
  			bio = bio_alloc(GFP_KERNEL,
  				min_t(int, nr_pages, BIO_MAX_PAGES));
+ 			ext4_set_bio_post_read_ctx(bio, inode, page->index);
 -			if (fscrypt_set_bio_crypt_ctx(bio, inode, next_block,
 -						      GFP_KERNEL) != 0) {
 -				bio_put(bio);
@@ -4123,14 +4123,14 @@ index 791eaddafbda..a22c17f171f5 100644
 -			}
 +			fscrypt_set_bio_crypt_ctx(bio, inode, next_block,
 +						  GFP_KERNEL);
- 			ctx = get_bio_post_read_ctx(inode, bio, page->index);
- 			if (IS_ERR(ctx)) {
- 				bio_put(bio);
+ 			bio_set_dev(bio, bdev);
+ 			bio->bi_iter.bi_sector = blocks[0] << (blkbits - 9);
+ 			bio->bi_end_io = mpage_end_io;
 diff --git a/fs/f2fs/data.c b/fs/f2fs/data.c
-index d9a02f4f78f4..187b929cb76b 100644
+index 165b6f3b3f5d..c27a80c917cc 100644
 --- a/fs/f2fs/data.c
 +++ b/fs/f2fs/data.c
-@@ -309,7 +309,7 @@ static struct bio *__bio_alloc(struct f2fs_io_info *fio, int npages)
+@@ -437,7 +437,7 @@ static struct bio *__bio_alloc(struct f2fs_io_info *fio, int npages)
  	return bio;
  }
  
@@ -4139,7 +4139,7 @@ index d9a02f4f78f4..187b929cb76b 100644
  				  pgoff_t first_idx,
  				  const struct f2fs_io_info *fio,
  				  gfp_t gfp_mask)
-@@ -318,10 +318,8 @@ static int f2fs_set_bio_crypt_ctx(struct bio *bio, const struct inode *inode,
+@@ -446,10 +446,8 @@ static int f2fs_set_bio_crypt_ctx(struct bio *bio, const struct inode *inode,
  	 * The f2fs garbage collector sets ->encrypted_page when it wants to
  	 * read/write raw data without encryption.
  	 */
@@ -4152,7 +4152,7 @@ index d9a02f4f78f4..187b929cb76b 100644
  }
  
  static bool f2fs_crypt_mergeable_bio(struct bio *bio, const struct inode *inode,
-@@ -333,7 +331,7 @@ static bool f2fs_crypt_mergeable_bio(struct bio *bio, const struct inode *inode,
+@@ -461,7 +459,7 @@ static bool f2fs_crypt_mergeable_bio(struct bio *bio, const struct inode *inode,
  	 * read/write raw data without encryption.
  	 */
  	if (fio && fio->encrypted_page)
@@ -4161,7 +4161,7 @@ index d9a02f4f78f4..187b929cb76b 100644
  
  	return fscrypt_mergeable_bio(bio, inode, next_idx);
  }
-@@ -509,7 +507,6 @@ int f2fs_submit_page_bio(struct f2fs_io_info *fio)
+@@ -650,7 +648,6 @@ int f2fs_submit_page_bio(struct f2fs_io_info *fio)
  	struct bio *bio;
  	struct page *page = fio->encrypted_page ?
  			fio->encrypted_page : fio->page;
@@ -4169,7 +4169,7 @@ index d9a02f4f78f4..187b929cb76b 100644
  
  	if (!f2fs_is_valid_blkaddr(fio->sbi, fio->new_blkaddr,
  			fio->is_por ? META_POR : (__is_meta_io(fio) ?
-@@ -522,12 +519,8 @@ int f2fs_submit_page_bio(struct f2fs_io_info *fio)
+@@ -663,12 +660,8 @@ int f2fs_submit_page_bio(struct f2fs_io_info *fio)
  	/* Allocate a new bio */
  	bio = __bio_alloc(fio, 1);
  
@@ -4184,7 +4184,7 @@ index d9a02f4f78f4..187b929cb76b 100644
  
  	if (bio_add_page(bio, page, PAGE_SIZE, 0) < PAGE_SIZE) {
  		bio_put(bio);
-@@ -726,7 +719,7 @@ int f2fs_merge_page_bio(struct f2fs_io_info *fio)
+@@ -868,7 +861,7 @@ int f2fs_merge_page_bio(struct f2fs_io_info *fio)
  		bio = __bio_alloc(fio, BIO_MAX_PAGES);
  		f2fs_set_bio_crypt_ctx(bio, fio->page->mapping->host,
  				       fio->page->index, fio,
@@ -4193,7 +4193,7 @@ index d9a02f4f78f4..187b929cb76b 100644
  		bio_set_op_attrs(bio, fio->op, fio->op_flags);
  
  		add_bio_entry(fio->sbi, bio, page, fio->temp);
-@@ -796,7 +789,7 @@ void f2fs_submit_page_write(struct f2fs_io_info *fio)
+@@ -943,7 +936,7 @@ void f2fs_submit_page_write(struct f2fs_io_info *fio)
  		io->bio = __bio_alloc(fio, BIO_MAX_PAGES);
  		f2fs_set_bio_crypt_ctx(io->bio, fio->page->mapping->host,
  				       fio->page->index, fio,
@@ -4202,7 +4202,7 @@ index d9a02f4f78f4..187b929cb76b 100644
  		io->fio = *fio;
  	}
  
-@@ -836,17 +829,12 @@ static struct bio *f2fs_grab_read_bio(struct inode *inode, block_t blkaddr,
+@@ -983,17 +976,12 @@ static struct bio *f2fs_grab_read_bio(struct inode *inode, block_t blkaddr,
  	struct bio *bio;
  	struct bio_post_read_ctx *ctx;
  	unsigned int post_read_steps = 0;
@@ -4222,10 +4222,10 @@ index d9a02f4f78f4..187b929cb76b 100644
  	f2fs_target_device(sbi, blkaddr, bio);
  	bio->bi_end_io = f2fs_read_end_io;
 diff --git a/fs/f2fs/super.c b/fs/f2fs/super.c
-index 6fa52b8776f7..0e9c2303e86f 100644
+index 6734052046a1..d142129b4535 100644
 --- a/fs/f2fs/super.c
 +++ b/fs/f2fs/super.c
-@@ -2347,6 +2347,25 @@ static bool f2fs_inline_crypt_enabled(struct super_block *sb)
+@@ -2434,6 +2434,25 @@ static bool f2fs_inline_crypt_enabled(struct super_block *sb)
  	return F2FS_OPTION(F2FS_SB(sb)).inlinecrypt;
  }
  
@@ -4251,7 +4251,7 @@ index 6fa52b8776f7..0e9c2303e86f 100644
  static const struct fscrypt_operations f2fs_cryptops = {
  	.key_prefix		= "f2fs:",
  	.get_context		= f2fs_get_context,
-@@ -2357,6 +2376,8 @@ static const struct fscrypt_operations f2fs_cryptops = {
+@@ -2444,6 +2463,8 @@ static const struct fscrypt_operations f2fs_cryptops = {
  	.has_stable_inodes	= f2fs_has_stable_inodes,
  	.get_ino_and_lblk_bits	= f2fs_get_ino_and_lblk_bits,
  	.inline_crypt_enabled	= f2fs_inline_crypt_enabled,

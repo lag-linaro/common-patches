@@ -27,10 +27,10 @@ Signed-off-by: Sami Tolvanen <samitolvanen@google.com>
  create mode 100644 kernel/cfi.c
 
 diff --git a/Makefile b/Makefile
-index cf53bbd27dab..11f7cd41b5b3 100644
+index 616f58a08eeb..0e274b04eb15 100644
 --- a/Makefile
 +++ b/Makefile
-@@ -882,6 +882,25 @@ KBUILD_CFLAGS	+= $(CC_FLAGS_LTO)
+@@ -881,6 +881,25 @@ KBUILD_CFLAGS	+= $(CC_FLAGS_LTO)
  export CC_FLAGS_LTO
  endif
  
@@ -57,10 +57,10 @@ index cf53bbd27dab..11f7cd41b5b3 100644
  NOSTDINC_FLAGS += -nostdinc -isystem $(shell $(CC) -print-file-name=include)
  
 diff --git a/arch/Kconfig b/arch/Kconfig
-index d5001d3b9a78..a9a02735c052 100644
+index db6abf0cc18b..1a2e59624e44 100644
 --- a/arch/Kconfig
 +++ b/arch/Kconfig
-@@ -602,6 +602,29 @@ config LTO_CLANG
+@@ -607,6 +607,29 @@ config LTO_CLANG
  
  endchoice
  
@@ -209,7 +209,7 @@ index 0a16e48e6753..32633ea36f96 100644
  #define __initconst	__section(.init.rodata)
  #define __exitdata	__section(.exit.data)
 diff --git a/include/linux/module.h b/include/linux/module.h
-index 2021e502ec63..27d585935c94 100644
+index 8d5397f9fa4c..33ffec021e72 100644
 --- a/include/linux/module.h
 +++ b/include/linux/module.h
 @@ -25,6 +25,7 @@
@@ -220,7 +220,7 @@ index 2021e502ec63..27d585935c94 100644
  
  #include <linux/percpu.h>
  #include <asm/module.h>
-@@ -368,6 +369,10 @@ struct module {
+@@ -378,6 +379,10 @@ struct module {
  	const s32 *crcs;
  	unsigned int num_syms;
  
@@ -245,10 +245,10 @@ index d4ce4f84aa06..518f612d4aca 100644
  config INIT_ALL_POSSIBLE
  	bool
 diff --git a/kernel/Makefile b/kernel/Makefile
-index 06231f936a7a..08652a850458 100644
+index c332eb9d4841..1618d79f46a4 100644
 --- a/kernel/Makefile
 +++ b/kernel/Makefile
-@@ -35,6 +35,9 @@ CFLAGS_kcov.o := $(call cc-option, -fno-conserve-stack -fno-stack-protector)
+@@ -36,6 +36,9 @@ CFLAGS_kcov.o := $(call cc-option, -fno-conserve-stack -fno-stack-protector)
  # cond_syscall is currently not LTO compatible
  CFLAGS_sys_ni.o = $(DISABLE_LTO)
  
@@ -258,7 +258,7 @@ index 06231f936a7a..08652a850458 100644
  obj-y += sched/
  obj-y += locking/
  obj-y += power/
-@@ -103,6 +106,7 @@ obj-$(CONFIG_IRQ_WORK) += irq_work.o
+@@ -104,6 +107,7 @@ obj-$(CONFIG_IRQ_WORK) += irq_work.o
  obj-$(CONFIG_CPU_PM) += cpu_pm.o
  obj-$(CONFIG_BPF) += bpf/
  obj-$(CONFIG_SHADOW_CALL_STACK) += scs.o
@@ -580,10 +580,10 @@ index 000000000000..05f589e24f68
 +	handle_cfi_failure(ptr);
 +}
 diff --git a/kernel/module.c b/kernel/module.c
-index ac058a5ad1d1..502bea7d0278 100644
+index 33569a01d6e1..36ad24a789c7 100644
 --- a/kernel/module.c
 +++ b/kernel/module.c
-@@ -2138,6 +2138,8 @@ void __weak module_arch_freeing_init(struct module *mod)
+@@ -2143,6 +2143,8 @@ void __weak module_arch_freeing_init(struct module *mod)
  {
  }
  
@@ -592,7 +592,7 @@ index ac058a5ad1d1..502bea7d0278 100644
  /* Free a module, remove from lists, etc. */
  static void free_module(struct module *mod)
  {
-@@ -2177,6 +2179,9 @@ static void free_module(struct module *mod)
+@@ -2182,6 +2184,9 @@ static void free_module(struct module *mod)
  	synchronize_rcu();
  	mutex_unlock(&module_mutex);
  
@@ -602,7 +602,7 @@ index ac058a5ad1d1..502bea7d0278 100644
  	/* This may be empty, but that's OK */
  	module_arch_freeing_init(mod);
  	module_memfree(mod->init_layout.base);
-@@ -3428,6 +3433,8 @@ int __weak module_finalize(const Elf_Ehdr *hdr,
+@@ -3432,6 +3437,8 @@ int __weak module_finalize(const Elf_Ehdr *hdr,
  	return 0;
  }
  
@@ -611,7 +611,7 @@ index ac058a5ad1d1..502bea7d0278 100644
  static int post_relocation(struct module *mod, const struct load_info *info)
  {
  	/* Sort exception table now relocations are done. */
-@@ -3440,6 +3447,9 @@ static int post_relocation(struct module *mod, const struct load_info *info)
+@@ -3444,6 +3451,9 @@ static int post_relocation(struct module *mod, const struct load_info *info)
  	/* Setup kallsyms-specific fields. */
  	add_kallsyms(mod, info);
  
@@ -621,7 +621,7 @@ index ac058a5ad1d1..502bea7d0278 100644
  	/* Arch-specific module finalizing. */
  	return module_finalize(info->hdr, info->sechdrs, mod);
  }
-@@ -4243,6 +4253,24 @@ int module_kallsyms_on_each_symbol(int (*fn)(void *, const char *,
+@@ -4247,6 +4257,24 @@ int module_kallsyms_on_each_symbol(int (*fn)(void *, const char *,
  }
  #endif /* CONFIG_KALLSYMS */
  

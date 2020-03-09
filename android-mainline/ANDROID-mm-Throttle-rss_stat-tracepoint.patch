@@ -20,10 +20,10 @@ Signed-off-by: Joel Fernandes <joelaf@google.com>
  2 files changed, 19 insertions(+), 6 deletions(-)
 
 diff --git a/include/linux/mm.h b/include/linux/mm.h
-index aa1ed9ef4968..1dba485186b0 100644
+index 9b07950c855b..6a527aa90b43 100644
 --- a/include/linux/mm.h
 +++ b/include/linux/mm.h
-@@ -1623,27 +1623,28 @@ static inline unsigned long get_mm_counter(struct mm_struct *mm, int member)
+@@ -1629,27 +1629,28 @@ static inline unsigned long get_mm_counter(struct mm_struct *mm, int member)
  	return (unsigned long)val;
  }
  
@@ -57,7 +57,7 @@ index aa1ed9ef4968..1dba485186b0 100644
  
  /* Optimized variant when page is already known not to be PageAnon */
 diff --git a/mm/memory.c b/mm/memory.c
-index 2e892bb9358b..f7e84a2d5b52 100644
+index 873cfedc1501..584d2f5a6cc0 100644
 --- a/mm/memory.c
 +++ b/mm/memory.c
 @@ -154,9 +154,21 @@ static int __init init_zero_pfn(void)

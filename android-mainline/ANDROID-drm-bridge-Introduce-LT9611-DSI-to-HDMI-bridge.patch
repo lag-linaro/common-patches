@@ -22,10 +22,10 @@ Change-Id: Ib0bbbf1d86582d9c2ccf1a3c678f1563a26ec04f
  create mode 100644 drivers/gpu/drm/bridge/lt9611.c
 
 diff --git a/drivers/gpu/drm/bridge/Kconfig b/drivers/gpu/drm/bridge/Kconfig
-index 34362976cd6f..a5544c7aeb2d 100644
+index 0b9ca5862455..5d8bad001dd3 100644
 --- a/drivers/gpu/drm/bridge/Kconfig
 +++ b/drivers/gpu/drm/bridge/Kconfig
-@@ -45,6 +45,14 @@ config DRM_DUMB_VGA_DAC
+@@ -35,6 +35,14 @@ config DRM_DUMB_VGA_DAC
  	  Support for non-programmable RGB to VGA DAC bridges, such as ADI
  	  ADV7123, TI THS8134 and THS8135 or passive resistor ladder DACs.
  
@@ -37,19 +37,19 @@ index 34362976cd6f..a5544c7aeb2d 100644
 +	help
 +	  Lontium LT9611 DSI/HDMI bridge chip driver.
 +
- config DRM_LVDS_ENCODER
- 	tristate "Transparent parallel to LVDS encoder support"
+ config DRM_LVDS_CODEC
+ 	tristate "Transparent LVDS encoders and decoders support"
  	depends on OF
 diff --git a/drivers/gpu/drm/bridge/Makefile b/drivers/gpu/drm/bridge/Makefile
-index 4934fcf5a6f8..8b1d176da6a2 100644
+index cd16ce830270..e4b38df01631 100644
 --- a/drivers/gpu/drm/bridge/Makefile
 +++ b/drivers/gpu/drm/bridge/Makefile
-@@ -2,6 +2,7 @@
- obj-$(CONFIG_DRM_ANALOGIX_ANX78XX) += analogix-anx78xx.o
+@@ -1,6 +1,7 @@
+ # SPDX-License-Identifier: GPL-2.0
  obj-$(CONFIG_DRM_CDNS_DSI) += cdns-dsi.o
  obj-$(CONFIG_DRM_DUMB_VGA_DAC) += dumb-vga-dac.o
 +obj-$(CONFIG_DRM_LONTIUM_LT9611) += lt9611.o
- obj-$(CONFIG_DRM_LVDS_ENCODER) += lvds-encoder.o
+ obj-$(CONFIG_DRM_LVDS_CODEC) += lvds-codec.o
  obj-$(CONFIG_DRM_MEGACHIPS_STDPXXXX_GE_B850V3_FW) += megachips-stdpxxxx-ge-b850v3-fw.o
  obj-$(CONFIG_DRM_NXP_PTN3460) += nxp-ptn3460.o
 diff --git a/drivers/gpu/drm/bridge/lt9611.c b/drivers/gpu/drm/bridge/lt9611.c

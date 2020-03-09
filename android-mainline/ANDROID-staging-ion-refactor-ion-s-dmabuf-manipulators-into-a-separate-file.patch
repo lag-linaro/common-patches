@@ -18,12 +18,12 @@ Co-developed-by: Isaac J. Manjarres <isaacm@codeaurora.org>
 Signed-off-by: Sandeep Patil <sspatil@google.com>
 ---
  drivers/staging/android/ion/Makefile      |   2 +-
- drivers/staging/android/ion/ion.c         | 254 +---------------------
+ drivers/staging/android/ion/ion.c         | 240 +--------------------
  drivers/staging/android/ion/ion_buffer.c  |   6 +-
- drivers/staging/android/ion/ion_dma_buf.c | 252 +++++++++++++++++++++
+ drivers/staging/android/ion/ion_dma_buf.c | 252 ++++++++++++++++++++++
  drivers/staging/android/ion/ion_private.h |  11 +-
  include/linux/ion.h                       |  16 +-
- 6 files changed, 289 insertions(+), 252 deletions(-)
+ 6 files changed, 289 insertions(+), 238 deletions(-)
  create mode 100644 drivers/staging/android/ion/ion_dma_buf.c
 
 diff --git a/drivers/staging/android/ion/Makefile b/drivers/staging/android/ion/Makefile
@@ -37,10 +37,10 @@ index da386dbf3ffd..b6fab2816781 100644
  obj-$(CONFIG_ION_SYSTEM_HEAP) += ion_system_heap.o ion_page_pool.o
  obj-$(CONFIG_ION_CMA_HEAP) += ion_cma_heap.o
 diff --git a/drivers/staging/android/ion/ion.c b/drivers/staging/android/ion/ion.c
-index 48b62a5aaf58..51d13c1f6650 100644
+index 4258f2f747e4..51d13c1f6650 100644
 --- a/drivers/staging/android/ion/ion.c
 +++ b/drivers/staging/android/ion/ion.c
-@@ -17,276 +17,38 @@
+@@ -17,262 +17,38 @@
  #include <linux/fs.h>
  #include <linux/kthread.h>
  #include <linux/list.h>
@@ -195,18 +195,6 @@ index 48b62a5aaf58..51d13c1f6650 100644
 -	ion_buffer_destroy(internal_dev, buffer);
 -}
 -
--static void *ion_dma_buf_kmap(struct dma_buf *dmabuf, unsigned long offset)
--{
--	struct ion_buffer *buffer = dmabuf->priv;
--
--	return buffer->vaddr + offset * PAGE_SIZE;
--}
--
--static void ion_dma_buf_kunmap(struct dma_buf *dmabuf, unsigned long offset,
--			       void *ptr)
--{
--}
--
 -static int ion_dma_buf_begin_cpu_access(struct dma_buf *dmabuf,
 -					enum dma_data_direction direction)
 -{
@@ -270,8 +258,6 @@ index 48b62a5aaf58..51d13c1f6650 100644
 -	.detach = ion_dma_buf_detatch,
 -	.begin_cpu_access = ion_dma_buf_begin_cpu_access,
 -	.end_cpu_access = ion_dma_buf_end_cpu_access,
--	.map = ion_dma_buf_kmap,
--	.unmap = ion_dma_buf_kunmap,
 -};
 -
 -static struct dma_buf *ion_alloc_dmabuf(size_t len, unsigned int heap_id_mask,

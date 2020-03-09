@@ -50,10 +50,10 @@ index 87fe0b0e01a3..7b1f7a04392a 100644
  	if (pargs.period != NSEC_PER_SEC / clk_pwm->fixed_rate &&
  	    pargs.period != DIV_ROUND_UP(NSEC_PER_SEC, clk_pwm->fixed_rate)) {
 diff --git a/drivers/gpu/drm/i915/display/intel_panel.c b/drivers/gpu/drm/i915/display/intel_panel.c
-index bc14e9c0285a..ca373b824b68 100644
+index 7b3ec6eb3382..7c0247fd0412 100644
 --- a/drivers/gpu/drm/i915/display/intel_panel.c
 +++ b/drivers/gpu/drm/i915/display/intel_panel.c
-@@ -1868,7 +1868,7 @@ static int pwm_setup_backlight(struct intel_connector *connector,
+@@ -1877,7 +1877,7 @@ static int pwm_setup_backlight(struct intel_connector *connector,
  
  	panel->backlight.min = 0; /* 0% */
  	panel->backlight.max = 100; /* 100% */

@@ -61,10 +61,10 @@ index 0a7f9d67bb35..be094ea6a330 100644
  				return error;
  		}
 diff --git a/fs/exec.c b/fs/exec.c
-index 74d88dab98dd..68485e775804 100644
+index db17be51b112..27007f44fbdb 100644
 --- a/fs/exec.c
 +++ b/fs/exec.c
-@@ -1312,7 +1312,7 @@ EXPORT_SYMBOL(flush_old_exec);
+@@ -1316,7 +1316,7 @@ EXPORT_SYMBOL(flush_old_exec);
  void would_dump(struct linux_binprm *bprm, struct file *file)
  {
  	struct inode *inode = file_inode(file);
@@ -74,7 +74,7 @@ index 74d88dab98dd..68485e775804 100644
  		bprm->interp_flags |= BINPRM_FLAGS_ENFORCE_NONDUMP;
  
 diff --git a/fs/namei.c b/fs/namei.c
-index 33e8e5d27bb3..a0ebe0455d97 100644
+index dd7d001eb0d0..1370493e21d8 100644
 --- a/fs/namei.c
 +++ b/fs/namei.c
 @@ -377,9 +377,11 @@ EXPORT_SYMBOL(generic_permission);
@@ -749,7 +749,7 @@ index 71f887518d6f..9520365195cf 100644
  
  int
 diff --git a/include/linux/fs.h b/include/linux/fs.h
-index d0dab884a4c7..b5e0c1cf1850 100644
+index 2254f2bf4dc7..258658394f32 100644
 --- a/include/linux/fs.h
 +++ b/include/linux/fs.h
 @@ -1709,13 +1709,21 @@ extern bool inode_owner_or_capable(const struct inode *inode);
@@ -792,7 +792,7 @@ index d0dab884a4c7..b5e0c1cf1850 100644
  	struct posix_acl * (*get_acl)(struct inode *, int);
  
  	int (*readlink) (struct dentry *, char __user *,int);
-@@ -2870,6 +2882,7 @@ extern sector_t bmap(struct inode *, sector_t);
+@@ -2874,6 +2886,7 @@ extern sector_t bmap(struct inode *, sector_t);
  extern int notify_change(struct dentry *, struct iattr *, struct inode **);
  extern int notify_change2(struct vfsmount *, struct dentry *, struct iattr *, struct inode **);
  extern int inode_permission(struct inode *, int);
@@ -813,10 +813,10 @@ index 0dd980d7318f..34c4fa04140d 100644
  extern struct dentry *lookup_positive_unlocked(const char *, struct dentry *, int);
  
 diff --git a/ipc/mqueue.c b/ipc/mqueue.c
-index 3d920ff15c80..948d116f3446 100644
+index 49a05ba3000d..34387bc35357 100644
 --- a/ipc/mqueue.c
 +++ b/ipc/mqueue.c
-@@ -768,7 +768,7 @@ static void remove_notification(struct mqueue_inode_info *info)
+@@ -833,7 +833,7 @@ static void remove_notification(struct mqueue_inode_info *info)
  	info->notify_user_ns = NULL;
  }
  
@@ -825,7 +825,7 @@ index 3d920ff15c80..948d116f3446 100644
  			umode_t mode, struct filename *name,
  			struct mq_attr *attr)
  {
-@@ -782,7 +782,7 @@ static int prepare_open(struct dentry *dentry, int oflag, int ro,
+@@ -847,7 +847,7 @@ static int prepare_open(struct dentry *dentry, int oflag, int ro,
  		if (ro)
  			return ro;
  		audit_inode_parent_hidden(name, dentry->d_parent);
@@ -834,7 +834,7 @@ index 3d920ff15c80..948d116f3446 100644
  				  mqueue_create_attr, attr);
  	}
  	/* it already existed */
-@@ -792,7 +792,7 @@ static int prepare_open(struct dentry *dentry, int oflag, int ro,
+@@ -857,7 +857,7 @@ static int prepare_open(struct dentry *dentry, int oflag, int ro,
  	if ((oflag & O_ACCMODE) == (O_RDWR | O_WRONLY))
  		return -EINVAL;
  	acc = oflag2acc[oflag & O_ACCMODE];
@@ -843,7 +843,7 @@ index 3d920ff15c80..948d116f3446 100644
  }
  
  static int do_mq_open(const char __user *u_name, int oflag, umode_t mode,
-@@ -816,13 +816,13 @@ static int do_mq_open(const char __user *u_name, int oflag, umode_t mode,
+@@ -881,13 +881,13 @@ static int do_mq_open(const char __user *u_name, int oflag, umode_t mode,
  
  	ro = mnt_want_write(mnt);	/* we'll drop it in any case */
  	inode_lock(d_inode(root));
@@ -859,7 +859,7 @@ index 3d920ff15c80..948d116f3446 100644
  	if (!error) {
  		struct file *file = dentry_open(&path, oflag, current_cred());
  		if (!IS_ERR(file))
-@@ -872,7 +872,7 @@ SYSCALL_DEFINE1(mq_unlink, const char __user *, u_name)
+@@ -937,7 +937,7 @@ SYSCALL_DEFINE1(mq_unlink, const char __user *, u_name)
  	if (err)
  		goto out_name;
  	inode_lock_nested(d_inode(mnt->mnt_root), I_MUTEX_PARENT);
@@ -868,7 +868,7 @@ index 3d920ff15c80..948d116f3446 100644
  				strlen(name->name));
  	if (IS_ERR(dentry)) {
  		err = PTR_ERR(dentry);
-@@ -884,7 +884,7 @@ SYSCALL_DEFINE1(mq_unlink, const char __user *, u_name)
+@@ -949,7 +949,7 @@ SYSCALL_DEFINE1(mq_unlink, const char __user *, u_name)
  		err = -ENOENT;
  	} else {
  		ihold(inode);

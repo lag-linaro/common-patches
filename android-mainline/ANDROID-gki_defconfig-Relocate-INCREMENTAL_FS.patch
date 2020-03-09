@@ -1,0 +1,60 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: Alistair Delva <adelva@google.com>
+Date: Fri, 7 Feb 2020 14:34:50 -0800
+Subject: ANDROID: gki_defconfig: Relocate INCREMENTAL_FS
+
+Ensure we build incrementalfs.ko as a module. As GKI is not ready for
+module artifacts, move this to the board fragments.
+
+Bug: 133435829
+Change-Id: Ice50969b49b437606a0d9fd64844c8cfff05536e
+Signed-off-by: Alistair Delva <adelva@google.com>
+---
+ arch/arm64/configs/db845c_gki.fragment | 1 +
+ arch/arm64/configs/gki_defconfig       | 1 -
+ arch/x86/configs/gki_defconfig         | 1 -
+ cuttlefish.fragment                    | 1 +
+ 4 files changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/arch/arm64/configs/db845c_gki.fragment b/arch/arm64/configs/db845c_gki.fragment
+index c8b7fc3c3cd1..5ad26f72e3ad 100644
+--- a/arch/arm64/configs/db845c_gki.fragment
++++ b/arch/arm64/configs/db845c_gki.fragment
+@@ -62,3 +62,4 @@ CONFIG_PHY_QCOM_USB_HS=m
+ CONFIG_QCOM_QFPROM=m
+ CONFIG_INTERCONNECT_QCOM=y
+ CONFIG_INTERCONNECT_QCOM_SDM845=m
++CONFIG_INCREMENTAL_FS=m
+diff --git a/arch/arm64/configs/gki_defconfig b/arch/arm64/configs/gki_defconfig
+index 7779918ff513..863d169b462a 100644
+--- a/arch/arm64/configs/gki_defconfig
++++ b/arch/arm64/configs/gki_defconfig
+@@ -396,7 +396,6 @@ CONFIG_QUOTA=y
+ CONFIG_QFMT_V2=y
+ CONFIG_FUSE_FS=y
+ CONFIG_OVERLAY_FS=y
+-CONFIG_INCREMENTAL_FS=y
+ CONFIG_MSDOS_FS=y
+ CONFIG_VFAT_FS=y
+ CONFIG_TMPFS=y
+diff --git a/arch/x86/configs/gki_defconfig b/arch/x86/configs/gki_defconfig
+index e43112fb64e3..a9d4b4fdd212 100644
+--- a/arch/x86/configs/gki_defconfig
++++ b/arch/x86/configs/gki_defconfig
+@@ -331,7 +331,6 @@ CONFIG_QUOTA=y
+ CONFIG_QFMT_V2=y
+ CONFIG_FUSE_FS=y
+ CONFIG_OVERLAY_FS=y
+-CONFIG_INCREMENTAL_FS=y
+ CONFIG_MSDOS_FS=y
+ CONFIG_VFAT_FS=y
+ CONFIG_TMPFS=y
+diff --git a/cuttlefish.fragment b/cuttlefish.fragment
+index dbcc37000f3e..bdff8fa24404 100644
+--- a/cuttlefish.fragment
++++ b/cuttlefish.fragment
+@@ -16,3 +16,4 @@ CONFIG_VIRTIO_PMEM=m
+ CONFIG_VIRTIO_INPUT=m
+ CONFIG_VIRTIO_MMIO=m
+ CONFIG_VIRTIO_MMIO_CMDLINE_DEVICES=y
++CONFIG_INCREMENTAL_FS=m

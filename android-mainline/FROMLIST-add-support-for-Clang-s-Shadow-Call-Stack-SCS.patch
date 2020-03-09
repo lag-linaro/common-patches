@@ -38,10 +38,10 @@ Signed-off-by: Sami Tolvanen <samitolvanen@google.com>
  create mode 100644 kernel/scs.c
 
 diff --git a/Makefile b/Makefile
-index 6a01b073915e..b2a1e5b704f4 100644
+index 65a5dc653deb..01f9133082c7 100644
 --- a/Makefile
 +++ b/Makefile
-@@ -846,6 +846,12 @@ ifdef CONFIG_LIVEPATCH
+@@ -845,6 +845,12 @@ ifdef CONFIG_LIVEPATCH
  KBUILD_CFLAGS += $(call cc-option, -flive-patching=inline-clone)
  endif
  
@@ -55,10 +55,10 @@ index 6a01b073915e..b2a1e5b704f4 100644
  NOSTDINC_FLAGS += -nostdinc -isystem $(shell $(CC) -print-file-name=include)
  
 diff --git a/arch/Kconfig b/arch/Kconfig
-index 48b5e103bdb0..1b16aa9a3fe5 100644
+index 98de654b79b3..66b34fd0df54 100644
 --- a/arch/Kconfig
 +++ b/arch/Kconfig
-@@ -521,6 +521,40 @@ config STACKPROTECTOR_STRONG
+@@ -526,6 +526,40 @@ config STACKPROTECTOR_STRONG
  	  about 20% of all kernel functions, which increases the kernel code
  	  size by about 2%.
  
@@ -218,10 +218,10 @@ index 9e5cbe5eab7b..cbd40460e903 100644
   * Initial thread structure. Alignment of this is handled by a special
   * linker map entry.
 diff --git a/kernel/Makefile b/kernel/Makefile
-index f2cc0d118a0b..06231f936a7a 100644
+index 4cb4130ced32..c332eb9d4841 100644
 --- a/kernel/Makefile
 +++ b/kernel/Makefile
-@@ -102,6 +102,7 @@ obj-$(CONFIG_TRACEPOINTS) += trace/
+@@ -103,6 +103,7 @@ obj-$(CONFIG_TRACEPOINTS) += trace/
  obj-$(CONFIG_IRQ_WORK) += irq_work.o
  obj-$(CONFIG_CPU_PM) += cpu_pm.o
  obj-$(CONFIG_BPF) += bpf/

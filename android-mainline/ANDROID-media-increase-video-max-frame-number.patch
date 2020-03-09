@@ -28,7 +28,7 @@ index a2b2208b02da..6a5025a50708 100644
  
  /**
 diff --git a/include/uapi/linux/videodev2.h b/include/uapi/linux/videodev2.h
-index 6c7f305541b1..169e210df1eb 100644
+index e9184fdc1bd5..320c67fa2cae 100644
 --- a/include/uapi/linux/videodev2.h
 +++ b/include/uapi/linux/videodev2.h
 @@ -70,7 +70,7 @@

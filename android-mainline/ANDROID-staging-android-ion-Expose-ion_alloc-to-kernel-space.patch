@@ -19,7 +19,7 @@ Signed-off-by: Sandeep Patil <sspatil@google.com>
  create mode 100644 include/linux/ion.h
 
 diff --git a/drivers/staging/android/ion/ion.c b/drivers/staging/android/ion/ion.c
-index c394686a8e7d..a8eaaf386413 100644
+index 38b51eace4f9..a668d2a418d3 100644
 --- a/drivers/staging/android/ion/ion.c
 +++ b/drivers/staging/android/ion/ion.c
 @@ -3,6 +3,8 @@
@@ -31,8 +31,8 @@ index c394686a8e7d..a8eaaf386413 100644
   */
  
  #include <linux/debugfs.h>
-@@ -353,13 +355,13 @@ static const struct dma_buf_ops dma_buf_ops = {
- 	.unmap = ion_dma_buf_kunmap,
+@@ -339,13 +341,13 @@ static const struct dma_buf_ops dma_buf_ops = {
+ 	.end_cpu_access = ion_dma_buf_end_cpu_access,
  };
  
 -static int ion_alloc(size_t len, unsigned int heap_id_mask, unsigned int flags)
@@ -47,7 +47,7 @@ index c394686a8e7d..a8eaaf386413 100644
  	struct dma_buf *dmabuf;
  
  	pr_debug("%s: len %zu heap_id_mask %u flags %x\n", __func__,
-@@ -373,7 +375,7 @@ static int ion_alloc(size_t len, unsigned int heap_id_mask, unsigned int flags)
+@@ -359,7 +361,7 @@ static int ion_alloc(size_t len, unsigned int heap_id_mask, unsigned int flags)
  	len = PAGE_ALIGN(len);
  
  	if (!len)
@@ -56,7 +56,7 @@ index c394686a8e7d..a8eaaf386413 100644
  
  	down_read(&dev->lock);
  	plist_for_each_entry(heap, &dev->heaps, node) {
-@@ -387,10 +389,10 @@ static int ion_alloc(size_t len, unsigned int heap_id_mask, unsigned int flags)
+@@ -373,10 +375,10 @@ static int ion_alloc(size_t len, unsigned int heap_id_mask, unsigned int flags)
  	up_read(&dev->lock);
  
  	if (!buffer)
@@ -69,7 +69,7 @@ index c394686a8e7d..a8eaaf386413 100644
  
  	exp_info.ops = &dma_buf_ops;
  	exp_info.size = buffer->size;
-@@ -398,10 +400,28 @@ static int ion_alloc(size_t len, unsigned int heap_id_mask, unsigned int flags)
+@@ -384,10 +386,28 @@ static int ion_alloc(size_t len, unsigned int heap_id_mask, unsigned int flags)
  	exp_info.priv = buffer;
  
  	dmabuf = dma_buf_export(&exp_info);
@@ -100,7 +100,7 @@ index c394686a8e7d..a8eaaf386413 100644
  
  	fd = dma_buf_fd(dmabuf, O_CLOEXEC);
  	if (fd < 0)
-@@ -506,9 +526,9 @@ static long ion_ioctl(struct file *filp, unsigned int cmd, unsigned long arg)
+@@ -492,9 +512,9 @@ static long ion_ioctl(struct file *filp, unsigned int cmd, unsigned long arg)
  	{
  		int fd;
  

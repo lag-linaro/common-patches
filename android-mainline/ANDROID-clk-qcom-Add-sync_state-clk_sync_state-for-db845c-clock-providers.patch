@@ -23,18 +23,18 @@ Change-Id: I722987fbaff045f80180aafb9176b75ed5f8cd03
  5 files changed, 6 insertions(+)
 
 diff --git a/drivers/clk/qcom/dispcc-sdm845.c b/drivers/clk/qcom/dispcc-sdm845.c
-index 0cc4909b5dbe..a84f1704100b 100644
+index 5c932cd17b14..11e03f7fae09 100644
 --- a/drivers/clk/qcom/dispcc-sdm845.c
 +++ b/drivers/clk/qcom/dispcc-sdm845.c
 @@ -3,6 +3,7 @@
-  * Copyright (c) 2018, The Linux Foundation. All rights reserved.
+  * Copyright (c) 2018-2019, The Linux Foundation. All rights reserved.
   */
  
 +#include <linux/clk.h>
  #include <linux/clk-provider.h>
  #include <linux/module.h>
  #include <linux/platform_device.h>
-@@ -666,6 +667,7 @@ static struct platform_driver disp_cc_sdm845_driver = {
+@@ -878,6 +879,7 @@ static struct platform_driver disp_cc_sdm845_driver = {
  	.driver		= {
  		.name	= "disp_cc-sdm845",
  		.of_match_table = disp_cc_sdm845_match_table,
@@ -43,10 +43,10 @@ index 0cc4909b5dbe..a84f1704100b 100644
  };
  
 diff --git a/drivers/clk/qcom/gcc-msm8998.c b/drivers/clk/qcom/gcc-msm8998.c
-index cf31b5d03270..7b0eb87178ed 100644
+index df1d7056436c..b5682fca397e 100644
 --- a/drivers/clk/qcom/gcc-msm8998.c
 +++ b/drivers/clk/qcom/gcc-msm8998.c
-@@ -3078,6 +3078,7 @@ static struct platform_driver gcc_msm8998_driver = {
+@@ -3092,6 +3092,7 @@ static struct platform_driver gcc_msm8998_driver = {
  	.driver		= {
  		.name	= "gcc-msm8998",
  		.of_match_table = gcc_msm8998_match_table,

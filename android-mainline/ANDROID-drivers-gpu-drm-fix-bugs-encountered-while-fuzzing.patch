@@ -18,10 +18,10 @@ Change-Id: I42bd3696371db6ae37789e3f7f43db045e166898
  2 files changed, 22 insertions(+), 2 deletions(-)
 
 diff --git a/drivers/gpu/drm/drm_file.c b/drivers/gpu/drm/drm_file.c
-index ea34bc991858..6940812a97d7 100644
+index 92d16724f949..a8680b69b156 100644
 --- a/drivers/gpu/drm/drm_file.c
 +++ b/drivers/gpu/drm/drm_file.c
-@@ -49,6 +49,8 @@
+@@ -51,6 +51,8 @@
  /* from BKL pushdown */
  DEFINE_MUTEX(drm_global_mutex);
  
@@ -30,7 +30,7 @@ index ea34bc991858..6940812a97d7 100644
  /**
   * DOC: file operations
   *
-@@ -380,6 +382,11 @@ int drm_open(struct inode *inode, struct file *filp)
+@@ -382,6 +384,11 @@ int drm_open(struct inode *inode, struct file *filp)
  	if (!dev->open_count++)
  		need_setup = 1;
  

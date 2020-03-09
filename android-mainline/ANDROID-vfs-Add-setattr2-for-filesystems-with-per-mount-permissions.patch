@@ -107,7 +107,7 @@ index ea15c6d9f274..8877c427c00e 100644
  		inode_has_no_xattr(inode);
  
 diff --git a/fs/namei.c b/fs/namei.c
-index 4167109297e0..33e8e5d27bb3 100644
+index db6565c99825..dd7d001eb0d0 100644
 --- a/fs/namei.c
 +++ b/fs/namei.c
 @@ -3080,7 +3080,7 @@ static int handle_truncate(struct file *filp)
@@ -226,7 +226,7 @@ index c952b6b3d8a0..1250d8c5a67f 100644
  	if (delegated_inode) {
  		error = break_deleg_wait(&delegated_inode);
 diff --git a/include/linux/fs.h b/include/linux/fs.h
-index 40be2ccb87f3..d0dab884a4c7 100644
+index 41584f50af0d..2254f2bf4dc7 100644
 --- a/include/linux/fs.h
 +++ b/include/linux/fs.h
 @@ -1878,7 +1878,8 @@ struct inode_operations {
@@ -248,7 +248,7 @@ index 40be2ccb87f3..d0dab884a4c7 100644
  extern int vfs_fallocate(struct file *file, int mode, loff_t offset,
  			loff_t len);
  extern long do_sys_open(int dfd, const char __user *filename, int flags,
-@@ -2865,6 +2868,7 @@ extern void emergency_remount(void);
+@@ -2869,6 +2872,7 @@ extern void emergency_remount(void);
  extern sector_t bmap(struct inode *, sector_t);
  #endif
  extern int notify_change(struct dentry *, struct iattr *, struct inode **);

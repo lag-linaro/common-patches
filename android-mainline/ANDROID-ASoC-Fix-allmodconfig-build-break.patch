@@ -42,7 +42,7 @@ index 287ef898a55e..e862b053833f 100644
  }
 +EXPORT_SYMBOL_GPL(arch_setup_dma_ops);
 diff --git a/arch/arm/mm/dma-mapping.c b/arch/arm/mm/dma-mapping.c
-index e822af0d9219..0e00149adbaf 100644
+index 9414d72f664b..5ea603f8fd35 100644
 --- a/arch/arm/mm/dma-mapping.c
 +++ b/arch/arm/mm/dma-mapping.c
 @@ -2324,6 +2324,7 @@ void arch_setup_dma_ops(struct device *dev, u64 dma_base, u64 size,

@@ -27,10 +27,10 @@ Signed-off-by: Sami Tolvanen <samitolvanen@google.com>
  9 files changed, 52 insertions(+), 5 deletions(-)
 
 diff --git a/arch/Kconfig b/arch/Kconfig
-index 67ed6c12aa83..d5001d3b9a78 100644
+index d0fffd4fc5e5..db6abf0cc18b 100644
 --- a/arch/Kconfig
 +++ b/arch/Kconfig
-@@ -590,7 +590,7 @@ config LTO_CLANG
+@@ -595,7 +595,7 @@ config LTO_CLANG
  	bool "Use Clang's Link Time Optimization (LTO) (EXPERIMENTAL)"
  	depends on ARCH_SUPPORTS_LTO_CLANG
  	depends on !KASAN
@@ -99,7 +99,7 @@ index 9bf1f2cd515e..1eae67dd8759 100644
  	struct ftrace_page *start_pg;
  	struct ftrace_page *pg;
 diff --git a/scripts/Makefile.build b/scripts/Makefile.build
-index 928554436f39..9c42149bb5ac 100644
+index db951449708f..afe852399a96 100644
 --- a/scripts/Makefile.build
 +++ b/scripts/Makefile.build
 @@ -177,6 +177,12 @@ ifdef BUILD_C_RECORDMCOUNT
@@ -154,7 +154,7 @@ index 147ed6c243ef..6eb343ed0cad 100644
        cmd_ld_ko_o =                                                     \
  	$(LD) -r $(KBUILD_LDFLAGS)					\
 diff --git a/scripts/link-vmlinux.sh b/scripts/link-vmlinux.sh
-index a153ce048700..63eacc9ea6e9 100755
+index e0abe7ed5995..1dee9f00fde9 100755
 --- a/scripts/link-vmlinux.sh
 +++ b/scripts/link-vmlinux.sh
 @@ -87,6 +87,19 @@ modpost_link()
@@ -188,7 +188,7 @@ index a153ce048700..63eacc9ea6e9 100755
 +
  info MODINFO modules.builtin.modinfo
  ${OBJCOPY} -j .modinfo -O binary vmlinux.o modules.builtin.modinfo
- 
+ info GEN modules.builtin
 diff --git a/scripts/recordmcount.c b/scripts/recordmcount.c
 index 7225107a9aaf..00f2c3efa87e 100644
 --- a/scripts/recordmcount.c

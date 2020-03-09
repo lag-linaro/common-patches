@@ -20,10 +20,10 @@ Change-Id: Ibfd2b2dd41f6a22c832afb3d8e805c3602acba95
  2 files changed, 4 insertions(+), 1 deletion(-)
 
 diff --git a/drivers/pci/controller/dwc/pcie-qcom.c b/drivers/pci/controller/dwc/pcie-qcom.c
-index 7e581748ee9f..23e4324a93dd 100644
+index 5ea527a6bd9f..72d1460bfb76 100644
 --- a/drivers/pci/controller/dwc/pcie-qcom.c
 +++ b/drivers/pci/controller/dwc/pcie-qcom.c
-@@ -1289,7 +1289,8 @@ static void qcom_fixup_class(struct pci_dev *dev)
+@@ -1439,7 +1439,8 @@ static void qcom_fixup_class(struct pci_dev *dev)
  {
  	dev->class = PCI_CLASS_BRIDGE_PCI << 8;
  }

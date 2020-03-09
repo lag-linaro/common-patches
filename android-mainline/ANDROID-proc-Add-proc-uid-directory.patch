@@ -59,10 +59,10 @@ index ead487e80510..3f849ca0edce 100644
  proc-$(CONFIG_NET)		+= proc_net.o
  proc-$(CONFIG_PROC_KCORE)	+= kcore.o
 diff --git a/fs/proc/internal.h b/fs/proc/internal.h
-index 0f3b557c9b77..b996429de6d8 100644
+index 41587276798e..826d1a1c5a99 100644
 --- a/fs/proc/internal.h
 +++ b/fs/proc/internal.h
-@@ -253,6 +253,15 @@ static inline void proc_sys_evict_inode(struct  inode *inode,
+@@ -256,6 +256,15 @@ static inline void proc_sys_evict_inode(struct  inode *inode,
  					struct ctl_table_header *head) { }
  #endif
  
@@ -79,7 +79,7 @@ index 0f3b557c9b77..b996429de6d8 100644
   * proc_tty.c
   */
 diff --git a/fs/proc/root.c b/fs/proc/root.c
-index 0b7c8dffc9ae..485237e7cce1 100644
+index 72c07a34cff0..feebf48ad410 100644
 --- a/fs/proc/root.c
 +++ b/fs/proc/root.c
 @@ -221,6 +221,7 @@ void __init proc_root_init(void)
@@ -387,10 +387,10 @@ index 000000000000..ae720b93a0ed
 +	return 0;
 +}
 diff --git a/include/linux/proc_fs.h b/include/linux/proc_fs.h
-index 0640be56dcbd..633d6a87d58e 100644
+index 3dfa92633af3..9ca3d51ba74c 100644
 --- a/include/linux/proc_fs.h
 +++ b/include/linux/proc_fs.h
-@@ -131,6 +131,12 @@ static inline struct pid *tgid_pidfd_to_pid(const struct file *file)
+@@ -146,6 +146,12 @@ static inline struct pid *tgid_pidfd_to_pid(const struct file *file)
  
  #endif /* CONFIG_PROC_FS */
  
