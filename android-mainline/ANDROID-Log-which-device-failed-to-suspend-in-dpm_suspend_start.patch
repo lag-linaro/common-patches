@@ -42,10 +42,10 @@ index 18a2b66023cd..4771e218d5f1 100644
  			break;
  		}
 diff --git a/kernel/power/suspend.c b/kernel/power/suspend.c
-index fbdf1ceae333..0872fcdecb07 100644
+index e4e851be55d0..4d5724adfe94 100644
 --- a/kernel/power/suspend.c
 +++ b/kernel/power/suspend.c
-@@ -489,7 +489,7 @@ static int suspend_enter(suspend_state_t state, bool *wakeup)
+@@ -490,7 +490,7 @@ static int suspend_enter(suspend_state_t state, bool *wakeup)
   */
  int suspend_devices_and_enter(suspend_state_t state)
  {
@@ -54,7 +54,7 @@ index fbdf1ceae333..0872fcdecb07 100644
  	bool wakeup = false;
  
  	if (!sleep_state_supported(state))
-@@ -508,8 +508,11 @@ int suspend_devices_and_enter(suspend_state_t state)
+@@ -509,8 +509,11 @@ int suspend_devices_and_enter(suspend_state_t state)
  	suspend_test_start();
  	error = dpm_suspend_start(PMSG_SUSPEND);
  	if (error) {

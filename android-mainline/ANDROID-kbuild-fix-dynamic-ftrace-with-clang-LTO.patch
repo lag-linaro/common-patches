@@ -154,7 +154,7 @@ index 147ed6c243ef..6eb343ed0cad 100644
        cmd_ld_ko_o =                                                     \
  	$(LD) -r $(KBUILD_LDFLAGS)					\
 diff --git a/scripts/link-vmlinux.sh b/scripts/link-vmlinux.sh
-index e0abe7ed5995..1dee9f00fde9 100755
+index c0de2ac66c1e..159f53c6628d 100755
 --- a/scripts/link-vmlinux.sh
 +++ b/scripts/link-vmlinux.sh
 @@ -87,6 +87,19 @@ modpost_link()

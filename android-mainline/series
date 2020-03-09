@@ -1,8 +1,8 @@
 #
 # android-mainline patches
 #
-# Applies onto upstream bb6d3fb354c5 Linux v5.6-rc1
-# Matches android-mainline 911f3d3f5a74 ("ANDROID: gki_defconfig: Enable MAC80211_RC_MINSTREL")
+# Applies onto upstream 11a48a5a18c6 Linux v5.6-rc2
+# Matches android-mainline 57ba579f7f7b ("Merge 5.6-rc2 into android-mainline")
 #
 Revert-security-lockdown-selinux-implement-SELinux-lockdown.patch
 Revert-drm-virtio-fix-DRM_FORMAT_-handling.patch
@@ -358,7 +358,6 @@ ANDROID-Fixing-incremental-fs-style-issues.patch
 ANDROID-Incremental-fs-Fix-sparse-errors.patch
 ANDROID-Incremental-fs-Enable-incrementalfs-in-GKI.patch
 ANDROID-Incremental-fs-Remove-unneeded-compatibility-typedef.patch
-FROMLIST-selinux-Fix-typo-in-filesystem-name.patch
 ANDROID-gki_defconfig-Set-CONFIG_ANDROID_BINDERFS-y.patch
 ANDROID-db845c-Update-db845c_gki.fragment-to-add-support-for-bluetooth-modules.patch
 ANDROID-Incremental-fs-Remove-C-style-comments.patch

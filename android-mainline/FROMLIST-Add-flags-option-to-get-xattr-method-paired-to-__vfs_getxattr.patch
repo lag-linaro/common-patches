@@ -577,10 +577,10 @@ index d0f7a5abd9a9..a3f3cdc0a230 100644
  	const char *name = xattr_full_name(handler, suffix);
  	struct kernfs_node *kn = inode->i_private;
 diff --git a/fs/nfs/nfs4proc.c b/fs/nfs/nfs4proc.c
-index 95d07a3dc5d1..e8b40a4b6f74 100644
+index 69b7ab7a5815..11028b5b4e00 100644
 --- a/fs/nfs/nfs4proc.c
 +++ b/fs/nfs/nfs4proc.c
-@@ -7341,7 +7341,8 @@ static int nfs4_xattr_set_nfs4_acl(const struct xattr_handler *handler,
+@@ -7355,7 +7355,8 @@ static int nfs4_xattr_set_nfs4_acl(const struct xattr_handler *handler,
  
  static int nfs4_xattr_get_nfs4_acl(const struct xattr_handler *handler,
  				   struct dentry *unused, struct inode *inode,
@@ -590,7 +590,7 @@ index 95d07a3dc5d1..e8b40a4b6f74 100644
  {
  	return nfs4_proc_get_acl(inode, buf, buflen);
  }
-@@ -7366,7 +7367,8 @@ static int nfs4_xattr_set_nfs4_label(const struct xattr_handler *handler,
+@@ -7380,7 +7381,8 @@ static int nfs4_xattr_set_nfs4_label(const struct xattr_handler *handler,
  
  static int nfs4_xattr_get_nfs4_label(const struct xattr_handler *handler,
  				     struct dentry *unused, struct inode *inode,
@@ -961,7 +961,7 @@ index f9a81b187fae..921c8f2afcaf 100644
  			if (error == -ENODATA)
  				continue;
 diff --git a/security/selinux/hooks.c b/security/selinux/hooks.c
-index aaf9ebf56b64..50eaf2a35896 100644
+index bae21ffdc430..5d29f98dfa25 100644
 --- a/security/selinux/hooks.c
 +++ b/security/selinux/hooks.c
 @@ -500,7 +500,8 @@ static int sb_finish_set_opts(struct super_block *sb)

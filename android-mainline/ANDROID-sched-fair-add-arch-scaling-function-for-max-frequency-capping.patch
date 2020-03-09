@@ -25,10 +25,10 @@ Signed-off-by: Quentin Perret <quentin.perret@arm.com>
  2 files changed, 17 insertions(+), 4 deletions(-)
 
 diff --git a/kernel/sched/fair.c b/kernel/sched/fair.c
-index ce4e09ddda3d..c8cc049ca52e 100644
+index c47918701b4f..c7a57b22c9b5 100644
 --- a/kernel/sched/fair.c
 +++ b/kernel/sched/fair.c
-@@ -7744,10 +7744,9 @@ static inline void init_sd_lb_stats(struct sd_lb_stats *sds)
+@@ -7757,10 +7757,9 @@ static inline void init_sd_lb_stats(struct sd_lb_stats *sds)
  	};
  }
  
@@ -40,7 +40,7 @@ index ce4e09ddda3d..c8cc049ca52e 100644
  	unsigned long used, free;
  	unsigned long irq;
  
-@@ -7769,10 +7768,15 @@ static unsigned long scale_rt_capacity(struct sched_domain *sd, int cpu)
+@@ -7782,10 +7781,15 @@ static unsigned long scale_rt_capacity(struct sched_domain *sd, int cpu)
  
  static void update_cpu_capacity(struct sched_domain *sd, int cpu)
  {
@@ -59,7 +59,7 @@ index ce4e09ddda3d..c8cc049ca52e 100644
  	if (!capacity)
  		capacity = 1;
 diff --git a/kernel/sched/sched.h b/kernel/sched/sched.h
-index 1a88dc8ad11b..255d0f866094 100644
+index 9ea647835fd6..6b82e443e43a 100644
 --- a/kernel/sched/sched.h
 +++ b/kernel/sched/sched.h
 @@ -1976,6 +1976,15 @@ unsigned long arch_scale_freq_capacity(int cpu)

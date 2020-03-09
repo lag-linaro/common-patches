@@ -160,7 +160,7 @@ index 565bc9b67276..b9771de83cf7 100644
  static BLOCKING_NOTIFIER_HEAD(blocking_lsm_notifier_chain);
  
 diff --git a/security/selinux/hooks.c b/security/selinux/hooks.c
-index 4b6991e178d3..aaf9ebf56b64 100644
+index 1659b59fb5d7..bae21ffdc430 100644
 --- a/security/selinux/hooks.c
 +++ b/security/selinux/hooks.c
 @@ -6771,34 +6771,6 @@ static void selinux_bpf_prog_free(struct bpf_prog_aux *aux)

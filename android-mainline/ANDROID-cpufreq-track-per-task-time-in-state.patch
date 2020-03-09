@@ -66,7 +66,7 @@ index f6670c4abbb0..b84d40bdca49 100644
  obj-$(CONFIG_CPU_FREQ_GOV_POWERSAVE)	+= cpufreq_powersave.o
  obj-$(CONFIG_CPU_FREQ_GOV_USERSPACE)	+= cpufreq_userspace.o
 diff --git a/drivers/cpufreq/cpufreq.c b/drivers/cpufreq/cpufreq.c
-index 4adac3a8c265..ec14bab43443 100644
+index cbe6c94bf158..1a29647d954c 100644
 --- a/drivers/cpufreq/cpufreq.c
 +++ b/drivers/cpufreq/cpufreq.c
 @@ -16,6 +16,7 @@
@@ -77,7 +77,7 @@ index 4adac3a8c265..ec14bab43443 100644
  #include <linux/cpu_cooling.h>
  #include <linux/delay.h>
  #include <linux/device.h>
-@@ -385,6 +386,7 @@ static void cpufreq_notify_transition(struct cpufreq_policy *policy,
+@@ -387,6 +388,7 @@ static void cpufreq_notify_transition(struct cpufreq_policy *policy,
  					 CPUFREQ_POSTCHANGE, freqs);
  
  		cpufreq_stats_record_transition(policy, freqs->new);
@@ -85,7 +85,7 @@ index 4adac3a8c265..ec14bab43443 100644
  		policy->cur = freqs->new;
  	}
  }
-@@ -1456,6 +1458,7 @@ static int cpufreq_online(unsigned int cpu)
+@@ -1458,6 +1460,7 @@ static int cpufreq_online(unsigned int cpu)
  			goto out_destroy_policy;
  
  		cpufreq_stats_create_table(policy);

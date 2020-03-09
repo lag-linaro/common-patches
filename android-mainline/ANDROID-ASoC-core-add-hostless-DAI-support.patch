@@ -89,7 +89,7 @@ index 872a852de75c..44003f001000 100644
  	if (snd_BUG_ON(!substream->ops->copy_user && !runtime->dma_area))
  		return -EINVAL;
 diff --git a/sound/core/pcm_native.c b/sound/core/pcm_native.c
-index 336406bcb59e..1eb36376853b 100644
+index d5443eeb8b63..abedd0cbee31 100644
 --- a/sound/core/pcm_native.c
 +++ b/sound/core/pcm_native.c
 @@ -1322,6 +1322,7 @@ static int snd_pcm_pre_start(struct snd_pcm_substream *substream,

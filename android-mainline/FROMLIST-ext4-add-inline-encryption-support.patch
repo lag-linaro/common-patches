@@ -49,7 +49,7 @@ index b8d28370cfd7..24848739bfc9 100644
  	bio_set_dev(bio, bh->b_bdev);
  	bio->bi_write_hint = write_hint;
 diff --git a/fs/ext4/ext4.h b/fs/ext4/ext4.h
-index 9a2ee2428ecc..4cdd25816e1a 100644
+index 4441331d06cc..3917f4b3ec30 100644
 --- a/fs/ext4/ext4.h
 +++ b/fs/ext4/ext4.h
 @@ -1151,6 +1151,7 @@ struct ext4_inode_info {
@@ -61,7 +61,7 @@ index 9a2ee2428ecc..4cdd25816e1a 100644
  #define EXT4_MOUNT_DATA_ERR_ABORT	0x10000000 /* Abort on file data write */
  #define EXT4_MOUNT_BLOCK_VALIDITY	0x20000000 /* Block validity checking */
 diff --git a/fs/ext4/inode.c b/fs/ext4/inode.c
-index 3313168b680f..efd250ac0c60 100644
+index e60aca791d3f..9ac1dd131586 100644
 --- a/fs/ext4/inode.c
 +++ b/fs/ext4/inode.c
 @@ -1089,7 +1089,7 @@ static int ext4_block_write_begin(struct page *page, loff_t pos, unsigned len,
@@ -168,7 +168,7 @@ index c1769afbf799..b4c46ae2585b 100644
  			bio->bi_iter.bi_sector = blocks[0] << (blkbits - 9);
  			bio->bi_end_io = mpage_end_io;
 diff --git a/fs/ext4/super.c b/fs/ext4/super.c
-index 8434217549b3..bad964f0526a 100644
+index f464dff09774..f45df975c22e 100644
 --- a/fs/ext4/super.c
 +++ b/fs/ext4/super.c
 @@ -1401,6 +1401,11 @@ static void ext4_get_ino_and_lblk_bits(struct super_block *sb,

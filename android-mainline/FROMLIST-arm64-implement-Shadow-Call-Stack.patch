@@ -281,7 +281,7 @@ index 04a327ccf84d..fe0ca522ff60 100644
  	if (!handle_arch_irq)
  		panic("No interrupt controller found.");
 diff --git a/arch/arm64/kernel/process.c b/arch/arm64/kernel/process.c
-index bbb0f0c145f6..df45eb09845b 100644
+index 00626057a384..9151616c354c 100644
 --- a/arch/arm64/kernel/process.c
 +++ b/arch/arm64/kernel/process.c
 @@ -52,6 +52,7 @@
@@ -292,7 +292,7 @@ index bbb0f0c145f6..df45eb09845b 100644
  #include <asm/stacktrace.h>
  
  #if defined(CONFIG_STACKPROTECTOR) && !defined(CONFIG_STACKPROTECTOR_PER_TASK)
-@@ -507,6 +508,7 @@ __notrace_funcgraph struct task_struct *__switch_to(struct task_struct *prev,
+@@ -514,6 +515,7 @@ __notrace_funcgraph struct task_struct *__switch_to(struct task_struct *prev,
  	uao_thread_switch(next);
  	ptrauth_thread_switch(next);
  	ssbs_thread_switch(next);

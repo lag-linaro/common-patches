@@ -38,7 +38,7 @@ Signed-off-by: Sami Tolvanen <samitolvanen@google.com>
  create mode 100644 kernel/scs.c
 
 diff --git a/Makefile b/Makefile
-index 84b71845c43f..64e52139e734 100644
+index aab38cb02b24..69119440b843 100644
 --- a/Makefile
 +++ b/Makefile
 @@ -845,6 +845,12 @@ ifdef CONFIG_LIVEPATCH
@@ -273,7 +273,7 @@ index 60a1295f4384..94d6c504f678 100644
  	/*
  	 * We must handle setting up seccomp filters once we're under
 diff --git a/kernel/sched/core.c b/kernel/sched/core.c
-index fc1dfc007604..cda46382b28f 100644
+index 1a9983da4408..7473cd685560 100644
 --- a/kernel/sched/core.c
 +++ b/kernel/sched/core.c
 @@ -11,6 +11,7 @@
@@ -284,7 +284,7 @@ index fc1dfc007604..cda46382b28f 100644
  
  #include <asm/switch_to.h>
  #include <asm/tlb.h>
-@@ -6038,6 +6039,7 @@ void init_idle(struct task_struct *idle, int cpu)
+@@ -6036,6 +6037,7 @@ void init_idle(struct task_struct *idle, int cpu)
  	idle->se.exec_start = sched_clock();
  	idle->flags |= PF_IDLE;
  
