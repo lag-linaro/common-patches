@@ -895,7 +895,7 @@ index c1395b5bd432..1eba02616274 100644
  
  /* Namespaces */
 diff --git a/mm/shmem.c b/mm/shmem.c
-index 8793e8cc1a48..3437cccfd5a9 100644
+index c8f7540ef048..ce3c56cb447c 100644
 --- a/mm/shmem.c
 +++ b/mm/shmem.c
 @@ -3227,7 +3227,8 @@ static int shmem_initxattrs(struct inode *inode,
@@ -961,7 +961,7 @@ index f9a81b187fae..921c8f2afcaf 100644
  			if (error == -ENODATA)
  				continue;
 diff --git a/security/selinux/hooks.c b/security/selinux/hooks.c
-index 613d916b9c3a..43489803582f 100644
+index aaf9ebf56b64..50eaf2a35896 100644
 --- a/security/selinux/hooks.c
 +++ b/security/selinux/hooks.c
 @@ -500,7 +500,8 @@ static int sb_finish_set_opts(struct super_block *sb)
@@ -1001,7 +1001,7 @@ index 613d916b9c3a..43489803582f 100644
  	if (rc < 0) {
  		kfree(context);
 diff --git a/security/smack/smack_lsm.c b/security/smack/smack_lsm.c
-index 8bc7b04769a8..25a06eec0e11 100644
+index 8c61d175e195..dbf699ac0bfe 100644
 --- a/security/smack/smack_lsm.c
 +++ b/security/smack/smack_lsm.c
 @@ -291,7 +291,8 @@ static struct smack_known *smk_fetch(const char *name, struct inode *ip,
@@ -1014,7 +1014,7 @@ index 8bc7b04769a8..25a06eec0e11 100644
  	if (rc < 0)
  		skp = ERR_PTR(rc);
  	else if (rc == 0)
-@@ -3436,7 +3437,7 @@ static void smack_d_instantiate(struct dentry *opt_dentry, struct inode *inode)
+@@ -3431,7 +3432,7 @@ static void smack_d_instantiate(struct dentry *opt_dentry, struct inode *inode)
  			} else {
  				rc = __vfs_getxattr(dp, inode,
  					XATTR_NAME_SMACKTRANSMUTE, trattr,

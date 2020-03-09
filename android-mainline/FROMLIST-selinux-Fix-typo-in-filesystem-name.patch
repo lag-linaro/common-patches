@@ -18,7 +18,7 @@ Link: https://lore.kernel.org/patchwork/patch/1188587/
  1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/security/selinux/hooks.c b/security/selinux/hooks.c
-index 43489803582f..0dba14a78f75 100644
+index 50eaf2a35896..5d29f98dfa25 100644
 --- a/security/selinux/hooks.c
 +++ b/security/selinux/hooks.c
 @@ -699,7 +699,7 @@ static int selinux_set_mnt_opts(struct super_block *sb,

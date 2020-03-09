@@ -160,10 +160,10 @@ index 565bc9b67276..b9771de83cf7 100644
  static BLOCKING_NOTIFIER_HEAD(blocking_lsm_notifier_chain);
  
 diff --git a/security/selinux/hooks.c b/security/selinux/hooks.c
-index d9e8b2131a65..613d916b9c3a 100644
+index 4b6991e178d3..aaf9ebf56b64 100644
 --- a/security/selinux/hooks.c
 +++ b/security/selinux/hooks.c
-@@ -6776,34 +6776,6 @@ static void selinux_bpf_prog_free(struct bpf_prog_aux *aux)
+@@ -6771,34 +6771,6 @@ static void selinux_bpf_prog_free(struct bpf_prog_aux *aux)
  }
  #endif
  
@@ -198,7 +198,7 @@ index d9e8b2131a65..613d916b9c3a 100644
  struct lsm_blob_sizes selinux_blob_sizes __lsm_ro_after_init = {
  	.lbs_cred = sizeof(struct task_security_struct),
  	.lbs_file = sizeof(struct file_security_struct),
-@@ -7106,8 +7078,6 @@ static struct security_hook_list selinux_hooks[] __lsm_ro_after_init = {
+@@ -7101,8 +7073,6 @@ static struct security_hook_list selinux_hooks[] __lsm_ro_after_init = {
  	LSM_HOOK_INIT(perf_event_write, selinux_perf_event_write),
  #endif
  

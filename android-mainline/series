@@ -1,8 +1,8 @@
 #
 # android-mainline patches
 #
-# Applies onto upstream 236f45329460 Linux v5.5-10257-g236f45329460
-# Matches android-mainline 32aad4282b87 ("Merge 236f45329460 ("Merge branch 'work.misc' of git://git.kernel.org/pub/scm/linux/kernel/git/viro/vfs") into android-mainline")
+# Applies onto upstream c9d35ee049b4 Linux v5.5-10283-gc9d35ee049b4
+# Matches android-mainline aa601dde64e2 ("Merge c9d35ee049b4 ("Merge branch 'merge.nfs-fs_parse.1' of git://git.kernel.org/pub/scm/linux/kernel/git/viro/vfs") into android-mainline")
 #
 Revert-security-lockdown-selinux-implement-SELinux-lockdown.patch
 Revert-drm-virtio-fix-DRM_FORMAT_-handling.patch
