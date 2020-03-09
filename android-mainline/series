@@ -2,7 +2,7 @@
 # android-mainline patches
 #
 # Applies onto upstream 7f879e1a94ac Linux v5.5-9183-g7f879e1a94ac
-# Matches android-mainline a1874d42e32b ("Merge 7f879e1a94ac ("Merge tag 'ovl-update-5.6' of git://git.kernel.org/pub/scm/linux/kernel/git/mszeredi/vfs") into android-mainline")
+# Matches android-mainline 6120a4d78045 ("FROMLIST: overlayfs: override_creds=off option bypass creator_cred")
 #
 Revert-security-lockdown-selinux-implement-SELinux-lockdown.patch
 Revert-drm-virtio-fix-DRM_FORMAT_-handling.patch
@@ -390,3 +390,10 @@ ANDROID-remove-map-unmap-from-ion_dma.c.patch
 Revert-FROMLIST-overlayfs-override_creds-off-option-bypass-creator_cred.patch
 Revert-FROMLIST-overlayfs-internal-getxattr-operations-without-sepolicy-checking.patch
 Revert-FROMLIST-overlayfs-handle-XATTR_NOSECURITY-flag-for-get-xattr-method.patch
+Revert-Revert-FROMLIST-overlayfs-handle-XATTR_NOSECURITY-flag-for-get-xattr-method.patch
+Revert-Revert-FROMLIST-overlayfs-internal-getxattr-operations-without-sepolicy-checking.patch
+ANDROID-fix-up-uio_sys_stats-to-handle-recent-proc_ops-changes.patch
+ANDROID-fix-up-xt_quota2-for-proc_ops-changes.patch
+ANDROID-cpufreq_times-fix-up-5.6-rc1-api-changes.patch
+ANDROID-dummy-cpufreq-fix-up-5.6-rc1-API-changes.patch
+FROMLIST-overlayfs-override_creds-off-option-bypass-creator_cred-2.patch

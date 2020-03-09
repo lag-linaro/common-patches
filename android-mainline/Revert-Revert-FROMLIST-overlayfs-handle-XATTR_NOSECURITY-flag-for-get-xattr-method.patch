@@ -1,0 +1,80 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: Greg Kroah-Hartman <gregkh@google.com>
+Date: Sat, 8 Feb 2020 14:18:12 +0100
+Subject: Revert "Revert "FROMLIST: overlayfs: handle XATTR_NOSECURITY flag for
+ get xattr method""
+
+This reverts commit 4e35d38c0cbf5e0d14e8fe2d9eaec43224511253 which was
+commit ba11202b98ce81d9c400142d49748ce0c759193b.
+
+It should now all be good...
+
+Signed-off-by: Mark Salyzyn <salyzyn@google.com>
+Bug: 133515582
+Bug: 136124883
+Bug: 129319403
+Signed-off-by: Greg Kroah-Hartman <gregkh@google.com>
+---
+ fs/overlayfs/inode.c     | 5 +++--
+ fs/overlayfs/overlayfs.h | 2 +-
+ fs/overlayfs/super.c     | 4 ++--
+ 3 files changed, 6 insertions(+), 5 deletions(-)
+
+diff --git a/fs/overlayfs/inode.c b/fs/overlayfs/inode.c
+index 79e8994e3bc1..de3d41eecf0a 100644
+--- a/fs/overlayfs/inode.c
++++ b/fs/overlayfs/inode.c
+@@ -358,7 +358,7 @@ int ovl_xattr_set(struct dentry *dentry, struct inode *inode, const char *name,
+ }
+ 
+ int ovl_xattr_get(struct dentry *dentry, struct inode *inode, const char *name,
+-		  void *value, size_t size)
++		  void *value, size_t size, int flags)
+ {
+ 	ssize_t res;
+ 	const struct cred *old_cred;
+@@ -366,7 +366,8 @@ int ovl_xattr_get(struct dentry *dentry, struct inode *inode, const char *name,
+ 		ovl_i_dentry_upper(inode) ?: ovl_dentry_lower(dentry);
+ 
+ 	old_cred = ovl_override_creds(dentry->d_sb);
+-	res = vfs_getxattr(realdentry, name, value, size);
++	res = __vfs_getxattr(realdentry, d_inode(realdentry), name,
++			     value, size, flags);
+ 	revert_creds(old_cred);
+ 	return res;
+ }
+diff --git a/fs/overlayfs/overlayfs.h b/fs/overlayfs/overlayfs.h
+index 3623d28aa4fa..c7afa9d7cf25 100644
+--- a/fs/overlayfs/overlayfs.h
++++ b/fs/overlayfs/overlayfs.h
+@@ -390,7 +390,7 @@ int ovl_permission(struct inode *inode, int mask);
+ int ovl_xattr_set(struct dentry *dentry, struct inode *inode, const char *name,
+ 		  const void *value, size_t size, int flags);
+ int ovl_xattr_get(struct dentry *dentry, struct inode *inode, const char *name,
+-		  void *value, size_t size);
++		  void *value, size_t size, int flags);
+ ssize_t ovl_listxattr(struct dentry *dentry, char *list, size_t size);
+ struct posix_acl *ovl_get_acl(struct inode *inode, int type);
+ int ovl_update_time(struct inode *inode, struct timespec64 *ts, int flags);
+diff --git a/fs/overlayfs/super.c b/fs/overlayfs/super.c
+index ce0510d11be0..1fda22d9a33d 100644
+--- a/fs/overlayfs/super.c
++++ b/fs/overlayfs/super.c
+@@ -858,7 +858,7 @@ ovl_posix_acl_xattr_get(const struct xattr_handler *handler,
+ 			struct dentry *dentry, struct inode *inode,
+ 			const char *name, void *buffer, size_t size, int flags)
+ {
+-	return ovl_xattr_get(dentry, inode, handler->name, buffer, size);
++	return ovl_xattr_get(dentry, inode, handler->name, buffer, size, flags);
+ }
+ 
+ static int __maybe_unused
+@@ -940,7 +940,7 @@ static int ovl_other_xattr_get(const struct xattr_handler *handler,
+ 			       const char *name, void *buffer, size_t size,
+ 			       int flags)
+ {
+-	return ovl_xattr_get(dentry, inode, name, buffer, size);
++	return ovl_xattr_get(dentry, inode, name, buffer, size, flags);
+ }
+ 
+ static int ovl_other_xattr_set(const struct xattr_handler *handler,

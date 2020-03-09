@@ -1,0 +1,33 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: Greg Kroah-Hartman <gregkh@google.com>
+Date: Sat, 8 Feb 2020 16:05:35 +0100
+Subject: ANDROID: fix up xt_quota2 for proc_ops changes
+
+proc now uses proc_ops, not file_operations, so fix it up to handle the
+5.6-rc1 merge.
+
+Signed-off-by: Greg Kroah-Hartman <gregkh@google.com>
+Change-Id: I80b5ca4448bffa3a0c5cc99a964b7e8aba2450c0
+---
+ net/netfilter/xt_quota2.c | 8 ++++----
+ 1 file changed, 4 insertions(+), 4 deletions(-)
+
+diff --git a/net/netfilter/xt_quota2.c b/net/netfilter/xt_quota2.c
+index c42724469759..7ed29d40dee0 100644
+--- a/net/netfilter/xt_quota2.c
++++ b/net/netfilter/xt_quota2.c
+@@ -169,10 +169,10 @@ static ssize_t quota_proc_write(struct file *file, const char __user *input,
+ 	return size;
+ }
+ 
+-static const struct file_operations q2_counter_fops = {
+-	.read		= quota_proc_read,
+-	.write		= quota_proc_write,
+-	.llseek		= default_llseek,
++static const struct proc_ops q2_counter_fops = {
++	.proc_read	= quota_proc_read,
++	.proc_write	= quota_proc_write,
++	.proc_lseek	= default_llseek,
+ };
+ 
+ static struct xt_quota_counter *
