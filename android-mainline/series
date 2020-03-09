@@ -1,8 +1,8 @@
 #
 # android-mainline patches
 #
-# Applies onto upstream d271ab29230b Linux v5.5-9426-gd271ab29230b
-# Matches android-mainline 8462c9124565 ("Merge d271ab29230b ("Merge tag 'for-linus-5.6-rc1-tag' of git://git.kernel.org/pub/scm/linux/kernel/git/xen/tip") into android-mainline")
+# Applies onto upstream 4fc2ea6a8608 Linux v5.5-9516-g4fc2ea6a8608
+# Matches android-mainline 527f6994c4b3 ("Merge 4fc2ea6a8608 ("Merge tag 'iommu-updates-v5.6' of git://git.kernel.org/pub/scm/linux/kernel/git/joro/iommu") into android-mainline")
 #
 Revert-security-lockdown-selinux-implement-SELinux-lockdown.patch
 Revert-drm-virtio-fix-DRM_FORMAT_-handling.patch
@@ -26,20 +26,6 @@ FROMLIST-overlayfs-internal-getxattr-operations-without-sepolicy-checking.patch
 FROMLIST-overlayfs-override_creds-off-option-bypass-creator_cred.patch
 BACKPORT-FROMLIST-pwm-Add-support-for-different-PWM-output-types.patch
 FROMLIST-pwm-Convert-period-and-duty-cycle-to-u64.patch
-FROMLIST-drivers-iommu-Export-core-IOMMU-API-symbols-to-permit-modular-drivers.patch
-FROMLIST-iommu-of-Request-ACS-from-the-PCI-core-when-configuring-IOMMU-linkage.patch
-FROMLIST-PCI-Export-pci_ats_disabled-as-a-GPL-symbol-to-modules.patch
-FROMLIST-drivers-iommu-Take-a-ref-to-the-IOMMU-driver-prior-to-add_device.patch
-FROMLIST-iommu-of-Take-a-ref-to-the-IOMMU-driver-during-of_xlate.patch
-FROMLIST-drivers-iommu-Allow-IOMMU-bus-ops-to-be-unregistered.patch
-FROMLIST-Revert-iommu-arm-smmu-Make-arm-smmu-v3-explicitly-non-modular.patch
-FROMLIST-Revert-iommu-arm-smmu-Make-arm-smmu-explicitly-non-modular.patch
-FROMLIST-iommu-arm-smmu-Prevent-forced-unbinding-of-Arm-SMMU-drivers.patch
-FROMLIST-iommu-arm-smmu-v3-Unregister-IOMMU-and-bus-ops-on-device-removal.patch
-FROMLIST-iommu-arm-smmu-v3-Allow-building-as-a-module.patch
-FROMLIST-iommu-arm-smmu-Unregister-IOMMU-and-bus-ops-on-device-removal.patch
-FROMLIST-iommu-arm-smmu-Allow-building-as-a-module.patch
-FROMLIST-iommu-arm-smmu-Update-my-email-address-in-MODULE_AUTHOR.patch
 FROMLIST-arm64-disable-function-graph-tracing-with-SCS.patch
 FROMLIST-arm64-reserve-x18-from-general-allocation-with-SCS.patch
 FROMLIST-arm64-efi-restore-x18-if-it-was-corrupted.patch
@@ -272,7 +258,6 @@ ANDROID-kbuild-merge-module-sections-with-LTO.patch
 ANDROID-kbuild-limit-LTO-inlining.patch
 ANDROID-gki_defconfig-Enable-UCLAMP-by-default.patch
 ANDROID-update-gki_defconfig-for-5.5-rc1.patch
-ANDROID-export-needed-symbols-for-5.5-rc1-allmodconfig-for-arm64.patch
 ANDROID-gki_defconfig-enable-HID-configs.patch
 ANDROID-cuttlefish_defconfig-Enable-CONFIG_GNSS.patch
 ANDROID-drivers-gpu-drm-export-drm_mode_convert_umode-symbol.patch
@@ -307,7 +292,6 @@ ANDROID-GKI-clk-Add-support-for-clock-providers-with-sync-state.patch
 ANDROID-GKI-clk-Don-t-disable-unused-clocks-with-sync-state-support.patch
 ANDROID-clk-qcom-Add-sync_state-clk_sync_state-for-db845c-clock-providers.patch
 ANDROID-README-Add-add-user-reference-to-backporting-comment.patch
-ANDROID-iommu-arm-smmu-Don-t-blindly-use-first-SMR-to-calculate-mask.patch
 ANDROID-iommu-arm-smmu-Expose-s2cr-and-smr-structs-to-impl.patch
 ANDROID-iommu-arm-smmu-Allow-inherting-stream-mapping-from-bootloader.patch
 ANDROID-tty-serdev-Fix-broken-serial-console-input.patch
@@ -325,7 +309,6 @@ ANDROID-db845c-add-db845c_gki.fragment.patch
 ANDROID-db845c-Add-build-config.patch
 ANDROID-GKI-enable-CONFIG_NETFILTER_XT_MATCH_QUOTA2_LOG-y.patch
 ANDROID-GKI-enable-CONFIG_DUMMY-y.patch
-FROMGIT-drivers-iommu-Initialise-module-owner-field-in-iommu_device_set_ops.patch
 ANDROID-ufshcd-crypto-export-cap-find-API.patch
 ANDROID-block-provide-key-size-as-input-to-inline-crypto-APIs.patch
 ANDROID-block-add-KSM-op-to-derive-software-secret-from-wrapped-key.patch

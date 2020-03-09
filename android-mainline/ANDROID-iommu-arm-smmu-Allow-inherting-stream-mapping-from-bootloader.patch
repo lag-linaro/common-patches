@@ -28,7 +28,7 @@ Change-Id: Ic87cfac8d9e85095d9f8000b37627bf24dd79626
  3 files changed, 59 insertions(+), 6 deletions(-)
 
 diff --git a/drivers/iommu/arm-smmu-qcom.c b/drivers/iommu/arm-smmu-qcom.c
-index 24c071c1d8b0..06e5799dcb87 100644
+index 24c071c1d8b0..4dbe599a456b 100644
 --- a/drivers/iommu/arm-smmu-qcom.c
 +++ b/drivers/iommu/arm-smmu-qcom.c
 @@ -3,6 +3,7 @@
@@ -53,18 +53,18 @@ index 24c071c1d8b0..06e5799dcb87 100644
 +		smr = arm_smmu_gr0_read(smmu, ARM_SMMU_GR0_SMR(i));
 +		s2cr = arm_smmu_gr0_read(smmu, ARM_SMMU_GR0_S2CR(i));
 +
-+		smmu->smrs[i].mask = FIELD_GET(SMR_MASK, smr);
-+		smmu->smrs[i].id = FIELD_GET(SMR_ID, smr);
++		smmu->smrs[i].mask = FIELD_GET(ARM_SMMU_SMR_MASK, smr);
++		smmu->smrs[i].id = FIELD_GET(ARM_SMMU_SMR_ID, smr);
 +		if (smmu->features & ARM_SMMU_FEAT_EXIDS)
-+			smmu->smrs[i].valid = FIELD_GET(S2CR_EXIDVALID, s2cr);
++			smmu->smrs[i].valid = FIELD_GET(ARM_SMMU_S2CR_EXIDVALID, s2cr);
 +		else
-+			smmu->smrs[i].valid = FIELD_GET(SMR_VALID, smr);
++			smmu->smrs[i].valid = FIELD_GET(ARM_SMMU_SMR_VALID, smr);
 +
 +		smmu->s2crs[i].group = NULL;
 +		smmu->s2crs[i].count = 0;
-+		smmu->s2crs[i].type = FIELD_GET(S2CR_TYPE, s2cr);
-+		smmu->s2crs[i].privcfg = FIELD_GET(S2CR_PRIVCFG, s2cr);
-+		smmu->s2crs[i].cbndx = FIELD_GET(S2CR_CBNDX, s2cr);
++		smmu->s2crs[i].type = FIELD_GET(ARM_SMMU_S2CR_TYPE, s2cr);
++		smmu->s2crs[i].privcfg = FIELD_GET(ARM_SMMU_S2CR_PRIVCFG, s2cr);
++		smmu->s2crs[i].cbndx = FIELD_GET(ARM_SMMU_S2CR_CBNDX, s2cr);
 +
 +		if (!smmu->smrs[i].valid)
 +			continue;
@@ -88,7 +88,7 @@ index 24c071c1d8b0..06e5799dcb87 100644
  };
  
 diff --git a/drivers/iommu/arm-smmu.c b/drivers/iommu/arm-smmu.c
-index f2620ead9fac..badd637e96b5 100644
+index f7a8ed559b0f..36ccdb35c53d 100644
 --- a/drivers/iommu/arm-smmu.c
 +++ b/drivers/iommu/arm-smmu.c
 @@ -225,9 +225,19 @@ static int arm_smmu_register_legacy_master(struct device *dev,
@@ -112,7 +112,7 @@ index f2620ead9fac..badd637e96b5 100644
  
  	do {
  		idx = find_next_zero_bit(map, end, start);
-@@ -647,7 +657,8 @@ static void arm_smmu_write_context_bank(struct arm_smmu_device *smmu, int idx)
+@@ -652,7 +662,8 @@ static void arm_smmu_write_context_bank(struct arm_smmu_device *smmu, int idx)
  }
  
  static int arm_smmu_init_domain_context(struct iommu_domain *domain,
@@ -122,7 +122,7 @@ index f2620ead9fac..badd637e96b5 100644
  {
  	int irq, start, ret = 0;
  	unsigned long ias, oas;
-@@ -761,8 +772,7 @@ static int arm_smmu_init_domain_context(struct iommu_domain *domain,
+@@ -766,8 +777,7 @@ static int arm_smmu_init_domain_context(struct iommu_domain *domain,
  		ret = -EINVAL;
  		goto out_unlock;
  	}
@@ -163,10 +163,10 @@ index f2620ead9fac..badd637e96b5 100644
  		goto rpm_put;
  
 diff --git a/drivers/iommu/arm-smmu.h b/drivers/iommu/arm-smmu.h
-index 73f94579b926..0701e6875964 100644
+index 03938a12e69f..e6c75fe3f2c9 100644
 --- a/drivers/iommu/arm-smmu.h
 +++ b/drivers/iommu/arm-smmu.h
-@@ -230,6 +230,7 @@ struct arm_smmu_s2cr {
+@@ -257,6 +257,7 @@ struct arm_smmu_s2cr {
  	enum arm_smmu_s2cr_type		type;
  	enum arm_smmu_s2cr_privcfg	privcfg;
  	u8				cbndx;

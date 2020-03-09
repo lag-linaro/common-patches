@@ -18,7 +18,7 @@ Change-Id: Ibd7decec866cf58a269730ccfcaae807dd849a10
  2 files changed, 14 insertions(+), 14 deletions(-)
 
 diff --git a/drivers/iommu/arm-smmu.c b/drivers/iommu/arm-smmu.c
-index a59b655891a3..f2620ead9fac 100644
+index 16c4b87af42b..f7a8ed559b0f 100644
 --- a/drivers/iommu/arm-smmu.c
 +++ b/drivers/iommu/arm-smmu.c
 @@ -68,24 +68,10 @@ module_param(disable_bypass, bool, S_IRUGO);
@@ -47,10 +47,10 @@ index a59b655891a3..f2620ead9fac 100644
  	u64				ttbr[2];
  	u32				tcr[2];
 diff --git a/drivers/iommu/arm-smmu.h b/drivers/iommu/arm-smmu.h
-index 62b9f0cec49b..73f94579b926 100644
+index 8d1cd54d82a6..03938a12e69f 100644
 --- a/drivers/iommu/arm-smmu.h
 +++ b/drivers/iommu/arm-smmu.h
-@@ -224,6 +224,20 @@ enum arm_smmu_implementation {
+@@ -251,6 +251,20 @@ enum arm_smmu_implementation {
  	QCOM_SMMUV2,
  };
  
