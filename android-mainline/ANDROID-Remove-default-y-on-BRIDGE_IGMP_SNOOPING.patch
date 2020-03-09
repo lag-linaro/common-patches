@@ -1,0 +1,29 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: Ram Muthiah <rammuthiah@google.com>
+Date: Tue, 3 Mar 2020 11:52:08 -0800
+Subject: ANDROID: Remove default y on BRIDGE_IGMP_SNOOPING
+
+This binary module gets enabled if BRIDGE, a tristate config, gets
+enabled as either a builtin or y. This dependent config should also
+be tristate but it seems like that hasn't been done upstream yet.
+
+Bug: 150620456
+Test: Treehugger
+Signed-off-by: Ram Muthiah <rammuthiah@google.com>
+Change-Id: I699b73bfac8a0c6cb5e14fefe56b6c013e2410a8
+---
+ net/bridge/Kconfig | 1 -
+ 1 file changed, 1 deletion(-)
+
+diff --git a/net/bridge/Kconfig b/net/bridge/Kconfig
+index e4fb050e2078..4782d02584c0 100644
+--- a/net/bridge/Kconfig
++++ b/net/bridge/Kconfig
+@@ -38,7 +38,6 @@ config BRIDGE_IGMP_SNOOPING
+ 	bool "IGMP/MLD snooping"
+ 	depends on BRIDGE
+ 	depends on INET
+-	default y
+ 	---help---
+ 	  If you say Y here, then the Ethernet bridge will be able selectively
+ 	  forward multicast traffic based on IGMP/MLD traffic received from

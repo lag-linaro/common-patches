@@ -1,0 +1,39 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: Ram Muthiah <rammuthiah@google.com>
+Date: Wed, 12 Feb 2020 14:08:13 -0800
+Subject: ANDROID: Re-add default y for VIRTIO_PCI_LEGACY
+
+This is a partial revert of commit 64b9a2067308c5b3e6ff718160d0c46eaa2c9949.
+
+Bug: 139431025
+Test: Treehugger
+Signed-off-by: Ram Muthiah <rammuthiah@google.com>
+Change-Id: I2ebbe2f20e318cb01206ccbd8c6a5803f7f503b6
+---
+ drivers/virtio/Kconfig | 6 ++++++
+ 1 file changed, 6 insertions(+)
+
+diff --git a/drivers/virtio/Kconfig b/drivers/virtio/Kconfig
+index eacd0b90d32b..078615cf2afc 100644
+--- a/drivers/virtio/Kconfig
++++ b/drivers/virtio/Kconfig
+@@ -26,6 +26,7 @@ config VIRTIO_PCI
+ 
+ config VIRTIO_PCI_LEGACY
+ 	bool "Support for legacy virtio draft 0.9.X and older devices"
++	default y
+ 	depends on VIRTIO_PCI
+ 	---help---
+           Virtio PCI Card 0.9.X Draft (circa 2014) and older device support.
+@@ -35,6 +36,11 @@ config VIRTIO_PCI_LEGACY
+ 	  If disabled, you get a slightly smaller, non-transitional driver,
+ 	  with no legacy compatibility.
+ 
++          So look out into your driveway.  Do you have a flying car?  If
++          so, you can happily disable this option and virtio will not
++          break.  Otherwise, leave it set.  Unless you're testing what
++          life will be like in The Future.
++
+ 	  If unsure, say Y.
+ 
+ config VIRTIO_PMEM

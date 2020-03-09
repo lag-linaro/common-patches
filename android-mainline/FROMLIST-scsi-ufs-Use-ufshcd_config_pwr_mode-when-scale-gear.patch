@@ -1,0 +1,49 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: Can Guo <cang@codeaurora.org>
+Date: Tue, 11 Feb 2020 04:42:27 -0800
+Subject: FROMLIST: scsi: ufs: Use ufshcd_config_pwr_mode() when scale gear
+
+When scale gear, use ufshcd_config_pwr_mode() instead of
+ufshcd_change_power_mode() so that vops_pwr_change_notify(PRE_CHANGE)
+can be utilized to allow vendors use customized settings before change
+the power mode.
+
+Bug: 150731199
+Link: https://lore.kernel.org/linux-scsi/1581485910-8307-2-git-send-email-cang@codeaurora.org/
+Change-Id: I8c8602b8ce3fd9fa4644e126fbd84bf564bf11e7
+Signed-off-by: Can Guo <cang@codeaurora.org>
+---
+ drivers/scsi/ufs/ufshcd.c | 6 ++----
+ 1 file changed, 2 insertions(+), 4 deletions(-)
+
+diff --git a/drivers/scsi/ufs/ufshcd.c b/drivers/scsi/ufs/ufshcd.c
+index ae0ec57ee73c..78cf8f2d3850 100644
+--- a/drivers/scsi/ufs/ufshcd.c
++++ b/drivers/scsi/ufs/ufshcd.c
+@@ -1094,8 +1094,7 @@ static int ufshcd_scale_gear(struct ufs_hba *hba, bool scale_up)
+ 	}
+ 
+ 	/* check if the power mode needs to be changed or not? */
+-	ret = ufshcd_change_power_mode(hba, &new_pwr_info);
+-
++	ret = ufshcd_config_pwr_mode(hba, &new_pwr_info);
+ 	if (ret)
+ 		dev_err(hba->dev, "%s: failed err %d, old gear: (tx %d rx %d), new gear: (tx %d rx %d)",
+ 			__func__, ret,
+@@ -4194,8 +4193,6 @@ int ufshcd_config_pwr_mode(struct ufs_hba *hba,
+ 		memcpy(&final_params, desired_pwr_mode, sizeof(final_params));
+ 
+ 	ret = ufshcd_change_power_mode(hba, &final_params);
+-	if (!ret)
+-		ufshcd_print_pwr_info(hba);
+ 
+ 	return ret;
+ }
+@@ -7241,6 +7238,7 @@ static int ufshcd_probe_hba(struct ufs_hba *hba, bool async)
+ 					__func__, ret);
+ 			goto out;
+ 		}
++		ufshcd_print_pwr_info(hba);
+ 	}
+ 
+ 	/* set the state as operational after switching to desired gear */

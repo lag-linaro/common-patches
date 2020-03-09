@@ -1,0 +1,39 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: Orson Zhai <orson.zhai@unisoc.com>
+Date: Tue, 3 Mar 2020 00:51:45 +0800
+Subject: ANDROID: gki: set CONFIG_SERIAL_SPRD_CONSOLE for earlycon
+
+Bug: 150653429
+Change-Id: I13abca7a9be21efdbb4a158334691c7e33d1d92b
+Signed-off-by: Orson Zhai <orson.zhai@unisoc.com>
+Signed-off-by: Todd Kjos <tkjos@google.com>
+---
+ arch/arm64/configs/gki_defconfig | 2 ++
+ drivers/tty/serial/Kconfig       | 1 -
+ 2 files changed, 2 insertions(+), 1 deletion(-)
+
+diff --git a/arch/arm64/configs/gki_defconfig b/arch/arm64/configs/gki_defconfig
+index 86ff42a9a7da..85b0022bfe93 100644
+--- a/arch/arm64/configs/gki_defconfig
++++ b/arch/arm64/configs/gki_defconfig
+@@ -288,6 +288,8 @@ CONFIG_SERIAL_8250_CONSOLE=y
+ CONFIG_SERIAL_OF_PLATFORM=y
+ CONFIG_SERIAL_AMBA_PL011=y
+ CONFIG_SERIAL_AMBA_PL011_CONSOLE=y
++CONFIG_SERIAL_SPRD=y
++CONFIG_SERIAL_SPRD_CONSOLE=y
+ CONFIG_SERIAL_DEV_BUS=y
+ CONFIG_HW_RANDOM=y
+ # CONFIG_HW_RANDOM_CAVIUM is not set
+diff --git a/drivers/tty/serial/Kconfig b/drivers/tty/serial/Kconfig
+index 52eaac21ff9f..2b9addc0afb5 100644
+--- a/drivers/tty/serial/Kconfig
++++ b/drivers/tty/serial/Kconfig
+@@ -1452,7 +1452,6 @@ config SERIAL_MEN_Z135
+ 
+ config SERIAL_SPRD
+ 	tristate "Support for Spreadtrum serial"
+-	depends on ARCH_SPRD
+ 	select SERIAL_CORE
+ 	help
+ 	  This enables the driver for the Spreadtrum's serial.

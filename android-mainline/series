@@ -2,7 +2,7 @@
 # android-mainline patches
 #
 # Applies onto upstream 98d54f81e36b Linux v5.6-rc4
-# Matches android-mainline f4bdd2d3e419 ("Merge 5.6-rc4 into android-mainline")
+# Matches android-mainline fa37c212ca8e ("ANDROID: cpufreq: times: Remove per-UID time in state tracking")
 #
 Revert-security-lockdown-selinux-implement-SELinux-lockdown.patch
 Revert-drm-virtio-fix-DRM_FORMAT_-handling.patch
@@ -432,3 +432,31 @@ ANDROID-gki_defconfig-Enable-CONFIG_RD_LZ4.patch
 Revert-ANDROID-drm-edid-add-support-for-additional-CEA-extension-blocks.patch
 ANDROID-GKI-Remove-CONFIG_BRIDGE-from-arm64-config.patch
 ANDROID-ASoC-core-Fix-soc_pcm_hw_params-crash.patch
+ANDROID-scsi-ufs-allow-ufs-variants-to-override-sg-entry-size.patch
+ANDROID-Re-add-default-y-for-VIRTIO_PCI_LEGACY.patch
+ANDROID-GKI-Add-SND_INTEL_NHLT.patch
+ANDROID-GKI-Added-missing-SND-configs.patch
+ANDROID-GKI-build-in-HVC_DRIVER.patch
+ANDROID-Remove-default-y-on-BRIDGE_IGMP_SNOOPING.patch
+ANDROID-Removed-default-m-for-virtual-sw-crypto-device.patch
+ANDROID-gki-set-CONFIG_SERIAL_SPRD_CONSOLE-for-earlycon.patch
+ANDROID-gki_defconfig-add-CONFIG_IIO_BUFFER-and-CONFIG_IIO_TRIGGER.patch
+ANDROID-Unconditionally-create-bridge-tracepoints.patch
+ANDROID-gki_defconfig-Enable-MFD_SYSCON-on-x86.patch
+FROMGIT-scsi-ufs-Allow-vendor-device-quirks-to-be-applied-early.patch
+FROMGIT-scsi-ufs-qcom-Apply-QUIRK_HOST_TACTIVATE-for-WDC-UFS-devices.patch
+FROMLIST-scsi-ufs-Use-ufshcd_config_pwr_mode-when-scale-gear.patch
+FROMGIT-scsi-ufs-Select-INITIAL-ADAPT-type-for-HS-Gear4.patch
+ANDROID-gki_defconfig-disable-KPROBES.patch
+FROMLIST-lib-test_stackinit.c-XFAIL-switch-variable-init-tests.patch
+ANDROID-CC_FLAGS_CFI-add-fno-sanitize-blacklist.patch
+ANDROID-staging-ion-Add-an-in-kernel-interface-to-request-heap-info.patch
+Revert-FROMLIST-scsi-ufs-qcom-Adjust-bus-bandwidth-voting-and-unvoting.patch
+FROMGIT-scsi-ufs-qcom-Adjust-bus-bandwidth-voting-and-unvoting.patch
+Revert-FROMLIST-scsi-ufs-Add-dev-ref-clock-gating-wait-time-support.patch
+FROMGIT-scsi-ufs-Add-dev-ref-clock-gating-wait-time-support.patch
+FROMGIT-scsi-ufs-qcom-Delay-specific-time-before-gate-ref-clk.patch
+ANDROID-cpufreq-times-Remove-proc-uid_concurrent_-active-policy-_time.patch
+Revert-ANDROID-cpufreq-Add-time_in_state-to-proc-uid-directories.patch
+Revert-ANDROID-proc-Add-proc-uid-directory.patch
+ANDROID-cpufreq-times-Remove-per-UID-time-in-state-tracking.patch

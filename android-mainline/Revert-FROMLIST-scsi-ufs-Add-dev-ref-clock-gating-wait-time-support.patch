@@ -1,0 +1,129 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: Can Guo <cang@codeaurora.org>
+Date: Thu, 5 Mar 2020 22:42:49 -0800
+Subject: Revert "FROMLIST: scsi: ufs: Add dev ref clock gating wait time
+ support"
+
+Revert commit 1ddc9771d5bc ("FROMLIST: scsi: ufs: Add dev ref clock gating
+wait time support") due to it has major changes in its latest version.
+
+Bug: 150892981
+Change-Id: I582da6b0093e46a10e58f8f6a48448cd7ae36ac4
+[can: Resolved minor conflict in drivers/scsi/ufs/ufs.h and drivers/scsi/ufs/ufshcd.c]
+Signed-off-by: Can Guo <cang@codeaurora.org>
+---
+ drivers/scsi/ufs/ufs.h    |  3 ---
+ drivers/scsi/ufs/ufshcd.c | 45 ---------------------------------------
+ 2 files changed, 48 deletions(-)
+
+diff --git a/drivers/scsi/ufs/ufs.h b/drivers/scsi/ufs/ufs.h
+index 304076eb1008..cfe380348bf0 100644
+--- a/drivers/scsi/ufs/ufs.h
++++ b/drivers/scsi/ufs/ufs.h
+@@ -167,7 +167,6 @@ enum attr_idn {
+ 	QUERY_ATTR_IDN_FFU_STATUS		= 0x14,
+ 	QUERY_ATTR_IDN_PSA_STATE		= 0x15,
+ 	QUERY_ATTR_IDN_PSA_DATA_SIZE		= 0x16,
+-	QUERY_ATTR_IDN_REF_CLK_GATING_WAIT_TIME	= 0x17,
+ };
+ 
+ /* Descriptor idn for Query requests */
+@@ -535,8 +534,6 @@ struct ufs_dev_info {
+ 	u16 wmanufacturerid;
+ 	/*UFS device Product Name */
+ 	u8 *model;
+-	u16 spec_version;
+-	u32 clk_gating_wait_us;
+ };
+ 
+ /**
+diff --git a/drivers/scsi/ufs/ufshcd.c b/drivers/scsi/ufs/ufshcd.c
+index 78cf8f2d3850..a02279e3cedf 100644
+--- a/drivers/scsi/ufs/ufshcd.c
++++ b/drivers/scsi/ufs/ufshcd.c
+@@ -92,9 +92,6 @@
+ /* default delay of autosuspend: 2000 ms */
+ #define RPM_AUTOSUSPEND_DELAY_MS 2000
+ 
+-/* Default value of wait time before gating device ref clock */
+-#define UFSHCD_REF_CLK_GATING_WAIT_US 0xFF /* microsecs */
+-
+ #define ufshcd_toggle_vreg(_dev, _vreg, _on)				\
+ 	({                                                              \
+ 		int _ret;                                               \
+@@ -3344,37 +3341,6 @@ static inline int ufshcd_read_unit_desc_param(struct ufs_hba *hba,
+ 				      param_offset, param_read_buf, param_size);
+ }
+ 
+-static int ufshcd_get_ref_clk_gating_wait(struct ufs_hba *hba)
+-{
+-	int err = 0;
+-	u32 gating_wait = UFSHCD_REF_CLK_GATING_WAIT_US;
+-
+-	if (hba->dev_info.spec_version >= 0x300) {
+-		err = ufshcd_query_attr_retry(hba, UPIU_QUERY_OPCODE_READ_ATTR,
+-				QUERY_ATTR_IDN_REF_CLK_GATING_WAIT_TIME, 0, 0,
+-				&gating_wait);
+-		if (err)
+-			dev_err(hba->dev, "Failed reading bRefClkGatingWait. err = %d, use default %uus\n",
+-					 err, gating_wait);
+-
+-		if (gating_wait == 0) {
+-			gating_wait = UFSHCD_REF_CLK_GATING_WAIT_US;
+-			dev_err(hba->dev, "Undefined ref clk gating wait time, use default %uus\n",
+-					 gating_wait);
+-		}
+-
+-		/*
+-		 * bRefClkGatingWaitTime defines the minimum time for which the
+-		 * reference clock is required by device during transition from
+-		 * HS-MODE to LS-MODE or HIBERN8 state. Give it more time to be
+-		 * on the safe side.
+-		 */
+-		hba->dev_info.clk_gating_wait_us = gating_wait + 50;
+-	}
+-
+-	return err;
+-}
+-
+ /**
+  * ufshcd_memory_alloc - allocate memory for host memory space data structures
+  * @hba: per adapter instance
+@@ -6735,10 +6701,6 @@ static int ufs_get_device_desc(struct ufs_hba *hba)
+ 	dev_info->wmanufacturerid = desc_buf[DEVICE_DESC_PARAM_MANF_ID] << 8 |
+ 				     desc_buf[DEVICE_DESC_PARAM_MANF_ID + 1];
+ 
+-	/* getting Specification Version in big endian format */
+-	hba->dev_info.spec_version = desc_buf[DEVICE_DESC_PARAM_SPEC_VER] << 8 |
+-				      desc_buf[DEVICE_DESC_PARAM_SPEC_VER + 1];
+-
+ 	model_index = desc_buf[DEVICE_DESC_PARAM_PRDCT_NAME];
+ 	err = ufshcd_read_string_desc(hba, model_index,
+ 				      &dev_info->model, SD_ASCII_STD);
+@@ -7118,8 +7080,6 @@ static int ufshcd_device_params_init(struct ufs_hba *hba)
+ 
+ 	ufs_fixup_device_setup(hba);
+ 
+-	ufshcd_get_ref_clk_gating_wait(hba);
+-
+ 	if (!ufshcd_query_flag_retry(hba, UPIU_QUERY_OPCODE_READ_FLAG,
+ 			QUERY_FLAG_IDN_PWR_ON_WPE, &flag))
+ 		hba->dev_info.f_power_on_wp_en = flag;
+@@ -7517,17 +7477,12 @@ static int __ufshcd_setup_clocks(struct ufs_hba *hba, bool on,
+ 	struct ufs_clk_info *clki;
+ 	struct list_head *head = &hba->clk_list_head;
+ 	unsigned long flags;
+-	unsigned long gating_wait;
+ 	ktime_t start = ktime_get();
+ 	bool clk_state_changed = false;
+ 
+ 	if (list_empty(head))
+ 		goto out;
+ 
+-	gating_wait = (unsigned long)hba->dev_info.clk_gating_wait_us;
+-	if (!on && !skip_ref_clk && !!gating_wait)
+-		usleep_range(gating_wait, gating_wait + 10);
+-
+ 	ret = ufshcd_vops_setup_clocks(hba, on, PRE_CHANGE);
+ 	if (ret)
+ 		return ret;

@@ -1,0 +1,77 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: Can Guo <cang@codeaurora.org>
+Date: Tue, 11 Feb 2020 06:06:29 -0800
+Subject: FROMGIT: scsi: ufs: Select INITIAL ADAPT type for HS Gear4
+
+ADAPT is added specifically for HS Gear4 mode only. Select INITIAL ADAPT
+before power mode change to G4 and select NO ADAPT before switch to non-G4
+modes.
+
+[mkp: fixed typo in header file]
+
+Link: https://lore.kernel.org/r/1581485910-8307-3-git-send-email-cang@codeaurora.org
+Signed-off-by: Can Guo <cang@codeaurora.org>
+Reviewed-by: Avri Altman <avri.altman@wdc.com>
+Reviewed-by: Asutosh Das <asutoshd@codeaurora.org>
+Signed-off-by: Martin K. Petersen <martin.petersen@oracle.com>
+
+Bug: 150731199
+Change-Id: I6226b91826e139f9b8e99523da4861b01254fea8
+(cherry picked from commit 518b32f1ddf5830698f270272d2ca465e788a273
+https://git.kernel.org/pub/scm/linux/kernel/git/mkp/scsi.git 5.7/scsi-queue)
+Signed-off-by: Can Guo <cang@codeaurora.org>
+---
+ drivers/scsi/ufs/ufs-qcom.c | 14 ++++++++++++++
+ drivers/scsi/ufs/unipro.h   |  7 +++++++
+ 2 files changed, 21 insertions(+)
+
+diff --git a/drivers/scsi/ufs/ufs-qcom.c b/drivers/scsi/ufs/ufs-qcom.c
+index 9398a15daf42..27728d23d3bf 100644
+--- a/drivers/scsi/ufs/ufs-qcom.c
++++ b/drivers/scsi/ufs/ufs-qcom.c
+@@ -926,6 +926,20 @@ static int ufs_qcom_pwr_change_notify(struct ufs_hba *hba,
+ 		if (!ufshcd_is_hs_mode(&hba->pwr_info) &&
+ 			ufshcd_is_hs_mode(dev_req_params))
+ 			ufs_qcom_dev_ref_clk_ctrl(host, true);
++
++		if (host->hw_ver.major >= 0x4) {
++			if (dev_req_params->gear_tx == UFS_HS_G4) {
++				/* INITIAL ADAPT */
++				ufshcd_dme_set(hba,
++					       UIC_ARG_MIB(PA_TXHSADAPTTYPE),
++					       PA_INITIAL_ADAPT);
++			} else {
++				/* NO ADAPT */
++				ufshcd_dme_set(hba,
++					       UIC_ARG_MIB(PA_TXHSADAPTTYPE),
++					       PA_NO_ADAPT);
++			}
++		}
+ 		break;
+ 	case POST_CHANGE:
+ 		if (ufs_qcom_cfg_timers(hba, dev_req_params->gear_rx,
+diff --git a/drivers/scsi/ufs/unipro.h b/drivers/scsi/ufs/unipro.h
+index 3dc4d8b76509..766d551df3fc 100644
+--- a/drivers/scsi/ufs/unipro.h
++++ b/drivers/scsi/ufs/unipro.h
+@@ -146,6 +146,12 @@
+ #define PA_SLEEPNOCONFIGTIME	0x15A2
+ #define PA_STALLNOCONFIGTIME	0x15A3
+ #define PA_SAVECONFIGTIME	0x15A4
++#define PA_TXHSADAPTTYPE       0x15D4
++
++/* Adpat type for PA_TXHSADAPTTYPE attribute */
++#define PA_REFRESH_ADAPT       0x00
++#define PA_INITIAL_ADAPT       0x01
++#define PA_NO_ADAPT            0x03
+ 
+ #define PA_TACTIVATE_TIME_UNIT_US	10
+ #define PA_HIBERN8_TIME_UNIT_US		100
+@@ -203,6 +209,7 @@ enum ufs_hs_gear_tag {
+ 	UFS_HS_G1,		/* HS Gear 1 (default for reset) */
+ 	UFS_HS_G2,		/* HS Gear 2 */
+ 	UFS_HS_G3,		/* HS Gear 3 */
++	UFS_HS_G4,		/* HS Gear 4 */
+ };
+ 
+ enum ufs_unipro_ver {
