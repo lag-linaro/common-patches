@@ -47,10 +47,10 @@ index cfe380348bf0..990cb48e2403 100644
  
  /**
 diff --git a/drivers/scsi/ufs/ufshcd.c b/drivers/scsi/ufs/ufshcd.c
-index a02279e3cedf..0998cff869ee 100644
+index abd0e6b05f79..3483da1a7492 100644
 --- a/drivers/scsi/ufs/ufshcd.c
 +++ b/drivers/scsi/ufs/ufshcd.c
-@@ -92,6 +92,9 @@
+@@ -91,6 +91,9 @@
  /* default delay of autosuspend: 2000 ms */
  #define RPM_AUTOSUSPEND_DELAY_MS 2000
  
@@ -60,7 +60,7 @@ index a02279e3cedf..0998cff869ee 100644
  #define ufshcd_toggle_vreg(_dev, _vreg, _on)				\
  	({                                                              \
  		int _ret;                                               \
-@@ -3341,6 +3344,31 @@ static inline int ufshcd_read_unit_desc_param(struct ufs_hba *hba,
+@@ -3276,6 +3279,31 @@ static inline int ufshcd_read_unit_desc_param(struct ufs_hba *hba,
  				      param_offset, param_read_buf, param_size);
  }
  
@@ -92,7 +92,7 @@ index a02279e3cedf..0998cff869ee 100644
  /**
   * ufshcd_memory_alloc - allocate memory for host memory space data structures
   * @hba: per adapter instance
-@@ -6701,6 +6729,10 @@ static int ufs_get_device_desc(struct ufs_hba *hba)
+@@ -6607,6 +6635,10 @@ static int ufs_get_device_desc(struct ufs_hba *hba)
  	dev_info->wmanufacturerid = desc_buf[DEVICE_DESC_PARAM_MANF_ID] << 8 |
  				     desc_buf[DEVICE_DESC_PARAM_MANF_ID + 1];
  
@@ -103,7 +103,7 @@ index a02279e3cedf..0998cff869ee 100644
  	model_index = desc_buf[DEVICE_DESC_PARAM_PRDCT_NAME];
  	err = ufshcd_read_string_desc(hba, model_index,
  				      &dev_info->model, SD_ASCII_STD);
-@@ -7078,6 +7110,8 @@ static int ufshcd_device_params_init(struct ufs_hba *hba)
+@@ -6984,6 +7016,8 @@ static int ufshcd_device_params_init(struct ufs_hba *hba)
  		goto out;
  	}
  

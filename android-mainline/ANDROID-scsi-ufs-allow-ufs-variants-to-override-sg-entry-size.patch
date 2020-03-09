@@ -20,7 +20,7 @@ Signed-off-by: Eric Biggers <ebiggers@google.com>
  3 files changed, 29 insertions(+), 17 deletions(-)
 
 diff --git a/drivers/scsi/ufs/ufshcd.c b/drivers/scsi/ufs/ufshcd.c
-index 2327be1e0bae..384d10e2eff9 100644
+index 5d0eadff39f7..0998cff869ee 100644
 --- a/drivers/scsi/ufs/ufshcd.c
 +++ b/drivers/scsi/ufs/ufshcd.c
 @@ -467,7 +467,7 @@ void ufshcd_print_trs(struct ufs_hba *hba, unsigned long bitmap, bool pr_prdt)
@@ -41,7 +41,7 @@ index 2327be1e0bae..384d10e2eff9 100644
  	}
  }
  
-@@ -2125,7 +2125,7 @@ int ufshcd_send_uic_cmd(struct ufs_hba *hba, struct uic_command *uic_cmd)
+@@ -2124,7 +2124,7 @@ int ufshcd_send_uic_cmd(struct ufs_hba *hba, struct uic_command *uic_cmd)
   */
  static int ufshcd_map_sg(struct ufs_hba *hba, struct ufshcd_lrb *lrbp)
  {
@@ -50,7 +50,7 @@ index 2327be1e0bae..384d10e2eff9 100644
  	struct scatterlist *sg;
  	struct scsi_cmnd *cmd;
  	int sg_segments;
-@@ -2140,21 +2140,22 @@ static int ufshcd_map_sg(struct ufs_hba *hba, struct ufshcd_lrb *lrbp)
+@@ -2139,21 +2139,22 @@ static int ufshcd_map_sg(struct ufs_hba *hba, struct ufshcd_lrb *lrbp)
  		if (hba->quirks & UFSHCD_QUIRK_PRDT_BYTE_GRAN)
  			lrbp->utr_descriptor_ptr->prd_table_length =
  				cpu_to_le16((u16)(sg_segments *
@@ -79,7 +79,7 @@ index 2327be1e0bae..384d10e2eff9 100644
  		}
  	} else {
  		lrbp->utr_descriptor_ptr->prd_table_length = 0;
-@@ -3393,7 +3394,7 @@ static int ufshcd_memory_alloc(struct ufs_hba *hba)
+@@ -3386,7 +3387,7 @@ static int ufshcd_memory_alloc(struct ufs_hba *hba)
  	size_t utmrdl_size, utrdl_size, ucdl_size;
  
  	/* Allocate memory for UTP command descriptors */
@@ -88,7 +88,7 @@ index 2327be1e0bae..384d10e2eff9 100644
  	hba->ucdl_base_addr = dmam_alloc_coherent(hba->dev,
  						  ucdl_size,
  						  &hba->ucdl_dma_addr,
-@@ -3489,7 +3490,7 @@ static void ufshcd_host_memory_configure(struct ufs_hba *hba)
+@@ -3482,7 +3483,7 @@ static void ufshcd_host_memory_configure(struct ufs_hba *hba)
  	prdt_offset =
  		offsetof(struct utp_transfer_cmd_desc, prd_table);
  
@@ -97,7 +97,7 @@ index 2327be1e0bae..384d10e2eff9 100644
  	cmd_desc_dma_addr = hba->ucdl_dma_addr;
  
  	for (i = 0; i < hba->nutrs; i++) {
-@@ -3521,17 +3522,17 @@ static void ufshcd_host_memory_configure(struct ufs_hba *hba)
+@@ -3514,17 +3515,17 @@ static void ufshcd_host_memory_configure(struct ufs_hba *hba)
  		hba->lrb[i].utr_descriptor_ptr = (utrdlp + i);
  		hba->lrb[i].utrd_dma_addr = hba->utrdl_dma_addr +
  				(i * sizeof(struct utp_transfer_req_desc));
@@ -119,7 +119,7 @@ index 2327be1e0bae..384d10e2eff9 100644
  	}
  }
  
-@@ -8495,6 +8496,7 @@ int ufshcd_alloc_host(struct device *dev, struct ufs_hba **hba_handle)
+@@ -8482,6 +8483,7 @@ int ufshcd_alloc_host(struct device *dev, struct ufs_hba **hba_handle)
  	hba->dev = dev;
  	*hba_handle = hba;
  	hba->dev_ref_clk_freq = REF_CLK_FREQ_INVAL;

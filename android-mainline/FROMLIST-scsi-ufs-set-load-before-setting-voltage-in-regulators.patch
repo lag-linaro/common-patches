@@ -22,10 +22,10 @@ Signed-off-by: Asutosh Das <asutoshd@codeaurora.org>
  1 file changed, 5 insertions(+), 5 deletions(-)
 
 diff --git a/drivers/scsi/ufs/ufshcd.c b/drivers/scsi/ufs/ufshcd.c
-index 01e35418cd1a..d4ea827c1c7e 100644
+index 0aac5c203262..749643b261a6 100644
 --- a/drivers/scsi/ufs/ufshcd.c
 +++ b/drivers/scsi/ufs/ufshcd.c
-@@ -7323,6 +7323,11 @@ static int ufshcd_config_vreg(struct device *dev,
+@@ -7357,6 +7357,11 @@ static int ufshcd_config_vreg(struct device *dev,
  	name = vreg->name;
  
  	if (regulator_count_voltages(reg) > 0) {
@@ -37,7 +37,7 @@ index 01e35418cd1a..d4ea827c1c7e 100644
  		if (vreg->min_uV && vreg->max_uV) {
  			min_uV = on ? vreg->min_uV : 0;
  			ret = regulator_set_voltage(reg, min_uV, vreg->max_uV);
-@@ -7333,11 +7338,6 @@ static int ufshcd_config_vreg(struct device *dev,
+@@ -7367,11 +7372,6 @@ static int ufshcd_config_vreg(struct device *dev,
  				goto out;
  			}
  		}

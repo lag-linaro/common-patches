@@ -24,7 +24,7 @@ Signed-off-by: Can Guo <cang@codeaurora.org>
  2 files changed, 4 insertions(+)
 
 diff --git a/drivers/scsi/ufs/ufs-qcom.c b/drivers/scsi/ufs/ufs-qcom.c
-index ae9e15ded0b9..9398a15daf42 100644
+index 4ce293f39090..ca8da96c453b 100644
 --- a/drivers/scsi/ufs/ufs-qcom.c
 +++ b/drivers/scsi/ufs/ufs-qcom.c
 @@ -984,6 +984,9 @@ static int ufs_qcom_apply_dev_quirks(struct ufs_hba *hba)

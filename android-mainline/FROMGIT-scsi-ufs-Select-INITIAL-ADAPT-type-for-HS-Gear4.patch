@@ -26,10 +26,10 @@ Signed-off-by: Can Guo <cang@codeaurora.org>
  2 files changed, 21 insertions(+)
 
 diff --git a/drivers/scsi/ufs/ufs-qcom.c b/drivers/scsi/ufs/ufs-qcom.c
-index 9398a15daf42..27728d23d3bf 100644
+index 84a0e870696a..671657383099 100644
 --- a/drivers/scsi/ufs/ufs-qcom.c
 +++ b/drivers/scsi/ufs/ufs-qcom.c
-@@ -926,6 +926,20 @@ static int ufs_qcom_pwr_change_notify(struct ufs_hba *hba,
+@@ -942,6 +942,20 @@ static int ufs_qcom_pwr_change_notify(struct ufs_hba *hba,
  		if (!ufshcd_is_hs_mode(&hba->pwr_info) &&
  			ufshcd_is_hs_mode(dev_req_params))
  			ufs_qcom_dev_ref_clk_ctrl(host, true);

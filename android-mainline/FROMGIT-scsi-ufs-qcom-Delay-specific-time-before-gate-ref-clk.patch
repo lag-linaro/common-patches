@@ -23,7 +23,7 @@ Signed-off-by: Can Guo <cang@codeaurora.org>
  1 file changed, 19 insertions(+), 3 deletions(-)
 
 diff --git a/drivers/scsi/ufs/ufs-qcom.c b/drivers/scsi/ufs/ufs-qcom.c
-index a91c7700b46d..dd8352f0c4fe 100644
+index ca8da96c453b..84a0e870696a 100644
 --- a/drivers/scsi/ufs/ufs-qcom.c
 +++ b/drivers/scsi/ufs/ufs-qcom.c
 @@ -845,11 +845,27 @@ static void ufs_qcom_dev_ref_clk_ctrl(struct ufs_qcom_host *host, bool enable)

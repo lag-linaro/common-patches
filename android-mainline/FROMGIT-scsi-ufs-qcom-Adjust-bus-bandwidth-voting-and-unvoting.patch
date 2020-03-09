@@ -23,7 +23,7 @@ Signed-off-by: Can Guo <cang@codeaurora.org>
  1 file changed, 53 insertions(+), 25 deletions(-)
 
 diff --git a/drivers/scsi/ufs/ufs-qcom.c b/drivers/scsi/ufs/ufs-qcom.c
-index e9c6c6d440bf..a91c7700b46d 100644
+index c69c29a1ceb9..4ce293f39090 100644
 --- a/drivers/scsi/ufs/ufs-qcom.c
 +++ b/drivers/scsi/ufs/ufs-qcom.c
 @@ -38,7 +38,6 @@ enum {
@@ -97,7 +97,7 @@ index e9c6c6d440bf..a91c7700b46d 100644
  {
  	return 0;
  }
-@@ -1054,8 +1082,7 @@ static int ufs_qcom_setup_clocks(struct ufs_hba *hba, bool on,
+@@ -1030,8 +1058,7 @@ static int ufs_qcom_setup_clocks(struct ufs_hba *hba, bool on,
  				 enum ufs_notify_change_status status)
  {
  	struct ufs_qcom_host *host = ufshcd_get_variant(hba);
@@ -107,7 +107,7 @@ index e9c6c6d440bf..a91c7700b46d 100644
  
  	/*
  	 * In case ufs_qcom_init() is not yet done, simply ignore.
-@@ -1065,28 +1092,28 @@ static int ufs_qcom_setup_clocks(struct ufs_hba *hba, bool on,
+@@ -1041,28 +1068,28 @@ static int ufs_qcom_setup_clocks(struct ufs_hba *hba, bool on,
  	if (!host)
  		return 0;
  
@@ -155,7 +155,7 @@ index e9c6c6d440bf..a91c7700b46d 100644
  	return err;
  }
  
-@@ -1262,6 +1289,7 @@ static int ufs_qcom_init(struct ufs_hba *hba)
+@@ -1238,6 +1265,7 @@ static int ufs_qcom_init(struct ufs_hba *hba)
  	ufs_qcom_set_caps(hba);
  	ufs_qcom_advertise_quirks(hba);
  

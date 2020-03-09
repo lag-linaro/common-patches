@@ -23,10 +23,10 @@ Signed-off-by: Asutosh Das <asutoshd@codeaurora.org>
  1 file changed, 49 insertions(+), 25 deletions(-)
 
 diff --git a/drivers/scsi/ufs/ufshcd.c b/drivers/scsi/ufs/ufshcd.c
-index 8588a7fa9b86..01e35418cd1a 100644
+index f21ee27e17e4..0aac5c203262 100644
 --- a/drivers/scsi/ufs/ufshcd.c
 +++ b/drivers/scsi/ufs/ufshcd.c
-@@ -867,28 +867,29 @@ static bool ufshcd_is_unipro_pa_params_tuning_req(struct ufs_hba *hba)
+@@ -870,28 +870,29 @@ static bool ufshcd_is_unipro_pa_params_tuning_req(struct ufs_hba *hba)
  		return false;
  }
  
@@ -64,7 +64,7 @@ index 8588a7fa9b86..01e35418cd1a 100644
  				ret = clk_set_rate(clki->clk, clki->max_freq);
  				if (ret) {
  					dev_err(hba->dev, "%s: %s clk set rate(%dHz) failed, %d\n",
-@@ -907,7 +908,6 @@ static int ufshcd_scale_clks(struct ufs_hba *hba, bool scale_up)
+@@ -910,7 +911,6 @@ static int ufshcd_scale_clks(struct ufs_hba *hba, bool scale_up)
  				if (clki->curr_freq == clki->min_freq)
  					continue;
  
@@ -72,7 +72,7 @@ index 8588a7fa9b86..01e35418cd1a 100644
  				ret = clk_set_rate(clki->clk, clki->min_freq);
  				if (ret) {
  					dev_err(hba->dev, "%s: %s clk set rate(%dHz) failed, %d\n",
-@@ -926,13 +926,36 @@ static int ufshcd_scale_clks(struct ufs_hba *hba, bool scale_up)
+@@ -929,13 +929,36 @@ static int ufshcd_scale_clks(struct ufs_hba *hba, bool scale_up)
  				clki->name, clk_get_rate(clki->clk));
  	}
  
@@ -114,7 +114,7 @@ index 8588a7fa9b86..01e35418cd1a 100644
  	return ret;
  }
  
-@@ -1118,35 +1141,36 @@ static int ufshcd_devfreq_scale(struct ufs_hba *hba, bool scale_up)
+@@ -1121,35 +1144,36 @@ static int ufshcd_devfreq_scale(struct ufs_hba *hba, bool scale_up)
  
  	ret = ufshcd_clock_scaling_prepare(hba);
  	if (ret)
@@ -161,7 +161,7 @@ index 8588a7fa9b86..01e35418cd1a 100644
  	ufshcd_release(hba);
  	return ret;
  }
-@@ -6357,7 +6381,7 @@ static int ufshcd_host_reset_and_restore(struct ufs_hba *hba)
+@@ -6385,7 +6409,7 @@ static int ufshcd_host_reset_and_restore(struct ufs_hba *hba)
  	spin_unlock_irqrestore(hba->host->host_lock, flags);
  
  	/* scale up clocks to max frequency before full reinitialization */

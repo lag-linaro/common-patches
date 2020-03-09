@@ -1,29 +1,31 @@
 From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
-From: Greg Kroah-Hartman <gregkh@google.com>
+From: Sayali Lokhande <sayalil@codeaurora.org>
 Date: Mon, 3 Feb 2020 15:51:00 +0000
-Subject: Revert "Revert "FROMLIST: scsi: ufs: Flush exception event before
- suspend""
+Subject: FROMLIST: scsi: ufs: Flush exception event before suspend
 
-This reverts commit 4b4777168d4d9296d6b23ae26674bd60307e7fc1 which was a
-revert of commit 12db3a26e47e79e3a24b797726a8cdfcb98c95d5.  We added it
-back by hand after the scsi upstream tree merge
+Exception event can be raised by the device when system
+suspend is in progress. This will result in unclocked
+register access in exception event handler as clocks will
+be turned off during suspend. This change makes sure to flush
+exception event handler work in suspend before disabling
+clocks to avoid unclocked register access issue.
 
 Bug: 143632303
-Cc: Sayali Lokhande <sayalil@codeaurora.org>
-Cc: Asutosh Das <asutoshd@codeaurora.org>
-Cc: Can Guo <cang@codeaurora.org>
-Cc: Asutosh Das <asutoshd@codeaurora.org>
-Signed-off-by: Greg Kroah-Hartman <gregkh@google.com>
-Change-Id: I36f2931b04f7963b7121511d6061c13a18891b77
+Change-Id: Ic01b5e4c7bc95d1ad9fa3c6fb19b848206a13306
+Link: https://lore.kernel.org/patchwork/patch/1149888/
+Signed-off-by: Sayali Lokhande <sayalil@codeaurora.org>
+Signed-off-by: Asutosh Das <asutoshd@codeaurora.org>
+Signed-off-by: Can Guo <cang@codeaurora.org>
+Signed-off-by: Asutosh Das <asutoshd@codeaurora.org>
 ---
  drivers/scsi/ufs/ufshcd.c | 21 ++++++++++++++++++---
  1 file changed, 18 insertions(+), 3 deletions(-)
 
 diff --git a/drivers/scsi/ufs/ufshcd.c b/drivers/scsi/ufs/ufshcd.c
-index 8e0f9031c103..26c96c2b5fb3 100644
+index 313e981b06b9..203d80ee860b 100644
 --- a/drivers/scsi/ufs/ufshcd.c
 +++ b/drivers/scsi/ufs/ufshcd.c
-@@ -4825,8 +4825,15 @@ ufshcd_transfer_rsp_status(struct ufs_hba *hba, struct ufshcd_lrb *lrbp)
+@@ -4853,8 +4853,15 @@ ufshcd_transfer_rsp_status(struct ufs_hba *hba, struct ufshcd_lrb *lrbp)
  			 * UFS device needs urgent BKOPs.
  			 */
  			if (!hba->pm_op_in_progress &&
@@ -41,7 +43,7 @@ index 8e0f9031c103..26c96c2b5fb3 100644
  			break;
  		case UPIU_TRANSACTION_REJECT_UPIU:
  			/* TODO: handle Reject UPIU Response */
-@@ -5281,7 +5288,14 @@ static void ufshcd_exception_event_handler(struct work_struct *work)
+@@ -5309,7 +5316,14 @@ static void ufshcd_exception_event_handler(struct work_struct *work)
  
  out:
  	ufshcd_scsi_unblock_requests(hba);
@@ -57,7 +59,7 @@ index 8e0f9031c103..26c96c2b5fb3 100644
  	return;
  }
  
-@@ -8007,6 +8021,7 @@ static int ufshcd_suspend(struct ufs_hba *hba, enum ufs_pm_op pm_op)
+@@ -8041,6 +8055,7 @@ static int ufshcd_suspend(struct ufs_hba *hba, enum ufs_pm_op pm_op)
  			goto enable_gating;
  	}
  
