@@ -21,7 +21,7 @@ Signed-off-by: Satya Tangirala <satyat@google.com>
  2 files changed, 5 insertions(+)
 
 diff --git a/arch/arm64/configs/gki_defconfig b/arch/arm64/configs/gki_defconfig
-index 0933c134a2d0..c83c3041f90b 100644
+index 484167109db9..1d20a9275cc8 100644
 --- a/arch/arm64/configs/gki_defconfig
 +++ b/arch/arm64/configs/gki_defconfig
 @@ -76,6 +76,7 @@ CONFIG_KPROBES=y
@@ -49,7 +49,7 @@ index 0933c134a2d0..c83c3041f90b 100644
  CONFIG_FS_VERITY_BUILTIN_SIGNATURES=y
  # CONFIG_DNOTIFY is not set
 diff --git a/arch/x86/configs/gki_defconfig b/arch/x86/configs/gki_defconfig
-index 0654f2381a0e..ac4097e334d4 100644
+index c80bd9e4c443..958bff41b3fb 100644
 --- a/arch/x86/configs/gki_defconfig
 +++ b/arch/x86/configs/gki_defconfig
 @@ -54,6 +54,7 @@ CONFIG_KPROBES=y

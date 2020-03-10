@@ -11,7 +11,7 @@ Signed-off-by: Sami Tolvanen <samitolvanen@google.com>
  1 file changed, 3 insertions(+)
 
 diff --git a/arch/arm64/configs/gki_defconfig b/arch/arm64/configs/gki_defconfig
-index ee100cff43f0..e284761e93e0 100644
+index b2c1d5905636..d47974cf60a6 100644
 --- a/arch/arm64/configs/gki_defconfig
 +++ b/arch/arm64/configs/gki_defconfig
 @@ -74,6 +74,9 @@ CONFIG_ARM64_CRYPTO=y

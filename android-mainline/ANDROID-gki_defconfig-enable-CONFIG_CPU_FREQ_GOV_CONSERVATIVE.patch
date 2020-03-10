@@ -12,7 +12,7 @@ Signed-off-by: Ram Muthiah <rammuthiah@google.com>
  1 file changed, 1 insertion(+)
 
 diff --git a/arch/x86/configs/gki_defconfig b/arch/x86/configs/gki_defconfig
-index 277b0069671e..5c304350fb68 100644
+index 862ffff9927a..70c5ac9779e8 100644
 --- a/arch/x86/configs/gki_defconfig
 +++ b/arch/x86/configs/gki_defconfig
 @@ -46,6 +46,7 @@ CONFIG_PM_WAKELOCKS_LIMIT=0

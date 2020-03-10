@@ -13,10 +13,10 @@ Signed-off-by: Sami Tolvanen <samitolvanen@google.com>
  1 file changed, 1 deletion(-)
 
 diff --git a/arch/arm64/configs/gki_defconfig b/arch/arm64/configs/gki_defconfig
-index 4c4a83cb4e76..70b13d6ebe93 100644
+index 2625a59b918f..7e091f110582 100644
 --- a/arch/arm64/configs/gki_defconfig
 +++ b/arch/arm64/configs/gki_defconfig
-@@ -479,7 +479,6 @@ CONFIG_SOFTLOCKUP_DETECTOR=y
+@@ -478,7 +478,6 @@ CONFIG_SOFTLOCKUP_DETECTOR=y
  # CONFIG_DETECT_HUNG_TASK is not set
  CONFIG_PANIC_TIMEOUT=5
  CONFIG_SCHEDSTATS=y

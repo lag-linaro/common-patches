@@ -2,7 +2,7 @@
 # android-mainline patches
 #
 # Applies onto upstream 2c523b344dfa Linux v5.6-rc5
-# Matches android-mainline a9312bae1b06 ("ANDROID: gki_defconfig: enable CONFIG_TYPEC")
+# Matches android-mainline 60701bc1fe7c ("Revert remainings of "ANDROID: security,perf: Allow further restriction of perf_event_open"")
 #
 Revert-security-lockdown-selinux-implement-SELinux-lockdown.patch
 Revert-drm-virtio-fix-DRM_FORMAT_-handling.patch
@@ -85,7 +85,6 @@ ANDROID-add-extra-free-kbytes-tunable.patch
 ANDROID-power-wakeup_reason-add-an-API-to-log-wakeup-reasons.patch
 ANDROID-netfilter-xt_quota2-adding-the-original-quota2-from-xtables-addons.patch
 ANDROID-netfilter-xt_IDLETIMER-Add-new-netlink-msg-type.patch
-ANDROID-security-perf-Allow-further-restriction-of-perf_event_open.patch
 ANDROID-net-ipv6-autoconf-routes-into-per-device-tables.patch
 ANDROID-binder-add-support-for-RT-prio-inheritance.patch
 ANDROID-cpufreq-track-per-task-time-in-state.patch
@@ -323,7 +322,6 @@ ANDROID-build-config-for-cuttlefish-ramdisk.patch
 ANDROID-virtio-net-Skip-set_features-on-non-cvq-devices.patch
 ANDROID-gki-Make-GKI-specific-modules-builtins.patch
 ANDROID-selinux-modify-RTM_GETLINK-permission.patch
-Revert-ANDROID-security-perf-Allow-further-restriction-of-perf_event_open.patch
 ANDROID-block-fix-some-inline-crypto-bugs.patch
 ANDROID-block-export-symbols-needed-for-modules-to-use-inline-crypto.patch
 FROMLIST-scsi-ufs-add-program_key-variant-op.patch
@@ -439,3 +437,5 @@ ANDROID-staging-ion-Add-an-in-kernel-interface-to-request-heap-info.patch
 ANDROID-cpufreq-times-Remove-proc-uid_concurrent_-active-policy-_time.patch
 ANDROID-cpufreq-times-Remove-per-UID-time-in-state-tracking.patch
 ANDROID-gki_defconfig-enable-CONFIG_TYPEC.patch
+FROMLIST-f2fs-fix-wrong-check-on-F2FS_IOC_FSSETXATTR.patch
+ANDROID-arm64-gki_defconfig-disable-CONFIG_DEBUG_PREEMPT.patch

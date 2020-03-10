@@ -14,7 +14,7 @@ Signed-off-by: Todd Kjos <tkjos@google.com>
  2 files changed, 4 insertions(+)
 
 diff --git a/arch/arm64/configs/gki_defconfig b/arch/arm64/configs/gki_defconfig
-index 3eb9ddfb17d7..c51ebadcb7c7 100644
+index 7d20d119c058..c353040a36e8 100644
 --- a/arch/arm64/configs/gki_defconfig
 +++ b/arch/arm64/configs/gki_defconfig
 @@ -337,6 +337,8 @@ CONFIG_HID_ELECOM=y
@@ -27,7 +27,7 @@ index 3eb9ddfb17d7..c51ebadcb7c7 100644
  CONFIG_USB=y
  CONFIG_USB_OTG=y
 diff --git a/arch/x86/configs/gki_defconfig b/arch/x86/configs/gki_defconfig
-index 7b161fd44191..aa214bab11f7 100644
+index 0fc040a3d119..6ef01e504188 100644
 --- a/arch/x86/configs/gki_defconfig
 +++ b/arch/x86/configs/gki_defconfig
 @@ -290,6 +290,8 @@ CONFIG_HID_ELECOM=y

@@ -13,7 +13,7 @@ Change-Id: I50d96aa097866a43f305c59954f1242e02d0dac6
  1 file changed, 1 deletion(-)
 
 diff --git a/arch/arm64/configs/gki_defconfig b/arch/arm64/configs/gki_defconfig
-index ab1dd6d01ec8..01be7843c646 100644
+index 2e39d1bae2f1..b98de2efcf63 100644
 --- a/arch/arm64/configs/gki_defconfig
 +++ b/arch/arm64/configs/gki_defconfig
 @@ -384,7 +384,6 @@ CONFIG_FUSE_FS=y

@@ -18,7 +18,7 @@ Change-Id: I69bc614509eaff259a2aa9195e7e1d406b36bbb2
  2 files changed, 2 insertions(+)
 
 diff --git a/arch/arm64/configs/gki_defconfig b/arch/arm64/configs/gki_defconfig
-index 6ccf6c7ef9ec..ed21a0d79f4c 100644
+index 920f1cc217ab..d5f23479f445 100644
 --- a/arch/arm64/configs/gki_defconfig
 +++ b/arch/arm64/configs/gki_defconfig
 @@ -216,6 +216,7 @@ CONFIG_SCSI_UFSHCD_PLATFORM=y
@@ -30,7 +30,7 @@ index 6ccf6c7ef9ec..ed21a0d79f4c 100644
  CONFIG_DM_VERITY=y
  CONFIG_DM_VERITY_AVB=y
 diff --git a/arch/x86/configs/gki_defconfig b/arch/x86/configs/gki_defconfig
-index 931fcbdced69..fbcf73e4f66f 100644
+index 8e6e2e3dbdfe..e1796350290c 100644
 --- a/arch/x86/configs/gki_defconfig
 +++ b/arch/x86/configs/gki_defconfig
 @@ -189,6 +189,7 @@ CONFIG_BLK_DEV_SD=y

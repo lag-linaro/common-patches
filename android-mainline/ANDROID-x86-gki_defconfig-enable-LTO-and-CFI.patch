@@ -11,7 +11,7 @@ Signed-off-by: Sami Tolvanen <samitolvanen@google.com>
  1 file changed, 2 insertions(+), 1 deletion(-)
 
 diff --git a/arch/x86/configs/gki_defconfig b/arch/x86/configs/gki_defconfig
-index 1228a31e5a6b..86731ed0bfca 100644
+index ff3af61c5096..ea4ae7a88a74 100644
 --- a/arch/x86/configs/gki_defconfig
 +++ b/arch/x86/configs/gki_defconfig
 @@ -55,6 +55,8 @@ CONFIG_CPU_FREQ_GOV_CONSERVATIVE=y
@@ -23,7 +23,7 @@ index 1228a31e5a6b..86731ed0bfca 100644
  CONFIG_MODULES=y
  CONFIG_MODULE_UNLOAD=y
  CONFIG_MODVERSIONS=y
-@@ -430,5 +432,4 @@ CONFIG_PANIC_TIMEOUT=5
+@@ -429,5 +431,4 @@ CONFIG_PANIC_TIMEOUT=5
  CONFIG_SOFTLOCKUP_DETECTOR=y
  # CONFIG_DETECT_HUNG_TASK is not set
  CONFIG_SCHEDSTATS=y

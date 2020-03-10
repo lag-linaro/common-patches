@@ -1,0 +1,27 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: Will McVicker <willmcvicker@google.com>
+Date: Tue, 4 Feb 2020 11:19:57 -0800
+Subject: ANDROID: arm64: gki_defconfig: disable CONFIG_DEBUG_PREEMPT
+
+We don't need this. So disable to improve the ABI diff with vendors.
+
+Signed-off-by: Will McVicker <willmcvicker@google.com>
+Bug: 148870985
+Test: compile test
+Change-Id: I70690c8be2c3ffcc77f7c8c1d472be0ffffd0587
+---
+ arch/arm64/configs/gki_defconfig | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/arch/arm64/configs/gki_defconfig b/arch/arm64/configs/gki_defconfig
+index 1489e9458793..412e2bcd5eaa 100644
+--- a/arch/arm64/configs/gki_defconfig
++++ b/arch/arm64/configs/gki_defconfig
+@@ -484,6 +484,7 @@ CONFIG_PANIC_TIMEOUT=5
+ CONFIG_SOFTLOCKUP_DETECTOR=y
+ # CONFIG_DETECT_HUNG_TASK is not set
+ CONFIG_SCHEDSTATS=y
++# CONFIG_DEBUG_PREEMPT is not set
+ CONFIG_CORESIGHT=y
+ CONFIG_CORESIGHT_STM=y
+ # CONFIG_RUNTIME_TESTING_MENU is not set

@@ -14,7 +14,7 @@ Test: Treehugger
  2 files changed, 2 insertions(+)
 
 diff --git a/arch/arm64/configs/gki_defconfig b/arch/arm64/configs/gki_defconfig
-index 70b13d6ebe93..f22c8c4cd429 100644
+index 7e091f110582..5eb69ad2ea60 100644
 --- a/arch/arm64/configs/gki_defconfig
 +++ b/arch/arm64/configs/gki_defconfig
 @@ -9,6 +9,7 @@ CONFIG_TASK_IO_ACCOUNTING=y
@@ -26,7 +26,7 @@ index 70b13d6ebe93..f22c8c4cd429 100644
  CONFIG_MEMCG_SWAP=y
  CONFIG_BLK_CGROUP=y
 diff --git a/arch/x86/configs/gki_defconfig b/arch/x86/configs/gki_defconfig
-index ec9655cce5c4..8d68d9c8ecdd 100644
+index a5fb950a8333..4cbb087fdd5c 100644
 --- a/arch/x86/configs/gki_defconfig
 +++ b/arch/x86/configs/gki_defconfig
 @@ -10,6 +10,7 @@ CONFIG_TASK_IO_ACCOUNTING=y
