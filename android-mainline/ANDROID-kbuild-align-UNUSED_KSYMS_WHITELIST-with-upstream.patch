@@ -1,0 +1,48 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: Quentin Perret <qperret@google.com>
+Date: Tue, 3 Mar 2020 15:44:50 +0000
+Subject: ANDROID: kbuild: align UNUSED_KSYMS_WHITELIST with upstream
+
+The UNUSED_KSYMS_WHITELIST feature as been merged in ACK as FROMLIST v5,
+but the v6 got recently queued with minor changes.
+
+Align the Android code with what will be merged upstream.
+
+Bug: 148277666
+Fixes: 92f76ef499a0 ("FROMLIST: kbuild: allow symbol whitelisting with
+TRIM_UNUSED_KSYMS")
+Signed-off-by: Quentin Perret <qperret@google.com>
+Change-Id: I41726e3fba6e299bb541f93ae9ac31add0c08b60
+---
+ Makefile                 | 4 ++--
+ scripts/gen_autoksyms.sh | 2 +-
+ 2 files changed, 3 insertions(+), 3 deletions(-)
+
+diff --git a/Makefile b/Makefile
+index 080c29bf19cc..a662456ea64b 100644
+--- a/Makefile
++++ b/Makefile
+@@ -1128,8 +1128,8 @@ endif
+ autoksyms_h := $(if $(CONFIG_TRIM_UNUSED_KSYMS), include/generated/autoksyms.h)
+ 
+ quiet_cmd_autoksyms_h = GEN     $@
+-      cmd_autoksyms_h = mkdir -p $(dir $@); $(CONFIG_SHELL) \
+-			$(srctree)/scripts/gen_autoksyms.sh $@
++      cmd_autoksyms_h = mkdir -p $(dir $@); \
++			$(CONFIG_SHELL) $(srctree)/scripts/gen_autoksyms.sh $@
+ 
+ $(autoksyms_h):
+ 	$(call cmd,autoksyms_h)
+diff --git a/scripts/gen_autoksyms.sh b/scripts/gen_autoksyms.sh
+index 679c9f05e4b4..16c0b2ddaa4c 100755
+--- a/scripts/gen_autoksyms.sh
++++ b/scripts/gen_autoksyms.sh
+@@ -24,7 +24,7 @@ if [ -n "$CONFIG_UNUSED_KSYMS_WHITELIST" ]; then
+ 	# Use 'eval' to expand the whitelist path and check if it is relative
+ 	eval ksym_wl="$CONFIG_UNUSED_KSYMS_WHITELIST"
+ 	[ "${ksym_wl}" != "${ksym_wl#/}" ] || ksym_wl="$abs_srctree/$ksym_wl"
+-	if [ ! -f "$ksym_wl" ]; then
++	if [ ! -f "$ksym_wl" ] || [ ! -r "$ksym_wl" ]; then
+ 		echo "ERROR: '$ksym_wl' whitelist file not found" >&2
+ 		exit 1
+ 	fi

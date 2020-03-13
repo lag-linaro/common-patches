@@ -2,7 +2,7 @@
 # android-mainline patches
 #
 # Applies onto upstream 2c523b344dfa Linux v5.6-rc5
-# Matches android-mainline 60701bc1fe7c ("Revert remainings of "ANDROID: security,perf: Allow further restriction of perf_event_open"")
+# Matches android-mainline a985435d7b76 ("ANDROID: gki_defconfig: Enable CONFIG_VM_EVENT_COUNTERS")
 #
 Revert-security-lockdown-selinux-implement-SELinux-lockdown.patch
 Revert-drm-virtio-fix-DRM_FORMAT_-handling.patch
@@ -439,3 +439,8 @@ ANDROID-cpufreq-times-Remove-per-UID-time-in-state-tracking.patch
 ANDROID-gki_defconfig-enable-CONFIG_TYPEC.patch
 FROMLIST-f2fs-fix-wrong-check-on-F2FS_IOC_FSSETXATTR.patch
 ANDROID-arm64-gki_defconfig-disable-CONFIG_DEBUG_PREEMPT.patch
+ANDROID-kbuild-align-UNUSED_KSYMS_WHITELIST-with-upstream.patch
+ANDROID-enable-CONFIG_WATCHDOG_CORE-y.patch
+ANDROID-gki_defconfig-disable-CONFIG_DEBUG_DEVRES.patch
+ANDROID-gki_defconfig-Enable-CONFIG_CLEANCACHE.patch
+ANDROID-gki_defconfig-Enable-CONFIG_VM_EVENT_COUNTERS.patch
