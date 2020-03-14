@@ -2,7 +2,7 @@
 # android-mainline patches
 #
 # Applies onto upstream 2c523b344dfa Linux v5.6-rc5
-# Matches android-mainline a985435d7b76 ("ANDROID: gki_defconfig: Enable CONFIG_VM_EVENT_COUNTERS")
+# Matches android-mainline 619982ebe26f ("ANDROID: Add build.config files for ARM 32-bit")
 #
 Revert-security-lockdown-selinux-implement-SELinux-lockdown.patch
 Revert-drm-virtio-fix-DRM_FORMAT_-handling.patch
@@ -289,7 +289,6 @@ ANDROID-clk-qcom-Add-sync_state-clk_sync_state-for-db845c-clock-providers.patch
 ANDROID-README-Add-add-user-reference-to-backporting-comment.patch
 ANDROID-iommu-arm-smmu-Expose-s2cr-and-smr-structs-to-impl.patch
 ANDROID-iommu-arm-smmu-Allow-inherting-stream-mapping-from-bootloader.patch
-ANDROID-tty-serdev-Fix-broken-serial-console-input.patch
 ANDROID-Kconfig.gki-Add-QCOM_SCM-to-QCOM-Hidden-configs.patch
 ANDROID-gki_defconfig-Enable-blk-crypto-fallback.patch
 ANDROID-drm-bridge-Introduce-LT9611-DSI-to-HDMI-bridge.patch
@@ -444,3 +443,7 @@ ANDROID-enable-CONFIG_WATCHDOG_CORE-y.patch
 ANDROID-gki_defconfig-disable-CONFIG_DEBUG_DEVRES.patch
 ANDROID-gki_defconfig-Enable-CONFIG_CLEANCACHE.patch
 ANDROID-gki_defconfig-Enable-CONFIG_VM_EVENT_COUNTERS.patch
+ANDROID-Add-TPM-support-and-the-vTPM-proxy-to-Cuttlefish.patch
+ANDROID-serdev-restrict-claim-of-platform-devices.patch
+ANDROID-gki_defconfig-Enable-more-USB_CONFIGFS-gadgets.patch
+ANDROID-Add-build.config-files-for-ARM-32-bit.patch
