@@ -656,7 +656,7 @@ index ab41b25d4fa1..674878fb6829 100644
  	kzfree(mk);
  }
 diff --git a/fs/crypto/keysetup.c b/fs/crypto/keysetup.c
-index 65cb09fa6ead..94984a5a0d78 100644
+index 08c9f216a54d..3df0b6400a9b 100644
 --- a/fs/crypto/keysetup.c
 +++ b/fs/crypto/keysetup.c
 @@ -19,6 +19,7 @@ struct fscrypt_mode fscrypt_modes[] = {

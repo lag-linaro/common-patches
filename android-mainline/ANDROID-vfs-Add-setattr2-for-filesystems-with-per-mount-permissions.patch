@@ -76,10 +76,10 @@ index f8296a82d01d..0f83c8bd13b2 100644
  	}
  
 diff --git a/fs/inode.c b/fs/inode.c
-index 7d57068b6b7a..19b797f47135 100644
+index 93d9252a00ab..10e21db3b0cd 100644
 --- a/fs/inode.c
 +++ b/fs/inode.c
-@@ -1821,7 +1821,7 @@ int dentry_needs_remove_privs(struct dentry *dentry)
+@@ -1822,7 +1822,7 @@ int dentry_needs_remove_privs(struct dentry *dentry)
  	return mask;
  }
  
@@ -88,7 +88,7 @@ index 7d57068b6b7a..19b797f47135 100644
  {
  	struct iattr newattrs;
  
-@@ -1830,7 +1830,7 @@ static int __remove_privs(struct dentry *dentry, int kill)
+@@ -1831,7 +1831,7 @@ static int __remove_privs(struct dentry *dentry, int kill)
  	 * Note we call this on write, so notify_change will not
  	 * encounter any conflicting delegations:
  	 */
@@ -97,7 +97,7 @@ index 7d57068b6b7a..19b797f47135 100644
  }
  
  /*
-@@ -1857,7 +1857,7 @@ int file_remove_privs(struct file *file)
+@@ -1858,7 +1858,7 @@ int file_remove_privs(struct file *file)
  	if (kill < 0)
  		return kill;
  	if (kill)
@@ -120,7 +120,7 @@ index db6565c99825..dd7d001eb0d0 100644
  				    filp);
  	}
 diff --git a/fs/open.c b/fs/open.c
-index 0788b3715731..a7bdbcf50ab2 100644
+index b69d6eed67e6..16e1ed526e89 100644
 --- a/fs/open.c
 +++ b/fs/open.c
 @@ -35,8 +35,8 @@
@@ -226,10 +226,10 @@ index 1d17ce98cb80..534fa3cc517f 100644
  	if (delegated_inode) {
  		error = break_deleg_wait(&delegated_inode);
 diff --git a/include/linux/fs.h b/include/linux/fs.h
-index 3cd4fe6b845e..75c519babd79 100644
+index abedbffe2c9e..d94e8d1aef11 100644
 --- a/include/linux/fs.h
 +++ b/include/linux/fs.h
-@@ -1877,7 +1877,8 @@ struct inode_operations {
+@@ -1878,7 +1878,8 @@ struct inode_operations {
  	int (*rename) (struct inode *, struct dentry *,
  			struct inode *, struct dentry *, unsigned int);
  	int (*setattr) (struct dentry *, struct iattr *);
@@ -239,7 +239,7 @@ index 3cd4fe6b845e..75c519babd79 100644
  	ssize_t (*listxattr) (struct dentry *, char *, size_t);
  	int (*fiemap)(struct inode *, struct fiemap_extent_info *, u64 start,
  		      u64 len);
-@@ -2537,6 +2538,8 @@ static_assert(offsetof(struct filename, iname) % sizeof(long) == 0);
+@@ -2538,6 +2539,8 @@ static_assert(offsetof(struct filename, iname) % sizeof(long) == 0);
  extern long vfs_truncate(const struct path *, loff_t);
  extern int do_truncate(struct dentry *, loff_t start, unsigned int time_attrs,
  		       struct file *filp);
@@ -248,7 +248,7 @@ index 3cd4fe6b845e..75c519babd79 100644
  extern int vfs_fallocate(struct file *file, int mode, loff_t offset,
  			loff_t len);
  extern long do_sys_open(int dfd, const char __user *filename, int flags,
-@@ -2887,6 +2890,7 @@ static inline int bmap(struct inode *inode,  sector_t *block)
+@@ -2888,6 +2891,7 @@ static inline int bmap(struct inode *inode,  sector_t *block)
  #endif
  
  extern int notify_change(struct dentry *, struct iattr *, struct inode **);

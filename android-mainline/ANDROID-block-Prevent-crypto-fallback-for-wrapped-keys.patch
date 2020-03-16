@@ -157,7 +157,7 @@ index 9c830772b7f5..00da0effa6c9 100644
  		fscrypt_err(inode, "error %d initializing blk-crypto key", err);
  		goto fail;
 diff --git a/fs/crypto/keysetup.c b/fs/crypto/keysetup.c
-index 527b0bcd271e..04c86e489a7a 100644
+index d394635729e8..b1f3b010b188 100644
 --- a/fs/crypto/keysetup.c
 +++ b/fs/crypto/keysetup.c
 @@ -117,15 +117,15 @@ fscrypt_allocate_skcipher(struct fscrypt_mode *mode, const u8 *raw_key,

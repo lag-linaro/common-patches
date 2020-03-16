@@ -23,7 +23,7 @@ Signed-off-by: Asutosh Das <asutoshd@codeaurora.org>
  1 file changed, 49 insertions(+), 25 deletions(-)
 
 diff --git a/drivers/scsi/ufs/ufshcd.c b/drivers/scsi/ufs/ufshcd.c
-index f21ee27e17e4..0aac5c203262 100644
+index b06e2f4f987d..af1874bc04ea 100644
 --- a/drivers/scsi/ufs/ufshcd.c
 +++ b/drivers/scsi/ufs/ufshcd.c
 @@ -870,28 +870,29 @@ static bool ufshcd_is_unipro_pa_params_tuning_req(struct ufs_hba *hba)
@@ -161,7 +161,7 @@ index f21ee27e17e4..0aac5c203262 100644
  	ufshcd_release(hba);
  	return ret;
  }
-@@ -6385,7 +6409,7 @@ static int ufshcd_host_reset_and_restore(struct ufs_hba *hba)
+@@ -6392,7 +6416,7 @@ static int ufshcd_host_reset_and_restore(struct ufs_hba *hba)
  	spin_unlock_irqrestore(hba->host->host_lock, flags);
  
  	/* scale up clocks to max frequency before full reinitialization */

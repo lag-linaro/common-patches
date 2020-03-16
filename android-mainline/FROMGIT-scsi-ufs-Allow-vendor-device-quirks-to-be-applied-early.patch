@@ -22,10 +22,10 @@ Signed-off-by: Can Guo <cang@codeaurora.org>
  1 file changed, 2 insertions(+), 2 deletions(-)
 
 diff --git a/drivers/scsi/ufs/ufshcd.c b/drivers/scsi/ufs/ufshcd.c
-index 3483da1a7492..f0cca87cfc72 100644
+index 15986b56d35e..6762daff5bed 100644
 --- a/drivers/scsi/ufs/ufshcd.c
 +++ b/drivers/scsi/ufs/ufshcd.c
-@@ -6836,14 +6836,14 @@ static void ufshcd_tune_unipro_params(struct ufs_hba *hba)
+@@ -6843,14 +6843,14 @@ static void ufshcd_tune_unipro_params(struct ufs_hba *hba)
  		ufshcd_tune_pa_hibern8time(hba);
  	}
  

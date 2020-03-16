@@ -3074,7 +3074,7 @@ index 3c03d0e23e87..24a587c7a94e 100644
  					      struct scsi_cmnd *cmd,
  					      struct ufshcd_lrb *lrbp)
 diff --git a/drivers/scsi/ufs/ufshcd.c b/drivers/scsi/ufs/ufshcd.c
-index f5144e084ea6..c78d87483fc9 100644
+index 5de063d60747..3f3ba36bc3cf 100644
 --- a/drivers/scsi/ufs/ufshcd.c
 +++ b/drivers/scsi/ufs/ufshcd.c
 @@ -2232,13 +2232,15 @@ static void ufshcd_prepare_req_desc_hdr(struct ufshcd_lrb *lrbp,
@@ -3871,7 +3871,7 @@ index b09f92e3e5a2..36feb08318c8 100644
  	kzfree(mk);
  }
 diff --git a/fs/crypto/keysetup.c b/fs/crypto/keysetup.c
-index 94984a5a0d78..fd6cc201b383 100644
+index 3df0b6400a9b..fc5a18adb0d6 100644
 --- a/fs/crypto/keysetup.c
 +++ b/fs/crypto/keysetup.c
 @@ -32,6 +32,7 @@ struct fscrypt_mode fscrypt_modes[] = {

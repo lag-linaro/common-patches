@@ -97,10 +97,10 @@ index c686bd9caac6..9fa554ce6f54 100644
 +EXPORT_SYMBOL(generic_ci_d_hash);
 +#endif
 diff --git a/include/linux/fs.h b/include/linux/fs.h
-index 8acb01278730..1457694f986f 100644
+index b65c64ef97fe..77c403bbc3f6 100644
 --- a/include/linux/fs.h
 +++ b/include/linux/fs.h
-@@ -1382,6 +1382,12 @@ extern int send_sigurg(struct fown_struct *fown);
+@@ -1383,6 +1383,12 @@ extern int send_sigurg(struct fown_struct *fown);
  #define SB_ACTIVE	(1<<30)
  #define SB_NOUSER	(1<<31)
  
@@ -113,7 +113,7 @@ index 8acb01278730..1457694f986f 100644
  /*
   *	Umount options
   */
-@@ -1449,6 +1455,10 @@ struct super_block {
+@@ -1450,6 +1456,10 @@ struct super_block {
  #endif
  #ifdef CONFIG_FS_VERITY
  	const struct fsverity_operations *s_vop;
@@ -124,7 +124,7 @@ index 8acb01278730..1457694f986f 100644
  #endif
  	struct hlist_bl_head	s_roots;	/* alternate root dentries for NFS */
  	struct list_head	s_mounts;	/* list of mounts; _not_ for fs use */
-@@ -3390,6 +3400,18 @@ extern int generic_file_fsync(struct file *, loff_t, loff_t, int);
+@@ -3391,6 +3401,18 @@ extern int generic_file_fsync(struct file *, loff_t, loff_t, int);
  
  extern int generic_check_addressable(unsigned, u64);
  

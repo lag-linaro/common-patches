@@ -27,10 +27,10 @@ index d174c8de33c7..608ff1d65aeb 100644
  	select ARCH_USE_QUEUED_RWLOCKS
  	select ARCH_USE_QUEUED_SPINLOCKS
 diff --git a/arch/x86/Makefile b/arch/x86/Makefile
-index 94df0868804b..3bafa7ce52af 100644
+index 513a55562d75..f28b4c0e5b1f 100644
 --- a/arch/x86/Makefile
 +++ b/arch/x86/Makefile
-@@ -209,6 +209,11 @@ ifdef CONFIG_X86_64
+@@ -210,6 +210,11 @@ ifdef CONFIG_X86_64
  KBUILD_LDFLAGS += $(call ld-option, -z max-page-size=0x200000)
  endif
  

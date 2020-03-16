@@ -20,7 +20,7 @@ Signed-off-by: Eric Biggers <ebiggers@google.com>
  3 files changed, 29 insertions(+), 17 deletions(-)
 
 diff --git a/drivers/scsi/ufs/ufshcd.c b/drivers/scsi/ufs/ufshcd.c
-index 5d0eadff39f7..0998cff869ee 100644
+index a7ec577bad99..f541108ae675 100644
 --- a/drivers/scsi/ufs/ufshcd.c
 +++ b/drivers/scsi/ufs/ufshcd.c
 @@ -467,7 +467,7 @@ void ufshcd_print_trs(struct ufs_hba *hba, unsigned long bitmap, bool pr_prdt)
@@ -119,7 +119,7 @@ index 5d0eadff39f7..0998cff869ee 100644
  	}
  }
  
-@@ -8482,6 +8483,7 @@ int ufshcd_alloc_host(struct device *dev, struct ufs_hba **hba_handle)
+@@ -8489,6 +8490,7 @@ int ufshcd_alloc_host(struct device *dev, struct ufs_hba **hba_handle)
  	hba->dev = dev;
  	*hba_handle = hba;
  	hba->dev_ref_clk_freq = REF_CLK_FREQ_INVAL;

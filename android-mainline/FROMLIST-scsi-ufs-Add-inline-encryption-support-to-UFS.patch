@@ -17,7 +17,7 @@ Link: https://patchwork.kernel.org/patch/11214753/
  2 files changed, 81 insertions(+), 5 deletions(-)
 
 diff --git a/drivers/scsi/ufs/ufshcd.c b/drivers/scsi/ufs/ufshcd.c
-index a0d2dd33e328..f21ee27e17e4 100644
+index e0f6c6beddbb..b06e2f4f987d 100644
 --- a/drivers/scsi/ufs/ufshcd.c
 +++ b/drivers/scsi/ufs/ufshcd.c
 @@ -47,6 +47,7 @@
@@ -136,7 +136,7 @@ index a0d2dd33e328..f21ee27e17e4 100644
  	hba->dev_cmd.type = cmd_type;
  
  	return ufshcd_comp_devman_upiu(hba, lrbp);
-@@ -4236,6 +4292,8 @@ static inline void ufshcd_hba_stop(struct ufs_hba *hba, bool can_sleep)
+@@ -4243,6 +4299,8 @@ static inline void ufshcd_hba_stop(struct ufs_hba *hba, bool can_sleep)
  {
  	int err;
  
@@ -145,7 +145,7 @@ index a0d2dd33e328..f21ee27e17e4 100644
  	ufshcd_writel(hba, CONTROLLER_DISABLE,  REG_CONTROLLER_ENABLE);
  	err = ufshcd_wait_for_register(hba, REG_CONTROLLER_ENABLE,
  					CONTROLLER_ENABLE, CONTROLLER_DISABLE,
-@@ -4652,6 +4710,8 @@ static int ufshcd_slave_configure(struct scsi_device *sdev)
+@@ -4659,6 +4717,8 @@ static int ufshcd_slave_configure(struct scsi_device *sdev)
  	if (ufshcd_is_rpm_autosuspend_allowed(hba))
  		sdev->rpm_autosuspend = 1;
  
@@ -154,7 +154,7 @@ index a0d2dd33e328..f21ee27e17e4 100644
  	return 0;
  }
  
-@@ -4662,6 +4722,7 @@ static int ufshcd_slave_configure(struct scsi_device *sdev)
+@@ -4669,6 +4729,7 @@ static int ufshcd_slave_configure(struct scsi_device *sdev)
  static void ufshcd_slave_destroy(struct scsi_device *sdev)
  {
  	struct ufs_hba *hba;
@@ -162,7 +162,7 @@ index a0d2dd33e328..f21ee27e17e4 100644
  
  	hba = shost_priv(sdev->host);
  	/* Drop the reference as it won't be needed anymore */
-@@ -4672,6 +4733,8 @@ static void ufshcd_slave_destroy(struct scsi_device *sdev)
+@@ -4679,6 +4740,8 @@ static void ufshcd_slave_destroy(struct scsi_device *sdev)
  		hba->sdev_ufs_device = NULL;
  		spin_unlock_irqrestore(hba->host->host_lock, flags);
  	}
@@ -171,7 +171,7 @@ index a0d2dd33e328..f21ee27e17e4 100644
  }
  
  /**
-@@ -8547,6 +8610,13 @@ int ufshcd_init(struct ufs_hba *hba, void __iomem *mmio_base, unsigned int irq)
+@@ -8554,6 +8617,13 @@ int ufshcd_init(struct ufs_hba *hba, void __iomem *mmio_base, unsigned int irq)
  	/* Reset the attached device */
  	ufshcd_vops_device_reset(hba);
  

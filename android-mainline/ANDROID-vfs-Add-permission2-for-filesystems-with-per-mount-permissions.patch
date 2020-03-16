@@ -670,7 +670,7 @@ index 107537a543fd..3e66e6c8f53a 100644
  		path_put(path);
  		return error;
 diff --git a/fs/open.c b/fs/open.c
-index a7bdbcf50ab2..3d633d24015d 100644
+index 16e1ed526e89..8488d64267c4 100644
 --- a/fs/open.c
 +++ b/fs/open.c
 @@ -90,7 +90,7 @@ long vfs_truncate(const struct path *path, loff_t length)
@@ -749,10 +749,10 @@ index 71f887518d6f..9520365195cf 100644
  
  int
 diff --git a/include/linux/fs.h b/include/linux/fs.h
-index 75c519babd79..588dde498807 100644
+index d94e8d1aef11..00d60c69716d 100644
 --- a/include/linux/fs.h
 +++ b/include/linux/fs.h
-@@ -1708,13 +1708,21 @@ extern bool inode_owner_or_capable(const struct inode *inode);
+@@ -1709,13 +1709,21 @@ extern bool inode_owner_or_capable(const struct inode *inode);
   * VFS helper functions..
   */
  extern int vfs_create(struct inode *, struct dentry *, umode_t, bool);
@@ -774,7 +774,7 @@ index 75c519babd79..588dde498807 100644
  extern int vfs_whiteout(struct inode *, struct dentry *);
  
  extern struct dentry *vfs_tmpfile(struct dentry *dentry, umode_t mode,
-@@ -1723,6 +1731,9 @@ extern struct dentry *vfs_tmpfile(struct dentry *dentry, umode_t mode,
+@@ -1724,6 +1732,9 @@ extern struct dentry *vfs_tmpfile(struct dentry *dentry, umode_t mode,
  int vfs_mkobj(struct dentry *, umode_t,
  		int (*f)(struct dentry *, umode_t, void *),
  		void *);
@@ -784,7 +784,7 @@ index 75c519babd79..588dde498807 100644
  
  extern long vfs_ioctl(struct file *file, unsigned int cmd, unsigned long arg);
  
-@@ -1863,6 +1874,7 @@ struct inode_operations {
+@@ -1864,6 +1875,7 @@ struct inode_operations {
  	struct dentry * (*lookup) (struct inode *,struct dentry *, unsigned int);
  	const char * (*get_link) (struct dentry *, struct inode *, struct delayed_call *);
  	int (*permission) (struct inode *, int);
@@ -792,7 +792,7 @@ index 75c519babd79..588dde498807 100644
  	struct posix_acl * (*get_acl)(struct inode *, int);
  
  	int (*readlink) (struct dentry *, char __user *,int);
-@@ -2892,6 +2904,7 @@ static inline int bmap(struct inode *inode,  sector_t *block)
+@@ -2893,6 +2905,7 @@ static inline int bmap(struct inode *inode,  sector_t *block)
  extern int notify_change(struct dentry *, struct iattr *, struct inode **);
  extern int notify_change2(struct vfsmount *, struct dentry *, struct iattr *, struct inode **);
  extern int inode_permission(struct inode *, int);

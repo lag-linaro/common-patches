@@ -79,10 +79,10 @@ index 79e8994e3bc1..de3d41eecf0a 100644
  	return res;
  }
 diff --git a/fs/overlayfs/overlayfs.h b/fs/overlayfs/overlayfs.h
-index 3623d28aa4fa..c7afa9d7cf25 100644
+index 3d3f2b8bdae5..fdce6fb6db24 100644
 --- a/fs/overlayfs/overlayfs.h
 +++ b/fs/overlayfs/overlayfs.h
-@@ -390,7 +390,7 @@ int ovl_permission(struct inode *inode, int mask);
+@@ -395,7 +395,7 @@ int ovl_permission(struct inode *inode, int mask);
  int ovl_xattr_set(struct dentry *dentry, struct inode *inode, const char *name,
  		  const void *value, size_t size, int flags);
  int ovl_xattr_get(struct dentry *dentry, struct inode *inode, const char *name,
@@ -92,7 +92,7 @@ index 3623d28aa4fa..c7afa9d7cf25 100644
  struct posix_acl *ovl_get_acl(struct inode *inode, int type);
  int ovl_update_time(struct inode *inode, struct timespec64 *ts, int flags);
 diff --git a/fs/overlayfs/super.c b/fs/overlayfs/super.c
-index ce0510d11be0..1fda22d9a33d 100644
+index 759f1eee3f46..6cada08cf5fe 100644
 --- a/fs/overlayfs/super.c
 +++ b/fs/overlayfs/super.c
 @@ -858,7 +858,7 @@ ovl_posix_acl_xattr_get(const struct xattr_handler *handler,

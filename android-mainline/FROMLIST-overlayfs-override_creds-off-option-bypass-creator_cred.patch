@@ -187,7 +187,7 @@ index 8e57d5372b8f..6c6edc0b84d8 100644
  		ovl_nlink_end(new);
  out_drop_write:
 diff --git a/fs/overlayfs/file.c b/fs/overlayfs/file.c
-index a5317216de73..a19473376c86 100644
+index 87c362f65448..e25c30540716 100644
 --- a/fs/overlayfs/file.c
 +++ b/fs/overlayfs/file.c
 @@ -43,7 +43,7 @@ static struct file *ovl_open_realfile(const struct file *file,
@@ -208,7 +208,7 @@ index a5317216de73..a19473376c86 100644
  
  	file->f_pos = real.file->f_pos;
  	ovl_inode_unlock(inode);
-@@ -299,7 +299,8 @@ static ssize_t ovl_read_iter(struct kiocb *iocb, struct iov_iter *iter)
+@@ -302,7 +302,8 @@ static ssize_t ovl_read_iter(struct kiocb *iocb, struct iov_iter *iter)
  			ovl_aio_cleanup_handler(aio_req);
  	}
  out:
@@ -218,7 +218,7 @@ index a5317216de73..a19473376c86 100644
  	ovl_file_accessed(file);
  
  	fdput(real);
-@@ -356,7 +357,7 @@ static ssize_t ovl_write_iter(struct kiocb *iocb, struct iov_iter *iter)
+@@ -362,7 +363,7 @@ static ssize_t ovl_write_iter(struct kiocb *iocb, struct iov_iter *iter)
  			ovl_aio_cleanup_handler(aio_req);
  	}
  out:
@@ -227,7 +227,7 @@ index a5317216de73..a19473376c86 100644
  	fdput(real);
  
  out_unlock:
-@@ -379,7 +380,7 @@ static ssize_t ovl_splice_read(struct file *in, loff_t *ppos,
+@@ -385,7 +386,7 @@ static ssize_t ovl_splice_read(struct file *in, loff_t *ppos,
  
  	old_cred = ovl_override_creds(file_inode(in)->i_sb);
  	ret = generic_file_splice_read(real.file, ppos, pipe, len, flags);
@@ -236,7 +236,7 @@ index a5317216de73..a19473376c86 100644
  
  	ovl_file_accessed(in);
  	fdput(real);
-@@ -400,7 +401,7 @@ ovl_splice_write(struct pipe_inode_info *pipe, struct file *out,
+@@ -406,7 +407,7 @@ ovl_splice_write(struct pipe_inode_info *pipe, struct file *out,
  
  	old_cred = ovl_override_creds(file_inode(out)->i_sb);
  	ret = iter_file_splice_write(pipe, real.file, ppos, len, flags);
@@ -245,7 +245,7 @@ index a5317216de73..a19473376c86 100644
  
  	ovl_file_accessed(out);
  	fdput(real);
-@@ -421,7 +422,7 @@ static int ovl_fsync(struct file *file, loff_t start, loff_t end, int datasync)
+@@ -427,7 +428,7 @@ static int ovl_fsync(struct file *file, loff_t start, loff_t end, int datasync)
  	if (file_inode(real.file) == ovl_inode_upper(file_inode(file))) {
  		old_cred = ovl_override_creds(file_inode(file)->i_sb);
  		ret = vfs_fsync_range(real.file, start, end, datasync);
@@ -254,7 +254,7 @@ index a5317216de73..a19473376c86 100644
  	}
  
  	fdput(real);
-@@ -445,7 +446,7 @@ static int ovl_mmap(struct file *file, struct vm_area_struct *vma)
+@@ -451,7 +452,7 @@ static int ovl_mmap(struct file *file, struct vm_area_struct *vma)
  
  	old_cred = ovl_override_creds(file_inode(file)->i_sb);
  	ret = call_mmap(vma->vm_file, vma);
@@ -263,7 +263,7 @@ index a5317216de73..a19473376c86 100644
  
  	if (ret) {
  		/* Drop reference count from new vm_file value */
-@@ -473,7 +474,7 @@ static long ovl_fallocate(struct file *file, int mode, loff_t offset, loff_t len
+@@ -479,7 +480,7 @@ static long ovl_fallocate(struct file *file, int mode, loff_t offset, loff_t len
  
  	old_cred = ovl_override_creds(file_inode(file)->i_sb);
  	ret = vfs_fallocate(real.file, mode, offset, len);
@@ -272,7 +272,7 @@ index a5317216de73..a19473376c86 100644
  
  	/* Update size */
  	ovl_copyattr(ovl_inode_real(inode), inode);
-@@ -495,7 +496,7 @@ static int ovl_fadvise(struct file *file, loff_t offset, loff_t len, int advice)
+@@ -501,7 +502,7 @@ static int ovl_fadvise(struct file *file, loff_t offset, loff_t len, int advice)
  
  	old_cred = ovl_override_creds(file_inode(file)->i_sb);
  	ret = vfs_fadvise(real.file, offset, len, advice);
@@ -281,7 +281,7 @@ index a5317216de73..a19473376c86 100644
  
  	fdput(real);
  
-@@ -515,7 +516,7 @@ static long ovl_real_ioctl(struct file *file, unsigned int cmd,
+@@ -521,7 +522,7 @@ static long ovl_real_ioctl(struct file *file, unsigned int cmd,
  
  	old_cred = ovl_override_creds(file_inode(file)->i_sb);
  	ret = vfs_ioctl(real.file, cmd, arg);
@@ -290,7 +290,7 @@ index a5317216de73..a19473376c86 100644
  
  	fdput(real);
  
-@@ -705,7 +706,7 @@ static loff_t ovl_copyfile(struct file *file_in, loff_t pos_in,
+@@ -711,7 +712,7 @@ static loff_t ovl_copyfile(struct file *file_in, loff_t pos_in,
  						flags);
  		break;
  	}
@@ -416,7 +416,7 @@ index 2a8c00d58365..5affcc97118c 100644
  	return positive;
  }
 diff --git a/fs/overlayfs/overlayfs.h b/fs/overlayfs/overlayfs.h
-index 86da7931938f..13ea8a73ede3 100644
+index 0bd4cd505853..1c5172117a6d 100644
 --- a/fs/overlayfs/overlayfs.h
 +++ b/fs/overlayfs/overlayfs.h
 @@ -232,6 +232,7 @@ int ovl_want_write(struct dentry *dentry);
@@ -462,7 +462,7 @@ index 40ac9ce2465a..47e84cf2242a 100644
  		return err;
  
 diff --git a/fs/overlayfs/super.c b/fs/overlayfs/super.c
-index 1fda22d9a33d..44fc14a847b6 100644
+index 6cada08cf5fe..4e51cb26088e 100644
 --- a/fs/overlayfs/super.c
 +++ b/fs/overlayfs/super.c
 @@ -53,6 +53,11 @@ module_param_named(xino_auto, ovl_xino_auto_def, bool, 0644);
@@ -528,7 +528,7 @@ index 1fda22d9a33d..44fc14a847b6 100644
  		default:
  			pr_err("unrecognized mount option \"%s\" or missing value\n",
  					p);
-@@ -1726,7 +1747,6 @@ static int ovl_fill_super(struct super_block *sb, void *data, int silent)
+@@ -1733,7 +1754,6 @@ static int ovl_fill_super(struct super_block *sb, void *data, int silent)
  		       ovl_dentry_lower(root_dentry), NULL);
  
  	sb->s_root = root_dentry;
@@ -537,7 +537,7 @@ index 1fda22d9a33d..44fc14a847b6 100644
  
  out_free_oe:
 diff --git a/fs/overlayfs/util.c b/fs/overlayfs/util.c
-index 980a017cf263..e0f0da9efc1c 100644
+index d5cc322f3bb7..f3137d529071 100644
 --- a/fs/overlayfs/util.c
 +++ b/fs/overlayfs/util.c
 @@ -37,9 +37,17 @@ const struct cred *ovl_override_creds(struct super_block *sb)

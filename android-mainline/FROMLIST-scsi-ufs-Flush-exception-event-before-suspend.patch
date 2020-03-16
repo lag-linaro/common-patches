@@ -22,10 +22,10 @@ Signed-off-by: Asutosh Das <asutoshd@codeaurora.org>
  1 file changed, 18 insertions(+), 3 deletions(-)
 
 diff --git a/drivers/scsi/ufs/ufshcd.c b/drivers/scsi/ufs/ufshcd.c
-index 313e981b06b9..203d80ee860b 100644
+index 131022657215..92e97e4f44ab 100644
 --- a/drivers/scsi/ufs/ufshcd.c
 +++ b/drivers/scsi/ufs/ufshcd.c
-@@ -4853,8 +4853,15 @@ ufshcd_transfer_rsp_status(struct ufs_hba *hba, struct ufshcd_lrb *lrbp)
+@@ -4860,8 +4860,15 @@ ufshcd_transfer_rsp_status(struct ufs_hba *hba, struct ufshcd_lrb *lrbp)
  			 * UFS device needs urgent BKOPs.
  			 */
  			if (!hba->pm_op_in_progress &&
@@ -43,7 +43,7 @@ index 313e981b06b9..203d80ee860b 100644
  			break;
  		case UPIU_TRANSACTION_REJECT_UPIU:
  			/* TODO: handle Reject UPIU Response */
-@@ -5309,7 +5316,14 @@ static void ufshcd_exception_event_handler(struct work_struct *work)
+@@ -5316,7 +5323,14 @@ static void ufshcd_exception_event_handler(struct work_struct *work)
  
  out:
  	ufshcd_scsi_unblock_requests(hba);
@@ -59,7 +59,7 @@ index 313e981b06b9..203d80ee860b 100644
  	return;
  }
  
-@@ -8041,6 +8055,7 @@ static int ufshcd_suspend(struct ufs_hba *hba, enum ufs_pm_op pm_op)
+@@ -8048,6 +8062,7 @@ static int ufshcd_suspend(struct ufs_hba *hba, enum ufs_pm_op pm_op)
  			goto enable_gating;
  	}
  

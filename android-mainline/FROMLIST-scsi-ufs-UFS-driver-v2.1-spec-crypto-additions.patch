@@ -19,10 +19,10 @@ Link: https://patchwork.kernel.org/patch/11214737/
  3 files changed, 72 insertions(+), 2 deletions(-)
 
 diff --git a/drivers/scsi/ufs/ufshcd.c b/drivers/scsi/ufs/ufshcd.c
-index f0cca87cfc72..a0d2dd33e328 100644
+index 6762daff5bed..e0f6c6beddbb 100644
 --- a/drivers/scsi/ufs/ufshcd.c
 +++ b/drivers/scsi/ufs/ufshcd.c
-@@ -4787,6 +4787,8 @@ ufshcd_transfer_rsp_status(struct ufs_hba *hba, struct ufshcd_lrb *lrbp)
+@@ -4794,6 +4794,8 @@ ufshcd_transfer_rsp_status(struct ufs_hba *hba, struct ufshcd_lrb *lrbp)
  	case OCS_MISMATCH_RESP_UPIU_SIZE:
  	case OCS_PEER_COMM_FAILURE:
  	case OCS_FATAL_ERROR:

@@ -1,8 +1,8 @@
 #
 # android-mainline patches
 #
-# Applies onto upstream 2c523b344dfa Linux v5.6-rc5
-# Matches android-mainline 619982ebe26f ("ANDROID: Add build.config files for ARM 32-bit")
+# Applies onto upstream fb33c6510d55 Linux v5.6-rc6
+# Matches android-mainline ae56fd997e8c ("Merge 5.6-rc6 into android-mainline")
 #
 Revert-security-lockdown-selinux-implement-SELinux-lockdown.patch
 Revert-drm-virtio-fix-DRM_FORMAT_-handling.patch

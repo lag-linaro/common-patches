@@ -88,7 +88,7 @@ index a088349dd94f..31d93d733f22 100644
   *	anycast prototypes (anycast.c)
   */
 diff --git a/net/ipv6/addrconf.c b/net/ipv6/addrconf.c
-index cb493e15959c..446dc57d799a 100644
+index 46d614b611db..d9cc20ac1106 100644
 --- a/net/ipv6/addrconf.c
 +++ b/net/ipv6/addrconf.c
 @@ -217,6 +217,7 @@ static struct ipv6_devconf ipv6_devconf __read_mostly = {
@@ -107,7 +107,7 @@ index cb493e15959c..446dc57d799a 100644
  	.proxy_ndp		= 0,
  	.accept_source_route	= 0,	/* we do not accept RH0 by default. */
  	.disable_ipv6		= 0,
-@@ -2361,6 +2363,26 @@ static void  ipv6_try_regen_rndid(struct inet6_dev *idev, struct in6_addr *tmpad
+@@ -2363,6 +2365,26 @@ static void  ipv6_try_regen_rndid(struct inet6_dev *idev, struct in6_addr *tmpad
  		ipv6_regen_rndid(idev);
  }
  
@@ -134,7 +134,7 @@ index cb493e15959c..446dc57d799a 100644
  /*
   *	Add prefix route.
   */
-@@ -2371,7 +2393,7 @@ addrconf_prefix_route(struct in6_addr *pfx, int plen, u32 metric,
+@@ -2373,7 +2395,7 @@ addrconf_prefix_route(struct in6_addr *pfx, int plen, u32 metric,
  		      u32 flags, gfp_t gfp_flags)
  {
  	struct fib6_config cfg = {
@@ -143,7 +143,7 @@ index cb493e15959c..446dc57d799a 100644
  		.fc_metric = metric ? : IP6_RT_PRIO_ADDRCONF,
  		.fc_ifindex = dev->ifindex,
  		.fc_expires = expires,
-@@ -2406,7 +2428,7 @@ static struct fib6_info *addrconf_get_prefix_route(const struct in6_addr *pfx,
+@@ -2408,7 +2430,7 @@ static struct fib6_info *addrconf_get_prefix_route(const struct in6_addr *pfx,
  	struct fib6_node *fn;
  	struct fib6_info *rt = NULL;
  	struct fib6_table *table;
@@ -152,7 +152,7 @@ index cb493e15959c..446dc57d799a 100644
  
  	table = fib6_get_table(dev_net(dev), tb_id);
  	if (!table)
-@@ -6643,6 +6665,13 @@ static const struct ctl_table addrconf_sysctl[] = {
+@@ -6672,6 +6694,13 @@ static const struct ctl_table addrconf_sysctl[] = {
  	},
  #endif
  #endif

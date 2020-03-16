@@ -649,7 +649,7 @@ index bdc285aea360..ef4180bff7bb 100644
  	return orangefs_inode_getxattr(inode, name, buffer, size);
  
 diff --git a/fs/overlayfs/super.c b/fs/overlayfs/super.c
-index 319fe0d355b0..ce0510d11be0 100644
+index ac967f1cb6e5..759f1eee3f46 100644
 --- a/fs/overlayfs/super.c
 +++ b/fs/overlayfs/super.c
 @@ -856,7 +856,7 @@ static unsigned int ovl_split_lowerdirs(char *str)

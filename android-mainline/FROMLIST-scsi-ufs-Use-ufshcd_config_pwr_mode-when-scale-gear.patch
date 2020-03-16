@@ -17,7 +17,7 @@ Signed-off-by: Can Guo <cang@codeaurora.org>
  1 file changed, 2 insertions(+), 4 deletions(-)
 
 diff --git a/drivers/scsi/ufs/ufshcd.c b/drivers/scsi/ufs/ufshcd.c
-index 203d80ee860b..1de948fcf148 100644
+index 92e97e4f44ab..5b2784c0754d 100644
 --- a/drivers/scsi/ufs/ufshcd.c
 +++ b/drivers/scsi/ufs/ufshcd.c
 @@ -1089,8 +1089,7 @@ static int ufshcd_scale_gear(struct ufs_hba *hba, bool scale_up)
@@ -30,7 +30,7 @@ index 203d80ee860b..1de948fcf148 100644
  	if (ret)
  		dev_err(hba->dev, "%s: failed err %d, old gear: (tx %d rx %d), new gear: (tx %d rx %d)",
  			__func__, ret,
-@@ -4209,8 +4208,6 @@ int ufshcd_config_pwr_mode(struct ufs_hba *hba,
+@@ -4216,8 +4215,6 @@ int ufshcd_config_pwr_mode(struct ufs_hba *hba,
  		memcpy(&final_params, desired_pwr_mode, sizeof(final_params));
  
  	ret = ufshcd_change_power_mode(hba, &final_params);
@@ -39,7 +39,7 @@ index 203d80ee860b..1de948fcf148 100644
  
  	return ret;
  }
-@@ -7249,6 +7246,7 @@ static int ufshcd_probe_hba(struct ufs_hba *hba, bool async)
+@@ -7256,6 +7253,7 @@ static int ufshcd_probe_hba(struct ufs_hba *hba, bool async)
  					__func__, ret);
  			goto out;
  		}

@@ -284,7 +284,7 @@ index 07b4f8131e36..10773270f67b 100644
 +
  #endif /* _LINUX_PRCTL_H */
 diff --git a/kernel/sys.c b/kernel/sys.c
-index f9bc5c303e3f..cc54ea5f76ca 100644
+index d325f3ab624a..6bc2125bb0ea 100644
 --- a/kernel/sys.c
 +++ b/kernel/sys.c
 @@ -42,6 +42,8 @@
@@ -296,7 +296,7 @@ index f9bc5c303e3f..cc54ea5f76ca 100644
  
  #include <linux/compat.h>
  #include <linux/syscalls.h>
-@@ -2261,6 +2263,153 @@ int __weak arch_prctl_spec_ctrl_set(struct task_struct *t, unsigned long which,
+@@ -2262,6 +2264,153 @@ int __weak arch_prctl_spec_ctrl_set(struct task_struct *t, unsigned long which,
  	return -EINVAL;
  }
  
@@ -450,7 +450,7 @@ index f9bc5c303e3f..cc54ea5f76ca 100644
  #define PR_IO_FLUSHER (PF_MEMALLOC_NOIO | PF_LESS_THROTTLE)
  
  SYSCALL_DEFINE5(prctl, int, option, unsigned long, arg2, unsigned long, arg3,
-@@ -2475,6 +2624,9 @@ SYSCALL_DEFINE5(prctl, int, option, unsigned long, arg2, unsigned long, arg3,
+@@ -2476,6 +2625,9 @@ SYSCALL_DEFINE5(prctl, int, option, unsigned long, arg2, unsigned long, arg3,
  			return -EINVAL;
  		error = arch_prctl_spec_ctrl_set(me, arg2, arg3);
  		break;

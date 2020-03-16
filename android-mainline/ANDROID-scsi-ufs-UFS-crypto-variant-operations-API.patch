@@ -351,7 +351,7 @@ index 73ddc8e493fb..3c03d0e23e87 100644
  #endif /* CONFIG_SCSI_UFS_CRYPTO */
  
 diff --git a/drivers/scsi/ufs/ufshcd.c b/drivers/scsi/ufs/ufshcd.c
-index 1de948fcf148..f5144e084ea6 100644
+index 5b2784c0754d..5de063d60747 100644
 --- a/drivers/scsi/ufs/ufshcd.c
 +++ b/drivers/scsi/ufs/ufshcd.c
 @@ -431,6 +431,8 @@ static void ufshcd_print_host_regs(struct ufs_hba *hba)
@@ -401,7 +401,7 @@ index 1de948fcf148..f5144e084ea6 100644
  /**
   * ufshcd_queuecommand - main entry point for SCSI requests
   * @host: SCSI host pointer
-@@ -4953,6 +4924,7 @@ static void __ufshcd_transfer_req_compl(struct ufs_hba *hba,
+@@ -4960,6 +4931,7 @@ static void __ufshcd_transfer_req_compl(struct ufs_hba *hba,
  			result = ufshcd_transfer_rsp_status(hba, lrbp);
  			scsi_dma_unmap(cmd);
  			cmd->result = result;
@@ -409,7 +409,7 @@ index 1de948fcf148..f5144e084ea6 100644
  			/* Mark completed command as NULL in LRB */
  			lrbp->cmd = NULL;
  			lrbp->compl_time_stamp = ktime_get();
-@@ -7999,6 +7971,10 @@ static int ufshcd_suspend(struct ufs_hba *hba, enum ufs_pm_op pm_op)
+@@ -8006,6 +7978,10 @@ static int ufshcd_suspend(struct ufs_hba *hba, enum ufs_pm_op pm_op)
  		req_link_state = UIC_LINK_OFF_STATE;
  	}
  
@@ -420,7 +420,7 @@ index 1de948fcf148..f5144e084ea6 100644
  	/*
  	 * If we can't transition into any of the low power modes
  	 * just gate the clocks.
-@@ -8104,6 +8080,7 @@ static int ufshcd_suspend(struct ufs_hba *hba, enum ufs_pm_op pm_op)
+@@ -8111,6 +8087,7 @@ static int ufshcd_suspend(struct ufs_hba *hba, enum ufs_pm_op pm_op)
  		ufshcd_resume_clkscaling(hba);
  	hba->clk_gating.is_suspended = false;
  	ufshcd_release(hba);
@@ -428,7 +428,7 @@ index 1de948fcf148..f5144e084ea6 100644
  out:
  	hba->pm_op_in_progress = 0;
  	if (ret)
-@@ -8125,9 +8102,11 @@ static int ufshcd_resume(struct ufs_hba *hba, enum ufs_pm_op pm_op)
+@@ -8132,9 +8109,11 @@ static int ufshcd_resume(struct ufs_hba *hba, enum ufs_pm_op pm_op)
  {
  	int ret;
  	enum uic_link_state old_link_state;
@@ -440,7 +440,7 @@ index 1de948fcf148..f5144e084ea6 100644
  
  	ufshcd_hba_vreg_set_hpm(hba);
  	/* Make sure clocks are enabled before accessing controller */
-@@ -8173,6 +8152,10 @@ static int ufshcd_resume(struct ufs_hba *hba, enum ufs_pm_op pm_op)
+@@ -8180,6 +8159,10 @@ static int ufshcd_resume(struct ufs_hba *hba, enum ufs_pm_op pm_op)
  			goto set_old_link_state;
  	}
  
@@ -451,7 +451,7 @@ index 1de948fcf148..f5144e084ea6 100644
  	if (ufshcd_keep_autobkops_enabled_except_suspend(hba))
  		ufshcd_enable_auto_bkops(hba);
  	else
-@@ -8195,6 +8178,9 @@ static int ufshcd_resume(struct ufs_hba *hba, enum ufs_pm_op pm_op)
+@@ -8202,6 +8185,9 @@ static int ufshcd_resume(struct ufs_hba *hba, enum ufs_pm_op pm_op)
  
  	goto out;
  

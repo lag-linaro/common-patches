@@ -96,7 +96,7 @@ index ed9e129fae04..2a8c00d58365 100644
  }
  
 diff --git a/fs/overlayfs/overlayfs.h b/fs/overlayfs/overlayfs.h
-index c7afa9d7cf25..86da7931938f 100644
+index fdce6fb6db24..0bd4cd505853 100644
 --- a/fs/overlayfs/overlayfs.h
 +++ b/fs/overlayfs/overlayfs.h
 @@ -219,6 +219,14 @@ static inline bool ovl_open_flags_need_copy_up(int flags)
@@ -115,7 +115,7 @@ index c7afa9d7cf25..86da7931938f 100644
  int ovl_want_write(struct dentry *dentry);
  void ovl_drop_write(struct dentry *dentry);
 diff --git a/fs/overlayfs/util.c b/fs/overlayfs/util.c
-index ea005085803f..980a017cf263 100644
+index 042f7eb4f7f4..d5cc322f3bb7 100644
 --- a/fs/overlayfs/util.c
 +++ b/fs/overlayfs/util.c
 @@ -525,9 +525,9 @@ void ovl_copy_up_end(struct dentry *dentry)

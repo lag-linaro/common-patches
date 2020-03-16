@@ -18,10 +18,10 @@ Signed-off-by: Alistair Delva <adelva@google.com>
  1 file changed, 2 insertions(+)
 
 diff --git a/kernel/workqueue.c b/kernel/workqueue.c
-index 301db4406bc3..15206e508889 100644
+index 4e01c448b4b4..b3b8a47ef0f5 100644
 --- a/kernel/workqueue.c
 +++ b/kernel/workqueue.c
-@@ -1619,7 +1619,9 @@ static void __queue_delayed_work(int cpu, struct workqueue_struct *wq,
+@@ -1621,7 +1621,9 @@ static void __queue_delayed_work(int cpu, struct workqueue_struct *wq,
  	struct work_struct *work = &dwork->work;
  
  	WARN_ON_ONCE(!wq);
