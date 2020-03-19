@@ -661,10 +661,10 @@ index 1996689c51d3..15cb07f8926e 100644
  
  	union {
 diff --git a/include/linux/fscrypt.h b/include/linux/fscrypt.h
-index dd2308cdee5b..433e50899d0d 100644
+index bd211f5ccdf3..a9558fcbdf78 100644
 --- a/include/linux/fscrypt.h
 +++ b/include/linux/fscrypt.h
-@@ -569,6 +569,20 @@ static inline bool fscrypt_mergeable_bio_bh(struct bio *bio,
+@@ -575,6 +575,20 @@ static inline bool fscrypt_mergeable_bio_bh(struct bio *bio,
  }
  #endif /* !CONFIG_FS_ENCRYPTION_INLINE_CRYPT */
  

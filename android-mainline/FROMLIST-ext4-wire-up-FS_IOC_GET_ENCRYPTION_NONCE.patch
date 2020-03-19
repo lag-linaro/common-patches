@@ -1,0 +1,40 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: Eric Biggers <ebiggers@google.com>
+Date: Sat, 14 Mar 2020 13:50:50 -0700
+Subject: FROMLIST: ext4: wire up FS_IOC_GET_ENCRYPTION_NONCE
+
+This new ioctl retrieves a file's encryption nonce, which is useful for
+testing.  See the corresponding fs/crypto/ patch for more details.
+
+Bug: 151100202
+Link: https://lore.kernel.org/r/20200314205052.93294-3-ebiggers@kernel.org
+Change-Id: I85350aed66285b92444d37c8cd840fb03d2ca25d
+Signed-off-by: Eric Biggers <ebiggers@google.com>
+---
+ fs/ext4/ioctl.c | 6 ++++++
+ 1 file changed, 6 insertions(+)
+
+diff --git a/fs/ext4/ioctl.c b/fs/ext4/ioctl.c
+index a0ec750018dd..0c1d1720cf1a 100644
+--- a/fs/ext4/ioctl.c
++++ b/fs/ext4/ioctl.c
+@@ -1210,6 +1210,11 @@ long ext4_ioctl(struct file *filp, unsigned int cmd, unsigned long arg)
+ 			return -EOPNOTSUPP;
+ 		return fscrypt_ioctl_get_key_status(filp, (void __user *)arg);
+ 
++	case FS_IOC_GET_ENCRYPTION_NONCE:
++		if (!ext4_has_feature_encrypt(sb))
++			return -EOPNOTSUPP;
++		return fscrypt_ioctl_get_nonce(filp, (void __user *)arg);
++
+ 	case EXT4_IOC_CLEAR_ES_CACHE:
+ 	{
+ 		if (!inode_owner_or_capable(inode))
+@@ -1370,6 +1375,7 @@ long ext4_compat_ioctl(struct file *file, unsigned int cmd, unsigned long arg)
+ 	case FS_IOC_REMOVE_ENCRYPTION_KEY:
+ 	case FS_IOC_REMOVE_ENCRYPTION_KEY_ALL_USERS:
+ 	case FS_IOC_GET_ENCRYPTION_KEY_STATUS:
++	case FS_IOC_GET_ENCRYPTION_NONCE:
+ 	case EXT4_IOC_SHUTDOWN:
+ 	case FS_IOC_GETFSMAP:
+ 	case FS_IOC_ENABLE_VERITY:

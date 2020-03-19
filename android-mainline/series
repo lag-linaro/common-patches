@@ -2,7 +2,7 @@
 # android-mainline patches
 #
 # Applies onto upstream fb33c6510d55 Linux v5.6-rc6
-# Matches android-mainline ae56fd997e8c ("Merge 5.6-rc6 into android-mainline")
+# Matches android-mainline 07323c1d3911 ("FROMLIST: ubifs: wire up FS_IOC_GET_ENCRYPTION_NONCE")
 #
 Revert-security-lockdown-selinux-implement-SELinux-lockdown.patch
 Revert-drm-virtio-fix-DRM_FORMAT_-handling.patch
@@ -57,6 +57,10 @@ FROMLIST-lkdtm-bugs-Add-arithmetic-overflow-and-array-bounds-checks.patch
 FROMLIST-overlayfs-handle-XATTR_NOSECURITY-flag-for-get-xattr-method.patch
 FROMLIST-overlayfs-internal-getxattr-operations-without-sepolicy-checking.patch
 FROMLIST-overlayfs-override_creds-off-option-bypass-creator_cred.patch
+FROMLIST-fscrypt-add-FS_IOC_GET_ENCRYPTION_NONCE-ioctl.patch
+FROMLIST-ext4-wire-up-FS_IOC_GET_ENCRYPTION_NONCE.patch
+FROMLIST-f2fs-wire-up-FS_IOC_GET_ENCRYPTION_NONCE.patch
+FROMLIST-ubifs-wire-up-FS_IOC_GET_ENCRYPTION_NONCE.patch
 ANDROID-arm64-copy-CONFIG_CMDLINE_EXTEND-from-ARM.patch
 ANDROID-of-Support-CONFIG_CMDLINE_EXTEND-config-option.patch
 ANDROID-Kbuild-LLVMLinux-allow-overriding-clang-target-triple.patch
@@ -447,3 +451,13 @@ ANDROID-Add-TPM-support-and-the-vTPM-proxy-to-Cuttlefish.patch
 ANDROID-serdev-restrict-claim-of-platform-devices.patch
 ANDROID-gki_defconfig-Enable-more-USB_CONFIGFS-gadgets.patch
 ANDROID-Add-build.config-files-for-ARM-32-bit.patch
+ANDROID-Kconfig.gki-Add-FRAME_VECTOR.patch
+ANDROID-Export-functions-to-be-used-with-dma_map_ops-in-modules.patch
+ANDROID-sound-usb-Ensure-UAC3-Power-Domain-is-set-to-D0-when-enabling-stream.patch
+ANDROID-USB-f_accessory-Check-dev-pointer-before-decoding-ctrl-request.patch
+ANDROID-kbuild-avoid-excessively-long-argument-lists.patch
+ANDROID-Incremental-fs-Remove-all-access_ok-checks.patch
+ANDROID-Incremental-fs-Make-fill-block-an-ioctl.patch
+ANDROID-Incremental-fs-Pad-hash-blocks.patch
+ANDROID-Incremental-fs-Remove-signature-checks-from-kernel.patch
+ANDROID-Incremental-fs-Add-INCFS_IOC_PERMIT_FILL.patch

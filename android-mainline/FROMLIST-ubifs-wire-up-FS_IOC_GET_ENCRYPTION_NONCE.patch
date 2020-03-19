@@ -1,0 +1,38 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: Eric Biggers <ebiggers@google.com>
+Date: Sat, 14 Mar 2020 13:50:52 -0700
+Subject: FROMLIST: ubifs: wire up FS_IOC_GET_ENCRYPTION_NONCE
+
+This new ioctl retrieves a file's encryption nonce, which is useful for
+testing.  See the corresponding fs/crypto/ patch for more details.
+
+Bug: 151100202
+Link: https://lore.kernel.org/r/20200314205052.93294-5-ebiggers@kernel.org
+Change-Id: I8f15e873b41e036bc039119a579beac1b78f937b
+Signed-off-by: Eric Biggers <ebiggers@google.com>
+---
+ fs/ubifs/ioctl.c | 4 ++++
+ 1 file changed, 4 insertions(+)
+
+diff --git a/fs/ubifs/ioctl.c b/fs/ubifs/ioctl.c
+index d49fc04f2d7d..3df9be2c684c 100644
+--- a/fs/ubifs/ioctl.c
++++ b/fs/ubifs/ioctl.c
+@@ -208,6 +208,9 @@ long ubifs_ioctl(struct file *file, unsigned int cmd, unsigned long arg)
+ 	case FS_IOC_GET_ENCRYPTION_KEY_STATUS:
+ 		return fscrypt_ioctl_get_key_status(file, (void __user *)arg);
+ 
++	case FS_IOC_GET_ENCRYPTION_NONCE:
++		return fscrypt_ioctl_get_nonce(file, (void __user *)arg);
++
+ 	default:
+ 		return -ENOTTY;
+ 	}
+@@ -230,6 +233,7 @@ long ubifs_compat_ioctl(struct file *file, unsigned int cmd, unsigned long arg)
+ 	case FS_IOC_REMOVE_ENCRYPTION_KEY:
+ 	case FS_IOC_REMOVE_ENCRYPTION_KEY_ALL_USERS:
+ 	case FS_IOC_GET_ENCRYPTION_KEY_STATUS:
++	case FS_IOC_GET_ENCRYPTION_NONCE:
+ 		break;
+ 	default:
+ 		return -ENOIOCTLCMD;

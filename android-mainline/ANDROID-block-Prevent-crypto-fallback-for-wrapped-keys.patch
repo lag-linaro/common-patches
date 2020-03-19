@@ -108,10 +108,10 @@ index 1eb9ddfad04c..c8af8df227c8 100644
  		ti->error = "Error initializing blk-crypto key";
  		goto bad;
 diff --git a/fs/crypto/fscrypt_private.h b/fs/crypto/fscrypt_private.h
-index 2e7a7a8171a1..bc53caf70497 100644
+index 507d80540a2c..2095e3b43b89 100644
 --- a/fs/crypto/fscrypt_private.h
 +++ b/fs/crypto/fscrypt_private.h
-@@ -319,6 +319,7 @@ extern int fscrypt_prepare_inline_crypt_key(
+@@ -339,6 +339,7 @@ extern int fscrypt_prepare_inline_crypt_key(
  					struct fscrypt_prepared_key *prep_key,
  					const u8 *raw_key,
  					unsigned int raw_key_size,
@@ -119,7 +119,7 @@ index 2e7a7a8171a1..bc53caf70497 100644
  					const struct fscrypt_info *ci);
  
  extern void fscrypt_destroy_inline_crypt_key(
-@@ -363,6 +364,7 @@ static inline bool fscrypt_using_inline_encryption(
+@@ -383,6 +384,7 @@ static inline bool fscrypt_using_inline_encryption(
  static inline int
  fscrypt_prepare_inline_crypt_key(struct fscrypt_prepared_key *prep_key,
  				 const u8 *raw_key, unsigned int raw_key_size,
@@ -127,7 +127,7 @@ index 2e7a7a8171a1..bc53caf70497 100644
  				 const struct fscrypt_info *ci)
  {
  	WARN_ON(1);
-@@ -557,6 +559,7 @@ extern struct fscrypt_mode fscrypt_modes[];
+@@ -577,6 +579,7 @@ extern struct fscrypt_mode fscrypt_modes[];
  
  extern int fscrypt_prepare_key(struct fscrypt_prepared_key *prep_key,
  			       const u8 *raw_key, unsigned int raw_key_size,
@@ -157,7 +157,7 @@ index 9c830772b7f5..00da0effa6c9 100644
  		fscrypt_err(inode, "error %d initializing blk-crypto key", err);
  		goto fail;
 diff --git a/fs/crypto/keysetup.c b/fs/crypto/keysetup.c
-index d394635729e8..b1f3b010b188 100644
+index 0d89082f3098..34f95cd6c8eb 100644
 --- a/fs/crypto/keysetup.c
 +++ b/fs/crypto/keysetup.c
 @@ -117,15 +117,15 @@ fscrypt_allocate_skcipher(struct fscrypt_mode *mode, const u8 *raw_key,

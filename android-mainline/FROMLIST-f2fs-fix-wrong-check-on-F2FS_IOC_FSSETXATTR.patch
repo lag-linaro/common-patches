@@ -17,7 +17,7 @@ Change-Id: Ib2f8db5e20aabf5a4e6e9ebbc071166e8bd3220f
  1 file changed, 8 insertions(+), 5 deletions(-)
 
 diff --git a/fs/f2fs/file.c b/fs/f2fs/file.c
-index 0d4da644df3b..a41c633ac6cf 100644
+index 351762f77840..e29ff61ec413 100644
 --- a/fs/f2fs/file.c
 +++ b/fs/f2fs/file.c
 @@ -1787,12 +1787,15 @@ static int f2fs_file_flush(struct file *file, fl_owner_t id)

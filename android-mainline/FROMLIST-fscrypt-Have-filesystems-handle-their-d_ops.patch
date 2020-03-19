@@ -55,10 +55,10 @@ index 0fca2d7a5645..cd6870739911 100644
 -};
 +EXPORT_SYMBOL(fscrypt_d_revalidate);
 diff --git a/fs/crypto/fscrypt_private.h b/fs/crypto/fscrypt_private.h
-index bc53caf70497..f78cc4dfb452 100644
+index 2095e3b43b89..f262f823fd58 100644
 --- a/fs/crypto/fscrypt_private.h
 +++ b/fs/crypto/fscrypt_private.h
-@@ -275,7 +275,6 @@ extern int fscrypt_fname_encrypt(const struct inode *inode,
+@@ -295,7 +295,6 @@ extern int fscrypt_fname_encrypt(const struct inode *inode,
  extern bool fscrypt_fname_encrypted_size(const struct inode *inode,
  					 u32 orig_len, u32 max_len,
  					 u32 *encrypted_len_ret);
@@ -287,7 +287,7 @@ index 77c403bbc3f6..d31d02ae4435 100644
  #ifdef CONFIG_MIGRATION
  extern int buffer_migrate_page(struct address_space *,
 diff --git a/include/linux/fscrypt.h b/include/linux/fscrypt.h
-index 433e50899d0d..6327b9aa1c6b 100644
+index a9558fcbdf78..df201b0f7d2f 100644
 --- a/include/linux/fscrypt.h
 +++ b/include/linux/fscrypt.h
 @@ -138,6 +138,7 @@ static inline struct page *fscrypt_pagecache_page(struct page *bounce_page)
@@ -298,7 +298,7 @@ index 433e50899d0d..6327b9aa1c6b 100644
  
  /* policy.c */
  extern int fscrypt_ioctl_set_policy(struct file *, const void __user *);
-@@ -681,8 +682,9 @@ static inline int fscrypt_prepare_rename(struct inode *old_dir,
+@@ -687,8 +688,9 @@ static inline int fscrypt_prepare_rename(struct inode *old_dir,
   * filenames are presented in encrypted form.  Therefore, we'll try to set up
   * the directory's encryption key, but even without it the lookup can continue.
   *
