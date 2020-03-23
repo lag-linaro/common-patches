@@ -1,8 +1,8 @@
 #
 # android-mainline patches
 #
-# Applies onto upstream fb33c6510d55 Linux v5.6-rc6
-# Matches android-mainline 07323c1d3911 ("FROMLIST: ubifs: wire up FS_IOC_GET_ENCRYPTION_NONCE")
+# Applies onto upstream 16fbf79b0f83 Linux v5.6-rc6-152-g16fbf79b0f83
+# Matches android-mainline be8d9e86848e ("Merge 5.6-rc7 into android-mainline")
 #
 Revert-security-lockdown-selinux-implement-SELinux-lockdown.patch
 Revert-drm-virtio-fix-DRM_FORMAT_-handling.patch
@@ -376,7 +376,6 @@ ANDROID-sdcardfs-use-fsparam_flag-to-replace-fsparam_bool.patch
 ANDROID-block-Prevent-crypto-fallback-for-wrapped-keys.patch
 ANDROID-dm-add-support-for-passing-through-derive_raw_secret.patch
 ANDROID-dm-Add-wrapped-key-support-in-dm-default-key.patch
-FROMLIST-rename-missed-uaccess-.fixup-section.patch
 ANDROID-gki_defconfig-Add-CONFIG_UNICODE.patch
 ANDROID-gki_defconfig-enable-heap-and-stack-initialization.patch
 ANDROID-added-memory-initialization-tests-to-cuttlefish-config.patch

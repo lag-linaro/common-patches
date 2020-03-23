@@ -38,7 +38,7 @@ Signed-off-by: Sami Tolvanen <samitolvanen@google.com>
  create mode 100644 kernel/scs.c
 
 diff --git a/Makefile b/Makefile
-index 171f2b004c8a..90df0f17e7ec 100644
+index e56bf7ef182d..19cf7c5bbe9d 100644
 --- a/Makefile
 +++ b/Makefile
 @@ -846,6 +846,12 @@ ifdef CONFIG_LIVEPATCH

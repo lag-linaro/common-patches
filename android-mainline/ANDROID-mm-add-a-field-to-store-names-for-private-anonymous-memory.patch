@@ -461,7 +461,7 @@ index d325f3ab624a..6bc2125bb0ea 100644
  		if (arg3 || arg4 || arg5)
  			return -EINVAL;
 diff --git a/mm/madvise.c b/mm/madvise.c
-index 43b47d3fae02..26160975f049 100644
+index 4bb30ed6c8d2..69baa211b232 100644
 --- a/mm/madvise.c
 +++ b/mm/madvise.c
 @@ -134,7 +134,7 @@ static long madvise_behavior(struct vm_area_struct *vma,

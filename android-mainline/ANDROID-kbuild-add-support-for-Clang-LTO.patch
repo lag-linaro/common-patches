@@ -32,7 +32,7 @@ Signed-off-by: Sami Tolvanen <samitolvanen@google.com>
  8 files changed, 222 insertions(+), 18 deletions(-)
 
 diff --git a/Makefile b/Makefile
-index c941f45493f7..dfc0c691b519 100644
+index 5ab8b20eb0ad..8f660cb04c00 100644
 --- a/Makefile
 +++ b/Makefile
 @@ -654,6 +654,16 @@ RETPOLINE_VDSO_CFLAGS := $(call cc-option,$(RETPOLINE_VDSO_CFLAGS_GCC),$(call cc
@@ -451,7 +451,7 @@ index dd484e92752e..c0de2ac66c1e 100755
  
  # modpost vmlinux.o to check for section mismatches
 diff --git a/scripts/mod/modpost.c b/scripts/mod/modpost.c
-index 7edfdb2f4497..17d34d9fccd3 100644
+index 55a0a2eccbd2..6737e2569661 100644
 --- a/scripts/mod/modpost.c
 +++ b/scripts/mod/modpost.c
 @@ -145,6 +145,9 @@ static struct module *new_module(const char *modname)
@@ -464,7 +464,7 @@ index 7edfdb2f4497..17d34d9fccd3 100644
  
  	/* add to list */
  	mod->name = p;
-@@ -1993,6 +1996,10 @@ static char *remove_dot(char *s)
+@@ -1994,6 +1997,10 @@ static char *remove_dot(char *s)
  		size_t m = strspn(s + n + 1, "0123456789");
  		if (m && (s[n + m] == '.' || s[n + m] == 0))
  			s[n] = 0;

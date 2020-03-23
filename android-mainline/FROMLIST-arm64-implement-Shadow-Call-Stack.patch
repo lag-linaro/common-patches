@@ -347,7 +347,7 @@ index 000000000000..eaadf5430baa
 +	}
 +}
 diff --git a/arch/arm64/kernel/smp.c b/arch/arm64/kernel/smp.c
-index d4ed9a19d8fe..f2cb344f998c 100644
+index 5407bf5d98ac..2222c9896ec9 100644
 --- a/arch/arm64/kernel/smp.c
 +++ b/arch/arm64/kernel/smp.c
 @@ -46,6 +46,7 @@

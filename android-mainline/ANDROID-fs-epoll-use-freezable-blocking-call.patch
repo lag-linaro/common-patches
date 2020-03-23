@@ -28,7 +28,7 @@ Signed-off-by: Rafael J. Wysocki <rafael.j.wysocki@intel.com>
  1 file changed, 3 insertions(+), 1 deletion(-)
 
 diff --git a/fs/eventpoll.c b/fs/eventpoll.c
-index b041b66002db..717b08e7bfd3 100644
+index eee3c92a9ebf..77c7ec9ab6b8 100644
 --- a/fs/eventpoll.c
 +++ b/fs/eventpoll.c
 @@ -29,6 +29,7 @@
