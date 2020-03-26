@@ -1,8 +1,8 @@
 #
 # android-mainline patches
 #
-# Applies onto upstream 16fbf79b0f83 Linux v5.6-rc6-152-g16fbf79b0f83
-# Matches android-mainline be8d9e86848e ("Merge 5.6-rc7 into android-mainline")
+# Applies onto upstream 16fbf79b0f83 Linux v5.6-rc7
+# Matches android-mainline 9465730798f9 ("ANDROID: gki_defconfig: enabled UAPI header compile testing")
 #
 Revert-security-lockdown-selinux-implement-SELinux-lockdown.patch
 Revert-drm-virtio-fix-DRM_FORMAT_-handling.patch
@@ -61,6 +61,7 @@ FROMLIST-fscrypt-add-FS_IOC_GET_ENCRYPTION_NONCE-ioctl.patch
 FROMLIST-ext4-wire-up-FS_IOC_GET_ENCRYPTION_NONCE.patch
 FROMLIST-f2fs-wire-up-FS_IOC_GET_ENCRYPTION_NONCE.patch
 FROMLIST-ubifs-wire-up-FS_IOC_GET_ENCRYPTION_NONCE.patch
+FROMLIST-media-v4l2-fh-define-v4l2_fh-struct-regardless-of-condition.patch
 ANDROID-arm64-copy-CONFIG_CMDLINE_EXTEND-from-ARM.patch
 ANDROID-of-Support-CONFIG_CMDLINE_EXTEND-config-option.patch
 ANDROID-Kbuild-LLVMLinux-allow-overriding-clang-target-triple.patch
@@ -460,3 +461,7 @@ ANDROID-Incremental-fs-Make-fill-block-an-ioctl.patch
 ANDROID-Incremental-fs-Pad-hash-blocks.patch
 ANDROID-Incremental-fs-Remove-signature-checks-from-kernel.patch
 ANDROID-Incremental-fs-Add-INCFS_IOC_PERMIT_FILL.patch
+ANDROID-scsi-ufs-add-map_sg_crypto-variant-op.patch
+ANDROID-staging-ion-Allow-for-attach-and-detach-ops-to-be-overridden.patch
+ANDROID-kbuild-do-not-merge-.section.-into-.section-in-modules.patch
+ANDROID-gki_defconfig-enabled-UAPI-header-compile-testing.patch

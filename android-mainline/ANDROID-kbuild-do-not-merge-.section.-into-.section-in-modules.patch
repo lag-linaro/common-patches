@@ -1,0 +1,39 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: Sami Tolvanen <samitolvanen@google.com>
+Date: Mon, 23 Mar 2020 14:44:24 -0700
+Subject: ANDROID: kbuild: do not merge .section..* into .section in modules
+
+Sections with double dots, e.g. .data..percpu are named intentionally
+to avoid matching rules that apply to .section.*. Change module section
+merging rules to skip these.
+
+Bug: 151981957
+Change-Id: I23787aa40d69da1c6ca622a5f111704d2459e163
+Signed-off-by: Sami Tolvanen <samitolvanen@google.com>
+---
+ scripts/module-lto.lds | 14 +++++++-------
+ 1 file changed, 7 insertions(+), 7 deletions(-)
+
+diff --git a/scripts/module-lto.lds b/scripts/module-lto.lds
+index f5ee544a877d..5ba0e9461e13 100644
+--- a/scripts/module-lto.lds
++++ b/scripts/module-lto.lds
+@@ -12,11 +12,11 @@ SECTIONS {
+ 		*(.eh_frame)
+ 	}
+ 
+-	.bss : { *(.bss .bss[.0-9a-zA-Z_]*) }
+-	.data : { *(.data .data[.0-9a-zA-Z_]*) }
+-	.rela.data : { *(.rela.data .rela.data[.0-9a-zA-Z_]*) }
+-	.rela.rodata : { *(.rela.rodata .rela.rodata[.0-9a-zA-Z_]*) }
+-	.rela.text : { *(.rela.text .rela.text[.0-9a-zA-Z_]*) }
+-	.rodata : { *(.rodata .rodata[.0-9a-zA-Z_]*) }
+-	.text : { *(.text .text[.0-9a-zA-Z_]*) }
++	.bss : { *(.bss .bss.[0-9a-zA-Z_]*) }
++	.data : { *(.data .data.[0-9a-zA-Z_]*) }
++	.rela.data : { *(.rela.data .rela.data.[0-9a-zA-Z_]*) }
++	.rela.rodata : { *(.rela.rodata .rela.rodata.[0-9a-zA-Z_]*) }
++	.rela.text : { *(.rela.text .rela.text.[0-9a-zA-Z_]*) }
++	.rodata : { *(.rodata .rodata.[0-9a-zA-Z_]*) }
++	.text : { *(.text .text.[0-9a-zA-Z_]*) }
+ }
