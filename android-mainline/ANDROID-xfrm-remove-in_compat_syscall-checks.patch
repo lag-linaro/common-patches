@@ -29,10 +29,10 @@ index 170d6e7f31d3..e103d34c6fa2 100644
  		xfrm_sk_policy_insert(sk, XFRM_POLICY_IN, NULL);
  		xfrm_sk_policy_insert(sk, XFRM_POLICY_OUT, NULL);
 diff --git a/net/xfrm/xfrm_user.c b/net/xfrm/xfrm_user.c
-index b88ba45ff1ac..ed6e6790b3e7 100644
+index e6cfaa680ef3..677d0b94b3b6 100644
 --- a/net/xfrm/xfrm_user.c
 +++ b/net/xfrm/xfrm_user.c
-@@ -2634,9 +2634,6 @@ static int xfrm_user_rcv_msg(struct sk_buff *skb, struct nlmsghdr *nlh,
+@@ -2638,9 +2638,6 @@ static int xfrm_user_rcv_msg(struct sk_buff *skb, struct nlmsghdr *nlh,
  	const struct xfrm_link *link;
  	int type, err;
  

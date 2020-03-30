@@ -1,8 +1,8 @@
 #
 # android-mainline patches
 #
-# Applies onto upstream 16fbf79b0f83 Linux v5.6-rc7
-# Matches android-mainline c062bc8e769f ("ANDROID: Incremental fs: Fix four resource bugs")
+# Applies onto upstream 7111951b8d49 Linux v5.6
+# Matches android-mainline b892a5885fce ("Merge 5.6 into android-mainline")
 #
 UPSTREAM-ipv6-ndisc-add-support-for-PREF64-dns64-prefix-identifier.patch
 Revert-security-lockdown-selinux-implement-SELinux-lockdown.patch

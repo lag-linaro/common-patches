@@ -132,7 +132,7 @@ index 0688e9bd98a8..2915b4cf7682 100644
  
  
 diff --git a/include/linux/clk-provider.h b/include/linux/clk-provider.h
-index 7b2f4055c7f9..7398770e7698 100644
+index 143e5aecd5bc..8c06438b346d 100644
 --- a/include/linux/clk-provider.h
 +++ b/include/linux/clk-provider.h
 @@ -32,6 +32,7 @@
