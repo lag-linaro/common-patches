@@ -2,8 +2,9 @@
 # android-mainline patches
 #
 # Applies onto upstream 16fbf79b0f83 Linux v5.6-rc7
-# Matches android-mainline 9465730798f9 ("ANDROID: gki_defconfig: enabled UAPI header compile testing")
+# Matches android-mainline c062bc8e769f ("ANDROID: Incremental fs: Fix four resource bugs")
 #
+UPSTREAM-ipv6-ndisc-add-support-for-PREF64-dns64-prefix-identifier.patch
 Revert-security-lockdown-selinux-implement-SELinux-lockdown.patch
 Revert-drm-virtio-fix-DRM_FORMAT_-handling.patch
 FROMGIT-scsi-ufs-Add-dev-ref-clock-gating-wait-time-support.patch
@@ -62,6 +63,9 @@ FROMLIST-ext4-wire-up-FS_IOC_GET_ENCRYPTION_NONCE.patch
 FROMLIST-f2fs-wire-up-FS_IOC_GET_ENCRYPTION_NONCE.patch
 FROMLIST-ubifs-wire-up-FS_IOC_GET_ENCRYPTION_NONCE.patch
 FROMLIST-media-v4l2-fh-define-v4l2_fh-struct-regardless-of-condition.patch
+FROMLIST-soc-qcom-rpmpd-Allow-RPMPD-driver-to-be-loaded-as-a-module.patch
+FROMLIST-soc-qcom-rpmh-Allow-RPMH-driver-to-be-loaded-as-a-module.patch
+FROMLIST-soc-qcom-rpmhpd-Allow-RPMHPD-driver-to-be-loaded-as-a-module.patch
 ANDROID-arm64-copy-CONFIG_CMDLINE_EXTEND-from-ARM.patch
 ANDROID-of-Support-CONFIG_CMDLINE_EXTEND-config-option.patch
 ANDROID-Kbuild-LLVMLinux-allow-overriding-clang-target-triple.patch
@@ -465,3 +469,18 @@ ANDROID-scsi-ufs-add-map_sg_crypto-variant-op.patch
 ANDROID-staging-ion-Allow-for-attach-and-detach-ops-to-be-overridden.patch
 ANDROID-kbuild-do-not-merge-.section.-into-.section-in-modules.patch
 ANDROID-gki_defconfig-enabled-UAPI-header-compile-testing.patch
+ANDROID-build.config.allmodconfig-Re-enable-XFS_FS.patch
+ANDROID-dm-bow-Fix-free_show-value-is-incorrect.patch
+ANDROID-Incremental-fs-Fix-two-typos.patch
+ANDROID-Incremental-fs-Add-INCFS_IOC_GET_FILLED_BLOCKS.patch
+ANDROID-Specify-MAKE_GOALS-and-optimize-targets.patch
+ANDROID-Kconfig.gki-Drop-GKI_QCOM_CLKS_CONFIGS.patch
+ANDROID-gki_defconfig-enable-CONFIG_DEBUG_LIST.patch
+ANDROID-GKI-Enable-CONFIG_USB_PHY-for-usb-drivers-like-dwc3.patch
+ANDROID-GKI-Add-CONFIG_SOC_BUS-to-gki_defconfig.patch
+ANDROID-gki_defconfig-disable-CONFIG_HARDENED_USERCOPY_FALLBACK.patch
+ANDROID-GKI-Add-CONFIG_RPMSG-to-gki_defconfig.patch
+ANDROID-gki_defconfig-Enable-CONFIG_REMOTEPROC.patch
+ANDROID-db845c_gki.fragment-Enable-config-options-to-support-wifi-on-db845c.patch
+ANDROID-GKI-defconfig-Enable-CONFIG_SHUFFLE_PAGE_ALLOCATOR.patch
+ANDROID-Incremental-fs-Fix-four-resource-bugs.patch

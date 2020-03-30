@@ -1,0 +1,26 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: Dylan Chang <dylan.chang@oneplus.com>
+Date: Mon, 23 Mar 2020 14:56:02 +0800
+Subject: ANDROID: dm-bow: Fix free_show value is incorrect
+
+Fix free_show value is incorrect
+
+Change-Id: If7f36a64afa600c980ee8a25393f8716a6ffd474
+Signed-off-by: Dylan Chang <dylan.chang@oneplus.com>
+Bug: 152116739
+---
+ drivers/md/dm-bow.c | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/drivers/md/dm-bow.c b/drivers/md/dm-bow.c
+index ee0e2b6fe450..75fc7dc83d7b 100644
+--- a/drivers/md/dm-bow.c
++++ b/drivers/md/dm-bow.c
+@@ -792,6 +792,7 @@ static int prepare_unchanged_range(struct bow_context *bc, struct bow_range *br,
+ 	 */
+ 	original_type = br->type;
+ 	sector0 = backup_br->sector;
++	bc->trims_total -= range_size(backup_br);
+ 	if (backup_br->type == TRIMMED)
+ 		list_del(&backup_br->trimmed_list);
+ 	backup_br->type = br->type == SECTOR0_CURRENT ? SECTOR0_CURRENT

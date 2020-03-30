@@ -1,0 +1,73 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: John Stultz <john.stultz@linaro.org>
+Date: Thu, 26 Mar 2020 21:27:01 +0000
+Subject: FROMLIST: soc: qcom: rpmhpd: Allow RPMHPD driver to be loaded as a
+ module
+
+This patch allow the rpmhpd driver to be loaded as a permenent
+module. Meaning it can be loaded from a module, but then cannot
+be unloaded.
+
+Ideally, it would include a remove hook and related logic, but
+apparently the genpd code isn't able to track usage and cleaning
+things up?
+
+So making it a permenent module at least improves things slightly
+over requiring it to be a built in driver.
+
+Feedback would be appreciated!
+
+Cc: Todd Kjos <tkjos@google.com>
+Cc: Saravana Kannan <saravanak@google.com>
+Cc: Andy Gross <agross@kernel.org>
+Cc: Bjorn Andersson <bjorn.andersson@linaro.org>
+Cc: Rajendra Nayak <rnayak@codeaurora.org>
+Cc: linux-arm-msm@vger.kernel.org
+Signed-off-by: John Stultz <john.stultz@linaro.org>
+Link: https://lore.kernel.org/lkml/20200326224459.105170-4-john.stultz@linaro.org/T/#u
+Change-Id: I11e436a8a2452cd741c33bd1e2805e1b5e33ae3e
+---
+ drivers/soc/qcom/Kconfig  | 2 +-
+ drivers/soc/qcom/rpmhpd.c | 5 +++++
+ 2 files changed, 6 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/soc/qcom/Kconfig b/drivers/soc/qcom/Kconfig
+index ac91eaf810f7..ffc04285840b 100644
+--- a/drivers/soc/qcom/Kconfig
++++ b/drivers/soc/qcom/Kconfig
+@@ -114,7 +114,7 @@ config QCOM_RPMH
+ 	  help apply the aggregated state on the resource.
+ 
+ config QCOM_RPMHPD
+-	bool "Qualcomm RPMh Power domain driver"
++	tristate "Qualcomm RPMh Power domain driver"
+ 	depends on QCOM_RPMH && QCOM_COMMAND_DB
+ 	help
+ 	  QCOM RPMh Power domain driver to support power-domains with
+diff --git a/drivers/soc/qcom/rpmhpd.c b/drivers/soc/qcom/rpmhpd.c
+index 4d264d0672c4..0bb12d5870a7 100644
+--- a/drivers/soc/qcom/rpmhpd.c
++++ b/drivers/soc/qcom/rpmhpd.c
+@@ -4,6 +4,7 @@
+ #include <linux/err.h>
+ #include <linux/init.h>
+ #include <linux/kernel.h>
++#include <linux/module.h>
+ #include <linux/mutex.h>
+ #include <linux/pm_domain.h>
+ #include <linux/slab.h>
+@@ -189,6 +190,7 @@ static const struct of_device_id rpmhpd_match_table[] = {
+ 	{ .compatible = "qcom,sm8150-rpmhpd", .data = &sm8150_desc },
+ 	{ }
+ };
++MODULE_DEVICE_TABLE(of, rpmhpd_match_table);
+ 
+ static int rpmhpd_send_corner(struct rpmhpd *pd, int state,
+ 			      unsigned int corner, bool sync)
+@@ -460,3 +462,6 @@ static int __init rpmhpd_init(void)
+ 	return platform_driver_register(&rpmhpd_driver);
+ }
+ core_initcall(rpmhpd_init);
++
++MODULE_DESCRIPTION("Qualcomm Technologies, Inc. RPMh Power Domain Driver");
++MODULE_LICENSE("GPL v2");
