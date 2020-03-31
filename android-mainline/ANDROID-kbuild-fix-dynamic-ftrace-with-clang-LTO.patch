@@ -27,7 +27,7 @@ Signed-off-by: Sami Tolvanen <samitolvanen@google.com>
  9 files changed, 52 insertions(+), 5 deletions(-)
 
 diff --git a/arch/Kconfig b/arch/Kconfig
-index e73f20a909a0..2f91463d3972 100644
+index 30db84ca509b..7643d668e31a 100644
 --- a/arch/Kconfig
 +++ b/arch/Kconfig
 @@ -595,7 +595,7 @@ config LTO_CLANG

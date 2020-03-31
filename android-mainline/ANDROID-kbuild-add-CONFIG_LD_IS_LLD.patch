@@ -14,7 +14,7 @@ Signed-off-by: Sami Tolvanen <samitolvanen@google.com>
  1 file changed, 3 insertions(+)
 
 diff --git a/init/Kconfig b/init/Kconfig
-index 43aa1ab7543d..f9bf7f1a3d39 100644
+index 74db2c37c6bb..632836e62bd2 100644
 --- a/init/Kconfig
 +++ b/init/Kconfig
 @@ -20,6 +20,9 @@ config GCC_VERSION

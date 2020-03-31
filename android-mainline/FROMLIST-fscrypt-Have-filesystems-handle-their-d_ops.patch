@@ -106,7 +106,7 @@ index 1a1c4fdcfd3e..001fdb0da477 100644
  		return NULL;
  	if (err)
 diff --git a/fs/ext4/super.c b/fs/ext4/super.c
-index 74f7e28c25ce..bea73cf91f1b 100644
+index 088b91396dc8..31e03d4747ee 100644
 --- a/fs/ext4/super.c
 +++ b/fs/ext4/super.c
 @@ -4583,11 +4583,6 @@ static int ext4_fill_super(struct super_block *sb, void *data, int silent)
@@ -137,10 +137,10 @@ index d822c0d5eb18..38c0e6d589be 100644
 -};
 -#endif
 diff --git a/fs/f2fs/f2fs.h b/fs/f2fs/f2fs.h
-index 347d1d2dd966..9e0b7c41d1ae 100644
+index ee2bf08619b9..8ec6e83d32ad 100644
 --- a/fs/f2fs/f2fs.h
 +++ b/fs/f2fs/f2fs.h
-@@ -3629,9 +3629,6 @@ static inline void update_sit_info(struct f2fs_sb_info *sbi) {}
+@@ -3630,9 +3630,6 @@ static inline void update_sit_info(struct f2fs_sb_info *sbi) {}
  #endif
  
  extern const struct file_operations f2fs_dir_operations;
@@ -163,10 +163,10 @@ index 2aa035422c0f..24d68eafffa4 100644
  		goto out_splice;
  	if (err)
 diff --git a/fs/f2fs/super.c b/fs/f2fs/super.c
-index 705d6d5f7505..90ab04b0df02 100644
+index 40e5caf82481..ad0ece3e52a0 100644
 --- a/fs/f2fs/super.c
 +++ b/fs/f2fs/super.c
-@@ -3297,7 +3297,6 @@ static int f2fs_setup_casefold(struct f2fs_sb_info *sbi)
+@@ -3298,7 +3298,6 @@ static int f2fs_setup_casefold(struct f2fs_sb_info *sbi)
  
  		sbi->sb->s_encoding = encoding;
  		sbi->sb->s_encoding_flags = encoding_flags;
@@ -175,10 +175,10 @@ index 705d6d5f7505..90ab04b0df02 100644
  #else
  	if (f2fs_sb_has_casefold(sbi)) {
 diff --git a/fs/libfs.c b/fs/libfs.c
-index 9fa554ce6f54..78d96ee10c62 100644
+index 01c566a3f879..d2b322cd0775 100644
 --- a/fs/libfs.c
 +++ b/fs/libfs.c
-@@ -1421,4 +1421,54 @@ int generic_ci_d_hash(const struct dentry *dentry, struct qstr *str)
+@@ -1423,4 +1423,54 @@ int generic_ci_d_hash(const struct dentry *dentry, struct qstr *str)
  	return ret;
  }
  EXPORT_SYMBOL(generic_ci_d_hash);
@@ -274,10 +274,10 @@ index ef85ec167a84..f3c96d99c051 100644
 +#endif
 +}
 diff --git a/include/linux/fs.h b/include/linux/fs.h
-index 77c403bbc3f6..d31d02ae4435 100644
+index 8531b170686c..fbf4e1fee92d 100644
 --- a/include/linux/fs.h
 +++ b/include/linux/fs.h
-@@ -3412,6 +3412,8 @@ static inline bool needs_casefold(const struct inode *dir)
+@@ -3414,6 +3414,8 @@ static inline bool needs_casefold(const struct inode *dir)
  	return 0;
  }
  #endif

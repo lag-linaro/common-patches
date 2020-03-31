@@ -29,10 +29,10 @@ Signed-off-by: Sami Tolvanen <samitolvanen@google.com>
  create mode 100644 arch/arm64/kernel/scs.c
 
 diff --git a/arch/arm64/Kconfig b/arch/arm64/Kconfig
-index 42dc5cb415d9..79ffbb20887f 100644
+index 51ffe2bcba78..db457cfb97b9 100644
 --- a/arch/arm64/Kconfig
 +++ b/arch/arm64/Kconfig
-@@ -65,6 +65,7 @@ config ARM64
+@@ -64,6 +64,7 @@ config ARM64
  	select ARCH_USE_QUEUED_RWLOCKS
  	select ARCH_USE_QUEUED_SPINLOCKS
  	select ARCH_SUPPORTS_MEMORY_FAILURE
@@ -40,7 +40,7 @@ index 42dc5cb415d9..79ffbb20887f 100644
  	select ARCH_SUPPORTS_ATOMIC_RMW
  	select ARCH_SUPPORTS_INT128 if CC_HAS_INT128 && (GCC_VERSION >= 50000 || CC_IS_CLANG)
  	select ARCH_SUPPORTS_NUMA_BALANCING
-@@ -1022,6 +1023,10 @@ config ARCH_HAS_CACHE_LINE_SIZE
+@@ -1021,6 +1022,10 @@ config ARCH_HAS_CACHE_LINE_SIZE
  config ARCH_ENABLE_SPLIT_PMD_PTLOCK
  	def_bool y if PGTABLE_LEVELS > 2
  
@@ -110,7 +110,7 @@ index 4d9b1f48dc39..b6cf32fb4efe 100644
  				struct stack_info *info)
  {
 diff --git a/arch/arm64/include/asm/thread_info.h b/arch/arm64/include/asm/thread_info.h
-index f0cec4160136..8c73764b9ed2 100644
+index 512174a8e789..1fb651f73da3 100644
 --- a/arch/arm64/include/asm/thread_info.h
 +++ b/arch/arm64/include/asm/thread_info.h
 @@ -41,6 +41,9 @@ struct thread_info {
@@ -281,7 +281,7 @@ index 04a327ccf84d..fe0ca522ff60 100644
  	if (!handle_arch_irq)
  		panic("No interrupt controller found.");
 diff --git a/arch/arm64/kernel/process.c b/arch/arm64/kernel/process.c
-index 00626057a384..9151616c354c 100644
+index 3e5a6ad66cbe..620a6fa46176 100644
 --- a/arch/arm64/kernel/process.c
 +++ b/arch/arm64/kernel/process.c
 @@ -52,6 +52,7 @@

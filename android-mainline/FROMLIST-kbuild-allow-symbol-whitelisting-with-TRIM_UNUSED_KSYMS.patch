@@ -36,10 +36,10 @@ Change-Id: Ie9a4bbb8eebb20202623f084859fb89e55a32698
  2 files changed, 25 insertions(+)
 
 diff --git a/init/Kconfig b/init/Kconfig
-index 5aa9f54762cf..1d89dc16b2ef 100644
+index dd597a86dc13..8b386571c3e2 100644
 --- a/init/Kconfig
 +++ b/init/Kconfig
-@@ -2210,6 +2210,19 @@ config TRIM_UNUSED_KSYMS
+@@ -2214,6 +2214,19 @@ config TRIM_UNUSED_KSYMS
  
  	  If unsure, or if you need to build out-of-tree modules, say N.
  

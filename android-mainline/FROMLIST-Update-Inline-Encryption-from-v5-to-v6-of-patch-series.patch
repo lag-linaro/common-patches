@@ -134,10 +134,10 @@ index 697edcc74da9..0af387623774 100644
  menu "Partition Types"
  
 diff --git a/block/Makefile b/block/Makefile
-index 47ffd04725a5..e7efc81d1d42 100644
+index 8b58896c1996..07d13e5fb227 100644
 --- a/block/Makefile
 +++ b/block/Makefile
-@@ -39,3 +39,4 @@ obj-$(CONFIG_BLK_SED_OPAL)	+= sed-opal.o
+@@ -38,3 +38,4 @@ obj-$(CONFIG_BLK_SED_OPAL)	+= sed-opal.o
  obj-$(CONFIG_BLK_PM)		+= blk-pm.o
  obj-$(CONFIG_BLK_INLINE_ENCRYPTION)	+= keyslot-manager.o bio-crypt-ctx.o \
  					   blk-crypto.o
@@ -342,10 +342,10 @@ index 0f7641b875e9..75982dabc7a3 100644
  	return 0;
  }
 diff --git a/block/bio.c b/block/bio.c
-index a2ccdc001fea..61941a74c117 100644
+index 7f5fc74ccd76..f37d8c43a91e 100644
 --- a/block/bio.c
 +++ b/block/bio.c
-@@ -237,6 +237,8 @@ void bio_uninit(struct bio *bio)
+@@ -238,6 +238,8 @@ void bio_uninit(struct bio *bio)
  
  	if (bio_integrity(bio))
  		bio_integrity_free(bio);
@@ -354,7 +354,7 @@ index a2ccdc001fea..61941a74c117 100644
  }
  EXPORT_SYMBOL(bio_uninit);
  
-@@ -245,7 +247,6 @@ static void bio_free(struct bio *bio)
+@@ -246,7 +248,6 @@ static void bio_free(struct bio *bio)
  	struct bio_set *bs = bio->bi_pool;
  	void *p;
  
@@ -362,7 +362,7 @@ index a2ccdc001fea..61941a74c117 100644
  	bio_uninit(bio);
  
  	if (bs) {
-@@ -666,10 +667,7 @@ struct bio *bio_clone_fast(struct bio *bio, gfp_t gfp_mask, struct bio_set *bs)
+@@ -710,10 +711,7 @@ struct bio *bio_clone_fast(struct bio *bio, gfp_t gfp_mask, struct bio_set *bs)
  
  	__bio_clone_fast(b, bio);
  
@@ -375,10 +375,10 @@ index a2ccdc001fea..61941a74c117 100644
  	if (bio_integrity(bio) &&
  	    bio_integrity_clone(b, bio, gfp_mask) < 0) {
 diff --git a/block/blk-core.c b/block/blk-core.c
-index 14f9afdb4782..ad24ada646d3 100644
+index a751f04786e2..feb4db3c7570 100644
 --- a/block/blk-core.c
 +++ b/block/blk-core.c
-@@ -1117,14 +1117,11 @@ blk_qc_t direct_make_request(struct bio *bio)
+@@ -1123,14 +1123,11 @@ blk_qc_t direct_make_request(struct bio *bio)
  {
  	struct request_queue *q = bio->bi_disk->queue;
  	bool nowait = bio->bi_opf & REQ_NOWAIT;
@@ -393,8 +393,8 @@ index 14f9afdb4782..ad24ada646d3 100644
 -
  	if (unlikely(blk_queue_enter(q, nowait ? BLK_MQ_REQ_NOWAIT : 0))) {
  		if (nowait && !blk_queue_dying(q))
- 			bio->bi_status = BLK_STS_AGAIN;
-@@ -1134,7 +1131,8 @@ blk_qc_t direct_make_request(struct bio *bio)
+ 			bio_wouldblock_error(bio);
+@@ -1139,7 +1136,8 @@ blk_qc_t direct_make_request(struct bio *bio)
  		return BLK_QC_T_NONE;
  	}
  
@@ -404,7 +404,7 @@ index 14f9afdb4782..ad24ada646d3 100644
  	blk_queue_exit(q);
  	return ret;
  }
-@@ -1816,8 +1814,8 @@ int __init blk_dev_init(void)
+@@ -1810,8 +1808,8 @@ int __init blk_dev_init(void)
  	if (bio_crypt_ctx_init() < 0)
  		panic("Failed to allocate mem for bio crypt ctxs\n");
  
@@ -2559,10 +2559,10 @@ index 020931fc9f7d..cdf0607019d4 100644
 -EXPORT_SYMBOL(keyslot_manager_destroy);
 +EXPORT_SYMBOL_GPL(keyslot_manager_destroy);
 diff --git a/drivers/md/dm.c b/drivers/md/dm.c
-index 623dcbadf922..157e2ecc2d8d 100644
+index fe7be46424e1..53d87b08c9f4 100644
 --- a/drivers/md/dm.c
 +++ b/drivers/md/dm.c
-@@ -1301,15 +1301,13 @@ static int clone_bio(struct dm_target_io *tio, struct bio *bio,
+@@ -1302,15 +1302,13 @@ static int clone_bio(struct dm_target_io *tio, struct bio *bio,
  		     sector_t sector, unsigned len)
  {
  	struct bio *clone = &tio->clone;
@@ -2580,7 +2580,7 @@ index 623dcbadf922..157e2ecc2d8d 100644
  		if (unlikely(!dm_target_has_integrity(tio->ti->type) &&
  			     !dm_target_passes_integrity(tio->ti->type))) {
  			DMWARN("%s: the target %s doesn't support integrity data.",
-@@ -1318,11 +1316,9 @@ static int clone_bio(struct dm_target_io *tio, struct bio *bio,
+@@ -1319,11 +1317,9 @@ static int clone_bio(struct dm_target_io *tio, struct bio *bio,
  			return -EIO;
  		}
  
@@ -3139,10 +3139,10 @@ index 171ddbe7b6b1..cb60d9a9ab77 100644
  #endif /* CONFIG_SCSI_UFS_CRYPTO */
  };
 diff --git a/fs/buffer.c b/fs/buffer.c
-index 24848739bfc9..31ebacde6e15 100644
+index a146228f04f8..c215417b5f51 100644
 --- a/fs/buffer.c
 +++ b/fs/buffer.c
-@@ -3085,7 +3085,7 @@ static int submit_bh_wbc(int op, int op_flags, struct buffer_head *bh,
+@@ -3036,7 +3036,7 @@ static int submit_bh_wbc(int op, int op_flags, struct buffer_head *bh,
  	 */
  	bio = bio_alloc(GFP_NOIO, 1);
  
@@ -4222,10 +4222,10 @@ index 9f69a317025d..8fefc8d8b439 100644
  	f2fs_target_device(sbi, blkaddr, bio);
  	bio->bi_end_io = f2fs_read_end_io;
 diff --git a/fs/f2fs/super.c b/fs/f2fs/super.c
-index 6734052046a1..d142129b4535 100644
+index ce1e3ac4d369..1a1fc1b579e7 100644
 --- a/fs/f2fs/super.c
 +++ b/fs/f2fs/super.c
-@@ -2434,6 +2434,25 @@ static bool f2fs_inline_crypt_enabled(struct super_block *sb)
+@@ -2435,6 +2435,25 @@ static bool f2fs_inline_crypt_enabled(struct super_block *sb)
  	return F2FS_OPTION(F2FS_SB(sb)).inlinecrypt;
  }
  
@@ -4251,7 +4251,7 @@ index 6734052046a1..d142129b4535 100644
  static const struct fscrypt_operations f2fs_cryptops = {
  	.key_prefix		= "f2fs:",
  	.get_context		= f2fs_get_context,
-@@ -2444,6 +2463,8 @@ static const struct fscrypt_operations f2fs_cryptops = {
+@@ -2445,6 +2464,8 @@ static const struct fscrypt_operations f2fs_cryptops = {
  	.has_stable_inodes	= f2fs_has_stable_inodes,
  	.get_ino_and_lblk_bits	= f2fs_get_ino_and_lblk_bits,
  	.inline_crypt_enabled	= f2fs_inline_crypt_enabled,

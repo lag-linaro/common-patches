@@ -1,8 +1,8 @@
 #
 # android-mainline patches
 #
-# Applies onto upstream 7111951b8d49 Linux v5.6
-# Matches android-mainline 9b3cb5c97270 ("ANDROID: GKI: Removed cuttlefish configs")
+# Applies onto upstream 458ef2a25e0c Linux v5.6-2330-g458ef2a25e0c
+# Matches android-mainline f8359e705ccc ("ANDROID: f_audio_source.c: Call cpu_latency_qos_*() instead of pm_qos_*()")
 #
 UPSTREAM-ipv6-ndisc-add-support-for-PREF64-dns64-prefix-identifier.patch
 Revert-security-lockdown-selinux-implement-SELinux-lockdown.patch
@@ -186,7 +186,6 @@ ANDROID-Kconfig.gki-Add-hidden-MMC-config-support.patch
 ANDROID-move-up-spin_unlock_bh-ahead-of-remove_proc_entry.patch
 ANDROID-fscrypt-add-key-removal-notifier-chain.patch
 ANDROID-sdcardfs-evict-dentries-on-fscrypt-key-removal.patch
-ANDROID-of-property-Enable-of_devlink-by-default.patch
 ANDROID-v4l2-compat-ioctl32.c-copy-reserved-fields.patch
 ANDROID-ALSA-jack-Update-supported-jack-switch-types.patch
 ANDROID-gki_defconfig-add-FORTIFY_SOURCE-remove-SPMI_MSM_PMIC_ARB.patch
@@ -275,9 +274,6 @@ ANDROID-mm-Throttle-rss_stat-tracepoint.patch
 ANDROID-add-initial-ABI-whitelist-for-android-mainline.patch
 ANDROID-gki_defconfig-Set-BINFMT_MISC-as-m.patch
 ANDROID-gki_defconfig-enable-ARM64_SW_TTBR0_PAN.patch
-ANDROID-phy-qcom-qmp-Use-power_on-off-ops-for-PCIe.patch
-ANDROID-phy-qcom-qmp-Add-SDM845-PCIe-QMP-PHY-support.patch
-ANDROID-phy-qcom-qmp-Add-SDM845-QHP-PCIe-PHY.patch
 ANDROID-PCI-qcom-Fix-the-fixup-of-PCI_VENDOR_ID_QCOM.patch
 ANDROID-Kconfig.gki-Add-hidden-CONFIG_WANT_DEV_COREDUMP-for-DRM_MSM-driver.patch
 ANDROID-Kconfig.gki-Add-PINCTRL_MSM-to-QCOM-Hidden-configs.patch

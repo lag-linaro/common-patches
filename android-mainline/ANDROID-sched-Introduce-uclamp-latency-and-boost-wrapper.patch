@@ -18,10 +18,10 @@ Signed-off-by: Quentin Perret <quentin.perret@arm.com>
  1 file changed, 28 insertions(+)
 
 diff --git a/kernel/sched/sched.h b/kernel/sched/sched.h
-index 80c4270a1af1..5de8eab2a678 100644
+index e65b94eba88b..3841adb4e6d2 100644
 --- a/kernel/sched/sched.h
 +++ b/kernel/sched/sched.h
-@@ -2343,6 +2343,11 @@ unsigned long uclamp_rq_util_with(struct rq *rq, unsigned long util,
+@@ -2389,6 +2389,11 @@ unsigned long uclamp_rq_util_with(struct rq *rq, unsigned long util,
  
  	return clamp(util, min_util, max_util);
  }
@@ -33,7 +33,7 @@ index 80c4270a1af1..5de8eab2a678 100644
  #else /* CONFIG_UCLAMP_TASK */
  static inline
  unsigned long uclamp_rq_util_with(struct rq *rq, unsigned long util,
-@@ -2350,8 +2355,31 @@ unsigned long uclamp_rq_util_with(struct rq *rq, unsigned long util,
+@@ -2396,8 +2401,31 @@ unsigned long uclamp_rq_util_with(struct rq *rq, unsigned long util,
  {
  	return util;
  }

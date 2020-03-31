@@ -15,7 +15,7 @@ Signed-off-by: Maheshwar Ajja <majja@codeaurora.org>
  2 files changed, 2 insertions(+), 2 deletions(-)
 
 diff --git a/include/media/videobuf2-core.h b/include/media/videobuf2-core.h
-index a2b2208b02da..6a5025a50708 100644
+index f11b96514cf7..6db55c6a9804 100644
 --- a/include/media/videobuf2-core.h
 +++ b/include/media/videobuf2-core.h
 @@ -19,7 +19,7 @@
@@ -28,7 +28,7 @@ index a2b2208b02da..6a5025a50708 100644
  
  /**
 diff --git a/include/uapi/linux/videodev2.h b/include/uapi/linux/videodev2.h
-index e9184fdc1bd5..320c67fa2cae 100644
+index ea92fea7d704..a7f7c2eefb9e 100644
 --- a/include/uapi/linux/videodev2.h
 +++ b/include/uapi/linux/videodev2.h
 @@ -70,7 +70,7 @@

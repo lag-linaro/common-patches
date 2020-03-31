@@ -55,7 +55,7 @@ index 4d0711f54047..99a6f4a4f758 100644
  NOSTDINC_FLAGS += -nostdinc -isystem $(shell $(CC) -print-file-name=include)
  
 diff --git a/arch/Kconfig b/arch/Kconfig
-index 17fe351cdde0..93593557558b 100644
+index 516f2b05bd66..4be18f28e489 100644
 --- a/arch/Kconfig
 +++ b/arch/Kconfig
 @@ -526,6 +526,40 @@ config STACKPROTECTOR_STRONG
@@ -273,7 +273,7 @@ index d90af13431c7..4b5bc1053fec 100644
  	/*
  	 * We must handle setting up seccomp filters once we're under
 diff --git a/kernel/sched/core.c b/kernel/sched/core.c
-index 5a077b1eb42b..b1247112ce5a 100644
+index f5929a67a2f2..475e5ec0be33 100644
 --- a/kernel/sched/core.c
 +++ b/kernel/sched/core.c
 @@ -11,6 +11,7 @@
@@ -284,7 +284,7 @@ index 5a077b1eb42b..b1247112ce5a 100644
  
  #include <asm/switch_to.h>
  #include <asm/tlb.h>
-@@ -6022,6 +6023,7 @@ void init_idle(struct task_struct *idle, int cpu)
+@@ -6036,6 +6037,7 @@ void init_idle(struct task_struct *idle, int cpu)
  	idle->se.exec_start = sched_clock();
  	idle->flags |= PF_IDLE;
  

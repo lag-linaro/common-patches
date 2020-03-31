@@ -33,7 +33,7 @@ Change-Id: I1b0eb38ee1c2762647dab79b5f18916e63980ab2
  1 file changed, 4 insertions(+)
 
 diff --git a/drivers/of/property.c b/drivers/of/property.c
-index bf7f31568b60..1ace137417f0 100644
+index f104f15b57fb..b4916dcc9e72 100644
 --- a/drivers/of/property.c
 +++ b/drivers/of/property.c
 @@ -1204,6 +1204,8 @@ DEFINE_SIMPLE_PROP(mboxes, "mboxes", "#mbox-cells")

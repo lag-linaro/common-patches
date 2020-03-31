@@ -36,10 +36,10 @@ Link: https://patchwork.kernel.org/patch/11214781/
  6 files changed, 34 insertions(+), 7 deletions(-)
 
 diff --git a/fs/buffer.c b/fs/buffer.c
-index b8d28370cfd7..24848739bfc9 100644
+index f73276d746bb..a146228f04f8 100644
 --- a/fs/buffer.c
 +++ b/fs/buffer.c
-@@ -3085,6 +3085,8 @@ static int submit_bh_wbc(int op, int op_flags, struct buffer_head *bh,
+@@ -3036,6 +3036,8 @@ static int submit_bh_wbc(int op, int op_flags, struct buffer_head *bh,
  	 */
  	bio = bio_alloc(GFP_NOIO, 1);
  
@@ -83,10 +83,10 @@ index fa0ff78dc033..5714ff6395a1 100644
  			BUG_ON(!fscrypt_has_encryption_key(inode));
  			err = fscrypt_decrypt_pagecache_blocks(page, blocksize,
 diff --git a/fs/ext4/page-io.c b/fs/ext4/page-io.c
-index 68b39e75446a..0757145a31b2 100644
+index de6fe969f773..defd2e10dfd1 100644
 --- a/fs/ext4/page-io.c
 +++ b/fs/ext4/page-io.c
-@@ -404,6 +404,7 @@ static void io_submit_init_bio(struct ext4_io_submit *io,
+@@ -402,6 +402,7 @@ static void io_submit_init_bio(struct ext4_io_submit *io,
  	 * __GFP_DIRECT_RECLAIM is set, see comments for bio_alloc_bioset().
  	 */
  	bio = bio_alloc(GFP_NOIO, BIO_MAX_PAGES);
@@ -94,7 +94,7 @@ index 68b39e75446a..0757145a31b2 100644
  	bio->bi_iter.bi_sector = bh->b_blocknr * (bh->b_size >> 9);
  	bio_set_dev(bio, bh->b_bdev);
  	bio->bi_end_io = ext4_end_bio;
-@@ -420,7 +421,8 @@ static void io_submit_add_bh(struct ext4_io_submit *io,
+@@ -418,7 +419,8 @@ static void io_submit_add_bh(struct ext4_io_submit *io,
  {
  	int ret;
  
@@ -104,7 +104,7 @@ index 68b39e75446a..0757145a31b2 100644
  submit_and_retry:
  		ext4_io_submit(io);
  	}
-@@ -508,7 +510,7 @@ int ext4_bio_write_page(struct ext4_io_submit *io,
+@@ -506,7 +508,7 @@ int ext4_bio_write_page(struct ext4_io_submit *io,
  	 * (e.g. holes) to be unnecessarily encrypted, but this is rare and
  	 * can't happen in the common case of blocksize == PAGE_SIZE.
  	 */
@@ -168,7 +168,7 @@ index c1769afbf799..b4c46ae2585b 100644
  			bio->bi_iter.bi_sector = blocks[0] << (blkbits - 9);
  			bio->bi_end_io = mpage_end_io;
 diff --git a/fs/ext4/super.c b/fs/ext4/super.c
-index 0c7c4adb664e..5144cdf7ad81 100644
+index c8dff4c68141..43d96aebe97e 100644
 --- a/fs/ext4/super.c
 +++ b/fs/ext4/super.c
 @@ -1411,6 +1411,11 @@ static void ext4_get_ino_and_lblk_bits(struct super_block *sb,

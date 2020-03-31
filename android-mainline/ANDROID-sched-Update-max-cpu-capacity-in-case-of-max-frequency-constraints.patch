@@ -60,25 +60,16 @@ Signed-off-by: Dietmar Eggemann <dietmar.eggemann@arm.com>
    fix from Caesar Wang <wxt@rock-chips.com>)
 Signed-off-by: Quentin Perret <quentin.perret@arm.com>
 ---
- kernel/sched/fair.c     | 34 ++++++++++++++++++++++++++++++++--
+ kernel/sched/fair.c     | 32 +++++++++++++++++++++++++++++++-
  kernel/sched/sched.h    | 10 +++++++++-
  kernel/sched/topology.c | 15 +++------------
- 3 files changed, 44 insertions(+), 15 deletions(-)
+ 3 files changed, 43 insertions(+), 14 deletions(-)
 
 diff --git a/kernel/sched/fair.c b/kernel/sched/fair.c
-index 35655ab2f2ef..9ce0d7ecbd2e 100644
+index 5123d9bfa6c6..7907e9bbdde8 100644
 --- a/kernel/sched/fair.c
 +++ b/kernel/sched/fair.c
-@@ -6115,7 +6115,7 @@ static int wake_cap(struct task_struct *p, int cpu, int prev_cpu)
- 		return 0;
- 
- 	min_cap = min(capacity_orig_of(prev_cpu), capacity_orig_of(cpu));
--	max_cap = cpu_rq(cpu)->rd->max_cpu_capacity;
-+	max_cap = cpu_rq(cpu)->rd->max_cpu_capacity.val;
- 
- 	/* Minimum capacity is close to max, no need to abort wake_affine */
- 	if (max_cap - min_cap < max_cap >> 3)
-@@ -7779,16 +7779,46 @@ static unsigned long scale_rt_capacity(int cpu, unsigned long max)
+@@ -8055,16 +8055,46 @@ static unsigned long scale_rt_capacity(int cpu, unsigned long max)
  	return scale_irq_capacity(free, irq, max);
  }
  
@@ -125,7 +116,7 @@ index 35655ab2f2ef..9ce0d7ecbd2e 100644
  	capacity = scale_rt_capacity(cpu, capacity);
  
  	if (!capacity)
-@@ -7875,7 +7905,7 @@ check_cpu_capacity(struct rq *rq, struct sched_domain *sd)
+@@ -8151,7 +8181,7 @@ check_cpu_capacity(struct rq *rq, struct sched_domain *sd)
  static inline int check_misfit_status(struct rq *rq, struct sched_domain *sd)
  {
  	return rq->misfit_task_load &&
@@ -135,10 +126,10 @@ index 35655ab2f2ef..9ce0d7ecbd2e 100644
  }
  
 diff --git a/kernel/sched/sched.h b/kernel/sched/sched.h
-index 6b82e443e43a..ddd6920ef2ac 100644
+index a6631cac5cf8..b8a903534d53 100644
 --- a/kernel/sched/sched.h
 +++ b/kernel/sched/sched.h
-@@ -717,6 +717,12 @@ struct perf_domain {
+@@ -739,6 +739,12 @@ struct perf_domain {
  	struct rcu_head rcu;
  };
  
@@ -151,7 +142,7 @@ index 6b82e443e43a..ddd6920ef2ac 100644
  /* Scheduling group status flags */
  #define SG_OVERLOAD		0x1 /* More than one runnable task on a CPU. */
  #define SG_OVERUTILIZED		0x2 /* One or more CPUs are over-utilized. */
-@@ -775,7 +781,8 @@ struct root_domain {
+@@ -797,7 +803,8 @@ struct root_domain {
  	cpumask_var_t		rto_mask;
  	struct cpupri		cpupri;
  
@@ -161,7 +152,7 @@ index 6b82e443e43a..ddd6920ef2ac 100644
  
  	/*
  	 * NULL-terminated list of performance domains intersecting with the
-@@ -785,6 +792,7 @@ struct root_domain {
+@@ -807,6 +814,7 @@ struct root_domain {
  };
  
  extern void init_defrootdomain(void);
@@ -170,10 +161,10 @@ index 6b82e443e43a..ddd6920ef2ac 100644
  extern void rq_attach_root(struct rq *rq, struct root_domain *rd);
  extern void sched_get_rd(struct root_domain *rd);
 diff --git a/kernel/sched/topology.c b/kernel/sched/topology.c
-index dfb64c08a407..6b8485dfe791 100644
+index 8344757bba6e..9ff1d62ef0c7 100644
 --- a/kernel/sched/topology.c
 +++ b/kernel/sched/topology.c
-@@ -510,6 +510,9 @@ static int init_rootdomain(struct root_domain *rd)
+@@ -518,6 +518,9 @@ static int init_rootdomain(struct root_domain *rd)
  
  	if (cpupri_init(&rd->cpupri) != 0)
  		goto free_cpudl;
@@ -183,7 +174,7 @@ index dfb64c08a407..6b8485dfe791 100644
  	return 0;
  
  free_cpudl:
-@@ -1984,7 +1987,6 @@ build_sched_domains(const struct cpumask *cpu_map, struct sched_domain_attr *att
+@@ -1983,7 +1986,6 @@ build_sched_domains(const struct cpumask *cpu_map, struct sched_domain_attr *att
  	enum s_alloc alloc_state = sa_none;
  	struct sched_domain *sd;
  	struct s_data d;
@@ -191,7 +182,7 @@ index dfb64c08a407..6b8485dfe791 100644
  	int i, ret = -ENOMEM;
  	struct sched_domain_topology_level *tl_asym;
  	bool has_asym = false;
-@@ -2053,13 +2055,7 @@ build_sched_domains(const struct cpumask *cpu_map, struct sched_domain_attr *att
+@@ -2052,13 +2054,7 @@ build_sched_domains(const struct cpumask *cpu_map, struct sched_domain_attr *att
  	/* Attach the domains */
  	rcu_read_lock();
  	for_each_cpu(i, cpu_map) {
@@ -205,7 +196,7 @@ index dfb64c08a407..6b8485dfe791 100644
  		cpu_attach_domain(sd, d.rd, i);
  	}
  	rcu_read_unlock();
-@@ -2067,11 +2063,6 @@ build_sched_domains(const struct cpumask *cpu_map, struct sched_domain_attr *att
+@@ -2066,11 +2062,6 @@ build_sched_domains(const struct cpumask *cpu_map, struct sched_domain_attr *att
  	if (has_asym)
  		static_branch_inc_cpuslocked(&sched_asym_cpucapacity);
  

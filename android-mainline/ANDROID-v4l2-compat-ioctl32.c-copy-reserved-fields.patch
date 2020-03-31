@@ -54,10 +54,10 @@ index a99e82ec9ab6..cd8927eabc33 100644
  
  	switch (memory) {
 diff --git a/include/uapi/linux/videodev2.h b/include/uapi/linux/videodev2.h
-index 5f9357dcb060..e9184fdc1bd5 100644
+index 9817b7e2c968..ea92fea7d704 100644
 --- a/include/uapi/linux/videodev2.h
 +++ b/include/uapi/linux/videodev2.h
-@@ -961,7 +961,9 @@ struct v4l2_requestbuffers {
+@@ -966,7 +966,9 @@ struct v4l2_requestbuffers {
   *			descriptor associated with this plane
   * @data_offset:	offset in the plane to the start of data; usually 0,
   *			unless there is a header in front of the data
@@ -68,7 +68,7 @@ index 5f9357dcb060..e9184fdc1bd5 100644
   * Multi-planar buffers consist of one or more planes, e.g. an YCbCr buffer
   * with two planes can have one plane for Y, and another for interleaved CbCr
   * components. Each plane can reside in a separate memory buffer, or even in
-@@ -976,6 +978,7 @@ struct v4l2_plane {
+@@ -981,6 +983,7 @@ struct v4l2_plane {
  		__s32		fd;
  	} m;
  	__u32			data_offset;

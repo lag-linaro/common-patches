@@ -14,10 +14,10 @@ Signed-off-by: Sami Tolvanen <samitolvanen@google.com>
  2 files changed, 7 insertions(+)
 
 diff --git a/arch/x86/Kconfig b/arch/x86/Kconfig
-index d174c8de33c7..608ff1d65aeb 100644
+index 3fd8b24eb125..4850c34c1fd9 100644
 --- a/arch/x86/Kconfig
 +++ b/arch/x86/Kconfig
-@@ -89,6 +89,8 @@ config X86
+@@ -88,6 +88,8 @@ config X86
  	select ARCH_SUPPORTS_ACPI
  	select ARCH_SUPPORTS_ATOMIC_RMW
  	select ARCH_SUPPORTS_NUMA_BALANCING	if X86_64

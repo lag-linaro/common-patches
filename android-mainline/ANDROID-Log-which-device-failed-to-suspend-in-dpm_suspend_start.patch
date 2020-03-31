@@ -30,10 +30,10 @@ Signed-off-by: zhuguangqing <zhuguangqing@xiaomi.com>
  2 files changed, 6 insertions(+), 2 deletions(-)
 
 diff --git a/drivers/base/power/main.c b/drivers/base/power/main.c
-index 18a2b66023cd..4771e218d5f1 100644
+index d7f62c72f1a5..85bacf30414a 100644
 --- a/drivers/base/power/main.c
 +++ b/drivers/base/power/main.c
-@@ -2028,6 +2028,7 @@ int dpm_prepare(pm_message_t state)
+@@ -2032,6 +2032,7 @@ int dpm_prepare(pm_message_t state)
  			}
  			pr_info("Device %s not prepared for power transition: code %d\n",
  				dev_name(dev), error);

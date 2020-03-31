@@ -22,7 +22,7 @@ Signed-off-by: Alistair Delva <adelva@google.com>
  1 file changed, 4 insertions(+), 2 deletions(-)
 
 diff --git a/drivers/block/virtio_blk.c b/drivers/block/virtio_blk.c
-index 0736248999b0..fdbfc04b6312 100644
+index f9b1e70f1b31..0df72c7aa97f 100644
 --- a/drivers/block/virtio_blk.c
 +++ b/drivers/block/virtio_blk.c
 @@ -195,8 +195,6 @@ static blk_status_t virtio_queue_rq(struct blk_mq_hw_ctx *hctx,

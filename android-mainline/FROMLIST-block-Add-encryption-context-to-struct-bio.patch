@@ -44,10 +44,10 @@ Signed-off-by: Matthias Maennich <maennich@google.com>
  create mode 100644 include/linux/bio-crypt-ctx.h
 
 diff --git a/block/Makefile b/block/Makefile
-index ef3a05dcf1f2..8af7e08909c2 100644
+index fc963e4676b0..739a8011a86f 100644
 --- a/block/Makefile
 +++ b/block/Makefile
-@@ -37,4 +37,4 @@ obj-$(CONFIG_BLK_DEBUG_FS)	+= blk-mq-debugfs.o
+@@ -36,4 +36,4 @@ obj-$(CONFIG_BLK_DEBUG_FS)	+= blk-mq-debugfs.o
  obj-$(CONFIG_BLK_DEBUG_FS_ZONED)+= blk-mq-debugfs-zoned.o
  obj-$(CONFIG_BLK_SED_OPAL)	+= sed-opal.o
  obj-$(CONFIG_BLK_PM)		+= blk-pm.o
@@ -200,10 +200,10 @@ index 000000000000..95fd57896466
 +	return 0;
 +}
 diff --git a/block/bio.c b/block/bio.c
-index 94d697217887..cc5ff661feeb 100644
+index 21cbaa6a1c20..dc052b140f1e 100644
 --- a/block/bio.c
 +++ b/block/bio.c
-@@ -244,6 +244,7 @@ static void bio_free(struct bio *bio)
+@@ -245,6 +245,7 @@ static void bio_free(struct bio *bio)
  	struct bio_set *bs = bio->bi_pool;
  	void *p;
  
@@ -211,7 +211,7 @@ index 94d697217887..cc5ff661feeb 100644
  	bio_uninit(bio);
  
  	if (bs) {
-@@ -664,15 +665,15 @@ struct bio *bio_clone_fast(struct bio *bio, gfp_t gfp_mask, struct bio_set *bs)
+@@ -708,15 +709,15 @@ struct bio *bio_clone_fast(struct bio *bio, gfp_t gfp_mask, struct bio_set *bs)
  
  	__bio_clone_fast(b, bio);
  
@@ -235,7 +235,7 @@ index 94d697217887..cc5ff661feeb 100644
  	}
  
  	return b;
-@@ -1046,6 +1047,7 @@ void bio_advance(struct bio *bio, unsigned bytes)
+@@ -1105,6 +1106,7 @@ void bio_advance(struct bio *bio, unsigned bytes)
  	if (bio_integrity(bio))
  		bio_integrity_advance(bio, bytes);
  
@@ -244,10 +244,10 @@ index 94d697217887..cc5ff661feeb 100644
  }
  EXPORT_SYMBOL(bio_advance);
 diff --git a/block/blk-core.c b/block/blk-core.c
-index 60dc9552ef8d..42d7654d3628 100644
+index 7e4a1da0715e..3f4a7a1e9d9a 100644
 --- a/block/blk-core.c
 +++ b/block/blk-core.c
-@@ -1807,5 +1807,8 @@ int __init blk_dev_init(void)
+@@ -1801,5 +1801,8 @@ int __init blk_dev_init(void)
  	blk_debugfs_root = debugfs_create_dir("block", NULL);
  #endif
  
@@ -359,10 +359,10 @@ index f8ed677a1bf7..6f9a2359b22a 100644
  
  	bio_clone_blkg_association(bio, bio_src);
 diff --git a/drivers/md/dm.c b/drivers/md/dm.c
-index 0413018c8305..623dcbadf922 100644
+index 753302e83910..fe7be46424e1 100644
 --- a/drivers/md/dm.c
 +++ b/drivers/md/dm.c
-@@ -1301,12 +1301,15 @@ static int clone_bio(struct dm_target_io *tio, struct bio *bio,
+@@ -1302,12 +1302,15 @@ static int clone_bio(struct dm_target_io *tio, struct bio *bio,
  		     sector_t sector, unsigned len)
  {
  	struct bio *clone = &tio->clone;
@@ -380,7 +380,7 @@ index 0413018c8305..623dcbadf922 100644
  		if (unlikely(!dm_target_has_integrity(tio->ti->type) &&
  			     !dm_target_passes_integrity(tio->ti->type))) {
  			DMWARN("%s: the target %s doesn't support integrity data.",
-@@ -1315,9 +1318,11 @@ static int clone_bio(struct dm_target_io *tio, struct bio *bio,
+@@ -1316,9 +1319,11 @@ static int clone_bio(struct dm_target_io *tio, struct bio *bio,
  			return -EIO;
  		}
  
@@ -621,7 +621,7 @@ index 000000000000..5cd569f77c31
 +#endif /* CONFIG_BLOCK */
 +#endif /* __LINUX_BIO_CRYPT_CTX_H */
 diff --git a/include/linux/bio.h b/include/linux/bio.h
-index 4ae9259c1dfd..e5870aaa2d6c 100644
+index 3bafe75e4b2b..a221f43cfbb8 100644
 --- a/include/linux/bio.h
 +++ b/include/linux/bio.h
 @@ -8,6 +8,7 @@
@@ -632,7 +632,7 @@ index 4ae9259c1dfd..e5870aaa2d6c 100644
  
  #ifdef CONFIG_BLOCK
  /* struct bio, bio_vec and BIO_* flags are defined in blk_types.h */
-@@ -565,11 +566,6 @@ static inline void bvec_kunmap_irq(char *buffer, unsigned long *flags)
+@@ -552,11 +553,6 @@ static inline void bvec_kunmap_irq(char *buffer, unsigned long *flags)
  }
  #endif
  

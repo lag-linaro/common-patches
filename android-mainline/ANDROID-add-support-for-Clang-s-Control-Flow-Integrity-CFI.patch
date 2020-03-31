@@ -57,7 +57,7 @@ index edbc4ed842f5..ed317d8efb7d 100644
  NOSTDINC_FLAGS += -nostdinc -isystem $(shell $(CC) -print-file-name=include)
  
 diff --git a/arch/Kconfig b/arch/Kconfig
-index 2f91463d3972..3acd18157a5d 100644
+index 7643d668e31a..161004ce1d40 100644
 --- a/arch/Kconfig
 +++ b/arch/Kconfig
 @@ -607,6 +607,29 @@ config LTO_CLANG
@@ -232,10 +232,10 @@ index 8d5397f9fa4c..33ffec021e72 100644
  #ifdef CONFIG_SYSFS
  	struct mutex param_lock;
 diff --git a/init/Kconfig b/init/Kconfig
-index f9bf7f1a3d39..5aa9f54762cf 100644
+index 632836e62bd2..dd597a86dc13 100644
 --- a/init/Kconfig
 +++ b/init/Kconfig
-@@ -2214,7 +2214,7 @@ endif # MODULES
+@@ -2218,7 +2218,7 @@ endif # MODULES
  
  config MODULES_TREE_LOOKUP
  	def_bool y

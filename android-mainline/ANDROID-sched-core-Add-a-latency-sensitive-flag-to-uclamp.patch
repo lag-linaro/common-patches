@@ -24,10 +24,10 @@ Signed-off-by: Quentin Perret <quentin.perret@arm.com>
  2 files changed, 35 insertions(+)
 
 diff --git a/kernel/sched/core.c b/kernel/sched/core.c
-index b1247112ce5a..1ae88d287e54 100644
+index 475e5ec0be33..02345840b533 100644
 --- a/kernel/sched/core.c
 +++ b/kernel/sched/core.c
-@@ -7346,6 +7346,27 @@ static int cpu_uclamp_max_show(struct seq_file *sf, void *v)
+@@ -7360,6 +7360,27 @@ static int cpu_uclamp_max_show(struct seq_file *sf, void *v)
  	cpu_uclamp_print(sf, UCLAMP_MAX);
  	return 0;
  }
@@ -55,7 +55,7 @@ index b1247112ce5a..1ae88d287e54 100644
  #endif /* CONFIG_UCLAMP_TASK_GROUP */
  
  #ifdef CONFIG_FAIR_GROUP_SCHED
-@@ -7706,6 +7727,12 @@ static struct cftype cpu_legacy_files[] = {
+@@ -7720,6 +7741,12 @@ static struct cftype cpu_legacy_files[] = {
  		.seq_show = cpu_uclamp_max_show,
  		.write = cpu_uclamp_max_write,
  	},
@@ -68,7 +68,7 @@ index b1247112ce5a..1ae88d287e54 100644
  #endif
  	{ }	/* Terminate */
  };
-@@ -7887,6 +7914,12 @@ static struct cftype cpu_files[] = {
+@@ -7901,6 +7928,12 @@ static struct cftype cpu_files[] = {
  		.seq_show = cpu_uclamp_max_show,
  		.write = cpu_uclamp_max_write,
  	},
@@ -82,10 +82,10 @@ index b1247112ce5a..1ae88d287e54 100644
  	{ }	/* terminate */
  };
 diff --git a/kernel/sched/sched.h b/kernel/sched/sched.h
-index ddd6920ef2ac..80c4270a1af1 100644
+index b8a903534d53..e65b94eba88b 100644
 --- a/kernel/sched/sched.h
 +++ b/kernel/sched/sched.h
-@@ -399,6 +399,8 @@ struct task_group {
+@@ -404,6 +404,8 @@ struct task_group {
  	struct uclamp_se	uclamp_req[UCLAMP_CNT];
  	/* Effective clamp values used for a task group */
  	struct uclamp_se	uclamp[UCLAMP_CNT];

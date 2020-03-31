@@ -21,7 +21,7 @@ Change-Id: I81b5fb5d3ce0259a60712ae2505c1e4b03dbafde
  2 files changed, 83 insertions(+)
 
 diff --git a/fs/libfs.c b/fs/libfs.c
-index c686bd9caac6..9fa554ce6f54 100644
+index 3759fbacf522..01c566a3f879 100644
 --- a/fs/libfs.c
 +++ b/fs/libfs.c
 @@ -20,6 +20,8 @@
@@ -33,7 +33,7 @@ index c686bd9caac6..9fa554ce6f54 100644
  
  #include <linux/uaccess.h>
  
-@@ -1361,3 +1363,62 @@ bool is_empty_dir_inode(struct inode *inode)
+@@ -1363,3 +1365,62 @@ bool is_empty_dir_inode(struct inode *inode)
  	return (inode->i_fop == &empty_dir_operations) &&
  		(inode->i_op == &empty_dir_inode_operations);
  }
@@ -97,7 +97,7 @@ index c686bd9caac6..9fa554ce6f54 100644
 +EXPORT_SYMBOL(generic_ci_d_hash);
 +#endif
 diff --git a/include/linux/fs.h b/include/linux/fs.h
-index b65c64ef97fe..77c403bbc3f6 100644
+index 8257c167eede..8531b170686c 100644
 --- a/include/linux/fs.h
 +++ b/include/linux/fs.h
 @@ -1383,6 +1383,12 @@ extern int send_sigurg(struct fown_struct *fown);
@@ -124,7 +124,7 @@ index b65c64ef97fe..77c403bbc3f6 100644
  #endif
  	struct hlist_bl_head	s_roots;	/* alternate root dentries for NFS */
  	struct list_head	s_mounts;	/* list of mounts; _not_ for fs use */
-@@ -3391,6 +3401,18 @@ extern int generic_file_fsync(struct file *, loff_t, loff_t, int);
+@@ -3393,6 +3403,18 @@ extern int generic_file_fsync(struct file *, loff_t, loff_t, int);
  
  extern int generic_check_addressable(unsigned, u64);
  

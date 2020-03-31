@@ -147,7 +147,7 @@ index 49a058c73e4c..a95e519b77bf 100644
  int get_dominating_id(struct mount *mnt, const struct path *root);
  unsigned int mnt_get_count(struct mount *mnt);
 diff --git a/include/linux/fs.h b/include/linux/fs.h
-index 0314b94e4ab9..b65c64ef97fe 100644
+index c7a1de21b491..8257c167eede 100644
 --- a/include/linux/fs.h
 +++ b/include/linux/fs.h
 @@ -1969,6 +1969,9 @@ struct super_operations {

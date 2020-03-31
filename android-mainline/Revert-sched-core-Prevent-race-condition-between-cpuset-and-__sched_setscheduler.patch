@@ -75,10 +75,10 @@ index 58f5073acff7..5c2c872c04a2 100644
  
  static struct workqueue_struct *cpuset_migrate_mm_wq;
 diff --git a/kernel/sched/core.c b/kernel/sched/core.c
-index 1a9983da4408..5a077b1eb42b 100644
+index a2694ba82874..f5929a67a2f2 100644
 --- a/kernel/sched/core.c
 +++ b/kernel/sched/core.c
-@@ -4865,9 +4865,6 @@ static int __sched_setscheduler(struct task_struct *p,
+@@ -4879,9 +4879,6 @@ static int __sched_setscheduler(struct task_struct *p,
  			return retval;
  	}
  
@@ -88,7 +88,7 @@ index 1a9983da4408..5a077b1eb42b 100644
  	/*
  	 * Make sure no PI-waiters arrive (or leave) while we are
  	 * changing the priority of the task:
-@@ -4942,8 +4939,6 @@ static int __sched_setscheduler(struct task_struct *p,
+@@ -4956,8 +4953,6 @@ static int __sched_setscheduler(struct task_struct *p,
  	if (unlikely(oldpolicy != -1 && oldpolicy != p->policy)) {
  		policy = oldpolicy = -1;
  		task_rq_unlock(rq, p, &rf);
@@ -97,7 +97,7 @@ index 1a9983da4408..5a077b1eb42b 100644
  		goto recheck;
  	}
  
-@@ -5004,10 +4999,8 @@ static int __sched_setscheduler(struct task_struct *p,
+@@ -5018,10 +5013,8 @@ static int __sched_setscheduler(struct task_struct *p,
  	preempt_disable();
  	task_rq_unlock(rq, p, &rf);
  
@@ -109,7 +109,7 @@ index 1a9983da4408..5a077b1eb42b 100644
  
  	/* Run balance callbacks after we've adjusted the PI chain: */
  	balance_callback(rq);
-@@ -5017,8 +5010,6 @@ static int __sched_setscheduler(struct task_struct *p,
+@@ -5031,8 +5024,6 @@ static int __sched_setscheduler(struct task_struct *p,
  
  unlock:
  	task_rq_unlock(rq, p, &rf);
@@ -118,7 +118,7 @@ index 1a9983da4408..5a077b1eb42b 100644
  	return retval;
  }
  
-@@ -5103,14 +5094,9 @@ do_sched_setscheduler(pid_t pid, int policy, struct sched_param __user *param)
+@@ -5117,14 +5108,9 @@ do_sched_setscheduler(pid_t pid, int policy, struct sched_param __user *param)
  	rcu_read_lock();
  	retval = -ESRCH;
  	p = find_process_by_pid(pid);

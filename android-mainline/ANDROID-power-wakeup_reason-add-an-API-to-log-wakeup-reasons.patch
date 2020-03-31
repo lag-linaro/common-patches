@@ -64,7 +64,7 @@ index 000000000000..acb19b91c192
 +		is the time spent in sleep state.
 \ No newline at end of file
 diff --git a/drivers/base/power/main.c b/drivers/base/power/main.c
-index 0e99a760aebd..18a2b66023cd 100644
+index 6d1dee7051eb..d7f62c72f1a5 100644
 --- a/drivers/base/power/main.c
 +++ b/drivers/base/power/main.c
 @@ -34,6 +34,7 @@
@@ -75,7 +75,7 @@ index 0e99a760aebd..18a2b66023cd 100644
  
  #include "../base.h"
  #include "power.h"
-@@ -1715,6 +1716,7 @@ static int __device_suspend(struct device *dev, pm_message_t state, bool async)
+@@ -1719,6 +1720,7 @@ static int __device_suspend(struct device *dev, pm_message_t state, bool async)
  	pm_callback_t callback = NULL;
  	const char *info = NULL;
  	int error = 0;
@@ -83,7 +83,7 @@ index 0e99a760aebd..18a2b66023cd 100644
  	DECLARE_DPM_WATCHDOG_ON_STACK(wd);
  
  	TRACE_DEVICE(dev);
-@@ -1738,6 +1740,9 @@ static int __device_suspend(struct device *dev, pm_message_t state, bool async)
+@@ -1742,6 +1744,9 @@ static int __device_suspend(struct device *dev, pm_message_t state, bool async)
  
  	if (pm_wakeup_pending()) {
  		dev->power.direct_complete = false;
@@ -94,7 +94,7 @@ index 0e99a760aebd..18a2b66023cd 100644
  		goto Complete;
  	}
 diff --git a/drivers/base/power/wakeup.c b/drivers/base/power/wakeup.c
-index 27f3e60608e5..74e888e19ee0 100644
+index 92073ac68473..b27139642912 100644
 --- a/drivers/base/power/wakeup.c
 +++ b/drivers/base/power/wakeup.c
 @@ -15,6 +15,7 @@
@@ -105,7 +105,7 @@ index 27f3e60608e5..74e888e19ee0 100644
  #include <trace/events/power.h>
  
  #include "power.h"
-@@ -867,6 +868,37 @@ void pm_wakeup_dev_event(struct device *dev, unsigned int msec, bool hard)
+@@ -872,6 +873,37 @@ void pm_wakeup_dev_event(struct device *dev, unsigned int msec, bool hard)
  }
  EXPORT_SYMBOL_GPL(pm_wakeup_dev_event);
  

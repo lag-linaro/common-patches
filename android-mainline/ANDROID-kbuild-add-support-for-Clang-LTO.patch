@@ -86,7 +86,7 @@ index 4838ac8cdeb0..edbc4ed842f5 100644
  # Generate tags for editors
  # ---------------------------------------------------------------------------
 diff --git a/arch/Kconfig b/arch/Kconfig
-index 93593557558b..e73f20a909a0 100644
+index 4be18f28e489..30db84ca509b 100644
 --- a/arch/Kconfig
 +++ b/arch/Kconfig
 @@ -559,6 +559,53 @@ config SHADOW_CALL_STACK_VMAP
@@ -451,7 +451,7 @@ index dd484e92752e..c0de2ac66c1e 100755
  
  # modpost vmlinux.o to check for section mismatches
 diff --git a/scripts/mod/modpost.c b/scripts/mod/modpost.c
-index 55a0a2eccbd2..6737e2569661 100644
+index acf0a69d68ce..09bf885313ba 100644
 --- a/scripts/mod/modpost.c
 +++ b/scripts/mod/modpost.c
 @@ -145,6 +145,9 @@ static struct module *new_module(const char *modname)

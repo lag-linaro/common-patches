@@ -15,7 +15,7 @@ Change-Id: I79f444399ea3b2948364fde80ccee52a9ece5b9a
  1 file changed, 3 insertions(+)
 
 diff --git a/arch/arm/include/asm/topology.h b/arch/arm/include/asm/topology.h
-index 8a0fae94d45e..a2edacb56459 100644
+index 435aba289fc5..5d57c07740ca 100644
 --- a/arch/arm/include/asm/topology.h
 +++ b/arch/arm/include/asm/topology.h
 @@ -10,6 +10,9 @@

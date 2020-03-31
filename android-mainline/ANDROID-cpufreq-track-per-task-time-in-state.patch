@@ -386,10 +386,10 @@ index 000000000000..bfef6e62c68a
 +#endif /* CONFIG_CPU_FREQ_TIMES */
 +#endif /* _LINUX_CPUFREQ_TIMES_H */
 diff --git a/include/linux/sched.h b/include/linux/sched.h
-index 04278493bf15..d88d1bc5f278 100644
+index 5d0d2fc018e9..e8058dfb58f2 100644
 --- a/include/linux/sched.h
 +++ b/include/linux/sched.h
-@@ -846,6 +846,10 @@ struct task_struct {
+@@ -852,6 +852,10 @@ struct task_struct {
  	u64				stimescaled;
  #endif
  	u64				gtime;
@@ -431,7 +431,7 @@ index 4b5bc1053fec..41af5efeee5c 100644
  	 * Do this prior waking up the new thread - the thread pointer
  	 * might get invalid after that point, if the thread exits quickly.
 diff --git a/kernel/sched/cputime.c b/kernel/sched/cputime.c
-index cff3e656566d..d3c160ae2fc5 100644
+index dac9104d126f..d5d1679b646a 100644
 --- a/kernel/sched/cputime.c
 +++ b/kernel/sched/cputime.c
 @@ -2,6 +2,7 @@

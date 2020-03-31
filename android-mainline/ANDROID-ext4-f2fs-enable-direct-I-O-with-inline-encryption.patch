@@ -102,10 +102,10 @@ index 5f225881176b..eefe69f0137a 100644
  			inode_unlock_shared(inode);
  		else
 diff --git a/fs/f2fs/f2fs.h b/fs/f2fs/f2fs.h
-index 75817f0dc6f8..19db99691eb6 100644
+index f8dcd9a255f5..13a09408858a 100644
 --- a/fs/f2fs/f2fs.h
 +++ b/fs/f2fs/f2fs.h
-@@ -3983,7 +3983,13 @@ static inline bool f2fs_force_buffered_io(struct inode *inode,
+@@ -3984,7 +3984,13 @@ static inline bool f2fs_force_buffered_io(struct inode *inode,
  	struct f2fs_sb_info *sbi = F2FS_I_SB(inode);
  	int rw = iov_iter_rw(iter);
  

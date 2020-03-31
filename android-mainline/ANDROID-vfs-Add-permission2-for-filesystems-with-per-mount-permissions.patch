@@ -61,10 +61,10 @@ index 6dde93f6556f..861c5d1aed43 100644
  				return error;
  		}
 diff --git a/fs/exec.c b/fs/exec.c
-index db17be51b112..27007f44fbdb 100644
+index 688c824cdac8..51dd4ea989fc 100644
 --- a/fs/exec.c
 +++ b/fs/exec.c
-@@ -1316,7 +1316,7 @@ EXPORT_SYMBOL(flush_old_exec);
+@@ -1342,7 +1342,7 @@ EXPORT_SYMBOL(flush_old_exec);
  void would_dump(struct linux_binprm *bprm, struct file *file)
  {
  	struct inode *inode = file_inode(file);
@@ -749,7 +749,7 @@ index 71f887518d6f..9520365195cf 100644
  
  int
 diff --git a/include/linux/fs.h b/include/linux/fs.h
-index d94e8d1aef11..00d60c69716d 100644
+index 86d6282b5b52..5c83e41a4d73 100644
 --- a/include/linux/fs.h
 +++ b/include/linux/fs.h
 @@ -1709,13 +1709,21 @@ extern bool inode_owner_or_capable(const struct inode *inode);
@@ -792,7 +792,7 @@ index d94e8d1aef11..00d60c69716d 100644
  	struct posix_acl * (*get_acl)(struct inode *, int);
  
  	int (*readlink) (struct dentry *, char __user *,int);
-@@ -2893,6 +2905,7 @@ static inline int bmap(struct inode *inode,  sector_t *block)
+@@ -2892,6 +2904,7 @@ static inline int bmap(struct inode *inode,  sector_t *block)
  extern int notify_change(struct dentry *, struct iattr *, struct inode **);
  extern int notify_change2(struct vfsmount *, struct dentry *, struct iattr *, struct inode **);
  extern int inode_permission(struct inode *, int);

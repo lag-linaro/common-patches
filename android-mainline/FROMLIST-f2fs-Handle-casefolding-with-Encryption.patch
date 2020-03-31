@@ -174,10 +174,10 @@ index 38c0e6d589be..a2a21b651c8b 100644
  	f2fs_update_time(F2FS_I_SB(dir), REQ_TIME);
  	return err;
 diff --git a/fs/f2fs/f2fs.h b/fs/f2fs/f2fs.h
-index 9e0b7c41d1ae..e83257c776c1 100644
+index 8ec6e83d32ad..c392dc74fa4e 100644
 --- a/fs/f2fs/f2fs.h
 +++ b/fs/f2fs/f2fs.h
-@@ -3076,11 +3076,6 @@ int f2fs_update_extension_list(struct f2fs_sb_info *sbi, const char *name,
+@@ -3077,11 +3077,6 @@ int f2fs_update_extension_list(struct f2fs_sb_info *sbi, const char *name,
  							bool hot, bool set);
  struct dentry *f2fs_get_parent(struct dentry *child);
  
@@ -189,7 +189,7 @@ index 9e0b7c41d1ae..e83257c776c1 100644
  /*
   * dir.c
   */
-@@ -3114,7 +3109,7 @@ void f2fs_update_dentry(nid_t ino, umode_t mode, struct f2fs_dentry_ptr *d,
+@@ -3115,7 +3110,7 @@ void f2fs_update_dentry(nid_t ino, umode_t mode, struct f2fs_dentry_ptr *d,
  			const struct qstr *name, f2fs_hash_t name_hash,
  			unsigned int bit_pos);
  int f2fs_add_regular_entry(struct inode *dir, const struct qstr *new_name,
@@ -198,7 +198,7 @@ index 9e0b7c41d1ae..e83257c776c1 100644
  			struct inode *inode, nid_t ino, umode_t mode);
  int f2fs_add_dentry(struct inode *dir, struct fscrypt_name *fname,
  			struct inode *inode, nid_t ino, umode_t mode);
-@@ -3147,7 +3142,7 @@ int f2fs_sanity_check_ckpt(struct f2fs_sb_info *sbi);
+@@ -3148,7 +3143,7 @@ int f2fs_sanity_check_ckpt(struct f2fs_sb_info *sbi);
   * hash.c
   */
  f2fs_hash_t f2fs_dentry_hash(const struct inode *dir,
@@ -207,7 +207,7 @@ index 9e0b7c41d1ae..e83257c776c1 100644
  
  /*
   * node.c
-@@ -3659,7 +3654,7 @@ struct f2fs_dir_entry *f2fs_find_in_inline_dir(struct inode *dir,
+@@ -3660,7 +3655,7 @@ struct f2fs_dir_entry *f2fs_find_in_inline_dir(struct inode *dir,
  int f2fs_make_empty_inline_dir(struct inode *inode, struct inode *parent,
  			struct page *ipage);
  int f2fs_add_inline_entry(struct inode *dir, const struct qstr *new_name,
@@ -337,10 +337,10 @@ index 598f8c7e1a46..2e90e67a48d2 100644
  
  	set_page_dirty(ipage);
 diff --git a/fs/f2fs/super.c b/fs/f2fs/super.c
-index 90ab04b0df02..8a1bae1171f5 100644
+index ad0ece3e52a0..cb38e1f548f7 100644
 --- a/fs/f2fs/super.c
 +++ b/fs/f2fs/super.c
-@@ -3269,12 +3269,6 @@ static int f2fs_setup_casefold(struct f2fs_sb_info *sbi)
+@@ -3270,12 +3270,6 @@ static int f2fs_setup_casefold(struct f2fs_sb_info *sbi)
  		struct unicode_map *encoding;
  		__u16 encoding_flags;
  

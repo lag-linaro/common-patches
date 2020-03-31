@@ -62,10 +62,10 @@ index 3bc76bb113a0..a8cf349d0752 100644
  
  source "block/partitions/Kconfig"
 diff --git a/block/Makefile b/block/Makefile
-index 1a43750f4b01..ef3a05dcf1f2 100644
+index 206b96e9387f..fc963e4676b0 100644
 --- a/block/Makefile
 +++ b/block/Makefile
-@@ -37,3 +37,4 @@ obj-$(CONFIG_BLK_DEBUG_FS)	+= blk-mq-debugfs.o
+@@ -36,3 +36,4 @@ obj-$(CONFIG_BLK_DEBUG_FS)	+= blk-mq-debugfs.o
  obj-$(CONFIG_BLK_DEBUG_FS_ZONED)+= blk-mq-debugfs-zoned.o
  obj-$(CONFIG_BLK_SED_OPAL)	+= sed-opal.o
  obj-$(CONFIG_BLK_PM)		+= blk-pm.o
@@ -429,10 +429,10 @@ index 000000000000..020931fc9f7d
 +}
 +EXPORT_SYMBOL(keyslot_manager_destroy);
 diff --git a/include/linux/bio.h b/include/linux/bio.h
-index 853d92ceee64..4ae9259c1dfd 100644
+index c1c0f9ea4e63..3bafe75e4b2b 100644
 --- a/include/linux/bio.h
 +++ b/include/linux/bio.h
-@@ -565,6 +565,11 @@ static inline void bvec_kunmap_irq(char *buffer, unsigned long *flags)
+@@ -552,6 +552,11 @@ static inline void bvec_kunmap_irq(char *buffer, unsigned long *flags)
  }
  #endif
  
@@ -445,7 +445,7 @@ index 853d92ceee64..4ae9259c1dfd 100644
   * BIO list management for use by remapping drivers (e.g. DM or MD) and loop.
   *
 diff --git a/include/linux/blkdev.h b/include/linux/blkdev.h
-index f629d40c645c..3dd9fc5a5755 100644
+index 32868fbedc9e..695dee7d6f85 100644
 --- a/include/linux/blkdev.h
 +++ b/include/linux/blkdev.h
 @@ -43,6 +43,7 @@ struct pr_ops;

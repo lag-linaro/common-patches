@@ -22,10 +22,10 @@ Signed-off-by: Yongqin Liu <yongqin.liu@linaro.org>
  2 files changed, 2 insertions(+), 2 deletions(-)
 
 diff --git a/fs/internal.h b/fs/internal.h
-index f3f280b952a3..17d2d03ffd46 100644
+index 4d37912a5587..2d2f926010c1 100644
 --- a/fs/internal.h
 +++ b/fs/internal.h
-@@ -62,8 +62,6 @@ extern int finish_clean_context(struct fs_context *fc);
+@@ -61,8 +61,6 @@ extern int finish_clean_context(struct fs_context *fc);
  extern int filename_lookup(int dfd, struct filename *name, unsigned flags,
  			   struct path *path, struct path *root);
  extern int user_path_mountpoint_at(int, const char __user *, unsigned int, struct path *);

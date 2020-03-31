@@ -15,7 +15,7 @@ Signed-off-by: Quentin Perret <quentin.perret@arm.com>
  1 file changed, 3 insertions(+)
 
 diff --git a/arch/arm64/include/asm/topology.h b/arch/arm64/include/asm/topology.h
-index a4d945db95a2..70697177d6ec 100644
+index cbd70d78ef15..5555f5fe0f3e 100644
 --- a/arch/arm64/include/asm/topology.h
 +++ b/arch/arm64/include/asm/topology.h
 @@ -19,6 +19,9 @@ int pcibus_to_node(struct pci_bus *bus);

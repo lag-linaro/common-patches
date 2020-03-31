@@ -137,10 +137,10 @@ index 27d0dd7a16d6..d822c0d5eb18 100644
  };
  #endif
 diff --git a/fs/f2fs/f2fs.h b/fs/f2fs/f2fs.h
-index 19db99691eb6..347d1d2dd966 100644
+index 13a09408858a..ee2bf08619b9 100644
 --- a/fs/f2fs/f2fs.h
 +++ b/fs/f2fs/f2fs.h
-@@ -1287,10 +1287,6 @@ struct f2fs_sb_info {
+@@ -1288,10 +1288,6 @@ struct f2fs_sb_info {
  	int valid_super_block;			/* valid super block no */
  	unsigned long s_flag;				/* flags for sbi */
  	struct mutex writepages;		/* mutex for writepages() */
@@ -165,10 +165,10 @@ index 5bc4dcd8fc03..28acb24e7a7a 100644
  	unsigned char *buff;
  	struct qstr folded;
 diff --git a/fs/f2fs/super.c b/fs/f2fs/super.c
-index d142129b4535..705d6d5f7505 100644
+index 1a1fc1b579e7..40e5caf82481 100644
 --- a/fs/f2fs/super.c
 +++ b/fs/f2fs/super.c
-@@ -1222,7 +1222,7 @@ static void f2fs_put_super(struct super_block *sb)
+@@ -1223,7 +1223,7 @@ static void f2fs_put_super(struct super_block *sb)
  	for (i = 0; i < NR_PAGE_TYPE; i++)
  		kvfree(sbi->write_io[i]);
  #ifdef CONFIG_UNICODE
@@ -177,7 +177,7 @@ index d142129b4535..705d6d5f7505 100644
  #endif
  	kvfree(sbi);
  }
-@@ -3264,7 +3264,7 @@ static int f2fs_scan_devices(struct f2fs_sb_info *sbi)
+@@ -3265,7 +3265,7 @@ static int f2fs_scan_devices(struct f2fs_sb_info *sbi)
  static int f2fs_setup_casefold(struct f2fs_sb_info *sbi)
  {
  #ifdef CONFIG_UNICODE
@@ -186,7 +186,7 @@ index d142129b4535..705d6d5f7505 100644
  		const struct f2fs_sb_encodings *encoding_info;
  		struct unicode_map *encoding;
  		__u16 encoding_flags;
-@@ -3295,8 +3295,8 @@ static int f2fs_setup_casefold(struct f2fs_sb_info *sbi)
+@@ -3296,8 +3296,8 @@ static int f2fs_setup_casefold(struct f2fs_sb_info *sbi)
  			 "%s-%s with flags 0x%hx", encoding_info->name,
  			 encoding_info->version?:"\b", encoding_flags);
  
@@ -197,7 +197,7 @@ index d142129b4535..705d6d5f7505 100644
  		sbi->sb->s_d_op = &f2fs_dentry_ops;
  	}
  #else
-@@ -3783,7 +3783,7 @@ static int f2fs_fill_super(struct super_block *sb, void *data, int silent)
+@@ -3784,7 +3784,7 @@ static int f2fs_fill_super(struct super_block *sb, void *data, int silent)
  		kvfree(sbi->write_io[i]);
  
  #ifdef CONFIG_UNICODE

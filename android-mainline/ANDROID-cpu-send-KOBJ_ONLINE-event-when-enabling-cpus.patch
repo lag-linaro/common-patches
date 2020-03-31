@@ -15,10 +15,10 @@ Signed-off-by: Thierry Strudel <tstrudel@google.com>
  1 file changed, 7 insertions(+)
 
 diff --git a/kernel/cpu.c b/kernel/cpu.c
-index 9c706af713fb..2064f71e6732 100644
+index 2371292f30b0..5958031c0438 100644
 --- a/kernel/cpu.c
 +++ b/kernel/cpu.c
-@@ -1281,6 +1281,7 @@ void __weak arch_enable_nonboot_cpus_end(void)
+@@ -1396,6 +1396,7 @@ void __weak arch_enable_nonboot_cpus_end(void)
  void enable_nonboot_cpus(void)
  {
  	int cpu, error;
@@ -26,7 +26,7 @@ index 9c706af713fb..2064f71e6732 100644
  
  	/* Allow everyone to use the CPU hotplug again */
  	cpu_maps_update_begin();
-@@ -1298,6 +1299,12 @@ void enable_nonboot_cpus(void)
+@@ -1413,6 +1414,12 @@ void enable_nonboot_cpus(void)
  		trace_suspend_resume(TPS("CPU_ON"), cpu, false);
  		if (!error) {
  			pr_info("CPU%d is up\n", cpu);
