@@ -273,7 +273,7 @@ index d90af13431c7..4b5bc1053fec 100644
  	/*
  	 * We must handle setting up seccomp filters once we're under
 diff --git a/kernel/sched/core.c b/kernel/sched/core.c
-index 1a9983da4408..7473cd685560 100644
+index 5a077b1eb42b..b1247112ce5a 100644
 --- a/kernel/sched/core.c
 +++ b/kernel/sched/core.c
 @@ -11,6 +11,7 @@
@@ -284,7 +284,7 @@ index 1a9983da4408..7473cd685560 100644
  
  #include <asm/switch_to.h>
  #include <asm/tlb.h>
-@@ -6036,6 +6037,7 @@ void init_idle(struct task_struct *idle, int cpu)
+@@ -6022,6 +6023,7 @@ void init_idle(struct task_struct *idle, int cpu)
  	idle->se.exec_start = sched_clock();
  	idle->flags |= PF_IDLE;
  

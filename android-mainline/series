@@ -2,11 +2,12 @@
 # android-mainline patches
 #
 # Applies onto upstream 7111951b8d49 Linux v5.6
-# Matches android-mainline b892a5885fce ("Merge 5.6 into android-mainline")
+# Matches android-mainline 9b3cb5c97270 ("ANDROID: GKI: Removed cuttlefish configs")
 #
 UPSTREAM-ipv6-ndisc-add-support-for-PREF64-dns64-prefix-identifier.patch
 Revert-security-lockdown-selinux-implement-SELinux-lockdown.patch
 Revert-drm-virtio-fix-DRM_FORMAT_-handling.patch
+Revert-sched-core-Prevent-race-condition-between-cpuset-and-__sched_setscheduler.patch
 FROMGIT-scsi-ufs-Add-dev-ref-clock-gating-wait-time-support.patch
 FROMGIT-scsi-ufs-qcom-Adjust-bus-bandwidth-voting-and-unvoting.patch
 FROMGIT-scsi-ufs-Allow-vendor-device-quirks-to-be-applied-early.patch
@@ -484,3 +485,6 @@ ANDROID-gki_defconfig-Enable-CONFIG_REMOTEPROC.patch
 ANDROID-db845c_gki.fragment-Enable-config-options-to-support-wifi-on-db845c.patch
 ANDROID-GKI-defconfig-Enable-CONFIG_SHUFFLE_PAGE_ALLOCATOR.patch
 ANDROID-Incremental-fs-Fix-four-resource-bugs.patch
+ANDROID-GKI-enable-CONFIG_WIREGUARD.patch
+ANDROID-clang-update-to-10.0.5.patch
+ANDROID-GKI-Removed-cuttlefish-configs.patch
