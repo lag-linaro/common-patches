@@ -29,7 +29,7 @@ Signed-off-by: Sami Tolvanen <samitolvanen@google.com>
  create mode 100644 arch/arm64/kernel/scs.c
 
 diff --git a/arch/arm64/Kconfig b/arch/arm64/Kconfig
-index 51ffe2bcba78..db457cfb97b9 100644
+index 8cdac9e88f35..c8ca79090851 100644
 --- a/arch/arm64/Kconfig
 +++ b/arch/arm64/Kconfig
 @@ -64,6 +64,7 @@ config ARM64
@@ -40,7 +40,7 @@ index 51ffe2bcba78..db457cfb97b9 100644
  	select ARCH_SUPPORTS_ATOMIC_RMW
  	select ARCH_SUPPORTS_INT128 if CC_HAS_INT128 && (GCC_VERSION >= 50000 || CC_IS_CLANG)
  	select ARCH_SUPPORTS_NUMA_BALANCING
-@@ -1021,6 +1022,10 @@ config ARCH_HAS_CACHE_LINE_SIZE
+@@ -1025,6 +1026,10 @@ config ARCH_HAS_CACHE_LINE_SIZE
  config ARCH_ENABLE_SPLIT_PMD_PTLOCK
  	def_bool y if PGTABLE_LEVELS > 2
  
@@ -124,7 +124,7 @@ index 512174a8e789..1fb651f73da3 100644
  
  #define thread_saved_pc(tsk)	\
 diff --git a/arch/arm64/kernel/Makefile b/arch/arm64/kernel/Makefile
-index fc6488660f64..08fafc4da2cf 100644
+index 4e5b8ee31442..151f28521f1e 100644
 --- a/arch/arm64/kernel/Makefile
 +++ b/arch/arm64/kernel/Makefile
 @@ -63,6 +63,7 @@ obj-$(CONFIG_CRASH_CORE)		+= crash_core.o
@@ -136,7 +136,7 @@ index fc6488660f64..08fafc4da2cf 100644
  obj-y					+= vdso/ probes/
  obj-$(CONFIG_COMPAT_VDSO)		+= vdso32/
 diff --git a/arch/arm64/kernel/asm-offsets.c b/arch/arm64/kernel/asm-offsets.c
-index a5bdce8af65b..d485dc5cd196 100644
+index 9981a0a5a87f..777a662888ec 100644
 --- a/arch/arm64/kernel/asm-offsets.c
 +++ b/arch/arm64/kernel/asm-offsets.c
 @@ -33,6 +33,9 @@ int main(void)
@@ -150,10 +150,10 @@ index a5bdce8af65b..d485dc5cd196 100644
    DEFINE(TSK_STACK,		offsetof(struct task_struct, stack));
  #ifdef CONFIG_STACKPROTECTOR
 diff --git a/arch/arm64/kernel/entry.S b/arch/arm64/kernel/entry.S
-index 9461d812ae27..509a7b431e9f 100644
+index ddcde093c433..0b164a24696c 100644
 --- a/arch/arm64/kernel/entry.S
 +++ b/arch/arm64/kernel/entry.S
-@@ -177,6 +177,10 @@ alternative_cb_end
+@@ -178,6 +178,10 @@ alternative_cb_end
  
  	apply_ssbd 1, x22, x23
  
@@ -161,10 +161,10 @@ index 9461d812ae27..509a7b431e9f 100644
 +	ldr	x18, [tsk, #TSK_TI_SCS]		// Restore shadow call stack
 +	str	xzr, [tsk, #TSK_TI_SCS]		// Limit visibility of saved SCS
 +#endif
+ 	ptrauth_keys_install_kernel tsk, 1, x20, x22, x23
  	.else
  	add	x21, sp, #S_FRAME_SIZE
- 	get_current_task tsk
-@@ -278,6 +282,12 @@ alternative_else_nop_endif
+@@ -280,6 +284,12 @@ alternative_else_nop_endif
  	ct_user_enter
  	.endif
  
@@ -177,7 +177,7 @@ index 9461d812ae27..509a7b431e9f 100644
  #ifdef CONFIG_ARM64_SW_TTBR0_PAN
  	/*
  	 * Restore access to TTBR0_EL1. If returning to EL0, no need for SPSR
-@@ -383,6 +393,9 @@ alternative_insn eret, nop, ARM64_UNMAP_KERNEL_AT_EL0
+@@ -388,6 +398,9 @@ alternative_insn eret, nop, ARM64_UNMAP_KERNEL_AT_EL0
  
  	.macro	irq_stack_entry
  	mov	x19, sp			// preserve the original sp
@@ -187,7 +187,7 @@ index 9461d812ae27..509a7b431e9f 100644
  
  	/*
  	 * Compare sp with the base of the task stack.
-@@ -400,15 +413,24 @@ alternative_insn eret, nop, ARM64_UNMAP_KERNEL_AT_EL0
+@@ -405,15 +418,24 @@ alternative_insn eret, nop, ARM64_UNMAP_KERNEL_AT_EL0
  
  	/* switch to the irq stack */
  	mov	sp, x26
@@ -214,7 +214,7 @@ index 9461d812ae27..509a7b431e9f 100644
  	.endm
  
  /* GPRs used by entry code */
-@@ -895,6 +917,11 @@ ENTRY(cpu_switch_to)
+@@ -900,6 +922,11 @@ SYM_FUNC_START(cpu_switch_to)
  	ldr	lr, [x8]
  	mov	sp, x9
  	msr	sp_el0, x1
@@ -223,11 +223,11 @@ index 9461d812ae27..509a7b431e9f 100644
 +	ldr	x18, [x1, #TSK_TI_SCS]
 +	str	xzr, [x1, #TSK_TI_SCS]		// limit visibility of saved SCS
 +#endif
+ 	ptrauth_keys_install_kernel x1, 1, x8, x9, x10
  	ret
- ENDPROC(cpu_switch_to)
- NOKPROBE(cpu_switch_to)
+ SYM_FUNC_END(cpu_switch_to)
 diff --git a/arch/arm64/kernel/head.S b/arch/arm64/kernel/head.S
-index 989b1944cb71..ca561de903d4 100644
+index 57a91032b4c2..01b5e6fdfc41 100644
 --- a/arch/arm64/kernel/head.S
 +++ b/arch/arm64/kernel/head.S
 @@ -27,6 +27,7 @@
@@ -238,7 +238,7 @@ index 989b1944cb71..ca561de903d4 100644
  #include <asm/smp.h>
  #include <asm/sysreg.h>
  #include <asm/thread_info.h>
-@@ -424,6 +425,10 @@ __primary_switched:
+@@ -424,6 +425,10 @@ SYM_FUNC_START_LOCAL(__primary_switched)
  	stp	xzr, x30, [sp, #-16]!
  	mov	x29, sp
  
@@ -249,7 +249,7 @@ index 989b1944cb71..ca561de903d4 100644
  	str_l	x21, __fdt_pointer, x5		// Save FDT pointer
  
  	ldr_l	x4, kimage_vaddr		// Save the offset between
-@@ -731,6 +736,10 @@ __secondary_switched:
+@@ -737,6 +742,10 @@ SYM_FUNC_START_LOCAL(__secondary_switched)
  	ldr	x2, [x0, #CPU_BOOT_TASK]
  	cbz	x2, __secondary_too_slow
  	msr	sp_el0, x2
@@ -281,7 +281,7 @@ index 04a327ccf84d..fe0ca522ff60 100644
  	if (!handle_arch_irq)
  		panic("No interrupt controller found.");
 diff --git a/arch/arm64/kernel/process.c b/arch/arm64/kernel/process.c
-index 3e5a6ad66cbe..620a6fa46176 100644
+index 56be4cbf771f..a35d3318492c 100644
 --- a/arch/arm64/kernel/process.c
 +++ b/arch/arm64/kernel/process.c
 @@ -52,6 +52,7 @@
@@ -292,9 +292,9 @@ index 3e5a6ad66cbe..620a6fa46176 100644
  #include <asm/stacktrace.h>
  
  #if defined(CONFIG_STACKPROTECTOR) && !defined(CONFIG_STACKPROTECTOR_PER_TASK)
-@@ -514,6 +515,7 @@ __notrace_funcgraph struct task_struct *__switch_to(struct task_struct *prev,
+@@ -515,6 +516,7 @@ __notrace_funcgraph struct task_struct *__switch_to(struct task_struct *prev,
+ 	entry_task_switch(next);
  	uao_thread_switch(next);
- 	ptrauth_thread_switch(next);
  	ssbs_thread_switch(next);
 +	scs_overflow_check(next);
  
@@ -347,7 +347,7 @@ index 000000000000..eaadf5430baa
 +	}
 +}
 diff --git a/arch/arm64/kernel/smp.c b/arch/arm64/kernel/smp.c
-index 5407bf5d98ac..2222c9896ec9 100644
+index 061f60fe452f..1d112e34a636 100644
 --- a/arch/arm64/kernel/smp.c
 +++ b/arch/arm64/kernel/smp.c
 @@ -46,6 +46,7 @@
@@ -358,9 +358,9 @@ index 5407bf5d98ac..2222c9896ec9 100644
  #include <asm/smp_plat.h>
  #include <asm/sections.h>
  #include <asm/tlbflush.h>
-@@ -358,6 +359,9 @@ void cpu_die(void)
- {
+@@ -370,6 +371,9 @@ void cpu_die(void)
  	unsigned int cpu = smp_processor_id();
+ 	const struct cpu_operations *ops = get_cpu_ops(cpu);
  
 +	/* Save the shadow stack pointer before exiting the idle task */
 +	scs_save(current);

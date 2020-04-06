@@ -14,10 +14,10 @@ Signed-off-by: Sami Tolvanen <samitolvanen@google.com>
  1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/arch/arm64/Kconfig b/arch/arm64/Kconfig
-index 0bb082c39b97..167ebe1f6e1e 100644
+index c5c16942a6dc..4951dd17afc4 100644
 --- a/arch/arm64/Kconfig
 +++ b/arch/arm64/Kconfig
-@@ -126,7 +126,7 @@ config ARM64
+@@ -127,7 +127,7 @@ config ARM64
  	select HAVE_ARCH_KGDB
  	select HAVE_ARCH_MMAP_RND_BITS
  	select HAVE_ARCH_MMAP_RND_COMPAT_BITS if COMPAT

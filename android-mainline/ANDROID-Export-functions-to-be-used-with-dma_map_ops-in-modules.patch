@@ -50,7 +50,7 @@ index ac7956c38f69..c5eeacb36c7d 100644
  #if defined(CONFIG_ARCH_HAS_SYNC_DMA_FOR_DEVICE) || \
      defined(CONFIG_SWIOTLB)
 diff --git a/kernel/dma/mapping.c b/kernel/dma/mapping.c
-index 12ff766ec1fa..dd725aadb15e 100644
+index 98e3d873792e..b10293ca0665 100644
 --- a/kernel/dma/mapping.c
 +++ b/kernel/dma/mapping.c
 @@ -120,6 +120,7 @@ int dma_common_get_sgtable(struct device *dev, struct sg_table *sgt,
@@ -61,7 +61,7 @@ index 12ff766ec1fa..dd725aadb15e 100644
  
  /*
   * The whole dma_get_sgtable() idea is fundamentally unsafe - it seems
-@@ -194,6 +195,7 @@ int dma_common_mmap(struct device *dev, struct vm_area_struct *vma,
+@@ -196,6 +197,7 @@ int dma_common_mmap(struct device *dev, struct vm_area_struct *vma,
  	return -ENXIO;
  #endif /* CONFIG_MMU */
  }

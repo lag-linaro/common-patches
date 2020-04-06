@@ -75,7 +75,7 @@ index 64aeee1009ca..9e8470008227 100644
  =================
  
 diff --git a/kernel/sysctl.c b/kernel/sysctl.c
-index ad5b88a53c5a..789425b6a879 100644
+index 94638f695e60..b815578187de 100644
 --- a/kernel/sysctl.c
 +++ b/kernel/sysctl.c
 @@ -111,6 +111,7 @@ extern char core_pattern[];
@@ -86,7 +86,7 @@ index ad5b88a53c5a..789425b6a879 100644
  extern int pid_max_min, pid_max_max;
  extern int percpu_pagelist_fraction;
  extern int latencytop_enabled;
-@@ -1515,6 +1516,14 @@ static struct ctl_table vm_table[] = {
+@@ -1498,6 +1499,14 @@ static struct ctl_table vm_table[] = {
  		.extra1		= SYSCTL_ONE,
  		.extra2		= &one_thousand,
  	},

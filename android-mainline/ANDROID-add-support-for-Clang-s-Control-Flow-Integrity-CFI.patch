@@ -27,10 +27,10 @@ Signed-off-by: Sami Tolvanen <samitolvanen@google.com>
  create mode 100644 kernel/cfi.c
 
 diff --git a/Makefile b/Makefile
-index edbc4ed842f5..ed317d8efb7d 100644
+index 075224cbd109..71186b72fbc6 100644
 --- a/Makefile
 +++ b/Makefile
-@@ -882,6 +882,25 @@ KBUILD_CFLAGS	+= $(CC_FLAGS_LTO)
+@@ -887,6 +887,25 @@ KBUILD_CFLAGS	+= $(CC_FLAGS_LTO)
  export CC_FLAGS_LTO
  endif
  
@@ -91,7 +91,7 @@ index 7643d668e31a..161004ce1d40 100644
  	bool
  	help
 diff --git a/include/asm-generic/vmlinux.lds.h b/include/asm-generic/vmlinux.lds.h
-index a88e7fbc9253..d6aa6a16c1c9 100644
+index 1ce2526eaf13..376ddea83c82 100644
 --- a/include/asm-generic/vmlinux.lds.h
 +++ b/include/asm-generic/vmlinux.lds.h
 @@ -97,6 +97,7 @@
@@ -110,7 +110,7 @@ index a88e7fbc9253..d6aa6a16c1c9 100644
  #define DATA_MAIN .data
  #define SDATA_MAIN .sdata
  #define RODATA_MAIN .rodata
-@@ -553,6 +555,7 @@
+@@ -554,6 +556,7 @@
  #define TEXT_TEXT							\
  		ALIGN_FUNCTION();					\
  		*(.text.hot TEXT_MAIN .text.fixup .text.unlikely)	\
@@ -232,10 +232,10 @@ index 8d5397f9fa4c..33ffec021e72 100644
  #ifdef CONFIG_SYSFS
  	struct mutex param_lock;
 diff --git a/init/Kconfig b/init/Kconfig
-index 632836e62bd2..dd597a86dc13 100644
+index 1fec5f56b3ff..121b5e413677 100644
 --- a/init/Kconfig
 +++ b/init/Kconfig
-@@ -2218,7 +2218,7 @@ endif # MODULES
+@@ -2243,7 +2243,7 @@ endif # MODULES
  
  config MODULES_TREE_LOOKUP
  	def_bool y

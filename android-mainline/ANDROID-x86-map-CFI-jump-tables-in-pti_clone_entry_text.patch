@@ -17,10 +17,10 @@ Signed-off-by: Sami Tolvanen <samitolvanen@google.com>
  3 files changed, 21 insertions(+)
 
 diff --git a/arch/x86/include/asm/sections.h b/arch/x86/include/asm/sections.h
-index 036c360910c5..9319c5c3a3e2 100644
+index a6e8373a5170..5abf1301d3ff 100644
 --- a/arch/x86/include/asm/sections.h
 +++ b/arch/x86/include/asm/sections.h
-@@ -6,6 +6,7 @@
+@@ -8,6 +8,7 @@
  #include <asm/extable.h>
  
  extern char __brk_base[], __brk_limit[];
@@ -29,10 +29,10 @@ index 036c360910c5..9319c5c3a3e2 100644
  
  #if defined(CONFIG_X86_64)
 diff --git a/arch/x86/kernel/vmlinux.lds.S b/arch/x86/kernel/vmlinux.lds.S
-index e3296aa028fe..0a4ca1954952 100644
+index 1bf7e312361f..834b1a249199 100644
 --- a/arch/x86/kernel/vmlinux.lds.S
 +++ b/arch/x86/kernel/vmlinux.lds.S
-@@ -144,6 +144,13 @@ SECTIONS
+@@ -145,6 +145,13 @@ SECTIONS
  		*(.text.__x86.indirect_thunk)
  		__indirect_thunk_end = .;
  #endif
@@ -46,7 +46,7 @@ index e3296aa028fe..0a4ca1954952 100644
  	} :text =0xcccc
  
  	/* End of text section, which should occupy whole number of pages */
-@@ -454,3 +461,7 @@ INIT_PER_CPU(irq_stack_backing_store);
+@@ -452,3 +459,7 @@ INIT_PER_CPU(irq_stack_backing_store);
             "kexec control code size is too big");
  #endif
  
@@ -55,10 +55,10 @@ index e3296aa028fe..0a4ca1954952 100644
 +	   "CFI jump table is empty");
 +#endif
 diff --git a/arch/x86/mm/pti.c b/arch/x86/mm/pti.c
-index 44a9f068eee0..6b68c19208c9 100644
+index 843aa10a4cb6..198b60eafdfa 100644
 --- a/arch/x86/mm/pti.c
 +++ b/arch/x86/mm/pti.c
-@@ -505,6 +505,15 @@ static void pti_clone_entry_text(void)
+@@ -506,6 +506,15 @@ static void pti_clone_entry_text(void)
  	pti_clone_pgtable((unsigned long) __entry_text_start,
  			  (unsigned long) __irqentry_text_end,
  			  PTI_CLONE_PMD);

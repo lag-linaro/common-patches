@@ -28,15 +28,15 @@ Signed-off-by: Alistair Delva <adelva@google.com>
            03f7b06dd871 ("ANDROID: nf: IDLETIMER: Fix possible use before initialization in idletimer_resume")]
 Signed-off-by: Matthias Maennich <maennich@google.com>
 ---
- include/uapi/linux/netfilter/xt_IDLETIMER.h |   8 +
- net/netfilter/xt_IDLETIMER.c                | 259 +++++++++++++++++++-
- 2 files changed, 254 insertions(+), 13 deletions(-)
+ include/uapi/linux/netfilter/xt_IDLETIMER.h |   9 +
+ net/netfilter/xt_IDLETIMER.c                | 254 +++++++++++++++++++-
+ 2 files changed, 253 insertions(+), 10 deletions(-)
 
 diff --git a/include/uapi/linux/netfilter/xt_IDLETIMER.h b/include/uapi/linux/netfilter/xt_IDLETIMER.h
-index 3c586a19baea..c82a1c1d53ec 100644
+index 434e6506abaa..0b0af02f278d 100644
 --- a/include/uapi/linux/netfilter/xt_IDLETIMER.h
 +++ b/include/uapi/linux/netfilter/xt_IDLETIMER.h
-@@ -5,6 +5,7 @@
+@@ -4,6 +4,7 @@
   * Header file for Xtables timer target module.
   *
   * Copyright (C) 2004, 2010 Nokia Corporation
@@ -44,15 +44,15 @@ index 3c586a19baea..c82a1c1d53ec 100644
   * Written by Timo Teras <ext-timo.teras@nokia.com>
   *
   * Converted to x_tables and forward-ported to 2.6.34
-@@ -33,12 +34,19 @@
- #include <linux/types.h>
- 
+@@ -34,11 +35,19 @@
  #define MAX_IDLETIMER_LABEL_SIZE 28
+ #define XT_IDLETIMER_ALARM 0x01
+ 
 +#define NLMSG_MAX_SIZE 64
 +
 +#define NL_EVENT_TYPE_INACTIVE 0
 +#define NL_EVENT_TYPE_ACTIVE 1
- 
++
  struct idletimer_tg_info {
  	__u32 timeout;
  
@@ -65,7 +65,7 @@ index 3c586a19baea..c82a1c1d53ec 100644
  	struct idletimer_tg *timer __attribute__((aligned(8)));
  };
 diff --git a/net/netfilter/xt_IDLETIMER.c b/net/netfilter/xt_IDLETIMER.c
-index f56d3ed93e56..a7e0b7fc4aac 100644
+index 75bd0e5dd312..da9f77128191 100644
 --- a/net/netfilter/xt_IDLETIMER.c
 +++ b/net/netfilter/xt_IDLETIMER.c
 @@ -6,6 +6,7 @@
@@ -76,7 +76,7 @@ index f56d3ed93e56..a7e0b7fc4aac 100644
   * Written by Timo Teras <ext-timo.teras@nokia.com>
   *
   * Converted to x_tables and reworked for upstream inclusion
-@@ -25,8 +26,17 @@
+@@ -26,8 +27,17 @@
  #include <linux/netfilter/xt_IDLETIMER.h>
  #include <linux/kdev_t.h>
  #include <linux/kobject.h>
@@ -94,7 +94,7 @@ index f56d3ed93e56..a7e0b7fc4aac 100644
  
  struct idletimer_tg {
  	struct list_head entry;
-@@ -36,14 +46,112 @@ struct idletimer_tg {
+@@ -38,15 +48,114 @@ struct idletimer_tg {
  	struct kobject *kobj;
  	struct device_attribute attr;
  
@@ -105,6 +105,8 @@ index f56d3ed93e56..a7e0b7fc4aac 100644
 +
 +	int timeout;
  	unsigned int refcnt;
+ 	u8 timer_type;
++
 +	bool work_pending;
 +	bool send_nl_msg;
 +	bool active;
@@ -207,34 +209,30 @@ index f56d3ed93e56..a7e0b7fc4aac 100644
  static
  struct idletimer_tg *__idletimer_tg_find_by_label(const char *label)
  {
-@@ -62,6 +170,7 @@ static ssize_t idletimer_tg_show(struct device *dev,
- {
- 	struct idletimer_tg *timer;
+@@ -67,6 +176,7 @@ static ssize_t idletimer_tg_show(struct device *dev,
  	unsigned long expires = 0;
+ 	struct timespec64 ktimespec = {};
+ 	long time_diff = 0;
 +	unsigned long now = jiffies;
  
  	mutex_lock(&list_mutex);
  
-@@ -71,11 +180,15 @@ static ssize_t idletimer_tg_show(struct device *dev,
+@@ -84,9 +194,13 @@ static ssize_t idletimer_tg_show(struct device *dev,
  
  	mutex_unlock(&list_mutex);
  
--	if (time_after(expires, jiffies))
-+	if (time_after(expires, now))
- 		return sprintf(buf, "%u\n",
--			       jiffies_to_msecs(expires - jiffies) / 1000);
-+			       jiffies_to_msecs(expires - now) / 1000);
+-	if (time_after(expires, jiffies) || ktimespec.tv_sec > 0)
++	if (time_after(expires, now) || ktimespec.tv_sec > 0)
+ 		return snprintf(buf, PAGE_SIZE, "%ld\n", time_diff);
  
--	return sprintf(buf, "0\n");
 +	if (timer->send_nl_msg)
 +		return sprintf(buf, "0 %d\n",
 +			jiffies_to_msecs(now - expires) / 1000);
-+	else
-+		return sprintf(buf, "0\n");
++
+ 	return snprintf(buf, PAGE_SIZE, "0\n");
  }
  
- static void idletimer_tg_work(struct work_struct *work)
-@@ -84,6 +197,9 @@ static void idletimer_tg_work(struct work_struct *work)
+@@ -96,6 +210,9 @@ static void idletimer_tg_work(struct work_struct *work)
  						  work);
  
  	sysfs_notify(idletimer_tg_kobj, NULL, timer->attr.attr.name);
@@ -244,7 +242,7 @@ index f56d3ed93e56..a7e0b7fc4aac 100644
  }
  
  static void idletimer_tg_expired(struct timer_list *t)
-@@ -91,8 +207,61 @@ static void idletimer_tg_expired(struct timer_list *t)
+@@ -103,8 +220,61 @@ static void idletimer_tg_expired(struct timer_list *t)
  	struct idletimer_tg *timer = from_timer(timer, t, timer);
  
  	pr_debug("timer %s expired\n", timer->attr.attr.name);
@@ -306,8 +304,8 @@ index f56d3ed93e56..a7e0b7fc4aac 100644
 +	return NOTIFY_DONE;
  }
  
- static int idletimer_check_sysfs_name(const char *name, unsigned int size)
-@@ -115,7 +284,7 @@ static int idletimer_tg_create(struct idletimer_tg_info *info)
+ static enum alarmtimer_restart idletimer_tg_alarmproc(struct alarm *alarm,
+@@ -137,7 +307,7 @@ static int idletimer_tg_create(struct idletimer_tg_info *info)
  {
  	int ret;
  
@@ -316,7 +314,7 @@ index f56d3ed93e56..a7e0b7fc4aac 100644
  	if (!info->timer) {
  		ret = -ENOMEM;
  		goto out;
-@@ -144,6 +313,22 @@ static int idletimer_tg_create(struct idletimer_tg_info *info)
+@@ -166,6 +336,22 @@ static int idletimer_tg_create(struct idletimer_tg_info *info)
  
  	timer_setup(&info->timer->timer, idletimer_tg_expired, 0);
  	info->timer->refcnt = 1;
@@ -339,7 +337,7 @@ index f56d3ed93e56..a7e0b7fc4aac 100644
  
  	INIT_WORK(&info->timer->work, idletimer_tg_work);
  
-@@ -160,6 +345,42 @@ static int idletimer_tg_create(struct idletimer_tg_info *info)
+@@ -182,6 +368,42 @@ static int idletimer_tg_create(struct idletimer_tg_info *info)
  	return ret;
  }
  
@@ -379,10 +377,10 @@ index f56d3ed93e56..a7e0b7fc4aac 100644
 +	spin_unlock_bh(&timestamp_lock);
 +}
 +
- /*
-  * The actual xt_tables plugin.
-  */
-@@ -167,13 +388,23 @@ static unsigned int idletimer_tg_target(struct sk_buff *skb,
+ static int idletimer_tg_create_v1(struct idletimer_tg_info_v1 *info)
+ {
+ 	int ret;
+@@ -251,13 +473,23 @@ static unsigned int idletimer_tg_target(struct sk_buff *skb,
  					 const struct xt_action_param *par)
  {
  	const struct idletimer_tg_info *info = par->targinfo;
@@ -408,16 +406,7 @@ index f56d3ed93e56..a7e0b7fc4aac 100644
  	return XT_CONTINUE;
  }
  
-@@ -182,7 +413,7 @@ static int idletimer_tg_checkentry(const struct xt_tgchk_param *par)
- 	struct idletimer_tg_info *info = par->targinfo;
- 	int ret;
- 
--	pr_debug("checkentry targinfo%s\n", info->label);
-+	pr_debug("checkentry targinfo %s\n", info->label);
- 
- 	if (info->timeout == 0) {
- 		pr_debug("timeout value is zero\n");
-@@ -204,9 +435,7 @@ static int idletimer_tg_checkentry(const struct xt_tgchk_param *par)
+@@ -321,9 +553,7 @@ static int idletimer_tg_checkentry(const struct xt_tgchk_param *par)
  	info->timer = __idletimer_tg_find_by_label(info->label);
  	if (info->timer) {
  		info->timer->refcnt++;
@@ -428,7 +417,7 @@ index f56d3ed93e56..a7e0b7fc4aac 100644
  		pr_debug("increased refcnt of timer %s to %u\n",
  			 info->label, info->timer->refcnt);
  	} else {
-@@ -219,6 +448,7 @@ static int idletimer_tg_checkentry(const struct xt_tgchk_param *par)
+@@ -336,6 +566,7 @@ static int idletimer_tg_checkentry(const struct xt_tgchk_param *par)
  	}
  
  	mutex_unlock(&list_mutex);
@@ -436,7 +425,7 @@ index f56d3ed93e56..a7e0b7fc4aac 100644
  	return 0;
  }
  
-@@ -235,13 +465,14 @@ static void idletimer_tg_destroy(const struct xt_tgdtor_param *par)
+@@ -411,13 +642,14 @@ static void idletimer_tg_destroy(const struct xt_tgdtor_param *par)
  
  		list_del(&info->timer->entry);
  		del_timer_sync(&info->timer->timer);
@@ -453,15 +442,15 @@ index f56d3ed93e56..a7e0b7fc4aac 100644
  	}
  
  	mutex_unlock(&list_mutex);
-@@ -249,6 +480,7 @@ static void idletimer_tg_destroy(const struct xt_tgdtor_param *par)
- 
- static struct xt_target idletimer_tg __read_mostly = {
+@@ -456,6 +688,7 @@ static void idletimer_tg_destroy_v1(const struct xt_tgdtor_param *par)
+ static struct xt_target idletimer_tg[] __read_mostly = {
+ 	{
  	.name		= "IDLETIMER",
 +	.revision	= 1,
  	.family		= NFPROTO_UNSPEC,
  	.target		= idletimer_tg_target,
  	.targetsize     = sizeof(struct idletimer_tg_info),
-@@ -315,3 +547,4 @@ MODULE_DESCRIPTION("Xtables: idle time monitor");
+@@ -537,3 +770,4 @@ MODULE_DESCRIPTION("Xtables: idle time monitor");
  MODULE_LICENSE("GPL v2");
  MODULE_ALIAS("ipt_IDLETIMER");
  MODULE_ALIAS("ip6t_IDLETIMER");

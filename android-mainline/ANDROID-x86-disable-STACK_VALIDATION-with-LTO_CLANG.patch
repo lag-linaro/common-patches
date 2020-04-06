@@ -14,7 +14,7 @@ Signed-off-by: Sami Tolvanen <samitolvanen@google.com>
  1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/arch/x86/Kconfig b/arch/x86/Kconfig
-index 44aac00786b6..3fd8b24eb125 100644
+index 01baf6aacb25..eca7d758f33a 100644
 --- a/arch/x86/Kconfig
 +++ b/arch/x86/Kconfig
 @@ -208,7 +208,7 @@ config X86

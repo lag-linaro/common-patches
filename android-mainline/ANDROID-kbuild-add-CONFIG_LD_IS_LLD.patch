@@ -14,10 +14,10 @@ Signed-off-by: Sami Tolvanen <samitolvanen@google.com>
  1 file changed, 3 insertions(+)
 
 diff --git a/init/Kconfig b/init/Kconfig
-index 74db2c37c6bb..632836e62bd2 100644
+index d186a44a934b..1fec5f56b3ff 100644
 --- a/init/Kconfig
 +++ b/init/Kconfig
-@@ -20,6 +20,9 @@ config GCC_VERSION
+@@ -19,6 +19,9 @@ config GCC_VERSION
  config CC_IS_CLANG
  	def_bool $(success,$(CC) --version | head -n 1 | grep -q clang)
  

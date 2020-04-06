@@ -18,7 +18,7 @@ Change-Id: I9f0280fe172ba29ebda4c6610efb34f054e84577
  3 files changed, 81 insertions(+)
 
 diff --git a/drivers/misc/lkdtm/bugs.c b/drivers/misc/lkdtm/bugs.c
-index de87693cf557..2e341c969ec3 100644
+index cc92bc3ed820..2c1a893c871a 100644
 --- a/drivers/misc/lkdtm/bugs.c
 +++ b/drivers/misc/lkdtm/bugs.c
 @@ -11,6 +11,7 @@
@@ -111,10 +111,10 @@ index de87693cf557..2e341c969ec3 100644
  {
  	/*
 diff --git a/drivers/misc/lkdtm/core.c b/drivers/misc/lkdtm/core.c
-index ee0d6e721441..2e04719b503c 100644
+index 5ce4ac8c06fc..a5e344df9166 100644
 --- a/drivers/misc/lkdtm/core.c
 +++ b/drivers/misc/lkdtm/core.c
-@@ -129,6 +129,9 @@ static const struct crashtype crashtypes[] = {
+@@ -130,6 +130,9 @@ static const struct crashtype crashtypes[] = {
  	CRASHTYPE(HARDLOCKUP),
  	CRASHTYPE(SPINLOCKUP),
  	CRASHTYPE(HUNG_TASK),
@@ -125,7 +125,7 @@ index ee0d6e721441..2e04719b503c 100644
  	CRASHTYPE(EXEC_STACK),
  	CRASHTYPE(EXEC_KMALLOC),
 diff --git a/drivers/misc/lkdtm/lkdtm.h b/drivers/misc/lkdtm/lkdtm.h
-index c56d23e37643..8391081c6f13 100644
+index 8d13d0176624..601a2156a0d4 100644
 --- a/drivers/misc/lkdtm/lkdtm.h
 +++ b/drivers/misc/lkdtm/lkdtm.h
 @@ -22,6 +22,9 @@ void lkdtm_SOFTLOCKUP(void);

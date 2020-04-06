@@ -32,10 +32,10 @@ Signed-off-by: Sami Tolvanen <samitolvanen@google.com>
  8 files changed, 222 insertions(+), 18 deletions(-)
 
 diff --git a/Makefile b/Makefile
-index 4838ac8cdeb0..edbc4ed842f5 100644
+index 9ea9da765d03..075224cbd109 100644
 --- a/Makefile
 +++ b/Makefile
-@@ -654,6 +654,16 @@ RETPOLINE_VDSO_CFLAGS := $(call cc-option,$(RETPOLINE_VDSO_CFLAGS_GCC),$(call cc
+@@ -657,6 +657,16 @@ RETPOLINE_VDSO_CFLAGS := $(call cc-option,$(RETPOLINE_VDSO_CFLAGS_GCC),$(call cc
  export RETPOLINE_CFLAGS
  export RETPOLINE_VDSO_CFLAGS
  
@@ -52,7 +52,7 @@ index 4838ac8cdeb0..edbc4ed842f5 100644
  include arch/$(SRCARCH)/Makefile
  
  ifdef need-config
-@@ -856,6 +866,22 @@ KBUILD_CFLAGS	+= $(CC_FLAGS_SCS)
+@@ -861,6 +871,22 @@ KBUILD_CFLAGS	+= $(CC_FLAGS_SCS)
  export CC_FLAGS_SCS
  endif
  
@@ -75,7 +75,7 @@ index 4838ac8cdeb0..edbc4ed842f5 100644
  # arch Makefile may override CC so keep this after arch Makefile is included
  NOSTDINC_FLAGS += -nostdinc -isystem $(shell $(CC) -print-file-name=include)
  
-@@ -1715,7 +1741,8 @@ clean: $(clean-dirs)
+@@ -1734,7 +1760,8 @@ clean: $(clean-dirs)
  		-o -name '.tmp_*.o.*' \
  		-o -name '*.c.[012]*.*' \
  		-o -name '*.ll' \
@@ -144,7 +144,7 @@ index 4be18f28e489..30db84ca509b 100644
  config HAVE_ARCH_WITHIN_STACK_FRAMES
  	bool
 diff --git a/include/asm-generic/vmlinux.lds.h b/include/asm-generic/vmlinux.lds.h
-index e00f41aa8ec4..9ee28df8a9e4 100644
+index 71e387a5fe90..dd9fac506b9d 100644
 --- a/include/asm-generic/vmlinux.lds.h
 +++ b/include/asm-generic/vmlinux.lds.h
 @@ -89,10 +89,13 @@
@@ -314,10 +314,10 @@ index 411c1e600e7d..147ed6c243ef 100644
  
  targets += $(modules) $(modules:.ko=.mod.o)
 diff --git a/scripts/Makefile.modpost b/scripts/Makefile.modpost
-index b4d3f2d122ac..0ead4f742a0f 100644
+index 957eed6a17a5..e1da4efba42f 100644
 --- a/scripts/Makefile.modpost
 +++ b/scripts/Makefile.modpost
-@@ -84,12 +84,32 @@ endif
+@@ -85,12 +85,32 @@ endif
  # find all modules listed in modules.order
  modules := $(sort $(shell cat $(MODORDER)))
  
@@ -353,7 +353,7 @@ index b4d3f2d122ac..0ead4f742a0f 100644
  ifneq ($(KBUILD_MODPOST_NOFINAL),1)
  	$(Q)$(MAKE) -f $(srctree)/scripts/Makefile.modfinal
 diff --git a/scripts/link-vmlinux.sh b/scripts/link-vmlinux.sh
-index dd484e92752e..c0de2ac66c1e 100755
+index d09ab4afbda4..e2c441ada424 100755
 --- a/scripts/link-vmlinux.sh
 +++ b/scripts/link-vmlinux.sh
 @@ -39,6 +39,30 @@ info()
@@ -404,8 +404,8 @@ index dd484e92752e..c0de2ac66c1e 100755
  }
  
  # Link of vmlinux
-@@ -70,13 +102,22 @@ vmlinux_link()
- 	shift
+@@ -76,13 +108,22 @@ vmlinux_link()
+ 	fi
  
  	if [ "${SRCARCH}" != "um" ]; then
 -		objects="--whole-archive			\
@@ -433,16 +433,16 @@ index dd484e92752e..c0de2ac66c1e 100755
 +		fi
  
  		${LD} ${KBUILD_LDFLAGS} ${LDFLAGS_vmlinux}	\
- 			-o ${output}				\
-@@ -191,6 +232,7 @@ cleanup()
+ 			${strip_debug#-Wl,}			\
+@@ -198,6 +239,7 @@ cleanup()
+ {
  	rm -f .btf.*
  	rm -f .tmp_System.map
- 	rm -f .tmp_kallsyms*
 +	rm -f .tmp_symversions
  	rm -f .tmp_vmlinux*
  	rm -f System.map
  	rm -f vmlinux
-@@ -242,7 +284,6 @@ fi;
+@@ -249,7 +291,6 @@ fi;
  ${MAKE} -f "${srctree}/scripts/Makefile.build" obj=init need-builtin=1
  
  #link vmlinux.o
@@ -451,10 +451,10 @@ index dd484e92752e..c0de2ac66c1e 100755
  
  # modpost vmlinux.o to check for section mismatches
 diff --git a/scripts/mod/modpost.c b/scripts/mod/modpost.c
-index acf0a69d68ce..09bf885313ba 100644
+index 5c3c50c5ec52..c6f731a4455c 100644
 --- a/scripts/mod/modpost.c
 +++ b/scripts/mod/modpost.c
-@@ -145,6 +145,9 @@ static struct module *new_module(const char *modname)
+@@ -139,6 +139,9 @@ static struct module *new_module(const char *modname)
  		p[strlen(p) - 2] = '\0';
  		mod->is_dot_o = 1;
  	}
@@ -464,7 +464,7 @@ index acf0a69d68ce..09bf885313ba 100644
  
  	/* add to list */
  	mod->name = p;
-@@ -1994,6 +1997,10 @@ static char *remove_dot(char *s)
+@@ -1988,6 +1991,10 @@ static char *remove_dot(char *s)
  		size_t m = strspn(s + n + 1, "0123456789");
  		if (m && (s[n + m] == '.' || s[n + m] == 0))
  			s[n] = 0;

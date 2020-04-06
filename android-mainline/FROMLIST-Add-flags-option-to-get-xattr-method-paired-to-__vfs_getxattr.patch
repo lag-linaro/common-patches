@@ -415,7 +415,7 @@ index 20d052e08b3b..414718a51c25 100644
  	return -EOPNOTSUPP;
  }
 diff --git a/fs/gfs2/xattr.c b/fs/gfs2/xattr.c
-index bbe593d16bea..a9db067a99c1 100644
+index 9d7667bc4292..2e4a9b9dcad1 100644
 --- a/fs/gfs2/xattr.c
 +++ b/fs/gfs2/xattr.c
 @@ -588,7 +588,8 @@ static int __gfs2_xattr_get(struct inode *inode, const char *name,
@@ -577,10 +577,10 @@ index d0f7a5abd9a9..a3f3cdc0a230 100644
  	const char *name = xattr_full_name(handler, suffix);
  	struct kernfs_node *kn = inode->i_private;
 diff --git a/fs/nfs/nfs4proc.c b/fs/nfs/nfs4proc.c
-index 69b7ab7a5815..11028b5b4e00 100644
+index cb34e840e4fb..f4d9a58dd6df 100644
 --- a/fs/nfs/nfs4proc.c
 +++ b/fs/nfs/nfs4proc.c
-@@ -7355,7 +7355,8 @@ static int nfs4_xattr_set_nfs4_acl(const struct xattr_handler *handler,
+@@ -7349,7 +7349,8 @@ static int nfs4_xattr_set_nfs4_acl(const struct xattr_handler *handler,
  
  static int nfs4_xattr_get_nfs4_acl(const struct xattr_handler *handler,
  				   struct dentry *unused, struct inode *inode,
@@ -590,7 +590,7 @@ index 69b7ab7a5815..11028b5b4e00 100644
  {
  	return nfs4_proc_get_acl(inode, buf, buflen);
  }
-@@ -7380,7 +7381,8 @@ static int nfs4_xattr_set_nfs4_label(const struct xattr_handler *handler,
+@@ -7374,7 +7375,8 @@ static int nfs4_xattr_set_nfs4_label(const struct xattr_handler *handler,
  
  static int nfs4_xattr_get_nfs4_label(const struct xattr_handler *handler,
  				     struct dentry *unused, struct inode *inode,
@@ -961,10 +961,10 @@ index f9a81b187fae..921c8f2afcaf 100644
  			if (error == -ENODATA)
  				continue;
 diff --git a/security/selinux/hooks.c b/security/selinux/hooks.c
-index bae21ffdc430..5d29f98dfa25 100644
+index bc24d278a43c..605eaf8142f0 100644
 --- a/security/selinux/hooks.c
 +++ b/security/selinux/hooks.c
-@@ -500,7 +500,8 @@ static int sb_finish_set_opts(struct super_block *sb)
+@@ -503,7 +503,8 @@ static int sb_finish_set_opts(struct super_block *sb)
  			goto out;
  		}
  
@@ -974,7 +974,7 @@ index bae21ffdc430..5d29f98dfa25 100644
  		if (rc < 0 && rc != -ENODATA) {
  			if (rc == -EOPNOTSUPP)
  				pr_warn("SELinux: (dev %s, type "
-@@ -1327,12 +1328,14 @@ static int inode_doinit_use_xattr(struct inode *inode, struct dentry *dentry,
+@@ -1331,12 +1332,14 @@ static int inode_doinit_use_xattr(struct inode *inode, struct dentry *dentry,
  		return -ENOMEM;
  
  	context[len] = '\0';
@@ -991,7 +991,7 @@ index bae21ffdc430..5d29f98dfa25 100644
  		if (rc < 0)
  			return rc;
  
-@@ -1343,7 +1346,7 @@ static int inode_doinit_use_xattr(struct inode *inode, struct dentry *dentry,
+@@ -1347,7 +1350,7 @@ static int inode_doinit_use_xattr(struct inode *inode, struct dentry *dentry,
  
  		context[len] = '\0';
  		rc = __vfs_getxattr(dentry, inode, XATTR_NAME_SELINUX,

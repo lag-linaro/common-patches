@@ -15,10 +15,10 @@ Signed-off-by: Quentin Perret <quentin.perret@arm.com>
  1 file changed, 3 insertions(+)
 
 diff --git a/arch/arm64/include/asm/topology.h b/arch/arm64/include/asm/topology.h
-index cbd70d78ef15..5555f5fe0f3e 100644
+index 0cc835ddfcd1..1f5d73f81a0e 100644
 --- a/arch/arm64/include/asm/topology.h
 +++ b/arch/arm64/include/asm/topology.h
-@@ -19,6 +19,9 @@ int pcibus_to_node(struct pci_bus *bus);
+@@ -28,6 +28,9 @@ void topology_scale_freq_tick(void);
  /* Replace task scheduler's default frequency-invariant accounting */
  #define arch_scale_freq_capacity topology_get_freq_scale
  

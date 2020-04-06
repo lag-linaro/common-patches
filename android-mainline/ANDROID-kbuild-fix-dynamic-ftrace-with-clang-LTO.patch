@@ -40,10 +40,10 @@ index 30db84ca509b..7643d668e31a 100644
  	select LTO
  	help
 diff --git a/include/asm-generic/vmlinux.lds.h b/include/asm-generic/vmlinux.lds.h
-index 9ee28df8a9e4..a88e7fbc9253 100644
+index dd9fac506b9d..1ce2526eaf13 100644
 --- a/include/asm-generic/vmlinux.lds.h
 +++ b/include/asm-generic/vmlinux.lds.h
-@@ -554,6 +554,7 @@
+@@ -555,6 +555,7 @@
  		ALIGN_FUNCTION();					\
  		*(.text.hot TEXT_MAIN .text.fixup .text.unlikely)	\
  		*(.text..refcount)					\
@@ -154,7 +154,7 @@ index 147ed6c243ef..6eb343ed0cad 100644
        cmd_ld_ko_o =                                                     \
  	$(LD) -r $(KBUILD_LDFLAGS)					\
 diff --git a/scripts/link-vmlinux.sh b/scripts/link-vmlinux.sh
-index c0de2ac66c1e..159f53c6628d 100755
+index e2c441ada424..b9525bd3bd20 100755
 --- a/scripts/link-vmlinux.sh
 +++ b/scripts/link-vmlinux.sh
 @@ -87,6 +87,19 @@ modpost_link()
@@ -177,7 +177,7 @@ index c0de2ac66c1e..159f53c6628d 100755
  # Link of vmlinux
  # ${1} - output file
  # ${2}, ${3}, ... - optional extra .o files
-@@ -289,6 +302,11 @@ modpost_link vmlinux.o
+@@ -296,6 +309,11 @@ modpost_link vmlinux.o
  # modpost vmlinux.o to check for section mismatches
  ${MAKE} -f "${srctree}/scripts/Makefile.modpost" MODPOST_VMLINUX=1
  

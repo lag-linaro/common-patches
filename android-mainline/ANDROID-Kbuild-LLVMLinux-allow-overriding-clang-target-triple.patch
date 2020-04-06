@@ -33,10 +33,10 @@ Signed-off-by: Alistair Delva <adelva@google.com>
  create mode 100755 scripts/clang-android.sh
 
 diff --git a/Makefile b/Makefile
-index 99a6f4a4f758..4838ac8cdeb0 100644
+index cb2ed7443d57..9ea9da765d03 100644
 --- a/Makefile
 +++ b/Makefile
-@@ -527,7 +527,11 @@ endif
+@@ -530,7 +530,11 @@ endif
  
  ifneq ($(shell $(CC) --version 2>&1 | head -n 1 | grep clang),)
  ifneq ($(CROSS_COMPILE),)

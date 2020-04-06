@@ -13,7 +13,7 @@ Signed-off-by: Sami Tolvanen <samitolvanen@google.com>
  1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/scripts/link-vmlinux.sh b/scripts/link-vmlinux.sh
-index f3b51870a430..c77bb74e4891 100755
+index eeb114475027..be3fdd897a8d 100755
 --- a/scripts/link-vmlinux.sh
 +++ b/scripts/link-vmlinux.sh
 @@ -54,7 +54,7 @@ lto_lds()

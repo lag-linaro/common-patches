@@ -1,10 +1,9 @@
 #
 # android-mainline patches
 #
-# Applies onto upstream 458ef2a25e0c Linux v5.6-2330-g458ef2a25e0c
-# Matches android-mainline 494d70ec87b0 ("ANDROID: Fix wq fp check for CFI builds")
+# Applies onto upstream 1a323ea5356e Linux v5.6-5611-g1a323ea5356e
+# Matches android-mainline 6aea7b712969 ("Merge 1a323ea5356e ("x86: get rid of 'errret' argument to __get_user_xyz() macross") into android-mainline")
 #
-UPSTREAM-ipv6-ndisc-add-support-for-PREF64-dns64-prefix-identifier.patch
 Revert-security-lockdown-selinux-implement-SELinux-lockdown.patch
 Revert-drm-virtio-fix-DRM_FORMAT_-handling.patch
 Revert-sched-core-Prevent-race-condition-between-cpuset-and-__sched_setscheduler.patch
@@ -59,10 +58,6 @@ FROMLIST-lkdtm-bugs-Add-arithmetic-overflow-and-array-bounds-checks.patch
 FROMLIST-overlayfs-handle-XATTR_NOSECURITY-flag-for-get-xattr-method.patch
 FROMLIST-overlayfs-internal-getxattr-operations-without-sepolicy-checking.patch
 FROMLIST-overlayfs-override_creds-off-option-bypass-creator_cred.patch
-FROMLIST-fscrypt-add-FS_IOC_GET_ENCRYPTION_NONCE-ioctl.patch
-FROMLIST-ext4-wire-up-FS_IOC_GET_ENCRYPTION_NONCE.patch
-FROMLIST-f2fs-wire-up-FS_IOC_GET_ENCRYPTION_NONCE.patch
-FROMLIST-ubifs-wire-up-FS_IOC_GET_ENCRYPTION_NONCE.patch
 FROMLIST-media-v4l2-fh-define-v4l2_fh-struct-regardless-of-condition.patch
 FROMLIST-soc-qcom-rpmpd-Allow-RPMPD-driver-to-be-loaded-as-a-module.patch
 FROMLIST-soc-qcom-rpmh-Allow-RPMH-driver-to-be-loaded-as-a-module.patch
@@ -414,9 +409,6 @@ ANDROID-drm-msm-a6xx-Make-a6xx_gmu_bo.iova-a-dma_addr_t.patch
 FROMGIT-of-property-Add-device-link-support-for-power-domains-and-hwlocks.patch
 ANDROID-Disable-wq-fp-check-in-CFI-builds.patch
 ANDROID-gki_defconfig-Disable-CONFIG_RT_GROUP_SCHED.patch
-FROMLIST-kbuild-allow-symbol-whitelisting-with-TRIM_UNUSED_KSYMS.patch
-FROMLIST-kbuild-split-adjust_autoksyms.sh-in-two-parts.patch
-FROMLIST-kbuild-generate-autoksyms.h-early.patch
 ANDROID-gki_defconfig-disable-CONFIG_CRYPTO_MD4.patch
 ANDROID-gki-Enable-BINFMT_MISC-as-part-of-GKI.patch
 ANDROID-net-wireless-Add-module_param-mac_prefix-to-mac80211_hwsim.patch
@@ -443,7 +435,6 @@ ANDROID-cpufreq-times-Remove-per-UID-time-in-state-tracking.patch
 ANDROID-gki_defconfig-enable-CONFIG_TYPEC.patch
 FROMLIST-f2fs-fix-wrong-check-on-F2FS_IOC_FSSETXATTR.patch
 ANDROID-arm64-gki_defconfig-disable-CONFIG_DEBUG_PREEMPT.patch
-ANDROID-kbuild-align-UNUSED_KSYMS_WHITELIST-with-upstream.patch
 ANDROID-enable-CONFIG_WATCHDOG_CORE-y.patch
 ANDROID-gki_defconfig-disable-CONFIG_DEBUG_DEVRES.patch
 ANDROID-gki_defconfig-Enable-CONFIG_CLEANCACHE.patch

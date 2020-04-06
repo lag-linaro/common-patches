@@ -65,10 +65,10 @@ index 000000000000..a3918718cbf8
 +
 +#endif /* _XT_QUOTA_H */
 diff --git a/net/netfilter/Kconfig b/net/netfilter/Kconfig
-index 91efae88e8c2..ea957f78a5a9 100644
+index 468fea1aebba..15adb28b98b9 100644
 --- a/net/netfilter/Kconfig
 +++ b/net/netfilter/Kconfig
-@@ -1484,6 +1484,29 @@ config NETFILTER_XT_MATCH_QUOTA
+@@ -1476,6 +1476,29 @@ config NETFILTER_XT_MATCH_QUOTA
  	  If you want to compile it as a module, say M here and read
  	  <file:Documentation/kbuild/modules.rst>.  If unsure, say `N'.
  
@@ -99,10 +99,10 @@ index 91efae88e8c2..ea957f78a5a9 100644
  	tristate '"rateest" match support'
  	depends on NETFILTER_ADVANCED
 diff --git a/net/netfilter/Makefile b/net/netfilter/Makefile
-index 3f572e5a975e..55c960f213b2 100644
+index 292e71dc7ba4..aef6d40c0397 100644
 --- a/net/netfilter/Makefile
 +++ b/net/netfilter/Makefile
-@@ -194,6 +194,7 @@ obj-$(CONFIG_NETFILTER_XT_MATCH_PHYSDEV) += xt_physdev.o
+@@ -197,6 +197,7 @@ obj-$(CONFIG_NETFILTER_XT_MATCH_PHYSDEV) += xt_physdev.o
  obj-$(CONFIG_NETFILTER_XT_MATCH_PKTTYPE) += xt_pkttype.o
  obj-$(CONFIG_NETFILTER_XT_MATCH_POLICY) += xt_policy.o
  obj-$(CONFIG_NETFILTER_XT_MATCH_QUOTA) += xt_quota.o
