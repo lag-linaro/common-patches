@@ -2,7 +2,7 @@
 # android-mainline patches
 #
 # Applies onto upstream 458ef2a25e0c Linux v5.6-2330-g458ef2a25e0c
-# Matches android-mainline f8359e705ccc ("ANDROID: f_audio_source.c: Call cpu_latency_qos_*() instead of pm_qos_*()")
+# Matches android-mainline 494d70ec87b0 ("ANDROID: Fix wq fp check for CFI builds")
 #
 UPSTREAM-ipv6-ndisc-add-support-for-PREF64-dns64-prefix-identifier.patch
 Revert-security-lockdown-selinux-implement-SELinux-lockdown.patch
@@ -484,3 +484,12 @@ ANDROID-Incremental-fs-Fix-four-resource-bugs.patch
 ANDROID-GKI-enable-CONFIG_WIREGUARD.patch
 ANDROID-clang-update-to-10.0.5.patch
 ANDROID-GKI-Removed-cuttlefish-configs.patch
+FROMLIST-HID-nintendo-add-nintendo-switch-controller-driver.patch
+ANDROID-Enable-HID_NINTENDO-as-y.patch
+ANDROID-GKI-defconfig-enable-CONFIG_THERMAL_GOV_POWER_ALLOCATOR.patch
+ANDROID-db845c-build-Use-merge_configs.patch
+ANDROID-Incremental-fs-get_filled_blocks-better-index_out.patch
+ANDROID-Incremental-fs-Fix-crash-polling-0-size-read_log.patch
+ANDROID-Incremental-fs-Protect-get_fill_block-and-add-a-field.patch
+ANDROID-Incremental-fs-Fix-remount.patch
+ANDROID-Fix-wq-fp-check-for-CFI-builds.patch
