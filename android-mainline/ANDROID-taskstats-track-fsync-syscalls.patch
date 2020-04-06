@@ -28,7 +28,7 @@ Signed-off-by: Alistair Delva <adelva@google.com>
  6 files changed, 17 insertions(+), 2 deletions(-)
 
 diff --git a/drivers/misc/Kconfig b/drivers/misc/Kconfig
-index 55d8d9381f9c..c6520fe79e51 100644
+index 30e9c3e89d28..cfc0eed31c42 100644
 --- a/drivers/misc/Kconfig
 +++ b/drivers/misc/Kconfig
 @@ -459,7 +459,7 @@ config MISC_RTSX

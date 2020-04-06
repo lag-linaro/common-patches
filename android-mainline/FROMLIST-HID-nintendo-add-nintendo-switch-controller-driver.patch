@@ -30,10 +30,10 @@ Signed-off-by: Siarhei Vishniakou <svv@google.com>
  create mode 100644 drivers/hid/hid-nintendo.c
 
 diff --git a/MAINTAINERS b/MAINTAINERS
-index 195052943574..56cb86da139a 100644
+index 242a09639d97..ce0578cc7bd4 100644
 --- a/MAINTAINERS
 +++ b/MAINTAINERS
-@@ -11871,6 +11871,12 @@ S:	Maintained
+@@ -11881,6 +11881,12 @@ S:	Maintained
  F:	Documentation/scsi/NinjaSCSI.txt
  F:	drivers/scsi/nsp32*
  
@@ -47,10 +47,10 @@ index 195052943574..56cb86da139a 100644
  M:	Ley Foon Tan <ley.foon.tan@intel.com>
  L:	nios2-dev@lists.rocketboards.org (moderated for non-subscribers)
 diff --git a/drivers/hid/Kconfig b/drivers/hid/Kconfig
-index 494a39e74939..5dbee5fd69df 100644
+index 7c89edbd6c5a..13d4865d2fb7 100644
 --- a/drivers/hid/Kconfig
 +++ b/drivers/hid/Kconfig
-@@ -702,6 +702,17 @@ config HID_MULTITOUCH
+@@ -709,6 +709,17 @@ config HID_MULTITOUCH
  	  To compile this driver as a module, choose M here: the
  	  module will be called hid-multitouch.
  
@@ -69,10 +69,10 @@ index 494a39e74939..5dbee5fd69df 100644
  	tristate "NTI keyboard adapters"
  	---help---
 diff --git a/drivers/hid/Makefile b/drivers/hid/Makefile
-index bfefa365b1ce..f66702d6fa03 100644
+index d8ea4b8c95af..d0cc21b38251 100644
 --- a/drivers/hid/Makefile
 +++ b/drivers/hid/Makefile
-@@ -74,6 +74,7 @@ obj-$(CONFIG_HID_MAYFLASH)	+= hid-mf.o
+@@ -76,6 +76,7 @@ obj-$(CONFIG_HID_MAYFLASH)	+= hid-mf.o
  obj-$(CONFIG_HID_MICROSOFT)	+= hid-microsoft.o
  obj-$(CONFIG_HID_MONTEREY)	+= hid-monterey.o
  obj-$(CONFIG_HID_MULTITOUCH)	+= hid-multitouch.o
@@ -81,10 +81,10 @@ index bfefa365b1ce..f66702d6fa03 100644
  obj-$(CONFIG_HID_NTRIG)		+= hid-ntrig.o
  obj-$(CONFIG_HID_ORTEK)		+= hid-ortek.o
 diff --git a/drivers/hid/hid-ids.h b/drivers/hid/hid-ids.h
-index 9f2213426556..8df8075c20d3 100644
+index b18b13147a6f..997e2694ea84 100644
 --- a/drivers/hid/hid-ids.h
 +++ b/drivers/hid/hid-ids.h
-@@ -877,6 +877,9 @@
+@@ -882,6 +882,9 @@
  #define USB_VENDOR_ID_NINTENDO		0x057e
  #define USB_DEVICE_ID_NINTENDO_WIIMOTE	0x0306
  #define USB_DEVICE_ID_NINTENDO_WIIMOTE2	0x0330

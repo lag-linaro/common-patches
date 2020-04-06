@@ -40,7 +40,7 @@ Signed-off-by: Alistair Delva <adelva@google.com>
  create mode 100644 drivers/misc/uid_sys_stats.c
 
 diff --git a/drivers/misc/Kconfig b/drivers/misc/Kconfig
-index 7f0d48f406e3..580256f7e5a8 100644
+index 99e151475d8f..1fa6d9416154 100644
 --- a/drivers/misc/Kconfig
 +++ b/drivers/misc/Kconfig
 @@ -457,6 +457,12 @@ config MISC_RTSX
@@ -57,12 +57,12 @@ index 7f0d48f406e3..580256f7e5a8 100644
  	tristate "pvpanic device support"
  	depends on HAS_IOMEM && (ACPI || OF)
 diff --git a/drivers/misc/Makefile b/drivers/misc/Makefile
-index c1860d35dc7e..9a3dda3a9d06 100644
+index 9abf2923d831..0bc4582abfdd 100644
 --- a/drivers/misc/Makefile
 +++ b/drivers/misc/Makefile
-@@ -57,3 +57,4 @@ obj-y				+= cardreader/
- obj-$(CONFIG_PVPANIC)   	+= pvpanic.o
+@@ -58,3 +58,4 @@ obj-$(CONFIG_PVPANIC)   	+= pvpanic.o
  obj-$(CONFIG_HABANA_AI)		+= habanalabs/
+ obj-$(CONFIG_UACCE)		+= uacce/
  obj-$(CONFIG_XILINX_SDFEC)	+= xilinx_sdfec.o
 +obj-$(CONFIG_UID_SYS_STATS)	+= uid_sys_stats.o
 diff --git a/drivers/misc/uid_sys_stats.c b/drivers/misc/uid_sys_stats.c
