@@ -1,0 +1,364 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: Eric Biggers <ebiggers@google.com>
+Date: Fri, 3 Apr 2020 12:06:11 -0700
+Subject: ANDROID: block: require drivers to declare supported crypto key
+ type(s)
+
+We need a way to tell which type of keys the inline crypto hardware
+supports (standard, wrapped, or both), so that fallbacks can be used
+when needed (either blk-crypto-fallback, or fscrypt fs-layer crypto).
+
+We can't simply assume that
+
+    keyslot_mgmt_ll_ops::derive_raw_secret == NULL
+
+means only standard keys are supported and that
+
+    keyslot_mgmt_ll_ops::derive_raw_secret != NULL
+
+means that only wrapped keys are supported, because device-mapper
+devices always implement this method.  Also, hardware might support both
+types of keys.
+
+Therefore, add a field keyslot_manager::features which contains a
+bitmask of flags which indicate the supported types of keys.  Drivers
+will need to fill this in.  This patch makes the UFS standard crypto
+code set BLK_CRYPTO_FEATURE_STANDARD_KEYS, but UFS variant drivers may
+need to set BLK_CRYPTO_FEATURE_WRAPPED_KEYS instead.
+
+Then, make keyslot_manager_crypto_mode_supported() take the key type
+into account.
+
+Bug: 137270441
+Bug: 151100202
+Test: 'atest vts_kernel_encryption_test' on Pixel 4 with the
+      inline crypto patches backported, and also on Cuttlefish.
+Change-Id: Ied846c2767c1fd2f438792dcfd3649157e68b005
+Signed-off-by: Eric Biggers <ebiggers@google.com>
+---
+ block/blk-crypto-fallback.c      |  8 +++++---
+ block/blk-crypto.c               | 15 ++++++++++++---
+ block/keyslot-manager.c          | 30 ++++++++++++++++++++++++------
+ drivers/md/dm-default-key.c      |  1 +
+ drivers/md/dm.c                  |  9 +++++++--
+ drivers/scsi/ufs/ufshcd-crypto.c |  4 +++-
+ fs/crypto/inline_crypt.c         |  1 +
+ include/linux/blk-crypto.h       |  1 +
+ include/linux/keyslot-manager.h  | 14 +++++++++++++-
+ 9 files changed, 67 insertions(+), 16 deletions(-)
+
+diff --git a/block/blk-crypto-fallback.c b/block/blk-crypto-fallback.c
+index f3f5e2866b8b..d6c57887d770 100644
+--- a/block/blk-crypto-fallback.c
++++ b/block/blk-crypto-fallback.c
+@@ -601,9 +601,11 @@ int __init blk_crypto_fallback_init(void)
+ 		crypto_mode_supported[i] = 0xFFFFFFFF;
+ 	crypto_mode_supported[BLK_ENCRYPTION_MODE_INVALID] = 0;
+ 
+-	blk_crypto_ksm = keyslot_manager_create(NULL, blk_crypto_num_keyslots,
+-						&blk_crypto_ksm_ll_ops,
+-						crypto_mode_supported, NULL);
++	blk_crypto_ksm = keyslot_manager_create(
++				NULL, blk_crypto_num_keyslots,
++				&blk_crypto_ksm_ll_ops,
++				BLK_CRYPTO_FEATURE_STANDARD_KEYS,
++				crypto_mode_supported, NULL);
+ 	if (!blk_crypto_ksm)
+ 		return -ENOMEM;
+ 
+diff --git a/block/blk-crypto.c b/block/blk-crypto.c
+index 7bf2ff86d277..f56bbec1132f 100644
+--- a/block/blk-crypto.c
++++ b/block/blk-crypto.c
+@@ -109,7 +109,8 @@ int blk_crypto_submit_bio(struct bio **bio_ptr)
+ 	/* Get device keyslot if supported */
+ 	if (keyslot_manager_crypto_mode_supported(q->ksm,
+ 						  bc->bc_key->crypto_mode,
+-						  bc->bc_key->data_unit_size)) {
++						  bc->bc_key->data_unit_size,
++						  bc->bc_key->is_hw_wrapped)) {
+ 		err = bio_crypt_ctx_acquire_keyslot(bc, q->ksm);
+ 		if (!err)
+ 			return 0;
+@@ -236,6 +237,7 @@ EXPORT_SYMBOL_GPL(blk_crypto_init_key);
+  * blk_crypto_start_using_mode() - Start using blk-crypto on a device
+  * @crypto_mode: the crypto mode that will be used
+  * @data_unit_size: the data unit size that will be used
++ * @is_hw_wrapped_key: whether the key will be hardware-wrapped
+  * @q: the request queue for the device
+  *
+  * Upper layers must call this function to ensure that either the hardware
+@@ -248,11 +250,17 @@ EXPORT_SYMBOL_GPL(blk_crypto_init_key);
+  */
+ int blk_crypto_start_using_mode(enum blk_crypto_mode_num crypto_mode,
+ 				unsigned int data_unit_size,
++				bool is_hw_wrapped_key,
+ 				struct request_queue *q)
+ {
+ 	if (keyslot_manager_crypto_mode_supported(q->ksm, crypto_mode,
+-						  data_unit_size))
++						  data_unit_size,
++						  is_hw_wrapped_key))
+ 		return 0;
++	if (is_hw_wrapped_key) {
++		pr_warn_once("hardware doesn't support wrapped keys\n");
++		return -EOPNOTSUPP;
++	}
+ 	return blk_crypto_fallback_start_using_mode(crypto_mode);
+ }
+ EXPORT_SYMBOL_GPL(blk_crypto_start_using_mode);
+@@ -277,7 +285,8 @@ int blk_crypto_evict_key(struct request_queue *q,
+ {
+ 	if (q->ksm &&
+ 	    keyslot_manager_crypto_mode_supported(q->ksm, key->crypto_mode,
+-						  key->data_unit_size))
++						  key->data_unit_size,
++						  key->is_hw_wrapped))
+ 		return keyslot_manager_evict_key(q->ksm, key);
+ 
+ 	return blk_crypto_fallback_evict_key(key);
+diff --git a/block/keyslot-manager.c b/block/keyslot-manager.c
+index 6b563c8602d0..d1dbac6e1a46 100644
+--- a/block/keyslot-manager.c
++++ b/block/keyslot-manager.c
+@@ -43,6 +43,7 @@ struct keyslot {
+ struct keyslot_manager {
+ 	unsigned int num_slots;
+ 	struct keyslot_mgmt_ll_ops ksm_ll_ops;
++	unsigned int features;
+ 	unsigned int crypto_mode_supported[BLK_ENCRYPTION_MODE_MAX];
+ 	void *ll_priv_data;
+ 
+@@ -135,6 +136,8 @@ static inline void keyslot_manager_hw_exit(struct keyslot_manager *ksm)
+  * @ksm_ll_ops: The struct keyslot_mgmt_ll_ops for the device that this keyslot
+  *		manager will use to perform operations like programming and
+  *		evicting keys.
++ * @features: The supported features as a bitmask of BLK_CRYPTO_FEATURE_* flags.
++ *	      Most drivers should set BLK_CRYPTO_FEATURE_STANDARD_KEYS here.
+  * @crypto_mode_supported:	Array of size BLK_ENCRYPTION_MODE_MAX of
+  *				bitmasks that represents whether a crypto mode
+  *				and data unit size are supported. The i'th bit
+@@ -154,6 +157,7 @@ struct keyslot_manager *keyslot_manager_create(
+ 	struct device *dev,
+ 	unsigned int num_slots,
+ 	const struct keyslot_mgmt_ll_ops *ksm_ll_ops,
++	unsigned int features,
+ 	const unsigned int crypto_mode_supported[BLK_ENCRYPTION_MODE_MAX],
+ 	void *ll_priv_data)
+ {
+@@ -175,6 +179,7 @@ struct keyslot_manager *keyslot_manager_create(
+ 
+ 	ksm->num_slots = num_slots;
+ 	ksm->ksm_ll_ops = *ksm_ll_ops;
++	ksm->features = features;
+ 	memcpy(ksm->crypto_mode_supported, crypto_mode_supported,
+ 	       sizeof(ksm->crypto_mode_supported));
+ 	ksm->ll_priv_data = ll_priv_data;
+@@ -381,23 +386,24 @@ void keyslot_manager_put_slot(struct keyslot_manager *ksm, unsigned int slot)
+ }
+ 
+ /**
+- * keyslot_manager_crypto_mode_supported() - Find out if a crypto_mode/data
+- *					     unit size combination is supported
+- *					     by a ksm.
++ * keyslot_manager_crypto_mode_supported() - Find out if a crypto_mode /
++ *					     data unit size / is_hw_wrapped_key
++ *					     combination is supported by a ksm.
+  * @ksm: The keyslot manager to check
+  * @crypto_mode: The crypto mode to check for.
+  * @data_unit_size: The data_unit_size for the mode.
++ * @is_hw_wrapped_key: Whether a hardware-wrapped key will be used.
+  *
+  * Calls and returns the result of the crypto_mode_supported function specified
+  * by the ksm.
+  *
+  * Context: Process context.
+- * Return: Whether or not this ksm supports the specified crypto_mode/
+- *	   data_unit_size combo.
++ * Return: Whether or not this ksm supports the specified crypto settings.
+  */
+ bool keyslot_manager_crypto_mode_supported(struct keyslot_manager *ksm,
+ 					   enum blk_crypto_mode_num crypto_mode,
+-					   unsigned int data_unit_size)
++					   unsigned int data_unit_size,
++					   bool is_hw_wrapped_key)
+ {
+ 	if (!ksm)
+ 		return false;
+@@ -405,6 +411,13 @@ bool keyslot_manager_crypto_mode_supported(struct keyslot_manager *ksm,
+ 		return false;
+ 	if (WARN_ON(!is_power_of_2(data_unit_size)))
+ 		return false;
++	if (is_hw_wrapped_key) {
++		if (!(ksm->features & BLK_CRYPTO_FEATURE_WRAPPED_KEYS))
++			return false;
++	} else {
++		if (!(ksm->features & BLK_CRYPTO_FEATURE_STANDARD_KEYS))
++			return false;
++	}
+ 	return ksm->crypto_mode_supported[crypto_mode] & data_unit_size;
+ }
+ 
+@@ -520,6 +533,7 @@ EXPORT_SYMBOL_GPL(keyslot_manager_destroy);
+  * keyslot_manager_create_passthrough() - Create a passthrough keyslot manager
+  * @dev: Device for runtime power management (NULL if none)
+  * @ksm_ll_ops: The struct keyslot_mgmt_ll_ops
++ * @features: Bitmask of BLK_CRYPTO_FEATURE_* flags
+  * @crypto_mode_supported: Bitmasks for supported encryption modes
+  * @ll_priv_data: Private data passed as is to the functions in ksm_ll_ops.
+  *
+@@ -537,6 +551,7 @@ EXPORT_SYMBOL_GPL(keyslot_manager_destroy);
+ struct keyslot_manager *keyslot_manager_create_passthrough(
+ 	struct device *dev,
+ 	const struct keyslot_mgmt_ll_ops *ksm_ll_ops,
++	unsigned int features,
+ 	const unsigned int crypto_mode_supported[BLK_ENCRYPTION_MODE_MAX],
+ 	void *ll_priv_data)
+ {
+@@ -547,6 +562,7 @@ struct keyslot_manager *keyslot_manager_create_passthrough(
+ 		return NULL;
+ 
+ 	ksm->ksm_ll_ops = *ksm_ll_ops;
++	ksm->features = features;
+ 	memcpy(ksm->crypto_mode_supported, crypto_mode_supported,
+ 	       sizeof(ksm->crypto_mode_supported));
+ 	ksm->ll_priv_data = ll_priv_data;
+@@ -575,11 +591,13 @@ void keyslot_manager_intersect_modes(struct keyslot_manager *parent,
+ 	if (child) {
+ 		unsigned int i;
+ 
++		parent->features &= child->features;
+ 		for (i = 0; i < ARRAY_SIZE(child->crypto_mode_supported); i++) {
+ 			parent->crypto_mode_supported[i] &=
+ 				child->crypto_mode_supported[i];
+ 		}
+ 	} else {
++		parent->features = 0;
+ 		memset(parent->crypto_mode_supported, 0,
+ 		       sizeof(parent->crypto_mode_supported));
+ 	}
+diff --git a/drivers/md/dm-default-key.c b/drivers/md/dm-default-key.c
+index 2420e9898d09..73120426a1a0 100644
+--- a/drivers/md/dm-default-key.c
++++ b/drivers/md/dm-default-key.c
+@@ -239,6 +239,7 @@ static int default_key_ctr(struct dm_target *ti, unsigned int argc, char **argv)
+ 	}
+ 
+ 	err = blk_crypto_start_using_mode(cipher->mode_num, dkc->sector_size,
++					  dkc->is_hw_wrapped,
+ 					  dkc->dev->bdev->bd_queue);
+ 	if (err) {
+ 		ti->error = "Error starting to use blk-crypto";
+diff --git a/drivers/md/dm.c b/drivers/md/dm.c
+index aeeb9f4e8540..953bc8d33dd4 100644
+--- a/drivers/md/dm.c
++++ b/drivers/md/dm.c
+@@ -2371,16 +2371,21 @@ static struct keyslot_mgmt_ll_ops dm_ksm_ll_ops = {
+ 
+ static int dm_init_inline_encryption(struct mapped_device *md)
+ {
++	unsigned int features;
+ 	unsigned int mode_masks[BLK_ENCRYPTION_MODE_MAX];
+ 
+ 	/*
+-	 * Start out with all crypto mode support bits set.  Any unsupported
+-	 * bits will be cleared later when calculating the device restrictions.
++	 * Initially declare support for all crypto settings.  Anything
++	 * unsupported by a child device will be removed later when calculating
++	 * the device restrictions.
+ 	 */
++	features = BLK_CRYPTO_FEATURE_STANDARD_KEYS |
++		   BLK_CRYPTO_FEATURE_WRAPPED_KEYS;
+ 	memset(mode_masks, 0xFF, sizeof(mode_masks));
+ 
+ 	md->queue->ksm = keyslot_manager_create_passthrough(NULL,
+ 							    &dm_ksm_ll_ops,
++							    features,
+ 							    mode_masks, md);
+ 	if (!md->queue->ksm)
+ 		return -ENOMEM;
+diff --git a/drivers/scsi/ufs/ufshcd-crypto.c b/drivers/scsi/ufs/ufshcd-crypto.c
+index 6999970235b3..d62ab7a9faff 100644
+--- a/drivers/scsi/ufs/ufshcd-crypto.c
++++ b/drivers/scsi/ufs/ufshcd-crypto.c
+@@ -336,7 +336,9 @@ int ufshcd_hba_init_crypto_spec(struct ufs_hba *hba,
+ 	ufshcd_clear_all_keyslots(hba);
+ 
+ 	hba->ksm = keyslot_manager_create(hba->dev, ufshcd_num_keyslots(hba),
+-					  ksm_ops, crypto_modes_supported, hba);
++					  ksm_ops,
++					  BLK_CRYPTO_FEATURE_STANDARD_KEYS,
++					  crypto_modes_supported, hba);
+ 
+ 	if (!hba->ksm) {
+ 		err = -ENOMEM;
+diff --git a/fs/crypto/inline_crypt.c b/fs/crypto/inline_crypt.c
+index 00da0effa6c9..298bf57ca781 100644
+--- a/fs/crypto/inline_crypt.c
++++ b/fs/crypto/inline_crypt.c
+@@ -103,6 +103,7 @@ int fscrypt_prepare_inline_crypt_key(struct fscrypt_prepared_key *prep_key,
+ 		queue_refs++;
+ 
+ 		err = blk_crypto_start_using_mode(crypto_mode, sb->s_blocksize,
++						  is_hw_wrapped,
+ 						  blk_key->devs[i]);
+ 		if (err) {
+ 			fscrypt_err(inode,
+diff --git a/include/linux/blk-crypto.h b/include/linux/blk-crypto.h
+index 2416a0a6e6b3..d383d3b320b9 100644
+--- a/include/linux/blk-crypto.h
++++ b/include/linux/blk-crypto.h
+@@ -22,6 +22,7 @@ int blk_crypto_init_key(struct blk_crypto_key *blk_key,
+ 
+ int blk_crypto_start_using_mode(enum blk_crypto_mode_num crypto_mode,
+ 				unsigned int data_unit_size,
++				bool is_hw_wrapped_key,
+ 				struct request_queue *q);
+ 
+ int blk_crypto_evict_key(struct request_queue *q,
+diff --git a/include/linux/keyslot-manager.h b/include/linux/keyslot-manager.h
+index 2f4aac2851bf..cd65bea927db 100644
+--- a/include/linux/keyslot-manager.h
++++ b/include/linux/keyslot-manager.h
+@@ -8,6 +8,15 @@
+ 
+ #include <linux/bio.h>
+ 
++/* Inline crypto feature bits.  Must set at least one. */
++enum {
++	/* Support for standard software-specified keys */
++	BLK_CRYPTO_FEATURE_STANDARD_KEYS = BIT(0),
++
++	/* Support for hardware-wrapped keys */
++	BLK_CRYPTO_FEATURE_WRAPPED_KEYS = BIT(1),
++};
++
+ #ifdef CONFIG_BLK_INLINE_ENCRYPTION
+ 
+ struct keyslot_manager;
+@@ -45,6 +54,7 @@ struct keyslot_manager *keyslot_manager_create(
+ 	struct device *dev,
+ 	unsigned int num_slots,
+ 	const struct keyslot_mgmt_ll_ops *ksm_ops,
++	unsigned int features,
+ 	const unsigned int crypto_mode_supported[BLK_ENCRYPTION_MODE_MAX],
+ 	void *ll_priv_data);
+ 
+@@ -57,7 +67,8 @@ void keyslot_manager_put_slot(struct keyslot_manager *ksm, unsigned int slot);
+ 
+ bool keyslot_manager_crypto_mode_supported(struct keyslot_manager *ksm,
+ 					   enum blk_crypto_mode_num crypto_mode,
+-					   unsigned int data_unit_size);
++					   unsigned int data_unit_size,
++					   bool is_hw_wrapped_key);
+ 
+ int keyslot_manager_evict_key(struct keyslot_manager *ksm,
+ 			      const struct blk_crypto_key *key);
+@@ -71,6 +82,7 @@ void keyslot_manager_destroy(struct keyslot_manager *ksm);
+ struct keyslot_manager *keyslot_manager_create_passthrough(
+ 	struct device *dev,
+ 	const struct keyslot_mgmt_ll_ops *ksm_ops,
++	unsigned int features,
+ 	const unsigned int crypto_mode_supported[BLK_ENCRYPTION_MODE_MAX],
+ 	void *ll_priv_data);
+ 

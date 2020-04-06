@@ -2,7 +2,7 @@
 # android-mainline patches
 #
 # Applies onto upstream 4646de87d325 Linux v5.6-5820-g4646de87d325
-# Matches android-mainline 35a57e5efc4d ("Merge 4646de87d325 ("Merge tag 'mailbox-v5.7' of git://git.linaro.org/landing-teams/working/fujitsu/integration") into android-mainline")
+# Matches android-mainline 3ddb60ffd214 ("ANDROID: fscrypt: fall back to filesystem-layer crypto when needed")
 #
 Revert-security-lockdown-selinux-implement-SELinux-lockdown.patch
 Revert-drm-virtio-fix-DRM_FORMAT_-handling.patch
@@ -485,3 +485,6 @@ ANDROID-Incremental-fs-Protect-get_fill_block-and-add-a-field.patch
 ANDROID-Incremental-fs-Fix-remount.patch
 ANDROID-Fix-wq-fp-check-for-CFI-builds.patch
 ANDROID-Revert-af73d78bd384-kbuild-Remove-debug-info-from-kallsyms-linking.patch
+ANDROID-block-make-blk_crypto_start_using_mode-properly-check-for-support.patch
+ANDROID-block-require-drivers-to-declare-supported-crypto-key-type-s.patch
+ANDROID-fscrypt-fall-back-to-filesystem-layer-crypto-when-needed.patch
