@@ -15,10 +15,10 @@ Change-Id: I95d66c8a0cd56262aa779de568650a3e48240b1f
  2 files changed, 3 insertions(+), 1 deletion(-)
 
 diff --git a/drivers/gpu/drm/drm_framebuffer.c b/drivers/gpu/drm/drm_framebuffer.c
-index 57564318ceea..c62250c1641e 100644
+index 57ac94ce9b9e..24c87d200e37 100644
 --- a/drivers/gpu/drm/drm_framebuffer.c
 +++ b/drivers/gpu/drm/drm_framebuffer.c
-@@ -295,7 +295,8 @@ drm_internal_framebuffer_create(struct drm_device *dev,
+@@ -296,7 +296,8 @@ drm_internal_framebuffer_create(struct drm_device *dev,
  	struct drm_framebuffer *fb;
  	int ret;
  

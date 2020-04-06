@@ -26,19 +26,18 @@ Fixes: 2bc6d0193f13 ("FROMLIST: drm/msm/a6xx: Use the DMA API for GMU memory obj
 Signed-off-by: John Stultz <john.stultz@linaro.org>
 Change-Id: Ia3a76acc1d501c629508bf4d10a931353a49568d
 ---
- drivers/gpu/drm/msm/adreno/a6xx_gmu.h | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/gpu/drm/msm/adreno/a6xx_gmu.h | 1 +
+ 1 file changed, 1 insertion(+)
 
 diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gmu.h b/drivers/gpu/drm/msm/adreno/a6xx_gmu.h
-index 31bd1987db88..d10cddd009c1 100644
+index 4af65a36d5ca..d10cddd009c1 100644
 --- a/drivers/gpu/drm/msm/adreno/a6xx_gmu.h
 +++ b/drivers/gpu/drm/msm/adreno/a6xx_gmu.h
-@@ -12,7 +12,7 @@
- struct a6xx_gmu_bo {
+@@ -13,6 +13,7 @@ struct a6xx_gmu_bo {
  	void *virt;
  	size_t size;
--	u64 iova;
-+	dma_addr_t iova;
- 	unsigned long attrs;
+ 	dma_addr_t iova;
++	unsigned long attrs;
  };
  
+ /*

@@ -19,10 +19,10 @@ Signed-off-by: Sandeep Patil <sspatil@google.com>
  2 files changed, 29 insertions(+)
 
 diff --git a/drivers/dma-buf/dma-buf.c b/drivers/dma-buf/dma-buf.c
-index 972eac89990f..674d2ff7ed47 100644
+index 04da2c84694d..23217e3603f2 100644
 --- a/drivers/dma-buf/dma-buf.c
 +++ b/drivers/dma-buf/dma-buf.c
-@@ -1198,6 +1198,20 @@ void dma_buf_vunmap(struct dma_buf *dmabuf, void *vaddr)
+@@ -1290,6 +1290,20 @@ void dma_buf_vunmap(struct dma_buf *dmabuf, void *vaddr)
  }
  EXPORT_SYMBOL_GPL(dma_buf_vunmap);
  
@@ -44,10 +44,10 @@ index 972eac89990f..674d2ff7ed47 100644
  static int dma_buf_debug_show(struct seq_file *s, void *unused)
  {
 diff --git a/include/linux/dma-buf.h b/include/linux/dma-buf.h
-index 5413b7283563..928f271cbe68 100644
+index 1dea46636d26..e765b31f0a28 100644
 --- a/include/linux/dma-buf.h
 +++ b/include/linux/dma-buf.h
-@@ -308,6 +308,20 @@ struct dma_buf_ops {
+@@ -324,6 +324,20 @@ struct dma_buf_ops {
  
  	void *(*vmap)(struct dma_buf *);
  	void (*vunmap)(struct dma_buf *, void *vaddr);
@@ -68,7 +68,7 @@ index 5413b7283563..928f271cbe68 100644
  };
  
  /**
-@@ -510,4 +524,5 @@ int dma_buf_mmap(struct dma_buf *, struct vm_area_struct *,
+@@ -559,4 +573,5 @@ int dma_buf_mmap(struct dma_buf *, struct vm_area_struct *,
  		 unsigned long);
  void *dma_buf_vmap(struct dma_buf *);
  void dma_buf_vunmap(struct dma_buf *, void *vaddr);

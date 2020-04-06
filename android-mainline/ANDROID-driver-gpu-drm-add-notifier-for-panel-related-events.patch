@@ -57,7 +57,7 @@ index 8c7bac85a793..bf9a4237fb8f 100644
  MODULE_DESCRIPTION("DRM panel infrastructure");
  MODULE_LICENSE("GPL and additional rights");
 diff --git a/include/drm/drm_connector.h b/include/drm/drm_connector.h
-index 221910948b37..24a5c9728451 100644
+index 19ae6bb5c85b..ef45e999ee2a 100644
 --- a/include/drm/drm_connector.h
 +++ b/include/drm/drm_connector.h
 @@ -40,6 +40,7 @@ struct drm_encoder;
@@ -68,7 +68,7 @@ index 221910948b37..24a5c9728451 100644
  struct edid;
  struct i2c_adapter;
  
-@@ -1422,6 +1423,13 @@ struct drm_connector {
+@@ -1458,6 +1459,13 @@ struct drm_connector {
  
  	/** @hdr_sink_metadata: HDR Metadata Information read from sink */
  	struct hdr_sink_metadata hdr_sink_metadata;
@@ -83,7 +83,7 @@ index 221910948b37..24a5c9728451 100644
  
  #define obj_to_connector(x) container_of(x, struct drm_connector, base)
 diff --git a/include/drm/drm_panel.h b/include/drm/drm_panel.h
-index 121f7aabccd1..40e7c579233d 100644
+index 6193cb555acc..fea2fda8f09b 100644
 --- a/include/drm/drm_panel.h
 +++ b/include/drm/drm_panel.h
 @@ -27,6 +27,23 @@

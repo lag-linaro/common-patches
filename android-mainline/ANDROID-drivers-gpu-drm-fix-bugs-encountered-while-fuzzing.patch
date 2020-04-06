@@ -18,7 +18,7 @@ Change-Id: I42bd3696371db6ae37789e3f7f43db045e166898
  2 files changed, 22 insertions(+), 2 deletions(-)
 
 diff --git a/drivers/gpu/drm/drm_file.c b/drivers/gpu/drm/drm_file.c
-index 92d16724f949..a8680b69b156 100644
+index c4c704e01961..d220d2e602e1 100644
 --- a/drivers/gpu/drm/drm_file.c
 +++ b/drivers/gpu/drm/drm_file.c
 @@ -51,6 +51,8 @@
@@ -27,14 +27,14 @@ index 92d16724f949..a8680b69b156 100644
  
 +#define MAX_DRM_OPEN_COUNT		128
 +
- /**
-  * DOC: file operations
-  *
-@@ -382,6 +384,11 @@ int drm_open(struct inode *inode, struct file *filp)
- 	if (!dev->open_count++)
+ bool drm_dev_needs_global_mutex(struct drm_device *dev)
+ {
+ 	/*
+@@ -416,6 +418,11 @@ int drm_open(struct inode *inode, struct file *filp)
+ 	if (!atomic_fetch_inc(&dev->open_count))
  		need_setup = 1;
  
-+	if (dev->open_count >= MAX_DRM_OPEN_COUNT) {
++	if (atomic_read(&dev->open_count) >= MAX_DRM_OPEN_COUNT) {
 +		retcode = -EPERM;
 +		goto err_undo;
 +	}

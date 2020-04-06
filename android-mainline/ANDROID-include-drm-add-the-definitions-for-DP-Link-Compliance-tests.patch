@@ -16,10 +16,10 @@ Change-Id: If6aa7d9b77e6234780086f27515c346b6495a46f
  1 file changed, 8 insertions(+)
 
 diff --git a/include/drm/drm_dp_helper.h b/include/drm/drm_dp_helper.h
-index bc04467f7c3a..2fd3992345e9 100644
+index c6119e4c169a..0332d5733134 100644
 --- a/include/drm/drm_dp_helper.h
 +++ b/include/drm/drm_dp_helper.h
-@@ -700,6 +700,14 @@
+@@ -702,6 +702,14 @@
  # define DP_TEST_COUNT_MASK		    0xf
  
  #define DP_TEST_PHY_PATTERN                 0x248

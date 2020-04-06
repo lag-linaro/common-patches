@@ -1,8 +1,8 @@
 #
 # android-mainline patches
 #
-# Applies onto upstream 4646de87d325 Linux v5.6-5820-g4646de87d325
-# Matches android-mainline 3ddb60ffd214 ("ANDROID: fscrypt: fall back to filesystem-layer crypto when needed")
+# Applies onto upstream f365ab31efac Linux v5.6-7388-gf365ab31efac
+# Matches android-mainline 7b16525b2af2 ("Merge f365ab31efac ("Merge tag 'drm-next-2020-04-01' of git://anongit.freedesktop.org/drm/drm") into android-mainline")
 #
 Revert-security-lockdown-selinux-implement-SELinux-lockdown.patch
 Revert-drm-virtio-fix-DRM_FORMAT_-handling.patch

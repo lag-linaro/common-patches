@@ -17,17 +17,17 @@ Change-Id: Ib0bbbf1d86582d9c2ccf1a3c678f1563a26ec04f
 ---
  drivers/gpu/drm/bridge/Kconfig  |    8 +
  drivers/gpu/drm/bridge/Makefile |    1 +
- drivers/gpu/drm/bridge/lt9611.c | 1140 +++++++++++++++++++++++++++++++
- 3 files changed, 1149 insertions(+)
+ drivers/gpu/drm/bridge/lt9611.c | 1146 +++++++++++++++++++++++++++++++
+ 3 files changed, 1155 insertions(+)
  create mode 100644 drivers/gpu/drm/bridge/lt9611.c
 
 diff --git a/drivers/gpu/drm/bridge/Kconfig b/drivers/gpu/drm/bridge/Kconfig
-index 0b9ca5862455..5d8bad001dd3 100644
+index aaed2347ace9..52c1ac0da1b1 100644
 --- a/drivers/gpu/drm/bridge/Kconfig
 +++ b/drivers/gpu/drm/bridge/Kconfig
-@@ -35,6 +35,14 @@ config DRM_DUMB_VGA_DAC
- 	  Support for non-programmable RGB to VGA DAC bridges, such as ADI
- 	  ADV7123, TI THS8134 and THS8135 or passive resistor ladder DACs.
+@@ -38,6 +38,14 @@ config DRM_DISPLAY_CONNECTOR
+ 	  on ARM-based platforms. Saying Y here when this driver is not needed
+ 	  will not cause any issue.
  
 +config DRM_LONTIUM_LT9611
 +	tristate "Lontium LT9611 DSI/HDMI bridge"
@@ -41,23 +41,23 @@ index 0b9ca5862455..5d8bad001dd3 100644
  	tristate "Transparent LVDS encoders and decoders support"
  	depends on OF
 diff --git a/drivers/gpu/drm/bridge/Makefile b/drivers/gpu/drm/bridge/Makefile
-index cd16ce830270..e4b38df01631 100644
+index 6fb062b5b0f0..d2a696e8ca5d 100644
 --- a/drivers/gpu/drm/bridge/Makefile
 +++ b/drivers/gpu/drm/bridge/Makefile
 @@ -1,6 +1,7 @@
  # SPDX-License-Identifier: GPL-2.0
  obj-$(CONFIG_DRM_CDNS_DSI) += cdns-dsi.o
- obj-$(CONFIG_DRM_DUMB_VGA_DAC) += dumb-vga-dac.o
+ obj-$(CONFIG_DRM_DISPLAY_CONNECTOR) += display-connector.o
 +obj-$(CONFIG_DRM_LONTIUM_LT9611) += lt9611.o
  obj-$(CONFIG_DRM_LVDS_CODEC) += lvds-codec.o
  obj-$(CONFIG_DRM_MEGACHIPS_STDPXXXX_GE_B850V3_FW) += megachips-stdpxxxx-ge-b850v3-fw.o
  obj-$(CONFIG_DRM_NXP_PTN3460) += nxp-ptn3460.o
 diff --git a/drivers/gpu/drm/bridge/lt9611.c b/drivers/gpu/drm/bridge/lt9611.c
 new file mode 100644
-index 000000000000..5ee6dbf97507
+index 000000000000..d511bdb9e2b8
 --- /dev/null
 +++ b/drivers/gpu/drm/bridge/lt9611.c
-@@ -0,0 +1,1140 @@
+@@ -0,0 +1,1146 @@
 +// SPDX-License-Identifier: GPL-2.0
 +/*
 + * Copyright (c) 2018, The Linux Foundation. All rights reserved.
@@ -892,12 +892,18 @@ index 000000000000..5ee6dbf97507
 +	return dsi;
 +}
 +
-+static int lt9611_bridge_attach(struct drm_bridge *bridge)
++static int lt9611_bridge_attach(struct drm_bridge *bridge,
++				enum drm_bridge_attach_flags flags)
 +{
 +	struct lt9611 *lt9611 = bridge_to_lt9611(bridge);
 +	int ret;
 +
 +	dev_dbg(lt9611->dev, "bridge attach\n");
++
++	if (flags & DRM_BRIDGE_ATTACH_NO_CONNECTOR) {
++		DRM_ERROR("Fix bridge driver to make connector optional!");
++		return -EINVAL;
++	}
 +
 +	ret = drm_connector_init(bridge->dev, &lt9611->connector,
 +				 &lt9611_bridge_connector_funcs,

@@ -20,21 +20,21 @@ Signed-off-by: Sandeep Patil <sspatil@google.com>
  1 file changed, 3 insertions(+)
 
 diff --git a/include/linux/dma-buf.h b/include/linux/dma-buf.h
-index 6e8b317250b5..5413b7283563 100644
+index ca78cb522952..1dea46636d26 100644
 --- a/include/linux/dma-buf.h
 +++ b/include/linux/dma-buf.h
-@@ -378,6 +378,8 @@ struct dma_buf {
-  * @priv: exporter specific attachment data.
-  * @dynamic_mapping: true if dma_buf_map/unmap_attachment() is called with the
-  * dma_resv lock held.
+@@ -423,6 +423,8 @@ struct dma_buf_attach_ops {
+  * @importer_ops: importer operations for this attachment, if provided
+  * dma_buf_map/unmap_attachment() must be called with the dma_resv lock held.
+  * @importer_priv: importer specific attachment data.
 + * @dma_map_attrs: DMA attributes to be used when the exporter maps the buffer
 + * through dma_buf_map_attachment.
   *
   * This structure holds the attachment information between the dma_buf buffer
   * and its user device(s). The list contains one attachment struct per device
-@@ -396,6 +398,7 @@ struct dma_buf_attachment {
- 	enum dma_data_direction dir;
- 	bool dynamic_mapping;
+@@ -442,6 +444,7 @@ struct dma_buf_attachment {
+ 	const struct dma_buf_attach_ops *importer_ops;
+ 	void *importer_priv;
  	void *priv;
 +	unsigned long dma_map_attrs;
  };
