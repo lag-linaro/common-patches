@@ -82,7 +82,7 @@ index 475e5ec0be33..02345840b533 100644
  	{ }	/* terminate */
  };
 diff --git a/kernel/sched/sched.h b/kernel/sched/sched.h
-index b8a903534d53..e65b94eba88b 100644
+index 0f616bf7bce3..5debce09905f 100644
 --- a/kernel/sched/sched.h
 +++ b/kernel/sched/sched.h
 @@ -404,6 +404,8 @@ struct task_group {

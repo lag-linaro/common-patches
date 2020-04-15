@@ -1,0 +1,53 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: Todd Kjos <tkjos@google.com>
+Date: Mon, 6 Apr 2020 12:02:20 -0700
+Subject: ANDROID: GKI: defconfig: modify debug configs
+
+Turn on CONFIG_PANIC_ON_OOPS and CONFIG_BUG_ON_DATA_CORRUPTION and
+change panic timeout to -1 (immediately). CONFIG_DEBUG_LIST is now
+selected via dependancy instead of explicitly.
+
+Bug: 152470236
+Signed-off-by: Todd Kjos <tkjos@google.com>
+Change-Id: Ideceaa13139ad2408f56fe888a438bc20c5707a2
+---
+ arch/arm64/configs/gki_defconfig | 5 +++--
+ arch/x86/configs/gki_defconfig   | 5 +++--
+ 2 files changed, 6 insertions(+), 4 deletions(-)
+
+diff --git a/arch/arm64/configs/gki_defconfig b/arch/arm64/configs/gki_defconfig
+index 58d5e477a94d..5e91f5f74063 100644
+--- a/arch/arm64/configs/gki_defconfig
++++ b/arch/arm64/configs/gki_defconfig
+@@ -490,12 +490,13 @@ CONFIG_HEADERS_INSTALL=y
+ CONFIG_MAGIC_SYSRQ=y
+ CONFIG_DEBUG_STACK_USAGE=y
+ CONFIG_DEBUG_MEMORY_INIT=y
+-CONFIG_PANIC_TIMEOUT=5
++CONFIG_PANIC_ON_OOPS=y
++CONFIG_PANIC_TIMEOUT=-1
+ CONFIG_SOFTLOCKUP_DETECTOR=y
+ # CONFIG_DETECT_HUNG_TASK is not set
+ CONFIG_SCHEDSTATS=y
+ # CONFIG_DEBUG_PREEMPT is not set
+-CONFIG_DEBUG_LIST=y
++CONFIG_BUG_ON_DATA_CORRUPTION=y
+ CONFIG_CORESIGHT=y
+ CONFIG_CORESIGHT_STM=y
+ # CONFIG_RUNTIME_TESTING_MENU is not set
+diff --git a/arch/x86/configs/gki_defconfig b/arch/x86/configs/gki_defconfig
+index cbd6f4ff14d0..4d8f68b4b438 100644
+--- a/arch/x86/configs/gki_defconfig
++++ b/arch/x86/configs/gki_defconfig
+@@ -432,8 +432,9 @@ CONFIG_HEADERS_INSTALL=y
+ CONFIG_MAGIC_SYSRQ=y
+ CONFIG_DEBUG_STACK_USAGE=y
+ CONFIG_DEBUG_MEMORY_INIT=y
+-CONFIG_PANIC_TIMEOUT=5
++CONFIG_PANIC_ON_OOPS=y
++CONFIG_PANIC_TIMEOUT=-1
+ CONFIG_SOFTLOCKUP_DETECTOR=y
+ # CONFIG_DETECT_HUNG_TASK is not set
+ CONFIG_SCHEDSTATS=y
+-CONFIG_DEBUG_LIST=y
++CONFIG_BUG_ON_DATA_CORRUPTION=y

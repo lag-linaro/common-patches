@@ -41,7 +41,7 @@ Signed-off-by: Quentin Perret <quentin.perret@arm.com>
  1 file changed, 38 insertions(+), 2 deletions(-)
 
 diff --git a/kernel/sched/fair.c b/kernel/sched/fair.c
-index 7907e9bbdde8..56273f0536e8 100644
+index 370f0fb294da..2945d83b3ee7 100644
 --- a/kernel/sched/fair.c
 +++ b/kernel/sched/fair.c
 @@ -6522,8 +6522,13 @@ static int find_energy_efficient_cpu(struct task_struct *p, int prev_cpu, int sy

@@ -2,7 +2,7 @@
 # android-mainline patches
 #
 # Applies onto upstream f365ab31efac Linux v5.6-7388-gf365ab31efac
-# Matches android-mainline 7b16525b2af2 ("Merge f365ab31efac ("Merge tag 'drm-next-2020-04-01' of git://anongit.freedesktop.org/drm/drm") into android-mainline")
+# Matches android-mainline 2bd074d2287a ("ANDROID: clean up merge issues with gmu.yaml patch")
 #
 Revert-security-lockdown-selinux-implement-SELinux-lockdown.patch
 Revert-drm-virtio-fix-DRM_FORMAT_-handling.patch
@@ -66,8 +66,6 @@ ANDROID-arm64-copy-CONFIG_CMDLINE_EXTEND-from-ARM.patch
 ANDROID-of-Support-CONFIG_CMDLINE_EXTEND-config-option.patch
 ANDROID-Kbuild-LLVMLinux-allow-overriding-clang-target-triple.patch
 ANDROID-net-xfrm-make-PF_KEY-SHA256-use-RFC-compliant-truncation.patch
-ANDROID-arm64-enable-max-frequency-capping.patch
-ANDROID-arm-enable-max-frequency-capping.patch
 ANDROID-fs-epoll-use-freezable-blocking-call.patch
 ANDROID-mm-add-a-field-to-store-names-for-private-anonymous-memory.patch
 ANDROID-usb-gadget-configfs-Add-usb_function-ptr-to-fi-struct.patch
@@ -152,9 +150,6 @@ ANDROID-GKI-export-cma-symbols-for-cma-heap-as-a-module.patch
 ANDROID-staging-ion-make-cma-heap-a-module.patch
 ANDROID-update-gki_defconfig-2.patch
 ANDROID-sched-Unconditionally-honor-sync-flag-for-energy-aware-wakeups.patch
-ANDROID-sched-fair-add-arch-scaling-function-for-max-frequency-capping.patch
-ANDROID-cpufreq-arch_topology-implement-max-frequency-capping.patch
-ANDROID-sched-Update-max-cpu-capacity-in-case-of-max-frequency-constraints.patch
 ANDROID-arm64-defconfig-Enable-EAS-by-default.patch
 ANDROID-sched-core-Add-a-latency-sensitive-flag-to-uclamp.patch
 ANDROID-sched-Introduce-uclamp-latency-and-boost-wrapper.patch
@@ -400,10 +395,8 @@ FROMLIST-f2fs-Handle-casefolding-with-Encryption.patch
 ANDROID-ufs-block-fix-crypto-power-management-and-move-into-block-layer.patch
 ANDROID-rtc-class-support-hctosys-from-modular-RTC-drivers.patch
 ANDROID-Kconfig.gki-Remove-most-of-the-built-in-qcom-clks.patch
-FROMLIST-dt-bindings-display-msm-Convert-GMU-bindings-to-YAML.patch
 FROMLIST-dt-bindings-display-msm-Add-required-dma-range-property.patch
 FROMLIST-arm64-dts-sdm845-Set-the-virtual-address-range-for-GMU-allocations.patch
-FROMLIST-drm-msm-a6xx-Use-the-DMA-API-for-GMU-memory-objects.patch
 ANDROID-update-gki_defconfig-for-5.6-rc3.patch
 ANDROID-drm-msm-a6xx-Make-a6xx_gmu_bo.iova-a-dma_addr_t.patch
 FROMGIT-of-property-Add-device-link-support-for-power-domains-and-hwlocks.patch
@@ -488,3 +481,6 @@ ANDROID-Revert-af73d78bd384-kbuild-Remove-debug-info-from-kallsyms-linking.patch
 ANDROID-block-make-blk_crypto_start_using_mode-properly-check-for-support.patch
 ANDROID-block-require-drivers-to-declare-supported-crypto-key-type-s.patch
 ANDROID-fscrypt-fall-back-to-filesystem-layer-crypto-when-needed.patch
+ANDROID-staging-ion-move-definition-of-attachment.patch
+ANDROID-kbuild-ensure-__cfi_check-is-correctly-aligned.patch
+ANDROID-GKI-defconfig-modify-debug-configs.patch

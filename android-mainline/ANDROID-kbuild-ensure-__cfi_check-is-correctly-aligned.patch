@@ -1,0 +1,76 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: Sami Tolvanen <samitolvanen@google.com>
+Date: Tue, 31 Mar 2020 14:32:27 -0700
+Subject: ANDROID: kbuild: ensure __cfi_check is correctly aligned
+
+On modules with no executable code, LLVM generates a __cfi_check stub,
+but won't align it to page size as expected. This change ensures the
+function is at the beginning of the .text section and correctly aligned
+for the CFI shadow.
+
+Bug: 148458318
+Change-Id: I85ea31fa851bc23988f649b021b3ac7e9d9dcb38
+Signed-off-by: Sami Tolvanen <samitolvanen@google.com>
+---
+ Makefile                                     |  2 +-
+ scripts/Makefile                             |  2 ++
+ scripts/{module-lto.lds => module-lto.lds.S} | 14 +++++++++++++-
+ 3 files changed, 16 insertions(+), 2 deletions(-)
+ rename scripts/{module-lto.lds => module-lto.lds.S} (68%)
+
+diff --git a/Makefile b/Makefile
+index 3e3ca2c7b8b8..0ff96f1a0e7f 100644
+--- a/Makefile
++++ b/Makefile
+@@ -886,7 +886,7 @@ LD_FLAGS_LTO_CLANG := -mllvm -import-instr-limit=5
+ KBUILD_LDFLAGS += $(LD_FLAGS_LTO_CLANG)
+ KBUILD_LDFLAGS_MODULE += $(LD_FLAGS_LTO_CLANG)
+ 
+-KBUILD_LDS_MODULE += $(srctree)/scripts/module-lto.lds
++KBUILD_LDS_MODULE += scripts/module-lto.lds
+ endif
+ 
+ ifdef CONFIG_LTO
+diff --git a/scripts/Makefile b/scripts/Makefile
+index 5e75802b1a44..f07e0ef09233 100644
+--- a/scripts/Makefile
++++ b/scripts/Makefile
+@@ -35,6 +35,8 @@ hostprogs := $(always-y) $(always-m)
+ # The following programs are only built on demand
+ hostprogs += unifdef
+ 
++extra-$(CONFIG_LTO_CLANG)   += module-lto.lds
++
+ subdir-$(CONFIG_GCC_PLUGINS) += gcc-plugins
+ subdir-$(CONFIG_MODVERSIONS) += genksyms
+ subdir-$(CONFIG_SECURITY_SELINUX) += selinux
+diff --git a/scripts/module-lto.lds b/scripts/module-lto.lds.S
+similarity index 68%
+rename from scripts/module-lto.lds
+rename to scripts/module-lto.lds.S
+index 5ba0e9461e13..c0f4fdeb84a0 100644
+--- a/scripts/module-lto.lds
++++ b/scripts/module-lto.lds.S
+@@ -1,3 +1,6 @@
++/* SPDX-License-Identifier: GPL-2.0 */
++#include <asm/page.h>
++
+ /*
+  * With CONFIG_LTO_CLANG, LLD always enables -fdata-sections and
+  * -ffunction-sections, which increases the size of the final module.
+@@ -18,5 +21,14 @@ SECTIONS {
+ 	.rela.rodata : { *(.rela.rodata .rela.rodata.[0-9a-zA-Z_]*) }
+ 	.rela.text : { *(.rela.text .rela.text.[0-9a-zA-Z_]*) }
+ 	.rodata : { *(.rodata .rodata.[0-9a-zA-Z_]*) }
+-	.text : { *(.text .text.[0-9a-zA-Z_]*) }
++
++	/*
++	 * With CFI_CLANG, ensure __cfi_check is at the beginning of the
++	 * .text section, and that the section is aligned to page size.
++	 */
++	.text : ALIGN(PAGE_SIZE) {
++		*(.text.__cfi_check)
++		*(.text .text.[0-9a-zA-Z_]* .text..L.cfi*)
++	}
++
+ }
