@@ -40,19 +40,26 @@ Fixes: 9cb7ec3e9be4 ("ANDROID: ASoC: core - add hostless DAI support")
 Change-Id: Ib7addfee4ac7382824fcc12057b93a956e6ae5f4
 Signed-off-by: John Stultz <john.stultz@linaro.org>
 ---
- sound/soc/soc-pcm.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ sound/soc/soc-pcm.c | 9 +++++++++
+ 1 file changed, 9 insertions(+)
 
 diff --git a/sound/soc/soc-pcm.c b/sound/soc/soc-pcm.c
-index a05b3e8df526..ea207444bbce 100644
+index 2c59b3688ca0..dac324bdcd19 100644
 --- a/sound/soc/soc-pcm.c
 +++ b/sound/soc/soc-pcm.c
-@@ -891,7 +891,7 @@ static int soc_pcm_hw_params(struct snd_pcm_substream *substream,
- 				rtd->dai_link->name);
- 	}
+@@ -854,6 +854,15 @@ static int soc_pcm_hw_params(struct snd_pcm_substream *substream,
+ 	if (ret)
+ 		goto out;
  
--	if (rtd->dai_link->ops->hw_params) {
 +	if (rtd->dai_link->ops && rtd->dai_link->ops->hw_params) {
- 		ret = rtd->dai_link->ops->hw_params(substream, params);
- 		if (ret < 0) {
- 			dev_err(rtd->card->dev, "ASoC: machine hw_params"
++		ret = rtd->dai_link->ops->hw_params(substream, params);
++		if (ret < 0) {
++			dev_err(rtd->card->dev, "ASoC: machine hw_params"
++				" failed: %d\n", ret);
++			goto out;
++		}
++	}
++
+ 	ret = soc_rtd_hw_params(rtd, substream, params);
+ 	if (ret < 0) {
+ 		dev_err(rtd->card->dev,

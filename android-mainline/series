@@ -2,7 +2,7 @@
 # android-mainline patches
 #
 # Applies onto upstream 9c577491b985 Linux v5.6-7731-g9c577491b985
-# Matches android-mainline d8e6ba401baa ("Merge 9c577491b985 ("Merge branch 'work.dotdot1' of git://git.kernel.org/pub/scm/linux/kernel/git/viro/vfs") into android-mainline")
+# Matches android-mainline da171b5d560c ("ANDROID: Revert "ANDROID: ASoC: core - add hostless DAI support"")
 #
 Revert-security-lockdown-selinux-implement-SELinux-lockdown.patch
 Revert-drm-virtio-fix-DRM_FORMAT_-handling.patch
@@ -242,7 +242,6 @@ ANDROID-gki_defconfig-enable-LTO-CFI-and-SCS.patch
 ANDROID-gki_defconfig-enable-CONFIG_REGULATOR_FIXED_VOLTAGE.patch
 ANDROID-kbuild-fix-modfinal-with-LTO.patch
 ANDROID-kbuild-suppress-llvm-ar-errors.patch
-ANDROID-ASoC-core-add-hostless-DAI-support.patch
 ANDROID-ASoC-Fix-allmodconfig-build-break.patch
 ANDROID-gki_defconfig-IIO-y.patch
 ANDROID-Disable-UNWINDER_ORC-for-allmodconfig.patch
@@ -484,3 +483,4 @@ ANDROID-fscrypt-fall-back-to-filesystem-layer-crypto-when-needed.patch
 ANDROID-staging-ion-move-definition-of-attachment.patch
 ANDROID-kbuild-ensure-__cfi_check-is-correctly-aligned.patch
 ANDROID-GKI-defconfig-modify-debug-configs.patch
+ANDROID-Incremental-fs-Use-64-bit-int-for-file_size-when-writing-hash-blocks.patch
