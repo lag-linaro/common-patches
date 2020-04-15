@@ -192,7 +192,7 @@ index 000000000000..c5572fd770b0
 +
 +#endif /* _LINUX_SCS_H */
 diff --git a/init/init_task.c b/init/init_task.c
-index 9e5cbe5eab7b..cbd40460e903 100644
+index bd403ed3e418..aaa71366d162 100644
 --- a/init/init_task.c
 +++ b/init/init_task.c
 @@ -11,6 +11,7 @@
@@ -203,7 +203,7 @@ index 9e5cbe5eab7b..cbd40460e903 100644
  
  #include <asm/pgtable.h>
  #include <linux/uaccess.h>
-@@ -184,6 +185,13 @@ struct task_struct init_task
+@@ -185,6 +186,13 @@ struct task_struct init_task
  };
  EXPORT_SYMBOL(init_task);
  
@@ -230,7 +230,7 @@ index 4cb4130ced32..c332eb9d4841 100644
  obj-$(CONFIG_PERF_EVENTS) += events/
  
 diff --git a/kernel/fork.c b/kernel/fork.c
-index d90af13431c7..4b5bc1053fec 100644
+index 25f38a84dbfd..a9d92c205190 100644
 --- a/kernel/fork.c
 +++ b/kernel/fork.c
 @@ -93,7 +93,9 @@

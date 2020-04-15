@@ -31,7 +31,7 @@ Signed-off-by: Joel Fernandes <joelaf@google.com>
  create mode 100644 include/trace/events/namei.h
 
 diff --git a/fs/namei.c b/fs/namei.c
-index 1370493e21d8..6ba60606626b 100644
+index 969baff2af28..0b2418664c0d 100644
 --- a/fs/namei.c
 +++ b/fs/namei.c
 @@ -43,6 +43,9 @@
@@ -44,7 +44,7 @@ index 1370493e21d8..6ba60606626b 100644
  /* [Feb-1997 T. Schoebel-Theuer]
   * Fundamental changes in the pathname lookup mechanisms (namei)
   * were necessary because of omirr.  The reason is that omirr needs
-@@ -778,6 +781,81 @@ static inline int d_revalidate(struct dentry *dentry, unsigned int flags)
+@@ -766,6 +769,81 @@ static inline int d_revalidate(struct dentry *dentry, unsigned int flags)
  		return 1;
  }
  
@@ -126,7 +126,7 @@ index 1370493e21d8..6ba60606626b 100644
  /**
   * complete_walk - successful completion of path walk
   * @nd:  pointer nameidata
-@@ -825,15 +903,21 @@ static int complete_walk(struct nameidata *nd)
+@@ -813,15 +891,21 @@ static int complete_walk(struct nameidata *nd)
  			return -EXDEV;
  	}
  

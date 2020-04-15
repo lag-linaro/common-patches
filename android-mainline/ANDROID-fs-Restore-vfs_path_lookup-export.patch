@@ -22,28 +22,28 @@ Signed-off-by: Yongqin Liu <yongqin.liu@linaro.org>
  2 files changed, 2 insertions(+), 2 deletions(-)
 
 diff --git a/fs/internal.h b/fs/internal.h
-index 4d37912a5587..2d2f926010c1 100644
+index aa5d45524e87..af1026ef8373 100644
 --- a/fs/internal.h
 +++ b/fs/internal.h
-@@ -61,8 +61,6 @@ extern int finish_clean_context(struct fs_context *fc);
+@@ -60,8 +60,6 @@ extern int finish_clean_context(struct fs_context *fc);
+  */
  extern int filename_lookup(int dfd, struct filename *name, unsigned flags,
  			   struct path *path, struct path *root);
- extern int user_path_mountpoint_at(int, const char __user *, unsigned int, struct path *);
 -extern int vfs_path_lookup(struct dentry *, struct vfsmount *,
 -			   const char *, unsigned int, struct path *);
  long do_mknodat(int dfd, const char __user *filename, umode_t mode,
  		unsigned int dev);
  long do_mkdirat(int dfd, const char __user *pathname, umode_t mode);
 diff --git a/include/linux/namei.h b/include/linux/namei.h
-index 34c4fa04140d..843a3d5da4d8 100644
+index af6ad91c76e9..bc73f16b6c02 100644
 --- a/include/linux/namei.h
 +++ b/include/linux/namei.h
-@@ -64,6 +64,8 @@ extern struct dentry *kern_path_create(int, const char *, struct path *, unsigne
+@@ -65,6 +65,8 @@ extern struct dentry *kern_path_create(int, const char *, struct path *, unsigne
  extern struct dentry *user_path_create(int, const char __user *, struct path *, unsigned int);
  extern void done_path_create(struct path *, struct dentry *);
  extern struct dentry *kern_path_locked(const char *, struct path *);
 +extern int vfs_path_lookup(struct dentry *, struct vfsmount *,
 +			   const char *, unsigned int, struct path *);
- extern int kern_path_mountpoint(int, const char *, struct path *, unsigned int);
  
  extern struct dentry *try_lookup_one_len(const char *, struct dentry *, int);
+ extern struct dentry *lookup_one_len(const char *, struct dentry *, int);

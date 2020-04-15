@@ -30,7 +30,7 @@ Signed-off-by: Siarhei Vishniakou <svv@google.com>
  create mode 100644 drivers/hid/hid-nintendo.c
 
 diff --git a/MAINTAINERS b/MAINTAINERS
-index 39c90a2a8f6b..aeb30bf3f429 100644
+index 40e40c9ee9d2..7b2eb8a78d25 100644
 --- a/MAINTAINERS
 +++ b/MAINTAINERS
 @@ -11913,6 +11913,12 @@ S:	Maintained

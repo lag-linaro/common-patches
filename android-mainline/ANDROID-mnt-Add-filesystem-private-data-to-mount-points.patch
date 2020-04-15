@@ -32,7 +32,7 @@ Signed-off-by: Matthias Maennich <maennich@google.com>
  5 files changed, 53 insertions(+), 1 deletion(-)
 
 diff --git a/fs/namespace.c b/fs/namespace.c
-index 85b5f7bea82e..cabcc0ee4f47 100644
+index a28e4db075ed..b547a0670e51 100644
 --- a/fs/namespace.c
 +++ b/fs/namespace.c
 @@ -198,6 +198,7 @@ static struct mount *alloc_vfsmnt(const char *name)

@@ -1,8 +1,8 @@
 #
 # android-mainline patches
 #
-# Applies onto upstream f365ab31efac Linux v5.6-7388-gf365ab31efac
-# Matches android-mainline 2bd074d2287a ("ANDROID: clean up merge issues with gmu.yaml patch")
+# Applies onto upstream 9c577491b985 Linux v5.6-7731-g9c577491b985
+# Matches android-mainline d8e6ba401baa ("Merge 9c577491b985 ("Merge branch 'work.dotdot1' of git://git.kernel.org/pub/scm/linux/kernel/git/viro/vfs") into android-mainline")
 #
 Revert-security-lockdown-selinux-implement-SELinux-lockdown.patch
 Revert-drm-virtio-fix-DRM_FORMAT_-handling.patch
