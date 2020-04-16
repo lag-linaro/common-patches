@@ -1,0 +1,50 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: Eric Biggers <ebiggers@google.com>
+Date: Tue, 7 Apr 2020 16:15:43 -0700
+Subject: ANDROID: scsi: ufs: fix bad merge resolution with custom sg entry
+ size
+
+Fix a bad merge resolution with the Android-specific commit 8de80df7d7e4
+("ANDROID: scsi: ufs: allow ufs variants to override sg entry size").
+
+Fixes: 7719f75e7391 ("Merge 79f51b7b9c47 ("Merge tag 'scsi-misc' of git://git.kernel.org/pub/scm/linux/kernel/git/jejb/scsi") into android-mainline")
+Reported-by: John Stultz <john.stultz@linaro.org>
+Change-Id: I1d066f459a2613917467c95108494816f0fa5e71
+Signed-off-by: Eric Biggers <ebiggers@google.com>
+---
+ drivers/scsi/ufs/ufshcd.c | 11 ++++++-----
+ 1 file changed, 6 insertions(+), 5 deletions(-)
+
+diff --git a/drivers/scsi/ufs/ufshcd.c b/drivers/scsi/ufs/ufshcd.c
+index aa7d356ce57d..72bf31b29201 100644
+--- a/drivers/scsi/ufs/ufshcd.c
++++ b/drivers/scsi/ufs/ufshcd.c
+@@ -2448,10 +2448,11 @@ static inline u16 ufshcd_upiu_wlun_to_scsi_wlun(u8 upiu_wlun_id)
+ 
+ static void ufshcd_init_lrb(struct ufs_hba *hba, struct ufshcd_lrb *lrb, int i)
+ {
+-	struct utp_transfer_cmd_desc *cmd_descp = hba->ucdl_base_addr;
++	struct utp_transfer_cmd_desc *cmd_descp = (void *)hba->ucdl_base_addr +
++		i * sizeof_utp_transfer_cmd_desc(hba);
+ 	struct utp_transfer_req_desc *utrdlp = hba->utrdl_base_addr;
+ 	dma_addr_t cmd_desc_element_addr = hba->ucdl_dma_addr +
+-		i * sizeof(struct utp_transfer_cmd_desc);
++		i * sizeof_utp_transfer_cmd_desc(hba);
+ 	u16 response_offset = offsetof(struct utp_transfer_cmd_desc,
+ 				       response_upiu);
+ 	u16 prdt_offset = offsetof(struct utp_transfer_cmd_desc, prd_table);
+@@ -2459,11 +2460,11 @@ static void ufshcd_init_lrb(struct ufs_hba *hba, struct ufshcd_lrb *lrb, int i)
+ 	lrb->utr_descriptor_ptr = utrdlp + i;
+ 	lrb->utrd_dma_addr = hba->utrdl_dma_addr +
+ 		i * sizeof(struct utp_transfer_req_desc);
+-	lrb->ucd_req_ptr = (struct utp_upiu_req *)(cmd_descp + i);
++	lrb->ucd_req_ptr = (struct utp_upiu_req *)cmd_descp;
+ 	lrb->ucd_req_dma_addr = cmd_desc_element_addr;
+-	lrb->ucd_rsp_ptr = (struct utp_upiu_rsp *)cmd_descp[i].response_upiu;
++	lrb->ucd_rsp_ptr = (struct utp_upiu_rsp *)cmd_descp->response_upiu;
+ 	lrb->ucd_rsp_dma_addr = cmd_desc_element_addr + response_offset;
+-	lrb->ucd_prdt_ptr = (struct ufshcd_sg_entry *)cmd_descp[i].prd_table;
++	lrb->ucd_prdt_ptr = (struct ufshcd_sg_entry *)cmd_descp->prd_table;
+ 	lrb->ucd_prdt_dma_addr = cmd_desc_element_addr + prdt_offset;
+ }
+ 

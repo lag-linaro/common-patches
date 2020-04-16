@@ -2,7 +2,7 @@
 # android-mainline patches
 #
 # Applies onto upstream 79f51b7b9c47 Linux v5.6-9322-g79f51b7b9c47
-# Matches android-mainline 7719f75e7391 ("Merge 79f51b7b9c47 ("Merge tag 'scsi-misc' of git://git.kernel.org/pub/scm/linux/kernel/git/jejb/scsi") into android-mainline")
+# Matches android-mainline e990f09f7c35 ("ANDROID: scsi: ufs: fix bad merge resolution with custom sg entry size")
 #
 UPSTREAM-remoteproc-omap-Fix-set_load-call-in-omap_rproc_request_timer.patch
 Revert-security-lockdown-selinux-implement-SELinux-lockdown.patch
@@ -475,3 +475,6 @@ ANDROID-staging-ion-move-definition-of-attachment.patch
 ANDROID-kbuild-ensure-__cfi_check-is-correctly-aligned.patch
 ANDROID-GKI-defconfig-modify-debug-configs.patch
 ANDROID-Incremental-fs-Use-64-bit-int-for-file_size-when-writing-hash-blocks.patch
+ANDROID-GKI-Remove-SCHED_AUTOGROUP.patch
+FROMLIST-kmod-make-request_module-return-an-error-when-autoloading-is-disabled.patch
+ANDROID-scsi-ufs-fix-bad-merge-resolution-with-custom-sg-entry-size.patch
