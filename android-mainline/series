@@ -2,8 +2,9 @@
 # android-mainline patches
 #
 # Applies onto upstream e109f5060741 Linux v5.6-9098-ge109f5060741
-# Matches android-mainline 47627513ce7a ("Merge e109f5060741 ("Merge tag 'mtd/for-5.7' of git://git.kernel.org/pub/scm/linux/kernel/git/mtd/linux") into android-mainline")
+# Matches android-mainline 85d4802850c9 ("UPSTREAM: remoteproc/omap: Fix set_load call in omap_rproc_request_timer")
 #
+UPSTREAM-remoteproc-omap-Fix-set_load-call-in-omap_rproc_request_timer.patch
 Revert-security-lockdown-selinux-implement-SELinux-lockdown.patch
 Revert-drm-virtio-fix-DRM_FORMAT_-handling.patch
 Revert-sched-core-Prevent-race-condition-between-cpuset-and-__sched_setscheduler.patch
