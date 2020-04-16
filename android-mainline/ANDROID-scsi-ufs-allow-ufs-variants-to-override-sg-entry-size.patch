@@ -14,25 +14,16 @@ Bug: 129991660
 Change-Id: I6ab9458d5c23331013e6b736d6fea378a6b5b86c
 Signed-off-by: Eric Biggers <ebiggers@google.com>
 ---
- drivers/scsi/ufs/ufshcd.c | 32 +++++++++++++++++---------------
+ drivers/scsi/ufs/ufshcd.c | 20 +++++++++++---------
  drivers/scsi/ufs/ufshcd.h |  2 ++
  drivers/scsi/ufs/ufshci.h | 12 ++++++++++--
- 3 files changed, 29 insertions(+), 17 deletions(-)
+ 3 files changed, 23 insertions(+), 11 deletions(-)
 
 diff --git a/drivers/scsi/ufs/ufshcd.c b/drivers/scsi/ufs/ufshcd.c
-index a7ec577bad99..f541108ae675 100644
+index c7f39ff222ca..2b7438b8b978 100644
 --- a/drivers/scsi/ufs/ufshcd.c
 +++ b/drivers/scsi/ufs/ufshcd.c
-@@ -467,7 +467,7 @@ void ufshcd_print_trs(struct ufs_hba *hba, unsigned long bitmap, bool pr_prdt)
- 		prdt_length =
- 			le16_to_cpu(lrbp->utr_descriptor_ptr->prd_table_length);
- 		if (hba->quirks & UFSHCD_QUIRK_PRDT_BYTE_GRAN)
--			prdt_length /= sizeof(struct ufshcd_sg_entry);
-+			prdt_length /= hba->sg_entry_size;
- 
- 		dev_err(hba->dev,
- 			"UPIU[%d] - PRDT - %d entries  phys@0x%llx\n",
-@@ -476,7 +476,7 @@ void ufshcd_print_trs(struct ufs_hba *hba, unsigned long bitmap, bool pr_prdt)
+@@ -475,7 +475,7 @@ void ufshcd_print_trs(struct ufs_hba *hba, unsigned long bitmap, bool pr_prdt)
  
  		if (pr_prdt)
  			ufshcd_hex_dump("UPIU PRDT: ", lrbp->ucd_prdt_ptr,
@@ -41,7 +32,7 @@ index a7ec577bad99..f541108ae675 100644
  	}
  }
  
-@@ -2124,7 +2124,7 @@ int ufshcd_send_uic_cmd(struct ufs_hba *hba, struct uic_command *uic_cmd)
+@@ -2156,7 +2156,7 @@ int ufshcd_send_uic_cmd(struct ufs_hba *hba, struct uic_command *uic_cmd)
   */
  static int ufshcd_map_sg(struct ufs_hba *hba, struct ufshcd_lrb *lrbp)
  {
@@ -50,15 +41,9 @@ index a7ec577bad99..f541108ae675 100644
  	struct scatterlist *sg;
  	struct scsi_cmnd *cmd;
  	int sg_segments;
-@@ -2139,21 +2139,22 @@ static int ufshcd_map_sg(struct ufs_hba *hba, struct ufshcd_lrb *lrbp)
- 		if (hba->quirks & UFSHCD_QUIRK_PRDT_BYTE_GRAN)
- 			lrbp->utr_descriptor_ptr->prd_table_length =
- 				cpu_to_le16((u16)(sg_segments *
--					sizeof(struct ufshcd_sg_entry)));
-+						  hba->sg_entry_size));
- 		else
- 			lrbp->utr_descriptor_ptr->prd_table_length =
- 				cpu_to_le16((u16) (sg_segments));
+@@ -2171,16 +2171,17 @@ static int ufshcd_map_sg(struct ufs_hba *hba, struct ufshcd_lrb *lrbp)
+ 		lrbp->utr_descriptor_ptr->prd_table_length =
+ 			cpu_to_le16((u16)sg_segments);
  
 -		prd_table = (struct ufshcd_sg_entry *)lrbp->ucd_prdt_ptr;
 +		prd = (struct ufshcd_sg_entry *)lrbp->ucd_prdt_ptr;
@@ -79,7 +64,7 @@ index a7ec577bad99..f541108ae675 100644
  		}
  	} else {
  		lrbp->utr_descriptor_ptr->prd_table_length = 0;
-@@ -3386,7 +3387,7 @@ static int ufshcd_memory_alloc(struct ufs_hba *hba)
+@@ -3434,7 +3435,7 @@ static int ufshcd_memory_alloc(struct ufs_hba *hba)
  	size_t utmrdl_size, utrdl_size, ucdl_size;
  
  	/* Allocate memory for UTP command descriptors */
@@ -88,7 +73,7 @@ index a7ec577bad99..f541108ae675 100644
  	hba->ucdl_base_addr = dmam_alloc_coherent(hba->dev,
  						  ucdl_size,
  						  &hba->ucdl_dma_addr,
-@@ -3482,7 +3483,7 @@ static void ufshcd_host_memory_configure(struct ufs_hba *hba)
+@@ -3528,7 +3529,7 @@ static void ufshcd_host_memory_configure(struct ufs_hba *hba)
  	prdt_offset =
  		offsetof(struct utp_transfer_cmd_desc, prd_table);
  
@@ -97,29 +82,7 @@ index a7ec577bad99..f541108ae675 100644
  	cmd_desc_dma_addr = hba->ucdl_dma_addr;
  
  	for (i = 0; i < hba->nutrs; i++) {
-@@ -3514,17 +3515,17 @@ static void ufshcd_host_memory_configure(struct ufs_hba *hba)
- 		hba->lrb[i].utr_descriptor_ptr = (utrdlp + i);
- 		hba->lrb[i].utrd_dma_addr = hba->utrdl_dma_addr +
- 				(i * sizeof(struct utp_transfer_req_desc));
--		hba->lrb[i].ucd_req_ptr =
--			(struct utp_upiu_req *)(cmd_descp + i);
-+		hba->lrb[i].ucd_req_ptr = (struct utp_upiu_req *)cmd_descp;
- 		hba->lrb[i].ucd_req_dma_addr = cmd_desc_element_addr;
- 		hba->lrb[i].ucd_rsp_ptr =
--			(struct utp_upiu_rsp *)cmd_descp[i].response_upiu;
-+			(struct utp_upiu_rsp *)cmd_descp->response_upiu;
- 		hba->lrb[i].ucd_rsp_dma_addr = cmd_desc_element_addr +
- 				response_offset;
- 		hba->lrb[i].ucd_prdt_ptr =
--			(struct ufshcd_sg_entry *)cmd_descp[i].prd_table;
-+			(struct ufshcd_sg_entry *)cmd_descp->prd_table;
- 		hba->lrb[i].ucd_prdt_dma_addr = cmd_desc_element_addr +
- 				prdt_offset;
-+		cmd_descp = (void *)cmd_descp + cmd_desc_size;
- 	}
- }
- 
-@@ -8489,6 +8490,7 @@ int ufshcd_alloc_host(struct device *dev, struct ufs_hba **hba_handle)
+@@ -8458,6 +8459,7 @@ int ufshcd_alloc_host(struct device *dev, struct ufs_hba **hba_handle)
  	hba->dev = dev;
  	*hba_handle = hba;
  	hba->dev_ref_clk_freq = REF_CLK_FREQ_INVAL;
@@ -128,10 +91,10 @@ index a7ec577bad99..f541108ae675 100644
  	INIT_LIST_HEAD(&hba->clk_list_head);
  
 diff --git a/drivers/scsi/ufs/ufshcd.h b/drivers/scsi/ufs/ufshcd.h
-index 8d23c600547e..998261aa2da8 100644
+index bd4079b1ea7d..7f589ff62103 100644
 --- a/drivers/scsi/ufs/ufshcd.h
 +++ b/drivers/scsi/ufs/ufshcd.h
-@@ -525,6 +525,7 @@ struct ufs_stats {
+@@ -618,6 +618,7 @@ enum ufshcd_caps {
   * @ufs_version: UFS Version to which controller complies
   * @vops: pointer to variant specific operations
   * @priv: pointer to variant specific private data
@@ -139,7 +102,7 @@ index 8d23c600547e..998261aa2da8 100644
   * @irq: Irq number of the controller
   * @active_uic_cmd: handle of active UIC command
   * @uic_cmd_mutex: mutex for uic command
-@@ -608,6 +609,7 @@ struct ufs_hba {
+@@ -700,6 +701,7 @@ struct ufs_hba {
  	const struct ufs_hba_variant_ops *vops;
  	void *priv;
  	const struct ufs_hba_crypto_variant_ops *crypto_vops;

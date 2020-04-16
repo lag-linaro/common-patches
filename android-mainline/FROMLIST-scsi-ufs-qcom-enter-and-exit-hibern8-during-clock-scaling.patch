@@ -16,10 +16,10 @@ Signed-off-by: Asutosh Das <asutoshd@codeaurora.org>
  1 file changed, 11 insertions(+), 1 deletion(-)
 
 diff --git a/drivers/scsi/ufs/ufs-qcom.c b/drivers/scsi/ufs/ufs-qcom.c
-index 671657383099..40560d72c793 100644
+index 19aa5c44e0da..57b98329ddba 100644
 --- a/drivers/scsi/ufs/ufs-qcom.c
 +++ b/drivers/scsi/ufs/ufs-qcom.c
-@@ -1419,18 +1419,27 @@ static int ufs_qcom_clk_scale_notify(struct ufs_hba *hba,
+@@ -1418,18 +1418,27 @@ static int ufs_qcom_clk_scale_notify(struct ufs_hba *hba,
  	int err = 0;
  
  	if (status == PRE_CHANGE) {
@@ -48,7 +48,7 @@ index 671657383099..40560d72c793 100644
  
  		ufs_qcom_cfg_timers(hba,
  				    dev_req_params->gear_rx,
-@@ -1438,6 +1447,7 @@ static int ufs_qcom_clk_scale_notify(struct ufs_hba *hba,
+@@ -1437,6 +1446,7 @@ static int ufs_qcom_clk_scale_notify(struct ufs_hba *hba,
  				    dev_req_params->hs_rate,
  				    false);
  		ufs_qcom_update_bus_bw_vote(host);

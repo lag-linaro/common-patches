@@ -3074,10 +3074,10 @@ index 3c03d0e23e87..24a587c7a94e 100644
  					      struct scsi_cmnd *cmd,
  					      struct ufshcd_lrb *lrbp)
 diff --git a/drivers/scsi/ufs/ufshcd.c b/drivers/scsi/ufs/ufshcd.c
-index 5de063d60747..3f3ba36bc3cf 100644
+index f743f59373ac..9f1ef0fc0bf9 100644
 --- a/drivers/scsi/ufs/ufshcd.c
 +++ b/drivers/scsi/ufs/ufshcd.c
-@@ -2232,13 +2232,15 @@ static void ufshcd_prepare_req_desc_hdr(struct ufshcd_lrb *lrbp,
+@@ -2261,13 +2261,15 @@ static void ufshcd_prepare_req_desc_hdr(struct ufshcd_lrb *lrbp,
  		dword_0 |= UTP_REQ_DESC_INT_CMD;
  
  	/* Transfer request descriptor header fields */
@@ -3096,7 +3096,7 @@ index 5de063d60747..3f3ba36bc3cf 100644
  	} else {
  		/* dword_1 and dword_3 are reserved, hence they are set to 0 */
  		req_desc->header.dword_1 = 0;
-@@ -2526,7 +2528,9 @@ static int ufshcd_compose_dev_cmd(struct ufs_hba *hba,
+@@ -2576,7 +2578,9 @@ static int ufshcd_compose_dev_cmd(struct ufs_hba *hba,
  	lrbp->task_tag = tag;
  	lrbp->lun = 0; /* device management cmd is not specific to any LUN */
  	lrbp->intr_cmd = true; /* No interrupt aggregation */
@@ -3107,10 +3107,10 @@ index 5de063d60747..3f3ba36bc3cf 100644
  
  	return ufshcd_comp_devman_upiu(hba, lrbp);
 diff --git a/drivers/scsi/ufs/ufshcd.h b/drivers/scsi/ufs/ufshcd.h
-index 171ddbe7b6b1..cb60d9a9ab77 100644
+index 761bbacf664e..f6a0774d5769 100644
 --- a/drivers/scsi/ufs/ufshcd.h
 +++ b/drivers/scsi/ufs/ufshcd.h
-@@ -194,9 +194,11 @@ struct ufshcd_lrb {
+@@ -196,9 +196,11 @@ struct ufshcd_lrb {
  	bool intr_cmd;
  	ktime_t issue_time_stamp;
  	ktime_t compl_time_stamp;
@@ -3122,7 +3122,7 @@ index 171ddbe7b6b1..cb60d9a9ab77 100644
  
  	bool req_abort_skip;
  };
-@@ -552,7 +554,6 @@ struct ufs_stats {
+@@ -638,7 +640,6 @@ enum ufshcd_caps {
   * @crypto_capabilities: Content of crypto capabilities register (0x100)
   * @crypto_cap_array: Array of crypto capabilities
   * @crypto_cfg_register: Start of the crypto cfg array
@@ -3130,7 +3130,7 @@ index 171ddbe7b6b1..cb60d9a9ab77 100644
   * @ksm: the keyslot manager tied to this hba
   */
  struct ufs_hba {
-@@ -782,7 +783,6 @@ struct ufs_hba {
+@@ -766,7 +767,6 @@ struct ufs_hba {
  	union ufs_crypto_capabilities crypto_capabilities;
  	union ufs_crypto_cap_entry *crypto_cap_array;
  	u32 crypto_cfg_register;

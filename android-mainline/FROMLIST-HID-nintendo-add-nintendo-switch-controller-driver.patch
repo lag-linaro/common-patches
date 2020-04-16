@@ -30,11 +30,11 @@ Signed-off-by: Siarhei Vishniakou <svv@google.com>
  create mode 100644 drivers/hid/hid-nintendo.c
 
 diff --git a/MAINTAINERS b/MAINTAINERS
-index 863011649869..3ec94f0a6b30 100644
+index c3e43514f174..15e757a16c52 100644
 --- a/MAINTAINERS
 +++ b/MAINTAINERS
 @@ -11917,6 +11917,12 @@ S:	Maintained
- F:	Documentation/scsi/NinjaSCSI.txt
+ F:	Documentation/scsi/NinjaSCSI.rst
  F:	drivers/scsi/nsp32*
  
 +NINTENDO HID DRIVER

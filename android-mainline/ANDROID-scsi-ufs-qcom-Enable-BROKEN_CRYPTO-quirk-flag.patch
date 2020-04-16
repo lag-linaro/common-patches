@@ -17,10 +17,10 @@ Signed-off-by: Eric Biggers <ebiggers@google.com>
  1 file changed, 7 insertions(+)
 
 diff --git a/drivers/scsi/ufs/ufs-qcom.c b/drivers/scsi/ufs/ufs-qcom.c
-index 40560d72c793..dd8352f0c4fe 100644
+index 57b98329ddba..8b31774be36f 100644
 --- a/drivers/scsi/ufs/ufs-qcom.c
 +++ b/drivers/scsi/ufs/ufs-qcom.c
-@@ -1063,6 +1063,13 @@ static void ufs_qcom_advertise_quirks(struct ufs_hba *hba)
+@@ -1062,6 +1062,13 @@ static void ufs_qcom_advertise_quirks(struct ufs_hba *hba)
  				| UFSHCD_QUIRK_DME_PEER_ACCESS_AUTO_MODE
  				| UFSHCD_QUIRK_BROKEN_PA_RXHSUNTERMCAP);
  	}

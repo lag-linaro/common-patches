@@ -17,10 +17,10 @@ Signed-off-by: Greg Kroah-Hartman <gregkh@google.com>
  2 files changed, 12 insertions(+)
 
 diff --git a/drivers/scsi/ufs/ufshcd.c b/drivers/scsi/ufs/ufshcd.c
-index 0e7a32a03713..a7ec577bad99 100644
+index 5a34368f0690..c7f39ff222ca 100644
 --- a/drivers/scsi/ufs/ufshcd.c
 +++ b/drivers/scsi/ufs/ufshcd.c
-@@ -4803,6 +4803,12 @@ ufshcd_transfer_rsp_status(struct ufs_hba *hba, struct ufshcd_lrb *lrbp)
+@@ -4754,6 +4754,12 @@ ufshcd_transfer_rsp_status(struct ufs_hba *hba, struct ufshcd_lrb *lrbp)
  	/* overall command status of utrd */
  	ocs = ufshcd_get_tr_ocs(lrbp);
  
@@ -34,19 +34,19 @@ index 0e7a32a03713..a7ec577bad99 100644
  	case OCS_SUCCESS:
  		result = ufshcd_get_req_rsp(lrbp->ucd_rsp_ptr);
 diff --git a/drivers/scsi/ufs/ufshcd.h b/drivers/scsi/ufs/ufshcd.h
-index 1a1fc9e34950..8d23c600547e 100644
+index 70e33177099d..bd4079b1ea7d 100644
 --- a/drivers/scsi/ufs/ufshcd.h
 +++ b/drivers/scsi/ufs/ufshcd.h
-@@ -681,6 +681,12 @@ struct ufs_hba {
+@@ -541,6 +541,12 @@ enum ufshcd_quirks {
  	 */
- 	#define UFSHCD_QUIRK_BROKEN_CRYPTO			0x800
+ 	UFSHCD_QUIRK_BROKEN_UFS_HCI_VERSION		= 1 << 5,
  
 +	/*
 +	 * This quirk needs to be enabled if the host controller reports
 +	 * OCS FATAL ERROR with device error through sense data
 +	 */
-+	#define UFSHCD_QUIRK_BROKEN_OCS_FATAL_ERROR		0x1000
++	UFSHCD_QUIRK_BROKEN_OCS_FATAL_ERROR		= 1 << 6,
 +
- 	unsigned int quirks;	/* Deviations from standard UFSHCI spec. */
- 
- 	/* Device deviations from standard UFS device spec. */
+ 	/*
+ 	 * This quirk needs to be enabled if the host controller advertises
+ 	 * inline encryption support but it doesn't work correctly.

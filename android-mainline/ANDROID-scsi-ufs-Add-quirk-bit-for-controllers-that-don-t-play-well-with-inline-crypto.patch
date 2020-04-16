@@ -17,8 +17,8 @@ Change-Id: I9f2c3d75412e0aaa22fe6e7c9929cd18b1efa9ba
 Signed-off-by: John Stultz <john.stultz@linaro.org>
 ---
  drivers/scsi/ufs/ufshcd-crypto.c | 3 ++-
- drivers/scsi/ufs/ufshcd.h        | 7 +++++++
- 2 files changed, 9 insertions(+), 1 deletion(-)
+ drivers/scsi/ufs/ufshcd.h        | 6 ++++++
+ 2 files changed, 8 insertions(+), 1 deletion(-)
 
 diff --git a/drivers/scsi/ufs/ufshcd-crypto.c b/drivers/scsi/ufs/ufshcd-crypto.c
 index 7599d77725e4..75d834180f8b 100644
@@ -35,20 +35,19 @@ index 7599d77725e4..75d834180f8b 100644
  
  	/*
 diff --git a/drivers/scsi/ufs/ufshcd.h b/drivers/scsi/ufs/ufshcd.h
-index 25276a7ff408..171ddbe7b6b1 100644
+index d5fc29c1dbfb..761bbacf664e 100644
 --- a/drivers/scsi/ufs/ufshcd.h
 +++ b/drivers/scsi/ufs/ufshcd.h
-@@ -668,6 +668,13 @@ struct ufs_hba {
- 	 * enabled via HCE register.
+@@ -533,6 +533,12 @@ enum ufshcd_quirks {
+ 	 * ops (get_ufs_hci_version) to get the correct version.
  	 */
- 	#define UFSHCI_QUIRK_BROKEN_HCE				0x400
+ 	UFSHCD_QUIRK_BROKEN_UFS_HCI_VERSION		= 1 << 5,
 +
 +	/*
 +	 * This quirk needs to be enabled if the host controller advertises
 +	 * inline encryption support but it doesn't work correctly.
 +	 */
-+	#define UFSHCD_QUIRK_BROKEN_CRYPTO			0x800
-+
- 	unsigned int quirks;	/* Deviations from standard UFSHCI spec. */
++	UFSHCD_QUIRK_BROKEN_CRYPTO			 = 1 << 7,
+ };
  
- 	/* Device deviations from standard UFS device spec. */
+ enum ufshcd_caps {

@@ -20,10 +20,10 @@ Signed-off-by: Asutosh Das <asutoshd@codeaurora.org>
  1 file changed, 3 insertions(+)
 
 diff --git a/drivers/scsi/ufs/ufshcd.c b/drivers/scsi/ufs/ufshcd.c
-index d9bab1f13495..284d1363ebb6 100644
+index ecd07db28598..43febd09903e 100644
 --- a/drivers/scsi/ufs/ufshcd.c
 +++ b/drivers/scsi/ufs/ufshcd.c
-@@ -2856,6 +2856,7 @@ int ufshcd_query_flag(struct ufs_hba *hba, enum query_opcode opcode,
+@@ -2905,6 +2905,7 @@ int ufshcd_query_flag(struct ufs_hba *hba, enum query_opcode opcode,
  	ufshcd_release(hba);
  	return err;
  }
@@ -31,7 +31,7 @@ index d9bab1f13495..284d1363ebb6 100644
  
  /**
   * ufshcd_query_attr - API function for sending attribute requests
-@@ -2920,6 +2921,7 @@ int ufshcd_query_attr(struct ufs_hba *hba, enum query_opcode opcode,
+@@ -2969,6 +2970,7 @@ int ufshcd_query_attr(struct ufs_hba *hba, enum query_opcode opcode,
  	ufshcd_release(hba);
  	return err;
  }
@@ -39,7 +39,7 @@ index d9bab1f13495..284d1363ebb6 100644
  
  /**
   * ufshcd_query_attr_retry() - API function for sending query
-@@ -3054,6 +3056,7 @@ int ufshcd_query_descriptor_retry(struct ufs_hba *hba,
+@@ -3103,6 +3105,7 @@ int ufshcd_query_descriptor_retry(struct ufs_hba *hba,
  
  	return err;
  }

@@ -14,14 +14,14 @@ Change-Id: I58ffa07535df8011b8d357135b80030833e725f9
 Signed-off-by: Kiwoong Kim <kwmad.kim@samsung.com>
 Signed-off-by: Greg Kroah-Hartman <gregkh@google.com>
 ---
- drivers/scsi/ufs/ufshcd.c | 7 +++++--
- 1 file changed, 5 insertions(+), 2 deletions(-)
+ drivers/scsi/ufs/ufshcd.c | 5 +++--
+ 1 file changed, 3 insertions(+), 2 deletions(-)
 
 diff --git a/drivers/scsi/ufs/ufshcd.c b/drivers/scsi/ufs/ufshcd.c
-index 3f3ba36bc3cf..0e7a32a03713 100644
+index 9f1ef0fc0bf9..5a34368f0690 100644
 --- a/drivers/scsi/ufs/ufshcd.c
 +++ b/drivers/scsi/ufs/ufshcd.c
-@@ -464,8 +464,11 @@ void ufshcd_print_trs(struct ufs_hba *hba, unsigned long bitmap, bool pr_prdt)
+@@ -465,8 +465,9 @@ void ufshcd_print_trs(struct ufs_hba *hba, unsigned long bitmap, bool pr_prdt)
  		ufshcd_hex_dump("UPIU RSP: ", lrbp->ucd_rsp_ptr,
  				sizeof(struct utp_upiu_rsp));
  
@@ -29,8 +29,6 @@ index 3f3ba36bc3cf..0e7a32a03713 100644
 -			lrbp->utr_descriptor_ptr->prd_table_length);
 +		prdt_length =
 +			le16_to_cpu(lrbp->utr_descriptor_ptr->prd_table_length);
-+		if (hba->quirks & UFSHCD_QUIRK_PRDT_BYTE_GRAN)
-+			prdt_length /= sizeof(struct ufshcd_sg_entry);
 +
  		dev_err(hba->dev,
  			"UPIU[%d] - PRDT - %d entries  phys@0x%llx\n",

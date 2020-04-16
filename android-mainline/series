@@ -1,30 +1,20 @@
 #
 # android-mainline patches
 #
-# Applies onto upstream e109f5060741 Linux v5.6-9098-ge109f5060741
-# Matches android-mainline 85d4802850c9 ("UPSTREAM: remoteproc/omap: Fix set_load call in omap_rproc_request_timer")
+# Applies onto upstream 79f51b7b9c47 Linux v5.6-9322-g79f51b7b9c47
+# Matches android-mainline 7719f75e7391 ("Merge 79f51b7b9c47 ("Merge tag 'scsi-misc' of git://git.kernel.org/pub/scm/linux/kernel/git/jejb/scsi") into android-mainline")
 #
 UPSTREAM-remoteproc-omap-Fix-set_load-call-in-omap_rproc_request_timer.patch
 Revert-security-lockdown-selinux-implement-SELinux-lockdown.patch
 Revert-drm-virtio-fix-DRM_FORMAT_-handling.patch
 Revert-sched-core-Prevent-race-condition-between-cpuset-and-__sched_setscheduler.patch
-FROMGIT-scsi-ufs-Add-dev-ref-clock-gating-wait-time-support.patch
-FROMGIT-scsi-ufs-qcom-Adjust-bus-bandwidth-voting-and-unvoting.patch
-FROMGIT-scsi-ufs-Allow-vendor-device-quirks-to-be-applied-early.patch
-FROMGIT-scsi-ufs-qcom-Apply-QUIRK_HOST_TACTIVATE-for-WDC-UFS-devices.patch
-FROMGIT-scsi-ufs-qcom-Delay-specific-time-before-gate-ref-clk.patch
-FROMGIT-scsi-ufs-Select-INITIAL-ADAPT-type-for-HS-Gear4.patch
 FROMLIST-scsi-ufs-UFS-driver-v2.1-spec-crypto-additions.patch
 FROMLIST-scsi-ufs-UFS-crypto-API.patch
 FROMLIST-scsi-ufs-Add-inline-encryption-support-to-UFS.patch
 FROMLIST-scsi-ufs-qcom-enter-and-exit-hibern8-during-clock-scaling.patch
 FROMLIST-scsi-ufs-Fix-up-clock-scaling.patch
-FROMLIST-scsi-ufs-set-load-before-setting-voltage-in-regulators.patch
-FROMLIST-scsi-ufs-Remove-the-check-before-call-setup-clock-notify-vops.patch
-FROMLIST-scsi-ufs-Fix-ufshcd_hold-caused-scheduling-while-atomic.patch
 FROMLIST-scsi-ufs-Export-query-request-interfaces.patch
 FROMLIST-scsi-ufs-export-hibern8-entry-and-exit.patch
-FROMLIST-scsi-ufs-Flush-exception-event-before-suspend.patch
 FROMLIST-scsi-ufs-Use-ufshcd_config_pwr_mode-when-scale-gear.patch
 FROMLIST-reboot-Export-reboot_mode.patch
 FROMLIST-arm64-preserve-x18-when-CPU-is-suspended.patch

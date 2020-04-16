@@ -14,15 +14,15 @@ Signed-off-by: Satya Tangirala <satyat@google.com>
 Link: https://patchwork.kernel.org/patch/11214737/
 ---
  drivers/scsi/ufs/ufshcd.c |  2 ++
- drivers/scsi/ufs/ufshcd.h |  5 +++
+ drivers/scsi/ufs/ufshcd.h |  6 ++++
  drivers/scsi/ufs/ufshci.h | 67 +++++++++++++++++++++++++++++++++++++--
- 3 files changed, 72 insertions(+), 2 deletions(-)
+ 3 files changed, 73 insertions(+), 2 deletions(-)
 
 diff --git a/drivers/scsi/ufs/ufshcd.c b/drivers/scsi/ufs/ufshcd.c
-index 6762daff5bed..e0f6c6beddbb 100644
+index e04e8b8bdca6..99445e30e8dd 100644
 --- a/drivers/scsi/ufs/ufshcd.c
 +++ b/drivers/scsi/ufs/ufshcd.c
-@@ -4794,6 +4794,8 @@ ufshcd_transfer_rsp_status(struct ufs_hba *hba, struct ufshcd_lrb *lrbp)
+@@ -4759,6 +4759,8 @@ ufshcd_transfer_rsp_status(struct ufs_hba *hba, struct ufshcd_lrb *lrbp)
  	case OCS_MISMATCH_RESP_UPIU_SIZE:
  	case OCS_PEER_COMM_FAILURE:
  	case OCS_FATAL_ERROR:
@@ -32,21 +32,22 @@ index 6762daff5bed..e0f6c6beddbb 100644
  		result |= DID_ERROR << 16;
  		dev_err(hba->dev,
 diff --git a/drivers/scsi/ufs/ufshcd.h b/drivers/scsi/ufs/ufshcd.h
-index 2ae6c7c8528c..978781c538c4 100644
+index dd1ee277069a..cc6d3bc0fb25 100644
 --- a/drivers/scsi/ufs/ufshcd.h
 +++ b/drivers/scsi/ufs/ufshcd.h
-@@ -716,6 +716,11 @@ struct ufs_hba {
+@@ -542,6 +542,12 @@ enum ufshcd_caps {
  	 * for userspace to control the power management.
  	 */
- #define UFSHCD_CAP_RPM_AUTOSUSPEND (1 << 6)
+ 	UFSHCD_CAP_RPM_AUTOSUSPEND			= 1 << 6,
++
 +	/*
 +	 * This capability allows the host controller driver to use the
 +	 * inline crypto engine, if it is present
 +	 */
-+#define UFSHCD_CAP_CRYPTO (1 << 7)
++	UFSHCD_CAP_CRYPTO				= 1 << 7,
+ };
  
- 	struct devfreq *devfreq;
- 	struct ufs_clk_scaling clk_scaling;
+ /**
 diff --git a/drivers/scsi/ufs/ufshci.h b/drivers/scsi/ufs/ufshci.h
 index c2961d37cc1c..c0651fe6dbbc 100644
 --- a/drivers/scsi/ufs/ufshci.h

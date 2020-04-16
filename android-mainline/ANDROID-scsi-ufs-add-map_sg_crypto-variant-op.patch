@@ -67,10 +67,10 @@ index 95f37c9f7672..f223a06fbf93 100644
  {
  	return false;
 diff --git a/drivers/scsi/ufs/ufshcd.c b/drivers/scsi/ufs/ufshcd.c
-index f541108ae675..62073aa131d0 100644
+index 2b7438b8b978..aa7d356ce57d 100644
 --- a/drivers/scsi/ufs/ufshcd.c
 +++ b/drivers/scsi/ufs/ufshcd.c
-@@ -2160,7 +2160,7 @@ static int ufshcd_map_sg(struct ufs_hba *hba, struct ufshcd_lrb *lrbp)
+@@ -2187,7 +2187,7 @@ static int ufshcd_map_sg(struct ufs_hba *hba, struct ufshcd_lrb *lrbp)
  		lrbp->utr_descriptor_ptr->prd_table_length = 0;
  	}
  
@@ -80,10 +80,10 @@ index f541108ae675..62073aa131d0 100644
  
  /**
 diff --git a/drivers/scsi/ufs/ufshcd.h b/drivers/scsi/ufs/ufshcd.h
-index 998261aa2da8..5d94756aa49c 100644
+index 7f589ff62103..dcc27927743b 100644
 --- a/drivers/scsi/ufs/ufshcd.h
 +++ b/drivers/scsi/ufs/ufshcd.h
-@@ -357,6 +357,7 @@ struct ufs_hba_crypto_variant_ops {
+@@ -362,6 +362,7 @@ struct ufs_hba_crypto_variant_ops {
  	int (*prepare_lrbp_crypto)(struct ufs_hba *hba,
  				   struct scsi_cmnd *cmd,
  				   struct ufshcd_lrb *lrbp);
