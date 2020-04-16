@@ -20,7 +20,7 @@ Signed-off-by: Sami Tolvanen <samitolvanen@google.com>
  6 files changed, 42 insertions(+)
 
 diff --git a/drivers/base/node.c b/drivers/base/node.c
-index 98a31bafc8a2..874a8b428438 100644
+index 10d7e818e118..502ab5447c8d 100644
 --- a/drivers/base/node.c
 +++ b/drivers/base/node.c
 @@ -415,6 +415,9 @@ static ssize_t node_read_meminfo(struct device *dev,
@@ -59,7 +59,7 @@ index 8c1f1bb1a5ce..49768005a79e 100644
  		    global_zone_page_state(NR_PAGETABLE));
  
 diff --git a/include/linux/mmzone.h b/include/linux/mmzone.h
-index 462f6873905a..0a6f395abc68 100644
+index e84d448988b6..a6c60e6efa68 100644
 --- a/include/linux/mmzone.h
 +++ b/include/linux/mmzone.h
 @@ -200,6 +200,9 @@ enum zone_stat_item {
@@ -139,10 +139,10 @@ index 28abed21950c..5245e992c692 100644
  	scs_free(s);
  }
 diff --git a/mm/page_alloc.c b/mm/page_alloc.c
-index 3c4eb750a199..1381b9d84e4c 100644
+index e5f76da8cd4e..79f07ccac63e 100644
 --- a/mm/page_alloc.c
 +++ b/mm/page_alloc.c
-@@ -5340,6 +5340,9 @@ void show_free_areas(unsigned int filter, nodemask_t *nodemask)
+@@ -5338,6 +5338,9 @@ void show_free_areas(unsigned int filter, nodemask_t *nodemask)
  			" managed:%lukB"
  			" mlocked:%lukB"
  			" kernel_stack:%lukB"
@@ -152,7 +152,7 @@ index 3c4eb750a199..1381b9d84e4c 100644
  			" pagetables:%lukB"
  			" bounce:%lukB"
  			" free_pcp:%lukB"
-@@ -5362,6 +5365,9 @@ void show_free_areas(unsigned int filter, nodemask_t *nodemask)
+@@ -5360,6 +5363,9 @@ void show_free_areas(unsigned int filter, nodemask_t *nodemask)
  			K(zone_managed_pages(zone)),
  			K(zone_page_state(zone, NR_MLOCK)),
  			zone_page_state(zone, NR_KERNEL_STACK_KB),
@@ -163,7 +163,7 @@ index 3c4eb750a199..1381b9d84e4c 100644
  			K(zone_page_state(zone, NR_BOUNCE)),
  			K(free_pcp),
 diff --git a/mm/vmstat.c b/mm/vmstat.c
-index 78d53378db99..d0650391c8c1 100644
+index c9c0d71f917f..287a95987b7b 100644
 --- a/mm/vmstat.c
 +++ b/mm/vmstat.c
 @@ -1119,6 +1119,9 @@ const char * const vmstat_text[] = {

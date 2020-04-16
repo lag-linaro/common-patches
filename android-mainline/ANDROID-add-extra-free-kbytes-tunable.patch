@@ -41,7 +41,7 @@ Signed-off-by: Suren Baghdasaryan <surenb@google.com>
  3 files changed, 46 insertions(+), 4 deletions(-)
 
 diff --git a/Documentation/admin-guide/sysctl/vm.rst b/Documentation/admin-guide/sysctl/vm.rst
-index 64aeee1009ca..9e8470008227 100644
+index 0329a4d3fa9e..290aa766629a 100644
 --- a/Documentation/admin-guide/sysctl/vm.rst
 +++ b/Documentation/admin-guide/sysctl/vm.rst
 @@ -37,6 +37,7 @@ Currently, these files are in /proc/sys/vm:
@@ -52,7 +52,7 @@ index 64aeee1009ca..9e8470008227 100644
  - hugetlb_shm_group
  - laptop_mode
  - legacy_va_layout
-@@ -287,6 +288,21 @@ only use the low memory and they can fill it up with dirty data without
+@@ -290,6 +291,21 @@ only use the low memory and they can fill it up with dirty data without
  any throttling.
  
  
@@ -75,7 +75,7 @@ index 64aeee1009ca..9e8470008227 100644
  =================
  
 diff --git a/kernel/sysctl.c b/kernel/sysctl.c
-index 94638f695e60..b815578187de 100644
+index 8a176d8727a3..507902cc419d 100644
 --- a/kernel/sysctl.c
 +++ b/kernel/sysctl.c
 @@ -111,6 +111,7 @@ extern char core_pattern[];
@@ -86,7 +86,7 @@ index 94638f695e60..b815578187de 100644
  extern int pid_max_min, pid_max_max;
  extern int percpu_pagelist_fraction;
  extern int latencytop_enabled;
-@@ -1498,6 +1499,14 @@ static struct ctl_table vm_table[] = {
+@@ -1503,6 +1504,14 @@ static struct ctl_table vm_table[] = {
  		.extra1		= SYSCTL_ONE,
  		.extra2		= &one_thousand,
  	},
@@ -102,10 +102,10 @@ index 94638f695e60..b815578187de 100644
  		.procname	= "percpu_pagelist_fraction",
  		.data		= &percpu_pagelist_fraction,
 diff --git a/mm/page_alloc.c b/mm/page_alloc.c
-index 1381b9d84e4c..7861567c2c86 100644
+index 79f07ccac63e..6ed27ddfd323 100644
 --- a/mm/page_alloc.c
 +++ b/mm/page_alloc.c
-@@ -313,6 +313,11 @@ compound_page_dtor * const compound_page_dtors[] = {
+@@ -312,6 +312,11 @@ compound_page_dtor * const compound_page_dtors[] = {
  #endif
  };
  
@@ -117,7 +117,7 @@ index 1381b9d84e4c..7861567c2c86 100644
  int min_free_kbytes = 1024;
  int user_min_free_kbytes = -1;
  #ifdef CONFIG_DISCONTIGMEM
-@@ -331,6 +336,13 @@ int watermark_boost_factor __read_mostly = 15000;
+@@ -330,6 +335,13 @@ int watermark_boost_factor __read_mostly = 15000;
  #endif
  int watermark_scale_factor = 10;
  
@@ -131,7 +131,7 @@ index 1381b9d84e4c..7861567c2c86 100644
  static unsigned long nr_kernel_pages __initdata;
  static unsigned long nr_all_pages __initdata;
  static unsigned long dma_reserve __initdata;
-@@ -7762,6 +7774,7 @@ static void setup_per_zone_lowmem_reserve(void)
+@@ -7760,6 +7772,7 @@ static void setup_per_zone_lowmem_reserve(void)
  static void __setup_per_zone_wmarks(void)
  {
  	unsigned long pages_min = min_free_kbytes >> (PAGE_SHIFT - 10);
@@ -139,7 +139,7 @@ index 1381b9d84e4c..7861567c2c86 100644
  	unsigned long lowmem_pages = 0;
  	struct zone *zone;
  	unsigned long flags;
-@@ -7773,11 +7786,13 @@ static void __setup_per_zone_wmarks(void)
+@@ -7771,11 +7784,13 @@ static void __setup_per_zone_wmarks(void)
  	}
  
  	for_each_zone(zone) {
@@ -154,7 +154,7 @@ index 1381b9d84e4c..7861567c2c86 100644
  		if (is_highmem(zone)) {
  			/*
  			 * __GFP_HIGH and PF_MEMALLOC allocations usually don't
-@@ -7810,8 +7825,10 @@ static void __setup_per_zone_wmarks(void)
+@@ -7808,8 +7823,10 @@ static void __setup_per_zone_wmarks(void)
  			    mult_frac(zone_managed_pages(zone),
  				      watermark_scale_factor, 10000));
  
@@ -167,7 +167,7 @@ index 1381b9d84e4c..7861567c2c86 100644
  		zone->watermark_boost = 0;
  
  		spin_unlock_irqrestore(&zone->lock, flags);
-@@ -7895,7 +7912,7 @@ core_initcall(init_per_zone_wmark_min)
+@@ -7893,7 +7910,7 @@ core_initcall(init_per_zone_wmark_min)
  /*
   * min_free_kbytes_sysctl_handler - just a wrapper around proc_dointvec() so
   *	that we can call two helper functions whenever min_free_kbytes

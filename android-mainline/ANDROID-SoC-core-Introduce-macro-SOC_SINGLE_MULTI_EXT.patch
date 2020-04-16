@@ -17,7 +17,7 @@ Signed-off-by: Meng Wang <mwang@codeaurora.org>
  2 files changed, 48 insertions(+)
 
 diff --git a/include/sound/soc.h b/include/sound/soc.h
-index 8a2266676b2d..b905c7369e28 100644
+index 13458e4fbb13..f3cb653d40bc 100644
 --- a/include/sound/soc.h
 +++ b/include/sound/soc.h
 @@ -239,6 +239,14 @@
@@ -35,7 +35,7 @@ index 8a2266676b2d..b905c7369e28 100644
  #define SOC_SINGLE_EXT_TLV(xname, xreg, xshift, xmax, xinvert,\
  	 xhandler_get, xhandler_put, tlv_array) \
  {	.iface = SNDRV_CTL_ELEM_IFACE_MIXER, .name = xname, \
-@@ -625,6 +633,8 @@ int snd_soc_get_strobe(struct snd_kcontrol *kcontrol,
+@@ -628,6 +636,8 @@ int snd_soc_get_strobe(struct snd_kcontrol *kcontrol,
  	struct snd_ctl_elem_value *ucontrol);
  int snd_soc_put_strobe(struct snd_kcontrol *kcontrol,
  	struct snd_ctl_elem_value *ucontrol);
@@ -44,7 +44,7 @@ index 8a2266676b2d..b905c7369e28 100644
  
  /**
   * struct snd_soc_jack_pin - Describes a pin to update based on jack detection
-@@ -1198,6 +1208,11 @@ struct soc_mreg_control {
+@@ -1234,6 +1244,11 @@ struct soc_mreg_control {
  	unsigned int regbase, regcount, nbits, invert;
  };
  
@@ -57,10 +57,10 @@ index 8a2266676b2d..b905c7369e28 100644
  struct soc_enum {
  	int reg;
 diff --git a/sound/soc/soc-core.c b/sound/soc/soc-core.c
-index 068d809c349a..11938e400ff1 100644
+index 843b8b1c89d4..68765b028067 100644
 --- a/sound/soc/soc-core.c
 +++ b/sound/soc/soc-core.c
-@@ -3054,6 +3054,39 @@ int snd_soc_get_dai_id(struct device_node *ep)
+@@ -3068,6 +3068,39 @@ int snd_soc_get_dai_id(struct device_node *ep)
  }
  EXPORT_SYMBOL_GPL(snd_soc_get_dai_id);
  

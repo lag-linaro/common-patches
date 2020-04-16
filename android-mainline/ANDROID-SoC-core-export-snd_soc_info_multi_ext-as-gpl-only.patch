@@ -17,10 +17,10 @@ Change-Id: I07bbe701dfcd3fe84818bde45ccac1cf699fe769
  1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/sound/soc/soc-core.c b/sound/soc/soc-core.c
-index 11938e400ff1..d0c35ff2aae0 100644
+index 68765b028067..0f9aad6b8b73 100644
 --- a/sound/soc/soc-core.c
 +++ b/sound/soc/soc-core.c
-@@ -3085,7 +3085,7 @@ int snd_soc_info_multi_ext(struct snd_kcontrol *kcontrol,
+@@ -3099,7 +3099,7 @@ int snd_soc_info_multi_ext(struct snd_kcontrol *kcontrol,
  	uinfo->value.integer.max = platform_max;
  	return 0;
  }

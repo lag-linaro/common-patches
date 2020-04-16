@@ -835,10 +835,10 @@ index 90dd78f0eb27..71f887518d6f 100644
  EXPORT_SYMBOL_GPL(vfs_getxattr);
  
 diff --git a/fs/xfs/xfs_xattr.c b/fs/xfs/xfs_xattr.c
-index b0fedb543f97..14473c386850 100644
+index fc5d7276026e..0bb82c8c6f22 100644
 --- a/fs/xfs/xfs_xattr.c
 +++ b/fs/xfs/xfs_xattr.c
-@@ -19,7 +19,8 @@
+@@ -20,7 +20,8 @@
  
  static int
  xfs_xattr_get(const struct xattr_handler *handler, struct dentry *unused,
@@ -846,8 +846,8 @@ index b0fedb543f97..14473c386850 100644
 +		struct inode *inode, const char *name, void *value, size_t size,
 +		int flags)
  {
- 	int xflags = handler->flags;
- 	struct xfs_inode *ip = XFS_I(inode);
+ 	struct xfs_da_args	args = {
+ 		.dp		= XFS_I(inode),
 diff --git a/include/linux/xattr.h b/include/linux/xattr.h
 index 6dad031be3c2..4df9dcdc48c5 100644
 --- a/include/linux/xattr.h
@@ -947,10 +947,10 @@ index f4ee0ae106b2..378a2f66a73d 100644
  		/* no data, that's ok */
  		return -ENODATA;
 diff --git a/security/integrity/evm/evm_main.c b/security/integrity/evm/evm_main.c
-index f9a81b187fae..921c8f2afcaf 100644
+index d361d7fdafc4..0632f650958f 100644
 --- a/security/integrity/evm/evm_main.c
 +++ b/security/integrity/evm/evm_main.c
-@@ -100,7 +100,8 @@ static int evm_find_protected_xattrs(struct dentry *dentry)
+@@ -98,7 +98,8 @@ static int evm_find_protected_xattrs(struct dentry *dentry)
  		return -EOPNOTSUPP;
  
  	list_for_each_entry_rcu(xattr, &evm_config_xattrnames, list) {

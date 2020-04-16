@@ -274,10 +274,10 @@ index ef85ec167a84..f3c96d99c051 100644
 +#endif
 +}
 diff --git a/include/linux/fs.h b/include/linux/fs.h
-index 8531b170686c..fbf4e1fee92d 100644
+index 9d5e5a5de5ee..2d140fa11dce 100644
 --- a/include/linux/fs.h
 +++ b/include/linux/fs.h
-@@ -3414,6 +3414,8 @@ static inline bool needs_casefold(const struct inode *dir)
+@@ -3419,6 +3419,8 @@ static inline bool needs_casefold(const struct inode *dir)
  	return 0;
  }
  #endif

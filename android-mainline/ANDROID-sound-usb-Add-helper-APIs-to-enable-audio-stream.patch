@@ -23,10 +23,10 @@ Signed-off-by: Jack Pham <jackp@codeaurora.org>
  6 files changed, 215 insertions(+)
 
 diff --git a/sound/usb/card.c b/sound/usb/card.c
-index 827fb0bc8b56..5c0b1fb9d237 100644
+index fd6fd1726ea0..ec93cde0d1c6 100644
 --- a/sound/usb/card.c
 +++ b/sound/usb/card.c
-@@ -109,6 +109,72 @@ static DEFINE_MUTEX(register_mutex);
+@@ -112,6 +112,72 @@ static DEFINE_MUTEX(register_mutex);
  static struct snd_usb_audio *usb_chip[SNDRV_CARDS];
  static struct usb_driver usb_audio_driver;
  
@@ -99,7 +99,7 @@ index 827fb0bc8b56..5c0b1fb9d237 100644
  /*
   * disconnect streams
   * called from usb_audio_disconnect()
-@@ -344,6 +410,7 @@ static void snd_usb_audio_free(struct snd_card *card)
+@@ -347,6 +413,7 @@ static void snd_usb_audio_free(struct snd_card *card)
  	list_for_each_entry_safe(ep, n, &chip->ep_list, list)
  		snd_usb_endpoint_free(ep);
  
@@ -107,7 +107,7 @@ index 827fb0bc8b56..5c0b1fb9d237 100644
  	mutex_destroy(&chip->mutex);
  	if (!atomic_read(&chip->shutdown))
  		dev_set_drvdata(&chip->dev->dev, NULL);
-@@ -471,6 +538,7 @@ static int snd_usb_audio_create(struct usb_interface *intf,
+@@ -474,6 +541,7 @@ static int snd_usb_audio_create(struct usb_interface *intf,
  
  	chip = card->private_data;
  	mutex_init(&chip->mutex);
@@ -115,7 +115,7 @@ index 827fb0bc8b56..5c0b1fb9d237 100644
  	init_waitqueue_head(&chip->shutdown_wait);
  	chip->index = idx;
  	chip->dev = dev;
-@@ -707,6 +775,9 @@ static void usb_audio_disconnect(struct usb_interface *intf)
+@@ -737,6 +805,9 @@ static void usb_audio_disconnect(struct usb_interface *intf)
  
  	card = chip->card;
  
@@ -139,7 +139,7 @@ index 395403a2d33f..6aae28c8d331 100644
 +
  #endif /* __USBAUDIO_CARD_H */
 diff --git a/sound/usb/pcm.c b/sound/usb/pcm.c
-index bd258f1ec2dd..0b12be261f8e 100644
+index a4e4064f9aee..38cdbd5ddc49 100644
 --- a/sound/usb/pcm.c
 +++ b/sound/usb/pcm.c
 @@ -138,6 +138,69 @@ static struct audioformat *find_format(struct snd_usb_substream *subs)
@@ -212,7 +212,7 @@ index bd258f1ec2dd..0b12be261f8e 100644
  static int init_pitch_v1(struct snd_usb_audio *chip, int iface,
  			 struct usb_host_interface *alts,
  			 struct audioformat *fmt)
-@@ -590,6 +653,74 @@ static int set_format(struct snd_usb_substream *subs, struct audioformat *fmt)
+@@ -595,6 +658,74 @@ static int set_format(struct snd_usb_substream *subs, struct audioformat *fmt)
  	return 0;
  }
  
@@ -300,7 +300,7 @@ index 9833627c1eca..6e28e791e761 100644
  
  #endif /* __USBAUDIO_PCM_H */
 diff --git a/sound/usb/stream.c b/sound/usb/stream.c
-index afd5aa574611..fc5879e7ac5f 100644
+index 15296f2c902c..d6f0fd967c30 100644
 --- a/sound/usb/stream.c
 +++ b/sound/usb/stream.c
 @@ -67,9 +67,13 @@ static void snd_usb_audio_stream_free(struct snd_usb_stream *stream)
@@ -318,10 +318,10 @@ index afd5aa574611..fc5879e7ac5f 100644
  }
  
 diff --git a/sound/usb/usbaudio.h b/sound/usb/usbaudio.h
-index 6fe3ab582ec6..2d4970edc8ff 100644
+index 1c892c7f14d7..7ea1a1dbcd22 100644
 --- a/sound/usb/usbaudio.h
 +++ b/sound/usb/usbaudio.h
-@@ -57,6 +57,9 @@ struct snd_usb_audio {
+@@ -58,6 +58,9 @@ struct snd_usb_audio {
  	struct usb_host_interface *ctrl_intf;	/* the audio control interface */
  	struct media_device *media_dev;
  	struct media_intf_devnode *ctl_intf_media_devnode;

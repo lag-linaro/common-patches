@@ -749,10 +749,10 @@ index 71f887518d6f..9520365195cf 100644
  
  int
 diff --git a/include/linux/fs.h b/include/linux/fs.h
-index 86d6282b5b52..5c83e41a4d73 100644
+index 6a8157c0598a..26793b319b47 100644
 --- a/include/linux/fs.h
 +++ b/include/linux/fs.h
-@@ -1709,13 +1709,21 @@ extern bool inode_owner_or_capable(const struct inode *inode);
+@@ -1714,13 +1714,21 @@ extern bool inode_owner_or_capable(const struct inode *inode);
   * VFS helper functions..
   */
  extern int vfs_create(struct inode *, struct dentry *, umode_t, bool);
@@ -774,7 +774,7 @@ index 86d6282b5b52..5c83e41a4d73 100644
  extern int vfs_whiteout(struct inode *, struct dentry *);
  
  extern struct dentry *vfs_tmpfile(struct dentry *dentry, umode_t mode,
-@@ -1724,6 +1732,9 @@ extern struct dentry *vfs_tmpfile(struct dentry *dentry, umode_t mode,
+@@ -1729,6 +1737,9 @@ extern struct dentry *vfs_tmpfile(struct dentry *dentry, umode_t mode,
  int vfs_mkobj(struct dentry *, umode_t,
  		int (*f)(struct dentry *, umode_t, void *),
  		void *);
@@ -784,7 +784,7 @@ index 86d6282b5b52..5c83e41a4d73 100644
  
  extern long vfs_ioctl(struct file *file, unsigned int cmd, unsigned long arg);
  
-@@ -1864,6 +1875,7 @@ struct inode_operations {
+@@ -1869,6 +1880,7 @@ struct inode_operations {
  	struct dentry * (*lookup) (struct inode *,struct dentry *, unsigned int);
  	const char * (*get_link) (struct dentry *, struct inode *, struct delayed_call *);
  	int (*permission) (struct inode *, int);
@@ -792,7 +792,7 @@ index 86d6282b5b52..5c83e41a4d73 100644
  	struct posix_acl * (*get_acl)(struct inode *, int);
  
  	int (*readlink) (struct dentry *, char __user *,int);
-@@ -2892,6 +2904,7 @@ static inline int bmap(struct inode *inode,  sector_t *block)
+@@ -2897,6 +2909,7 @@ static inline int bmap(struct inode *inode,  sector_t *block)
  extern int notify_change(struct dentry *, struct iattr *, struct inode **);
  extern int notify_change2(struct vfsmount *, struct dentry *, struct iattr *, struct inode **);
  extern int inode_permission(struct inode *, int);

@@ -230,7 +230,7 @@ index 4cb4130ced32..c332eb9d4841 100644
  obj-$(CONFIG_PERF_EVENTS) += events/
  
 diff --git a/kernel/fork.c b/kernel/fork.c
-index 25f38a84dbfd..a9d92c205190 100644
+index ba122d6f5127..437a6015ee54 100644
 --- a/kernel/fork.c
 +++ b/kernel/fork.c
 @@ -93,7 +93,9 @@
@@ -243,7 +243,7 @@ index 25f38a84dbfd..a9d92c205190 100644
  
  #include <asm/pgtable.h>
  #include <asm/pgalloc.h>
-@@ -454,6 +456,8 @@ void put_task_stack(struct task_struct *tsk)
+@@ -455,6 +457,8 @@ void put_task_stack(struct task_struct *tsk)
  
  void free_task(struct task_struct *tsk)
  {
@@ -252,7 +252,7 @@ index 25f38a84dbfd..a9d92c205190 100644
  #ifndef CONFIG_THREAD_INFO_IN_TASK
  	/*
  	 * The task is finally done with both the stack and thread_info,
-@@ -837,6 +841,8 @@ void __init fork_init(void)
+@@ -838,6 +842,8 @@ void __init fork_init(void)
  			  NULL, free_vm_stack_cache);
  #endif
  
@@ -261,7 +261,7 @@ index 25f38a84dbfd..a9d92c205190 100644
  	lockdep_init_task(&init_task);
  	uprobes_init();
  }
-@@ -896,6 +902,10 @@ static struct task_struct *dup_task_struct(struct task_struct *orig, int node)
+@@ -897,6 +903,10 @@ static struct task_struct *dup_task_struct(struct task_struct *orig, int node)
  	if (err)
  		goto free_stack;
  

@@ -121,7 +121,7 @@ index f8dcd9a255f5..13a09408858a 100644
  	if (f2fs_is_multi_device(sbi))
  		return true;
 diff --git a/fs/iomap/direct-io.c b/fs/iomap/direct-io.c
-index 23837926c0c5..631ac726b8cc 100644
+index 20dde5aadcdd..a326be6bfeeb 100644
 --- a/fs/iomap/direct-io.c
 +++ b/fs/iomap/direct-io.c
 @@ -6,6 +6,7 @@

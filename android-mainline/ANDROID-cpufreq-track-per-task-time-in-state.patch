@@ -401,10 +401,10 @@ index 4418f5cb8324..6fd3d7f49cad 100644
  #ifdef CONFIG_VIRT_CPU_ACCOUNTING_GEN
  	struct vtime			vtime;
 diff --git a/kernel/fork.c b/kernel/fork.c
-index a9d92c205190..8a7873a8c8f0 100644
+index 437a6015ee54..edf168f34d77 100644
 --- a/kernel/fork.c
 +++ b/kernel/fork.c
-@@ -456,6 +456,7 @@ void put_task_stack(struct task_struct *tsk)
+@@ -457,6 +457,7 @@ void put_task_stack(struct task_struct *tsk)
  
  void free_task(struct task_struct *tsk)
  {
@@ -412,7 +412,7 @@ index a9d92c205190..8a7873a8c8f0 100644
  	scs_release(tsk);
  
  #ifndef CONFIG_THREAD_INFO_IN_TASK
-@@ -1932,6 +1933,8 @@ static __latent_entropy struct task_struct *copy_process(
+@@ -1933,6 +1934,8 @@ static __latent_entropy struct task_struct *copy_process(
  	if (!p)
  		goto fork_out;
  
@@ -421,7 +421,7 @@ index a9d92c205190..8a7873a8c8f0 100644
  	/*
  	 * This _must_ happen before we call free_task(), i.e. before we jump
  	 * to any of the bad_fork_* labels. This is to avoid freeing
-@@ -2444,6 +2447,8 @@ long _do_fork(struct kernel_clone_args *args)
+@@ -2445,6 +2448,8 @@ long _do_fork(struct kernel_clone_args *args)
  	if (IS_ERR(p))
  		return PTR_ERR(p);
  

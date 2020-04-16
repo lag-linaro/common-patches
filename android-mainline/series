@@ -1,8 +1,8 @@
 #
 # android-mainline patches
 #
-# Applies onto upstream 9c577491b985 Linux v5.6-7731-g9c577491b985
-# Matches android-mainline da171b5d560c ("ANDROID: Revert "ANDROID: ASoC: core - add hostless DAI support"")
+# Applies onto upstream e109f5060741 Linux v5.6-9098-ge109f5060741
+# Matches android-mainline 47627513ce7a ("Merge e109f5060741 ("Merge tag 'mtd/for-5.7' of git://git.kernel.org/pub/scm/linux/kernel/git/mtd/linux") into android-mainline")
 #
 Revert-security-lockdown-selinux-implement-SELinux-lockdown.patch
 Revert-drm-virtio-fix-DRM_FORMAT_-handling.patch

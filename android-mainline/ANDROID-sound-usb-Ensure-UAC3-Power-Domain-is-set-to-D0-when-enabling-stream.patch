@@ -20,10 +20,10 @@ Signed-off-by: Jack Pham <jackp@codeaurora.org>
  1 file changed, 7 insertions(+)
 
 diff --git a/sound/usb/pcm.c b/sound/usb/pcm.c
-index 0b12be261f8e..cf5a582df059 100644
+index 38cdbd5ddc49..2c82990eaacd 100644
 --- a/sound/usb/pcm.c
 +++ b/sound/usb/pcm.c
-@@ -653,6 +653,8 @@ static int set_format(struct snd_usb_substream *subs, struct audioformat *fmt)
+@@ -658,6 +658,8 @@ static int set_format(struct snd_usb_substream *subs, struct audioformat *fmt)
  	return 0;
  }
  
@@ -32,7 +32,7 @@ index 0b12be261f8e..cf5a582df059 100644
  int snd_usb_enable_audio_stream(struct snd_usb_substream *subs,
  	int datainterval, bool enable)
  {
-@@ -674,6 +676,11 @@ int snd_usb_enable_audio_stream(struct snd_usb_substream *subs,
+@@ -679,6 +681,11 @@ int snd_usb_enable_audio_stream(struct snd_usb_substream *subs,
  	}
  
  	snd_usb_autoresume(subs->stream->chip);
