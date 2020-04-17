@@ -39,7 +39,6 @@ Signed-off-by: Sandeep Patil <sspatil@google.com>
  1 file changed, 55 insertions(+), 19 deletions(-)
 
 diff --git a/include/uapi/linux/ion.h b/include/uapi/linux/ion.h
-index bfcbc0e70921..09dbbfaf3718 100644
 --- a/include/uapi/linux/ion.h
 +++ b/include/uapi/linux/ion.h
 @@ -12,29 +12,65 @@

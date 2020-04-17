@@ -29,7 +29,6 @@ Signed-off-by: Matthias Maennich <maennich@google.com>
  2 files changed, 77 insertions(+), 4 deletions(-)
 
 diff --git a/drivers/staging/android/ion/ion.c b/drivers/staging/android/ion/ion.c
-index a744a92ddbb6..8623c602e2d4 100644
 --- a/drivers/staging/android/ion/ion.c
 +++ b/drivers/staging/android/ion/ion.c
 @@ -7,6 +7,7 @@
@@ -155,7 +154,6 @@ index a744a92ddbb6..8623c602e2d4 100644
  }
  EXPORT_SYMBOL(ion_device_remove_heap);
 diff --git a/drivers/staging/android/ion/ion_private.h b/drivers/staging/android/ion/ion_private.h
-index 5cc09fbfbefe..2f5376e131c3 100644
 --- a/drivers/staging/android/ion/ion_private.h
 +++ b/drivers/staging/android/ion/ion_private.h
 @@ -23,13 +23,16 @@

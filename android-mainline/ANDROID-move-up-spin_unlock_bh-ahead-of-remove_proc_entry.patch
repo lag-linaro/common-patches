@@ -40,7 +40,6 @@ Change-Id: I3ff3883738353785f5792c5f06bf6b72985c4c68
  1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/net/netfilter/xt_quota2.c b/net/netfilter/xt_quota2.c
-index 24b774263aa6..c42724469759 100644
 --- a/net/netfilter/xt_quota2.c
 +++ b/net/netfilter/xt_quota2.c
 @@ -296,8 +296,8 @@ static void quota_mt2_destroy(const struct xt_mtdtor_param *par)

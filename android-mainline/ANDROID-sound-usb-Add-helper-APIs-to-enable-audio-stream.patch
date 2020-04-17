@@ -23,7 +23,6 @@ Signed-off-by: Jack Pham <jackp@codeaurora.org>
  6 files changed, 215 insertions(+)
 
 diff --git a/sound/usb/card.c b/sound/usb/card.c
-index fd6fd1726ea0..ec93cde0d1c6 100644
 --- a/sound/usb/card.c
 +++ b/sound/usb/card.c
 @@ -112,6 +112,72 @@ static DEFINE_MUTEX(register_mutex);
@@ -126,7 +125,6 @@ index fd6fd1726ea0..ec93cde0d1c6 100644
  	if (atomic_inc_return(&chip->shutdown) == 1) {
  		struct snd_usb_stream *as;
 diff --git a/sound/usb/card.h b/sound/usb/card.h
-index 395403a2d33f..6aae28c8d331 100644
 --- a/sound/usb/card.h
 +++ b/sound/usb/card.h
 @@ -176,4 +176,8 @@ struct snd_usb_stream {
@@ -139,7 +137,6 @@ index 395403a2d33f..6aae28c8d331 100644
 +
  #endif /* __USBAUDIO_CARD_H */
 diff --git a/sound/usb/pcm.c b/sound/usb/pcm.c
-index a4e4064f9aee..38cdbd5ddc49 100644
 --- a/sound/usb/pcm.c
 +++ b/sound/usb/pcm.c
 @@ -138,6 +138,69 @@ static struct audioformat *find_format(struct snd_usb_substream *subs)
@@ -288,7 +285,6 @@ index a4e4064f9aee..38cdbd5ddc49 100644
   * Return the score of matching two audioformats.
   * Veto the audioformat if:
 diff --git a/sound/usb/pcm.h b/sound/usb/pcm.h
-index 9833627c1eca..6e28e791e761 100644
 --- a/sound/usb/pcm.h
 +++ b/sound/usb/pcm.h
 @@ -14,5 +14,7 @@ int snd_usb_init_pitch(struct snd_usb_audio *chip, int iface,
@@ -300,7 +296,6 @@ index 9833627c1eca..6e28e791e761 100644
  
  #endif /* __USBAUDIO_PCM_H */
 diff --git a/sound/usb/stream.c b/sound/usb/stream.c
-index 15296f2c902c..d6f0fd967c30 100644
 --- a/sound/usb/stream.c
 +++ b/sound/usb/stream.c
 @@ -67,9 +67,13 @@ static void snd_usb_audio_stream_free(struct snd_usb_stream *stream)
@@ -318,7 +313,6 @@ index 15296f2c902c..d6f0fd967c30 100644
  }
  
 diff --git a/sound/usb/usbaudio.h b/sound/usb/usbaudio.h
-index 1c892c7f14d7..7ea1a1dbcd22 100644
 --- a/sound/usb/usbaudio.h
 +++ b/sound/usb/usbaudio.h
 @@ -58,6 +58,9 @@ struct snd_usb_audio {

@@ -40,7 +40,6 @@ Signed-off-by: Winter Wang <wente.wang@nxp.com>
  1 file changed, 1 insertion(+)
 
 diff --git a/drivers/usb/gadget/function/f_midi.c b/drivers/usb/gadget/function/f_midi.c
-index 2a86b3cf313f..4713a1c7f622 100644
 --- a/drivers/usb/gadget/function/f_midi.c
 +++ b/drivers/usb/gadget/function/f_midi.c
 @@ -1318,6 +1318,7 @@ static void f_midi_free(struct usb_function *f)

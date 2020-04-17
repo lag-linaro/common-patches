@@ -56,7 +56,6 @@ Change-Id: I34d99cc46e9e87a79efc8d05f85980bbc137f7eb
  3 files changed, 23 insertions(+), 14 deletions(-)
 
 diff --git a/fs/overlayfs/namei.c b/fs/overlayfs/namei.c
-index ed9e129fae04..2a8c00d58365 100644
 --- a/fs/overlayfs/namei.c
 +++ b/fs/overlayfs/namei.c
 @@ -106,10 +106,11 @@ int ovl_check_fb_len(struct ovl_fb *fb, int fb_len)
@@ -96,7 +95,6 @@ index ed9e129fae04..2a8c00d58365 100644
  }
  
 diff --git a/fs/overlayfs/overlayfs.h b/fs/overlayfs/overlayfs.h
-index fdce6fb6db24..0bd4cd505853 100644
 --- a/fs/overlayfs/overlayfs.h
 +++ b/fs/overlayfs/overlayfs.h
 @@ -219,6 +219,14 @@ static inline bool ovl_open_flags_need_copy_up(int flags)
@@ -115,7 +113,6 @@ index fdce6fb6db24..0bd4cd505853 100644
  int ovl_want_write(struct dentry *dentry);
  void ovl_drop_write(struct dentry *dentry);
 diff --git a/fs/overlayfs/util.c b/fs/overlayfs/util.c
-index 042f7eb4f7f4..d5cc322f3bb7 100644
 --- a/fs/overlayfs/util.c
 +++ b/fs/overlayfs/util.c
 @@ -525,9 +525,9 @@ void ovl_copy_up_end(struct dentry *dentry)

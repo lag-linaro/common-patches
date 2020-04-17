@@ -24,7 +24,6 @@ Signed-off-by: Yongqin Liu <yongqin.liu@linaro.org>
  1 file changed, 6 insertions(+), 6 deletions(-)
 
 diff --git a/fs/sdcardfs/main.c b/fs/sdcardfs/main.c
-index e976e2dd320b..50e264f0a997 100644
 --- a/fs/sdcardfs/main.c
 +++ b/fs/sdcardfs/main.c
 @@ -46,15 +46,15 @@ static const struct fs_parameter_spec sdcardfs_fs_specs[] = {

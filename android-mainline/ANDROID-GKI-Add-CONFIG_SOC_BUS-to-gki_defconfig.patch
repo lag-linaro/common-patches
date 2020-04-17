@@ -17,7 +17,6 @@ Change-Id: Ia56f4b0618f8d64acdf44cbb346313119460f745
  1 file changed, 11 insertions(+)
 
 diff --git a/init/Kconfig.gki b/init/Kconfig.gki
-index c752d6284773..1a43c5da3309 100644
 --- a/init/Kconfig.gki
 +++ b/init/Kconfig.gki
 @@ -127,6 +127,16 @@ config GKI_HIDDEN_USB_CONFIGS

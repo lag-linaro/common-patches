@@ -14,7 +14,6 @@ Signed-off-by: Peter Collingbourne <pcc@google.com>
  1 file changed, 2 insertions(+)
 
 diff --git a/build.config.common b/build.config.common
-index decd1a3a73fe..f3370bcccb55 100644
 --- a/build.config.common
 +++ b/build.config.common
 @@ -3,6 +3,8 @@ KERNEL_DIR=common

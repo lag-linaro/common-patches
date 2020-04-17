@@ -17,7 +17,6 @@ Change-Id: I43c7d38a8e22f4479397f35e6343bd326901cdba
  2 files changed, 25 insertions(+), 1 deletion(-)
 
 diff --git a/fs/unicode/utf8-core.c b/fs/unicode/utf8-core.c
-index 2a878b739115..90656b998072 100644
 --- a/fs/unicode/utf8-core.c
 +++ b/fs/unicode/utf8-core.c
 @@ -6,6 +6,7 @@
@@ -60,7 +59,6 @@ index 2a878b739115..90656b998072 100644
  		   unsigned char *dest, size_t dlen)
  {
 diff --git a/include/linux/unicode.h b/include/linux/unicode.h
-index 990aa97d8049..74484d44c755 100644
 --- a/include/linux/unicode.h
 +++ b/include/linux/unicode.h
 @@ -27,6 +27,9 @@ int utf8_normalize(const struct unicode_map *um, const struct qstr *str,

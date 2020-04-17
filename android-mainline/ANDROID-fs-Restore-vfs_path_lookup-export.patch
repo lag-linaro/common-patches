@@ -22,7 +22,6 @@ Signed-off-by: Yongqin Liu <yongqin.liu@linaro.org>
  2 files changed, 2 insertions(+), 2 deletions(-)
 
 diff --git a/fs/internal.h b/fs/internal.h
-index aa5d45524e87..af1026ef8373 100644
 --- a/fs/internal.h
 +++ b/fs/internal.h
 @@ -60,8 +60,6 @@ extern int finish_clean_context(struct fs_context *fc);
@@ -35,7 +34,6 @@ index aa5d45524e87..af1026ef8373 100644
  		unsigned int dev);
  long do_mkdirat(int dfd, const char __user *pathname, umode_t mode);
 diff --git a/include/linux/namei.h b/include/linux/namei.h
-index af6ad91c76e9..bc73f16b6c02 100644
 --- a/include/linux/namei.h
 +++ b/include/linux/namei.h
 @@ -65,6 +65,8 @@ extern struct dentry *kern_path_create(int, const char *, struct path *, unsigne

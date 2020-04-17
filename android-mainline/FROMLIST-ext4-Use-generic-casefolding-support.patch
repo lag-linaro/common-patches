@@ -20,7 +20,6 @@ Change-Id: I3a0705278100590df4c7cdd0dcdf945e9f11feb7
  5 files changed, 17 insertions(+), 77 deletions(-)
 
 diff --git a/fs/ext4/dir.c b/fs/ext4/dir.c
-index 9aa1f75409b0..04fd68c4adc5 100644
 --- a/fs/ext4/dir.c
 +++ b/fs/ext4/dir.c
 @@ -669,52 +669,8 @@ const struct file_operations ext4_dir_operations = {
@@ -79,7 +78,6 @@ index 9aa1f75409b0..04fd68c4adc5 100644
  };
  #endif
 diff --git a/fs/ext4/ext4.h b/fs/ext4/ext4.h
-index 9978c012bea9..c8c663805d95 100644
 --- a/fs/ext4/ext4.h
 +++ b/fs/ext4/ext4.h
 @@ -1373,14 +1373,6 @@ struct ext4_super_block {
@@ -109,7 +107,6 @@ index 9978c012bea9..c8c663805d95 100644
  	/* Journaling */
  	struct journal_s *s_journal;
 diff --git a/fs/ext4/hash.c b/fs/ext4/hash.c
-index 3e133793a5a3..143b0073b3f4 100644
 --- a/fs/ext4/hash.c
 +++ b/fs/ext4/hash.c
 @@ -275,7 +275,7 @@ int ext4fs_dirhash(const struct inode *dir, const char *name, int len,
@@ -122,7 +119,6 @@ index 3e133793a5a3..143b0073b3f4 100644
  	unsigned char *buff;
  	struct qstr qstr = {.name = name, .len = len };
 diff --git a/fs/ext4/namei.c b/fs/ext4/namei.c
-index b05ea72f38fd..1a1c4fdcfd3e 100644
 --- a/fs/ext4/namei.c
 +++ b/fs/ext4/namei.c
 @@ -1286,8 +1286,8 @@ static void dx_insert_block(struct dx_frame *frame, u32 hash, ext4_lblk_t block)
@@ -195,7 +191,6 @@ index b05ea72f38fd..1a1c4fdcfd3e 100644
  #endif
  
 diff --git a/fs/ext4/super.c b/fs/ext4/super.c
-index 43d96aebe97e..088b91396dc8 100644
 --- a/fs/ext4/super.c
 +++ b/fs/ext4/super.c
 @@ -1112,7 +1112,7 @@ static void ext4_put_super(struct super_block *sb)

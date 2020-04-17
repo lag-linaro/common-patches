@@ -11,7 +11,6 @@ Change-Id: Id3112a7530683fdfbb136191e6e395eda9ed279f
  1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/build.config.common b/build.config.common
-index 1fc6b17f8b7e..776bbc1958d3 100644
 --- a/build.config.common
 +++ b/build.config.common
 @@ -5,7 +5,7 @@ CC=clang

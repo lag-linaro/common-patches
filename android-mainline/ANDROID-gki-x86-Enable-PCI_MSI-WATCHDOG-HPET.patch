@@ -12,7 +12,6 @@ Signed-off-by: Ram Muthiah <rammuthiah@google.com>
  1 file changed, 3 insertions(+)
 
 diff --git a/arch/x86/configs/gki_defconfig b/arch/x86/configs/gki_defconfig
-index f41ef691e03b..b6c7a044f644 100644
 --- a/arch/x86/configs/gki_defconfig
 +++ b/arch/x86/configs/gki_defconfig
 @@ -179,6 +179,7 @@ CONFIG_MAC80211=y

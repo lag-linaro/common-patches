@@ -33,7 +33,6 @@ Signed-off-by: Alistair Delva <adelva@google.com>
  create mode 100644 drivers/gnss/cmdline.c
 
 diff --git a/drivers/gnss/Kconfig b/drivers/gnss/Kconfig
-index a0404ce155a6..81f665d3af35 100644
 --- a/drivers/gnss/Kconfig
 +++ b/drivers/gnss/Kconfig
 @@ -54,4 +54,19 @@ config GNSS_UBX_SERIAL
@@ -57,7 +56,6 @@ index a0404ce155a6..81f665d3af35 100644
 +
  endif # GNSS
 diff --git a/drivers/gnss/Makefile b/drivers/gnss/Makefile
-index 451f11401ecc..1d27659f5a7a 100644
 --- a/drivers/gnss/Makefile
 +++ b/drivers/gnss/Makefile
 @@ -17,3 +17,6 @@ gnss-sirf-y := sirf.o

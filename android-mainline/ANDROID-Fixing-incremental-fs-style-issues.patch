@@ -59,7 +59,6 @@ index f6fd9b2b3cb2..000000000000
 -
 -#endif /* _INCFS_COMPAT_H */
 diff --git a/fs/incfs/data_mgmt.c b/fs/incfs/data_mgmt.c
-index 25ea1099946d..109329e0a180 100644
 --- a/fs/incfs/data_mgmt.c
 +++ b/fs/incfs/data_mgmt.c
 @@ -456,13 +456,9 @@ static struct pending_read *add_pending_read(struct data_file *df,
@@ -101,7 +100,6 @@ index 25ea1099946d..109329e0a180 100644
  	}
  
 diff --git a/fs/incfs/format.c b/fs/incfs/format.c
-index 27498b9c3d34..247e1b4ec563 100644
 --- a/fs/incfs/format.c
 +++ b/fs/incfs/format.c
 @@ -12,7 +12,6 @@
@@ -132,7 +130,6 @@ index 27498b9c3d34..247e1b4ec563 100644
 -#endif
  }
 diff --git a/fs/incfs/integrity.c b/fs/incfs/integrity.c
-index c6444e73e4d8..feb212c38945 100644
 --- a/fs/incfs/integrity.c
 +++ b/fs/incfs/integrity.c
 @@ -26,11 +26,7 @@ int incfs_validate_pkcs7_signature(struct mem_range pkcs7_blob,
@@ -148,7 +145,6 @@ index c6444e73e4d8..feb212c38945 100644
  		pr_debug("PKCS#7 message does not contain data\n");
  		err = -EBADMSG;
 diff --git a/fs/incfs/vfs.c b/fs/incfs/vfs.c
-index 46045dc72242..b79621d89375 100644
 --- a/fs/incfs/vfs.c
 +++ b/fs/incfs/vfs.c
 @@ -18,7 +18,6 @@

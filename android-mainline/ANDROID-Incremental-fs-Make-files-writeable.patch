@@ -17,7 +17,6 @@ Change-Id: Id9258401570cc2cc7cd5735aace89d379a9b043d
  1 file changed, 31 insertions(+), 4 deletions(-)
 
 diff --git a/fs/incfs/vfs.c b/fs/incfs/vfs.c
-index 17cf59f9c92c..fd43e0e0ffbb 100644
 --- a/fs/incfs/vfs.c
 +++ b/fs/incfs/vfs.c
 @@ -348,7 +348,6 @@ static int inode_set(struct inode *inode, void *opaque)

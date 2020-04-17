@@ -17,7 +17,6 @@ Signed-off-by: Matthias Maennich <maennich@google.com>
  1 file changed, 2 deletions(-)
 
 diff --git a/build.config.gki.aarch64 b/build.config.gki.aarch64
-index dade4408295e..78d11f3db888 100644
 --- a/build.config.gki.aarch64
 +++ b/build.config.gki.aarch64
 @@ -2,5 +2,3 @@

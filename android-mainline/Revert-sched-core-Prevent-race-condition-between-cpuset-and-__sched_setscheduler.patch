@@ -30,7 +30,6 @@ Signed-off-by: Todd Kjos <tkjos@google.com>
  3 files changed, 3 insertions(+), 33 deletions(-)
 
 diff --git a/include/linux/cpuset.h b/include/linux/cpuset.h
-index 04c20de66afc..7f1478c26a33 100644
 --- a/include/linux/cpuset.h
 +++ b/include/linux/cpuset.h
 @@ -55,8 +55,6 @@ extern void cpuset_init_smp(void);
@@ -53,7 +52,6 @@ index 04c20de66afc..7f1478c26a33 100644
  				       struct cpumask *mask)
  {
 diff --git a/kernel/cgroup/cpuset.c b/kernel/cgroup/cpuset.c
-index 729d3a5c772e..5b9b1c5bb300 100644
 --- a/kernel/cgroup/cpuset.c
 +++ b/kernel/cgroup/cpuset.c
 @@ -334,17 +334,6 @@ static struct cpuset top_cpuset = {
@@ -75,7 +73,6 @@ index 729d3a5c772e..5b9b1c5bb300 100644
  
  static struct workqueue_struct *cpuset_migrate_mm_wq;
 diff --git a/kernel/sched/core.c b/kernel/sched/core.c
-index a2694ba82874..f5929a67a2f2 100644
 --- a/kernel/sched/core.c
 +++ b/kernel/sched/core.c
 @@ -4879,9 +4879,6 @@ static int __sched_setscheduler(struct task_struct *p,

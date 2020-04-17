@@ -19,7 +19,6 @@ Signed-off-by: Connor O'Brien <connoro@google.com>
  1 file changed, 17 insertions(+), 9 deletions(-)
 
 diff --git a/drivers/cpufreq/cpufreq_times.c b/drivers/cpufreq/cpufreq_times.c
-index 7057860c5dfd..4c924054e421 100644
 --- a/drivers/cpufreq/cpufreq_times.c
 +++ b/drivers/cpufreq/cpufreq_times.c
 @@ -140,8 +140,6 @@ int proc_time_in_state_show(struct seq_file *m, struct pid_namespace *ns,

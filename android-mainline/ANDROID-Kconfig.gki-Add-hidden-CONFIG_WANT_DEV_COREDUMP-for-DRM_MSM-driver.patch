@@ -15,7 +15,6 @@ Signed-off-by: John Stultz <john.stultz@linaro.org>
  1 file changed, 1 insertion(+)
 
 diff --git a/init/Kconfig.gki b/init/Kconfig.gki
-index ad9c434bd6b5..5ba6076076d5 100644
 --- a/init/Kconfig.gki
 +++ b/init/Kconfig.gki
 @@ -5,6 +5,7 @@ config GKI_HIDDEN_DRM_CONFIGS

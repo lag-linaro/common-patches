@@ -20,7 +20,6 @@ Signed-off-by: Eric Biggers <ebiggers@google.com>
  3 files changed, 23 insertions(+), 11 deletions(-)
 
 diff --git a/drivers/scsi/ufs/ufshcd.c b/drivers/scsi/ufs/ufshcd.c
-index c7f39ff222ca..2b7438b8b978 100644
 --- a/drivers/scsi/ufs/ufshcd.c
 +++ b/drivers/scsi/ufs/ufshcd.c
 @@ -475,7 +475,7 @@ void ufshcd_print_trs(struct ufs_hba *hba, unsigned long bitmap, bool pr_prdt)
@@ -91,7 +90,6 @@ index c7f39ff222ca..2b7438b8b978 100644
  	INIT_LIST_HEAD(&hba->clk_list_head);
  
 diff --git a/drivers/scsi/ufs/ufshcd.h b/drivers/scsi/ufs/ufshcd.h
-index bd4079b1ea7d..7f589ff62103 100644
 --- a/drivers/scsi/ufs/ufshcd.h
 +++ b/drivers/scsi/ufs/ufshcd.h
 @@ -618,6 +618,7 @@ enum ufshcd_caps {
@@ -111,7 +109,6 @@ index bd4079b1ea7d..7f589ff62103 100644
  	bool is_irq_enabled;
  	enum ufs_ref_clk_freq dev_ref_clk_freq;
 diff --git a/drivers/scsi/ufs/ufshci.h b/drivers/scsi/ufs/ufshci.h
-index c0651fe6dbbc..7459f633e7af 100644
 --- a/drivers/scsi/ufs/ufshci.h
 +++ b/drivers/scsi/ufs/ufshci.h
 @@ -442,20 +442,28 @@ struct ufshcd_sg_entry {

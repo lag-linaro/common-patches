@@ -24,7 +24,6 @@ Signed-off-by: Eric Biggers <ebiggers@google.com>
  2 files changed, 36 insertions(+)
 
 diff --git a/fs/crypto/keyring.c b/fs/crypto/keyring.c
-index 674878fb6829..b09f92e3e5a2 100644
 --- a/fs/crypto/keyring.c
 +++ b/fs/crypto/keyring.c
 @@ -807,12 +807,34 @@ static int check_for_busy_inodes(struct super_block *sb,
@@ -63,7 +62,6 @@ index 674878fb6829..b09f92e3e5a2 100644
  	 * An inode can't be evicted while it is dirty or has dirty pages.
  	 * Thus, we first have to clean the inodes in ->mk_decrypted_inodes.
 diff --git a/include/linux/fscrypt.h b/include/linux/fscrypt.h
-index 6f78d1437b94..de2c6a728990 100644
 --- a/include/linux/fscrypt.h
 +++ b/include/linux/fscrypt.h
 @@ -151,6 +151,8 @@ extern int fscrypt_ioctl_remove_key(struct file *filp, void __user *arg);

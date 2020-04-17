@@ -27,7 +27,6 @@ Signed-off-by: Sami Tolvanen <samitolvanen@google.com>
  9 files changed, 52 insertions(+), 5 deletions(-)
 
 diff --git a/arch/Kconfig b/arch/Kconfig
-index 30db84ca509b..7643d668e31a 100644
 --- a/arch/Kconfig
 +++ b/arch/Kconfig
 @@ -595,7 +595,7 @@ config LTO_CLANG
@@ -40,7 +39,6 @@ index 30db84ca509b..7643d668e31a 100644
  	select LTO
  	help
 diff --git a/include/asm-generic/vmlinux.lds.h b/include/asm-generic/vmlinux.lds.h
-index dd9fac506b9d..1ce2526eaf13 100644
 --- a/include/asm-generic/vmlinux.lds.h
 +++ b/include/asm-generic/vmlinux.lds.h
 @@ -555,6 +555,7 @@
@@ -52,7 +50,6 @@ index dd9fac506b9d..1ce2526eaf13 100644
  	MEM_KEEP(init.text*)						\
  	MEM_KEEP(exit.text*)						\
 diff --git a/include/linux/compiler-clang.h b/include/linux/compiler-clang.h
-index 18fc4d29ef27..5e97289e1e67 100644
 --- a/include/linux/compiler-clang.h
 +++ b/include/linux/compiler-clang.h
 @@ -48,3 +48,10 @@
@@ -67,7 +64,6 @@ index 18fc4d29ef27..5e97289e1e67 100644
 +#endif
 +#endif
 diff --git a/include/linux/compiler_types.h b/include/linux/compiler_types.h
-index be5d5be4b1ae..48e7e3396656 100644
 --- a/include/linux/compiler_types.h
 +++ b/include/linux/compiler_types.h
 @@ -206,6 +206,10 @@ struct ftrace_likely_data {
@@ -82,7 +78,6 @@ index be5d5be4b1ae..48e7e3396656 100644
  #define asm_volatile_goto(x...) asm goto(x)
  #endif
 diff --git a/kernel/trace/ftrace.c b/kernel/trace/ftrace.c
-index fd81c7de77a7..6ae56459d4f3 100644
 --- a/kernel/trace/ftrace.c
 +++ b/kernel/trace/ftrace.c
 @@ -6062,9 +6062,9 @@ static int ftrace_cmp_ips(const void *a, const void *b)
@@ -99,7 +94,6 @@ index fd81c7de77a7..6ae56459d4f3 100644
  	struct ftrace_page *start_pg;
  	struct ftrace_page *pg;
 diff --git a/scripts/Makefile.build b/scripts/Makefile.build
-index bf0e6da8b5e6..2c81d790d79f 100644
 --- a/scripts/Makefile.build
 +++ b/scripts/Makefile.build
 @@ -179,6 +179,12 @@ ifdef BUILD_C_RECORDMCOUNT
@@ -139,7 +133,6 @@ index bf0e6da8b5e6..2c81d790d79f 100644
  endif # CONFIG_FTRACE_MCOUNT_RECORD
  
 diff --git a/scripts/Makefile.modfinal b/scripts/Makefile.modfinal
-index 147ed6c243ef..6eb343ed0cad 100644
 --- a/scripts/Makefile.modfinal
 +++ b/scripts/Makefile.modfinal
 @@ -41,6 +41,10 @@ ifdef CONFIG_LTO_CLANG
@@ -154,7 +147,6 @@ index 147ed6c243ef..6eb343ed0cad 100644
        cmd_ld_ko_o =                                                     \
  	$(LD) -r $(KBUILD_LDFLAGS)					\
 diff --git a/scripts/link-vmlinux.sh b/scripts/link-vmlinux.sh
-index e2c441ada424..b9525bd3bd20 100755
 --- a/scripts/link-vmlinux.sh
 +++ b/scripts/link-vmlinux.sh
 @@ -87,6 +87,19 @@ modpost_link()
@@ -190,7 +182,6 @@ index e2c441ada424..b9525bd3bd20 100755
  ${OBJCOPY} -j .modinfo -O binary vmlinux.o modules.builtin.modinfo
  info GEN modules.builtin
 diff --git a/scripts/recordmcount.c b/scripts/recordmcount.c
-index 7225107a9aaf..00f2c3efa87e 100644
 --- a/scripts/recordmcount.c
 +++ b/scripts/recordmcount.c
 @@ -412,7 +412,9 @@ static int is_mcounted_section_name(char const *const txtname)

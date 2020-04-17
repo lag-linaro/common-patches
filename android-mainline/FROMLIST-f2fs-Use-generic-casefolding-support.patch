@@ -21,7 +21,6 @@ Change-Id: Ib2aecfdf029a53d116929bf6c0fc4802585f4383
  6 files changed, 22 insertions(+), 70 deletions(-)
 
 diff --git a/fs/f2fs/dir.c b/fs/f2fs/dir.c
-index 27d0dd7a16d6..d822c0d5eb18 100644
 --- a/fs/f2fs/dir.c
 +++ b/fs/f2fs/dir.c
 @@ -114,8 +114,8 @@ static struct f2fs_dir_entry *find_in_block(struct inode *dir,
@@ -137,7 +136,6 @@ index 27d0dd7a16d6..d822c0d5eb18 100644
  };
  #endif
 diff --git a/fs/f2fs/f2fs.h b/fs/f2fs/f2fs.h
-index 13a09408858a..ee2bf08619b9 100644
 --- a/fs/f2fs/f2fs.h
 +++ b/fs/f2fs/f2fs.h
 @@ -1288,10 +1288,6 @@ struct f2fs_sb_info {
@@ -152,7 +150,6 @@ index 13a09408858a..ee2bf08619b9 100644
  #ifdef CONFIG_BLK_DEV_ZONED
  	unsigned int blocks_per_blkz;		/* F2FS blocks per zone */
 diff --git a/fs/f2fs/hash.c b/fs/f2fs/hash.c
-index 5bc4dcd8fc03..28acb24e7a7a 100644
 --- a/fs/f2fs/hash.c
 +++ b/fs/f2fs/hash.c
 @@ -110,7 +110,7 @@ f2fs_hash_t f2fs_dentry_hash(const struct inode *dir,
@@ -165,7 +162,6 @@ index 5bc4dcd8fc03..28acb24e7a7a 100644
  	unsigned char *buff;
  	struct qstr folded;
 diff --git a/fs/f2fs/super.c b/fs/f2fs/super.c
-index 1a1fc1b579e7..40e5caf82481 100644
 --- a/fs/f2fs/super.c
 +++ b/fs/f2fs/super.c
 @@ -1223,7 +1223,7 @@ static void f2fs_put_super(struct super_block *sb)
@@ -207,7 +203,6 @@ index 1a1fc1b579e7..40e5caf82481 100644
  free_options:
  #ifdef CONFIG_QUOTA
 diff --git a/fs/f2fs/sysfs.c b/fs/f2fs/sysfs.c
-index 91d649790b1b..4e8aae03f26c 100644
 --- a/fs/f2fs/sysfs.c
 +++ b/fs/f2fs/sysfs.c
 @@ -175,12 +175,14 @@ static ssize_t encoding_show(struct f2fs_attr *a,
@@ -230,7 +225,6 @@ index 91d649790b1b..4e8aae03f26c 100644
  	return sprintf(buf, "(none)");
  }
 diff --git a/include/linux/f2fs_fs.h b/include/linux/f2fs_fs.h
-index ac3f4888b3df..e8763a955f90 100644
 --- a/include/linux/f2fs_fs.h
 +++ b/include/linux/f2fs_fs.h
 @@ -38,9 +38,6 @@

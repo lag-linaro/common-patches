@@ -16,7 +16,6 @@ Change-Id: Ifdc71a123f1f697ff9b5dbe6a6e2f557c3069060
  1 file changed, 11 insertions(+), 1 deletion(-)
 
 diff --git a/include/uapi/drm/drm_mode.h b/include/uapi/drm/drm_mode.h
-index c8a4b2d31b8e..7043c579f313 100644
 --- a/include/uapi/drm/drm_mode.h
 +++ b/include/uapi/drm/drm_mode.h
 @@ -41,7 +41,6 @@ extern "C" {

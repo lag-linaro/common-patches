@@ -22,7 +22,6 @@ Change-Id: Ib0bbbf1d86582d9c2ccf1a3c678f1563a26ec04f
  create mode 100644 drivers/gpu/drm/bridge/lt9611.c
 
 diff --git a/drivers/gpu/drm/bridge/Kconfig b/drivers/gpu/drm/bridge/Kconfig
-index aaed2347ace9..52c1ac0da1b1 100644
 --- a/drivers/gpu/drm/bridge/Kconfig
 +++ b/drivers/gpu/drm/bridge/Kconfig
 @@ -38,6 +38,14 @@ config DRM_DISPLAY_CONNECTOR
@@ -41,7 +40,6 @@ index aaed2347ace9..52c1ac0da1b1 100644
  	tristate "Transparent LVDS encoders and decoders support"
  	depends on OF
 diff --git a/drivers/gpu/drm/bridge/Makefile b/drivers/gpu/drm/bridge/Makefile
-index 6fb062b5b0f0..d2a696e8ca5d 100644
 --- a/drivers/gpu/drm/bridge/Makefile
 +++ b/drivers/gpu/drm/bridge/Makefile
 @@ -1,6 +1,7 @@

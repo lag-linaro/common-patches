@@ -21,7 +21,6 @@ Signed-off-by: Alexander Potapenko <glider@google.com>
  2 files changed, 4 insertions(+)
 
 diff --git a/arch/arm64/configs/gki_defconfig b/arch/arm64/configs/gki_defconfig
-index 20807ec6e881..98bdb0506996 100644
 --- a/arch/arm64/configs/gki_defconfig
 +++ b/arch/arm64/configs/gki_defconfig
 @@ -462,6 +462,8 @@ CONFIG_SECURITY_NETWORK=y
@@ -34,7 +33,6 @@ index 20807ec6e881..98bdb0506996 100644
  CONFIG_CRYPTO_MD4=y
  CONFIG_CRYPTO_LZ4=y
 diff --git a/arch/x86/configs/gki_defconfig b/arch/x86/configs/gki_defconfig
-index a39687958a17..474a0a57c8e5 100644
 --- a/arch/x86/configs/gki_defconfig
 +++ b/arch/x86/configs/gki_defconfig
 @@ -398,6 +398,8 @@ CONFIG_SECURITY_NETWORK=y

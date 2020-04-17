@@ -21,7 +21,6 @@ Change-Id: Id01bfc15347812faa19802463c088db162c7d117
  2 files changed, 67 insertions(+)
 
 diff --git a/drivers/clk/clk.c b/drivers/clk/clk.c
-index 0688e9bd98a8..2915b4cf7682 100644
 --- a/drivers/clk/clk.c
 +++ b/drivers/clk/clk.c
 @@ -72,6 +72,8 @@ struct clk_core {
@@ -132,7 +131,6 @@ index 0688e9bd98a8..2915b4cf7682 100644
  
  
 diff --git a/include/linux/clk-provider.h b/include/linux/clk-provider.h
-index 143e5aecd5bc..8c06438b346d 100644
 --- a/include/linux/clk-provider.h
 +++ b/include/linux/clk-provider.h
 @@ -32,6 +32,7 @@

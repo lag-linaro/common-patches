@@ -16,7 +16,6 @@ Change-Id: I7bf2b82abeca7274f8e2dc69c592ed8303e3fbc6
  1 file changed, 139 insertions(+), 4 deletions(-)
 
 diff --git a/arch/arm64/boot/dts/qcom/sdm845-db845c.dts b/arch/arm64/boot/dts/qcom/sdm845-db845c.dts
-index ad63f3768b8c..4138bc4413e8 100644
 --- a/arch/arm64/boot/dts/qcom/sdm845-db845c.dts
 +++ b/arch/arm64/boot/dts/qcom/sdm845-db845c.dts
 @@ -74,6 +74,17 @@ bt {

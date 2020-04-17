@@ -17,7 +17,6 @@ Signed-off-by: Sami Tolvanen <samitolvanen@google.com>
  1 file changed, 1 insertion(+)
 
 diff --git a/arch/x86/mm/extable.c b/arch/x86/mm/extable.c
-index b991aa4bdfae..f4257e14a71a 100644
 --- a/arch/x86/mm/extable.c
 +++ b/arch/x86/mm/extable.c
 @@ -138,6 +138,7 @@ __visible bool ex_has_fault_handler(unsigned long ip)

@@ -32,7 +32,6 @@ Signed-off-by: Alistair Delva <adelva@google.com>
  create mode 100644 drivers/usb/gadget/function/f_audio_source.c
 
 diff --git a/drivers/usb/gadget/Kconfig b/drivers/usb/gadget/Kconfig
-index 626ee64c25ce..608f2aac92b7 100644
 --- a/drivers/usb/gadget/Kconfig
 +++ b/drivers/usb/gadget/Kconfig
 @@ -219,6 +219,9 @@ config USB_F_TCM
@@ -62,7 +61,6 @@ index 626ee64c25ce..608f2aac92b7 100644
  	bool "Audio Class 1.0"
  	depends on USB_CONFIGFS
 diff --git a/drivers/usb/gadget/function/Makefile b/drivers/usb/gadget/function/Makefile
-index 2305360e5f22..dd33a1243342 100644
 --- a/drivers/usb/gadget/function/Makefile
 +++ b/drivers/usb/gadget/function/Makefile
 @@ -52,3 +52,5 @@ usb_f_tcm-y			:= f_tcm.o

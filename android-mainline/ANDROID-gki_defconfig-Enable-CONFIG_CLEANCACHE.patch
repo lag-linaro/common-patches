@@ -12,7 +12,6 @@ Signed-off-by: Alistair Delva <adelva@google.com>
  2 files changed, 2 insertions(+)
 
 diff --git a/arch/arm64/configs/gki_defconfig b/arch/arm64/configs/gki_defconfig
-index 74da02bbb19f..b93564aa92f8 100644
 --- a/arch/arm64/configs/gki_defconfig
 +++ b/arch/arm64/configs/gki_defconfig
 @@ -88,6 +88,7 @@ CONFIG_GKI_HACKS_TO_FIX=y
@@ -24,7 +23,6 @@ index 74da02bbb19f..b93564aa92f8 100644
  CONFIG_CMA_AREAS=16
  CONFIG_ZSMALLOC=y
 diff --git a/arch/x86/configs/gki_defconfig b/arch/x86/configs/gki_defconfig
-index ac448b5a9cb9..229bbc7b1ed5 100644
 --- a/arch/x86/configs/gki_defconfig
 +++ b/arch/x86/configs/gki_defconfig
 @@ -65,6 +65,7 @@ CONFIG_BLK_INLINE_ENCRYPTION_FALLBACK=y

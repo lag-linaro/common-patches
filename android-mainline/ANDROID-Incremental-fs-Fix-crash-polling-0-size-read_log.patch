@@ -17,7 +17,6 @@ Change-Id: Ic3250523bb7ddb1839f8e95852c17103e5ffb782
  2 files changed, 49 insertions(+), 8 deletions(-)
 
 diff --git a/fs/incfs/data_mgmt.c b/fs/incfs/data_mgmt.c
-index 15462b452d59..bf509e2b0314 100644
 --- a/fs/incfs/data_mgmt.c
 +++ b/fs/incfs/data_mgmt.c
 @@ -34,13 +34,13 @@ struct mount_info *incfs_alloc_mount_info(struct super_block *sb,
@@ -36,7 +35,6 @@ index 15462b452d59..bf509e2b0314 100644
  		mi->mi_log.rl_size = buf_size / sizeof(*mi->mi_log.rl_ring_buf);
  		mi->mi_log.rl_ring_buf = kzalloc(buf_size, GFP_NOFS);
 diff --git a/tools/testing/selftests/filesystems/incfs/incfs_test.c b/tools/testing/selftests/filesystems/incfs/incfs_test.c
-index 723f9cbd15bc..3137dad14615 100644
 --- a/tools/testing/selftests/filesystems/incfs/incfs_test.c
 +++ b/tools/testing/selftests/filesystems/incfs/incfs_test.c
 @@ -1930,7 +1930,8 @@ static int hash_tree_test(char *mount_dir)

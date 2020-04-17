@@ -21,7 +21,6 @@ Signed-off-by: Eric Biggers <ebiggers@google.com>
  2 files changed, 8 insertions(+), 3 deletions(-)
 
 diff --git a/drivers/scsi/ufs/ufshcd-crypto.c b/drivers/scsi/ufs/ufshcd-crypto.c
-index 1cfd9a327049..2c88398b03c7 100644
 --- a/drivers/scsi/ufs/ufshcd-crypto.c
 +++ b/drivers/scsi/ufs/ufshcd-crypto.c
 @@ -37,9 +37,9 @@ static size_t get_keysize_bytes(enum ufs_crypto_key_size size)
@@ -46,7 +45,6 @@ index 1cfd9a327049..2c88398b03c7 100644
  /**
   * ufshcd_crypto_cfg_entry_write_key - Write a key into a crypto_cfg_entry
 diff --git a/drivers/scsi/ufs/ufshcd-crypto.h b/drivers/scsi/ufs/ufshcd-crypto.h
-index 24a587c7a94e..95f37c9f7672 100644
 --- a/drivers/scsi/ufs/ufshcd-crypto.h
 +++ b/drivers/scsi/ufs/ufshcd-crypto.h
 @@ -36,6 +36,10 @@ static inline bool ufshcd_is_crypto_enabled(struct ufs_hba *hba)

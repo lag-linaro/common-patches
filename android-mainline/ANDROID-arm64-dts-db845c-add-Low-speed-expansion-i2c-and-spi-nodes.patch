@@ -16,7 +16,6 @@ Change-Id: I03b457230641fdbf30adf1bf8730e0ff95354b7c
  1 file changed, 23 insertions(+)
 
 diff --git a/arch/arm64/boot/dts/qcom/sdm845-db845c.dts b/arch/arm64/boot/dts/qcom/sdm845-db845c.dts
-index 4138bc4413e8..d7b119ef064f 100644
 --- a/arch/arm64/boot/dts/qcom/sdm845-db845c.dts
 +++ b/arch/arm64/boot/dts/qcom/sdm845-db845c.dts
 @@ -496,6 +496,24 @@ lt9611_b: endpoint {

@@ -30,7 +30,6 @@ Change-Id: Ia3a76acc1d501c629508bf4d10a931353a49568d
  1 file changed, 1 insertion(+)
 
 diff --git a/drivers/gpu/drm/msm/adreno/a6xx_gmu.h b/drivers/gpu/drm/msm/adreno/a6xx_gmu.h
-index 4af65a36d5ca..d10cddd009c1 100644
 --- a/drivers/gpu/drm/msm/adreno/a6xx_gmu.h
 +++ b/drivers/gpu/drm/msm/adreno/a6xx_gmu.h
 @@ -13,6 +13,7 @@ struct a6xx_gmu_bo {

@@ -41,7 +41,6 @@ Signed-off-by: Suren Baghdasaryan <surenb@google.com>
  3 files changed, 46 insertions(+), 4 deletions(-)
 
 diff --git a/Documentation/admin-guide/sysctl/vm.rst b/Documentation/admin-guide/sysctl/vm.rst
-index 0329a4d3fa9e..290aa766629a 100644
 --- a/Documentation/admin-guide/sysctl/vm.rst
 +++ b/Documentation/admin-guide/sysctl/vm.rst
 @@ -37,6 +37,7 @@ Currently, these files are in /proc/sys/vm:
@@ -75,7 +74,6 @@ index 0329a4d3fa9e..290aa766629a 100644
  =================
  
 diff --git a/kernel/sysctl.c b/kernel/sysctl.c
-index 8a176d8727a3..507902cc419d 100644
 --- a/kernel/sysctl.c
 +++ b/kernel/sysctl.c
 @@ -111,6 +111,7 @@ extern char core_pattern[];
@@ -102,7 +100,6 @@ index 8a176d8727a3..507902cc419d 100644
  		.procname	= "percpu_pagelist_fraction",
  		.data		= &percpu_pagelist_fraction,
 diff --git a/mm/page_alloc.c b/mm/page_alloc.c
-index 79f07ccac63e..6ed27ddfd323 100644
 --- a/mm/page_alloc.c
 +++ b/mm/page_alloc.c
 @@ -312,6 +312,11 @@ compound_page_dtor * const compound_page_dtors[] = {

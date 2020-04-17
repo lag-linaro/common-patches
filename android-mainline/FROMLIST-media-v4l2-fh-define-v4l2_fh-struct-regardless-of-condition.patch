@@ -29,7 +29,6 @@ Signed-off-by: Seungchul Kim <sc377.kim@samsung.com>
  1 file changed, 2 deletions(-)
 
 diff --git a/include/media/v4l2-fh.h b/include/media/v4l2-fh.h
-index 53b4dbb4ae8e..b5b3e00c8e6a 100644
 --- a/include/media/v4l2-fh.h
 +++ b/include/media/v4l2-fh.h
 @@ -53,9 +53,7 @@ struct v4l2_fh {

@@ -193,7 +193,6 @@ Signed-off-by: Matthias Maennich <maennich@google.com>
  create mode 100644 fs/sdcardfs/super.c
 
 diff --git a/fs/Kconfig b/fs/Kconfig
-index 708ba336e689..df57b29f73bc 100644
 --- a/fs/Kconfig
 +++ b/fs/Kconfig
 @@ -244,6 +244,7 @@ source "fs/orangefs/Kconfig"
@@ -205,7 +204,6 @@ index 708ba336e689..df57b29f73bc 100644
  source "fs/hfsplus/Kconfig"
  source "fs/befs/Kconfig"
 diff --git a/fs/Makefile b/fs/Makefile
-index 505e51166973..43537eb7af5d 100644
 --- a/fs/Makefile
 +++ b/fs/Makefile
 @@ -88,6 +88,7 @@ obj-$(CONFIG_ISO9660_FS)	+= isofs/

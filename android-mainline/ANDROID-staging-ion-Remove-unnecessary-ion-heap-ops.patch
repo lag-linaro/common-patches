@@ -22,7 +22,6 @@ Signed-off-by: Sandeep Patil <sspatil@google.com>
  6 files changed, 13 insertions(+), 36 deletions(-)
 
 diff --git a/drivers/staging/android/ion/heaps/ion_cma_heap.c b/drivers/staging/android/ion/heaps/ion_cma_heap.c
-index 83f7dce74f18..236b6c576cdb 100644
 --- a/drivers/staging/android/ion/heaps/ion_cma_heap.c
 +++ b/drivers/staging/android/ion/heaps/ion_cma_heap.c
 @@ -95,9 +95,6 @@ static void ion_cma_free(struct ion_buffer *buffer)
@@ -36,7 +35,6 @@ index 83f7dce74f18..236b6c576cdb 100644
  
  static struct ion_heap *__ion_cma_heap_create(struct cma *cma)
 diff --git a/drivers/staging/android/ion/heaps/ion_system_contig_heap.c b/drivers/staging/android/ion/heaps/ion_system_contig_heap.c
-index 9cb18e38dc96..36e8769f3ef7 100644
 --- a/drivers/staging/android/ion/heaps/ion_system_contig_heap.c
 +++ b/drivers/staging/android/ion/heaps/ion_system_contig_heap.c
 @@ -77,9 +77,6 @@ static void ion_system_contig_heap_free(struct ion_buffer *buffer)
@@ -50,7 +48,6 @@ index 9cb18e38dc96..36e8769f3ef7 100644
  
  static struct ion_heap contig_heap = {
 diff --git a/drivers/staging/android/ion/heaps/ion_system_heap.c b/drivers/staging/android/ion/heaps/ion_system_heap.c
-index 0b24652b77f2..054324784ab9 100644
 --- a/drivers/staging/android/ion/heaps/ion_system_heap.c
 +++ b/drivers/staging/android/ion/heaps/ion_system_heap.c
 @@ -241,9 +241,6 @@ static int ion_system_heap_create_pools(struct ion_page_pool **pools)
@@ -64,7 +61,6 @@ index 0b24652b77f2..054324784ab9 100644
  };
  
 diff --git a/drivers/staging/android/ion/ion_buffer.c b/drivers/staging/android/ion/ion_buffer.c
-index 961605a35c59..4157f5d040f2 100644
 --- a/drivers/staging/android/ion/ion_buffer.c
 +++ b/drivers/staging/android/ion/ion_buffer.c
 @@ -201,7 +201,7 @@ void ion_buffer_release(struct ion_buffer *buffer)
@@ -95,7 +91,6 @@ index 961605a35c59..4157f5d040f2 100644
  	}
  }
 diff --git a/drivers/staging/android/ion/ion_dma_buf.c b/drivers/staging/android/ion/ion_dma_buf.c
-index e52db6a182ae..7ded926f52d4 100644
 --- a/drivers/staging/android/ion/ion_dma_buf.c
 +++ b/drivers/staging/android/ion/ion_dma_buf.c
 @@ -154,19 +154,16 @@ static int ion_dma_buf_begin_cpu_access(struct dma_buf *dmabuf,
@@ -150,7 +145,6 @@ index e52db6a182ae..7ded926f52d4 100644
  
  static int ion_dma_buf_mmap(struct dma_buf *dmabuf, struct vm_area_struct *vma)
 diff --git a/include/linux/ion.h b/include/linux/ion.h
-index 1e4846db0c6d..87aa2bcec7d3 100644
 --- a/include/linux/ion.h
 +++ b/include/linux/ion.h
 @@ -57,11 +57,8 @@ struct ion_buffer {

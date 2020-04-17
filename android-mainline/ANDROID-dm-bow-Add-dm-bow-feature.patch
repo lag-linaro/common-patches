@@ -181,7 +181,6 @@ index 000000000000..e3fc4d22e0f4
 +log entry to be written.
 +
 diff --git a/drivers/md/Kconfig b/drivers/md/Kconfig
-index 87f5fe451f00..cb719c064235 100644
 --- a/drivers/md/Kconfig
 +++ b/drivers/md/Kconfig
 @@ -608,4 +608,16 @@ config DM_ZONED
@@ -202,7 +201,6 @@ index 87f5fe451f00..cb719c064235 100644
 +
  endif # MD
 diff --git a/drivers/md/Makefile b/drivers/md/Makefile
-index 356b32d6b158..a9a602dfc4a3 100644
 --- a/drivers/md/Makefile
 +++ b/drivers/md/Makefile
 @@ -71,6 +71,7 @@ obj-$(CONFIG_DM_LOG_WRITES)	+= dm-log-writes.o

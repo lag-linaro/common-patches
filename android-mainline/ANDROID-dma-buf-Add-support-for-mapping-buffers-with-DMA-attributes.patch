@@ -20,7 +20,6 @@ Signed-off-by: Sandeep Patil <sspatil@google.com>
  1 file changed, 3 insertions(+)
 
 diff --git a/include/linux/dma-buf.h b/include/linux/dma-buf.h
-index ca78cb522952..1dea46636d26 100644
 --- a/include/linux/dma-buf.h
 +++ b/include/linux/dma-buf.h
 @@ -423,6 +423,8 @@ struct dma_buf_attach_ops {

@@ -28,7 +28,6 @@ Signed-off-by: Sandeep Patil <sspatil@google.com>
  create mode 100644 drivers/staging/android/ion/ion_private.h
 
 diff --git a/drivers/staging/android/ion/Makefile b/drivers/staging/android/ion/Makefile
-index 5f4487b1a224..da386dbf3ffd 100644
 --- a/drivers/staging/android/ion/Makefile
 +++ b/drivers/staging/android/ion/Makefile
 @@ -1,4 +1,4 @@
@@ -38,7 +37,6 @@ index 5f4487b1a224..da386dbf3ffd 100644
  obj-$(CONFIG_ION_SYSTEM_HEAP) += ion_system_heap.o ion_page_pool.o
  obj-$(CONFIG_ION_CMA_HEAP) += ion_cma_heap.o
 diff --git a/drivers/staging/android/ion/ion.c b/drivers/staging/android/ion/ion.c
-index a668d2a418d3..4258f2f747e4 100644
 --- a/drivers/staging/android/ion/ion.c
 +++ b/drivers/staging/android/ion/ion.c
 @@ -26,119 +26,11 @@
@@ -223,7 +221,6 @@ index a668d2a418d3..4258f2f747e4 100644
  	return dmabuf;
  }
 diff --git a/drivers/staging/android/ion/ion.h b/drivers/staging/android/ion/ion.h
-index 6f9f7c365f38..d2d18f03ac77 100644
 --- a/drivers/staging/android/ion/ion.h
 +++ b/drivers/staging/android/ion/ion.h
 @@ -17,7 +17,6 @@
@@ -467,7 +464,6 @@ index 000000000000..8b8dd1e216d4
 +	}
 +}
 diff --git a/drivers/staging/android/ion/ion_heap.c b/drivers/staging/android/ion/ion_heap.c
-index 473b465724f1..3b4f32b9cd2d 100644
 --- a/drivers/staging/android/ion/ion_heap.c
 +++ b/drivers/staging/android/ion/ion_heap.c
 @@ -15,7 +15,7 @@

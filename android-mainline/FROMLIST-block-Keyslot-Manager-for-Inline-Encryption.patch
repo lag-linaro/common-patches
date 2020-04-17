@@ -43,7 +43,6 @@ Link: https://patchwork.kernel.org/patch/11214713/
  create mode 100644 include/linux/keyslot-manager.h
 
 diff --git a/block/Kconfig b/block/Kconfig
-index 3bc76bb113a0..a8cf349d0752 100644
 --- a/block/Kconfig
 +++ b/block/Kconfig
 @@ -185,6 +185,14 @@ config BLK_SED_OPAL
@@ -62,7 +61,6 @@ index 3bc76bb113a0..a8cf349d0752 100644
  
  source "block/partitions/Kconfig"
 diff --git a/block/Makefile b/block/Makefile
-index 206b96e9387f..fc963e4676b0 100644
 --- a/block/Makefile
 +++ b/block/Makefile
 @@ -36,3 +36,4 @@ obj-$(CONFIG_BLK_DEBUG_FS)	+= blk-mq-debugfs.o
@@ -429,7 +427,6 @@ index 000000000000..020931fc9f7d
 +}
 +EXPORT_SYMBOL(keyslot_manager_destroy);
 diff --git a/include/linux/bio.h b/include/linux/bio.h
-index c1c0f9ea4e63..3bafe75e4b2b 100644
 --- a/include/linux/bio.h
 +++ b/include/linux/bio.h
 @@ -552,6 +552,11 @@ static inline void bvec_kunmap_irq(char *buffer, unsigned long *flags)
@@ -445,7 +442,6 @@ index c1c0f9ea4e63..3bafe75e4b2b 100644
   * BIO list management for use by remapping drivers (e.g. DM or MD) and loop.
   *
 diff --git a/include/linux/blkdev.h b/include/linux/blkdev.h
-index 32868fbedc9e..695dee7d6f85 100644
 --- a/include/linux/blkdev.h
 +++ b/include/linux/blkdev.h
 @@ -43,6 +43,7 @@ struct pr_ops;

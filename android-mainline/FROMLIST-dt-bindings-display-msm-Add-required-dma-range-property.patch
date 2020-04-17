@@ -19,7 +19,6 @@ Change-Id: I694574a3a494b8810e79768a448dcd686c0144bf
  1 file changed, 10 insertions(+)
 
 diff --git a/Documentation/devicetree/bindings/display/msm/gmu.yaml b/Documentation/devicetree/bindings/display/msm/gmu.yaml
-index 0b8736a9384e..9785dc3f54bc 100644
 --- a/Documentation/devicetree/bindings/display/msm/gmu.yaml
 +++ b/Documentation/devicetree/bindings/display/msm/gmu.yaml
 @@ -76,6 +76,13 @@ properties:

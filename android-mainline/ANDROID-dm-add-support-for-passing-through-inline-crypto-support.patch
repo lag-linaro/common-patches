@@ -36,7 +36,6 @@ Signed-off-by: Eric Biggers <ebiggers@google.com>
  5 files changed, 190 insertions(+), 1 deletion(-)
 
 diff --git a/block/keyslot-manager.c b/block/keyslot-manager.c
-index 6841931f1baa..14364261dab5 100644
 --- a/block/keyslot-manager.c
 +++ b/block/keyslot-manager.c
 @@ -492,6 +492,34 @@ struct keyslot_manager *keyslot_manager_create_passthrough(
@@ -75,7 +74,6 @@ index 6841931f1baa..14364261dab5 100644
   * keyslot_manager_derive_raw_secret() - Derive software secret from wrapped key
   * @ksm: The keyslot manager
 diff --git a/drivers/md/dm-table.c b/drivers/md/dm-table.c
-index 0a2cc197f62b..406071200425 100644
 --- a/drivers/md/dm-table.c
 +++ b/drivers/md/dm-table.c
 @@ -21,6 +21,8 @@
@@ -152,7 +150,6 @@ index 0a2cc197f62b..406071200425 100644
  	 * Some devices don't use blk_integrity but still want stable pages
  	 * because they do their own checksumming.
 diff --git a/drivers/md/dm.c b/drivers/md/dm.c
-index 5d45a9d2cfc7..5cd6ed39e6da 100644
 --- a/drivers/md/dm.c
 +++ b/drivers/md/dm.c
 @@ -26,6 +26,8 @@
@@ -290,7 +287,6 @@ index 5d45a9d2cfc7..5cd6ed39e6da 100644
  	blk_register_queue(md->disk);
  
 diff --git a/include/linux/device-mapper.h b/include/linux/device-mapper.h
-index 475668c69dbc..1cbb1ccf1cfb 100644
 --- a/include/linux/device-mapper.h
 +++ b/include/linux/device-mapper.h
 @@ -317,6 +317,12 @@ struct dm_target {
@@ -307,7 +303,6 @@ index 475668c69dbc..1cbb1ccf1cfb 100644
  
  /* Each target can link one of these into the table */
 diff --git a/include/linux/keyslot-manager.h b/include/linux/keyslot-manager.h
-index 85532baa89b2..6d32a031218e 100644
 --- a/include/linux/keyslot-manager.h
 +++ b/include/linux/keyslot-manager.h
 @@ -8,6 +8,8 @@

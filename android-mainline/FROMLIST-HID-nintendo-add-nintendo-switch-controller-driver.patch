@@ -30,7 +30,6 @@ Signed-off-by: Siarhei Vishniakou <svv@google.com>
  create mode 100644 drivers/hid/hid-nintendo.c
 
 diff --git a/MAINTAINERS b/MAINTAINERS
-index 44c1e8b3b3b4..656da6dc1a65 100644
 --- a/MAINTAINERS
 +++ b/MAINTAINERS
 @@ -11930,6 +11930,12 @@ S:	Maintained
@@ -47,7 +46,6 @@ index 44c1e8b3b3b4..656da6dc1a65 100644
  M:	Ley Foon Tan <ley.foon.tan@intel.com>
  L:	nios2-dev@lists.rocketboards.org (moderated for non-subscribers)
 diff --git a/drivers/hid/Kconfig b/drivers/hid/Kconfig
-index 7c89edbd6c5a..13d4865d2fb7 100644
 --- a/drivers/hid/Kconfig
 +++ b/drivers/hid/Kconfig
 @@ -709,6 +709,17 @@ config HID_MULTITOUCH
@@ -69,7 +67,6 @@ index 7c89edbd6c5a..13d4865d2fb7 100644
  	tristate "NTI keyboard adapters"
  	---help---
 diff --git a/drivers/hid/Makefile b/drivers/hid/Makefile
-index d8ea4b8c95af..d0cc21b38251 100644
 --- a/drivers/hid/Makefile
 +++ b/drivers/hid/Makefile
 @@ -76,6 +76,7 @@ obj-$(CONFIG_HID_MAYFLASH)	+= hid-mf.o
@@ -81,7 +78,6 @@ index d8ea4b8c95af..d0cc21b38251 100644
  obj-$(CONFIG_HID_NTRIG)		+= hid-ntrig.o
  obj-$(CONFIG_HID_ORTEK)		+= hid-ortek.o
 diff --git a/drivers/hid/hid-ids.h b/drivers/hid/hid-ids.h
-index b18b13147a6f..997e2694ea84 100644
 --- a/drivers/hid/hid-ids.h
 +++ b/drivers/hid/hid-ids.h
 @@ -882,6 +882,9 @@

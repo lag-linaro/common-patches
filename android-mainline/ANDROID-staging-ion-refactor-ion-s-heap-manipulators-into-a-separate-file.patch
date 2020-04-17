@@ -25,7 +25,6 @@ Signed-off-by: Sandeep Patil <sspatil@google.com>
  5 files changed, 144 insertions(+), 132 deletions(-)
 
 diff --git a/drivers/staging/android/ion/ion.h b/drivers/staging/android/ion/ion.h
-index d2d18f03ac77..b5b5412507fd 100644
 --- a/drivers/staging/android/ion/ion.h
 +++ b/drivers/staging/android/ion/ion.h
 @@ -153,6 +153,14 @@ struct ion_heap {
@@ -55,7 +54,6 @@ index d2d18f03ac77..b5b5412507fd 100644
  /**
   * ion_heap_init_shrinker
 diff --git a/drivers/staging/android/ion/ion_buffer.c b/drivers/staging/android/ion/ion_buffer.c
-index c10ea6672f1a..50c2dbc3ebec 100644
 --- a/drivers/staging/android/ion/ion_buffer.c
 +++ b/drivers/staging/android/ion/ion_buffer.c
 @@ -133,6 +133,23 @@ struct ion_buffer *ion_buffer_alloc(struct ion_device *dev, size_t len,
@@ -83,7 +81,6 @@ index c10ea6672f1a..50c2dbc3ebec 100644
  {
  	if (buffer->kmap_cnt > 0) {
 diff --git a/drivers/staging/android/ion/ion_heap.c b/drivers/staging/android/ion/ion_heap.c
-index 3b4f32b9cd2d..39eb60e4842e 100644
 --- a/drivers/staging/android/ion/ion_heap.c
 +++ b/drivers/staging/android/ion/ion_heap.c
 @@ -17,6 +17,120 @@
@@ -374,7 +371,6 @@ index 3b4f32b9cd2d..39eb60e4842e 100644
  {
  	heap->shrinker.count_objects = ion_heap_shrink_count;
 diff --git a/drivers/staging/android/ion/ion_private.h b/drivers/staging/android/ion/ion_private.h
-index b3c8b55788db..9c8f482cd9d2 100644
 --- a/drivers/staging/android/ion/ion_private.h
 +++ b/drivers/staging/android/ion/ion_private.h
 @@ -52,5 +52,4 @@ extern struct dma_buf *ion_dmabuf_alloc(struct ion_device *dev, size_t len,
@@ -384,7 +380,6 @@ index b3c8b55788db..9c8f482cd9d2 100644
 -
  #endif /* _ION_PRIVATE_H */
 diff --git a/drivers/staging/android/ion/ion_system_heap.c b/drivers/staging/android/ion/ion_system_heap.c
-index ee301df7b7b7..d1cb9e69399e 100644
 --- a/drivers/staging/android/ion/ion_system_heap.c
 +++ b/drivers/staging/android/ion/ion_system_heap.c
 @@ -161,7 +161,7 @@ static void ion_system_heap_free(struct ion_buffer *buffer)

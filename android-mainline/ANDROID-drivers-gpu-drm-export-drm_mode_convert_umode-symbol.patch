@@ -13,7 +13,6 @@ Change-Id: I5d4c15a5edb28616a2ff01d5acdf498bad6973d8
  1 file changed, 1 insertion(+)
 
 diff --git a/drivers/gpu/drm/drm_modes.c b/drivers/gpu/drm/drm_modes.c
-index d4d64518e11b..f55ab314e459 100644
 --- a/drivers/gpu/drm/drm_modes.c
 +++ b/drivers/gpu/drm/drm_modes.c
 @@ -2053,6 +2053,7 @@ int drm_mode_convert_umode(struct drm_device *dev,

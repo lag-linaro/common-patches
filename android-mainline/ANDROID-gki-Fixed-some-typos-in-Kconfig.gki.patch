@@ -12,7 +12,6 @@ Signed-off-by: Ram Muthiah <rammuthiah@google.com>
  1 file changed, 11 insertions(+), 11 deletions(-)
 
 diff --git a/init/Kconfig.gki b/init/Kconfig.gki
-index 153360cc4a03..bd5e645c8944 100644
 --- a/init/Kconfig.gki
 +++ b/init/Kconfig.gki
 @@ -9,7 +9,7 @@ config GKI_HIDDEN_DRM_CONFIGS

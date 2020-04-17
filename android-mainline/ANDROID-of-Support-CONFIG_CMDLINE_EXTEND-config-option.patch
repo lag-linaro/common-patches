@@ -49,7 +49,6 @@ Signed-off-by: Amit Pundir <amit.pundir@linaro.org>
  2 files changed, 70 insertions(+), 25 deletions(-)
 
 diff --git a/drivers/of/fdt.c b/drivers/of/fdt.c
-index 2cdf64d2456f..5dd372e08ac0 100644
 --- a/drivers/of/fdt.c
 +++ b/drivers/of/fdt.c
 @@ -1040,43 +1040,67 @@ int __init early_init_dt_scan_memory(unsigned long node, const char *uname,
@@ -146,7 +145,6 @@ index 2cdf64d2456f..5dd372e08ac0 100644
  	pr_debug("Command line is: %s\n", (char*)data);
  
 diff --git a/include/linux/of_fdt.h b/include/linux/of_fdt.h
-index acf820e88952..9bbd5c06cb39 100644
 --- a/include/linux/of_fdt.h
 +++ b/include/linux/of_fdt.h
 @@ -58,6 +58,27 @@ extern int of_flat_dt_is_compatible(unsigned long node, const char *name);

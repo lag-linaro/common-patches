@@ -17,7 +17,6 @@ Signed-off-by: Sami Tolvanen <samitolvanen@google.com>
  1 file changed, 4 insertions(+), 4 deletions(-)
 
 diff --git a/scripts/Makefile.modfinal b/scripts/Makefile.modfinal
-index 6eb343ed0cad..216a3f84bafe 100644
 --- a/scripts/Makefile.modfinal
 +++ b/scripts/Makefile.modfinal
 @@ -6,6 +6,7 @@

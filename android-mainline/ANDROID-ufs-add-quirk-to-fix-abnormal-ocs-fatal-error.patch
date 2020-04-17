@@ -17,7 +17,6 @@ Signed-off-by: Greg Kroah-Hartman <gregkh@google.com>
  2 files changed, 12 insertions(+)
 
 diff --git a/drivers/scsi/ufs/ufshcd.c b/drivers/scsi/ufs/ufshcd.c
-index 5a34368f0690..c7f39ff222ca 100644
 --- a/drivers/scsi/ufs/ufshcd.c
 +++ b/drivers/scsi/ufs/ufshcd.c
 @@ -4754,6 +4754,12 @@ ufshcd_transfer_rsp_status(struct ufs_hba *hba, struct ufshcd_lrb *lrbp)
@@ -34,7 +33,6 @@ index 5a34368f0690..c7f39ff222ca 100644
  	case OCS_SUCCESS:
  		result = ufshcd_get_req_rsp(lrbp->ucd_rsp_ptr);
 diff --git a/drivers/scsi/ufs/ufshcd.h b/drivers/scsi/ufs/ufshcd.h
-index 70e33177099d..bd4079b1ea7d 100644
 --- a/drivers/scsi/ufs/ufshcd.h
 +++ b/drivers/scsi/ufs/ufshcd.h
 @@ -541,6 +541,12 @@ enum ufshcd_quirks {

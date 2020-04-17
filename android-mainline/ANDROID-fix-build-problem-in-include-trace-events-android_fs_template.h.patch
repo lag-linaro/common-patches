@@ -16,7 +16,6 @@ Change-Id: I06279d79877d2e312a458a4d8006d3aaa8e43a60
  1 file changed, 10 insertions(+), 10 deletions(-)
 
 diff --git a/include/trace/events/android_fs_template.h b/include/trace/events/android_fs_template.h
-index b23d17b56c63..efc487816e83 100644
 --- a/include/trace/events/android_fs_template.h
 +++ b/include/trace/events/android_fs_template.h
 @@ -8,13 +8,13 @@ DECLARE_EVENT_CLASS(android_fs_data_start_template,

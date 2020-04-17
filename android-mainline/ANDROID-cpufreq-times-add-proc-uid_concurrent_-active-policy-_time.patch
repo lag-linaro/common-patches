@@ -65,7 +65,6 @@ index 000000000000..55b414289b40
 +	of the core used by the uid's task and the number of cores associated
 +	with that policy that were active while the uid's task was running.
 diff --git a/drivers/cpufreq/cpufreq_times.c b/drivers/cpufreq/cpufreq_times.c
-index 87cea0e9be90..092d15450238 100644
 --- a/drivers/cpufreq/cpufreq_times.c
 +++ b/drivers/cpufreq/cpufreq_times.c
 @@ -32,11 +32,17 @@ static DECLARE_HASHTABLE(uid_hash_table, UID_HASH_BITS);

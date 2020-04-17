@@ -20,7 +20,6 @@ Change-Id: I3a99437441410a2514f9486d08ae3ba68670769e
  1 file changed, 6 insertions(+)
 
 diff --git a/include/drm/drm_mipi_dsi.h b/include/drm/drm_mipi_dsi.h
-index 360e6377e84b..41c8367ecd28 100644
 --- a/include/drm/drm_mipi_dsi.h
 +++ b/include/drm/drm_mipi_dsi.h
 @@ -19,12 +19,16 @@ struct drm_dsc_picture_parameter_set;

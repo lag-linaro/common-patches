@@ -19,7 +19,6 @@ Signed-off-by: Sami Tolvanen <samitolvanen@google.com>
  1 file changed, 4 insertions(+)
 
 diff --git a/arch/arm64/Makefile b/arch/arm64/Makefile
-index f15f92ba53e6..34277c60cdf9 100644
 --- a/arch/arm64/Makefile
 +++ b/arch/arm64/Makefile
 @@ -76,6 +76,10 @@ branch-prot-flags-$(CONFIG_AS_HAS_PAC) += -Wa,-march=armv8.3-a

@@ -13,7 +13,6 @@ Bug: 152116739
  1 file changed, 1 insertion(+)
 
 diff --git a/drivers/md/dm-bow.c b/drivers/md/dm-bow.c
-index ee0e2b6fe450..75fc7dc83d7b 100644
 --- a/drivers/md/dm-bow.c
 +++ b/drivers/md/dm-bow.c
 @@ -792,6 +792,7 @@ static int prepare_unchanged_range(struct bow_context *bc, struct bow_range *br,

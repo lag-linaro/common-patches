@@ -71,7 +71,6 @@ Change-Id: I7980d18e2a5aa97dd2d9fb291fea6deb649f6a34
  11 files changed, 94 insertions(+), 37 deletions(-)
 
 diff --git a/Documentation/filesystems/overlayfs.rst b/Documentation/filesystems/overlayfs.rst
-index e443be7928db..a9521894c303 100644
 --- a/Documentation/filesystems/overlayfs.rst
 +++ b/Documentation/filesystems/overlayfs.rst
 @@ -104,6 +104,29 @@ Only the lists of names from directories are merged.  Other content
@@ -105,7 +104,6 @@ index e443be7928db..a9521894c303 100644
  --------------------------------
  
 diff --git a/fs/overlayfs/copy_up.c b/fs/overlayfs/copy_up.c
-index 9fc47c2e078d..03cfc97f6ce5 100644
 --- a/fs/overlayfs/copy_up.c
 +++ b/fs/overlayfs/copy_up.c
 @@ -920,7 +920,7 @@ int ovl_copy_up_flags(struct dentry *dentry, int flags)
@@ -118,7 +116,6 @@ index 9fc47c2e078d..03cfc97f6ce5 100644
  	return err;
  }
 diff --git a/fs/overlayfs/dir.c b/fs/overlayfs/dir.c
-index 8e57d5372b8f..6c6edc0b84d8 100644
 --- a/fs/overlayfs/dir.c
 +++ b/fs/overlayfs/dir.c
 @@ -536,7 +536,7 @@ static int ovl_create_or_link(struct dentry *dentry, struct inode *inode,
@@ -187,7 +184,6 @@ index 8e57d5372b8f..6c6edc0b84d8 100644
  		ovl_nlink_end(new);
  out_drop_write:
 diff --git a/fs/overlayfs/file.c b/fs/overlayfs/file.c
-index 87c362f65448..e25c30540716 100644
 --- a/fs/overlayfs/file.c
 +++ b/fs/overlayfs/file.c
 @@ -43,7 +43,7 @@ static struct file *ovl_open_realfile(const struct file *file,
@@ -300,7 +296,6 @@ index 87c362f65448..e25c30540716 100644
  	/* Update size */
  	ovl_copyattr(ovl_inode_real(inode_out), inode_out);
 diff --git a/fs/overlayfs/inode.c b/fs/overlayfs/inode.c
-index de3d41eecf0a..c66ade63e7d7 100644
 --- a/fs/overlayfs/inode.c
 +++ b/fs/overlayfs/inode.c
 @@ -61,7 +61,7 @@ int ovl_setattr(struct dentry *dentry, struct iattr *attr)
@@ -385,7 +380,6 @@ index de3d41eecf0a..c66ade63e7d7 100644
  	return err;
  }
 diff --git a/fs/overlayfs/namei.c b/fs/overlayfs/namei.c
-index 2a8c00d58365..5affcc97118c 100644
 --- a/fs/overlayfs/namei.c
 +++ b/fs/overlayfs/namei.c
 @@ -1077,7 +1077,7 @@ struct dentry *ovl_lookup(struct inode *dir, struct dentry *dentry,
@@ -416,7 +410,6 @@ index 2a8c00d58365..5affcc97118c 100644
  	return positive;
  }
 diff --git a/fs/overlayfs/overlayfs.h b/fs/overlayfs/overlayfs.h
-index 0bd4cd505853..1c5172117a6d 100644
 --- a/fs/overlayfs/overlayfs.h
 +++ b/fs/overlayfs/overlayfs.h
 @@ -232,6 +232,7 @@ int ovl_want_write(struct dentry *dentry);
@@ -428,7 +421,6 @@ index 0bd4cd505853..1c5172117a6d 100644
  struct dentry *ovl_indexdir(struct super_block *sb);
  bool ovl_index_all(struct super_block *sb);
 diff --git a/fs/overlayfs/ovl_entry.h b/fs/overlayfs/ovl_entry.h
-index 89015ea822e7..9083f7becfe6 100644
 --- a/fs/overlayfs/ovl_entry.h
 +++ b/fs/overlayfs/ovl_entry.h
 @@ -17,6 +17,7 @@ struct ovl_config {
@@ -440,7 +432,6 @@ index 89015ea822e7..9083f7becfe6 100644
  
  struct ovl_sb {
 diff --git a/fs/overlayfs/readdir.c b/fs/overlayfs/readdir.c
-index 40ac9ce2465a..47e84cf2242a 100644
 --- a/fs/overlayfs/readdir.c
 +++ b/fs/overlayfs/readdir.c
 @@ -286,7 +286,7 @@ static int ovl_check_whiteouts(struct dentry *dir, struct ovl_readdir_data *rdd)
@@ -462,7 +453,6 @@ index 40ac9ce2465a..47e84cf2242a 100644
  		return err;
  
 diff --git a/fs/overlayfs/super.c b/fs/overlayfs/super.c
-index 6cada08cf5fe..4e51cb26088e 100644
 --- a/fs/overlayfs/super.c
 +++ b/fs/overlayfs/super.c
 @@ -53,6 +53,11 @@ module_param_named(xino_auto, ovl_xino_auto_def, bool, 0644);
@@ -537,7 +527,6 @@ index 6cada08cf5fe..4e51cb26088e 100644
  
  out_free_oe:
 diff --git a/fs/overlayfs/util.c b/fs/overlayfs/util.c
-index d5cc322f3bb7..f3137d529071 100644
 --- a/fs/overlayfs/util.c
 +++ b/fs/overlayfs/util.c
 @@ -37,9 +37,17 @@ const struct cred *ovl_override_creds(struct super_block *sb)

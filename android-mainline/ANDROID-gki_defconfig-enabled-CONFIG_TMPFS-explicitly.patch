@@ -33,7 +33,6 @@ Signed-off-by: Yongqin Liu <yongqin.liu@linaro.org>
  1 file changed, 1 insertion(+)
 
 diff --git a/arch/arm64/configs/gki_defconfig b/arch/arm64/configs/gki_defconfig
-index 82aed76b4feb..920f1cc217ab 100644
 --- a/arch/arm64/configs/gki_defconfig
 +++ b/arch/arm64/configs/gki_defconfig
 @@ -387,6 +387,7 @@ CONFIG_FUSE_FS=y

@@ -13,7 +13,6 @@ Change-Id: I9a82010eb326b0a336725037e0356a63a0c9f053
  1 file changed, 2 insertions(+)
 
 diff --git a/arch/x86/configs/gki_defconfig b/arch/x86/configs/gki_defconfig
-index ed9c47a4a170..0c3eb91fa04e 100644
 --- a/arch/x86/configs/gki_defconfig
 +++ b/arch/x86/configs/gki_defconfig
 @@ -289,6 +289,8 @@ CONFIG_USB_CONFIGFS_F_ACC=y

@@ -32,7 +32,6 @@ Signed-off-by: Alistair Delva <adelva@google.com>
  1 file changed, 62 insertions(+), 10 deletions(-)
 
 diff --git a/drivers/tty/serdev/core.c b/drivers/tty/serdev/core.c
-index c5f0d936b003..edee0bce7a2d 100644
 --- a/drivers/tty/serdev/core.c
 +++ b/drivers/tty/serdev/core.c
 @@ -32,7 +32,18 @@ static ssize_t modalias_show(struct device *dev,

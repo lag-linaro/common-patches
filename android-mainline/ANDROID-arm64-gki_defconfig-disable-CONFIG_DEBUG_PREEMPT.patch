@@ -14,7 +14,6 @@ Change-Id: I70690c8be2c3ffcc77f7c8c1d472be0ffffd0587
  1 file changed, 1 insertion(+)
 
 diff --git a/arch/arm64/configs/gki_defconfig b/arch/arm64/configs/gki_defconfig
-index 1489e9458793..412e2bcd5eaa 100644
 --- a/arch/arm64/configs/gki_defconfig
 +++ b/arch/arm64/configs/gki_defconfig
 @@ -484,6 +484,7 @@ CONFIG_PANIC_TIMEOUT=5

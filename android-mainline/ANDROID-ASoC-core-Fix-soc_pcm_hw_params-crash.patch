@@ -44,7 +44,6 @@ Signed-off-by: John Stultz <john.stultz@linaro.org>
  1 file changed, 9 insertions(+)
 
 diff --git a/sound/soc/soc-pcm.c b/sound/soc/soc-pcm.c
-index e256d438ee68..da138de15358 100644
 --- a/sound/soc/soc-pcm.c
 +++ b/sound/soc/soc-pcm.c
 @@ -1027,6 +1027,15 @@ static int soc_pcm_hw_params(struct snd_pcm_substream *substream,

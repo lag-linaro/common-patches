@@ -38,7 +38,6 @@ Change-Id: Ife96637115f8f704aef938291eb189cb29378afb
  15 files changed, 32 insertions(+), 31 deletions(-)
 
 diff --git a/drivers/clk/clk-pwm.c b/drivers/clk/clk-pwm.c
-index 87fe0b0e01a3..7b1f7a04392a 100644
 --- a/drivers/clk/clk-pwm.c
 +++ b/drivers/clk/clk-pwm.c
 @@ -89,7 +89,7 @@ static int clk_pwm_probe(struct platform_device *pdev)
@@ -51,7 +50,6 @@ index 87fe0b0e01a3..7b1f7a04392a 100644
  	if (pargs.period != NSEC_PER_SEC / clk_pwm->fixed_rate &&
  	    pargs.period != DIV_ROUND_UP(NSEC_PER_SEC, clk_pwm->fixed_rate)) {
 diff --git a/drivers/gpu/drm/i915/display/intel_panel.c b/drivers/gpu/drm/i915/display/intel_panel.c
-index 276f43870802..b1b2b913845e 100644
 --- a/drivers/gpu/drm/i915/display/intel_panel.c
 +++ b/drivers/gpu/drm/i915/display/intel_panel.c
 @@ -1920,8 +1920,8 @@ static int pwm_setup_backlight(struct intel_connector *connector,
@@ -66,7 +64,6 @@ index 276f43870802..b1b2b913845e 100644
  		intel_panel_compute_brightness(connector, level);
  	panel->backlight.enabled = panel->backlight.level != 0;
 diff --git a/drivers/hwmon/pwm-fan.c b/drivers/hwmon/pwm-fan.c
-index 30b7b3ea8836..17bb64299bfd 100644
 --- a/drivers/hwmon/pwm-fan.c
 +++ b/drivers/hwmon/pwm-fan.c
 @@ -447,7 +447,7 @@ static int pwm_fan_resume(struct device *dev)
@@ -79,7 +76,6 @@ index 30b7b3ea8836..17bb64299bfd 100644
  	if (ret)
  		return ret;
 diff --git a/drivers/media/rc/ir-rx51.c b/drivers/media/rc/ir-rx51.c
-index 8574eda45102..9a5dfd733df1 100644
 --- a/drivers/media/rc/ir-rx51.c
 +++ b/drivers/media/rc/ir-rx51.c
 @@ -241,7 +241,8 @@ static int ir_rx51_probe(struct platform_device *dev)
@@ -93,7 +89,6 @@ index 8574eda45102..9a5dfd733df1 100644
  
  	hrtimer_init(&ir_rx51.timer, CLOCK_MONOTONIC, HRTIMER_MODE_REL);
 diff --git a/drivers/pwm/core.c b/drivers/pwm/core.c
-index 289f2bbc46e8..4f0ad66791a2 100644
 --- a/drivers/pwm/core.c
 +++ b/drivers/pwm/core.c
 @@ -1164,8 +1164,8 @@ static void pwm_dbg_show(struct pwm_chip *chip, struct seq_file *s)
@@ -108,7 +103,6 @@ index 289f2bbc46e8..4f0ad66791a2 100644
  			   state.polarity ? "inverse" : "normal");
  
 diff --git a/drivers/pwm/pwm-clps711x.c b/drivers/pwm/pwm-clps711x.c
-index 924d39a797cf..ba9500aca078 100644
 --- a/drivers/pwm/pwm-clps711x.c
 +++ b/drivers/pwm/pwm-clps711x.c
 @@ -43,7 +43,7 @@ static void clps711x_pwm_update_val(struct clps711x_chip *priv, u32 n, u32 v)
@@ -121,7 +115,6 @@ index 924d39a797cf..ba9500aca078 100644
  
  static int clps711x_pwm_request(struct pwm_chip *chip, struct pwm_device *pwm)
 diff --git a/drivers/pwm/pwm-imx-tpm.c b/drivers/pwm/pwm-imx-tpm.c
-index 9145f6160649..53bf364396ef 100644
 --- a/drivers/pwm/pwm-imx-tpm.c
 +++ b/drivers/pwm/pwm-imx-tpm.c
 @@ -126,7 +126,7 @@ static int pwm_imx_tpm_round_state(struct pwm_chip *chip,
@@ -134,7 +127,6 @@ index 9145f6160649..53bf364396ef 100644
  	real_state->polarity = state->polarity;
  	real_state->enabled = state->enabled;
 diff --git a/drivers/pwm/pwm-imx27.c b/drivers/pwm/pwm-imx27.c
-index 35a7ac42269c..b7d38d0607cb 100644
 --- a/drivers/pwm/pwm-imx27.c
 +++ b/drivers/pwm/pwm-imx27.c
 @@ -208,7 +208,7 @@ static void pwm_imx27_wait_fifo_slot(struct pwm_chip *chip,
@@ -157,7 +149,6 @@ index 35a7ac42269c..b7d38d0607cb 100644
  	/*
  	 * according to imx pwm RM, the real period value should be PERIOD
 diff --git a/drivers/pwm/pwm-sifive.c b/drivers/pwm/pwm-sifive.c
-index cc63f9baa481..62de0bb85921 100644
 --- a/drivers/pwm/pwm-sifive.c
 +++ b/drivers/pwm/pwm-sifive.c
 @@ -181,7 +181,7 @@ static int pwm_sifive_apply(struct pwm_chip *chip, struct pwm_device *pwm,
@@ -170,7 +161,6 @@ index cc63f9baa481..62de0bb85921 100644
  	frac = min(frac, (1U << PWM_SIFIVE_CMPWIDTH) - 1);
  
 diff --git a/drivers/pwm/pwm-sti.c b/drivers/pwm/pwm-sti.c
-index 1508616d794c..857f2ad12ca7 100644
 --- a/drivers/pwm/pwm-sti.c
 +++ b/drivers/pwm/pwm-sti.c
 @@ -371,10 +371,10 @@ static int sti_pwm_capture(struct pwm_chip *chip, struct pwm_device *pwm,
@@ -187,7 +177,6 @@ index 1508616d794c..857f2ad12ca7 100644
  		break;
  
 diff --git a/drivers/pwm/pwm-stm32-lp.c b/drivers/pwm/pwm-stm32-lp.c
-index 67fca62524dc..134c14621ee0 100644
 --- a/drivers/pwm/pwm-stm32-lp.c
 +++ b/drivers/pwm/pwm-stm32-lp.c
 @@ -61,7 +61,7 @@ static int stm32_pwm_lp_apply(struct pwm_chip *chip, struct pwm_device *pwm,
@@ -200,7 +189,6 @@ index 67fca62524dc..134c14621ee0 100644
  	}
  
 diff --git a/drivers/pwm/pwm-sun4i.c b/drivers/pwm/pwm-sun4i.c
-index 3e3efa6c768f..772fdf4cf34a 100644
 --- a/drivers/pwm/pwm-sun4i.c
 +++ b/drivers/pwm/pwm-sun4i.c
 @@ -286,7 +286,7 @@ static int sun4i_pwm_apply(struct pwm_chip *chip, struct pwm_device *pwm,
@@ -213,7 +201,6 @@ index 3e3efa6c768f..772fdf4cf34a 100644
  
  	if (state->polarity != PWM_POLARITY_NORMAL)
 diff --git a/drivers/pwm/sysfs.c b/drivers/pwm/sysfs.c
-index 1f8f9dbf3189..417ecd7c1bb8 100644
 --- a/drivers/pwm/sysfs.c
 +++ b/drivers/pwm/sysfs.c
 @@ -42,7 +42,7 @@ static ssize_t period_show(struct device *child,
@@ -257,7 +244,6 @@ index 1f8f9dbf3189..417ecd7c1bb8 100644
  
  static ssize_t output_type_show(struct device *child,
 diff --git a/drivers/video/backlight/pwm_bl.c b/drivers/video/backlight/pwm_bl.c
-index efb4efc2a13d..3e5dbcf71c39 100644
 --- a/drivers/video/backlight/pwm_bl.c
 +++ b/drivers/video/backlight/pwm_bl.c
 @@ -625,7 +625,8 @@ static int pwm_backlight_probe(struct platform_device *pdev)
@@ -271,7 +257,6 @@ index efb4efc2a13d..3e5dbcf71c39 100644
  	props.type = BACKLIGHT_RAW;
  	props.max_brightness = data->max_brightness;
 diff --git a/include/linux/pwm.h b/include/linux/pwm.h
-index 74c9996706b0..ba4f52357213 100644
 --- a/include/linux/pwm.h
 +++ b/include/linux/pwm.h
 @@ -39,7 +39,7 @@ enum pwm_polarity {

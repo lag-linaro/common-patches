@@ -22,7 +22,6 @@ Signed-off-by: Eric Biggers <ebiggers@google.com>
  4 files changed, 18 insertions(+), 1 deletion(-)
 
 diff --git a/drivers/scsi/ufs/ufshcd-crypto.c b/drivers/scsi/ufs/ufshcd-crypto.c
-index e3de448c9bbe..6999970235b3 100644
 --- a/drivers/scsi/ufs/ufshcd-crypto.c
 +++ b/drivers/scsi/ufs/ufshcd-crypto.c
 @@ -456,6 +456,14 @@ int ufshcd_prepare_lrbp_crypto(struct ufs_hba *hba,
@@ -41,7 +40,6 @@ index e3de448c9bbe..6999970235b3 100644
  				struct scsi_cmnd *cmd,
  				struct ufshcd_lrb *lrbp)
 diff --git a/drivers/scsi/ufs/ufshcd-crypto.h b/drivers/scsi/ufs/ufshcd-crypto.h
-index 95f37c9f7672..f223a06fbf93 100644
 --- a/drivers/scsi/ufs/ufshcd-crypto.h
 +++ b/drivers/scsi/ufs/ufshcd-crypto.h
 @@ -80,6 +80,8 @@ int ufshcd_prepare_lrbp_crypto(struct ufs_hba *hba,
@@ -67,7 +65,6 @@ index 95f37c9f7672..f223a06fbf93 100644
  {
  	return false;
 diff --git a/drivers/scsi/ufs/ufshcd.c b/drivers/scsi/ufs/ufshcd.c
-index 2b7438b8b978..aa7d356ce57d 100644
 --- a/drivers/scsi/ufs/ufshcd.c
 +++ b/drivers/scsi/ufs/ufshcd.c
 @@ -2187,7 +2187,7 @@ static int ufshcd_map_sg(struct ufs_hba *hba, struct ufshcd_lrb *lrbp)
@@ -80,7 +77,6 @@ index 2b7438b8b978..aa7d356ce57d 100644
  
  /**
 diff --git a/drivers/scsi/ufs/ufshcd.h b/drivers/scsi/ufs/ufshcd.h
-index 7f589ff62103..dcc27927743b 100644
 --- a/drivers/scsi/ufs/ufshcd.h
 +++ b/drivers/scsi/ufs/ufshcd.h
 @@ -362,6 +362,7 @@ struct ufs_hba_crypto_variant_ops {

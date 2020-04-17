@@ -26,7 +26,6 @@ Signed-off-by: Eric Biggers <ebiggers@google.com>
  5 files changed, 21 insertions(+), 11 deletions(-)
 
 diff --git a/block/blk-crypto.c b/block/blk-crypto.c
-index 2c47e8eec865..3e1bb4192498 100644
 --- a/block/blk-crypto.c
 +++ b/block/blk-crypto.c
 @@ -171,15 +171,19 @@ bool blk_crypto_endio(struct bio *bio)
@@ -86,7 +85,6 @@ index 2c47e8eec865..3e1bb4192498 100644
  	return 0;
  }
 diff --git a/block/keyslot-manager.c b/block/keyslot-manager.c
-index cdf0607019d4..52f94a5a9680 100644
 --- a/block/keyslot-manager.c
 +++ b/block/keyslot-manager.c
 @@ -168,6 +168,7 @@ static int find_keyslot(struct keyslot_manager *ksm,
@@ -98,7 +96,6 @@ index cdf0607019d4..52f94a5a9680 100644
  		    !crypto_memneq(slotp->key.raw, key->raw, key->size))
  			return slotp - ksm->slots;
 diff --git a/fs/crypto/inline_crypt.c b/fs/crypto/inline_crypt.c
-index aa04e8a7d674..7bfafe28011f 100644
 --- a/fs/crypto/inline_crypt.c
 +++ b/fs/crypto/inline_crypt.c
 @@ -74,8 +74,8 @@ int fscrypt_prepare_inline_crypt_key(struct fscrypt_prepared_key *prep_key,
@@ -113,7 +110,6 @@ index aa04e8a7d674..7bfafe28011f 100644
  		fscrypt_err(inode, "error %d initializing blk-crypto key", err);
  		goto fail;
 diff --git a/include/linux/bio-crypt-ctx.h b/include/linux/bio-crypt-ctx.h
-index 4535df0a6349..2e06b06fce47 100644
 --- a/include/linux/bio-crypt-ctx.h
 +++ b/include/linux/bio-crypt-ctx.h
 @@ -19,6 +19,7 @@ enum blk_crypto_mode_num {
@@ -134,7 +130,6 @@ index 4535df0a6349..2e06b06fce47 100644
  
  #define BLK_CRYPTO_MAX_IV_SIZE		32
 diff --git a/include/linux/blk-crypto.h b/include/linux/blk-crypto.h
-index 07d32e33f0bb..6dd37961888a 100644
 --- a/include/linux/blk-crypto.h
 +++ b/include/linux/blk-crypto.h
 @@ -14,7 +14,8 @@ int blk_crypto_submit_bio(struct bio **bio_ptr);

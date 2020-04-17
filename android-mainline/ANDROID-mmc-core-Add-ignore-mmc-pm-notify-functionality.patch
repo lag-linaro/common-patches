@@ -14,7 +14,6 @@ Signed-off-by: Dmitry Shmidt <dimitrysh@google.com>
  2 files changed, 5 insertions(+), 2 deletions(-)
 
 diff --git a/drivers/mmc/core/host.c b/drivers/mmc/core/host.c
-index c8768726d925..490cfefeff92 100644
 --- a/drivers/mmc/core/host.c
 +++ b/drivers/mmc/core/host.c
 @@ -463,7 +463,8 @@ int mmc_add_host(struct mmc_host *host)
@@ -38,7 +37,6 @@ index c8768726d925..490cfefeff92 100644
  
  #ifdef CONFIG_DEBUG_FS
 diff --git a/include/linux/mmc/pm.h b/include/linux/mmc/pm.h
-index 3549f8045784..1d554b858086 100644
 --- a/include/linux/mmc/pm.h
 +++ b/include/linux/mmc/pm.h
 @@ -23,5 +23,6 @@ typedef unsigned int mmc_pm_flag_t;

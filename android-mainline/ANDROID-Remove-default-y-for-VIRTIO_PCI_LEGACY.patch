@@ -14,7 +14,6 @@ Signed-off-by: Ram Muthiah <rammuthiah@google.com>
  3 files changed, 8 deletions(-)
 
 diff --git a/arch/arm64/configs/gki_defconfig b/arch/arm64/configs/gki_defconfig
-index 44f72897cc01..cc6f05dfa902 100644
 --- a/arch/arm64/configs/gki_defconfig
 +++ b/arch/arm64/configs/gki_defconfig
 @@ -375,7 +375,6 @@ CONFIG_RTC_DRV_PL031=y
@@ -26,7 +25,6 @@ index 44f72897cc01..cc6f05dfa902 100644
  CONFIG_VIRTIO_INPUT=m
  CONFIG_VIRTIO_MMIO=m
 diff --git a/arch/arm64/configs/rockpi4_defconfig b/arch/arm64/configs/rockpi4_defconfig
-index 2f97c1a8a60a..07b1b27b9a2a 100644
 --- a/arch/arm64/configs/rockpi4_defconfig
 +++ b/arch/arm64/configs/rockpi4_defconfig
 @@ -454,7 +454,6 @@ CONFIG_RTC_DRV_PL031=y
@@ -38,7 +36,6 @@ index 2f97c1a8a60a..07b1b27b9a2a 100644
  CONFIG_VIRTIO_MMIO=y
  CONFIG_VIRTIO_MMIO_CMDLINE_DEVICES=y
 diff --git a/drivers/virtio/Kconfig b/drivers/virtio/Kconfig
-index 078615cf2afc..eacd0b90d32b 100644
 --- a/drivers/virtio/Kconfig
 +++ b/drivers/virtio/Kconfig
 @@ -26,7 +26,6 @@ config VIRTIO_PCI

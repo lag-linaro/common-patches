@@ -17,7 +17,6 @@ Signed-off-by: Paul Lawrence <paullawrence@google.com>
  3 files changed, 9 insertions(+), 8 deletions(-)
 
 diff --git a/fs/incfs/format.c b/fs/incfs/format.c
-index 247e1b4ec563..db71f527cf36 100644
 --- a/fs/incfs/format.c
 +++ b/fs/incfs/format.c
 @@ -178,7 +178,7 @@ static int append_md_to_backing_file(struct backing_file_context *bfc,
@@ -39,7 +38,6 @@ index 247e1b4ec563..db71f527cf36 100644
  	result = write_to_bf(bfc, value.data, value.len, value_offset, true);
  	if (result)
 diff --git a/fs/incfs/main.c b/fs/incfs/main.c
-index d9eec7496846..e65d0d895128 100644
 --- a/fs/incfs/main.c
 +++ b/fs/incfs/main.c
 @@ -12,7 +12,7 @@
@@ -52,7 +50,6 @@ index d9eec7496846..e65d0d895128 100644
  	.name = INCFS_NAME,
  	.mount = incfs_mount_fs,
 diff --git a/fs/incfs/vfs.c b/fs/incfs/vfs.c
-index b79621d89375..3ef2b8fadd5c 100644
 --- a/fs/incfs/vfs.c
 +++ b/fs/incfs/vfs.c
 @@ -18,6 +18,7 @@

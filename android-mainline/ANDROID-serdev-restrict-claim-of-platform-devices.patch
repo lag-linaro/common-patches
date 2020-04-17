@@ -18,7 +18,6 @@ Signed-off-by: Alistair Delva <adelva@google.com>
  3 files changed, 47 insertions(+), 8 deletions(-)
 
 diff --git a/drivers/tty/serdev/core.c b/drivers/tty/serdev/core.c
-index 501631c188d7..fe97d6085f6d 100644
 --- a/drivers/tty/serdev/core.c
 +++ b/drivers/tty/serdev/core.c
 @@ -778,16 +778,18 @@ static int platform_serdev_register_devices(struct serdev_controller *ctrl)
@@ -64,7 +63,6 @@ index 501631c188d7..fe97d6085f6d 100644
  /* Remove a device associated with a controller */
  static int serdev_remove_device(struct device *dev, void *data)
 diff --git a/drivers/tty/serdev/serdev-ttyport.c b/drivers/tty/serdev/serdev-ttyport.c
-index d367803e2044..67bb0a0b730e 100644
 --- a/drivers/tty/serdev/serdev-ttyport.c
 +++ b/drivers/tty/serdev/serdev-ttyport.c
 @@ -7,9 +7,15 @@
@@ -118,7 +116,6 @@ index d367803e2044..67bb0a0b730e 100644
  		goto err_reset_data;
  
 diff --git a/include/linux/serdev.h b/include/linux/serdev.h
-index 9f14f9c12ec4..54df861c673a 100644
 --- a/include/linux/serdev.h
 +++ b/include/linux/serdev.h
 @@ -165,9 +165,21 @@ int serdev_device_add(struct serdev_device *);

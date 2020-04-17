@@ -65,7 +65,6 @@ index 000000000000..a3918718cbf8
 +
 +#endif /* _XT_QUOTA_H */
 diff --git a/net/netfilter/Kconfig b/net/netfilter/Kconfig
-index 468fea1aebba..15adb28b98b9 100644
 --- a/net/netfilter/Kconfig
 +++ b/net/netfilter/Kconfig
 @@ -1476,6 +1476,29 @@ config NETFILTER_XT_MATCH_QUOTA
@@ -99,7 +98,6 @@ index 468fea1aebba..15adb28b98b9 100644
  	tristate '"rateest" match support'
  	depends on NETFILTER_ADVANCED
 diff --git a/net/netfilter/Makefile b/net/netfilter/Makefile
-index 292e71dc7ba4..aef6d40c0397 100644
 --- a/net/netfilter/Makefile
 +++ b/net/netfilter/Makefile
 @@ -197,6 +197,7 @@ obj-$(CONFIG_NETFILTER_XT_MATCH_PHYSDEV) += xt_physdev.o

@@ -16,7 +16,6 @@ Signed-off-by: Kenny Root <kroot@google.com>
  3 files changed, 9 insertions(+)
 
 diff --git a/arch/arm64/configs/gki_defconfig b/arch/arm64/configs/gki_defconfig
-index c1dcc9061d70..484f699859f4 100644
 --- a/arch/arm64/configs/gki_defconfig
 +++ b/arch/arm64/configs/gki_defconfig
 @@ -377,6 +377,7 @@ CONFIG_DMADEVICES=y
@@ -38,7 +37,6 @@ index c1dcc9061d70..484f699859f4 100644
  CONFIG_EXT4_FS=y
  CONFIG_EXT4_FS_SECURITY=y
 diff --git a/arch/x86/configs/gki_defconfig b/arch/x86/configs/gki_defconfig
-index 84f9d974cf63..5667d25bf775 100644
 --- a/arch/x86/configs/gki_defconfig
 +++ b/arch/x86/configs/gki_defconfig
 @@ -324,6 +324,7 @@ CONFIG_RTC_CLASS=y
@@ -60,7 +58,6 @@ index 84f9d974cf63..5667d25bf775 100644
  CONFIG_EXT4_FS_SECURITY=y
  CONFIG_F2FS_FS=y
 diff --git a/cuttlefish.fragment b/cuttlefish.fragment
-index 99cc100dfd39..5a2e559fc745 100644
 --- a/cuttlefish.fragment
 +++ b/cuttlefish.fragment
 @@ -15,5 +15,6 @@ CONFIG_SND_INTEL8X0=m

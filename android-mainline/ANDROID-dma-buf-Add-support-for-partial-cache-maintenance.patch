@@ -21,7 +21,6 @@ Signed-off-by: Sandeep Patil <sspatil@google.com>
  2 files changed, 102 insertions(+)
 
 diff --git a/drivers/dma-buf/dma-buf.c b/drivers/dma-buf/dma-buf.c
-index ccc9eda1bc28..04da2c84694d 100644
 --- a/drivers/dma-buf/dma-buf.c
 +++ b/drivers/dma-buf/dma-buf.c
 @@ -1097,6 +1097,30 @@ int dma_buf_begin_cpu_access(struct dma_buf *dmabuf,
@@ -78,7 +77,6 @@ index ccc9eda1bc28..04da2c84694d 100644
  /**
   * dma_buf_mmap - Setup up a userspace mmap with the given vma
 diff --git a/include/linux/dma-buf.h b/include/linux/dma-buf.h
-index 1ade486fc2bb..ca78cb522952 100644
 --- a/include/linux/dma-buf.h
 +++ b/include/linux/dma-buf.h
 @@ -209,6 +209,41 @@ struct dma_buf_ops {

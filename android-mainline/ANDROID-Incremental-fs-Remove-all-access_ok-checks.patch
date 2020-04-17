@@ -14,7 +14,6 @@ Change-Id: Icc6054a2d6a495c9a03cd1507dda1ab8ca0b0dc4
  1 file changed, 2 insertions(+), 30 deletions(-)
 
 diff --git a/fs/incfs/vfs.c b/fs/incfs/vfs.c
-index 8ae92d7db1c6..2be2d4cd6a2b 100644
 --- a/fs/incfs/vfs.c
 +++ b/fs/incfs/vfs.c
 @@ -463,9 +463,6 @@ static ssize_t pending_reads_read(struct file *f, char __user *buf, size_t len,

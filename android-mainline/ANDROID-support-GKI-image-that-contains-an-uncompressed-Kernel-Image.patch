@@ -15,7 +15,6 @@ Signed-off-by: Donghoon Yu <hoony.yu@samsung.com>
  1 file changed, 1 insertion(+)
 
 diff --git a/build.config.aarch64 b/build.config.aarch64
-index 523bbc0449f7..acbba39fbec2 100644
 --- a/build.config.aarch64
 +++ b/build.config.aarch64
 @@ -6,6 +6,7 @@ LINUX_GCC_CROSS_COMPILE_PREBUILTS_BIN=prebuilts/gcc/linux-x86/aarch64/aarch64-li

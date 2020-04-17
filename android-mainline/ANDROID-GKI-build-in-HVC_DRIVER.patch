@@ -15,7 +15,6 @@ Change-Id: I54e7d95da4fcddd534d0f0f48b5c546cd2f2718d
  1 file changed, 9 insertions(+)
 
 diff --git a/init/Kconfig.gki b/init/Kconfig.gki
-index 572499005bf6..82afdddd28d1 100644
 --- a/init/Kconfig.gki
 +++ b/init/Kconfig.gki
 @@ -97,6 +97,14 @@ config GKI_HIDDEN_MEDIA_CONFIGS

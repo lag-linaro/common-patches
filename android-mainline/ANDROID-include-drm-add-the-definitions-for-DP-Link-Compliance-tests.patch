@@ -16,7 +16,6 @@ Change-Id: If6aa7d9b77e6234780086f27515c346b6495a46f
  1 file changed, 8 insertions(+)
 
 diff --git a/include/drm/drm_dp_helper.h b/include/drm/drm_dp_helper.h
-index c6119e4c169a..0332d5733134 100644
 --- a/include/drm/drm_dp_helper.h
 +++ b/include/drm/drm_dp_helper.h
 @@ -702,6 +702,14 @@

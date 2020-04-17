@@ -59,7 +59,6 @@ Signed-off-by: Eric Biggers <ebiggers@google.com>
  5 files changed, 87 insertions(+), 19 deletions(-)
 
 diff --git a/block/blk-crypto-fallback.c b/block/blk-crypto-fallback.c
-index d55f8b3e0719..8114eb4da6f3 100644
 --- a/block/blk-crypto-fallback.c
 +++ b/block/blk-crypto-fallback.c
 @@ -615,7 +615,7 @@ int __init blk_crypto_fallback_init(void)
@@ -72,7 +71,6 @@ index d55f8b3e0719..8114eb4da6f3 100644
  						crypto_mode_supported, NULL);
  	if (!blk_crypto_ksm)
 diff --git a/block/keyslot-manager.c b/block/keyslot-manager.c
-index 14364261dab5..6b563c8602d0 100644
 --- a/block/keyslot-manager.c
 +++ b/block/keyslot-manager.c
 @@ -29,6 +29,7 @@
@@ -295,7 +293,6 @@ index 14364261dab5..6b563c8602d0 100644
  	return err;
  }
 diff --git a/drivers/md/dm.c b/drivers/md/dm.c
-index cc60fa44be7d..655530c2c2c4 100644
 --- a/drivers/md/dm.c
 +++ b/drivers/md/dm.c
 @@ -2380,7 +2380,8 @@ static int dm_init_inline_encryption(struct mapped_device *md)
@@ -309,7 +306,6 @@ index cc60fa44be7d..655530c2c2c4 100644
  	if (!md->queue->ksm)
  		return -ENOMEM;
 diff --git a/drivers/scsi/ufs/ufshcd-crypto.c b/drivers/scsi/ufs/ufshcd-crypto.c
-index 276b49ad13be..e3de448c9bbe 100644
 --- a/drivers/scsi/ufs/ufshcd-crypto.c
 +++ b/drivers/scsi/ufs/ufshcd-crypto.c
 @@ -125,7 +125,6 @@ static int ufshcd_program_key(struct ufs_hba *hba,
@@ -340,7 +336,6 @@ index 276b49ad13be..e3de448c9bbe 100644
  	if (!hba->ksm) {
  		err = -ENOMEM;
 diff --git a/include/linux/keyslot-manager.h b/include/linux/keyslot-manager.h
-index 6d32a031218e..2f4aac2851bf 100644
 --- a/include/linux/keyslot-manager.h
 +++ b/include/linux/keyslot-manager.h
 @@ -41,7 +41,9 @@ struct keyslot_mgmt_ll_ops {

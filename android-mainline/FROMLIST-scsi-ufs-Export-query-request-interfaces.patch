@@ -20,7 +20,6 @@ Signed-off-by: Asutosh Das <asutoshd@codeaurora.org>
  1 file changed, 3 insertions(+)
 
 diff --git a/drivers/scsi/ufs/ufshcd.c b/drivers/scsi/ufs/ufshcd.c
-index ecd07db28598..43febd09903e 100644
 --- a/drivers/scsi/ufs/ufshcd.c
 +++ b/drivers/scsi/ufs/ufshcd.c
 @@ -2905,6 +2905,7 @@ int ufshcd_query_flag(struct ufs_hba *hba, enum query_opcode opcode,

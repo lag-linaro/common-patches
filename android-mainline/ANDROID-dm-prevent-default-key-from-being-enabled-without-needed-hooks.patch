@@ -29,7 +29,6 @@ Signed-off-by: Eric Biggers <ebiggers@google.com>
  1 file changed, 3 insertions(+)
 
 diff --git a/drivers/md/Kconfig b/drivers/md/Kconfig
-index 6a9dc41e6095..c6c593926f38 100644
 --- a/drivers/md/Kconfig
 +++ b/drivers/md/Kconfig
 @@ -289,6 +289,9 @@ config DM_DEFAULT_KEY

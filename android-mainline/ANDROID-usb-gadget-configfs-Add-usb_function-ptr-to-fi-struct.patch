@@ -22,7 +22,6 @@ Signed-off-by: Badhri Jagan Sridharan <badhri@google.com>
  1 file changed, 1 insertion(+)
 
 diff --git a/include/linux/usb/composite.h b/include/linux/usb/composite.h
-index 8675e145ea8b..af4396cc4ea8 100644
 --- a/include/linux/usb/composite.h
 +++ b/include/linux/usb/composite.h
 @@ -587,6 +587,7 @@ struct usb_function_instance {

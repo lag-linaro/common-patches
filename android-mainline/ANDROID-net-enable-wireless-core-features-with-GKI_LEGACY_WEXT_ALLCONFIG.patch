@@ -25,7 +25,6 @@ Change-Id: Ie40e656d87ce21ae82f04ffe8dae2f0efab88a2e
  1 file changed, 20 insertions(+)
 
 diff --git a/init/Kconfig.gki b/init/Kconfig.gki
-index 5df8c67123ef..b2f3ecefd782 100644
 --- a/init/Kconfig.gki
 +++ b/init/Kconfig.gki
 @@ -34,6 +34,25 @@ config GKI_HIDDEN_GPIO_CONFIGS

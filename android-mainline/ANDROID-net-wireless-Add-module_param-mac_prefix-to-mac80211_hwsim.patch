@@ -28,7 +28,6 @@ Change-Id: Ibab0de6cb720d55c7be0b96e40ec70e221e04d7f
  1 file changed, 6 insertions(+)
 
 diff --git a/drivers/net/wireless/mac80211_hwsim.c b/drivers/net/wireless/mac80211_hwsim.c
-index 7fe8207db6ae..6883cf204726 100644
 --- a/drivers/net/wireless/mac80211_hwsim.c
 +++ b/drivers/net/wireless/mac80211_hwsim.c
 @@ -65,6 +65,10 @@ static bool support_p2p_device = true;

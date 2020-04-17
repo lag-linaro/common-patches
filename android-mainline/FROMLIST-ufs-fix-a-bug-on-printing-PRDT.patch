@@ -18,7 +18,6 @@ Signed-off-by: Greg Kroah-Hartman <gregkh@google.com>
  1 file changed, 3 insertions(+), 2 deletions(-)
 
 diff --git a/drivers/scsi/ufs/ufshcd.c b/drivers/scsi/ufs/ufshcd.c
-index 9f1ef0fc0bf9..5a34368f0690 100644
 --- a/drivers/scsi/ufs/ufshcd.c
 +++ b/drivers/scsi/ufs/ufshcd.c
 @@ -465,8 +465,9 @@ void ufshcd_print_trs(struct ufs_hba *hba, unsigned long bitmap, bool pr_prdt)

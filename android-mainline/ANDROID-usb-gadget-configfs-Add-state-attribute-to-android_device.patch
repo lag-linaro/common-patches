@@ -17,7 +17,6 @@ Signed-off-by: Badhri Jagan Sridharan <badhri@google.com>
  1 file changed, 65 insertions(+), 1 deletion(-)
 
 diff --git a/drivers/usb/gadget/configfs.c b/drivers/usb/gadget/configfs.c
-index 6b0608c4c647..ce74d926a1b1 100644
 --- a/drivers/usb/gadget/configfs.c
 +++ b/drivers/usb/gadget/configfs.c
 @@ -1719,11 +1719,49 @@ static const struct usb_gadget_driver configfs_driver_template = {

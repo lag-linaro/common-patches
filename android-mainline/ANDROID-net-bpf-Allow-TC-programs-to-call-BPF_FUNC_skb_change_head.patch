@@ -21,7 +21,6 @@ Change-Id: Ic182320bf1abb248d0f86fa2973c60208710f664
  1 file changed, 2 insertions(+)
 
 diff --git a/net/core/filter.c b/net/core/filter.c
-index 7628b947dbc3..5f867a1a8717 100644
 --- a/net/core/filter.c
 +++ b/net/core/filter.c
 @@ -6213,6 +6213,8 @@ tc_cls_act_func_proto(enum bpf_func_id func_id, const struct bpf_prog *prog)

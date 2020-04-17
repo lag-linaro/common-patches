@@ -32,7 +32,6 @@ Signed-off-by: Alistair Delva <adelva@google.com>
  create mode 100644 include/linux/cpufreq_times.h
 
 diff --git a/drivers/cpufreq/Kconfig b/drivers/cpufreq/Kconfig
-index bff5295016ae..f711715aa579 100644
 --- a/drivers/cpufreq/Kconfig
 +++ b/drivers/cpufreq/Kconfig
 @@ -34,6 +34,13 @@ config CPU_FREQ_STAT
@@ -50,7 +49,6 @@ index bff5295016ae..f711715aa579 100644
  	prompt "Default CPUFreq governor"
  	default CPU_FREQ_DEFAULT_GOV_USERSPACE if ARM_SA1100_CPUFREQ || ARM_SA1110_CPUFREQ
 diff --git a/drivers/cpufreq/Makefile b/drivers/cpufreq/Makefile
-index f6670c4abbb0..b84d40bdca49 100644
 --- a/drivers/cpufreq/Makefile
 +++ b/drivers/cpufreq/Makefile
 @@ -5,7 +5,10 @@ obj-$(CONFIG_CPU_FREQ)			+= cpufreq.o freq_table.o
@@ -66,7 +64,6 @@ index f6670c4abbb0..b84d40bdca49 100644
  obj-$(CONFIG_CPU_FREQ_GOV_POWERSAVE)	+= cpufreq_powersave.o
  obj-$(CONFIG_CPU_FREQ_GOV_USERSPACE)	+= cpufreq_userspace.o
 diff --git a/drivers/cpufreq/cpufreq.c b/drivers/cpufreq/cpufreq.c
-index 045f9fe157ce..47c82851d5e5 100644
 --- a/drivers/cpufreq/cpufreq.c
 +++ b/drivers/cpufreq/cpufreq.c
 @@ -16,6 +16,7 @@
@@ -307,7 +304,6 @@ index 000000000000..339a3e9cf082
 +	cpufreq_cpu_put(policy);
 +}
 diff --git a/fs/proc/base.c b/fs/proc/base.c
-index 74f948a6b621..257924c31074 100644
 --- a/fs/proc/base.c
 +++ b/fs/proc/base.c
 @@ -96,6 +96,7 @@
@@ -386,7 +382,6 @@ index 000000000000..bfef6e62c68a
 +#endif /* CONFIG_CPU_FREQ_TIMES */
 +#endif /* _LINUX_CPUFREQ_TIMES_H */
 diff --git a/include/linux/sched.h b/include/linux/sched.h
-index 4418f5cb8324..6fd3d7f49cad 100644
 --- a/include/linux/sched.h
 +++ b/include/linux/sched.h
 @@ -852,6 +852,10 @@ struct task_struct {
@@ -401,7 +396,6 @@ index 4418f5cb8324..6fd3d7f49cad 100644
  #ifdef CONFIG_VIRT_CPU_ACCOUNTING_GEN
  	struct vtime			vtime;
 diff --git a/kernel/fork.c b/kernel/fork.c
-index dd49077032c2..c638981faf5a 100644
 --- a/kernel/fork.c
 +++ b/kernel/fork.c
 @@ -457,6 +457,7 @@ void put_task_stack(struct task_struct *tsk)
@@ -431,7 +425,6 @@ index dd49077032c2..c638981faf5a 100644
  	 * Do this prior waking up the new thread - the thread pointer
  	 * might get invalid after that point, if the thread exits quickly.
 diff --git a/kernel/sched/cputime.c b/kernel/sched/cputime.c
-index dac9104d126f..d5d1679b646a 100644
 --- a/kernel/sched/cputime.c
 +++ b/kernel/sched/cputime.c
 @@ -2,6 +2,7 @@

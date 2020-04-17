@@ -25,7 +25,6 @@ Signed-off-by: Sami Tolvanen <samitolvanen@google.com>
  create mode 100755 scripts/generate_initcall_order.pl
 
 diff --git a/include/linux/init.h b/include/linux/init.h
-index 212fc9e2f691..0a16e48e6753 100644
 --- a/include/linux/init.h
 +++ b/include/linux/init.h
 @@ -192,10 +192,32 @@ extern bool initcall_debug;
@@ -328,7 +327,6 @@ index 000000000000..f772b4a01caa
 +
 +print "}\n";
 diff --git a/scripts/link-vmlinux.sh b/scripts/link-vmlinux.sh
-index b9525bd3bd20..eeb114475027 100755
 --- a/scripts/link-vmlinux.sh
 +++ b/scripts/link-vmlinux.sh
 @@ -39,28 +39,30 @@ info()

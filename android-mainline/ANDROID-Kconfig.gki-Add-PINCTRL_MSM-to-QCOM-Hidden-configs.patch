@@ -13,7 +13,6 @@ Signed-off-by: John Stultz <john.stultz@linaro.org>
  1 file changed, 1 insertion(+)
 
 diff --git a/init/Kconfig.gki b/init/Kconfig.gki
-index 5ba6076076d5..be475727cef2 100644
 --- a/init/Kconfig.gki
 +++ b/init/Kconfig.gki
 @@ -50,6 +50,7 @@ config GKI_HIDDEN_GPIO_CONFIGS

@@ -16,7 +16,6 @@ Signed-off-by: Asutosh Das <asutoshd@codeaurora.org>
  1 file changed, 11 insertions(+), 1 deletion(-)
 
 diff --git a/drivers/scsi/ufs/ufs-qcom.c b/drivers/scsi/ufs/ufs-qcom.c
-index 19aa5c44e0da..57b98329ddba 100644
 --- a/drivers/scsi/ufs/ufs-qcom.c
 +++ b/drivers/scsi/ufs/ufs-qcom.c
 @@ -1418,18 +1418,27 @@ static int ufs_qcom_clk_scale_notify(struct ufs_hba *hba,

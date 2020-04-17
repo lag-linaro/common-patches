@@ -14,7 +14,6 @@ Signed-off-by: Suren Baghdasaryan <surenb@google.com>
  2 files changed, 2 deletions(-)
 
 diff --git a/arch/arm64/configs/gki_defconfig b/arch/arm64/configs/gki_defconfig
-index 26d99b386d87..bd4bd321f774 100644
 --- a/arch/arm64/configs/gki_defconfig
 +++ b/arch/arm64/configs/gki_defconfig
 @@ -14,7 +14,6 @@ CONFIG_UCLAMP_TASK=y
@@ -26,7 +25,6 @@ index 26d99b386d87..bd4bd321f774 100644
  CONFIG_CGROUP_FREEZER=y
  CONFIG_CPUSETS=y
 diff --git a/arch/x86/configs/gki_defconfig b/arch/x86/configs/gki_defconfig
-index 7de662c69aef..979f35b68d0e 100644
 --- a/arch/x86/configs/gki_defconfig
 +++ b/arch/x86/configs/gki_defconfig
 @@ -14,7 +14,6 @@ CONFIG_IKHEADERS=y

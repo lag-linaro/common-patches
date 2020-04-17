@@ -19,7 +19,6 @@ Link: https://lore.kernel.org/linux-arm-msm/20200113084005.849071-4-vkoul@kernel
  1 file changed, 352 insertions(+)
 
 diff --git a/drivers/usb/host/xhci-pci-renesas.c b/drivers/usb/host/xhci-pci-renesas.c
-index 110c914ea7ef..1d073c5637c4 100644
 --- a/drivers/usb/host/xhci-pci-renesas.c
 +++ b/drivers/usb/host/xhci-pci-renesas.c
 @@ -33,6 +33,20 @@

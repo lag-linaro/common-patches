@@ -13,7 +13,6 @@ Signed-off-by: Ram Muthiah <rammuthiah@google.com>
  2 files changed, 4 insertions(+), 1 deletion(-)
 
 diff --git a/block/Kconfig b/block/Kconfig
-index 0af387623774..8c9458cf9a8e 100644
 --- a/block/Kconfig
 +++ b/block/Kconfig
 @@ -221,7 +221,7 @@ config BLK_MQ_PCI
@@ -26,7 +25,6 @@ index 0af387623774..8c9458cf9a8e 100644
  	default y
  
 diff --git a/block/blk-mq-virtio.c b/block/blk-mq-virtio.c
-index 7b8a42c35102..78b2b4faac69 100644
 --- a/block/blk-mq-virtio.c
 +++ b/block/blk-mq-virtio.c
 @@ -44,3 +44,6 @@ int blk_mq_virtio_map_queues(struct blk_mq_queue_map *qmap,

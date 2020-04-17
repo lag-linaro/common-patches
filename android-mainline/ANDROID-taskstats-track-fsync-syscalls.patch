@@ -28,7 +28,6 @@ Signed-off-by: Alistair Delva <adelva@google.com>
  6 files changed, 17 insertions(+), 2 deletions(-)
 
 diff --git a/drivers/misc/Kconfig b/drivers/misc/Kconfig
-index 30e9c3e89d28..cfc0eed31c42 100644
 --- a/drivers/misc/Kconfig
 +++ b/drivers/misc/Kconfig
 @@ -459,7 +459,7 @@ config MISC_RTSX
@@ -41,7 +40,6 @@ index 30e9c3e89d28..cfc0eed31c42 100644
  	  Per UID based cpu time statistics exported to /proc/uid_cputime
  	  Per UID based io statistics exported to /proc/uid_io
 diff --git a/drivers/misc/uid_sys_stats.c b/drivers/misc/uid_sys_stats.c
-index ea23f5d0af43..36b5f37fca2f 100644
 --- a/drivers/misc/uid_sys_stats.c
 +++ b/drivers/misc/uid_sys_stats.c
 @@ -249,6 +249,7 @@ static void add_uid_tasks_io_stats(struct uid_entry *uid_entry,
@@ -61,7 +59,6 @@ index ea23f5d0af43..36b5f37fca2f 100644
  	add_uid_tasks_io_stats(uid_entry, task, slot);
  }
 diff --git a/fs/sync.c b/fs/sync.c
-index 4d1ff010bc5a..cc475d8be0c1 100644
 --- a/fs/sync.c
 +++ b/fs/sync.c
 @@ -9,7 +9,7 @@
@@ -82,7 +79,6 @@ index 4d1ff010bc5a..cc475d8be0c1 100644
  	return ret;
  }
 diff --git a/include/linux/sched/xacct.h b/include/linux/sched/xacct.h
-index c078f0a94cec..9544c9d9d534 100644
 --- a/include/linux/sched/xacct.h
 +++ b/include/linux/sched/xacct.h
 @@ -28,6 +28,11 @@ static inline void inc_syscw(struct task_struct *tsk)
@@ -109,7 +105,6 @@ index c078f0a94cec..9544c9d9d534 100644
  
  #endif /* _LINUX_SCHED_XACCT_H */
 diff --git a/include/linux/task_io_accounting.h b/include/linux/task_io_accounting.h
-index 6f6acce064de..bb26108ca23c 100644
 --- a/include/linux/task_io_accounting.h
 +++ b/include/linux/task_io_accounting.h
 @@ -19,6 +19,8 @@ struct task_io_accounting {
@@ -122,7 +117,6 @@ index 6f6acce064de..bb26108ca23c 100644
  
  #ifdef CONFIG_TASK_IO_ACCOUNTING
 diff --git a/include/linux/task_io_accounting_ops.h b/include/linux/task_io_accounting_ops.h
-index bb5498bcdd96..733ab62ae141 100644
 --- a/include/linux/task_io_accounting_ops.h
 +++ b/include/linux/task_io_accounting_ops.h
 @@ -97,6 +97,7 @@ static inline void task_chr_io_accounting_add(struct task_io_accounting *dst,

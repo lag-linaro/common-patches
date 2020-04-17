@@ -20,7 +20,6 @@ Signed-off-by: Eric Biggers <ebiggers@google.com>
  3 files changed, 4 insertions(+)
 
 diff --git a/block/bio-crypt-ctx.c b/block/bio-crypt-ctx.c
-index d02d2bff991a..b6df3dcf28cc 100644
 --- a/block/bio-crypt-ctx.c
 +++ b/block/bio-crypt-ctx.c
 @@ -49,6 +49,7 @@ struct bio_crypt_ctx *bio_crypt_alloc_ctx(gfp_t gfp_mask)
@@ -32,7 +31,6 @@ index d02d2bff991a..b6df3dcf28cc 100644
  void bio_crypt_free_ctx(struct bio *bio)
  {
 diff --git a/block/blk-crypto-fallback.c b/block/blk-crypto-fallback.c
-index c7523af2e4b3..5cbf18a1995f 100644
 --- a/block/blk-crypto-fallback.c
 +++ b/block/blk-crypto-fallback.c
 @@ -557,6 +557,7 @@ int blk_crypto_start_using_mode(enum blk_crypto_mode_num mode_num,
@@ -44,7 +42,6 @@ index c7523af2e4b3..5cbf18a1995f 100644
  int blk_crypto_fallback_evict_key(const struct blk_crypto_key *key)
  {
 diff --git a/block/blk-crypto.c b/block/blk-crypto.c
-index 3e1bb4192498..a8de0d9680e0 100644
 --- a/block/blk-crypto.c
 +++ b/block/blk-crypto.c
 @@ -221,6 +221,7 @@ int blk_crypto_init_key(struct blk_crypto_key *blk_key,

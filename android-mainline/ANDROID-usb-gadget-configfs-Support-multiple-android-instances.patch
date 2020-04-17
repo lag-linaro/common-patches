@@ -29,7 +29,6 @@ Signed-off-by: Jack Pham <jackp@codeaurora.org>
  1 file changed, 22 insertions(+), 19 deletions(-)
 
 diff --git a/drivers/usb/gadget/configfs.c b/drivers/usb/gadget/configfs.c
-index 2badcb38eded..872fb15186df 100644
 --- a/drivers/usb/gadget/configfs.c
 +++ b/drivers/usb/gadget/configfs.c
 @@ -23,6 +23,7 @@ void acc_disconnect(void);

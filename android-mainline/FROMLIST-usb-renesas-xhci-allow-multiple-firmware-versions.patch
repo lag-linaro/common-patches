@@ -18,7 +18,6 @@ Link: https://lore.kernel.org/linux-arm-msm/20200113084005.849071-5-vkoul@kernel
  1 file changed, 43 insertions(+), 2 deletions(-)
 
 diff --git a/drivers/usb/host/xhci-pci-renesas.c b/drivers/usb/host/xhci-pci-renesas.c
-index 1d073c5637c4..fe95487ca888 100644
 --- a/drivers/usb/host/xhci-pci-renesas.c
 +++ b/drivers/usb/host/xhci-pci-renesas.c
 @@ -73,13 +73,20 @@ static const struct renesas_fw_entry {

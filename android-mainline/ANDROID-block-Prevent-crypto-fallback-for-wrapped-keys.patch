@@ -29,7 +29,6 @@ Signed-off-by: Barani Muthukumaran <bmuthuku@codeaurora.org>
  9 files changed, 37 insertions(+), 14 deletions(-)
 
 diff --git a/block/blk-crypto-fallback.c b/block/blk-crypto-fallback.c
-index 5039087b1168..d55f8b3e0719 100644
 --- a/block/blk-crypto-fallback.c
 +++ b/block/blk-crypto-fallback.c
 @@ -572,6 +572,12 @@ int blk_crypto_fallback_submit_bio(struct bio **bio_ptr)
@@ -46,7 +45,6 @@ index 5039087b1168..d55f8b3e0719 100644
  		bio->bi_status = BLK_STS_IOERR;
  		return -EIO;
 diff --git a/block/blk-crypto.c b/block/blk-crypto.c
-index a8de0d9680e0..88df1c0e7e5f 100644
 --- a/block/blk-crypto.c
 +++ b/block/blk-crypto.c
 @@ -175,7 +175,9 @@ bool blk_crypto_endio(struct bio *bio)
@@ -95,7 +93,6 @@ index a8de0d9680e0..88df1c0e7e5f 100644
  
  	/*
 diff --git a/drivers/md/dm-default-key.c b/drivers/md/dm-default-key.c
-index 1eb9ddfad04c..c8af8df227c8 100644
 --- a/drivers/md/dm-default-key.c
 +++ b/drivers/md/dm-default-key.c
 @@ -224,7 +224,7 @@ static int default_key_ctr(struct dm_target *ti, unsigned int argc, char **argv)
@@ -108,7 +105,6 @@ index 1eb9ddfad04c..c8af8df227c8 100644
  		ti->error = "Error initializing blk-crypto key";
  		goto bad;
 diff --git a/fs/crypto/fscrypt_private.h b/fs/crypto/fscrypt_private.h
-index 507d80540a2c..2095e3b43b89 100644
 --- a/fs/crypto/fscrypt_private.h
 +++ b/fs/crypto/fscrypt_private.h
 @@ -339,6 +339,7 @@ extern int fscrypt_prepare_inline_crypt_key(
@@ -136,7 +132,6 @@ index 507d80540a2c..2095e3b43b89 100644
  
  extern void fscrypt_destroy_prepared_key(struct fscrypt_prepared_key *prep_key);
 diff --git a/fs/crypto/inline_crypt.c b/fs/crypto/inline_crypt.c
-index 9c830772b7f5..00da0effa6c9 100644
 --- a/fs/crypto/inline_crypt.c
 +++ b/fs/crypto/inline_crypt.c
 @@ -50,6 +50,7 @@ void fscrypt_select_encryption_impl(struct fscrypt_info *ci)
@@ -157,7 +152,6 @@ index 9c830772b7f5..00da0effa6c9 100644
  		fscrypt_err(inode, "error %d initializing blk-crypto key", err);
  		goto fail;
 diff --git a/fs/crypto/keysetup.c b/fs/crypto/keysetup.c
-index 0d89082f3098..34f95cd6c8eb 100644
 --- a/fs/crypto/keysetup.c
 +++ b/fs/crypto/keysetup.c
 @@ -117,15 +117,15 @@ fscrypt_allocate_skcipher(struct fscrypt_mode *mode, const u8 *raw_key,
@@ -209,7 +203,6 @@ index 0d89082f3098..34f95cd6c8eb 100644
  		if (err)
  			goto out_unlock;
 diff --git a/fs/crypto/keysetup_v1.c b/fs/crypto/keysetup_v1.c
-index cf290851249b..a39a5fb24e8c 100644
 --- a/fs/crypto/keysetup_v1.c
 +++ b/fs/crypto/keysetup_v1.c
 @@ -234,7 +234,7 @@ fscrypt_get_direct_key(const struct fscrypt_info *ci, const u8 *raw_key)
@@ -222,7 +215,6 @@ index cf290851249b..a39a5fb24e8c 100644
  		goto err_free_dk;
  	memcpy(dk->dk_descriptor, ci->ci_policy.v1.master_key_descriptor,
 diff --git a/include/linux/bio-crypt-ctx.h b/include/linux/bio-crypt-ctx.h
-index ab22dbe7b880..8456a409fc21 100644
 --- a/include/linux/bio-crypt-ctx.h
 +++ b/include/linux/bio-crypt-ctx.h
 @@ -31,6 +31,8 @@ enum blk_crypto_mode_num {
@@ -243,7 +235,6 @@ index ab22dbe7b880..8456a409fc21 100644
  };
  
 diff --git a/include/linux/blk-crypto.h b/include/linux/blk-crypto.h
-index 6dd37961888a..2d871a7a0f5a 100644
 --- a/include/linux/blk-crypto.h
 +++ b/include/linux/blk-crypto.h
 @@ -16,6 +16,7 @@ bool blk_crypto_endio(struct bio *bio);

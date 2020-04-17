@@ -12,7 +12,6 @@ Change-Id: I64806866c8a84d8fddb7d44ebe3c9bcf572d5118
  1 file changed, 2 insertions(+), 1 deletion(-)
 
 diff --git a/init/Kconfig.gki b/init/Kconfig.gki
-index 69e48c2feceb..ae1457d07e78 100644
 --- a/init/Kconfig.gki
 +++ b/init/Kconfig.gki
 @@ -5,7 +5,6 @@ config GKI_HIDDEN_DRM_CONFIGS

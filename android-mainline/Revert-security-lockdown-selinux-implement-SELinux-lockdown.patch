@@ -22,7 +22,6 @@ Signed-off-by: Alistair Delva <adelva@google.com>
  7 files changed, 27 insertions(+), 74 deletions(-)
 
 diff --git a/include/linux/lsm_audit.h b/include/linux/lsm_audit.h
-index 99d629fd9944..915330abf6e5 100644
 --- a/include/linux/lsm_audit.h
 +++ b/include/linux/lsm_audit.h
 @@ -74,7 +74,6 @@ struct common_audit_data {
@@ -42,7 +41,6 @@ index 99d629fd9944..915330abf6e5 100644
  	/* this union contains LSM specific data */
  	union {
 diff --git a/include/linux/security.h b/include/linux/security.h
-index a8d9310472df..57ddd141ee8c 100644
 --- a/include/linux/security.h
 +++ b/include/linux/security.h
 @@ -127,8 +127,6 @@ enum lockdown_reason {
@@ -55,7 +53,6 @@ index a8d9310472df..57ddd141ee8c 100644
  extern int cap_capable(const struct cred *cred, struct user_namespace *ns,
  		       int cap, unsigned int opts);
 diff --git a/security/lockdown/lockdown.c b/security/lockdown/lockdown.c
-index 5a952617a0eb..b2f87015d6e9 100644
 --- a/security/lockdown/lockdown.c
 +++ b/security/lockdown/lockdown.c
 @@ -16,6 +16,33 @@
@@ -93,7 +90,6 @@ index 5a952617a0eb..b2f87015d6e9 100644
  						 LOCKDOWN_INTEGRITY_MAX,
  						 LOCKDOWN_CONFIDENTIALITY_MAX};
 diff --git a/security/lsm_audit.c b/security/lsm_audit.c
-index 2d2bf49016f4..e40874373f2b 100644
 --- a/security/lsm_audit.c
 +++ b/security/lsm_audit.c
 @@ -27,7 +27,6 @@
@@ -116,7 +112,6 @@ index 2d2bf49016f4..e40874373f2b 100644
  }
  
 diff --git a/security/security.c b/security/security.c
-index 7fed24b9d57e..3b3a5709e37c 100644
 --- a/security/security.c
 +++ b/security/security.c
 @@ -34,39 +34,6 @@
@@ -160,7 +155,6 @@ index 7fed24b9d57e..3b3a5709e37c 100644
  static BLOCKING_NOTIFIER_HEAD(blocking_lsm_notifier_chain);
  
 diff --git a/security/selinux/hooks.c b/security/selinux/hooks.c
-index 0b4e32161b77..bc24d278a43c 100644
 --- a/security/selinux/hooks.c
 +++ b/security/selinux/hooks.c
 @@ -6784,34 +6784,6 @@ static void selinux_bpf_prog_free(struct bpf_prog_aux *aux)
@@ -208,7 +202,6 @@ index 0b4e32161b77..bc24d278a43c 100644
  	 * PUT "CLONING" (ACCESSING + ALLOCATING) HOOKS HERE
  	 */
 diff --git a/security/selinux/include/classmap.h b/security/selinux/include/classmap.h
-index 986f3ac14282..7db24855e12d 100644
 --- a/security/selinux/include/classmap.h
 +++ b/security/selinux/include/classmap.h
 @@ -246,8 +246,6 @@ struct security_class_mapping secclass_map[] = {

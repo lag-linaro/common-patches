@@ -22,7 +22,6 @@ Signed-off-by: Satya Tangirala <satyat@google.com>
  4 files changed, 256 insertions(+), 49 deletions(-)
 
 diff --git a/drivers/scsi/ufs/ufshcd-crypto.c b/drivers/scsi/ufs/ufshcd-crypto.c
-index 3900a07a7e9b..988d8df8f394 100644
 --- a/drivers/scsi/ufs/ufshcd-crypto.c
 +++ b/drivers/scsi/ufs/ufshcd-crypto.c
 @@ -34,8 +34,8 @@ static size_t get_keysize_bytes(enum ufs_crypto_key_size size)
@@ -233,7 +232,6 @@ index 3900a07a7e9b..988d8df8f394 100644
 +	hba->crypto_vops = crypto_vops;
  }
 diff --git a/drivers/scsi/ufs/ufshcd-crypto.h b/drivers/scsi/ufs/ufshcd-crypto.h
-index 73ddc8e493fb..3c03d0e23e87 100644
 --- a/drivers/scsi/ufs/ufshcd-crypto.h
 +++ b/drivers/scsi/ufs/ufshcd-crypto.h
 @@ -6,11 +6,9 @@
@@ -351,7 +349,6 @@ index 73ddc8e493fb..3c03d0e23e87 100644
  #endif /* CONFIG_SCSI_UFS_CRYPTO */
  
 diff --git a/drivers/scsi/ufs/ufshcd.c b/drivers/scsi/ufs/ufshcd.c
-index 8801c7ea88a3..f743f59373ac 100644
 --- a/drivers/scsi/ufs/ufshcd.c
 +++ b/drivers/scsi/ufs/ufshcd.c
 @@ -432,6 +432,8 @@ static void ufshcd_print_host_regs(struct ufs_hba *hba)
@@ -461,7 +458,6 @@ index 8801c7ea88a3..f743f59373ac 100644
  	ufshcd_link_state_transition(hba, old_link_state, 0);
  vendor_suspend:
 diff --git a/drivers/scsi/ufs/ufshcd.h b/drivers/scsi/ufs/ufshcd.h
-index e501aaf954cc..d5fc29c1dbfb 100644
 --- a/drivers/scsi/ufs/ufshcd.h
 +++ b/drivers/scsi/ufs/ufshcd.h
 @@ -339,6 +339,28 @@ struct ufs_hba_variant_ops {

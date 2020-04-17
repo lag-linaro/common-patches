@@ -16,7 +16,6 @@ Change-Id: I27ba172843c80ffd1dfbcc6cc4d706c5b18eb5d3
  2 files changed, 2 deletions(-)
 
 diff --git a/arch/arm64/configs/gki_defconfig b/arch/arm64/configs/gki_defconfig
-index 676b9c6373f5..74da02bbb19f 100644
 --- a/arch/arm64/configs/gki_defconfig
 +++ b/arch/arm64/configs/gki_defconfig
 @@ -212,7 +212,6 @@ CONFIG_FW_LOADER_USER_HELPER=y
@@ -28,7 +27,6 @@ index 676b9c6373f5..74da02bbb19f 100644
  CONFIG_ZRAM=y
  CONFIG_BLK_DEV_LOOP=y
 diff --git a/arch/x86/configs/gki_defconfig b/arch/x86/configs/gki_defconfig
-index 2643ff0a6345..ac448b5a9cb9 100644
 --- a/arch/x86/configs/gki_defconfig
 +++ b/arch/x86/configs/gki_defconfig
 @@ -186,7 +186,6 @@ CONFIG_FW_LOADER_USER_HELPER=y

@@ -18,7 +18,6 @@ Change-Id: I54c1d0cc7a87d23054b82cfa975117f0590ca2d3
  1 file changed, 4 insertions(+)
 
 diff --git a/include/drm/drm_mipi_dsi.h b/include/drm/drm_mipi_dsi.h
-index 41c8367ecd28..07e10623c4f8 100644
 --- a/include/drm/drm_mipi_dsi.h
 +++ b/include/drm/drm_mipi_dsi.h
 @@ -138,6 +138,10 @@ struct mipi_dsi_host *of_find_mipi_dsi_host_by_node(struct device_node *node);

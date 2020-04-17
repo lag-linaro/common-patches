@@ -36,7 +36,6 @@ Link: https://patchwork.kernel.org/patch/11214781/
  6 files changed, 34 insertions(+), 7 deletions(-)
 
 diff --git a/fs/buffer.c b/fs/buffer.c
-index f73276d746bb..a146228f04f8 100644
 --- a/fs/buffer.c
 +++ b/fs/buffer.c
 @@ -3036,6 +3036,8 @@ static int submit_bh_wbc(int op, int op_flags, struct buffer_head *bh,
@@ -49,7 +48,6 @@ index f73276d746bb..a146228f04f8 100644
  	bio_set_dev(bio, bh->b_bdev);
  	bio->bi_write_hint = write_hint;
 diff --git a/fs/ext4/ext4.h b/fs/ext4/ext4.h
-index 61b37a052052..9978c012bea9 100644
 --- a/fs/ext4/ext4.h
 +++ b/fs/ext4/ext4.h
 @@ -1151,6 +1151,7 @@ struct ext4_inode_info {
@@ -61,7 +59,6 @@ index 61b37a052052..9978c012bea9 100644
  #define EXT4_MOUNT_DATA_ERR_ABORT	0x10000000 /* Abort on file data write */
  #define EXT4_MOUNT_BLOCK_VALIDITY	0x20000000 /* Block validity checking */
 diff --git a/fs/ext4/inode.c b/fs/ext4/inode.c
-index fa0ff78dc033..5714ff6395a1 100644
 --- a/fs/ext4/inode.c
 +++ b/fs/ext4/inode.c
 @@ -1089,7 +1089,7 @@ static int ext4_block_write_begin(struct page *page, loff_t pos, unsigned len,
@@ -83,7 +80,6 @@ index fa0ff78dc033..5714ff6395a1 100644
  			BUG_ON(!fscrypt_has_encryption_key(inode));
  			err = fscrypt_decrypt_pagecache_blocks(page, blocksize,
 diff --git a/fs/ext4/page-io.c b/fs/ext4/page-io.c
-index de6fe969f773..defd2e10dfd1 100644
 --- a/fs/ext4/page-io.c
 +++ b/fs/ext4/page-io.c
 @@ -402,6 +402,7 @@ static void io_submit_init_bio(struct ext4_io_submit *io,
@@ -114,7 +110,6 @@ index de6fe969f773..defd2e10dfd1 100644
  		unsigned int enc_bytes = round_up(len, i_blocksize(inode));
  
 diff --git a/fs/ext4/readpage.c b/fs/ext4/readpage.c
-index c1769afbf799..b4c46ae2585b 100644
 --- a/fs/ext4/readpage.c
 +++ b/fs/ext4/readpage.c
 @@ -195,7 +195,7 @@ static void ext4_set_bio_post_read_ctx(struct bio *bio,
@@ -168,7 +163,6 @@ index c1769afbf799..b4c46ae2585b 100644
  			bio->bi_iter.bi_sector = blocks[0] << (blkbits - 9);
  			bio->bi_end_io = mpage_end_io;
 diff --git a/fs/ext4/super.c b/fs/ext4/super.c
-index c8dff4c68141..43d96aebe97e 100644
 --- a/fs/ext4/super.c
 +++ b/fs/ext4/super.c
 @@ -1411,6 +1411,11 @@ static void ext4_get_ino_and_lblk_bits(struct super_block *sb,

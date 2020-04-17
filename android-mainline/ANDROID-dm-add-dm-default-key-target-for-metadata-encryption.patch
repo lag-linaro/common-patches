@@ -54,7 +54,6 @@ Signed-off-by: Eric Biggers <ebiggers@google.com>
  create mode 100644 drivers/md/dm-default-key.c
 
 diff --git a/block/bio-crypt-ctx.c b/block/bio-crypt-ctx.c
-index b6df3dcf28cc..75008b2afea2 100644
 --- a/block/bio-crypt-ctx.c
 +++ b/block/bio-crypt-ctx.c
 @@ -61,6 +61,8 @@ void bio_crypt_clone(struct bio *dst, struct bio *src, gfp_t gfp_mask)
@@ -67,7 +66,6 @@ index b6df3dcf28cc..75008b2afea2 100644
  	 * If a bio is fallback_crypted, then it will be decrypted when
  	 * bio_endio is called. As we only want the data to be decrypted once,
 diff --git a/block/blk-crypto-fallback.c b/block/blk-crypto-fallback.c
-index 5cbf18a1995f..5039087b1168 100644
 --- a/block/blk-crypto-fallback.c
 +++ b/block/blk-crypto-fallback.c
 @@ -193,6 +193,8 @@ static struct bio *blk_crypto_clone_bio(struct bio *bio_src)
@@ -80,7 +78,6 @@ index 5cbf18a1995f..5039087b1168 100644
  }
  
 diff --git a/drivers/md/Kconfig b/drivers/md/Kconfig
-index cb719c064235..6a9dc41e6095 100644
 --- a/drivers/md/Kconfig
 +++ b/drivers/md/Kconfig
 @@ -285,6 +285,24 @@ config DM_CRYPT
@@ -109,7 +106,6 @@ index cb719c064235..6a9dc41e6095 100644
         tristate "Snapshot target"
         depends on BLK_DEV_DM
 diff --git a/drivers/md/Makefile b/drivers/md/Makefile
-index a9a602dfc4a3..bfc808c9e393 100644
 --- a/drivers/md/Makefile
 +++ b/drivers/md/Makefile
 @@ -48,6 +48,7 @@ obj-$(CONFIG_DM_UNSTRIPED)	+= dm-unstripe.o
@@ -527,7 +523,6 @@ index 000000000000..1eb9ddfad04c
 +MODULE_DESCRIPTION(DM_NAME " target for encrypting filesystem metadata");
 +MODULE_LICENSE("GPL");
 diff --git a/fs/crypto/inline_crypt.c b/fs/crypto/inline_crypt.c
-index 407fe4049b00..9c830772b7f5 100644
 --- a/fs/crypto/inline_crypt.c
 +++ b/fs/crypto/inline_crypt.c
 @@ -214,6 +214,8 @@ static void fscrypt_generate_dun(const struct fscrypt_info *ci, u64 lblk_num,
@@ -580,7 +575,6 @@ index 407fe4049b00..9c830772b7f5 100644
  	return fscrypt_mergeable_bio(bio, inode, next_lblk);
  }
 diff --git a/fs/f2fs/data.c b/fs/f2fs/data.c
-index 8fefc8d8b439..d081315075db 100644
 --- a/fs/f2fs/data.c
 +++ b/fs/f2fs/data.c
 @@ -448,6 +448,8 @@ static void f2fs_set_bio_crypt_ctx(struct bio *bio, const struct inode *inode,
@@ -604,7 +598,6 @@ index 8fefc8d8b439..d081315075db 100644
  	return fscrypt_mergeable_bio(bio, inode, next_idx);
  }
 diff --git a/include/linux/bio-crypt-ctx.h b/include/linux/bio-crypt-ctx.h
-index 652f92ff75fd..ab22dbe7b880 100644
 --- a/include/linux/bio-crypt-ctx.h
 +++ b/include/linux/bio-crypt-ctx.h
 @@ -189,6 +189,38 @@ static inline bool bio_crypt_ctx_mergeable(struct bio *b_1,
@@ -647,7 +640,6 @@ index 652f92ff75fd..ab22dbe7b880 100644
  
  #endif /* __LINUX_BIO_CRYPT_CTX_H */
 diff --git a/include/linux/blk_types.h b/include/linux/blk_types.h
-index 1996689c51d3..15cb07f8926e 100644
 --- a/include/linux/blk_types.h
 +++ b/include/linux/blk_types.h
 @@ -177,6 +177,9 @@ struct bio {
@@ -661,7 +653,6 @@ index 1996689c51d3..15cb07f8926e 100644
  
  	union {
 diff --git a/include/linux/fscrypt.h b/include/linux/fscrypt.h
-index bd211f5ccdf3..a9558fcbdf78 100644
 --- a/include/linux/fscrypt.h
 +++ b/include/linux/fscrypt.h
 @@ -575,6 +575,20 @@ static inline bool fscrypt_mergeable_bio_bh(struct bio *bio,

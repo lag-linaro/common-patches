@@ -26,7 +26,6 @@ Signed-off-by: Sami Tolvanen <samitolvanen@google.com>
  6 files changed, 22 insertions(+), 5 deletions(-)
 
 diff --git a/arch/arm64/include/asm/memory.h b/arch/arm64/include/asm/memory.h
-index 2be67b232499..59f1d79b9d31 100644
 --- a/arch/arm64/include/asm/memory.h
 +++ b/arch/arm64/include/asm/memory.h
 @@ -304,6 +304,22 @@ static inline void *phys_to_virt(phys_addr_t x)
@@ -53,7 +52,6 @@ index 2be67b232499..59f1d79b9d31 100644
   *  virt_to_page(x)	convert a _valid_ virtual address to struct page *
   *  virt_addr_valid(x)	indicates whether a virtual address is valid
 diff --git a/arch/arm64/include/asm/mmu_context.h b/arch/arm64/include/asm/mmu_context.h
-index 4eaeda26cfa2..69426cf5350e 100644
 --- a/arch/arm64/include/asm/mmu_context.h
 +++ b/arch/arm64/include/asm/mmu_context.h
 @@ -158,7 +158,7 @@ static inline void __nocfi cpu_replace_ttbr1(pgd_t *pgdp)
@@ -66,7 +64,6 @@ index 4eaeda26cfa2..69426cf5350e 100644
  	cpu_install_idmap();
  	replace_phys(ttbr1);
 diff --git a/arch/arm64/kernel/cpu-reset.h b/arch/arm64/kernel/cpu-reset.h
-index 054285f8d858..a05bda363272 100644
 --- a/arch/arm64/kernel/cpu-reset.h
 +++ b/arch/arm64/kernel/cpu-reset.h
 @@ -22,7 +22,7 @@ static inline void __noreturn __nocfi cpu_soft_restart(unsigned long entry,
@@ -79,7 +76,6 @@ index 054285f8d858..a05bda363272 100644
  	cpu_install_idmap();
  	restart(el2_switch, entry, arg0, arg1, arg2);
 diff --git a/arch/arm64/kernel/cpufeature.c b/arch/arm64/kernel/cpufeature.c
-index 443ae1ca81db..31bbcd9afb3c 100644
 --- a/arch/arm64/kernel/cpufeature.c
 +++ b/arch/arm64/kernel/cpufeature.c
 @@ -1129,7 +1129,7 @@ kpti_install_ng_mappings(const struct arm64_cpu_capabilities *__unused)
@@ -92,7 +88,6 @@ index 443ae1ca81db..31bbcd9afb3c 100644
  	cpu_install_idmap();
  	remap_fn(cpu, num_online_cpus(), __pa_symbol(swapper_pg_dir));
 diff --git a/arch/arm64/kernel/psci.c b/arch/arm64/kernel/psci.c
-index 43ae4e0c968f..5fadf6bb358e 100644
 --- a/arch/arm64/kernel/psci.c
 +++ b/arch/arm64/kernel/psci.c
 @@ -38,7 +38,8 @@ static int __init cpu_psci_cpu_prepare(unsigned int cpu)
@@ -106,7 +101,6 @@ index 43ae4e0c968f..5fadf6bb358e 100644
  		pr_err("failed to boot CPU%d (%d)\n", cpu, err);
  
 diff --git a/arch/arm64/kernel/smp_spin_table.c b/arch/arm64/kernel/smp_spin_table.c
-index c8a3fee00c11..d6c818333419 100644
 --- a/arch/arm64/kernel/smp_spin_table.c
 +++ b/arch/arm64/kernel/smp_spin_table.c
 @@ -88,7 +88,7 @@ static int smp_spin_table_cpu_prepare(unsigned int cpu)

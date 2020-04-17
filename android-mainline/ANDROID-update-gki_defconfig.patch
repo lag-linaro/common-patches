@@ -14,7 +14,6 @@ Change-Id: I8feb0a501d60005a7973b1fa2f9d34bb87b64259
  2 files changed, 2 deletions(-)
 
 diff --git a/arch/arm64/configs/gki_defconfig b/arch/arm64/configs/gki_defconfig
-index d418f2f7263d..2e39d1bae2f1 100644
 --- a/arch/arm64/configs/gki_defconfig
 +++ b/arch/arm64/configs/gki_defconfig
 @@ -396,7 +396,6 @@ CONFIG_HARDENED_USERCOPY=y
@@ -26,7 +25,6 @@ index d418f2f7263d..2e39d1bae2f1 100644
  CONFIG_CRYPTO_ZSTD=y
  CONFIG_CRYPTO_ANSI_CPRNG=y
 diff --git a/arch/x86/configs/gki_defconfig b/arch/x86/configs/gki_defconfig
-index 39908e5fc218..c990a24b2eae 100644
 --- a/arch/x86/configs/gki_defconfig
 +++ b/arch/x86/configs/gki_defconfig
 @@ -327,7 +327,6 @@ CONFIG_SECURITY_NETWORK=y

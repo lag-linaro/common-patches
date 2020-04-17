@@ -26,7 +26,6 @@ Link: https://patchwork.kernel.org/patch/11145355
  1 file changed, 12 insertions(+), 1 deletion(-)
 
 diff --git a/Documentation/devicetree/bindings/interrupt-controller/qcom,pdc.txt b/Documentation/devicetree/bindings/interrupt-controller/qcom,pdc.txt
-index 1df293953327..004584ef71f7 100644
 --- a/Documentation/devicetree/bindings/interrupt-controller/qcom,pdc.txt
 +++ b/Documentation/devicetree/bindings/interrupt-controller/qcom,pdc.txt
 @@ -25,6 +25,9 @@ Properties:

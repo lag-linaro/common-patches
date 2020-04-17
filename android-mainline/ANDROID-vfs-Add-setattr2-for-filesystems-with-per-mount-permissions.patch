@@ -28,7 +28,6 @@ Signed-off-by: Yongqin Liu <yongqin.liu@linaro.org>
  7 files changed, 37 insertions(+), 16 deletions(-)
 
 diff --git a/fs/attr.c b/fs/attr.c
-index b4bbdbd4c8ca..6dde93f6556f 100644
 --- a/fs/attr.c
 +++ b/fs/attr.c
 @@ -220,7 +220,7 @@ EXPORT_SYMBOL(setattr_copy);
@@ -63,7 +62,6 @@ index b4bbdbd4c8ca..6dde93f6556f 100644
 +}
  EXPORT_SYMBOL(notify_change);
 diff --git a/fs/coredump.c b/fs/coredump.c
-index f8296a82d01d..0f83c8bd13b2 100644
 --- a/fs/coredump.c
 +++ b/fs/coredump.c
 @@ -775,7 +775,7 @@ void do_coredump(const kernel_siginfo_t *siginfo)
@@ -76,7 +74,6 @@ index f8296a82d01d..0f83c8bd13b2 100644
  	}
  
 diff --git a/fs/inode.c b/fs/inode.c
-index 93d9252a00ab..10e21db3b0cd 100644
 --- a/fs/inode.c
 +++ b/fs/inode.c
 @@ -1822,7 +1822,7 @@ int dentry_needs_remove_privs(struct dentry *dentry)
@@ -107,7 +104,6 @@ index 93d9252a00ab..10e21db3b0cd 100644
  		inode_has_no_xattr(inode);
  
 diff --git a/fs/namei.c b/fs/namei.c
-index 61fdb77a7d58..5c3f0b5bc10e 100644
 --- a/fs/namei.c
 +++ b/fs/namei.c
 @@ -2884,7 +2884,7 @@ static int handle_truncate(struct file *filp)
@@ -120,7 +116,6 @@ index 61fdb77a7d58..5c3f0b5bc10e 100644
  				    filp);
  	}
 diff --git a/fs/open.c b/fs/open.c
-index 719b320ede52..2a2a75a6888f 100644
 --- a/fs/open.c
 +++ b/fs/open.c
 @@ -35,8 +35,8 @@
@@ -213,7 +208,6 @@ index 719b320ede52..2a2a75a6888f 100644
  	if (delegated_inode) {
  		error = break_deleg_wait(&delegated_inode);
 diff --git a/fs/utimes.c b/fs/utimes.c
-index 1d17ce98cb80..534fa3cc517f 100644
 --- a/fs/utimes.c
 +++ b/fs/utimes.c
 @@ -57,7 +57,7 @@ static int utimes_common(const struct path *path, struct timespec64 *times)
@@ -226,7 +220,6 @@ index 1d17ce98cb80..534fa3cc517f 100644
  	if (delegated_inode) {
  		error = break_deleg_wait(&delegated_inode);
 diff --git a/include/linux/fs.h b/include/linux/fs.h
-index f81c822f4d89..6a8157c0598a 100644
 --- a/include/linux/fs.h
 +++ b/include/linux/fs.h
 @@ -1883,7 +1883,8 @@ struct inode_operations {

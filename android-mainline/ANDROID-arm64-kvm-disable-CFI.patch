@@ -15,7 +15,6 @@ Signed-off-by: Sami Tolvanen <samitolvanen@google.com>
  2 files changed, 3 insertions(+), 2 deletions(-)
 
 diff --git a/arch/arm64/kvm/Makefile b/arch/arm64/kvm/Makefile
-index 5ffbdc39e780..041050333bcf 100644
 --- a/arch/arm64/kvm/Makefile
 +++ b/arch/arm64/kvm/Makefile
 @@ -4,6 +4,7 @@
@@ -27,7 +26,6 @@ index 5ffbdc39e780..041050333bcf 100644
  KVM=../../../virt/kvm
  
 diff --git a/arch/arm64/kvm/hyp/Makefile b/arch/arm64/kvm/hyp/Makefile
-index 17ea3da325e9..67aa18a539ea 100644
 --- a/arch/arm64/kvm/hyp/Makefile
 +++ b/arch/arm64/kvm/hyp/Makefile
 @@ -29,5 +29,5 @@ KASAN_SANITIZE	:= n

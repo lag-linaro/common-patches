@@ -15,7 +15,6 @@ Signed-off-by: Sami Tolvanen <samitolvanen@google.com>
  1 file changed, 7 insertions(+), 7 deletions(-)
 
 diff --git a/scripts/module-lto.lds b/scripts/module-lto.lds
-index f5ee544a877d..5ba0e9461e13 100644
 --- a/scripts/module-lto.lds
 +++ b/scripts/module-lto.lds
 @@ -12,11 +12,11 @@ SECTIONS {

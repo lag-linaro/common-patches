@@ -20,7 +20,6 @@ Signed-off-by: Matthias Maennich <maennich@google.com>
  3 files changed, 9 insertions(+), 2 deletions(-)
 
 diff --git a/arch/arm64/configs/gki_defconfig b/arch/arm64/configs/gki_defconfig
-index 9ee37834e19c..31a24078e046 100644
 --- a/arch/arm64/configs/gki_defconfig
 +++ b/arch/arm64/configs/gki_defconfig
 @@ -297,7 +297,6 @@ CONFIG_WATCHDOG=y
@@ -32,7 +31,6 @@ index 9ee37834e19c..31a24078e046 100644
  CONFIG_MEDIA_CONTROLLER=y
  # CONFIG_VGA_ARB is not set
 diff --git a/arch/x86/configs/gki_defconfig b/arch/x86/configs/gki_defconfig
-index 47e8076ba7fd..4079f95ba1fa 100644
 --- a/arch/x86/configs/gki_defconfig
 +++ b/arch/x86/configs/gki_defconfig
 @@ -256,7 +256,6 @@ CONFIG_GPIOLIB=y
@@ -44,7 +42,6 @@ index 47e8076ba7fd..4079f95ba1fa 100644
  CONFIG_DRM=y
  # CONFIG_DRM_FBDEV_EMULATION is not set
 diff --git a/init/Kconfig.gki b/init/Kconfig.gki
-index 4db995c2fe92..c5a080e7784b 100644
 --- a/init/Kconfig.gki
 +++ b/init/Kconfig.gki
 @@ -53,6 +53,14 @@ config GKI_HIDDEN_QCOM_CONFIGS

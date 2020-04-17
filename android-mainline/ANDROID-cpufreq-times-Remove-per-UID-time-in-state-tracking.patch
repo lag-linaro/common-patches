@@ -17,7 +17,6 @@ Change-Id: Iae3e0abef32cbbb9fdc674079973040be0060ac7
  3 files changed, 52 deletions(-)
 
 diff --git a/drivers/cpufreq/cpufreq_times.c b/drivers/cpufreq/cpufreq_times.c
-index 789ce8f42ccc..4df55b323fc1 100644
 --- a/drivers/cpufreq/cpufreq_times.c
 +++ b/drivers/cpufreq/cpufreq_times.c
 @@ -15,30 +15,14 @@
@@ -103,7 +102,6 @@ index 789ce8f42ccc..4df55b323fc1 100644
  	unsigned int new_freq)
  {
 diff --git a/drivers/misc/uid_sys_stats.c b/drivers/misc/uid_sys_stats.c
-index 3048edf85b46..0009193b0eb3 100644
 --- a/drivers/misc/uid_sys_stats.c
 +++ b/drivers/misc/uid_sys_stats.c
 @@ -14,7 +14,6 @@
@@ -125,7 +123,6 @@ index 3048edf85b46..0009193b0eb3 100644
  
  	for (; uid_start <= uid_end; uid_start++) {
 diff --git a/include/linux/cpufreq_times.h b/include/linux/cpufreq_times.h
-index 881d5026f0db..38272a5f3163 100644
 --- a/include/linux/cpufreq_times.h
 +++ b/include/linux/cpufreq_times.h
 @@ -29,7 +29,6 @@ void cpufreq_acct_update_power(struct task_struct *p, u64 cputime);

@@ -13,7 +13,6 @@ Signed-off-by: Sami Tolvanen <samitolvanen@google.com>
  1 file changed, 1 deletion(-)
 
 diff --git a/arch/arm64/configs/gki_defconfig b/arch/arm64/configs/gki_defconfig
-index 2625a59b918f..7e091f110582 100644
 --- a/arch/arm64/configs/gki_defconfig
 +++ b/arch/arm64/configs/gki_defconfig
 @@ -478,7 +478,6 @@ CONFIG_SOFTLOCKUP_DETECTOR=y

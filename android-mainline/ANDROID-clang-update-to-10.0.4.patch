@@ -11,7 +11,6 @@ Signed-off-by: Alistair Delva <adelva@google.com>
  1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/build.config.common b/build.config.common
-index ba411b0f24c0..1fc6b17f8b7e 100644
 --- a/build.config.common
 +++ b/build.config.common
 @@ -5,7 +5,7 @@ CC=clang

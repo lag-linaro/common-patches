@@ -19,7 +19,6 @@ Signed-off-by: Eric Biggers <ebiggers@google.com>
  2 files changed, 2 insertions(+)
 
 diff --git a/arch/arm64/configs/gki_defconfig b/arch/arm64/configs/gki_defconfig
-index 10c8da8b936a..c1dcc9061d70 100644
 --- a/arch/arm64/configs/gki_defconfig
 +++ b/arch/arm64/configs/gki_defconfig
 @@ -237,6 +237,7 @@ CONFIG_SCSI_UFS_CRYPTO=y
@@ -31,7 +30,6 @@ index 10c8da8b936a..c1dcc9061d70 100644
  CONFIG_DM_UEVENT=y
  CONFIG_DM_VERITY=y
 diff --git a/arch/x86/configs/gki_defconfig b/arch/x86/configs/gki_defconfig
-index 6b69cd8840ea..84f9d974cf63 100644
 --- a/arch/x86/configs/gki_defconfig
 +++ b/arch/x86/configs/gki_defconfig
 @@ -207,6 +207,7 @@ CONFIG_BLK_DEV_SD=y

@@ -15,7 +15,6 @@ Signed-off-by: Alexander Potapenko <glider@google.com>
  1 file changed, 2 insertions(+)
 
 diff --git a/cuttlefish.fragment b/cuttlefish.fragment
-index bdff8fa24404..e201d2d23a9a 100644
 --- a/cuttlefish.fragment
 +++ b/cuttlefish.fragment
 @@ -17,3 +17,5 @@ CONFIG_VIRTIO_INPUT=m

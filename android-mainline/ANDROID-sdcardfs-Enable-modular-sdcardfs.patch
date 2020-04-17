@@ -37,7 +37,6 @@ Signed-off-by: Yongqin Liu <yongqin.liu@linaro.org>
  3 files changed, 7 insertions(+)
 
 diff --git a/fs/fs_struct.c b/fs/fs_struct.c
-index ca639ed967b7..57f9817a9808 100644
 --- a/fs/fs_struct.c
 +++ b/fs/fs_struct.c
 @@ -46,6 +46,7 @@ void set_fs_pwd(struct fs_struct *fs, const struct path *path)
@@ -65,7 +64,6 @@ index ca639ed967b7..57f9817a9808 100644
  int unshare_fs_struct(void)
  {
 diff --git a/fs/read_write.c b/fs/read_write.c
-index 59d819c5b92e..b4c7e92491d0 100644
 --- a/fs/read_write.c
 +++ b/fs/read_write.c
 @@ -469,6 +469,8 @@ ssize_t vfs_read(struct file *file, char __user *buf, size_t count, loff_t *pos)
@@ -86,7 +84,6 @@ index 59d819c5b92e..b4c7e92491d0 100644
  /* file_ppos returns &file->f_pos or NULL if file is stream */
  static inline loff_t *file_ppos(struct file *file)
 diff --git a/security/security.c b/security/security.c
-index 3b3a5709e37c..a0ac7fa4b838 100644
 --- a/security/security.c
 +++ b/security/security.c
 @@ -1119,6 +1119,7 @@ int security_path_chown(const struct path *path, kuid_t uid, kgid_t gid)

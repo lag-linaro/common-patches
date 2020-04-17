@@ -19,7 +19,6 @@ Change-Id: I27a575e54ffbb0b0bfb78115edef45fc8ff585a4
  1 file changed, 1 insertion(+)
 
 diff --git a/arch/arm64/boot/dts/qcom/sdm845.dtsi b/arch/arm64/boot/dts/qcom/sdm845.dtsi
-index 8f926b5234d4..2a3361d3c717 100644
 --- a/arch/arm64/boot/dts/qcom/sdm845.dtsi
 +++ b/arch/arm64/boot/dts/qcom/sdm845.dtsi
 @@ -3626,6 +3626,7 @@ apps_smmu: iommu@15000000 {

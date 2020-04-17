@@ -19,7 +19,6 @@ Signed-off-by: Todd Kjos <tkjos@google.com>
  1 file changed, 4 insertions(+), 4 deletions(-)
 
 diff --git a/lib/list_sort.c b/lib/list_sort.c
-index 52f0c258c895..b14accf4ef83 100644
 --- a/lib/list_sort.c
 +++ b/lib/list_sort.c
 @@ -8,7 +8,7 @@

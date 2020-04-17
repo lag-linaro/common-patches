@@ -50,7 +50,6 @@ Signed-off-by: Matthias Maennich <maennich@google.com>
  create mode 100644 include/uapi/linux/usb/f_accessory.h
 
 diff --git a/drivers/usb/gadget/Kconfig b/drivers/usb/gadget/Kconfig
-index d3c64faab807..626ee64c25ce 100644
 --- a/drivers/usb/gadget/Kconfig
 +++ b/drivers/usb/gadget/Kconfig
 @@ -216,6 +216,9 @@ config USB_F_PRINTER
@@ -79,7 +78,6 @@ index d3c64faab807..626ee64c25ce 100644
  	bool "Audio Class 1.0"
  	depends on USB_CONFIGFS
 diff --git a/drivers/usb/gadget/function/Makefile b/drivers/usb/gadget/function/Makefile
-index 5d3a6cf02218..2305360e5f22 100644
 --- a/drivers/usb/gadget/function/Makefile
 +++ b/drivers/usb/gadget/function/Makefile
 @@ -50,3 +50,5 @@ usb_f_printer-y			:= f_printer.o

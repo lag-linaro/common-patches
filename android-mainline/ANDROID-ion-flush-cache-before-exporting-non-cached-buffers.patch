@@ -30,7 +30,6 @@ Signed-off-by: Vincent Donnefort <vincent.donnefort@arm.com>
  5 files changed, 42 insertions(+)
 
 diff --git a/drivers/staging/android/ion/heaps/ion_cma_heap.c b/drivers/staging/android/ion/heaps/ion_cma_heap.c
-index 9584972b5005..6ba7fd84c9ee 100644
 --- a/drivers/staging/android/ion/heaps/ion_cma_heap.c
 +++ b/drivers/staging/android/ion/heaps/ion_cma_heap.c
 @@ -70,6 +70,9 @@ static int ion_cma_allocate(struct ion_heap *heap, struct ion_buffer *buffer,
@@ -44,7 +43,6 @@ index 9584972b5005..6ba7fd84c9ee 100644
  
  free_mem:
 diff --git a/drivers/staging/android/ion/heaps/ion_system_contig_heap.c b/drivers/staging/android/ion/heaps/ion_system_contig_heap.c
-index 36e8769f3ef7..ce854565b563 100644
 --- a/drivers/staging/android/ion/heaps/ion_system_contig_heap.c
 +++ b/drivers/staging/android/ion/heaps/ion_system_contig_heap.c
 @@ -50,6 +50,8 @@ static int ion_system_contig_heap_allocate(struct ion_heap *heap,
@@ -57,7 +55,6 @@ index 36e8769f3ef7..ce854565b563 100644
  
  free_table:
 diff --git a/drivers/staging/android/ion/heaps/ion_system_heap.c b/drivers/staging/android/ion/heaps/ion_system_heap.c
-index 054324784ab9..6052b843cdeb 100644
 --- a/drivers/staging/android/ion/heaps/ion_system_heap.c
 +++ b/drivers/staging/android/ion/heaps/ion_system_heap.c
 @@ -141,6 +141,9 @@ static int ion_system_heap_allocate(struct ion_heap *heap,
@@ -71,7 +68,6 @@ index 054324784ab9..6052b843cdeb 100644
  
  free_table:
 diff --git a/drivers/staging/android/ion/ion_buffer.c b/drivers/staging/android/ion/ion_buffer.c
-index c6fdf3bf48f0..12f180a84ea8 100644
 --- a/drivers/staging/android/ion/ion_buffer.c
 +++ b/drivers/staging/android/ion/ion_buffer.c
 @@ -9,6 +9,7 @@
@@ -108,7 +104,6 @@ index c6fdf3bf48f0..12f180a84ea8 100644
  {
  	if (buffer->kmap_cnt > 0) {
 diff --git a/include/linux/ion.h b/include/linux/ion.h
-index 025071c19240..dbcbe0cb7b08 100644
 --- a/include/linux/ion.h
 +++ b/include/linux/ion.h
 @@ -275,6 +275,19 @@ int ion_heap_map_user(struct ion_heap *heap, struct ion_buffer *buffer,

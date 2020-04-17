@@ -33,7 +33,6 @@ Signed-off-by: Rickard Möller <rickard.moller@sony.com>
  1 file changed, 10 insertions(+), 3 deletions(-)
 
 diff --git a/drivers/misc/uid_sys_stats.c b/drivers/misc/uid_sys_stats.c
-index 88dc1cd3a204..49974954d4f0 100644
 --- a/drivers/misc/uid_sys_stats.c
 +++ b/drivers/misc/uid_sys_stats.c
 @@ -358,9 +358,12 @@ static int uid_cputime_show(struct seq_file *m, void *v)

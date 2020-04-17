@@ -19,7 +19,6 @@ Signed-off-by: Eric Biggers <ebiggers@google.com>
  4 files changed, 6 insertions(+), 7 deletions(-)
 
 diff --git a/block/bio-crypt-ctx.c b/block/bio-crypt-ctx.c
-index 75982dabc7a3..d02d2bff991a 100644
 --- a/block/bio-crypt-ctx.c
 +++ b/block/bio-crypt-ctx.c
 @@ -96,10 +96,9 @@ bool bio_crypt_ctx_compatible(struct bio *b_1, struct bio *b_2)
@@ -37,7 +36,6 @@ index 75982dabc7a3..d02d2bff991a 100644
  
  /*
 diff --git a/block/blk-crypto-fallback.c b/block/blk-crypto-fallback.c
-index 9773bd6a5186..c7523af2e4b3 100644
 --- a/block/blk-crypto-fallback.c
 +++ b/block/blk-crypto-fallback.c
 @@ -569,7 +569,7 @@ int blk_crypto_fallback_submit_bio(struct bio **bio_ptr)
@@ -50,7 +48,6 @@ index 9773bd6a5186..c7523af2e4b3 100644
  		return -EIO;
  	}
 diff --git a/block/blk-crypto-internal.h b/block/blk-crypto-internal.h
-index 43351eecc97a..40d826b743da 100644
 --- a/block/blk-crypto-internal.h
 +++ b/block/blk-crypto-internal.h
 @@ -36,7 +36,7 @@ static inline bool bio_crypt_fallback_crypted(const struct bio_crypt_ctx *bc)
@@ -63,7 +60,6 @@ index 43351eecc97a..40d826b743da 100644
  	return -EIO;
  }
 diff --git a/include/linux/bio-crypt-ctx.h b/include/linux/bio-crypt-ctx.h
-index 2e06b06fce47..652f92ff75fd 100644
 --- a/include/linux/bio-crypt-ctx.h
 +++ b/include/linux/bio-crypt-ctx.h
 @@ -118,7 +118,7 @@ static inline bool bio_crypt_dun_is_contiguous(const struct bio_crypt_ctx *bc,

@@ -37,7 +37,6 @@ Change-Id: Ifa36d25f9649958cfc7b78e21777390f128db165
  3 files changed, 22 insertions(+), 4 deletions(-)
 
 diff --git a/lib/Kconfig.ubsan b/lib/Kconfig.ubsan
-index 0e04fcb3ab3d..d69e8b21ebae 100644
 --- a/lib/Kconfig.ubsan
 +++ b/lib/Kconfig.ubsan
 @@ -5,12 +5,23 @@ config ARCH_HAS_UBSAN_SANITIZE_ALL
@@ -67,7 +66,6 @@ index 0e04fcb3ab3d..d69e8b21ebae 100644
  	bool "Enable instrumentation for the entire kernel"
  	depends on UBSAN
 diff --git a/lib/Makefile b/lib/Makefile
-index 09a8acb0cf92..44a07ce2c420 100644
 --- a/lib/Makefile
 +++ b/lib/Makefile
 @@ -280,7 +280,9 @@ quiet_cmd_build_OID_registry = GEN     $@
@@ -81,7 +79,6 @@ index 09a8acb0cf92..44a07ce2c420 100644
  UBSAN_SANITIZE_ubsan.o := n
  KASAN_SANITIZE_ubsan.o := n
 diff --git a/scripts/Makefile.ubsan b/scripts/Makefile.ubsan
-index 019771b845c5..668a91510bfe 100644
 --- a/scripts/Makefile.ubsan
 +++ b/scripts/Makefile.ubsan
 @@ -1,5 +1,10 @@

@@ -33,7 +33,6 @@ Change-Id: Iaf77f8c5961ecf22e22478701ab0b7fe2025225d
  14 files changed, 78 insertions(+), 32 deletions(-)
 
 diff --git a/fs/crypto/fname.c b/fs/crypto/fname.c
-index 0fca2d7a5645..cd6870739911 100644
 --- a/fs/crypto/fname.c
 +++ b/fs/crypto/fname.c
 @@ -543,7 +543,7 @@ EXPORT_SYMBOL_GPL(fscrypt_fname_siphash);
@@ -55,7 +54,6 @@ index 0fca2d7a5645..cd6870739911 100644
 -};
 +EXPORT_SYMBOL(fscrypt_d_revalidate);
 diff --git a/fs/crypto/fscrypt_private.h b/fs/crypto/fscrypt_private.h
-index 2095e3b43b89..f262f823fd58 100644
 --- a/fs/crypto/fscrypt_private.h
 +++ b/fs/crypto/fscrypt_private.h
 @@ -295,7 +295,6 @@ extern int fscrypt_fname_encrypt(const struct inode *inode,
@@ -67,7 +65,6 @@ index 2095e3b43b89..f262f823fd58 100644
  /* hkdf.c */
  
 diff --git a/fs/crypto/hooks.c b/fs/crypto/hooks.c
-index 5ef861742921..604a028dee25 100644
 --- a/fs/crypto/hooks.c
 +++ b/fs/crypto/hooks.c
 @@ -118,7 +118,6 @@ int __fscrypt_prepare_lookup(struct inode *dir, struct dentry *dentry,
@@ -79,7 +76,6 @@ index 5ef861742921..604a028dee25 100644
  	return err;
  }
 diff --git a/fs/ext4/dir.c b/fs/ext4/dir.c
-index 04fd68c4adc5..b31780cae9c1 100644
 --- a/fs/ext4/dir.c
 +++ b/fs/ext4/dir.c
 @@ -667,10 +667,3 @@ const struct file_operations ext4_dir_operations = {
@@ -94,7 +90,6 @@ index 04fd68c4adc5..b31780cae9c1 100644
 -};
 -#endif
 diff --git a/fs/ext4/namei.c b/fs/ext4/namei.c
-index 1a1c4fdcfd3e..001fdb0da477 100644
 --- a/fs/ext4/namei.c
 +++ b/fs/ext4/namei.c
 @@ -1615,6 +1615,7 @@ static struct buffer_head *ext4_lookup_entry(struct inode *dir,
@@ -106,7 +101,6 @@ index 1a1c4fdcfd3e..001fdb0da477 100644
  		return NULL;
  	if (err)
 diff --git a/fs/ext4/super.c b/fs/ext4/super.c
-index 088b91396dc8..31e03d4747ee 100644
 --- a/fs/ext4/super.c
 +++ b/fs/ext4/super.c
 @@ -4583,11 +4583,6 @@ static int ext4_fill_super(struct super_block *sb, void *data, int silent)
@@ -122,7 +116,6 @@ index 088b91396dc8..31e03d4747ee 100644
  	if (!sb->s_root) {
  		ext4_msg(sb, KERN_ERR, "get root dentry failed");
 diff --git a/fs/f2fs/dir.c b/fs/f2fs/dir.c
-index d822c0d5eb18..38c0e6d589be 100644
 --- a/fs/f2fs/dir.c
 +++ b/fs/f2fs/dir.c
 @@ -1077,10 +1077,3 @@ const struct file_operations f2fs_dir_operations = {
@@ -137,7 +130,6 @@ index d822c0d5eb18..38c0e6d589be 100644
 -};
 -#endif
 diff --git a/fs/f2fs/f2fs.h b/fs/f2fs/f2fs.h
-index ee2bf08619b9..8ec6e83d32ad 100644
 --- a/fs/f2fs/f2fs.h
 +++ b/fs/f2fs/f2fs.h
 @@ -3630,9 +3630,6 @@ static inline void update_sit_info(struct f2fs_sb_info *sbi) {}
@@ -151,7 +143,6 @@ index ee2bf08619b9..8ec6e83d32ad 100644
  extern const struct inode_operations f2fs_file_inode_operations;
  extern const struct address_space_operations f2fs_dblock_aops;
 diff --git a/fs/f2fs/namei.c b/fs/f2fs/namei.c
-index 2aa035422c0f..24d68eafffa4 100644
 --- a/fs/f2fs/namei.c
 +++ b/fs/f2fs/namei.c
 @@ -494,6 +494,7 @@ static struct dentry *f2fs_lookup(struct inode *dir, struct dentry *dentry,
@@ -163,7 +154,6 @@ index 2aa035422c0f..24d68eafffa4 100644
  		goto out_splice;
  	if (err)
 diff --git a/fs/f2fs/super.c b/fs/f2fs/super.c
-index 40e5caf82481..ad0ece3e52a0 100644
 --- a/fs/f2fs/super.c
 +++ b/fs/f2fs/super.c
 @@ -3298,7 +3298,6 @@ static int f2fs_setup_casefold(struct f2fs_sb_info *sbi)
@@ -175,7 +165,6 @@ index 40e5caf82481..ad0ece3e52a0 100644
  #else
  	if (f2fs_sb_has_casefold(sbi)) {
 diff --git a/fs/libfs.c b/fs/libfs.c
-index 01c566a3f879..d2b322cd0775 100644
 --- a/fs/libfs.c
 +++ b/fs/libfs.c
 @@ -1423,4 +1423,54 @@ int generic_ci_d_hash(const struct dentry *dentry, struct qstr *str)
@@ -234,7 +223,6 @@ index 01c566a3f879..d2b322cd0775 100644
 +}
 +EXPORT_SYMBOL(generic_set_encrypted_ci_d_ops);
 diff --git a/fs/ubifs/dir.c b/fs/ubifs/dir.c
-index ef85ec167a84..f3c96d99c051 100644
 --- a/fs/ubifs/dir.c
 +++ b/fs/ubifs/dir.c
 @@ -196,6 +196,7 @@ static int dbg_check_name(const struct ubifs_info *c,
@@ -274,7 +262,6 @@ index ef85ec167a84..f3c96d99c051 100644
 +#endif
 +}
 diff --git a/include/linux/fs.h b/include/linux/fs.h
-index 9d5e5a5de5ee..2d140fa11dce 100644
 --- a/include/linux/fs.h
 +++ b/include/linux/fs.h
 @@ -3419,6 +3419,8 @@ static inline bool needs_casefold(const struct inode *dir)
@@ -287,7 +274,6 @@ index 9d5e5a5de5ee..2d140fa11dce 100644
  #ifdef CONFIG_MIGRATION
  extern int buffer_migrate_page(struct address_space *,
 diff --git a/include/linux/fscrypt.h b/include/linux/fscrypt.h
-index a9558fcbdf78..df201b0f7d2f 100644
 --- a/include/linux/fscrypt.h
 +++ b/include/linux/fscrypt.h
 @@ -138,6 +138,7 @@ static inline struct page *fscrypt_pagecache_page(struct page *bounce_page)

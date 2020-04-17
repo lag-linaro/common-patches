@@ -44,7 +44,6 @@ Change-Id: Id3381006b23c370f90a7e5efd6efe5448ebe87c5
  1 file changed, 1 insertion(+)
 
 diff --git a/drivers/staging/android/ion/ion.c b/drivers/staging/android/ion/ion.c
-index b43655da4d7c..a1d42cc95227 100644
 --- a/drivers/staging/android/ion/ion.c
 +++ b/drivers/staging/android/ion/ion.c
 @@ -422,6 +422,7 @@ static int ion_device_create(void)

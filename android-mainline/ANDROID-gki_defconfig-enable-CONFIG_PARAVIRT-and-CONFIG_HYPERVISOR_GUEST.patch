@@ -16,7 +16,6 @@ Signed-off-by: Ram Muthiah <rammuthiah@google.com>
  1 file changed, 2 insertions(+)
 
 diff --git a/arch/x86/configs/gki_defconfig b/arch/x86/configs/gki_defconfig
-index 87f0f792737d..52cafd770b7a 100644
 --- a/arch/x86/configs/gki_defconfig
 +++ b/arch/x86/configs/gki_defconfig
 @@ -37,6 +37,8 @@ CONFIG_SLAB_FREELIST_RANDOM=y

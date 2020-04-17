@@ -16,7 +16,6 @@ Signed-off-by: Sandeep Patil <sspatil@google.com>
  1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/drivers/staging/android/ion/ion.c b/drivers/staging/android/ion/ion.c
-index 8623c602e2d4..d133f1066d48 100644
 --- a/drivers/staging/android/ion/ion.c
 +++ b/drivers/staging/android/ion/ion.c
 @@ -387,7 +387,7 @@ void ion_device_remove_heap(struct ion_heap *heap)

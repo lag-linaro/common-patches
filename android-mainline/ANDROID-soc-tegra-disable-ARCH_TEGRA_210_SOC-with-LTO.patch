@@ -15,7 +15,6 @@ Signed-off-by: Sami Tolvanen <samitolvanen@google.com>
  1 file changed, 1 insertion(+)
 
 diff --git a/drivers/soc/tegra/Kconfig b/drivers/soc/tegra/Kconfig
-index 3693532949b8..a7b555913db2 100644
 --- a/drivers/soc/tegra/Kconfig
 +++ b/drivers/soc/tegra/Kconfig
 @@ -80,6 +80,7 @@ config ARCH_TEGRA_210_SOC

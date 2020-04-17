@@ -47,7 +47,6 @@ Change-Id: I1f79faea7386af1bc50faaf8b399ea6448611d5a
  2 files changed, 25 insertions(+), 1 deletion(-)
 
 diff --git a/lib/Kconfig.ubsan b/lib/Kconfig.ubsan
-index d69e8b21ebae..f5ed2dceef30 100644
 --- a/lib/Kconfig.ubsan
 +++ b/lib/Kconfig.ubsan
 @@ -22,6 +22,25 @@ config UBSAN_TRAP
@@ -77,7 +76,6 @@ index d69e8b21ebae..f5ed2dceef30 100644
  	bool "Enable instrumentation for the entire kernel"
  	depends on UBSAN
 diff --git a/scripts/Makefile.ubsan b/scripts/Makefile.ubsan
-index 668a91510bfe..5b15bc425ec9 100644
 --- a/scripts/Makefile.ubsan
 +++ b/scripts/Makefile.ubsan
 @@ -5,14 +5,19 @@ ifdef CONFIG_UBSAN_ALIGNMENT

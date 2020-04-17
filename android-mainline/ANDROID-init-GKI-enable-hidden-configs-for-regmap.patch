@@ -14,7 +14,6 @@ Signed-off-by: Todd Kjos <tkjos@google.com>
  1 file changed, 9 insertions(+)
 
 diff --git a/init/Kconfig.gki b/init/Kconfig.gki
-index 6c3f89bd8e25..45966f3325b9 100644
 --- a/init/Kconfig.gki
 +++ b/init/Kconfig.gki
 @@ -9,6 +9,14 @@ config GKI_HIDDEN_DRM_CONFIGS

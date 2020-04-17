@@ -12,7 +12,6 @@ Signed-off-by: Ram Muthiah <rammuthiah@google.com>
  1 file changed, 1 insertion(+)
 
 diff --git a/init/Kconfig.gki b/init/Kconfig.gki
-index bd5e645c8944..fb415595c05a 100644
 --- a/init/Kconfig.gki
 +++ b/init/Kconfig.gki
 @@ -1,6 +1,7 @@

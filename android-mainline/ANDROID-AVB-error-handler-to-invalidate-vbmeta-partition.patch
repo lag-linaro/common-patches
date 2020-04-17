@@ -30,7 +30,6 @@ Signed-off-by: Alistair Delva <adelva@google.com>
  create mode 100644 drivers/md/dm-verity-avb.c
 
 diff --git a/drivers/md/Kconfig b/drivers/md/Kconfig
-index d6d5ab23c088..87f5fe451f00 100644
 --- a/drivers/md/Kconfig
 +++ b/drivers/md/Kconfig
 @@ -517,6 +517,17 @@ config DM_VERITY_VERIFY_ROOTHASH_SIG
@@ -52,7 +51,6 @@ index d6d5ab23c088..87f5fe451f00 100644
  	bool "Verity forward error correction support"
  	depends on DM_VERITY
 diff --git a/drivers/md/Makefile b/drivers/md/Makefile
-index d91a7edcd2ab..356b32d6b158 100644
 --- a/drivers/md/Makefile
 +++ b/drivers/md/Makefile
 @@ -80,6 +80,10 @@ ifeq ($(CONFIG_DM_UEVENT),y)
@@ -302,7 +300,6 @@ index 000000000000..a9f102aa379e
 +module_param_string(invalidate_on_error, avb_invalidate_on_error,
 +		    sizeof(avb_invalidate_on_error), 0);
 diff --git a/drivers/md/dm-verity-target.c b/drivers/md/dm-verity-target.c
-index eec9f252e935..50cca8c0f7d0 100644
 --- a/drivers/md/dm-verity-target.c
 +++ b/drivers/md/dm-verity-target.c
 @@ -251,8 +251,12 @@ static int verity_handle_err(struct dm_verity *v, enum verity_block_type type,
@@ -320,7 +317,6 @@ index eec9f252e935..50cca8c0f7d0 100644
  	return 1;
  }
 diff --git a/drivers/md/dm-verity.h b/drivers/md/dm-verity.h
-index 641b9e3a399b..adbd64fde481 100644
 --- a/drivers/md/dm-verity.h
 +++ b/drivers/md/dm-verity.h
 @@ -128,4 +128,6 @@ extern int verity_hash(struct dm_verity *v, struct ahash_request *req,

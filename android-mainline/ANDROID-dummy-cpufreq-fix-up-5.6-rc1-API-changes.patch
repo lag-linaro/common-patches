@@ -13,7 +13,6 @@ Change-Id: Iaf496cf2777bf0f7fceb388c8d3baabad232b576
  1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/drivers/cpufreq/dummy-cpufreq.c b/drivers/cpufreq/dummy-cpufreq.c
-index ea40d5c7a9fa..e74ef6782e5a 100644
 --- a/drivers/cpufreq/dummy-cpufreq.c
 +++ b/drivers/cpufreq/dummy-cpufreq.c
 @@ -28,7 +28,7 @@ static unsigned int dummy_cpufreq_get(unsigned int cpu)

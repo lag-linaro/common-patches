@@ -16,7 +16,6 @@ Signed-off-by: Sami Tolvanen <samitolvanen@google.com>
  1 file changed, 2 insertions(+), 2 deletions(-)
 
 diff --git a/arch/arm64/kernel/alternative.c b/arch/arm64/kernel/alternative.c
-index d1757ef1b1e7..f1e598d6bc31 100644
 --- a/arch/arm64/kernel/alternative.c
 +++ b/arch/arm64/kernel/alternative.c
 @@ -144,8 +144,8 @@ static void clean_dcache_range_nopatch(u64 start, u64 end)

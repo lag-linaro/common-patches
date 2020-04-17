@@ -55,7 +55,6 @@ Link: https://lore.kernel.org/linux-arm-msm/20200113084005.849071-3-vkoul@kernel
  create mode 100644 drivers/usb/host/xhci-pci-renesas.c
 
 diff --git a/drivers/usb/host/Kconfig b/drivers/usb/host/Kconfig
-index 55bdfdf11e4c..bc437191fc29 100644
 --- a/drivers/usb/host/Kconfig
 +++ b/drivers/usb/host/Kconfig
 @@ -42,6 +42,15 @@ config USB_XHCI_PCI
@@ -75,7 +74,6 @@ index 55bdfdf11e4c..bc437191fc29 100644
  	tristate "Generic xHCI driver for a platform device"
  	select USB_XHCI_RCAR if ARCH_RENESAS
 diff --git a/drivers/usb/host/Makefile b/drivers/usb/host/Makefile
-index b191361257cc..b6955d5235b0 100644
 --- a/drivers/usb/host/Makefile
 +++ b/drivers/usb/host/Makefile
 @@ -70,6 +70,7 @@ obj-$(CONFIG_USB_OHCI_HCD_DAVINCI)	+= ohci-da8xx.o

@@ -14,7 +14,6 @@ Signed-off-by: Yurii Zubrytskyi <zyy@google.com>
  2 files changed, 4 insertions(+), 2 deletions(-)
 
 diff --git a/fs/incfs/format.c b/fs/incfs/format.c
-index 1a7c4646a291..ff3a2219fc24 100644
 --- a/fs/incfs/format.c
 +++ b/fs/incfs/format.c
 @@ -450,7 +450,8 @@ int incfs_write_hash_block_to_backing_file(struct backing_file_context *bfc,
@@ -28,7 +27,6 @@ index 1a7c4646a291..ff3a2219fc24 100644
  	struct incfs_blockmap_entry bm_entry = {};
  	int result;
 diff --git a/fs/incfs/format.h b/fs/incfs/format.h
-index f1095dc3c3dd..d57a7b479721 100644
 --- a/fs/incfs/format.h
 +++ b/fs/incfs/format.h
 @@ -303,7 +303,8 @@ int incfs_write_hash_block_to_backing_file(struct backing_file_context *bfc,

@@ -14,7 +14,6 @@ Signed-off-by: Ram Muthiah <rammuthiah@google.com>
  1 file changed, 1 deletion(-)
 
 diff --git a/arch/arm64/configs/gki_defconfig b/arch/arm64/configs/gki_defconfig
-index f8b8151a159a..c8a8d1058c6d 100644
 --- a/arch/arm64/configs/gki_defconfig
 +++ b/arch/arm64/configs/gki_defconfig
 @@ -336,7 +336,6 @@ CONFIG_SND_DYNAMIC_MINORS=y

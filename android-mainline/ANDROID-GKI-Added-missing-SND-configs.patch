@@ -13,7 +13,6 @@ Change-Id: I809392ffe06327839be7574195b1f080db2d1f2e
  2 files changed, 4 insertions(+), 1 deletion(-)
 
 diff --git a/arch/x86/configs/gki_defconfig b/arch/x86/configs/gki_defconfig
-index a04b9ed277a2..30e6782c8dc4 100644
 --- a/arch/x86/configs/gki_defconfig
 +++ b/arch/x86/configs/gki_defconfig
 @@ -281,7 +281,8 @@ CONFIG_SND_DYNAMIC_MINORS=y
@@ -27,7 +26,6 @@ index a04b9ed277a2..30e6782c8dc4 100644
  CONFIG_UHID=y
  CONFIG_HID_APPLE=y
 diff --git a/init/Kconfig.gki b/init/Kconfig.gki
-index ae1457d07e78..572499005bf6 100644
 --- a/init/Kconfig.gki
 +++ b/init/Kconfig.gki
 @@ -33,6 +33,8 @@ config GKI_HIDDEN_SND_CONFIGS

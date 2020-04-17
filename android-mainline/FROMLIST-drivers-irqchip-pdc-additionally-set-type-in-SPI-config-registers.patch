@@ -30,7 +30,6 @@ Link: https://patchwork.kernel.org/patch/11145353
  1 file changed, 93 insertions(+)
 
 diff --git a/drivers/irqchip/qcom-pdc.c b/drivers/irqchip/qcom-pdc.c
-index 6ae9e1f0819d..5cdb0d542b33 100644
 --- a/drivers/irqchip/qcom-pdc.c
 +++ b/drivers/irqchip/qcom-pdc.c
 @@ -19,6 +19,8 @@

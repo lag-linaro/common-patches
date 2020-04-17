@@ -43,7 +43,6 @@ Signed-off-by: Jeff Vander Stoep <jeffv@google.com>
  6 files changed, 44 insertions(+), 2 deletions(-)
 
 diff --git a/security/selinux/include/classmap.h b/security/selinux/include/classmap.h
-index 7db24855e12d..562bd1802c99 100644
 --- a/security/selinux/include/classmap.h
 +++ b/security/selinux/include/classmap.h
 @@ -116,7 +116,7 @@ struct security_class_mapping secclass_map[] = {
@@ -56,7 +55,6 @@ index 7db24855e12d..562bd1802c99 100644
  	  { COMMON_SOCK_PERMS,
  	    "nlmsg_read", "nlmsg_write", NULL } },
 diff --git a/security/selinux/include/security.h b/security/selinux/include/security.h
-index d6036c018cf2..418d33065716 100644
 --- a/security/selinux/include/security.h
 +++ b/security/selinux/include/security.h
 @@ -109,6 +109,7 @@ struct selinux_state {
@@ -89,7 +87,6 @@ index d6036c018cf2..418d33065716 100644
  
  #endif /* _SELINUX_SECURITY_H_ */
 diff --git a/security/selinux/nlmsgtab.c b/security/selinux/nlmsgtab.c
-index b69231918686..7968c2e45e39 100644
 --- a/security/selinux/nlmsgtab.c
 +++ b/security/selinux/nlmsgtab.c
 @@ -25,7 +25,7 @@ struct nlmsg_perm {
@@ -130,7 +127,6 @@ index b69231918686..7968c2e45e39 100644
 +		nlmsg_set_getlink_perm(NETLINK_ROUTE_SOCKET__NLMSG_READ);
 +}
 diff --git a/security/selinux/ss/policydb.c b/security/selinux/ss/policydb.c
-index 70ecdc78efbd..7e08d6381743 100644
 --- a/security/selinux/ss/policydb.c
 +++ b/security/selinux/ss/policydb.c
 @@ -2341,6 +2341,10 @@ int policydb_read(struct policydb *p, void *fp)
@@ -145,7 +141,6 @@ index 70ecdc78efbd..7e08d6381743 100644
  		rc = ebitmap_read(&p->policycaps, fp);
  		if (rc)
 diff --git a/security/selinux/ss/policydb.h b/security/selinux/ss/policydb.h
-index 72e2932fb12d..2c9d117580f8 100644
 --- a/security/selinux/ss/policydb.h
 +++ b/security/selinux/ss/policydb.h
 @@ -236,6 +236,7 @@ struct genfs {
@@ -165,7 +160,6 @@ index 72e2932fb12d..2c9d117580f8 100644
  /* the config flags related to unknown classes/perms are bits 2 and 3 */
  #define REJECT_UNKNOWN	0x00000002
 diff --git a/security/selinux/ss/services.c b/security/selinux/ss/services.c
-index 8ad34fd031d1..edda9438592e 100644
 --- a/security/selinux/ss/services.c
 +++ b/security/selinux/ss/services.c
 @@ -2158,6 +2158,9 @@ static void security_load_policycaps(struct selinux_state *state)

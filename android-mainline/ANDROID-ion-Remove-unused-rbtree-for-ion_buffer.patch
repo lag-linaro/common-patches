@@ -36,7 +36,6 @@ Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
  4 files changed, 1 insertion(+), 42 deletions(-)
 
 diff --git a/drivers/staging/android/ion/ion.c b/drivers/staging/android/ion/ion.c
-index a1d42cc95227..b43655da4d7c 100644
 --- a/drivers/staging/android/ion/ion.c
 +++ b/drivers/staging/android/ion/ion.c
 @@ -422,7 +422,6 @@ static int ion_device_create(void)
@@ -48,7 +47,6 @@ index a1d42cc95227..b43655da4d7c 100644
  	internal_dev = idev;
  	return 0;
 diff --git a/drivers/staging/android/ion/ion_buffer.c b/drivers/staging/android/ion/ion_buffer.c
-index 4157f5d040f2..c6fdf3bf48f0 100644
 --- a/drivers/staging/android/ion/ion_buffer.c
 +++ b/drivers/staging/android/ion/ion_buffer.c
 @@ -12,32 +12,6 @@
@@ -105,7 +103,6 @@ index 4157f5d040f2..c6fdf3bf48f0 100644
  	if (heap->flags & ION_HEAP_FLAG_DEFER_FREE)
  		ion_heap_freelist_add(heap, buffer);
 diff --git a/drivers/staging/android/ion/ion_private.h b/drivers/staging/android/ion/ion_private.h
-index 2f5376e131c3..ca4ca2389397 100644
 --- a/drivers/staging/android/ion/ion_private.h
 +++ b/drivers/staging/android/ion/ion_private.h
 @@ -21,16 +21,12 @@
@@ -126,7 +123,6 @@ index 2f5376e131c3..ca4ca2389397 100644
  	DECLARE_BITMAP(heap_ids, ION_NUM_MAX_HEAPS);
  	struct plist_head heaps;
 diff --git a/include/linux/ion.h b/include/linux/ion.h
-index 88622fb8f9ea..025071c19240 100644
 --- a/include/linux/ion.h
 +++ b/include/linux/ion.h
 @@ -22,7 +22,6 @@

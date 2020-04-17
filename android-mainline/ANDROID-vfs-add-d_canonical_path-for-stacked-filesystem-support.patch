@@ -33,7 +33,6 @@ Signed-off-by: Yongqin Liu <yongqin.liu@linaro.org>
  3 files changed, 21 insertions(+), 2 deletions(-)
 
 diff --git a/fs/notify/inotify/inotify_user.c b/fs/notify/inotify/inotify_user.c
-index 3e66e6c8f53a..bd16ec03b5fd 100644
 --- a/fs/notify/inotify/inotify_user.c
 +++ b/fs/notify/inotify/inotify_user.c
 @@ -701,6 +701,8 @@ SYSCALL_DEFINE3(inotify_add_watch, int, fd, const char __user *, pathname,
@@ -71,7 +70,6 @@ index 3e66e6c8f53a..bd16ec03b5fd 100644
  	fdput(f);
  	return ret;
 diff --git a/include/linux/dcache.h b/include/linux/dcache.h
-index c1488cc84fd9..f23f9f790eac 100644
 --- a/include/linux/dcache.h
 +++ b/include/linux/dcache.h
 @@ -147,6 +147,7 @@ struct dentry_operations {
@@ -83,7 +81,6 @@ index c1488cc84fd9..f23f9f790eac 100644
  
  /*
 diff --git a/include/linux/fsnotify.h b/include/linux/fsnotify.h
-index a2d5d175d3c1..e018872b047c 100644
 --- a/include/linux/fsnotify.h
 +++ b/include/linux/fsnotify.h
 @@ -262,6 +262,7 @@ static inline void fsnotify_modify(struct file *file)

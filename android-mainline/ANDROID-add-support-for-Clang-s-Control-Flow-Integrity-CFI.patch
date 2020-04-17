@@ -27,7 +27,6 @@ Signed-off-by: Sami Tolvanen <samitolvanen@google.com>
  create mode 100644 kernel/cfi.c
 
 diff --git a/Makefile b/Makefile
-index 075224cbd109..71186b72fbc6 100644
 --- a/Makefile
 +++ b/Makefile
 @@ -887,6 +887,25 @@ KBUILD_CFLAGS	+= $(CC_FLAGS_LTO)
@@ -57,7 +56,6 @@ index 075224cbd109..71186b72fbc6 100644
  NOSTDINC_FLAGS += -nostdinc -isystem $(shell $(CC) -print-file-name=include)
  
 diff --git a/arch/Kconfig b/arch/Kconfig
-index 7643d668e31a..161004ce1d40 100644
 --- a/arch/Kconfig
 +++ b/arch/Kconfig
 @@ -607,6 +607,29 @@ config LTO_CLANG
@@ -91,7 +89,6 @@ index 7643d668e31a..161004ce1d40 100644
  	bool
  	help
 diff --git a/include/asm-generic/vmlinux.lds.h b/include/asm-generic/vmlinux.lds.h
-index 1ce2526eaf13..376ddea83c82 100644
 --- a/include/asm-generic/vmlinux.lds.h
 +++ b/include/asm-generic/vmlinux.lds.h
 @@ -97,6 +97,7 @@
@@ -169,7 +166,6 @@ index 000000000000..6ef37b35faaa
 +
 +#endif /* _LINUX_CFI_H */
 diff --git a/include/linux/compiler-clang.h b/include/linux/compiler-clang.h
-index 5e97289e1e67..b7eea165e5f9 100644
 --- a/include/linux/compiler-clang.h
 +++ b/include/linux/compiler-clang.h
 @@ -54,4 +54,7 @@
@@ -181,7 +177,6 @@ index 5e97289e1e67..b7eea165e5f9 100644
 +#define __nocfi		__attribute__((__no_sanitize__("cfi")))
  #endif
 diff --git a/include/linux/compiler_types.h b/include/linux/compiler_types.h
-index 48e7e3396656..a9baeafa207a 100644
 --- a/include/linux/compiler_types.h
 +++ b/include/linux/compiler_types.h
 @@ -210,6 +210,10 @@ struct ftrace_likely_data {
@@ -196,7 +191,6 @@ index 48e7e3396656..a9baeafa207a 100644
  #define asm_volatile_goto(x...) asm goto(x)
  #endif
 diff --git a/include/linux/init.h b/include/linux/init.h
-index 0a16e48e6753..32633ea36f96 100644
 --- a/include/linux/init.h
 +++ b/include/linux/init.h
 @@ -47,7 +47,7 @@
@@ -209,7 +203,6 @@ index 0a16e48e6753..32633ea36f96 100644
  #define __initconst	__section(.init.rodata)
  #define __exitdata	__section(.exit.data)
 diff --git a/include/linux/module.h b/include/linux/module.h
-index 8d5397f9fa4c..33ffec021e72 100644
 --- a/include/linux/module.h
 +++ b/include/linux/module.h
 @@ -25,6 +25,7 @@
@@ -232,7 +225,6 @@ index 8d5397f9fa4c..33ffec021e72 100644
  #ifdef CONFIG_SYSFS
  	struct mutex param_lock;
 diff --git a/init/Kconfig b/init/Kconfig
-index 1fec5f56b3ff..121b5e413677 100644
 --- a/init/Kconfig
 +++ b/init/Kconfig
 @@ -2243,7 +2243,7 @@ endif # MODULES
@@ -245,7 +237,6 @@ index 1fec5f56b3ff..121b5e413677 100644
  config INIT_ALL_POSSIBLE
  	bool
 diff --git a/kernel/Makefile b/kernel/Makefile
-index c332eb9d4841..1618d79f46a4 100644
 --- a/kernel/Makefile
 +++ b/kernel/Makefile
 @@ -36,6 +36,9 @@ CFLAGS_kcov.o := $(call cc-option, -fno-conserve-stack -fno-stack-protector)
@@ -580,7 +571,6 @@ index 000000000000..05f589e24f68
 +	handle_cfi_failure(ptr);
 +}
 diff --git a/kernel/module.c b/kernel/module.c
-index 33569a01d6e1..36ad24a789c7 100644
 --- a/kernel/module.c
 +++ b/kernel/module.c
 @@ -2143,6 +2143,8 @@ void __weak module_arch_freeing_init(struct module *mod)

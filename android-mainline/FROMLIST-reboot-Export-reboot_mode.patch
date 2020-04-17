@@ -16,7 +16,6 @@ Reviewed-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
  1 file changed, 2 insertions(+)
 
 diff --git a/kernel/reboot.c b/kernel/reboot.c
-index c4d472b7f1b4..b1fbc220b099 100644
 --- a/kernel/reboot.c
 +++ b/kernel/reboot.c
 @@ -32,7 +32,9 @@ EXPORT_SYMBOL(cad_pid);

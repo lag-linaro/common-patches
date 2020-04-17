@@ -17,7 +17,6 @@ Change-Id: Ic06ae2b9d0ab7c77cb8829e5392fd048139500a2
  1 file changed, 7 insertions(+), 4 deletions(-)
 
 diff --git a/drivers/virtio/virtio_input.c b/drivers/virtio/virtio_input.c
-index c68134c5a2e6..8a0b047036ea 100644
 --- a/drivers/virtio/virtio_input.c
 +++ b/drivers/virtio/virtio_input.c
 @@ -165,12 +165,15 @@ static void virtinput_cfg_abs(struct virtio_input *vi, int abs)

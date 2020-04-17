@@ -19,7 +19,6 @@ Signed-off-by: Eric Biggers <ebiggers@google.com>
  2 files changed, 4 insertions(+), 1 deletion(-)
 
 diff --git a/arch/arm64/configs/gki_defconfig b/arch/arm64/configs/gki_defconfig
-index ec4a5786fb6c..82aed76b4feb 100644
 --- a/arch/arm64/configs/gki_defconfig
 +++ b/arch/arm64/configs/gki_defconfig
 @@ -69,7 +69,8 @@ CONFIG_ARM_SCPI_PROTOCOL=y
@@ -33,7 +32,6 @@ index ec4a5786fb6c..82aed76b4feb 100644
  CONFIG_MODULES=y
  CONFIG_MODULE_UNLOAD=y
 diff --git a/arch/x86/configs/gki_defconfig b/arch/x86/configs/gki_defconfig
-index 52cafd770b7a..8e6e2e3dbdfe 100644
 --- a/arch/x86/configs/gki_defconfig
 +++ b/arch/x86/configs/gki_defconfig
 @@ -380,6 +380,8 @@ CONFIG_SECURITY_NETWORK=y

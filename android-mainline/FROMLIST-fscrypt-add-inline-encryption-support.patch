@@ -44,7 +44,6 @@ Link: https://patchwork.kernel.org/patch/11214761/
  create mode 100644 fs/crypto/inline_crypt.c
 
 diff --git a/fs/crypto/Kconfig b/fs/crypto/Kconfig
-index 8046d7c7a3e9..f1f11a6228eb 100644
 --- a/fs/crypto/Kconfig
 +++ b/fs/crypto/Kconfig
 @@ -24,3 +24,9 @@ config FS_ENCRYPTION_ALGS
@@ -58,7 +57,6 @@ index 8046d7c7a3e9..f1f11a6228eb 100644
 +	help
 +	  Enable fscrypt to use inline encryption hardware if available.
 diff --git a/fs/crypto/Makefile b/fs/crypto/Makefile
-index 232e2bb5a337..652c7180ec6d 100644
 --- a/fs/crypto/Makefile
 +++ b/fs/crypto/Makefile
 @@ -11,3 +11,4 @@ fscrypto-y := crypto.o \
@@ -67,7 +65,6 @@ index 232e2bb5a337..652c7180ec6d 100644
  fscrypto-$(CONFIG_BLOCK) += bio.o
 +fscrypto-$(CONFIG_FS_ENCRYPTION_INLINE_CRYPT) += inline_crypt.o
 diff --git a/fs/crypto/bio.c b/fs/crypto/bio.c
-index 4fa18fff9c4e..d2d6e1a59b1d 100644
 --- a/fs/crypto/bio.c
 +++ b/fs/crypto/bio.c
 @@ -41,6 +41,55 @@ void fscrypt_decrypt_bio(struct bio *bio)
@@ -138,7 +135,6 @@ index 4fa18fff9c4e..d2d6e1a59b1d 100644
  	nr_pages = min_t(unsigned int, ARRAY_SIZE(pages),
  			 (len + blocks_per_page - 1) >> blocks_per_page_bits);
 diff --git a/fs/crypto/fscrypt_private.h b/fs/crypto/fscrypt_private.h
-index dbced2937ec8..0cc3ff531bac 100644
 --- a/fs/crypto/fscrypt_private.h
 +++ b/fs/crypto/fscrypt_private.h
 @@ -14,6 +14,9 @@
@@ -643,7 +639,6 @@ index 000000000000..e41c6d66ff0d
 +}
 +EXPORT_SYMBOL_GPL(fscrypt_mergeable_bio_bh);
 diff --git a/fs/crypto/keyring.c b/fs/crypto/keyring.c
-index ab41b25d4fa1..674878fb6829 100644
 --- a/fs/crypto/keyring.c
 +++ b/fs/crypto/keyring.c
 @@ -48,6 +48,8 @@ static void free_master_key(struct fscrypt_master_key *mk)
@@ -656,7 +651,6 @@ index ab41b25d4fa1..674878fb6829 100644
  	kzfree(mk);
  }
 diff --git a/fs/crypto/keysetup.c b/fs/crypto/keysetup.c
-index 302375e9f719..2194cb437e30 100644
 --- a/fs/crypto/keysetup.c
 +++ b/fs/crypto/keysetup.c
 @@ -19,6 +19,7 @@ struct fscrypt_mode fscrypt_modes[] = {
@@ -699,7 +693,6 @@ index 302375e9f719..2194cb437e30 100644
  	key = ci->ci_master_key;
  	if (key) {
 diff --git a/include/linux/fscrypt.h b/include/linux/fscrypt.h
-index e3c2d2a15525..6f78d1437b94 100644
 --- a/include/linux/fscrypt.h
 +++ b/include/linux/fscrypt.h
 @@ -64,6 +64,7 @@ struct fscrypt_operations {

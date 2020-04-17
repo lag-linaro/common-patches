@@ -28,7 +28,6 @@ Signed-off-by: Eric Biggers <ebiggers@google.com>
  4 files changed, 49 insertions(+), 37 deletions(-)
 
 diff --git a/block/blk-crypto-fallback.c b/block/blk-crypto-fallback.c
-index 8114eb4da6f3..f3f5e2866b8b 100644
 --- a/block/blk-crypto-fallback.c
 +++ b/block/blk-crypto-fallback.c
 @@ -488,21 +488,13 @@ bool blk_crypto_queue_decrypt_bio(struct bio *bio)
@@ -99,7 +98,6 @@ index 8114eb4da6f3..f3f5e2866b8b 100644
  int blk_crypto_fallback_evict_key(const struct blk_crypto_key *key)
  {
 diff --git a/block/blk-crypto-internal.h b/block/blk-crypto-internal.h
-index 40d826b743da..4da998c803f2 100644
 --- a/block/blk-crypto-internal.h
 +++ b/block/blk-crypto-internal.h
 @@ -19,6 +19,8 @@ extern const struct blk_crypto_mode blk_crypto_modes[];
@@ -126,7 +124,6 @@ index 40d826b743da..4da998c803f2 100644
  {
  	return false;
 diff --git a/block/blk-crypto.c b/block/blk-crypto.c
-index 88df1c0e7e5f..7bf2ff86d277 100644
 --- a/block/blk-crypto.c
 +++ b/block/blk-crypto.c
 @@ -232,6 +232,31 @@ int blk_crypto_init_key(struct blk_crypto_key *blk_key,
@@ -162,7 +159,6 @@ index 88df1c0e7e5f..7bf2ff86d277 100644
   * blk_crypto_evict_key() - Evict a key from any inline encryption hardware
   *			    it may have been programmed into
 diff --git a/include/linux/blk-crypto.h b/include/linux/blk-crypto.h
-index 2d871a7a0f5a..2416a0a6e6b3 100644
 --- a/include/linux/blk-crypto.h
 +++ b/include/linux/blk-crypto.h
 @@ -20,6 +20,10 @@ int blk_crypto_init_key(struct blk_crypto_key *blk_key,

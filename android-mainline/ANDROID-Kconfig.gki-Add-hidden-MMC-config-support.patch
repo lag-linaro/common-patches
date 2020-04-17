@@ -13,7 +13,6 @@ Signed-off-by: John Stultz <john.stultz@linaro.org>
  1 file changed, 9 insertions(+)
 
 diff --git a/init/Kconfig.gki b/init/Kconfig.gki
-index 85036c08fb7b..4db995c2fe92 100644
 --- a/init/Kconfig.gki
 +++ b/init/Kconfig.gki
 @@ -28,6 +28,14 @@ config GKI_HIDDEN_SND_SOC_CONFIGS

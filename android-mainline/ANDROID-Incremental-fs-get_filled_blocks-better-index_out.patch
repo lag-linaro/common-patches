@@ -25,7 +25,6 @@ Signed-off-by: Paul Lawrence <paullawrence@google.com>
  3 files changed, 61 insertions(+), 12 deletions(-)
 
 diff --git a/fs/incfs/data_mgmt.c b/fs/incfs/data_mgmt.c
-index 6661ac3b52da..15462b452d59 100644
 --- a/fs/incfs/data_mgmt.c
 +++ b/fs/incfs/data_mgmt.c
 @@ -371,11 +371,19 @@ static int get_data_file_block(struct data_file *df, int index,
@@ -154,7 +153,6 @@ index 6661ac3b52da..15462b452d59 100644
  		pr_debug("Marked file full with result %d", result);
  	}
 diff --git a/fs/incfs/format.c b/fs/incfs/format.c
-index 96f4e3d54f58..1a7c4646a291 100644
 --- a/fs/incfs/format.c
 +++ b/fs/incfs/format.c
 @@ -215,7 +215,7 @@ static int append_md_to_backing_file(struct backing_file_context *bfc,
@@ -167,7 +165,6 @@ index 96f4e3d54f58..1a7c4646a291 100644
  	if (!bfc)
  		return -EFAULT;
 diff --git a/fs/incfs/format.h b/fs/incfs/format.h
-index f84a4e00d9f6..f1095dc3c3dd 100644
 --- a/fs/incfs/format.h
 +++ b/fs/incfs/format.h
 @@ -311,7 +311,7 @@ int incfs_write_file_attr_to_backing_file(struct backing_file_context *bfc,

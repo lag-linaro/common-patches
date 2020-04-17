@@ -16,7 +16,6 @@ Signed-off-by: Sandeep Patil <sspatil@google.com>
  2 files changed, 36 insertions(+), 22 deletions(-)
 
 diff --git a/drivers/staging/android/ion/heaps/Kconfig b/drivers/staging/android/ion/heaps/Kconfig
-index af6fce69e61a..617d6e7ea583 100644
 --- a/drivers/staging/android/ion/heaps/Kconfig
 +++ b/drivers/staging/android/ion/heaps/Kconfig
 @@ -15,7 +15,7 @@ config ION_SYSTEM_CONTIG_HEAP
@@ -29,7 +28,6 @@ index af6fce69e61a..617d6e7ea583 100644
  	help
  	  Choose this option to enable CMA heaps with Ion. This heap is backed
 diff --git a/drivers/staging/android/ion/heaps/ion_cma_heap.c b/drivers/staging/android/ion/heaps/ion_cma_heap.c
-index 236b6c576cdb..9584972b5005 100644
 --- a/drivers/staging/android/ion/heaps/ion_cma_heap.c
 +++ b/drivers/staging/android/ion/heaps/ion_cma_heap.c
 @@ -18,7 +18,7 @@

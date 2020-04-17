@@ -28,7 +28,6 @@ Change-Id: Ic87cfac8d9e85095d9f8000b37627bf24dd79626
  3 files changed, 59 insertions(+), 6 deletions(-)
 
 diff --git a/drivers/iommu/arm-smmu-qcom.c b/drivers/iommu/arm-smmu-qcom.c
-index 24c071c1d8b0..4dbe599a456b 100644
 --- a/drivers/iommu/arm-smmu-qcom.c
 +++ b/drivers/iommu/arm-smmu-qcom.c
 @@ -3,6 +3,7 @@
@@ -88,7 +87,6 @@ index 24c071c1d8b0..4dbe599a456b 100644
  };
  
 diff --git a/drivers/iommu/arm-smmu.c b/drivers/iommu/arm-smmu.c
-index f7a8ed559b0f..36ccdb35c53d 100644
 --- a/drivers/iommu/arm-smmu.c
 +++ b/drivers/iommu/arm-smmu.c
 @@ -225,9 +225,19 @@ static int arm_smmu_register_legacy_master(struct device *dev,
@@ -163,7 +161,6 @@ index f7a8ed559b0f..36ccdb35c53d 100644
  		goto rpm_put;
  
 diff --git a/drivers/iommu/arm-smmu.h b/drivers/iommu/arm-smmu.h
-index 03938a12e69f..e6c75fe3f2c9 100644
 --- a/drivers/iommu/arm-smmu.h
 +++ b/drivers/iommu/arm-smmu.h
 @@ -257,6 +257,7 @@ struct arm_smmu_s2cr {

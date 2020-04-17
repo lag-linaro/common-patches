@@ -15,7 +15,6 @@ Change-Id: I95d66c8a0cd56262aa779de568650a3e48240b1f
  2 files changed, 3 insertions(+), 1 deletion(-)
 
 diff --git a/drivers/gpu/drm/drm_framebuffer.c b/drivers/gpu/drm/drm_framebuffer.c
-index 57ac94ce9b9e..24c87d200e37 100644
 --- a/drivers/gpu/drm/drm_framebuffer.c
 +++ b/drivers/gpu/drm/drm_framebuffer.c
 @@ -296,7 +296,8 @@ drm_internal_framebuffer_create(struct drm_device *dev,
@@ -29,7 +28,6 @@ index 57ac94ce9b9e..24c87d200e37 100644
  		return ERR_PTR(-EINVAL);
  	}
 diff --git a/include/uapi/drm/drm_mode.h b/include/uapi/drm/drm_mode.h
-index 735c8cfdaaa1..c8a4b2d31b8e 100644
 --- a/include/uapi/drm/drm_mode.h
 +++ b/include/uapi/drm/drm_mode.h
 @@ -485,6 +485,7 @@ struct drm_mode_fb_cmd {

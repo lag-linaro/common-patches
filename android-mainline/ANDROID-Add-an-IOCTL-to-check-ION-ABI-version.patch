@@ -19,7 +19,6 @@ Change-Id: Ie9d9e23c2d8323620832906d33745d599cbce6be
  2 files changed, 13 insertions(+)
 
 diff --git a/drivers/staging/android/ion/ion.c b/drivers/staging/android/ion/ion.c
-index bef416398973..b43655da4d7c 100644
 --- a/drivers/staging/android/ion/ion.c
 +++ b/drivers/staging/android/ion/ion.c
 @@ -27,6 +27,8 @@
@@ -50,7 +49,6 @@ index bef416398973..b43655da4d7c 100644
  		return -ENOTTY;
  	}
 diff --git a/include/uapi/linux/ion.h b/include/uapi/linux/ion.h
-index ad773e5fa4d2..fdb2eba7f500 100644
 --- a/include/uapi/linux/ion.h
 +++ b/include/uapi/linux/ion.h
 @@ -159,4 +159,11 @@ struct ion_heap_query {

@@ -13,7 +13,6 @@ Signed-off-by: Sami Tolvanen <samitolvanen@google.com>
  1 file changed, 4 insertions(+)
 
 diff --git a/arch/x86/kernel/module.c b/arch/x86/kernel/module.c
-index d5c72cb877b3..e1399823e059 100644
 --- a/arch/x86/kernel/module.c
 +++ b/arch/x86/kernel/module.c
 @@ -195,6 +195,10 @@ int apply_relocate_add(Elf64_Shdr *sechdrs,

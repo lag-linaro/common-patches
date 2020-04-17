@@ -13,7 +13,6 @@ Change-Id: I627e683b562329fd57aedc8393e22449ff09ee1f
  2 files changed, 2 insertions(+), 2 deletions(-)
 
 diff --git a/fs/incfs/data_mgmt.c b/fs/incfs/data_mgmt.c
-index 4a3da8523e8e..0fc9505d9373 100644
 --- a/fs/incfs/data_mgmt.c
 +++ b/fs/incfs/data_mgmt.c
 @@ -796,7 +796,7 @@ static int process_file_signature_md(struct incfs_file_signature *sg,
@@ -26,7 +25,6 @@ index 4a3da8523e8e..0fc9505d9373 100644
  
  	if (!df || !df->df_backing_file_context ||
 diff --git a/fs/incfs/integrity.c b/fs/incfs/integrity.c
-index f8af9a83ea8a..96e016a91542 100644
 --- a/fs/incfs/integrity.c
 +++ b/fs/incfs/integrity.c
 @@ -57,7 +57,7 @@ struct signature_info {

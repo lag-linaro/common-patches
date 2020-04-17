@@ -16,7 +16,6 @@ Signed-off-by: Sami Tolvanen <samitolvanen@google.com>
  1 file changed, 39 insertions(+)
 
 diff --git a/kernel/scs.c b/kernel/scs.c
-index 5245e992c692..ad74d13f2c0f 100644
 --- a/kernel/scs.c
 +++ b/kernel/scs.c
 @@ -184,6 +184,44 @@ int scs_prepare(struct task_struct *tsk, int node)

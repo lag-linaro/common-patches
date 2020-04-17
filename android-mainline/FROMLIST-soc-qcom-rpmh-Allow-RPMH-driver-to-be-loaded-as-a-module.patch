@@ -32,7 +32,6 @@ Change-Id: I865f3ad0baa3b84bc0ea321df88238a3a89101a8
  2 files changed, 7 insertions(+), 1 deletion(-)
 
 diff --git a/drivers/soc/qcom/Kconfig b/drivers/soc/qcom/Kconfig
-index 436c4babca47..ad43218c7c7e 100644
 --- a/drivers/soc/qcom/Kconfig
 +++ b/drivers/soc/qcom/Kconfig
 @@ -107,7 +107,7 @@ config QCOM_RMTFS_MEM
@@ -45,7 +44,6 @@ index 436c4babca47..ad43218c7c7e 100644
  	help
  	  Support for communication with the hardened-RPM blocks in
 diff --git a/drivers/soc/qcom/rpmh-rsc.c b/drivers/soc/qcom/rpmh-rsc.c
-index b71822131f59..2e732fe78db0 100644
 --- a/drivers/soc/qcom/rpmh-rsc.c
 +++ b/drivers/soc/qcom/rpmh-rsc.c
 @@ -11,6 +11,7 @@

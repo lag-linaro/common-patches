@@ -16,7 +16,6 @@ Change-Id: I87c587398065d91f1e9be8a317b755d1f7963c95
  1 file changed, 7 insertions(+), 14 deletions(-)
 
 diff --git a/scripts/link-vmlinux.sh b/scripts/link-vmlinux.sh
-index be3fdd897a8d..ce73d77f1f53 100755
 --- a/scripts/link-vmlinux.sh
 +++ b/scripts/link-vmlinux.sh
 @@ -110,18 +110,12 @@ vmlinux_link()

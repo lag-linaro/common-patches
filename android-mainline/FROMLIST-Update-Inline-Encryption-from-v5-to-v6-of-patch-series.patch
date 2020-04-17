@@ -64,7 +64,6 @@ Signed-off-by: Satya Tangirala <satyat@google.com>
  create mode 100644 block/blk-crypto-internal.h
 
 diff --git a/Documentation/block/inline-encryption.rst b/Documentation/block/inline-encryption.rst
-index 202826cee95e..330106b23c09 100644
 --- a/Documentation/block/inline-encryption.rst
 +++ b/Documentation/block/inline-encryption.rst
 @@ -97,7 +97,7 @@ Blk-crypto ensures that:
@@ -104,7 +103,6 @@ index 202826cee95e..330106b23c09 100644
  simply do nothing with respect to crypto, because some other KSM (perhaps the
  blk-crypto crypto API fallback KSM) is handling the en/decryption.
 diff --git a/block/Kconfig b/block/Kconfig
-index 697edcc74da9..0af387623774 100644
 --- a/block/Kconfig
 +++ b/block/Kconfig
 @@ -187,13 +187,20 @@ config BLK_SED_OPAL
@@ -134,7 +132,6 @@ index 697edcc74da9..0af387623774 100644
  menu "Partition Types"
  
 diff --git a/block/Makefile b/block/Makefile
-index 8b58896c1996..07d13e5fb227 100644
 --- a/block/Makefile
 +++ b/block/Makefile
 @@ -38,3 +38,4 @@ obj-$(CONFIG_BLK_SED_OPAL)	+= sed-opal.o
@@ -144,7 +141,6 @@ index 8b58896c1996..07d13e5fb227 100644
 +obj-$(CONFIG_BLK_INLINE_ENCRYPTION_FALLBACK)	+= blk-crypto-fallback.o
 \ No newline at end of file
 diff --git a/block/bio-crypt-ctx.c b/block/bio-crypt-ctx.c
-index 0f7641b875e9..75982dabc7a3 100644
 --- a/block/bio-crypt-ctx.c
 +++ b/block/bio-crypt-ctx.c
 @@ -5,26 +5,43 @@
@@ -342,7 +338,6 @@ index 0f7641b875e9..75982dabc7a3 100644
  	return 0;
  }
 diff --git a/block/bio.c b/block/bio.c
-index 7f5fc74ccd76..f37d8c43a91e 100644
 --- a/block/bio.c
 +++ b/block/bio.c
 @@ -238,6 +238,8 @@ void bio_uninit(struct bio *bio)
@@ -375,7 +370,6 @@ index 7f5fc74ccd76..f37d8c43a91e 100644
  	if (bio_integrity(bio) &&
  	    bio_integrity_clone(b, bio, gfp_mask) < 0) {
 diff --git a/block/blk-core.c b/block/blk-core.c
-index a751f04786e2..feb4db3c7570 100644
 --- a/block/blk-core.c
 +++ b/block/blk-core.c
 @@ -1123,14 +1123,11 @@ blk_qc_t direct_make_request(struct bio *bio)
@@ -1134,7 +1128,6 @@ index 000000000000..43351eecc97a
 +
 +#endif /* __LINUX_BLK_CRYPTO_INTERNAL_H */
 diff --git a/block/blk-crypto.c b/block/blk-crypto.c
-index 89649655bf4b..2c47e8eec865 100644
 --- a/block/blk-crypto.c
 +++ b/block/blk-crypto.c
 @@ -10,219 +10,36 @@
@@ -1996,7 +1989,6 @@ index 89649655bf4b..2c47e8eec865 100644
 +	return blk_crypto_fallback_evict_key(key);
  }
 diff --git a/block/blk-merge.c b/block/blk-merge.c
-index 587d19cd9fec..842e6d5fc6d1 100644
 --- a/block/blk-merge.c
 +++ b/block/blk-merge.c
 @@ -577,9 +577,6 @@ static inline int ll_new_hw_segment(struct request *req, struct bio *bio,
@@ -2090,7 +2082,6 @@ index 587d19cd9fec..842e6d5fc6d1 100644
  	return ELEVATOR_NO_MERGE;
  }
 diff --git a/block/bounce.c b/block/bounce.c
-index 6f9a2359b22a..aa57ccc6ced3 100644
 --- a/block/bounce.c
 +++ b/block/bounce.c
 @@ -267,10 +267,7 @@ static struct bio *bounce_clone_bio(struct bio *bio_src, gfp_t gfp_mask,
@@ -2106,7 +2097,6 @@ index 6f9a2359b22a..aa57ccc6ced3 100644
  	if (bio_integrity(bio_src) &&
  	    bio_integrity_clone(bio, bio_src, gfp_mask) < 0) {
 diff --git a/block/keyslot-manager.c b/block/keyslot-manager.c
-index 020931fc9f7d..cdf0607019d4 100644
 --- a/block/keyslot-manager.c
 +++ b/block/keyslot-manager.c
 @@ -1,7 +1,5 @@
@@ -2559,7 +2549,6 @@ index 020931fc9f7d..cdf0607019d4 100644
 -EXPORT_SYMBOL(keyslot_manager_destroy);
 +EXPORT_SYMBOL_GPL(keyslot_manager_destroy);
 diff --git a/drivers/md/dm.c b/drivers/md/dm.c
-index a36be68fa287..5d45a9d2cfc7 100644
 --- a/drivers/md/dm.c
 +++ b/drivers/md/dm.c
 @@ -1302,15 +1302,13 @@ static int clone_bio(struct dm_target_io *tio, struct bio *bio,
@@ -2596,7 +2585,6 @@ index a36be68fa287..5d45a9d2cfc7 100644
  
  	bio_advance(clone, to_bytes(sector - clone->bi_iter.bi_sector));
 diff --git a/drivers/scsi/ufs/ufshcd-crypto.c b/drivers/scsi/ufs/ufshcd-crypto.c
-index 75d834180f8b..1cfd9a327049 100644
 --- a/drivers/scsi/ufs/ufshcd-crypto.c
 +++ b/drivers/scsi/ufs/ufshcd-crypto.c
 @@ -3,8 +3,7 @@
@@ -3021,7 +3009,6 @@ index 75d834180f8b..1cfd9a327049 100644
  /* Crypto Variant Ops Support */
  
 diff --git a/drivers/scsi/ufs/ufshcd-crypto.h b/drivers/scsi/ufs/ufshcd-crypto.h
-index 3c03d0e23e87..24a587c7a94e 100644
 --- a/drivers/scsi/ufs/ufshcd-crypto.h
 +++ b/drivers/scsi/ufs/ufshcd-crypto.h
 @@ -11,7 +11,10 @@
@@ -3074,7 +3061,6 @@ index 3c03d0e23e87..24a587c7a94e 100644
  					      struct scsi_cmnd *cmd,
  					      struct ufshcd_lrb *lrbp)
 diff --git a/drivers/scsi/ufs/ufshcd.c b/drivers/scsi/ufs/ufshcd.c
-index f743f59373ac..9f1ef0fc0bf9 100644
 --- a/drivers/scsi/ufs/ufshcd.c
 +++ b/drivers/scsi/ufs/ufshcd.c
 @@ -2261,13 +2261,15 @@ static void ufshcd_prepare_req_desc_hdr(struct ufshcd_lrb *lrbp,
@@ -3107,7 +3093,6 @@ index f743f59373ac..9f1ef0fc0bf9 100644
  
  	return ufshcd_comp_devman_upiu(hba, lrbp);
 diff --git a/drivers/scsi/ufs/ufshcd.h b/drivers/scsi/ufs/ufshcd.h
-index 761bbacf664e..f6a0774d5769 100644
 --- a/drivers/scsi/ufs/ufshcd.h
 +++ b/drivers/scsi/ufs/ufshcd.h
 @@ -196,9 +196,11 @@ struct ufshcd_lrb {
@@ -3139,7 +3124,6 @@ index 761bbacf664e..f6a0774d5769 100644
  #endif /* CONFIG_SCSI_UFS_CRYPTO */
  };
 diff --git a/fs/buffer.c b/fs/buffer.c
-index a146228f04f8..c215417b5f51 100644
 --- a/fs/buffer.c
 +++ b/fs/buffer.c
 @@ -3036,7 +3036,7 @@ static int submit_bh_wbc(int op, int op_flags, struct buffer_head *bh,
@@ -3152,7 +3136,6 @@ index a146228f04f8..c215417b5f51 100644
  	bio->bi_iter.bi_sector = bh->b_blocknr * (bh->b_size >> 9);
  	bio_set_dev(bio, bh->b_bdev);
 diff --git a/fs/crypto/crypto.c b/fs/crypto/crypto.c
-index 1ecaac7ee3cb..263bc676c73d 100644
 --- a/fs/crypto/crypto.c
 +++ b/fs/crypto/crypto.c
 @@ -95,7 +95,7 @@ int fscrypt_crypt_block(const struct inode *inode, fscrypt_direction_t rw,
@@ -3165,7 +3148,6 @@ index 1ecaac7ee3cb..263bc676c73d 100644
  
  	if (WARN_ON_ONCE(len <= 0))
 diff --git a/fs/crypto/fname.c b/fs/crypto/fname.c
-index 4c212442a8f7..0fca2d7a5645 100644
 --- a/fs/crypto/fname.c
 +++ b/fs/crypto/fname.c
 @@ -117,7 +117,7 @@ int fscrypt_fname_encrypt(const struct inode *inode, const struct qstr *iname,
@@ -3187,7 +3169,6 @@ index 4c212442a8f7..0fca2d7a5645 100644
  	int res;
  
 diff --git a/fs/crypto/fscrypt_private.h b/fs/crypto/fscrypt_private.h
-index 0cc3ff531bac..0b9550368381 100644
 --- a/fs/crypto/fscrypt_private.h
 +++ b/fs/crypto/fscrypt_private.h
 @@ -16,8 +16,6 @@
@@ -3413,7 +3394,6 @@ index 0cc3ff531bac..0b9550368381 100644
  extern int fscrypt_set_per_file_enc_key(struct fscrypt_info *ci,
  					const u8 *raw_key);
 diff --git a/fs/crypto/inline_crypt.c b/fs/crypto/inline_crypt.c
-index e41c6d66ff0d..aa04e8a7d674 100644
 --- a/fs/crypto/inline_crypt.c
 +++ b/fs/crypto/inline_crypt.c
 @@ -15,187 +15,126 @@
@@ -3852,7 +3832,6 @@ index e41c6d66ff0d..aa04e8a7d674 100644
  	return fscrypt_mergeable_bio(bio, inode, next_lblk);
  }
 diff --git a/fs/crypto/keyring.c b/fs/crypto/keyring.c
-index b09f92e3e5a2..36feb08318c8 100644
 --- a/fs/crypto/keyring.c
 +++ b/fs/crypto/keyring.c
 @@ -44,12 +44,10 @@ static void free_master_key(struct fscrypt_master_key *mk)
@@ -3871,7 +3850,6 @@ index b09f92e3e5a2..36feb08318c8 100644
  	kzfree(mk);
  }
 diff --git a/fs/crypto/keysetup.c b/fs/crypto/keysetup.c
-index 2194cb437e30..72481bd202de 100644
 --- a/fs/crypto/keysetup.c
 +++ b/fs/crypto/keysetup.c
 @@ -32,6 +32,7 @@ struct fscrypt_mode fscrypt_modes[] = {
@@ -4052,7 +4030,6 @@ index 2194cb437e30..72481bd202de 100644
  	key = ci->ci_master_key;
  	if (key) {
 diff --git a/fs/crypto/keysetup_v1.c b/fs/crypto/keysetup_v1.c
-index 801b48c0cd7f..59c520b200cb 100644
 --- a/fs/crypto/keysetup_v1.c
 +++ b/fs/crypto/keysetup_v1.c
 @@ -146,7 +146,7 @@ struct fscrypt_direct_key {
@@ -4108,7 +4085,6 @@ index 801b48c0cd7f..59c520b200cb 100644
  }
  
 diff --git a/fs/ext4/readpage.c b/fs/ext4/readpage.c
-index e387c95b9ba1..f822cd928a0a 100644
 --- a/fs/ext4/readpage.c
 +++ b/fs/ext4/readpage.c
 @@ -419,12 +419,8 @@ int ext4_mpage_readpages(struct address_space *mapping,
@@ -4127,7 +4103,6 @@ index e387c95b9ba1..f822cd928a0a 100644
  			bio->bi_iter.bi_sector = blocks[0] << (blkbits - 9);
  			bio->bi_end_io = mpage_end_io;
 diff --git a/fs/f2fs/data.c b/fs/f2fs/data.c
-index 9f69a317025d..8fefc8d8b439 100644
 --- a/fs/f2fs/data.c
 +++ b/fs/f2fs/data.c
 @@ -437,7 +437,7 @@ static struct bio *__bio_alloc(struct f2fs_io_info *fio, int npages)
@@ -4222,7 +4197,6 @@ index 9f69a317025d..8fefc8d8b439 100644
  	f2fs_target_device(sbi, blkaddr, bio);
  	bio->bi_end_io = f2fs_read_end_io;
 diff --git a/fs/f2fs/super.c b/fs/f2fs/super.c
-index ce1e3ac4d369..1a1fc1b579e7 100644
 --- a/fs/f2fs/super.c
 +++ b/fs/f2fs/super.c
 @@ -2435,6 +2435,25 @@ static bool f2fs_inline_crypt_enabled(struct super_block *sb)
@@ -4261,7 +4235,6 @@ index ce1e3ac4d369..1a1fc1b579e7 100644
  #endif
  
 diff --git a/include/linux/bio-crypt-ctx.h b/include/linux/bio-crypt-ctx.h
-index 7c389f310bab..4535df0a6349 100644
 --- a/include/linux/bio-crypt-ctx.h
 +++ b/include/linux/bio-crypt-ctx.h
 @@ -6,221 +6,188 @@
@@ -4600,7 +4573,6 @@ index 7c389f310bab..4535df0a6349 100644
 +
  #endif /* __LINUX_BIO_CRYPT_CTX_H */
 diff --git a/include/linux/blk-crypto.h b/include/linux/blk-crypto.h
-index 2a07401244a6..07d32e33f0bb 100644
 --- a/include/linux/blk-crypto.h
 +++ b/include/linux/blk-crypto.h
 @@ -6,32 +6,23 @@
@@ -4679,7 +4651,6 @@ index 2a07401244a6..07d32e33f0bb 100644
  
  #endif /* __LINUX_BLK_CRYPTO_H */
 diff --git a/include/linux/fscrypt.h b/include/linux/fscrypt.h
-index de2c6a728990..bd211f5ccdf3 100644
 --- a/include/linux/fscrypt.h
 +++ b/include/linux/fscrypt.h
 @@ -65,6 +65,9 @@ struct fscrypt_operations {
@@ -4740,7 +4711,6 @@ index de2c6a728990..bd211f5ccdf3 100644
  static inline bool fscrypt_mergeable_bio(struct bio *bio,
  					 const struct inode *inode,
 diff --git a/include/linux/keyslot-manager.h b/include/linux/keyslot-manager.h
-index 0777ade7907c..fbc423fe5cd5 100644
 --- a/include/linux/keyslot-manager.h
 +++ b/include/linux/keyslot-manager.h
 @@ -3,96 +3,58 @@

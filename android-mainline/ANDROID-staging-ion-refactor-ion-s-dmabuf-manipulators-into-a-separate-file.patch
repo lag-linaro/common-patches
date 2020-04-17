@@ -27,7 +27,6 @@ Signed-off-by: Sandeep Patil <sspatil@google.com>
  create mode 100644 drivers/staging/android/ion/ion_dma_buf.c
 
 diff --git a/drivers/staging/android/ion/Makefile b/drivers/staging/android/ion/Makefile
-index da386dbf3ffd..b6fab2816781 100644
 --- a/drivers/staging/android/ion/Makefile
 +++ b/drivers/staging/android/ion/Makefile
 @@ -1,4 +1,4 @@
@@ -37,7 +36,6 @@ index da386dbf3ffd..b6fab2816781 100644
  obj-$(CONFIG_ION_SYSTEM_HEAP) += ion_system_heap.o ion_page_pool.o
  obj-$(CONFIG_ION_CMA_HEAP) += ion_cma_heap.o
 diff --git a/drivers/staging/android/ion/ion.c b/drivers/staging/android/ion/ion.c
-index 4258f2f747e4..51d13c1f6650 100644
 --- a/drivers/staging/android/ion/ion.c
 +++ b/drivers/staging/android/ion/ion.c
 @@ -17,262 +17,38 @@
@@ -312,7 +310,6 @@ index 4258f2f747e4..51d13c1f6650 100644
  		return PTR_ERR(dmabuf);
  
 diff --git a/drivers/staging/android/ion/ion_buffer.c b/drivers/staging/android/ion/ion_buffer.c
-index 8b8dd1e216d4..c10ea6672f1a 100644
 --- a/drivers/staging/android/ion/ion_buffer.c
 +++ b/drivers/staging/android/ion/ion_buffer.c
 @@ -149,13 +149,13 @@ void ion_buffer_release(struct ion_buffer *buffer)
@@ -599,7 +596,6 @@ index 000000000000..0de08e6f1af5
 +	return dmabuf;
 +}
 diff --git a/drivers/staging/android/ion/ion_private.h b/drivers/staging/android/ion/ion_private.h
-index e80692c885b4..b3c8b55788db 100644
 --- a/drivers/staging/android/ion/ion_private.h
 +++ b/drivers/staging/android/ion/ion_private.h
 @@ -9,6 +9,7 @@
@@ -629,7 +625,6 @@ index e80692c885b4..b3c8b55788db 100644
 +
  #endif /* _ION_PRIVATE_H */
 diff --git a/include/linux/ion.h b/include/linux/ion.h
-index 7bec77d98224..66a694b875ca 100644
 --- a/include/linux/ion.h
 +++ b/include/linux/ion.h
 @@ -10,8 +10,18 @@

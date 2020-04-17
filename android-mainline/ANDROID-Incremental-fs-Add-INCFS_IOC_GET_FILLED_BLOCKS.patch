@@ -18,7 +18,6 @@ Change-Id: I66d0ba1911adc5d68ed404585222e6a81a7eb94f
  7 files changed, 614 insertions(+), 40 deletions(-)
 
 diff --git a/fs/incfs/data_mgmt.c b/fs/incfs/data_mgmt.c
-index 0fc9505d9373..6661ac3b52da 100644
 --- a/fs/incfs/data_mgmt.c
 +++ b/fs/incfs/data_mgmt.c
 @@ -118,8 +118,8 @@ struct data_file *incfs_open_data_file(struct mount_info *mi, struct file *bf)
@@ -214,7 +213,6 @@ index 0fc9505d9373..6661ac3b52da 100644
  	kfree(handler);
  	return result;
 diff --git a/fs/incfs/data_mgmt.h b/fs/incfs/data_mgmt.h
-index 4e3eab5f7701..bd9b63af920e 100644
 --- a/fs/incfs/data_mgmt.h
 +++ b/fs/incfs/data_mgmt.h
 @@ -183,7 +183,14 @@ struct data_file {
@@ -244,7 +242,6 @@ index 4e3eab5f7701..bd9b63af920e 100644
  
  int incfs_process_new_data_block(struct data_file *df,
 diff --git a/fs/incfs/format.c b/fs/incfs/format.c
-index 8c8213ee325d..96f4e3d54f58 100644
 --- a/fs/incfs/format.c
 +++ b/fs/incfs/format.c
 @@ -13,6 +13,7 @@
@@ -358,7 +355,6 @@ index 8c8213ee325d..96f4e3d54f58 100644
  }
  
 diff --git a/fs/incfs/format.h b/fs/incfs/format.h
-index 3e3f7fa7560a..f84a4e00d9f6 100644
 --- a/fs/incfs/format.h
 +++ b/fs/incfs/format.h
 @@ -121,6 +121,10 @@ enum incfs_metadata_type {
@@ -431,7 +427,6 @@ index 3e3f7fa7560a..f84a4e00d9f6 100644
  int incfs_read_blockmap_entry(struct backing_file_context *bfc, int block_index,
  			      loff_t bm_base_off,
 diff --git a/fs/incfs/vfs.c b/fs/incfs/vfs.c
-index 3e370ddc1e30..0164e9306eba 100644
 --- a/fs/incfs/vfs.c
 +++ b/fs/incfs/vfs.c
 @@ -905,19 +905,6 @@ static int init_new_file(struct mount_info *mi, struct dentry *dentry,
@@ -518,7 +513,6 @@ index 3e370ddc1e30..0164e9306eba 100644
  		return -EINVAL;
  	}
 diff --git a/include/uapi/linux/incrementalfs.h b/include/uapi/linux/incrementalfs.h
-index b6c300d397f8..2d535d365ce9 100644
 --- a/include/uapi/linux/incrementalfs.h
 +++ b/include/uapi/linux/incrementalfs.h
 @@ -68,6 +68,30 @@
@@ -597,7 +591,6 @@ index b6c300d397f8..2d535d365ce9 100644
 +
  #endif /* _UAPI_LINUX_INCREMENTALFS_H */
 diff --git a/tools/testing/selftests/filesystems/incfs/incfs_test.c b/tools/testing/selftests/filesystems/incfs/incfs_test.c
-index b24cd892d014..723f9cbd15bc 100644
 --- a/tools/testing/selftests/filesystems/incfs/incfs_test.c
 +++ b/tools/testing/selftests/filesystems/incfs/incfs_test.c
 @@ -2099,6 +2099,347 @@ static int read_log_test(char *mount_dir)

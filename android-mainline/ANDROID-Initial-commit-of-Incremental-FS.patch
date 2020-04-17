@@ -54,7 +54,6 @@ Change-Id: I14741a61ce7891a0f9054e70f026917712cbef78
  create mode 100644 tools/testing/selftests/filesystems/incfs/utils.h
 
 diff --git a/fs/Kconfig b/fs/Kconfig
-index df57b29f73bc..f1f93de792e6 100644
 --- a/fs/Kconfig
 +++ b/fs/Kconfig
 @@ -122,6 +122,7 @@ source "fs/quota/Kconfig"
@@ -66,7 +65,6 @@ index df57b29f73bc..f1f93de792e6 100644
  menu "Caches"
  
 diff --git a/fs/Makefile b/fs/Makefile
-index 43537eb7af5d..1ef60557c0fd 100644
 --- a/fs/Makefile
 +++ b/fs/Makefile
 @@ -113,6 +113,7 @@ obj-$(CONFIG_ADFS_FS)		+= adfs/

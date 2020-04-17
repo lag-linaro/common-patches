@@ -25,7 +25,6 @@ Signed-off-by: Amit Pundir <amit.pundir@linaro.org>
  1 file changed, 2 insertions(+), 1 deletion(-)
 
 diff --git a/kernel/cgroup/cgroup-v1.c b/kernel/cgroup/cgroup-v1.c
-index 191c329e482a..5746351aea28 100644
 --- a/kernel/cgroup/cgroup-v1.c
 +++ b/kernel/cgroup/cgroup-v1.c
 @@ -510,7 +510,8 @@ static ssize_t __cgroup1_procs_write(struct kernfs_open_file *of,

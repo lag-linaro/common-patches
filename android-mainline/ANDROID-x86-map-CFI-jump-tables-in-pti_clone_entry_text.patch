@@ -17,7 +17,6 @@ Signed-off-by: Sami Tolvanen <samitolvanen@google.com>
  3 files changed, 21 insertions(+)
 
 diff --git a/arch/x86/include/asm/sections.h b/arch/x86/include/asm/sections.h
-index a6e8373a5170..5abf1301d3ff 100644
 --- a/arch/x86/include/asm/sections.h
 +++ b/arch/x86/include/asm/sections.h
 @@ -8,6 +8,7 @@
@@ -29,7 +28,6 @@ index a6e8373a5170..5abf1301d3ff 100644
  
  #if defined(CONFIG_X86_64)
 diff --git a/arch/x86/kernel/vmlinux.lds.S b/arch/x86/kernel/vmlinux.lds.S
-index 1bf7e312361f..834b1a249199 100644
 --- a/arch/x86/kernel/vmlinux.lds.S
 +++ b/arch/x86/kernel/vmlinux.lds.S
 @@ -145,6 +145,13 @@ SECTIONS
@@ -55,7 +53,6 @@ index 1bf7e312361f..834b1a249199 100644
 +	   "CFI jump table is empty");
 +#endif
 diff --git a/arch/x86/mm/pti.c b/arch/x86/mm/pti.c
-index 843aa10a4cb6..198b60eafdfa 100644
 --- a/arch/x86/mm/pti.c
 +++ b/arch/x86/mm/pti.c
 @@ -506,6 +506,15 @@ static void pti_clone_entry_text(void)

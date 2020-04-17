@@ -21,7 +21,6 @@ Signed-off-by: John Stultz <john.stultz@linaro.org>
  2 files changed, 8 insertions(+), 1 deletion(-)
 
 diff --git a/drivers/scsi/ufs/ufshcd-crypto.c b/drivers/scsi/ufs/ufshcd-crypto.c
-index 7599d77725e4..75d834180f8b 100644
 --- a/drivers/scsi/ufs/ufshcd-crypto.c
 +++ b/drivers/scsi/ufs/ufshcd-crypto.c
 @@ -313,7 +313,8 @@ int ufshcd_hba_init_crypto_spec(struct ufs_hba *hba,
@@ -35,7 +34,6 @@ index 7599d77725e4..75d834180f8b 100644
  
  	/*
 diff --git a/drivers/scsi/ufs/ufshcd.h b/drivers/scsi/ufs/ufshcd.h
-index d5fc29c1dbfb..761bbacf664e 100644
 --- a/drivers/scsi/ufs/ufshcd.h
 +++ b/drivers/scsi/ufs/ufshcd.h
 @@ -533,6 +533,12 @@ enum ufshcd_quirks {

@@ -31,7 +31,6 @@ Change-Id: Iac39df3ab74e6d8753a7962925fab0c3854929e4
  1 file changed, 2 insertions(+), 1 deletion(-)
 
 diff --git a/Makefile b/Makefile
-index 5ca610688a47..3e3ca2c7b8b8 100644
 --- a/Makefile
 +++ b/Makefile
 @@ -897,7 +897,8 @@ endif

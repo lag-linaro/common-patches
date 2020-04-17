@@ -25,7 +25,6 @@ Signed-off-by: Eric Biggers <ebiggers@google.com>
  3 files changed, 71 insertions(+), 16 deletions(-)
 
 diff --git a/fs/crypto/fscrypt_private.h b/fs/crypto/fscrypt_private.h
-index f262f823fd58..0753681cb156 100644
 --- a/fs/crypto/fscrypt_private.h
 +++ b/fs/crypto/fscrypt_private.h
 @@ -326,7 +326,8 @@ extern void fscrypt_destroy_hkdf(struct fscrypt_hkdf *hkdf);
@@ -51,7 +50,6 @@ index f262f823fd58..0753681cb156 100644
  
  static inline bool fscrypt_using_inline_encryption(
 diff --git a/fs/crypto/inline_crypt.c b/fs/crypto/inline_crypt.c
-index 298bf57ca781..eaa2014ec84b 100644
 --- a/fs/crypto/inline_crypt.c
 +++ b/fs/crypto/inline_crypt.c
 @@ -25,26 +25,76 @@ struct fscrypt_blk_crypto_key {
@@ -166,7 +164,6 @@ index 298bf57ca781..eaa2014ec84b 100644
  	BUILD_BUG_ON(FSCRYPT_MAX_HW_WRAPPED_KEY_SIZE >
  		     BLK_CRYPTO_MAX_WRAPPED_KEY_SIZE);
 diff --git a/fs/crypto/keysetup.c b/fs/crypto/keysetup.c
-index 34f95cd6c8eb..09f5d5d2904c 100644
 --- a/fs/crypto/keysetup.c
 +++ b/fs/crypto/keysetup.c
 @@ -328,8 +328,6 @@ static int setup_file_encryption_key(struct fscrypt_info *ci,

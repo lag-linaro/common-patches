@@ -13,7 +13,6 @@ Change-Id: I80b5ca4448bffa3a0c5cc99a964b7e8aba2450c0
  1 file changed, 4 insertions(+), 4 deletions(-)
 
 diff --git a/net/netfilter/xt_quota2.c b/net/netfilter/xt_quota2.c
-index c42724469759..7ed29d40dee0 100644
 --- a/net/netfilter/xt_quota2.c
 +++ b/net/netfilter/xt_quota2.c
 @@ -169,10 +169,10 @@ static ssize_t quota_proc_write(struct file *file, const char __user *input,

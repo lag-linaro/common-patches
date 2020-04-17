@@ -17,7 +17,6 @@ Signed-off-by: Alistair Delva <adelva@google.com>
  4 files changed, 2 insertions(+), 2 deletions(-)
 
 diff --git a/arch/arm64/configs/db845c_gki.fragment b/arch/arm64/configs/db845c_gki.fragment
-index 5ad26f72e3ad..125453fddfd1 100644
 --- a/arch/arm64/configs/db845c_gki.fragment
 +++ b/arch/arm64/configs/db845c_gki.fragment
 @@ -63,3 +63,4 @@ CONFIG_QCOM_QFPROM=m
@@ -26,7 +25,6 @@ index 5ad26f72e3ad..125453fddfd1 100644
  CONFIG_INCREMENTAL_FS=m
 +CONFIG_SDCARD_FS=m
 diff --git a/arch/arm64/configs/gki_defconfig b/arch/arm64/configs/gki_defconfig
-index bccd38606d3a..05895995d4f4 100644
 --- a/arch/arm64/configs/gki_defconfig
 +++ b/arch/arm64/configs/gki_defconfig
 @@ -402,7 +402,6 @@ CONFIG_MSDOS_FS=y
@@ -38,7 +36,6 @@ index bccd38606d3a..05895995d4f4 100644
  CONFIG_PSTORE_CONSOLE=y
  CONFIG_PSTORE_RAM=y
 diff --git a/arch/x86/configs/gki_defconfig b/arch/x86/configs/gki_defconfig
-index 954bb841a452..f13dfe016fa7 100644
 --- a/arch/x86/configs/gki_defconfig
 +++ b/arch/x86/configs/gki_defconfig
 @@ -338,7 +338,6 @@ CONFIG_VFAT_FS=y
@@ -50,7 +47,6 @@ index 954bb841a452..f13dfe016fa7 100644
  CONFIG_PSTORE_CONSOLE=y
  CONFIG_PSTORE_RAM=y
 diff --git a/cuttlefish.fragment b/cuttlefish.fragment
-index e201d2d23a9a..9a263270fe9e 100644
 --- a/cuttlefish.fragment
 +++ b/cuttlefish.fragment
 @@ -19,3 +19,4 @@ CONFIG_VIRTIO_MMIO_CMDLINE_DEVICES=y

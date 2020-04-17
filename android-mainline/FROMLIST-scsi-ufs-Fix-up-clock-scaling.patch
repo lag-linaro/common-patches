@@ -23,7 +23,6 @@ Signed-off-by: Asutosh Das <asutoshd@codeaurora.org>
  1 file changed, 49 insertions(+), 25 deletions(-)
 
 diff --git a/drivers/scsi/ufs/ufshcd.c b/drivers/scsi/ufs/ufshcd.c
-index 45ce9d99d669..ecd07db28598 100644
 --- a/drivers/scsi/ufs/ufshcd.c
 +++ b/drivers/scsi/ufs/ufshcd.c
 @@ -876,28 +876,29 @@ static bool ufshcd_is_unipro_pa_params_tuning_req(struct ufs_hba *hba)

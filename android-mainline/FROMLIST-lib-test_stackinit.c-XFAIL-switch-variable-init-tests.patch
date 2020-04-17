@@ -31,7 +31,6 @@ Signed-off-by: Alistair Delva <adelva@google.com>
  2 files changed, 19 insertions(+), 10 deletions(-)
 
 diff --git a/lib/Makefile b/lib/Makefile
-index 44a07ce2c420..b0a831b8813e 100644
 --- a/lib/Makefile
 +++ b/lib/Makefile
 @@ -87,6 +87,7 @@ obj-$(CONFIG_TEST_KMOD) += test_kmod.o
@@ -43,7 +42,6 @@ index 44a07ce2c420..b0a831b8813e 100644
  obj-$(CONFIG_TEST_BLACKHOLE_DEV) += test_blackhole_dev.o
  obj-$(CONFIG_TEST_MEMINIT) += test_meminit.o
 diff --git a/lib/test_stackinit.c b/lib/test_stackinit.c
-index 2d7d257a430e..f93b1e145ada 100644
 --- a/lib/test_stackinit.c
 +++ b/lib/test_stackinit.c
 @@ -92,8 +92,9 @@ static bool range_contains(char *haystack_start, size_t haystack_size,

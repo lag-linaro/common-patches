@@ -13,7 +13,6 @@ Change-Id: I4e8b8f0b4998a852988a710ca18736046e3d8697
  1 file changed, 2 insertions(+), 7 deletions(-)
 
 diff --git a/fs/sdcardfs/main.c b/fs/sdcardfs/main.c
-index 19fa9c4af462..e976e2dd320b 100644
 --- a/fs/sdcardfs/main.c
 +++ b/fs/sdcardfs/main.c
 @@ -42,7 +42,7 @@ enum sdcardfs_param {

@@ -29,7 +29,6 @@ Signed-off-by: John Stultz <john.stultz@linaro.org>
  1 file changed, 13 insertions(+)
 
 diff --git a/init/Kconfig.gki b/init/Kconfig.gki
-index be475727cef2..2c6f92b15ea3 100644
 --- a/init/Kconfig.gki
 +++ b/init/Kconfig.gki
 @@ -56,6 +56,18 @@ config GKI_HIDDEN_QCOM_CONFIGS

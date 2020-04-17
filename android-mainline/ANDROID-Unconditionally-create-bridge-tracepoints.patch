@@ -15,7 +15,6 @@ Signed-off-by: Alistair Delva <adelva@google.com>
  1 file changed, 2 deletions(-)
 
 diff --git a/net/core/net-traces.c b/net/core/net-traces.c
-index 283ddb2dbc7d..465362a9b55d 100644
 --- a/net/core/net-traces.c
 +++ b/net/core/net-traces.c
 @@ -35,13 +35,11 @@

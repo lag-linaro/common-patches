@@ -14,7 +14,6 @@ Bug: 133435829
  1 file changed, 1 insertion(+)
 
 diff --git a/fs/incfs/vfs.c b/fs/incfs/vfs.c
-index fd43e0e0ffbb..e8b72f760f94 100644
 --- a/fs/incfs/vfs.c
 +++ b/fs/incfs/vfs.c
 @@ -1482,6 +1482,7 @@ static struct dentry *dir_lookup(struct inode *dir_inode, struct dentry *dentry,

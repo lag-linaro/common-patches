@@ -24,7 +24,6 @@ Signed-off-by: Quentin Perret <quentin.perret@arm.com>
  2 files changed, 35 insertions(+)
 
 diff --git a/kernel/sched/core.c b/kernel/sched/core.c
-index 475e5ec0be33..02345840b533 100644
 --- a/kernel/sched/core.c
 +++ b/kernel/sched/core.c
 @@ -7360,6 +7360,27 @@ static int cpu_uclamp_max_show(struct seq_file *sf, void *v)
@@ -82,7 +81,6 @@ index 475e5ec0be33..02345840b533 100644
  	{ }	/* terminate */
  };
 diff --git a/kernel/sched/sched.h b/kernel/sched/sched.h
-index 0f616bf7bce3..5debce09905f 100644
 --- a/kernel/sched/sched.h
 +++ b/kernel/sched/sched.h
 @@ -404,6 +404,8 @@ struct task_group {

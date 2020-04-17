@@ -13,7 +13,6 @@ Signed-off-by: Sandeep Patil <sspatil@google.com>
  1 file changed, 5 insertions(+)
 
 diff --git a/mm/cma.c b/mm/cma.c
-index be55d1988c67..e66dba3e964d 100644
 --- a/mm/cma.c
 +++ b/mm/cma.c
 @@ -24,6 +24,7 @@

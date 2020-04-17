@@ -14,7 +14,6 @@ Signed-off-by: Satya Tangirala <satyat@google.com>
  1 file changed, 3 insertions(+), 6 deletions(-)
 
 diff --git a/drivers/scsi/ufs/ufshcd-crypto.c b/drivers/scsi/ufs/ufshcd-crypto.c
-index 988d8df8f394..7599d77725e4 100644
 --- a/drivers/scsi/ufs/ufshcd-crypto.c
 +++ b/drivers/scsi/ufs/ufshcd-crypto.c
 @@ -301,8 +301,7 @@ static const struct keyslot_mgmt_ll_ops ufshcd_ksm_ops = {

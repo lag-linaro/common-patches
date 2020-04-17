@@ -14,7 +14,6 @@ Signed-off-by: Sami Tolvanen <samitolvanen@google.com>
  2 files changed, 7 insertions(+)
 
 diff --git a/arch/x86/Kconfig b/arch/x86/Kconfig
-index 97049d808ba2..5b9d2f47b375 100644
 --- a/arch/x86/Kconfig
 +++ b/arch/x86/Kconfig
 @@ -88,6 +88,8 @@ config X86
@@ -27,7 +26,6 @@ index 97049d808ba2..5b9d2f47b375 100644
  	select ARCH_USE_QUEUED_RWLOCKS
  	select ARCH_USE_QUEUED_SPINLOCKS
 diff --git a/arch/x86/Makefile b/arch/x86/Makefile
-index 513a55562d75..f28b4c0e5b1f 100644
 --- a/arch/x86/Makefile
 +++ b/arch/x86/Makefile
 @@ -210,6 +210,11 @@ ifdef CONFIG_X86_64

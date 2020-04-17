@@ -24,7 +24,6 @@ Signed-off-by: Todd Kjos <tkjos@google.com>
  5 files changed, 5 insertions(+)
 
 diff --git a/arch/arc/mm/dma.c b/arch/arc/mm/dma.c
-index e947572a521e..c399f51d5237 100644
 --- a/arch/arc/mm/dma.c
 +++ b/arch/arc/mm/dma.c
 @@ -104,3 +104,4 @@ void arch_setup_dma_ops(struct device *dev, u64 dma_base, u64 size,
@@ -33,7 +32,6 @@ index e947572a521e..c399f51d5237 100644
  }
 +EXPORT_SYMBOL_GPL(arch_setup_dma_ops);
 diff --git a/arch/arm/mm/dma-mapping-nommu.c b/arch/arm/mm/dma-mapping-nommu.c
-index 287ef898a55e..e862b053833f 100644
 --- a/arch/arm/mm/dma-mapping-nommu.c
 +++ b/arch/arm/mm/dma-mapping-nommu.c
 @@ -209,3 +209,4 @@ void arch_setup_dma_ops(struct device *dev, u64 dma_base, u64 size,
@@ -42,7 +40,6 @@ index 287ef898a55e..e862b053833f 100644
  }
 +EXPORT_SYMBOL_GPL(arch_setup_dma_ops);
 diff --git a/arch/arm/mm/dma-mapping.c b/arch/arm/mm/dma-mapping.c
-index 9414d72f664b..5ea603f8fd35 100644
 --- a/arch/arm/mm/dma-mapping.c
 +++ b/arch/arm/mm/dma-mapping.c
 @@ -2324,6 +2324,7 @@ void arch_setup_dma_ops(struct device *dev, u64 dma_base, u64 size,
@@ -54,7 +51,6 @@ index 9414d72f664b..5ea603f8fd35 100644
  void arch_teardown_dma_ops(struct device *dev)
  {
 diff --git a/arch/arm64/mm/dma-mapping.c b/arch/arm64/mm/dma-mapping.c
-index 6c45350e33aa..f06f8f98ffc2 100644
 --- a/arch/arm64/mm/dma-mapping.c
 +++ b/arch/arm64/mm/dma-mapping.c
 @@ -57,3 +57,4 @@ void arch_setup_dma_ops(struct device *dev, u64 dma_base, u64 size,
@@ -63,7 +59,6 @@ index 6c45350e33aa..f06f8f98ffc2 100644
  }
 +EXPORT_SYMBOL_GPL(arch_setup_dma_ops);
 diff --git a/arch/mips/mm/dma-noncoherent.c b/arch/mips/mm/dma-noncoherent.c
-index dc42ffc83825..705a3a9d92ab 100644
 --- a/arch/mips/mm/dma-noncoherent.c
 +++ b/arch/mips/mm/dma-noncoherent.c
 @@ -141,4 +141,5 @@ void arch_setup_dma_ops(struct device *dev, u64 dma_base, u64 size,

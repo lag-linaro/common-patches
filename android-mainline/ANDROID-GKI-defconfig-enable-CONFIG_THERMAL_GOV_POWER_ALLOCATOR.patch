@@ -13,7 +13,6 @@ Change-Id: I463528236bdfd640cdaefbac7dee932dc28d7005
  1 file changed, 1 insertion(+)
 
 diff --git a/arch/arm64/configs/gki_defconfig b/arch/arm64/configs/gki_defconfig
-index 653e5695363e..58d5e477a94d 100644
 --- a/arch/arm64/configs/gki_defconfig
 +++ b/arch/arm64/configs/gki_defconfig
 @@ -305,6 +305,7 @@ CONFIG_POWER_RESET_HISI=y

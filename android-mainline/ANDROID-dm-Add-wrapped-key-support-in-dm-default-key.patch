@@ -27,7 +27,6 @@ Signed-off-by: Barani Muthukumaran <bmuthuku@codeaurora.org>
  1 file changed, 20 insertions(+), 8 deletions(-)
 
 diff --git a/drivers/md/dm-default-key.c b/drivers/md/dm-default-key.c
-index c8af8df227c8..2420e9898d09 100644
 --- a/drivers/md/dm-default-key.c
 +++ b/drivers/md/dm-default-key.c
 @@ -9,7 +9,7 @@

@@ -22,7 +22,6 @@ Change-Id: If0cfafa34da08a559190928056086d3e772b29f8
  1 file changed, 10 insertions(+), 2 deletions(-)
 
 diff --git a/fs/crypto/keyring.c b/fs/crypto/keyring.c
-index 5819688ee728..dbf2c917bbbd 100644
 --- a/fs/crypto/keyring.c
 +++ b/fs/crypto/keyring.c
 @@ -469,8 +469,10 @@ static int fscrypt_provisioning_key_preparse(struct key_preparsed_payload *prep)

@@ -48,7 +48,6 @@ Signed-off-by: Eric Biggers <ebiggers@google.com>
  9 files changed, 67 insertions(+), 16 deletions(-)
 
 diff --git a/block/blk-crypto-fallback.c b/block/blk-crypto-fallback.c
-index f3f5e2866b8b..d6c57887d770 100644
 --- a/block/blk-crypto-fallback.c
 +++ b/block/blk-crypto-fallback.c
 @@ -601,9 +601,11 @@ int __init blk_crypto_fallback_init(void)
@@ -67,7 +66,6 @@ index f3f5e2866b8b..d6c57887d770 100644
  		return -ENOMEM;
  
 diff --git a/block/blk-crypto.c b/block/blk-crypto.c
-index 7bf2ff86d277..f56bbec1132f 100644
 --- a/block/blk-crypto.c
 +++ b/block/blk-crypto.c
 @@ -109,7 +109,8 @@ int blk_crypto_submit_bio(struct bio **bio_ptr)
@@ -118,7 +116,6 @@ index 7bf2ff86d277..f56bbec1132f 100644
  
  	return blk_crypto_fallback_evict_key(key);
 diff --git a/block/keyslot-manager.c b/block/keyslot-manager.c
-index 6b563c8602d0..d1dbac6e1a46 100644
 --- a/block/keyslot-manager.c
 +++ b/block/keyslot-manager.c
 @@ -43,6 +43,7 @@ struct keyslot {
@@ -238,7 +235,6 @@ index 6b563c8602d0..d1dbac6e1a46 100644
  		       sizeof(parent->crypto_mode_supported));
  	}
 diff --git a/drivers/md/dm-default-key.c b/drivers/md/dm-default-key.c
-index 2420e9898d09..73120426a1a0 100644
 --- a/drivers/md/dm-default-key.c
 +++ b/drivers/md/dm-default-key.c
 @@ -239,6 +239,7 @@ static int default_key_ctr(struct dm_target *ti, unsigned int argc, char **argv)
@@ -250,7 +246,6 @@ index 2420e9898d09..73120426a1a0 100644
  	if (err) {
  		ti->error = "Error starting to use blk-crypto";
 diff --git a/drivers/md/dm.c b/drivers/md/dm.c
-index 655530c2c2c4..b1a681428fb7 100644
 --- a/drivers/md/dm.c
 +++ b/drivers/md/dm.c
 @@ -2372,16 +2372,21 @@ static struct keyslot_mgmt_ll_ops dm_ksm_ll_ops = {
@@ -278,7 +273,6 @@ index 655530c2c2c4..b1a681428fb7 100644
  	if (!md->queue->ksm)
  		return -ENOMEM;
 diff --git a/drivers/scsi/ufs/ufshcd-crypto.c b/drivers/scsi/ufs/ufshcd-crypto.c
-index 6999970235b3..d62ab7a9faff 100644
 --- a/drivers/scsi/ufs/ufshcd-crypto.c
 +++ b/drivers/scsi/ufs/ufshcd-crypto.c
 @@ -336,7 +336,9 @@ int ufshcd_hba_init_crypto_spec(struct ufs_hba *hba,
@@ -293,7 +287,6 @@ index 6999970235b3..d62ab7a9faff 100644
  	if (!hba->ksm) {
  		err = -ENOMEM;
 diff --git a/fs/crypto/inline_crypt.c b/fs/crypto/inline_crypt.c
-index 00da0effa6c9..298bf57ca781 100644
 --- a/fs/crypto/inline_crypt.c
 +++ b/fs/crypto/inline_crypt.c
 @@ -103,6 +103,7 @@ int fscrypt_prepare_inline_crypt_key(struct fscrypt_prepared_key *prep_key,
@@ -305,7 +298,6 @@ index 00da0effa6c9..298bf57ca781 100644
  		if (err) {
  			fscrypt_err(inode,
 diff --git a/include/linux/blk-crypto.h b/include/linux/blk-crypto.h
-index 2416a0a6e6b3..d383d3b320b9 100644
 --- a/include/linux/blk-crypto.h
 +++ b/include/linux/blk-crypto.h
 @@ -22,6 +22,7 @@ int blk_crypto_init_key(struct blk_crypto_key *blk_key,
@@ -317,7 +309,6 @@ index 2416a0a6e6b3..d383d3b320b9 100644
  
  int blk_crypto_evict_key(struct request_queue *q,
 diff --git a/include/linux/keyslot-manager.h b/include/linux/keyslot-manager.h
-index 2f4aac2851bf..cd65bea927db 100644
 --- a/include/linux/keyslot-manager.h
 +++ b/include/linux/keyslot-manager.h
 @@ -8,6 +8,15 @@

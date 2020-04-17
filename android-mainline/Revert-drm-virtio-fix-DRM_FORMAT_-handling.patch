@@ -18,7 +18,6 @@ Signed-off-by: Greg Hartman <ghartman@google.com>
  2 files changed, 47 insertions(+), 6 deletions(-)
 
 diff --git a/drivers/gpu/drm/virtio/virtgpu_display.c b/drivers/gpu/drm/virtio/virtgpu_display.c
-index 2b7e6ae65546..da8172d7618c 100644
 --- a/drivers/gpu/drm/virtio/virtgpu_display.c
 +++ b/drivers/gpu/drm/virtio/virtgpu_display.c
 @@ -295,10 +295,6 @@ virtio_gpu_user_framebuffer_create(struct drm_device *dev,
@@ -41,7 +40,6 @@ index 2b7e6ae65546..da8172d7618c 100644
  	vgdev->ddev->mode_config.helper_private = &virtio_mode_config_helpers;
  
 diff --git a/drivers/gpu/drm/virtio/virtgpu_plane.c b/drivers/gpu/drm/virtio/virtgpu_plane.c
-index 52d24179bcec..50e1b221fb41 100644
 --- a/drivers/gpu/drm/virtio/virtgpu_plane.c
 +++ b/drivers/gpu/drm/virtio/virtgpu_plane.c
 @@ -31,7 +31,14 @@

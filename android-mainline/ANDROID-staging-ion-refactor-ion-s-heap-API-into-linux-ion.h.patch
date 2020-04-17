@@ -35,7 +35,6 @@ Signed-off-by: Matthias Maennich <maennich@google.com>
  rename {drivers/staging/android => include}/uapi/ion.h (74%)
 
 diff --git a/drivers/staging/android/ion/heaps/ion_cma_heap.c b/drivers/staging/android/ion/heaps/ion_cma_heap.c
-index 0872e5d630f8..83f7dce74f18 100644
 --- a/drivers/staging/android/ion/heaps/ion_cma_heap.c
 +++ b/drivers/staging/android/ion/heaps/ion_cma_heap.c
 @@ -7,6 +7,7 @@
@@ -56,7 +55,6 @@ index 0872e5d630f8..83f7dce74f18 100644
  	struct ion_heap heap;
  	struct cma *cma;
 diff --git a/drivers/staging/android/ion/heaps/ion_system_heap.c b/drivers/staging/android/ion/heaps/ion_system_heap.c
-index 8e26016082d4..afb2a6385705 100644
 --- a/drivers/staging/android/ion/heaps/ion_system_heap.c
 +++ b/drivers/staging/android/ion/heaps/ion_system_heap.c
 @@ -9,12 +9,12 @@
@@ -74,7 +72,6 @@ index 8e26016082d4..afb2a6385705 100644
  
  #define NUM_ORDERS ARRAY_SIZE(orders)
 diff --git a/drivers/staging/android/ion/ion.c b/drivers/staging/android/ion/ion.c
-index 51d13c1f6650..93f2e1e7ca43 100644
 --- a/drivers/staging/android/ion/ion.c
 +++ b/drivers/staging/android/ion/ion.c
 @@ -244,7 +244,6 @@ void ion_device_add_heap(struct ion_heap *heap)
@@ -338,7 +335,6 @@ index b5b5412507fd..000000000000
 -
 -#endif /* _ION_H */
 diff --git a/drivers/staging/android/ion/ion_buffer.c b/drivers/staging/android/ion/ion_buffer.c
-index 50c2dbc3ebec..ef5fbf45c554 100644
 --- a/drivers/staging/android/ion/ion_buffer.c
 +++ b/drivers/staging/android/ion/ion_buffer.c
 @@ -7,6 +7,7 @@
@@ -401,7 +397,6 @@ index 50c2dbc3ebec..ef5fbf45c554 100644
  
  void ion_buffer_release(struct ion_buffer *buffer)
 diff --git a/drivers/staging/android/ion/ion_heap.c b/drivers/staging/android/ion/ion_heap.c
-index 39eb60e4842e..755548a4382d 100644
 --- a/drivers/staging/android/ion/ion_heap.c
 +++ b/drivers/staging/android/ion/ion_heap.c
 @@ -61,18 +61,6 @@ static unsigned long ion_heap_shrink_scan(struct shrinker *shrinker,
@@ -463,7 +458,6 @@ index 39eb60e4842e..755548a4382d 100644
  {
  	spin_lock(&heap->free_lock);
 diff --git a/drivers/staging/android/ion/ion_private.h b/drivers/staging/android/ion/ion_private.h
-index 9c8f482cd9d2..ed7ed39d0df1 100644
 --- a/drivers/staging/android/ion/ion_private.h
 +++ b/drivers/staging/android/ion/ion_private.h
 @@ -10,6 +10,7 @@
@@ -484,7 +478,6 @@ index 9c8f482cd9d2..ed7ed39d0df1 100644
   * struct ion_device - the metadata of the ion device node
   * @dev:		the actual misc device
 diff --git a/include/linux/ion.h b/include/linux/ion.h
-index 66a694b875ca..775e948a362c 100644
 --- a/include/linux/ion.h
 +++ b/include/linux/ion.h
 @@ -8,9 +8,264 @@
@@ -825,7 +818,6 @@ diff --git a/drivers/staging/android/uapi/ion.h b/include/uapi/ion.h
 similarity index 74%
 rename from drivers/staging/android/uapi/ion.h
 rename to include/uapi/ion.h
-index 46c93fcb46d6..bfcbc0e70921 100644
 --- a/drivers/staging/android/uapi/ion.h
 +++ b/include/uapi/ion.h
 @@ -13,26 +13,25 @@

@@ -15,7 +15,6 @@ Signed-off-by: Alistair Delva <adelva@google.com>
  1 file changed, 9 insertions(+), 27 deletions(-)
 
 diff --git a/arch/um/os-Linux/umid.c b/arch/um/os-Linux/umid.c
-index 44def53a11cd..4c19df8d2e80 100644
 --- a/arch/um/os-Linux/umid.c
 +++ b/arch/um/os-Linux/umid.c
 @@ -135,18 +135,12 @@ static int remove_files_and_dir(char *dir)

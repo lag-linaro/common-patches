@@ -12,7 +12,6 @@ Signed-off-by: Paul Lawrence <paullawrence@google.com>
  1 file changed, 3 deletions(-)
 
 diff --git a/fs/incfs/vfs.c b/fs/incfs/vfs.c
-index 3ef2b8fadd5c..248b31587128 100644
 --- a/fs/incfs/vfs.c
 +++ b/fs/incfs/vfs.c
 @@ -31,9 +31,6 @@

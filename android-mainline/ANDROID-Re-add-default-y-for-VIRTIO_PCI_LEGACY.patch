@@ -14,7 +14,6 @@ Change-Id: I2ebbe2f20e318cb01206ccbd8c6a5803f7f503b6
  1 file changed, 6 insertions(+)
 
 diff --git a/drivers/virtio/Kconfig b/drivers/virtio/Kconfig
-index eacd0b90d32b..078615cf2afc 100644
 --- a/drivers/virtio/Kconfig
 +++ b/drivers/virtio/Kconfig
 @@ -26,6 +26,7 @@ config VIRTIO_PCI

@@ -17,7 +17,6 @@ Signed-off-by: Sami Tolvanen <samitolvanen@google.com>
  1 file changed, 6 insertions(+), 7 deletions(-)
 
 diff --git a/scripts/Makefile.build b/scripts/Makefile.build
-index 2c81d790d79f..d8190fa3aaee 100644
 --- a/scripts/Makefile.build
 +++ b/scripts/Makefile.build
 @@ -400,13 +400,12 @@ $(obj)/%/built-in.a: $(obj)/% ;

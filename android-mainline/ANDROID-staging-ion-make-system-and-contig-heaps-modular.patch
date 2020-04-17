@@ -27,7 +27,6 @@ Signed-off-by: Matthias Maennich <maennich@google.com>
  9 files changed, 169 insertions(+), 75 deletions(-)
 
 diff --git a/drivers/staging/android/ion/heaps/Kconfig b/drivers/staging/android/ion/heaps/Kconfig
-index f1c7a6b79c01..af6fce69e61a 100644
 --- a/drivers/staging/android/ion/heaps/Kconfig
 +++ b/drivers/staging/android/ion/heaps/Kconfig
 @@ -1,13 +1,13 @@
@@ -47,7 +46,6 @@ index f1c7a6b79c01..af6fce69e61a 100644
  	help
  	  Choose this option to enable Ion system contig heap. The system contig heap
 diff --git a/drivers/staging/android/ion/heaps/Makefile b/drivers/staging/android/ion/heaps/Makefile
-index e2ee931100d0..449879035877 100644
 --- a/drivers/staging/android/ion/heaps/Makefile
 +++ b/drivers/staging/android/ion/heaps/Makefile
 @@ -1,4 +1,6 @@
@@ -59,7 +57,6 @@ index e2ee931100d0..449879035877 100644
  obj-$(CONFIG_ION_SYSTEM_CONTIG_HEAP) += ion_system_contig_heap.o
  obj-$(CONFIG_ION_CMA_HEAP) += ion_cma_heap.o
 diff --git a/drivers/staging/android/ion/heaps/ion_system_contig_heap.c b/drivers/staging/android/ion/heaps/ion_system_contig_heap.c
-index 3a07ef931c2e..9cb18e38dc96 100644
 --- a/drivers/staging/android/ion/heaps/ion_system_contig_heap.c
 +++ b/drivers/staging/android/ion/heaps/ion_system_contig_heap.c
 @@ -11,6 +11,7 @@
@@ -116,7 +113,6 @@ index 3a07ef931c2e..9cb18e38dc96 100644
 +module_exit(ion_system_contig_heap_exit);
 +MODULE_LICENSE("GPL v2");
 diff --git a/drivers/staging/android/ion/heaps/ion_system_heap.c b/drivers/staging/android/ion/heaps/ion_system_heap.c
-index 25ea31757578..0b24652b77f2 100644
 --- a/drivers/staging/android/ion/heaps/ion_system_heap.c
 +++ b/drivers/staging/android/ion/heaps/ion_system_heap.c
 @@ -11,6 +11,7 @@
@@ -212,7 +208,6 @@ index 25ea31757578..0b24652b77f2 100644
 +module_exit(ion_system_heap_exit);
 +MODULE_LICENSE("GPL v2");
 diff --git a/drivers/staging/android/ion/ion.c b/drivers/staging/android/ion/ion.c
-index 93f2e1e7ca43..a744a92ddbb6 100644
 --- a/drivers/staging/android/ion/ion.c
 +++ b/drivers/staging/android/ion/ion.c
 @@ -220,28 +220,36 @@ static int debug_shrink_get(void *data, u64 *val)
@@ -307,7 +302,6 @@ index 93f2e1e7ca43..a744a92ddbb6 100644
  static int ion_device_create(void)
  {
 diff --git a/drivers/staging/android/ion/ion_buffer.c b/drivers/staging/android/ion/ion_buffer.c
-index ef5fbf45c554..961605a35c59 100644
 --- a/drivers/staging/android/ion/ion_buffer.c
 +++ b/drivers/staging/android/ion/ion_buffer.c
 @@ -6,6 +6,7 @@
@@ -353,7 +347,6 @@ index ef5fbf45c554..961605a35c59 100644
  	kfree(buffer);
  }
 diff --git a/drivers/staging/android/ion/ion_heap.c b/drivers/staging/android/ion/ion_heap.c
-index 755548a4382d..e102f6a2ecf6 100644
 --- a/drivers/staging/android/ion/ion_heap.c
 +++ b/drivers/staging/android/ion/ion_heap.c
 @@ -101,12 +101,15 @@ static int ion_heap_deferred_free(void *data)
@@ -431,7 +424,6 @@ index 755548a4382d..e102f6a2ecf6 100644
 +	return 0;
 +}
 diff --git a/drivers/staging/android/ion/ion_private.h b/drivers/staging/android/ion/ion_private.h
-index ed7ed39d0df1..5cc09fbfbefe 100644
 --- a/drivers/staging/android/ion/ion_private.h
 +++ b/drivers/staging/android/ion/ion_private.h
 @@ -51,4 +51,7 @@ extern struct dma_buf *ion_dmabuf_alloc(struct ion_device *dev, size_t len,
@@ -443,7 +435,6 @@ index ed7ed39d0df1..5cc09fbfbefe 100644
 +
  #endif /* _ION_PRIVATE_H */
 diff --git a/include/linux/ion.h b/include/linux/ion.h
-index 775e948a362c..fe0d2cb1ef25 100644
 --- a/include/linux/ion.h
 +++ b/include/linux/ion.h
 @@ -12,6 +12,7 @@

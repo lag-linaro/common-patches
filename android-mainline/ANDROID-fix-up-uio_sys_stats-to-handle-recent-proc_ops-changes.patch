@@ -14,7 +14,6 @@ Change-Id: I683c03a4744cb1356ba92bd5ed98adb395a3d1d5
  1 file changed, 18 insertions(+), 18 deletions(-)
 
 diff --git a/drivers/misc/uid_sys_stats.c b/drivers/misc/uid_sys_stats.c
-index 49974954d4f0..3048edf85b46 100644
 --- a/drivers/misc/uid_sys_stats.c
 +++ b/drivers/misc/uid_sys_stats.c
 @@ -385,11 +385,11 @@ static int uid_cputime_open(struct inode *inode, struct file *file)

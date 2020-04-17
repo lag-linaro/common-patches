@@ -19,7 +19,6 @@ Signed-off-by: Sandeep Patil <sspatil@google.com>
  2 files changed, 29 insertions(+)
 
 diff --git a/drivers/dma-buf/dma-buf.c b/drivers/dma-buf/dma-buf.c
-index 04da2c84694d..23217e3603f2 100644
 --- a/drivers/dma-buf/dma-buf.c
 +++ b/drivers/dma-buf/dma-buf.c
 @@ -1290,6 +1290,20 @@ void dma_buf_vunmap(struct dma_buf *dmabuf, void *vaddr)
@@ -44,7 +43,6 @@ index 04da2c84694d..23217e3603f2 100644
  static int dma_buf_debug_show(struct seq_file *s, void *unused)
  {
 diff --git a/include/linux/dma-buf.h b/include/linux/dma-buf.h
-index 1dea46636d26..e765b31f0a28 100644
 --- a/include/linux/dma-buf.h
 +++ b/include/linux/dma-buf.h
 @@ -324,6 +324,20 @@ struct dma_buf_ops {

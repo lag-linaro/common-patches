@@ -14,7 +14,6 @@ Signed-off-by: Matthias Maennich <maennich@google.com>
  1 file changed, 2 insertions(+)
 
 diff --git a/build.config.common b/build.config.common
-index f3370bcccb55..ba411b0f24c0 100644
 --- a/build.config.common
 +++ b/build.config.common
 @@ -10,3 +10,5 @@ BUILDTOOLS_PREBUILT_BIN=build/build-tools/path/linux-x86

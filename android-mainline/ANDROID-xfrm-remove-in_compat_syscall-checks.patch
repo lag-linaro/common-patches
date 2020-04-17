@@ -15,7 +15,6 @@ Change-Id: I083d32b45ca985cfadfe3ce57d253b63202befde
  2 files changed, 6 deletions(-)
 
 diff --git a/net/xfrm/xfrm_state.c b/net/xfrm/xfrm_state.c
-index 8be2d926acc2..05034db9594f 100644
 --- a/net/xfrm/xfrm_state.c
 +++ b/net/xfrm/xfrm_state.c
 @@ -2271,9 +2271,6 @@ int xfrm_user_policy(struct sock *sk, int optname, u8 __user *optval, int optlen
@@ -29,7 +28,6 @@ index 8be2d926acc2..05034db9594f 100644
  		xfrm_sk_policy_insert(sk, XFRM_POLICY_IN, NULL);
  		xfrm_sk_policy_insert(sk, XFRM_POLICY_OUT, NULL);
 diff --git a/net/xfrm/xfrm_user.c b/net/xfrm/xfrm_user.c
-index e6cfaa680ef3..677d0b94b3b6 100644
 --- a/net/xfrm/xfrm_user.c
 +++ b/net/xfrm/xfrm_user.c
 @@ -2638,9 +2638,6 @@ static int xfrm_user_rcv_msg(struct sk_buff *skb, struct nlmsghdr *nlh,

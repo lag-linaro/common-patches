@@ -13,7 +13,6 @@ Signed-off-by: Alistair Delva <adelva@google.com>
  2 files changed, 7 insertions(+)
 
 diff --git a/arch/arm64/configs/gki_defconfig b/arch/arm64/configs/gki_defconfig
-index 85481f6a84a4..6358e9b1dd52 100644
 --- a/arch/arm64/configs/gki_defconfig
 +++ b/arch/arm64/configs/gki_defconfig
 @@ -20,6 +20,9 @@ CONFIG_CGROUP_FREEZER=y
@@ -27,7 +26,6 @@ index 85481f6a84a4..6358e9b1dd52 100644
  CONFIG_BLK_DEV_INITRD=y
  # CONFIG_RD_BZIP2 is not set
 diff --git a/arch/x86/configs/gki_defconfig b/arch/x86/configs/gki_defconfig
-index 683700e89d45..7de662c69aef 100644
 --- a/arch/x86/configs/gki_defconfig
 +++ b/arch/x86/configs/gki_defconfig
 @@ -20,6 +20,10 @@ CONFIG_CGROUP_FREEZER=y

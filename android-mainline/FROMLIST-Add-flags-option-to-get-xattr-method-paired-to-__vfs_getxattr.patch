@@ -111,7 +111,6 @@ Change-Id: Iabbb8771939d5f66667a26bb23ddf4c562c349a1
  49 files changed, 131 insertions(+), 88 deletions(-)
 
 diff --git a/Documentation/filesystems/locking.rst b/Documentation/filesystems/locking.rst
-index 5057e4d9dcd1..1b0db89856e4 100644
 --- a/Documentation/filesystems/locking.rst
 +++ b/Documentation/filesystems/locking.rst
 @@ -125,7 +125,7 @@ prototypes::
@@ -124,7 +123,6 @@ index 5057e4d9dcd1..1b0db89856e4 100644
  		   struct inode *inode, const char *name, const void *buffer,
  		   size_t size, int flags);
 diff --git a/fs/9p/acl.c b/fs/9p/acl.c
-index 6261719f6f2a..cb14e8b312bc 100644
 --- a/fs/9p/acl.c
 +++ b/fs/9p/acl.c
 @@ -214,7 +214,8 @@ int v9fs_acl_mode(struct inode *dir, umode_t *modep,
@@ -138,7 +136,6 @@ index 6261719f6f2a..cb14e8b312bc 100644
  	struct v9fs_session_info *v9ses;
  	struct posix_acl *acl;
 diff --git a/fs/9p/xattr.c b/fs/9p/xattr.c
-index ac8ff8ca4c11..5cfa772452fd 100644
 --- a/fs/9p/xattr.c
 +++ b/fs/9p/xattr.c
 @@ -139,7 +139,8 @@ ssize_t v9fs_listxattr(struct dentry *dentry, char *buffer, size_t buffer_size)
@@ -152,7 +149,6 @@ index ac8ff8ca4c11..5cfa772452fd 100644
  	const char *full_name = xattr_full_name(handler, name);
  
 diff --git a/fs/afs/xattr.c b/fs/afs/xattr.c
-index 7af41fd5f3ee..e3a33d742e7f 100644
 --- a/fs/afs/xattr.c
 +++ b/fs/afs/xattr.c
 @@ -40,7 +40,7 @@ ssize_t afs_listxattr(struct dentry *dentry, char *buffer, size_t size)
@@ -201,7 +197,6 @@ index 7af41fd5f3ee..e3a33d742e7f 100644
  	struct afs_vnode *vnode = AFS_FS_I(inode);
  	const char *volname = vnode->volume->name;
 diff --git a/fs/btrfs/xattr.c b/fs/btrfs/xattr.c
-index 95d9aebff2c4..1e522e145344 100644
 --- a/fs/btrfs/xattr.c
 +++ b/fs/btrfs/xattr.c
 @@ -353,7 +353,8 @@ ssize_t btrfs_listxattr(struct dentry *dentry, char *buffer, size_t size)
@@ -215,7 +210,6 @@ index 95d9aebff2c4..1e522e145344 100644
  	name = xattr_full_name(handler, name);
  	return btrfs_getxattr(inode, name, buffer, size);
 diff --git a/fs/ceph/xattr.c b/fs/ceph/xattr.c
-index 7b8a070a782d..8e4cac77df7e 100644
 --- a/fs/ceph/xattr.c
 +++ b/fs/ceph/xattr.c
 @@ -1154,7 +1154,8 @@ int __ceph_setxattr(struct inode *inode, const char *name,
@@ -229,7 +223,6 @@ index 7b8a070a782d..8e4cac77df7e 100644
  	if (!ceph_is_valid_xattr(name))
  		return -EOPNOTSUPP;
 diff --git a/fs/cifs/xattr.c b/fs/cifs/xattr.c
-index b8299173ea7e..032df60c4afa 100644
 --- a/fs/cifs/xattr.c
 +++ b/fs/cifs/xattr.c
 @@ -281,7 +281,7 @@ static int cifs_creation_time_get(struct dentry *dentry, struct inode *inode,
@@ -242,7 +235,6 @@ index b8299173ea7e..032df60c4afa 100644
  	ssize_t rc = -EOPNOTSUPP;
  	unsigned int xid;
 diff --git a/fs/ecryptfs/inode.c b/fs/ecryptfs/inode.c
-index e23752d9a79f..12616d5510cf 100644
 --- a/fs/ecryptfs/inode.c
 +++ b/fs/ecryptfs/inode.c
 @@ -1040,7 +1040,8 @@ ecryptfs_getxattr_lower(struct dentry *lower_dentry, struct inode *lower_inode,
@@ -266,7 +258,6 @@ index e23752d9a79f..12616d5510cf 100644
  	return ecryptfs_getxattr(dentry, inode, name, buffer, size);
  }
 diff --git a/fs/ecryptfs/mmap.c b/fs/ecryptfs/mmap.c
-index 019572c6b39a..bc1ca4dea751 100644
 --- a/fs/ecryptfs/mmap.c
 +++ b/fs/ecryptfs/mmap.c
 @@ -422,7 +422,7 @@ static int ecryptfs_write_inode_size_to_xattr(struct inode *ecryptfs_inode)
@@ -279,7 +270,6 @@ index 019572c6b39a..bc1ca4dea751 100644
  		size = 8;
  	put_unaligned_be64(i_size_read(ecryptfs_inode), xattr_virt);
 diff --git a/fs/erofs/xattr.c b/fs/erofs/xattr.c
-index b766c3ee5fa8..59e1d3ece0ee 100644
 --- a/fs/erofs/xattr.c
 +++ b/fs/erofs/xattr.c
 @@ -463,7 +463,8 @@ int erofs_getxattr(struct inode *inode, int index,
@@ -293,7 +283,6 @@ index b766c3ee5fa8..59e1d3ece0ee 100644
  	struct erofs_sb_info *const sbi = EROFS_I_SB(inode);
  
 diff --git a/fs/ext2/xattr_security.c b/fs/ext2/xattr_security.c
-index 9a682e440acb..d5f6eb0b487b 100644
 --- a/fs/ext2/xattr_security.c
 +++ b/fs/ext2/xattr_security.c
 @@ -11,7 +11,7 @@
@@ -306,7 +295,6 @@ index 9a682e440acb..d5f6eb0b487b 100644
  	return ext2_xattr_get(inode, EXT2_XATTR_INDEX_SECURITY, name,
  			      buffer, size);
 diff --git a/fs/ext2/xattr_trusted.c b/fs/ext2/xattr_trusted.c
-index 49add1107850..8d313664f0fa 100644
 --- a/fs/ext2/xattr_trusted.c
 +++ b/fs/ext2/xattr_trusted.c
 @@ -18,7 +18,7 @@ ext2_xattr_trusted_list(struct dentry *dentry)
@@ -319,7 +307,6 @@ index 49add1107850..8d313664f0fa 100644
  	return ext2_xattr_get(inode, EXT2_XATTR_INDEX_TRUSTED, name,
  			      buffer, size);
 diff --git a/fs/ext2/xattr_user.c b/fs/ext2/xattr_user.c
-index c243a3b4d69d..712b7c95cc64 100644
 --- a/fs/ext2/xattr_user.c
 +++ b/fs/ext2/xattr_user.c
 @@ -20,7 +20,7 @@ ext2_xattr_user_list(struct dentry *dentry)
@@ -332,7 +319,6 @@ index c243a3b4d69d..712b7c95cc64 100644
  	if (!test_opt(inode->i_sb, XATTR_USER))
  		return -EOPNOTSUPP;
 diff --git a/fs/ext4/xattr_security.c b/fs/ext4/xattr_security.c
-index 197a9d8a15ef..50fb71393fb6 100644
 --- a/fs/ext4/xattr_security.c
 +++ b/fs/ext4/xattr_security.c
 @@ -15,7 +15,7 @@
@@ -345,7 +331,6 @@ index 197a9d8a15ef..50fb71393fb6 100644
  	return ext4_xattr_get(inode, EXT4_XATTR_INDEX_SECURITY,
  			      name, buffer, size);
 diff --git a/fs/ext4/xattr_trusted.c b/fs/ext4/xattr_trusted.c
-index e9389e5d75c3..64bd8f86c1f1 100644
 --- a/fs/ext4/xattr_trusted.c
 +++ b/fs/ext4/xattr_trusted.c
 @@ -22,7 +22,7 @@ ext4_xattr_trusted_list(struct dentry *dentry)
@@ -358,7 +343,6 @@ index e9389e5d75c3..64bd8f86c1f1 100644
  	return ext4_xattr_get(inode, EXT4_XATTR_INDEX_TRUSTED,
  			      name, buffer, size);
 diff --git a/fs/ext4/xattr_user.c b/fs/ext4/xattr_user.c
-index d4546184b34b..b7301373820e 100644
 --- a/fs/ext4/xattr_user.c
 +++ b/fs/ext4/xattr_user.c
 @@ -21,7 +21,7 @@ ext4_xattr_user_list(struct dentry *dentry)
@@ -371,7 +355,6 @@ index d4546184b34b..b7301373820e 100644
  	if (!test_opt(inode->i_sb, XATTR_USER))
  		return -EOPNOTSUPP;
 diff --git a/fs/f2fs/xattr.c b/fs/f2fs/xattr.c
-index 296b3189448a..287949cb904c 100644
 --- a/fs/f2fs/xattr.c
 +++ b/fs/f2fs/xattr.c
 @@ -25,7 +25,7 @@
@@ -393,7 +376,6 @@ index 296b3189448a..287949cb904c 100644
  	if (buffer)
  		*((char *)buffer) = F2FS_I(inode)->i_advise;
 diff --git a/fs/fuse/xattr.c b/fs/fuse/xattr.c
-index 20d052e08b3b..414718a51c25 100644
 --- a/fs/fuse/xattr.c
 +++ b/fs/fuse/xattr.c
 @@ -176,7 +176,7 @@ int fuse_removexattr(struct inode *inode, const char *name)
@@ -415,7 +397,6 @@ index 20d052e08b3b..414718a51c25 100644
  	return -EOPNOTSUPP;
  }
 diff --git a/fs/gfs2/xattr.c b/fs/gfs2/xattr.c
-index 9d7667bc4292..2e4a9b9dcad1 100644
 --- a/fs/gfs2/xattr.c
 +++ b/fs/gfs2/xattr.c
 @@ -588,7 +588,8 @@ static int __gfs2_xattr_get(struct inode *inode, const char *name,
@@ -429,7 +410,6 @@ index 9d7667bc4292..2e4a9b9dcad1 100644
  	struct gfs2_inode *ip = GFS2_I(inode);
  	struct gfs2_holder gh;
 diff --git a/fs/hfs/attr.c b/fs/hfs/attr.c
-index 74fa62643136..08222a9c5d31 100644
 --- a/fs/hfs/attr.c
 +++ b/fs/hfs/attr.c
 @@ -115,7 +115,7 @@ static ssize_t __hfs_getxattr(struct inode *inode, enum hfs_xattr_type type,
@@ -442,7 +422,6 @@ index 74fa62643136..08222a9c5d31 100644
  	return __hfs_getxattr(inode, handler->flags, value, size);
  }
 diff --git a/fs/hfsplus/xattr.c b/fs/hfsplus/xattr.c
-index bb0b27d88e50..381c2aaedbc8 100644
 --- a/fs/hfsplus/xattr.c
 +++ b/fs/hfsplus/xattr.c
 @@ -839,7 +839,8 @@ static int hfsplus_removexattr(struct inode *inode, const char *name)
@@ -456,7 +435,6 @@ index bb0b27d88e50..381c2aaedbc8 100644
  	/*
  	 * Don't allow retrieving properly prefixed attributes
 diff --git a/fs/hfsplus/xattr_security.c b/fs/hfsplus/xattr_security.c
-index cfbe6a3bfb1e..43e28b3a716d 100644
 --- a/fs/hfsplus/xattr_security.c
 +++ b/fs/hfsplus/xattr_security.c
 @@ -15,7 +15,8 @@
@@ -470,7 +448,6 @@ index cfbe6a3bfb1e..43e28b3a716d 100644
  	return hfsplus_getxattr(inode, name, buffer, size,
  				XATTR_SECURITY_PREFIX,
 diff --git a/fs/hfsplus/xattr_trusted.c b/fs/hfsplus/xattr_trusted.c
-index fbad91e1dada..54d926314f8c 100644
 --- a/fs/hfsplus/xattr_trusted.c
 +++ b/fs/hfsplus/xattr_trusted.c
 @@ -14,7 +14,8 @@
@@ -484,7 +461,6 @@ index fbad91e1dada..54d926314f8c 100644
  	return hfsplus_getxattr(inode, name, buffer, size,
  				XATTR_TRUSTED_PREFIX,
 diff --git a/fs/hfsplus/xattr_user.c b/fs/hfsplus/xattr_user.c
-index 74d19faf255e..4d2b1ffff887 100644
 --- a/fs/hfsplus/xattr_user.c
 +++ b/fs/hfsplus/xattr_user.c
 @@ -14,7 +14,8 @@
@@ -498,7 +474,6 @@ index 74d19faf255e..4d2b1ffff887 100644
  
  	return hfsplus_getxattr(inode, name, buffer, size,
 diff --git a/fs/jffs2/security.c b/fs/jffs2/security.c
-index c2332e30f218..e6f42fe435af 100644
 --- a/fs/jffs2/security.c
 +++ b/fs/jffs2/security.c
 @@ -50,7 +50,8 @@ int jffs2_init_security(struct inode *inode, struct inode *dir,
@@ -512,7 +487,6 @@ index c2332e30f218..e6f42fe435af 100644
  	return do_jffs2_getxattr(inode, JFFS2_XPREFIX_SECURITY,
  				 name, buffer, size);
 diff --git a/fs/jffs2/xattr_trusted.c b/fs/jffs2/xattr_trusted.c
-index 5d6030826c52..9dccaae549f5 100644
 --- a/fs/jffs2/xattr_trusted.c
 +++ b/fs/jffs2/xattr_trusted.c
 @@ -18,7 +18,8 @@
@@ -526,7 +500,6 @@ index 5d6030826c52..9dccaae549f5 100644
  	return do_jffs2_getxattr(inode, JFFS2_XPREFIX_TRUSTED,
  				 name, buffer, size);
 diff --git a/fs/jffs2/xattr_user.c b/fs/jffs2/xattr_user.c
-index 9d027b4abcf9..c0983a3e810b 100644
 --- a/fs/jffs2/xattr_user.c
 +++ b/fs/jffs2/xattr_user.c
 @@ -18,7 +18,8 @@
@@ -540,7 +513,6 @@ index 9d027b4abcf9..c0983a3e810b 100644
  	return do_jffs2_getxattr(inode, JFFS2_XPREFIX_USER,
  				 name, buffer, size);
 diff --git a/fs/jfs/xattr.c b/fs/jfs/xattr.c
-index db41e7803163..5c79a35bf62f 100644
 --- a/fs/jfs/xattr.c
 +++ b/fs/jfs/xattr.c
 @@ -925,7 +925,7 @@ static int __jfs_xattr_set(struct inode *inode, const char *name,
@@ -563,7 +535,6 @@ index db41e7803163..5c79a35bf62f 100644
  	if (is_known_namespace(name))
  		return -EOPNOTSUPP;
 diff --git a/fs/kernfs/inode.c b/fs/kernfs/inode.c
-index fc2469a20fed..1c9e4eca3a4e 100644
 --- a/fs/kernfs/inode.c
 +++ b/fs/kernfs/inode.c
 @@ -310,7 +310,8 @@ int kernfs_xattr_set(struct kernfs_node *kn, const char *name,
@@ -577,7 +548,6 @@ index fc2469a20fed..1c9e4eca3a4e 100644
  	const char *name = xattr_full_name(handler, suffix);
  	struct kernfs_node *kn = inode->i_private;
 diff --git a/fs/nfs/nfs4proc.c b/fs/nfs/nfs4proc.c
-index cb34e840e4fb..f4d9a58dd6df 100644
 --- a/fs/nfs/nfs4proc.c
 +++ b/fs/nfs/nfs4proc.c
 @@ -7349,7 +7349,8 @@ static int nfs4_xattr_set_nfs4_acl(const struct xattr_handler *handler,
@@ -601,7 +571,6 @@ index cb34e840e4fb..f4d9a58dd6df 100644
  	if (security_ismaclabel(key))
  		return nfs4_get_security_label(inode, buf, buflen);
 diff --git a/fs/ocfs2/xattr.c b/fs/ocfs2/xattr.c
-index 90c830e3758e..525835807c86 100644
 --- a/fs/ocfs2/xattr.c
 +++ b/fs/ocfs2/xattr.c
 @@ -7242,7 +7242,8 @@ int ocfs2_init_security_and_acl(struct inode *dir,
@@ -635,7 +604,6 @@ index 90c830e3758e..525835807c86 100644
  	struct ocfs2_super *osb = OCFS2_SB(inode->i_sb);
  
 diff --git a/fs/orangefs/xattr.c b/fs/orangefs/xattr.c
-index bdc285aea360..ef4180bff7bb 100644
 --- a/fs/orangefs/xattr.c
 +++ b/fs/orangefs/xattr.c
 @@ -541,7 +541,8 @@ static int orangefs_xattr_get_default(const struct xattr_handler *handler,
@@ -649,7 +617,6 @@ index bdc285aea360..ef4180bff7bb 100644
  	return orangefs_inode_getxattr(inode, name, buffer, size);
  
 diff --git a/fs/overlayfs/super.c b/fs/overlayfs/super.c
-index ac967f1cb6e5..759f1eee3f46 100644
 --- a/fs/overlayfs/super.c
 +++ b/fs/overlayfs/super.c
 @@ -856,7 +856,7 @@ static unsigned int ovl_split_lowerdirs(char *str)
@@ -682,7 +649,6 @@ index ac967f1cb6e5..759f1eee3f46 100644
  	return ovl_xattr_get(dentry, inode, name, buffer, size);
  }
 diff --git a/fs/posix_acl.c b/fs/posix_acl.c
-index 249672bf54fe..1a794a136e69 100644
 --- a/fs/posix_acl.c
 +++ b/fs/posix_acl.c
 @@ -835,7 +835,7 @@ EXPORT_SYMBOL (posix_acl_to_xattr);
@@ -695,7 +661,6 @@ index 249672bf54fe..1a794a136e69 100644
  	struct posix_acl *acl;
  	int error;
 diff --git a/fs/reiserfs/xattr_security.c b/fs/reiserfs/xattr_security.c
-index 20be9a0e5870..eedfa07a4fd0 100644
 --- a/fs/reiserfs/xattr_security.c
 +++ b/fs/reiserfs/xattr_security.c
 @@ -11,7 +11,8 @@
@@ -709,7 +674,6 @@ index 20be9a0e5870..eedfa07a4fd0 100644
  	if (IS_PRIVATE(inode))
  		return -EPERM;
 diff --git a/fs/reiserfs/xattr_trusted.c b/fs/reiserfs/xattr_trusted.c
-index 5ed48da3d02b..2d11d98605dd 100644
 --- a/fs/reiserfs/xattr_trusted.c
 +++ b/fs/reiserfs/xattr_trusted.c
 @@ -10,7 +10,8 @@
@@ -723,7 +687,6 @@ index 5ed48da3d02b..2d11d98605dd 100644
  	if (!capable(CAP_SYS_ADMIN) || IS_PRIVATE(inode))
  		return -EPERM;
 diff --git a/fs/reiserfs/xattr_user.c b/fs/reiserfs/xattr_user.c
-index a573ca45bacc..2a59d85c69c9 100644
 --- a/fs/reiserfs/xattr_user.c
 +++ b/fs/reiserfs/xattr_user.c
 @@ -9,7 +9,8 @@
@@ -737,7 +700,6 @@ index a573ca45bacc..2a59d85c69c9 100644
  	if (!reiserfs_xattrs_user(inode->i_sb))
  		return -EOPNOTSUPP;
 diff --git a/fs/squashfs/xattr.c b/fs/squashfs/xattr.c
-index e1e3f3dd5a06..d8d58c990652 100644
 --- a/fs/squashfs/xattr.c
 +++ b/fs/squashfs/xattr.c
 @@ -204,7 +204,7 @@ static int squashfs_xattr_handler_get(const struct xattr_handler *handler,
@@ -750,7 +712,6 @@ index e1e3f3dd5a06..d8d58c990652 100644
  	return squashfs_xattr_get(inode, handler->flags, name,
  		buffer, size);
 diff --git a/fs/ubifs/xattr.c b/fs/ubifs/xattr.c
-index 9aefbb60074f..26e1a74f178e 100644
 --- a/fs/ubifs/xattr.c
 +++ b/fs/ubifs/xattr.c
 @@ -669,7 +669,8 @@ int ubifs_init_security(struct inode *dentry, struct inode *inode,
@@ -764,7 +725,6 @@ index 9aefbb60074f..26e1a74f178e 100644
  	dbg_gen("xattr '%s', ino %lu ('%pd'), buf size %zd", name,
  		inode->i_ino, dentry, size);
 diff --git a/fs/xattr.c b/fs/xattr.c
-index e13265e65871..145bc2dc38e4 100644
 --- a/fs/xattr.c
 +++ b/fs/xattr.c
 @@ -281,7 +281,7 @@ vfs_getxattr_alloc(struct dentry *dentry, const char *name, char **xattr_value,
@@ -835,7 +795,6 @@ index e13265e65871..145bc2dc38e4 100644
  EXPORT_SYMBOL_GPL(vfs_getxattr);
  
 diff --git a/fs/xfs/xfs_xattr.c b/fs/xfs/xfs_xattr.c
-index fc5d7276026e..0bb82c8c6f22 100644
 --- a/fs/xfs/xfs_xattr.c
 +++ b/fs/xfs/xfs_xattr.c
 @@ -20,7 +20,8 @@
@@ -849,7 +808,6 @@ index fc5d7276026e..0bb82c8c6f22 100644
  	struct xfs_da_args	args = {
  		.dp		= XFS_I(inode),
 diff --git a/include/linux/xattr.h b/include/linux/xattr.h
-index 4cf6e11f4a3c..58146544ceab 100644
 --- a/include/linux/xattr.h
 +++ b/include/linux/xattr.h
 @@ -30,10 +30,10 @@ struct xattr_handler {
@@ -877,7 +835,6 @@ index 4cf6e11f4a3c..58146544ceab 100644
  ssize_t vfs_listxattr(struct dentry *d, char *list, size_t size);
  int __vfs_setxattr(struct dentry *, struct inode *, const char *, const void *, size_t, int);
 diff --git a/include/uapi/linux/xattr.h b/include/uapi/linux/xattr.h
-index c1395b5bd432..1eba02616274 100644
 --- a/include/uapi/linux/xattr.h
 +++ b/include/uapi/linux/xattr.h
 @@ -17,8 +17,11 @@
@@ -895,7 +852,6 @@ index c1395b5bd432..1eba02616274 100644
  
  /* Namespaces */
 diff --git a/mm/shmem.c b/mm/shmem.c
-index f47347cb30f6..1612976f0cda 100644
 --- a/mm/shmem.c
 +++ b/mm/shmem.c
 @@ -3227,7 +3227,8 @@ static int shmem_initxattrs(struct inode *inode,
@@ -909,7 +865,6 @@ index f47347cb30f6..1612976f0cda 100644
  	struct shmem_inode_info *info = SHMEM_I(inode);
  
 diff --git a/net/socket.c b/net/socket.c
-index 2dd739fba866..ef700a25c8a1 100644
 --- a/net/socket.c
 +++ b/net/socket.c
 @@ -314,7 +314,8 @@ static const struct dentry_operations sockfs_dentry_operations = {
@@ -923,7 +878,6 @@ index 2dd739fba866..ef700a25c8a1 100644
  	if (value) {
  		if (dentry->d_name.len + 1 > size)
 diff --git a/security/commoncap.c b/security/commoncap.c
-index f4ee0ae106b2..378a2f66a73d 100644
 --- a/security/commoncap.c
 +++ b/security/commoncap.c
 @@ -297,7 +297,8 @@ int cap_inode_need_killpriv(struct dentry *dentry)
@@ -947,7 +901,6 @@ index f4ee0ae106b2..378a2f66a73d 100644
  		/* no data, that's ok */
  		return -ENODATA;
 diff --git a/security/integrity/evm/evm_main.c b/security/integrity/evm/evm_main.c
-index d361d7fdafc4..0632f650958f 100644
 --- a/security/integrity/evm/evm_main.c
 +++ b/security/integrity/evm/evm_main.c
 @@ -98,7 +98,8 @@ static int evm_find_protected_xattrs(struct dentry *dentry)
@@ -961,7 +914,6 @@ index d361d7fdafc4..0632f650958f 100644
  			if (error == -ENODATA)
  				continue;
 diff --git a/security/selinux/hooks.c b/security/selinux/hooks.c
-index bc24d278a43c..605eaf8142f0 100644
 --- a/security/selinux/hooks.c
 +++ b/security/selinux/hooks.c
 @@ -503,7 +503,8 @@ static int sb_finish_set_opts(struct super_block *sb)
@@ -1001,7 +953,6 @@ index bc24d278a43c..605eaf8142f0 100644
  	if (rc < 0) {
  		kfree(context);
 diff --git a/security/smack/smack_lsm.c b/security/smack/smack_lsm.c
-index 8c61d175e195..dbf699ac0bfe 100644
 --- a/security/smack/smack_lsm.c
 +++ b/security/smack/smack_lsm.c
 @@ -291,7 +291,8 @@ static struct smack_known *smk_fetch(const char *name, struct inode *ip,

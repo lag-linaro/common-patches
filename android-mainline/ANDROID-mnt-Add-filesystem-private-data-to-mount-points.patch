@@ -32,7 +32,6 @@ Signed-off-by: Matthias Maennich <maennich@google.com>
  5 files changed, 53 insertions(+), 1 deletion(-)
 
 diff --git a/fs/namespace.c b/fs/namespace.c
-index a28e4db075ed..b547a0670e51 100644
 --- a/fs/namespace.c
 +++ b/fs/namespace.c
 @@ -198,6 +198,7 @@ static struct mount *alloc_vfsmnt(const char *name)
@@ -111,7 +110,6 @@ index a28e4db075ed..b547a0670e51 100644
  		}
  		up_write(&sb->s_umount);
 diff --git a/fs/pnode.c b/fs/pnode.c
-index 49f6d7ff2139..16b2d165b5e9 100644
 --- a/fs/pnode.c
 +++ b/fs/pnode.c
 @@ -601,3 +601,19 @@ int propagate_umount(struct list_head *list)
@@ -135,7 +133,6 @@ index 49f6d7ff2139..16b2d165b5e9 100644
 +	}
 +}
 diff --git a/fs/pnode.h b/fs/pnode.h
-index 49a058c73e4c..a95e519b77bf 100644
 --- a/fs/pnode.h
 +++ b/fs/pnode.h
 @@ -42,6 +42,7 @@ int propagate_mnt(struct mount *, struct mountpoint *, struct mount *,
@@ -147,7 +144,6 @@ index 49a058c73e4c..a95e519b77bf 100644
  int get_dominating_id(struct mount *mnt, const struct path *root);
  unsigned int mnt_get_count(struct mount *mnt);
 diff --git a/include/linux/fs.h b/include/linux/fs.h
-index 744d92e4ef29..5d11ef415edc 100644
 --- a/include/linux/fs.h
 +++ b/include/linux/fs.h
 @@ -1974,6 +1974,9 @@ struct super_operations {
@@ -169,7 +165,6 @@ index 744d92e4ef29..5d11ef415edc 100644
  	struct module *owner;
  	struct file_system_type * next;
 diff --git a/include/linux/mount.h b/include/linux/mount.h
-index bf8cc4108b8f..20541916e360 100644
 --- a/include/linux/mount.h
 +++ b/include/linux/mount.h
 @@ -69,6 +69,7 @@ struct vfsmount {

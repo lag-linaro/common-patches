@@ -12,7 +12,6 @@ Signed-off-by: Ram Muthiah <rammuthiah@google.com>
  1 file changed, 1 insertion(+)
 
 diff --git a/arch/x86/configs/gki_defconfig b/arch/x86/configs/gki_defconfig
-index 8c55cb50c59b..27c6c2b9ace1 100644
 --- a/arch/x86/configs/gki_defconfig
 +++ b/arch/x86/configs/gki_defconfig
 @@ -339,6 +339,7 @@ CONFIG_ANDROID=y

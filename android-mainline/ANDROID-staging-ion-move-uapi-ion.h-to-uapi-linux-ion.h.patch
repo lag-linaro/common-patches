@@ -15,7 +15,6 @@ Signed-off-by: Sandeep Patil <sspatil@google.com>
  rename include/uapi/{ => linux}/ion.h (100%)
 
 diff --git a/include/linux/ion.h b/include/linux/ion.h
-index fe0d2cb1ef25..5d68674b015a 100644
 --- a/include/linux/ion.h
 +++ b/include/linux/ion.h
 @@ -18,7 +18,7 @@

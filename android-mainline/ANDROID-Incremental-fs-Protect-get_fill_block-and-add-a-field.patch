@@ -21,7 +21,6 @@ Change-Id: I126a8cf711e56592479093e9aadbfd0e7f700752
  4 files changed, 59 insertions(+)
 
 diff --git a/fs/incfs/data_mgmt.c b/fs/incfs/data_mgmt.c
-index bf509e2b0314..c0248de8949b 100644
 --- a/fs/incfs/data_mgmt.c
 +++ b/fs/incfs/data_mgmt.c
 @@ -436,6 +436,7 @@ int incfs_get_filled_blocks(struct data_file *df,
@@ -33,7 +32,6 @@ index bf509e2b0314..c0248de8949b 100644
  	if (df->df_header_flags & INCFS_FILE_COMPLETE) {
  		pr_debug("File marked full, fast get_filled_blocks");
 diff --git a/fs/incfs/vfs.c b/fs/incfs/vfs.c
-index f2a5b3df9d38..97b690182c69 100644
 --- a/fs/incfs/vfs.c
 +++ b/fs/incfs/vfs.c
 @@ -1445,6 +1445,9 @@ static long ioctl_get_filled_blocks(struct file *f, void __user *arg)
@@ -47,7 +45,6 @@ index f2a5b3df9d38..97b690182c69 100644
  		return -EINVAL;
  
 diff --git a/include/uapi/linux/incrementalfs.h b/include/uapi/linux/incrementalfs.h
-index 2d535d365ce9..13c3d5173e14 100644
 --- a/include/uapi/linux/incrementalfs.h
 +++ b/include/uapi/linux/incrementalfs.h
 @@ -321,6 +321,9 @@ struct incfs_get_filled_blocks_args {
@@ -61,7 +58,6 @@ index 2d535d365ce9..13c3d5173e14 100644
  	__u32 range_buffer_size_out;
  
 diff --git a/tools/testing/selftests/filesystems/incfs/incfs_test.c b/tools/testing/selftests/filesystems/incfs/incfs_test.c
-index 3137dad14615..15a34a8469ba 100644
 --- a/tools/testing/selftests/filesystems/incfs/incfs_test.c
 +++ b/tools/testing/selftests/filesystems/incfs/incfs_test.c
 @@ -2189,12 +2189,29 @@ static int validate_ranges(const char *mount_dir, struct test_file *file)

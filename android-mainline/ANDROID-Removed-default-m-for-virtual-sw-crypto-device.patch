@@ -15,7 +15,6 @@ Change-Id: I72b0155b5db9bc54bfca0ed99734b7c2c513ceac
  1 file changed, 1 deletion(-)
 
 diff --git a/drivers/crypto/virtio/Kconfig b/drivers/crypto/virtio/Kconfig
-index fb294174e408..b894e3a8be4f 100644
 --- a/drivers/crypto/virtio/Kconfig
 +++ b/drivers/crypto/virtio/Kconfig
 @@ -5,7 +5,6 @@ config CRYPTO_DEV_VIRTIO

@@ -31,7 +31,6 @@ Signed-off-by: Matthias Maennich <maennich@google.com>
  3 files changed, 284 insertions(+), 33 deletions(-)
 
 diff --git a/drivers/android/binder.c b/drivers/android/binder.c
-index e47c8a4c83db..855010772956 100644
 --- a/drivers/android/binder.c
 +++ b/drivers/android/binder.c
 @@ -67,6 +67,7 @@
@@ -473,7 +472,6 @@ index e47c8a4c83db..855010772956 100644
  		   node->local_strong_refs, node->local_weak_refs,
  		   node->internal_strong_refs, count, node->tmp_refs);
 diff --git a/drivers/android/binder_trace.h b/drivers/android/binder_trace.h
-index 6731c3cd8145..a70e23716ad0 100644
 --- a/drivers/android/binder_trace.h
 +++ b/drivers/android/binder_trace.h
 @@ -76,6 +76,30 @@ DEFINE_BINDER_FUNCTION_RETURN_EVENT(binder_ioctl_done);
@@ -508,7 +506,6 @@ index 6731c3cd8145..a70e23716ad0 100644
  	TP_PROTO(bool proc_work, bool transaction_stack, bool thread_todo),
  	TP_ARGS(proc_work, transaction_stack, thread_todo),
 diff --git a/include/uapi/linux/android/binder.h b/include/uapi/linux/android/binder.h
-index 2832134e5397..11babae0339f 100644
 --- a/include/uapi/linux/android/binder.h
 +++ b/include/uapi/linux/android/binder.h
 @@ -38,10 +38,58 @@ enum {

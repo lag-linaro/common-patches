@@ -30,7 +30,6 @@ Signed-off-by: Eric Biggers <ebiggers@google.com>
  4 files changed, 29 insertions(+), 6 deletions(-)
 
 diff --git a/fs/direct-io.c b/fs/direct-io.c
-index 00b4d15bb811..f4df5fbbc4f3 100644
 --- a/fs/direct-io.c
 +++ b/fs/direct-io.c
 @@ -24,6 +24,7 @@
@@ -60,7 +59,6 @@ index 00b4d15bb811..f4df5fbbc4f3 100644
  	bio->bi_iter.bi_sector = first_sector;
  	bio_set_op_attrs(bio, dio->op, dio->op_flags);
 diff --git a/fs/ext4/file.c b/fs/ext4/file.c
-index 5f225881176b..eefe69f0137a 100644
 --- a/fs/ext4/file.c
 +++ b/fs/ext4/file.c
 @@ -36,10 +36,16 @@
@@ -102,7 +100,6 @@ index 5f225881176b..eefe69f0137a 100644
  			inode_unlock_shared(inode);
  		else
 diff --git a/fs/f2fs/f2fs.h b/fs/f2fs/f2fs.h
-index f8dcd9a255f5..13a09408858a 100644
 --- a/fs/f2fs/f2fs.h
 +++ b/fs/f2fs/f2fs.h
 @@ -3984,7 +3984,13 @@ static inline bool f2fs_force_buffered_io(struct inode *inode,
@@ -121,7 +118,6 @@ index f8dcd9a255f5..13a09408858a 100644
  	if (f2fs_is_multi_device(sbi))
  		return true;
 diff --git a/fs/iomap/direct-io.c b/fs/iomap/direct-io.c
-index 20dde5aadcdd..a326be6bfeeb 100644
 --- a/fs/iomap/direct-io.c
 +++ b/fs/iomap/direct-io.c
 @@ -6,6 +6,7 @@

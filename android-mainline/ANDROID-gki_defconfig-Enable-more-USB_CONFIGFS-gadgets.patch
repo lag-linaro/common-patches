@@ -19,7 +19,6 @@ Signed-off-by: Greg Kroah-Hartman <gregkh@google.com>
  2 files changed, 6 insertions(+)
 
 diff --git a/arch/arm64/configs/gki_defconfig b/arch/arm64/configs/gki_defconfig
-index df58bbf4fcd7..b9051253adb6 100644
 --- a/arch/arm64/configs/gki_defconfig
 +++ b/arch/arm64/configs/gki_defconfig
 @@ -341,6 +341,9 @@ CONFIG_USB_OTG=y
@@ -33,7 +32,6 @@ index df58bbf4fcd7..b9051253adb6 100644
  CONFIG_USB_CONFIGFS_F_ACC=y
  CONFIG_USB_CONFIGFS_F_AUDIO_SRC=y
 diff --git a/arch/x86/configs/gki_defconfig b/arch/x86/configs/gki_defconfig
-index 5773402ca435..87fd20085e54 100644
 --- a/arch/x86/configs/gki_defconfig
 +++ b/arch/x86/configs/gki_defconfig
 @@ -297,6 +297,9 @@ CONFIG_USB=y

@@ -15,7 +15,6 @@ Signed-off-by: Alistair Delva <adelva@google.com>
  1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/arch/um/kernel/irq.c b/arch/um/kernel/irq.c
-index 3577118bb4a5..9410424af710 100644
 --- a/arch/um/kernel/irq.c
 +++ b/arch/um/kernel/irq.c
 @@ -480,7 +480,7 @@ void __init init_IRQ(void)

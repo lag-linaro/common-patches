@@ -11,7 +11,6 @@ Signed-off-by: Sami Tolvanen <samitolvanen@google.com>
  1 file changed, 2 insertions(+), 2 deletions(-)
 
 diff --git a/arch/arm64/kernel/vdso/Makefile b/arch/arm64/kernel/vdso/Makefile
-index a87a4f11724e..717ebb781c97 100644
 --- a/arch/arm64/kernel/vdso/Makefile
 +++ b/arch/arm64/kernel/vdso/Makefile
 @@ -25,8 +25,8 @@ ccflags-y += -DDISABLE_BRANCH_PROFILING

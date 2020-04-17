@@ -17,7 +17,6 @@ Link: https://patchwork.kernel.org/patch/11214753/
  2 files changed, 80 insertions(+), 5 deletions(-)
 
 diff --git a/drivers/scsi/ufs/ufshcd.c b/drivers/scsi/ufs/ufshcd.c
-index 99445e30e8dd..45ce9d99d669 100644
 --- a/drivers/scsi/ufs/ufshcd.c
 +++ b/drivers/scsi/ufs/ufshcd.c
 @@ -48,6 +48,7 @@
@@ -185,7 +184,6 @@ index 99445e30e8dd..45ce9d99d669 100644
  	err = ufshcd_hba_enable(hba);
  	if (err) {
 diff --git a/drivers/scsi/ufs/ufshcd.h b/drivers/scsi/ufs/ufshcd.h
-index a0dd05a87929..74e1a86b4493 100644
 --- a/drivers/scsi/ufs/ufshcd.h
 +++ b/drivers/scsi/ufs/ufshcd.h
 @@ -169,6 +169,9 @@ struct ufs_pm_lvl_states {

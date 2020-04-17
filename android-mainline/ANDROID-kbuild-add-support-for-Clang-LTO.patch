@@ -32,7 +32,6 @@ Signed-off-by: Sami Tolvanen <samitolvanen@google.com>
  8 files changed, 222 insertions(+), 18 deletions(-)
 
 diff --git a/Makefile b/Makefile
-index 9ea9da765d03..075224cbd109 100644
 --- a/Makefile
 +++ b/Makefile
 @@ -657,6 +657,16 @@ RETPOLINE_VDSO_CFLAGS := $(call cc-option,$(RETPOLINE_VDSO_CFLAGS_GCC),$(call cc
@@ -86,7 +85,6 @@ index 9ea9da765d03..075224cbd109 100644
  # Generate tags for editors
  # ---------------------------------------------------------------------------
 diff --git a/arch/Kconfig b/arch/Kconfig
-index 4be18f28e489..30db84ca509b 100644
 --- a/arch/Kconfig
 +++ b/arch/Kconfig
 @@ -559,6 +559,53 @@ config SHADOW_CALL_STACK_VMAP
@@ -144,7 +142,6 @@ index 4be18f28e489..30db84ca509b 100644
  config HAVE_ARCH_WITHIN_STACK_FRAMES
  	bool
 diff --git a/include/asm-generic/vmlinux.lds.h b/include/asm-generic/vmlinux.lds.h
-index 71e387a5fe90..dd9fac506b9d 100644
 --- a/include/asm-generic/vmlinux.lds.h
 +++ b/include/asm-generic/vmlinux.lds.h
 @@ -89,10 +89,13 @@
@@ -163,7 +160,6 @@ index 71e387a5fe90..dd9fac506b9d 100644
  #define DATA_MAIN .data .data.[0-9a-zA-Z_]* .data..LPBX*
  #define SDATA_MAIN .sdata .sdata.[0-9a-zA-Z_]*
 diff --git a/scripts/Makefile.build b/scripts/Makefile.build
-index a1730d42e5f3..bf0e6da8b5e6 100644
 --- a/scripts/Makefile.build
 +++ b/scripts/Makefile.build
 @@ -95,7 +95,7 @@ endif
@@ -281,7 +277,6 @@ index a1730d42e5f3..bf0e6da8b5e6 100644
  $(multi-used-m): FORCE
  	$(call if_changed,link_multi-m)
 diff --git a/scripts/Makefile.modfinal b/scripts/Makefile.modfinal
-index 411c1e600e7d..147ed6c243ef 100644
 --- a/scripts/Makefile.modfinal
 +++ b/scripts/Makefile.modfinal
 @@ -30,14 +30,27 @@ quiet_cmd_cc_o_c = CC [M]  $@
@@ -314,7 +309,6 @@ index 411c1e600e7d..147ed6c243ef 100644
  
  targets += $(modules) $(modules:.ko=.mod.o)
 diff --git a/scripts/Makefile.modpost b/scripts/Makefile.modpost
-index 957eed6a17a5..e1da4efba42f 100644
 --- a/scripts/Makefile.modpost
 +++ b/scripts/Makefile.modpost
 @@ -85,12 +85,32 @@ endif
@@ -353,7 +347,6 @@ index 957eed6a17a5..e1da4efba42f 100644
  ifneq ($(KBUILD_MODPOST_NOFINAL),1)
  	$(Q)$(MAKE) -f $(srctree)/scripts/Makefile.modfinal
 diff --git a/scripts/link-vmlinux.sh b/scripts/link-vmlinux.sh
-index d09ab4afbda4..e2c441ada424 100755
 --- a/scripts/link-vmlinux.sh
 +++ b/scripts/link-vmlinux.sh
 @@ -39,6 +39,30 @@ info()
@@ -451,7 +444,6 @@ index d09ab4afbda4..e2c441ada424 100755
  
  # modpost vmlinux.o to check for section mismatches
 diff --git a/scripts/mod/modpost.c b/scripts/mod/modpost.c
-index 5c3c50c5ec52..c6f731a4455c 100644
 --- a/scripts/mod/modpost.c
 +++ b/scripts/mod/modpost.c
 @@ -139,6 +139,9 @@ static struct module *new_module(const char *modname)

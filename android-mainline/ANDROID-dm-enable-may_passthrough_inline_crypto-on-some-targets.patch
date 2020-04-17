@@ -17,7 +17,6 @@ Signed-off-by: Eric Biggers <ebiggers@google.com>
  2 files changed, 2 insertions(+)
 
 diff --git a/drivers/md/dm-bow.c b/drivers/md/dm-bow.c
-index 9323c7c8580d..ee0e2b6fe450 100644
 --- a/drivers/md/dm-bow.c
 +++ b/drivers/md/dm-bow.c
 @@ -725,6 +725,7 @@ static int dm_bow_ctr(struct dm_target *ti, unsigned int argc, char **argv)
@@ -29,7 +28,6 @@ index 9323c7c8580d..ee0e2b6fe450 100644
  	return 0;
  
 diff --git a/drivers/md/dm-linear.c b/drivers/md/dm-linear.c
-index 8d07fdf63a47..3ebea62a5a3c 100644
 --- a/drivers/md/dm-linear.c
 +++ b/drivers/md/dm-linear.c
 @@ -62,6 +62,7 @@ static int linear_ctr(struct dm_target *ti, unsigned int argc, char **argv)

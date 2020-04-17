@@ -23,7 +23,6 @@ Link: https://patchwork.kernel.org/patch/11214745/
  create mode 100644 drivers/scsi/ufs/ufshcd-crypto.h
 
 diff --git a/drivers/scsi/ufs/Kconfig b/drivers/scsi/ufs/Kconfig
-index e2005aeddc2d..5ed3f209f881 100644
 --- a/drivers/scsi/ufs/Kconfig
 +++ b/drivers/scsi/ufs/Kconfig
 @@ -160,3 +160,12 @@ config SCSI_UFS_BSG
@@ -40,7 +39,6 @@ index e2005aeddc2d..5ed3f209f881 100644
 +	  capabilities of the UFS device (if present) to perform crypto
 +	  operations on data being transferred to/from the device.
 diff --git a/drivers/scsi/ufs/Makefile b/drivers/scsi/ufs/Makefile
-index 94c6c5d7334b..e88cdcde83fd 100644
 --- a/drivers/scsi/ufs/Makefile
 +++ b/drivers/scsi/ufs/Makefile
 @@ -12,3 +12,4 @@ obj-$(CONFIG_SCSI_UFSHCD_PLATFORM) += ufshcd-pltfrm.o
@@ -538,7 +536,6 @@ index 000000000000..73ddc8e493fb
 +
 +#endif /* _UFSHCD_CRYPTO_H */
 diff --git a/drivers/scsi/ufs/ufshcd.h b/drivers/scsi/ufs/ufshcd.h
-index cc6d3bc0fb25..a0dd05a87929 100644
 --- a/drivers/scsi/ufs/ufshcd.h
 +++ b/drivers/scsi/ufs/ufshcd.h
 @@ -601,6 +601,11 @@ enum ufshcd_caps {

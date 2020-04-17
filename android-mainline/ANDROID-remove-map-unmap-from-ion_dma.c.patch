@@ -20,7 +20,6 @@ Change-Id: I22dd274529cf5b527ab77eac2a4113baa20693c1
  1 file changed, 24 deletions(-)
 
 diff --git a/drivers/staging/android/ion/ion_dma_buf.c b/drivers/staging/android/ion/ion_dma_buf.c
-index 7ded926f52d4..6b77a2fbb67a 100644
 --- a/drivers/staging/android/ion/ion_dma_buf.c
 +++ b/drivers/staging/android/ion/ion_dma_buf.c
 @@ -234,17 +234,6 @@ static int ion_dma_buf_end_cpu_access_partial(struct dma_buf *dmabuf,

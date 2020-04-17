@@ -28,7 +28,6 @@ Signed-off-by: Eric Biggers <ebiggers@google.com>
  3 files changed, 27 insertions(+)
 
 diff --git a/fs/sdcardfs/main.c b/fs/sdcardfs/main.c
-index 818122410bfe..19fa9c4af462 100644
 --- a/fs/sdcardfs/main.c
 +++ b/fs/sdcardfs/main.c
 @@ -21,6 +21,7 @@
@@ -60,7 +59,6 @@ index 818122410bfe..19fa9c4af462 100644
  		list_del(&sbi->list);
  		mutex_unlock(&sdcardfs_super_list_lock);
 diff --git a/fs/sdcardfs/sdcardfs.h b/fs/sdcardfs/sdcardfs.h
-index f813d23cddcd..4af4f163399b 100644
 --- a/fs/sdcardfs/sdcardfs.h
 +++ b/fs/sdcardfs/sdcardfs.h
 @@ -152,6 +152,8 @@ extern struct inode *sdcardfs_iget(struct super_block *sb,
@@ -81,7 +79,6 @@ index f813d23cddcd..4af4f163399b 100644
  
  /*
 diff --git a/fs/sdcardfs/super.c b/fs/sdcardfs/super.c
-index 6b1d27e5067b..3d8762e012b8 100644
 --- a/fs/sdcardfs/super.c
 +++ b/fs/sdcardfs/super.c
 @@ -282,6 +282,23 @@ static int sdcardfs_show_options(struct vfsmount *mnt, struct seq_file *m,

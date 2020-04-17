@@ -17,7 +17,6 @@ Signed-off-by: Hridya Valsaraju <hridya@google.com>
  2 files changed, 51 insertions(+)
 
 diff --git a/drivers/staging/android/ion/ion.c b/drivers/staging/android/ion/ion.c
-index f41eca698272..acea3e6ee168 100644
 --- a/drivers/staging/android/ion/ion.c
 +++ b/drivers/staging/android/ion/ion.c
 @@ -62,6 +62,37 @@ static int ion_alloc_fd(size_t len, unsigned int heap_id_mask,
@@ -59,7 +58,6 @@ index f41eca698272..acea3e6ee168 100644
  {
  	struct ion_device *dev = internal_dev;
 diff --git a/include/linux/ion.h b/include/linux/ion.h
-index dbcbe0cb7b08..fa86bcce6e8f 100644
 --- a/include/linux/ion.h
 +++ b/include/linux/ion.h
 @@ -309,6 +309,21 @@ struct dma_buf *ion_alloc(size_t len, unsigned int heap_id_mask,

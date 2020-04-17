@@ -21,7 +21,6 @@ Signed-off-by: Todd Kjos <tkjos@google.com>
  create mode 100644 init/Kconfig.gki
 
 diff --git a/init/Kconfig b/init/Kconfig
-index f095ec64bb91..d186a44a934b 100644
 --- a/init/Kconfig
 +++ b/init/Kconfig
 @@ -2282,3 +2282,5 @@ config ARCH_HAS_SYNC_CORE_BEFORE_USERMODE

@@ -16,7 +16,6 @@ Change-Id: I32d5d6576bb4bdc115b32e7e7ef3ef1e9daa2323
  1 file changed, 2 insertions(+), 2 deletions(-)
 
 diff --git a/build.config.db845c b/build.config.db845c
-index 573b1f839e69..708800e5e4d0 100644
 --- a/build.config.db845c
 +++ b/build.config.db845c
 @@ -2,8 +2,8 @@

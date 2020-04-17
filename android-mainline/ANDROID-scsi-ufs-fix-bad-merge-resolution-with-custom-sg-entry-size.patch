@@ -16,7 +16,6 @@ Signed-off-by: Eric Biggers <ebiggers@google.com>
  1 file changed, 6 insertions(+), 5 deletions(-)
 
 diff --git a/drivers/scsi/ufs/ufshcd.c b/drivers/scsi/ufs/ufshcd.c
-index aa7d356ce57d..72bf31b29201 100644
 --- a/drivers/scsi/ufs/ufshcd.c
 +++ b/drivers/scsi/ufs/ufshcd.c
 @@ -2448,10 +2448,11 @@ static inline u16 ufshcd_upiu_wlun_to_scsi_wlun(u8 upiu_wlun_id)

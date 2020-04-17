@@ -21,7 +21,6 @@ Change-Id: I81b5fb5d3ce0259a60712ae2505c1e4b03dbafde
  2 files changed, 83 insertions(+)
 
 diff --git a/fs/libfs.c b/fs/libfs.c
-index 3759fbacf522..01c566a3f879 100644
 --- a/fs/libfs.c
 +++ b/fs/libfs.c
 @@ -20,6 +20,8 @@
@@ -97,7 +96,6 @@ index 3759fbacf522..01c566a3f879 100644
 +EXPORT_SYMBOL(generic_ci_d_hash);
 +#endif
 diff --git a/include/linux/fs.h b/include/linux/fs.h
-index 5d11ef415edc..9d5e5a5de5ee 100644
 --- a/include/linux/fs.h
 +++ b/include/linux/fs.h
 @@ -1388,6 +1388,12 @@ extern int send_sigurg(struct fown_struct *fown);

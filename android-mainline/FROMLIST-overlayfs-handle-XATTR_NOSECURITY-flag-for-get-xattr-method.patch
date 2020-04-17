@@ -56,7 +56,6 @@ Change-Id: Ia39543c5ce617976f14d790fb88e471d575ffd65
  3 files changed, 6 insertions(+), 5 deletions(-)
 
 diff --git a/fs/overlayfs/inode.c b/fs/overlayfs/inode.c
-index 79e8994e3bc1..de3d41eecf0a 100644
 --- a/fs/overlayfs/inode.c
 +++ b/fs/overlayfs/inode.c
 @@ -358,7 +358,7 @@ int ovl_xattr_set(struct dentry *dentry, struct inode *inode, const char *name,
@@ -79,7 +78,6 @@ index 79e8994e3bc1..de3d41eecf0a 100644
  	return res;
  }
 diff --git a/fs/overlayfs/overlayfs.h b/fs/overlayfs/overlayfs.h
-index 3d3f2b8bdae5..fdce6fb6db24 100644
 --- a/fs/overlayfs/overlayfs.h
 +++ b/fs/overlayfs/overlayfs.h
 @@ -395,7 +395,7 @@ int ovl_permission(struct inode *inode, int mask);
@@ -92,7 +90,6 @@ index 3d3f2b8bdae5..fdce6fb6db24 100644
  struct posix_acl *ovl_get_acl(struct inode *inode, int type);
  int ovl_update_time(struct inode *inode, struct timespec64 *ts, int flags);
 diff --git a/fs/overlayfs/super.c b/fs/overlayfs/super.c
-index 759f1eee3f46..6cada08cf5fe 100644
 --- a/fs/overlayfs/super.c
 +++ b/fs/overlayfs/super.c
 @@ -858,7 +858,7 @@ ovl_posix_acl_xattr_get(const struct xattr_handler *handler,

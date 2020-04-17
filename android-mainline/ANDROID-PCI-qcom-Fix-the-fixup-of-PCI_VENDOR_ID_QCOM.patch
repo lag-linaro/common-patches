@@ -19,7 +19,6 @@ Change-Id: Ibfd2b2dd41f6a22c832afb3d8e805c3602acba95
  1 file changed, 2 insertions(+)
 
 diff --git a/include/linux/pci_ids.h b/include/linux/pci_ids.h
-index 1dfc4e1dcb94..097605e878b9 100644
 --- a/include/linux/pci_ids.h
 +++ b/include/linux/pci_ids.h
 @@ -2416,6 +2416,8 @@

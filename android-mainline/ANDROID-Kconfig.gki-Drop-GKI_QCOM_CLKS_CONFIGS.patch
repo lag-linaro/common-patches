@@ -19,7 +19,6 @@ Signed-off-by: John Stultz <john.stultz@linaro.org>
  3 files changed, 2 insertions(+), 11 deletions(-)
 
 diff --git a/arch/arm64/configs/db845c_gki.fragment b/arch/arm64/configs/db845c_gki.fragment
-index 58aefa5fda9e..4947ee0f4155 100644
 --- a/arch/arm64/configs/db845c_gki.fragment
 +++ b/arch/arm64/configs/db845c_gki.fragment
 @@ -67,3 +67,5 @@ CONFIG_INTERCONNECT_QCOM=y
@@ -29,7 +28,6 @@ index 58aefa5fda9e..4947ee0f4155 100644
 +CONFIG_QCOM_RPMH=m
 +CONFIG_QCOM_RPMHPD=m
 diff --git a/arch/arm64/configs/gki_defconfig b/arch/arm64/configs/gki_defconfig
-index 6b004306d22d..957399d2e8bc 100644
 --- a/arch/arm64/configs/gki_defconfig
 +++ b/arch/arm64/configs/gki_defconfig
 @@ -374,7 +374,6 @@ CONFIG_HWSPINLOCK=y
@@ -41,7 +39,6 @@ index 6b004306d22d..957399d2e8bc 100644
  CONFIG_DEVFREQ_GOV_POWERSAVE=y
  CONFIG_DEVFREQ_GOV_USERSPACE=y
 diff --git a/init/Kconfig.gki b/init/Kconfig.gki
-index 5a0cfbacaff0..b68a5a14be0f 100644
 --- a/init/Kconfig.gki
 +++ b/init/Kconfig.gki
 @@ -79,15 +79,6 @@ config GKI_HIDDEN_QCOM_CONFIGS

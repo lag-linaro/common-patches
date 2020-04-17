@@ -17,7 +17,6 @@ Signed-off-by: Can Guo <cang@codeaurora.org>
  1 file changed, 2 insertions(+), 4 deletions(-)
 
 diff --git a/drivers/scsi/ufs/ufshcd.c b/drivers/scsi/ufs/ufshcd.c
-index c7ad9fe81b97..8801c7ea88a3 100644
 --- a/drivers/scsi/ufs/ufshcd.c
 +++ b/drivers/scsi/ufs/ufshcd.c
 @@ -1095,8 +1095,7 @@ static int ufshcd_scale_gear(struct ufs_hba *hba, bool scale_up)

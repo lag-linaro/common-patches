@@ -21,7 +21,6 @@ Signed-off-by: Amit Pundir <amit.pundir@linaro.org>
  1 file changed, 52 insertions(+), 39 deletions(-)
 
 diff --git a/drivers/usb/gadget/configfs.c b/drivers/usb/gadget/configfs.c
-index ce74d926a1b1..2badcb38eded 100644
 --- a/drivers/usb/gadget/configfs.c
 +++ b/drivers/usb/gadget/configfs.c
 @@ -1752,6 +1752,54 @@ static struct device_attribute *android_usb_attributes[] = {

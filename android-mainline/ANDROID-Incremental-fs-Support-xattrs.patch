@@ -18,7 +18,6 @@ Signed-off-by: Paul Lawrence <paullawrence@google.com>
  3 files changed, 84 insertions(+), 2 deletions(-)
 
 diff --git a/fs/incfs/data_mgmt.c b/fs/incfs/data_mgmt.c
-index 109329e0a180..91a81a571d51 100644
 --- a/fs/incfs/data_mgmt.c
 +++ b/fs/incfs/data_mgmt.c
 @@ -68,6 +68,8 @@ void incfs_free_mount_info(struct mount_info *mi)
@@ -31,7 +30,6 @@ index 109329e0a180..91a81a571d51 100644
  }
  
 diff --git a/fs/incfs/data_mgmt.h b/fs/incfs/data_mgmt.h
-index 82ccab3be4bb..e86951c7845a 100644
 --- a/fs/incfs/data_mgmt.h
 +++ b/fs/incfs/data_mgmt.h
 @@ -105,6 +105,12 @@ struct mount_info {
@@ -48,7 +46,6 @@ index 82ccab3be4bb..e86951c7845a 100644
  
  struct data_file_block {
 diff --git a/fs/incfs/vfs.c b/fs/incfs/vfs.c
-index e8b72f760f94..8ae92d7db1c6 100644
 --- a/fs/incfs/vfs.c
 +++ b/fs/incfs/vfs.c
 @@ -72,6 +72,8 @@ static void evict_inode(struct inode *inode);

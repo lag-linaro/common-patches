@@ -16,7 +16,6 @@ Change-Id: Ib4b6fd839ad30ce08e31121d19e2c0d7066d302f
  3 files changed, 143 insertions(+), 15 deletions(-)
 
 diff --git a/fs/incfs/vfs.c b/fs/incfs/vfs.c
-index 59b04dd0c6e9..3e370ddc1e30 100644
 --- a/fs/incfs/vfs.c
 +++ b/fs/incfs/vfs.c
 @@ -132,6 +132,11 @@ static const struct file_operations incfs_file_ops = {
@@ -118,7 +117,6 @@ index 59b04dd0c6e9..3e370ddc1e30 100644
  
  		dir = incfs_open_dir_file(mi, backing_file);
 diff --git a/include/uapi/linux/incrementalfs.h b/include/uapi/linux/incrementalfs.h
-index d3bd532cc913..b6c300d397f8 100644
 --- a/include/uapi/linux/incrementalfs.h
 +++ b/include/uapi/linux/incrementalfs.h
 @@ -51,13 +51,23 @@
@@ -165,7 +163,6 @@ index d3bd532cc913..b6c300d397f8 100644
  	INCFS_HASH_TREE_NONE = 0,
  	INCFS_HASH_TREE_SHA256 = 1
 diff --git a/tools/testing/selftests/filesystems/incfs/incfs_test.c b/tools/testing/selftests/filesystems/incfs/incfs_test.c
-index 9910b274bfc0..b24cd892d014 100644
 --- a/tools/testing/selftests/filesystems/incfs/incfs_test.c
 +++ b/tools/testing/selftests/filesystems/incfs/incfs_test.c
 @@ -204,15 +204,43 @@ static char *get_index_filename(const char *mnt_dir, incfs_uuid_t id)

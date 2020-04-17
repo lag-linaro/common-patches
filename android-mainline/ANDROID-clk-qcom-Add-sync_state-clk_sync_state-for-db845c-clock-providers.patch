@@ -23,7 +23,6 @@ Change-Id: I722987fbaff045f80180aafb9176b75ed5f8cd03
  5 files changed, 6 insertions(+)
 
 diff --git a/drivers/clk/qcom/dispcc-sdm845.c b/drivers/clk/qcom/dispcc-sdm845.c
-index 5c932cd17b14..11e03f7fae09 100644
 --- a/drivers/clk/qcom/dispcc-sdm845.c
 +++ b/drivers/clk/qcom/dispcc-sdm845.c
 @@ -3,6 +3,7 @@
@@ -43,7 +42,6 @@ index 5c932cd17b14..11e03f7fae09 100644
  };
  
 diff --git a/drivers/clk/qcom/gcc-msm8998.c b/drivers/clk/qcom/gcc-msm8998.c
-index df1d7056436c..b5682fca397e 100644
 --- a/drivers/clk/qcom/gcc-msm8998.c
 +++ b/drivers/clk/qcom/gcc-msm8998.c
 @@ -3092,6 +3092,7 @@ static struct platform_driver gcc_msm8998_driver = {
@@ -55,7 +53,6 @@ index df1d7056436c..b5682fca397e 100644
  };
  
 diff --git a/drivers/clk/qcom/gcc-sdm845.c b/drivers/clk/qcom/gcc-sdm845.c
-index f6ce888098be..616914c2fb84 100644
 --- a/drivers/clk/qcom/gcc-sdm845.c
 +++ b/drivers/clk/qcom/gcc-sdm845.c
 @@ -3628,6 +3628,7 @@ static struct platform_driver gcc_sdm845_driver = {
@@ -67,7 +64,6 @@ index f6ce888098be..616914c2fb84 100644
  };
  
 diff --git a/drivers/clk/qcom/gpucc-sdm845.c b/drivers/clk/qcom/gpucc-sdm845.c
-index e40efba1bf7d..9aa30cd950b5 100644
 --- a/drivers/clk/qcom/gpucc-sdm845.c
 +++ b/drivers/clk/qcom/gpucc-sdm845.c
 @@ -233,6 +233,7 @@ static struct platform_driver gpu_cc_sdm845_driver = {
@@ -79,7 +75,6 @@ index e40efba1bf7d..9aa30cd950b5 100644
  };
  
 diff --git a/drivers/clk/qcom/videocc-sdm845.c b/drivers/clk/qcom/videocc-sdm845.c
-index 5d6a7724a194..5822252ac1da 100644
 --- a/drivers/clk/qcom/videocc-sdm845.c
 +++ b/drivers/clk/qcom/videocc-sdm845.c
 @@ -338,6 +338,7 @@ static struct platform_driver video_cc_sdm845_driver = {

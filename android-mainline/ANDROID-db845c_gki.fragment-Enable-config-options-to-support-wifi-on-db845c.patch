@@ -15,7 +15,6 @@ Signed-off-by: John Stultz <john.stultz@linaro.org>
  1 file changed, 29 insertions(+)
 
 diff --git a/arch/arm64/configs/db845c_gki.fragment b/arch/arm64/configs/db845c_gki.fragment
-index 4947ee0f4155..3089e8a65c74 100644
 --- a/arch/arm64/configs/db845c_gki.fragment
 +++ b/arch/arm64/configs/db845c_gki.fragment
 @@ -69,3 +69,32 @@ CONFIG_INCREMENTAL_FS=m

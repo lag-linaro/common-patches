@@ -32,7 +32,6 @@ Change-Id: I11e436a8a2452cd741c33bd1e2805e1b5e33ae3e
  2 files changed, 6 insertions(+), 1 deletion(-)
 
 diff --git a/drivers/soc/qcom/Kconfig b/drivers/soc/qcom/Kconfig
-index ad43218c7c7e..0d0123f6ec0a 100644
 --- a/drivers/soc/qcom/Kconfig
 +++ b/drivers/soc/qcom/Kconfig
 @@ -117,7 +117,7 @@ config QCOM_RPMH
@@ -45,7 +44,6 @@ index ad43218c7c7e..0d0123f6ec0a 100644
  	help
  	  QCOM RPMh Power domain driver to support power-domains with
 diff --git a/drivers/soc/qcom/rpmhpd.c b/drivers/soc/qcom/rpmhpd.c
-index 4d264d0672c4..0bb12d5870a7 100644
 --- a/drivers/soc/qcom/rpmhpd.c
 +++ b/drivers/soc/qcom/rpmhpd.c
 @@ -4,6 +4,7 @@

@@ -19,7 +19,6 @@ Link: https://lore.kernel.org/linux-arm-msm/20200113084005.849071-2-vkoul@kernel
  create mode 100644 drivers/usb/host/xhci-pci.h
 
 diff --git a/drivers/usb/host/xhci-pci.c b/drivers/usb/host/xhci-pci.c
-index 766b74723e64..5de3985aa228 100644
 --- a/drivers/usb/host/xhci-pci.c
 +++ b/drivers/usb/host/xhci-pci.c
 @@ -15,6 +15,7 @@

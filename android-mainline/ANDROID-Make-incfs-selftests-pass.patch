@@ -21,7 +21,6 @@ Signed-off-by: Paul Lawrence <paullawrence@google.com>
  create mode 100644 tools/testing/selftests/filesystems/incfs/.gitignore
 
 diff --git a/fs/incfs/Kconfig b/fs/incfs/Kconfig
-index d860c07664c3..a655d599ea46 100644
 --- a/fs/incfs/Kconfig
 +++ b/fs/incfs/Kconfig
 @@ -4,6 +4,7 @@ config INCREMENTAL_FS
@@ -41,7 +40,6 @@ index 000000000000..4cba9c219a92
 +incfs_test
 \ No newline at end of file
 diff --git a/tools/testing/selftests/filesystems/incfs/Makefile b/tools/testing/selftests/filesystems/incfs/Makefile
-index 7cff78cf5131..1f13573d3617 100644
 --- a/tools/testing/selftests/filesystems/incfs/Makefile
 +++ b/tools/testing/selftests/filesystems/incfs/Makefile
 @@ -5,6 +5,8 @@ CFLAGS += -I../../../../include/uapi/

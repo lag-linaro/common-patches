@@ -16,7 +16,6 @@ Signed-off-by: Sami Tolvanen <samitolvanen@google.com>
  1 file changed, 44 insertions(+), 5 deletions(-)
 
 diff --git a/kernel/kallsyms.c b/kernel/kallsyms.c
-index a9b3f660dee7..b7a799a66f55 100644
 --- a/kernel/kallsyms.c
 +++ b/kernel/kallsyms.c
 @@ -272,6 +272,24 @@ int kallsyms_lookup_size_offset(unsigned long addr, unsigned long *symbolsize,

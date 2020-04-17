@@ -16,7 +16,6 @@ Change-Id: I617099435af311e6b0ee127b76eafe13834ea8f8
  1 file changed, 7 insertions(+)
 
 diff --git a/drivers/virtio/virtio_input.c b/drivers/virtio/virtio_input.c
-index 5ae529671b3d..c68134c5a2e6 100644
 --- a/drivers/virtio/virtio_input.c
 +++ b/drivers/virtio/virtio_input.c
 @@ -3,6 +3,7 @@

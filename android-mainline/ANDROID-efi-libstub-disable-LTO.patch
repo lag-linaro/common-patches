@@ -16,7 +16,6 @@ Signed-off-by: Sami Tolvanen <samitolvanen@google.com>
  1 file changed, 3 insertions(+)
 
 diff --git a/drivers/firmware/efi/libstub/Makefile b/drivers/firmware/efi/libstub/Makefile
-index 094eabdecfe6..bbe3a3d5f3b6 100644
 --- a/drivers/firmware/efi/libstub/Makefile
 +++ b/drivers/firmware/efi/libstub/Makefile
 @@ -32,6 +32,9 @@ KBUILD_CFLAGS			:= $(cflags-y) -DDISABLE_BRANCH_PROFILING \

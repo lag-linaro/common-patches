@@ -13,7 +13,6 @@ Change-Id: I4e6fbd0938f00e7e6883ce1a26cbfd38fdcaa9a5
  2 files changed, 20 insertions(+), 3 deletions(-)
 
 diff --git a/fs/incfs/integrity.c b/fs/incfs/integrity.c
-index feb212c38945..1d00dda109e3 100644
 --- a/fs/incfs/integrity.c
 +++ b/fs/incfs/integrity.c
 @@ -198,6 +198,20 @@ int incfs_calc_digest(struct incfs_hash_alg *alg, struct mem_range data,
@@ -38,7 +37,6 @@ index feb212c38945..1d00dda109e3 100644
  }
  
 diff --git a/tools/testing/selftests/filesystems/incfs/incfs_test.c b/tools/testing/selftests/filesystems/incfs/incfs_test.c
-index 56634651060e..c276b4cde2d5 100644
 --- a/tools/testing/selftests/filesystems/incfs/incfs_test.c
 +++ b/tools/testing/selftests/filesystems/incfs/incfs_test.c
 @@ -750,8 +750,9 @@ static int build_mtree(struct test_file *file)

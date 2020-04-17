@@ -19,7 +19,6 @@ Signed-off-by: Alistair Delva <adelva@google.com>
  1 file changed, 1 deletion(-)
 
 diff --git a/arch/x86/configs/gki_defconfig b/arch/x86/configs/gki_defconfig
-index 474a0a57c8e5..456d1cc0880f 100644
 --- a/arch/x86/configs/gki_defconfig
 +++ b/arch/x86/configs/gki_defconfig
 @@ -420,4 +420,3 @@ CONFIG_PANIC_TIMEOUT=5

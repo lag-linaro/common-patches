@@ -27,7 +27,6 @@ Signed-off-by: Meng Wang <mwang@codeaurora.org>
  4 files changed, 10 insertions(+), 7 deletions(-)
 
 diff --git a/include/linux/mod_devicetable.h b/include/linux/mod_devicetable.h
-index 4c2ddd0941a7..0698a7266724 100644
 --- a/include/linux/mod_devicetable.h
 +++ b/include/linux/mod_devicetable.h
 @@ -318,7 +318,7 @@ struct pcmcia_device_id {
@@ -40,7 +39,6 @@ index 4c2ddd0941a7..0698a7266724 100644
  
  #define INPUT_DEVICE_ID_MATCH_BUS	1
 diff --git a/include/sound/jack.h b/include/sound/jack.h
-index 9eb2b5ec1ec4..9c2ed0aa7948 100644
 --- a/include/sound/jack.h
 +++ b/include/sound/jack.h
 @@ -53,9 +53,6 @@ enum snd_jack_types {
@@ -54,7 +52,6 @@ index 9eb2b5ec1ec4..9c2ed0aa7948 100644
  	struct list_head kctl_list;
  	struct snd_card *card;
 diff --git a/include/uapi/linux/input-event-codes.h b/include/uapi/linux/input-event-codes.h
-index 6923dc7e0298..c76e15585439 100644
 --- a/include/uapi/linux/input-event-codes.h
 +++ b/include/uapi/linux/input-event-codes.h
 @@ -888,7 +888,10 @@
@@ -70,7 +67,6 @@ index 6923dc7e0298..c76e15585439 100644
  
  /*
 diff --git a/sound/core/jack.c b/sound/core/jack.c
-index 503c8af79d55..92847b510704 100644
 --- a/sound/core/jack.c
 +++ b/sound/core/jack.c
 @@ -19,13 +19,16 @@ struct snd_jack_kctl {

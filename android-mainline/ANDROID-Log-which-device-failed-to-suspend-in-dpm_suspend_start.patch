@@ -30,7 +30,6 @@ Signed-off-by: zhuguangqing <zhuguangqing@xiaomi.com>
  2 files changed, 6 insertions(+), 2 deletions(-)
 
 diff --git a/drivers/base/power/main.c b/drivers/base/power/main.c
-index d7f62c72f1a5..85bacf30414a 100644
 --- a/drivers/base/power/main.c
 +++ b/drivers/base/power/main.c
 @@ -2032,6 +2032,7 @@ int dpm_prepare(pm_message_t state)
@@ -42,7 +41,6 @@ index d7f62c72f1a5..85bacf30414a 100644
  			break;
  		}
 diff --git a/kernel/power/suspend.c b/kernel/power/suspend.c
-index e4e851be55d0..4d5724adfe94 100644
 --- a/kernel/power/suspend.c
 +++ b/kernel/power/suspend.c
 @@ -490,7 +490,7 @@ static int suspend_enter(suspend_state_t state, bool *wakeup)

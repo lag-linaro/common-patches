@@ -14,7 +14,6 @@ Signed-off-by: Alistair Delva <adelva@google.com>
  1 file changed, 1 insertion(+)
 
 diff --git a/init/Kconfig.gki b/init/Kconfig.gki
-index 2c6f92b15ea3..282c1c35b963 100644
 --- a/init/Kconfig.gki
 +++ b/init/Kconfig.gki
 @@ -5,6 +5,7 @@ config GKI_HIDDEN_DRM_CONFIGS
