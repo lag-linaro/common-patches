@@ -2,11 +2,12 @@
 # android-mainline patches
 #
 # Applies onto upstream 5364abc57993 Linux v5.6-10588-g5364abc57993
-# Matches android-mainline 34ed0e2946a2 ("Merge 5364abc57993 ("Merge tag 'arc-5.7-rc1' of git://git.kernel.org/pub/scm/linux/kernel/git/vgupta/arc") into android-mainline")
+# Matches android-mainline 14dae98e2643 ("FROMLIST: power_supply: Add additional health properties to the header")
 #
 Revert-security-lockdown-selinux-implement-SELinux-lockdown.patch
 Revert-drm-virtio-fix-DRM_FORMAT_-handling.patch
 Revert-sched-core-Prevent-race-condition-between-cpuset-and-__sched_setscheduler.patch
+FROMGIT-kbuild-mkcompile_h-Include-LD-version-in-proc-version.patch
 FROMLIST-scsi-ufs-UFS-driver-v2.1-spec-crypto-additions.patch
 FROMLIST-scsi-ufs-UFS-crypto-API.patch
 FROMLIST-scsi-ufs-Add-inline-encryption-support-to-UFS.patch
@@ -52,6 +53,8 @@ FROMLIST-media-v4l2-fh-define-v4l2_fh-struct-regardless-of-condition.patch
 FROMLIST-soc-qcom-rpmpd-Allow-RPMPD-driver-to-be-loaded-as-a-module.patch
 FROMLIST-soc-qcom-rpmh-Allow-RPMH-driver-to-be-loaded-as-a-module.patch
 FROMLIST-soc-qcom-rpmhpd-Allow-RPMHPD-driver-to-be-loaded-as-a-module.patch
+FROMLIST-kmod-make-request_module-return-an-error-when-autoloading-is-disabled.patch
+FROMLIST-power_supply-Add-additional-health-properties-to-the-header.patch
 ANDROID-arm64-copy-CONFIG_CMDLINE_EXTEND-from-ARM.patch
 ANDROID-of-Support-CONFIG_CMDLINE_EXTEND-config-option.patch
 ANDROID-Kbuild-LLVMLinux-allow-overriding-clang-target-triple.patch
@@ -461,7 +464,6 @@ ANDROID-Incremental-fs-Fix-crash-polling-0-size-read_log.patch
 ANDROID-Incremental-fs-Protect-get_fill_block-and-add-a-field.patch
 ANDROID-Incremental-fs-Fix-remount.patch
 ANDROID-Fix-wq-fp-check-for-CFI-builds.patch
-ANDROID-Revert-af73d78bd384-kbuild-Remove-debug-info-from-kallsyms-linking.patch
 ANDROID-block-make-blk_crypto_start_using_mode-properly-check-for-support.patch
 ANDROID-block-require-drivers-to-declare-supported-crypto-key-type-s.patch
 ANDROID-fscrypt-fall-back-to-filesystem-layer-crypto-when-needed.patch
@@ -470,5 +472,11 @@ ANDROID-kbuild-ensure-__cfi_check-is-correctly-aligned.patch
 ANDROID-GKI-defconfig-modify-debug-configs.patch
 ANDROID-Incremental-fs-Use-64-bit-int-for-file_size-when-writing-hash-blocks.patch
 ANDROID-GKI-Remove-SCHED_AUTOGROUP.patch
-FROMLIST-kmod-make-request_module-return-an-error-when-autoloading-is-disabled.patch
 ANDROID-scsi-ufs-fix-bad-merge-resolution-with-custom-sg-entry-size.patch
+ANDROID-GKI-update-defconfig-for-upstream-Kconfig-changes.patch
+ANDROID-fix-build-problem-in-drivers-soc-qcom-rpmh-rsc.c.patch
+ANDROID-Incremental-fs-Optimize-get_filled_block.patch
+ANDROID-Incremental-fs-Fix-mislabeled-__user-ptrs.patch
+ANDROID-db845c_gki.fragment-Remove-nonexistent-CONFIG_USB_DWC3_DISABLE_GADGET_SG-value.patch
+ANDROID-Incremental-fs-make-remount-log-buffer-change-atomic.patch
+ANDROID-clang-update-to-10.0.6.patch

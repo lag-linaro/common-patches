@@ -1,0 +1,63 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: Kees Cook <keescook@chromium.org>
+Date: Thu, 2 Apr 2020 01:18:37 -0700
+Subject: FROMGIT: kbuild: mkcompile_h: Include $LD version in /proc/version
+
+When doing Clang builds of the kernel, it is possible to link with
+either ld.bfd (binutils) or ld.lld (LLVM), but it is not possible to
+discover this from a running kernel. Add the "$LD -v" output to
+/proc/version.
+
+Signed-off-by: Kees Cook <keescook@chromium.org>
+Reviewed-by: Nick Desaulniers <ndesaulniers@google.com>
+Tested-by: Nick Desaulniers <ndesaulniers@google.com>
+Reviewed-by: Nathan Chancellor <natechancellor@gmail.com>
+Tested-by: Nathan Chancellor <natechancellor@gmail.com>
+Reviewed-by: Fangrui Song <maskray@google.com>
+Reviewed-by: Sedat Dilek <sedat.dilek@gmail.com>
+Tested-by: Sedat Dilek <sedat.dilek@gmail.com>
+Signed-off-by: Masahiro Yamada <masahiroy@kernel.org>
+
+Bug: 153484457
+(cherry picked from commit 6f04f056df3c
+ https://git.kernel.org/pub/scm/linux/kernel/git/masahiroy/linux-kbuild.git
+ for-next)
+Change-Id: Ifa5a98fe159392862e8d07a733c0f141fa9c7715
+Signed-off-by: Nick Desaulniers <ndesaulniers@google.com>
+---
+ init/Makefile       | 2 +-
+ scripts/mkcompile_h | 6 +++++-
+ 2 files changed, 6 insertions(+), 2 deletions(-)
+
+diff --git a/init/Makefile b/init/Makefile
+--- a/init/Makefile
++++ b/init/Makefile
+@@ -35,4 +35,4 @@ include/generated/compile.h: FORCE
+ 	@$($(quiet)chk_compile.h)
+ 	$(Q)$(CONFIG_SHELL) $(srctree)/scripts/mkcompile_h $@	\
+ 	"$(UTS_MACHINE)" "$(CONFIG_SMP)" "$(CONFIG_PREEMPT)"	\
+-	"$(CONFIG_PREEMPT_RT)" "$(CC) $(KBUILD_CFLAGS)"
++	"$(CONFIG_PREEMPT_RT)" "$(CC) $(KBUILD_CFLAGS)" "$(LD)"
+diff --git a/scripts/mkcompile_h b/scripts/mkcompile_h
+--- a/scripts/mkcompile_h
++++ b/scripts/mkcompile_h
+@@ -7,6 +7,7 @@ SMP=$3
+ PREEMPT=$4
+ PREEMPT_RT=$5
+ CC=$6
++LD=$7
+ 
+ vecho() { [ "${quiet}" = "silent_" ] || echo "$@" ; }
+ 
+@@ -61,7 +62,10 @@ UTS_VERSION="$(echo $UTS_VERSION $CONFIG_FLAGS $TIMESTAMP | cut -b -$UTS_LEN)"
+   printf '#define LINUX_COMPILE_BY "%s"\n' "$LINUX_COMPILE_BY"
+   echo \#define LINUX_COMPILE_HOST \"$LINUX_COMPILE_HOST\"
+ 
+-  echo \#define LINUX_COMPILER \"`$CC -v 2>&1 | grep ' version ' | sed 's/[[:space:]]*$//'`\"
++  CC_VERSION=$($CC -v 2>&1 | grep ' version ' | sed 's/[[:space:]]*$//')
++  LD_VERSION=$($LD -v | head -n1 | sed 's/(compatible with [^)]*)//' \
++		      | sed 's/[[:space:]]*$//')
++  printf '#define LINUX_COMPILER "%s"\n' "$CC_VERSION, $LD_VERSION"
+ } > .tmpcompile
+ 
+ # Only replace the real compile.h if the new one is different,

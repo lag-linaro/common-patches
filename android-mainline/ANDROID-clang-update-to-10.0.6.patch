@@ -1,0 +1,24 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: Nick Desaulniers <ndesaulniers@google.com>
+Date: Tue, 7 Apr 2020 12:45:14 -0700
+Subject: ANDROID: clang: update to 10.0.6
+
+Bug: 153164546
+Change-Id: Iedeef21a93e45d2266a049f360ffe7f5bbc5f943
+Signed-off-by: Nick Desaulniers <ndesaulniers@google.com>
+---
+ build.config.common | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/build.config.common b/build.config.common
+--- a/build.config.common
++++ b/build.config.common
+@@ -5,7 +5,7 @@ CC=clang
+ LD=ld.lld
+ NM=llvm-nm
+ OBJCOPY=llvm-objcopy
+-CLANG_PREBUILT_BIN=prebuilts-master/clang/host/linux-x86/clang-r377782c/bin
++CLANG_PREBUILT_BIN=prebuilts-master/clang/host/linux-x86/clang-r377782d/bin
+ BUILDTOOLS_PREBUILT_BIN=build/build-tools/path/linux-x86
+ 
+ EXTRA_CMDS=''
