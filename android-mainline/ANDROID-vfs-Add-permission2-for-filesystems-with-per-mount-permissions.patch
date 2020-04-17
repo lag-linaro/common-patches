@@ -736,7 +736,7 @@ index 2a2a75a6888f..fbe912eb1768 100644
  		goto dput_and_out;
  
 diff --git a/fs/xattr.c b/fs/xattr.c
-index 71f887518d6f..9520365195cf 100644
+index 145bc2dc38e4..804676805857 100644
 --- a/fs/xattr.c
 +++ b/fs/xattr.c
 @@ -131,7 +131,7 @@ xattr_permission(struct inode *inode, const char *name, int mask)

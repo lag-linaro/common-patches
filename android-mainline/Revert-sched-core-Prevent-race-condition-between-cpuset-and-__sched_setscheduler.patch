@@ -53,7 +53,7 @@ index 04c20de66afc..7f1478c26a33 100644
  				       struct cpumask *mask)
  {
 diff --git a/kernel/cgroup/cpuset.c b/kernel/cgroup/cpuset.c
-index 58f5073acff7..5c2c872c04a2 100644
+index 729d3a5c772e..5b9b1c5bb300 100644
 --- a/kernel/cgroup/cpuset.c
 +++ b/kernel/cgroup/cpuset.c
 @@ -334,17 +334,6 @@ static struct cpuset top_cpuset = {

@@ -10,14 +10,14 @@ Signed-off-by: Bjorn Andersson <bjorn.andersson@linaro.org>
 Signed-off-by: John Stultz <john.stultz@linaro.org>
 Change-Id: Ic11f523349ca62f8b1972971f0d41941af9ea842
 ---
- arch/arm64/boot/dts/qcom/sdm845-db845c.dts | 91 ++++++++++++++++++++++
- 1 file changed, 91 insertions(+)
+ arch/arm64/boot/dts/qcom/sdm845-db845c.dts | 33 ++++++++++++++++++++++
+ 1 file changed, 33 insertions(+)
 
 diff --git a/arch/arm64/boot/dts/qcom/sdm845-db845c.dts b/arch/arm64/boot/dts/qcom/sdm845-db845c.dts
-index eb77aaa6a819..5026e3c9f7a4 100644
+index a2e05926b429..ad63f3768b8c 100644
 --- a/arch/arm64/boot/dts/qcom/sdm845-db845c.dts
 +++ b/arch/arm64/boot/dts/qcom/sdm845-db845c.dts
-@@ -352,6 +352,39 @@ &gcc {
+@@ -354,6 +354,39 @@ &gcc {
  			   <GCC_QSPI_CNOC_PERIPH_AHB_CLK>;
  };
  
@@ -57,75 +57,3 @@ index eb77aaa6a819..5026e3c9f7a4 100644
  &gpu {
  	zap-shader {
  		memory-region = <&gpu_mem>;
-@@ -406,6 +439,31 @@ &sdhc_2 {
- };
- 
- &tlmm {
-+	pcie0_default_state: pcie0-default {
-+		clkreq {
-+			pins = "gpio36";
-+			function = "pci_e0";
-+			bias-pull-up;
-+		};
-+
-+		reset-n {
-+			pins = "gpio35";
-+			function = "gpio";
-+
-+			drive-strength = <2>;
-+			output-low;
-+			bias-pull-down;
-+		};
-+
-+		wake-n {
-+			pins = "gpio37";
-+			function = "gpio";
-+
-+			drive-strength = <2>;
-+			bias-pull-up;
-+		};
-+	};
-+
- 	pcie0_pwren_state: pcie0-pwren {
- 		pins = "gpio90";
- 		function = "gpio";
-@@ -414,6 +472,39 @@ pcie0_pwren_state: pcie0-pwren {
- 		bias-disable;
- 	};
- 
-+	pcie1_default_state: pcie1-default {
-+		perst-n {
-+			pins = "gpio102";
-+			function = "gpio";
-+
-+			drive-strength = <16>;
-+			bias-disable;
-+		};
-+
-+		clkreq {
-+			pins = "gpio103";
-+			function = "pci_e1";
-+			bias-pull-up;
-+		};
-+
-+		wake-n {
-+			pins = "gpio11";
-+			function = "gpio";
-+
-+			drive-strength = <2>;
-+			bias-pull-up;
-+		};
-+
-+		reset-n {
-+			pins = "gpio75";
-+			function = "gpio";
-+
-+			drive-strength = <16>;
-+			bias-pull-up;
-+			output-high;
-+		};
-+	};
-+
- 	sdc2_default_state: sdc2-default {
- 		clk {
- 			pins = "sdc2_clk";

@@ -12,14 +12,14 @@ Signed-off-by: Bjorn Andersson <bjorn.andersson@linaro.org>
 Signed-off-by: John Stultz <john.stultz@linaro.org>
 Change-Id: I7bf2b82abeca7274f8e2dc69c592ed8303e3fbc6
 ---
- arch/arm64/boot/dts/qcom/sdm845-db845c.dts | 140 +++++++++++++++++++++
- 1 file changed, 140 insertions(+)
+ arch/arm64/boot/dts/qcom/sdm845-db845c.dts | 143 ++++++++++++++++++++-
+ 1 file changed, 139 insertions(+), 4 deletions(-)
 
 diff --git a/arch/arm64/boot/dts/qcom/sdm845-db845c.dts b/arch/arm64/boot/dts/qcom/sdm845-db845c.dts
-index 5026e3c9f7a4..efcead3f0155 100644
+index ad63f3768b8c..4138bc4413e8 100644
 --- a/arch/arm64/boot/dts/qcom/sdm845-db845c.dts
 +++ b/arch/arm64/boot/dts/qcom/sdm845-db845c.dts
-@@ -72,6 +72,17 @@ bt {
+@@ -74,6 +74,17 @@ bt {
  		};
  	};
  
@@ -37,7 +37,7 @@ index 5026e3c9f7a4..efcead3f0155 100644
  	lt9611_1v8: lt9611-vdd18-regulator {
  		compatible = "regulator-fixed";
  		regulator-name = "LT9611_1V8";
-@@ -346,6 +357,53 @@ &cdsp_pas {
+@@ -348,6 +359,53 @@ &cdsp_pas {
  	firmware-name = "qcom/sdm845/cdsp.mdt";
  };
  
@@ -91,7 +91,7 @@ index 5026e3c9f7a4..efcead3f0155 100644
  &gcc {
  	protected-clocks = <GCC_QSPI_CORE_CLK>,
  			   <GCC_QSPI_CORE_CLK_SRC>,
-@@ -385,6 +443,65 @@ &pcie1_phy {
+@@ -387,6 +445,65 @@ &pcie1_phy {
  	vdda-pll-supply = <&vreg_l26a_1p2>;
  };
  
@@ -157,7 +157,7 @@ index 5026e3c9f7a4..efcead3f0155 100644
  &gpu {
  	zap-shader {
  		memory-region = <&gpu_mem>;
-@@ -464,6 +581,12 @@ wake-n {
+@@ -631,6 +748,12 @@ wake-n {
  		};
  	};
  
@@ -170,11 +170,15 @@ index 5026e3c9f7a4..efcead3f0155 100644
  	pcie0_pwren_state: pcie0-pwren {
  		pins = "gpio90";
  		function = "gpio";
-@@ -535,6 +658,15 @@ sdc2_card_det_n: sd-card-det-n {
- 		function = "gpio";
- 		bias-pull-up;
+@@ -711,11 +834,15 @@ wcd_intr_default: wcd_intr_default {
+ 		bias-pull-down;
+ 		drive-strength = <2>;
  	};
-+
+-};
+ 
+-&uart3 {
+-	label = "LS-UART0";
+-	status = "disabled";
 +	dsi_sw_sel: dsi-sw-sel {
 +		pins = "gpio120";
 +		function = "gpio";
@@ -186,9 +190,9 @@ index 5026e3c9f7a4..efcead3f0155 100644
  };
  
  &uart6 {
-@@ -638,6 +770,14 @@ &wifi {
- 
- /* PINCTRL - additions to nodes defined in sdm845.dtsi */
+@@ -863,6 +990,14 @@ pinmux {
+ 	};
+ };
  
 +&qup_i2c10_default {
 +	pinconf {

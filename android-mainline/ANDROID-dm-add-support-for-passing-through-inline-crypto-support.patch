@@ -152,7 +152,7 @@ index 0a2cc197f62b..406071200425 100644
  	 * Some devices don't use blk_integrity but still want stable pages
  	 * because they do their own checksumming.
 diff --git a/drivers/md/dm.c b/drivers/md/dm.c
-index 53d87b08c9f4..4c3b29983cb6 100644
+index 5d45a9d2cfc7..5cd6ed39e6da 100644
 --- a/drivers/md/dm.c
 +++ b/drivers/md/dm.c
 @@ -26,6 +26,8 @@
@@ -164,7 +164,7 @@ index 53d87b08c9f4..4c3b29983cb6 100644
  
  #define DM_MSG_PREFIX "core"
  
-@@ -1857,6 +1859,8 @@ static const struct dax_operations dm_dax_ops;
+@@ -1858,6 +1860,8 @@ static const struct dax_operations dm_dax_ops;
  
  static void dm_wq_work(struct work_struct *work);
  
@@ -173,7 +173,7 @@ index 53d87b08c9f4..4c3b29983cb6 100644
  static void cleanup_mapped_device(struct mapped_device *md)
  {
  	if (md->wq)
-@@ -1878,8 +1882,10 @@ static void cleanup_mapped_device(struct mapped_device *md)
+@@ -1879,8 +1883,10 @@ static void cleanup_mapped_device(struct mapped_device *md)
  		put_disk(md->disk);
  	}
  
@@ -185,7 +185,7 @@ index 53d87b08c9f4..4c3b29983cb6 100644
  
  	cleanup_srcu_struct(&md->io_barrier);
  
-@@ -2242,6 +2248,89 @@ struct queue_limits *dm_get_queue_limits(struct mapped_device *md)
+@@ -2243,6 +2249,89 @@ struct queue_limits *dm_get_queue_limits(struct mapped_device *md)
  }
  EXPORT_SYMBOL_GPL(dm_get_queue_limits);
  
@@ -275,7 +275,7 @@ index 53d87b08c9f4..4c3b29983cb6 100644
  static void dm_init_congested_fn(struct mapped_device *md)
  {
  	md->queue->backing_dev_info->congested_data = md;
-@@ -2281,6 +2370,13 @@ int dm_setup_md_queue(struct mapped_device *md, struct dm_table *t)
+@@ -2282,6 +2371,13 @@ int dm_setup_md_queue(struct mapped_device *md, struct dm_table *t)
  		DMERR("Cannot calculate initial queue limits");
  		return r;
  	}

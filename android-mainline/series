@@ -1,10 +1,9 @@
 #
 # android-mainline patches
 #
-# Applies onto upstream 79f51b7b9c47 Linux v5.6-9322-g79f51b7b9c47
-# Matches android-mainline e990f09f7c35 ("ANDROID: scsi: ufs: fix bad merge resolution with custom sg entry size")
+# Applies onto upstream 5364abc57993 Linux v5.6-10588-g5364abc57993
+# Matches android-mainline 34ed0e2946a2 ("Merge 5364abc57993 ("Merge tag 'arc-5.7-rc1' of git://git.kernel.org/pub/scm/linux/kernel/git/vgupta/arc") into android-mainline")
 #
-UPSTREAM-remoteproc-omap-Fix-set_load-call-in-omap_rproc_request_timer.patch
 Revert-security-lockdown-selinux-implement-SELinux-lockdown.patch
 Revert-drm-virtio-fix-DRM_FORMAT_-handling.patch
 Revert-sched-core-Prevent-race-condition-between-cpuset-and-__sched_setscheduler.patch
@@ -279,12 +278,9 @@ ANDROID-Kconfig.gki-Add-QCOM_SCM-to-QCOM-Hidden-configs.patch
 ANDROID-gki_defconfig-Enable-blk-crypto-fallback.patch
 ANDROID-drm-bridge-Introduce-LT9611-DSI-to-HDMI-bridge.patch
 ANDROID-arm64-dts-sdm845-Enable-FW-implemented-safe-sequence-handler-on-MTP.patch
-ANDROID-arm64-dts-qcom-sdm845-Add-first-PCIe-controller-and-PHY.patch
-ANDROID-arm64-dts-qcom-sdm845-Add-second-PCIe-PHY-and-controller.patch
 ANDROID-arm64-dts-qcom-db845c-Enable-PCIe-controllers.patch
 ANDROID-arm64-dts-qcom-sdm845-db845c-Bring-in-LT9611.patch
 ANDROID-arm64-dts-db845c-add-Low-speed-expansion-i2c-and-spi-nodes.patch
-ANDROID-arm64-dts-db845c-Add-clocks-entry-to-display-to-track-real-clock-inputs.patch
 ANDROID-db845c-add-db845c_gki.fragment.patch
 ANDROID-db845c-Add-build-config.patch
 ANDROID-GKI-enable-CONFIG_NETFILTER_XT_MATCH_QUOTA2_LOG-y.patch
@@ -373,7 +369,6 @@ ANDROID-gki_defconfig-Enable-XDP_SOCKETS.patch
 ANDROID-gki_defconfig-Enable-CONFIG_NET_NS.patch
 ANDROID-clang-update-to-10.0.4.patch
 ANDROID-Incremental-fs-Support-xattrs.patch
-FROMLIST-of-of_reserved_mem-Increase-limit-on-number-of-reserved-regions.patch
 FROMLIST-ufs-fix-a-bug-on-printing-PRDT.patch
 ANDROID-ufs-add-quirk-to-fix-abnormal-ocs-fatal-error.patch
 FROMLIST-unicode-Add-utf8_casefold_hash.patch
@@ -389,7 +384,6 @@ FROMLIST-dt-bindings-display-msm-Add-required-dma-range-property.patch
 FROMLIST-arm64-dts-sdm845-Set-the-virtual-address-range-for-GMU-allocations.patch
 ANDROID-update-gki_defconfig-for-5.6-rc3.patch
 ANDROID-drm-msm-a6xx-Make-a6xx_gmu_bo.iova-a-dma_addr_t.patch
-FROMGIT-of-property-Add-device-link-support-for-power-domains-and-hwlocks.patch
 ANDROID-Disable-wq-fp-check-in-CFI-builds.patch
 ANDROID-gki_defconfig-Disable-CONFIG_RT_GROUP_SCHED.patch
 ANDROID-gki_defconfig-disable-CONFIG_CRYPTO_MD4.patch

@@ -359,7 +359,7 @@ index f8ed677a1bf7..6f9a2359b22a 100644
  
  	bio_clone_blkg_association(bio, bio_src);
 diff --git a/drivers/md/dm.c b/drivers/md/dm.c
-index 753302e83910..fe7be46424e1 100644
+index 21c0207e3207..a36be68fa287 100644
 --- a/drivers/md/dm.c
 +++ b/drivers/md/dm.c
 @@ -1302,12 +1302,15 @@ static int clone_bio(struct dm_target_io *tio, struct bio *bio,

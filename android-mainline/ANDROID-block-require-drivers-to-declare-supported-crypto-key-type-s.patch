@@ -250,10 +250,10 @@ index 2420e9898d09..73120426a1a0 100644
  	if (err) {
  		ti->error = "Error starting to use blk-crypto";
 diff --git a/drivers/md/dm.c b/drivers/md/dm.c
-index aeeb9f4e8540..953bc8d33dd4 100644
+index 655530c2c2c4..b1a681428fb7 100644
 --- a/drivers/md/dm.c
 +++ b/drivers/md/dm.c
-@@ -2371,16 +2371,21 @@ static struct keyslot_mgmt_ll_ops dm_ksm_ll_ops = {
+@@ -2372,16 +2372,21 @@ static struct keyslot_mgmt_ll_ops dm_ksm_ll_ops = {
  
  static int dm_init_inline_encryption(struct mapped_device *md)
  {

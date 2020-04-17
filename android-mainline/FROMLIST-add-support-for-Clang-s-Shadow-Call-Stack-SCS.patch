@@ -230,7 +230,7 @@ index 4cb4130ced32..c332eb9d4841 100644
  obj-$(CONFIG_PERF_EVENTS) += events/
  
 diff --git a/kernel/fork.c b/kernel/fork.c
-index ba122d6f5127..437a6015ee54 100644
+index d2a967bf85d5..dd49077032c2 100644
 --- a/kernel/fork.c
 +++ b/kernel/fork.c
 @@ -93,7 +93,9 @@

@@ -32,10 +32,10 @@ Change-Id: I11e436a8a2452cd741c33bd1e2805e1b5e33ae3e
  2 files changed, 6 insertions(+), 1 deletion(-)
 
 diff --git a/drivers/soc/qcom/Kconfig b/drivers/soc/qcom/Kconfig
-index ac91eaf810f7..ffc04285840b 100644
+index ad43218c7c7e..0d0123f6ec0a 100644
 --- a/drivers/soc/qcom/Kconfig
 +++ b/drivers/soc/qcom/Kconfig
-@@ -114,7 +114,7 @@ config QCOM_RPMH
+@@ -117,7 +117,7 @@ config QCOM_RPMH
  	  help apply the aggregated state on the resource.
  
  config QCOM_RPMHPD

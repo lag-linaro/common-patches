@@ -14,7 +14,7 @@ Signed-off-by: Alistair Delva <adelva@google.com>
  1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/kernel/workqueue.c b/kernel/workqueue.c
-index b3b8a47ef0f5..a98895f84ad0 100644
+index c67968fbc2ef..904cbadce108 100644
 --- a/kernel/workqueue.c
 +++ b/kernel/workqueue.c
 @@ -1621,7 +1621,7 @@ static void __queue_delayed_work(int cpu, struct workqueue_struct *wq,

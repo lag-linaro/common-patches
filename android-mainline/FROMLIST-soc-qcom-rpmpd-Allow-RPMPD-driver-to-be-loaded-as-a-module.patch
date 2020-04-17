@@ -33,10 +33,10 @@ Change-Id: Ic9140609813f4c03f8f676de6c76a749d16e8479
  2 files changed, 8 insertions(+), 2 deletions(-)
 
 diff --git a/drivers/soc/qcom/Kconfig b/drivers/soc/qcom/Kconfig
-index d0a73e76d563..af774555b9d2 100644
+index bf42a17a45de..436c4babca47 100644
 --- a/drivers/soc/qcom/Kconfig
 +++ b/drivers/soc/qcom/Kconfig
-@@ -123,8 +123,8 @@ config QCOM_RPMHPD
+@@ -126,8 +126,8 @@ config QCOM_RPMHPD
  	  for the voltage rail.
  
  config QCOM_RPMPD
