@@ -1,8 +1,8 @@
 #
 # android-mainline patches
 #
-# Applies onto upstream 762a9f2f0144 Linux v5.6-11537-g762a9f2f0144
-# Matches android-mainline ec906a75ade9 ("Merge 762a9f2f0144 ("Merge tag 'for-linus-5.7-rc1' of git://git.kernel.org/pub/scm/linux/kernel/git/rw/uml") into android-mainline.")
+# Applies onto upstream f40f31cadc0e Linux v5.6-11612-gf40f31cadc0e
+# Matches android-mainline 66163200effc ("Merge f40f31cadc0e ("Merge tag 'f2fs-for-5.7-rc1' of git://git.kernel.org/pub/scm/linux/kernel/git/jaegeuk/f2fs") into android-mainline")
 #
 Revert-security-lockdown-selinux-implement-SELinux-lockdown.patch
 Revert-drm-virtio-fix-DRM_FORMAT_-handling.patch
@@ -411,7 +411,6 @@ ANDROID-staging-ion-Add-an-in-kernel-interface-to-request-heap-info.patch
 ANDROID-cpufreq-times-Remove-proc-uid_concurrent_-active-policy-_time.patch
 ANDROID-cpufreq-times-Remove-per-UID-time-in-state-tracking.patch
 ANDROID-gki_defconfig-enable-CONFIG_TYPEC.patch
-FROMLIST-f2fs-fix-wrong-check-on-F2FS_IOC_FSSETXATTR.patch
 ANDROID-arm64-gki_defconfig-disable-CONFIG_DEBUG_PREEMPT.patch
 ANDROID-enable-CONFIG_WATCHDOG_CORE-y.patch
 ANDROID-gki_defconfig-disable-CONFIG_DEBUG_DEVRES.patch

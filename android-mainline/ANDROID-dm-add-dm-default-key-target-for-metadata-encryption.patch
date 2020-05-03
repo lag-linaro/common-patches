@@ -577,7 +577,7 @@ diff --git a/fs/crypto/inline_crypt.c b/fs/crypto/inline_crypt.c
 diff --git a/fs/f2fs/data.c b/fs/f2fs/data.c
 --- a/fs/f2fs/data.c
 +++ b/fs/f2fs/data.c
-@@ -448,6 +448,8 @@ static void f2fs_set_bio_crypt_ctx(struct bio *bio, const struct inode *inode,
+@@ -469,6 +469,8 @@ static void f2fs_set_bio_crypt_ctx(struct bio *bio, const struct inode *inode,
  	 */
  	if (!fio || !fio->encrypted_page)
  		fscrypt_set_bio_crypt_ctx(bio, inode, first_idx, gfp_mask);
@@ -586,7 +586,7 @@ diff --git a/fs/f2fs/data.c b/fs/f2fs/data.c
  }
  
  static bool f2fs_crypt_mergeable_bio(struct bio *bio, const struct inode *inode,
-@@ -459,7 +461,9 @@ static bool f2fs_crypt_mergeable_bio(struct bio *bio, const struct inode *inode,
+@@ -480,7 +482,9 @@ static bool f2fs_crypt_mergeable_bio(struct bio *bio, const struct inode *inode,
  	 * read/write raw data without encryption.
  	 */
  	if (fio && fio->encrypted_page)

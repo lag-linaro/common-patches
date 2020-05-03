@@ -118,7 +118,7 @@ diff --git a/fs/ext4/super.c b/fs/ext4/super.c
 diff --git a/fs/f2fs/dir.c b/fs/f2fs/dir.c
 --- a/fs/f2fs/dir.c
 +++ b/fs/f2fs/dir.c
-@@ -1077,10 +1077,3 @@ const struct file_operations f2fs_dir_operations = {
+@@ -1075,10 +1075,3 @@ const struct file_operations f2fs_dir_operations = {
  	.compat_ioctl   = f2fs_compat_ioctl,
  #endif
  };
@@ -132,7 +132,7 @@ diff --git a/fs/f2fs/dir.c b/fs/f2fs/dir.c
 diff --git a/fs/f2fs/f2fs.h b/fs/f2fs/f2fs.h
 --- a/fs/f2fs/f2fs.h
 +++ b/fs/f2fs/f2fs.h
-@@ -3630,9 +3630,6 @@ static inline void update_sit_info(struct f2fs_sb_info *sbi) {}
+@@ -3658,9 +3658,6 @@ static inline void update_sit_info(struct f2fs_sb_info *sbi) {}
  #endif
  
  extern const struct file_operations f2fs_dir_operations;
@@ -145,7 +145,7 @@ diff --git a/fs/f2fs/f2fs.h b/fs/f2fs/f2fs.h
 diff --git a/fs/f2fs/namei.c b/fs/f2fs/namei.c
 --- a/fs/f2fs/namei.c
 +++ b/fs/f2fs/namei.c
-@@ -494,6 +494,7 @@ static struct dentry *f2fs_lookup(struct inode *dir, struct dentry *dentry,
+@@ -492,6 +492,7 @@ static struct dentry *f2fs_lookup(struct inode *dir, struct dentry *dentry,
  	}
  
  	err = fscrypt_prepare_lookup(dir, dentry, &fname);
@@ -156,7 +156,7 @@ diff --git a/fs/f2fs/namei.c b/fs/f2fs/namei.c
 diff --git a/fs/f2fs/super.c b/fs/f2fs/super.c
 --- a/fs/f2fs/super.c
 +++ b/fs/f2fs/super.c
-@@ -3298,7 +3298,6 @@ static int f2fs_setup_casefold(struct f2fs_sb_info *sbi)
+@@ -3309,7 +3309,6 @@ static int f2fs_setup_casefold(struct f2fs_sb_info *sbi)
  
  		sbi->sb->s_encoding = encoding;
  		sbi->sb->s_encoding_flags = encoding_flags;
