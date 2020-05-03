@@ -87,7 +87,7 @@ diff --git a/Makefile b/Makefile
 diff --git a/arch/Kconfig b/arch/Kconfig
 --- a/arch/Kconfig
 +++ b/arch/Kconfig
-@@ -559,6 +559,53 @@ config SHADOW_CALL_STACK_VMAP
+@@ -566,6 +566,53 @@ config SHADOW_CALL_STACK_VMAP
  	  provides better stack exhaustion protection, but increases per-thread
  	  memory consumption as a full page is allocated for each shadow stack.
  

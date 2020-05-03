@@ -58,7 +58,7 @@ diff --git a/Makefile b/Makefile
 diff --git a/arch/Kconfig b/arch/Kconfig
 --- a/arch/Kconfig
 +++ b/arch/Kconfig
-@@ -607,6 +607,29 @@ config LTO_CLANG
+@@ -614,6 +614,29 @@ config LTO_CLANG
  
  endchoice
  
@@ -227,7 +227,7 @@ diff --git a/include/linux/module.h b/include/linux/module.h
 diff --git a/init/Kconfig b/init/Kconfig
 --- a/init/Kconfig
 +++ b/init/Kconfig
-@@ -2243,7 +2243,7 @@ endif # MODULES
+@@ -2244,7 +2244,7 @@ endif # MODULES
  
  config MODULES_TREE_LOOKUP
  	def_bool y

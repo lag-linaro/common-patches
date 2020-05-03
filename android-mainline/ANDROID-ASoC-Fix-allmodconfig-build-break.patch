@@ -42,7 +42,7 @@ diff --git a/arch/arm/mm/dma-mapping-nommu.c b/arch/arm/mm/dma-mapping-nommu.c
 diff --git a/arch/arm/mm/dma-mapping.c b/arch/arm/mm/dma-mapping.c
 --- a/arch/arm/mm/dma-mapping.c
 +++ b/arch/arm/mm/dma-mapping.c
-@@ -2324,6 +2324,7 @@ void arch_setup_dma_ops(struct device *dev, u64 dma_base, u64 size,
+@@ -2284,6 +2284,7 @@ void arch_setup_dma_ops(struct device *dev, u64 dma_base, u64 size,
  #endif
  	dev->archdata.dma_ops_setup = true;
  }
@@ -61,7 +61,7 @@ diff --git a/arch/arm64/mm/dma-mapping.c b/arch/arm64/mm/dma-mapping.c
 diff --git a/arch/mips/mm/dma-noncoherent.c b/arch/mips/mm/dma-noncoherent.c
 --- a/arch/mips/mm/dma-noncoherent.c
 +++ b/arch/mips/mm/dma-noncoherent.c
-@@ -141,4 +141,5 @@ void arch_setup_dma_ops(struct device *dev, u64 dma_base, u64 size,
+@@ -136,4 +136,5 @@ void arch_setup_dma_ops(struct device *dev, u64 dma_base, u64 size,
  {
  	dev->dma_coherent = coherent;
  }

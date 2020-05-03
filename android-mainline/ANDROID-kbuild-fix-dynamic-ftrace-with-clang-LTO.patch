@@ -29,7 +29,7 @@ Signed-off-by: Sami Tolvanen <samitolvanen@google.com>
 diff --git a/arch/Kconfig b/arch/Kconfig
 --- a/arch/Kconfig
 +++ b/arch/Kconfig
-@@ -595,7 +595,7 @@ config LTO_CLANG
+@@ -602,7 +602,7 @@ config LTO_CLANG
  	bool "Use Clang's Link Time Optimization (LTO) (EXPERIMENTAL)"
  	depends on ARCH_SUPPORTS_LTO_CLANG
  	depends on !KASAN
@@ -80,7 +80,7 @@ diff --git a/include/linux/compiler_types.h b/include/linux/compiler_types.h
 diff --git a/kernel/trace/ftrace.c b/kernel/trace/ftrace.c
 --- a/kernel/trace/ftrace.c
 +++ b/kernel/trace/ftrace.c
-@@ -6062,9 +6062,9 @@ static int ftrace_cmp_ips(const void *a, const void *b)
+@@ -6072,9 +6072,9 @@ static int ftrace_cmp_ips(const void *a, const void *b)
  	return 0;
  }
  

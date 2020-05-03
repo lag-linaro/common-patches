@@ -643,7 +643,7 @@ diff --git a/fs/namei.c b/fs/namei.c
 diff --git a/fs/notify/fanotify/fanotify_user.c b/fs/notify/fanotify/fanotify_user.c
 --- a/fs/notify/fanotify/fanotify_user.c
 +++ b/fs/notify/fanotify/fanotify_user.c
-@@ -567,7 +567,7 @@ static int fanotify_find_path(int dfd, const char __user *filename,
+@@ -634,7 +634,7 @@ static int fanotify_find_path(int dfd, const char __user *filename,
  	}
  
  	/* you can only watch an inode if you have read permissions on it */

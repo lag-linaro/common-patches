@@ -1,8 +1,8 @@
 #
 # android-mainline patches
 #
-# Applies onto upstream 5364abc57993 Linux v5.6-10588-g5364abc57993
-# Matches android-mainline 14dae98e2643 ("FROMLIST: power_supply: Add additional health properties to the header")
+# Applies onto upstream 7e63420847ae Linux v5.6-11448-g7e63420847ae
+# Matches android-mainline 0fb885c7b709 ("ANDROID: fix up rtc-core merge error in previous upstream merge")
 #
 Revert-security-lockdown-selinux-implement-SELinux-lockdown.patch
 Revert-drm-virtio-fix-DRM_FORMAT_-handling.patch
@@ -381,7 +381,6 @@ FROMLIST-ext4-Use-generic-casefolding-support.patch
 FROMLIST-fscrypt-Have-filesystems-handle-their-d_ops.patch
 FROMLIST-f2fs-Handle-casefolding-with-Encryption.patch
 ANDROID-ufs-block-fix-crypto-power-management-and-move-into-block-layer.patch
-ANDROID-rtc-class-support-hctosys-from-modular-RTC-drivers.patch
 ANDROID-Kconfig.gki-Remove-most-of-the-built-in-qcom-clks.patch
 FROMLIST-dt-bindings-display-msm-Add-required-dma-range-property.patch
 FROMLIST-arm64-dts-sdm845-Set-the-virtual-address-range-for-GMU-allocations.patch
@@ -480,3 +479,5 @@ ANDROID-Incremental-fs-Fix-mislabeled-__user-ptrs.patch
 ANDROID-db845c_gki.fragment-Remove-nonexistent-CONFIG_USB_DWC3_DISABLE_GADGET_SG-value.patch
 ANDROID-Incremental-fs-make-remount-log-buffer-change-atomic.patch
 ANDROID-clang-update-to-10.0.6.patch
+ANDROID-GKI-fix-up-gki_defconfig-for-x86.patch
+ANDROID-out-of-tree-correction.patch

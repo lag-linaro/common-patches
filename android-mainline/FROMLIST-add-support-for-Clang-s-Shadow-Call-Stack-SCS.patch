@@ -56,7 +56,7 @@ diff --git a/Makefile b/Makefile
 diff --git a/arch/Kconfig b/arch/Kconfig
 --- a/arch/Kconfig
 +++ b/arch/Kconfig
-@@ -526,6 +526,40 @@ config STACKPROTECTOR_STRONG
+@@ -533,6 +533,40 @@ config STACKPROTECTOR_STRONG
  	  about 20% of all kernel functions, which increases the kernel code
  	  size by about 2%.
  

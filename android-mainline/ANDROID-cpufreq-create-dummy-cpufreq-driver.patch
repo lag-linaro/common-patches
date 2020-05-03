@@ -56,7 +56,7 @@ diff --git a/arch/x86/configs/gki_defconfig b/arch/x86/configs/gki_defconfig
 diff --git a/drivers/cpufreq/Kconfig b/drivers/cpufreq/Kconfig
 --- a/drivers/cpufreq/Kconfig
 +++ b/drivers/cpufreq/Kconfig
-@@ -229,6 +229,15 @@ config CPUFREQ_DT_PLATDEV
+@@ -231,6 +231,15 @@ config CPUFREQ_DT_PLATDEV
  
  	  If in doubt, say N.
  

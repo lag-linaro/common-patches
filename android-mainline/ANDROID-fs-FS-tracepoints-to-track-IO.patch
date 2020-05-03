@@ -46,7 +46,7 @@ diff --git a/fs/ext4/inline.c b/fs/ext4/inline.c
  
  #define EXT4_XATTR_SYSTEM_DATA	"data"
  #define EXT4_MIN_INLINE_DATA_SIZE	((sizeof(__le32) * EXT4_N_BLOCKS))
-@@ -506,6 +507,17 @@ int ext4_readpage_inline(struct inode *inode, struct page *page)
+@@ -505,6 +506,17 @@ int ext4_readpage_inline(struct inode *inode, struct page *page)
  		return -EAGAIN;
  	}
  
@@ -64,7 +64,7 @@ diff --git a/fs/ext4/inline.c b/fs/ext4/inline.c
  	/*
  	 * Current inline data can only exist in the 1st page,
  	 * So for all the other pages, just set them uptodate.
-@@ -517,6 +529,8 @@ int ext4_readpage_inline(struct inode *inode, struct page *page)
+@@ -516,6 +528,8 @@ int ext4_readpage_inline(struct inode *inode, struct page *page)
  		SetPageUptodate(page);
  	}
  
@@ -84,7 +84,7 @@ diff --git a/fs/ext4/inode.c b/fs/ext4/inode.c
  
  static __u32 ext4_inode_csum(struct inode *inode, struct ext4_inode *raw,
  			      struct ext4_inode_info *ei)
-@@ -1121,6 +1122,16 @@ static int ext4_write_begin(struct file *file, struct address_space *mapping,
+@@ -1120,6 +1121,16 @@ static int ext4_write_begin(struct file *file, struct address_space *mapping,
  	if (unlikely(ext4_forced_shutdown(EXT4_SB(inode->i_sb))))
  		return -EIO;
  
@@ -101,7 +101,7 @@ diff --git a/fs/ext4/inode.c b/fs/ext4/inode.c
  	trace_ext4_write_begin(inode, pos, len, flags);
  	/*
  	 * Reserve one block more for addition to orphan list in case
-@@ -1263,6 +1274,7 @@ static int ext4_write_end(struct file *file,
+@@ -1262,6 +1273,7 @@ static int ext4_write_end(struct file *file,
  	int inline_data = ext4_has_inline_data(inode);
  	bool verity = ext4_verity_in_progress(inode);
  
@@ -109,7 +109,7 @@ diff --git a/fs/ext4/inode.c b/fs/ext4/inode.c
  	trace_ext4_write_end(inode, pos, len, copied);
  	if (inline_data) {
  		ret = ext4_write_inline_data_end(inode, pos, len,
-@@ -1373,6 +1385,7 @@ static int ext4_journalled_write_end(struct file *file,
+@@ -1372,6 +1384,7 @@ static int ext4_journalled_write_end(struct file *file,
  	int inline_data = ext4_has_inline_data(inode);
  	bool verity = ext4_verity_in_progress(inode);
  
@@ -117,7 +117,7 @@ diff --git a/fs/ext4/inode.c b/fs/ext4/inode.c
  	trace_ext4_journalled_write_end(inode, pos, len, copied);
  	from = pos & (PAGE_SIZE - 1);
  	to = from + len;
-@@ -2943,6 +2956,16 @@ static int ext4_da_write_begin(struct file *file, struct address_space *mapping,
+@@ -2941,6 +2954,16 @@ static int ext4_da_write_begin(struct file *file, struct address_space *mapping,
  					len, flags, pagep, fsdata);
  	}
  	*fsdata = (void *)0;
@@ -134,7 +134,7 @@ diff --git a/fs/ext4/inode.c b/fs/ext4/inode.c
  	trace_ext4_da_write_begin(inode, pos, len, flags);
  
  	if (ext4_test_inode_state(inode, EXT4_STATE_MAY_INLINE_DATA)) {
-@@ -3061,6 +3084,7 @@ static int ext4_da_write_end(struct file *file,
+@@ -3059,6 +3082,7 @@ static int ext4_da_write_end(struct file *file,
  		return ext4_write_end(file, mapping, pos,
  				      len, copied, page, fsdata);
  

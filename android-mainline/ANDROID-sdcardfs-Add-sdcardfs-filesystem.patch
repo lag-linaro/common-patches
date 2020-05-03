@@ -195,7 +195,7 @@ Signed-off-by: Matthias Maennich <maennich@google.com>
 diff --git a/fs/Kconfig b/fs/Kconfig
 --- a/fs/Kconfig
 +++ b/fs/Kconfig
-@@ -244,6 +244,7 @@ source "fs/orangefs/Kconfig"
+@@ -245,6 +245,7 @@ source "fs/orangefs/Kconfig"
  source "fs/adfs/Kconfig"
  source "fs/affs/Kconfig"
  source "fs/ecryptfs/Kconfig"
@@ -206,7 +206,7 @@ diff --git a/fs/Kconfig b/fs/Kconfig
 diff --git a/fs/Makefile b/fs/Makefile
 --- a/fs/Makefile
 +++ b/fs/Makefile
-@@ -88,6 +88,7 @@ obj-$(CONFIG_ISO9660_FS)	+= isofs/
+@@ -89,6 +89,7 @@ obj-$(CONFIG_ISO9660_FS)	+= isofs/
  obj-$(CONFIG_HFSPLUS_FS)	+= hfsplus/ # Before hfs to find wrapped HFS+
  obj-$(CONFIG_HFS_FS)		+= hfs/
  obj-$(CONFIG_ECRYPT_FS)		+= ecryptfs/
