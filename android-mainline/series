@@ -2,7 +2,7 @@
 # android-mainline patches
 #
 # Applies onto upstream 7e63420847ae Linux v5.6-11448-g7e63420847ae
-# Matches android-mainline 0fb885c7b709 ("ANDROID: fix up rtc-core merge error in previous upstream merge")
+# Matches android-mainline b7941f2a584a ("ANDROID: Revert "Revert "um: remove uses of variable length arrays""")
 #
 Revert-security-lockdown-selinux-implement-SELinux-lockdown.patch
 Revert-drm-virtio-fix-DRM_FORMAT_-handling.patch
@@ -115,7 +115,6 @@ ANDROID-staging-ion-refactor-ion-s-heap-API-into-linux-ion.h.patch
 ANDROID-staging-ion-split-system-and-system-contig-heaps.patch
 ANDROID-staging-ion-make-system-and-contig-heaps-modular.patch
 ANDROID-Revert-um-irq-don-t-set-the-chip-for-all-irqs.patch
-ANDROID-Revert-um-remove-uses-of-variable-length-arrays.patch
 ANDROID-staging-ion-move-uapi-ion.h-to-uapi-linux-ion.h.patch
 ANDROID-staging-ion-reserve-specific-heap-ids-for-known-heap-types.patch
 ANDROID-staging-ion-add-support-for-consistent-heap-ids.patch
@@ -481,3 +480,8 @@ ANDROID-Incremental-fs-make-remount-log-buffer-change-atomic.patch
 ANDROID-clang-update-to-10.0.6.patch
 ANDROID-GKI-fix-up-gki_defconfig-for-x86.patch
 ANDROID-out-of-tree-correction.patch
+ANDROID-power-wakeup_reason-wake-reason-enhancements.patch
+ANDROID-Incremental-fs-Clean-up-incfs_test-build-process.patch
+ANDROID-Incremental-fs-Fix-compound-page-usercopy-crash.patch
+ANDROID-staging-ion-implement-vmap-for-built-in-heaps.patch
+ANDROID-GKI-enable-CONFIG_ARM_PSCI_CPUIDLE.patch
