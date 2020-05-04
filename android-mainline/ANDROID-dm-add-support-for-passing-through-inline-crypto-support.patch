@@ -161,7 +161,7 @@ diff --git a/drivers/md/dm.c b/drivers/md/dm.c
  
  #define DM_MSG_PREFIX "core"
  
-@@ -1858,6 +1860,8 @@ static const struct dax_operations dm_dax_ops;
+@@ -1887,6 +1889,8 @@ static const struct dax_operations dm_dax_ops;
  
  static void dm_wq_work(struct work_struct *work);
  
@@ -170,7 +170,7 @@ diff --git a/drivers/md/dm.c b/drivers/md/dm.c
  static void cleanup_mapped_device(struct mapped_device *md)
  {
  	if (md->wq)
-@@ -1879,8 +1883,10 @@ static void cleanup_mapped_device(struct mapped_device *md)
+@@ -1908,8 +1912,10 @@ static void cleanup_mapped_device(struct mapped_device *md)
  		put_disk(md->disk);
  	}
  
@@ -182,7 +182,7 @@ diff --git a/drivers/md/dm.c b/drivers/md/dm.c
  
  	cleanup_srcu_struct(&md->io_barrier);
  
-@@ -2243,6 +2249,89 @@ struct queue_limits *dm_get_queue_limits(struct mapped_device *md)
+@@ -2272,6 +2278,89 @@ struct queue_limits *dm_get_queue_limits(struct mapped_device *md)
  }
  EXPORT_SYMBOL_GPL(dm_get_queue_limits);
  
@@ -272,7 +272,7 @@ diff --git a/drivers/md/dm.c b/drivers/md/dm.c
  static void dm_init_congested_fn(struct mapped_device *md)
  {
  	md->queue->backing_dev_info->congested_data = md;
-@@ -2282,6 +2371,13 @@ int dm_setup_md_queue(struct mapped_device *md, struct dm_table *t)
+@@ -2311,6 +2400,13 @@ int dm_setup_md_queue(struct mapped_device *md, struct dm_table *t)
  		DMERR("Cannot calculate initial queue limits");
  		return r;
  	}
@@ -289,7 +289,7 @@ diff --git a/drivers/md/dm.c b/drivers/md/dm.c
 diff --git a/include/linux/device-mapper.h b/include/linux/device-mapper.h
 --- a/include/linux/device-mapper.h
 +++ b/include/linux/device-mapper.h
-@@ -317,6 +317,12 @@ struct dm_target {
+@@ -320,6 +320,12 @@ struct dm_target {
  	 * whether or not its underlying devices have support.
  	 */
  	bool discards_supported:1;

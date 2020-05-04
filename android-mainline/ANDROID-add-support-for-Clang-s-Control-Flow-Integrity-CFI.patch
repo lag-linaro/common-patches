@@ -179,7 +179,7 @@ diff --git a/include/linux/compiler-clang.h b/include/linux/compiler-clang.h
 diff --git a/include/linux/compiler_types.h b/include/linux/compiler_types.h
 --- a/include/linux/compiler_types.h
 +++ b/include/linux/compiler_types.h
-@@ -210,6 +210,10 @@ struct ftrace_likely_data {
+@@ -201,6 +201,10 @@ struct ftrace_likely_data {
  # define __norecordmcount
  #endif
  
@@ -227,7 +227,7 @@ diff --git a/include/linux/module.h b/include/linux/module.h
 diff --git a/init/Kconfig b/init/Kconfig
 --- a/init/Kconfig
 +++ b/init/Kconfig
-@@ -2244,7 +2244,7 @@ endif # MODULES
+@@ -2248,7 +2248,7 @@ endif # MODULES
  
  config MODULES_TREE_LOOKUP
  	def_bool y

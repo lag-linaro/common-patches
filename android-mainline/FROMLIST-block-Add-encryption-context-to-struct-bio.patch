@@ -356,7 +356,7 @@ diff --git a/block/bounce.c b/block/bounce.c
 diff --git a/drivers/md/dm.c b/drivers/md/dm.c
 --- a/drivers/md/dm.c
 +++ b/drivers/md/dm.c
-@@ -1302,12 +1302,15 @@ static int clone_bio(struct dm_target_io *tio, struct bio *bio,
+@@ -1331,12 +1331,15 @@ static int clone_bio(struct dm_target_io *tio, struct bio *bio,
  		     sector_t sector, unsigned len)
  {
  	struct bio *clone = &tio->clone;
@@ -374,7 +374,7 @@ diff --git a/drivers/md/dm.c b/drivers/md/dm.c
  		if (unlikely(!dm_target_has_integrity(tio->ti->type) &&
  			     !dm_target_passes_integrity(tio->ti->type))) {
  			DMWARN("%s: the target %s doesn't support integrity data.",
-@@ -1316,9 +1319,11 @@ static int clone_bio(struct dm_target_io *tio, struct bio *bio,
+@@ -1345,9 +1348,11 @@ static int clone_bio(struct dm_target_io *tio, struct bio *bio,
  			return -EIO;
  		}
  

@@ -1,8 +1,8 @@
 #
 # android-mainline patches
 #
-# Applies onto upstream f40f31cadc0e Linux v5.6-11612-gf40f31cadc0e
-# Matches android-mainline 66163200effc ("Merge f40f31cadc0e ("Merge tag 'f2fs-for-5.7-rc1' of git://git.kernel.org/pub/scm/linux/kernel/git/jaegeuk/f2fs") into android-mainline")
+# Applies onto upstream 5d30bcacd91a Linux v5.6-12281-g5d30bcacd91a
+# Matches android-mainline 2aba289218b3 ("ANDROID: Revert "ANDROID: iommu/arm-smmu: Allow inherting stream mapping from bootloader"")
 #
 Revert-security-lockdown-selinux-implement-SELinux-lockdown.patch
 Revert-drm-virtio-fix-DRM_FORMAT_-handling.patch
@@ -43,9 +43,6 @@ FROMLIST-usb-renesas-xhci-Add-ROM-loader-for-uPD720201.patch
 FROMLIST-usb-renesas-xhci-allow-multiple-firmware-versions.patch
 FROMLIST-usb-xhci-provide-a-debugfs-hook-for-erasing-rom.patch
 FROMLIST-lib-list_sort-fix-function-type-mismatches.patch
-FROMLIST-ubsan-Add-trap-instrumentation-option.patch
-FROMLIST-ubsan-Split-bounds-checker-from-other-options.patch
-FROMLIST-lkdtm-bugs-Add-arithmetic-overflow-and-array-bounds-checks.patch
 FROMLIST-overlayfs-handle-XATTR_NOSECURITY-flag-for-get-xattr-method.patch
 FROMLIST-overlayfs-internal-getxattr-operations-without-sepolicy-checking.patch
 FROMLIST-overlayfs-override_creds-off-option-bypass-creator_cred.patch
@@ -275,7 +272,6 @@ ANDROID-GKI-clk-Don-t-disable-unused-clocks-with-sync-state-support.patch
 ANDROID-clk-qcom-Add-sync_state-clk_sync_state-for-db845c-clock-providers.patch
 ANDROID-README-Add-add-user-reference-to-backporting-comment.patch
 ANDROID-iommu-arm-smmu-Expose-s2cr-and-smr-structs-to-impl.patch
-ANDROID-iommu-arm-smmu-Allow-inherting-stream-mapping-from-bootloader.patch
 ANDROID-Kconfig.gki-Add-QCOM_SCM-to-QCOM-Hidden-configs.patch
 ANDROID-gki_defconfig-Enable-blk-crypto-fallback.patch
 ANDROID-drm-bridge-Introduce-LT9611-DSI-to-HDMI-bridge.patch
@@ -405,7 +401,6 @@ ANDROID-gki_defconfig-add-CONFIG_IIO_BUFFER-and-CONFIG_IIO_TRIGGER.patch
 ANDROID-Unconditionally-create-bridge-tracepoints.patch
 ANDROID-gki_defconfig-Enable-MFD_SYSCON-on-x86.patch
 ANDROID-gki_defconfig-disable-KPROBES.patch
-FROMLIST-lib-test_stackinit.c-XFAIL-switch-variable-init-tests.patch
 ANDROID-CC_FLAGS_CFI-add-fno-sanitize-blacklist.patch
 ANDROID-staging-ion-Add-an-in-kernel-interface-to-request-heap-info.patch
 ANDROID-cpufreq-times-Remove-proc-uid_concurrent_-active-policy-_time.patch

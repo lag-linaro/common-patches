@@ -58,7 +58,7 @@ Change-Id: Ia39543c5ce617976f14d790fb88e471d575ffd65
 diff --git a/fs/overlayfs/inode.c b/fs/overlayfs/inode.c
 --- a/fs/overlayfs/inode.c
 +++ b/fs/overlayfs/inode.c
-@@ -358,7 +358,7 @@ int ovl_xattr_set(struct dentry *dentry, struct inode *inode, const char *name,
+@@ -359,7 +359,7 @@ int ovl_xattr_set(struct dentry *dentry, struct inode *inode, const char *name,
  }
  
  int ovl_xattr_get(struct dentry *dentry, struct inode *inode, const char *name,
@@ -67,7 +67,7 @@ diff --git a/fs/overlayfs/inode.c b/fs/overlayfs/inode.c
  {
  	ssize_t res;
  	const struct cred *old_cred;
-@@ -366,7 +366,8 @@ int ovl_xattr_get(struct dentry *dentry, struct inode *inode, const char *name,
+@@ -367,7 +367,8 @@ int ovl_xattr_get(struct dentry *dentry, struct inode *inode, const char *name,
  		ovl_i_dentry_upper(inode) ?: ovl_dentry_lower(dentry);
  
  	old_cred = ovl_override_creds(dentry->d_sb);
@@ -80,7 +80,7 @@ diff --git a/fs/overlayfs/inode.c b/fs/overlayfs/inode.c
 diff --git a/fs/overlayfs/overlayfs.h b/fs/overlayfs/overlayfs.h
 --- a/fs/overlayfs/overlayfs.h
 +++ b/fs/overlayfs/overlayfs.h
-@@ -395,7 +395,7 @@ int ovl_permission(struct inode *inode, int mask);
+@@ -411,7 +411,7 @@ int ovl_permission(struct inode *inode, int mask);
  int ovl_xattr_set(struct dentry *dentry, struct inode *inode, const char *name,
  		  const void *value, size_t size, int flags);
  int ovl_xattr_get(struct dentry *dentry, struct inode *inode, const char *name,
@@ -92,7 +92,7 @@ diff --git a/fs/overlayfs/overlayfs.h b/fs/overlayfs/overlayfs.h
 diff --git a/fs/overlayfs/super.c b/fs/overlayfs/super.c
 --- a/fs/overlayfs/super.c
 +++ b/fs/overlayfs/super.c
-@@ -858,7 +858,7 @@ ovl_posix_acl_xattr_get(const struct xattr_handler *handler,
+@@ -849,7 +849,7 @@ ovl_posix_acl_xattr_get(const struct xattr_handler *handler,
  			struct dentry *dentry, struct inode *inode,
  			const char *name, void *buffer, size_t size, int flags)
  {
@@ -101,7 +101,7 @@ diff --git a/fs/overlayfs/super.c b/fs/overlayfs/super.c
  }
  
  static int __maybe_unused
-@@ -940,7 +940,7 @@ static int ovl_other_xattr_get(const struct xattr_handler *handler,
+@@ -931,7 +931,7 @@ static int ovl_other_xattr_get(const struct xattr_handler *handler,
  			       const char *name, void *buffer, size_t size,
  			       int flags)
  {

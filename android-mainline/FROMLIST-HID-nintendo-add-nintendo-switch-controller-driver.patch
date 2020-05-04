@@ -32,7 +32,7 @@ Signed-off-by: Siarhei Vishniakou <svv@google.com>
 diff --git a/MAINTAINERS b/MAINTAINERS
 --- a/MAINTAINERS
 +++ b/MAINTAINERS
-@@ -11920,6 +11920,12 @@ S:	Maintained
+@@ -11923,6 +11923,12 @@ S:	Maintained
  F:	Documentation/scsi/NinjaSCSI.rst
  F:	drivers/scsi/nsp32*
  

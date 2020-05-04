@@ -18,7 +18,7 @@ Signed-off-by: Sami Tolvanen <samitolvanen@google.com>
 diff --git a/kernel/kallsyms.c b/kernel/kallsyms.c
 --- a/kernel/kallsyms.c
 +++ b/kernel/kallsyms.c
-@@ -272,6 +272,24 @@ int kallsyms_lookup_size_offset(unsigned long addr, unsigned long *symbolsize,
+@@ -270,6 +270,24 @@ int kallsyms_lookup_size_offset(unsigned long addr, unsigned long *symbolsize,
  	       !!__bpf_address_lookup(addr, symbolsize, offset, namebuf);
  }
  
@@ -43,7 +43,7 @@ diff --git a/kernel/kallsyms.c b/kernel/kallsyms.c
  /*
   * Lookup an address
   * - modname is set to NULL if it's in the kernel.
-@@ -298,7 +316,9 @@ const char *kallsyms_lookup(unsigned long addr,
+@@ -296,7 +314,9 @@ const char *kallsyms_lookup(unsigned long addr,
  				       namebuf, KSYM_NAME_LEN);
  		if (modname)
  			*modname = NULL;
@@ -54,7 +54,7 @@ diff --git a/kernel/kallsyms.c b/kernel/kallsyms.c
  	}
  
  	/* See if it's in a module or a BPF JITed image. */
-@@ -311,11 +331,16 @@ const char *kallsyms_lookup(unsigned long addr,
+@@ -309,11 +329,16 @@ const char *kallsyms_lookup(unsigned long addr,
  	if (!ret)
  		ret = ftrace_mod_address_lookup(addr, symbolsize,
  						offset, modname, namebuf);
@@ -71,7 +71,7 @@ diff --git a/kernel/kallsyms.c b/kernel/kallsyms.c
  	symname[0] = '\0';
  	symname[KSYM_NAME_LEN - 1] = '\0';
  
-@@ -326,15 +351,23 @@ int lookup_symbol_name(unsigned long addr, char *symname)
+@@ -324,15 +349,23 @@ int lookup_symbol_name(unsigned long addr, char *symname)
  		/* Grab name */
  		kallsyms_expand_symbol(get_symbol_offset(pos),
  				       symname, KSYM_NAME_LEN);
@@ -97,7 +97,7 @@ diff --git a/kernel/kallsyms.c b/kernel/kallsyms.c
  	name[0] = '\0';
  	name[KSYM_NAME_LEN - 1] = '\0';
  
-@@ -346,10 +379,16 @@ int lookup_symbol_attrs(unsigned long addr, unsigned long *size,
+@@ -344,10 +377,16 @@ int lookup_symbol_attrs(unsigned long addr, unsigned long *size,
  		kallsyms_expand_symbol(get_symbol_offset(pos),
  				       name, KSYM_NAME_LEN);
  		modname[0] = '\0';

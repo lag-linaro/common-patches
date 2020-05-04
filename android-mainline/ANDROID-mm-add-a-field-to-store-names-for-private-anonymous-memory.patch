@@ -149,10 +149,10 @@ diff --git a/fs/proc/task_mmu.c b/fs/proc/task_mmu.c
 +	seq_putc(m, ']');
 +}
 +
- static void vma_stop(struct proc_maps_private *priv)
+ static void *m_start(struct seq_file *m, loff_t *ppos)
  {
- 	struct mm_struct *mm = priv->mm;
-@@ -348,8 +398,15 @@ show_map_vma(struct seq_file *m, struct vm_area_struct *vma)
+ 	struct proc_maps_private *priv = m->private;
+@@ -319,8 +369,15 @@ show_map_vma(struct seq_file *m, struct vm_area_struct *vma)
  			goto done;
  		}
  
@@ -169,7 +169,7 @@ diff --git a/fs/proc/task_mmu.c b/fs/proc/task_mmu.c
  	}
  
  done:
-@@ -832,6 +889,11 @@ static int show_smap(struct seq_file *m, void *v)
+@@ -802,6 +859,11 @@ static int show_smap(struct seq_file *m, void *v)
  	smap_gather_stats(vma, &mss);
  
  	show_map_vma(m, vma);
@@ -184,7 +184,7 @@ diff --git a/fs/proc/task_mmu.c b/fs/proc/task_mmu.c
 diff --git a/fs/userfaultfd.c b/fs/userfaultfd.c
 --- a/fs/userfaultfd.c
 +++ b/fs/userfaultfd.c
-@@ -906,7 +906,8 @@ static int userfaultfd_release(struct inode *inode, struct file *file)
+@@ -911,7 +911,8 @@ static int userfaultfd_release(struct inode *inode, struct file *file)
  					 new_flags, vma->anon_vma,
  					 vma->vm_file, vma->vm_pgoff,
  					 vma_policy(vma),
@@ -194,7 +194,7 @@ diff --git a/fs/userfaultfd.c b/fs/userfaultfd.c
  			if (prev)
  				vma = prev;
  			else
-@@ -1459,7 +1460,8 @@ static int userfaultfd_register(struct userfaultfd_ctx *ctx,
+@@ -1462,7 +1463,8 @@ static int userfaultfd_register(struct userfaultfd_ctx *ctx,
  		prev = vma_merge(mm, prev, start, vma_end, new_flags,
  				 vma->anon_vma, vma->vm_file, vma->vm_pgoff,
  				 vma_policy(vma),
@@ -204,7 +204,7 @@ diff --git a/fs/userfaultfd.c b/fs/userfaultfd.c
  		if (prev) {
  			vma = prev;
  			goto next;
-@@ -1621,7 +1623,8 @@ static int userfaultfd_unregister(struct userfaultfd_ctx *ctx,
+@@ -1634,7 +1636,8 @@ static int userfaultfd_unregister(struct userfaultfd_ctx *ctx,
  		prev = vma_merge(mm, prev, start, vma_end, new_flags,
  				 vma->anon_vma, vma->vm_file, vma->vm_pgoff,
  				 vma_policy(vma),
@@ -217,7 +217,7 @@ diff --git a/fs/userfaultfd.c b/fs/userfaultfd.c
 diff --git a/include/linux/mm.h b/include/linux/mm.h
 --- a/include/linux/mm.h
 +++ b/include/linux/mm.h
-@@ -2424,7 +2424,7 @@ static inline int vma_adjust(struct vm_area_struct *vma, unsigned long start,
+@@ -2447,7 +2447,7 @@ static inline int vma_adjust(struct vm_area_struct *vma, unsigned long start,
  extern struct vm_area_struct *vma_merge(struct mm_struct *,
  	struct vm_area_struct *prev, unsigned long addr, unsigned long end,
  	unsigned long vm_flags, struct anon_vma *, struct file *, pgoff_t,
@@ -468,7 +468,7 @@ diff --git a/mm/madvise.c b/mm/madvise.c
 diff --git a/mm/mempolicy.c b/mm/mempolicy.c
 --- a/mm/mempolicy.c
 +++ b/mm/mempolicy.c
-@@ -803,7 +803,8 @@ static int mbind_range(struct mm_struct *mm, unsigned long start,
+@@ -829,7 +829,8 @@ static int mbind_range(struct mm_struct *mm, unsigned long start,
  			((vmstart - vma->vm_start) >> PAGE_SHIFT);
  		prev = vma_merge(mm, prev, vmstart, vmend, vma->vm_flags,
  				 vma->anon_vma, vma->vm_file, pgoff,
@@ -591,7 +591,7 @@ diff --git a/mm/mmap.c b/mm/mmap.c
  		if (prev && addr < prev->vm_end)	/* case 4 */
  			err = __vma_adjust(prev, prev->vm_start,
  					 addr, prev->vm_pgoff, NULL, next);
-@@ -1731,7 +1740,7 @@ unsigned long mmap_region(struct file *file, unsigned long addr,
+@@ -1730,7 +1739,7 @@ unsigned long mmap_region(struct file *file, unsigned long addr,
  	 * Can we just expand an old mapping?
  	 */
  	vma = vma_merge(mm, prev, addr, addr + len, vm_flags,
@@ -600,7 +600,7 @@ diff --git a/mm/mmap.c b/mm/mmap.c
  	if (vma)
  		goto out;
  
-@@ -3030,7 +3039,7 @@ static int do_brk_flags(unsigned long addr, unsigned long len, unsigned long fla
+@@ -3028,7 +3037,7 @@ static int do_brk_flags(unsigned long addr, unsigned long len, unsigned long fla
  
  	/* Can we just expand an old private anonymous mapping? */
  	vma = vma_merge(mm, prev, addr, addr + len, flags,
@@ -609,7 +609,7 @@ diff --git a/mm/mmap.c b/mm/mmap.c
  	if (vma)
  		goto out;
  
-@@ -3228,7 +3237,7 @@ struct vm_area_struct *copy_vma(struct vm_area_struct **vmap,
+@@ -3226,7 +3235,7 @@ struct vm_area_struct *copy_vma(struct vm_area_struct **vmap,
  		return NULL;	/* should never get here */
  	new_vma = vma_merge(mm, prev, addr, addr + len, vma->vm_flags,
  			    vma->anon_vma, vma->vm_file, pgoff, vma_policy(vma),
@@ -621,7 +621,7 @@ diff --git a/mm/mmap.c b/mm/mmap.c
 diff --git a/mm/mprotect.c b/mm/mprotect.c
 --- a/mm/mprotect.c
 +++ b/mm/mprotect.c
-@@ -428,7 +428,7 @@ mprotect_fixup(struct vm_area_struct *vma, struct vm_area_struct **pprev,
+@@ -454,7 +454,7 @@ mprotect_fixup(struct vm_area_struct *vma, struct vm_area_struct **pprev,
  	pgoff = vma->vm_pgoff + ((start - vma->vm_start) >> PAGE_SHIFT);
  	*pprev = vma_merge(mm, *pprev, start, end, newflags,
  			   vma->anon_vma, vma->vm_file, pgoff, vma_policy(vma),

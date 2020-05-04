@@ -73,7 +73,7 @@ Change-Id: I7980d18e2a5aa97dd2d9fb291fea6deb649f6a34
 diff --git a/Documentation/filesystems/overlayfs.rst b/Documentation/filesystems/overlayfs.rst
 --- a/Documentation/filesystems/overlayfs.rst
 +++ b/Documentation/filesystems/overlayfs.rst
-@@ -104,6 +104,29 @@ Only the lists of names from directories are merged.  Other content
+@@ -137,6 +137,29 @@ Only the lists of names from directories are merged.  Other content
  such as metadata and extended attributes are reported for the upper
  directory only.  These attributes of the lower directory are hidden.
  
@@ -106,7 +106,7 @@ diff --git a/Documentation/filesystems/overlayfs.rst b/Documentation/filesystems
 diff --git a/fs/overlayfs/copy_up.c b/fs/overlayfs/copy_up.c
 --- a/fs/overlayfs/copy_up.c
 +++ b/fs/overlayfs/copy_up.c
-@@ -920,7 +920,7 @@ int ovl_copy_up_flags(struct dentry *dentry, int flags)
+@@ -932,7 +932,7 @@ int ovl_copy_up_flags(struct dentry *dentry, int flags)
  		dput(parent);
  		dput(next);
  	}
@@ -118,7 +118,7 @@ diff --git a/fs/overlayfs/copy_up.c b/fs/overlayfs/copy_up.c
 diff --git a/fs/overlayfs/dir.c b/fs/overlayfs/dir.c
 --- a/fs/overlayfs/dir.c
 +++ b/fs/overlayfs/dir.c
-@@ -536,7 +536,7 @@ static int ovl_create_or_link(struct dentry *dentry, struct inode *inode,
+@@ -539,7 +539,7 @@ static int ovl_create_or_link(struct dentry *dentry, struct inode *inode,
  			      struct ovl_cattr *attr, bool origin)
  {
  	int err;
@@ -127,7 +127,7 @@ diff --git a/fs/overlayfs/dir.c b/fs/overlayfs/dir.c
  	struct cred *override_cred;
  	struct dentry *parent = dentry->d_parent;
  
-@@ -563,14 +563,15 @@ static int ovl_create_or_link(struct dentry *dentry, struct inode *inode,
+@@ -566,14 +566,15 @@ static int ovl_create_or_link(struct dentry *dentry, struct inode *inode,
  		override_cred->fsgid = inode->i_gid;
  		if (!attr->hardlink) {
  			err = security_dentry_create_files_as(dentry,
@@ -145,7 +145,7 @@ diff --git a/fs/overlayfs/dir.c b/fs/overlayfs/dir.c
  		put_cred(override_cred);
  
  		if (!ovl_dentry_is_whiteout(dentry))
-@@ -579,7 +580,9 @@ static int ovl_create_or_link(struct dentry *dentry, struct inode *inode,
+@@ -582,7 +583,9 @@ static int ovl_create_or_link(struct dentry *dentry, struct inode *inode,
  			err = ovl_create_over_whiteout(dentry, inode, attr);
  	}
  out_revert_creds:
@@ -156,7 +156,7 @@ diff --git a/fs/overlayfs/dir.c b/fs/overlayfs/dir.c
  	return err;
  }
  
-@@ -655,7 +658,7 @@ static int ovl_set_link_redirect(struct dentry *dentry)
+@@ -658,7 +661,7 @@ static int ovl_set_link_redirect(struct dentry *dentry)
  
  	old_cred = ovl_override_creds(dentry->d_sb);
  	err = ovl_set_redirect(dentry, false);
@@ -165,7 +165,7 @@ diff --git a/fs/overlayfs/dir.c b/fs/overlayfs/dir.c
  
  	return err;
  }
-@@ -851,7 +854,7 @@ static int ovl_do_remove(struct dentry *dentry, bool is_dir)
+@@ -876,7 +879,7 @@ static int ovl_do_remove(struct dentry *dentry, bool is_dir)
  		err = ovl_remove_upper(dentry, is_dir, &list);
  	else
  		err = ovl_remove_and_whiteout(dentry, &list);
@@ -174,7 +174,7 @@ diff --git a/fs/overlayfs/dir.c b/fs/overlayfs/dir.c
  	if (!err) {
  		if (is_dir)
  			clear_nlink(dentry->d_inode);
-@@ -1221,7 +1224,7 @@ static int ovl_rename(struct inode *olddir, struct dentry *old,
+@@ -1246,7 +1249,7 @@ static int ovl_rename(struct inode *olddir, struct dentry *old,
  out_unlock:
  	unlock_rename(new_upperdir, old_upperdir);
  out_revert_creds:
@@ -307,7 +307,7 @@ diff --git a/fs/overlayfs/inode.c b/fs/overlayfs/inode.c
  		if (!err)
  			ovl_copyattr(upperdentry->d_inode, dentry->d_inode);
  		inode_unlock(upperdentry->d_inode);
-@@ -252,7 +252,7 @@ int ovl_getattr(const struct path *path, struct kstat *stat,
+@@ -253,7 +253,7 @@ int ovl_getattr(const struct path *path, struct kstat *stat,
  		stat->nlink = dentry->d_inode->i_nlink;
  
  out:
@@ -316,7 +316,7 @@ diff --git a/fs/overlayfs/inode.c b/fs/overlayfs/inode.c
  
  	return err;
  }
-@@ -286,7 +286,7 @@ int ovl_permission(struct inode *inode, int mask)
+@@ -287,7 +287,7 @@ int ovl_permission(struct inode *inode, int mask)
  		mask |= MAY_READ;
  	}
  	err = inode_permission(realinode, mask);
@@ -325,7 +325,7 @@ diff --git a/fs/overlayfs/inode.c b/fs/overlayfs/inode.c
  
  	return err;
  }
-@@ -303,7 +303,7 @@ static const char *ovl_get_link(struct dentry *dentry,
+@@ -304,7 +304,7 @@ static const char *ovl_get_link(struct dentry *dentry,
  
  	old_cred = ovl_override_creds(dentry->d_sb);
  	p = vfs_get_link(ovl_dentry_real(dentry), done);
@@ -334,7 +334,7 @@ diff --git a/fs/overlayfs/inode.c b/fs/overlayfs/inode.c
  	return p;
  }
  
-@@ -346,7 +346,7 @@ int ovl_xattr_set(struct dentry *dentry, struct inode *inode, const char *name,
+@@ -347,7 +347,7 @@ int ovl_xattr_set(struct dentry *dentry, struct inode *inode, const char *name,
  		WARN_ON(flags != XATTR_REPLACE);
  		err = vfs_removexattr(realdentry, name);
  	}
@@ -343,7 +343,7 @@ diff --git a/fs/overlayfs/inode.c b/fs/overlayfs/inode.c
  
  	/* copy c/mtime */
  	ovl_copyattr(d_inode(realdentry), inode);
-@@ -368,7 +368,7 @@ int ovl_xattr_get(struct dentry *dentry, struct inode *inode, const char *name,
+@@ -369,7 +369,7 @@ int ovl_xattr_get(struct dentry *dentry, struct inode *inode, const char *name,
  	old_cred = ovl_override_creds(dentry->d_sb);
  	res = __vfs_getxattr(realdentry, d_inode(realdentry), name,
  			     value, size, flags);
@@ -352,7 +352,7 @@ diff --git a/fs/overlayfs/inode.c b/fs/overlayfs/inode.c
  	return res;
  }
  
-@@ -393,7 +393,7 @@ ssize_t ovl_listxattr(struct dentry *dentry, char *list, size_t size)
+@@ -394,7 +394,7 @@ ssize_t ovl_listxattr(struct dentry *dentry, char *list, size_t size)
  
  	old_cred = ovl_override_creds(dentry->d_sb);
  	res = vfs_listxattr(realdentry, list, size);
@@ -361,7 +361,7 @@ diff --git a/fs/overlayfs/inode.c b/fs/overlayfs/inode.c
  	if (res <= 0 || size == 0)
  		return res;
  
-@@ -428,7 +428,7 @@ struct posix_acl *ovl_get_acl(struct inode *inode, int type)
+@@ -429,7 +429,7 @@ struct posix_acl *ovl_get_acl(struct inode *inode, int type)
  
  	old_cred = ovl_override_creds(inode->i_sb);
  	acl = get_acl(realinode, type);
@@ -370,7 +370,7 @@ diff --git a/fs/overlayfs/inode.c b/fs/overlayfs/inode.c
  
  	return acl;
  }
-@@ -466,7 +466,7 @@ static int ovl_fiemap(struct inode *inode, struct fiemap_extent_info *fieinfo,
+@@ -467,7 +467,7 @@ static int ovl_fiemap(struct inode *inode, struct fiemap_extent_info *fieinfo,
  		filemap_write_and_wait(realinode->i_mapping);
  
  	err = realinode->i_op->fiemap(realinode, fieinfo, start, len);
@@ -382,16 +382,16 @@ diff --git a/fs/overlayfs/inode.c b/fs/overlayfs/inode.c
 diff --git a/fs/overlayfs/namei.c b/fs/overlayfs/namei.c
 --- a/fs/overlayfs/namei.c
 +++ b/fs/overlayfs/namei.c
-@@ -1077,7 +1077,7 @@ struct dentry *ovl_lookup(struct inode *dir, struct dentry *dentry,
- 			goto out_free_oe;
- 	}
+@@ -1080,7 +1080,7 @@ struct dentry *ovl_lookup(struct inode *dir, struct dentry *dentry,
+ 	ovl_dentry_update_reval(dentry, upperdentry,
+ 			DCACHE_OP_REVALIDATE | DCACHE_OP_WEAK_REVALIDATE);
  
 -	revert_creds(old_cred);
 +	ovl_revert_creds(dentry->d_sb, old_cred);
  	if (origin_path) {
  		dput(origin_path->dentry);
  		kfree(origin_path);
-@@ -1104,7 +1104,7 @@ struct dentry *ovl_lookup(struct inode *dir, struct dentry *dentry,
+@@ -1107,7 +1107,7 @@ struct dentry *ovl_lookup(struct inode *dir, struct dentry *dentry,
  	kfree(upperredirect);
  out:
  	kfree(d.redirect);
@@ -400,7 +400,7 @@ diff --git a/fs/overlayfs/namei.c b/fs/overlayfs/namei.c
  	return ERR_PTR(err);
  }
  
-@@ -1156,7 +1156,7 @@ bool ovl_lower_positive(struct dentry *dentry)
+@@ -1159,7 +1159,7 @@ bool ovl_lower_positive(struct dentry *dentry)
  			dput(this);
  		}
  	}
@@ -412,7 +412,7 @@ diff --git a/fs/overlayfs/namei.c b/fs/overlayfs/namei.c
 diff --git a/fs/overlayfs/overlayfs.h b/fs/overlayfs/overlayfs.h
 --- a/fs/overlayfs/overlayfs.h
 +++ b/fs/overlayfs/overlayfs.h
-@@ -232,6 +232,7 @@ int ovl_want_write(struct dentry *dentry);
+@@ -238,6 +238,7 @@ int ovl_want_write(struct dentry *dentry);
  void ovl_drop_write(struct dentry *dentry);
  struct dentry *ovl_workdir(struct dentry *dentry);
  const struct cred *ovl_override_creds(struct super_block *sb);
@@ -443,7 +443,7 @@ diff --git a/fs/overlayfs/readdir.c b/fs/overlayfs/readdir.c
  
  	return err;
  }
-@@ -924,7 +924,7 @@ int ovl_check_empty_dir(struct dentry *dentry, struct list_head *list)
+@@ -935,7 +935,7 @@ int ovl_check_empty_dir(struct dentry *dentry, struct list_head *list)
  
  	old_cred = ovl_override_creds(dentry->d_sb);
  	err = ovl_dir_read_merged(dentry, list, &root);
@@ -467,7 +467,7 @@ diff --git a/fs/overlayfs/super.c b/fs/overlayfs/super.c
  static void ovl_entry_stack_free(struct ovl_entry *oe)
  {
  	unsigned int i;
-@@ -363,6 +368,9 @@ static int ovl_show_options(struct seq_file *m, struct dentry *dentry)
+@@ -358,6 +363,9 @@ static int ovl_show_options(struct seq_file *m, struct dentry *dentry)
  	if (ofs->config.metacopy != ovl_metacopy_def)
  		seq_printf(m, ",metacopy=%s",
  			   ofs->config.metacopy ? "on" : "off");
@@ -477,7 +477,7 @@ diff --git a/fs/overlayfs/super.c b/fs/overlayfs/super.c
  	return 0;
  }
  
-@@ -403,6 +411,8 @@ enum {
+@@ -398,6 +406,8 @@ enum {
  	OPT_XINO_AUTO,
  	OPT_METACOPY_ON,
  	OPT_METACOPY_OFF,
@@ -486,7 +486,7 @@ diff --git a/fs/overlayfs/super.c b/fs/overlayfs/super.c
  	OPT_ERR,
  };
  
-@@ -421,6 +431,8 @@ static const match_table_t ovl_tokens = {
+@@ -416,6 +426,8 @@ static const match_table_t ovl_tokens = {
  	{OPT_XINO_AUTO,			"xino=auto"},
  	{OPT_METACOPY_ON,		"metacopy=on"},
  	{OPT_METACOPY_OFF,		"metacopy=off"},
@@ -495,7 +495,7 @@ diff --git a/fs/overlayfs/super.c b/fs/overlayfs/super.c
  	{OPT_ERR,			NULL}
  };
  
-@@ -479,6 +491,7 @@ static int ovl_parse_opt(char *opt, struct ovl_config *config)
+@@ -474,6 +486,7 @@ static int ovl_parse_opt(char *opt, struct ovl_config *config)
  	config->redirect_mode = kstrdup(ovl_redirect_mode_def(), GFP_KERNEL);
  	if (!config->redirect_mode)
  		return -ENOMEM;
@@ -503,7 +503,7 @@ diff --git a/fs/overlayfs/super.c b/fs/overlayfs/super.c
  
  	while ((p = ovl_next_opt(&opt)) != NULL) {
  		int token;
-@@ -559,6 +572,14 @@ static int ovl_parse_opt(char *opt, struct ovl_config *config)
+@@ -554,6 +567,14 @@ static int ovl_parse_opt(char *opt, struct ovl_config *config)
  			config->metacopy = false;
  			break;
  
@@ -518,8 +518,8 @@ diff --git a/fs/overlayfs/super.c b/fs/overlayfs/super.c
  		default:
  			pr_err("unrecognized mount option \"%s\" or missing value\n",
  					p);
-@@ -1733,7 +1754,6 @@ static int ovl_fill_super(struct super_block *sb, void *data, int silent)
- 		       ovl_dentry_lower(root_dentry), NULL);
+@@ -1829,7 +1850,6 @@ static int ovl_fill_super(struct super_block *sb, void *data, int silent)
+ 	mntput(upperpath.mnt);
  
  	sb->s_root = root_dentry;
 -
@@ -547,7 +547,7 @@ diff --git a/fs/overlayfs/util.c b/fs/overlayfs/util.c
  /*
   * Check if underlying fs supports file handles and try to determine encoding
   * type, in order to deduce maximum inode number used by fs.
-@@ -779,7 +787,7 @@ int ovl_nlink_start(struct dentry *dentry)
+@@ -775,7 +783,7 @@ int ovl_nlink_start(struct dentry *dentry)
  	 * value relative to the upper inode nlink in an upper inode xattr.
  	 */
  	err = ovl_set_nlink_upper(dentry);
@@ -556,7 +556,7 @@ diff --git a/fs/overlayfs/util.c b/fs/overlayfs/util.c
  
  out:
  	if (err)
-@@ -797,7 +805,7 @@ void ovl_nlink_end(struct dentry *dentry)
+@@ -793,7 +801,7 @@ void ovl_nlink_end(struct dentry *dentry)
  
  		old_cred = ovl_override_creds(dentry->d_sb);
  		ovl_cleanup_index(dentry);

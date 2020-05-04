@@ -113,7 +113,7 @@ diff --git a/include/linux/compiler-clang.h b/include/linux/compiler-clang.h
 diff --git a/include/linux/compiler_types.h b/include/linux/compiler_types.h
 --- a/include/linux/compiler_types.h
 +++ b/include/linux/compiler_types.h
-@@ -202,6 +202,10 @@ struct ftrace_likely_data {
+@@ -193,6 +193,10 @@ struct ftrace_likely_data {
  # define randomized_struct_fields_end
  #endif
  
@@ -236,7 +236,7 @@ diff --git a/kernel/fork.c b/kernel/fork.c
  
  #include <asm/pgtable.h>
  #include <asm/pgalloc.h>
-@@ -455,6 +457,8 @@ void put_task_stack(struct task_struct *tsk)
+@@ -456,6 +458,8 @@ void put_task_stack(struct task_struct *tsk)
  
  void free_task(struct task_struct *tsk)
  {
@@ -245,7 +245,7 @@ diff --git a/kernel/fork.c b/kernel/fork.c
  #ifndef CONFIG_THREAD_INFO_IN_TASK
  	/*
  	 * The task is finally done with both the stack and thread_info,
-@@ -838,6 +842,8 @@ void __init fork_init(void)
+@@ -840,6 +844,8 @@ void __init fork_init(void)
  			  NULL, free_vm_stack_cache);
  #endif
  
@@ -254,7 +254,7 @@ diff --git a/kernel/fork.c b/kernel/fork.c
  	lockdep_init_task(&init_task);
  	uprobes_init();
  }
-@@ -897,6 +903,10 @@ static struct task_struct *dup_task_struct(struct task_struct *orig, int node)
+@@ -899,6 +905,10 @@ static struct task_struct *dup_task_struct(struct task_struct *orig, int node)
  	if (err)
  		goto free_stack;
  

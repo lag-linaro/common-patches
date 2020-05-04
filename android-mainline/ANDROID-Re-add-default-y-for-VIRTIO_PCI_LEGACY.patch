@@ -35,4 +35,4 @@ diff --git a/drivers/virtio/Kconfig b/drivers/virtio/Kconfig
 +
  	  If unsure, say Y.
  
- config VIRTIO_PMEM
+ config VIRTIO_VDPA

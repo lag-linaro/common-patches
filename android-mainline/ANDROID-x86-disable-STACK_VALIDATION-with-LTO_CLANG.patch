@@ -16,7 +16,7 @@ Signed-off-by: Sami Tolvanen <samitolvanen@google.com>
 diff --git a/arch/x86/Kconfig b/arch/x86/Kconfig
 --- a/arch/x86/Kconfig
 +++ b/arch/x86/Kconfig
-@@ -208,7 +208,7 @@ config X86
+@@ -209,7 +209,7 @@ config X86
  	select HAVE_RELIABLE_STACKTRACE		if X86_64 && (UNWINDER_FRAME_POINTER || UNWINDER_ORC) && STACK_VALIDATION
  	select HAVE_FUNCTION_ARG_ACCESS_API
  	select HAVE_STACKPROTECTOR		if CC_HAS_SANE_STACKPROTECTOR
