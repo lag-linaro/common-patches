@@ -324,7 +324,7 @@ diff --git a/fs/proc/base.c b/fs/proc/base.c
  #ifdef CONFIG_STACKLEAK_METRICS
  	ONE("stack_depth", S_IRUGO, proc_stack_depth),
  #endif
-@@ -3560,6 +3564,9 @@ static const struct pid_entry tid_base_stuff[] = {
+@@ -3559,6 +3563,9 @@ static const struct pid_entry tid_base_stuff[] = {
  #ifdef CONFIG_PROC_PID_ARCH_STATUS
  	ONE("arch_status", S_IRUGO, proc_pid_arch_status),
  #endif

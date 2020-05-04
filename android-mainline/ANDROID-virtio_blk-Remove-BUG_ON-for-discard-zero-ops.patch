@@ -24,7 +24,7 @@ Signed-off-by: Alistair Delva <adelva@google.com>
 diff --git a/drivers/block/virtio_blk.c b/drivers/block/virtio_blk.c
 --- a/drivers/block/virtio_blk.c
 +++ b/drivers/block/virtio_blk.c
-@@ -195,8 +195,6 @@ static blk_status_t virtio_queue_rq(struct blk_mq_hw_ctx *hctx,
+@@ -196,8 +196,6 @@ static blk_status_t virtio_queue_rq(struct blk_mq_hw_ctx *hctx,
  	bool unmap = false;
  	u32 type;
  
@@ -33,7 +33,7 @@ diff --git a/drivers/block/virtio_blk.c b/drivers/block/virtio_blk.c
  	switch (req_op(req)) {
  	case REQ_OP_READ:
  	case REQ_OP_WRITE:
-@@ -220,6 +218,10 @@ static blk_status_t virtio_queue_rq(struct blk_mq_hw_ctx *hctx,
+@@ -221,6 +219,10 @@ static blk_status_t virtio_queue_rq(struct blk_mq_hw_ctx *hctx,
  		return BLK_STS_IOERR;
  	}
  

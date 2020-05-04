@@ -1,8 +1,8 @@
 #
 # android-mainline patches
 #
-# Applies onto upstream ae83d0b416db Linux v5.7-rc2
-# Matches android-mainline 79c3a299c468 ("ANDROID: Remove VLA from uid_sys_stats.c")
+# Applies onto upstream 6a8b55ed4056 Linux v5.7-rc3
+# Matches android-mainline 09257b628e9c ("Merge 5.7-rc3 into android-mainline")
 #
 Revert-security-lockdown-selinux-implement-SELinux-lockdown.patch
 Revert-drm-virtio-fix-DRM_FORMAT_-handling.patch

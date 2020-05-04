@@ -43,7 +43,7 @@ diff --git a/include/sound/soc.h b/include/sound/soc.h
  
  /**
   * struct snd_soc_jack_pin - Describes a pin to update based on jack detection
-@@ -1234,6 +1244,11 @@ struct soc_mreg_control {
+@@ -1237,6 +1247,11 @@ struct soc_mreg_control {
  	unsigned int regbase, regcount, nbits, invert;
  };
  

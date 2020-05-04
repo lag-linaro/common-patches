@@ -64,7 +64,7 @@ diff --git a/fs/attr.c b/fs/attr.c
 diff --git a/fs/coredump.c b/fs/coredump.c
 --- a/fs/coredump.c
 +++ b/fs/coredump.c
-@@ -775,7 +775,7 @@ void do_coredump(const kernel_siginfo_t *siginfo)
+@@ -777,7 +777,7 @@ void do_coredump(const kernel_siginfo_t *siginfo)
  			goto close_fail;
  		if (!(cprm.file->f_mode & FMODE_CAN_WRITE))
  			goto close_fail;
