@@ -38,7 +38,7 @@ Signed-off-by: Dietmar Eggemann <dietmar.eggemann@arm.com>
 diff --git a/kernel/sched/fair.c b/kernel/sched/fair.c
 --- a/kernel/sched/fair.c
 +++ b/kernel/sched/fair.c
-@@ -6538,7 +6538,8 @@ static int find_energy_efficient_cpu(struct task_struct *p, int prev_cpu, int sy
+@@ -6526,7 +6526,8 @@ static int find_energy_efficient_cpu(struct task_struct *p, int prev_cpu, int sy
  		goto fail;
  
  	cpu = smp_processor_id();

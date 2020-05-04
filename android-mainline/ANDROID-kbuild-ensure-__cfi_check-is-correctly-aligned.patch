@@ -21,7 +21,7 @@ Signed-off-by: Sami Tolvanen <samitolvanen@google.com>
 diff --git a/Makefile b/Makefile
 --- a/Makefile
 +++ b/Makefile
-@@ -886,7 +886,7 @@ LD_FLAGS_LTO_CLANG := -mllvm -import-instr-limit=5
+@@ -901,7 +901,7 @@ LD_FLAGS_LTO_CLANG := -mllvm -import-instr-limit=5
  KBUILD_LDFLAGS += $(LD_FLAGS_LTO_CLANG)
  KBUILD_LDFLAGS_MODULE += $(LD_FLAGS_LTO_CLANG)
  
@@ -33,7 +33,7 @@ diff --git a/Makefile b/Makefile
 diff --git a/scripts/Makefile b/scripts/Makefile
 --- a/scripts/Makefile
 +++ b/scripts/Makefile
-@@ -35,6 +35,8 @@ hostprogs := $(always-y) $(always-m)
+@@ -31,6 +31,8 @@ hostprogs := $(always-y) $(always-m)
  # The following programs are only built on demand
  hostprogs += unifdef
  

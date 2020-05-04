@@ -40,7 +40,7 @@ Signed-off-by: Sami Tolvanen <samitolvanen@google.com>
 diff --git a/Makefile b/Makefile
 --- a/Makefile
 +++ b/Makefile
-@@ -851,6 +851,12 @@ ifdef CONFIG_LIVEPATCH
+@@ -866,6 +866,12 @@ ifdef CONFIG_LIVEPATCH
  KBUILD_CFLAGS += $(call cc-option, -flive-patching=inline-clone)
  endif
  
@@ -276,7 +276,7 @@ diff --git a/kernel/sched/core.c b/kernel/sched/core.c
  
  #include <asm/switch_to.h>
  #include <asm/tlb.h>
-@@ -6036,6 +6037,7 @@ void init_idle(struct task_struct *idle, int cpu)
+@@ -6031,6 +6032,7 @@ void init_idle(struct task_struct *idle, int cpu)
  	idle->se.exec_start = sched_clock();
  	idle->flags |= PF_IDLE;
  

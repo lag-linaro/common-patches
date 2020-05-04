@@ -20,7 +20,7 @@ Signed-off-by: Alistair Delva <adelva@google.com>
 diff --git a/kernel/workqueue.c b/kernel/workqueue.c
 --- a/kernel/workqueue.c
 +++ b/kernel/workqueue.c
-@@ -1621,7 +1621,9 @@ static void __queue_delayed_work(int cpu, struct workqueue_struct *wq,
+@@ -1623,7 +1623,9 @@ static void __queue_delayed_work(int cpu, struct workqueue_struct *wq,
  	struct work_struct *work = &dwork->work;
  
  	WARN_ON_ONCE(!wq);

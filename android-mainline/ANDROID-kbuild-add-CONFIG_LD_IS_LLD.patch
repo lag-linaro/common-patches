@@ -16,7 +16,7 @@ Signed-off-by: Sami Tolvanen <samitolvanen@google.com>
 diff --git a/init/Kconfig b/init/Kconfig
 --- a/init/Kconfig
 +++ b/init/Kconfig
-@@ -19,6 +19,9 @@ config GCC_VERSION
+@@ -23,6 +23,9 @@ config LD_VERSION
  config CC_IS_CLANG
  	def_bool $(success,$(CC) --version | head -n 1 | grep -q clang)
  

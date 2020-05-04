@@ -96,7 +96,7 @@ diff --git a/kernel/trace/ftrace.c b/kernel/trace/ftrace.c
 diff --git a/scripts/Makefile.build b/scripts/Makefile.build
 --- a/scripts/Makefile.build
 +++ b/scripts/Makefile.build
-@@ -179,6 +179,12 @@ ifdef BUILD_C_RECORDMCOUNT
+@@ -178,6 +178,12 @@ ifdef BUILD_C_RECORDMCOUNT
  ifeq ("$(origin RECORDMCOUNT_WARN)", "command line")
    RECORDMCOUNT_FLAGS = -w
  endif
@@ -109,7 +109,7 @@ diff --git a/scripts/Makefile.build b/scripts/Makefile.build
  # Due to recursion, we must skip empty.o.
  # The empty.o file is created in the make process in order to determine
  # the target endianness and word size. It is made before all other C
-@@ -187,6 +193,8 @@ sub_cmd_record_mcount =					\
+@@ -186,6 +192,8 @@ sub_cmd_record_mcount =					\
  	if [ $(@) != "scripts/mod/empty.o" ]; then	\
  		$(objtree)/scripts/recordmcount $(RECORDMCOUNT_FLAGS) "$(@)";	\
  	fi;
@@ -118,7 +118,7 @@ diff --git a/scripts/Makefile.build b/scripts/Makefile.build
  recordmcount_source := $(srctree)/scripts/recordmcount.c \
  		    $(srctree)/scripts/recordmcount.h
  else
-@@ -196,10 +204,13 @@ sub_cmd_record_mcount = perl $(srctree)/scripts/recordmcount.pl "$(ARCH)" \
+@@ -195,10 +203,13 @@ sub_cmd_record_mcount = perl $(srctree)/scripts/recordmcount.pl "$(ARCH)" \
  	"$(OBJDUMP)" "$(OBJCOPY)" "$(CC) $(KBUILD_CPPFLAGS) $(KBUILD_CFLAGS)" \
  	"$(LD) $(KBUILD_LDFLAGS)" "$(NM)" "$(RM)" "$(MV)" \
  	"$(if $(part-of-module),1,0)" "$(@)";

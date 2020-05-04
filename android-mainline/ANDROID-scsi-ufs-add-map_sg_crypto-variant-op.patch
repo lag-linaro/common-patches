@@ -67,7 +67,7 @@ diff --git a/drivers/scsi/ufs/ufshcd-crypto.h b/drivers/scsi/ufs/ufshcd-crypto.h
 diff --git a/drivers/scsi/ufs/ufshcd.c b/drivers/scsi/ufs/ufshcd.c
 --- a/drivers/scsi/ufs/ufshcd.c
 +++ b/drivers/scsi/ufs/ufshcd.c
-@@ -2187,7 +2187,7 @@ static int ufshcd_map_sg(struct ufs_hba *hba, struct ufshcd_lrb *lrbp)
+@@ -2173,7 +2173,7 @@ static int ufshcd_map_sg(struct ufs_hba *hba, struct ufshcd_lrb *lrbp)
  		lrbp->utr_descriptor_ptr->prd_table_length = 0;
  	}
  
@@ -79,7 +79,7 @@ diff --git a/drivers/scsi/ufs/ufshcd.c b/drivers/scsi/ufs/ufshcd.c
 diff --git a/drivers/scsi/ufs/ufshcd.h b/drivers/scsi/ufs/ufshcd.h
 --- a/drivers/scsi/ufs/ufshcd.h
 +++ b/drivers/scsi/ufs/ufshcd.h
-@@ -362,6 +362,7 @@ struct ufs_hba_crypto_variant_ops {
+@@ -375,6 +375,7 @@ struct ufs_hba_crypto_variant_ops {
  	int (*prepare_lrbp_crypto)(struct ufs_hba *hba,
  				   struct scsi_cmnd *cmd,
  				   struct ufshcd_lrb *lrbp);

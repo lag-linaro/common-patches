@@ -1,21 +1,18 @@
 #
 # android-mainline patches
 #
-# Applies onto upstream 5d30bcacd91a Linux v5.6-12281-g5d30bcacd91a
-# Matches android-mainline 2aba289218b3 ("ANDROID: Revert "ANDROID: iommu/arm-smmu: Allow inherting stream mapping from bootloader"")
+# Applies onto upstream 8f3d9f354286 Linux v5.7-rc1
+# Matches android-mainline ba9bbd9498a7 ("Merge 5.7-rc1 into android-mainline")
 #
 Revert-security-lockdown-selinux-implement-SELinux-lockdown.patch
 Revert-drm-virtio-fix-DRM_FORMAT_-handling.patch
 Revert-sched-core-Prevent-race-condition-between-cpuset-and-__sched_setscheduler.patch
-FROMGIT-kbuild-mkcompile_h-Include-LD-version-in-proc-version.patch
 FROMLIST-scsi-ufs-UFS-driver-v2.1-spec-crypto-additions.patch
 FROMLIST-scsi-ufs-UFS-crypto-API.patch
 FROMLIST-scsi-ufs-Add-inline-encryption-support-to-UFS.patch
 FROMLIST-scsi-ufs-qcom-enter-and-exit-hibern8-during-clock-scaling.patch
-FROMLIST-scsi-ufs-Fix-up-clock-scaling.patch
 FROMLIST-scsi-ufs-Export-query-request-interfaces.patch
 FROMLIST-scsi-ufs-export-hibern8-entry-and-exit.patch
-FROMLIST-scsi-ufs-Use-ufshcd_config_pwr_mode-when-scale-gear.patch
 FROMLIST-reboot-Export-reboot_mode.patch
 FROMLIST-arm64-preserve-x18-when-CPU-is-suspended.patch
 FROMLIST-drivers-irqchip-pdc-additionally-set-type-in-SPI-config-registers.patch
@@ -50,7 +47,6 @@ FROMLIST-media-v4l2-fh-define-v4l2_fh-struct-regardless-of-condition.patch
 FROMLIST-soc-qcom-rpmpd-Allow-RPMPD-driver-to-be-loaded-as-a-module.patch
 FROMLIST-soc-qcom-rpmh-Allow-RPMH-driver-to-be-loaded-as-a-module.patch
 FROMLIST-soc-qcom-rpmhpd-Allow-RPMHPD-driver-to-be-loaded-as-a-module.patch
-FROMLIST-kmod-make-request_module-return-an-error-when-autoloading-is-disabled.patch
 FROMLIST-power_supply-Add-additional-health-properties-to-the-header.patch
 ANDROID-arm64-copy-CONFIG_CMDLINE_EXTEND-from-ARM.patch
 ANDROID-of-Support-CONFIG_CMDLINE_EXTEND-config-option.patch

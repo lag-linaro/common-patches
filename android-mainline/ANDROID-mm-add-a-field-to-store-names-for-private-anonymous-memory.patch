@@ -217,7 +217,7 @@ diff --git a/fs/userfaultfd.c b/fs/userfaultfd.c
 diff --git a/include/linux/mm.h b/include/linux/mm.h
 --- a/include/linux/mm.h
 +++ b/include/linux/mm.h
-@@ -2447,7 +2447,7 @@ static inline int vma_adjust(struct vm_area_struct *vma, unsigned long start,
+@@ -2477,7 +2477,7 @@ static inline int vma_adjust(struct vm_area_struct *vma, unsigned long start,
  extern struct vm_area_struct *vma_merge(struct mm_struct *,
  	struct vm_area_struct *prev, unsigned long addr, unsigned long end,
  	unsigned long vm_flags, struct anon_vma *, struct file *, pgoff_t,
@@ -600,7 +600,7 @@ diff --git a/mm/mmap.c b/mm/mmap.c
  	if (vma)
  		goto out;
  
-@@ -3028,7 +3037,7 @@ static int do_brk_flags(unsigned long addr, unsigned long len, unsigned long fla
+@@ -3030,7 +3039,7 @@ static int do_brk_flags(unsigned long addr, unsigned long len, unsigned long fla
  
  	/* Can we just expand an old private anonymous mapping? */
  	vma = vma_merge(mm, prev, addr, addr + len, flags,
@@ -609,7 +609,7 @@ diff --git a/mm/mmap.c b/mm/mmap.c
  	if (vma)
  		goto out;
  
-@@ -3226,7 +3235,7 @@ struct vm_area_struct *copy_vma(struct vm_area_struct **vmap,
+@@ -3228,7 +3237,7 @@ struct vm_area_struct *copy_vma(struct vm_area_struct **vmap,
  		return NULL;	/* should never get here */
  	new_vma = vma_merge(mm, prev, addr, addr + len, vma->vm_flags,
  			    vma->anon_vma, vma->vm_file, pgoff, vma_policy(vma),

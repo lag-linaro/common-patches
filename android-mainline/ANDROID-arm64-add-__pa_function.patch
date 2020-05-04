@@ -28,7 +28,7 @@ Signed-off-by: Sami Tolvanen <samitolvanen@google.com>
 diff --git a/arch/arm64/include/asm/memory.h b/arch/arm64/include/asm/memory.h
 --- a/arch/arm64/include/asm/memory.h
 +++ b/arch/arm64/include/asm/memory.h
-@@ -304,6 +304,22 @@ static inline void *phys_to_virt(phys_addr_t x)
+@@ -294,6 +294,22 @@ static inline void *phys_to_virt(phys_addr_t x)
  #define virt_to_pfn(x)		__phys_to_pfn(__virt_to_phys((unsigned long)(x)))
  #define sym_to_pfn(x)		__phys_to_pfn(__pa_symbol(x))
  

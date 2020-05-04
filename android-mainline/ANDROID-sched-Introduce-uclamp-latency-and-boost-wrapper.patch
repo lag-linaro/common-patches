@@ -20,7 +20,7 @@ Signed-off-by: Quentin Perret <quentin.perret@arm.com>
 diff --git a/kernel/sched/sched.h b/kernel/sched/sched.h
 --- a/kernel/sched/sched.h
 +++ b/kernel/sched/sched.h
-@@ -2372,6 +2372,11 @@ unsigned long uclamp_rq_util_with(struct rq *rq, unsigned long util,
+@@ -2377,6 +2377,11 @@ unsigned long uclamp_rq_util_with(struct rq *rq, unsigned long util,
  
  	return clamp(util, min_util, max_util);
  }
@@ -32,7 +32,7 @@ diff --git a/kernel/sched/sched.h b/kernel/sched/sched.h
  #else /* CONFIG_UCLAMP_TASK */
  static inline
  unsigned long uclamp_rq_util_with(struct rq *rq, unsigned long util,
-@@ -2379,8 +2384,31 @@ unsigned long uclamp_rq_util_with(struct rq *rq, unsigned long util,
+@@ -2384,8 +2389,31 @@ unsigned long uclamp_rq_util_with(struct rq *rq, unsigned long util,
  {
  	return util;
  }

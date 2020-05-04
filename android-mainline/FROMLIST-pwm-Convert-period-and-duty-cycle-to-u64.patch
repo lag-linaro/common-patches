@@ -91,7 +91,7 @@ diff --git a/drivers/media/rc/ir-rx51.c b/drivers/media/rc/ir-rx51.c
 diff --git a/drivers/pwm/core.c b/drivers/pwm/core.c
 --- a/drivers/pwm/core.c
 +++ b/drivers/pwm/core.c
-@@ -1164,8 +1164,8 @@ static void pwm_dbg_show(struct pwm_chip *chip, struct seq_file *s)
+@@ -1285,8 +1285,8 @@ static void pwm_dbg_show(struct pwm_chip *chip, struct seq_file *s)
  		if (state.enabled)
  			seq_puts(s, " enabled");
  
@@ -117,7 +117,7 @@ diff --git a/drivers/pwm/pwm-clps711x.c b/drivers/pwm/pwm-clps711x.c
 diff --git a/drivers/pwm/pwm-imx-tpm.c b/drivers/pwm/pwm-imx-tpm.c
 --- a/drivers/pwm/pwm-imx-tpm.c
 +++ b/drivers/pwm/pwm-imx-tpm.c
-@@ -126,7 +126,7 @@ static int pwm_imx_tpm_round_state(struct pwm_chip *chip,
+@@ -124,7 +124,7 @@ static int pwm_imx_tpm_round_state(struct pwm_chip *chip,
  		real_state->duty_cycle = state->duty_cycle;
  
  	tmp = (u64)p->mod * real_state->duty_cycle;
@@ -129,7 +129,7 @@ diff --git a/drivers/pwm/pwm-imx-tpm.c b/drivers/pwm/pwm-imx-tpm.c
 diff --git a/drivers/pwm/pwm-imx27.c b/drivers/pwm/pwm-imx27.c
 --- a/drivers/pwm/pwm-imx27.c
 +++ b/drivers/pwm/pwm-imx27.c
-@@ -208,7 +208,7 @@ static void pwm_imx27_wait_fifo_slot(struct pwm_chip *chip,
+@@ -203,7 +203,7 @@ static void pwm_imx27_wait_fifo_slot(struct pwm_chip *chip,
  	sr = readl(imx->mmio_base + MX3_PWMSR);
  	fifoav = FIELD_GET(MX3_PWMSR_FIFOAV, sr);
  	if (fifoav == MX3_PWMSR_FIFOAV_4WORDS) {
@@ -138,7 +138,7 @@ diff --git a/drivers/pwm/pwm-imx27.c b/drivers/pwm/pwm-imx27.c
  					 NSEC_PER_MSEC);
  		msleep(period_ms);
  
-@@ -240,8 +240,7 @@ static int pwm_imx27_apply(struct pwm_chip *chip, struct pwm_device *pwm,
+@@ -235,8 +235,7 @@ static int pwm_imx27_apply(struct pwm_chip *chip, struct pwm_device *pwm,
  
  	period_cycles /= prescale;
  	c = (unsigned long long)period_cycles * state->duty_cycle;
@@ -191,15 +191,15 @@ diff --git a/drivers/pwm/pwm-stm32-lp.c b/drivers/pwm/pwm-stm32-lp.c
 diff --git a/drivers/pwm/pwm-sun4i.c b/drivers/pwm/pwm-sun4i.c
 --- a/drivers/pwm/pwm-sun4i.c
 +++ b/drivers/pwm/pwm-sun4i.c
-@@ -286,7 +286,7 @@ static int sun4i_pwm_apply(struct pwm_chip *chip, struct pwm_device *pwm,
+@@ -285,7 +285,7 @@ static int sun4i_pwm_apply(struct pwm_chip *chip, struct pwm_device *pwm,
  	val = (duty & PWM_DTY_MASK) | PWM_PRD(period);
  	sun4i_pwm_writel(sun4i_pwm, val, PWM_CH_PRD(pwm->hwpwm));
  	sun4i_pwm->next_period[pwm->hwpwm] = jiffies +
 -		usecs_to_jiffies(cstate.period / 1000 + 1);
 +		usecs_to_jiffies(div_u64(cstate.period, 1000) + 1);
- 	sun4i_pwm->needs_delay[pwm->hwpwm] = true;
  
  	if (state->polarity != PWM_POLARITY_NORMAL)
+ 		ctrl &= ~BIT_CH(PWM_ACT_STATE, pwm->hwpwm);
 diff --git a/drivers/pwm/sysfs.c b/drivers/pwm/sysfs.c
 --- a/drivers/pwm/sysfs.c
 +++ b/drivers/pwm/sysfs.c
@@ -279,7 +279,7 @@ diff --git a/include/linux/pwm.h b/include/linux/pwm.h
  	enum pwm_polarity polarity;
  	enum pwm_output_type output_type;
  	bool enabled;
-@@ -117,13 +117,13 @@ static inline bool pwm_is_enabled(const struct pwm_device *pwm)
+@@ -119,13 +119,13 @@ static inline bool pwm_is_enabled(const struct pwm_device *pwm)
  	return state.enabled;
  }
  
@@ -295,7 +295,7 @@ diff --git a/include/linux/pwm.h b/include/linux/pwm.h
  {
  	struct pwm_state state;
  
-@@ -138,7 +138,7 @@ static inline void pwm_set_duty_cycle(struct pwm_device *pwm, unsigned int duty)
+@@ -140,7 +140,7 @@ static inline void pwm_set_duty_cycle(struct pwm_device *pwm, unsigned int duty)
  		pwm->state.duty_cycle = duty;
  }
  
@@ -304,7 +304,7 @@ diff --git a/include/linux/pwm.h b/include/linux/pwm.h
  {
  	struct pwm_state state;
  
-@@ -330,8 +330,8 @@ struct pwm_chip {
+@@ -332,8 +332,8 @@ struct pwm_chip {
   * @duty_cycle: duty cycle of the PWM signal (in nanoseconds)
   */
  struct pwm_capture {

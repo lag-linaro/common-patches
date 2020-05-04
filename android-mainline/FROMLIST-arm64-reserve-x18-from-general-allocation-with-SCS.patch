@@ -21,14 +21,14 @@ Signed-off-by: Sami Tolvanen <samitolvanen@google.com>
 diff --git a/arch/arm64/Makefile b/arch/arm64/Makefile
 --- a/arch/arm64/Makefile
 +++ b/arch/arm64/Makefile
-@@ -76,6 +76,10 @@ branch-prot-flags-$(CONFIG_AS_HAS_PAC) += -Wa,-march=armv8.3-a
- KBUILD_CFLAGS += $(branch-prot-flags-y)
+@@ -79,6 +79,10 @@ branch-prot-flags-$(CONFIG_CC_HAS_BRANCH_PROT_PAC_RET) := -mbranch-protection=pa
+ branch-prot-flags-$(CONFIG_AS_HAS_PAC) += -Wa,-march=armv8.3-a
  endif
  
 +ifeq ($(CONFIG_SHADOW_CALL_STACK), y)
 +KBUILD_CFLAGS	+= -ffixed-x18
 +endif
 +
+ KBUILD_CFLAGS += $(branch-prot-flags-y)
+ 
  ifeq ($(CONFIG_CPU_BIG_ENDIAN), y)
- KBUILD_CPPFLAGS	+= -mbig-endian
- CHECKFLAGS	+= -D__AARCH64EB__

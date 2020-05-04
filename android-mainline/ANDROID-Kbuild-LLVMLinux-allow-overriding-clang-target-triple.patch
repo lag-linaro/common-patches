@@ -35,7 +35,7 @@ Signed-off-by: Alistair Delva <adelva@google.com>
 diff --git a/Makefile b/Makefile
 --- a/Makefile
 +++ b/Makefile
-@@ -530,7 +530,11 @@ endif
+@@ -547,7 +547,11 @@ endif
  
  ifneq ($(shell $(CC) --version 2>&1 | head -n 1 | grep clang),)
  ifneq ($(CROSS_COMPILE),)

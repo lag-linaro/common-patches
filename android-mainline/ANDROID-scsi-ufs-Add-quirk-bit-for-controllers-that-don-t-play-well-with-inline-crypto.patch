@@ -36,7 +36,7 @@ diff --git a/drivers/scsi/ufs/ufshcd-crypto.c b/drivers/scsi/ufs/ufshcd-crypto.c
 diff --git a/drivers/scsi/ufs/ufshcd.h b/drivers/scsi/ufs/ufshcd.h
 --- a/drivers/scsi/ufs/ufshcd.h
 +++ b/drivers/scsi/ufs/ufshcd.h
-@@ -533,6 +533,12 @@ enum ufshcd_quirks {
+@@ -546,6 +546,12 @@ enum ufshcd_quirks {
  	 * ops (get_ufs_hci_version) to get the correct version.
  	 */
  	UFSHCD_QUIRK_BROKEN_UFS_HCI_VERSION		= 1 << 5,

@@ -32,7 +32,7 @@ Signed-off-by: Siarhei Vishniakou <svv@google.com>
 diff --git a/MAINTAINERS b/MAINTAINERS
 --- a/MAINTAINERS
 +++ b/MAINTAINERS
-@@ -11923,6 +11923,12 @@ S:	Maintained
+@@ -11946,6 +11946,12 @@ W:	http://www.netlab.is.tsukuba.ac.jp/~yokota/izumi/ninja/
  F:	Documentation/scsi/NinjaSCSI.rst
  F:	drivers/scsi/nsp32*
  
@@ -44,7 +44,7 @@ diff --git a/MAINTAINERS b/MAINTAINERS
 +
  NIOS2 ARCHITECTURE
  M:	Ley Foon Tan <ley.foon.tan@intel.com>
- L:	nios2-dev@lists.rocketboards.org (moderated for non-subscribers)
+ S:	Maintained
 diff --git a/drivers/hid/Kconfig b/drivers/hid/Kconfig
 --- a/drivers/hid/Kconfig
 +++ b/drivers/hid/Kconfig

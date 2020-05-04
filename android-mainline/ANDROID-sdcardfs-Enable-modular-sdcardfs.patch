@@ -66,7 +66,7 @@ diff --git a/fs/fs_struct.c b/fs/fs_struct.c
 diff --git a/fs/read_write.c b/fs/read_write.c
 --- a/fs/read_write.c
 +++ b/fs/read_write.c
-@@ -469,6 +469,8 @@ ssize_t vfs_read(struct file *file, char __user *buf, size_t count, loff_t *pos)
+@@ -470,6 +470,8 @@ ssize_t vfs_read(struct file *file, char __user *buf, size_t count, loff_t *pos)
  	return ret;
  }
  
@@ -75,7 +75,7 @@ diff --git a/fs/read_write.c b/fs/read_write.c
  static ssize_t new_sync_write(struct file *filp, const char __user *buf, size_t len, loff_t *ppos)
  {
  	struct iovec iov = { .iov_base = (void __user *)buf, .iov_len = len };
-@@ -566,6 +568,7 @@ ssize_t vfs_write(struct file *file, const char __user *buf, size_t count, loff_
+@@ -567,6 +569,7 @@ ssize_t vfs_write(struct file *file, const char __user *buf, size_t count, loff_
  
  	return ret;
  }

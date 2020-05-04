@@ -18,7 +18,7 @@ Signed-off-by: Eric Biggers <ebiggers@google.com>
 diff --git a/drivers/scsi/ufs/ufshcd.c b/drivers/scsi/ufs/ufshcd.c
 --- a/drivers/scsi/ufs/ufshcd.c
 +++ b/drivers/scsi/ufs/ufshcd.c
-@@ -2448,10 +2448,11 @@ static inline u16 ufshcd_upiu_wlun_to_scsi_wlun(u8 upiu_wlun_id)
+@@ -2434,10 +2434,11 @@ static inline u16 ufshcd_upiu_wlun_to_scsi_wlun(u8 upiu_wlun_id)
  
  static void ufshcd_init_lrb(struct ufs_hba *hba, struct ufshcd_lrb *lrb, int i)
  {
@@ -32,7 +32,7 @@ diff --git a/drivers/scsi/ufs/ufshcd.c b/drivers/scsi/ufs/ufshcd.c
  	u16 response_offset = offsetof(struct utp_transfer_cmd_desc,
  				       response_upiu);
  	u16 prdt_offset = offsetof(struct utp_transfer_cmd_desc, prd_table);
-@@ -2459,11 +2460,11 @@ static void ufshcd_init_lrb(struct ufs_hba *hba, struct ufshcd_lrb *lrb, int i)
+@@ -2445,11 +2446,11 @@ static void ufshcd_init_lrb(struct ufs_hba *hba, struct ufshcd_lrb *lrb, int i)
  	lrb->utr_descriptor_ptr = utrdlp + i;
  	lrb->utrd_dma_addr = hba->utrdl_dma_addr +
  		i * sizeof(struct utp_transfer_req_desc);

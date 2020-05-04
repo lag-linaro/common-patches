@@ -21,7 +21,7 @@ Link: https://patchwork.kernel.org/patch/11214737/
 diff --git a/drivers/scsi/ufs/ufshcd.c b/drivers/scsi/ufs/ufshcd.c
 --- a/drivers/scsi/ufs/ufshcd.c
 +++ b/drivers/scsi/ufs/ufshcd.c
-@@ -4759,6 +4759,8 @@ ufshcd_transfer_rsp_status(struct ufs_hba *hba, struct ufshcd_lrb *lrbp)
+@@ -4767,6 +4767,8 @@ ufshcd_transfer_rsp_status(struct ufs_hba *hba, struct ufshcd_lrb *lrbp)
  	case OCS_MISMATCH_RESP_UPIU_SIZE:
  	case OCS_PEER_COMM_FAILURE:
  	case OCS_FATAL_ERROR:
@@ -33,7 +33,7 @@ diff --git a/drivers/scsi/ufs/ufshcd.c b/drivers/scsi/ufs/ufshcd.c
 diff --git a/drivers/scsi/ufs/ufshcd.h b/drivers/scsi/ufs/ufshcd.h
 --- a/drivers/scsi/ufs/ufshcd.h
 +++ b/drivers/scsi/ufs/ufshcd.h
-@@ -542,6 +542,12 @@ enum ufshcd_caps {
+@@ -555,6 +555,12 @@ enum ufshcd_caps {
  	 * for userspace to control the power management.
  	 */
  	UFSHCD_CAP_RPM_AUTOSUSPEND			= 1 << 6,

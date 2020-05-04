@@ -28,7 +28,7 @@ diff --git a/arch/x86/Kconfig b/arch/x86/Kconfig
 diff --git a/arch/x86/Makefile b/arch/x86/Makefile
 --- a/arch/x86/Makefile
 +++ b/arch/x86/Makefile
-@@ -210,6 +210,11 @@ ifdef CONFIG_X86_64
+@@ -188,6 +188,11 @@ ifdef CONFIG_X86_64
  KBUILD_LDFLAGS += $(call ld-option, -z max-page-size=0x200000)
  endif
  

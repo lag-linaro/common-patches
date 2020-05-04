@@ -19,7 +19,7 @@ Signed-off-by: Greg Kroah-Hartman <gregkh@google.com>
 diff --git a/drivers/scsi/ufs/ufshcd.c b/drivers/scsi/ufs/ufshcd.c
 --- a/drivers/scsi/ufs/ufshcd.c
 +++ b/drivers/scsi/ufs/ufshcd.c
-@@ -4754,6 +4754,12 @@ ufshcd_transfer_rsp_status(struct ufs_hba *hba, struct ufshcd_lrb *lrbp)
+@@ -4741,6 +4741,12 @@ ufshcd_transfer_rsp_status(struct ufs_hba *hba, struct ufshcd_lrb *lrbp)
  	/* overall command status of utrd */
  	ocs = ufshcd_get_tr_ocs(lrbp);
  
@@ -35,7 +35,7 @@ diff --git a/drivers/scsi/ufs/ufshcd.c b/drivers/scsi/ufs/ufshcd.c
 diff --git a/drivers/scsi/ufs/ufshcd.h b/drivers/scsi/ufs/ufshcd.h
 --- a/drivers/scsi/ufs/ufshcd.h
 +++ b/drivers/scsi/ufs/ufshcd.h
-@@ -541,6 +541,12 @@ enum ufshcd_quirks {
+@@ -554,6 +554,12 @@ enum ufshcd_quirks {
  	 */
  	UFSHCD_QUIRK_BROKEN_UFS_HCI_VERSION		= 1 << 5,
  

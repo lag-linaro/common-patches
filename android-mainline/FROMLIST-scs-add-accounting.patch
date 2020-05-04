@@ -137,7 +137,7 @@ diff --git a/kernel/scs.c b/kernel/scs.c
 diff --git a/mm/page_alloc.c b/mm/page_alloc.c
 --- a/mm/page_alloc.c
 +++ b/mm/page_alloc.c
-@@ -5410,6 +5410,9 @@ void show_free_areas(unsigned int filter, nodemask_t *nodemask)
+@@ -5411,6 +5411,9 @@ void show_free_areas(unsigned int filter, nodemask_t *nodemask)
  			" managed:%lukB"
  			" mlocked:%lukB"
  			" kernel_stack:%lukB"
@@ -147,7 +147,7 @@ diff --git a/mm/page_alloc.c b/mm/page_alloc.c
  			" pagetables:%lukB"
  			" bounce:%lukB"
  			" free_pcp:%lukB"
-@@ -5432,6 +5435,9 @@ void show_free_areas(unsigned int filter, nodemask_t *nodemask)
+@@ -5433,6 +5436,9 @@ void show_free_areas(unsigned int filter, nodemask_t *nodemask)
  			K(zone_managed_pages(zone)),
  			K(zone_page_state(zone, NR_MLOCK)),
  			zone_page_state(zone, NR_KERNEL_STACK_KB),

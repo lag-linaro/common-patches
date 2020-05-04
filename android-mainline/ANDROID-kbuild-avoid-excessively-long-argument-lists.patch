@@ -19,7 +19,7 @@ Signed-off-by: Sami Tolvanen <samitolvanen@google.com>
 diff --git a/scripts/Makefile.build b/scripts/Makefile.build
 --- a/scripts/Makefile.build
 +++ b/scripts/Makefile.build
-@@ -400,13 +400,12 @@ $(obj)/%/built-in.a: $(obj)/% ;
+@@ -399,13 +399,12 @@ $(obj)/%/built-in.a: $(obj)/% ;
  # combine symversions for later processing
  quiet_cmd_update_lto_symversions = SYMVER  $@
  ifeq ($(CONFIG_LTO_CLANG) $(CONFIG_MODVERSIONS),y y)
