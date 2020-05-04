@@ -1,0 +1,27 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: John Stultz <john.stultz@linaro.org>
+Date: Thu, 9 Apr 2020 20:28:53 +0000
+Subject: ANDROID: irq: irqdomain: Export irq_domain_update_bus_token
+
+Add export for irq_domain_update_bus_token() so that
+we can allow drivers like the qcom-pdc driver to be
+loadable as a module.
+
+Signed-off-by: John Stultz <john.stultz@linaro.org>
+Bug: 153049053
+Change-Id: I395859c3e6fe7e8ceb4075c84267fbb68fbb1938
+---
+ kernel/irq/irqdomain.c | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/kernel/irq/irqdomain.c b/kernel/irq/irqdomain.c
+--- a/kernel/irq/irqdomain.c
++++ b/kernel/irq/irqdomain.c
+@@ -296,6 +296,7 @@ void irq_domain_update_bus_token(struct irq_domain *domain,
+ 
+ 	mutex_unlock(&irq_domain_mutex);
+ }
++EXPORT_SYMBOL_GPL(irq_domain_update_bus_token);
+ 
+ /**
+  * irq_domain_add_simple() - Register an irq_domain and optionally map a range of irqs

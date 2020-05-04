@@ -2,7 +2,7 @@
 # android-mainline patches
 #
 # Applies onto upstream 8f3d9f354286 Linux v5.7-rc1
-# Matches android-mainline ba9bbd9498a7 ("Merge 5.7-rc1 into android-mainline")
+# Matches android-mainline e556869703e4 ("ANDROID: Add C protos for dma_buf/drm_prime get_uuid")
 #
 Revert-security-lockdown-selinux-implement-SELinux-lockdown.patch
 Revert-drm-virtio-fix-DRM_FORMAT_-handling.patch
@@ -475,3 +475,17 @@ ANDROID-Incremental-fs-Clean-up-incfs_test-build-process.patch
 ANDROID-Incremental-fs-Fix-compound-page-usercopy-crash.patch
 ANDROID-staging-ion-implement-vmap-for-built-in-heaps.patch
 ANDROID-GKI-enable-CONFIG_ARM_PSCI_CPUIDLE.patch
+ANDROID-Re-enable-CONFIG_STM-for-allmodconfig.patch
+ANDROID-fix-allmodconfig-build-to-use-the-right-toolchain.patch
+ANDROID-Incremental-fs-Fix-create_file-performance.patch
+FROMLIST-dma-buf-add-support-for-virtio-exported-objects.patch
+FROMLIST-drm-prime-add-support-for-virtio-exported-objects.patch
+ANDROID-GKI-Add-DRM_TTM-config-to-GKI.patch
+ANDROID-irq-irqdomain-Export-irq_domain_update_bus_token.patch
+ANDROID-irq-irqchip-Export-irq_chip_retrigger_hierarchy-and-irq_chip_set_vcpu_affinity_parent.patch
+ANDROID-irqchip-Allow-QCOM_PDC-to-be-loadable-as-a-perment-module.patch
+ANDROID-pinctrl-qcom-Allow-pinctrl-msm-code-to-be-loadable-as-a-module.patch
+ANDROID-firmware-QCOM_SCM-Allow-qcom_scm-driver-to-be-loadable-as-a-permenent-module.patch
+ANDROID-Switch-CONFIG_QCOM_PDC-CONFIG_QCOM_SCM-and-CONFIG_ARM_SMMU-to-be-loaded-as-modules.patch
+ANDROID-build.config.allmodconfig-Remove-outdated-XFS_FS-comment.patch
+ANDROID-Add-C-protos-for-dma_buf-drm_prime-get_uuid.patch
