@@ -1,8 +1,8 @@
 #
 # android-mainline patches
 #
-# Applies onto upstream 8f3d9f354286 Linux v5.7-rc1
-# Matches android-mainline e556869703e4 ("ANDROID: Add C protos for dma_buf/drm_prime get_uuid")
+# Applies onto upstream ae83d0b416db Linux v5.7-rc2
+# Matches android-mainline 1d70bdbbe036 ("Merge 5.7-rc2 into android-mainline")
 #
 Revert-security-lockdown-selinux-implement-SELinux-lockdown.patch
 Revert-drm-virtio-fix-DRM_FORMAT_-handling.patch

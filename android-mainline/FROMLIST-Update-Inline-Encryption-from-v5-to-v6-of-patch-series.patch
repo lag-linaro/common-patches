@@ -3126,7 +3126,7 @@ diff --git a/drivers/scsi/ufs/ufshcd.h b/drivers/scsi/ufs/ufshcd.h
 diff --git a/fs/buffer.c b/fs/buffer.c
 --- a/fs/buffer.c
 +++ b/fs/buffer.c
-@@ -3036,7 +3036,7 @@ static int submit_bh_wbc(int op, int op_flags, struct buffer_head *bh,
+@@ -3047,7 +3047,7 @@ static int submit_bh_wbc(int op, int op_flags, struct buffer_head *bh,
  	 */
  	bio = bio_alloc(GFP_NOIO, 1);
  

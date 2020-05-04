@@ -423,7 +423,7 @@ diff --git a/net/netfilter/xt_IDLETIMER.c b/net/netfilter/xt_IDLETIMER.c
  	return 0;
  }
  
-@@ -411,13 +642,14 @@ static void idletimer_tg_destroy(const struct xt_tgdtor_param *par)
+@@ -414,13 +645,14 @@ static void idletimer_tg_destroy(const struct xt_tgdtor_param *par)
  
  		list_del(&info->timer->entry);
  		del_timer_sync(&info->timer->timer);
@@ -440,7 +440,7 @@ diff --git a/net/netfilter/xt_IDLETIMER.c b/net/netfilter/xt_IDLETIMER.c
  	}
  
  	mutex_unlock(&list_mutex);
-@@ -456,6 +688,7 @@ static void idletimer_tg_destroy_v1(const struct xt_tgdtor_param *par)
+@@ -459,6 +691,7 @@ static void idletimer_tg_destroy_v1(const struct xt_tgdtor_param *par)
  static struct xt_target idletimer_tg[] __read_mostly = {
  	{
  	.name		= "IDLETIMER",
@@ -448,7 +448,7 @@ diff --git a/net/netfilter/xt_IDLETIMER.c b/net/netfilter/xt_IDLETIMER.c
  	.family		= NFPROTO_UNSPEC,
  	.target		= idletimer_tg_target,
  	.targetsize     = sizeof(struct idletimer_tg_info),
-@@ -537,3 +770,4 @@ MODULE_DESCRIPTION("Xtables: idle time monitor");
+@@ -540,3 +773,4 @@ MODULE_DESCRIPTION("Xtables: idle time monitor");
  MODULE_LICENSE("GPL v2");
  MODULE_ALIAS("ipt_IDLETIMER");
  MODULE_ALIAS("ip6t_IDLETIMER");
