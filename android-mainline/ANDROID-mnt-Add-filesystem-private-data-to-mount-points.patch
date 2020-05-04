@@ -112,7 +112,7 @@ diff --git a/fs/namespace.c b/fs/namespace.c
 diff --git a/fs/pnode.c b/fs/pnode.c
 --- a/fs/pnode.c
 +++ b/fs/pnode.c
-@@ -601,3 +601,19 @@ int propagate_umount(struct list_head *list)
+@@ -600,3 +600,19 @@ int propagate_umount(struct list_head *list)
  
  	return 0;
  }
