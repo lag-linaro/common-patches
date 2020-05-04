@@ -29,8 +29,8 @@ Signed-off-by: Yongqin Liu <yongqin.liu@linaro.org>
 ---
  fs/notify/inotify/inotify_user.c | 15 +++++++++++++--
  include/linux/dcache.h           |  1 +
- include/linux/fsnotify.h         |  7 +++++++
- 3 files changed, 21 insertions(+), 2 deletions(-)
+ include/linux/fsnotify.h         |  8 ++++++++
+ 3 files changed, 22 insertions(+), 2 deletions(-)
 
 diff --git a/fs/notify/inotify/inotify_user.c b/fs/notify/inotify/inotify_user.c
 --- a/fs/notify/inotify/inotify_user.c
@@ -83,10 +83,11 @@ diff --git a/include/linux/dcache.h b/include/linux/dcache.h
 diff --git a/include/linux/fsnotify.h b/include/linux/fsnotify.h
 --- a/include/linux/fsnotify.h
 +++ b/include/linux/fsnotify.h
-@@ -262,11 +262,18 @@ static inline void fsnotify_modify(struct file *file)
+@@ -262,11 +262,19 @@ static inline void fsnotify_modify(struct file *file)
   */
  static inline void fsnotify_open(struct file *file)
  {
++	const struct path *path = &file->f_path;
 +	struct path lower_path;
  	__u32 mask = FS_OPEN;
  

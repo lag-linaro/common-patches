@@ -2,7 +2,7 @@
 # android-mainline patches
 #
 # Applies onto upstream 0e698dfa2822 Linux v5.7-rc4
-# Matches android-mainline 5ff417aa55cf ("Merge 5.7-rc4 into android-mainline")
+# Matches android-mainline 58dc0ef35a07 ("ANDROID: Remove out-of-tree difference in fsnotify.h")
 #
 Revert-security-lockdown-selinux-implement-SELinux-lockdown.patch
 Revert-drm-virtio-fix-DRM_FORMAT_-handling.patch
@@ -469,7 +469,6 @@ ANDROID-db845c_gki.fragment-Remove-nonexistent-CONFIG_USB_DWC3_DISABLE_GADGET_SG
 ANDROID-Incremental-fs-make-remount-log-buffer-change-atomic.patch
 ANDROID-clang-update-to-10.0.6.patch
 ANDROID-GKI-fix-up-gki_defconfig-for-x86.patch
-ANDROID-out-of-tree-correction.patch
 ANDROID-power-wakeup_reason-wake-reason-enhancements.patch
 ANDROID-Incremental-fs-Clean-up-incfs_test-build-process.patch
 ANDROID-Incremental-fs-Fix-compound-page-usercopy-crash.patch
