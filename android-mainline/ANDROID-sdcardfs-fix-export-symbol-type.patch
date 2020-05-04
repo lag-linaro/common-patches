@@ -1,0 +1,33 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: Greg Kroah-Hartman <gregkh@google.com>
+Date: Thu, 30 Apr 2020 12:05:39 +0200
+Subject: ANDROID: sdcardfs: fix export symbol type
+
+In commit c0dbfed5ff9f ("ANDROID: sdcardfs: Enable modular sdcardfs") a
+new symbol was exported, but it should have been set as a _GPL symbol.
+
+Fix this up by properly changing the export type.
+
+Bug: 35142419
+Cc: Daniel Rosenberg <drosen@google.com>
+Cc: Guenter Roeck <groeck@chromium.org>
+Cc: Alistair Strachan <astrachan@google.com>
+Cc: Yongqin Liu <yongqin.liu@linaro.org>
+Signed-off-by: Greg Kroah-Hartman <gregkh@google.com>
+Change-Id: Iab657f0c901496cf2eb59a5ee3087d76d7c14ea3
+---
+ security/security.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/security/security.c b/security/security.c
+--- a/security/security.c
++++ b/security/security.c
+@@ -1119,7 +1119,7 @@ int security_path_chown(const struct path *path, kuid_t uid, kgid_t gid)
+ 		return 0;
+ 	return call_int_hook(path_chown, 0, path, uid, gid);
+ }
+-EXPORT_SYMBOL(security_path_chown);
++EXPORT_SYMBOL_GPL(security_path_chown);
+ 
+ int security_path_chroot(const struct path *path)
+ {

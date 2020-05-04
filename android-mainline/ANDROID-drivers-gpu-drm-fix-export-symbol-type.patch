@@ -1,0 +1,31 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: Greg Kroah-Hartman <gregkh@google.com>
+Date: Thu, 30 Apr 2020 12:19:13 +0200
+Subject: ANDROID: drivers: gpu: drm: fix export symbol type
+
+In commit c9b38cbd8681 ("ANDROID: drivers: gpu: drm: export
+drm_mode_convert_umode symbol") a new symbol was exported, but it should
+have been set as a _GPL symbol.
+
+Fix this up by properly changing the export type.
+
+Bug: 139653858
+Cc: Shashank Babu Chinta Venkata <sbchin@codeaurora.org>
+Signed-off-by: Greg Kroah-Hartman <gregkh@google.com>
+Change-Id: Ib33860bcba4676c9d0538f58b500d094b8357867
+---
+ drivers/gpu/drm/drm_modes.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/drivers/gpu/drm/drm_modes.c b/drivers/gpu/drm/drm_modes.c
+--- a/drivers/gpu/drm/drm_modes.c
++++ b/drivers/gpu/drm/drm_modes.c
+@@ -2053,7 +2053,7 @@ int drm_mode_convert_umode(struct drm_device *dev,
+ 
+ 	return 0;
+ }
+-EXPORT_SYMBOL(drm_mode_convert_umode);
++EXPORT_SYMBOL_GPL(drm_mode_convert_umode);
+ 
+ /**
+  * drm_mode_is_420_only - if a given videomode can be only supported in YCBCR420

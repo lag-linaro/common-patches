@@ -2,7 +2,7 @@
 # android-mainline patches
 #
 # Applies onto upstream 6a8b55ed4056 Linux v5.7-rc3
-# Matches android-mainline 09257b628e9c ("Merge 5.7-rc3 into android-mainline")
+# Matches android-mainline 9794e7e47415 ("ANDROID: README: Add requirement for "Bug:" tag for FROMLIST")
 #
 Revert-security-lockdown-selinux-implement-SELinux-lockdown.patch
 Revert-drm-virtio-fix-DRM_FORMAT_-handling.patch
@@ -499,3 +499,20 @@ ANDROID-fix-wakeup-reason-findings.patch
 ANDROID-sdcardfs-fix-export-symbol-types.patch
 ANDROID-Incremental-fs-Use-simple-compression-in-log-buffer.patch
 ANDROID-Remove-VLA-from-uid_sys_stats.c.patch
+ANDROID-GKI-Enable-GENERIC_IRQ_CHIP.patch
+ANDROID-add-ion_stat-tracepoint-to-common-kernel.patch
+ANDROID-GKI-Enable-net-testing-options.patch
+ANDROID-cfi-fix-export-symbol-types.patch
+ANDROID-fscrypt-fix-export-symbol-type.patch
+ANDROID-vfs-fix-export-symbol-types.patch
+ANDROID-vfs-fix-export-symbol-type.patch
+ANDROID-virt_wifi-fix-export-symbol-types.patch
+ANDROID-ufshcd-crypto-fix-export-symbol-type.patch
+ANDROID-sdcardfs-fix-export-symbol-type.patch
+ANDROID-ion-fix-export-symbol-type.patch
+ANDROID-iommu-fix-export-symbol-type.patch
+ANDROID-driver-gpu-drm-fix-export-symbol-types.patch
+ANDROID-drivers-gpu-drm-fix-export-symbol-type.patch
+ANDROID-Incremental-fs-Add-setattr-call.patch
+ANDROID-GKI-enable-CONFIG_RTC_SYSTOHC.patch
+ANDROID-README-Add-requirement-for-Bug-tag-for-FROMLIST.patch

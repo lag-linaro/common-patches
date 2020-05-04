@@ -1,0 +1,31 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: Greg Kroah-Hartman <gregkh@google.com>
+Date: Thu, 30 Apr 2020 11:52:12 +0200
+Subject: ANDROID: ufshcd-crypto: fix export symbol type
+
+In commit 4f6a1f4aff2b ("ANDROID: ufshcd-crypto: export cap find API") a
+new symbol was exported, but it should have been set as a _GPL symbol.
+
+Fix this up by properly changing the export type.
+
+Bug: 147209885
+Cc: Barani Muthukumaran <bmuthuku@codeaurora.org>
+Cc: Eric Biggers <ebiggers@google.com>
+Signed-off-by: Greg Kroah-Hartman <gregkh@google.com>
+Change-Id: Ic0612118ce2ad837fd6ec95ea002a004c5ba4470
+---
+ drivers/scsi/ufs/ufshcd-crypto.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/drivers/scsi/ufs/ufshcd-crypto.c b/drivers/scsi/ufs/ufshcd-crypto.c
+--- a/drivers/scsi/ufs/ufshcd-crypto.c
++++ b/drivers/scsi/ufs/ufshcd-crypto.c
+@@ -71,7 +71,7 @@ int ufshcd_crypto_cap_find(struct ufs_hba *hba,
+ 
+ 	return -EINVAL;
+ }
+-EXPORT_SYMBOL(ufshcd_crypto_cap_find);
++EXPORT_SYMBOL_GPL(ufshcd_crypto_cap_find);
+ 
+ /**
+  * ufshcd_crypto_cfg_entry_write_key - Write a key into a crypto_cfg_entry

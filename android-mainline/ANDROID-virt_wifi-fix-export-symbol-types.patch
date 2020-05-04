@@ -1,0 +1,41 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: Greg Kroah-Hartman <gregkh@google.com>
+Date: Wed, 29 Apr 2020 15:38:18 +0200
+Subject: ANDROID: virt_wifi: fix export symbol types
+
+In commit 39bb6b4242ff ("ANDROID: virt_wifi: Add data ops for scan data
+simulation") some new symbols were exported, but they should have been
+set as _GPL symbols.
+
+Fix this up by properly.
+
+Bug: 139421123
+Cc: lesl <lesl@google.com>
+Cc: Alistair Delva <adelva@google.com>
+Signed-off-by: Greg Kroah-Hartman <gregkh@google.com>
+Change-Id: Ied186f08c695f5d1f50d88446f1e71fef303e7f8
+---
+ drivers/net/wireless/virt_wifi.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/drivers/net/wireless/virt_wifi.c b/drivers/net/wireless/virt_wifi.c
+--- a/drivers/net/wireless/virt_wifi.c
++++ b/drivers/net/wireless/virt_wifi.c
+@@ -707,7 +707,7 @@ int virt_wifi_register_network_simulation
+ 	priv->network_simulation = ops;
+ 	return 0;
+ }
+-EXPORT_SYMBOL(virt_wifi_register_network_simulation);
++EXPORT_SYMBOL_GPL(virt_wifi_register_network_simulation);
+ 
+ int virt_wifi_unregister_network_simulation(void)
+ {
+@@ -717,7 +717,7 @@ int virt_wifi_unregister_network_simulation(void)
+ 	priv->network_simulation = NULL;
+ 	return 0;
+ }
+-EXPORT_SYMBOL(virt_wifi_unregister_network_simulation);
++EXPORT_SYMBOL_GPL(virt_wifi_unregister_network_simulation);
+ 
+ module_init(virt_wifi_init_module);
+ module_exit(virt_wifi_cleanup_module);
