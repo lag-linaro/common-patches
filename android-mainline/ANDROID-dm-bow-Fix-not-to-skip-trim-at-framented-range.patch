@@ -1,0 +1,29 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: "hyeongseok.kim" <hyeongseok@gmail.com>
+Date: Tue, 21 Apr 2020 08:42:08 +0900
+Subject: ANDROID: dm-bow: Fix not to skip trim at framented range
+
+If free blocks hole is smaller than discard_granularity,
+TRIM to this range can be skipped.
+Fix this by changing the granularity to 4kb at dm-bow layer,
+not to skip TRIM to every tiny free blocks.
+
+Bug: 154411183
+Signed-off-by: hyeongseok.kim <hyeongseok@gmail.com>
+Cc: hyeongseok.kim <hyeongseok.kim@lge.com>
+Change-Id: Ic7c33d94a016d0ad5a75514eae1056c328c9c1ba
+---
+ drivers/md/dm-bow.c | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/drivers/md/dm-bow.c b/drivers/md/dm-bow.c
+--- a/drivers/md/dm-bow.c
++++ b/drivers/md/dm-bow.c
+@@ -657,6 +657,7 @@ static int dm_bow_ctr(struct dm_target *ti, unsigned int argc, char **argv)
+ 		bc->dev->bdev->bd_queue->limits.max_discard_sectors = 1 << 15;
+ 		bc->forward_trims = false;
+ 	} else {
++		bc->dev->bdev->bd_queue->limits.discard_granularity = 1 << 12;
+ 		bc->forward_trims = true;
+ 	}
+ 

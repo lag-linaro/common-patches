@@ -2,7 +2,7 @@
 # android-mainline patches
 #
 # Applies onto upstream ae83d0b416db Linux v5.7-rc2
-# Matches android-mainline 1d70bdbbe036 ("Merge 5.7-rc2 into android-mainline")
+# Matches android-mainline 79c3a299c468 ("ANDROID: Remove VLA from uid_sys_stats.c")
 #
 Revert-security-lockdown-selinux-implement-SELinux-lockdown.patch
 Revert-drm-virtio-fix-DRM_FORMAT_-handling.patch
@@ -489,3 +489,13 @@ ANDROID-firmware-QCOM_SCM-Allow-qcom_scm-driver-to-be-loadable-as-a-permenent-mo
 ANDROID-Switch-CONFIG_QCOM_PDC-CONFIG_QCOM_SCM-and-CONFIG_ARM_SMMU-to-be-loaded-as-modules.patch
 ANDROID-build.config.allmodconfig-Remove-outdated-XFS_FS-comment.patch
 ANDROID-Add-C-protos-for-dma_buf-drm_prime-get_uuid.patch
+ANDROID-iommu-Kconfig-Make-ARM_SMMU-depend-on-QCOM_SCM-QCOM_SCM.patch
+ANDROID-irqchip-Kconfig-Make-QCOM_PDC-depend-on-QCOM_SCM-QCOM_SCM.patch
+ANDROID-pinctrl-qcom-Kconfig-Make-PINCTRL_MSM-selectors-depend-on-QCOM_SCM-QCOM_SCM.patch
+ANDROID-dm-bow-Fix-not-to-skip-trim-at-framented-range.patch
+ANDROID-staging-android-ion-Expose-total-heap-and-pool-sizes-via-sysfs.patch
+ANDROID-init-GKI-enable-hidden-configs-for-GPU.patch
+ANDROID-fix-wakeup-reason-findings.patch
+ANDROID-sdcardfs-fix-export-symbol-types.patch
+ANDROID-Incremental-fs-Use-simple-compression-in-log-buffer.patch
+ANDROID-Remove-VLA-from-uid_sys_stats.c.patch

@@ -1,0 +1,67 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: Kelly Rossmoyer <krossmo@google.com>
+Date: Tue, 21 Apr 2020 22:46:29 -0700
+Subject: ANDROID: fix wakeup reason findings
+
+The 0-day test bot found three minor issues in the wakeup_reason
+enhancements patch, including two undeclared functions that should have
+been static, an allegedly uninitialized pointer (which is actually set
+in the line immediately prior to cppcheck's complaint), and a type
+mismatch when printing timespec64 fields on a 32-bit build.
+
+These changes address those findings.
+
+Fixes: b19f0cc3fe48 ("ANDROID: power: wakeup_reason: wake reason
+enhancements")
+Bug: 153727431
+Reported-by: kbuild test robot <lkp@intel.com>
+Change-Id: I9194f85d0ca7921461866b73dc24e1783b1da6c6
+Signed-off-by: Kelly Rossmoyer <krossmo@google.com>
+---
+ kernel/power/wakeup_reason.c | 13 ++++++++-----
+ 1 file changed, 8 insertions(+), 5 deletions(-)
+
+diff --git a/kernel/power/wakeup_reason.c b/kernel/power/wakeup_reason.c
+--- a/kernel/power/wakeup_reason.c
++++ b/kernel/power/wakeup_reason.c
+@@ -102,7 +102,7 @@ static void delete_list(struct list_head *head)
+ 
+ static bool add_sibling_node_sorted(struct list_head *head, int irq)
+ {
+-	struct wakeup_irq_node *n;
++	struct wakeup_irq_node *n = NULL;
+ 	struct list_head *predecessor = head;
+ 
+ 	if (unlikely(WARN_ON(!head)))
+@@ -196,7 +196,8 @@ void log_threaded_irq_wakeup_reason(int irq, int parent_irq)
+ 	spin_unlock_irqrestore(&wakeup_reason_lock, flags);
+ }
+ 
+-void __log_abort_or_abnormal_wake(bool abort, const char *fmt, va_list args)
++static void __log_abort_or_abnormal_wake(bool abort, const char *fmt,
++					 va_list args)
+ {
+ 	unsigned long flags;
+ 
+@@ -330,8 +331,10 @@ static ssize_t last_suspend_time_show(struct kobject *kobj,
+ 
+ 	/* Export suspend_resume_time and sleep_time in pair here. */
+ 	return sprintf(buf, "%llu.%09lu %llu.%09lu\n",
+-		       suspend_resume_time.tv_sec, suspend_resume_time.tv_nsec,
+-		       sleep_time.tv_sec, sleep_time.tv_nsec);
++		       (unsigned long long)suspend_resume_time.tv_sec,
++		       suspend_resume_time.tv_nsec,
++		       (unsigned long long)sleep_time.tv_sec,
++		       sleep_time.tv_nsec);
+ }
+ 
+ static struct kobj_attribute resume_reason = __ATTR_RO(last_resume_reason);
+@@ -375,7 +378,7 @@ static struct notifier_block wakeup_reason_pm_notifier_block = {
+ 	.notifier_call = wakeup_reason_pm_event,
+ };
+ 
+-int __init wakeup_reason_init(void)
++static int __init wakeup_reason_init(void)
+ {
+ 	if (register_pm_notifier(&wakeup_reason_pm_notifier_block)) {
+ 		pr_warn("[%s] failed to register PM notifier\n", __func__);
