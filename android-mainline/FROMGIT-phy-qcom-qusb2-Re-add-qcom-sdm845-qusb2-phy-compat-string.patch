@@ -1,0 +1,63 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: John Stultz <john.stultz@linaro.org>
+Date: Tue, 21 Apr 2020 04:18:15 +0000
+Subject: FROMGIT: phy: qcom-qusb2: Re add "qcom,sdm845-qusb2-phy" compat
+ string
+
+This patch fixes a regression in 5.7-rc1+
+
+In commit 8fe75cd4cddf ("phy: qcom-qusb2: Add generic QUSB2 V2
+PHY support"), the change was made to add "qcom,qusb2-v2-phy"
+as a generic compat string. However the change also removed
+the "qcom,sdm845-qusb2-phy" compat string, which is documented
+in the binding and already in use.
+
+This patch re-adds the "qcom,sdm845-qusb2-phy" compat string
+which allows the driver to continue to work with existing dts
+entries such as found on the db845c.
+
+Cc: Andy Gross <agross@kernel.org>
+Cc: Bjorn Andersson <bjorn.andersson@linaro.org>
+Cc: Rob Herring <robh+dt@kernel.org>
+Cc: Mark Rutland <mark.rutland@arm.com>
+Cc: Doug Anderson <dianders@chromium.org>
+Cc: Manu Gautam <mgautam@codeaurora.org>
+Cc: Sandeep Maheswaram <sanm@codeaurora.org>
+Cc: Matthias Kaehlcke <mka@chromium.org>
+Cc: Stephen Boyd <swboyd@chromium.org>
+Cc: Kishon Vijay Abraham I <kishon@ti.com>
+Cc: linux-arm-msm@vger.kernel.org
+Cc: devicetree@vger.kernel.org
+Reviewed-by: Stephen Boyd <swboyd@chromium.org>
+Reviewed-by: Douglas Anderson <dianders@chromium.org>
+Reviewed-by: Bjorn Andersson <bjorn.andersson@linaro.org>
+Fixes: 8fe75cd4cddf ("phy: qcom-qusb2: Add generic QUSB2 V2 PHY support")
+Reported-by: YongQin Liu <yongqin.liu@linaro.org>
+Signed-off-by: John Stultz <john.stultz@linaro.org>
+Signed-off-by: Kishon Vijay Abraham I <kishon@ti.com>
+(cherry picked from commit 67321e02fb2da91a6a6c3fb059bf89d10ccda8ad
+ git://git.kernel.org/pub/scm/linux/kernel/git/gregkh/char-misc.git char-misc-linus)
+Link: https://lore.kernel.org/lkml/20200402234455.75061-1-john.stultz@linaro.org/
+Signed-off-by: John Stultz <john.stultz@linaro.org>
+Change-Id: Ib570a60a2fe7e704562de2766bb6e81230f312b4
+---
+ drivers/phy/qualcomm/phy-qcom-qusb2.c | 7 +++++++
+ 1 file changed, 7 insertions(+)
+
+diff --git a/drivers/phy/qualcomm/phy-qcom-qusb2.c b/drivers/phy/qualcomm/phy-qcom-qusb2.c
+--- a/drivers/phy/qualcomm/phy-qcom-qusb2.c
++++ b/drivers/phy/qualcomm/phy-qcom-qusb2.c
+@@ -815,6 +815,13 @@ static const struct of_device_id qusb2_phy_of_match_table[] = {
+ 	}, {
+ 		.compatible	= "qcom,msm8998-qusb2-phy",
+ 		.data		= &msm8998_phy_cfg,
++	}, {
++		/*
++		 * Deprecated. Only here to support legacy device
++		 * trees that didn't include "qcom,qusb2-v2-phy"
++		 */
++		.compatible	= "qcom,sdm845-qusb2-phy",
++		.data		= &qusb2_v2_phy_cfg,
+ 	}, {
+ 		.compatible	= "qcom,qusb2-v2-phy",
+ 		.data		= &qusb2_v2_phy_cfg,

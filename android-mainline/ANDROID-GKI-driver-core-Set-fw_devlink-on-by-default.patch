@@ -1,0 +1,31 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: Saravana Kannan <saravanak@google.com>
+Date: Thu, 7 May 2020 11:59:43 -0700
+Subject: ANDROID: GKI: driver core: Set fw_devlink=on by default
+
+Commit f4d0973e4fb0 ("ANDROID: of: property: Enable of_devlink by
+default") enabled creating device links from DT info. However,
+of_devlink command line argument has been replaced by fw_devlink.
+
+So, set fw_devlink=on by default to get the same behavior as setting
+of_devlink=on.
+
+Bug: 143308885
+Signed-off-by: Saravana Kannan <saravanak@google.com>
+Change-Id: I5f63b0359082713bd7d3629abc14209f9667de3b
+---
+ drivers/base/core.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/drivers/base/core.c b/drivers/base/core.c
+--- a/drivers/base/core.c
++++ b/drivers/base/core.c
+@@ -2345,7 +2345,7 @@ static int device_private_init(struct device *dev)
+ 	return 0;
+ }
+ 
+-static u32 fw_devlink_flags;
++static u32 fw_devlink_flags = DL_FLAG_AUTOPROBE_CONSUMER;
+ static int __init fw_devlink_setup(char *arg)
+ {
+ 	if (!arg)

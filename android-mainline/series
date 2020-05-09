@@ -2,11 +2,12 @@
 # android-mainline patches
 #
 # Applies onto upstream 0e698dfa2822 Linux v5.7-rc4
-# Matches android-mainline 58dc0ef35a07 ("ANDROID: Remove out-of-tree difference in fsnotify.h")
+# Matches android-mainline f691a27ab148 ("ANDROID: GKI: x86: Drop CONFIG_DEVPORT")
 #
 Revert-security-lockdown-selinux-implement-SELinux-lockdown.patch
 Revert-drm-virtio-fix-DRM_FORMAT_-handling.patch
 Revert-sched-core-Prevent-race-condition-between-cpuset-and-__sched_setscheduler.patch
+FROMGIT-phy-qcom-qusb2-Re-add-qcom-sdm845-qusb2-phy-compat-string.patch
 FROMLIST-scsi-ufs-UFS-driver-v2.1-spec-crypto-additions.patch
 FROMLIST-scsi-ufs-UFS-crypto-API.patch
 FROMLIST-scsi-ufs-Add-inline-encryption-support-to-UFS.patch
@@ -514,3 +515,11 @@ ANDROID-drivers-gpu-drm-fix-export-symbol-type.patch
 ANDROID-Incremental-fs-Add-setattr-call.patch
 ANDROID-GKI-enable-CONFIG_RTC_SYSTOHC.patch
 ANDROID-README-Add-requirement-for-Bug-tag-for-FROMLIST.patch
+ANDROID-iommu-arm-smmu-Allow-inherting-stream-mapping-from-bootloader.patch
+ANDROID-Incremental-fs-Fix-issues-with-very-large-files.patch
+ANDROID-GKI-enable-CONFIG_HID_BATTERY_STRENGTH.patch
+ANDROID-Rename-build.config.gki.arch_kasan.patch
+ANDROID-Drop-ABI-monitoring-from-KASAN-build-config.patch
+ANDROID-GKI-Remove-FAIR_GROUP_SCHED.patch
+ANDROID-GKI-driver-core-Set-fw_devlink-on-by-default.patch
+ANDROID-GKI-x86-Drop-CONFIG_DEVPORT.patch
