@@ -29,7 +29,7 @@ Signed-off-by: Sami Tolvanen <samitolvanen@google.com>
 diff --git a/Makefile b/Makefile
 --- a/Makefile
 +++ b/Makefile
-@@ -902,6 +902,25 @@ KBUILD_CFLAGS	+= $(CC_FLAGS_LTO)
+@@ -898,6 +898,25 @@ KBUILD_CFLAGS	+= $(CC_FLAGS_LTO)
  export CC_FLAGS_LTO
  endif
  
@@ -227,7 +227,7 @@ diff --git a/include/linux/module.h b/include/linux/module.h
 diff --git a/init/Kconfig b/init/Kconfig
 --- a/init/Kconfig
 +++ b/init/Kconfig
-@@ -2252,7 +2252,7 @@ endif # MODULES
+@@ -2234,7 +2234,7 @@ endif # MODULES
  
  config MODULES_TREE_LOOKUP
  	def_bool y

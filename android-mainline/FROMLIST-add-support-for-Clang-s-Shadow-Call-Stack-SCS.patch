@@ -40,7 +40,7 @@ Signed-off-by: Sami Tolvanen <samitolvanen@google.com>
 diff --git a/Makefile b/Makefile
 --- a/Makefile
 +++ b/Makefile
-@@ -866,6 +866,12 @@ ifdef CONFIG_LIVEPATCH
+@@ -862,6 +862,12 @@ ifdef CONFIG_LIVEPATCH
  KBUILD_CFLAGS += $(call cc-option, -flive-patching=inline-clone)
  endif
  

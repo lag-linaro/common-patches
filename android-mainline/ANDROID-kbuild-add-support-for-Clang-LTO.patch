@@ -51,7 +51,7 @@ diff --git a/Makefile b/Makefile
  include arch/$(SRCARCH)/Makefile
  
  ifdef need-config
-@@ -876,6 +886,22 @@ KBUILD_CFLAGS	+= $(CC_FLAGS_SCS)
+@@ -872,6 +882,22 @@ KBUILD_CFLAGS	+= $(CC_FLAGS_SCS)
  export CC_FLAGS_SCS
  endif
  
@@ -74,7 +74,7 @@ diff --git a/Makefile b/Makefile
  # arch Makefile may override CC so keep this after arch Makefile is included
  NOSTDINC_FLAGS += -nostdinc -isystem $(shell $(CC) -print-file-name=include)
  
-@@ -1754,7 +1780,8 @@ clean: $(clean-dirs)
+@@ -1761,7 +1787,8 @@ clean: $(clean-dirs)
  		-o -name '.tmp_*.o.*' \
  		-o -name '*.c.[012]*.*' \
  		-o -name '*.ll' \

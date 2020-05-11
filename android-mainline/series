@@ -1,13 +1,12 @@
 #
 # android-mainline patches
 #
-# Applies onto upstream 0e698dfa2822 Linux v5.7-rc4
-# Matches android-mainline f691a27ab148 ("ANDROID: GKI: x86: Drop CONFIG_DEVPORT")
+# Applies onto upstream 2ef96a5bb12b Linux v5.7-rc5
+# Matches android-mainline 6ea645e84a8c ("Merge 5.7-rc5 into android-mainline")
 #
 Revert-security-lockdown-selinux-implement-SELinux-lockdown.patch
 Revert-drm-virtio-fix-DRM_FORMAT_-handling.patch
 Revert-sched-core-Prevent-race-condition-between-cpuset-and-__sched_setscheduler.patch
-FROMGIT-phy-qcom-qusb2-Re-add-qcom-sdm845-qusb2-phy-compat-string.patch
 FROMLIST-scsi-ufs-UFS-driver-v2.1-spec-crypto-additions.patch
 FROMLIST-scsi-ufs-UFS-crypto-API.patch
 FROMLIST-scsi-ufs-Add-inline-encryption-support-to-UFS.patch
