@@ -1,0 +1,406 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: Eric Biggers <ebiggers@google.com>
+Date: Wed, 6 May 2020 14:15:06 -0700
+Subject: ANDROID: block: backport the ability to specify max_dun_bytes
+
+Backport a fix from the v7 inline crypto patchset which ensures that the
+block layer knows the number of DUN bytes the inline encryption hardware
+supports, so that hardware isn't used when it shouldn't be.
+
+(This unfortunately means introducing some increasing long argument
+lists; this was all already fixed up in later versions of the patchset.)
+
+To avoid breaking the KMI for drivers, don't add a dun_bytes argument to
+keyslot_manager_create() but rather allow drivers to call
+keyslot_manager_set_max_dun_bytes() to override the default.  Also,
+don't add dun_bytes as a new field in 'struct blk_crypto_key' but rather
+pack it into the existing 'hash' field which is for block layer use.
+
+Bug: 144046242
+Bug: 153512828
+Change-Id: I285f36557fb3eafc5f2f64727ef1740938b59dd7
+Signed-off-by: Eric Biggers <ebiggers@google.com>
+---
+ block/blk-crypto.c               | 22 +++++++++++++++++-----
+ block/keyslot-manager.c          | 24 ++++++++++++++++++++++--
+ drivers/md/dm-default-key.c      |  6 +++---
+ drivers/scsi/ufs/ufshcd-crypto.c |  1 +
+ fs/crypto/inline_crypt.c         | 24 ++++++++++++++++++++++--
+ include/linux/bio-crypt-ctx.h    | 28 ++++++++++++++++++++++++++++
+ include/linux/blk-crypto.h       |  2 ++
+ include/linux/keyslot-manager.h  |  4 ++++
+ 8 files changed, 99 insertions(+), 12 deletions(-)
+
+diff --git a/block/blk-crypto.c b/block/blk-crypto.c
+--- a/block/blk-crypto.c
++++ b/block/blk-crypto.c
+@@ -108,9 +108,10 @@ int blk_crypto_submit_bio(struct bio **bio_ptr)
+ 
+ 	/* Get device keyslot if supported */
+ 	if (keyslot_manager_crypto_mode_supported(q->ksm,
+-						  bc->bc_key->crypto_mode,
+-						  bc->bc_key->data_unit_size,
+-						  bc->bc_key->is_hw_wrapped)) {
++				bc->bc_key->crypto_mode,
++				blk_crypto_key_dun_bytes(bc->bc_key),
++				bc->bc_key->data_unit_size,
++				bc->bc_key->is_hw_wrapped)) {
+ 		err = bio_crypt_ctx_acquire_keyslot(bc, q->ksm);
+ 		if (!err)
+ 			return 0;
+@@ -180,6 +181,8 @@ bool blk_crypto_endio(struct bio *bio)
+  *                @is_hw_wrapped has to be set for such keys)
+  * @is_hw_wrapped: Denotes @raw_key is wrapped.
+  * @crypto_mode: identifier for the encryption algorithm to use
++ * @dun_bytes: number of bytes that will be used to specify the DUN when this
++ *	       key is used
+  * @data_unit_size: the data unit size to use for en/decryption
+  *
+  * Return: The blk_crypto_key that was prepared, or an ERR_PTR() on error.  When
+@@ -189,10 +192,12 @@ int blk_crypto_init_key(struct blk_crypto_key *blk_key,
+ 			const u8 *raw_key, unsigned int raw_key_size,
+ 			bool is_hw_wrapped,
+ 			enum blk_crypto_mode_num crypto_mode,
++			unsigned int dun_bytes,
+ 			unsigned int data_unit_size)
+ {
+ 	const struct blk_crypto_mode *mode;
+ 	static siphash_key_t hash_key;
++	u32 hash;
+ 
+ 	memset(blk_key, 0, sizeof(*blk_key));
+ 
+@@ -211,6 +216,9 @@ int blk_crypto_init_key(struct blk_crypto_key *blk_key,
+ 			return -EINVAL;
+ 	}
+ 
++	if (dun_bytes <= 0 || dun_bytes > BLK_CRYPTO_MAX_IV_SIZE)
++		return -EINVAL;
++
+ 	if (!is_power_of_2(data_unit_size))
+ 		return -EINVAL;
+ 
+@@ -227,7 +235,8 @@ int blk_crypto_init_key(struct blk_crypto_key *blk_key,
+ 	 * precomputed here so that it only needs to be computed once per key.
+ 	 */
+ 	get_random_once(&hash_key, sizeof(hash_key));
+-	blk_key->hash = siphash(raw_key, raw_key_size, &hash_key);
++	hash = (u32)siphash(raw_key, raw_key_size, &hash_key);
++	blk_crypto_key_set_hash_and_dun_bytes(blk_key, hash, dun_bytes);
+ 
+ 	return 0;
+ }
+@@ -236,6 +245,7 @@ EXPORT_SYMBOL_GPL(blk_crypto_init_key);
+ /**
+  * blk_crypto_start_using_mode() - Start using blk-crypto on a device
+  * @crypto_mode: the crypto mode that will be used
++ * @dun_bytes: number of bytes that will be used to specify the DUN
+  * @data_unit_size: the data unit size that will be used
+  * @is_hw_wrapped_key: whether the key will be hardware-wrapped
+  * @q: the request queue for the device
+@@ -249,12 +259,13 @@ EXPORT_SYMBOL_GPL(blk_crypto_init_key);
+  *	   algorithm is disabled in the crypto API; or another -errno code.
+  */
+ int blk_crypto_start_using_mode(enum blk_crypto_mode_num crypto_mode,
++				unsigned int dun_bytes,
+ 				unsigned int data_unit_size,
+ 				bool is_hw_wrapped_key,
+ 				struct request_queue *q)
+ {
+ 	if (keyslot_manager_crypto_mode_supported(q->ksm, crypto_mode,
+-						  data_unit_size,
++						  dun_bytes, data_unit_size,
+ 						  is_hw_wrapped_key))
+ 		return 0;
+ 	if (is_hw_wrapped_key) {
+@@ -285,6 +296,7 @@ int blk_crypto_evict_key(struct request_queue *q,
+ {
+ 	if (q->ksm &&
+ 	    keyslot_manager_crypto_mode_supported(q->ksm, key->crypto_mode,
++						  blk_crypto_key_dun_bytes(key),
+ 						  key->data_unit_size,
+ 						  key->is_hw_wrapped))
+ 		return keyslot_manager_evict_key(q->ksm, key);
+diff --git a/block/keyslot-manager.c b/block/keyslot-manager.c
+--- a/block/keyslot-manager.c
++++ b/block/keyslot-manager.c
+@@ -45,6 +45,7 @@ struct keyslot_manager {
+ 	struct keyslot_mgmt_ll_ops ksm_ll_ops;
+ 	unsigned int features;
+ 	unsigned int crypto_mode_supported[BLK_ENCRYPTION_MODE_MAX];
++	unsigned int max_dun_bytes_supported;
+ 	void *ll_priv_data;
+ 
+ #ifdef CONFIG_PM
+@@ -182,6 +183,7 @@ struct keyslot_manager *keyslot_manager_create(
+ 	ksm->features = features;
+ 	memcpy(ksm->crypto_mode_supported, crypto_mode_supported,
+ 	       sizeof(ksm->crypto_mode_supported));
++	ksm->max_dun_bytes_supported = BLK_CRYPTO_MAX_IV_SIZE;
+ 	ksm->ll_priv_data = ll_priv_data;
+ 	keyslot_manager_set_dev(ksm, dev);
+ 
+@@ -214,11 +216,19 @@ struct keyslot_manager *keyslot_manager_create(
+ }
+ EXPORT_SYMBOL_GPL(keyslot_manager_create);
+ 
++void keyslot_manager_set_max_dun_bytes(struct keyslot_manager *ksm,
++				       unsigned int max_dun_bytes)
++{
++	ksm->max_dun_bytes_supported = max_dun_bytes;
++}
++EXPORT_SYMBOL_GPL(keyslot_manager_set_max_dun_bytes);
++
+ static inline struct hlist_head *
+ hash_bucket_for_key(struct keyslot_manager *ksm,
+ 		    const struct blk_crypto_key *key)
+ {
+-	return &ksm->slot_hashtable[key->hash & (ksm->slot_hashtable_size - 1)];
++	return &ksm->slot_hashtable[blk_crypto_key_hash(key) &
++				    (ksm->slot_hashtable_size - 1)];
+ }
+ 
+ static void remove_slot_from_lru_list(struct keyslot_manager *ksm, int slot)
+@@ -391,6 +401,7 @@ void keyslot_manager_put_slot(struct keyslot_manager *ksm, unsigned int slot)
+  *					     combination is supported by a ksm.
+  * @ksm: The keyslot manager to check
+  * @crypto_mode: The crypto mode to check for.
++ * @dun_bytes: The number of bytes that will be used to specify the DUN
+  * @data_unit_size: The data_unit_size for the mode.
+  * @is_hw_wrapped_key: Whether a hardware-wrapped key will be used.
+  *
+@@ -402,6 +413,7 @@ void keyslot_manager_put_slot(struct keyslot_manager *ksm, unsigned int slot)
+  */
+ bool keyslot_manager_crypto_mode_supported(struct keyslot_manager *ksm,
+ 					   enum blk_crypto_mode_num crypto_mode,
++					   unsigned int dun_bytes,
+ 					   unsigned int data_unit_size,
+ 					   bool is_hw_wrapped_key)
+ {
+@@ -418,7 +430,10 @@ bool keyslot_manager_crypto_mode_supported(struct keyslot_manager *ksm,
+ 		if (!(ksm->features & BLK_CRYPTO_FEATURE_STANDARD_KEYS))
+ 			return false;
+ 	}
+-	return ksm->crypto_mode_supported[crypto_mode] & data_unit_size;
++	if (!(ksm->crypto_mode_supported[crypto_mode] & data_unit_size))
++		return false;
++
++	return ksm->max_dun_bytes_supported >= dun_bytes;
+ }
+ 
+ /**
+@@ -565,6 +580,7 @@ struct keyslot_manager *keyslot_manager_create_passthrough(
+ 	ksm->features = features;
+ 	memcpy(ksm->crypto_mode_supported, crypto_mode_supported,
+ 	       sizeof(ksm->crypto_mode_supported));
++	ksm->max_dun_bytes_supported = BLK_CRYPTO_MAX_IV_SIZE;
+ 	ksm->ll_priv_data = ll_priv_data;
+ 	keyslot_manager_set_dev(ksm, dev);
+ 
+@@ -592,12 +608,16 @@ void keyslot_manager_intersect_modes(struct keyslot_manager *parent,
+ 		unsigned int i;
+ 
+ 		parent->features &= child->features;
++		parent->max_dun_bytes_supported =
++			min(parent->max_dun_bytes_supported,
++			    child->max_dun_bytes_supported);
+ 		for (i = 0; i < ARRAY_SIZE(child->crypto_mode_supported); i++) {
+ 			parent->crypto_mode_supported[i] &=
+ 				child->crypto_mode_supported[i];
+ 		}
+ 	} else {
+ 		parent->features = 0;
++		parent->max_dun_bytes_supported = 0;
+ 		memset(parent->crypto_mode_supported, 0,
+ 		       sizeof(parent->crypto_mode_supported));
+ 	}
+diff --git a/drivers/md/dm-default-key.c b/drivers/md/dm-default-key.c
+--- a/drivers/md/dm-default-key.c
++++ b/drivers/md/dm-default-key.c
+@@ -232,14 +232,14 @@ static int default_key_ctr(struct dm_target *ti, unsigned int argc, char **argv)
+ 
+ 	err = blk_crypto_init_key(&dkc->key, raw_key, raw_key_size,
+ 				  dkc->is_hw_wrapped, cipher->mode_num,
+-				  dkc->sector_size);
++				  sizeof(u64), dkc->sector_size);
+ 	if (err) {
+ 		ti->error = "Error initializing blk-crypto key";
+ 		goto bad;
+ 	}
+ 
+-	err = blk_crypto_start_using_mode(cipher->mode_num, dkc->sector_size,
+-					  dkc->is_hw_wrapped,
++	err = blk_crypto_start_using_mode(cipher->mode_num, sizeof(u64),
++					  dkc->sector_size, dkc->is_hw_wrapped,
+ 					  dkc->dev->bdev->bd_queue);
+ 	if (err) {
+ 		ti->error = "Error starting to use blk-crypto";
+diff --git a/drivers/scsi/ufs/ufshcd-crypto.c b/drivers/scsi/ufs/ufshcd-crypto.c
+--- a/drivers/scsi/ufs/ufshcd-crypto.c
++++ b/drivers/scsi/ufs/ufshcd-crypto.c
+@@ -344,6 +344,7 @@ int ufshcd_hba_init_crypto_spec(struct ufs_hba *hba,
+ 		err = -ENOMEM;
+ 		goto out_free_caps;
+ 	}
++	keyslot_manager_set_max_dun_bytes(hba->ksm, sizeof(u64));
+ 
+ 	return 0;
+ 
+diff --git a/fs/crypto/inline_crypt.c b/fs/crypto/inline_crypt.c
+--- a/fs/crypto/inline_crypt.c
++++ b/fs/crypto/inline_crypt.c
+@@ -41,6 +41,17 @@ static void fscrypt_get_devices(struct super_block *sb, int num_devs,
+ 		sb->s_cop->get_devices(sb, devs);
+ }
+ 
++static unsigned int fscrypt_get_dun_bytes(const struct fscrypt_info *ci)
++{
++	unsigned int dun_bytes = 8;
++
++	if (fscrypt_policy_flags(&ci->ci_policy) &
++	    FSCRYPT_POLICY_FLAG_DIRECT_KEY)
++		dun_bytes += FS_KEY_DERIVATION_NONCE_SIZE;
++
++	return dun_bytes;
++}
++
+ /* Enable inline encryption for this file if supported. */
+ int fscrypt_select_encryption_impl(struct fscrypt_info *ci,
+ 				   bool is_hw_wrapped_key)
+@@ -48,6 +59,7 @@ int fscrypt_select_encryption_impl(struct fscrypt_info *ci,
+ 	const struct inode *inode = ci->ci_inode;
+ 	struct super_block *sb = inode->i_sb;
+ 	enum blk_crypto_mode_num crypto_mode = ci->ci_mode->blk_crypto_mode;
++	unsigned int dun_bytes;
+ 	struct request_queue **devs;
+ 	int num_devs;
+ 	int i;
+@@ -83,9 +95,12 @@ int fscrypt_select_encryption_impl(struct fscrypt_info *ci,
+ 
+ 	fscrypt_get_devices(sb, num_devs, devs);
+ 
++	dun_bytes = fscrypt_get_dun_bytes(ci);
++
+ 	for (i = 0; i < num_devs; i++) {
+ 		if (!keyslot_manager_crypto_mode_supported(devs[i]->ksm,
+ 							   crypto_mode,
++							   dun_bytes,
+ 							   sb->s_blocksize,
+ 							   is_hw_wrapped_key))
+ 			goto out_free_devs;
+@@ -106,6 +121,7 @@ int fscrypt_prepare_inline_crypt_key(struct fscrypt_prepared_key *prep_key,
+ 	const struct inode *inode = ci->ci_inode;
+ 	struct super_block *sb = inode->i_sb;
+ 	enum blk_crypto_mode_num crypto_mode = ci->ci_mode->blk_crypto_mode;
++	unsigned int dun_bytes;
+ 	int num_devs;
+ 	int queue_refs = 0;
+ 	struct fscrypt_blk_crypto_key *blk_key;
+@@ -123,11 +139,14 @@ int fscrypt_prepare_inline_crypt_key(struct fscrypt_prepared_key *prep_key,
+ 	blk_key->num_devs = num_devs;
+ 	fscrypt_get_devices(sb, num_devs, blk_key->devs);
+ 
++	dun_bytes = fscrypt_get_dun_bytes(ci);
++
+ 	BUILD_BUG_ON(FSCRYPT_MAX_HW_WRAPPED_KEY_SIZE >
+ 		     BLK_CRYPTO_MAX_WRAPPED_KEY_SIZE);
+ 
+ 	err = blk_crypto_init_key(&blk_key->base, raw_key, raw_key_size,
+-				  is_hw_wrapped, crypto_mode, sb->s_blocksize);
++				  is_hw_wrapped, crypto_mode, dun_bytes,
++				  sb->s_blocksize);
+ 	if (err) {
+ 		fscrypt_err(inode, "error %d initializing blk-crypto key", err);
+ 		goto fail;
+@@ -148,7 +167,8 @@ int fscrypt_prepare_inline_crypt_key(struct fscrypt_prepared_key *prep_key,
+ 		}
+ 		queue_refs++;
+ 
+-		err = blk_crypto_start_using_mode(crypto_mode, sb->s_blocksize,
++		err = blk_crypto_start_using_mode(crypto_mode, dun_bytes,
++						  sb->s_blocksize,
+ 						  is_hw_wrapped,
+ 						  blk_key->devs[i]);
+ 		if (err) {
+diff --git a/include/linux/bio-crypt-ctx.h b/include/linux/bio-crypt-ctx.h
+--- a/include/linux/bio-crypt-ctx.h
++++ b/include/linux/bio-crypt-ctx.h
+@@ -43,7 +43,15 @@ struct blk_crypto_key {
+ 	unsigned int data_unit_size;
+ 	unsigned int data_unit_size_bits;
+ 	unsigned int size;
++
++	/*
++	 * Hack to avoid breaking KMI: pack both hash and dun_bytes into the
++	 * hash field...
++	 */
++#define BLK_CRYPTO_KEY_HASH_MASK		0xffffff
++#define BLK_CRYPTO_KEY_DUN_BYTES_SHIFT		24
+ 	unsigned int hash;
++
+ 	bool is_hw_wrapped;
+ 	u8 raw[BLK_CRYPTO_MAX_WRAPPED_KEY_SIZE];
+ };
+@@ -51,6 +59,26 @@ struct blk_crypto_key {
+ #define BLK_CRYPTO_MAX_IV_SIZE		32
+ #define BLK_CRYPTO_DUN_ARRAY_SIZE	(BLK_CRYPTO_MAX_IV_SIZE/sizeof(u64))
+ 
++static inline void
++blk_crypto_key_set_hash_and_dun_bytes(struct blk_crypto_key *key,
++				      u32 hash, unsigned int dun_bytes)
++{
++	key->hash = (dun_bytes << BLK_CRYPTO_KEY_DUN_BYTES_SHIFT) |
++		    (hash & BLK_CRYPTO_KEY_HASH_MASK);
++}
++
++static inline u32
++blk_crypto_key_hash(const struct blk_crypto_key *key)
++{
++	return key->hash & BLK_CRYPTO_KEY_HASH_MASK;
++}
++
++static inline unsigned int
++blk_crypto_key_dun_bytes(const struct blk_crypto_key *key)
++{
++	return key->hash >> BLK_CRYPTO_KEY_DUN_BYTES_SHIFT;
++}
++
+ /**
+  * struct bio_crypt_ctx - an inline encryption context
+  * @bc_key: the key, algorithm, and data unit size to use
+diff --git a/include/linux/blk-crypto.h b/include/linux/blk-crypto.h
+--- a/include/linux/blk-crypto.h
++++ b/include/linux/blk-crypto.h
+@@ -18,9 +18,11 @@ int blk_crypto_init_key(struct blk_crypto_key *blk_key,
+ 			const u8 *raw_key, unsigned int raw_key_size,
+ 			bool is_hw_wrapped,
+ 			enum blk_crypto_mode_num crypto_mode,
++			unsigned int dun_bytes,
+ 			unsigned int data_unit_size);
+ 
+ int blk_crypto_start_using_mode(enum blk_crypto_mode_num crypto_mode,
++				unsigned int dun_bytes,
+ 				unsigned int data_unit_size,
+ 				bool is_hw_wrapped_key,
+ 				struct request_queue *q);
+diff --git a/include/linux/keyslot-manager.h b/include/linux/keyslot-manager.h
+--- a/include/linux/keyslot-manager.h
++++ b/include/linux/keyslot-manager.h
+@@ -58,6 +58,9 @@ struct keyslot_manager *keyslot_manager_create(
+ 	const unsigned int crypto_mode_supported[BLK_ENCRYPTION_MODE_MAX],
+ 	void *ll_priv_data);
+ 
++void keyslot_manager_set_max_dun_bytes(struct keyslot_manager *ksm,
++				       unsigned int max_dun_bytes);
++
+ int keyslot_manager_get_slot_for_key(struct keyslot_manager *ksm,
+ 				     const struct blk_crypto_key *key);
+ 
+@@ -67,6 +70,7 @@ void keyslot_manager_put_slot(struct keyslot_manager *ksm, unsigned int slot);
+ 
+ bool keyslot_manager_crypto_mode_supported(struct keyslot_manager *ksm,
+ 					   enum blk_crypto_mode_num crypto_mode,
++					   unsigned int dun_bytes,
+ 					   unsigned int data_unit_size,
+ 					   bool is_hw_wrapped_key);
+ 

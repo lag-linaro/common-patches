@@ -1,0 +1,34 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: Gaurav Kashyap <gaurkash@codeaurora.org>
+Date: Mon, 11 May 2020 09:16:19 -0700
+Subject: ANDROID: dm-default-key: Update key size for wrapped keys
+
+Wrapped keys can have key sizes of variable length.
+Pass in the wrapped key size sent from userspace instead
+of using a fixed value from the cipher when calling into
+blk-crypto.
+
+Bug: 156230001
+
+Test: Validated metadata encryption with wrappedkey_v0 when /data
+      is mounted on a dm device.
+      fstab: metadata_encryption=aes-256-xts:wrappedkey_v0
+
+Change-Id: I0ad1f2ced57c6b2b34f6e55942eba2e1c2c030b1
+Signed-off-by: Gaurav Kashyap <gaurkash@codeaurora.org>
+---
+ drivers/md/dm-default-key.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/drivers/md/dm-default-key.c b/drivers/md/dm-default-key.c
+--- a/drivers/md/dm-default-key.c
++++ b/drivers/md/dm-default-key.c
+@@ -230,7 +230,7 @@ static int default_key_ctr(struct dm_target *ti, unsigned int argc, char **argv)
+ 		goto bad;
+ 	}
+ 
+-	err = blk_crypto_init_key(&dkc->key, raw_key, cipher->key_size,
++	err = blk_crypto_init_key(&dkc->key, raw_key, raw_key_size,
+ 				  dkc->is_hw_wrapped, cipher->mode_num,
+ 				  dkc->sector_size);
+ 	if (err) {

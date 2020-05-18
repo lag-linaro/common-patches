@@ -2,11 +2,13 @@
 # android-mainline patches
 #
 # Applies onto upstream 2ef96a5bb12b Linux v5.7-rc5
-# Matches android-mainline 6ea645e84a8c ("Merge 5.7-rc5 into android-mainline")
+# Matches android-mainline 88a5ebf957b9 ("ANDROID: export: Disable symbol trimming on modules")
 #
 Revert-security-lockdown-selinux-implement-SELinux-lockdown.patch
 Revert-drm-virtio-fix-DRM_FORMAT_-handling.patch
 Revert-sched-core-Prevent-race-condition-between-cpuset-and-__sched_setscheduler.patch
+FROMGIT-media-v4l2-ctrl-Add-H264-profile-and-levels.patch
+FROMGIT-media-uapi-h264-Add-new-profile-and-levels.patch
 FROMLIST-scsi-ufs-UFS-driver-v2.1-spec-crypto-additions.patch
 FROMLIST-scsi-ufs-UFS-crypto-API.patch
 FROMLIST-scsi-ufs-Add-inline-encryption-support-to-UFS.patch
@@ -522,3 +524,15 @@ ANDROID-Drop-ABI-monitoring-from-KASAN-build-config.patch
 ANDROID-GKI-Remove-FAIR_GROUP_SCHED.patch
 ANDROID-GKI-driver-core-Set-fw_devlink-on-by-default.patch
 ANDROID-GKI-x86-Drop-CONFIG_DEVPORT.patch
+ANDROID-dm-default-key-Update-key-size-for-wrapped-keys.patch
+ANDROID-GKI-enable-CONFIG_IRQ_TIME_ACCOUNTING.patch
+ANDROID-GKI-Enable-CONFIG_STATIC_USERMODEHELPER.patch
+ANDROID-GKI-add-android_vendor.h.patch
+ANDROID-add-support-for-vendor-hooks.patch
+ANDROID-Incremental-fs-Avoid-continually-recalculating-hashes.patch
+ANDROID-Incremental-fs-Fix-scheduling-while-atomic-error.patch
+ANDROID-Incremental-fs-wake-up-log-pollers-less-often.patch
+ANDROID-block-backport-the-ability-to-specify-max_dun_bytes.patch
+ANDROID-dm-default-key-set-dun_bytes-more-precisely.patch
+ANDROID-fscrypt-set-dun_bytes-more-precisely.patch
+ANDROID-export-Disable-symbol-trimming-on-modules.patch

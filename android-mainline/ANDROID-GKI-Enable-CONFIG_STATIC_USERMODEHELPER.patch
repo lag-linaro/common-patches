@@ -1,0 +1,37 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: Alistair Delva <adelva@google.com>
+Date: Tue, 12 May 2020 08:30:56 -0700
+Subject: ANDROID: GKI: Enable CONFIG_STATIC_USERMODEHELPER
+
+The helper is set to the empty string.
+
+Bug: 156358723
+Change-Id: Ia7923f80a0617814bddd514bdf01a4ceffc3eddb
+Signed-off-by: Alistair Delva <adelva@google.com>
+---
+ arch/arm64/configs/gki_defconfig | 1 +
+ arch/x86/configs/gki_defconfig   | 1 +
+ 2 files changed, 2 insertions(+)
+
+diff --git a/arch/arm64/configs/gki_defconfig b/arch/arm64/configs/gki_defconfig
+--- a/arch/arm64/configs/gki_defconfig
++++ b/arch/arm64/configs/gki_defconfig
+@@ -477,6 +477,7 @@ CONFIG_SECURITY_NETWORK=y
+ CONFIG_HARDENED_USERCOPY=y
+ # CONFIG_HARDENED_USERCOPY_FALLBACK is not set
+ CONFIG_FORTIFY_SOURCE=y
++CONFIG_STATIC_USERMODEHELPER=y
+ CONFIG_SECURITY_SELINUX=y
+ CONFIG_INIT_STACK_ALL=y
+ CONFIG_INIT_ON_ALLOC_DEFAULT_ON=y
+diff --git a/arch/x86/configs/gki_defconfig b/arch/x86/configs/gki_defconfig
+--- a/arch/x86/configs/gki_defconfig
++++ b/arch/x86/configs/gki_defconfig
+@@ -419,6 +419,7 @@ CONFIG_SECURITY_NETWORK=y
+ CONFIG_HARDENED_USERCOPY=y
+ # CONFIG_HARDENED_USERCOPY_FALLBACK is not set
+ CONFIG_FORTIFY_SOURCE=y
++CONFIG_STATIC_USERMODEHELPER=y
+ CONFIG_SECURITY_SELINUX=y
+ CONFIG_INIT_STACK_ALL=y
+ CONFIG_INIT_ON_ALLOC_DEFAULT_ON=y
