@@ -1,8 +1,8 @@
 #
 # android-mainline patches
 #
-# Applies onto upstream 2ef96a5bb12b Linux v5.7-rc5
-# Matches android-mainline 88a5ebf957b9 ("ANDROID: export: Disable symbol trimming on modules")
+# Applies onto upstream b9bbe6ed63b2 Linux v5.7-rc6
+# Matches android-mainline 5579d6e1b18d ("Merge 5.7-rc6 into android-mainline")
 #
 Revert-security-lockdown-selinux-implement-SELinux-lockdown.patch
 Revert-drm-virtio-fix-DRM_FORMAT_-handling.patch

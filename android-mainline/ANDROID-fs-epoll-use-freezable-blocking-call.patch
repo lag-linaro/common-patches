@@ -38,9 +38,9 @@ diff --git a/fs/eventpoll.c b/fs/eventpoll.c
  #include <linux/uaccess.h>
  #include <asm/io.h>
  #include <asm/mman.h>
-@@ -1908,7 +1909,8 @@ static int ep_poll(struct eventpoll *ep, struct epoll_event __user *events,
+@@ -1907,7 +1908,8 @@ static int ep_poll(struct eventpoll *ep, struct epoll_event __user *events,
+ 		if (eavail || res)
  			break;
- 		}
  
 -		if (!schedule_hrtimeout_range(to, slack, HRTIMER_MODE_ABS)) {
 +		if (!freezable_schedule_hrtimeout_range(to, slack,

@@ -43,7 +43,7 @@ diff --git a/arch/arm64/boot/dts/qcom/sdm845-db845c.dts b/arch/arm64/boot/dts/qc
  &mdss {
  	status = "okay";
  };
-@@ -845,6 +863,11 @@ dsi_sw_sel: dsi-sw-sel {
+@@ -842,6 +860,11 @@ dsi_sw_sel: dsi-sw-sel {
  	};
  };
  

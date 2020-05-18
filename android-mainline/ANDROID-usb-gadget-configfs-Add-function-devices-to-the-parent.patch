@@ -44,7 +44,7 @@ diff --git a/drivers/usb/gadget/configfs.c b/drivers/usb/gadget/configfs.c
  #endif
  
  int check_user_usb_string(const char *name,
-@@ -1464,19 +1476,22 @@ static void android_work(struct work_struct *data)
+@@ -1467,19 +1479,22 @@ static void android_work(struct work_struct *data)
  	spin_unlock_irqrestore(&cdev->lock, flags);
  
  	if (status[0]) {
@@ -70,7 +70,7 @@ diff --git a/drivers/usb/gadget/configfs.c b/drivers/usb/gadget/configfs.c
  		pr_info("%s: sent uevent %s\n", __func__, disconnected[0]);
  		uevent_sent = true;
  	}
-@@ -1755,8 +1770,10 @@ static struct config_group *gadgets_make(
+@@ -1758,8 +1773,10 @@ static struct config_group *gadgets_make(
  
  #ifdef CONFIG_USB_CONFIGFS_UEVENT
  	INIT_WORK(&gi->work, android_work);
@@ -82,7 +82,7 @@ diff --git a/drivers/usb/gadget/configfs.c b/drivers/usb/gadget/configfs.c
  #endif
  
  	if (!gi->composite.gadget_driver.function)
-@@ -1771,6 +1788,9 @@ static struct config_group *gadgets_make(
+@@ -1774,6 +1791,9 @@ static struct config_group *gadgets_make(
  static void gadgets_drop(struct config_group *group, struct config_item *item)
  {
  	config_item_put(item);
@@ -92,7 +92,7 @@ diff --git a/drivers/usb/gadget/configfs.c b/drivers/usb/gadget/configfs.c
  }
  
  static struct configfs_group_operations gadgets_ops = {
-@@ -1824,5 +1844,10 @@ module_init(gadget_cfs_init);
+@@ -1827,5 +1847,10 @@ module_init(gadget_cfs_init);
  static void __exit gadget_cfs_exit(void)
  {
  	configfs_unregister_subsystem(&gadget_subsys);

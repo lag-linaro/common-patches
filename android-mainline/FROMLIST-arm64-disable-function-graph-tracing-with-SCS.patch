@@ -24,7 +24,7 @@ Signed-off-by: Sami Tolvanen <samitolvanen@google.com>
 diff --git a/arch/arm64/Kconfig b/arch/arm64/Kconfig
 --- a/arch/arm64/Kconfig
 +++ b/arch/arm64/Kconfig
-@@ -152,7 +152,7 @@ config ARM64
+@@ -153,7 +153,7 @@ config ARM64
  	select HAVE_FTRACE_MCOUNT_RECORD
  	select HAVE_FUNCTION_TRACER
  	select HAVE_FUNCTION_ERROR_INJECTION
