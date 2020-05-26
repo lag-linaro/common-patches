@@ -20,7 +20,7 @@ Change-Id: I5f63b0359082713bd7d3629abc14209f9667de3b
 diff --git a/drivers/base/core.c b/drivers/base/core.c
 --- a/drivers/base/core.c
 +++ b/drivers/base/core.c
-@@ -2345,7 +2345,7 @@ static int device_private_init(struct device *dev)
+@@ -2364,7 +2364,7 @@ static int device_private_init(struct device *dev)
  	return 0;
  }
  

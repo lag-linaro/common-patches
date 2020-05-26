@@ -1,8 +1,8 @@
 #
 # android-mainline patches
 #
-# Applies onto upstream b9bbe6ed63b2 Linux v5.7-rc6
-# Matches android-mainline 8d6c90c9d68b ("ANDROID: fscrypt: handle direct I/O with IV_INO_LBLK_32")
+# Applies onto upstream 9cb1fd0efd19 Linux v5.7-rc7
+# Matches android-mainline c1676075cdc6 ("Merge 5.7-rc7 into android-mainline")
 #
 Revert-security-lockdown-selinux-implement-SELinux-lockdown.patch
 Revert-drm-virtio-fix-DRM_FORMAT_-handling.patch
