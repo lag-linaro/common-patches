@@ -1,0 +1,39 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: Todd Kjos <tkjos@google.com>
+Date: Mon, 18 May 2020 13:54:54 -0700
+Subject: ANDROID: fix copyright notice
+
+New vendor hook files cite Google, Inc instead of Google LLC
+
+Fixes: 7f62740112ef ("ANDROID: add support for vendor hooks")
+Signed-off-by: Todd Kjos <tkjos@google.com>
+Change-Id: If42762c4bbe6d0a7ff1cc75b64a3b224902e121c
+---
+ drivers/android/vendor_hooks.c | 2 +-
+ include/linux/android_vendor.h | 2 +-
+ 2 files changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/drivers/android/vendor_hooks.c b/drivers/android/vendor_hooks.c
+--- a/drivers/android/vendor_hooks.c
++++ b/drivers/android/vendor_hooks.c
+@@ -3,7 +3,7 @@
+  *
+  * Android Vendor Hook Support
+  *
+- * Copyright (C) 2020 Google, Inc.
++ * Copyright 2020 Google LLC
+  */
+ 
+ #define CREATE_TRACE_POINTS
+diff --git a/include/linux/android_vendor.h b/include/linux/android_vendor.h
+--- a/include/linux/android_vendor.h
++++ b/include/linux/android_vendor.h
+@@ -2,7 +2,7 @@
+ /*
+  * android_vendor.h - Android vendor data
+  *
+- * Copyright (C) 2020 Google, Inc.
++ * Copyright 2020 Google LLC
+  *
+  * These macros are to be used to reserve space in kernel data structures
+  * for use by vendor modules.

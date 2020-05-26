@@ -1,0 +1,24 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: Alistair Delva <adelva@google.com>
+Date: Mon, 4 May 2020 09:27:17 -0700
+Subject: ANDROID: clang: update to 11.0.1
+
+Bug: 155426344
+Signed-off-by: Alistair Delva <adelva@google.com>
+Change-Id: Id3fde5d1aef8420f280863dfb1bede16056b4a83
+---
+ build.config.common | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/build.config.common b/build.config.common
+--- a/build.config.common
++++ b/build.config.common
+@@ -5,7 +5,7 @@ CC=clang
+ LD=ld.lld
+ NM=llvm-nm
+ OBJCOPY=llvm-objcopy
+-CLANG_PREBUILT_BIN=prebuilts-master/clang/host/linux-x86/clang-r377782d/bin
++CLANG_PREBUILT_BIN=prebuilts-master/clang/host/linux-x86/clang-r383902/bin
+ BUILDTOOLS_PREBUILT_BIN=build/build-tools/path/linux-x86
+ 
+ EXTRA_CMDS=''

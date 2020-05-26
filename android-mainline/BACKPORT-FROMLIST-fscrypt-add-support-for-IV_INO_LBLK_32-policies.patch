@@ -1,0 +1,421 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: Eric Biggers <ebiggers@google.com>
+Date: Fri, 15 May 2020 13:41:41 -0700
+Subject: BACKPORT: FROMLIST: fscrypt: add support for IV_INO_LBLK_32 policies
+
+The eMMC inline crypto standard will only specify 32 DUN bits (a.k.a. IV
+bits), unlike UFS's 64.  IV_INO_LBLK_64 is therefore not applicable, but
+an encryption format which uses one key per policy and permits the
+moving of encrypted file contents (as f2fs's garbage collector requires)
+is still desirable.
+
+To support such hardware, add a new encryption format IV_INO_LBLK_32
+that makes the best use of the 32 bits: the IV is set to
+'SipHash-2-4(inode_number) + file_logical_block_number mod 2^32', where
+the SipHash key is derived from the fscrypt master key.  We hash only
+the inode number and not also the block number, because we need to
+maintain contiguity of DUNs to merge bios.
+
+Unlike with IV_INO_LBLK_64, with this format IV reuse is possible; this
+is unavoidable given the size of the DUN.  This means this format should
+only be used where the requirements of the first paragraph apply.
+However, the hash spreads out the IVs in the whole usable range, and the
+use of a keyed hash makes it difficult for an attacker to determine
+which files use which IVs.
+
+Besides the above differences, this flag works like IV_INO_LBLK_64 in
+that on ext4 it is only allowed if the stable_inodes feature has been
+enabled to prevent inode numbers and the filesystem UUID from changing.
+
+Signed-off-by: Eric Biggers <ebiggers@google.com>
+
+Link: https://lore.kernel.org/r/20200515204141.251098-1-ebiggers@kernel.org
+
+(Resolved conflicts with inline encryption support.  Besides the
+ necessary "straightforward" merge resolutions, also made
+ fscrypt_get_dun_bytes() aware of IV_INO_LBLK_32 and made IV_INO_LBLK_32
+ usable with wrapped keys.)
+
+Test: 'atest vts_kernel_encryption_test' on Cuttlefish with
+      the IV_INO_LBLK_32 test added (http://aosp/1315024).
+
+      Also tested enabling this in the fstab for Cuttlefish
+      (using http://aosp/1315886).
+
+      Also ran 'kvm-xfstests -c ext4,f2fs -g encrypt', including my
+      work-in-progress xfstest for IV_INO_LBLK_32.
+
+Bug: 144046242
+Change-Id: I57df71d502bde0475efc906a0812102063ff2f2a
+Signed-off-by: Eric Biggers <ebiggers@google.com>
+---
+ Documentation/filesystems/fscrypt.rst | 33 +++++++++++++++--
+ fs/crypto/crypto.c                    |  6 ++-
+ fs/crypto/fscrypt_private.h           | 17 +++++++--
+ fs/crypto/inline_crypt.c              |  3 ++
+ fs/crypto/keyring.c                   |  1 +
+ fs/crypto/keysetup.c                  | 53 ++++++++++++++++++++++++---
+ fs/crypto/policy.c                    | 51 +++++++++++++++++++-------
+ include/uapi/linux/fscrypt.h          |  3 +-
+ 8 files changed, 139 insertions(+), 28 deletions(-)
+
+diff --git a/Documentation/filesystems/fscrypt.rst b/Documentation/filesystems/fscrypt.rst
+--- a/Documentation/filesystems/fscrypt.rst
++++ b/Documentation/filesystems/fscrypt.rst
+@@ -292,8 +292,22 @@ files' data differently, inode numbers are included in the IVs.
+ Consequently, shrinking the filesystem may not be allowed.
+ 
+ This format is optimized for use with inline encryption hardware
+-compliant with the UFS or eMMC standards, which support only 64 IV
+-bits per I/O request and may have only a small number of keyslots.
++compliant with the UFS standard, which supports only 64 IV bits per
++I/O request and may have only a small number of keyslots.
++
++IV_INO_LBLK_32 policies
++-----------------------
++
++IV_INO_LBLK_32 policies work like IV_INO_LBLK_64, except that for
++IV_INO_LBLK_32, the inode number is hashed with SipHash-2-4 (where the
++SipHash key is derived from the master key) and added to the file
++logical block number mod 2^32 to produce a 32-bit IV.
++
++This format is optimized for use with inline encryption hardware
++compliant with the eMMC v5.2 standard, which supports only 32 IV bits
++per I/O request and may have only a small number of keyslots.  This
++format results in some level of IV reuse, so it should only be used
++when necessary due to hardware limitations.
+ 
+ Key identifiers
+ ---------------
+@@ -369,6 +383,10 @@ a little endian number, except that:
+   to 32 bits and is placed in bits 0-31 of the IV.  The inode number
+   (which is also limited to 32 bits) is placed in bits 32-63.
+ 
++- With `IV_INO_LBLK_32 policies`_, the logical block number is limited
++  to 32 bits and is placed in bits 0-31 of the IV.  The inode number
++  is then hashed and added mod 2^32.
++
+ Note that because file logical block numbers are included in the IVs,
+ filesystems must enforce that blocks are never shifted around within
+ encrypted files, e.g. via "collapse range" or "insert range".
+@@ -465,8 +483,15 @@ This structure must be initialized as follows:
+     (0x3).
+   - FSCRYPT_POLICY_FLAG_DIRECT_KEY: See `DIRECT_KEY policies`_.
+   - FSCRYPT_POLICY_FLAG_IV_INO_LBLK_64: See `IV_INO_LBLK_64
+-    policies`_.  This is mutually exclusive with DIRECT_KEY and is not
+-    supported on v1 policies.
++    policies`_.
++  - FSCRYPT_POLICY_FLAG_IV_INO_LBLK_32: See `IV_INO_LBLK_32
++    policies`_.
++
++  v1 encryption policies only support the PAD_* and DIRECT_KEY flags.
++  The other flags are only supported by v2 encryption policies.
++
++  The DIRECT_KEY, IV_INO_LBLK_64, and IV_INO_LBLK_32 flags are
++  mutually exclusive.
+ 
+ - For v2 encryption policies, ``__reserved`` must be zeroed.
+ 
+diff --git a/fs/crypto/crypto.c b/fs/crypto/crypto.c
+--- a/fs/crypto/crypto.c
++++ b/fs/crypto/crypto.c
+@@ -76,8 +76,12 @@ void fscrypt_generate_iv(union fscrypt_iv *iv, u64 lblk_num,
+ 	memset(iv, 0, ci->ci_mode->ivsize);
+ 
+ 	if (flags & FSCRYPT_POLICY_FLAG_IV_INO_LBLK_64) {
+-		WARN_ON_ONCE((u32)lblk_num != lblk_num);
++		WARN_ON_ONCE(lblk_num > U32_MAX);
++		WARN_ON_ONCE(ci->ci_inode->i_ino > U32_MAX);
+ 		lblk_num |= (u64)ci->ci_inode->i_ino << 32;
++	} else if (flags & FSCRYPT_POLICY_FLAG_IV_INO_LBLK_32) {
++		WARN_ON_ONCE(lblk_num > U32_MAX);
++		lblk_num = (u32)(ci->ci_hashed_ino + lblk_num);
+ 	} else if (flags & FSCRYPT_POLICY_FLAG_DIRECT_KEY) {
+ 		memcpy(iv->nonce, ci->ci_nonce, FS_KEY_DERIVATION_NONCE_SIZE);
+ 	}
+diff --git a/fs/crypto/fscrypt_private.h b/fs/crypto/fscrypt_private.h
+--- a/fs/crypto/fscrypt_private.h
++++ b/fs/crypto/fscrypt_private.h
+@@ -246,6 +246,9 @@ struct fscrypt_info {
+ 
+ 	/* This inode's nonce, copied from the fscrypt_context */
+ 	u8 ci_nonce[FS_KEY_DERIVATION_NONCE_SIZE];
++
++	/* Hashed inode number.  Only set for IV_INO_LBLK_32 */
++	u32 ci_hashed_ino;
+ };
+ 
+ typedef enum {
+@@ -317,6 +320,8 @@ extern int fscrypt_init_hkdf(struct fscrypt_hkdf *hkdf, const u8 *master_key,
+ #define HKDF_CONTEXT_DIRECT_KEY		3
+ #define HKDF_CONTEXT_IV_INO_LBLK_64_KEY	4
+ #define HKDF_CONTEXT_DIRHASH_KEY	5
++#define HKDF_CONTEXT_IV_INO_LBLK_32_KEY	6
++#define HKDF_CONTEXT_INODE_HASH_KEY	7
+ 
+ extern int fscrypt_hkdf_expand(const struct fscrypt_hkdf *hkdf, u8 context,
+ 			       const u8 *info, unsigned int infolen,
+@@ -513,11 +518,17 @@ struct fscrypt_master_key {
+ 	struct list_head	mk_decrypted_inodes;
+ 	spinlock_t		mk_decrypted_inodes_lock;
+ 
+-	/* Per-mode keys for DIRECT_KEY policies, allocated on-demand */
++	/*
++	 * Per-mode encryption keys for the various types of encryption policies
++	 * that use them.  Allocated and derived on-demand.
++	 */
+ 	struct fscrypt_prepared_key mk_direct_keys[__FSCRYPT_MODE_MAX + 1];
+-
+-	/* Per-mode keys for IV_INO_LBLK_64 policies, allocated on-demand */
+ 	struct fscrypt_prepared_key mk_iv_ino_lblk_64_keys[__FSCRYPT_MODE_MAX + 1];
++	struct fscrypt_prepared_key mk_iv_ino_lblk_32_keys[__FSCRYPT_MODE_MAX + 1];
++
++	/* Hash key for inode numbers.  Initialized only when needed. */
++	siphash_key_t		mk_ino_hash_key;
++	bool			mk_ino_hash_key_initialized;
+ 
+ } __randomize_layout;
+ 
+diff --git a/fs/crypto/inline_crypt.c b/fs/crypto/inline_crypt.c
+--- a/fs/crypto/inline_crypt.c
++++ b/fs/crypto/inline_crypt.c
+@@ -53,6 +53,9 @@ static unsigned int fscrypt_get_dun_bytes(const struct fscrypt_info *ci)
+ 	if (flags & FSCRYPT_POLICY_FLAG_IV_INO_LBLK_64)
+ 		return sizeof(__le64);
+ 
++	if (flags & FSCRYPT_POLICY_FLAG_IV_INO_LBLK_32)
++		return sizeof(__le32);
++
+ 	/* Default case: IVs are just the file logical block number */
+ 	if (sb->s_cop->get_ino_and_lblk_bits)
+ 		sb->s_cop->get_ino_and_lblk_bits(sb, &ino_bits, &lblk_bits);
+diff --git a/fs/crypto/keyring.c b/fs/crypto/keyring.c
+--- a/fs/crypto/keyring.c
++++ b/fs/crypto/keyring.c
+@@ -46,6 +46,7 @@ static void free_master_key(struct fscrypt_master_key *mk)
+ 	for (i = 0; i <= __FSCRYPT_MODE_MAX; i++) {
+ 		fscrypt_destroy_prepared_key(&mk->mk_direct_keys[i]);
+ 		fscrypt_destroy_prepared_key(&mk->mk_iv_ino_lblk_64_keys[i]);
++		fscrypt_destroy_prepared_key(&mk->mk_iv_ino_lblk_32_keys[i]);
+ 	}
+ 
+ 	key_put(mk->mk_users);
+diff --git a/fs/crypto/keysetup.c b/fs/crypto/keysetup.c
+--- a/fs/crypto/keysetup.c
++++ b/fs/crypto/keysetup.c
+@@ -49,6 +49,8 @@ struct fscrypt_mode fscrypt_modes[] = {
+ 	},
+ };
+ 
++static DEFINE_MUTEX(fscrypt_mode_key_setup_mutex);
++
+ static struct fscrypt_mode *
+ select_encryption_mode(const union fscrypt_policy *policy,
+ 		       const struct inode *inode)
+@@ -179,7 +181,7 @@ static int setup_per_mode_enc_key(struct fscrypt_info *ci,
+ 		return 0;
+ 	}
+ 
+-	mutex_lock(&mode_key_setup_mutex);
++	mutex_lock(&fscrypt_mode_key_setup_mutex);
+ 
+ 	if (fscrypt_is_key_prepared(prep_key, ci))
+ 		goto done_unlock;
+@@ -230,7 +232,7 @@ static int setup_per_mode_enc_key(struct fscrypt_info *ci,
+ 	ci->ci_key = *prep_key;
+ 	err = 0;
+ out_unlock:
+-	mutex_unlock(&mode_key_setup_mutex);
++	mutex_unlock(&fscrypt_mode_key_setup_mutex);
+ 	return err;
+ }
+ 
+@@ -249,15 +251,53 @@ int fscrypt_derive_dirhash_key(struct fscrypt_info *ci,
+ 	return 0;
+ }
+ 
++static int fscrypt_setup_iv_ino_lblk_32_key(struct fscrypt_info *ci,
++					    struct fscrypt_master_key *mk)
++{
++	int err;
++
++	err = setup_per_mode_enc_key(ci, mk, mk->mk_iv_ino_lblk_32_keys,
++				     HKDF_CONTEXT_IV_INO_LBLK_32_KEY, true);
++	if (err)
++		return err;
++
++	/* pairs with smp_store_release() below */
++	if (!smp_load_acquire(&mk->mk_ino_hash_key_initialized)) {
++
++		mutex_lock(&fscrypt_mode_key_setup_mutex);
++
++		if (mk->mk_ino_hash_key_initialized)
++			goto unlock;
++
++		err = fscrypt_hkdf_expand(&mk->mk_secret.hkdf,
++					  HKDF_CONTEXT_INODE_HASH_KEY, NULL, 0,
++					  (u8 *)&mk->mk_ino_hash_key,
++					  sizeof(mk->mk_ino_hash_key));
++		if (err)
++			goto unlock;
++		/* pairs with smp_load_acquire() above */
++		smp_store_release(&mk->mk_ino_hash_key_initialized, true);
++unlock:
++		mutex_unlock(&fscrypt_mode_key_setup_mutex);
++		if (err)
++			return err;
++	}
++
++	ci->ci_hashed_ino = (u32)siphash_1u64(ci->ci_inode->i_ino,
++					      &mk->mk_ino_hash_key);
++	return 0;
++}
++
+ static int fscrypt_setup_v2_file_key(struct fscrypt_info *ci,
+ 				     struct fscrypt_master_key *mk)
+ {
+ 	int err;
+ 
+ 	if (mk->mk_secret.is_hw_wrapped &&
+-	    !(ci->ci_policy.v2.flags & FSCRYPT_POLICY_FLAG_IV_INO_LBLK_64)) {
++	    !(ci->ci_policy.v2.flags & (FSCRYPT_POLICY_FLAG_IV_INO_LBLK_64 |
++					FSCRYPT_POLICY_FLAG_IV_INO_LBLK_32))) {
+ 		fscrypt_warn(ci->ci_inode,
+-			     "Hardware-wrapped keys are only supported with IV_INO_LBLK_64 policies");
++			     "Hardware-wrapped keys are only supported with IV_INO_LBLK policies");
+ 		return -EINVAL;
+ 	}
+ 
+@@ -278,11 +318,14 @@ static int fscrypt_setup_v2_file_key(struct fscrypt_info *ci,
+ 		 * IV_INO_LBLK_64: encryption keys are derived from (master_key,
+ 		 * mode_num, filesystem_uuid), and inode number is included in
+ 		 * the IVs.  This format is optimized for use with inline
+-		 * encryption hardware compliant with the UFS or eMMC standards.
++		 * encryption hardware compliant with the UFS standard.
+ 		 */
+ 		err = setup_per_mode_enc_key(ci, mk, mk->mk_iv_ino_lblk_64_keys,
+ 					     HKDF_CONTEXT_IV_INO_LBLK_64_KEY,
+ 					     true);
++	} else if (ci->ci_policy.v2.flags &
++		   FSCRYPT_POLICY_FLAG_IV_INO_LBLK_32) {
++		err = fscrypt_setup_iv_ino_lblk_32_key(ci, mk);
+ 	} else {
+ 		u8 derived_key[FSCRYPT_MAX_KEY_SIZE];
+ 
+diff --git a/fs/crypto/policy.c b/fs/crypto/policy.c
+--- a/fs/crypto/policy.c
++++ b/fs/crypto/policy.c
+@@ -66,18 +66,14 @@ static bool supported_direct_key_modes(const struct inode *inode,
+ 	return true;
+ }
+ 
+-static bool supported_iv_ino_lblk_64_policy(
+-					const struct fscrypt_policy_v2 *policy,
+-					const struct inode *inode)
++static bool supported_iv_ino_lblk_policy(const struct fscrypt_policy_v2 *policy,
++					 const struct inode *inode,
++					 const char *type,
++					 int max_ino_bits, int max_lblk_bits)
+ {
+ 	struct super_block *sb = inode->i_sb;
+ 	int ino_bits = 64, lblk_bits = 64;
+ 
+-	if (policy->flags & FSCRYPT_POLICY_FLAG_DIRECT_KEY) {
+-		fscrypt_warn(inode,
+-			     "The DIRECT_KEY and IV_INO_LBLK_64 flags are mutually exclusive");
+-		return false;
+-	}
+ 	/*
+ 	 * It's unsafe to include inode numbers in the IVs if the filesystem can
+ 	 * potentially renumber inodes, e.g. via filesystem shrinking.
+@@ -85,16 +81,22 @@ static bool supported_iv_ino_lblk_64_policy(
+ 	if (!sb->s_cop->has_stable_inodes ||
+ 	    !sb->s_cop->has_stable_inodes(sb)) {
+ 		fscrypt_warn(inode,
+-			     "Can't use IV_INO_LBLK_64 policy on filesystem '%s' because it doesn't have stable inode numbers",
+-			     sb->s_id);
++			     "Can't use %s policy on filesystem '%s' because it doesn't have stable inode numbers",
++			     type, sb->s_id);
+ 		return false;
+ 	}
+ 	if (sb->s_cop->get_ino_and_lblk_bits)
+ 		sb->s_cop->get_ino_and_lblk_bits(sb, &ino_bits, &lblk_bits);
+-	if (ino_bits > 32 || lblk_bits > 32) {
++	if (ino_bits > max_ino_bits) {
++		fscrypt_warn(inode,
++			     "Can't use %s policy on filesystem '%s' because its inode numbers are too long",
++			     type, sb->s_id);
++		return false;
++	}
++	if (lblk_bits > max_lblk_bits) {
+ 		fscrypt_warn(inode,
+-			     "Can't use IV_INO_LBLK_64 policy on filesystem '%s' because it doesn't use 32-bit inode and block numbers",
+-			     sb->s_id);
++			     "Can't use %s policy on filesystem '%s' because its block numbers are too long",
++			     type, sb->s_id);
+ 		return false;
+ 	}
+ 	return true;
+@@ -137,6 +139,8 @@ static bool fscrypt_supported_v1_policy(const struct fscrypt_policy_v1 *policy,
+ static bool fscrypt_supported_v2_policy(const struct fscrypt_policy_v2 *policy,
+ 					const struct inode *inode)
+ {
++	int count = 0;
++
+ 	if (!fscrypt_valid_enc_modes(policy->contents_encryption_mode,
+ 				     policy->filenames_encryption_mode)) {
+ 		fscrypt_warn(inode,
+@@ -152,13 +156,29 @@ static bool fscrypt_supported_v2_policy(const struct fscrypt_policy_v2 *policy,
+ 		return false;
+ 	}
+ 
++	count += !!(policy->flags & FSCRYPT_POLICY_FLAG_DIRECT_KEY);
++	count += !!(policy->flags & FSCRYPT_POLICY_FLAG_IV_INO_LBLK_64);
++	count += !!(policy->flags & FSCRYPT_POLICY_FLAG_IV_INO_LBLK_32);
++	if (count > 1) {
++		fscrypt_warn(inode, "Mutually exclusive encryption flags (0x%02x)",
++			     policy->flags);
++		return false;
++	}
++
+ 	if ((policy->flags & FSCRYPT_POLICY_FLAG_DIRECT_KEY) &&
+ 	    !supported_direct_key_modes(inode, policy->contents_encryption_mode,
+ 					policy->filenames_encryption_mode))
+ 		return false;
+ 
+ 	if ((policy->flags & FSCRYPT_POLICY_FLAG_IV_INO_LBLK_64) &&
+-	    !supported_iv_ino_lblk_64_policy(policy, inode))
++	    !supported_iv_ino_lblk_policy(policy, inode, "IV_INO_LBLK_64",
++					  32, 32))
++		return false;
++
++	if ((policy->flags & FSCRYPT_POLICY_FLAG_IV_INO_LBLK_32) &&
++	    /* This uses hashed inode numbers, so ino_bits doesn't matter. */
++	    !supported_iv_ino_lblk_policy(policy, inode, "IV_INO_LBLK_32",
++					  INT_MAX, 32))
+ 		return false;
+ 
+ 	if (memchr_inv(policy->__reserved, 0, sizeof(policy->__reserved))) {
+@@ -354,6 +374,9 @@ static int set_encryption_policy(struct inode *inode,
+ 					       policy->v2.master_key_identifier);
+ 		if (err)
+ 			return err;
++		if (policy->v2.flags & FSCRYPT_POLICY_FLAG_IV_INO_LBLK_32)
++			pr_warn_once("%s (pid %d) is setting an IV_INO_LBLK_32 encryption policy.  This should only be used if there are certain hardware limitations.\n",
++				     current->comm, current->pid);
+ 		break;
+ 	default:
+ 		WARN_ON(1);
+diff --git a/include/uapi/linux/fscrypt.h b/include/uapi/linux/fscrypt.h
+--- a/include/uapi/linux/fscrypt.h
++++ b/include/uapi/linux/fscrypt.h
+@@ -19,7 +19,8 @@
+ #define FSCRYPT_POLICY_FLAGS_PAD_MASK		0x03
+ #define FSCRYPT_POLICY_FLAG_DIRECT_KEY		0x04
+ #define FSCRYPT_POLICY_FLAG_IV_INO_LBLK_64	0x08
+-#define FSCRYPT_POLICY_FLAGS_VALID		0x0F
++#define FSCRYPT_POLICY_FLAG_IV_INO_LBLK_32	0x10
++#define FSCRYPT_POLICY_FLAGS_VALID		0x1F
+ 
+ /* Encryption algorithms */
+ #define FSCRYPT_MODE_AES_256_XTS		1

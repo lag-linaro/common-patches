@@ -2,7 +2,7 @@
 # android-mainline patches
 #
 # Applies onto upstream b9bbe6ed63b2 Linux v5.7-rc6
-# Matches android-mainline 5579d6e1b18d ("Merge 5.7-rc6 into android-mainline")
+# Matches android-mainline 8d6c90c9d68b ("ANDROID: fscrypt: handle direct I/O with IV_INO_LBLK_32")
 #
 Revert-security-lockdown-selinux-implement-SELinux-lockdown.patch
 Revert-drm-virtio-fix-DRM_FORMAT_-handling.patch
@@ -50,6 +50,7 @@ FROMLIST-soc-qcom-rpmpd-Allow-RPMPD-driver-to-be-loaded-as-a-module.patch
 FROMLIST-soc-qcom-rpmh-Allow-RPMH-driver-to-be-loaded-as-a-module.patch
 FROMLIST-soc-qcom-rpmhpd-Allow-RPMHPD-driver-to-be-loaded-as-a-module.patch
 FROMLIST-power_supply-Add-additional-health-properties-to-the-header.patch
+FROMLIST-x86_64-fix-jiffies-ODR-violation.patch
 ANDROID-arm64-copy-CONFIG_CMDLINE_EXTEND-from-ARM.patch
 ANDROID-of-Support-CONFIG_CMDLINE_EXTEND-config-option.patch
 ANDROID-Kbuild-LLVMLinux-allow-overriding-clang-target-triple.patch
@@ -536,3 +537,8 @@ ANDROID-block-backport-the-ability-to-specify-max_dun_bytes.patch
 ANDROID-dm-default-key-set-dun_bytes-more-precisely.patch
 ANDROID-fscrypt-set-dun_bytes-more-precisely.patch
 ANDROID-export-Disable-symbol-trimming-on-modules.patch
+ANDROID-clang-update-to-11.0.1.patch
+ANDROID-fix-copyright-notice.patch
+ANDROID-fix-merge-issue-in-fsnotify.h.patch
+BACKPORT-FROMLIST-fscrypt-add-support-for-IV_INO_LBLK_32-policies.patch
+ANDROID-fscrypt-handle-direct-I-O-with-IV_INO_LBLK_32.patch
