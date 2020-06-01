@@ -1,0 +1,42 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: Greg Kroah-Hartman <gregkh@google.com>
+Date: Thu, 28 May 2020 16:30:16 +0200
+Subject: Revert "ANDROID: fs: Restore vfs_path_lookup() export"
+
+This reverts commit 4d53a0405c32f4e8d741e294cff4553b5fad2c0e as sdcardfs
+is no longer in the tree.
+
+Bug: 157700134
+Cc: Alistair Strachan <astrachan@google.com>
+Cc: Yongqin Liu <yongqin.liu@linaro.org>
+Signed-off-by: Greg Kroah-Hartman <gregkh@google.com>
+Change-Id: I8ca212b9d8e89c0641e3ae799032f806d5f36311
+---
+ fs/internal.h         | 2 ++
+ include/linux/namei.h | 2 --
+ 2 files changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/fs/internal.h b/fs/internal.h
+--- a/fs/internal.h
++++ b/fs/internal.h
+@@ -60,6 +60,8 @@ extern int finish_clean_context(struct fs_context *fc);
+  */
+ extern int filename_lookup(int dfd, struct filename *name, unsigned flags,
+ 			   struct path *path, struct path *root);
++extern int vfs_path_lookup(struct dentry *, struct vfsmount *,
++			   const char *, unsigned int, struct path *);
+ long do_mknodat(int dfd, const char __user *filename, umode_t mode,
+ 		unsigned int dev);
+ long do_mkdirat(int dfd, const char __user *pathname, umode_t mode);
+diff --git a/include/linux/namei.h b/include/linux/namei.h
+--- a/include/linux/namei.h
++++ b/include/linux/namei.h
+@@ -65,8 +65,6 @@ extern struct dentry *kern_path_create(int, const char *, struct path *, unsigne
+ extern struct dentry *user_path_create(int, const char __user *, struct path *, unsigned int);
+ extern void done_path_create(struct path *, struct dentry *);
+ extern struct dentry *kern_path_locked(const char *, struct path *);
+-extern int vfs_path_lookup(struct dentry *, struct vfsmount *,
+-			   const char *, unsigned int, struct path *);
+ 
+ extern struct dentry *try_lookup_one_len(const char *, struct dentry *, int);
+ extern struct dentry *lookup_one_len(const char *, struct dentry *, int);

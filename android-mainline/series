@@ -2,7 +2,7 @@
 # android-mainline patches
 #
 # Applies onto upstream 9cb1fd0efd19 Linux v5.7-rc7
-# Matches android-mainline c1676075cdc6 ("Merge 5.7-rc7 into android-mainline")
+# Matches android-mainline 194a1bf09a79 ("ANDROID: net: bpf: permit redirect from ingress L3 to egress L2 devices at near max mtu")
 #
 Revert-security-lockdown-selinux-implement-SELinux-lockdown.patch
 Revert-drm-virtio-fix-DRM_FORMAT_-handling.patch
@@ -542,3 +542,11 @@ ANDROID-fix-copyright-notice.patch
 ANDROID-fix-merge-issue-in-fsnotify.h.patch
 BACKPORT-FROMLIST-fscrypt-add-support-for-IV_INO_LBLK_32-policies.patch
 ANDROID-fscrypt-handle-direct-I-O-with-IV_INO_LBLK_32.patch
+ANDROID-scsi-ufs-Handle-clocks-when-lrbp-fails.patch
+Revert-ANDROID-Incremental-fs-Avoid-continually-recalculating-hashes.patch
+ANDROID-sdcardfs-remove-sdcardfs-from-system.patch
+Revert-ANDROID-fs-Restore-vfs_path_lookup-export.patch
+Revert-ANDROID-vfs-add-d_canonical_path-for-stacked-filesystem-support.patch
+Revert-ANDROID-vfs-Add-permission2-for-filesystems-with-per-mount-permissions.patch
+Revert-ANDROID-vfs-Add-setattr2-for-filesystems-with-per-mount-permissions.patch
+ANDROID-net-bpf-permit-redirect-from-ingress-L3-to-egress-L2-devices-at-near-max-mtu.patch

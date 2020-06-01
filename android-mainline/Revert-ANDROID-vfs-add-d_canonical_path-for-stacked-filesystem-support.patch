@@ -1,0 +1,93 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: Greg Kroah-Hartman <gregkh@google.com>
+Date: Thu, 28 May 2020 16:35:30 +0200
+Subject: Revert "ANDROID: vfs: add d_canonical_path for stacked filesystem
+ support"
+
+This reverts commit b05bef535d7dba4c3ecc22eb624cf62d6b2e5f12 as there is
+no need for it as sdcardfs is now gone.
+
+Bug: 157700134
+Cc: Daniel Rosenberg <drosen@google.com>
+Cc: Alistair Strachan <astrachan@google.com>
+Cc: Yongqin Liu <yongqin.liu@linaro.org>
+Signed-off-by: Greg Kroah-Hartman <gregkh@google.com>
+Change-Id: I36752a84e13f1ee8709ba9c04c93c202e3f05b74
+---
+ fs/notify/inotify/inotify_user.c | 15 ++-------------
+ include/linux/dcache.h           |  1 -
+ include/linux/fsnotify.h         |  9 ---------
+ 3 files changed, 2 insertions(+), 23 deletions(-)
+
+diff --git a/fs/notify/inotify/inotify_user.c b/fs/notify/inotify/inotify_user.c
+--- a/fs/notify/inotify/inotify_user.c
++++ b/fs/notify/inotify/inotify_user.c
+@@ -701,8 +701,6 @@ SYSCALL_DEFINE3(inotify_add_watch, int, fd, const char __user *, pathname,
+ 	struct fsnotify_group *group;
+ 	struct inode *inode;
+ 	struct path path;
+-	struct path alteredpath;
+-	struct path *canonical_path = &path;
+ 	struct fd f;
+ 	int ret;
+ 	unsigned flags = 0;
+@@ -749,22 +747,13 @@ SYSCALL_DEFINE3(inotify_add_watch, int, fd, const char __user *, pathname,
+ 	if (ret)
+ 		goto fput_and_out;
+ 
+-	/* support stacked filesystems */
+-	if(path.dentry && path.dentry->d_op) {
+-		if (path.dentry->d_op->d_canonical_path) {
+-			path.dentry->d_op->d_canonical_path(&path, &alteredpath);
+-			canonical_path = &alteredpath;
+-			path_put(&path);
+-		}
+-	}
+-
+ 	/* inode held in place by reference to path; group by fget on fd */
+-	inode = canonical_path->dentry->d_inode;
++	inode = path.dentry->d_inode;
+ 	group = f.file->private_data;
+ 
+ 	/* create/update an inode mark */
+ 	ret = inotify_update_watch(group, inode, mask);
+-	path_put(canonical_path);
++	path_put(&path);
+ fput_and_out:
+ 	fdput(f);
+ 	return ret;
+diff --git a/include/linux/dcache.h b/include/linux/dcache.h
+--- a/include/linux/dcache.h
++++ b/include/linux/dcache.h
+@@ -147,7 +147,6 @@ struct dentry_operations {
+ 	struct vfsmount *(*d_automount)(struct path *);
+ 	int (*d_manage)(const struct path *, bool);
+ 	struct dentry *(*d_real)(struct dentry *, const struct inode *);
+-	void (*d_canonical_path)(const struct path *, struct path *);
+ } ____cacheline_aligned;
+ 
+ /*
+diff --git a/include/linux/fsnotify.h b/include/linux/fsnotify.h
+--- a/include/linux/fsnotify.h
++++ b/include/linux/fsnotify.h
+@@ -262,20 +262,11 @@ static inline void fsnotify_modify(struct file *file)
+  */
+ static inline void fsnotify_open(struct file *file)
+ {
+-	const struct path *path = &file->f_path;
+-	struct path lower_path;
+ 	__u32 mask = FS_OPEN;
+ 
+ 	if (file->f_flags & __FMODE_EXEC)
+ 		mask |= FS_OPEN_EXEC;
+ 
+-	if (path->dentry->d_op && path->dentry->d_op->d_canonical_path) {
+-		path->dentry->d_op->d_canonical_path(path, &lower_path);
+-		fsnotify_parent(lower_path.dentry, mask, &lower_path,
+-				FSNOTIFY_EVENT_PATH);
+-		fsnotify(lower_path.dentry->d_inode, mask, &lower_path, FSNOTIFY_EVENT_PATH, NULL, 0);
+-		path_put(&lower_path);
+-	}
+ 	fsnotify_file(file, mask);
+ }
+ 
