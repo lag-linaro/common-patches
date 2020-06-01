@@ -28,10 +28,10 @@ diff --git a/fs/incfs/data_mgmt.c b/fs/incfs/data_mgmt.c
  #include <linux/ktime.h>
  #include <linux/mm.h>
 +#include <linux/workqueue.h>
- #include <linux/pagemap.h>
  #include <linux/lz4.h>
  #include <linux/crc32.h>
-@@ -16,6 +17,13 @@
+ 
+@@ -15,6 +16,13 @@
  #include "format.h"
  #include "integrity.h"
  
@@ -45,7 +45,7 @@ diff --git a/fs/incfs/data_mgmt.c b/fs/incfs/data_mgmt.c
  struct mount_info *incfs_alloc_mount_info(struct super_block *sb,
  					  struct mount_options *options,
  					  struct path *backing_dir_path)
-@@ -35,6 +43,7 @@ struct mount_info *incfs_alloc_mount_info(struct super_block *sb,
+@@ -34,6 +42,7 @@ struct mount_info *incfs_alloc_mount_info(struct super_block *sb,
  	mutex_init(&mi->mi_pending_reads_mutex);
  	init_waitqueue_head(&mi->mi_pending_reads_notif_wq);
  	init_waitqueue_head(&mi->mi_log.ml_notif_wq);
@@ -53,7 +53,7 @@ diff --git a/fs/incfs/data_mgmt.c b/fs/incfs/data_mgmt.c
  	spin_lock_init(&mi->mi_log.rl_lock);
  	INIT_LIST_HEAD(&mi->mi_reads_list_head);
  
-@@ -95,6 +104,8 @@ void incfs_free_mount_info(struct mount_info *mi)
+@@ -94,6 +103,8 @@ void incfs_free_mount_info(struct mount_info *mi)
  	if (!mi)
  		return;
  
@@ -62,7 +62,7 @@ diff --git a/fs/incfs/data_mgmt.c b/fs/incfs/data_mgmt.c
  	dput(mi->mi_index_dir);
  	path_put(&mi->mi_backing_dir_path);
  	mutex_destroy(&mi->mi_dir_struct_mutex);
-@@ -297,11 +308,20 @@ static void log_block_read(struct mount_info *mi, incfs_uuid_t *id,
+@@ -296,11 +307,20 @@ static void log_block_read(struct mount_info *mi, incfs_uuid_t *id,
  {
  	struct read_log *log = &mi->mi_log;
  	struct read_log_state *head, *tail;
@@ -84,7 +84,7 @@ diff --git a/fs/incfs/data_mgmt.c b/fs/incfs/data_mgmt.c
  	spin_lock(&log->rl_lock);
  	if (log->rl_size == 0) {
  		spin_unlock(&log->rl_lock);
-@@ -320,6 +340,7 @@ static void log_block_read(struct mount_info *mi, incfs_uuid_t *id,
+@@ -319,6 +339,7 @@ static void log_block_read(struct mount_info *mi, incfs_uuid_t *id,
  			.file_id = *id,
  			.absolute_ts_us = now_us,
  		};
@@ -92,7 +92,7 @@ diff --git a/fs/incfs/data_mgmt.c b/fs/incfs/data_mgmt.c
  		record_size = sizeof(struct full_record);
  	} else if (block_index != head->base_record.block_index + 1 ||
  		   relative_us >= 1 << 30) {
-@@ -344,7 +365,6 @@ static void log_block_read(struct mount_info *mi, incfs_uuid_t *id,
+@@ -343,7 +364,6 @@ static void log_block_read(struct mount_info *mi, incfs_uuid_t *id,
  		record_size = sizeof(struct same_file_next_block_short);
  	}
  
@@ -100,7 +100,7 @@ diff --git a/fs/incfs/data_mgmt.c b/fs/incfs/data_mgmt.c
  	head->base_record.block_index = block_index;
  	head->base_record.absolute_ts_us = now_us;
  
-@@ -363,7 +383,8 @@ static void log_block_read(struct mount_info *mi, incfs_uuid_t *id,
+@@ -362,7 +382,8 @@ static void log_block_read(struct mount_info *mi, incfs_uuid_t *id,
  	++head->current_record_no;
  
  	spin_unlock(&log->rl_lock);

@@ -34,7 +34,7 @@ diff --git a/arch/arm64/configs/gki_defconfig b/arch/arm64/configs/gki_defconfig
 diff --git a/arch/x86/configs/gki_defconfig b/arch/x86/configs/gki_defconfig
 --- a/arch/x86/configs/gki_defconfig
 +++ b/arch/x86/configs/gki_defconfig
-@@ -380,6 +380,8 @@ CONFIG_SECURITY_NETWORK=y
+@@ -379,6 +379,8 @@ CONFIG_SECURITY_NETWORK=y
  CONFIG_HARDENED_USERCOPY=y
  CONFIG_SECURITY_SELINUX=y
  CONFIG_CRYPTO_ADIANTUM=y

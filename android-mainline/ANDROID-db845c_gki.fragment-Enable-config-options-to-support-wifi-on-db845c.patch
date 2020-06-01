@@ -17,8 +17,8 @@ Signed-off-by: John Stultz <john.stultz@linaro.org>
 diff --git a/arch/arm64/configs/db845c_gki.fragment b/arch/arm64/configs/db845c_gki.fragment
 --- a/arch/arm64/configs/db845c_gki.fragment
 +++ b/arch/arm64/configs/db845c_gki.fragment
-@@ -69,3 +69,32 @@ CONFIG_INCREMENTAL_FS=m
- CONFIG_SDCARD_FS=m
+@@ -68,3 +68,32 @@ CONFIG_INTERCONNECT_QCOM_SDM845=m
+ CONFIG_INCREMENTAL_FS=m
  CONFIG_QCOM_RPMH=m
  CONFIG_QCOM_RPMHPD=m
 +CONFIG_WLAN_VENDOR_ATH=y

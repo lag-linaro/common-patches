@@ -85,15 +85,8 @@ ANDROID-cpufreq-times-add-proc-uid_concurrent_-active-policy-_time.patch
 ANDROID-cpufreq-times-record-fast-switch-frequency-transitions.patch
 ANDROID-dm-bow-Add-dm-bow-feature.patch
 ANDROID-cpufreq-times-don-t-copy-invalid-freqs-from-freq-table.patch
-ANDROID-sdcardfs-Enable-modular-sdcardfs.patch
-ANDROID-vfs-Add-setattr2-for-filesystems-with-per-mount-permissions.patch
-ANDROID-vfs-Add-permission2-for-filesystems-with-per-mount-permissions.patch
 ANDROID-Add-show_options2-to-view-private-mount-data.patch
-ANDROID-vfs-add-d_canonical_path-for-stacked-filesystem-support.patch
-ANDROID-fs-Restore-vfs_path_lookup-export.patch
 ANDROID-mnt-Add-filesystem-private-data-to-mount-points.patch
-ANDROID-sdcardfs-Define-magic-value.patch
-ANDROID-sdcardfs-Add-sdcardfs-filesystem.patch
 ANDROID-Expose-gki_defconfig-to-build.config.patch
 ANDROID-gki_defconfig-initial-config.patch
 ANDROID-xfrm-remove-in_compat_syscall-checks.patch
@@ -163,7 +156,6 @@ ANDROID-Kconfig.gki-Add-Hidden-QCOM-configs.patch
 ANDROID-Kconfig.gki-Add-hidden-MMC-config-support.patch
 ANDROID-move-up-spin_unlock_bh-ahead-of-remove_proc_entry.patch
 ANDROID-fscrypt-add-key-removal-notifier-chain.patch
-ANDROID-sdcardfs-evict-dentries-on-fscrypt-key-removal.patch
 ANDROID-v4l2-compat-ioctl32.c-copy-reserved-fields.patch
 ANDROID-ALSA-jack-Update-supported-jack-switch-types.patch
 ANDROID-gki_defconfig-add-FORTIFY_SOURCE-remove-SPMI_MSM_PMIC_ARB.patch
@@ -265,7 +257,6 @@ ANDROID-Kconfig.gki-Add-Hidden-SPRD-DRM-configs.patch
 ANDROID-update-defconfig-for-5.5-rc3.patch
 ANDROID-serdev-Fix-platform-device-support.patch
 CHROMIUM-cgroups-relax-permissions-on-moving-tasks-between-cgroups.patch
-ANDROID-sdcardfs-fix-ENOENT-lookup-race-issue.patch
 ANDROID-GKI-clk-Add-support-for-clock-providers-with-sync-state.patch
 ANDROID-GKI-clk-Don-t-disable-unused-clocks-with-sync-state-support.patch
 ANDROID-clk-qcom-Add-sync_state-clk_sync_state-for-db845c-clock-providers.patch
@@ -345,9 +336,7 @@ ANDROID-fix-up-uio_sys_stats-to-handle-recent-proc_ops-changes.patch
 ANDROID-fix-up-xt_quota2-for-proc_ops-changes.patch
 ANDROID-dummy-cpufreq-fix-up-5.6-rc1-API-changes.patch
 FROMLIST-pwm-Convert-period-and-duty-cycle-to-u64.patch
-ANDROID-sdcardfs-fix-up-fs-parsing-calls.patch
 ANDROID-dm-prevent-default-key-from-being-enabled-without-needed-hooks.patch
-ANDROID-sdcardfs-use-fsparam_flag-to-replace-fsparam_bool.patch
 ANDROID-block-Prevent-crypto-fallback-for-wrapped-keys.patch
 ANDROID-dm-add-support-for-passing-through-derive_raw_secret.patch
 ANDROID-dm-Add-wrapped-key-support-in-dm-default-key.patch
@@ -357,7 +346,6 @@ ANDROID-added-memory-initialization-tests-to-cuttlefish-config.patch
 ANDROID-gki_defconfig-enable-CONFIG_RUNTIME_TESTING_MENU.patch
 ANDROID-gki_defconfig-disable-system_contig-ion-heap.patch
 ANDROID-staging-ion-delete-unused-heap-types-and-IDs.patch
-ANDROID-gki_defconfig-Disable-SDCARD_FS.patch
 ANDROID-net-bpf-Allow-TC-programs-to-call-BPF_FUNC_skb_change_head.patch
 ANDROID-cf-build-Use-merge_configs.patch
 ANDROID-virtio-virtio_input-pass-_DIRECT-only-if-the-device-advertises-_DIRECT.patch
@@ -498,7 +486,6 @@ ANDROID-dm-bow-Fix-not-to-skip-trim-at-framented-range.patch
 ANDROID-staging-android-ion-Expose-total-heap-and-pool-sizes-via-sysfs.patch
 ANDROID-init-GKI-enable-hidden-configs-for-GPU.patch
 ANDROID-fix-wakeup-reason-findings.patch
-ANDROID-sdcardfs-fix-export-symbol-types.patch
 ANDROID-Incremental-fs-Use-simple-compression-in-log-buffer.patch
 ANDROID-Remove-VLA-from-uid_sys_stats.c.patch
 ANDROID-GKI-Enable-GENERIC_IRQ_CHIP.patch
@@ -506,11 +493,8 @@ ANDROID-add-ion_stat-tracepoint-to-common-kernel.patch
 ANDROID-GKI-Enable-net-testing-options.patch
 ANDROID-cfi-fix-export-symbol-types.patch
 ANDROID-fscrypt-fix-export-symbol-type.patch
-ANDROID-vfs-fix-export-symbol-types.patch
-ANDROID-vfs-fix-export-symbol-type.patch
 ANDROID-virt_wifi-fix-export-symbol-types.patch
 ANDROID-ufshcd-crypto-fix-export-symbol-type.patch
-ANDROID-sdcardfs-fix-export-symbol-type.patch
 ANDROID-ion-fix-export-symbol-type.patch
 ANDROID-driver-gpu-drm-fix-export-symbol-types.patch
 ANDROID-drivers-gpu-drm-fix-export-symbol-type.patch
@@ -530,7 +514,6 @@ ANDROID-GKI-enable-CONFIG_IRQ_TIME_ACCOUNTING.patch
 ANDROID-GKI-Enable-CONFIG_STATIC_USERMODEHELPER.patch
 ANDROID-GKI-add-android_vendor.h.patch
 ANDROID-add-support-for-vendor-hooks.patch
-ANDROID-Incremental-fs-Avoid-continually-recalculating-hashes.patch
 ANDROID-Incremental-fs-Fix-scheduling-while-atomic-error.patch
 ANDROID-Incremental-fs-wake-up-log-pollers-less-often.patch
 ANDROID-block-backport-the-ability-to-specify-max_dun_bytes.patch
@@ -539,14 +522,7 @@ ANDROID-fscrypt-set-dun_bytes-more-precisely.patch
 ANDROID-export-Disable-symbol-trimming-on-modules.patch
 ANDROID-clang-update-to-11.0.1.patch
 ANDROID-fix-copyright-notice.patch
-ANDROID-fix-merge-issue-in-fsnotify.h.patch
 BACKPORT-FROMLIST-fscrypt-add-support-for-IV_INO_LBLK_32-policies.patch
 ANDROID-fscrypt-handle-direct-I-O-with-IV_INO_LBLK_32.patch
 ANDROID-scsi-ufs-Handle-clocks-when-lrbp-fails.patch
-Revert-ANDROID-Incremental-fs-Avoid-continually-recalculating-hashes.patch
-ANDROID-sdcardfs-remove-sdcardfs-from-system.patch
-Revert-ANDROID-fs-Restore-vfs_path_lookup-export.patch
-Revert-ANDROID-vfs-add-d_canonical_path-for-stacked-filesystem-support.patch
-Revert-ANDROID-vfs-Add-permission2-for-filesystems-with-per-mount-permissions.patch
-Revert-ANDROID-vfs-Add-setattr2-for-filesystems-with-per-mount-permissions.patch
 ANDROID-net-bpf-permit-redirect-from-ingress-L3-to-egress-L2-devices-at-near-max-mtu.patch

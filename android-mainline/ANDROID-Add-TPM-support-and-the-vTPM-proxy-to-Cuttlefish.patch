@@ -50,9 +50,9 @@ diff --git a/arch/x86/configs/gki_defconfig b/arch/x86/configs/gki_defconfig
 diff --git a/cuttlefish.fragment b/cuttlefish.fragment
 --- a/cuttlefish.fragment
 +++ b/cuttlefish.fragment
-@@ -19,3 +19,5 @@ CONFIG_INCREMENTAL_FS=m
+@@ -18,3 +18,5 @@ CONFIG_VIRTIO_MMIO_CMDLINE_DEVICES=y
+ CONFIG_INCREMENTAL_FS=m
  CONFIG_TEST_STACKINIT=m
  CONFIG_TEST_MEMINIT=m
- CONFIG_SDCARD_FS=m
 +CONFIG_TCG_TPM=m
 +CONFIG_TCG_VTPM_PROXY=m

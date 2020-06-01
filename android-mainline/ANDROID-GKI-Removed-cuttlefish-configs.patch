@@ -12,8 +12,8 @@ Change-Id: I217422c401c6ea183ce974c1d156abd4d9e209a6
 ---
  build.config.cuttlefish.aarch64 | 11 -----------
  build.config.cuttlefish.x86_64  | 11 -----------
- cuttlefish.fragment             | 23 -----------------------
- 3 files changed, 45 deletions(-)
+ cuttlefish.fragment             | 22 ----------------------
+ 3 files changed, 44 deletions(-)
  delete mode 100644 build.config.cuttlefish.aarch64
  delete mode 100644 build.config.cuttlefish.x86_64
  delete mode 100644 cuttlefish.fragment
@@ -54,10 +54,10 @@ index d6ce5c3a7306..000000000000
 -FILES=""
 diff --git a/cuttlefish.fragment b/cuttlefish.fragment
 deleted file mode 100644
-index 1a0c9f9d1ac7..000000000000
+index c931d7791ab6..000000000000
 --- a/cuttlefish.fragment
 +++ /dev/null
-@@ -1,23 +0,0 @@
+@@ -1,22 +0,0 @@
 -CONFIG_CPUFREQ_DUMMY=m
 -CONFIG_VSOCKETS=m
 -CONFIG_VIRTIO_VSOCKETS=m
@@ -78,6 +78,5 @@ index 1a0c9f9d1ac7..000000000000
 -CONFIG_INCREMENTAL_FS=m
 -CONFIG_TEST_STACKINIT=m
 -CONFIG_TEST_MEMINIT=m
--CONFIG_SDCARD_FS=m
 -CONFIG_TCG_TPM=m
 -CONFIG_TCG_VTPM_PROXY=m

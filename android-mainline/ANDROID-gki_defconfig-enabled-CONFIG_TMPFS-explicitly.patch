@@ -41,5 +41,5 @@ diff --git a/arch/arm64/configs/gki_defconfig b/arch/arm64/configs/gki_defconfig
  CONFIG_VFAT_FS=y
 +CONFIG_TMPFS=y
  # CONFIG_EFIVAR_FS is not set
- CONFIG_SDCARD_FS=y
  CONFIG_PSTORE=y
+ CONFIG_PSTORE_CONSOLE=y
