@@ -372,7 +372,7 @@ diff --git a/block/bio.c b/block/bio.c
 diff --git a/block/blk-core.c b/block/blk-core.c
 --- a/block/blk-core.c
 +++ b/block/blk-core.c
-@@ -1123,14 +1123,11 @@ blk_qc_t direct_make_request(struct bio *bio)
+@@ -1120,14 +1120,11 @@ blk_qc_t direct_make_request(struct bio *bio)
  {
  	struct request_queue *q = bio->bi_disk->queue;
  	bool nowait = bio->bi_opf & REQ_NOWAIT;
@@ -388,7 +388,7 @@ diff --git a/block/blk-core.c b/block/blk-core.c
  	if (unlikely(blk_queue_enter(q, nowait ? BLK_MQ_REQ_NOWAIT : 0))) {
  		if (nowait && !blk_queue_dying(q))
  			bio_wouldblock_error(bio);
-@@ -1139,7 +1136,8 @@ blk_qc_t direct_make_request(struct bio *bio)
+@@ -1136,7 +1133,8 @@ blk_qc_t direct_make_request(struct bio *bio)
  		return BLK_QC_T_NONE;
  	}
  
@@ -398,7 +398,7 @@ diff --git a/block/blk-core.c b/block/blk-core.c
  	blk_queue_exit(q);
  	return ret;
  }
-@@ -1810,8 +1808,8 @@ int __init blk_dev_init(void)
+@@ -1807,8 +1805,8 @@ int __init blk_dev_init(void)
  	if (bio_crypt_ctx_init() < 0)
  		panic("Failed to allocate mem for bio crypt ctxs\n");
  

@@ -1,8 +1,8 @@
 #
 # android-mainline patches
 #
-# Applies onto upstream 9cb1fd0efd19 Linux v5.7-rc7
-# Matches android-mainline 194a1bf09a79 ("ANDROID: net: bpf: permit redirect from ingress L3 to egress L2 devices at near max mtu")
+# Applies onto upstream 3d77e6a8804a Linux v5.7
+# Matches android-mainline 19f96e1cff3c ("Merge 5.7 into android-mainline")
 #
 Revert-security-lockdown-selinux-implement-SELinux-lockdown.patch
 Revert-drm-virtio-fix-DRM_FORMAT_-handling.patch
