@@ -2,7 +2,7 @@
 # android-mainline patches
 #
 # Applies onto upstream 729ea4e06420 Linux v5.7-214-g729ea4e06420
-# Matches android-mainline b1692cbd8d09 ("Merge 729ea4e06420 ("Merge tag 'i3c/for-5.8' of git://git.kernel.org/pub/scm/linux/kernel/git/i3c/linux") into android-mainline")
+# Matches android-mainline 21e6d932da37 ("ANDROID: Incremental fs: Cache successful hash calculations")
 #
 Revert-security-lockdown-selinux-implement-SELinux-lockdown.patch
 Revert-drm-virtio-fix-DRM_FORMAT_-handling.patch
@@ -528,3 +528,4 @@ ANDROID-scsi-ufs-Handle-clocks-when-lrbp-fails.patch
 ANDROID-net-bpf-permit-redirect-from-ingress-L3-to-egress-L2-devices-at-near-max-mtu.patch
 ANDROID-GKI-Enable-SYS_HYPERVISOR.patch
 ANDROID-scs-fix-recursive-spinlock-in-scs_check_usage.patch
+ANDROID-Incremental-fs-Cache-successful-hash-calculations.patch
