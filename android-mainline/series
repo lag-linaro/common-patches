@@ -1,8 +1,8 @@
 #
 # android-mainline patches
 #
-# Applies onto upstream 3d77e6a8804a Linux v5.7
-# Matches android-mainline c0ff3cd9d7d5 ("ANDROID: scs: fix recursive spinlock in scs_check_usage")
+# Applies onto upstream d30fc97c6068 Linux v5.7-212-gd30fc97c6068
+# Matches android-mainline 93020d5cf9d6 ("Merge d30fc97c6068 ("Merge tag 'regulator-v5.8' of git://git.kernel.org/pub/scm/linux/kernel/git/broonie/regulator") into android-mainline")
 #
 Revert-security-lockdown-selinux-implement-SELinux-lockdown.patch
 Revert-drm-virtio-fix-DRM_FORMAT_-handling.patch
