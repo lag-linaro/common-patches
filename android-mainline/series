@@ -1,8 +1,8 @@
 #
 # android-mainline patches
 #
-# Applies onto upstream d30fc97c6068 Linux v5.7-212-gd30fc97c6068
-# Matches android-mainline 93020d5cf9d6 ("Merge d30fc97c6068 ("Merge tag 'regulator-v5.8' of git://git.kernel.org/pub/scm/linux/kernel/git/broonie/regulator") into android-mainline")
+# Applies onto upstream 729ea4e06420 Linux v5.7-214-g729ea4e06420
+# Matches android-mainline b1692cbd8d09 ("Merge 729ea4e06420 ("Merge tag 'i3c/for-5.8' of git://git.kernel.org/pub/scm/linux/kernel/git/i3c/linux") into android-mainline")
 #
 Revert-security-lockdown-selinux-implement-SELinux-lockdown.patch
 Revert-drm-virtio-fix-DRM_FORMAT_-handling.patch
