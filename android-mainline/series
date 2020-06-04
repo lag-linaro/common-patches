@@ -2,7 +2,7 @@
 # android-mainline patches
 #
 # Applies onto upstream 3d77e6a8804a Linux v5.7
-# Matches android-mainline 19f96e1cff3c ("Merge 5.7 into android-mainline")
+# Matches android-mainline c0ff3cd9d7d5 ("ANDROID: scs: fix recursive spinlock in scs_check_usage")
 #
 Revert-security-lockdown-selinux-implement-SELinux-lockdown.patch
 Revert-drm-virtio-fix-DRM_FORMAT_-handling.patch
@@ -526,3 +526,5 @@ BACKPORT-FROMLIST-fscrypt-add-support-for-IV_INO_LBLK_32-policies.patch
 ANDROID-fscrypt-handle-direct-I-O-with-IV_INO_LBLK_32.patch
 ANDROID-scsi-ufs-Handle-clocks-when-lrbp-fails.patch
 ANDROID-net-bpf-permit-redirect-from-ingress-L3-to-egress-L2-devices-at-near-max-mtu.patch
+ANDROID-GKI-Enable-SYS_HYPERVISOR.patch
+ANDROID-scs-fix-recursive-spinlock-in-scs_check_usage.patch
