@@ -217,7 +217,7 @@ diff --git a/fs/f2fs/f2fs.h b/fs/f2fs/f2fs.h
 diff --git a/fs/f2fs/hash.c b/fs/f2fs/hash.c
 --- a/fs/f2fs/hash.c
 +++ b/fs/f2fs/hash.c
-@@ -68,8 +68,9 @@ static void str2hashbuf(const unsigned char *msg, size_t len,
+@@ -67,8 +67,9 @@ static void str2hashbuf(const unsigned char *msg, size_t len,
  		*buf++ = pad;
  }
  
@@ -229,7 +229,7 @@ diff --git a/fs/f2fs/hash.c b/fs/f2fs/hash.c
  {
  	__u32 hash;
  	f2fs_hash_t f2fs_hash;
-@@ -79,12 +80,17 @@ static f2fs_hash_t __f2fs_dentry_hash(const struct qstr *name_info,
+@@ -78,12 +79,17 @@ static f2fs_hash_t __f2fs_dentry_hash(const struct qstr *name_info,
  	size_t len = name_info->len;
  
  	/* encrypted bigname case */
@@ -248,7 +248,7 @@ diff --git a/fs/f2fs/hash.c b/fs/f2fs/hash.c
  	/* Initialize the default seed for the hash checksum functions */
  	buf[0] = 0x67452301;
  	buf[1] = 0xefcdab89;
-@@ -106,7 +112,7 @@ static f2fs_hash_t __f2fs_dentry_hash(const struct qstr *name_info,
+@@ -105,7 +111,7 @@ static f2fs_hash_t __f2fs_dentry_hash(const struct qstr *name_info,
  }
  
  f2fs_hash_t f2fs_dentry_hash(const struct inode *dir,
@@ -257,7 +257,7 @@ diff --git a/fs/f2fs/hash.c b/fs/f2fs/hash.c
  {
  #ifdef CONFIG_UNICODE
  	struct f2fs_sb_info *sbi = F2FS_SB(dir->i_sb);
-@@ -114,27 +120,30 @@ f2fs_hash_t f2fs_dentry_hash(const struct inode *dir,
+@@ -113,27 +119,30 @@ f2fs_hash_t f2fs_dentry_hash(const struct inode *dir,
  	int r, dlen;
  	unsigned char *buff;
  	struct qstr folded;

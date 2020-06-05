@@ -1,8 +1,8 @@
 #
 # android-mainline patches
 #
-# Applies onto upstream 729ea4e06420 Linux v5.7-214-g729ea4e06420
-# Matches android-mainline 21e6d932da37 ("ANDROID: Incremental fs: Cache successful hash calculations")
+# Applies onto upstream 81e8c10dac62 Linux v5.7-329-g81e8c10dac62
+# Matches android-mainline 88107615b41e ("Merge 81e8c10dac62 ("Merge branch 'linus' of git://git.kernel.org/pub/scm/linux/kernel/git/herbert/crypto-2.6") into android-mainline")
 #
 Revert-security-lockdown-selinux-implement-SELinux-lockdown.patch
 Revert-drm-virtio-fix-DRM_FORMAT_-handling.patch

@@ -35,7 +35,7 @@ Change-Id: Iaf77f8c5961ecf22e22478701ab0b7fe2025225d
 diff --git a/fs/crypto/fname.c b/fs/crypto/fname.c
 --- a/fs/crypto/fname.c
 +++ b/fs/crypto/fname.c
-@@ -543,7 +543,7 @@ EXPORT_SYMBOL_GPL(fscrypt_fname_siphash);
+@@ -538,7 +538,7 @@ EXPORT_SYMBOL_GPL(fscrypt_fname_siphash);
   * Validate dentries in encrypted directories to make sure we aren't potentially
   * caching stale dentries after a key has been added.
   */
@@ -44,7 +44,7 @@ diff --git a/fs/crypto/fname.c b/fs/crypto/fname.c
  {
  	struct dentry *dir;
  	int err;
-@@ -582,7 +582,4 @@ static int fscrypt_d_revalidate(struct dentry *dentry, unsigned int flags)
+@@ -577,7 +577,4 @@ static int fscrypt_d_revalidate(struct dentry *dentry, unsigned int flags)
  
  	return valid;
  }
