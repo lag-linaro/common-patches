@@ -47,10 +47,10 @@ Signed-off-by: Satya Tangirala <satyat@google.com>
  fs/buffer.c                               |   2 +-
  fs/crypto/crypto.c                        |   2 +-
  fs/crypto/fname.c                         |   4 +-
- fs/crypto/fscrypt_private.h               | 132 ++--
+ fs/crypto/fscrypt_private.h               | 133 ++--
  fs/crypto/inline_crypt.c                  | 299 ++++-----
- fs/crypto/keyring.c                       |   6 +-
- fs/crypto/keysetup.c                      |  94 ++-
+ fs/crypto/keyring.c                       |   7 +-
+ fs/crypto/keysetup.c                      |  75 ++-
  fs/crypto/keysetup_v1.c                   |  16 +-
  fs/ext4/readpage.c                        |   8 +-
  fs/f2fs/data.c                            |  30 +-
@@ -59,7 +59,7 @@ Signed-off-by: Satya Tangirala <satyat@google.com>
  include/linux/blk-crypto.h                |  39 +-
  include/linux/fscrypt.h                   |  34 +-
  include/linux/keyslot-manager.h           |  94 +--
- 32 files changed, 1660 insertions(+), 1571 deletions(-)
+ 32 files changed, 1648 insertions(+), 1566 deletions(-)
  create mode 100644 block/blk-crypto-fallback.c
  create mode 100644 block/blk-crypto-internal.h
 
@@ -3138,7 +3138,7 @@ diff --git a/fs/buffer.c b/fs/buffer.c
 diff --git a/fs/crypto/crypto.c b/fs/crypto/crypto.c
 --- a/fs/crypto/crypto.c
 +++ b/fs/crypto/crypto.c
-@@ -95,7 +95,7 @@ int fscrypt_crypt_block(const struct inode *inode, fscrypt_direction_t rw,
+@@ -100,7 +100,7 @@ int fscrypt_crypt_block(const struct inode *inode, fscrypt_direction_t rw,
  	DECLARE_CRYPTO_WAIT(wait);
  	struct scatterlist dst, src;
  	struct fscrypt_info *ci = inode->i_crypt_info;
@@ -3150,7 +3150,7 @@ diff --git a/fs/crypto/crypto.c b/fs/crypto/crypto.c
 diff --git a/fs/crypto/fname.c b/fs/crypto/fname.c
 --- a/fs/crypto/fname.c
 +++ b/fs/crypto/fname.c
-@@ -112,7 +112,7 @@ int fscrypt_fname_encrypt(const struct inode *inode, const struct qstr *iname,
+@@ -115,7 +115,7 @@ int fscrypt_fname_encrypt(const struct inode *inode, const struct qstr *iname,
  	struct skcipher_request *req = NULL;
  	DECLARE_CRYPTO_WAIT(wait);
  	const struct fscrypt_info *ci = inode->i_crypt_info;
@@ -3159,7 +3159,7 @@ diff --git a/fs/crypto/fname.c b/fs/crypto/fname.c
  	union fscrypt_iv iv;
  	struct scatterlist sg;
  	int res;
-@@ -165,7 +165,7 @@ static int fname_decrypt(const struct inode *inode,
+@@ -171,7 +171,7 @@ static int fname_decrypt(const struct inode *inode,
  	DECLARE_CRYPTO_WAIT(wait);
  	struct scatterlist src_sg, dst_sg;
  	const struct fscrypt_info *ci = inode->i_crypt_info;
@@ -3239,7 +3239,7 @@ diff --git a/fs/crypto/fscrypt_private.h b/fs/crypto/fscrypt_private.h
  	 */
  	struct fscrypt_direct_key *ci_direct_key;
  
-@@ -269,6 +281,7 @@ union fscrypt_iv {
+@@ -271,6 +283,7 @@ union fscrypt_iv {
  		u8 nonce[FS_KEY_DERIVATION_NONCE_SIZE];
  	};
  	u8 raw[FSCRYPT_MAX_IV_SIZE];
@@ -3247,7 +3247,7 @@ diff --git a/fs/crypto/fscrypt_private.h b/fs/crypto/fscrypt_private.h
  };
  
  void fscrypt_generate_iv(union fscrypt_iv *iv, u64 lblk_num,
-@@ -313,49 +326,71 @@ extern void fscrypt_destroy_hkdf(struct fscrypt_hkdf *hkdf);
+@@ -315,49 +328,71 @@ void fscrypt_destroy_hkdf(struct fscrypt_hkdf *hkdf);
  
  /* inline_crypt.c */
  #ifdef CONFIG_FS_ENCRYPTION_INLINE_CRYPT
@@ -3341,37 +3341,41 @@ diff --git a/fs/crypto/fscrypt_private.h b/fs/crypto/fscrypt_private.h
  }
  #endif /* !CONFIG_FS_ENCRYPTION_INLINE_CRYPT */
  
-@@ -448,25 +483,12 @@ struct fscrypt_master_key {
+@@ -450,28 +485,16 @@ struct fscrypt_master_key {
  	struct list_head	mk_decrypted_inodes;
  	spinlock_t		mk_decrypted_inodes_lock;
  
--	/* Crypto API transforms for DIRECT_KEY policies, allocated on-demand */
--	struct crypto_skcipher	*mk_direct_tfms[__FSCRYPT_MODE_MAX + 1];
--
 -	/*
--	 * Crypto API transforms for filesystem-layer implementation of
--	 * IV_INO_LBLK_64 policies, allocated on-demand.
+-	 * Per-mode encryption keys for the various types of encryption policies
+-	 * that use them.  Allocated and derived on-demand.
 -	 */
--	struct crypto_skcipher	*mk_iv_ino_lblk_64_tfms[__FSCRYPT_MODE_MAX + 1];
--
--#ifdef CONFIG_FS_ENCRYPTION_INLINE_CRYPT
--	/* Raw keys for IV_INO_LBLK_64 policies, allocated on-demand */
--	u8			*mk_iv_ino_lblk_64_raw_keys[__FSCRYPT_MODE_MAX + 1];
+-	struct crypto_skcipher *mk_direct_keys[__FSCRYPT_MODE_MAX + 1];
+-	struct crypto_skcipher *mk_iv_ino_lblk_64_keys[__FSCRYPT_MODE_MAX + 1];
+-	struct crypto_skcipher *mk_iv_ino_lblk_32_keys[__FSCRYPT_MODE_MAX + 1];
 +	/* Per-mode keys for DIRECT_KEY policies, allocated on-demand */
 +	struct fscrypt_prepared_key mk_direct_keys[__FSCRYPT_MODE_MAX + 1];
- 
--	/* The data unit size being used for inline encryption */
--	unsigned int		mk_data_unit_size;
++
 +	/* Per-mode keys for IV_INO_LBLK_64 policies, allocated on-demand */
 +	struct fscrypt_prepared_key mk_iv_ino_lblk_64_keys[__FSCRYPT_MODE_MAX + 1];
  
+ 	/* Hash key for inode numbers.  Initialized only when needed. */
+ 	siphash_key_t		mk_ino_hash_key;
+ 	bool			mk_ino_hash_key_initialized;
+ 
+-#ifdef CONFIG_FS_ENCRYPTION_INLINE_CRYPT
+-	/* Raw keys for IV_INO_LBLK_64 policies, allocated on-demand */
+-	u8			*mk_iv_ino_lblk_64_raw_keys[__FSCRYPT_MODE_MAX + 1];
+-
+-	/* The data unit size being used for inline encryption */
+-	unsigned int		mk_data_unit_size;
+-
 -	/* The filesystem's block device */
 -	struct block_device	*mk_bdev;
 -#endif
  } __randomize_layout;
  
  static inline bool
-@@ -521,15 +543,17 @@ struct fscrypt_mode {
+@@ -529,15 +552,17 @@ struct fscrypt_mode {
  	const char *cipher_str;
  	int keysize;
  	int ivsize;
@@ -3382,17 +3386,17 @@ diff --git a/fs/crypto/fscrypt_private.h b/fs/crypto/fscrypt_private.h
  
  extern struct fscrypt_mode fscrypt_modes[];
  
--extern struct crypto_skcipher *
--fscrypt_allocate_skcipher(struct fscrypt_mode *mode, const u8 *raw_key,
--			  const struct inode *inode);
-+extern int fscrypt_prepare_key(struct fscrypt_prepared_key *prep_key,
+-struct crypto_skcipher *fscrypt_allocate_skcipher(struct fscrypt_mode *mode,
+-						  const u8 *raw_key,
+-						  const struct inode *inode);
++int fscrypt_prepare_key(struct fscrypt_prepared_key *prep_key,
 +			       const u8 *raw_key,
 +			       const struct fscrypt_info *ci);
 +
-+extern void fscrypt_destroy_prepared_key(struct fscrypt_prepared_key *prep_key);
++void fscrypt_destroy_prepared_key(struct fscrypt_prepared_key *prep_key);
  
- extern int fscrypt_set_per_file_enc_key(struct fscrypt_info *ci,
- 					const u8 *raw_key);
+ int fscrypt_set_per_file_enc_key(struct fscrypt_info *ci, const u8 *raw_key);
+ 
 diff --git a/fs/crypto/inline_crypt.c b/fs/crypto/inline_crypt.c
 --- a/fs/crypto/inline_crypt.c
 +++ b/fs/crypto/inline_crypt.c
@@ -3834,12 +3838,13 @@ diff --git a/fs/crypto/inline_crypt.c b/fs/crypto/inline_crypt.c
 diff --git a/fs/crypto/keyring.c b/fs/crypto/keyring.c
 --- a/fs/crypto/keyring.c
 +++ b/fs/crypto/keyring.c
-@@ -44,12 +44,10 @@ static void free_master_key(struct fscrypt_master_key *mk)
+@@ -45,13 +45,10 @@ static void free_master_key(struct fscrypt_master_key *mk)
  	wipe_master_key_secret(&mk->mk_secret);
  
  	for (i = 0; i <= __FSCRYPT_MODE_MAX; i++) {
--		crypto_free_skcipher(mk->mk_direct_tfms[i]);
--		crypto_free_skcipher(mk->mk_iv_ino_lblk_64_tfms[i]);
+-		crypto_free_skcipher(mk->mk_direct_keys[i]);
+-		crypto_free_skcipher(mk->mk_iv_ino_lblk_64_keys[i]);
+-		crypto_free_skcipher(mk->mk_iv_ino_lblk_32_keys[i]);
 +		fscrypt_destroy_prepared_key(&mk->mk_direct_keys[i]);
 +		fscrypt_destroy_prepared_key(&mk->mk_iv_ino_lblk_64_keys[i]);
  	}
@@ -3868,7 +3873,7 @@ diff --git a/fs/crypto/keysetup.c b/fs/crypto/keysetup.c
  	},
  };
  
-@@ -63,9 +65,9 @@ select_encryption_mode(const union fscrypt_policy *policy,
+@@ -65,9 +67,9 @@ select_encryption_mode(const union fscrypt_policy *policy,
  }
  
  /* Create a symmetric cipher object for the given encryption mode and key */
@@ -3881,7 +3886,7 @@ diff --git a/fs/crypto/keysetup.c b/fs/crypto/keysetup.c
  {
  	struct crypto_skcipher *tfm;
  	int err;
-@@ -108,33 +110,55 @@ struct crypto_skcipher *fscrypt_allocate_skcipher(struct fscrypt_mode *mode,
+@@ -110,33 +112,54 @@ struct crypto_skcipher *fscrypt_allocate_skcipher(struct fscrypt_mode *mode,
  	return ERR_PTR(err);
  }
  
@@ -3912,15 +3917,15 @@ diff --git a/fs/crypto/keysetup.c b/fs/crypto/keysetup.c
 +	smp_store_release(&prep_key->tfm, tfm);
 +	return 0;
 +}
- 
--	ci->ci_ctfm = tfm;
++
 +/* Destroy a crypto transform object and/or blk-crypto key. */
 +void fscrypt_destroy_prepared_key(struct fscrypt_prepared_key *prep_key)
 +{
 +	crypto_free_skcipher(prep_key->tfm);
 +	fscrypt_destroy_inline_crypt_key(prep_key);
 +}
-+
+ 
+-	ci->ci_ctfm = tfm;
 +/* Given a per-file encryption key, set up the file's crypto transform object */
 +int fscrypt_set_per_file_enc_key(struct fscrypt_info *ci, const u8 *raw_key)
 +{
@@ -3935,79 +3940,62 @@ diff --git a/fs/crypto/keysetup.c b/fs/crypto/keysetup.c
 +				  struct fscrypt_prepared_key *keys,
  				  u8 hkdf_context, bool include_fs_uuid)
  {
-+	static DEFINE_MUTEX(mode_key_setup_mutex);
  	const struct inode *inode = ci->ci_inode;
  	const struct super_block *sb = inode->i_sb;
  	struct fscrypt_mode *mode = ci->ci_mode;
  	const u8 mode_num = mode - fscrypt_modes;
--	struct crypto_skcipher *tfm, *prev_tfm;
+-	struct crypto_skcipher *tfm;
 +	struct fscrypt_prepared_key *prep_key;
  	u8 mode_key[FSCRYPT_MAX_KEY_SIZE];
  	u8 hkdf_info[sizeof(mode_num) + sizeof(sb->s_uuid)];
  	unsigned int hkdf_infolen = 0;
-@@ -143,10 +167,16 @@ static int setup_per_mode_enc_key(struct fscrypt_info *ci,
+@@ -145,16 +168,15 @@ static int setup_per_mode_enc_key(struct fscrypt_info *ci,
  	if (WARN_ON(mode_num > __FSCRYPT_MODE_MAX))
  		return -EINVAL;
  
--	/* pairs with cmpxchg() below */
+-	/* pairs with smp_store_release() below */
 -	tfm = READ_ONCE(tfms[mode_num]);
--	if (likely(tfm != NULL))
--		goto done;
+-	if (likely(tfm != NULL)) {
+-		ci->ci_ctfm = tfm;
 +	prep_key = &keys[mode_num];
 +	if (fscrypt_is_key_prepared(prep_key, ci)) {
 +		ci->ci_key = *prep_key;
-+		return 0;
-+	}
-+
-+	mutex_lock(&mode_key_setup_mutex);
-+
+ 		return 0;
+ 	}
+ 
+ 	mutex_lock(&fscrypt_mode_key_setup_mutex);
+ 
+-	if (tfms[mode_num])
 +	if (fscrypt_is_key_prepared(prep_key, ci))
-+		goto done_unlock;
+ 		goto done_unlock;
  
  	BUILD_BUG_ON(sizeof(mode_num) != 1);
- 	BUILD_BUG_ON(sizeof(sb->s_uuid) != 16);
-@@ -161,21 +191,17 @@ static int setup_per_mode_enc_key(struct fscrypt_info *ci,
- 				  hkdf_context, hkdf_info, hkdf_infolen,
+@@ -171,19 +193,16 @@ static int setup_per_mode_enc_key(struct fscrypt_info *ci,
  				  mode_key, mode->keysize);
  	if (err)
--		return err;
+ 		goto out_unlock;
 -	tfm = fscrypt_allocate_skcipher(mode, mode_key, inode);
-+		goto out_unlock;
 +	err = fscrypt_prepare_key(prep_key, mode_key, ci);
  	memzero_explicit(mode_key, mode->keysize);
--	if (IS_ERR(tfm))
--		return PTR_ERR(tfm);
--
--	/* pairs with READ_ONCE() above */
--	prev_tfm = cmpxchg(&tfms[mode_num], NULL, tfm);
--	if (prev_tfm != NULL) {
--		crypto_free_skcipher(tfm);
--		tfm = prev_tfm;
--	}
--done:
--	ci->ci_ctfm = tfm;
--	return 0;
+-	if (IS_ERR(tfm)) {
+-		err = PTR_ERR(tfm);
 +	if (err)
-+		goto out_unlock;
-+done_unlock:
+ 		goto out_unlock;
+-	}
+-	/* pairs with READ_ONCE() above */
+-	smp_store_release(&tfms[mode_num], tfm);
+ done_unlock:
+-	ci->ci_ctfm = tfm;
 +	ci->ci_key = *prep_key;
-+	err = 0;
-+out_unlock:
++
+ 	err = 0;
+ out_unlock:
+-	mutex_unlock(&fscrypt_mode_key_setup_mutex);
 +	mutex_unlock(&mode_key_setup_mutex);
-+	return err;
+ 	return err;
  }
  
- int fscrypt_derive_dirhash_key(struct fscrypt_info *ci,
-@@ -207,7 +233,7 @@ static int fscrypt_setup_v2_file_key(struct fscrypt_info *ci,
- 		 * encryption key.  This ensures that the master key is
- 		 * consistently used only for HKDF, avoiding key reuse issues.
- 		 */
--		err = setup_per_mode_enc_key(ci, mk, mk->mk_direct_tfms,
-+		err = setup_per_mode_enc_key(ci, mk, mk->mk_direct_keys,
- 					     HKDF_CONTEXT_DIRECT_KEY, false);
- 	} else if (ci->ci_policy.v2.flags &
- 		   FSCRYPT_POLICY_FLAG_IV_INO_LBLK_64) {
-@@ -265,6 +291,8 @@ static int setup_file_encryption_key(struct fscrypt_info *ci,
+@@ -314,6 +333,8 @@ static int setup_file_encryption_key(struct fscrypt_info *ci,
  	struct fscrypt_key_specifier mk_spec;
  	int err;
  
@@ -4016,7 +4004,7 @@ diff --git a/fs/crypto/keysetup.c b/fs/crypto/keysetup.c
  	switch (ci->ci_policy.version) {
  	case FSCRYPT_POLICY_V1:
  		mk_spec.type = FSCRYPT_KEY_SPEC_TYPE_DESCRIPTOR;
-@@ -356,10 +384,8 @@ static void put_crypt_info(struct fscrypt_info *ci)
+@@ -405,10 +426,8 @@ static void put_crypt_info(struct fscrypt_info *ci)
  
  	if (ci->ci_direct_key)
  		fscrypt_put_direct_key(ci->ci_direct_key);
@@ -4200,7 +4188,7 @@ diff --git a/fs/f2fs/data.c b/fs/f2fs/data.c
 diff --git a/fs/f2fs/super.c b/fs/f2fs/super.c
 --- a/fs/f2fs/super.c
 +++ b/fs/f2fs/super.c
-@@ -2446,6 +2446,25 @@ static bool f2fs_inline_crypt_enabled(struct super_block *sb)
+@@ -2485,6 +2485,25 @@ static bool f2fs_inline_crypt_enabled(struct super_block *sb)
  	return F2FS_OPTION(F2FS_SB(sb)).inlinecrypt;
  }
  
@@ -4226,7 +4214,7 @@ diff --git a/fs/f2fs/super.c b/fs/f2fs/super.c
  static const struct fscrypt_operations f2fs_cryptops = {
  	.key_prefix		= "f2fs:",
  	.get_context		= f2fs_get_context,
-@@ -2456,6 +2475,8 @@ static const struct fscrypt_operations f2fs_cryptops = {
+@@ -2495,6 +2514,8 @@ static const struct fscrypt_operations f2fs_cryptops = {
  	.has_stable_inodes	= f2fs_has_stable_inodes,
  	.get_ino_and_lblk_bits	= f2fs_get_ino_and_lblk_bits,
  	.inline_crypt_enabled	= f2fs_inline_crypt_enabled,
@@ -4654,7 +4642,7 @@ diff --git a/include/linux/blk-crypto.h b/include/linux/blk-crypto.h
 diff --git a/include/linux/fscrypt.h b/include/linux/fscrypt.h
 --- a/include/linux/fscrypt.h
 +++ b/include/linux/fscrypt.h
-@@ -65,6 +65,9 @@ struct fscrypt_operations {
+@@ -70,6 +70,9 @@ struct fscrypt_operations {
  	void (*get_ino_and_lblk_bits)(struct super_block *sb,
  				      int *ino_bits_ret, int *lblk_bits_ret);
  	bool (*inline_crypt_enabled)(struct super_block *sb);
@@ -4664,7 +4652,7 @@ diff --git a/include/linux/fscrypt.h b/include/linux/fscrypt.h
  };
  
  static inline bool fscrypt_has_encryption_key(const struct inode *inode)
-@@ -524,12 +527,13 @@ extern bool fscrypt_inode_uses_inline_crypto(const struct inode *inode);
+@@ -558,12 +561,13 @@ extern bool fscrypt_inode_uses_inline_crypto(const struct inode *inode);
  
  extern bool fscrypt_inode_uses_fs_layer_crypto(const struct inode *inode);
  
@@ -4683,7 +4671,7 @@ diff --git a/include/linux/fscrypt.h b/include/linux/fscrypt.h
  
  extern bool fscrypt_mergeable_bio(struct bio *bio, const struct inode *inode,
  				  u64 next_lblk);
-@@ -548,20 +552,14 @@ static inline bool fscrypt_inode_uses_fs_layer_crypto(const struct inode *inode)
+@@ -582,20 +586,14 @@ static inline bool fscrypt_inode_uses_fs_layer_crypto(const struct inode *inode)
  	return IS_ENCRYPTED(inode) && S_ISREG(inode->i_mode);
  }
  

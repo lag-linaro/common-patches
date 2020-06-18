@@ -19,7 +19,7 @@ Change-Id: I51e23761d3c898a0bf612048c8febd98a0817ae3
 diff --git a/fs/crypto/fname.c b/fs/crypto/fname.c
 --- a/fs/crypto/fname.c
 +++ b/fs/crypto/fname.c
-@@ -577,4 +577,4 @@ int fscrypt_d_revalidate(struct dentry *dentry, unsigned int flags)
+@@ -601,4 +601,4 @@ int fscrypt_d_revalidate(struct dentry *dentry, unsigned int flags)
  
  	return valid;
  }

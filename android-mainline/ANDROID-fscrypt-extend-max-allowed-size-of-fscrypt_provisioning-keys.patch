@@ -24,7 +24,7 @@ Change-Id: If0cfafa34da08a559190928056086d3e772b29f8
 diff --git a/fs/crypto/keyring.c b/fs/crypto/keyring.c
 --- a/fs/crypto/keyring.c
 +++ b/fs/crypto/keyring.c
-@@ -469,8 +469,10 @@ static int fscrypt_provisioning_key_preparse(struct key_preparsed_payload *prep)
+@@ -513,8 +513,10 @@ static int fscrypt_provisioning_key_preparse(struct key_preparsed_payload *prep)
  {
  	const struct fscrypt_provisioning_key_payload *payload = prep->data;
  
@@ -36,7 +36,7 @@ diff --git a/fs/crypto/keyring.c b/fs/crypto/keyring.c
  		return -EINVAL;
  
  	if (payload->type != FSCRYPT_KEY_SPEC_TYPE_DESCRIPTOR &&
-@@ -622,9 +624,15 @@ int fscrypt_ioctl_add_key(struct file *filp, void __user *_uarg)
+@@ -678,9 +680,15 @@ int fscrypt_ioctl_add_key(struct file *filp, void __user *_uarg)
  		err = get_keyring_key(arg.key_id, arg.key_spec.type, &secret);
  		if (err)
  			goto out_wipe_secret;

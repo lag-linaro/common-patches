@@ -38,9 +38,9 @@ Link: https://patchwork.kernel.org/patch/11214761/
  fs/crypto/fscrypt_private.h |  70 +++++++
  fs/crypto/inline_crypt.c    | 390 ++++++++++++++++++++++++++++++++++++
  fs/crypto/keyring.c         |   2 +
- fs/crypto/keysetup.c        |  10 +-
+ fs/crypto/keysetup.c        |   8 +-
  include/linux/fscrypt.h     |  60 ++++++
- 8 files changed, 590 insertions(+), 2 deletions(-)
+ 8 files changed, 589 insertions(+), 1 deletion(-)
  create mode 100644 fs/crypto/inline_crypt.c
 
 diff --git a/fs/crypto/Kconfig b/fs/crypto/Kconfig
@@ -162,9 +162,9 @@ diff --git a/fs/crypto/fscrypt_private.h b/fs/crypto/fscrypt_private.h
  	/* True if the key should be freed when this fscrypt_info is freed */
  	bool ci_owns_key;
  
-@@ -300,6 +311,54 @@ extern int fscrypt_hkdf_expand(const struct fscrypt_hkdf *hkdf, u8 context,
+@@ -302,6 +313,54 @@ int fscrypt_hkdf_expand(const struct fscrypt_hkdf *hkdf, u8 context,
  
- extern void fscrypt_destroy_hkdf(struct fscrypt_hkdf *hkdf);
+ void fscrypt_destroy_hkdf(struct fscrypt_hkdf *hkdf);
  
 +/* inline_crypt.c */
 +#ifdef CONFIG_FS_ENCRYPTION_INLINE_CRYPT
@@ -217,9 +217,9 @@ diff --git a/fs/crypto/fscrypt_private.h b/fs/crypto/fscrypt_private.h
  /* keyring.c */
  
  /*
-@@ -398,6 +457,16 @@ struct fscrypt_master_key {
- 	 */
- 	struct crypto_skcipher	*mk_iv_ino_lblk_64_tfms[__FSCRYPT_MODE_MAX + 1];
+@@ -403,6 +462,16 @@ struct fscrypt_master_key {
+ 	siphash_key_t		mk_ino_hash_key;
+ 	bool			mk_ino_hash_key_initialized;
  
 +#ifdef CONFIG_FS_ENCRYPTION_INLINE_CRYPT
 +	/* Raw keys for IV_INO_LBLK_64 policies, allocated on-demand */
@@ -234,7 +234,7 @@ diff --git a/fs/crypto/fscrypt_private.h b/fs/crypto/fscrypt_private.h
  } __randomize_layout;
  
  static inline bool
-@@ -452,6 +521,7 @@ struct fscrypt_mode {
+@@ -460,6 +529,7 @@ struct fscrypt_mode {
  	const char *cipher_str;
  	int keysize;
  	int ivsize;
@@ -641,8 +641,8 @@ index 000000000000..e41c6d66ff0d
 diff --git a/fs/crypto/keyring.c b/fs/crypto/keyring.c
 --- a/fs/crypto/keyring.c
 +++ b/fs/crypto/keyring.c
-@@ -48,6 +48,8 @@ static void free_master_key(struct fscrypt_master_key *mk)
- 		crypto_free_skcipher(mk->mk_iv_ino_lblk_64_tfms[i]);
+@@ -50,6 +50,8 @@ static void free_master_key(struct fscrypt_master_key *mk)
+ 		crypto_free_skcipher(mk->mk_iv_ino_lblk_32_keys[i]);
  	}
  
 +	fscrypt_evict_inline_crypt_keys(mk);
@@ -661,7 +661,7 @@ diff --git a/fs/crypto/keysetup.c b/fs/crypto/keysetup.c
  	},
  	[FSCRYPT_MODE_AES_256_CTS] = {
  		.friendly_name = "AES-256-CTS-CBC",
-@@ -112,6 +113,9 @@ int fscrypt_set_per_file_enc_key(struct fscrypt_info *ci, const u8 *raw_key)
+@@ -114,6 +115,9 @@ int fscrypt_set_per_file_enc_key(struct fscrypt_info *ci, const u8 *raw_key)
  {
  	struct crypto_skcipher *tfm;
  
@@ -671,16 +671,7 @@ diff --git a/fs/crypto/keysetup.c b/fs/crypto/keysetup.c
  	tfm = fscrypt_allocate_skcipher(ci->ci_mode, raw_key, ci->ci_inode);
  	if (IS_ERR(tfm))
  		return PTR_ERR(tfm);
-@@ -213,7 +217,7 @@ static int fscrypt_setup_v2_file_key(struct fscrypt_info *ci,
- 		 * the IVs.  This format is optimized for use with inline
- 		 * encryption hardware compliant with the UFS or eMMC standards.
- 		 */
--		err = setup_per_mode_enc_key(ci, mk, mk->mk_iv_ino_lblk_64_tfms,
-+		err = setup_per_mode_enc_key(ci, mk, mk->mk_iv_ino_lblk_64_keys,
- 					     HKDF_CONTEXT_IV_INO_LBLK_64_KEY,
- 					     true);
- 	} else {
-@@ -352,8 +356,10 @@ static void put_crypt_info(struct fscrypt_info *ci)
+@@ -401,8 +405,10 @@ static void put_crypt_info(struct fscrypt_info *ci)
  
  	if (ci->ci_direct_key)
  		fscrypt_put_direct_key(ci->ci_direct_key);
@@ -695,7 +686,7 @@ diff --git a/fs/crypto/keysetup.c b/fs/crypto/keysetup.c
 diff --git a/include/linux/fscrypt.h b/include/linux/fscrypt.h
 --- a/include/linux/fscrypt.h
 +++ b/include/linux/fscrypt.h
-@@ -64,6 +64,7 @@ struct fscrypt_operations {
+@@ -69,6 +69,7 @@ struct fscrypt_operations {
  	bool (*has_stable_inodes)(struct super_block *sb);
  	void (*get_ino_and_lblk_bits)(struct super_block *sb,
  				      int *ino_bits_ret, int *lblk_bits_ret);
@@ -703,7 +694,7 @@ diff --git a/include/linux/fscrypt.h b/include/linux/fscrypt.h
  };
  
  static inline bool fscrypt_has_encryption_key(const struct inode *inode)
-@@ -503,6 +504,65 @@ static inline void fscrypt_set_ops(struct super_block *sb,
+@@ -537,6 +538,65 @@ static inline void fscrypt_set_ops(struct super_block *sb,
  
  #endif	/* !CONFIG_FS_ENCRYPTION */
  
@@ -767,5 +758,5 @@ diff --git a/include/linux/fscrypt.h b/include/linux/fscrypt.h
 +#endif /* !CONFIG_FS_ENCRYPTION_INLINE_CRYPT */
 +
  /**
-  * fscrypt_require_key - require an inode's encryption key
+  * fscrypt_require_key() - require an inode's encryption key
   * @inode: the inode we need the key for

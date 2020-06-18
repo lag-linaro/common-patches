@@ -20,13 +20,14 @@ Signed-off-by: Barani Muthukumaran <bmuthuku@codeaurora.org>
  block/blk-crypto-fallback.c   |  6 ++++++
  block/blk-crypto.c            | 17 +++++++++++++----
  drivers/md/dm-default-key.c   |  2 +-
- fs/crypto/fscrypt_private.h   |  3 +++
+ fs/crypto/fscrypt_private.h   |  6 ++++--
  fs/crypto/inline_crypt.c      |  3 ++-
+ fs/crypto/keyring.c           |  9 ++++-----
  fs/crypto/keysetup.c          | 14 +++++++-------
  fs/crypto/keysetup_v1.c       |  2 +-
  include/linux/bio-crypt-ctx.h |  3 +++
  include/linux/blk-crypto.h    |  1 +
- 9 files changed, 37 insertions(+), 14 deletions(-)
+ 10 files changed, 42 insertions(+), 21 deletions(-)
 
 diff --git a/block/blk-crypto-fallback.c b/block/blk-crypto-fallback.c
 --- a/block/blk-crypto-fallback.c
@@ -107,7 +108,7 @@ diff --git a/drivers/md/dm-default-key.c b/drivers/md/dm-default-key.c
 diff --git a/fs/crypto/fscrypt_private.h b/fs/crypto/fscrypt_private.h
 --- a/fs/crypto/fscrypt_private.h
 +++ b/fs/crypto/fscrypt_private.h
-@@ -339,6 +339,7 @@ extern int fscrypt_prepare_inline_crypt_key(
+@@ -341,6 +341,7 @@ extern int fscrypt_prepare_inline_crypt_key(
  					struct fscrypt_prepared_key *prep_key,
  					const u8 *raw_key,
  					unsigned int raw_key_size,
@@ -115,7 +116,7 @@ diff --git a/fs/crypto/fscrypt_private.h b/fs/crypto/fscrypt_private.h
  					const struct fscrypt_info *ci);
  
  extern void fscrypt_destroy_inline_crypt_key(
-@@ -383,6 +384,7 @@ static inline bool fscrypt_using_inline_encryption(
+@@ -385,6 +386,7 @@ static inline bool fscrypt_using_inline_encryption(
  static inline int
  fscrypt_prepare_inline_crypt_key(struct fscrypt_prepared_key *prep_key,
  				 const u8 *raw_key, unsigned int raw_key_size,
@@ -123,14 +124,17 @@ diff --git a/fs/crypto/fscrypt_private.h b/fs/crypto/fscrypt_private.h
  				 const struct fscrypt_info *ci)
  {
  	WARN_ON(1);
-@@ -577,6 +579,7 @@ extern struct fscrypt_mode fscrypt_modes[];
+@@ -585,8 +587,8 @@ struct fscrypt_mode {
+ extern struct fscrypt_mode fscrypt_modes[];
  
- extern int fscrypt_prepare_key(struct fscrypt_prepared_key *prep_key,
- 			       const u8 *raw_key, unsigned int raw_key_size,
-+			       bool is_hw_wrapped,
- 			       const struct fscrypt_info *ci);
+ int fscrypt_prepare_key(struct fscrypt_prepared_key *prep_key,
+-			       const u8 *raw_key, unsigned int raw_key_size,
+-			       const struct fscrypt_info *ci);
++			const u8 *raw_key, unsigned int raw_key_size,
++			bool is_hw_wrapped, const struct fscrypt_info *ci);
  
- extern void fscrypt_destroy_prepared_key(struct fscrypt_prepared_key *prep_key);
+ void fscrypt_destroy_prepared_key(struct fscrypt_prepared_key *prep_key);
+ 
 diff --git a/fs/crypto/inline_crypt.c b/fs/crypto/inline_crypt.c
 --- a/fs/crypto/inline_crypt.c
 +++ b/fs/crypto/inline_crypt.c
@@ -151,10 +155,32 @@ diff --git a/fs/crypto/inline_crypt.c b/fs/crypto/inline_crypt.c
  	if (err) {
  		fscrypt_err(inode, "error %d initializing blk-crypto key", err);
  		goto fail;
+diff --git a/fs/crypto/keyring.c b/fs/crypto/keyring.c
+--- a/fs/crypto/keyring.c
++++ b/fs/crypto/keyring.c
+@@ -681,14 +681,13 @@ int fscrypt_ioctl_add_key(struct file *filp, void __user *_uarg)
+ 		if (err)
+ 			goto out_wipe_secret;
+ 		err = -EINVAL;
+-		if (!(arg.__flags & __FSCRYPT_ADD_KEY_FLAG_HW_WRAPPED) &&
+-		    secret.size > FSCRYPT_MAX_KEY_SIZE)
++		if (secret.size > FSCRYPT_MAX_KEY_SIZE && !secret.is_hw_wrapped)
+ 			goto out_wipe_secret;
+ 	} else {
+ 		if (arg.raw_size < FSCRYPT_MIN_KEY_SIZE ||
+-		    arg.raw_size >
+-		    ((arg.__flags & __FSCRYPT_ADD_KEY_FLAG_HW_WRAPPED) ?
+-		     FSCRYPT_MAX_HW_WRAPPED_KEY_SIZE : FSCRYPT_MAX_KEY_SIZE))
++		    arg.raw_size > (secret.is_hw_wrapped ?
++				    FSCRYPT_MAX_HW_WRAPPED_KEY_SIZE :
++				    FSCRYPT_MAX_KEY_SIZE))
+ 			return -EINVAL;
+ 		secret.size = arg.raw_size;
+ 		err = -EFAULT;
 diff --git a/fs/crypto/keysetup.c b/fs/crypto/keysetup.c
 --- a/fs/crypto/keysetup.c
 +++ b/fs/crypto/keysetup.c
-@@ -117,15 +117,15 @@ fscrypt_allocate_skcipher(struct fscrypt_mode *mode, const u8 *raw_key,
+@@ -119,15 +119,15 @@ fscrypt_allocate_skcipher(struct fscrypt_mode *mode, const u8 *raw_key,
   */
  int fscrypt_prepare_key(struct fscrypt_prepared_key *prep_key,
  			const u8 *raw_key, unsigned int raw_key_size,
@@ -173,7 +199,7 @@ diff --git a/fs/crypto/keysetup.c b/fs/crypto/keysetup.c
  		return -EINVAL;
  
  	tfm = fscrypt_allocate_skcipher(ci->ci_mode, raw_key, ci->ci_inode);
-@@ -150,8 +150,8 @@ void fscrypt_destroy_prepared_key(struct fscrypt_prepared_key *prep_key)
+@@ -152,8 +152,8 @@ void fscrypt_destroy_prepared_key(struct fscrypt_prepared_key *prep_key)
  int fscrypt_set_per_file_enc_key(struct fscrypt_info *ci, const u8 *raw_key)
  {
  	ci->ci_owns_key = true;
@@ -184,7 +210,7 @@ diff --git a/fs/crypto/keysetup.c b/fs/crypto/keysetup.c
  }
  
  static int setup_per_mode_enc_key(struct fscrypt_info *ci,
-@@ -202,7 +202,7 @@ static int setup_per_mode_enc_key(struct fscrypt_info *ci,
+@@ -203,7 +203,7 @@ static int setup_per_mode_enc_key(struct fscrypt_info *ci,
  			}
  		}
  		err = fscrypt_prepare_key(prep_key, mk->mk_secret.raw,
@@ -193,7 +219,7 @@ diff --git a/fs/crypto/keysetup.c b/fs/crypto/keysetup.c
  		if (err)
  			goto out_unlock;
  	} else {
-@@ -221,7 +221,7 @@ static int setup_per_mode_enc_key(struct fscrypt_info *ci,
+@@ -222,7 +222,7 @@ static int setup_per_mode_enc_key(struct fscrypt_info *ci,
  		if (err)
  			goto out_unlock;
  		err = fscrypt_prepare_key(prep_key, mode_key, mode->keysize,

@@ -655,7 +655,7 @@ diff --git a/include/linux/blk_types.h b/include/linux/blk_types.h
 diff --git a/include/linux/fscrypt.h b/include/linux/fscrypt.h
 --- a/include/linux/fscrypt.h
 +++ b/include/linux/fscrypt.h
-@@ -575,6 +575,20 @@ static inline bool fscrypt_mergeable_bio_bh(struct bio *bio,
+@@ -609,6 +609,20 @@ static inline bool fscrypt_mergeable_bio_bh(struct bio *bio,
  }
  #endif /* !CONFIG_FS_ENCRYPTION_INLINE_CRYPT */
  
@@ -674,5 +674,5 @@ diff --git a/include/linux/fscrypt.h b/include/linux/fscrypt.h
 +#endif
 +
  /**
-  * fscrypt_require_key - require an inode's encryption key
+  * fscrypt_require_key() - require an inode's encryption key
   * @inode: the inode we need the key for

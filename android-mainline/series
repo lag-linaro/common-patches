@@ -1,8 +1,8 @@
 #
 # android-mainline patches
 #
-# Applies onto upstream 81e8c10dac62 Linux v5.7-329-g81e8c10dac62
-# Matches android-mainline c285ecc449cd ("FROMLIST: esp: select CRYPTO_SEQIV")
+# Applies onto upstream afdb0f2ec57d Linux v5.7-374-gafdb0f2ec57d
+# Matches android-mainline f76a7cf1872f ("Merge afdb0f2ec57d ("Merge tag 'fscrypt-for-linus' of git://git.kernel.org/pub/scm/fs/fscrypt/fscrypt") into android-mainline")
 #
 Revert-security-lockdown-selinux-implement-SELinux-lockdown.patch
 Revert-drm-virtio-fix-DRM_FORMAT_-handling.patch

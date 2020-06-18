@@ -42,7 +42,7 @@ Signed-off-by: Eric Biggers <ebiggers@google.com>
 diff --git a/fs/crypto/crypto.c b/fs/crypto/crypto.c
 --- a/fs/crypto/crypto.c
 +++ b/fs/crypto/crypto.c
-@@ -68,6 +68,14 @@ void fscrypt_free_bounce_page(struct page *bounce_page)
+@@ -69,6 +69,14 @@ void fscrypt_free_bounce_page(struct page *bounce_page)
  }
  EXPORT_SYMBOL(fscrypt_free_bounce_page);
  
@@ -233,7 +233,7 @@ diff --git a/fs/iomap/direct-io.c b/fs/iomap/direct-io.c
 diff --git a/include/linux/fscrypt.h b/include/linux/fscrypt.h
 --- a/include/linux/fscrypt.h
 +++ b/include/linux/fscrypt.h
-@@ -542,6 +542,11 @@ extern bool fscrypt_mergeable_bio(struct bio *bio, const struct inode *inode,
+@@ -576,6 +576,11 @@ extern bool fscrypt_mergeable_bio(struct bio *bio, const struct inode *inode,
  extern bool fscrypt_mergeable_bio_bh(struct bio *bio,
  				     const struct buffer_head *next_bh);
  
@@ -245,7 +245,7 @@ diff --git a/include/linux/fscrypt.h b/include/linux/fscrypt.h
  #else /* CONFIG_FS_ENCRYPTION_INLINE_CRYPT */
  static inline bool fscrypt_inode_uses_inline_crypto(const struct inode *inode)
  {
-@@ -574,6 +579,20 @@ static inline bool fscrypt_mergeable_bio_bh(struct bio *bio,
+@@ -608,6 +613,20 @@ static inline bool fscrypt_mergeable_bio_bh(struct bio *bio,
  {
  	return true;
  }
