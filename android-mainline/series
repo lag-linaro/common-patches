@@ -1,8 +1,8 @@
 #
 # android-mainline patches
 #
-# Applies onto upstream 062ea674ae8a Linux v5.7-1283-g062ea674ae8a
-# Matches android-mainline e93a57129f61 ("Merge 062ea674ae8a ("Merge branch 'uaccess.__copy_to_user' of git://git.kernel.org/pub/scm/linux/kernel/git/viro/vfs") into android-mainline")
+# Applies onto upstream f359287765c0 Linux v5.7-1305-gf359287765c0
+# Matches android-mainline 6663438904a3 ("Merge f359287765c0 ("Merge branch 'from-miklos' of git://git.kernel.org/pub/scm/linux/kernel/git/viro/vfs") into android-mainline")
 #
 Revert-security-lockdown-selinux-implement-SELinux-lockdown.patch
 Revert-drm-virtio-fix-DRM_FORMAT_-handling.patch

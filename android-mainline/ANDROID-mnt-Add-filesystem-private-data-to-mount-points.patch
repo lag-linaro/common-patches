@@ -50,7 +50,7 @@ diff --git a/fs/namespace.c b/fs/namespace.c
  	kfree_const(mnt->mnt_devname);
  #ifdef CONFIG_SMP
  	free_percpu(mnt->mnt_pcp);
-@@ -933,14 +935,26 @@ static struct mount *skip_mnt_tree(struct mount *p)
+@@ -952,14 +954,26 @@ static struct mount *skip_mnt_tree(struct mount *p)
  struct vfsmount *vfs_create_mount(struct fs_context *fc)
  {
  	struct mount *mnt;
@@ -77,7 +77,7 @@ diff --git a/fs/namespace.c b/fs/namespace.c
  	if (fc->sb_flags & SB_KERNMOUNT)
  		mnt->mnt.mnt_flags = MNT_INTERNAL;
  
-@@ -1024,6 +1038,14 @@ static struct mount *clone_mnt(struct mount *old, struct dentry *root,
+@@ -1043,6 +1057,14 @@ static struct mount *clone_mnt(struct mount *old, struct dentry *root,
  	if (!mnt)
  		return ERR_PTR(-ENOMEM);
  
@@ -92,7 +92,7 @@ diff --git a/fs/namespace.c b/fs/namespace.c
  	if (flag & (CL_SLAVE | CL_PRIVATE | CL_SHARED_TO_SLAVE))
  		mnt->mnt_group_id = 0; /* not a peer of original */
  	else
-@@ -2551,7 +2573,15 @@ static int do_remount(struct path *path, int ms_flags, int sb_flags,
+@@ -2604,7 +2626,15 @@ static int do_remount(struct path *path, int ms_flags, int sb_flags,
  		err = -EPERM;
  		if (ns_capable(sb->s_user_ns, CAP_SYS_ADMIN)) {
  			err = reconfigure_super(fc);
@@ -146,7 +146,7 @@ diff --git a/fs/pnode.h b/fs/pnode.h
 diff --git a/include/linux/fs.h b/include/linux/fs.h
 --- a/include/linux/fs.h
 +++ b/include/linux/fs.h
-@@ -1961,6 +1961,9 @@ struct super_operations {
+@@ -1965,6 +1965,9 @@ struct super_operations {
  	int (*unfreeze_fs) (struct super_block *);
  	int (*statfs) (struct dentry *, struct kstatfs *);
  	int (*remount_fs) (struct super_block *, int *, char *);
@@ -156,7 +156,7 @@ diff --git a/include/linux/fs.h b/include/linux/fs.h
  	void (*umount_begin) (struct super_block *);
  
  	int (*show_options)(struct seq_file *, struct dentry *);
-@@ -2245,6 +2248,7 @@ struct file_system_type {
+@@ -2249,6 +2252,7 @@ struct file_system_type {
  	const struct fs_parameter_spec *parameters;
  	struct dentry *(*mount) (struct file_system_type *, int,
  		       const char *, void *);
@@ -167,7 +167,7 @@ diff --git a/include/linux/fs.h b/include/linux/fs.h
 diff --git a/include/linux/mount.h b/include/linux/mount.h
 --- a/include/linux/mount.h
 +++ b/include/linux/mount.h
-@@ -69,6 +69,7 @@ struct vfsmount {
+@@ -71,6 +71,7 @@ struct vfsmount {
  	struct dentry *mnt_root;	/* root of the mounted tree */
  	struct super_block *mnt_sb;	/* pointer to superblock */
  	int mnt_flags;
