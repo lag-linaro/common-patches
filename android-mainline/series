@@ -1,8 +1,8 @@
 #
 # android-mainline patches
 #
-# Applies onto upstream a7092c82042b Linux v5.7-764-ga7092c82042b
-# Matches android-mainline 7d491634970c ("Merge a7092c82042b ("Merge tag 'perf-core-2020-06-01' of git://git.kernel.org/pub/scm/linux/kernel/git/tip/tip") into android-mainline")
+# Applies onto upstream 3ee3723b40d5 Linux v5.7-924-g3ee3723b40d5
+# Matches android-mainline 6103983f4698 ("Merge 3ee3723b40d5 ("Merge tag 'm68k-for-v5.8-tag1' of git://git.kernel.org/pub/scm/linux/kernel/git/geert/linux-m68k") into android-mainline")
 #
 Revert-security-lockdown-selinux-implement-SELinux-lockdown.patch
 Revert-drm-virtio-fix-DRM_FORMAT_-handling.patch

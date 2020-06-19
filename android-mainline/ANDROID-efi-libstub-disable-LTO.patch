@@ -18,8 +18,8 @@ Signed-off-by: Sami Tolvanen <samitolvanen@google.com>
 diff --git a/drivers/firmware/efi/libstub/Makefile b/drivers/firmware/efi/libstub/Makefile
 --- a/drivers/firmware/efi/libstub/Makefile
 +++ b/drivers/firmware/efi/libstub/Makefile
-@@ -32,6 +32,9 @@ KBUILD_CFLAGS			:= $(cflags-y) -DDISABLE_BRANCH_PROFILING \
- 				   $(call cc-option,-fno-stack-protector) \
+@@ -33,6 +33,9 @@ KBUILD_CFLAGS			:= $(cflags-y) -Os -DDISABLE_BRANCH_PROFILING \
+ 				   $(call cc-option,-fno-addrsig) \
  				   -D__DISABLE_EXPORTS
  
 +# disable LTO

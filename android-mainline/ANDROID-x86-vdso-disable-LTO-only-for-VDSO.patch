@@ -24,7 +24,7 @@ diff --git a/arch/x86/entry/vdso/Makefile b/arch/x86/entry/vdso/Makefile
  KASAN_SANITIZE			:= n
  UBSAN_SANITIZE			:= n
  OBJECT_FILES_NON_STANDARD	:= y
-@@ -82,7 +81,7 @@ ifneq ($(RETPOLINE_VDSO_CFLAGS),)
+@@ -86,7 +85,7 @@ ifneq ($(RETPOLINE_VDSO_CFLAGS),)
  endif
  endif
  

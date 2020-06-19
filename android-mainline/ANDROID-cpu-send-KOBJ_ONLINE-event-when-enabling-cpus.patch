@@ -17,15 +17,15 @@ Signed-off-by: Thierry Strudel <tstrudel@google.com>
 diff --git a/kernel/cpu.c b/kernel/cpu.c
 --- a/kernel/cpu.c
 +++ b/kernel/cpu.c
-@@ -1396,6 +1396,7 @@ void __weak arch_enable_nonboot_cpus_end(void)
- void enable_nonboot_cpus(void)
+@@ -1396,6 +1396,7 @@ void __weak arch_thaw_secondary_cpus_end(void)
+ void thaw_secondary_cpus(void)
  {
  	int cpu, error;
 +	struct device *cpu_device;
  
  	/* Allow everyone to use the CPU hotplug again */
  	cpu_maps_update_begin();
-@@ -1413,6 +1414,12 @@ void enable_nonboot_cpus(void)
+@@ -1413,6 +1414,12 @@ void thaw_secondary_cpus(void)
  		trace_suspend_resume(TPS("CPU_ON"), cpu, false);
  		if (!error) {
  			pr_info("CPU%d is up\n", cpu);
