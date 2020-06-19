@@ -113,7 +113,7 @@ diff --git a/include/linux/compiler-clang.h b/include/linux/compiler-clang.h
 diff --git a/include/linux/compiler_types.h b/include/linux/compiler_types.h
 --- a/include/linux/compiler_types.h
 +++ b/include/linux/compiler_types.h
-@@ -193,6 +193,10 @@ struct ftrace_likely_data {
+@@ -197,6 +197,10 @@ struct ftrace_likely_data {
  # define randomized_struct_fields_end
  #endif
  

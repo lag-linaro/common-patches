@@ -41,9 +41,9 @@ diff --git a/arch/Kconfig b/arch/Kconfig
 diff --git a/include/asm-generic/vmlinux.lds.h b/include/asm-generic/vmlinux.lds.h
 --- a/include/asm-generic/vmlinux.lds.h
 +++ b/include/asm-generic/vmlinux.lds.h
-@@ -555,6 +555,7 @@
- 		ALIGN_FUNCTION();					\
+@@ -565,6 +565,7 @@
  		*(.text.hot TEXT_MAIN .text.fixup .text.unlikely)	\
+ 		NOINSTR_TEXT						\
  		*(.text..refcount)					\
 +		*(.text..ftrace)					\
  		*(.ref.text)						\
@@ -66,7 +66,7 @@ diff --git a/include/linux/compiler-clang.h b/include/linux/compiler-clang.h
 diff --git a/include/linux/compiler_types.h b/include/linux/compiler_types.h
 --- a/include/linux/compiler_types.h
 +++ b/include/linux/compiler_types.h
-@@ -197,6 +197,10 @@ struct ftrace_likely_data {
+@@ -201,6 +201,10 @@ struct ftrace_likely_data {
  # define __noscs
  #endif
  

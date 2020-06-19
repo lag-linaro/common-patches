@@ -107,10 +107,10 @@ diff --git a/include/asm-generic/vmlinux.lds.h b/include/asm-generic/vmlinux.lds
  #define DATA_MAIN .data
  #define SDATA_MAIN .sdata
  #define RODATA_MAIN .rodata
-@@ -554,6 +556,7 @@
- #define TEXT_TEXT							\
+@@ -564,6 +566,7 @@
  		ALIGN_FUNCTION();					\
  		*(.text.hot TEXT_MAIN .text.fixup .text.unlikely)	\
+ 		NOINSTR_TEXT						\
 +		*(TEXT_CFI_MAIN)					\
  		*(.text..refcount)					\
  		*(.text..ftrace)					\
@@ -179,7 +179,7 @@ diff --git a/include/linux/compiler-clang.h b/include/linux/compiler-clang.h
 diff --git a/include/linux/compiler_types.h b/include/linux/compiler_types.h
 --- a/include/linux/compiler_types.h
 +++ b/include/linux/compiler_types.h
-@@ -201,6 +201,10 @@ struct ftrace_likely_data {
+@@ -205,6 +205,10 @@ struct ftrace_likely_data {
  # define __norecordmcount
  #endif
  
@@ -592,7 +592,7 @@ diff --git a/kernel/module.c b/kernel/module.c
  	/* This may be empty, but that's OK */
  	module_arch_freeing_init(mod);
  	module_memfree(mod->init_layout.base);
-@@ -3432,6 +3437,8 @@ int __weak module_finalize(const Elf_Ehdr *hdr,
+@@ -3442,6 +3447,8 @@ int __weak module_finalize(const Elf_Ehdr *hdr,
  	return 0;
  }
  
@@ -601,7 +601,7 @@ diff --git a/kernel/module.c b/kernel/module.c
  static int post_relocation(struct module *mod, const struct load_info *info)
  {
  	/* Sort exception table now relocations are done. */
-@@ -3444,6 +3451,9 @@ static int post_relocation(struct module *mod, const struct load_info *info)
+@@ -3454,6 +3461,9 @@ static int post_relocation(struct module *mod, const struct load_info *info)
  	/* Setup kallsyms-specific fields. */
  	add_kallsyms(mod, info);
  
@@ -611,7 +611,7 @@ diff --git a/kernel/module.c b/kernel/module.c
  	/* Arch-specific module finalizing. */
  	return module_finalize(info->hdr, info->sechdrs, mod);
  }
-@@ -4247,6 +4257,24 @@ int module_kallsyms_on_each_symbol(int (*fn)(void *, const char *,
+@@ -4257,6 +4267,24 @@ int module_kallsyms_on_each_symbol(int (*fn)(void *, const char *,
  }
  #endif /* CONFIG_KALLSYMS */
  
