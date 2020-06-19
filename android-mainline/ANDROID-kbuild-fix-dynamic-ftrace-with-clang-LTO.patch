@@ -14,22 +14,23 @@ a __norecordmcount attribute for moving functions to this section.
 Bug: 145210207
 Change-Id: Ib77f7c431fce54243c46d584b55761ed2342965c
 Signed-off-by: Sami Tolvanen <samitolvanen@google.com>
+Signed-off-by: Matthias Maennich <maennich@google.com>
 ---
  arch/Kconfig                      |  2 +-
  include/asm-generic/vmlinux.lds.h |  1 +
- include/linux/compiler-clang.h    |  7 +++++++
+ include/linux/compiler-clang.h    |  8 ++++++++
  include/linux/compiler_types.h    |  4 ++++
  kernel/trace/ftrace.c             |  6 +++---
  scripts/Makefile.build            | 11 +++++++++++
  scripts/Makefile.modfinal         |  4 ++++
  scripts/link-vmlinux.sh           | 18 ++++++++++++++++++
  scripts/recordmcount.c            |  4 +++-
- 9 files changed, 52 insertions(+), 5 deletions(-)
+ 9 files changed, 53 insertions(+), 5 deletions(-)
 
 diff --git a/arch/Kconfig b/arch/Kconfig
 --- a/arch/Kconfig
 +++ b/arch/Kconfig
-@@ -569,7 +569,7 @@ config LTO_CLANG
+@@ -594,7 +594,7 @@ config LTO_CLANG
  	bool "Use Clang's Link Time Optimization (LTO) (EXPERIMENTAL)"
  	depends on ARCH_SUPPORTS_LTO_CLANG
  	depends on !KASAN
@@ -52,10 +53,11 @@ diff --git a/include/asm-generic/vmlinux.lds.h b/include/asm-generic/vmlinux.lds
 diff --git a/include/linux/compiler-clang.h b/include/linux/compiler-clang.h
 --- a/include/linux/compiler-clang.h
 +++ b/include/linux/compiler-clang.h
-@@ -42,3 +42,10 @@
-  * compilers, like ICC.
-  */
- #define barrier() __asm__ __volatile__("" : : : "memory")
+@@ -46,3 +46,11 @@
+ #if __has_feature(shadow_call_stack)
+ # define __noscs	__attribute__((__no_sanitize__("shadow-call-stack")))
+ #endif
++
 +
 +#ifdef CONFIG_LTO_CLANG
 +#ifdef CONFIG_FTRACE_MCOUNT_RECORD
@@ -74,8 +76,8 @@ diff --git a/include/linux/compiler_types.h b/include/linux/compiler_types.h
 +# define __norecordmcount
 +#endif
 +
- #ifndef asm_volatile_goto
- #define asm_volatile_goto(x...) asm goto(x)
+ #ifndef __noscs
+ # define __noscs
  #endif
 diff --git a/kernel/trace/ftrace.c b/kernel/trace/ftrace.c
 --- a/kernel/trace/ftrace.c

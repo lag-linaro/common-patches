@@ -13,7 +13,7 @@ Signed-off-by: Sami Tolvanen <samitolvanen@google.com>
 diff --git a/arch/x86/Kconfig.debug b/arch/x86/Kconfig.debug
 --- a/arch/x86/Kconfig.debug
 +++ b/arch/x86/Kconfig.debug
-@@ -275,7 +275,7 @@ choice
+@@ -266,7 +266,7 @@ choice
  
  config UNWINDER_ORC
  	bool "ORC unwinder"

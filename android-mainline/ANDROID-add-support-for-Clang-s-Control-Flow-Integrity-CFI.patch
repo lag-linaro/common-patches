@@ -14,7 +14,7 @@ Signed-off-by: Sami Tolvanen <samitolvanen@google.com>
  arch/Kconfig                      |  23 +++
  include/asm-generic/vmlinux.lds.h |   3 +
  include/linux/cfi.h               |  44 +++++
- include/linux/compiler-clang.h    |   3 +
+ include/linux/compiler-clang.h    |   2 +
  include/linux/compiler_types.h    |   4 +
  include/linux/init.h              |   2 +-
  include/linux/module.h            |   5 +
@@ -22,7 +22,7 @@ Signed-off-by: Sami Tolvanen <samitolvanen@google.com>
  kernel/Makefile                   |   4 +
  kernel/cfi.c                      | 307 ++++++++++++++++++++++++++++++
  kernel/module.c                   |  28 +++
- 12 files changed, 442 insertions(+), 2 deletions(-)
+ 12 files changed, 441 insertions(+), 2 deletions(-)
  create mode 100644 include/linux/cfi.h
  create mode 100644 kernel/cfi.c
 
@@ -52,13 +52,13 @@ diff --git a/Makefile b/Makefile
 +export CC_FLAGS_CFI
 +endif
 +
- # arch Makefile may override CC so keep this after arch Makefile is included
- NOSTDINC_FLAGS += -nostdinc -isystem $(shell $(CC) -print-file-name=include)
- 
+ ifdef CONFIG_SHADOW_CALL_STACK
+ CC_FLAGS_SCS	:= -fsanitize=shadow-call-stack
+ KBUILD_CFLAGS	+= $(CC_FLAGS_SCS)
 diff --git a/arch/Kconfig b/arch/Kconfig
 --- a/arch/Kconfig
 +++ b/arch/Kconfig
-@@ -581,6 +581,29 @@ config LTO_CLANG
+@@ -606,6 +606,29 @@ config LTO_CLANG
  
  endchoice
  
@@ -168,11 +168,10 @@ index 000000000000..6ef37b35faaa
 diff --git a/include/linux/compiler-clang.h b/include/linux/compiler-clang.h
 --- a/include/linux/compiler-clang.h
 +++ b/include/linux/compiler-clang.h
-@@ -48,4 +48,7 @@
+@@ -53,4 +53,6 @@
  #define __norecordmcount \
  	__attribute__((__section__(".text..ftrace")))
  #endif
-+
 +
 +#define __nocfi		__attribute__((__no_sanitize__("cfi")))
  #endif
@@ -187,8 +186,8 @@ diff --git a/include/linux/compiler_types.h b/include/linux/compiler_types.h
 +# define __nocfi
 +#endif
 +
- #ifndef asm_volatile_goto
- #define asm_volatile_goto(x...) asm goto(x)
+ #ifndef __noscs
+ # define __noscs
  #endif
 diff --git a/include/linux/init.h b/include/linux/init.h
 --- a/include/linux/init.h
@@ -249,10 +248,10 @@ diff --git a/kernel/Makefile b/kernel/Makefile
  obj-y += sched/
  obj-y += locking/
  obj-y += power/
-@@ -103,6 +106,7 @@ obj-$(CONFIG_TRACEPOINTS) += trace/
- obj-$(CONFIG_IRQ_WORK) += irq_work.o
+@@ -104,6 +107,7 @@ obj-$(CONFIG_IRQ_WORK) += irq_work.o
  obj-$(CONFIG_CPU_PM) += cpu_pm.o
  obj-$(CONFIG_BPF) += bpf/
+ obj-$(CONFIG_SHADOW_CALL_STACK) += scs.o
 +obj-$(CONFIG_CFI_CLANG) += cfi.o
  
  obj-$(CONFIG_PERF_EVENTS) += events/

@@ -12,19 +12,20 @@ Change-Id: I7f1f9af7430164ebbcb0e85f66abae5cb9feee6a
 Acked-by: Ard Biesheuvel <ard.biesheuvel@linaro.org>
 Signed-off-by: Sami Tolvanen <samitolvanen@google.com>
 ---
- drivers/firmware/efi/libstub/Makefile | 3 +++
- 1 file changed, 3 insertions(+)
+ drivers/firmware/efi/libstub/Makefile | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
 diff --git a/drivers/firmware/efi/libstub/Makefile b/drivers/firmware/efi/libstub/Makefile
 --- a/drivers/firmware/efi/libstub/Makefile
 +++ b/drivers/firmware/efi/libstub/Makefile
-@@ -33,6 +33,9 @@ KBUILD_CFLAGS			:= $(cflags-y) -Os -DDISABLE_BRANCH_PROFILING \
+@@ -33,8 +33,8 @@ KBUILD_CFLAGS			:= $(cflags-y) -Os -DDISABLE_BRANCH_PROFILING \
  				   $(call cc-option,-fno-addrsig) \
  				   -D__DISABLE_EXPORTS
  
-+# disable LTO
-+KBUILD_CFLAGS := $(filter-out $(CC_FLAGS_LTO), $(KBUILD_CFLAGS))
-+
+-# remove SCS flags from all objects in this directory
+-KBUILD_CFLAGS := $(filter-out $(CC_FLAGS_SCS), $(KBUILD_CFLAGS))
++# remove LTO and SCS flags from all objects in this directory
++KBUILD_CFLAGS := $(filter-out $(CC_FLAGS_SCS) $(CC_FLAGS_LTO), $(KBUILD_CFLAGS))
+ 
  GCOV_PROFILE			:= n
  KASAN_SANITIZE			:= n
- UBSAN_SANITIZE			:= n

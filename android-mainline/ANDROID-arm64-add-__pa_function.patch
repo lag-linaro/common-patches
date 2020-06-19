@@ -78,7 +78,7 @@ diff --git a/arch/arm64/kernel/cpu-reset.h b/arch/arm64/kernel/cpu-reset.h
 diff --git a/arch/arm64/kernel/cpufeature.c b/arch/arm64/kernel/cpufeature.c
 --- a/arch/arm64/kernel/cpufeature.c
 +++ b/arch/arm64/kernel/cpufeature.c
-@@ -1129,7 +1129,7 @@ kpti_install_ng_mappings(const struct arm64_cpu_capabilities *__unused)
+@@ -1360,7 +1360,7 @@ kpti_install_ng_mappings(const struct arm64_cpu_capabilities *__unused)
  	if (arm64_use_ng_mappings)
  		return;
  
