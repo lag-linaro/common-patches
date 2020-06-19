@@ -2,7 +2,7 @@
 # android-mainline patches
 #
 # Applies onto upstream 533b220f7be4 Linux v5.7-1080-g533b220f7be4
-# Matches android-mainline 48c3dc597988 ("Merge commit '533b220f7be4' ("Merge tag 'arm64-upstream' of git://git.kernel.org/pub/scm/linux/kernel/git/arm64/linux") into android-mainline")
+# Matches android-mainline 9228ed937bb3 ("Revert "ANDROID: gki_defconfig: disable KPROBES"")
 #
 Revert-security-lockdown-selinux-implement-SELinux-lockdown.patch
 Revert-drm-virtio-fix-DRM_FORMAT_-handling.patch
@@ -523,3 +523,8 @@ ANDROID-Incremental-fs-Fix-four-error-path-bugs.patch
 ANDROID-Incremental-fs-Remove-dependency-on-PKCS7_MESSAGE_PARSER.patch
 ANDROID-dm-bow-Add-block_size-option.patch
 ANDROID-GKI-set-CONFIG_BLK_DEV_LOOP_MIN_COUNT-to-16.patch
+ANDROID-GKI-Enable-CONFIG_DEBUG_FS-for-Android-S.patch
+ANDROID-staging-ion-Skip-sync-if-not-mapped.patch
+Revert-ANDROID-Remove-default-y-on-BRIDGE_IGMP_SNOOPING.patch
+ANDROID-kbuild-merge-more-sections-with-LTO.patch
+Revert-ANDROID-gki_defconfig-disable-KPROBES.patch
