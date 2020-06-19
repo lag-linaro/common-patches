@@ -2,7 +2,7 @@
 # android-mainline patches
 #
 # Applies onto upstream 69fc06f70f45 Linux v5.7-597-g69fc06f70f45
-# Matches android-mainline 75153325fa32 ("Merge 69fc06f70f45 ("Merge tag 'objtool-core-2020-06-01' of git://git.kernel.org/pub/scm/linux/kernel/git/tip/tip") into android-mainline")
+# Matches android-mainline dd5d3e98d0ae ("ANDROID: GKI: set CONFIG_BLK_DEV_LOOP_MIN_COUNT to 16")
 #
 Revert-security-lockdown-selinux-implement-SELinux-lockdown.patch
 Revert-drm-virtio-fix-DRM_FORMAT_-handling.patch
@@ -531,3 +531,7 @@ ANDROID-scs-fix-recursive-spinlock-in-scs_check_usage.patch
 ANDROID-Incremental-fs-Cache-successful-hash-calculations.patch
 FROMLIST-esp-select-CRYPTO_SEQIV.patch
 ANDROID-sched-Allow-EAS-without-schedutil.patch
+ANDROID-Incremental-fs-Fix-four-error-path-bugs.patch
+ANDROID-Incremental-fs-Remove-dependency-on-PKCS7_MESSAGE_PARSER.patch
+ANDROID-dm-bow-Add-block_size-option.patch
+ANDROID-GKI-set-CONFIG_BLK_DEV_LOOP_MIN_COUNT-to-16.patch
