@@ -384,7 +384,7 @@ diff --git a/scripts/link-vmlinux.sh b/scripts/link-vmlinux.sh
  }
  
  # If CONFIG_LTO_CLANG is selected, we postpone running recordmcount until
-@@ -252,7 +254,7 @@ cleanup()
+@@ -275,7 +277,7 @@ cleanup()
  {
  	rm -f .btf.*
  	rm -f .tmp_System.map

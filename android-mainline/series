@@ -1,8 +1,8 @@
 #
 # android-mainline patches
 #
-# Applies onto upstream 0bd957eb11cf Linux v5.7-422-g0bd957eb11cf
-# Matches android-mainline bdfa61448f31 ("ANDROID: sched: Allow EAS without schedutil")
+# Applies onto upstream 69fc06f70f45 Linux v5.7-597-g69fc06f70f45
+# Matches android-mainline 75153325fa32 ("Merge 69fc06f70f45 ("Merge tag 'objtool-core-2020-06-01' of git://git.kernel.org/pub/scm/linux/kernel/git/tip/tip") into android-mainline")
 #
 Revert-security-lockdown-selinux-implement-SELinux-lockdown.patch
 Revert-drm-virtio-fix-DRM_FORMAT_-handling.patch

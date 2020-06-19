@@ -80,7 +80,7 @@ diff --git a/include/linux/compiler_types.h b/include/linux/compiler_types.h
 diff --git a/kernel/trace/ftrace.c b/kernel/trace/ftrace.c
 --- a/kernel/trace/ftrace.c
 +++ b/kernel/trace/ftrace.c
-@@ -6073,9 +6073,9 @@ static int ftrace_cmp_ips(const void *a, const void *b)
+@@ -6062,9 +6062,9 @@ static int ftrace_cmp_ips(const void *a, const void *b)
  	return 0;
  }
  
@@ -166,10 +166,10 @@ diff --git a/scripts/link-vmlinux.sh b/scripts/link-vmlinux.sh
 +	fi
 +}
 +
- # Link of vmlinux
- # ${1} - output file
- # ${2}, ${3}, ... - optional extra .o files
-@@ -296,6 +309,11 @@ modpost_link vmlinux.o
+ objtool_link()
+ {
+ 	local objtoolopt;
+@@ -320,6 +333,11 @@ objtool_link vmlinux.o
  # modpost vmlinux.o to check for section mismatches
  ${MAKE} -f "${srctree}/scripts/Makefile.modpost" MODPOST_VMLINUX=1
  

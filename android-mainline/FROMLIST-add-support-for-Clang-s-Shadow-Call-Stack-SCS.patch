@@ -198,7 +198,7 @@ diff --git a/init/init_task.c b/init/init_task.c
  
  #include <asm/pgtable.h>
  #include <linux/uaccess.h>
-@@ -185,6 +186,13 @@ struct task_struct init_task
+@@ -190,6 +191,13 @@ struct task_struct init_task
  };
  EXPORT_SYMBOL(init_task);
  
@@ -276,7 +276,7 @@ diff --git a/kernel/sched/core.c b/kernel/sched/core.c
  
  #include <asm/switch_to.h>
  #include <asm/tlb.h>
-@@ -6026,6 +6027,7 @@ void init_idle(struct task_struct *idle, int cpu)
+@@ -6074,6 +6075,7 @@ void init_idle(struct task_struct *idle, int cpu)
  	idle->se.exec_start = sched_clock();
  	idle->flags |= PF_IDLE;
  

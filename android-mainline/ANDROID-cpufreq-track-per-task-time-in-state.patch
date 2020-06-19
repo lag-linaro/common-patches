@@ -384,7 +384,7 @@ index 000000000000..bfef6e62c68a
 diff --git a/include/linux/sched.h b/include/linux/sched.h
 --- a/include/linux/sched.h
 +++ b/include/linux/sched.h
-@@ -852,6 +852,10 @@ struct task_struct {
+@@ -860,6 +860,10 @@ struct task_struct {
  	u64				stimescaled;
  #endif
  	u64				gtime;
@@ -406,7 +406,7 @@ diff --git a/kernel/fork.c b/kernel/fork.c
  	scs_release(tsk);
  
  #ifndef CONFIG_THREAD_INFO_IN_TASK
-@@ -1935,6 +1936,8 @@ static __latent_entropy struct task_struct *copy_process(
+@@ -1940,6 +1941,8 @@ static __latent_entropy struct task_struct *copy_process(
  	if (!p)
  		goto fork_out;
  
@@ -415,7 +415,7 @@ diff --git a/kernel/fork.c b/kernel/fork.c
  	/*
  	 * This _must_ happen before we call free_task(), i.e. before we jump
  	 * to any of the bad_fork_* labels. This is to avoid freeing
-@@ -2443,6 +2446,8 @@ long _do_fork(struct kernel_clone_args *args)
+@@ -2448,6 +2451,8 @@ long _do_fork(struct kernel_clone_args *args)
  	if (IS_ERR(p))
  		return PTR_ERR(p);
  

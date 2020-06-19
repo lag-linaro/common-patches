@@ -380,8 +380,8 @@ diff --git a/scripts/link-vmlinux.sh b/scripts/link-vmlinux.sh
 +	${LD} ${KBUILD_LDFLAGS} -r -o ${1} $(modversions) ${objects}
  }
  
- # Link of vmlinux
-@@ -76,13 +108,22 @@ vmlinux_link()
+ objtool_link()
+@@ -99,13 +131,22 @@ vmlinux_link()
  	fi
  
  	if [ "${SRCARCH}" != "um" ]; then
@@ -411,7 +411,7 @@ diff --git a/scripts/link-vmlinux.sh b/scripts/link-vmlinux.sh
  
  		${LD} ${KBUILD_LDFLAGS} ${LDFLAGS_vmlinux}	\
  			${strip_debug#-Wl,}			\
-@@ -198,6 +239,7 @@ cleanup()
+@@ -221,6 +262,7 @@ cleanup()
  {
  	rm -f .btf.*
  	rm -f .tmp_System.map
@@ -419,14 +419,14 @@ diff --git a/scripts/link-vmlinux.sh b/scripts/link-vmlinux.sh
  	rm -f .tmp_vmlinux*
  	rm -f System.map
  	rm -f vmlinux
-@@ -249,7 +291,6 @@ fi;
+@@ -272,7 +314,6 @@ fi;
  ${MAKE} -f "${srctree}/scripts/Makefile.build" obj=init need-builtin=1
  
  #link vmlinux.o
 -info LD vmlinux.o
  modpost_link vmlinux.o
+ objtool_link vmlinux.o
  
- # modpost vmlinux.o to check for section mismatches
 diff --git a/scripts/mod/modpost.c b/scripts/mod/modpost.c
 --- a/scripts/mod/modpost.c
 +++ b/scripts/mod/modpost.c
