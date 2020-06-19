@@ -21,7 +21,7 @@ Signed-off-by: Sami Tolvanen <samitolvanen@google.com>
 diff --git a/Makefile b/Makefile
 --- a/Makefile
 +++ b/Makefile
-@@ -897,7 +897,7 @@ LD_FLAGS_LTO_CLANG := -mllvm -import-instr-limit=5
+@@ -891,7 +891,7 @@ LD_FLAGS_LTO_CLANG := -mllvm -import-instr-limit=5
  KBUILD_LDFLAGS += $(LD_FLAGS_LTO_CLANG)
  KBUILD_LDFLAGS_MODULE += $(LD_FLAGS_LTO_CLANG)
  

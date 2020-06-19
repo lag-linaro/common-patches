@@ -29,7 +29,7 @@ Signed-off-by: Sami Tolvanen <samitolvanen@google.com>
 diff --git a/Makefile b/Makefile
 --- a/Makefile
 +++ b/Makefile
-@@ -898,6 +898,25 @@ KBUILD_CFLAGS	+= $(CC_FLAGS_LTO)
+@@ -892,6 +892,25 @@ KBUILD_CFLAGS	+= $(CC_FLAGS_LTO)
  export CC_FLAGS_LTO
  endif
  
@@ -58,7 +58,7 @@ diff --git a/Makefile b/Makefile
 diff --git a/arch/Kconfig b/arch/Kconfig
 --- a/arch/Kconfig
 +++ b/arch/Kconfig
-@@ -614,6 +614,29 @@ config LTO_CLANG
+@@ -581,6 +581,29 @@ config LTO_CLANG
  
  endchoice
  
@@ -168,7 +168,7 @@ index 000000000000..6ef37b35faaa
 diff --git a/include/linux/compiler-clang.h b/include/linux/compiler-clang.h
 --- a/include/linux/compiler-clang.h
 +++ b/include/linux/compiler-clang.h
-@@ -54,4 +54,7 @@
+@@ -48,4 +48,7 @@
  #define __norecordmcount \
  	__attribute__((__section__(".text..ftrace")))
  #endif
@@ -179,7 +179,7 @@ diff --git a/include/linux/compiler-clang.h b/include/linux/compiler-clang.h
 diff --git a/include/linux/compiler_types.h b/include/linux/compiler_types.h
 --- a/include/linux/compiler_types.h
 +++ b/include/linux/compiler_types.h
-@@ -205,6 +205,10 @@ struct ftrace_likely_data {
+@@ -201,6 +201,10 @@ struct ftrace_likely_data {
  # define __norecordmcount
  #endif
  
@@ -249,10 +249,10 @@ diff --git a/kernel/Makefile b/kernel/Makefile
  obj-y += sched/
  obj-y += locking/
  obj-y += power/
-@@ -104,6 +107,7 @@ obj-$(CONFIG_IRQ_WORK) += irq_work.o
+@@ -103,6 +106,7 @@ obj-$(CONFIG_TRACEPOINTS) += trace/
+ obj-$(CONFIG_IRQ_WORK) += irq_work.o
  obj-$(CONFIG_CPU_PM) += cpu_pm.o
  obj-$(CONFIG_BPF) += bpf/
- obj-$(CONFIG_SHADOW_CALL_STACK) += scs.o
 +obj-$(CONFIG_CFI_CLANG) += cfi.o
  
  obj-$(CONFIG_PERF_EVENTS) += events/

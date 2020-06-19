@@ -33,7 +33,7 @@ Change-Id: Iac39df3ab74e6d8753a7962925fab0c3854929e4
 diff --git a/Makefile b/Makefile
 --- a/Makefile
 +++ b/Makefile
-@@ -908,7 +908,8 @@ endif
+@@ -902,7 +902,8 @@ endif
  
  ifdef CONFIG_CFI_CLANG
  CC_FLAGS_CFI	:= -fsanitize=cfi \

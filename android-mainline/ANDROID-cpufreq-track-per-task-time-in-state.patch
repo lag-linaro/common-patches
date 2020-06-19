@@ -25,9 +25,9 @@ Signed-off-by: Alistair Delva <adelva@google.com>
  fs/proc/base.c                  |   7 ++
  include/linux/cpufreq_times.h   |  41 +++++++
  include/linux/sched.h           |   4 +
- kernel/fork.c                   |   5 +
+ kernel/fork.c                   |   6 +
  kernel/sched/cputime.c          |   7 ++
- 9 files changed, 285 insertions(+), 1 deletion(-)
+ 9 files changed, 286 insertions(+), 1 deletion(-)
  create mode 100644 drivers/cpufreq/cpufreq_times.c
  create mode 100644 include/linux/cpufreq_times.h
 
@@ -398,15 +398,16 @@ diff --git a/include/linux/sched.h b/include/linux/sched.h
 diff --git a/kernel/fork.c b/kernel/fork.c
 --- a/kernel/fork.c
 +++ b/kernel/fork.c
-@@ -458,6 +458,7 @@ void put_task_stack(struct task_struct *tsk)
+@@ -456,6 +456,8 @@ void put_task_stack(struct task_struct *tsk)
  
  void free_task(struct task_struct *tsk)
  {
 +	cpufreq_task_times_exit(tsk);
- 	scs_release(tsk);
- 
++
  #ifndef CONFIG_THREAD_INFO_IN_TASK
-@@ -1940,6 +1941,8 @@ static __latent_entropy struct task_struct *copy_process(
+ 	/*
+ 	 * The task is finally done with both the stack and thread_info,
+@@ -1930,6 +1932,8 @@ static __latent_entropy struct task_struct *copy_process(
  	if (!p)
  		goto fork_out;
  
@@ -415,7 +416,7 @@ diff --git a/kernel/fork.c b/kernel/fork.c
  	/*
  	 * This _must_ happen before we call free_task(), i.e. before we jump
  	 * to any of the bad_fork_* labels. This is to avoid freeing
-@@ -2448,6 +2451,8 @@ long _do_fork(struct kernel_clone_args *args)
+@@ -2438,6 +2442,8 @@ long _do_fork(struct kernel_clone_args *args)
  	if (IS_ERR(p))
  		return PTR_ERR(p);
  

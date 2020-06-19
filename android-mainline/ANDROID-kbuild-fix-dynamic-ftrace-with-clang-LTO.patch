@@ -29,7 +29,7 @@ Signed-off-by: Sami Tolvanen <samitolvanen@google.com>
 diff --git a/arch/Kconfig b/arch/Kconfig
 --- a/arch/Kconfig
 +++ b/arch/Kconfig
-@@ -602,7 +602,7 @@ config LTO_CLANG
+@@ -569,7 +569,7 @@ config LTO_CLANG
  	bool "Use Clang's Link Time Optimization (LTO) (EXPERIMENTAL)"
  	depends on ARCH_SUPPORTS_LTO_CLANG
  	depends on !KASAN
@@ -52,10 +52,10 @@ diff --git a/include/asm-generic/vmlinux.lds.h b/include/asm-generic/vmlinux.lds
 diff --git a/include/linux/compiler-clang.h b/include/linux/compiler-clang.h
 --- a/include/linux/compiler-clang.h
 +++ b/include/linux/compiler-clang.h
-@@ -48,3 +48,10 @@
- #else
- # define __noscs
- #endif
+@@ -42,3 +42,10 @@
+  * compilers, like ICC.
+  */
+ #define barrier() __asm__ __volatile__("" : : : "memory")
 +
 +#ifdef CONFIG_LTO_CLANG
 +#ifdef CONFIG_FTRACE_MCOUNT_RECORD
@@ -66,8 +66,8 @@ diff --git a/include/linux/compiler-clang.h b/include/linux/compiler-clang.h
 diff --git a/include/linux/compiler_types.h b/include/linux/compiler_types.h
 --- a/include/linux/compiler_types.h
 +++ b/include/linux/compiler_types.h
-@@ -201,6 +201,10 @@ struct ftrace_likely_data {
- # define __noscs
+@@ -197,6 +197,10 @@ struct ftrace_likely_data {
+ # define randomized_struct_fields_end
  #endif
  
 +#ifndef __norecordmcount

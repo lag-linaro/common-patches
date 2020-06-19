@@ -22,7 +22,7 @@ Signed-off-by: Sami Tolvanen <samitolvanen@google.com>
 diff --git a/Makefile b/Makefile
 --- a/Makefile
 +++ b/Makefile
-@@ -891,6 +891,12 @@ CC_FLAGS_LTO_CLANG := -flto
+@@ -885,6 +885,12 @@ CC_FLAGS_LTO_CLANG := -flto
  endif
  CC_FLAGS_LTO_CLANG += -fvisibility=default
  

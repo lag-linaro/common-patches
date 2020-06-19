@@ -22,14 +22,14 @@ Change-Id: If1164ff33d073358ee7d4bba84cbb06c349c4a88
 Signed-off-by: Sami Tolvanen <samitolvanen@google.com>
 ---
  Makefile                          | 29 ++++++++++++++-
- arch/Kconfig                      | 47 ++++++++++++++++++++++++
+ arch/Kconfig                      | 48 +++++++++++++++++++++++++
  include/asm-generic/vmlinux.lds.h |  5 ++-
  scripts/Makefile.build            | 45 +++++++++++++++++++++--
  scripts/Makefile.modfinal         | 15 +++++++-
  scripts/Makefile.modpost          | 24 +++++++++++--
  scripts/link-vmlinux.sh           | 59 ++++++++++++++++++++++++++-----
  scripts/mod/modpost.c             |  7 ++++
- 8 files changed, 214 insertions(+), 17 deletions(-)
+ 8 files changed, 215 insertions(+), 17 deletions(-)
 
 diff --git a/Makefile b/Makefile
 --- a/Makefile
@@ -51,8 +51,8 @@ diff --git a/Makefile b/Makefile
  include arch/$(SRCARCH)/Makefile
  
  ifdef need-config
-@@ -872,6 +882,22 @@ KBUILD_CFLAGS	+= $(CC_FLAGS_SCS)
- export CC_FLAGS_SCS
+@@ -866,6 +876,22 @@ ifdef CONFIG_LIVEPATCH
+ KBUILD_CFLAGS += $(call cc-option, -flive-patching=inline-clone)
  endif
  
 +ifdef CONFIG_LTO_CLANG
@@ -74,7 +74,7 @@ diff --git a/Makefile b/Makefile
  # arch Makefile may override CC so keep this after arch Makefile is included
  NOSTDINC_FLAGS += -nostdinc -isystem $(shell $(CC) -print-file-name=include)
  
-@@ -1761,7 +1787,8 @@ clean: $(clean-dirs)
+@@ -1755,7 +1781,8 @@ clean: $(clean-dirs)
  		-o -name '.tmp_*.o.*' \
  		-o -name '*.c.[012]*.*' \
  		-o -name '*.ll' \
@@ -87,9 +87,9 @@ diff --git a/Makefile b/Makefile
 diff --git a/arch/Kconfig b/arch/Kconfig
 --- a/arch/Kconfig
 +++ b/arch/Kconfig
-@@ -566,6 +566,53 @@ config SHADOW_CALL_STACK_VMAP
- 	  provides better stack exhaustion protection, but increases per-thread
- 	  memory consumption as a full page is allocated for each shadow stack.
+@@ -533,6 +533,54 @@ config STACKPROTECTOR_STRONG
+ 	  about 20% of all kernel functions, which increases the kernel code
+ 	  size by about 2%.
  
 +config LTO
 +	bool
@@ -138,9 +138,10 @@ diff --git a/arch/Kconfig b/arch/Kconfig
 +          which may take several minutes.
 +
 +endchoice
- 
++
  config HAVE_ARCH_WITHIN_STACK_FRAMES
  	bool
+ 	help
 diff --git a/include/asm-generic/vmlinux.lds.h b/include/asm-generic/vmlinux.lds.h
 --- a/include/asm-generic/vmlinux.lds.h
 +++ b/include/asm-generic/vmlinux.lds.h
