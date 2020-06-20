@@ -2,7 +2,7 @@
 # android-mainline patches
 #
 # Applies onto upstream faa392181a0b Linux v5.7-3193-gfaa392181a0b
-# Matches android-mainline 48ef1614d0e2 ("Merge faa392181a0b ("Merge tag 'drm-next-2020-06-02' of git://anongit.freedesktop.org/drm/drm") into android-mainline")
+# Matches android-mainline c2b86b727a41 ("FROMLIST: Update Inline Encryption from v6 to upstream version of patch series")
 #
 Revert-security-lockdown-selinux-implement-SELinux-lockdown.patch
 Revert-drm-virtio-fix-DRM_FORMAT_-handling.patch
@@ -527,3 +527,4 @@ ANDROID-staging-ion-Skip-sync-if-not-mapped.patch
 Revert-ANDROID-Remove-default-y-on-BRIDGE_IGMP_SNOOPING.patch
 ANDROID-kbuild-merge-more-sections-with-LTO.patch
 Revert-ANDROID-gki_defconfig-disable-KPROBES.patch
+FROMLIST-Update-Inline-Encryption-from-v6-to-upstream-version-of-patch-series.patch
