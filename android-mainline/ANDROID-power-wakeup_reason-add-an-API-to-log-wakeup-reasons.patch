@@ -74,7 +74,7 @@ diff --git a/drivers/base/power/main.c b/drivers/base/power/main.c
  
  #include "../base.h"
  #include "power.h"
-@@ -1719,6 +1720,7 @@ static int __device_suspend(struct device *dev, pm_message_t state, bool async)
+@@ -1593,6 +1594,7 @@ static int __device_suspend(struct device *dev, pm_message_t state, bool async)
  	pm_callback_t callback = NULL;
  	const char *info = NULL;
  	int error = 0;
@@ -82,7 +82,7 @@ diff --git a/drivers/base/power/main.c b/drivers/base/power/main.c
  	DECLARE_DPM_WATCHDOG_ON_STACK(wd);
  
  	TRACE_DEVICE(dev);
-@@ -1742,6 +1744,9 @@ static int __device_suspend(struct device *dev, pm_message_t state, bool async)
+@@ -1616,6 +1618,9 @@ static int __device_suspend(struct device *dev, pm_message_t state, bool async)
  
  	if (pm_wakeup_pending()) {
  		dev->power.direct_complete = false;
@@ -166,7 +166,7 @@ diff --git a/drivers/base/syscore.c b/drivers/base/syscore.c
 diff --git a/include/linux/suspend.h b/include/linux/suspend.h
 --- a/include/linux/suspend.h
 +++ b/include/linux/suspend.h
-@@ -505,6 +505,7 @@ extern bool pm_get_wakeup_count(unsigned int *count, bool block);
+@@ -511,6 +511,7 @@ extern bool pm_get_wakeup_count(unsigned int *count, bool block);
  extern bool pm_save_wakeup_count(unsigned int count);
  extern void pm_wakep_autosleep_enabled(bool set);
  extern void pm_print_active_wakeup_sources(void);
@@ -213,7 +213,7 @@ index 000000000000..9fbe209c7177
 diff --git a/kernel/power/Makefile b/kernel/power/Makefile
 --- a/kernel/power/Makefile
 +++ b/kernel/power/Makefile
-@@ -16,4 +16,5 @@ obj-$(CONFIG_PM_WAKELOCKS)	+= wakelock.o
+@@ -17,4 +17,5 @@ obj-$(CONFIG_PM_WAKELOCKS)	+= wakelock.o
  
  obj-$(CONFIG_MAGIC_SYSRQ)	+= poweroff.o
  

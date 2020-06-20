@@ -24,7 +24,7 @@ Change-Id: Ib0bbbf1d86582d9c2ccf1a3c678f1563a26ec04f
 diff --git a/drivers/gpu/drm/bridge/Kconfig b/drivers/gpu/drm/bridge/Kconfig
 --- a/drivers/gpu/drm/bridge/Kconfig
 +++ b/drivers/gpu/drm/bridge/Kconfig
-@@ -38,6 +38,14 @@ config DRM_DISPLAY_CONNECTOR
+@@ -48,6 +48,14 @@ config DRM_DISPLAY_CONNECTOR
  	  on ARM-based platforms. Saying Y here when this driver is not needed
  	  will not cause any issue.
  
@@ -42,9 +42,9 @@ diff --git a/drivers/gpu/drm/bridge/Kconfig b/drivers/gpu/drm/bridge/Kconfig
 diff --git a/drivers/gpu/drm/bridge/Makefile b/drivers/gpu/drm/bridge/Makefile
 --- a/drivers/gpu/drm/bridge/Makefile
 +++ b/drivers/gpu/drm/bridge/Makefile
-@@ -1,6 +1,7 @@
- # SPDX-License-Identifier: GPL-2.0
+@@ -2,6 +2,7 @@
  obj-$(CONFIG_DRM_CDNS_DSI) += cdns-dsi.o
+ obj-$(CONFIG_DRM_CHRONTEL_CH7033) += chrontel-ch7033.o
  obj-$(CONFIG_DRM_DISPLAY_CONNECTOR) += display-connector.o
 +obj-$(CONFIG_DRM_LONTIUM_LT9611) += lt9611.o
  obj-$(CONFIG_DRM_LVDS_CODEC) += lvds-codec.o

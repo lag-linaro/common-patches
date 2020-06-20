@@ -1,8 +1,8 @@
 #
 # android-mainline patches
 #
-# Applies onto upstream 94709049fb84 Linux v5.7-1435-g94709049fb84
-# Matches android-mainline a64320f5b8e4 ("Merge 94709049fb84 ("Merge branch 'akpm' (patches from Andrew)") into android-mainline")
+# Applies onto upstream faa392181a0b Linux v5.7-3193-gfaa392181a0b
+# Matches android-mainline 48ef1614d0e2 ("Merge faa392181a0b ("Merge tag 'drm-next-2020-06-02' of git://anongit.freedesktop.org/drm/drm") into android-mainline")
 #
 Revert-security-lockdown-selinux-implement-SELinux-lockdown.patch
 Revert-drm-virtio-fix-DRM_FORMAT_-handling.patch
@@ -175,7 +175,6 @@ ANDROID-drivers-gpu-drm-add-support-for-secure-framebuffer.patch
 ANDROID-include-drm-increase-DRM-max-property-count-to-64.patch
 ANDROID-include-drm-support-unicasting-mipi-cmds-to-dsi-ctrls.patch
 ANDROID-drm-dsi-add-two-DSI-mode-flags-for-BLLP.patch
-ANDROID-include-drm-add-the-definitions-for-DP-Link-Compliance-tests.patch
 ANDROID-driver-gpu-drm-add-notifier-for-panel-related-events.patch
 ANDROID-drivers-gpu-drm-fix-bugs-encountered-while-fuzzing.patch
 ANDROID-include-uapi-drm-add-additional-drm-mode-flags.patch

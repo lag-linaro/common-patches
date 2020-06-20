@@ -34,7 +34,7 @@ Change-Id: I865f3ad0baa3b84bc0ea321df88238a3a89101a8
 diff --git a/drivers/soc/qcom/Kconfig b/drivers/soc/qcom/Kconfig
 --- a/drivers/soc/qcom/Kconfig
 +++ b/drivers/soc/qcom/Kconfig
-@@ -107,7 +107,7 @@ config QCOM_RMTFS_MEM
+@@ -97,7 +97,7 @@ config QCOM_RMTFS_MEM
  	  Say y here if you intend to boot the modem remoteproc.
  
  config QCOM_RPMH

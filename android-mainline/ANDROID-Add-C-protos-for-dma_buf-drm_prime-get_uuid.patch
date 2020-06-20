@@ -27,7 +27,7 @@ diff --git a/include/drm/drm_prime.h b/include/drm/drm_prime.h
 diff --git a/include/linux/dma-buf.h b/include/linux/dma-buf.h
 --- a/include/linux/dma-buf.h
 +++ b/include/linux/dma-buf.h
-@@ -588,4 +588,6 @@ int dma_buf_mmap(struct dma_buf *, struct vm_area_struct *,
+@@ -598,4 +598,6 @@ int dma_buf_mmap(struct dma_buf *, struct vm_area_struct *,
  void *dma_buf_vmap(struct dma_buf *);
  void dma_buf_vunmap(struct dma_buf *, void *vaddr);
  int dma_buf_get_flags(struct dma_buf *dmabuf, unsigned long *flags);
