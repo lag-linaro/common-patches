@@ -132,7 +132,7 @@ diff --git a/fs/f2fs/dir.c b/fs/f2fs/dir.c
 diff --git a/fs/f2fs/f2fs.h b/fs/f2fs/f2fs.h
 --- a/fs/f2fs/f2fs.h
 +++ b/fs/f2fs/f2fs.h
-@@ -3658,9 +3658,6 @@ static inline void update_sit_info(struct f2fs_sb_info *sbi) {}
+@@ -3648,9 +3648,6 @@ static inline void update_sit_info(struct f2fs_sb_info *sbi) {}
  #endif
  
  extern const struct file_operations f2fs_dir_operations;
@@ -264,7 +264,7 @@ diff --git a/fs/ubifs/dir.c b/fs/ubifs/dir.c
 diff --git a/include/linux/fs.h b/include/linux/fs.h
 --- a/include/linux/fs.h
 +++ b/include/linux/fs.h
-@@ -3406,6 +3406,8 @@ static inline bool needs_casefold(const struct inode *dir)
+@@ -3424,6 +3424,8 @@ static inline bool needs_casefold(const struct inode *dir)
  	return 0;
  }
  #endif

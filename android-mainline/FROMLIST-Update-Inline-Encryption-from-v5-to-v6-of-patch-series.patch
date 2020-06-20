@@ -372,7 +372,7 @@ diff --git a/block/bio.c b/block/bio.c
 diff --git a/block/blk-core.c b/block/blk-core.c
 --- a/block/blk-core.c
 +++ b/block/blk-core.c
-@@ -1120,14 +1120,11 @@ blk_qc_t direct_make_request(struct bio *bio)
+@@ -1121,14 +1121,11 @@ blk_qc_t direct_make_request(struct bio *bio)
  {
  	struct request_queue *q = bio->bi_disk->queue;
  	bool nowait = bio->bi_opf & REQ_NOWAIT;
@@ -388,7 +388,7 @@ diff --git a/block/blk-core.c b/block/blk-core.c
  	if (unlikely(blk_queue_enter(q, nowait ? BLK_MQ_REQ_NOWAIT : 0))) {
  		if (nowait && !blk_queue_dying(q))
  			bio_wouldblock_error(bio);
-@@ -1136,7 +1133,8 @@ blk_qc_t direct_make_request(struct bio *bio)
+@@ -1137,7 +1134,8 @@ blk_qc_t direct_make_request(struct bio *bio)
  		return BLK_QC_T_NONE;
  	}
  
@@ -398,7 +398,7 @@ diff --git a/block/blk-core.c b/block/blk-core.c
  	blk_queue_exit(q);
  	return ret;
  }
-@@ -1807,8 +1805,8 @@ int __init blk_dev_init(void)
+@@ -1808,8 +1806,8 @@ int __init blk_dev_init(void)
  	if (bio_crypt_ctx_init() < 0)
  		panic("Failed to allocate mem for bio crypt ctxs\n");
  
@@ -3126,7 +3126,7 @@ diff --git a/drivers/scsi/ufs/ufshcd.h b/drivers/scsi/ufs/ufshcd.h
 diff --git a/fs/buffer.c b/fs/buffer.c
 --- a/fs/buffer.c
 +++ b/fs/buffer.c
-@@ -3047,7 +3047,7 @@ static int submit_bh_wbc(int op, int op_flags, struct buffer_head *bh,
+@@ -3046,7 +3046,7 @@ static int submit_bh_wbc(int op, int op_flags, struct buffer_head *bh,
  	 */
  	bio = bio_alloc(GFP_NOIO, 1);
  
@@ -4075,7 +4075,7 @@ diff --git a/fs/crypto/keysetup_v1.c b/fs/crypto/keysetup_v1.c
 diff --git a/fs/ext4/readpage.c b/fs/ext4/readpage.c
 --- a/fs/ext4/readpage.c
 +++ b/fs/ext4/readpage.c
-@@ -419,12 +419,8 @@ int ext4_mpage_readpages(struct address_space *mapping,
+@@ -413,12 +413,8 @@ int ext4_mpage_readpages(struct inode *inode,
  			bio = bio_alloc(GFP_KERNEL,
  				min_t(int, nr_pages, BIO_MAX_PAGES));
  			ext4_set_bio_post_read_ctx(bio, inode, page->index);

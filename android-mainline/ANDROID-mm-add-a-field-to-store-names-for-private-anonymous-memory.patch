@@ -169,7 +169,7 @@ diff --git a/fs/proc/task_mmu.c b/fs/proc/task_mmu.c
  	}
  
  done:
-@@ -802,6 +859,11 @@ static int show_smap(struct seq_file *m, void *v)
+@@ -808,6 +865,11 @@ static int show_smap(struct seq_file *m, void *v)
  	smap_gather_stats(vma, &mss);
  
  	show_map_vma(m, vma);
@@ -217,7 +217,7 @@ diff --git a/fs/userfaultfd.c b/fs/userfaultfd.c
 diff --git a/include/linux/mm.h b/include/linux/mm.h
 --- a/include/linux/mm.h
 +++ b/include/linux/mm.h
-@@ -2484,7 +2484,7 @@ static inline int vma_adjust(struct vm_area_struct *vma, unsigned long start,
+@@ -2532,7 +2532,7 @@ static inline int vma_adjust(struct vm_area_struct *vma, unsigned long start,
  extern struct vm_area_struct *vma_merge(struct mm_struct *,
  	struct vm_area_struct *prev, unsigned long addr, unsigned long end,
  	unsigned long vm_flags, struct anon_vma *, struct file *, pgoff_t,
@@ -229,7 +229,7 @@ diff --git a/include/linux/mm.h b/include/linux/mm.h
 diff --git a/include/linux/mm_types.h b/include/linux/mm_types.h
 --- a/include/linux/mm_types.h
 +++ b/include/linux/mm_types.h
-@@ -328,11 +328,18 @@ struct vm_area_struct {
+@@ -332,11 +332,18 @@ struct vm_area_struct {
  	/*
  	 * For areas with an address space and backing store,
  	 * linkage into the address_space->i_mmap interval tree.
@@ -252,7 +252,7 @@ diff --git a/include/linux/mm_types.h b/include/linux/mm_types.h
  
  	/*
  	 * A file's MAP_PRIVATE vma can be in both i_mmap tree and anon_vma
-@@ -764,4 +771,13 @@ typedef struct {
+@@ -768,4 +775,13 @@ typedef struct {
  	unsigned long val;
  } swp_entry_t;
  
@@ -440,7 +440,7 @@ diff --git a/kernel/sys.c b/kernel/sys.c
 +}
 +#endif
 +
- #define PR_IO_FLUSHER (PF_MEMALLOC_NOIO | PF_LESS_THROTTLE)
+ #define PR_IO_FLUSHER (PF_MEMALLOC_NOIO | PF_LOCAL_THROTTLE)
  
  SYSCALL_DEFINE5(prctl, int, option, unsigned long, arg2, unsigned long, arg3,
 @@ -2476,6 +2625,9 @@ SYSCALL_DEFINE5(prctl, int, option, unsigned long, arg2, unsigned long, arg3,

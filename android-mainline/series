@@ -1,8 +1,8 @@
 #
 # android-mainline patches
 #
-# Applies onto upstream f359287765c0 Linux v5.7-1305-gf359287765c0
-# Matches android-mainline 6663438904a3 ("Merge f359287765c0 ("Merge branch 'from-miklos' of git://git.kernel.org/pub/scm/linux/kernel/git/viro/vfs") into android-mainline")
+# Applies onto upstream 94709049fb84 Linux v5.7-1435-g94709049fb84
+# Matches android-mainline a64320f5b8e4 ("Merge 94709049fb84 ("Merge branch 'akpm' (patches from Andrew)") into android-mainline")
 #
 Revert-security-lockdown-selinux-implement-SELinux-lockdown.patch
 Revert-drm-virtio-fix-DRM_FORMAT_-handling.patch

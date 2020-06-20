@@ -196,7 +196,7 @@ diff --git a/fs/ext4/file.c b/fs/ext4/file.c
 diff --git a/fs/f2fs/f2fs.h b/fs/f2fs/f2fs.h
 --- a/fs/f2fs/f2fs.h
 +++ b/fs/f2fs/f2fs.h
-@@ -4000,12 +4000,8 @@ static inline bool f2fs_force_buffered_io(struct inode *inode,
+@@ -3990,12 +3990,8 @@ static inline bool f2fs_force_buffered_io(struct inode *inode,
  	struct f2fs_sb_info *sbi = F2FS_I_SB(inode);
  	int rw = iov_iter_rw(iter);
  

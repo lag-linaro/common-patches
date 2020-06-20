@@ -173,7 +173,7 @@ diff --git a/fs/f2fs/data.c b/fs/f2fs/data.c
  submit_and_realloc:
  		__submit_bio(F2FS_I_SB(inode), bio, DATA);
  		bio = NULL;
-@@ -2337,6 +2394,9 @@ int f2fs_encrypt_one_page(struct f2fs_io_info *fio)
+@@ -2327,6 +2384,9 @@ int f2fs_encrypt_one_page(struct f2fs_io_info *fio)
  	/* wait for GCed page writeback via META_MAPPING */
  	f2fs_wait_on_block_writeback(inode, fio->old_blkaddr);
  
@@ -183,7 +183,7 @@ diff --git a/fs/f2fs/data.c b/fs/f2fs/data.c
  retry_encrypt:
  	fio->encrypted_page = fscrypt_encrypt_pagecache_blocks(page,
  					PAGE_SIZE, 0, gfp_flags);
-@@ -2510,7 +2570,7 @@ int f2fs_do_write_data_page(struct f2fs_io_info *fio)
+@@ -2500,7 +2560,7 @@ int f2fs_do_write_data_page(struct f2fs_io_info *fio)
  			f2fs_unlock_op(fio->sbi);
  		err = f2fs_inplace_write_data(fio);
  		if (err) {

@@ -38,7 +38,7 @@ Link: https://patchwork.kernel.org/patch/11214781/
 diff --git a/fs/buffer.c b/fs/buffer.c
 --- a/fs/buffer.c
 +++ b/fs/buffer.c
-@@ -3047,6 +3047,8 @@ static int submit_bh_wbc(int op, int op_flags, struct buffer_head *bh,
+@@ -3046,6 +3046,8 @@ static int submit_bh_wbc(int op, int op_flags, struct buffer_head *bh,
  	 */
  	bio = bio_alloc(GFP_NOIO, 1);
  
@@ -70,7 +70,7 @@ diff --git a/fs/ext4/inode.c b/fs/ext4/inode.c
  		for (i = 0; i < nr_wait; i++) {
  			int err2;
  
-@@ -3738,7 +3738,7 @@ static int __ext4_block_zero_page_range(handle_t *handle,
+@@ -3735,7 +3735,7 @@ static int __ext4_block_zero_page_range(handle_t *handle,
  		/* Uhhuh. Read error. Complain and punt. */
  		if (!buffer_uptodate(bh))
  			goto unlock;
@@ -121,7 +121,7 @@ diff --git a/fs/ext4/readpage.c b/fs/ext4/readpage.c
  		post_read_steps |= 1 << STEP_DECRYPT;
  
  	if (ext4_need_verity(inode, first_idx))
-@@ -232,6 +232,7 @@ int ext4_mpage_readpages(struct address_space *mapping,
+@@ -230,6 +230,7 @@ int ext4_mpage_readpages(struct inode *inode,
  	const unsigned blkbits = inode->i_blkbits;
  	const unsigned blocks_per_page = PAGE_SIZE >> blkbits;
  	const unsigned blocksize = 1 << blkbits;
@@ -129,7 +129,7 @@ diff --git a/fs/ext4/readpage.c b/fs/ext4/readpage.c
  	sector_t block_in_file;
  	sector_t last_block;
  	sector_t last_block_in_file;
-@@ -264,7 +265,8 @@ int ext4_mpage_readpages(struct address_space *mapping,
+@@ -258,7 +259,8 @@ int ext4_mpage_readpages(struct inode *inode,
  		if (page_has_buffers(page))
  			goto confused;
  
@@ -139,7 +139,7 @@ diff --git a/fs/ext4/readpage.c b/fs/ext4/readpage.c
  		last_block = block_in_file + nr_pages * blocks_per_page;
  		last_block_in_file = (ext4_readpage_limit(inode) +
  				      blocksize - 1) >> blkbits;
-@@ -364,7 +366,8 @@ int ext4_mpage_readpages(struct address_space *mapping,
+@@ -358,7 +360,8 @@ int ext4_mpage_readpages(struct inode *inode,
  		 * This page will go to BIO.  Do we need to send this
  		 * BIO off first?
  		 */
@@ -149,7 +149,7 @@ diff --git a/fs/ext4/readpage.c b/fs/ext4/readpage.c
  		submit_and_realloc:
  			submit_bio(bio);
  			bio = NULL;
-@@ -377,6 +380,12 @@ int ext4_mpage_readpages(struct address_space *mapping,
+@@ -371,6 +374,12 @@ int ext4_mpage_readpages(struct inode *inode,
  			bio = bio_alloc(GFP_KERNEL,
  				min_t(int, nr_pages, BIO_MAX_PAGES));
  			ext4_set_bio_post_read_ctx(bio, inode, page->index);
