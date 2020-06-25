@@ -17,28 +17,28 @@ Bug: 147259927
 Change-Id: Ia561d5a51421baaf78de52a1eaec496093a0d0ad
 Signed-off-by: Eric Biggers <ebiggers@google.com>
 ---
- drivers/scsi/ufs/ufshcd-crypto.c | 24 ++++++++++++++++++------
+ drivers/scsi/ufs/ufshcd-crypto.c | 31 +++++++++++++++++++++++--------
  drivers/scsi/ufs/ufshcd.h        |  5 +++++
- 2 files changed, 23 insertions(+), 6 deletions(-)
+ 2 files changed, 28 insertions(+), 8 deletions(-)
 
 diff --git a/drivers/scsi/ufs/ufshcd-crypto.c b/drivers/scsi/ufs/ufshcd-crypto.c
 --- a/drivers/scsi/ufs/ufshcd-crypto.c
 +++ b/drivers/scsi/ufs/ufshcd-crypto.c
-@@ -118,15 +118,21 @@ static int ufshcd_crypto_cfg_entry_write_key(union ufs_crypto_cfg_entry *cfg,
- 	return -EINVAL;
- }
+@@ -17,14 +17,21 @@ static const struct ufs_crypto_alg_entry {
+ 	},
+ };
  
 -static void ufshcd_program_key(struct ufs_hba *hba,
 -			       const union ufs_crypto_cfg_entry *cfg,
 -			       int slot)
 +static int ufshcd_program_key(struct ufs_hba *hba,
-+			      const union ufs_crypto_cfg_entry *cfg, int slot)
++			      const union ufs_crypto_cfg_entry *cfg,
++			      int slot)
  {
  	int i;
  	u32 slot_offset = hba->crypto_cfg_register + slot * sizeof(*cfg);
 +	int err;
  
- 	pm_runtime_get_sync(hba->dev);
  	ufshcd_hold(hba, false);
 +
 +	if (hba->vops->program_key) {
@@ -46,34 +46,31 @@ diff --git a/drivers/scsi/ufs/ufshcd-crypto.c b/drivers/scsi/ufs/ufshcd-crypto.c
 +		goto out;
 +	}
 +
- 	/* Clear the dword 16 */
- 	ufshcd_writel(hba, 0, slot_offset + 16 * sizeof(cfg->reg_val[0]));
  	/* Ensure that CFGE is cleared before programming the key */
-@@ -146,15 +152,20 @@ static void ufshcd_program_key(struct ufs_hba *hba,
+ 	ufshcd_writel(hba, 0, slot_offset + 16 * sizeof(cfg->reg_val[0]));
+ 	for (i = 0; i < 16; i++) {
+@@ -37,7 +44,10 @@ static void ufshcd_program_key(struct ufs_hba *hba,
+ 	/* Dword 16 must be written last */
  	ufshcd_writel(hba, le32_to_cpu(cfg->reg_val[16]),
  		      slot_offset + 16 * sizeof(cfg->reg_val[0]));
- 	wmb();
 +	err = 0;
 +out:
  	ufshcd_release(hba);
- 	pm_runtime_put_sync(hba->dev);
 +	return err;
  }
  
- static void ufshcd_clear_keyslot(struct ufs_hba *hba, int slot)
- {
+ static int ufshcd_crypto_keyslot_program(struct blk_keyslot_manager *ksm,
+@@ -52,6 +62,7 @@ static int ufshcd_crypto_keyslot_program(struct blk_keyslot_manager *ksm,
+ 	int i;
+ 	int cap_idx = -1;
  	union ufs_crypto_cfg_entry cfg = { 0 };
 +	int err;
  
--	ufshcd_program_key(hba, &cfg, slot);
-+	err = ufshcd_program_key(hba, &cfg, slot);
-+	WARN_ON_ONCE(err);
- }
- 
- /* Clear all keyslots at driver init time */
-@@ -199,10 +210,11 @@ static int ufshcd_crypto_keyslot_program(struct keyslot_manager *ksm,
- 	if (err)
- 		return err;
+ 	BUILD_BUG_ON(UFS_CRYPTO_KEY_SIZE_INVALID != 0);
+ 	for (i = 0; i < hba->crypto_capabilities.num_crypto_cap; i++) {
+@@ -79,21 +90,25 @@ static int ufshcd_crypto_keyslot_program(struct blk_keyslot_manager *ksm,
+ 		memcpy(cfg.crypto_key, key->raw, key->size);
+ 	}
  
 -	ufshcd_program_key(hba, &cfg, slot);
 +	err = ufshcd_program_key(hba, &cfg, slot);
@@ -84,11 +81,28 @@ diff --git a/drivers/scsi/ufs/ufshcd-crypto.c b/drivers/scsi/ufs/ufshcd-crypto.c
 +	return err;
  }
  
- static int ufshcd_crypto_keyslot_evict(struct keyslot_manager *ksm,
++
+ static void ufshcd_clear_keyslot(struct ufs_hba *hba, int slot)
+ {
++	union ufs_crypto_cfg_entry cfg = { 0 };
++	int err;
++
+ 	/*
+ 	 * Clear the crypto cfg on the device. Clearing CFGE
+ 	 * might not be sufficient, so just clear the entire cfg.
+ 	 */
+-	union ufs_crypto_cfg_entry cfg = { 0 };
+-
+-	ufshcd_program_key(hba, &cfg, slot);
++	err = ufshcd_program_key(hba, &cfg, slot);
++	WARN_ON_ONCE(err);
+ }
+ 
+ static int ufshcd_crypto_keyslot_evict(struct blk_keyslot_manager *ksm,
 diff --git a/drivers/scsi/ufs/ufshcd.h b/drivers/scsi/ufs/ufshcd.h
 --- a/drivers/scsi/ufs/ufshcd.h
 +++ b/drivers/scsi/ufs/ufshcd.h
-@@ -293,6 +293,8 @@ struct ufs_pwr_mode_info {
+@@ -292,6 +292,8 @@ struct ufs_pwr_mode_info {
  	struct ufs_pa_layer_attr info;
  };
  
@@ -97,7 +111,7 @@ diff --git a/drivers/scsi/ufs/ufshcd.h b/drivers/scsi/ufs/ufshcd.h
  /**
   * struct ufs_hba_variant_ops - variant specific callbacks
   * @name: variant name
-@@ -320,6 +322,7 @@ struct ufs_pwr_mode_info {
+@@ -319,6 +321,7 @@ struct ufs_pwr_mode_info {
   * @dbg_register_dump: used to dump controller debug information
   * @phy_initialization: used to initialize phys
   * @device_reset: called to issue a reset pulse on the UFS device
@@ -105,7 +119,7 @@ diff --git a/drivers/scsi/ufs/ufshcd.h b/drivers/scsi/ufs/ufshcd.h
   */
  struct ufs_hba_variant_ops {
  	const char *name;
-@@ -352,6 +355,8 @@ struct ufs_hba_variant_ops {
+@@ -351,6 +354,8 @@ struct ufs_hba_variant_ops {
  	void	(*config_scaling_param)(struct ufs_hba *hba,
  					struct devfreq_dev_profile *profile,
  					void *data);
@@ -113,4 +127,4 @@ diff --git a/drivers/scsi/ufs/ufshcd.h b/drivers/scsi/ufs/ufshcd.h
 +			       const union ufs_crypto_cfg_entry *cfg, int slot);
  };
  
- struct keyslot_mgmt_ll_ops;
+ /* clock gating state  */

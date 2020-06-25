@@ -15,7 +15,7 @@ Bug: 152116739
 diff --git a/drivers/md/dm-bow.c b/drivers/md/dm-bow.c
 --- a/drivers/md/dm-bow.c
 +++ b/drivers/md/dm-bow.c
-@@ -792,6 +792,7 @@ static int prepare_unchanged_range(struct bow_context *bc, struct bow_range *br,
+@@ -791,6 +791,7 @@ static int prepare_unchanged_range(struct bow_context *bc, struct bow_range *br,
  	 */
  	original_type = br->type;
  	sector0 = backup_br->sector;

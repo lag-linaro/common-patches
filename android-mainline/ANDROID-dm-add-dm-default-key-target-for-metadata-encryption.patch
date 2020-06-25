@@ -40,35 +40,22 @@ Bug: 147814592
 Change-Id: I69c9cd1e968ccf990e4ad96e5115b662237f5095
 Signed-off-by: Eric Biggers <ebiggers@google.com>
 ---
- block/bio-crypt-ctx.c         |   2 +
- block/blk-crypto-fallback.c   |   2 +
- drivers/md/Kconfig            |  18 ++
- drivers/md/Makefile           |   1 +
- drivers/md/dm-default-key.c   | 400 ++++++++++++++++++++++++++++++++++
- fs/crypto/inline_crypt.c      |  14 +-
- fs/f2fs/data.c                |   6 +-
- include/linux/bio-crypt-ctx.h |  32 +++
- include/linux/blk_types.h     |   3 +
- include/linux/fscrypt.h       |  14 ++
- 10 files changed, 490 insertions(+), 2 deletions(-)
+ block/blk-crypto-fallback.c |   2 +
+ drivers/md/Kconfig          |  21 ++
+ drivers/md/Makefile         |   1 +
+ drivers/md/dm-default-key.c | 413 ++++++++++++++++++++++++++++++++++++
+ fs/crypto/inline_crypt.c    |  14 +-
+ fs/f2fs/data.c              |   6 +-
+ include/linux/blk-crypto.h  |  36 ++++
+ include/linux/blk_types.h   |   3 +
+ include/linux/fscrypt.h     |  14 ++
+ 9 files changed, 508 insertions(+), 2 deletions(-)
  create mode 100644 drivers/md/dm-default-key.c
 
-diff --git a/block/bio-crypt-ctx.c b/block/bio-crypt-ctx.c
---- a/block/bio-crypt-ctx.c
-+++ b/block/bio-crypt-ctx.c
-@@ -61,6 +61,8 @@ void bio_crypt_clone(struct bio *dst, struct bio *src, gfp_t gfp_mask)
- {
- 	const struct bio_crypt_ctx *src_bc = src->bi_crypt_context;
- 
-+	bio_clone_skip_dm_default_key(dst, src);
-+
- 	/*
- 	 * If a bio is fallback_crypted, then it will be decrypted when
- 	 * bio_endio is called. As we only want the data to be decrypted once,
 diff --git a/block/blk-crypto-fallback.c b/block/blk-crypto-fallback.c
 --- a/block/blk-crypto-fallback.c
 +++ b/block/blk-crypto-fallback.c
-@@ -193,6 +193,8 @@ static struct bio *blk_crypto_clone_bio(struct bio *bio_src)
+@@ -180,6 +180,8 @@ static struct bio *blk_crypto_clone_bio(struct bio *bio_src)
  	bio_clone_blkg_association(bio, bio_src);
  	blkcg_bio_issue_init(bio);
  
@@ -80,7 +67,7 @@ diff --git a/block/blk-crypto-fallback.c b/block/blk-crypto-fallback.c
 diff --git a/drivers/md/Kconfig b/drivers/md/Kconfig
 --- a/drivers/md/Kconfig
 +++ b/drivers/md/Kconfig
-@@ -285,6 +285,24 @@ config DM_CRYPT
+@@ -285,6 +285,27 @@ config DM_CRYPT
  
  	  If unsure, say N.
  
@@ -88,6 +75,9 @@ diff --git a/drivers/md/Kconfig b/drivers/md/Kconfig
 +	tristate "Default-key target support"
 +	depends on BLK_DEV_DM
 +	depends on BLK_INLINE_ENCRYPTION
++	# dm-default-key doesn't require -o inlinecrypt, but it does currently
++	# rely on the inline encryption hooks being built into the kernel.
++	depends on FS_ENCRYPTION_INLINE_CRYPT
 +	help
 +	  This device-mapper target allows you to create a device that
 +	  assigns a default encryption key to bios that aren't for the
@@ -118,10 +108,10 @@ diff --git a/drivers/md/Makefile b/drivers/md/Makefile
  obj-$(CONFIG_DM_FLAKEY)		+= dm-flakey.o
 diff --git a/drivers/md/dm-default-key.c b/drivers/md/dm-default-key.c
 new file mode 100644
-index 000000000000..1eb9ddfad04c
+index 000000000000..82fbe278b384
 --- /dev/null
 +++ b/drivers/md/dm-default-key.c
-@@ -0,0 +1,400 @@
+@@ -0,0 +1,413 @@
 +// SPDX-License-Identifier: GPL-2.0
 +/*
 + * Copyright (C) 2017 Google, Inc.
@@ -162,6 +152,7 @@ index 000000000000..1eb9ddfad04c
 + * @sector_size: crypto sector size in bytes (usually 4096)
 + * @sector_bits: log2(sector_size)
 + * @key: the encryption key to use
++ * @max_dun: the maximum DUN that may be used (computed from other params)
 + */
 +struct default_key_c {
 +	struct dm_dev *dev;
@@ -171,6 +162,7 @@ index 000000000000..1eb9ddfad04c
 +	unsigned int sector_size;
 +	unsigned int sector_bits;
 +	struct blk_crypto_key key;
++	u64 max_dun;
 +};
 +
 +static const struct dm_default_key_cipher *
@@ -267,6 +259,7 @@ index 000000000000..1eb9ddfad04c
 +	struct default_key_c *dkc;
 +	const struct dm_default_key_cipher *cipher;
 +	u8 raw_key[DM_DEFAULT_KEY_MAX_KEY_SIZE];
++	unsigned int dun_bytes;
 +	unsigned long long tmpll;
 +	char dummy;
 +	int err;
@@ -347,15 +340,18 @@ index 000000000000..1eb9ddfad04c
 +		goto bad;
 +	}
 +
-+	err = blk_crypto_init_key(&dkc->key, raw_key, cipher->key_size,
-+				  cipher->mode_num, dkc->sector_size);
++	dkc->max_dun = (dkc->iv_offset + ti->len - 1) >>
++		       (dkc->sector_bits - SECTOR_SHIFT);
++	dun_bytes = DIV_ROUND_UP(fls64(dkc->max_dun), 8);
++
++	err = blk_crypto_init_key(&dkc->key, raw_key, cipher->mode_num,
++				  dun_bytes, dkc->sector_size);
 +	if (err) {
 +		ti->error = "Error initializing blk-crypto key";
 +		goto bad;
 +	}
 +
-+	err = blk_crypto_start_using_mode(cipher->mode_num, dkc->sector_size,
-+					  dkc->dev->bdev->bd_queue);
++	err = blk_crypto_start_using_key(&dkc->key, dkc->dev->bdev->bd_queue);
 +	if (err) {
 +		ti->error = "Error starting to use blk-crypto";
 +		goto bad;
@@ -414,6 +410,13 @@ index 000000000000..1eb9ddfad04c
 +	if (dun[0] & ((dkc->sector_size >> SECTOR_SHIFT) - 1))
 +		return DM_MAPIO_KILL;
 +	dun[0] >>= dkc->sector_bits - SECTOR_SHIFT; /* crypto sectors */
++
++	/*
++	 * This check isn't necessary as we should have calculated max_dun
++	 * correctly, but be safe.
++	 */
++	if (WARN_ON_ONCE(dun[0] > dkc->max_dun))
++		return DM_MAPIO_KILL;
 +
 +	bio_crypt_set_ctx(bio, &dkc->key, dun, GFP_NOIO);
 +
@@ -525,7 +528,7 @@ index 000000000000..1eb9ddfad04c
 diff --git a/fs/crypto/inline_crypt.c b/fs/crypto/inline_crypt.c
 --- a/fs/crypto/inline_crypt.c
 +++ b/fs/crypto/inline_crypt.c
-@@ -214,6 +214,8 @@ static void fscrypt_generate_dun(const struct fscrypt_info *ci, u64 lblk_num,
+@@ -224,6 +224,8 @@ static void fscrypt_generate_dun(const struct fscrypt_info *ci, u64 lblk_num,
   * otherwise fscrypt_mergeable_bio() won't work as intended.
   *
   * The encryption context will be freed automatically when the bio is freed.
@@ -534,7 +537,7 @@ diff --git a/fs/crypto/inline_crypt.c b/fs/crypto/inline_crypt.c
   */
  void fscrypt_set_bio_crypt_ctx(struct bio *bio, const struct inode *inode,
  			       u64 first_lblk, gfp_t gfp_mask)
-@@ -221,6 +223,9 @@ void fscrypt_set_bio_crypt_ctx(struct bio *bio, const struct inode *inode,
+@@ -231,6 +233,9 @@ void fscrypt_set_bio_crypt_ctx(struct bio *bio, const struct inode *inode,
  	const struct fscrypt_info *ci = inode->i_crypt_info;
  	u64 dun[BLK_CRYPTO_DUN_ARRAY_SIZE];
  
@@ -544,7 +547,7 @@ diff --git a/fs/crypto/inline_crypt.c b/fs/crypto/inline_crypt.c
  	if (!fscrypt_inode_uses_inline_crypto(inode))
  		return;
  
-@@ -290,6 +295,9 @@ EXPORT_SYMBOL_GPL(fscrypt_set_bio_crypt_ctx_bh);
+@@ -300,6 +305,9 @@ EXPORT_SYMBOL_GPL(fscrypt_set_bio_crypt_ctx_bh);
   *
   * fscrypt_set_bio_crypt_ctx() must have already been called on the bio.
   *
@@ -554,7 +557,7 @@ diff --git a/fs/crypto/inline_crypt.c b/fs/crypto/inline_crypt.c
   * Return: true iff the I/O is mergeable
   */
  bool fscrypt_mergeable_bio(struct bio *bio, const struct inode *inode,
-@@ -300,6 +308,9 @@ bool fscrypt_mergeable_bio(struct bio *bio, const struct inode *inode,
+@@ -310,6 +318,9 @@ bool fscrypt_mergeable_bio(struct bio *bio, const struct inode *inode,
  
  	if (!!bc != fscrypt_inode_uses_inline_crypto(inode))
  		return false;
@@ -564,7 +567,7 @@ diff --git a/fs/crypto/inline_crypt.c b/fs/crypto/inline_crypt.c
  	if (!bc)
  		return true;
  
-@@ -333,7 +344,8 @@ bool fscrypt_mergeable_bio_bh(struct bio *bio,
+@@ -343,7 +354,8 @@ bool fscrypt_mergeable_bio_bh(struct bio *bio,
  	u64 next_lblk;
  
  	if (!bh_get_inode_and_lblk_num(next_bh, &inode, &next_lblk))
@@ -577,7 +580,7 @@ diff --git a/fs/crypto/inline_crypt.c b/fs/crypto/inline_crypt.c
 diff --git a/fs/f2fs/data.c b/fs/f2fs/data.c
 --- a/fs/f2fs/data.c
 +++ b/fs/f2fs/data.c
-@@ -469,6 +469,8 @@ static void f2fs_set_bio_crypt_ctx(struct bio *bio, const struct inode *inode,
+@@ -470,6 +470,8 @@ static void f2fs_set_bio_crypt_ctx(struct bio *bio, const struct inode *inode,
  	 */
  	if (!fio || !fio->encrypted_page)
  		fscrypt_set_bio_crypt_ctx(bio, inode, first_idx, gfp_mask);
@@ -586,7 +589,7 @@ diff --git a/fs/f2fs/data.c b/fs/f2fs/data.c
  }
  
  static bool f2fs_crypt_mergeable_bio(struct bio *bio, const struct inode *inode,
-@@ -480,7 +482,9 @@ static bool f2fs_crypt_mergeable_bio(struct bio *bio, const struct inode *inode,
+@@ -481,7 +483,9 @@ static bool f2fs_crypt_mergeable_bio(struct bio *bio, const struct inode *inode,
  	 * read/write raw data without encryption.
  	 */
  	if (fio && fio->encrypted_page)
@@ -597,12 +600,24 @@ diff --git a/fs/f2fs/data.c b/fs/f2fs/data.c
  
  	return fscrypt_mergeable_bio(bio, inode, next_idx);
  }
-diff --git a/include/linux/bio-crypt-ctx.h b/include/linux/bio-crypt-ctx.h
---- a/include/linux/bio-crypt-ctx.h
-+++ b/include/linux/bio-crypt-ctx.h
-@@ -189,6 +189,38 @@ static inline bool bio_crypt_ctx_mergeable(struct bio *b_1,
+diff --git a/include/linux/blk-crypto.h b/include/linux/blk-crypto.h
+--- a/include/linux/blk-crypto.h
++++ b/include/linux/blk-crypto.h
+@@ -112,12 +112,48 @@ static inline bool bio_has_crypt_ctx(struct bio *bio)
  
  #endif /* CONFIG_BLK_INLINE_ENCRYPTION */
+ 
++static inline void bio_clone_skip_dm_default_key(struct bio *dst,
++						 const struct bio *src);
++
+ void __bio_crypt_clone(struct bio *dst, struct bio *src, gfp_t gfp_mask);
+ static inline void bio_crypt_clone(struct bio *dst, struct bio *src,
+ 				   gfp_t gfp_mask)
+ {
++	bio_clone_skip_dm_default_key(dst, src);
+ 	if (bio_has_crypt_ctx(src))
+ 		__bio_crypt_clone(dst, src, gfp_mask);
+ }
  
 +#if IS_ENABLED(CONFIG_DM_DEFAULT_KEY)
 +static inline void bio_set_skip_dm_default_key(struct bio *bio)
@@ -636,13 +651,11 @@ diff --git a/include/linux/bio-crypt-ctx.h b/include/linux/bio-crypt-ctx.h
 +}
 +#endif /* !CONFIG_DM_DEFAULT_KEY */
 +
- #endif /* CONFIG_BLOCK */
- 
- #endif /* __LINUX_BIO_CRYPT_CTX_H */
+ #endif /* __LINUX_BLK_CRYPTO_H */
 diff --git a/include/linux/blk_types.h b/include/linux/blk_types.h
 --- a/include/linux/blk_types.h
 +++ b/include/linux/blk_types.h
-@@ -177,6 +177,9 @@ struct bio {
+@@ -189,6 +189,9 @@ struct bio {
  
  #ifdef CONFIG_BLK_INLINE_ENCRYPTION
  	struct bio_crypt_ctx	*bi_crypt_context;
@@ -655,7 +668,7 @@ diff --git a/include/linux/blk_types.h b/include/linux/blk_types.h
 diff --git a/include/linux/fscrypt.h b/include/linux/fscrypt.h
 --- a/include/linux/fscrypt.h
 +++ b/include/linux/fscrypt.h
-@@ -609,6 +609,20 @@ static inline bool fscrypt_mergeable_bio_bh(struct bio *bio,
+@@ -623,6 +623,20 @@ static inline int fscrypt_limit_dio_pages(const struct inode *inode, loff_t pos,
  }
  #endif /* !CONFIG_FS_ENCRYPTION_INLINE_CRYPT */
  
@@ -674,5 +687,5 @@ diff --git a/include/linux/fscrypt.h b/include/linux/fscrypt.h
 +#endif
 +
  /**
-  * fscrypt_require_key() - require an inode's encryption key
-  * @inode: the inode we need the key for
+  * fscrypt_inode_uses_inline_crypto() - test whether an inode uses inline
+  *					encryption

@@ -19,7 +19,7 @@ Change-Id: I7219a3abd922b31249a3bccb94bc0dcff197788e
 diff --git a/arch/arm64/configs/gki_defconfig b/arch/arm64/configs/gki_defconfig
 --- a/arch/arm64/configs/gki_defconfig
 +++ b/arch/arm64/configs/gki_defconfig
-@@ -159,6 +159,7 @@ CONFIG_NETFILTER_XT_MATCH_POLICY=y
+@@ -157,6 +157,7 @@ CONFIG_NETFILTER_XT_MATCH_POLICY=y
  CONFIG_NETFILTER_XT_MATCH_PKTTYPE=y
  CONFIG_NETFILTER_XT_MATCH_QUOTA=y
  CONFIG_NETFILTER_XT_MATCH_QUOTA2=y
@@ -30,7 +30,7 @@ diff --git a/arch/arm64/configs/gki_defconfig b/arch/arm64/configs/gki_defconfig
 diff --git a/arch/x86/configs/gki_defconfig b/arch/x86/configs/gki_defconfig
 --- a/arch/x86/configs/gki_defconfig
 +++ b/arch/x86/configs/gki_defconfig
-@@ -132,6 +132,7 @@ CONFIG_NETFILTER_XT_MATCH_POLICY=y
+@@ -130,6 +130,7 @@ CONFIG_NETFILTER_XT_MATCH_POLICY=y
  CONFIG_NETFILTER_XT_MATCH_PKTTYPE=y
  CONFIG_NETFILTER_XT_MATCH_QUOTA=y
  CONFIG_NETFILTER_XT_MATCH_QUOTA2=y

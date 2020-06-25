@@ -18,7 +18,7 @@ Change-Id: If22ceac2982a0f6b7a922393fb1dd08c68f6bc70
 diff --git a/arch/arm64/configs/gki_defconfig b/arch/arm64/configs/gki_defconfig
 --- a/arch/arm64/configs/gki_defconfig
 +++ b/arch/arm64/configs/gki_defconfig
-@@ -189,7 +189,6 @@ CONFIG_IP6_NF_MANGLE=y
+@@ -187,7 +187,6 @@ CONFIG_IP6_NF_MANGLE=y
  CONFIG_IP6_NF_RAW=y
  CONFIG_TIPC=y
  CONFIG_L2TP=y

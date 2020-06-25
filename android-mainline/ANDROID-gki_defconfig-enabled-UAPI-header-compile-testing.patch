@@ -25,7 +25,7 @@ diff --git a/arch/arm64/configs/gki_defconfig b/arch/arm64/configs/gki_defconfig
  CONFIG_LOCALVERSION="-mainline"
  CONFIG_AUDIT=y
  CONFIG_NO_HZ=y
-@@ -480,6 +481,7 @@ CONFIG_DMA_CMA=y
+@@ -474,6 +475,7 @@ CONFIG_DMA_CMA=y
  CONFIG_PRINTK_TIME=y
  CONFIG_DEBUG_INFO=y
  # CONFIG_ENABLE_MUST_CHECK is not set
@@ -41,7 +41,7 @@ diff --git a/arch/x86/configs/gki_defconfig b/arch/x86/configs/gki_defconfig
  CONFIG_LOCALVERSION="-mainline"
  # CONFIG_USELIB is not set
  CONFIG_AUDIT=y
-@@ -420,6 +421,7 @@ CONFIG_DMA_CMA=y
+@@ -415,6 +416,7 @@ CONFIG_DMA_CMA=y
  CONFIG_PRINTK_TIME=y
  CONFIG_DEBUG_INFO=y
  # CONFIG_ENABLE_MUST_CHECK is not set

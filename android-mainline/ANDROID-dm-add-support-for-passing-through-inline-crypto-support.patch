@@ -7,11 +7,11 @@ Update the device-mapper core to support exposing the inline crypto
 support of the underlying device(s) through the device-mapper device.
 
 This works by creating a "passthrough keyslot manager" for the dm
-device, which declares support for the set of (crypto_mode,
-data_unit_size) combos which all the underlying devices support.  When a
-supported combo is used, the bio cloning code handles cloning the crypto
-context to the bios for all the underlying devices.  When an unsupported
-combo is used, the blk-crypto fallback is used as usual.
+device, which declares support for encryption settings which all
+underlying devices support.  When a supported setting is used, the bio
+cloning code handles cloning the crypto context to the bios for all the
+underlying devices.  When an unsupported setting is used, the blk-crypto
+fallback is used as usual.
 
 Crypto support on each underlying device is ignored unless the
 corresponding dm target opts into exposing it.  This is needed because
@@ -28,22 +28,25 @@ Bug: 147814592
 Change-Id: If28b574f2e28268db5eb9f325d4cf8f96cb63e3f
 Signed-off-by: Eric Biggers <ebiggers@google.com>
 ---
- block/keyslot-manager.c         | 28 ++++++++++
- drivers/md/dm-table.c           | 52 +++++++++++++++++
- drivers/md/dm.c                 | 98 ++++++++++++++++++++++++++++++++-
- include/linux/device-mapper.h   |  6 ++
+ block/keyslot-manager.c         | 33 ++++++++++++
+ drivers/md/dm-core.h            |  4 ++
+ drivers/md/dm-table.c           | 52 +++++++++++++++++++
+ drivers/md/dm.c                 | 92 ++++++++++++++++++++++++++++++++-
+ include/linux/device-mapper.h   |  6 +++
  include/linux/keyslot-manager.h |  7 +++
- 5 files changed, 190 insertions(+), 1 deletion(-)
+ 6 files changed, 193 insertions(+), 1 deletion(-)
 
 diff --git a/block/keyslot-manager.c b/block/keyslot-manager.c
 --- a/block/keyslot-manager.c
 +++ b/block/keyslot-manager.c
-@@ -492,6 +492,34 @@ struct keyslot_manager *keyslot_manager_create_passthrough(
+@@ -417,6 +417,39 @@ void blk_ksm_unregister(struct request_queue *q)
+ {
+ 	q->ksm = NULL;
  }
- EXPORT_SYMBOL_GPL(keyslot_manager_create_passthrough);
- 
++EXPORT_SYMBOL_GPL(blk_ksm_unregister);
++
 +/**
-+ * keyslot_manager_intersect_modes() - restrict supported modes by child device
++ * blk_ksm_intersect_modes() - restrict supported modes by child device
 + * @parent: The keyslot manager for parent device
 + * @child: The keyslot manager for child device, or NULL
 + *
@@ -53,26 +56,50 @@ diff --git a/block/keyslot-manager.c b/block/keyslot-manager.c
 + * Only use this when setting up the keyslot manager for a layered device,
 + * before it's been exposed yet.
 + */
-+void keyslot_manager_intersect_modes(struct keyslot_manager *parent,
-+				     const struct keyslot_manager *child)
++void blk_ksm_intersect_modes(struct blk_keyslot_manager *parent,
++			     const struct blk_keyslot_manager *child)
 +{
 +	if (child) {
 +		unsigned int i;
 +
-+		for (i = 0; i < ARRAY_SIZE(child->crypto_mode_supported); i++) {
-+			parent->crypto_mode_supported[i] &=
-+				child->crypto_mode_supported[i];
++		parent->max_dun_bytes_supported =
++			min(parent->max_dun_bytes_supported,
++			    child->max_dun_bytes_supported);
++		for (i = 0; i < ARRAY_SIZE(child->crypto_modes_supported); i++) {
++			parent->crypto_modes_supported[i] &=
++				child->crypto_modes_supported[i];
 +		}
 +	} else {
-+		memset(parent->crypto_mode_supported, 0,
-+		       sizeof(parent->crypto_mode_supported));
++		parent->max_dun_bytes_supported = 0;
++		memset(parent->crypto_modes_supported, 0,
++		       sizeof(parent->crypto_modes_supported));
 +	}
 +}
-+EXPORT_SYMBOL_GPL(keyslot_manager_intersect_modes);
-+
++EXPORT_SYMBOL_GPL(blk_ksm_intersect_modes);
+ 
  /**
-  * keyslot_manager_derive_raw_secret() - Derive software secret from wrapped key
-  * @ksm: The keyslot manager
+  * blk_ksm_init_passthrough() - Init a passthrough keyslot manager
+diff --git a/drivers/md/dm-core.h b/drivers/md/dm-core.h
+--- a/drivers/md/dm-core.h
++++ b/drivers/md/dm-core.h
+@@ -12,6 +12,7 @@
+ #include <linux/kthread.h>
+ #include <linux/ktime.h>
+ #include <linux/blk-mq.h>
++#include <linux/keyslot-manager.h>
+ 
+ #include <trace/events/block.h>
+ 
+@@ -49,6 +50,9 @@ struct mapped_device {
+ 
+ 	int numa_node_id;
+ 	struct request_queue *queue;
++#ifdef CONFIG_BLK_INLINE_ENCRYPTION
++	struct blk_keyslot_manager ksm;
++#endif
+ 
+ 	atomic_t holders;
+ 	atomic_t open_count;
 diff --git a/drivers/md/dm-table.c b/drivers/md/dm-table.c
 --- a/drivers/md/dm-table.c
 +++ b/drivers/md/dm-table.c
@@ -85,7 +112,7 @@ diff --git a/drivers/md/dm-table.c b/drivers/md/dm-table.c
  
  #define DM_MSG_PREFIX "table"
  
-@@ -1617,6 +1619,54 @@ static void dm_table_verify_integrity(struct dm_table *t)
+@@ -1600,6 +1602,54 @@ static void dm_table_verify_integrity(struct dm_table *t)
  	}
  }
  
@@ -94,10 +121,10 @@ diff --git a/drivers/md/dm-table.c b/drivers/md/dm-table.c
 +					 struct dm_dev *dev, sector_t start,
 +					 sector_t len, void *data)
 +{
-+	struct keyslot_manager *parent = data;
-+	struct keyslot_manager *child = bdev_get_queue(dev->bdev)->ksm;
++	struct blk_keyslot_manager *parent = data;
++	struct blk_keyslot_manager *child = bdev_get_queue(dev->bdev)->ksm;
 +
-+	keyslot_manager_intersect_modes(parent, child);
++	blk_ksm_intersect_modes(parent, child);
 +	return 0;
 +}
 +
@@ -121,7 +148,7 @@ diff --git a/drivers/md/dm-table.c b/drivers/md/dm-table.c
 +		ti = dm_table_get_target(t, i);
 +
 +		if (!ti->may_passthrough_inline_crypto) {
-+			keyslot_manager_intersect_modes(q->ksm, NULL);
++			blk_ksm_intersect_modes(q->ksm, NULL);
 +			return;
 +		}
 +		if (!ti->type->iterate_devices)
@@ -140,7 +167,7 @@ diff --git a/drivers/md/dm-table.c b/drivers/md/dm-table.c
  static int device_flush_capable(struct dm_target *ti, struct dm_dev *dev,
  				sector_t start, sector_t len, void *data)
  {
-@@ -1933,6 +1983,8 @@ void dm_table_set_restrictions(struct dm_table *t, struct request_queue *q,
+@@ -1916,6 +1966,8 @@ void dm_table_set_restrictions(struct dm_table *t, struct request_queue *q,
  
  	dm_table_verify_integrity(t);
  
@@ -152,16 +179,15 @@ diff --git a/drivers/md/dm-table.c b/drivers/md/dm-table.c
 diff --git a/drivers/md/dm.c b/drivers/md/dm.c
 --- a/drivers/md/dm.c
 +++ b/drivers/md/dm.c
-@@ -26,6 +26,8 @@
- #include <linux/pr.h>
+@@ -27,6 +27,7 @@
  #include <linux/refcount.h>
  #include <linux/part_stat.h>
-+#include <linux/blk-crypto.h>
+ #include <linux/blk-crypto.h>
 +#include <linux/keyslot-manager.h>
  
  #define DM_MSG_PREFIX "core"
  
-@@ -1887,6 +1889,8 @@ static const struct dax_operations dm_dax_ops;
+@@ -1896,6 +1897,8 @@ static const struct dax_operations dm_dax_ops;
  
  static void dm_wq_work(struct work_struct *work);
  
@@ -170,7 +196,7 @@ diff --git a/drivers/md/dm.c b/drivers/md/dm.c
  static void cleanup_mapped_device(struct mapped_device *md)
  {
  	if (md->wq)
-@@ -1908,8 +1912,10 @@ static void cleanup_mapped_device(struct mapped_device *md)
+@@ -1917,8 +1920,10 @@ static void cleanup_mapped_device(struct mapped_device *md)
  		put_disk(md->disk);
  	}
  
@@ -182,7 +208,7 @@ diff --git a/drivers/md/dm.c b/drivers/md/dm.c
  
  	cleanup_srcu_struct(&md->io_barrier);
  
-@@ -2272,6 +2278,89 @@ struct queue_limits *dm_get_queue_limits(struct mapped_device *md)
+@@ -2281,6 +2286,88 @@ struct queue_limits *dm_get_queue_limits(struct mapped_device *md)
  }
  EXPORT_SYMBOL_GPL(dm_get_queue_limits);
  
@@ -209,10 +235,10 @@ diff --git a/drivers/md/dm.c b/drivers/md/dm.c
 + * When an inline encryption key is evicted from a device-mapper device, evict
 + * it from all the underlying devices.
 + */
-+static int dm_keyslot_evict(struct keyslot_manager *ksm,
++static int dm_keyslot_evict(struct blk_keyslot_manager *ksm,
 +			    const struct blk_crypto_key *key, unsigned int slot)
 +{
-+	struct mapped_device *md = keyslot_manager_private(ksm);
++	struct mapped_device *md = container_of(ksm, struct mapped_device, ksm);
 +	struct dm_keyslot_evict_args args = { key };
 +	struct dm_table *t;
 +	int srcu_idx;
@@ -232,36 +258,35 @@ diff --git a/drivers/md/dm.c b/drivers/md/dm.c
 +	return args.err;
 +}
 +
-+static struct keyslot_mgmt_ll_ops dm_ksm_ll_ops = {
++static struct blk_ksm_ll_ops dm_ksm_ll_ops = {
 +	.keyslot_evict = dm_keyslot_evict,
 +};
 +
-+static int dm_init_inline_encryption(struct mapped_device *md)
++static void dm_init_inline_encryption(struct mapped_device *md)
 +{
-+	unsigned int mode_masks[BLK_ENCRYPTION_MODE_MAX];
++	blk_ksm_init_passthrough(&md->ksm);
++	md->ksm.ksm_ll_ops = dm_ksm_ll_ops;
 +
 +	/*
-+	 * Start out with all crypto mode support bits set.  Any unsupported
-+	 * bits will be cleared later when calculating the device restrictions.
++	 * Initially declare support for all crypto settings. Anything
++	 * unsupported by a child device will be removed later when calculating
++	 * the device restrictions.
 +	 */
-+	memset(mode_masks, 0xFF, sizeof(mode_masks));
++	md->ksm.max_dun_bytes_supported = UINT_MAX;
++	memset(md->ksm.crypto_modes_supported, 0xFF,
++	       sizeof(md->ksm.crypto_modes_supported));
 +
-+	md->queue->ksm = keyslot_manager_create_passthrough(&dm_ksm_ll_ops,
-+							    mode_masks, md);
-+	if (!md->queue->ksm)
-+		return -ENOMEM;
-+	return 0;
++	blk_ksm_register(&md->ksm, md->queue);
 +}
 +
 +static void dm_destroy_inline_encryption(struct request_queue *q)
 +{
-+	keyslot_manager_destroy(q->ksm);
-+	q->ksm = NULL;
++	blk_ksm_destroy(q->ksm);
++	blk_ksm_unregister(q);
 +}
 +#else /* CONFIG_BLK_INLINE_ENCRYPTION */
-+static inline int dm_init_inline_encryption(struct mapped_device *md)
++static inline void dm_init_inline_encryption(struct mapped_device *md)
 +{
-+	return 0;
 +}
 +
 +static inline void dm_destroy_inline_encryption(struct request_queue *q)
@@ -272,16 +297,12 @@ diff --git a/drivers/md/dm.c b/drivers/md/dm.c
  static void dm_init_congested_fn(struct mapped_device *md)
  {
  	md->queue->backing_dev_info->congested_data = md;
-@@ -2311,6 +2400,13 @@ int dm_setup_md_queue(struct mapped_device *md, struct dm_table *t)
+@@ -2320,6 +2407,9 @@ int dm_setup_md_queue(struct mapped_device *md, struct dm_table *t)
  		DMERR("Cannot calculate initial queue limits");
  		return r;
  	}
 +
-+	r = dm_init_inline_encryption(md);
-+	if (r) {
-+		DMERR("Cannot initialize inline encryption");
-+		return r;
-+	}
++	dm_init_inline_encryption(md);
 +
  	dm_table_set_restrictions(t, md->queue, &limits);
  	blk_register_queue(md->disk);
@@ -305,26 +326,23 @@ diff --git a/include/linux/device-mapper.h b/include/linux/device-mapper.h
 diff --git a/include/linux/keyslot-manager.h b/include/linux/keyslot-manager.h
 --- a/include/linux/keyslot-manager.h
 +++ b/include/linux/keyslot-manager.h
-@@ -8,6 +8,8 @@
- 
+@@ -9,6 +9,8 @@
  #include <linux/bio.h>
+ #include <linux/blk-crypto.h>
  
 +#ifdef CONFIG_BLK_INLINE_ENCRYPTION
 +
- struct keyslot_manager;
+ struct blk_keyslot_manager;
  
  /**
-@@ -69,9 +71,14 @@ struct keyslot_manager *keyslot_manager_create_passthrough(
- 	const unsigned int crypto_mode_supported[BLK_ENCRYPTION_MODE_MAX],
- 	void *ll_priv_data);
+@@ -103,6 +105,11 @@ void blk_ksm_reprogram_all_keys(struct blk_keyslot_manager *ksm);
  
-+void keyslot_manager_intersect_modes(struct keyslot_manager *parent,
-+				     const struct keyslot_manager *child);
+ void blk_ksm_destroy(struct blk_keyslot_manager *ksm);
+ 
++void blk_ksm_intersect_modes(struct blk_keyslot_manager *parent,
++			     const struct blk_keyslot_manager *child);
 +
- int keyslot_manager_derive_raw_secret(struct keyslot_manager *ksm,
- 				      const u8 *wrapped_key,
- 				      unsigned int wrapped_key_size,
- 				      u8 *secret, unsigned int secret_size);
+ void blk_ksm_init_passthrough(struct blk_keyslot_manager *ksm);
  
 +#endif /* CONFIG_BLK_INLINE_ENCRYPTION */
 +

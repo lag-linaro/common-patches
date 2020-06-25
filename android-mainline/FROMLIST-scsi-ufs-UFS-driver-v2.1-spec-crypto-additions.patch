@@ -1,17 +1,20 @@
 From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
 From: Satya Tangirala <satyat@google.com>
-Date: Thu, 24 Oct 2019 14:44:26 -0700
+Date: Thu, 18 Jun 2020 02:47:34 +0000
 Subject: FROMLIST: scsi: ufs: UFS driver v2.1 spec crypto additions
 
 Add the crypto registers and structs defined in v2.1 of the JEDEC UFSHCI
 specification in preparation to add support for inline encryption to
 UFS.
 
+Signed-off-by: Satya Tangirala <satyat@google.com>
+Reviewed-by: Eric Biggers <ebiggers@google.com>
+Reviewed-by: Stanley Chu <stanley.chu@mediatek.com>
+
 Bug: 137270441
+Link: https://lore.kernel.org/r/20200618024736.97207-2-satyat@google.com
 Test: tested as series; see Ie1b77f7615d6a7a60fdc9105c7ab2200d17636a8
 Change-Id: I8e4006bfd69692f7d5c1c37f660d90b9e2fa1274
-Signed-off-by: Satya Tangirala <satyat@google.com>
-Link: https://patchwork.kernel.org/patch/11214737/
 ---
  drivers/scsi/ufs/ufshcd.c |  2 ++
  drivers/scsi/ufs/ufshcd.h |  6 ++++
@@ -21,7 +24,7 @@ Link: https://patchwork.kernel.org/patch/11214737/
 diff --git a/drivers/scsi/ufs/ufshcd.c b/drivers/scsi/ufs/ufshcd.c
 --- a/drivers/scsi/ufs/ufshcd.c
 +++ b/drivers/scsi/ufs/ufshcd.c
-@@ -4767,6 +4767,8 @@ ufshcd_transfer_rsp_status(struct ufs_hba *hba, struct ufshcd_lrb *lrbp)
+@@ -4770,6 +4770,8 @@ ufshcd_transfer_rsp_status(struct ufs_hba *hba, struct ufshcd_lrb *lrbp)
  	case OCS_MISMATCH_RESP_UPIU_SIZE:
  	case OCS_PEER_COMM_FAILURE:
  	case OCS_FATAL_ERROR:
@@ -42,7 +45,7 @@ diff --git a/drivers/scsi/ufs/ufshcd.h b/drivers/scsi/ufs/ufshcd.h
 +	 * This capability allows the host controller driver to use the
 +	 * inline crypto engine, if it is present
 +	 */
-+	UFSHCD_CAP_CRYPTO				= 1 << 7,
++	UFSHCD_CAP_CRYPTO				= 1 << 8,
  };
  
  /**

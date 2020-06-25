@@ -18,7 +18,7 @@ Signed-off-by: Alistair Delva <adelva@google.com>
 diff --git a/arch/arm64/configs/gki_defconfig b/arch/arm64/configs/gki_defconfig
 --- a/arch/arm64/configs/gki_defconfig
 +++ b/arch/arm64/configs/gki_defconfig
-@@ -88,7 +88,6 @@ CONFIG_GKI_HACKS_TO_FIX=y
+@@ -87,7 +87,6 @@ CONFIG_GKI_HACKS_TO_FIX=y
  # CONFIG_CORE_DUMP_DEFAULT_ELF_HEADERS is not set
  CONFIG_BINFMT_MISC=m
  CONFIG_MEMORY_HOTPLUG=y
@@ -29,7 +29,7 @@ diff --git a/arch/arm64/configs/gki_defconfig b/arch/arm64/configs/gki_defconfig
 diff --git a/arch/x86/configs/gki_defconfig b/arch/x86/configs/gki_defconfig
 --- a/arch/x86/configs/gki_defconfig
 +++ b/arch/x86/configs/gki_defconfig
-@@ -62,7 +62,6 @@ CONFIG_BLK_INLINE_ENCRYPTION=y
+@@ -61,7 +61,6 @@ CONFIG_MODVERSIONS=y
  CONFIG_GKI_HACKS_TO_FIX=y
  # CONFIG_CORE_DUMP_DEFAULT_ELF_HEADERS is not set
  CONFIG_BINFMT_MISC=m

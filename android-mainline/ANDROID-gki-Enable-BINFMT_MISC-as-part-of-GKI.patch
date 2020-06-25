@@ -16,8 +16,8 @@ Change-Id: I2e9ba3a214295a63e3a0d4cc3407f93644f00db2
 diff --git a/arch/arm64/configs/gki_defconfig b/arch/arm64/configs/gki_defconfig
 --- a/arch/arm64/configs/gki_defconfig
 +++ b/arch/arm64/configs/gki_defconfig
-@@ -88,6 +88,7 @@ CONFIG_BLK_INLINE_ENCRYPTION=y
- CONFIG_BLK_INLINE_ENCRYPTION_FALLBACK=y
+@@ -86,6 +86,7 @@ CONFIG_MODULE_UNLOAD=y
+ CONFIG_MODVERSIONS=y
  CONFIG_GKI_HACKS_TO_FIX=y
  # CONFIG_CORE_DUMP_DEFAULT_ELF_HEADERS is not set
 +CONFIG_BINFMT_MISC=y
@@ -27,8 +27,8 @@ diff --git a/arch/arm64/configs/gki_defconfig b/arch/arm64/configs/gki_defconfig
 diff --git a/arch/x86/configs/gki_defconfig b/arch/x86/configs/gki_defconfig
 --- a/arch/x86/configs/gki_defconfig
 +++ b/arch/x86/configs/gki_defconfig
-@@ -66,6 +66,7 @@ CONFIG_BLK_INLINE_ENCRYPTION=y
- CONFIG_BLK_INLINE_ENCRYPTION_FALLBACK=y
+@@ -64,6 +64,7 @@ CONFIG_MODULE_UNLOAD=y
+ CONFIG_MODVERSIONS=y
  CONFIG_GKI_HACKS_TO_FIX=y
  # CONFIG_CORE_DUMP_DEFAULT_ELF_HEADERS is not set
 +CONFIG_BINFMT_MISC=y

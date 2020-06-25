@@ -122,7 +122,7 @@ diff --git a/drivers/md/dm-bow.c b/drivers/md/dm-bow.c
  	bc->block_shift = ilog2(bc->block_size);
  	bc->log_sector = kzalloc(bc->block_size, GFP_KERNEL);
  	if (!bc->log_sector) {
-@@ -1204,7 +1265,7 @@ static int dm_bow_iterate_devices(struct dm_target *ti,
+@@ -1203,7 +1264,7 @@ static int dm_bow_iterate_devices(struct dm_target *ti,
  
  static struct target_type bow_target = {
  	.name   = "bow",
@@ -131,7 +131,7 @@ diff --git a/drivers/md/dm-bow.c b/drivers/md/dm-bow.c
  	.module = THIS_MODULE,
  	.ctr    = dm_bow_ctr,
  	.dtr    = dm_bow_dtr,
-@@ -1212,6 +1273,7 @@ static struct target_type bow_target = {
+@@ -1211,6 +1272,7 @@ static struct target_type bow_target = {
  	.status = dm_bow_status,
  	.prepare_ioctl  = dm_bow_prepare_ioctl,
  	.iterate_devices = dm_bow_iterate_devices,

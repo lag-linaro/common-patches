@@ -175,7 +175,7 @@ diff --git a/fs/f2fs/dir.c b/fs/f2fs/dir.c
 diff --git a/fs/f2fs/f2fs.h b/fs/f2fs/f2fs.h
 --- a/fs/f2fs/f2fs.h
 +++ b/fs/f2fs/f2fs.h
-@@ -3098,11 +3098,6 @@ int f2fs_update_extension_list(struct f2fs_sb_info *sbi, const char *name,
+@@ -3095,11 +3095,6 @@ int f2fs_update_extension_list(struct f2fs_sb_info *sbi, const char *name,
  							bool hot, bool set);
  struct dentry *f2fs_get_parent(struct dentry *child);
  
@@ -187,7 +187,7 @@ diff --git a/fs/f2fs/f2fs.h b/fs/f2fs/f2fs.h
  /*
   * dir.c
   */
-@@ -3136,7 +3131,7 @@ void f2fs_update_dentry(nid_t ino, umode_t mode, struct f2fs_dentry_ptr *d,
+@@ -3133,7 +3128,7 @@ void f2fs_update_dentry(nid_t ino, umode_t mode, struct f2fs_dentry_ptr *d,
  			const struct qstr *name, f2fs_hash_t name_hash,
  			unsigned int bit_pos);
  int f2fs_add_regular_entry(struct inode *dir, const struct qstr *new_name,
@@ -196,7 +196,7 @@ diff --git a/fs/f2fs/f2fs.h b/fs/f2fs/f2fs.h
  			struct inode *inode, nid_t ino, umode_t mode);
  int f2fs_add_dentry(struct inode *dir, struct fscrypt_name *fname,
  			struct inode *inode, nid_t ino, umode_t mode);
-@@ -3169,7 +3164,7 @@ int f2fs_sanity_check_ckpt(struct f2fs_sb_info *sbi);
+@@ -3166,7 +3161,7 @@ int f2fs_sanity_check_ckpt(struct f2fs_sb_info *sbi);
   * hash.c
   */
  f2fs_hash_t f2fs_dentry_hash(const struct inode *dir,
@@ -205,7 +205,7 @@ diff --git a/fs/f2fs/f2fs.h b/fs/f2fs/f2fs.h
  
  /*
   * node.c
-@@ -3678,7 +3673,7 @@ struct f2fs_dir_entry *f2fs_find_in_inline_dir(struct inode *dir,
+@@ -3675,7 +3670,7 @@ struct f2fs_dir_entry *f2fs_find_in_inline_dir(struct inode *dir,
  int f2fs_make_empty_inline_dir(struct inode *inode, struct inode *parent,
  			struct page *ipage);
  int f2fs_add_inline_entry(struct inode *dir, const struct qstr *new_name,
@@ -295,7 +295,7 @@ diff --git a/fs/f2fs/hash.c b/fs/f2fs/hash.c
 diff --git a/fs/f2fs/inline.c b/fs/f2fs/inline.c
 --- a/fs/f2fs/inline.c
 +++ b/fs/f2fs/inline.c
-@@ -483,8 +483,8 @@ static int f2fs_add_inline_entries(struct inode *dir, void *inline_dentry)
+@@ -465,8 +465,8 @@ static int f2fs_add_inline_entries(struct inode *dir, void *inline_dentry)
  		ino = le32_to_cpu(de->ino);
  		fake_mode = f2fs_get_de_type(de) << S_SHIFT;
  
@@ -306,7 +306,7 @@ diff --git a/fs/f2fs/inline.c b/fs/f2fs/inline.c
  		if (err)
  			goto punch_dentry_pages;
  
-@@ -596,7 +596,7 @@ int f2fs_try_convert_inline_dir(struct inode *dir, struct dentry *dentry)
+@@ -578,7 +578,7 @@ int f2fs_try_convert_inline_dir(struct inode *dir, struct dentry *dentry)
  }
  
  int f2fs_add_inline_entry(struct inode *dir, const struct qstr *new_name,
@@ -315,7 +315,7 @@ diff --git a/fs/f2fs/inline.c b/fs/f2fs/inline.c
  				struct inode *inode, nid_t ino, umode_t mode)
  {
  	struct f2fs_sb_info *sbi = F2FS_I_SB(dir);
-@@ -607,6 +607,7 @@ int f2fs_add_inline_entry(struct inode *dir, const struct qstr *new_name,
+@@ -589,6 +589,7 @@ int f2fs_add_inline_entry(struct inode *dir, const struct qstr *new_name,
  	struct f2fs_dentry_ptr d;
  	int slots = GET_DENTRY_SLOTS(new_name->len);
  	struct page *page = NULL;
@@ -323,7 +323,7 @@ diff --git a/fs/f2fs/inline.c b/fs/f2fs/inline.c
  	int err = 0;
  
  	ipage = f2fs_get_node_page(sbi, dir->i_ino);
-@@ -637,7 +638,7 @@ int f2fs_add_inline_entry(struct inode *dir, const struct qstr *new_name,
+@@ -619,7 +620,7 @@ int f2fs_add_inline_entry(struct inode *dir, const struct qstr *new_name,
  
  	f2fs_wait_on_page_writeback(ipage, NODE, true, true);
  
@@ -335,7 +335,7 @@ diff --git a/fs/f2fs/inline.c b/fs/f2fs/inline.c
 diff --git a/fs/f2fs/super.c b/fs/f2fs/super.c
 --- a/fs/f2fs/super.c
 +++ b/fs/f2fs/super.c
-@@ -3320,12 +3320,6 @@ static int f2fs_setup_casefold(struct f2fs_sb_info *sbi)
+@@ -3276,12 +3276,6 @@ static int f2fs_setup_casefold(struct f2fs_sb_info *sbi)
  		struct unicode_map *encoding;
  		__u16 encoding_flags;
  

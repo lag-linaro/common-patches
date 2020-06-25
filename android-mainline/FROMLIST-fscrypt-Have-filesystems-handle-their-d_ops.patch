@@ -52,11 +52,11 @@ diff --git a/fs/crypto/fname.c b/fs/crypto/fname.c
 -const struct dentry_operations fscrypt_d_ops = {
 -	.d_revalidate = fscrypt_d_revalidate,
 -};
-+EXPORT_SYMBOL(fscrypt_d_revalidate);
++EXPORT_SYMBOL_GPL(fscrypt_d_revalidate);
 diff --git a/fs/crypto/fscrypt_private.h b/fs/crypto/fscrypt_private.h
 --- a/fs/crypto/fscrypt_private.h
 +++ b/fs/crypto/fscrypt_private.h
-@@ -295,7 +295,6 @@ int fscrypt_fname_encrypt(const struct inode *inode, const struct qstr *iname,
+@@ -270,7 +270,6 @@ int fscrypt_fname_encrypt(const struct inode *inode, const struct qstr *iname,
  			  u8 *out, unsigned int olen);
  bool fscrypt_fname_encrypted_size(const struct inode *inode, u32 orig_len,
  				  u32 max_len, u32 *encrypted_len_ret);
@@ -103,7 +103,7 @@ diff --git a/fs/ext4/namei.c b/fs/ext4/namei.c
 diff --git a/fs/ext4/super.c b/fs/ext4/super.c
 --- a/fs/ext4/super.c
 +++ b/fs/ext4/super.c
-@@ -4629,11 +4629,6 @@ static int ext4_fill_super(struct super_block *sb, void *data, int silent)
+@@ -4616,11 +4616,6 @@ static int ext4_fill_super(struct super_block *sb, void *data, int silent)
  		goto failed_mount4;
  	}
  
@@ -132,7 +132,7 @@ diff --git a/fs/f2fs/dir.c b/fs/f2fs/dir.c
 diff --git a/fs/f2fs/f2fs.h b/fs/f2fs/f2fs.h
 --- a/fs/f2fs/f2fs.h
 +++ b/fs/f2fs/f2fs.h
-@@ -3648,9 +3648,6 @@ static inline void update_sit_info(struct f2fs_sb_info *sbi) {}
+@@ -3645,9 +3645,6 @@ static inline void update_sit_info(struct f2fs_sb_info *sbi) {}
  #endif
  
  extern const struct file_operations f2fs_dir_operations;
@@ -156,7 +156,7 @@ diff --git a/fs/f2fs/namei.c b/fs/f2fs/namei.c
 diff --git a/fs/f2fs/super.c b/fs/f2fs/super.c
 --- a/fs/f2fs/super.c
 +++ b/fs/f2fs/super.c
-@@ -3348,7 +3348,6 @@ static int f2fs_setup_casefold(struct f2fs_sb_info *sbi)
+@@ -3304,7 +3304,6 @@ static int f2fs_setup_casefold(struct f2fs_sb_info *sbi)
  
  		sbi->sb->s_encoding = encoding;
  		sbi->sb->s_encoding_flags = encoding_flags;
@@ -264,7 +264,7 @@ diff --git a/fs/ubifs/dir.c b/fs/ubifs/dir.c
 diff --git a/include/linux/fs.h b/include/linux/fs.h
 --- a/include/linux/fs.h
 +++ b/include/linux/fs.h
-@@ -3424,6 +3424,8 @@ static inline bool needs_casefold(const struct inode *dir)
+@@ -3417,6 +3417,8 @@ static inline bool needs_casefold(const struct inode *dir)
  	return 0;
  }
  #endif
@@ -276,7 +276,7 @@ diff --git a/include/linux/fs.h b/include/linux/fs.h
 diff --git a/include/linux/fscrypt.h b/include/linux/fscrypt.h
 --- a/include/linux/fscrypt.h
 +++ b/include/linux/fscrypt.h
-@@ -145,6 +145,7 @@ static inline struct page *fscrypt_pagecache_page(struct page *bounce_page)
+@@ -141,6 +141,7 @@ static inline struct page *fscrypt_pagecache_page(struct page *bounce_page)
  }
  
  void fscrypt_free_bounce_page(struct page *bounce_page);
@@ -284,7 +284,7 @@ diff --git a/include/linux/fscrypt.h b/include/linux/fscrypt.h
  
  /* policy.c */
  int fscrypt_ioctl_set_policy(struct file *filp, const void __user *arg);
-@@ -724,8 +725,9 @@ static inline int fscrypt_prepare_rename(struct inode *old_dir,
+@@ -638,8 +639,9 @@ static inline int fscrypt_prepare_rename(struct inode *old_dir,
   * filenames are presented in encrypted form.  Therefore, we'll try to set up
   * the directory's encryption key, but even without it the lookup can continue.
   *

@@ -17,7 +17,7 @@ Change-Id: I86a28040be07fb2f30125d28f7f379798727785c
 diff --git a/arch/arm64/configs/gki_defconfig b/arch/arm64/configs/gki_defconfig
 --- a/arch/arm64/configs/gki_defconfig
 +++ b/arch/arm64/configs/gki_defconfig
-@@ -205,6 +205,7 @@ CONFIG_PCI_HOST_GENERIC=y
+@@ -204,6 +204,7 @@ CONFIG_PCI_HOST_GENERIC=y
  CONFIG_PCIE_KIRIN=y
  CONFIG_FW_LOADER_USER_HELPER=y
  CONFIG_FW_LOADER_USER_HELPER_FALLBACK=y
@@ -28,7 +28,7 @@ diff --git a/arch/arm64/configs/gki_defconfig b/arch/arm64/configs/gki_defconfig
 diff --git a/arch/x86/configs/gki_defconfig b/arch/x86/configs/gki_defconfig
 --- a/arch/x86/configs/gki_defconfig
 +++ b/arch/x86/configs/gki_defconfig
-@@ -181,6 +181,7 @@ CONFIG_RFKILL=y
+@@ -180,6 +180,7 @@ CONFIG_RFKILL=y
  CONFIG_PCI=y
  CONFIG_FW_LOADER_USER_HELPER=y
  CONFIG_FW_LOADER_USER_HELPER_FALLBACK=y

@@ -19,7 +19,7 @@ Signed-off-by: Eric Biggers <ebiggers@google.com>
 diff --git a/drivers/md/dm-bow.c b/drivers/md/dm-bow.c
 --- a/drivers/md/dm-bow.c
 +++ b/drivers/md/dm-bow.c
-@@ -725,6 +725,7 @@ static int dm_bow_ctr(struct dm_target *ti, unsigned int argc, char **argv)
+@@ -787,6 +787,7 @@ static int dm_bow_ctr(struct dm_target *ti, unsigned int argc, char **argv)
  	rb_insert_color(&br->node, &bc->ranges);
  
  	ti->discards_supported = true;

@@ -26,7 +26,7 @@ Signed-off-by: Eric Biggers <ebiggers@google.com>
 diff --git a/fs/crypto/keyring.c b/fs/crypto/keyring.c
 --- a/fs/crypto/keyring.c
 +++ b/fs/crypto/keyring.c
-@@ -839,12 +839,34 @@ static int check_for_busy_inodes(struct super_block *sb,
+@@ -837,12 +837,34 @@ static int check_for_busy_inodes(struct super_block *sb,
  	return -EBUSY;
  }
  
@@ -64,7 +64,7 @@ diff --git a/fs/crypto/keyring.c b/fs/crypto/keyring.c
 diff --git a/include/linux/fscrypt.h b/include/linux/fscrypt.h
 --- a/include/linux/fscrypt.h
 +++ b/include/linux/fscrypt.h
-@@ -174,6 +174,8 @@ int fscrypt_ioctl_add_key(struct file *filp, void __user *arg);
+@@ -177,6 +177,8 @@ int fscrypt_ioctl_add_key(struct file *filp, void __user *arg);
  int fscrypt_ioctl_remove_key(struct file *filp, void __user *arg);
  int fscrypt_ioctl_remove_key_all_users(struct file *filp, void __user *arg);
  int fscrypt_ioctl_get_key_status(struct file *filp, void __user *arg);
@@ -73,7 +73,7 @@ diff --git a/include/linux/fscrypt.h b/include/linux/fscrypt.h
  
  /* keysetup.c */
  int fscrypt_get_encryption_info(struct inode *inode);
-@@ -381,6 +383,18 @@ static inline int fscrypt_ioctl_get_key_status(struct file *filp,
+@@ -384,6 +386,18 @@ static inline int fscrypt_ioctl_get_key_status(struct file *filp,
  	return -EOPNOTSUPP;
  }
  

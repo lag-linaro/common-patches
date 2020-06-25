@@ -19,7 +19,7 @@ Signed-off-by: Maciej Żenczykowski <maze@google.com>
 diff --git a/arch/arm64/configs/gki_defconfig b/arch/arm64/configs/gki_defconfig
 --- a/arch/arm64/configs/gki_defconfig
 +++ b/arch/arm64/configs/gki_defconfig
-@@ -97,6 +97,7 @@ CONFIG_XFRM_USER=y
+@@ -95,6 +95,7 @@ CONFIG_XFRM_USER=y
  CONFIG_XFRM_INTERFACE=y
  CONFIG_XFRM_STATISTICS=y
  CONFIG_NET_KEY=y
@@ -30,7 +30,7 @@ diff --git a/arch/arm64/configs/gki_defconfig b/arch/arm64/configs/gki_defconfig
 diff --git a/arch/x86/configs/gki_defconfig b/arch/x86/configs/gki_defconfig
 --- a/arch/x86/configs/gki_defconfig
 +++ b/arch/x86/configs/gki_defconfig
-@@ -73,6 +73,7 @@ CONFIG_XFRM_USER=y
+@@ -71,6 +71,7 @@ CONFIG_XFRM_USER=y
  CONFIG_XFRM_INTERFACE=y
  CONFIG_XFRM_STATISTICS=y
  CONFIG_NET_KEY=y

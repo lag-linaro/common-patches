@@ -1,6 +1,6 @@
 From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
 From: Satya Tangirala <satyat@google.com>
-Date: Thu, 24 Oct 2019 14:44:30 -0700
+Date: Wed, 17 Jun 2020 07:57:31 +0000
 Subject: FROMLIST: f2fs: add inline encryption support
 
 Wire up f2fs to support inline encryption via the helper functions which
@@ -17,27 +17,69 @@ fs/crypto/ now provides.  This includes:
 
 - Not doing filesystem-layer crypto on inline-encrypted files.
 
-Bug: 137270441
-Test: tested as series; see Ie1b77f7615d6a7a60fdc9105c7ab2200d17636a8
-Change-Id: I2ea4da9e251e668b908408ecc091f09ebf8be8f4
+This patch includes a fix for a race during IPU by
+Sahitya Tummala <stummala@codeaurora.org>
+
 Co-developed-by: Eric Biggers <ebiggers@google.com>
 Signed-off-by: Eric Biggers <ebiggers@google.com>
 Signed-off-by: Satya Tangirala <satyat@google.com>
-Link: https://patchwork.kernel.org/patch/11214785/
----
- fs/f2fs/data.c  | 76 +++++++++++++++++++++++++++++++++++++++++++------
- fs/f2fs/f2fs.h  |  3 ++
- fs/f2fs/super.c | 23 +++++++++++++++
- 3 files changed, 94 insertions(+), 8 deletions(-)
 
+Bug: 137270441
+Link: https://lore.kernel.org/r/20200617075732.213198-4-satyat@google.com/
+Test: tested as series; see Ie1b77f7615d6a7a60fdc9105c7ab2200d17636a8
+Change-Id: I2ea4da9e251e668b908408ecc091f09ebf8be8f4
+---
+ Documentation/filesystems/f2fs.rst |  7 ++-
+ fs/f2fs/compress.c                 |  2 +-
+ fs/f2fs/data.c                     | 81 ++++++++++++++++++++++++------
+ fs/f2fs/super.c                    | 32 ++++++++++++
+ 4 files changed, 104 insertions(+), 18 deletions(-)
+
+diff --git a/Documentation/filesystems/f2fs.rst b/Documentation/filesystems/f2fs.rst
+--- a/Documentation/filesystems/f2fs.rst
++++ b/Documentation/filesystems/f2fs.rst
+@@ -258,7 +258,12 @@ compress_extension=%s  Support adding specified extension, so that f2fs can enab
+                        on compression extension list and enable compression on
+                        these file by default rather than to enable it via ioctl.
+                        For other files, we can still enable compression via ioctl.
+-====================== ============================================================
++inlinecrypt
++                       Encrypt/decrypt the contents of encrypted files using the
++                       blk-crypto framework rather than filesystem-layer encryption.
++                       This allows the use of inline encryption hardware. The on-disk
++                       format is unaffected. For more details, see
++                       Documentation/block/inline-encryption.rst.
+ 
+ Debugfs Entries
+ ===============
+diff --git a/fs/f2fs/compress.c b/fs/f2fs/compress.c
+--- a/fs/f2fs/compress.c
++++ b/fs/f2fs/compress.c
+@@ -975,7 +975,7 @@ static int f2fs_write_compressed_pages(struct compress_ctx *cc,
+ 		.submitted = false,
+ 		.io_type = io_type,
+ 		.io_wbc = wbc,
+-		.encrypted = f2fs_encrypted_file(cc->inode),
++		.encrypted = fscrypt_inode_uses_fs_layer_crypto(cc->inode),
+ 	};
+ 	struct dnode_of_data dn;
+ 	struct node_info ni;
 diff --git a/fs/f2fs/data.c b/fs/f2fs/data.c
 --- a/fs/f2fs/data.c
 +++ b/fs/f2fs/data.c
-@@ -457,6 +457,35 @@ static struct bio *__bio_alloc(struct f2fs_io_info *fio, int npages)
+@@ -14,6 +14,7 @@
+ #include <linux/pagevec.h>
+ #include <linux/blkdev.h>
+ #include <linux/bio.h>
++#include <linux/blk-crypto.h>
+ #include <linux/swap.h>
+ #include <linux/prefetch.h>
+ #include <linux/uio.h>
+@@ -457,6 +458,33 @@ static struct bio *__bio_alloc(struct f2fs_io_info *fio, int npages)
  	return bio;
  }
  
-+static int f2fs_set_bio_crypt_ctx(struct bio *bio, const struct inode *inode,
++static void f2fs_set_bio_crypt_ctx(struct bio *bio, const struct inode *inode,
 +				  pgoff_t first_idx,
 +				  const struct f2fs_io_info *fio,
 +				  gfp_t gfp_mask)
@@ -46,10 +88,8 @@ diff --git a/fs/f2fs/data.c b/fs/f2fs/data.c
 +	 * The f2fs garbage collector sets ->encrypted_page when it wants to
 +	 * read/write raw data without encryption.
 +	 */
-+	if (fio && fio->encrypted_page)
-+		return 0;
-+
-+	return fscrypt_set_bio_crypt_ctx(bio, inode, first_idx, gfp_mask);
++	if (!fio || !fio->encrypted_page)
++		fscrypt_set_bio_crypt_ctx(bio, inode, first_idx, gfp_mask);
 +}
 +
 +static bool f2fs_crypt_mergeable_bio(struct bio *bio, const struct inode *inode,
@@ -61,7 +101,7 @@ diff --git a/fs/f2fs/data.c b/fs/f2fs/data.c
 +	 * read/write raw data without encryption.
 +	 */
 +	if (fio && fio->encrypted_page)
-+		return true;
++		return !bio_has_crypt_ctx(bio);
 +
 +	return fscrypt_mergeable_bio(bio, inode, next_idx);
 +}
@@ -69,49 +109,72 @@ diff --git a/fs/f2fs/data.c b/fs/f2fs/data.c
  static inline void __submit_bio(struct f2fs_sb_info *sbi,
  				struct bio *bio, enum page_type type)
  {
-@@ -641,6 +670,7 @@ int f2fs_submit_page_bio(struct f2fs_io_info *fio)
- 	struct bio *bio;
- 	struct page *page = fio->encrypted_page ?
- 			fio->encrypted_page : fio->page;
-+	int err;
- 
- 	if (!f2fs_is_valid_blkaddr(fio->sbi, fio->new_blkaddr,
- 			fio->is_por ? META_POR : (__is_meta_io(fio) ?
-@@ -653,6 +683,13 @@ int f2fs_submit_page_bio(struct f2fs_io_info *fio)
+@@ -653,6 +681,9 @@ int f2fs_submit_page_bio(struct f2fs_io_info *fio)
  	/* Allocate a new bio */
  	bio = __bio_alloc(fio, 1);
  
-+	err = f2fs_set_bio_crypt_ctx(bio, fio->page->mapping->host,
-+				     fio->page->index, fio, GFP_NOIO);
-+	if (err) {
-+		bio_put(bio);
-+		return err;
-+	}
++	f2fs_set_bio_crypt_ctx(bio, fio->page->mapping->host,
++			       fio->page->index, fio, GFP_NOIO);
 +
  	if (bio_add_page(bio, page, PAGE_SIZE, 0) < PAGE_SIZE) {
  		bio_put(bio);
  		return -EFAULT;
-@@ -841,12 +878,17 @@ int f2fs_merge_page_bio(struct f2fs_io_info *fio)
+@@ -731,9 +762,10 @@ static void del_bio_entry(struct bio_entry *be)
+ 	kmem_cache_free(bio_entry_slab, be);
+ }
+ 
+-static int add_ipu_page(struct f2fs_sb_info *sbi, struct bio **bio,
++static int add_ipu_page(struct f2fs_io_info *fio, struct bio **bio,
+ 							struct page *page)
+ {
++	struct f2fs_sb_info *sbi = fio->sbi;
+ 	enum temp_type temp;
+ 	bool found = false;
+ 	int ret = -EAGAIN;
+@@ -750,13 +782,18 @@ static int add_ipu_page(struct f2fs_sb_info *sbi, struct bio **bio,
+ 
+ 			found = true;
+ 
+-			if (bio_add_page(*bio, page, PAGE_SIZE, 0) ==
+-							PAGE_SIZE) {
++			if (page_is_mergeable(sbi, *bio, *fio->last_block,
++					fio->new_blkaddr) &&
++			    f2fs_crypt_mergeable_bio(*bio,
++					fio->page->mapping->host,
++					fio->page->index, fio) &&
++			    bio_add_page(*bio, page, PAGE_SIZE, 0) ==
++					PAGE_SIZE) {
+ 				ret = 0;
+ 				break;
+ 			}
+ 
+-			/* bio is full */
++			 /* page can't be merged into bio; submit the bio */
+ 			del_bio_entry(be);
+ 			__submit_bio(sbi, *bio, DATA);
+ 			break;
+@@ -841,17 +878,16 @@ int f2fs_merge_page_bio(struct f2fs_io_info *fio)
  	trace_f2fs_submit_page_bio(page, fio);
  	f2fs_trace_ios(fio, 0);
  
 -	if (bio && !page_is_mergeable(fio->sbi, bio, *fio->last_block,
 -						fio->new_blkaddr))
-+	if (bio && (!page_is_mergeable(fio->sbi, bio, *fio->last_block,
-+				       fio->new_blkaddr) ||
-+		    !f2fs_crypt_mergeable_bio(bio, fio->page->mapping->host,
-+					      fio->page->index, fio)))
- 		f2fs_submit_merged_ipu_write(fio->sbi, &bio, NULL);
+-		f2fs_submit_merged_ipu_write(fio->sbi, &bio, NULL);
  alloc_new:
  	if (!bio) {
  		bio = __bio_alloc(fio, BIO_MAX_PAGES);
 +		f2fs_set_bio_crypt_ctx(bio, fio->page->mapping->host,
-+				       fio->page->index, fio,
-+				       GFP_NOIO | __GFP_NOFAIL);
++				       fio->page->index, fio, GFP_NOIO);
  		bio_set_op_attrs(bio, fio->op, fio->op_flags);
  
  		add_bio_entry(fio->sbi, bio, page, fio->temp);
-@@ -903,8 +945,11 @@ void f2fs_submit_page_write(struct f2fs_io_info *fio)
+ 	} else {
+-		if (add_ipu_page(fio->sbi, &bio, page))
++		if (add_ipu_page(fio, &bio, page))
+ 			goto alloc_new;
+ 	}
+ 
+@@ -903,8 +939,11 @@ void f2fs_submit_page_write(struct f2fs_io_info *fio)
  
  	inc_page_count(sbi, WB_DATA_TYPE(bio_page));
  
@@ -125,32 +188,21 @@ diff --git a/fs/f2fs/data.c b/fs/f2fs/data.c
  		__submit_merged_bio(io);
  alloc_new:
  	if (io->bio == NULL) {
-@@ -916,6 +961,9 @@ void f2fs_submit_page_write(struct f2fs_io_info *fio)
+@@ -916,6 +955,8 @@ void f2fs_submit_page_write(struct f2fs_io_info *fio)
  			goto skip;
  		}
  		io->bio = __bio_alloc(fio, BIO_MAX_PAGES);
 +		f2fs_set_bio_crypt_ctx(io->bio, fio->page->mapping->host,
-+				       fio->page->index, fio,
-+				       GFP_NOIO | __GFP_NOFAIL);
++				       fio->page->index, fio, GFP_NOIO);
  		io->fio = *fio;
  	}
  
-@@ -955,16 +1003,24 @@ static struct bio *f2fs_grab_read_bio(struct inode *inode, block_t blkaddr,
- 	struct bio *bio;
- 	struct bio_post_read_ctx *ctx;
- 	unsigned int post_read_steps = 0;
-+	int err;
- 
- 	bio = f2fs_bio_alloc(sbi, min_t(int, nr_pages, BIO_MAX_PAGES),
+@@ -960,11 +1001,14 @@ static struct bio *f2fs_grab_read_bio(struct inode *inode, block_t blkaddr,
  								for_write);
  	if (!bio)
  		return ERR_PTR(-ENOMEM);
 +
-+	err = f2fs_set_bio_crypt_ctx(bio, inode, first_idx, NULL, GFP_NOFS);
-+	if (err) {
-+		bio_put(bio);
-+		return ERR_PTR(err);
-+	}
++	f2fs_set_bio_crypt_ctx(bio, inode, first_idx, NULL, GFP_NOFS);
 +
  	f2fs_target_device(sbi, blkaddr, bio);
  	bio->bi_end_io = f2fs_read_end_io;
@@ -161,7 +213,7 @@ diff --git a/fs/f2fs/data.c b/fs/f2fs/data.c
  		post_read_steps |= 1 << STEP_DECRYPT;
  	if (f2fs_compressed_file(inode))
  		post_read_steps |= 1 << STEP_DECOMPRESS;
-@@ -1988,8 +2044,9 @@ static int f2fs_read_single_page(struct inode *inode, struct page *page,
+@@ -1988,8 +2032,9 @@ static int f2fs_read_single_page(struct inode *inode, struct page *page,
  	 * This page will go to BIO.  Do we need to send this
  	 * BIO off first?
  	 */
@@ -173,7 +225,19 @@ diff --git a/fs/f2fs/data.c b/fs/f2fs/data.c
  submit_and_realloc:
  		__submit_bio(F2FS_I_SB(inode), bio, DATA);
  		bio = NULL;
-@@ -2327,6 +2384,9 @@ int f2fs_encrypt_one_page(struct f2fs_io_info *fio)
+@@ -2117,8 +2162,9 @@ int f2fs_read_multi_pages(struct compress_ctx *cc, struct bio **bio_ret,
+ 		blkaddr = data_blkaddr(dn.inode, dn.node_page,
+ 						dn.ofs_in_node + i + 1);
+ 
+-		if (bio && !page_is_mergeable(sbi, bio,
+-					*last_block_in_bio, blkaddr)) {
++		if (bio && (!page_is_mergeable(sbi, bio,
++					*last_block_in_bio, blkaddr) ||
++		    !f2fs_crypt_mergeable_bio(bio, inode, page->index, NULL))) {
+ submit_and_realloc:
+ 			__submit_bio(sbi, bio, DATA);
+ 			bio = NULL;
+@@ -2327,6 +2373,9 @@ int f2fs_encrypt_one_page(struct f2fs_io_info *fio)
  	/* wait for GCed page writeback via META_MAPPING */
  	f2fs_wait_on_block_writeback(inode, fio->old_blkaddr);
  
@@ -183,7 +247,7 @@ diff --git a/fs/f2fs/data.c b/fs/f2fs/data.c
  retry_encrypt:
  	fio->encrypted_page = fscrypt_encrypt_pagecache_blocks(page,
  					PAGE_SIZE, 0, gfp_flags);
-@@ -2500,7 +2560,7 @@ int f2fs_do_write_data_page(struct f2fs_io_info *fio)
+@@ -2500,7 +2549,7 @@ int f2fs_do_write_data_page(struct f2fs_io_info *fio)
  			f2fs_unlock_op(fio->sbi);
  		err = f2fs_inplace_write_data(fio);
  		if (err) {
@@ -192,19 +256,6 @@ diff --git a/fs/f2fs/data.c b/fs/f2fs/data.c
  				fscrypt_finalize_bounce_page(&fio->encrypted_page);
  			if (PageWriteback(page))
  				end_page_writeback(page);
-diff --git a/fs/f2fs/f2fs.h b/fs/f2fs/f2fs.h
---- a/fs/f2fs/f2fs.h
-+++ b/fs/f2fs/f2fs.h
-@@ -139,6 +139,9 @@ struct f2fs_mount_info {
- 	int fs_mode;			/* fs mode: LFS or ADAPTIVE */
- 	int bggc_mode;			/* bggc mode: off, on or sync */
- 	struct fscrypt_dummy_context dummy_enc_ctx; /* test dummy encryption */
-+#ifdef CONFIG_FS_ENCRYPTION
-+	bool inlinecrypt;		/* inline encryption enabled */
-+#endif
- 	block_t unusable_cap;		/* Amount of space allowed to be
- 					 * unusable when disabling checkpoint
- 					 */
 diff --git a/fs/f2fs/super.c b/fs/f2fs/super.c
 --- a/fs/f2fs/super.c
 +++ b/fs/f2fs/super.c
@@ -230,7 +281,7 @@ diff --git a/fs/f2fs/super.c b/fs/f2fs/super.c
  			break;
 +		case Opt_inlinecrypt:
 +#ifdef CONFIG_FS_ENCRYPTION_INLINE_CRYPT
-+			F2FS_OPTION(sbi).inlinecrypt = true;
++			sb->s_flags |= SB_INLINECRYPT;
 +#else
 +			f2fs_info(sbi, "inline encryption not supported");
 +#endif
@@ -238,45 +289,47 @@ diff --git a/fs/f2fs/super.c b/fs/f2fs/super.c
  		case Opt_checkpoint_disable_cap_perc:
  			if (args->from && match_int(args, &arg))
  				return -EINVAL;
-@@ -1584,6 +1593,11 @@ static int f2fs_show_options(struct seq_file *seq, struct dentry *root)
+@@ -1618,6 +1627,8 @@ static void default_options(struct f2fs_sb_info *sbi)
+ 	F2FS_OPTION(sbi).compress_ext_cnt = 0;
+ 	F2FS_OPTION(sbi).bggc_mode = BGGC_MODE_ON;
  
- 	fscrypt_show_test_dummy_encryption(seq, ',', sbi->sb);
- 
-+#ifdef CONFIG_FS_ENCRYPTION
-+	if (F2FS_OPTION(sbi).inlinecrypt)
-+		seq_puts(seq, ",inlinecrypt");
-+#endif
++	sbi->sb->s_flags &= ~SB_INLINECRYPT;
 +
- 	if (F2FS_OPTION(sbi).alloc_mode == ALLOC_MODE_DEFAULT)
- 		seq_printf(seq, ",alloc_mode=%s", "default");
- 	else if (F2FS_OPTION(sbi).alloc_mode == ALLOC_MODE_REUSE)
-@@ -1611,6 +1625,9 @@ static void default_options(struct f2fs_sb_info *sbi)
- 	F2FS_OPTION(sbi).whint_mode = WHINT_MODE_OFF;
- 	F2FS_OPTION(sbi).alloc_mode = ALLOC_MODE_DEFAULT;
- 	F2FS_OPTION(sbi).fsync_mode = FSYNC_MODE_POSIX;
-+#ifdef CONFIG_FS_ENCRYPTION
-+	F2FS_OPTION(sbi).inlinecrypt = false;
-+#endif
- 	F2FS_OPTION(sbi).s_resuid = make_kuid(&init_user_ns, F2FS_DEF_RESUID);
- 	F2FS_OPTION(sbi).s_resgid = make_kgid(&init_user_ns, F2FS_DEF_RESGID);
- 	F2FS_OPTION(sbi).compress_algorithm = COMPRESS_LZ4;
-@@ -2463,6 +2480,11 @@ static void f2fs_get_ino_and_lblk_bits(struct super_block *sb,
+ 	set_opt(sbi, INLINE_XATTR);
+ 	set_opt(sbi, INLINE_DATA);
+ 	set_opt(sbi, INLINE_DENTRY);
+@@ -2463,6 +2474,25 @@ static void f2fs_get_ino_and_lblk_bits(struct super_block *sb,
  	*lblk_bits_ret = 8 * sizeof(block_t);
  }
  
-+static bool f2fs_inline_crypt_enabled(struct super_block *sb)
++static int f2fs_get_num_devices(struct super_block *sb)
 +{
-+	return F2FS_OPTION(F2FS_SB(sb)).inlinecrypt;
++	struct f2fs_sb_info *sbi = F2FS_SB(sb);
++
++	if (f2fs_is_multi_device(sbi))
++		return sbi->s_ndevs;
++	return 1;
++}
++
++static void f2fs_get_devices(struct super_block *sb,
++			     struct request_queue **devs)
++{
++	struct f2fs_sb_info *sbi = F2FS_SB(sb);
++	int i;
++
++	for (i = 0; i < sbi->s_ndevs; i++)
++		devs[i] = bdev_get_queue(FDEV(i).bdev);
 +}
 +
  static const struct fscrypt_operations f2fs_cryptops = {
  	.key_prefix		= "f2fs:",
  	.get_context		= f2fs_get_context,
-@@ -2472,6 +2494,7 @@ static const struct fscrypt_operations f2fs_cryptops = {
+@@ -2472,6 +2502,8 @@ static const struct fscrypt_operations f2fs_cryptops = {
  	.max_namelen		= F2FS_NAME_LEN,
  	.has_stable_inodes	= f2fs_has_stable_inodes,
  	.get_ino_and_lblk_bits	= f2fs_get_ino_and_lblk_bits,
-+	.inline_crypt_enabled	= f2fs_inline_crypt_enabled,
++	.get_num_devices	= f2fs_get_num_devices,
++	.get_devices		= f2fs_get_devices,
  };
  #endif
  

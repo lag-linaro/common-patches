@@ -221,7 +221,7 @@ diff --git a/fs/ext4/readpage.c b/fs/ext4/readpage.c
  			bio = NULL;
  		}
  		if (bio == NULL) {
-@@ -394,14 +433,14 @@ int ext4_mpage_readpages(struct inode *inode,
+@@ -390,14 +429,14 @@ int ext4_mpage_readpages(struct inode *inode,
  		if (((map.m_flags & EXT4_MAP_BOUNDARY) &&
  		     (relative_block == map.m_len)) ||
  		    (first_hole != blocks_per_page)) {
@@ -238,7 +238,7 @@ diff --git a/fs/ext4/readpage.c b/fs/ext4/readpage.c
  			bio = NULL;
  		}
  		if (!PageUptodate(page))
-@@ -413,7 +452,7 @@ int ext4_mpage_readpages(struct inode *inode,
+@@ -409,7 +448,7 @@ int ext4_mpage_readpages(struct inode *inode,
  			put_page(page);
  	}
  	if (bio)
@@ -250,7 +250,7 @@ diff --git a/fs/ext4/readpage.c b/fs/ext4/readpage.c
 diff --git a/fs/f2fs/data.c b/fs/f2fs/data.c
 --- a/fs/f2fs/data.c
 +++ b/fs/f2fs/data.c
-@@ -25,6 +25,7 @@
+@@ -26,6 +26,7 @@
  #include "segment.h"
  #include "trace.h"
  #include <trace/events/f2fs.h>
@@ -258,7 +258,7 @@ diff --git a/fs/f2fs/data.c b/fs/f2fs/data.c
  
  #define NUM_PREALLOC_POST_READ_CTXS	128
  
-@@ -3257,6 +3258,16 @@ static int f2fs_write_begin(struct file *file, struct address_space *mapping,
+@@ -3246,6 +3247,16 @@ static int f2fs_write_begin(struct file *file, struct address_space *mapping,
  	block_t blkaddr = NULL_ADDR;
  	int err = 0;
  
@@ -275,7 +275,7 @@ diff --git a/fs/f2fs/data.c b/fs/f2fs/data.c
  	trace_f2fs_write_begin(inode, pos, len, flags);
  
  	if (!f2fs_is_checkpoint_ready(sbi)) {
-@@ -3384,6 +3395,7 @@ static int f2fs_write_end(struct file *file,
+@@ -3373,6 +3384,7 @@ static int f2fs_write_end(struct file *file,
  {
  	struct inode *inode = page->mapping->host;
  
@@ -283,7 +283,7 @@ diff --git a/fs/f2fs/data.c b/fs/f2fs/data.c
  	trace_f2fs_write_end(inode, pos, len, copied);
  
  	/*
-@@ -3510,6 +3522,29 @@ static ssize_t f2fs_direct_IO(struct kiocb *iocb, struct iov_iter *iter)
+@@ -3499,6 +3511,29 @@ static ssize_t f2fs_direct_IO(struct kiocb *iocb, struct iov_iter *iter)
  
  	trace_f2fs_direct_IO_enter(inode, offset, count, rw);
  
@@ -313,7 +313,7 @@ diff --git a/fs/f2fs/data.c b/fs/f2fs/data.c
  	if (rw == WRITE && whint_mode == WHINT_MODE_OFF)
  		iocb->ki_hint = WRITE_LIFE_NOT_SET;
  
-@@ -3556,6 +3591,13 @@ static ssize_t f2fs_direct_IO(struct kiocb *iocb, struct iov_iter *iter)
+@@ -3545,6 +3580,13 @@ static ssize_t f2fs_direct_IO(struct kiocb *iocb, struct iov_iter *iter)
  	}
  
  out:

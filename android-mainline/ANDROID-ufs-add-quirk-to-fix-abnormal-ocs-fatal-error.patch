@@ -19,7 +19,7 @@ Signed-off-by: Greg Kroah-Hartman <gregkh@google.com>
 diff --git a/drivers/scsi/ufs/ufshcd.c b/drivers/scsi/ufs/ufshcd.c
 --- a/drivers/scsi/ufs/ufshcd.c
 +++ b/drivers/scsi/ufs/ufshcd.c
-@@ -4741,6 +4741,12 @@ ufshcd_transfer_rsp_status(struct ufs_hba *hba, struct ufshcd_lrb *lrbp)
+@@ -4726,6 +4726,12 @@ ufshcd_transfer_rsp_status(struct ufs_hba *hba, struct ufshcd_lrb *lrbp)
  	/* overall command status of utrd */
  	ocs = ufshcd_get_tr_ocs(lrbp);
  
@@ -35,16 +35,16 @@ diff --git a/drivers/scsi/ufs/ufshcd.c b/drivers/scsi/ufs/ufshcd.c
 diff --git a/drivers/scsi/ufs/ufshcd.h b/drivers/scsi/ufs/ufshcd.h
 --- a/drivers/scsi/ufs/ufshcd.h
 +++ b/drivers/scsi/ufs/ufshcd.h
-@@ -554,6 +554,12 @@ enum ufshcd_quirks {
+@@ -530,6 +530,12 @@ enum ufshcd_quirks {
+ 	 * ops (get_ufs_hci_version) to get the correct version.
  	 */
  	UFSHCD_QUIRK_BROKEN_UFS_HCI_VERSION		= 1 << 5,
- 
++
 +	/*
 +	 * This quirk needs to be enabled if the host controller reports
 +	 * OCS FATAL ERROR with device error through sense data
 +	 */
 +	UFSHCD_QUIRK_BROKEN_OCS_FATAL_ERROR		= 1 << 6,
-+
- 	/*
- 	 * This quirk needs to be enabled if the host controller advertises
- 	 * inline encryption support but it doesn't work correctly.
+ };
+ 
+ enum ufshcd_caps {

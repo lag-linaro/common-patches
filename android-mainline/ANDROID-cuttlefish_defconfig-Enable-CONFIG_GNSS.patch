@@ -14,7 +14,7 @@ Signed-off-by: Alistair Delva <adelva@google.com>
 diff --git a/arch/arm64/configs/gki_defconfig b/arch/arm64/configs/gki_defconfig
 --- a/arch/arm64/configs/gki_defconfig
 +++ b/arch/arm64/configs/gki_defconfig
-@@ -215,6 +215,7 @@ CONFIG_FW_LOADER_USER_HELPER_FALLBACK=y
+@@ -214,6 +214,7 @@ CONFIG_FW_LOADER_USER_HELPER_FALLBACK=y
  # CONFIG_FW_CACHE is not set
  # CONFIG_ALLOW_DEV_COREDUMP is not set
  CONFIG_DEBUG_DEVRES=y
@@ -25,7 +25,7 @@ diff --git a/arch/arm64/configs/gki_defconfig b/arch/arm64/configs/gki_defconfig
 diff --git a/arch/x86/configs/gki_defconfig b/arch/x86/configs/gki_defconfig
 --- a/arch/x86/configs/gki_defconfig
 +++ b/arch/x86/configs/gki_defconfig
-@@ -187,6 +187,7 @@ CONFIG_FW_LOADER_USER_HELPER_FALLBACK=y
+@@ -186,6 +186,7 @@ CONFIG_FW_LOADER_USER_HELPER_FALLBACK=y
  # CONFIG_FW_CACHE is not set
  # CONFIG_ALLOW_DEV_COREDUMP is not set
  CONFIG_DEBUG_DEVRES=y

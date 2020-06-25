@@ -1,21 +1,73 @@
 From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
 From: Satya Tangirala <satyat@google.com>
-Date: Thu, 24 Oct 2019 14:44:28 -0700
+Date: Thu, 18 Jun 2020 02:47:36 +0000
 Subject: FROMLIST: scsi: ufs: Add inline encryption support to UFS
 
 Wire up ufshcd.c with the UFS Crypto API, the block layer inline
 encryption additions and the keyslot manager.
 
+Many existing inline crypto devices require some additional behaviour not
+specified in the UFSHCI v2.1 specification - as such the vendor specific
+drivers will need to be updated where necessary to make it possible to use
+those devices. Some of these changes have already been proposed upstream,
+such as for the Qualcomm 845 SoC at
+https://lkml.kernel.org/linux-scsi/20200501045111.665881-1-ebiggers@kernel.org/
+and for ufs-mediatek at
+https://lkml.kernel.org/linux-scsi/20200304022101.14165-1-stanley.chu@mediatek.com/
+
+This patch has been tested on the db845c, sm8150-mtp and sm8250-mtp
+(which have Qualcomm chipsets) and on some mediatek chipsets using these
+aforementioned vendor specific driver updates.
+
+Signed-off-by: Satya Tangirala <satyat@google.com>
+Reviewed-by: Eric Biggers <ebiggers@google.com>
+Reviewed-by: Stanley Chu <stanley.chu@mediatek.com>
+
 Bug: 137270441
+Link: https://lore.kernel.org/r/20200618024736.97207-4-satyat@google.com
 Test: tested as series; see Ie1b77f7615d6a7a60fdc9105c7ab2200d17636a8
 Change-Id: Idc703c9617497e368ce83af36587708968660b23
-Signed-off-by: Satya Tangirala <satyat@google.com>
-Link: https://patchwork.kernel.org/patch/11214753/
 ---
- drivers/scsi/ufs/ufshcd.c | 79 ++++++++++++++++++++++++++++++++++++---
- drivers/scsi/ufs/ufshcd.h |  6 +++
- 2 files changed, 80 insertions(+), 5 deletions(-)
+ drivers/scsi/ufs/ufshcd-crypto.h | 18 +++++++++++++
+ drivers/scsi/ufs/ufshcd.c        | 44 ++++++++++++++++++++++++++++----
+ drivers/scsi/ufs/ufshcd.h        |  6 +++++
+ 3 files changed, 63 insertions(+), 5 deletions(-)
 
+diff --git a/drivers/scsi/ufs/ufshcd-crypto.h b/drivers/scsi/ufs/ufshcd-crypto.h
+--- a/drivers/scsi/ufs/ufshcd-crypto.h
++++ b/drivers/scsi/ufs/ufshcd-crypto.h
+@@ -10,6 +10,20 @@
+ #include "ufshcd.h"
+ #include "ufshci.h"
+ 
++static inline void ufshcd_prepare_lrbp_crypto(struct ufs_hba *hba,
++					      struct scsi_cmnd *cmd,
++					      struct ufshcd_lrb *lrbp)
++{
++	struct request *rq = cmd->request;
++
++	if (rq->crypt_keyslot) {
++		lrbp->crypto_key_slot = blk_ksm_get_slot_idx(rq->crypt_keyslot);
++		lrbp->data_unit_num = rq->crypt_ctx->bc_dun[0];
++	} else {
++		lrbp->crypto_key_slot = -1;
++	}
++}
++
+ bool ufshcd_crypto_enable(struct ufs_hba *hba);
+ 
+ int ufshcd_hba_init_crypto(struct ufs_hba *hba);
+@@ -21,6 +35,10 @@ void ufshcd_crypto_destroy_keyslot_manager(struct ufs_hba *hba);
+ 
+ #else /* CONFIG_SCSI_UFS_CRYPTO */
+ 
++static inline void ufshcd_prepare_lrbp_crypto(struct ufs_hba *hba,
++					      struct scsi_cmnd *cmd,
++					      struct ufshcd_lrb *lrbp) { }
++
+ static inline bool ufshcd_crypto_enable(struct ufs_hba *hba)
+ {
+ 	return false;
 diff --git a/drivers/scsi/ufs/ufshcd.c b/drivers/scsi/ufs/ufshcd.c
 --- a/drivers/scsi/ufs/ufshcd.c
 +++ b/drivers/scsi/ufs/ufshcd.c
@@ -27,123 +79,80 @@ diff --git a/drivers/scsi/ufs/ufshcd.c b/drivers/scsi/ufs/ufshcd.c
  
  #define CREATE_TRACE_POINTS
  #include <trace/events/ufs.h>
-@@ -812,7 +813,14 @@ static void ufshcd_enable_run_stop_reg(struct ufs_hba *hba)
+@@ -811,7 +812,12 @@ static void ufshcd_enable_run_stop_reg(struct ufs_hba *hba)
   */
  static inline void ufshcd_hba_start(struct ufs_hba *hba)
  {
 -	ufshcd_writel(hba, CONTROLLER_ENABLE, REG_CONTROLLER_ENABLE);
 +	u32 val = CONTROLLER_ENABLE;
 +
-+	if (ufshcd_hba_is_crypto_supported(hba)) {
-+		ufshcd_crypto_enable(hba);
++	if (ufshcd_crypto_enable(hba))
 +		val |= CRYPTO_GENERAL_ENABLE;
-+	}
 +
 +	ufshcd_writel(hba, val, REG_CONTROLLER_ENABLE);
  }
  
  /**
-@@ -2238,9 +2246,21 @@ static void ufshcd_prepare_req_desc_hdr(struct ufshcd_lrb *lrbp,
+@@ -2219,6 +2225,8 @@ static void ufshcd_prepare_req_desc_hdr(struct ufshcd_lrb *lrbp,
+ 	struct utp_transfer_req_desc *req_desc = lrbp->utr_descriptor_ptr;
+ 	u32 data_direction;
+ 	u32 dword_0;
++	u32 dword_1 = 0;
++	u32 dword_3 = 0;
+ 
+ 	if (cmd_dir == DMA_FROM_DEVICE) {
+ 		data_direction = UTP_DEVICE_TO_HOST;
+@@ -2237,9 +2245,17 @@ static void ufshcd_prepare_req_desc_hdr(struct ufshcd_lrb *lrbp,
  		dword_0 |= UTP_REQ_DESC_INT_CMD;
  
  	/* Transfer request descriptor header fields */
-+	if (lrbp->crypto_enable) {
++#ifdef CONFIG_SCSI_UFS_CRYPTO
++	if (lrbp->crypto_key_slot >= 0) {
 +		dword_0 |= UTP_REQ_DESC_CRYPTO_ENABLE_CMD;
 +		dword_0 |= lrbp->crypto_key_slot;
-+		req_desc->header.dword_1 =
-+			cpu_to_le32((u32)lrbp->data_unit_num);
-+		req_desc->header.dword_3 =
-+			cpu_to_le32((u32)(lrbp->data_unit_num >> 32));
-+	} else {
-+		/* dword_1 and dword_3 are reserved, hence they are set to 0 */
-+		req_desc->header.dword_1 = 0;
-+		req_desc->header.dword_3 = 0;
++		dword_1 = lower_32_bits(lrbp->data_unit_num);
++		dword_3 = upper_32_bits(lrbp->data_unit_num);
 +	}
++#endif /* CONFIG_SCSI_UFS_CRYPTO */
 +
  	req_desc->header.dword_0 = cpu_to_le32(dword_0);
 -	/* dword_1 is reserved, hence it is set to 0 */
 -	req_desc->header.dword_1 = 0;
-+
++	req_desc->header.dword_1 = cpu_to_le32(dword_1);
  	/*
  	 * assigning invalid value for command status. Controller
  	 * updates OCS on command completion, with the command
-@@ -2248,8 +2268,6 @@ static void ufshcd_prepare_req_desc_hdr(struct ufshcd_lrb *lrbp,
+@@ -2247,8 +2263,7 @@ static void ufshcd_prepare_req_desc_hdr(struct ufshcd_lrb *lrbp,
  	 */
  	req_desc->header.dword_2 =
  		cpu_to_le32(OCS_INVALID_COMMAND_STATUS);
 -	/* dword_3 is reserved, hence it is set to 0 */
 -	req_desc->header.dword_3 = 0;
++	req_desc->header.dword_3 = cpu_to_le32(dword_3);
  
  	req_desc->prd_table_length = 0;
  }
-@@ -2409,6 +2427,36 @@ static inline u16 ufshcd_upiu_wlun_to_scsi_wlun(u8 upiu_wlun_id)
- 	return (upiu_wlun_id & ~UFS_UPIU_WLUN_ID) | SCSI_W_LUN_BASE;
- }
- 
-+static inline int ufshcd_prepare_lrbp_crypto(struct ufs_hba *hba,
-+					     struct scsi_cmnd *cmd,
-+					     struct ufshcd_lrb *lrbp)
-+{
-+	int key_slot;
-+
-+	if (!cmd->request->bio ||
-+	    !bio_crypt_should_process(cmd->request->bio, cmd->request->q)) {
-+		lrbp->crypto_enable = false;
-+		return 0;
-+	}
-+
-+	if (WARN_ON(!ufshcd_is_crypto_enabled(hba))) {
-+		/*
-+		 * Upper layer asked us to do inline encryption
-+		 * but that isn't enabled, so we fail this request.
-+		 */
-+		return -EINVAL;
-+	}
-+	key_slot = bio_crypt_get_keyslot(cmd->request->bio);
-+	if (!ufshcd_keyslot_valid(hba, key_slot))
-+		return -EINVAL;
-+
-+	lrbp->crypto_enable = true;
-+	lrbp->crypto_key_slot = key_slot;
-+	lrbp->data_unit_num = bio_crypt_data_unit_num(cmd->request->bio);
-+
-+	return 0;
-+}
-+
- static void ufshcd_init_lrb(struct ufs_hba *hba, struct ufshcd_lrb *lrb, int i)
- {
- 	struct utp_transfer_cmd_desc *cmd_descp = hba->ucdl_base_addr;
-@@ -2504,6 +2552,12 @@ static int ufshcd_queuecommand(struct Scsi_Host *host, struct scsi_cmnd *cmd)
+@@ -2503,6 +2518,9 @@ static int ufshcd_queuecommand(struct Scsi_Host *host, struct scsi_cmnd *cmd)
  	lrbp->task_tag = tag;
  	lrbp->lun = ufshcd_scsi_to_upiu_lun(cmd->device->lun);
  	lrbp->intr_cmd = !ufshcd_is_intr_aggr_allowed(hba) ? true : false;
 +
-+	err = ufshcd_prepare_lrbp_crypto(hba, cmd, lrbp);
-+	if (err) {
-+		lrbp->cmd = NULL;
-+		goto out;
-+	}
++	ufshcd_prepare_lrbp_crypto(hba, cmd, lrbp);
++
  	lrbp->req_abort_skip = false;
  
  	ufshcd_comp_scsi_upiu(hba, lrbp);
-@@ -2537,6 +2591,7 @@ static int ufshcd_compose_dev_cmd(struct ufs_hba *hba,
+@@ -2536,6 +2554,9 @@ static int ufshcd_compose_dev_cmd(struct ufs_hba *hba,
  	lrbp->task_tag = tag;
  	lrbp->lun = 0; /* device management cmd is not specific to any LUN */
  	lrbp->intr_cmd = true; /* No interrupt aggregation */
-+	lrbp->crypto_enable = false; /* No crypto operations */
++#ifdef CONFIG_SCSI_UFS_CRYPTO
++	lrbp->crypto_key_slot = -1; /* No crypto operations */
++#endif
  	hba->dev_cmd.type = cmd_type;
  
  	return ufshcd_comp_devman_upiu(hba, lrbp);
-@@ -4235,6 +4290,8 @@ static inline void ufshcd_hba_stop(struct ufs_hba *hba, bool can_sleep)
- {
- 	int err;
- 
-+	ufshcd_crypto_disable(hba);
-+
- 	ufshcd_writel(hba, CONTROLLER_DISABLE,  REG_CONTROLLER_ENABLE);
- 	err = ufshcd_wait_for_register(hba, REG_CONTROLLER_ENABLE,
- 					CONTROLLER_ENABLE, CONTROLLER_DISABLE,
-@@ -4625,6 +4682,8 @@ static int ufshcd_slave_configure(struct scsi_device *sdev)
+@@ -4628,6 +4649,8 @@ static int ufshcd_slave_configure(struct scsi_device *sdev)
  	if (ufshcd_is_rpm_autosuspend_allowed(hba))
  		sdev->rpm_autosuspend = 1;
  
@@ -152,24 +161,25 @@ diff --git a/drivers/scsi/ufs/ufshcd.c b/drivers/scsi/ufs/ufshcd.c
  	return 0;
  }
  
-@@ -4635,6 +4694,7 @@ static int ufshcd_slave_configure(struct scsi_device *sdev)
- static void ufshcd_slave_destroy(struct scsi_device *sdev)
+@@ -5908,6 +5931,9 @@ static int ufshcd_issue_devman_upiu_cmd(struct ufs_hba *hba,
+ 	lrbp->task_tag = tag;
+ 	lrbp->lun = 0;
+ 	lrbp->intr_cmd = true;
++#ifdef CONFIG_SCSI_UFS_CRYPTO
++	lrbp->crypto_key_slot = -1; /* No crypto operations */
++#endif
+ 	hba->dev_cmd.type = cmd_type;
+ 
+ 	switch (hba->ufs_version) {
+@@ -8334,6 +8360,7 @@ EXPORT_SYMBOL_GPL(ufshcd_remove);
+  */
+ void ufshcd_dealloc_host(struct ufs_hba *hba)
  {
- 	struct ufs_hba *hba;
-+	struct request_queue *q = sdev->request_queue;
- 
- 	hba = shost_priv(sdev->host);
- 	/* Drop the reference as it won't be needed anymore */
-@@ -4645,6 +4705,8 @@ static void ufshcd_slave_destroy(struct scsi_device *sdev)
- 		hba->sdev_ufs_device = NULL;
- 		spin_unlock_irqrestore(hba->host->host_lock, flags);
- 	}
-+
-+	ufshcd_crypto_destroy_rq_keyslot_manager(hba, q);
++	ufshcd_crypto_destroy_keyslot_manager(hba);
+ 	scsi_host_put(hba->host);
  }
- 
- /**
-@@ -8541,6 +8603,13 @@ int ufshcd_init(struct ufs_hba *hba, void __iomem *mmio_base, unsigned int irq)
+ EXPORT_SYMBOL_GPL(ufshcd_dealloc_host);
+@@ -8544,6 +8571,13 @@ int ufshcd_init(struct ufs_hba *hba, void __iomem *mmio_base, unsigned int irq)
  	/* Reset the attached device */
  	ufshcd_vops_device_reset(hba);
  
@@ -177,7 +187,7 @@ diff --git a/drivers/scsi/ufs/ufshcd.c b/drivers/scsi/ufs/ufshcd.c
 +	err = ufshcd_hba_init_crypto(hba);
 +	if (err) {
 +		dev_err(hba->dev, "crypto setup failed\n");
-+		goto out_remove_scsi_host;
++		goto free_tmf_queue;
 +	}
 +
  	/* Host controller enable */
@@ -186,23 +196,23 @@ diff --git a/drivers/scsi/ufs/ufshcd.c b/drivers/scsi/ufs/ufshcd.c
 diff --git a/drivers/scsi/ufs/ufshcd.h b/drivers/scsi/ufs/ufshcd.h
 --- a/drivers/scsi/ufs/ufshcd.h
 +++ b/drivers/scsi/ufs/ufshcd.h
-@@ -182,6 +182,9 @@ struct ufs_pm_lvl_states {
+@@ -183,6 +183,8 @@ struct ufs_pm_lvl_states {
   * @intr_cmd: Interrupt command (doesn't participate in interrupt aggregation)
   * @issue_time_stamp: time stamp for debug purposes
   * @compl_time_stamp: time stamp for statistics
-+ * @crypto_enable: whether or not the request needs inline crypto operations
-+ * @crypto_key_slot: the key slot to use for inline crypto
++ * @crypto_key_slot: the key slot to use for inline crypto (-1 if none)
 + * @data_unit_num: the data unit number for the first block for inline crypto
   * @req_abort_skip: skip request abort task flag
   */
  struct ufshcd_lrb {
-@@ -206,6 +209,9 @@ struct ufshcd_lrb {
+@@ -207,6 +209,10 @@ struct ufshcd_lrb {
  	bool intr_cmd;
  	ktime_t issue_time_stamp;
  	ktime_t compl_time_stamp;
-+	bool crypto_enable;
-+	u8 crypto_key_slot;
++#ifdef CONFIG_SCSI_UFS_CRYPTO
++	int crypto_key_slot;
 +	u64 data_unit_num;
++#endif
  
  	bool req_abort_skip;
  };
