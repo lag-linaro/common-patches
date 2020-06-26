@@ -162,7 +162,7 @@ diff --git a/fs/direct-io.c b/fs/direct-io.c
  #include <linux/mm.h>
  #include <linux/slab.h>
  #include <linux/highmem.h>
-@@ -411,6 +412,7 @@ dio_bio_alloc(struct dio *dio, struct dio_submit *sdio,
+@@ -392,6 +393,7 @@ dio_bio_alloc(struct dio *dio, struct dio_submit *sdio,
  	      sector_t first_sector, int nr_vecs)
  {
  	struct bio *bio;
@@ -170,7 +170,7 @@ diff --git a/fs/direct-io.c b/fs/direct-io.c
  
  	/*
  	 * bio_alloc() is guaranteed to return a bio when allowed to sleep and
-@@ -418,6 +420,9 @@ dio_bio_alloc(struct dio *dio, struct dio_submit *sdio,
+@@ -399,6 +401,9 @@ dio_bio_alloc(struct dio *dio, struct dio_submit *sdio,
  	 */
  	bio = bio_alloc(GFP_KERNEL, nr_vecs);
  
@@ -180,7 +180,7 @@ diff --git a/fs/direct-io.c b/fs/direct-io.c
  	bio_set_dev(bio, bdev);
  	bio->bi_iter.bi_sector = first_sector;
  	bio_set_op_attrs(bio, dio->op, dio->op_flags);
-@@ -782,9 +787,17 @@ static inline int dio_send_cur_page(struct dio *dio, struct dio_submit *sdio,
+@@ -763,9 +768,17 @@ static inline int dio_send_cur_page(struct dio *dio, struct dio_submit *sdio,
  		 * current logical offset in the file does not equal what would
  		 * be the next logical offset in the bio, submit the bio we
  		 * have.
@@ -259,7 +259,7 @@ diff --git a/fs/iomap/direct-io.c b/fs/iomap/direct-io.c
  #include <linux/iomap.h>
  #include <linux/backing-dev.h>
  #include <linux/uio.h>
-@@ -178,11 +179,14 @@ static void
+@@ -183,11 +184,14 @@ static void
  iomap_dio_zero(struct iomap_dio *dio, struct iomap *iomap, loff_t pos,
  		unsigned len)
  {
@@ -274,7 +274,7 @@ diff --git a/fs/iomap/direct-io.c b/fs/iomap/direct-io.c
  	bio_set_dev(bio, iomap->bdev);
  	bio->bi_iter.bi_sector = iomap_sector(iomap, pos);
  	bio->bi_private = dio;
-@@ -248,6 +252,7 @@ iomap_dio_bio_actor(struct inode *inode, loff_t pos, loff_t length,
+@@ -253,6 +257,7 @@ iomap_dio_bio_actor(struct inode *inode, loff_t pos, loff_t length,
  		ret = nr_pages;
  		goto out;
  	}
@@ -282,7 +282,7 @@ diff --git a/fs/iomap/direct-io.c b/fs/iomap/direct-io.c
  
  	if (need_zeroout) {
  		/* zero out from the start of the block to the write offset */
-@@ -265,6 +270,8 @@ iomap_dio_bio_actor(struct inode *inode, loff_t pos, loff_t length,
+@@ -270,6 +275,8 @@ iomap_dio_bio_actor(struct inode *inode, loff_t pos, loff_t length,
  		}
  
  		bio = bio_alloc(GFP_KERNEL, nr_pages);
@@ -291,14 +291,14 @@ diff --git a/fs/iomap/direct-io.c b/fs/iomap/direct-io.c
  		bio_set_dev(bio, iomap->bdev);
  		bio->bi_iter.bi_sector = iomap_sector(iomap, pos);
  		bio->bi_write_hint = dio->iocb->ki_hint;
-@@ -303,6 +310,7 @@ iomap_dio_bio_actor(struct inode *inode, loff_t pos, loff_t length,
+@@ -307,6 +314,7 @@ iomap_dio_bio_actor(struct inode *inode, loff_t pos, loff_t length,
  		copied += n;
  
  		nr_pages = iov_iter_npages(dio->submit.iter, BIO_MAX_PAGES);
 +		nr_pages = fscrypt_limit_dio_pages(inode, pos, nr_pages);
- 		iomap_dio_submit_bio(dio, iomap, bio);
+ 		iomap_dio_submit_bio(dio, iomap, bio, pos);
+ 		pos += n;
  	} while (nr_pages);
- 
 diff --git a/include/linux/fscrypt.h b/include/linux/fscrypt.h
 --- a/include/linux/fscrypt.h
 +++ b/include/linux/fscrypt.h

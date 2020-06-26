@@ -16,7 +16,7 @@ Signed-off-by: Sami Tolvanen <samitolvanen@google.com>
 diff --git a/arch/x86/Kconfig b/arch/x86/Kconfig
 --- a/arch/x86/Kconfig
 +++ b/arch/x86/Kconfig
-@@ -89,6 +89,8 @@ config X86
+@@ -90,6 +90,8 @@ config X86
  	select ARCH_SUPPORTS_ACPI
  	select ARCH_SUPPORTS_ATOMIC_RMW
  	select ARCH_SUPPORTS_NUMA_BALANCING	if X86_64

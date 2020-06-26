@@ -57,7 +57,7 @@ diff --git a/security/selinux/include/classmap.h b/security/selinux/include/clas
 diff --git a/security/selinux/include/security.h b/security/selinux/include/security.h
 --- a/security/selinux/include/security.h
 +++ b/security/selinux/include/security.h
-@@ -109,6 +109,7 @@ struct selinux_state {
+@@ -110,6 +110,7 @@ struct selinux_state {
  	bool checkreqprot;
  	bool initialized;
  	bool policycap[__POLICYDB_CAPABILITY_MAX];
@@ -65,7 +65,7 @@ diff --git a/security/selinux/include/security.h b/security/selinux/include/secu
  
  	struct page *status_page;
  	struct mutex status_lock;
-@@ -221,6 +222,13 @@ static inline bool selinux_policycap_genfs_seclabel_symlinks(void)
+@@ -222,6 +223,13 @@ static inline bool selinux_policycap_genfs_seclabel_symlinks(void)
  	return state->policycap[POLICYDB_CAPABILITY_GENFS_SECLABEL_SYMLINKS];
  }
  
@@ -79,7 +79,7 @@ diff --git a/security/selinux/include/security.h b/security/selinux/include/secu
  int security_mls_enabled(struct selinux_state *state);
  int security_load_policy(struct selinux_state *state,
  			 void *data, size_t len);
-@@ -439,5 +447,6 @@ extern void avtab_cache_init(void);
+@@ -440,5 +448,6 @@ extern void avtab_cache_init(void);
  extern void ebitmap_cache_init(void);
  extern void hashtab_cache_init(void);
  extern int security_sidtab_hash_stats(struct selinux_state *state, char *page);
@@ -129,7 +129,7 @@ diff --git a/security/selinux/nlmsgtab.c b/security/selinux/nlmsgtab.c
 diff --git a/security/selinux/ss/policydb.c b/security/selinux/ss/policydb.c
 --- a/security/selinux/ss/policydb.c
 +++ b/security/selinux/ss/policydb.c
-@@ -2341,6 +2341,10 @@ int policydb_read(struct policydb *p, void *fp)
+@@ -2461,6 +2461,10 @@ int policydb_read(struct policydb *p, void *fp)
  	p->reject_unknown = !!(le32_to_cpu(buf[1]) & REJECT_UNKNOWN);
  	p->allow_unknown = !!(le32_to_cpu(buf[1]) & ALLOW_UNKNOWN);
  
@@ -143,7 +143,7 @@ diff --git a/security/selinux/ss/policydb.c b/security/selinux/ss/policydb.c
 diff --git a/security/selinux/ss/policydb.h b/security/selinux/ss/policydb.h
 --- a/security/selinux/ss/policydb.h
 +++ b/security/selinux/ss/policydb.h
-@@ -236,6 +236,7 @@ struct genfs {
+@@ -238,6 +238,7 @@ struct genfs {
  /* The policy database */
  struct policydb {
  	int mls_enabled;
@@ -151,7 +151,7 @@ diff --git a/security/selinux/ss/policydb.h b/security/selinux/ss/policydb.h
  
  	/* symbol tables */
  	struct symtab symtab[SYM_NUM];
-@@ -322,6 +323,7 @@ extern int policydb_read(struct policydb *p, void *fp);
+@@ -325,6 +326,7 @@ extern int policydb_read(struct policydb *p, void *fp);
  extern int policydb_write(struct policydb *p, void *fp);
  
  #define POLICYDB_CONFIG_MLS    1
@@ -162,7 +162,7 @@ diff --git a/security/selinux/ss/policydb.h b/security/selinux/ss/policydb.h
 diff --git a/security/selinux/ss/services.c b/security/selinux/ss/services.c
 --- a/security/selinux/ss/services.c
 +++ b/security/selinux/ss/services.c
-@@ -2158,6 +2158,9 @@ static void security_load_policycaps(struct selinux_state *state)
+@@ -2115,6 +2115,9 @@ static void security_load_policycaps(struct selinux_state *state)
  			pr_info("SELinux:  unknown policy capability %u\n",
  				i);
  	}

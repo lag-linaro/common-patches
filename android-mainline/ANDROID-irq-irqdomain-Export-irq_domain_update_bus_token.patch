@@ -17,7 +17,7 @@ Change-Id: I395859c3e6fe7e8ceb4075c84267fbb68fbb1938
 diff --git a/kernel/irq/irqdomain.c b/kernel/irq/irqdomain.c
 --- a/kernel/irq/irqdomain.c
 +++ b/kernel/irq/irqdomain.c
-@@ -296,6 +296,7 @@ void irq_domain_update_bus_token(struct irq_domain *domain,
+@@ -281,6 +281,7 @@ void irq_domain_update_bus_token(struct irq_domain *domain,
  
  	mutex_unlock(&irq_domain_mutex);
  }

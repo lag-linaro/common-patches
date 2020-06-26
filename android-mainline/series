@@ -1,8 +1,8 @@
 #
 # android-mainline patches
 #
-# Applies onto upstream 750a02ab8d3c Linux v5.7-3323-g750a02ab8d3c
-# Matches android-mainline 228804d48ce2 ("ANDROID: dm-bow: avoid truncating the logical block size")
+# Applies onto upstream 039aeb9deb92 Linux v5.7-4405-g039aeb9deb92
+# Matches android-mainline 035f08016d2b ("Merge 039aeb9deb92 ("Merge tag 'for-linus' of git://git.kernel.org/pub/scm/virt/kvm/kvm") into android-mainline")
 #
 Revert-security-lockdown-selinux-implement-SELinux-lockdown.patch
 Revert-drm-virtio-fix-DRM_FORMAT_-handling.patch
@@ -187,7 +187,6 @@ ANDROID-gki_defconfig-disable-FUNCTION_TRACER.patch
 ANDROID-gki_defconfig-enable-CONFIG_IKHEADERS-as-m.patch
 ANDROID-gki_defconfig-FW_CACHE-to-no.patch
 ANDROID-gki_defconfig-m-s-applied-for-virtio-configs-in-arm64.patch
-ANDROID-kbuild-add-CONFIG_LD_IS_LLD.patch
 ANDROID-kbuild-add-support-for-Clang-LTO.patch
 ANDROID-kbuild-fix-dynamic-ftrace-with-clang-LTO.patch
 ANDROID-scripts-mod-disable-LTO-for-empty.c.patch

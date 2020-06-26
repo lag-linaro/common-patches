@@ -264,7 +264,7 @@ diff --git a/fs/ubifs/dir.c b/fs/ubifs/dir.c
 diff --git a/include/linux/fs.h b/include/linux/fs.h
 --- a/include/linux/fs.h
 +++ b/include/linux/fs.h
-@@ -3417,6 +3417,8 @@ static inline bool needs_casefold(const struct inode *dir)
+@@ -3421,6 +3421,8 @@ static inline bool needs_casefold(const struct inode *dir)
  	return 0;
  }
  #endif

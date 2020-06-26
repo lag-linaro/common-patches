@@ -84,7 +84,7 @@ diff --git a/kernel/sysctl.c b/kernel/sysctl.c
  extern int pid_max_min, pid_max_max;
  extern int percpu_pagelist_fraction;
  extern int latencytop_enabled;
-@@ -1503,6 +1504,14 @@ static struct ctl_table vm_table[] = {
+@@ -1505,6 +1506,14 @@ static struct ctl_table vm_table[] = {
  		.extra1		= SYSCTL_ONE,
  		.extra2		= &one_thousand,
  	},

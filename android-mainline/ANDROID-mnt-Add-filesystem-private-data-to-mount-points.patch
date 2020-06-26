@@ -92,7 +92,7 @@ diff --git a/fs/namespace.c b/fs/namespace.c
  	if (flag & (CL_SLAVE | CL_PRIVATE | CL_SHARED_TO_SLAVE))
  		mnt->mnt_group_id = 0; /* not a peer of original */
  	else
-@@ -2604,7 +2626,15 @@ static int do_remount(struct path *path, int ms_flags, int sb_flags,
+@@ -2609,7 +2631,15 @@ static int do_remount(struct path *path, int ms_flags, int sb_flags,
  		err = -EPERM;
  		if (ns_capable(sb->s_user_ns, CAP_SYS_ADMIN)) {
  			err = reconfigure_super(fc);
@@ -156,7 +156,7 @@ diff --git a/include/linux/fs.h b/include/linux/fs.h
  	void (*umount_begin) (struct super_block *);
  
  	int (*show_options)(struct seq_file *, struct dentry *);
-@@ -2266,6 +2269,7 @@ struct file_system_type {
+@@ -2269,6 +2272,7 @@ struct file_system_type {
  	const struct fs_parameter_spec *parameters;
  	struct dentry *(*mount) (struct file_system_type *, int,
  		       const char *, void *);

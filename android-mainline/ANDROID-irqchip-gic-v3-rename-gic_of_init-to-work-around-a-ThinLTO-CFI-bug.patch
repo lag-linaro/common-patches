@@ -30,7 +30,7 @@ diff --git a/arch/arm64/kernel/vdso/Makefile b/arch/arm64/kernel/vdso/Makefile
 diff --git a/drivers/irqchip/irq-gic-v3.c b/drivers/irqchip/irq-gic-v3.c
 --- a/drivers/irqchip/irq-gic-v3.c
 +++ b/drivers/irqchip/irq-gic-v3.c
-@@ -1800,7 +1800,7 @@ static void __init gic_of_setup_kvm_info(struct device_node *node)
+@@ -1799,7 +1799,7 @@ static void __init gic_of_setup_kvm_info(struct device_node *node)
  	gic_set_kvm_info(&gic_v3_kvm_info);
  }
  
@@ -39,7 +39,7 @@ diff --git a/drivers/irqchip/irq-gic-v3.c b/drivers/irqchip/irq-gic-v3.c
  {
  	void __iomem *dist_base;
  	struct redist_region *rdist_regs;
-@@ -1870,7 +1870,7 @@ static int __init gic_of_init(struct device_node *node, struct device_node *pare
+@@ -1869,7 +1869,7 @@ static int __init gic_of_init(struct device_node *node, struct device_node *pare
  	return err;
  }
  

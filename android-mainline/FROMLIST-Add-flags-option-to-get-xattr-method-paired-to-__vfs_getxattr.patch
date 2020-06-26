@@ -797,7 +797,7 @@ diff --git a/fs/xattr.c b/fs/xattr.c
 diff --git a/fs/xfs/xfs_xattr.c b/fs/xfs/xfs_xattr.c
 --- a/fs/xfs/xfs_xattr.c
 +++ b/fs/xfs/xfs_xattr.c
-@@ -20,7 +20,8 @@
+@@ -19,7 +19,8 @@
  
  static int
  xfs_xattr_get(const struct xattr_handler *handler, struct dentry *unused,
