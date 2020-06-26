@@ -1,0 +1,26 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: Matthias Maennich <maennich@google.com>
+Date: Sat, 20 Jun 2020 13:38:10 +0200
+Subject: ANDROID: Use depmod from the hermetic toolchain
+
+DEPMOD=depmod overwrites the default DEPMOD=/sbin/depmod and uses the
+depmod version from PATH (coming from the hermetic toolchain).
+
+Bug: 130657633
+Signed-off-by: Matthias Maennich <maennich@google.com>
+Change-Id: I73eefaa5508298bc61e9e586f981c5ddabed7656
+---
+ build.config.common | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/build.config.common b/build.config.common
+--- a/build.config.common
++++ b/build.config.common
+@@ -5,6 +5,7 @@ CC=clang
+ LD=ld.lld
+ NM=llvm-nm
+ OBJCOPY=llvm-objcopy
++DEPMOD=depmod
+ CLANG_PREBUILT_BIN=prebuilts-master/clang/host/linux-x86/clang-r383902/bin
+ BUILDTOOLS_PREBUILT_BIN=build/build-tools/path/linux-x86
+ 

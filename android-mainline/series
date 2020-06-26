@@ -2,7 +2,7 @@
 # android-mainline patches
 #
 # Applies onto upstream 039aeb9deb92 Linux v5.7-4405-g039aeb9deb92
-# Matches android-mainline 035f08016d2b ("Merge 039aeb9deb92 ("Merge tag 'for-linus' of git://git.kernel.org/pub/scm/virt/kvm/kvm") into android-mainline")
+# Matches android-mainline 82ce726a3f8d ("ANDROID: Use depmod from the hermetic toolchain")
 #
 Revert-security-lockdown-selinux-implement-SELinux-lockdown.patch
 Revert-drm-virtio-fix-DRM_FORMAT_-handling.patch
@@ -502,3 +502,4 @@ ANDROID-gki_defconfig-enable-dm-default-key.patch
 ANDROID-GKI-enable-some-more-USB-configfs-options.patch
 ANDROID-dm-default-key-avoid-truncating-the-logical-block-size.patch
 ANDROID-dm-bow-avoid-truncating-the-logical-block-size.patch
+ANDROID-Use-depmod-from-the-hermetic-toolchain.patch
