@@ -1,8 +1,8 @@
 #
 # android-mainline patches
 #
-# Applies onto upstream 039aeb9deb92 Linux v5.7-4405-g039aeb9deb92
-# Matches android-mainline 82ce726a3f8d ("ANDROID: Use depmod from the hermetic toolchain")
+# Applies onto upstream 2e63f6ce7ed2 Linux v5.7-4424-g2e63f6ce7ed2
+# Matches android-mainline 9052db655463 ("Merge 2e63f6ce7ed2 ("Merge branch 'uaccess.comedi' of git://git.kernel.org/pub/scm/linux/kernel/git/viro/vfs") into android-mainline")
 #
 Revert-security-lockdown-selinux-implement-SELinux-lockdown.patch
 Revert-drm-virtio-fix-DRM_FORMAT_-handling.patch
