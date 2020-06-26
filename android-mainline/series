@@ -2,7 +2,7 @@
 # android-mainline patches
 #
 # Applies onto upstream 750a02ab8d3c Linux v5.7-3323-g750a02ab8d3c
-# Matches android-mainline 665ca1bf8e87 ("Merge commit 750a02ab8d3c ("Merge tag 'for-5.8/block-2020-06-01' of git://git.kernel.dk/linux-block") into android-mainline")
+# Matches android-mainline 228804d48ce2 ("ANDROID: dm-bow: avoid truncating the logical block size")
 #
 Revert-security-lockdown-selinux-implement-SELinux-lockdown.patch
 Revert-drm-virtio-fix-DRM_FORMAT_-handling.patch
@@ -500,3 +500,6 @@ ANDROID-gki_defconfig-Add-CONFIG_UNICODE.patch
 ANDROID-gki_defconfig-enable-inline-encryption.patch
 ANDROID-gki_defconfig-Enable-blk-crypto-fallback.patch
 ANDROID-gki_defconfig-enable-dm-default-key.patch
+ANDROID-GKI-enable-some-more-USB-configfs-options.patch
+ANDROID-dm-default-key-avoid-truncating-the-logical-block-size.patch
+ANDROID-dm-bow-avoid-truncating-the-logical-block-size.patch
