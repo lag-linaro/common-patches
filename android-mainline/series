@@ -2,11 +2,12 @@
 # android-mainline patches
 #
 # Applies onto upstream d77d1dbba955 Linux v5.7-8532-gd77d1dbba955
-# Matches android-mainline bf8bebd9d9c6 ("Merge d77d1dbba955 ("Merge tag 'zonefs-5.8-rc1' of git://git.kernel.org/pub/scm/linux/kernel/git/dlemoal/zonefs") into android-mainline")
+# Matches android-mainline 6663a9e9de4c ("FROMLIST: nsproxy: restore EINVAL for non-namespace file descriptor")
 #
 Revert-security-lockdown-selinux-implement-SELinux-lockdown.patch
 Revert-drm-virtio-fix-DRM_FORMAT_-handling.patch
 Revert-sched-core-Prevent-race-condition-between-cpuset-and-__sched_setscheduler.patch
+Revert-module-Make-module_enable_ro-static-again.patch
 FROMLIST-scsi-ufs-qcom-enter-and-exit-hibern8-during-clock-scaling.patch
 FROMLIST-scsi-ufs-Export-query-request-interfaces.patch
 FROMLIST-scsi-ufs-export-hibern8-entry-and-exit.patch
@@ -499,3 +500,6 @@ ANDROID-GKI-enable-some-more-USB-configfs-options.patch
 ANDROID-dm-default-key-avoid-truncating-the-logical-block-size.patch
 ANDROID-dm-bow-avoid-truncating-the-logical-block-size.patch
 ANDROID-Use-depmod-from-the-hermetic-toolchain.patch
+ANDROID-GKI-update-gki-defconfigs.patch
+ANDROID-bpf-Workaround-for-bpf-permissions-check-regression.patch
+FROMLIST-nsproxy-restore-EINVAL-for-non-namespace-file-descriptor.patch
