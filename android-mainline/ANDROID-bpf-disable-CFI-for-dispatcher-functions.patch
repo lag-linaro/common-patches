@@ -20,7 +20,7 @@ Change-Id: I7edf6052e121d16ccb0f3d3492ff4eefedfa509e
 diff --git a/include/linux/bpf.h b/include/linux/bpf.h
 --- a/include/linux/bpf.h
 +++ b/include/linux/bpf.h
-@@ -536,7 +536,7 @@ struct bpf_dispatcher {
+@@ -547,7 +547,7 @@ struct bpf_dispatcher {
  	struct bpf_ksym ksym;
  };
  
@@ -29,7 +29,7 @@ diff --git a/include/linux/bpf.h b/include/linux/bpf.h
  	const void *ctx,
  	const struct bpf_insn *insnsi,
  	unsigned int (*bpf_func)(const void *,
-@@ -563,7 +563,7 @@ void bpf_trampoline_put(struct bpf_trampoline *tr);
+@@ -574,7 +574,7 @@ void bpf_trampoline_put(struct bpf_trampoline *tr);
  }
  
  #define DEFINE_BPF_DISPATCHER(name)					\
