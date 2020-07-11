@@ -226,7 +226,7 @@ diff --git a/include/linux/module.h b/include/linux/module.h
 diff --git a/init/Kconfig b/init/Kconfig
 --- a/init/Kconfig
 +++ b/init/Kconfig
-@@ -2234,7 +2234,7 @@ endif # MODULES
+@@ -2219,7 +2219,7 @@ endif # MODULES
  
  config MODULES_TREE_LOOKUP
  	def_bool y

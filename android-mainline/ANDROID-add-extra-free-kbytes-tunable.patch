@@ -37,8 +37,8 @@ Signed-off-by: Suren Baghdasaryan <surenb@google.com>
 ---
  Documentation/admin-guide/sysctl/vm.rst | 16 ++++++++++++++++
  kernel/sysctl.c                         | 11 +++++++++++
- mm/page_alloc.c                         | 25 +++++++++++++++++++++----
- 3 files changed, 48 insertions(+), 4 deletions(-)
+ mm/page_alloc.c                         | 24 ++++++++++++++++++++----
+ 3 files changed, 47 insertions(+), 4 deletions(-)
 
 diff --git a/Documentation/admin-guide/sysctl/vm.rst b/Documentation/admin-guide/sysctl/vm.rst
 --- a/Documentation/admin-guide/sysctl/vm.rst
@@ -86,7 +86,7 @@ diff --git a/kernel/sysctl.c b/kernel/sysctl.c
  /* Constants used for minimum and  maximum */
  #ifdef CONFIG_LOCKUP_DETECTOR
  static int sixty = 60;
-@@ -2844,6 +2847,14 @@ static struct ctl_table vm_table[] = {
+@@ -2845,6 +2848,14 @@ static struct ctl_table vm_table[] = {
  		.extra1		= SYSCTL_ONE,
  		.extra2		= &one_thousand,
  	},
@@ -104,7 +104,7 @@ diff --git a/kernel/sysctl.c b/kernel/sysctl.c
 diff --git a/mm/page_alloc.c b/mm/page_alloc.c
 --- a/mm/page_alloc.c
 +++ b/mm/page_alloc.c
-@@ -313,6 +313,11 @@ compound_page_dtor * const compound_page_dtors[] = {
+@@ -314,6 +314,11 @@ compound_page_dtor * const compound_page_dtors[NR_COMPOUND_DTORS] = {
  #endif
  };
  
@@ -116,7 +116,7 @@ diff --git a/mm/page_alloc.c b/mm/page_alloc.c
  int min_free_kbytes = 1024;
  int user_min_free_kbytes = -1;
  #ifdef CONFIG_DISCONTIGMEM
-@@ -331,6 +336,13 @@ int watermark_boost_factor __read_mostly = 15000;
+@@ -332,6 +337,13 @@ int watermark_boost_factor __read_mostly = 15000;
  #endif
  int watermark_scale_factor = 10;
  
@@ -130,7 +130,7 @@ diff --git a/mm/page_alloc.c b/mm/page_alloc.c
  static unsigned long nr_kernel_pages __initdata;
  static unsigned long nr_all_pages __initdata;
  static unsigned long dma_reserve __initdata;
-@@ -7829,6 +7841,7 @@ static void setup_per_zone_lowmem_reserve(void)
+@@ -7762,6 +7774,7 @@ static void setup_per_zone_lowmem_reserve(void)
  static void __setup_per_zone_wmarks(void)
  {
  	unsigned long pages_min = min_free_kbytes >> (PAGE_SHIFT - 10);
@@ -138,7 +138,7 @@ diff --git a/mm/page_alloc.c b/mm/page_alloc.c
  	unsigned long lowmem_pages = 0;
  	struct zone *zone;
  	unsigned long flags;
-@@ -7840,11 +7853,13 @@ static void __setup_per_zone_wmarks(void)
+@@ -7773,11 +7786,13 @@ static void __setup_per_zone_wmarks(void)
  	}
  
  	for_each_zone(zone) {
@@ -153,20 +153,19 @@ diff --git a/mm/page_alloc.c b/mm/page_alloc.c
  		if (is_highmem(zone)) {
  			/*
  			 * __GFP_HIGH and PF_MEMALLOC allocations usually don't
-@@ -7877,8 +7892,10 @@ static void __setup_per_zone_wmarks(void)
- 			    mult_frac(zone_managed_pages(zone),
+@@ -7811,8 +7826,9 @@ static void __setup_per_zone_wmarks(void)
  				      watermark_scale_factor, 10000));
  
+ 		zone->watermark_boost = 0;
 -		zone->_watermark[WMARK_LOW]  = min_wmark_pages(zone) + tmp;
 -		zone->_watermark[WMARK_HIGH] = min_wmark_pages(zone) + tmp * 2;
-+		zone->_watermark[WMARK_LOW]  = min_wmark_pages(zone) +
-+					low + tmp;
-+		zone->_watermark[WMARK_HIGH] = min_wmark_pages(zone) +
-+					low + tmp * 2;
- 		zone->watermark_boost = 0;
++		zone->_watermark[WMARK_LOW]  = min_wmark_pages(zone) + low + tmp;
++		zone->_watermark[WMARK_HIGH] = min_wmark_pages(zone) + low + tmp * 2;
++		zone->watermark_boost = 0;
  
  		spin_unlock_irqrestore(&zone->lock, flags);
-@@ -7962,7 +7979,7 @@ core_initcall(init_per_zone_wmark_min)
+ 	}
+@@ -7895,7 +7911,7 @@ core_initcall(init_per_zone_wmark_min)
  /*
   * min_free_kbytes_sysctl_handler - just a wrapper around proc_dointvec() so
   *	that we can call two helper functions whenever min_free_kbytes

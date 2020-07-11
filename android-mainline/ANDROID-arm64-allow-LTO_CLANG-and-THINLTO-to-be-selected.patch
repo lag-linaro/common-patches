@@ -15,7 +15,7 @@ Signed-off-by: Sami Tolvanen <samitolvanen@google.com>
 diff --git a/arch/arm64/Kconfig b/arch/arm64/Kconfig
 --- a/arch/arm64/Kconfig
 +++ b/arch/arm64/Kconfig
-@@ -69,6 +69,8 @@ config ARM64
+@@ -70,6 +70,8 @@ config ARM64
  	select ARCH_USE_QUEUED_SPINLOCKS
  	select ARCH_USE_SYM_ANNOTATIONS
  	select ARCH_SUPPORTS_MEMORY_FAILURE

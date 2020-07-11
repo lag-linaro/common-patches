@@ -1,8 +1,8 @@
 #
 # android-mainline patches
 #
-# Applies onto upstream cb8e59cc8720 Linux v5.7-7171-gcb8e59cc8720
-# Matches android-mainline 8a8d41512fb8 ("Merge cb8e59cc8720 ("Merge git://git.kernel.org/pub/scm/linux/kernel/git/netdev/net-next") into android-mainline")
+# Applies onto upstream ee01c4d72adf Linux v5.7-7304-gee01c4d72adf
+# Matches android-mainline 1ec3464acb44 ("Merge ee01c4d72adf ("Merge branch 'akpm' (patches from Andrew)") into android-mainline")
 #
 Revert-security-lockdown-selinux-implement-SELinux-lockdown.patch
 Revert-drm-virtio-fix-DRM_FORMAT_-handling.patch

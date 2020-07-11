@@ -217,7 +217,7 @@ diff --git a/fs/userfaultfd.c b/fs/userfaultfd.c
 diff --git a/include/linux/mm.h b/include/linux/mm.h
 --- a/include/linux/mm.h
 +++ b/include/linux/mm.h
-@@ -2532,7 +2532,7 @@ static inline int vma_adjust(struct vm_area_struct *vma, unsigned long start,
+@@ -2517,7 +2517,7 @@ static inline int vma_adjust(struct vm_area_struct *vma, unsigned long start,
  extern struct vm_area_struct *vma_merge(struct mm_struct *,
  	struct vm_area_struct *prev, unsigned long addr, unsigned long end,
  	unsigned long vm_flags, struct anon_vma *, struct file *, pgoff_t,
