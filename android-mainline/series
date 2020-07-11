@@ -1,8 +1,8 @@
 #
 # android-mainline patches
 #
-# Applies onto upstream d77d1dbba955 Linux v5.7-8532-gd77d1dbba955
-# Matches android-mainline 6663a9e9de4c ("FROMLIST: nsproxy: restore EINVAL for non-namespace file descriptor")
+# Applies onto upstream 051c3556e3d6 Linux v5.7-8546-g051c3556e3d6
+# Matches android-mainline dfd0059142fb ("Merge 051c3556e3d6 ("Merge tag 'for_v5.8-rc1' of git://git.kernel.org/pub/scm/linux/kernel/git/jack/linux-fs") into android-mainline")
 #
 Revert-security-lockdown-selinux-implement-SELinux-lockdown.patch
 Revert-drm-virtio-fix-DRM_FORMAT_-handling.patch
