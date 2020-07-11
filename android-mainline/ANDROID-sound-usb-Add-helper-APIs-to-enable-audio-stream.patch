@@ -127,7 +127,7 @@ diff --git a/sound/usb/card.c b/sound/usb/card.c
 diff --git a/sound/usb/card.h b/sound/usb/card.h
 --- a/sound/usb/card.h
 +++ b/sound/usb/card.h
-@@ -176,4 +176,8 @@ struct snd_usb_stream {
+@@ -181,4 +181,8 @@ struct snd_usb_stream {
  	struct list_head list;
  };
  
@@ -209,7 +209,7 @@ diff --git a/sound/usb/pcm.c b/sound/usb/pcm.c
  static int init_pitch_v1(struct snd_usb_audio *chip, int iface,
  			 struct usb_host_interface *alts,
  			 struct audioformat *fmt)
-@@ -595,6 +658,74 @@ static int set_format(struct snd_usb_substream *subs, struct audioformat *fmt)
+@@ -604,6 +667,74 @@ static int set_format(struct snd_usb_substream *subs, struct audioformat *fmt)
  	return 0;
  }
  

@@ -32,7 +32,7 @@ Signed-off-by: Siarhei Vishniakou <svv@google.com>
 diff --git a/MAINTAINERS b/MAINTAINERS
 --- a/MAINTAINERS
 +++ b/MAINTAINERS
-@@ -12036,6 +12036,12 @@ W:	http://www.netlab.is.tsukuba.ac.jp/~yokota/izumi/ninja/
+@@ -12058,6 +12058,12 @@ W:	http://www.netlab.is.tsukuba.ac.jp/~yokota/izumi/ninja/
  F:	Documentation/scsi/NinjaSCSI.rst
  F:	drivers/scsi/nsp32*
  
@@ -48,7 +48,7 @@ diff --git a/MAINTAINERS b/MAINTAINERS
 diff --git a/drivers/hid/Kconfig b/drivers/hid/Kconfig
 --- a/drivers/hid/Kconfig
 +++ b/drivers/hid/Kconfig
-@@ -709,6 +709,17 @@ config HID_MULTITOUCH
+@@ -710,6 +710,17 @@ config HID_MULTITOUCH
  	  To compile this driver as a module, choose M here: the
  	  module will be called hid-multitouch.
  
@@ -80,7 +80,7 @@ diff --git a/drivers/hid/Makefile b/drivers/hid/Makefile
 diff --git a/drivers/hid/hid-ids.h b/drivers/hid/hid-ids.h
 --- a/drivers/hid/hid-ids.h
 +++ b/drivers/hid/hid-ids.h
-@@ -884,6 +884,9 @@
+@@ -877,6 +877,9 @@
  #define USB_VENDOR_ID_NINTENDO		0x057e
  #define USB_DEVICE_ID_NINTENDO_WIIMOTE	0x0306
  #define USB_DEVICE_ID_NINTENDO_WIIMOTE2	0x0330

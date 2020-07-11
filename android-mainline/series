@@ -1,14 +1,12 @@
 #
 # android-mainline patches
 #
-# Applies onto upstream ee01c4d72adf Linux v5.7-7304-gee01c4d72adf
-# Matches android-mainline 1ec3464acb44 ("Merge ee01c4d72adf ("Merge branch 'akpm' (patches from Andrew)") into android-mainline")
+# Applies onto upstream d77d1dbba955 Linux v5.7-8532-gd77d1dbba955
+# Matches android-mainline bf8bebd9d9c6 ("Merge d77d1dbba955 ("Merge tag 'zonefs-5.8-rc1' of git://git.kernel.org/pub/scm/linux/kernel/git/dlemoal/zonefs") into android-mainline")
 #
 Revert-security-lockdown-selinux-implement-SELinux-lockdown.patch
 Revert-drm-virtio-fix-DRM_FORMAT_-handling.patch
 Revert-sched-core-Prevent-race-condition-between-cpuset-and-__sched_setscheduler.patch
-FROMGIT-media-v4l2-ctrl-Add-H264-profile-and-levels.patch
-FROMGIT-media-uapi-h264-Add-new-profile-and-levels.patch
 FROMLIST-scsi-ufs-qcom-enter-and-exit-hibern8-during-clock-scaling.patch
 FROMLIST-scsi-ufs-Export-query-request-interfaces.patch
 FROMLIST-scsi-ufs-export-hibern8-entry-and-exit.patch
@@ -26,7 +24,6 @@ FROMLIST-lib-list_sort-fix-function-type-mismatches.patch
 FROMLIST-overlayfs-handle-XATTR_NOSECURITY-flag-for-get-xattr-method.patch
 FROMLIST-overlayfs-internal-getxattr-operations-without-sepolicy-checking.patch
 FROMLIST-overlayfs-override_creds-off-option-bypass-creator_cred.patch
-FROMLIST-media-v4l2-fh-define-v4l2_fh-struct-regardless-of-condition.patch
 FROMLIST-soc-qcom-rpmpd-Allow-RPMPD-driver-to-be-loaded-as-a-module.patch
 FROMLIST-soc-qcom-rpmh-Allow-RPMH-driver-to-be-loaded-as-a-module.patch
 FROMLIST-soc-qcom-rpmhpd-Allow-RPMHPD-driver-to-be-loaded-as-a-module.patch

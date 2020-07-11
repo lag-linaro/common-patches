@@ -23,7 +23,6 @@ Change-Id: Ife96637115f8f704aef938291eb189cb29378afb
  drivers/clk/clk-pwm.c                      |  2 +-
  drivers/gpu/drm/i915/display/intel_panel.c |  4 ++--
  drivers/hwmon/pwm-fan.c                    |  2 +-
- drivers/media/rc/ir-rx51.c                 |  3 ++-
  drivers/pwm/core.c                         |  4 ++--
  drivers/pwm/pwm-clps711x.c                 |  2 +-
  drivers/pwm/pwm-imx-tpm.c                  |  2 +-
@@ -35,7 +34,7 @@ Change-Id: Ife96637115f8f704aef938291eb189cb29378afb
  drivers/pwm/sysfs.c                        | 10 +++++-----
  drivers/video/backlight/pwm_bl.c           |  3 ++-
  include/linux/pwm.h                        | 16 ++++++++--------
- 15 files changed, 32 insertions(+), 31 deletions(-)
+ 14 files changed, 30 insertions(+), 30 deletions(-)
 
 diff --git a/drivers/clk/clk-pwm.c b/drivers/clk/clk-pwm.c
 --- a/drivers/clk/clk-pwm.c
@@ -75,19 +74,6 @@ diff --git a/drivers/hwmon/pwm-fan.c b/drivers/hwmon/pwm-fan.c
  	ret = pwm_config(ctx->pwm, duty, pargs.period);
  	if (ret)
  		return ret;
-diff --git a/drivers/media/rc/ir-rx51.c b/drivers/media/rc/ir-rx51.c
---- a/drivers/media/rc/ir-rx51.c
-+++ b/drivers/media/rc/ir-rx51.c
-@@ -241,7 +241,8 @@ static int ir_rx51_probe(struct platform_device *dev)
- 	}
- 
- 	/* Use default, in case userspace does not set the carrier */
--	ir_rx51.freq = DIV_ROUND_CLOSEST(pwm_get_period(pwm), NSEC_PER_SEC);
-+	ir_rx51.freq = DIV_ROUND_CLOSEST_ULL(pwm_get_period(pwm),
-+			NSEC_PER_SEC);
- 	pwm_put(pwm);
- 
- 	hrtimer_init(&ir_rx51.timer, CLOCK_MONOTONIC, HRTIMER_MODE_REL);
 diff --git a/drivers/pwm/core.c b/drivers/pwm/core.c
 --- a/drivers/pwm/core.c
 +++ b/drivers/pwm/core.c

@@ -15,9 +15,9 @@ Signed-off-by: Sami Tolvanen <samitolvanen@google.com>
 diff --git a/arch/x86/kernel/module.c b/arch/x86/kernel/module.c
 --- a/arch/x86/kernel/module.c
 +++ b/arch/x86/kernel/module.c
-@@ -195,6 +195,10 @@ int apply_relocate_add(Elf64_Shdr *sechdrs,
+@@ -197,6 +197,10 @@ static int __apply_relocate_add(Elf64_Shdr *sechdrs,
  			val -= (u64)loc;
- 			*(u64 *)loc = val;
+ 			write(loc, &val, 8);
  			break;
 +		case R_X86_64_8:
 +			if (!strncmp(strtab + sym->st_name, "__typeid__", 10))
