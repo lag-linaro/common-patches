@@ -2,7 +2,7 @@
 # android-mainline patches
 #
 # Applies onto upstream 051c3556e3d6 Linux v5.7-8546-g051c3556e3d6
-# Matches android-mainline dfd0059142fb ("Merge 051c3556e3d6 ("Merge tag 'for_v5.8-rc1' of git://git.kernel.org/pub/scm/linux/kernel/git/jack/linux-fs") into android-mainline")
+# Matches android-mainline 428ec716d35d ("Revert "ANDROID: make sure proc mount options are applied"")
 #
 Revert-security-lockdown-selinux-implement-SELinux-lockdown.patch
 Revert-drm-virtio-fix-DRM_FORMAT_-handling.patch
@@ -209,7 +209,6 @@ ANDROID-gki_defconfig-IIO-y.patch
 ANDROID-Disable-UNWINDER_ORC-for-allmodconfig.patch
 ANDROID-Don-t-base-allmodconfig-on-gki_defconfig.patch
 ANDROID-sound-usb-Add-helper-APIs-to-enable-audio-stream.patch
-ANDROID-make-sure-proc-mount-options-are-applied.patch
 ANDROID-kbuild-merge-module-sections-with-LTO.patch
 ANDROID-kbuild-limit-LTO-inlining.patch
 ANDROID-gki_defconfig-Enable-UCLAMP-by-default.patch
