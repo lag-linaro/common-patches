@@ -18,7 +18,7 @@ Change-Id: I11069fa6d66cf23d38d33ccc52492aaa0915b776
 diff --git a/arch/arm64/configs/gki_defconfig b/arch/arm64/configs/gki_defconfig
 --- a/arch/arm64/configs/gki_defconfig
 +++ b/arch/arm64/configs/gki_defconfig
-@@ -458,6 +458,7 @@ CONFIG_SECURITY=y
+@@ -456,6 +456,7 @@ CONFIG_SECURITY=y
  CONFIG_SECURITYFS=y
  CONFIG_SECURITY_NETWORK=y
  CONFIG_HARDENED_USERCOPY=y
@@ -29,7 +29,7 @@ diff --git a/arch/arm64/configs/gki_defconfig b/arch/arm64/configs/gki_defconfig
 diff --git a/arch/x86/configs/gki_defconfig b/arch/x86/configs/gki_defconfig
 --- a/arch/x86/configs/gki_defconfig
 +++ b/arch/x86/configs/gki_defconfig
-@@ -400,6 +400,7 @@ CONFIG_SECURITY=y
+@@ -399,6 +399,7 @@ CONFIG_SECURITY=y
  CONFIG_SECURITYFS=y
  CONFIG_SECURITY_NETWORK=y
  CONFIG_HARDENED_USERCOPY=y

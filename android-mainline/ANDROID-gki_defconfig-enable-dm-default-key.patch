@@ -21,7 +21,7 @@ Signed-off-by: Eric Biggers <ebiggers@google.com>
 diff --git a/arch/arm64/configs/gki_defconfig b/arch/arm64/configs/gki_defconfig
 --- a/arch/arm64/configs/gki_defconfig
 +++ b/arch/arm64/configs/gki_defconfig
-@@ -237,6 +237,7 @@ CONFIG_SCSI_UFS_CRYPTO=y
+@@ -234,6 +234,7 @@ CONFIG_SCSI_UFS_CRYPTO=y
  CONFIG_MD=y
  CONFIG_BLK_DEV_DM=y
  CONFIG_DM_CRYPT=y
@@ -32,7 +32,7 @@ diff --git a/arch/arm64/configs/gki_defconfig b/arch/arm64/configs/gki_defconfig
 diff --git a/arch/x86/configs/gki_defconfig b/arch/x86/configs/gki_defconfig
 --- a/arch/x86/configs/gki_defconfig
 +++ b/arch/x86/configs/gki_defconfig
-@@ -208,6 +208,7 @@ CONFIG_BLK_DEV_SD=y
+@@ -206,6 +206,7 @@ CONFIG_BLK_DEV_SD=y
  CONFIG_MD=y
  CONFIG_BLK_DEV_DM=y
  CONFIG_DM_CRYPT=y

@@ -16,7 +16,7 @@ Signed-off-by: Ram Muthiah <rammuthiah@google.com>
 diff --git a/arch/arm64/configs/gki_defconfig b/arch/arm64/configs/gki_defconfig
 --- a/arch/arm64/configs/gki_defconfig
 +++ b/arch/arm64/configs/gki_defconfig
-@@ -371,7 +371,6 @@ CONFIG_RTC_DRV_PL031=y
+@@ -368,7 +368,6 @@ CONFIG_RTC_DRV_PL031=y
  CONFIG_DMADEVICES=y
  CONFIG_UIO=y
  CONFIG_VIRTIO_PCI=m

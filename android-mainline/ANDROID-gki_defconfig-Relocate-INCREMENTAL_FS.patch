@@ -27,7 +27,7 @@ diff --git a/arch/arm64/configs/db845c_gki.fragment b/arch/arm64/configs/db845c_
 diff --git a/arch/arm64/configs/gki_defconfig b/arch/arm64/configs/gki_defconfig
 --- a/arch/arm64/configs/gki_defconfig
 +++ b/arch/arm64/configs/gki_defconfig
-@@ -394,7 +394,6 @@ CONFIG_QUOTA=y
+@@ -391,7 +391,6 @@ CONFIG_QUOTA=y
  CONFIG_QFMT_V2=y
  CONFIG_FUSE_FS=y
  CONFIG_OVERLAY_FS=y
@@ -38,7 +38,7 @@ diff --git a/arch/arm64/configs/gki_defconfig b/arch/arm64/configs/gki_defconfig
 diff --git a/arch/x86/configs/gki_defconfig b/arch/x86/configs/gki_defconfig
 --- a/arch/x86/configs/gki_defconfig
 +++ b/arch/x86/configs/gki_defconfig
-@@ -330,7 +330,6 @@ CONFIG_QUOTA=y
+@@ -328,7 +328,6 @@ CONFIG_QUOTA=y
  CONFIG_QFMT_V2=y
  CONFIG_FUSE_FS=y
  CONFIG_OVERLAY_FS=y

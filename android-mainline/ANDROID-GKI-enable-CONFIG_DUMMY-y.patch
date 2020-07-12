@@ -19,7 +19,7 @@ Change-Id: I1989ece6cb95a8fa0c8b03ed756f9962476e0577
 diff --git a/arch/arm64/configs/gki_defconfig b/arch/arm64/configs/gki_defconfig
 --- a/arch/arm64/configs/gki_defconfig
 +++ b/arch/arm64/configs/gki_defconfig
-@@ -241,6 +241,7 @@ CONFIG_DM_VERITY_AVB=y
+@@ -238,6 +238,7 @@ CONFIG_DM_VERITY_AVB=y
  CONFIG_DM_VERITY_FEC=y
  CONFIG_DM_BOW=y
  CONFIG_NETDEVICES=y

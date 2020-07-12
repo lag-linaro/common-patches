@@ -18,7 +18,7 @@ Change-Id: Iac14e304b15f774d52fb07aa65df86f3dd71797f
 diff --git a/arch/arm64/configs/gki_defconfig b/arch/arm64/configs/gki_defconfig
 --- a/arch/arm64/configs/gki_defconfig
 +++ b/arch/arm64/configs/gki_defconfig
-@@ -303,6 +303,7 @@ CONFIG_THERMAL_GOV_USER_SPACE=y
+@@ -301,6 +301,7 @@ CONFIG_THERMAL_GOV_USER_SPACE=y
  CONFIG_CPU_THERMAL=y
  CONFIG_DEVFREQ_THERMAL=y
  CONFIG_WATCHDOG=y
@@ -29,7 +29,7 @@ diff --git a/arch/arm64/configs/gki_defconfig b/arch/arm64/configs/gki_defconfig
 diff --git a/arch/x86/configs/gki_defconfig b/arch/x86/configs/gki_defconfig
 --- a/arch/x86/configs/gki_defconfig
 +++ b/arch/x86/configs/gki_defconfig
-@@ -264,6 +264,7 @@ CONFIG_GPIOLIB=y
+@@ -263,6 +263,7 @@ CONFIG_GPIOLIB=y
  CONFIG_DEVFREQ_THERMAL=y
  # CONFIG_X86_PKG_TEMP_THERMAL is not set
  CONFIG_WATCHDOG=y

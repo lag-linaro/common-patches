@@ -17,7 +17,7 @@ Change-Id: I96a88bbee9c4d17be97ed63262dbab2ef31fee79
 diff --git a/arch/arm64/configs/gki_defconfig b/arch/arm64/configs/gki_defconfig
 --- a/arch/arm64/configs/gki_defconfig
 +++ b/arch/arm64/configs/gki_defconfig
-@@ -484,6 +484,7 @@ CONFIG_SOFTLOCKUP_DETECTOR=y
+@@ -482,6 +482,7 @@ CONFIG_SOFTLOCKUP_DETECTOR=y
  # CONFIG_DETECT_HUNG_TASK is not set
  CONFIG_SCHEDSTATS=y
  # CONFIG_DEBUG_PREEMPT is not set
@@ -28,8 +28,8 @@ diff --git a/arch/arm64/configs/gki_defconfig b/arch/arm64/configs/gki_defconfig
 diff --git a/arch/x86/configs/gki_defconfig b/arch/x86/configs/gki_defconfig
 --- a/arch/x86/configs/gki_defconfig
 +++ b/arch/x86/configs/gki_defconfig
-@@ -425,3 +425,4 @@ CONFIG_PANIC_TIMEOUT=5
- CONFIG_SOFTLOCKUP_DETECTOR=y
+@@ -425,3 +425,4 @@ CONFIG_SOFTLOCKUP_DETECTOR=y
  # CONFIG_DETECT_HUNG_TASK is not set
  CONFIG_SCHEDSTATS=y
+ CONFIG_UNWINDER_FRAME_POINTER=y
 +CONFIG_DEBUG_LIST=y

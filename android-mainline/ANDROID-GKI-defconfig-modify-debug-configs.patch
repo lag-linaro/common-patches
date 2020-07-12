@@ -18,7 +18,7 @@ Change-Id: Ideceaa13139ad2408f56fe888a438bc20c5707a2
 diff --git a/arch/arm64/configs/gki_defconfig b/arch/arm64/configs/gki_defconfig
 --- a/arch/arm64/configs/gki_defconfig
 +++ b/arch/arm64/configs/gki_defconfig
-@@ -484,12 +484,13 @@ CONFIG_HEADERS_INSTALL=y
+@@ -482,12 +482,13 @@ CONFIG_HEADERS_INSTALL=y
  CONFIG_MAGIC_SYSRQ=y
  CONFIG_DEBUG_STACK_USAGE=y
  CONFIG_DEBUG_MEMORY_INIT=y
@@ -37,7 +37,7 @@ diff --git a/arch/arm64/configs/gki_defconfig b/arch/arm64/configs/gki_defconfig
 diff --git a/arch/x86/configs/gki_defconfig b/arch/x86/configs/gki_defconfig
 --- a/arch/x86/configs/gki_defconfig
 +++ b/arch/x86/configs/gki_defconfig
-@@ -427,8 +427,9 @@ CONFIG_HEADERS_INSTALL=y
+@@ -426,9 +426,10 @@ CONFIG_HEADERS_INSTALL=y
  CONFIG_MAGIC_SYSRQ=y
  CONFIG_DEBUG_STACK_USAGE=y
  CONFIG_DEBUG_MEMORY_INIT=y
@@ -47,5 +47,6 @@ diff --git a/arch/x86/configs/gki_defconfig b/arch/x86/configs/gki_defconfig
  CONFIG_SOFTLOCKUP_DETECTOR=y
  # CONFIG_DETECT_HUNG_TASK is not set
  CONFIG_SCHEDSTATS=y
--CONFIG_DEBUG_LIST=y
 +CONFIG_BUG_ON_DATA_CORRUPTION=y
+ CONFIG_UNWINDER_FRAME_POINTER=y
+-CONFIG_DEBUG_LIST=y

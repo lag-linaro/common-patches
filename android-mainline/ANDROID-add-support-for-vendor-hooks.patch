@@ -93,7 +93,7 @@ Change-Id: I6a7d1c8919dae91c965e2a0450df50eac2d282db
 diff --git a/arch/arm64/configs/gki_defconfig b/arch/arm64/configs/gki_defconfig
 --- a/arch/arm64/configs/gki_defconfig
 +++ b/arch/arm64/configs/gki_defconfig
-@@ -394,6 +394,7 @@ CONFIG_GENERIC_PHY=y
+@@ -392,6 +392,7 @@ CONFIG_GENERIC_PHY=y
  CONFIG_ANDROID=y
  CONFIG_ANDROID_BINDER_IPC=y
  CONFIG_ANDROID_BINDERFS=y
@@ -104,7 +104,7 @@ diff --git a/arch/arm64/configs/gki_defconfig b/arch/arm64/configs/gki_defconfig
 diff --git a/arch/x86/configs/gki_defconfig b/arch/x86/configs/gki_defconfig
 --- a/arch/x86/configs/gki_defconfig
 +++ b/arch/x86/configs/gki_defconfig
-@@ -336,6 +336,7 @@ CONFIG_IIO_TRIGGER=y
+@@ -335,6 +335,7 @@ CONFIG_IIO_TRIGGER=y
  CONFIG_ANDROID=y
  CONFIG_ANDROID_BINDER_IPC=y
  CONFIG_ANDROID_BINDERFS=y

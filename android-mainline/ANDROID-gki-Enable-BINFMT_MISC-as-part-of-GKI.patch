@@ -16,7 +16,7 @@ Change-Id: I2e9ba3a214295a63e3a0d4cc3407f93644f00db2
 diff --git a/arch/arm64/configs/gki_defconfig b/arch/arm64/configs/gki_defconfig
 --- a/arch/arm64/configs/gki_defconfig
 +++ b/arch/arm64/configs/gki_defconfig
-@@ -86,6 +86,7 @@ CONFIG_MODULE_UNLOAD=y
+@@ -83,6 +83,7 @@ CONFIG_MODULE_UNLOAD=y
  CONFIG_MODVERSIONS=y
  CONFIG_GKI_HACKS_TO_FIX=y
  # CONFIG_CORE_DUMP_DEFAULT_ELF_HEADERS is not set
@@ -27,7 +27,7 @@ diff --git a/arch/arm64/configs/gki_defconfig b/arch/arm64/configs/gki_defconfig
 diff --git a/arch/x86/configs/gki_defconfig b/arch/x86/configs/gki_defconfig
 --- a/arch/x86/configs/gki_defconfig
 +++ b/arch/x86/configs/gki_defconfig
-@@ -64,6 +64,7 @@ CONFIG_MODULE_UNLOAD=y
+@@ -62,6 +62,7 @@ CONFIG_MODULE_UNLOAD=y
  CONFIG_MODVERSIONS=y
  CONFIG_GKI_HACKS_TO_FIX=y
  # CONFIG_CORE_DUMP_DEFAULT_ELF_HEADERS is not set

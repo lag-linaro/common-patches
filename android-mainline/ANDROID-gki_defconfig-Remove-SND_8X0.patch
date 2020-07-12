@@ -16,7 +16,7 @@ Signed-off-by: Ram Muthiah <rammuthiah@google.com>
 diff --git a/arch/arm64/configs/gki_defconfig b/arch/arm64/configs/gki_defconfig
 --- a/arch/arm64/configs/gki_defconfig
 +++ b/arch/arm64/configs/gki_defconfig
-@@ -332,7 +332,6 @@ CONFIG_SND_DYNAMIC_MINORS=y
+@@ -329,7 +329,6 @@ CONFIG_SND_DYNAMIC_MINORS=y
  # CONFIG_SND_SUPPORT_OLD_API is not set
  # CONFIG_SND_VERBOSE_PROCFS is not set
  # CONFIG_SND_DRIVERS is not set

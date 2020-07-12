@@ -23,7 +23,7 @@ Signed-off-by: Satya Tangirala <satyat@google.com>
 diff --git a/arch/arm64/configs/gki_defconfig b/arch/arm64/configs/gki_defconfig
 --- a/arch/arm64/configs/gki_defconfig
 +++ b/arch/arm64/configs/gki_defconfig
-@@ -86,6 +86,7 @@ CONFIG_CFI_CLANG=y
+@@ -83,6 +83,7 @@ CONFIG_KPROBES=y
  CONFIG_MODULES=y
  CONFIG_MODULE_UNLOAD=y
  CONFIG_MODVERSIONS=y
@@ -31,7 +31,7 @@ diff --git a/arch/arm64/configs/gki_defconfig b/arch/arm64/configs/gki_defconfig
  CONFIG_GKI_HACKS_TO_FIX=y
  # CONFIG_CORE_DUMP_DEFAULT_ELF_HEADERS is not set
  CONFIG_BINFMT_MISC=y
-@@ -231,6 +232,7 @@ CONFIG_SCSI=y
+@@ -228,6 +229,7 @@ CONFIG_SCSI=y
  CONFIG_BLK_DEV_SD=y
  CONFIG_SCSI_UFSHCD=y
  CONFIG_SCSI_UFSHCD_PLATFORM=y
@@ -39,7 +39,7 @@ diff --git a/arch/arm64/configs/gki_defconfig b/arch/arm64/configs/gki_defconfig
  CONFIG_MD=y
  CONFIG_BLK_DEV_DM=y
  CONFIG_DM_CRYPT=y
-@@ -405,6 +407,7 @@ CONFIG_EXT4_FS_SECURITY=y
+@@ -402,6 +404,7 @@ CONFIG_EXT4_FS_SECURITY=y
  CONFIG_F2FS_FS=y
  CONFIG_F2FS_FS_SECURITY=y
  CONFIG_FS_ENCRYPTION=y
@@ -50,7 +50,7 @@ diff --git a/arch/arm64/configs/gki_defconfig b/arch/arm64/configs/gki_defconfig
 diff --git a/arch/x86/configs/gki_defconfig b/arch/x86/configs/gki_defconfig
 --- a/arch/x86/configs/gki_defconfig
 +++ b/arch/x86/configs/gki_defconfig
-@@ -63,6 +63,7 @@ CONFIG_CFI_CLANG=y
+@@ -61,6 +61,7 @@ CONFIG_KPROBES=y
  CONFIG_MODULES=y
  CONFIG_MODULE_UNLOAD=y
  CONFIG_MODVERSIONS=y
@@ -58,7 +58,7 @@ diff --git a/arch/x86/configs/gki_defconfig b/arch/x86/configs/gki_defconfig
  CONFIG_GKI_HACKS_TO_FIX=y
  # CONFIG_CORE_DUMP_DEFAULT_ELF_HEADERS is not set
  CONFIG_BINFMT_MISC=y
-@@ -347,6 +348,7 @@ CONFIG_EXT4_FS_SECURITY=y
+@@ -345,6 +346,7 @@ CONFIG_EXT4_FS_SECURITY=y
  CONFIG_F2FS_FS=y
  CONFIG_F2FS_FS_SECURITY=y
  CONFIG_FS_ENCRYPTION=y

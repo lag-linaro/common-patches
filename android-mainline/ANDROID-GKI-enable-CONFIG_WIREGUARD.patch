@@ -27,8 +27,8 @@ diff --git a/arch/arm64/configs/gki_defconfig b/arch/arm64/configs/gki_defconfig
 -CONFIG_ARM64_CRYPTO=y
  CONFIG_CRYPTO_SHA2_ARM64_CE=y
  CONFIG_CRYPTO_AES_ARM64_CE_BLK=y
- CONFIG_SHADOW_CALL_STACK=y
-@@ -234,6 +233,7 @@ CONFIG_DM_VERITY_FEC=y
+ CONFIG_KPROBES=y
+@@ -232,6 +231,7 @@ CONFIG_DM_VERITY_FEC=y
  CONFIG_DM_BOW=y
  CONFIG_NETDEVICES=y
  CONFIG_DUMMY=y
@@ -39,7 +39,7 @@ diff --git a/arch/arm64/configs/gki_defconfig b/arch/arm64/configs/gki_defconfig
 diff --git a/arch/x86/configs/gki_defconfig b/arch/x86/configs/gki_defconfig
 --- a/arch/x86/configs/gki_defconfig
 +++ b/arch/x86/configs/gki_defconfig
-@@ -207,6 +207,7 @@ CONFIG_DM_VERITY_FEC=y
+@@ -206,6 +206,7 @@ CONFIG_DM_VERITY_FEC=y
  CONFIG_DM_BOW=y
  CONFIG_NETDEVICES=y
  CONFIG_DUMMY=y

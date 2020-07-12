@@ -29,8 +29,8 @@ Signed-off-by: Sami Tolvanen <samitolvanen@google.com>
 diff --git a/Makefile b/Makefile
 --- a/Makefile
 +++ b/Makefile
-@@ -892,6 +892,25 @@ KBUILD_CFLAGS	+= $(CC_FLAGS_LTO)
- export CC_FLAGS_LTO
+@@ -866,6 +866,25 @@ ifdef CONFIG_LIVEPATCH
+ KBUILD_CFLAGS += $(call cc-option, -flive-patching=inline-clone)
  endif
  
 +ifdef CONFIG_CFI_CLANG
@@ -58,9 +58,9 @@ diff --git a/Makefile b/Makefile
 diff --git a/arch/Kconfig b/arch/Kconfig
 --- a/arch/Kconfig
 +++ b/arch/Kconfig
-@@ -606,6 +606,29 @@ config LTO_CLANG
- 
- endchoice
+@@ -558,6 +558,29 @@ config SHADOW_CALL_STACK
+ 	  reading and writing arbitrary memory may be able to locate them
+ 	  and hijack control flow by modifying the stacks.
  
 +config CFI_CLANG
 +	bool "Use Clang's Control Flow Integrity (CFI)"
@@ -91,15 +91,15 @@ diff --git a/arch/Kconfig b/arch/Kconfig
 diff --git a/include/asm-generic/vmlinux.lds.h b/include/asm-generic/vmlinux.lds.h
 --- a/include/asm-generic/vmlinux.lds.h
 +++ b/include/asm-generic/vmlinux.lds.h
-@@ -97,6 +97,7 @@
+@@ -94,6 +94,7 @@
   */
- #if defined(CONFIG_LD_DEAD_CODE_DATA_ELIMINATION) || defined(CONFIG_LTO_CLANG)
+ #ifdef CONFIG_LD_DEAD_CODE_DATA_ELIMINATION
  #define TEXT_MAIN .text .text.[0-9a-zA-Z_]*
 +#define TEXT_CFI_MAIN .text.[0-9a-zA-Z_]*.cfi
  #define DATA_MAIN .data .data.[0-9a-zA-Z_]* .data..LPBX*
  #define SDATA_MAIN .sdata .sdata.[0-9a-zA-Z_]*
  #define RODATA_MAIN .rodata .rodata.[0-9a-zA-Z_]*
-@@ -104,6 +105,7 @@
+@@ -101,6 +102,7 @@
  #define SBSS_MAIN .sbss .sbss.[0-9a-zA-Z_]*
  #else
  #define TEXT_MAIN .text
@@ -107,14 +107,14 @@ diff --git a/include/asm-generic/vmlinux.lds.h b/include/asm-generic/vmlinux.lds
  #define DATA_MAIN .data
  #define SDATA_MAIN .sdata
  #define RODATA_MAIN .rodata
-@@ -564,6 +566,7 @@
+@@ -561,6 +563,7 @@
  		ALIGN_FUNCTION();					\
  		*(.text.hot TEXT_MAIN .text.fixup .text.unlikely)	\
  		NOINSTR_TEXT						\
 +		*(TEXT_CFI_MAIN)					\
  		*(.text..refcount)					\
- 		*(.text..ftrace)					\
  		*(.ref.text)						\
+ 	MEM_KEEP(init.text*)						\
 diff --git a/include/linux/cfi.h b/include/linux/cfi.h
 new file mode 100644
 index 000000000000..6ef37b35faaa
@@ -168,18 +168,17 @@ index 000000000000..6ef37b35faaa
 diff --git a/include/linux/compiler-clang.h b/include/linux/compiler-clang.h
 --- a/include/linux/compiler-clang.h
 +++ b/include/linux/compiler-clang.h
-@@ -53,4 +53,6 @@
- #define __norecordmcount \
- 	__attribute__((__section__(".text..ftrace")))
+@@ -46,3 +46,5 @@
+ #if __has_feature(shadow_call_stack)
+ # define __noscs	__attribute__((__no_sanitize__("shadow-call-stack")))
  #endif
 +
 +#define __nocfi		__attribute__((__no_sanitize__("cfi")))
- #endif
 diff --git a/include/linux/compiler_types.h b/include/linux/compiler_types.h
 --- a/include/linux/compiler_types.h
 +++ b/include/linux/compiler_types.h
-@@ -201,6 +201,10 @@ struct ftrace_likely_data {
- # define __norecordmcount
+@@ -197,6 +197,10 @@ struct ftrace_likely_data {
+ # define randomized_struct_fields_end
  #endif
  
 +#ifndef __nocfi

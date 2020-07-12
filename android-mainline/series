@@ -2,7 +2,7 @@
 # android-mainline patches
 #
 # Applies onto upstream 818dbde78e0f Linux v5.7-10804-g818dbde78e0f
-# Matches android-mainline b378328f2a5f ("Merge 818dbde78e0f ("Merge tag 'scsi-misc' of git://git.kernel.org/pub/scm/linux/kernel/git/jejb/scsi") into android-mainline")
+# Matches android-mainline 3330492ef15f ("Revert "ANDROID: kbuild: add support for Clang LTO"")
 #
 Revert-security-lockdown-selinux-implement-SELinux-lockdown.patch
 Revert-drm-virtio-fix-DRM_FORMAT_-handling.patch
@@ -183,32 +183,17 @@ ANDROID-gki_defconfig-disable-FUNCTION_TRACER.patch
 ANDROID-gki_defconfig-enable-CONFIG_IKHEADERS-as-m.patch
 ANDROID-gki_defconfig-FW_CACHE-to-no.patch
 ANDROID-gki_defconfig-m-s-applied-for-virtio-configs-in-arm64.patch
-ANDROID-kbuild-add-support-for-Clang-LTO.patch
-ANDROID-kbuild-fix-dynamic-ftrace-with-clang-LTO.patch
-ANDROID-scripts-mod-disable-LTO-for-empty.c.patch
-ANDROID-efi-libstub-disable-LTO.patch
-ANDROID-drivers-misc-lkdtm-disable-LTO-for-rodata.o.patch
-ANDROID-init-ensure-initcall-ordering-with-LTO.patch
-ANDROID-soc-tegra-disable-ARCH_TEGRA_210_SOC-with-LTO.patch
-ANDROID-irqchip-gic-v3-rename-gic_of_init-to-work-around-a-ThinLTO-CFI-bug.patch
-ANDROID-arm64-disable-HAVE_ARCH_PREL32_RELOCATIONS-with-LTO_CLANG.patch
-ANDROID-arm64-allow-LTO_CLANG-and-THINLTO-to-be-selected.patch
 ANDROID-add-support-for-Clang-s-Control-Flow-Integrity-CFI.patch
 ANDROID-arm64-add-__nocfi-to-functions-that-jump-to-a-physical-address.patch
 ANDROID-arm64-add-__pa_function.patch
 ANDROID-arm64-add-__nocfi-to-__apply_alternatives.patch
 ANDROID-arm64-kvm-disable-CFI.patch
-ANDROID-gki_defconfig-enable-LTO-CFI-and-SCS.patch
 ANDROID-gki_defconfig-enable-CONFIG_REGULATOR_FIXED_VOLTAGE.patch
-ANDROID-kbuild-fix-modfinal-with-LTO.patch
-ANDROID-kbuild-suppress-llvm-ar-errors.patch
 ANDROID-ASoC-Fix-allmodconfig-build-break.patch
 ANDROID-gki_defconfig-IIO-y.patch
 ANDROID-Disable-UNWINDER_ORC-for-allmodconfig.patch
 ANDROID-Don-t-base-allmodconfig-on-gki_defconfig.patch
 ANDROID-sound-usb-Add-helper-APIs-to-enable-audio-stream.patch
-ANDROID-kbuild-merge-module-sections-with-LTO.patch
-ANDROID-kbuild-limit-LTO-inlining.patch
 ANDROID-gki_defconfig-Enable-UCLAMP-by-default.patch
 ANDROID-update-gki_defconfig-for-5.5-rc1.patch
 ANDROID-gki_defconfig-enable-HID-configs.patch
@@ -251,17 +236,11 @@ ANDROID-db845c-add-db845c_gki.fragment.patch
 ANDROID-db845c-Add-build-config.patch
 ANDROID-GKI-enable-CONFIG_NETFILTER_XT_MATCH_QUOTA2_LOG-y.patch
 ANDROID-GKI-enable-CONFIG_DUMMY-y.patch
-ANDROID-x86-vdso-disable-LTO-only-for-VDSO.patch
-ANDROID-x86-disable-HAVE_ARCH_PREL32_RELOCATIONS-with-LTO_CLANG.patch
-ANDROID-x86-disable-STACK_VALIDATION-with-LTO_CLANG.patch
-ANDROID-x86-disable-UNWINDER_ORC-with-LTO_CLANG.patch
-ANDROID-x86-build-allow-LTO_CLANG-and-THINLTO-to-be-selected.patch
 ANDROID-x86-extable-Do-not-mark-exception-callback-as-CFI.patch
 ANDROID-x86-alternatives-Use-C-int3-selftest-but-disable-KASAN.patch
 ANDROID-x86-relocs-Ignore-__typeid__-relocations.patch
 ANDROID-x86-module-Ignore-__typeid__-relocations.patch
 ANDROID-x86-map-CFI-jump-tables-in-pti_clone_entry_text.patch
-ANDROID-x86-gki_defconfig-enable-LTO-and-CFI.patch
 ANDROID-build-config-for-cuttlefish-ramdisk.patch
 ANDROID-virtio-net-Skip-set_features-on-non-cvq-devices.patch
 ANDROID-gki-Make-GKI-specific-modules-builtins.patch
@@ -278,7 +257,6 @@ ANDROID-gki-Fixed-some-typos-in-Kconfig.gki.patch
 ANDROID-modularize-BLK_MQ_VIRTIO.patch
 ANDROID-fix-build-problem-in-include-trace-events-android_fs_template.h.patch
 ANDROID-bpf-disable-CFI-for-dispatcher-functions.patch
-ANDROID-kallsyms-strip-hashes-from-static-functions-with-ThinLTO-and-CFI.patch
 ANDROID-Remove-default-y-for-VIRTIO_PCI_LEGACY.patch
 ANDROID-gki-Removed-cf-modules-from-gki_defconfig.patch
 ANDROID-gki-Enable-DRM_GEM_SHMEM_HELPER-for-GKI.patch
@@ -332,13 +310,11 @@ ANDROID-Re-add-default-y-for-VIRTIO_PCI_LEGACY.patch
 ANDROID-GKI-Add-SND_INTEL_NHLT.patch
 ANDROID-GKI-Added-missing-SND-configs.patch
 ANDROID-GKI-build-in-HVC_DRIVER.patch
-ANDROID-Remove-default-y-on-BRIDGE_IGMP_SNOOPING.patch
 ANDROID-Removed-default-m-for-virtual-sw-crypto-device.patch
 ANDROID-gki-set-CONFIG_SERIAL_SPRD_CONSOLE-for-earlycon.patch
 ANDROID-gki_defconfig-add-CONFIG_IIO_BUFFER-and-CONFIG_IIO_TRIGGER.patch
 ANDROID-Unconditionally-create-bridge-tracepoints.patch
 ANDROID-gki_defconfig-Enable-MFD_SYSCON-on-x86.patch
-ANDROID-gki_defconfig-disable-KPROBES.patch
 ANDROID-CC_FLAGS_CFI-add-fno-sanitize-blacklist.patch
 ANDROID-staging-ion-Add-an-in-kernel-interface-to-request-heap-info.patch
 ANDROID-cpufreq-times-Remove-proc-uid_concurrent_-active-policy-_time.patch
@@ -357,14 +333,12 @@ ANDROID-Kconfig.gki-Add-FRAME_VECTOR.patch
 ANDROID-Export-functions-to-be-used-with-dma_map_ops-in-modules.patch
 ANDROID-sound-usb-Ensure-UAC3-Power-Domain-is-set-to-D0-when-enabling-stream.patch
 ANDROID-USB-f_accessory-Check-dev-pointer-before-decoding-ctrl-request.patch
-ANDROID-kbuild-avoid-excessively-long-argument-lists.patch
 ANDROID-Incremental-fs-Remove-all-access_ok-checks.patch
 ANDROID-Incremental-fs-Make-fill-block-an-ioctl.patch
 ANDROID-Incremental-fs-Pad-hash-blocks.patch
 ANDROID-Incremental-fs-Remove-signature-checks-from-kernel.patch
 ANDROID-Incremental-fs-Add-INCFS_IOC_PERMIT_FILL.patch
 ANDROID-staging-ion-Allow-for-attach-and-detach-ops-to-be-overridden.patch
-ANDROID-kbuild-do-not-merge-.section.-into-.section-in-modules.patch
 ANDROID-gki_defconfig-enabled-UAPI-header-compile-testing.patch
 ANDROID-build.config.allmodconfig-Re-enable-XFS_FS.patch
 ANDROID-dm-bow-Fix-free_show-value-is-incorrect.patch
@@ -394,7 +368,6 @@ ANDROID-Incremental-fs-Protect-get_fill_block-and-add-a-field.patch
 ANDROID-Incremental-fs-Fix-remount.patch
 ANDROID-Fix-wq-fp-check-for-CFI-builds.patch
 ANDROID-staging-ion-move-definition-of-attachment.patch
-ANDROID-kbuild-ensure-__cfi_check-is-correctly-aligned.patch
 ANDROID-GKI-defconfig-modify-debug-configs.patch
 ANDROID-Incremental-fs-Use-64-bit-int-for-file_size-when-writing-hash-blocks.patch
 ANDROID-GKI-Remove-SCHED_AUTOGROUP.patch
@@ -473,9 +446,6 @@ ANDROID-dm-bow-Add-block_size-option.patch
 ANDROID-GKI-set-CONFIG_BLK_DEV_LOOP_MIN_COUNT-to-16.patch
 ANDROID-GKI-Enable-CONFIG_DEBUG_FS-for-Android-S.patch
 ANDROID-staging-ion-Skip-sync-if-not-mapped.patch
-Revert-ANDROID-Remove-default-y-on-BRIDGE_IGMP_SNOOPING.patch
-ANDROID-kbuild-merge-more-sections-with-LTO.patch
-Revert-ANDROID-gki_defconfig-disable-KPROBES.patch
 ANDROID-fscrypt-add-key-removal-notifier-chain.patch
 ANDROID-ext4-f2fs-enable-direct-I-O-with-inline-encryption.patch
 ANDROID-block-Introduce-passthrough-keyslot-manager.patch
@@ -500,3 +470,4 @@ ANDROID-Use-depmod-from-the-hermetic-toolchain.patch
 ANDROID-GKI-update-gki-defconfigs.patch
 ANDROID-bpf-Workaround-for-bpf-permissions-check-regression.patch
 FROMLIST-nsproxy-restore-EINVAL-for-non-namespace-file-descriptor.patch
+DROP-ME-Leftover-pieces-from-the-LTO-revert.patch

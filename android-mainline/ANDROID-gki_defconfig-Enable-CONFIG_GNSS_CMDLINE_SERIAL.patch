@@ -16,7 +16,7 @@ Signed-off-by: Alistair Delva <adelva@google.com>
 diff --git a/arch/arm64/configs/gki_defconfig b/arch/arm64/configs/gki_defconfig
 --- a/arch/arm64/configs/gki_defconfig
 +++ b/arch/arm64/configs/gki_defconfig
-@@ -219,6 +219,7 @@ CONFIG_FW_LOADER_USER_HELPER_FALLBACK=y
+@@ -216,6 +216,7 @@ CONFIG_FW_LOADER_USER_HELPER_FALLBACK=y
  # CONFIG_ALLOW_DEV_COREDUMP is not set
  CONFIG_DEBUG_DEVRES=y
  CONFIG_GNSS=y

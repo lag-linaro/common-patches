@@ -15,7 +15,7 @@ Signed-off-by: Alistair Delva <adelva@google.com>
 diff --git a/arch/x86/configs/gki_defconfig b/arch/x86/configs/gki_defconfig
 --- a/arch/x86/configs/gki_defconfig
 +++ b/arch/x86/configs/gki_defconfig
-@@ -265,6 +265,7 @@ CONFIG_GPIOLIB=y
+@@ -263,6 +263,7 @@ CONFIG_GPIOLIB=y
  CONFIG_DEVFREQ_THERMAL=y
  # CONFIG_X86_PKG_TEMP_THERMAL is not set
  CONFIG_WATCHDOG=y
