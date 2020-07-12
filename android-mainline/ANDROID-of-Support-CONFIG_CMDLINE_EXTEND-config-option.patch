@@ -51,7 +51,7 @@ Signed-off-by: Amit Pundir <amit.pundir@linaro.org>
 diff --git a/drivers/of/fdt.c b/drivers/of/fdt.c
 --- a/drivers/of/fdt.c
 +++ b/drivers/of/fdt.c
-@@ -1040,43 +1040,67 @@ int __init early_init_dt_scan_memory(unsigned long node, const char *uname,
+@@ -1036,43 +1036,67 @@ int __init early_init_dt_scan_memory(unsigned long node, const char *uname,
  	return 0;
  }
  
@@ -142,7 +142,7 @@ diff --git a/drivers/of/fdt.c b/drivers/of/fdt.c
 +		}
 +	}
  
- 	pr_debug("Command line is: %s\n", (char*)data);
+ 	pr_debug("Command line is: %s\n", (char *)data);
  
 diff --git a/include/linux/of_fdt.h b/include/linux/of_fdt.h
 --- a/include/linux/of_fdt.h

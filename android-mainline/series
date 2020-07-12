@@ -1,8 +1,8 @@
 #
 # android-mainline patches
 #
-# Applies onto upstream 9ff7258575d5 Linux v5.7-8571-g9ff7258575d5
-# Matches android-mainline 94d5fade6016 ("Revert "Revert "module: Make module_enable_ro() static again""")
+# Applies onto upstream 7ae77150d94d Linux v5.7-10223-g7ae77150d94d
+# Matches android-mainline dbea740a7e11 ("Merge 7ae77150d94d ("Merge tag 'powerpc-5.8-1' of git://git.kernel.org/pub/scm/linux/kernel/git/powerpc/linux") into android-mainline")
 #
 Revert-security-lockdown-selinux-implement-SELinux-lockdown.patch
 Revert-drm-virtio-fix-DRM_FORMAT_-handling.patch
@@ -26,7 +26,6 @@ FROMLIST-overlayfs-internal-getxattr-operations-without-sepolicy-checking.patch
 FROMLIST-overlayfs-override_creds-off-option-bypass-creator_cred.patch
 FROMLIST-soc-qcom-rpmpd-Allow-RPMPD-driver-to-be-loaded-as-a-module.patch
 FROMLIST-soc-qcom-rpmh-Allow-RPMH-driver-to-be-loaded-as-a-module.patch
-FROMLIST-soc-qcom-rpmhpd-Allow-RPMHPD-driver-to-be-loaded-as-a-module.patch
 FROMLIST-power_supply-Add-additional-health-properties-to-the-header.patch
 FROMLIST-x86_64-fix-jiffies-ODR-violation.patch
 FROMLIST-unicode-Add-utf8_casefold_hash.patch

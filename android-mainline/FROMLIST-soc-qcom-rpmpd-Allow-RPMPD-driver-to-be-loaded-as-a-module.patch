@@ -28,48 +28,24 @@ Signed-off-by: John Stultz <john.stultz@linaro.org>
 Link: https://lore.kernel.org/lkml/20200326224459.105170-2-john.stultz@linaro.org/T/#u
 Change-Id: Ic9140609813f4c03f8f676de6c76a749d16e8479
 ---
- drivers/soc/qcom/Kconfig | 4 ++--
- drivers/soc/qcom/rpmpd.c | 6 ++++++
- 2 files changed, 8 insertions(+), 2 deletions(-)
+ drivers/soc/qcom/rpmpd.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/soc/qcom/Kconfig b/drivers/soc/qcom/Kconfig
---- a/drivers/soc/qcom/Kconfig
-+++ b/drivers/soc/qcom/Kconfig
-@@ -116,8 +116,8 @@ config QCOM_RPMHPD
- 	  for the voltage rail.
- 
- config QCOM_RPMPD
--	bool "Qualcomm RPM Power domain driver"
--	depends on QCOM_SMD_RPM=y
-+	tristate "Qualcomm RPM Power domain driver"
-+	depends on QCOM_SMD_RPM
- 	help
- 	  QCOM RPM Power domain driver to support power-domains with
- 	  performance states. The driver communicates a performance state
 diff --git a/drivers/soc/qcom/rpmpd.c b/drivers/soc/qcom/rpmpd.c
 --- a/drivers/soc/qcom/rpmpd.c
 +++ b/drivers/soc/qcom/rpmpd.c
-@@ -5,6 +5,7 @@
+@@ -4,8 +4,8 @@
+ #include <linux/err.h>
  #include <linux/init.h>
  #include <linux/kernel.h>
+-#include <linux/module.h>
  #include <linux/mutex.h>
 +#include <linux/module.h>
  #include <linux/pm_domain.h>
  #include <linux/of.h>
  #include <linux/of_device.h>
-@@ -226,6 +227,7 @@ static const struct of_device_id rpmpd_match_table[] = {
- 	{ .compatible = "qcom,qcs404-rpmpd", .data = &qcs404_desc },
- 	{ }
- };
-+MODULE_DEVICE_TABLE(of, rpmpd_match_table);
+@@ -427,3 +427,4 @@ core_initcall(rpmpd_init);
  
- static int rpmpd_send_enable(struct rpmpd *pd, bool enable)
- {
-@@ -422,3 +424,7 @@ static int __init rpmpd_init(void)
- 	return platform_driver_register(&rpmpd_driver);
- }
- core_initcall(rpmpd_init);
-+
-+MODULE_DESCRIPTION("Qualcomm Technologies, Inc. RPM Power Domain Driver");
-+MODULE_LICENSE("GPL v2");
+ MODULE_DESCRIPTION("Qualcomm Technologies, Inc. RPM Power Domain Driver");
+ MODULE_LICENSE("GPL v2");
 +MODULE_ALIAS("platform:qcom-rpmpd");

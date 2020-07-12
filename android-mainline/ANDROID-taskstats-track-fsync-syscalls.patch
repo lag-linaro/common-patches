@@ -30,7 +30,7 @@ Signed-off-by: Alistair Delva <adelva@google.com>
 diff --git a/drivers/misc/Kconfig b/drivers/misc/Kconfig
 --- a/drivers/misc/Kconfig
 +++ b/drivers/misc/Kconfig
-@@ -459,7 +459,7 @@ config MISC_RTSX
+@@ -450,7 +450,7 @@ config MISC_RTSX
  
  config UID_SYS_STATS
  	bool "Per-UID statistics"
