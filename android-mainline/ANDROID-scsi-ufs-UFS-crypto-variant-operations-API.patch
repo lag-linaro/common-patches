@@ -284,7 +284,7 @@ diff --git a/drivers/scsi/ufs/ufshcd-crypto.h b/drivers/scsi/ufs/ufshcd-crypto.h
 diff --git a/drivers/scsi/ufs/ufshcd.c b/drivers/scsi/ufs/ufshcd.c
 --- a/drivers/scsi/ufs/ufshcd.c
 +++ b/drivers/scsi/ufs/ufshcd.c
-@@ -419,6 +419,8 @@ static void ufshcd_print_host_regs(struct ufs_hba *hba)
+@@ -449,6 +449,8 @@ static void ufshcd_print_host_regs(struct ufs_hba *hba)
  	ufshcd_print_clk_freqs(hba);
  
  	ufshcd_vops_dbg_register_dump(hba);
@@ -293,7 +293,7 @@ diff --git a/drivers/scsi/ufs/ufshcd.c b/drivers/scsi/ufs/ufshcd.c
  }
  
  static
-@@ -2169,7 +2171,7 @@ static int ufshcd_map_sg(struct ufs_hba *hba, struct ufshcd_lrb *lrbp)
+@@ -2186,7 +2188,7 @@ static int ufshcd_map_sg(struct ufs_hba *hba, struct ufshcd_lrb *lrbp)
  		lrbp->utr_descriptor_ptr->prd_table_length = 0;
  	}
  
@@ -302,7 +302,7 @@ diff --git a/drivers/scsi/ufs/ufshcd.c b/drivers/scsi/ufs/ufshcd.c
  }
  
  /**
-@@ -4869,6 +4871,7 @@ static void __ufshcd_transfer_req_compl(struct ufs_hba *hba,
+@@ -4894,6 +4896,7 @@ static void __ufshcd_transfer_req_compl(struct ufs_hba *hba,
  			result = ufshcd_transfer_rsp_status(hba, lrbp);
  			scsi_dma_unmap(cmd);
  			cmd->result = result;
@@ -310,7 +310,7 @@ diff --git a/drivers/scsi/ufs/ufshcd.c b/drivers/scsi/ufs/ufshcd.c
  			/* Mark completed command as NULL in LRB */
  			lrbp->cmd = NULL;
  			lrbp->compl_time_stamp = ktime_get();
-@@ -7936,6 +7939,10 @@ static int ufshcd_suspend(struct ufs_hba *hba, enum ufs_pm_op pm_op)
+@@ -8239,6 +8242,10 @@ static int ufshcd_suspend(struct ufs_hba *hba, enum ufs_pm_op pm_op)
  		req_link_state = UIC_LINK_OFF_STATE;
  	}
  
@@ -321,15 +321,15 @@ diff --git a/drivers/scsi/ufs/ufshcd.c b/drivers/scsi/ufs/ufshcd.c
  	/*
  	 * If we can't transition into any of the low power modes
  	 * just gate the clocks.
-@@ -8041,6 +8048,7 @@ static int ufshcd_suspend(struct ufs_hba *hba, enum ufs_pm_op pm_op)
- 		ufshcd_resume_clkscaling(hba);
+@@ -8360,6 +8367,7 @@ static int ufshcd_suspend(struct ufs_hba *hba, enum ufs_pm_op pm_op)
  	hba->clk_gating.is_suspended = false;
+ 	hba->dev_info.b_rpm_dev_flush_capable = false;
  	ufshcd_release(hba);
 +	ufshcd_crypto_resume(hba, pm_op);
  out:
- 	hba->pm_op_in_progress = 0;
- 	if (ret)
-@@ -8062,9 +8070,11 @@ static int ufshcd_resume(struct ufs_hba *hba, enum ufs_pm_op pm_op)
+ 	if (hba->dev_info.b_rpm_dev_flush_capable) {
+ 		schedule_delayed_work(&hba->rpm_dev_flush_recheck_work,
+@@ -8387,9 +8395,11 @@ static int ufshcd_resume(struct ufs_hba *hba, enum ufs_pm_op pm_op)
  {
  	int ret;
  	enum uic_link_state old_link_state;
@@ -341,7 +341,7 @@ diff --git a/drivers/scsi/ufs/ufshcd.c b/drivers/scsi/ufs/ufshcd.c
  
  	ufshcd_hba_vreg_set_hpm(hba);
  	/* Make sure clocks are enabled before accessing controller */
-@@ -8110,6 +8120,10 @@ static int ufshcd_resume(struct ufs_hba *hba, enum ufs_pm_op pm_op)
+@@ -8439,6 +8449,10 @@ static int ufshcd_resume(struct ufs_hba *hba, enum ufs_pm_op pm_op)
  			goto set_old_link_state;
  	}
  
@@ -352,7 +352,7 @@ diff --git a/drivers/scsi/ufs/ufshcd.c b/drivers/scsi/ufs/ufshcd.c
  	if (ufshcd_keep_autobkops_enabled_except_suspend(hba))
  		ufshcd_enable_auto_bkops(hba);
  	else
-@@ -8132,6 +8146,9 @@ static int ufshcd_resume(struct ufs_hba *hba, enum ufs_pm_op pm_op)
+@@ -8466,6 +8480,9 @@ static int ufshcd_resume(struct ufs_hba *hba, enum ufs_pm_op pm_op)
  
  	goto out;
  
@@ -365,7 +365,7 @@ diff --git a/drivers/scsi/ufs/ufshcd.c b/drivers/scsi/ufs/ufshcd.c
 diff --git a/drivers/scsi/ufs/ufshcd.h b/drivers/scsi/ufs/ufshcd.h
 --- a/drivers/scsi/ufs/ufshcd.h
 +++ b/drivers/scsi/ufs/ufshcd.h
-@@ -358,6 +358,27 @@ struct ufs_hba_variant_ops {
+@@ -360,6 +360,27 @@ struct ufs_hba_variant_ops {
  			       const union ufs_crypto_cfg_entry *cfg, int slot);
  };
  
@@ -393,9 +393,9 @@ diff --git a/drivers/scsi/ufs/ufshcd.h b/drivers/scsi/ufs/ufshcd.h
  /* clock gating state  */
  enum clk_gating_state {
  	CLKS_OFF,
-@@ -684,6 +705,7 @@ struct ufs_hba {
- 	u32 ufs_version;
+@@ -701,6 +722,7 @@ struct ufs_hba {
  	const struct ufs_hba_variant_ops *vops;
+ 	struct ufs_hba_variant_params *vps;
  	void *priv;
 +	const struct ufs_hba_crypto_variant_ops *crypto_vops;
  	size_t sg_entry_size;

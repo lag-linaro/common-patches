@@ -76,10 +76,10 @@ diff --git a/drivers/scsi/ufs/ufshcd.c b/drivers/scsi/ufs/ufshcd.c
  #include "ufs-sysfs.h"
  #include "ufs_bsg.h"
 +#include "ufshcd-crypto.h"
+ #include <asm/unaligned.h>
+ #include <linux/blkdev.h>
  
- #define CREATE_TRACE_POINTS
- #include <trace/events/ufs.h>
-@@ -811,7 +812,12 @@ static void ufshcd_enable_run_stop_reg(struct ufs_hba *hba)
+@@ -838,7 +839,12 @@ static void ufshcd_enable_run_stop_reg(struct ufs_hba *hba)
   */
  static inline void ufshcd_hba_start(struct ufs_hba *hba)
  {
@@ -93,7 +93,7 @@ diff --git a/drivers/scsi/ufs/ufshcd.c b/drivers/scsi/ufs/ufshcd.c
  }
  
  /**
-@@ -2219,6 +2225,8 @@ static void ufshcd_prepare_req_desc_hdr(struct ufshcd_lrb *lrbp,
+@@ -2236,6 +2242,8 @@ static void ufshcd_prepare_req_desc_hdr(struct ufshcd_lrb *lrbp,
  	struct utp_transfer_req_desc *req_desc = lrbp->utr_descriptor_ptr;
  	u32 data_direction;
  	u32 dword_0;
@@ -102,7 +102,7 @@ diff --git a/drivers/scsi/ufs/ufshcd.c b/drivers/scsi/ufs/ufshcd.c
  
  	if (cmd_dir == DMA_FROM_DEVICE) {
  		data_direction = UTP_DEVICE_TO_HOST;
-@@ -2237,9 +2245,17 @@ static void ufshcd_prepare_req_desc_hdr(struct ufshcd_lrb *lrbp,
+@@ -2254,9 +2262,17 @@ static void ufshcd_prepare_req_desc_hdr(struct ufshcd_lrb *lrbp,
  		dword_0 |= UTP_REQ_DESC_INT_CMD;
  
  	/* Transfer request descriptor header fields */
@@ -122,7 +122,7 @@ diff --git a/drivers/scsi/ufs/ufshcd.c b/drivers/scsi/ufs/ufshcd.c
  	/*
  	 * assigning invalid value for command status. Controller
  	 * updates OCS on command completion, with the command
-@@ -2247,8 +2263,7 @@ static void ufshcd_prepare_req_desc_hdr(struct ufshcd_lrb *lrbp,
+@@ -2264,8 +2280,7 @@ static void ufshcd_prepare_req_desc_hdr(struct ufshcd_lrb *lrbp,
  	 */
  	req_desc->header.dword_2 =
  		cpu_to_le32(OCS_INVALID_COMMAND_STATUS);
@@ -132,7 +132,7 @@ diff --git a/drivers/scsi/ufs/ufshcd.c b/drivers/scsi/ufs/ufshcd.c
  
  	req_desc->prd_table_length = 0;
  }
-@@ -2503,6 +2518,9 @@ static int ufshcd_queuecommand(struct Scsi_Host *host, struct scsi_cmnd *cmd)
+@@ -2520,6 +2535,9 @@ static int ufshcd_queuecommand(struct Scsi_Host *host, struct scsi_cmnd *cmd)
  	lrbp->task_tag = tag;
  	lrbp->lun = ufshcd_scsi_to_upiu_lun(cmd->device->lun);
  	lrbp->intr_cmd = !ufshcd_is_intr_aggr_allowed(hba) ? true : false;
@@ -142,7 +142,7 @@ diff --git a/drivers/scsi/ufs/ufshcd.c b/drivers/scsi/ufs/ufshcd.c
  	lrbp->req_abort_skip = false;
  
  	ufshcd_comp_scsi_upiu(hba, lrbp);
-@@ -2536,6 +2554,9 @@ static int ufshcd_compose_dev_cmd(struct ufs_hba *hba,
+@@ -2553,6 +2571,9 @@ static int ufshcd_compose_dev_cmd(struct ufs_hba *hba,
  	lrbp->task_tag = tag;
  	lrbp->lun = 0; /* device management cmd is not specific to any LUN */
  	lrbp->intr_cmd = true; /* No interrupt aggregation */
@@ -152,7 +152,7 @@ diff --git a/drivers/scsi/ufs/ufshcd.c b/drivers/scsi/ufs/ufshcd.c
  	hba->dev_cmd.type = cmd_type;
  
  	return ufshcd_comp_devman_upiu(hba, lrbp);
-@@ -4628,6 +4649,8 @@ static int ufshcd_slave_configure(struct scsi_device *sdev)
+@@ -4653,6 +4674,8 @@ static int ufshcd_slave_configure(struct scsi_device *sdev)
  	if (ufshcd_is_rpm_autosuspend_allowed(hba))
  		sdev->rpm_autosuspend = 1;
  
@@ -161,7 +161,7 @@ diff --git a/drivers/scsi/ufs/ufshcd.c b/drivers/scsi/ufs/ufshcd.c
  	return 0;
  }
  
-@@ -5908,6 +5931,9 @@ static int ufshcd_issue_devman_upiu_cmd(struct ufs_hba *hba,
+@@ -6117,6 +6140,9 @@ static int ufshcd_issue_devman_upiu_cmd(struct ufs_hba *hba,
  	lrbp->task_tag = tag;
  	lrbp->lun = 0;
  	lrbp->intr_cmd = true;
@@ -171,7 +171,7 @@ diff --git a/drivers/scsi/ufs/ufshcd.c b/drivers/scsi/ufs/ufshcd.c
  	hba->dev_cmd.type = cmd_type;
  
  	switch (hba->ufs_version) {
-@@ -8334,6 +8360,7 @@ EXPORT_SYMBOL_GPL(ufshcd_remove);
+@@ -8668,6 +8694,7 @@ EXPORT_SYMBOL_GPL(ufshcd_remove);
   */
  void ufshcd_dealloc_host(struct ufs_hba *hba)
  {
@@ -179,7 +179,7 @@ diff --git a/drivers/scsi/ufs/ufshcd.c b/drivers/scsi/ufs/ufshcd.c
  	scsi_host_put(hba->host);
  }
  EXPORT_SYMBOL_GPL(ufshcd_dealloc_host);
-@@ -8544,6 +8571,13 @@ int ufshcd_init(struct ufs_hba *hba, void __iomem *mmio_base, unsigned int irq)
+@@ -8878,6 +8905,13 @@ int ufshcd_init(struct ufs_hba *hba, void __iomem *mmio_base, unsigned int irq)
  	/* Reset the attached device */
  	ufshcd_vops_device_reset(hba);
  
@@ -196,7 +196,7 @@ diff --git a/drivers/scsi/ufs/ufshcd.c b/drivers/scsi/ufs/ufshcd.c
 diff --git a/drivers/scsi/ufs/ufshcd.h b/drivers/scsi/ufs/ufshcd.h
 --- a/drivers/scsi/ufs/ufshcd.h
 +++ b/drivers/scsi/ufs/ufshcd.h
-@@ -183,6 +183,8 @@ struct ufs_pm_lvl_states {
+@@ -184,6 +184,8 @@ struct ufs_pm_lvl_states {
   * @intr_cmd: Interrupt command (doesn't participate in interrupt aggregation)
   * @issue_time_stamp: time stamp for debug purposes
   * @compl_time_stamp: time stamp for statistics
@@ -205,7 +205,7 @@ diff --git a/drivers/scsi/ufs/ufshcd.h b/drivers/scsi/ufs/ufshcd.h
   * @req_abort_skip: skip request abort task flag
   */
  struct ufshcd_lrb {
-@@ -207,6 +209,10 @@ struct ufshcd_lrb {
+@@ -208,6 +210,10 @@ struct ufshcd_lrb {
  	bool intr_cmd;
  	ktime_t issue_time_stamp;
  	ktime_t compl_time_stamp;

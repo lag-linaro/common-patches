@@ -1,8 +1,8 @@
 #
 # android-mainline patches
 #
-# Applies onto upstream 7ae77150d94d Linux v5.7-10223-g7ae77150d94d
-# Matches android-mainline dbea740a7e11 ("Merge 7ae77150d94d ("Merge tag 'powerpc-5.8-1' of git://git.kernel.org/pub/scm/linux/kernel/git/powerpc/linux") into android-mainline")
+# Applies onto upstream 818dbde78e0f Linux v5.7-10804-g818dbde78e0f
+# Matches android-mainline b378328f2a5f ("Merge 818dbde78e0f ("Merge tag 'scsi-misc' of git://git.kernel.org/pub/scm/linux/kernel/git/jejb/scsi") into android-mainline")
 #
 Revert-security-lockdown-selinux-implement-SELinux-lockdown.patch
 Revert-drm-virtio-fix-DRM_FORMAT_-handling.patch
