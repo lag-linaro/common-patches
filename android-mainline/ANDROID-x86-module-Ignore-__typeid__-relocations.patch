@@ -15,7 +15,7 @@ Signed-off-by: Sami Tolvanen <samitolvanen@google.com>
 diff --git a/arch/x86/kernel/module.c b/arch/x86/kernel/module.c
 --- a/arch/x86/kernel/module.c
 +++ b/arch/x86/kernel/module.c
-@@ -197,6 +197,10 @@ static int __apply_relocate_add(Elf64_Shdr *sechdrs,
+@@ -196,6 +196,10 @@ static int __apply_relocate_add(Elf64_Shdr *sechdrs,
  			val -= (u64)loc;
  			write(loc, &val, 8);
  			break;

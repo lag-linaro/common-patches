@@ -63,7 +63,7 @@ diff --git a/drivers/firmware/qcom_scm.c b/drivers/firmware/qcom_scm.c
 diff --git a/drivers/iommu/Kconfig b/drivers/iommu/Kconfig
 --- a/drivers/iommu/Kconfig
 +++ b/drivers/iommu/Kconfig
-@@ -491,6 +491,7 @@ config QCOM_IOMMU
+@@ -500,6 +500,7 @@ config QCOM_IOMMU
  	# Note: iommu drivers cannot (yet?) be built as modules
  	bool "Qualcomm IOMMU Support"
  	depends on ARCH_QCOM || (COMPILE_TEST && !GENERIC_ATOMIC64)

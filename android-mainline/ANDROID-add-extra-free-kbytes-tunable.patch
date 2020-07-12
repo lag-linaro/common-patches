@@ -86,7 +86,7 @@ diff --git a/kernel/sysctl.c b/kernel/sysctl.c
  /* Constants used for minimum and  maximum */
  #ifdef CONFIG_LOCKUP_DETECTOR
  static int sixty = 60;
-@@ -2845,6 +2848,14 @@ static struct ctl_table vm_table[] = {
+@@ -2875,6 +2878,14 @@ static struct ctl_table vm_table[] = {
  		.extra1		= SYSCTL_ONE,
  		.extra2		= &one_thousand,
  	},
@@ -130,7 +130,7 @@ diff --git a/mm/page_alloc.c b/mm/page_alloc.c
  static unsigned long nr_kernel_pages __initdata;
  static unsigned long nr_all_pages __initdata;
  static unsigned long dma_reserve __initdata;
-@@ -7762,6 +7774,7 @@ static void setup_per_zone_lowmem_reserve(void)
+@@ -7753,6 +7765,7 @@ static void setup_per_zone_lowmem_reserve(void)
  static void __setup_per_zone_wmarks(void)
  {
  	unsigned long pages_min = min_free_kbytes >> (PAGE_SHIFT - 10);
@@ -138,7 +138,7 @@ diff --git a/mm/page_alloc.c b/mm/page_alloc.c
  	unsigned long lowmem_pages = 0;
  	struct zone *zone;
  	unsigned long flags;
-@@ -7773,11 +7786,13 @@ static void __setup_per_zone_wmarks(void)
+@@ -7764,11 +7777,13 @@ static void __setup_per_zone_wmarks(void)
  	}
  
  	for_each_zone(zone) {
@@ -153,7 +153,7 @@ diff --git a/mm/page_alloc.c b/mm/page_alloc.c
  		if (is_highmem(zone)) {
  			/*
  			 * __GFP_HIGH and PF_MEMALLOC allocations usually don't
-@@ -7811,8 +7826,9 @@ static void __setup_per_zone_wmarks(void)
+@@ -7802,8 +7817,9 @@ static void __setup_per_zone_wmarks(void)
  				      watermark_scale_factor, 10000));
  
  		zone->watermark_boost = 0;
@@ -165,7 +165,7 @@ diff --git a/mm/page_alloc.c b/mm/page_alloc.c
  
  		spin_unlock_irqrestore(&zone->lock, flags);
  	}
-@@ -7895,7 +7911,7 @@ core_initcall(init_per_zone_wmark_min)
+@@ -7886,7 +7902,7 @@ core_initcall(init_per_zone_wmark_min)
  /*
   * min_free_kbytes_sysctl_handler - just a wrapper around proc_dointvec() so
   *	that we can call two helper functions whenever min_free_kbytes

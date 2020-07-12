@@ -43,7 +43,7 @@ diff --git a/fs/namei.c b/fs/namei.c
  /* [Feb-1997 T. Schoebel-Theuer]
   * Fundamental changes in the pathname lookup mechanisms (namei)
   * were necessary because of omirr.  The reason is that omirr needs
-@@ -756,6 +759,81 @@ static inline int d_revalidate(struct dentry *dentry, unsigned int flags)
+@@ -770,6 +773,81 @@ static inline int d_revalidate(struct dentry *dentry, unsigned int flags)
  		return 1;
  }
  
@@ -125,7 +125,7 @@ diff --git a/fs/namei.c b/fs/namei.c
  /**
   * complete_walk - successful completion of path walk
   * @nd:  pointer nameidata
-@@ -803,15 +881,21 @@ static int complete_walk(struct nameidata *nd)
+@@ -817,15 +895,21 @@ static int complete_walk(struct nameidata *nd)
  			return -EXDEV;
  	}
  
