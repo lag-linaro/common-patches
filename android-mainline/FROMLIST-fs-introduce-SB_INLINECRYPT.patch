@@ -29,7 +29,7 @@ diff --git a/fs/proc_namespace.c b/fs/proc_namespace.c
 +		{ SB_INLINECRYPT, ",inlinecrypt" },
  		{ 0, NULL }
  	};
- 	const struct proc_fs_info *fs_infop;
+ 	const struct proc_fs_opts *fs_infop;
 diff --git a/include/linux/fs.h b/include/linux/fs.h
 --- a/include/linux/fs.h
 +++ b/include/linux/fs.h

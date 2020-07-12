@@ -1,8 +1,8 @@
 #
 # android-mainline patches
 #
-# Applies onto upstream 051c3556e3d6 Linux v5.7-8546-g051c3556e3d6
-# Matches android-mainline 428ec716d35d ("Revert "ANDROID: make sure proc mount options are applied"")
+# Applies onto upstream 9ff7258575d5 Linux v5.7-8571-g9ff7258575d5
+# Matches android-mainline 44699162a381 ("Merge 9ff7258575d5 ("Merge branch 'proc-linus' of git://git.kernel.org/pub/scm/linux/kernel/git/ebiederm/user-namespace") into android-mainline")
 #
 Revert-security-lockdown-selinux-implement-SELinux-lockdown.patch
 Revert-drm-virtio-fix-DRM_FORMAT_-handling.patch
