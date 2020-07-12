@@ -1,8 +1,8 @@
 #
 # android-mainline patches
 #
-# Applies onto upstream 3b69e8b45711 Linux v5.7-11272-g3b69e8b45711
-# Matches android-mainline 714dbb2e3148 ("ANDROID: GKI: remove CONFIG_EDAC from arm64 gki_defconfig")
+# Applies onto upstream e611c0fe318c Linux v5.7-11527-ge611c0fe318c
+# Matches android-mainline 21d332c18ef4 ("Merge e611c0fe318c ("Merge tag 'usb-5.8-rc1' of git://git.kernel.org/pub/scm/linux/kernel/git/gregkh/usb") into android-mainline")
 #
 Revert-security-lockdown-selinux-implement-SELinux-lockdown.patch
 Revert-drm-virtio-fix-DRM_FORMAT_-handling.patch
@@ -15,11 +15,6 @@ FROMLIST-drivers-irqchip-pdc-additionally-set-type-in-SPI-config-registers.patch
 FROMLIST-dt-bindings-interrupt-controller-pdc-add-SPI-config-register.patch
 FROMLIST-Add-flags-option-to-get-xattr-method-paired-to-__vfs_getxattr.patch
 BACKPORT-FROMLIST-pwm-Add-support-for-different-PWM-output-types.patch
-FROMLIST-usb-xhci-export-few-functions.patch
-FROMLIST-usb-renesas-xhci-Add-the-renesas-xhci-driver.patch
-FROMLIST-usb-renesas-xhci-Add-ROM-loader-for-uPD720201.patch
-FROMLIST-usb-renesas-xhci-allow-multiple-firmware-versions.patch
-FROMLIST-usb-xhci-provide-a-debugfs-hook-for-erasing-rom.patch
 FROMLIST-lib-list_sort-fix-function-type-mismatches.patch
 FROMLIST-overlayfs-handle-XATTR_NOSECURITY-flag-for-get-xattr-method.patch
 FROMLIST-overlayfs-internal-getxattr-operations-without-sepolicy-checking.patch
@@ -470,5 +465,5 @@ ANDROID-Use-depmod-from-the-hermetic-toolchain.patch
 ANDROID-GKI-update-gki-defconfigs.patch
 ANDROID-bpf-Workaround-for-bpf-permissions-check-regression.patch
 FROMLIST-nsproxy-restore-EINVAL-for-non-namespace-file-descriptor.patch
-DROP-ME-Leftover-pieces-from-the-LTO-revert.patch
 ANDROID-GKI-remove-CONFIG_EDAC-from-arm64-gki_defconfig.patch
+DROP-ME-Leftover-pieces-from-the-5.8-rc1-merge.patch

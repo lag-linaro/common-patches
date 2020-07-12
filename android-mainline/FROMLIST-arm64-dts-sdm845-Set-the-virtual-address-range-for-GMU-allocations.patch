@@ -19,7 +19,7 @@ Change-Id: I198b3ed8bad95ba38db00dd181604875b589b497
 diff --git a/arch/arm64/boot/dts/qcom/sdm845.dtsi b/arch/arm64/boot/dts/qcom/sdm845.dtsi
 --- a/arch/arm64/boot/dts/qcom/sdm845.dtsi
 +++ b/arch/arm64/boot/dts/qcom/sdm845.dtsi
-@@ -3591,6 +3591,8 @@ gmu: gmu@506a000 {
+@@ -3599,6 +3599,8 @@ gmu: gmu@506a000 {
  					<&gpucc GPU_GX_GDSC>;
  			power-domain-names = "cx", "gx";
  
