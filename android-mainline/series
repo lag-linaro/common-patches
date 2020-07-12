@@ -2,12 +2,11 @@
 # android-mainline patches
 #
 # Applies onto upstream 9ff7258575d5 Linux v5.7-8571-g9ff7258575d5
-# Matches android-mainline 44699162a381 ("Merge 9ff7258575d5 ("Merge branch 'proc-linus' of git://git.kernel.org/pub/scm/linux/kernel/git/ebiederm/user-namespace") into android-mainline")
+# Matches android-mainline 94d5fade6016 ("Revert "Revert "module: Make module_enable_ro() static again""")
 #
 Revert-security-lockdown-selinux-implement-SELinux-lockdown.patch
 Revert-drm-virtio-fix-DRM_FORMAT_-handling.patch
 Revert-sched-core-Prevent-race-condition-between-cpuset-and-__sched_setscheduler.patch
-Revert-module-Make-module_enable_ro-static-again.patch
 FROMLIST-scsi-ufs-qcom-enter-and-exit-hibern8-during-clock-scaling.patch
 FROMLIST-scsi-ufs-Export-query-request-interfaces.patch
 FROMLIST-scsi-ufs-export-hibern8-entry-and-exit.patch
