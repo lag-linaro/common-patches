@@ -2,7 +2,7 @@
 # android-mainline patches
 #
 # Applies onto upstream ad57a1022f9e Linux v5.7-13249-gad57a1022f9e
-# Matches android-mainline a253db8915ec ("Merge ad57a1022f9e ("Merge tag 'exfat-for-5.8-rc1' of git://git.kernel.org/pub/scm/linux/kernel/git/linkinjeon/exfat") into android-mainline")
+# Matches android-mainline 1da58ab55546 ("ANDROID: fix up direct access to mmap_sem")
 #
 Revert-security-lockdown-selinux-implement-SELinux-lockdown.patch
 Revert-drm-virtio-fix-DRM_FORMAT_-handling.patch
@@ -466,3 +466,5 @@ ANDROID-bpf-Workaround-for-bpf-permissions-check-regression.patch
 FROMLIST-nsproxy-restore-EINVAL-for-non-namespace-file-descriptor.patch
 ANDROID-GKI-remove-CONFIG_EDAC-from-arm64-gki_defconfig.patch
 DROP-ME-Leftover-pieces-from-the-5.8-rc1-merge.patch
+ANDROID-GKI-fix-up-gki_defconfig-due-to-pinctrl-upstream-merges.patch
+ANDROID-fix-up-direct-access-to-mmap_sem.patch
