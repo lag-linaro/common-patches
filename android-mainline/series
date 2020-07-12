@@ -1,8 +1,8 @@
 #
 # android-mainline patches
 #
-# Applies onto upstream e611c0fe318c Linux v5.7-11527-ge611c0fe318c
-# Matches android-mainline 21d332c18ef4 ("Merge e611c0fe318c ("Merge tag 'usb-5.8-rc1' of git://git.kernel.org/pub/scm/linux/kernel/git/gregkh/usb") into android-mainline")
+# Applies onto upstream cf0c97f148e9 Linux v5.7-12640-gcf0c97f148e9
+# Matches android-mainline 87b344db7aaa ("Merge cf0c97f148e9 ("Merge tag 'pinctrl-v5.8-1' of git://git.kernel.org/pub/scm/linux/kernel/git/linusw/linux-pinctrl") into android-mainline")
 #
 Revert-security-lockdown-selinux-implement-SELinux-lockdown.patch
 Revert-drm-virtio-fix-DRM_FORMAT_-handling.patch

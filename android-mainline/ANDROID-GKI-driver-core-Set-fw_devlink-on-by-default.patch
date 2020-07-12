@@ -20,11 +20,11 @@ Change-Id: I5f63b0359082713bd7d3629abc14209f9667de3b
 diff --git a/drivers/base/core.c b/drivers/base/core.c
 --- a/drivers/base/core.c
 +++ b/drivers/base/core.c
-@@ -2364,7 +2364,7 @@ static int device_private_init(struct device *dev)
- 	return 0;
+@@ -1183,7 +1183,7 @@ static void device_links_purge(struct device *dev)
+ 	device_links_write_unlock();
  }
  
--static u32 fw_devlink_flags;
+-static u32 fw_devlink_flags = DL_FLAG_SYNC_STATE_ONLY;
 +static u32 fw_devlink_flags = DL_FLAG_AUTOPROBE_CONSUMER;
  static int __init fw_devlink_setup(char *arg)
  {

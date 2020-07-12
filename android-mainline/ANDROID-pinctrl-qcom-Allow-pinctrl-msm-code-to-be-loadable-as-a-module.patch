@@ -31,7 +31,7 @@ diff --git a/drivers/pinctrl/qcom/Kconfig b/drivers/pinctrl/qcom/Kconfig
 diff --git a/drivers/pinctrl/qcom/pinctrl-msm.c b/drivers/pinctrl/qcom/pinctrl-msm.c
 --- a/drivers/pinctrl/qcom/pinctrl-msm.c
 +++ b/drivers/pinctrl/qcom/pinctrl-msm.c
-@@ -1356,3 +1356,6 @@ int msm_pinctrl_remove(struct platform_device *pdev)
+@@ -1355,3 +1355,6 @@ int msm_pinctrl_remove(struct platform_device *pdev)
  }
  EXPORT_SYMBOL(msm_pinctrl_remove);
  
