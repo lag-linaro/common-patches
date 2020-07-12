@@ -225,7 +225,7 @@ diff --git a/fs/ext4/file.c b/fs/ext4/file.c
  		inode_unlock_shared(inode);
  		/*
  		 * Fallback to buffered I/O if the operation being performed on
-@@ -483,7 +485,7 @@ static ssize_t ext4_dio_write_iter(struct kiocb *iocb, struct iov_iter *from)
+@@ -490,7 +492,7 @@ static ssize_t ext4_dio_write_iter(struct kiocb *iocb, struct iov_iter *from)
  	}
  
  	/* Fallback to buffered I/O if the inode does not support direct I/O. */

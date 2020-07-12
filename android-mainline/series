@@ -1,8 +1,8 @@
 #
 # android-mainline patches
 #
-# Applies onto upstream 818dbde78e0f Linux v5.7-10804-g818dbde78e0f
-# Matches android-mainline 3330492ef15f ("Revert "ANDROID: kbuild: add support for Clang LTO"")
+# Applies onto upstream 3b69e8b45711 Linux v5.7-11272-g3b69e8b45711
+# Matches android-mainline 2f9c5c39bfa4 ("Merge 3b69e8b45711 ("Merge tag 'sh-for-5.8' of git://git.libc.org/linux-sh") into android-mainline")
 #
 Revert-security-lockdown-selinux-implement-SELinux-lockdown.patch
 Revert-drm-virtio-fix-DRM_FORMAT_-handling.patch

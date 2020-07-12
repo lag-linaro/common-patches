@@ -84,7 +84,7 @@ diff --git a/fs/ext4/inode.c b/fs/ext4/inode.c
  
  static __u32 ext4_inode_csum(struct inode *inode, struct ext4_inode *raw,
  			      struct ext4_inode_info *ei)
-@@ -1120,6 +1121,16 @@ static int ext4_write_begin(struct file *file, struct address_space *mapping,
+@@ -1128,6 +1129,16 @@ static int ext4_write_begin(struct file *file, struct address_space *mapping,
  	if (unlikely(ext4_forced_shutdown(EXT4_SB(inode->i_sb))))
  		return -EIO;
  
@@ -101,7 +101,7 @@ diff --git a/fs/ext4/inode.c b/fs/ext4/inode.c
  	trace_ext4_write_begin(inode, pos, len, flags);
  	/*
  	 * Reserve one block more for addition to orphan list in case
-@@ -1262,6 +1273,7 @@ static int ext4_write_end(struct file *file,
+@@ -1270,6 +1281,7 @@ static int ext4_write_end(struct file *file,
  	int inline_data = ext4_has_inline_data(inode);
  	bool verity = ext4_verity_in_progress(inode);
  
@@ -109,7 +109,7 @@ diff --git a/fs/ext4/inode.c b/fs/ext4/inode.c
  	trace_ext4_write_end(inode, pos, len, copied);
  	if (inline_data) {
  		ret = ext4_write_inline_data_end(inode, pos, len,
-@@ -1372,6 +1384,7 @@ static int ext4_journalled_write_end(struct file *file,
+@@ -1380,6 +1392,7 @@ static int ext4_journalled_write_end(struct file *file,
  	int inline_data = ext4_has_inline_data(inode);
  	bool verity = ext4_verity_in_progress(inode);
  
@@ -117,7 +117,7 @@ diff --git a/fs/ext4/inode.c b/fs/ext4/inode.c
  	trace_ext4_journalled_write_end(inode, pos, len, copied);
  	from = pos & (PAGE_SIZE - 1);
  	to = from + len;
-@@ -2941,6 +2954,16 @@ static int ext4_da_write_begin(struct file *file, struct address_space *mapping,
+@@ -2943,6 +2956,16 @@ static int ext4_da_write_begin(struct file *file, struct address_space *mapping,
  					len, flags, pagep, fsdata);
  	}
  	*fsdata = (void *)0;
@@ -134,7 +134,7 @@ diff --git a/fs/ext4/inode.c b/fs/ext4/inode.c
  	trace_ext4_da_write_begin(inode, pos, len, flags);
  
  	if (ext4_test_inode_state(inode, EXT4_STATE_MAY_INLINE_DATA)) {
-@@ -3059,6 +3082,7 @@ static int ext4_da_write_end(struct file *file,
+@@ -3061,6 +3084,7 @@ static int ext4_da_write_end(struct file *file,
  		return ext4_write_end(file, mapping, pos,
  				      len, copied, page, fsdata);
  
@@ -250,7 +250,7 @@ diff --git a/fs/ext4/readpage.c b/fs/ext4/readpage.c
 diff --git a/fs/f2fs/data.c b/fs/f2fs/data.c
 --- a/fs/f2fs/data.c
 +++ b/fs/f2fs/data.c
-@@ -26,6 +26,7 @@
+@@ -27,6 +27,7 @@
  #include "segment.h"
  #include "trace.h"
  #include <trace/events/f2fs.h>
@@ -258,7 +258,7 @@ diff --git a/fs/f2fs/data.c b/fs/f2fs/data.c
  
  #define NUM_PREALLOC_POST_READ_CTXS	128
  
-@@ -3246,6 +3247,16 @@ static int f2fs_write_begin(struct file *file, struct address_space *mapping,
+@@ -3247,6 +3248,16 @@ static int f2fs_write_begin(struct file *file, struct address_space *mapping,
  	block_t blkaddr = NULL_ADDR;
  	int err = 0;
  
@@ -275,7 +275,7 @@ diff --git a/fs/f2fs/data.c b/fs/f2fs/data.c
  	trace_f2fs_write_begin(inode, pos, len, flags);
  
  	if (!f2fs_is_checkpoint_ready(sbi)) {
-@@ -3373,6 +3384,7 @@ static int f2fs_write_end(struct file *file,
+@@ -3374,6 +3385,7 @@ static int f2fs_write_end(struct file *file,
  {
  	struct inode *inode = page->mapping->host;
  
@@ -283,7 +283,7 @@ diff --git a/fs/f2fs/data.c b/fs/f2fs/data.c
  	trace_f2fs_write_end(inode, pos, len, copied);
  
  	/*
-@@ -3499,6 +3511,29 @@ static ssize_t f2fs_direct_IO(struct kiocb *iocb, struct iov_iter *iter)
+@@ -3500,6 +3512,29 @@ static ssize_t f2fs_direct_IO(struct kiocb *iocb, struct iov_iter *iter)
  
  	trace_f2fs_direct_IO_enter(inode, offset, count, rw);
  
@@ -313,7 +313,7 @@ diff --git a/fs/f2fs/data.c b/fs/f2fs/data.c
  	if (rw == WRITE && whint_mode == WHINT_MODE_OFF)
  		iocb->ki_hint = WRITE_LIFE_NOT_SET;
  
-@@ -3545,6 +3580,13 @@ static ssize_t f2fs_direct_IO(struct kiocb *iocb, struct iov_iter *iter)
+@@ -3546,6 +3581,13 @@ static ssize_t f2fs_direct_IO(struct kiocb *iocb, struct iov_iter *iter)
  	}
  
  out:
@@ -330,7 +330,7 @@ diff --git a/fs/f2fs/data.c b/fs/f2fs/data.c
 diff --git a/fs/f2fs/inline.c b/fs/f2fs/inline.c
 --- a/fs/f2fs/inline.c
 +++ b/fs/f2fs/inline.c
-@@ -11,6 +11,7 @@
+@@ -12,6 +12,7 @@
  
  #include "f2fs.h"
  #include "node.h"
@@ -338,7 +338,7 @@ diff --git a/fs/f2fs/inline.c b/fs/f2fs/inline.c
  
  bool f2fs_may_inline_data(struct inode *inode)
  {
-@@ -84,14 +85,29 @@ int f2fs_read_inline_data(struct inode *inode, struct page *page)
+@@ -85,14 +86,29 @@ int f2fs_read_inline_data(struct inode *inode, struct page *page)
  {
  	struct page *ipage;
  
@@ -368,7 +368,7 @@ diff --git a/fs/f2fs/inline.c b/fs/f2fs/inline.c
  		return -EAGAIN;
  	}
  
-@@ -103,6 +119,8 @@ int f2fs_read_inline_data(struct inode *inode, struct page *page)
+@@ -104,6 +120,8 @@ int f2fs_read_inline_data(struct inode *inode, struct page *page)
  	if (!PageUptodate(page))
  		SetPageUptodate(page);
  	f2fs_put_page(ipage, 1);

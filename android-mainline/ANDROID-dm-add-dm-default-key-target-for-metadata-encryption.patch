@@ -67,7 +67,7 @@ diff --git a/block/blk-crypto-fallback.c b/block/blk-crypto-fallback.c
 diff --git a/drivers/md/Kconfig b/drivers/md/Kconfig
 --- a/drivers/md/Kconfig
 +++ b/drivers/md/Kconfig
-@@ -285,6 +285,27 @@ config DM_CRYPT
+@@ -286,6 +286,27 @@ config DM_CRYPT
  
  	  If unsure, say N.
  
@@ -98,7 +98,7 @@ diff --git a/drivers/md/Kconfig b/drivers/md/Kconfig
 diff --git a/drivers/md/Makefile b/drivers/md/Makefile
 --- a/drivers/md/Makefile
 +++ b/drivers/md/Makefile
-@@ -48,6 +48,7 @@ obj-$(CONFIG_DM_UNSTRIPED)	+= dm-unstripe.o
+@@ -49,6 +49,7 @@ obj-$(CONFIG_DM_UNSTRIPED)	+= dm-unstripe.o
  obj-$(CONFIG_DM_BUFIO)		+= dm-bufio.o
  obj-$(CONFIG_DM_BIO_PRISON)	+= dm-bio-prison.o
  obj-$(CONFIG_DM_CRYPT)		+= dm-crypt.o
@@ -580,7 +580,7 @@ diff --git a/fs/crypto/inline_crypt.c b/fs/crypto/inline_crypt.c
 diff --git a/fs/f2fs/data.c b/fs/f2fs/data.c
 --- a/fs/f2fs/data.c
 +++ b/fs/f2fs/data.c
-@@ -470,6 +470,8 @@ static void f2fs_set_bio_crypt_ctx(struct bio *bio, const struct inode *inode,
+@@ -471,6 +471,8 @@ static void f2fs_set_bio_crypt_ctx(struct bio *bio, const struct inode *inode,
  	 */
  	if (!fio || !fio->encrypted_page)
  		fscrypt_set_bio_crypt_ctx(bio, inode, first_idx, gfp_mask);
@@ -589,7 +589,7 @@ diff --git a/fs/f2fs/data.c b/fs/f2fs/data.c
  }
  
  static bool f2fs_crypt_mergeable_bio(struct bio *bio, const struct inode *inode,
-@@ -481,7 +483,9 @@ static bool f2fs_crypt_mergeable_bio(struct bio *bio, const struct inode *inode,
+@@ -482,7 +484,9 @@ static bool f2fs_crypt_mergeable_bio(struct bio *bio, const struct inode *inode,
  	 * read/write raw data without encryption.
  	 */
  	if (fio && fio->encrypted_page)

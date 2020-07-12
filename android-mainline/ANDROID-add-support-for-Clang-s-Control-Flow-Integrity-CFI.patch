@@ -29,7 +29,7 @@ Signed-off-by: Sami Tolvanen <samitolvanen@google.com>
 diff --git a/Makefile b/Makefile
 --- a/Makefile
 +++ b/Makefile
-@@ -866,6 +866,25 @@ ifdef CONFIG_LIVEPATCH
+@@ -898,6 +898,25 @@ ifdef CONFIG_LIVEPATCH
  KBUILD_CFLAGS += $(call cc-option, -flive-patching=inline-clone)
  endif
  
@@ -225,7 +225,7 @@ diff --git a/include/linux/module.h b/include/linux/module.h
 diff --git a/init/Kconfig b/init/Kconfig
 --- a/init/Kconfig
 +++ b/init/Kconfig
-@@ -2233,7 +2233,7 @@ endif # MODULES
+@@ -2257,7 +2257,7 @@ endif # MODULES
  
  config MODULES_TREE_LOOKUP
  	def_bool y

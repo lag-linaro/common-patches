@@ -103,7 +103,7 @@ diff --git a/fs/ext4/namei.c b/fs/ext4/namei.c
 diff --git a/fs/ext4/super.c b/fs/ext4/super.c
 --- a/fs/ext4/super.c
 +++ b/fs/ext4/super.c
-@@ -4616,11 +4616,6 @@ static int ext4_fill_super(struct super_block *sb, void *data, int silent)
+@@ -4611,11 +4611,6 @@ static int ext4_fill_super(struct super_block *sb, void *data, int silent)
  		goto failed_mount4;
  	}
  
@@ -264,7 +264,7 @@ diff --git a/fs/ubifs/dir.c b/fs/ubifs/dir.c
 diff --git a/include/linux/fs.h b/include/linux/fs.h
 --- a/include/linux/fs.h
 +++ b/include/linux/fs.h
-@@ -3421,6 +3421,8 @@ static inline bool needs_casefold(const struct inode *dir)
+@@ -3403,6 +3403,8 @@ static inline bool needs_casefold(const struct inode *dir)
  	return 0;
  }
  #endif

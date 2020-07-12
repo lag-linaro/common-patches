@@ -10,10 +10,9 @@ Change-Id: I82c8982b678a46c861a24d8e9adb30153336dac6
  arch/arm64/kernel/vdso/Makefile |  4 +++-
  scripts/Makefile                |  2 ++
  scripts/Makefile.build          | 14 ++++++++++++++
- scripts/Makefile.modpost        |  1 +
  scripts/link-vmlinux.sh         |  1 +
  scripts/module-lto.lds.S        | 34 +++++++++++++++++++++++++++++++++
- 7 files changed, 56 insertions(+), 1 deletion(-)
+ 6 files changed, 55 insertions(+), 1 deletion(-)
  create mode 100644 scripts/module-lto.lds.S
 
 diff --git a/arch/Kconfig b/arch/Kconfig
@@ -56,9 +55,9 @@ diff --git a/scripts/Makefile b/scripts/Makefile
 diff --git a/scripts/Makefile.build b/scripts/Makefile.build
 --- a/scripts/Makefile.build
 +++ b/scripts/Makefile.build
-@@ -375,6 +375,20 @@ $(obj)/%.asn1.c $(obj)/%.asn1.h: $(src)/%.asn1 $(objtree)/scripts/asn1_compiler
- # To build objects in subdirs, we need to descend into the directories
- $(obj)/%/built-in.a: $(obj)/% ;
+@@ -389,6 +389,20 @@ $(obj)/%.asn1.c $(obj)/%.asn1.h: $(src)/%.asn1 $(objtree)/scripts/asn1_compiler
+ $(subdir-builtin): $(obj)/%/built-in.a: $(obj)/% ;
+ $(subdir-modorder): $(obj)/%/modules.order: $(obj)/% ;
  
 +# combine symversions for later processing
 +quiet_cmd_update_lto_symversions = SYMVER  $@
@@ -77,17 +76,6 @@ diff --git a/scripts/Makefile.build b/scripts/Makefile.build
  #
  # Rule to compile a set of .o files into one .a file (without symbol table)
  #
-diff --git a/scripts/Makefile.modpost b/scripts/Makefile.modpost
---- a/scripts/Makefile.modpost
-+++ b/scripts/Makefile.modpost
-@@ -91,6 +91,7 @@ quiet_cmd_modpost = MODPOST $(words $(modules)) modules
-       cmd_modpost = sed 's/ko$$/o/' $(MODORDER) | $(MODPOST)
- 
- __modpost:
-+	@$(kecho) '  Building modules, stage 2.'
- 	$(call cmd,modpost)
- ifneq ($(KBUILD_MODPOST_NOFINAL),1)
- 	$(Q)$(MAKE) -f $(srctree)/scripts/Makefile.modfinal
 diff --git a/scripts/link-vmlinux.sh b/scripts/link-vmlinux.sh
 --- a/scripts/link-vmlinux.sh
 +++ b/scripts/link-vmlinux.sh

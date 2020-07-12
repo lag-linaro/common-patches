@@ -295,7 +295,7 @@ diff --git a/fs/f2fs/hash.c b/fs/f2fs/hash.c
 diff --git a/fs/f2fs/inline.c b/fs/f2fs/inline.c
 --- a/fs/f2fs/inline.c
 +++ b/fs/f2fs/inline.c
-@@ -465,8 +465,8 @@ static int f2fs_add_inline_entries(struct inode *dir, void *inline_dentry)
+@@ -466,8 +466,8 @@ static int f2fs_add_inline_entries(struct inode *dir, void *inline_dentry)
  		ino = le32_to_cpu(de->ino);
  		fake_mode = f2fs_get_de_type(de) << S_SHIFT;
  
@@ -306,7 +306,7 @@ diff --git a/fs/f2fs/inline.c b/fs/f2fs/inline.c
  		if (err)
  			goto punch_dentry_pages;
  
-@@ -578,7 +578,7 @@ int f2fs_try_convert_inline_dir(struct inode *dir, struct dentry *dentry)
+@@ -579,7 +579,7 @@ int f2fs_try_convert_inline_dir(struct inode *dir, struct dentry *dentry)
  }
  
  int f2fs_add_inline_entry(struct inode *dir, const struct qstr *new_name,
@@ -315,7 +315,7 @@ diff --git a/fs/f2fs/inline.c b/fs/f2fs/inline.c
  				struct inode *inode, nid_t ino, umode_t mode)
  {
  	struct f2fs_sb_info *sbi = F2FS_I_SB(dir);
-@@ -589,6 +589,7 @@ int f2fs_add_inline_entry(struct inode *dir, const struct qstr *new_name,
+@@ -590,6 +590,7 @@ int f2fs_add_inline_entry(struct inode *dir, const struct qstr *new_name,
  	struct f2fs_dentry_ptr d;
  	int slots = GET_DENTRY_SLOTS(new_name->len);
  	struct page *page = NULL;
@@ -323,7 +323,7 @@ diff --git a/fs/f2fs/inline.c b/fs/f2fs/inline.c
  	int err = 0;
  
  	ipage = f2fs_get_node_page(sbi, dir->i_ino);
-@@ -619,7 +620,7 @@ int f2fs_add_inline_entry(struct inode *dir, const struct qstr *new_name,
+@@ -620,7 +621,7 @@ int f2fs_add_inline_entry(struct inode *dir, const struct qstr *new_name,
  
  	f2fs_wait_on_page_writeback(ipage, NODE, true, true);
  

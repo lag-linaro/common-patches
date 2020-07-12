@@ -75,7 +75,7 @@ diff --git a/fs/f2fs/data.c b/fs/f2fs/data.c
  #include <linux/swap.h>
  #include <linux/prefetch.h>
  #include <linux/uio.h>
-@@ -457,6 +458,33 @@ static struct bio *__bio_alloc(struct f2fs_io_info *fio, int npages)
+@@ -458,6 +459,33 @@ static struct bio *__bio_alloc(struct f2fs_io_info *fio, int npages)
  	return bio;
  }
  
@@ -109,7 +109,7 @@ diff --git a/fs/f2fs/data.c b/fs/f2fs/data.c
  static inline void __submit_bio(struct f2fs_sb_info *sbi,
  				struct bio *bio, enum page_type type)
  {
-@@ -653,6 +681,9 @@ int f2fs_submit_page_bio(struct f2fs_io_info *fio)
+@@ -654,6 +682,9 @@ int f2fs_submit_page_bio(struct f2fs_io_info *fio)
  	/* Allocate a new bio */
  	bio = __bio_alloc(fio, 1);
  
@@ -119,7 +119,7 @@ diff --git a/fs/f2fs/data.c b/fs/f2fs/data.c
  	if (bio_add_page(bio, page, PAGE_SIZE, 0) < PAGE_SIZE) {
  		bio_put(bio);
  		return -EFAULT;
-@@ -731,9 +762,10 @@ static void del_bio_entry(struct bio_entry *be)
+@@ -732,9 +763,10 @@ static void del_bio_entry(struct bio_entry *be)
  	kmem_cache_free(bio_entry_slab, be);
  }
  
@@ -131,7 +131,7 @@ diff --git a/fs/f2fs/data.c b/fs/f2fs/data.c
  	enum temp_type temp;
  	bool found = false;
  	int ret = -EAGAIN;
-@@ -750,13 +782,18 @@ static int add_ipu_page(struct f2fs_sb_info *sbi, struct bio **bio,
+@@ -751,13 +783,18 @@ static int add_ipu_page(struct f2fs_sb_info *sbi, struct bio **bio,
  
  			found = true;
  
@@ -153,7 +153,7 @@ diff --git a/fs/f2fs/data.c b/fs/f2fs/data.c
  			del_bio_entry(be);
  			__submit_bio(sbi, *bio, DATA);
  			break;
-@@ -841,17 +878,16 @@ int f2fs_merge_page_bio(struct f2fs_io_info *fio)
+@@ -842,17 +879,16 @@ int f2fs_merge_page_bio(struct f2fs_io_info *fio)
  	trace_f2fs_submit_page_bio(page, fio);
  	f2fs_trace_ios(fio, 0);
  
@@ -174,7 +174,7 @@ diff --git a/fs/f2fs/data.c b/fs/f2fs/data.c
  			goto alloc_new;
  	}
  
-@@ -903,8 +939,11 @@ void f2fs_submit_page_write(struct f2fs_io_info *fio)
+@@ -904,8 +940,11 @@ void f2fs_submit_page_write(struct f2fs_io_info *fio)
  
  	inc_page_count(sbi, WB_DATA_TYPE(bio_page));
  
@@ -188,7 +188,7 @@ diff --git a/fs/f2fs/data.c b/fs/f2fs/data.c
  		__submit_merged_bio(io);
  alloc_new:
  	if (io->bio == NULL) {
-@@ -916,6 +955,8 @@ void f2fs_submit_page_write(struct f2fs_io_info *fio)
+@@ -917,6 +956,8 @@ void f2fs_submit_page_write(struct f2fs_io_info *fio)
  			goto skip;
  		}
  		io->bio = __bio_alloc(fio, BIO_MAX_PAGES);
@@ -197,7 +197,7 @@ diff --git a/fs/f2fs/data.c b/fs/f2fs/data.c
  		io->fio = *fio;
  	}
  
-@@ -960,11 +1001,14 @@ static struct bio *f2fs_grab_read_bio(struct inode *inode, block_t blkaddr,
+@@ -961,11 +1002,14 @@ static struct bio *f2fs_grab_read_bio(struct inode *inode, block_t blkaddr,
  								for_write);
  	if (!bio)
  		return ERR_PTR(-ENOMEM);
@@ -213,7 +213,7 @@ diff --git a/fs/f2fs/data.c b/fs/f2fs/data.c
  		post_read_steps |= 1 << STEP_DECRYPT;
  	if (f2fs_compressed_file(inode))
  		post_read_steps |= 1 << STEP_DECOMPRESS;
-@@ -1988,8 +2032,9 @@ static int f2fs_read_single_page(struct inode *inode, struct page *page,
+@@ -1989,8 +2033,9 @@ static int f2fs_read_single_page(struct inode *inode, struct page *page,
  	 * This page will go to BIO.  Do we need to send this
  	 * BIO off first?
  	 */
@@ -225,7 +225,7 @@ diff --git a/fs/f2fs/data.c b/fs/f2fs/data.c
  submit_and_realloc:
  		__submit_bio(F2FS_I_SB(inode), bio, DATA);
  		bio = NULL;
-@@ -2117,8 +2162,9 @@ int f2fs_read_multi_pages(struct compress_ctx *cc, struct bio **bio_ret,
+@@ -2118,8 +2163,9 @@ int f2fs_read_multi_pages(struct compress_ctx *cc, struct bio **bio_ret,
  		blkaddr = data_blkaddr(dn.inode, dn.node_page,
  						dn.ofs_in_node + i + 1);
  
@@ -237,7 +237,7 @@ diff --git a/fs/f2fs/data.c b/fs/f2fs/data.c
  submit_and_realloc:
  			__submit_bio(sbi, bio, DATA);
  			bio = NULL;
-@@ -2327,6 +2373,9 @@ int f2fs_encrypt_one_page(struct f2fs_io_info *fio)
+@@ -2328,6 +2374,9 @@ int f2fs_encrypt_one_page(struct f2fs_io_info *fio)
  	/* wait for GCed page writeback via META_MAPPING */
  	f2fs_wait_on_block_writeback(inode, fio->old_blkaddr);
  
@@ -247,7 +247,7 @@ diff --git a/fs/f2fs/data.c b/fs/f2fs/data.c
  retry_encrypt:
  	fio->encrypted_page = fscrypt_encrypt_pagecache_blocks(page,
  					PAGE_SIZE, 0, gfp_flags);
-@@ -2500,7 +2549,7 @@ int f2fs_do_write_data_page(struct f2fs_io_info *fio)
+@@ -2501,7 +2550,7 @@ int f2fs_do_write_data_page(struct f2fs_io_info *fio)
  			f2fs_unlock_op(fio->sbi);
  		err = f2fs_inplace_write_data(fio);
  		if (err) {

@@ -183,7 +183,7 @@ index 000000000000..e3fc4d22e0f4
 diff --git a/drivers/md/Kconfig b/drivers/md/Kconfig
 --- a/drivers/md/Kconfig
 +++ b/drivers/md/Kconfig
-@@ -608,4 +608,16 @@ config DM_ZONED
+@@ -628,4 +628,16 @@ config DM_ZONED
  
  	  If unsure, say N.
  
@@ -203,7 +203,7 @@ diff --git a/drivers/md/Kconfig b/drivers/md/Kconfig
 diff --git a/drivers/md/Makefile b/drivers/md/Makefile
 --- a/drivers/md/Makefile
 +++ b/drivers/md/Makefile
-@@ -71,6 +71,7 @@ obj-$(CONFIG_DM_LOG_WRITES)	+= dm-log-writes.o
+@@ -74,6 +74,7 @@ obj-$(CONFIG_DM_LOG_WRITES)	+= dm-log-writes.o
  obj-$(CONFIG_DM_INTEGRITY)	+= dm-integrity.o
  obj-$(CONFIG_DM_ZONED)		+= dm-zoned.o
  obj-$(CONFIG_DM_WRITECACHE)	+= dm-writecache.o

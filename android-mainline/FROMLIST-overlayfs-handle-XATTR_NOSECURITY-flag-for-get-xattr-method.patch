@@ -58,7 +58,7 @@ Change-Id: Ia39543c5ce617976f14d790fb88e471d575ffd65
 diff --git a/fs/overlayfs/inode.c b/fs/overlayfs/inode.c
 --- a/fs/overlayfs/inode.c
 +++ b/fs/overlayfs/inode.c
-@@ -377,7 +377,7 @@ int ovl_xattr_set(struct dentry *dentry, struct inode *inode, const char *name,
+@@ -378,7 +378,7 @@ int ovl_xattr_set(struct dentry *dentry, struct inode *inode, const char *name,
  }
  
  int ovl_xattr_get(struct dentry *dentry, struct inode *inode, const char *name,
@@ -67,7 +67,7 @@ diff --git a/fs/overlayfs/inode.c b/fs/overlayfs/inode.c
  {
  	ssize_t res;
  	const struct cred *old_cred;
-@@ -385,7 +385,8 @@ int ovl_xattr_get(struct dentry *dentry, struct inode *inode, const char *name,
+@@ -386,7 +386,8 @@ int ovl_xattr_get(struct dentry *dentry, struct inode *inode, const char *name,
  		ovl_i_dentry_upper(inode) ?: ovl_dentry_lower(dentry);
  
  	old_cred = ovl_override_creds(dentry->d_sb);

@@ -80,7 +80,7 @@ diff --git a/fs/buffer.c b/fs/buffer.c
 diff --git a/fs/ext4/inode.c b/fs/ext4/inode.c
 --- a/fs/ext4/inode.c
 +++ b/fs/ext4/inode.c
-@@ -1088,7 +1088,7 @@ static int ext4_block_write_begin(struct page *page, loff_t pos, unsigned len,
+@@ -1096,7 +1096,7 @@ static int ext4_block_write_begin(struct page *page, loff_t pos, unsigned len,
  	}
  	if (unlikely(err)) {
  		page_zero_new_buffers(page, from, to);
@@ -89,7 +89,7 @@ diff --git a/fs/ext4/inode.c b/fs/ext4/inode.c
  		for (i = 0; i < nr_wait; i++) {
  			int err2;
  
-@@ -3735,7 +3735,7 @@ static int __ext4_block_zero_page_range(handle_t *handle,
+@@ -3737,7 +3737,7 @@ static int __ext4_block_zero_page_range(handle_t *handle,
  		/* Uhhuh. Read error. Complain and punt. */
  		if (!buffer_uptodate(bh))
  			goto unlock;
