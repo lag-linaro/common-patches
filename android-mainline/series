@@ -2,7 +2,7 @@
 # android-mainline patches
 #
 # Applies onto upstream 3b69e8b45711 Linux v5.7-11272-g3b69e8b45711
-# Matches android-mainline 2f9c5c39bfa4 ("Merge 3b69e8b45711 ("Merge tag 'sh-for-5.8' of git://git.libc.org/linux-sh") into android-mainline")
+# Matches android-mainline 714dbb2e3148 ("ANDROID: GKI: remove CONFIG_EDAC from arm64 gki_defconfig")
 #
 Revert-security-lockdown-selinux-implement-SELinux-lockdown.patch
 Revert-drm-virtio-fix-DRM_FORMAT_-handling.patch
@@ -471,3 +471,4 @@ ANDROID-GKI-update-gki-defconfigs.patch
 ANDROID-bpf-Workaround-for-bpf-permissions-check-regression.patch
 FROMLIST-nsproxy-restore-EINVAL-for-non-namespace-file-descriptor.patch
 DROP-ME-Leftover-pieces-from-the-LTO-revert.patch
+ANDROID-GKI-remove-CONFIG_EDAC-from-arm64-gki_defconfig.patch
