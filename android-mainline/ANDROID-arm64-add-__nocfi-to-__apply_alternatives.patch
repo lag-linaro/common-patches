@@ -18,7 +18,7 @@ Signed-off-by: Sami Tolvanen <samitolvanen@google.com>
 diff --git a/arch/arm64/kernel/alternative.c b/arch/arm64/kernel/alternative.c
 --- a/arch/arm64/kernel/alternative.c
 +++ b/arch/arm64/kernel/alternative.c
-@@ -144,8 +144,8 @@ static void clean_dcache_range_nopatch(u64 start, u64 end)
+@@ -132,8 +132,8 @@ static void clean_dcache_range_nopatch(u64 start, u64 end)
  	} while (cur += d_size, cur < end);
  }
  

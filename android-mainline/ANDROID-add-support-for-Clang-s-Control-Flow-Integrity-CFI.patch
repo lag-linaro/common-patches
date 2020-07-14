@@ -571,7 +571,7 @@ index 000000000000..05f589e24f68
 diff --git a/kernel/module.c b/kernel/module.c
 --- a/kernel/module.c
 +++ b/kernel/module.c
-@@ -2159,6 +2159,8 @@ void __weak module_arch_freeing_init(struct module *mod)
+@@ -2162,6 +2162,8 @@ void __weak module_arch_freeing_init(struct module *mod)
  {
  }
  
@@ -580,7 +580,7 @@ diff --git a/kernel/module.c b/kernel/module.c
  /* Free a module, remove from lists, etc. */
  static void free_module(struct module *mod)
  {
-@@ -2198,6 +2200,9 @@ static void free_module(struct module *mod)
+@@ -2201,6 +2203,9 @@ static void free_module(struct module *mod)
  	synchronize_rcu();
  	mutex_unlock(&module_mutex);
  
@@ -590,7 +590,7 @@ diff --git a/kernel/module.c b/kernel/module.c
  	/* This may be empty, but that's OK */
  	module_arch_freeing_init(mod);
  	module_memfree(mod->init_layout.base);
-@@ -3463,6 +3468,8 @@ int __weak module_finalize(const Elf_Ehdr *hdr,
+@@ -3466,6 +3471,8 @@ int __weak module_finalize(const Elf_Ehdr *hdr,
  	return 0;
  }
  
@@ -599,7 +599,7 @@ diff --git a/kernel/module.c b/kernel/module.c
  static int post_relocation(struct module *mod, const struct load_info *info)
  {
  	/* Sort exception table now relocations are done. */
-@@ -3475,6 +3482,9 @@ static int post_relocation(struct module *mod, const struct load_info *info)
+@@ -3478,6 +3485,9 @@ static int post_relocation(struct module *mod, const struct load_info *info)
  	/* Setup kallsyms-specific fields. */
  	add_kallsyms(mod, info);
  
@@ -609,7 +609,7 @@ diff --git a/kernel/module.c b/kernel/module.c
  	/* Arch-specific module finalizing. */
  	return module_finalize(info->hdr, info->sechdrs, mod);
  }
-@@ -4278,6 +4288,24 @@ int module_kallsyms_on_each_symbol(int (*fn)(void *, const char *,
+@@ -4281,6 +4291,24 @@ int module_kallsyms_on_each_symbol(int (*fn)(void *, const char *,
  }
  #endif /* CONFIG_KALLSYMS */
  

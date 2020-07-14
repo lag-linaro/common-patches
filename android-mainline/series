@@ -1,8 +1,8 @@
 #
 # android-mainline patches
 #
-# Applies onto upstream dcb7fd82c75e Linux v5.8-rc4
-# Matches android-mainline f19515bca8c5 ("ANDROID: f2fs: add back compress inode check")
+# Applies onto upstream 11ba468877bb Linux v5.8-rc5
+# Matches android-mainline 6c201957b6fa ("Merge 5.8-rc5 into android-mainline")
 #
 Revert-security-lockdown-selinux-implement-SELinux-lockdown.patch
 Revert-drm-virtio-fix-DRM_FORMAT_-handling.patch
@@ -461,7 +461,6 @@ ANDROID-gki_defconfig-enable-dm-default-key.patch
 ANDROID-GKI-enable-some-more-USB-configfs-options.patch
 ANDROID-Use-depmod-from-the-hermetic-toolchain.patch
 ANDROID-GKI-update-gki-defconfigs.patch
-ANDROID-bpf-Workaround-for-bpf-permissions-check-regression.patch
 ANDROID-GKI-remove-CONFIG_EDAC-from-arm64-gki_defconfig.patch
 ANDROID-GKI-fix-up-gki_defconfig-due-to-pinctrl-upstream-merges.patch
 ANDROID-fix-up-direct-access-to-mmap_sem.patch
