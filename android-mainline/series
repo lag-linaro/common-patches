@@ -1,8 +1,8 @@
 #
 # android-mainline patches
 #
-# Applies onto upstream 9ebcfadb0610 Linux v5.8-rc3
-# Matches android-mainline 6883a1e06ba8 ("Revert "ANDROID: fscrypt: add key removal notifier chain"")
+# Applies onto upstream dcb7fd82c75e Linux v5.8-rc4
+# Matches android-mainline ca9814bc63d1 ("Merge 5.8-rc4 into android-mainline")
 #
 Revert-security-lockdown-selinux-implement-SELinux-lockdown.patch
 Revert-drm-virtio-fix-DRM_FORMAT_-handling.patch
@@ -37,8 +37,6 @@ FROMLIST-fs-introduce-SB_INLINECRYPT.patch
 FROMLIST-fscrypt-add-inline-encryption-support.patch
 FROMLIST-f2fs-add-inline-encryption-support.patch
 FROMLIST-ext4-add-inline-encryption-support.patch
-FROMLIST-drm-msm-dpu-request-for-display-color-blocks-based-on-hw-catalog-entry.patch
-FROMLIST-drm-msm-Fix-0xfffflub-in-Refactor-address-space-initialization.patch
 ANDROID-arm64-copy-CONFIG_CMDLINE_EXTEND-from-ARM.patch
 ANDROID-of-Support-CONFIG_CMDLINE_EXTEND-config-option.patch
 ANDROID-Kbuild-LLVMLinux-allow-overriding-clang-target-triple.patch

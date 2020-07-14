@@ -23,7 +23,7 @@ Signed-off-by: Sandeep Patil <sspatil@google.com>
 diff --git a/drivers/dma-buf/dma-buf.c b/drivers/dma-buf/dma-buf.c
 --- a/drivers/dma-buf/dma-buf.c
 +++ b/drivers/dma-buf/dma-buf.c
-@@ -1100,6 +1100,30 @@ int dma_buf_begin_cpu_access(struct dma_buf *dmabuf,
+@@ -1096,6 +1096,30 @@ int dma_buf_begin_cpu_access(struct dma_buf *dmabuf,
  }
  EXPORT_SYMBOL_GPL(dma_buf_begin_cpu_access);
  
@@ -54,7 +54,7 @@ diff --git a/drivers/dma-buf/dma-buf.c b/drivers/dma-buf/dma-buf.c
  /**
   * dma_buf_end_cpu_access - Must be called after accessing a dma_buf from the
   * cpu in the kernel context. Calls end_cpu_access to allow exporter-specific
-@@ -1126,6 +1150,21 @@ int dma_buf_end_cpu_access(struct dma_buf *dmabuf,
+@@ -1122,6 +1146,21 @@ int dma_buf_end_cpu_access(struct dma_buf *dmabuf,
  }
  EXPORT_SYMBOL_GPL(dma_buf_end_cpu_access);
  

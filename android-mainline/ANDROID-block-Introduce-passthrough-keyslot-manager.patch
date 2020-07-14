@@ -90,7 +90,7 @@ diff --git a/block/keyslot-manager.c b/block/keyslot-manager.c
  	/* This is for device initialization, so don't resume the device */
  	down_write(&ksm->lock);
  	for (slot = 0; slot < ksm->num_slots; slot++) {
-@@ -395,3 +417,22 @@ void blk_ksm_unregister(struct request_queue *q)
+@@ -394,3 +416,22 @@ void blk_ksm_unregister(struct request_queue *q)
  {
  	q->ksm = NULL;
  }

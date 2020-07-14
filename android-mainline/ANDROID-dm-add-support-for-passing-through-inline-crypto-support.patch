@@ -39,7 +39,7 @@ Signed-off-by: Eric Biggers <ebiggers@google.com>
 diff --git a/block/keyslot-manager.c b/block/keyslot-manager.c
 --- a/block/keyslot-manager.c
 +++ b/block/keyslot-manager.c
-@@ -417,6 +417,39 @@ void blk_ksm_unregister(struct request_queue *q)
+@@ -416,6 +416,39 @@ void blk_ksm_unregister(struct request_queue *q)
  {
  	q->ksm = NULL;
  }

@@ -164,7 +164,7 @@ diff --git a/block/keyslot-manager.c b/block/keyslot-manager.c
  	return true;
  }
  
-@@ -419,6 +426,44 @@ void blk_ksm_unregister(struct request_queue *q)
+@@ -418,6 +425,44 @@ void blk_ksm_unregister(struct request_queue *q)
  }
  EXPORT_SYMBOL_GPL(blk_ksm_unregister);
  
@@ -209,7 +209,7 @@ diff --git a/block/keyslot-manager.c b/block/keyslot-manager.c
  /**
   * blk_ksm_intersect_modes() - restrict supported modes by child device
   * @parent: The keyslot manager for parent device
-@@ -439,12 +484,14 @@ void blk_ksm_intersect_modes(struct blk_keyslot_manager *parent,
+@@ -438,12 +483,14 @@ void blk_ksm_intersect_modes(struct blk_keyslot_manager *parent,
  		parent->max_dun_bytes_supported =
  			min(parent->max_dun_bytes_supported,
  			    child->max_dun_bytes_supported);

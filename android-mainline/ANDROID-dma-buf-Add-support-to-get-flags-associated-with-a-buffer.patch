@@ -21,7 +21,7 @@ Signed-off-by: Sandeep Patil <sspatil@google.com>
 diff --git a/drivers/dma-buf/dma-buf.c b/drivers/dma-buf/dma-buf.c
 --- a/drivers/dma-buf/dma-buf.c
 +++ b/drivers/dma-buf/dma-buf.c
-@@ -1293,6 +1293,20 @@ void dma_buf_vunmap(struct dma_buf *dmabuf, void *vaddr)
+@@ -1289,6 +1289,20 @@ void dma_buf_vunmap(struct dma_buf *dmabuf, void *vaddr)
  }
  EXPORT_SYMBOL_GPL(dma_buf_vunmap);
  
