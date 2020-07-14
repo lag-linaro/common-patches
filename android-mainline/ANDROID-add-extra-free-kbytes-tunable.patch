@@ -37,8 +37,8 @@ Signed-off-by: Suren Baghdasaryan <surenb@google.com>
 ---
  Documentation/admin-guide/sysctl/vm.rst | 16 ++++++++++++++++
  kernel/sysctl.c                         | 11 +++++++++++
- mm/page_alloc.c                         | 24 ++++++++++++++++++++----
- 3 files changed, 47 insertions(+), 4 deletions(-)
+ mm/page_alloc.c                         | 23 +++++++++++++++++++----
+ 3 files changed, 46 insertions(+), 4 deletions(-)
 
 diff --git a/Documentation/admin-guide/sysctl/vm.rst b/Documentation/admin-guide/sysctl/vm.rst
 --- a/Documentation/admin-guide/sysctl/vm.rst
@@ -153,7 +153,7 @@ diff --git a/mm/page_alloc.c b/mm/page_alloc.c
  		if (is_highmem(zone)) {
  			/*
  			 * __GFP_HIGH and PF_MEMALLOC allocations usually don't
-@@ -7802,8 +7817,9 @@ static void __setup_per_zone_wmarks(void)
+@@ -7802,8 +7817,8 @@ static void __setup_per_zone_wmarks(void)
  				      watermark_scale_factor, 10000));
  
  		zone->watermark_boost = 0;
@@ -161,11 +161,10 @@ diff --git a/mm/page_alloc.c b/mm/page_alloc.c
 -		zone->_watermark[WMARK_HIGH] = min_wmark_pages(zone) + tmp * 2;
 +		zone->_watermark[WMARK_LOW]  = min_wmark_pages(zone) + low + tmp;
 +		zone->_watermark[WMARK_HIGH] = min_wmark_pages(zone) + low + tmp * 2;
-+		zone->watermark_boost = 0;
  
  		spin_unlock_irqrestore(&zone->lock, flags);
  	}
-@@ -7886,7 +7902,7 @@ core_initcall(init_per_zone_wmark_min)
+@@ -7886,7 +7901,7 @@ core_initcall(init_per_zone_wmark_min)
  /*
   * min_free_kbytes_sysctl_handler - just a wrapper around proc_dointvec() so
   *	that we can call two helper functions whenever min_free_kbytes

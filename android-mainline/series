@@ -2,7 +2,7 @@
 # android-mainline patches
 #
 # Applies onto upstream 11ba468877bb Linux v5.8-rc5
-# Matches android-mainline 44a98b30ed04 ("ANDROID: fix bad revert of "FROMLIST: pwm: Convert period and duty cycle to u64"")
+# Matches android-mainline fd15fc742b95 ("Revert "FROMLIST: soc: qcom: rpmpd: Allow RPMPD driver to be loaded as a module"")
 #
 Revert-security-lockdown-selinux-implement-SELinux-lockdown.patch
 Revert-drm-virtio-fix-DRM_FORMAT_-handling.patch
@@ -22,7 +22,6 @@ FROMLIST-lib-list_sort-fix-function-type-mismatches.patch
 FROMLIST-overlayfs-handle-XATTR_NOSECURITY-flag-for-get-xattr-method.patch
 FROMLIST-overlayfs-internal-getxattr-operations-without-sepolicy-checking.patch
 FROMLIST-overlayfs-override_creds-off-option-bypass-creator_cred.patch
-FROMLIST-soc-qcom-rpmpd-Allow-RPMPD-driver-to-be-loaded-as-a-module.patch
 FROMLIST-soc-qcom-rpmh-Allow-RPMH-driver-to-be-loaded-as-a-module.patch
 FROMLIST-ASoC-qcom-Kconfig-Tweak-dependencies-on-SND_SOC_SDM845.patch
 FROMLIST-power_supply-Add-additional-health-properties-to-the-header.patch
@@ -482,4 +481,3 @@ ANDROID-f2fs-add-back-compress-inode-check.patch
 ANDROID-sound-usb-Add-vendor-s-hooking-interface.patch
 ANDROID-vendor_hooks-FPSIMD-save-restore-by-using-vendor_hooks.patch
 ANDROID-GKI-set-CONFIG_STATIC_USERMODEHELPER_PATH.patch
-DROP-ME-Leftover-pieces-from-the-5.8-rc1-merge.patch
