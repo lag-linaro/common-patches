@@ -1,6 +1,6 @@
 From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
 From: Eric Biggers <ebiggers@google.com>
-Date: Wed, 17 Jun 2020 07:57:32 +0000
+Date: Thu, 2 Jul 2020 01:56:07 +0000
 Subject: FROMLIST: ext4: add inline encryption support
 
 Wire up ext4 to support inline encryption via the helper functions which
@@ -20,35 +20,37 @@ fs/crypto/ now provides.  This includes:
 
 - Not doing filesystem-layer crypto on inline-encrypted files.
 
-Signed-off-by: Eric Biggers <ebiggers@google.com>
 Co-developed-by: Satya Tangirala <satyat@google.com>
 Signed-off-by: Satya Tangirala <satyat@google.com>
+Reviewed-by: Theodore Ts'o <tytso@mit.edu>
+Link: https://lore.kernel.org/r/20200702015607.1215430-5-satyat@google.com
+Signed-off-by: Eric Biggers <ebiggers@google.com>
 
 Bug: 137270441
-Link: https://lore.kernel.org/r/20200617075732.213198-5-satyat@google.com
 Test: tested as series; see Ie1b77f7615d6a7a60fdc9105c7ab2200d17636a8
 Change-Id: I73dac46ff1eba56a13975c387b20554416ddbad8
 ---
- Documentation/admin-guide/ext4.rst |  6 ++++++
+ Documentation/admin-guide/ext4.rst |  7 +++++++
  fs/buffer.c                        |  7 ++++---
  fs/ext4/inode.c                    |  4 ++--
  fs/ext4/page-io.c                  |  6 ++++--
  fs/ext4/readpage.c                 | 11 ++++++++---
- fs/ext4/super.c                    |  9 +++++++++
- 6 files changed, 33 insertions(+), 10 deletions(-)
+ fs/ext4/super.c                    | 12 ++++++++++++
+ 6 files changed, 37 insertions(+), 10 deletions(-)
 
 diff --git a/Documentation/admin-guide/ext4.rst b/Documentation/admin-guide/ext4.rst
 --- a/Documentation/admin-guide/ext4.rst
 +++ b/Documentation/admin-guide/ext4.rst
-@@ -395,6 +395,12 @@ When mounting an ext4 filesystem, the following option are accepted:
+@@ -395,6 +395,13 @@ When mounting an ext4 filesystem, the following option are accepted:
          Documentation/filesystems/dax.txt.  Note that this option is
          incompatible with data=journal.
  
 +  inlinecrypt
-+        Encrypt/decrypt the contents of encrypted files using the blk-crypto
-+        framework rather than filesystem-layer encryption. This allows the use
-+        of inline encryption hardware. The on-disk format is unaffected. For
-+        more details, see Documentation/block/inline-encryption.rst.
++        When possible, encrypt/decrypt the contents of encrypted files using the
++        blk-crypto framework rather than filesystem-layer encryption. This
++        allows the use of inline encryption hardware. The on-disk format is
++        unaffected. For more details, see
++        Documentation/block/inline-encryption.rst.
 +
  Data Mode
  =========
@@ -210,3 +212,13 @@ diff --git a/fs/ext4/super.c b/fs/ext4/super.c
  	}
  
  	for (m = ext4_mount_opts; m->token != Opt_err; m++)
+@@ -2404,6 +2413,9 @@ static int _ext4_show_options(struct seq_file *seq, struct super_block *sb,
+ 
+ 	fscrypt_show_test_dummy_encryption(seq, sep, sb);
+ 
++	if (sb->s_flags & SB_INLINECRYPT)
++		SEQ_OPTS_PUTS("inlinecrypt");
++
+ 	if (test_opt(sb, DAX_ALWAYS)) {
+ 		if (IS_EXT2_SB(sb))
+ 			SEQ_OPTS_PUTS("dax");

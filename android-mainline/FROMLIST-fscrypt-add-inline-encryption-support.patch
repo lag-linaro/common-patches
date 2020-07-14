@@ -1,20 +1,21 @@
 From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
 From: Satya Tangirala <satyat@google.com>
-Date: Wed, 17 Jun 2020 07:57:30 +0000
+Date: Thu, 2 Jul 2020 01:56:05 +0000
 Subject: FROMLIST: fscrypt: add inline encryption support
 
 Add support for inline encryption to fs/crypto/.  With "inline
 encryption", the block layer handles the decryption/encryption as part
 of the bio, instead of the filesystem doing the crypto itself via
-Linux's crypto API.  This model is needed in order to take advantage of
+Linux's crypto API. This model is needed in order to take advantage of
 the inline encryption hardware present on most modern mobile SoCs.
 
 To use inline encryption, the filesystem needs to be mounted with
-'-o inlinecrypt'.  The contents of any encrypted files will then be
-encrypted using blk-crypto, instead of using the traditional
-filesystem-layer crypto. Fscrypt still provides the key and IV to use,
-and the actual ciphertext on-disk is still the same; therefore it's
-testable using the existing fscrypt ciphertext verification tests.
+'-o inlinecrypt'. Blk-crypto will then be used instead of the traditional
+filesystem-layer crypto whenever possible to encrypt the contents
+of any encrypted files in that filesystem. Fscrypt still provides the key
+and IV to use, and the actual ciphertext on-disk is still the same;
+therefore it's testable using the existing fscrypt ciphertext verification
+tests.
 
 Note that since blk-crypto has a fallback to Linux's crypto API, and
 also supports all the encryption modes currently supported by fscrypt,
@@ -25,29 +26,57 @@ Per-filesystem changes will be needed to set encryption contexts when
 submitting bios and to implement the 'inlinecrypt' mount option.  This
 patch just adds the common code.
 
+Signed-off-by: Satya Tangirala <satyat@google.com>
+Reviewed-by: Jaegeuk Kim <jaegeuk@kernel.org>
+Reviewed-by: Eric Biggers <ebiggers@google.com>
+Reviewed-by: Theodore Ts'o <tytso@mit.edu>
+Link: https://lore.kernel.org/r/20200702015607.1215430-3-satyat@google.com
 Co-developed-by: Eric Biggers <ebiggers@google.com>
 Signed-off-by: Eric Biggers <ebiggers@google.com>
-Signed-off-by: Satya Tangirala <satyat@google.com>
 
 Bug: 137270441
-Link: https://lore.kernel.org/r/20200617075732.213198-3-satyat@google.com
 Test: tested as series; see Ie1b77f7615d6a7a60fdc9105c7ab2200d17636a8
 Change-Id: I72e7e29db017404cdf7b5125718b5ba9590d31b4
 ---
- fs/crypto/Kconfig           |   6 +
- fs/crypto/Makefile          |   1 +
- fs/crypto/bio.c             |  50 ++++++
- fs/crypto/crypto.c          |   2 +-
- fs/crypto/fname.c           |   4 +-
- fs/crypto/fscrypt_private.h | 118 ++++++++++--
- fs/crypto/inline_crypt.c    | 349 ++++++++++++++++++++++++++++++++++++
- fs/crypto/keyring.c         |   6 +-
- fs/crypto/keysetup.c        |  68 ++++---
- fs/crypto/keysetup_v1.c     |  16 +-
- include/linux/fscrypt.h     |  82 +++++++++
- 11 files changed, 655 insertions(+), 47 deletions(-)
+ Documentation/filesystems/fscrypt.rst |   3 +
+ fs/crypto/Kconfig                     |   6 +
+ fs/crypto/Makefile                    |   1 +
+ fs/crypto/bio.c                       |  51 ++++
+ fs/crypto/crypto.c                    |   2 +-
+ fs/crypto/fname.c                     |   4 +-
+ fs/crypto/fscrypt_private.h           | 115 +++++++-
+ fs/crypto/inline_crypt.c              | 364 ++++++++++++++++++++++++++
+ fs/crypto/keyring.c                   |   6 +-
+ fs/crypto/keysetup.c                  |  70 +++--
+ fs/crypto/keysetup_v1.c               |  16 +-
+ include/linux/fscrypt.h               |  82 ++++++
+ 12 files changed, 673 insertions(+), 47 deletions(-)
  create mode 100644 fs/crypto/inline_crypt.c
 
+diff --git a/Documentation/filesystems/fscrypt.rst b/Documentation/filesystems/fscrypt.rst
+--- a/Documentation/filesystems/fscrypt.rst
++++ b/Documentation/filesystems/fscrypt.rst
+@@ -1255,6 +1255,7 @@ f2fs encryption using `kvm-xfstests
+ <https://github.com/tytso/xfstests-bld/blob/master/Documentation/kvm-quickstart.md>`_::
+ 
+     kvm-xfstests -c ext4,f2fs -g encrypt
++    kvm-xfstests -c ext4,f2fs -g encrypt -m inlinecrypt
+ 
+ UBIFS encryption can also be tested this way, but it should be done in
+ a separate command, and it takes some time for kvm-xfstests to set up
+@@ -1276,6 +1277,7 @@ This tests the encrypted I/O paths more thoroughly.  To do this with
+ kvm-xfstests, use the "encrypt" filesystem configuration::
+ 
+     kvm-xfstests -c ext4/encrypt,f2fs/encrypt -g auto
++    kvm-xfstests -c ext4/encrypt,f2fs/encrypt -g auto -m inlinecrypt
+ 
+ Because this runs many more tests than "-g encrypt" does, it takes
+ much longer to run; so also consider using `gce-xfstests
+@@ -1283,3 +1285,4 @@ much longer to run; so also consider using `gce-xfstests
+ instead of kvm-xfstests::
+ 
+     gce-xfstests -c ext4/encrypt,f2fs/encrypt -g auto
++    gce-xfstests -c ext4/encrypt,f2fs/encrypt -g auto -m inlinecrypt
 diff --git a/fs/crypto/Kconfig b/fs/crypto/Kconfig
 --- a/fs/crypto/Kconfig
 +++ b/fs/crypto/Kconfig
@@ -72,7 +101,7 @@ diff --git a/fs/crypto/Makefile b/fs/crypto/Makefile
 diff --git a/fs/crypto/bio.c b/fs/crypto/bio.c
 --- a/fs/crypto/bio.c
 +++ b/fs/crypto/bio.c
-@@ -41,6 +41,52 @@ void fscrypt_decrypt_bio(struct bio *bio)
+@@ -41,6 +41,53 @@ void fscrypt_decrypt_bio(struct bio *bio)
  }
  EXPORT_SYMBOL(fscrypt_decrypt_bio);
  
@@ -109,7 +138,8 @@ diff --git a/fs/crypto/bio.c b/fs/crypto/bio.c
 +		len -= blocks_this_page;
 +		lblk += blocks_this_page;
 +		pblk += blocks_this_page;
-+		if (num_pages == BIO_MAX_PAGES || !len) {
++		if (num_pages == BIO_MAX_PAGES || !len ||
++		    !fscrypt_mergeable_bio(bio, inode, lblk)) {
 +			err = submit_bio_wait(bio);
 +			if (err)
 +				goto out;
@@ -125,7 +155,7 @@ diff --git a/fs/crypto/bio.c b/fs/crypto/bio.c
  /**
   * fscrypt_zeroout_range() - zero out a range of blocks in an encrypted file
   * @inode: the file's inode
-@@ -75,6 +121,10 @@ int fscrypt_zeroout_range(const struct inode *inode, pgoff_t lblk,
+@@ -75,6 +122,10 @@ int fscrypt_zeroout_range(const struct inode *inode, pgoff_t lblk,
  	if (len == 0)
  		return 0;
  
@@ -201,20 +231,17 @@ diff --git a/fs/crypto/fscrypt_private.h b/fs/crypto/fscrypt_private.h
  /*
   * fscrypt_info - the "encryption key" for an inode
   *
-@@ -175,12 +190,23 @@ struct fscrypt_symlink_data {
+@@ -175,12 +190,20 @@ struct fscrypt_symlink_data {
   */
  struct fscrypt_info {
  
 -	/* The actual crypto transform used for encryption and decryption */
 -	struct crypto_skcipher *ci_ctfm;
 +	/* The key in a form prepared for actual encryption/decryption */
-+	struct fscrypt_prepared_key	ci_enc_key;
++	struct fscrypt_prepared_key ci_enc_key;
  
 -	/* True if the key should be freed when this fscrypt_info is freed */
-+	/*
-+	 * True if the ci_enc_key should be freed when this fscrypt_info is
-+	 * freed
-+	 */
++	/* True if ci_enc_key should be freed when this fscrypt_info is freed */
  	bool ci_owns_key;
  
 +#ifdef CONFIG_FS_ENCRYPTION_INLINE_CRYPT
@@ -228,7 +255,7 @@ diff --git a/fs/crypto/fscrypt_private.h b/fs/crypto/fscrypt_private.h
  	/*
  	 * Encryption mode used for this inode.  It corresponds to either the
  	 * contents or filenames encryption mode, depending on the inode type.
-@@ -205,7 +231,7 @@ struct fscrypt_info {
+@@ -205,7 +228,7 @@ struct fscrypt_info {
  
  	/*
  	 * If non-NULL, then encryption is done using the master key directly
@@ -237,7 +264,7 @@ diff --git a/fs/crypto/fscrypt_private.h b/fs/crypto/fscrypt_private.h
  	 */
  	struct fscrypt_direct_key *ci_direct_key;
  
-@@ -260,6 +286,7 @@ union fscrypt_iv {
+@@ -260,6 +283,7 @@ union fscrypt_iv {
  		u8 nonce[FS_KEY_DERIVATION_NONCE_SIZE];
  	};
  	u8 raw[FSCRYPT_MAX_IV_SIZE];
@@ -245,13 +272,13 @@ diff --git a/fs/crypto/fscrypt_private.h b/fs/crypto/fscrypt_private.h
  };
  
  void fscrypt_generate_iv(union fscrypt_iv *iv, u64 lblk_num,
-@@ -301,6 +328,74 @@ int fscrypt_hkdf_expand(const struct fscrypt_hkdf *hkdf, u8 context,
+@@ -301,6 +325,75 @@ int fscrypt_hkdf_expand(const struct fscrypt_hkdf *hkdf, u8 context,
  
  void fscrypt_destroy_hkdf(struct fscrypt_hkdf *hkdf);
  
 +/* inline_crypt.c */
 +#ifdef CONFIG_FS_ENCRYPTION_INLINE_CRYPT
-+void fscrypt_select_encryption_impl(struct fscrypt_info *ci);
++int fscrypt_select_encryption_impl(struct fscrypt_info *ci);
 +
 +static inline bool
 +fscrypt_using_inline_encryption(const struct fscrypt_info *ci)
@@ -285,12 +312,13 @@ diff --git a/fs/crypto/fscrypt_private.h b/fs/crypto/fscrypt_private.h
 +
 +#else /* CONFIG_FS_ENCRYPTION_INLINE_CRYPT */
 +
-+static inline void fscrypt_select_encryption_impl(struct fscrypt_info *ci)
++static inline int fscrypt_select_encryption_impl(struct fscrypt_info *ci)
 +{
++	return 0;
 +}
 +
-+static inline bool fscrypt_using_inline_encryption(
-+					const struct fscrypt_info *ci)
++static inline bool
++fscrypt_using_inline_encryption(const struct fscrypt_info *ci)
 +{
 +	return false;
 +}
@@ -320,7 +348,7 @@ diff --git a/fs/crypto/fscrypt_private.h b/fs/crypto/fscrypt_private.h
  /* keyring.c */
  
  /*
-@@ -394,9 +489,9 @@ struct fscrypt_master_key {
+@@ -394,9 +487,9 @@ struct fscrypt_master_key {
  	 * Per-mode encryption keys for the various types of encryption policies
  	 * that use them.  Allocated and derived on-demand.
  	 */
@@ -333,7 +361,7 @@ diff --git a/fs/crypto/fscrypt_private.h b/fs/crypto/fscrypt_private.h
  
  	/* Hash key for inode numbers.  Initialized only when needed. */
  	siphash_key_t		mk_ino_hash_key;
-@@ -460,13 +555,16 @@ struct fscrypt_mode {
+@@ -460,13 +553,15 @@ struct fscrypt_mode {
  	int keysize;
  	int ivsize;
  	int logged_impl_name;
@@ -346,8 +374,7 @@ diff --git a/fs/crypto/fscrypt_private.h b/fs/crypto/fscrypt_private.h
 -						  const u8 *raw_key,
 -						  const struct inode *inode);
 +int fscrypt_prepare_key(struct fscrypt_prepared_key *prep_key,
-+			const u8 *raw_key,
-+			const struct fscrypt_info *ci);
++			const u8 *raw_key, const struct fscrypt_info *ci);
 +
 +void fscrypt_destroy_prepared_key(struct fscrypt_prepared_key *prep_key);
  
@@ -355,10 +382,10 @@ diff --git a/fs/crypto/fscrypt_private.h b/fs/crypto/fscrypt_private.h
  
 diff --git a/fs/crypto/inline_crypt.c b/fs/crypto/inline_crypt.c
 new file mode 100644
-index 000000000000..7dbeb49260a6
+index 000000000000..d7aecadf33c1
 --- /dev/null
 +++ b/fs/crypto/inline_crypt.c
-@@ -0,0 +1,349 @@
+@@ -0,0 +1,364 @@
 +// SPDX-License-Identifier: GPL-2.0
 +/*
 + * Inline encryption support for fscrypt
@@ -424,7 +451,7 @@ index 000000000000..7dbeb49260a6
 +}
 +
 +/* Enable inline encryption for this file if supported. */
-+void fscrypt_select_encryption_impl(struct fscrypt_info *ci)
++int fscrypt_select_encryption_impl(struct fscrypt_info *ci)
 +{
 +	const struct inode *inode = ci->ci_inode;
 +	struct super_block *sb = inode->i_sb;
@@ -435,19 +462,32 @@ index 000000000000..7dbeb49260a6
 +
 +	/* The file must need contents encryption, not filenames encryption */
 +	if (!fscrypt_needs_contents_encryption(inode))
-+		return;
++		return 0;
 +
-+	/* The crypto mode must be valid */
++	/* The crypto mode must have a blk-crypto counterpart */
 +	if (ci->ci_mode->blk_crypto_mode == BLK_ENCRYPTION_MODE_INVALID)
-+		return;
++		return 0;
 +
 +	/* The filesystem must be mounted with -o inlinecrypt */
 +	if (!(sb->s_flags & SB_INLINECRYPT))
-+		return;
++		return 0;
 +
 +	/*
-+	 * blk-crypto must support the crypto configuration we'll use for the
-+	 * inode on all devices in the sb
++	 * When a page contains multiple logically contiguous filesystem blocks,
++	 * some filesystem code only calls fscrypt_mergeable_bio() for the first
++	 * block in the page. This is fine for most of fscrypt's IV generation
++	 * strategies, where contiguous blocks imply contiguous IVs. But it
++	 * doesn't work with IV_INO_LBLK_32. For now, simply exclude
++	 * IV_INO_LBLK_32 with blocksize != PAGE_SIZE from inline encryption.
++	 */
++	if ((fscrypt_policy_flags(&ci->ci_policy) &
++	     FSCRYPT_POLICY_FLAG_IV_INO_LBLK_32) &&
++	    sb->s_blocksize != PAGE_SIZE)
++		return 0;
++
++	/*
++	 * On all the filesystem's devices, blk-crypto must support the crypto
++	 * configuration that the file would use.
 +	 */
 +	crypto_cfg.crypto_mode = ci->ci_mode->blk_crypto_mode;
 +	crypto_cfg.data_unit_size = sb->s_blocksize;
@@ -455,7 +495,7 @@ index 000000000000..7dbeb49260a6
 +	num_devs = fscrypt_get_num_devices(sb);
 +	devs = kmalloc_array(num_devs, sizeof(*devs), GFP_NOFS);
 +	if (!devs)
-+		return;
++		return -ENOMEM;
 +	fscrypt_get_devices(sb, num_devs, devs);
 +
 +	for (i = 0; i < num_devs; i++) {
@@ -466,6 +506,8 @@ index 000000000000..7dbeb49260a6
 +	ci->ci_inlinecrypt = true;
 +out_free_devs:
 +	kfree(devs);
++
++	return 0;
 +}
 +
 +int fscrypt_prepare_inline_crypt_key(struct fscrypt_prepared_key *prep_key,
@@ -653,7 +695,7 @@ index 000000000000..7dbeb49260a6
 + *
 + * When building a bio which may contain data which should undergo inline
 + * encryption (or decryption) via fscrypt, filesystems should call this function
-+ * to ensure that the resulting bio contains only logically contiguous data.
++ * to ensure that the resulting bio contains only contiguous data unit numbers.
 + * This will return false if the next part of the I/O cannot be merged with the
 + * bio because either the encryption key would be different or the encryption
 + * data unit numbers would be discontiguous.
@@ -866,16 +908,18 @@ diff --git a/fs/crypto/keysetup.c b/fs/crypto/keysetup.c
  	err = 0;
  out_unlock:
  	mutex_unlock(&fscrypt_mode_key_setup_mutex);
-@@ -310,6 +332,8 @@ static int setup_file_encryption_key(struct fscrypt_info *ci,
+@@ -310,6 +332,10 @@ static int setup_file_encryption_key(struct fscrypt_info *ci,
  	struct fscrypt_key_specifier mk_spec;
  	int err;
  
-+	fscrypt_select_encryption_impl(ci);
++	err = fscrypt_select_encryption_impl(ci);
++	if (err)
++		return err;
 +
  	switch (ci->ci_policy.version) {
  	case FSCRYPT_POLICY_V1:
  		mk_spec.type = FSCRYPT_KEY_SPEC_TYPE_DESCRIPTOR;
-@@ -402,7 +426,7 @@ static void put_crypt_info(struct fscrypt_info *ci)
+@@ -402,7 +428,7 @@ static void put_crypt_info(struct fscrypt_info *ci)
  	if (ci->ci_direct_key)
  		fscrypt_put_direct_key(ci->ci_direct_key);
  	else if (ci->ci_owns_key)

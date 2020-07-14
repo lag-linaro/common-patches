@@ -33,13 +33,15 @@ android-mainline commits, including:
    fca1165b7a7d ("ANDROID: block: make blk_crypto_start_using_mode() properly check for support")
    935b0c41ff62 ("ANDROID: block: require drivers to declare supported crypto key type(s)")
    c2b86b727a41 ("FROMLIST: Update Inline Encryption from v6 to upstream version of patch series")
+   9c9596e9803d ("ANDROID: block: fix checking for wrapped key support")
 
 Bug: 147209885
+Bug: 160883801
 Change-Id: I29c2a7cda88f8804f54b61e611cbb30a1ade9bff
 Signed-off-by: Eric Biggers <ebiggers@google.com>
 ---
- block/blk-crypto-fallback.c      |  7 +++++
- block/blk-crypto.c               | 34 ++++++++++++++++++-----
+ block/blk-crypto-fallback.c      |  1 +
+ block/blk-crypto.c               | 40 +++++++++++++++++++++------
  block/keyslot-manager.c          | 47 ++++++++++++++++++++++++++++++++
  drivers/md/dm-default-key.c      |  3 +-
  drivers/md/dm.c                  |  2 ++
@@ -47,25 +49,12 @@ Signed-off-by: Eric Biggers <ebiggers@google.com>
  fs/crypto/inline_crypt.c         |  6 ++--
  include/linux/blk-crypto.h       | 11 ++++++--
  include/linux/keyslot-manager.h  | 27 ++++++++++++++++++
- 9 files changed, 126 insertions(+), 12 deletions(-)
+ 9 files changed, 124 insertions(+), 14 deletions(-)
 
 diff --git a/block/blk-crypto-fallback.c b/block/blk-crypto-fallback.c
 --- a/block/blk-crypto-fallback.c
 +++ b/block/blk-crypto-fallback.c
-@@ -491,6 +491,12 @@ bool blk_crypto_fallback_bio_prep(struct bio **bio_ptr)
- 	struct bio_crypt_ctx *bc = bio->bi_crypt_context;
- 	struct bio_fallback_crypt_ctx *f_ctx;
- 
-+	if (bc->bc_key->crypto_cfg.is_hw_wrapped) {
-+		pr_warn_once("HW wrapped key cannot be used with fallback.\n");
-+		bio->bi_status = BLK_STS_NOTSUPP;
-+		return false;
-+	}
-+
- 	if (WARN_ON_ONCE(!tfms_inited[bc->bc_key->crypto_cfg.crypto_mode])) {
- 		/* User didn't call blk_crypto_start_using_key() first */
- 		bio->bi_status = BLK_STS_IOERR;
-@@ -545,6 +551,7 @@ static int blk_crypto_fallback_init(void)
+@@ -545,6 +545,7 @@ static int blk_crypto_fallback_init(void)
  
  	blk_crypto_ksm.ksm_ll_ops = blk_crypto_ksm_ll_ops;
  	blk_crypto_ksm.max_dun_bytes_supported = BLK_CRYPTO_MAX_IV_SIZE;
@@ -136,7 +125,20 @@ diff --git a/block/blk-crypto.c b/block/blk-crypto.c
  
  	return 0;
  }
-@@ -375,6 +391,10 @@ int blk_crypto_start_using_key(const struct blk_crypto_key *key,
+@@ -351,8 +367,10 @@ EXPORT_SYMBOL_GPL(blk_crypto_init_key);
+ bool blk_crypto_config_supported(struct request_queue *q,
+ 				 const struct blk_crypto_config *cfg)
+ {
+-	return IS_ENABLED(CONFIG_BLK_INLINE_ENCRYPTION_FALLBACK) ||
+-	       blk_ksm_crypto_cfg_supported(q->ksm, cfg);
++	if (IS_ENABLED(CONFIG_BLK_INLINE_ENCRYPTION_FALLBACK) &&
++	    !cfg->is_hw_wrapped)
++		return true;
++	return blk_ksm_crypto_cfg_supported(q->ksm, cfg);
+ }
+ 
+ /**
+@@ -375,6 +393,10 @@ int blk_crypto_start_using_key(const struct blk_crypto_key *key,
  {
  	if (blk_ksm_crypto_cfg_supported(q->ksm, &key->crypto_cfg))
  		return 0;
@@ -252,8 +254,8 @@ diff --git a/drivers/md/dm.c b/drivers/md/dm.c
 diff --git a/drivers/scsi/ufs/ufshcd-crypto.c b/drivers/scsi/ufs/ufshcd-crypto.c
 --- a/drivers/scsi/ufs/ufshcd-crypto.c
 +++ b/drivers/scsi/ufs/ufshcd-crypto.c
-@@ -199,6 +199,7 @@ int ufshcd_hba_init_crypto_spec(struct ufs_hba *hba,
- 	hba->ksm.ksm_ll_ops = *ksm_ops;
+@@ -187,6 +187,7 @@ int ufshcd_hba_init_crypto_capabilities(struct ufs_hba *hba)
+ 	hba->ksm.ksm_ll_ops = ufshcd_ksm_ops;
  	/* UFS only supports 8 bytes for any DUN */
  	hba->ksm.max_dun_bytes_supported = 8;
 +	hba->ksm.features = BLK_CRYPTO_FEATURE_STANDARD_KEYS;
@@ -263,7 +265,7 @@ diff --git a/drivers/scsi/ufs/ufshcd-crypto.c b/drivers/scsi/ufs/ufshcd-crypto.c
 diff --git a/fs/crypto/inline_crypt.c b/fs/crypto/inline_crypt.c
 --- a/fs/crypto/inline_crypt.c
 +++ b/fs/crypto/inline_crypt.c
-@@ -92,6 +92,7 @@ void fscrypt_select_encryption_impl(struct fscrypt_info *ci)
+@@ -105,6 +105,7 @@ int fscrypt_select_encryption_impl(struct fscrypt_info *ci)
  	crypto_cfg.crypto_mode = ci->ci_mode->blk_crypto_mode;
  	crypto_cfg.data_unit_size = sb->s_blocksize;
  	crypto_cfg.dun_bytes = fscrypt_get_dun_bytes(ci);
@@ -271,7 +273,7 @@ diff --git a/fs/crypto/inline_crypt.c b/fs/crypto/inline_crypt.c
  	num_devs = fscrypt_get_num_devices(sb);
  	devs = kmalloc_array(num_devs, sizeof(*devs), GFP_NOFS);
  	if (!devs)
-@@ -129,8 +130,9 @@ int fscrypt_prepare_inline_crypt_key(struct fscrypt_prepared_key *prep_key,
+@@ -144,8 +145,9 @@ int fscrypt_prepare_inline_crypt_key(struct fscrypt_prepared_key *prep_key,
  	blk_key->num_devs = num_devs;
  	fscrypt_get_devices(sb, num_devs, blk_key->devs);
  

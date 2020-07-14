@@ -13,6 +13,7 @@ been used by fs/crypto/, which is no longer modular.
 
 Bug: 137270441
 Bug: 147814592
+Bug: 160885805
 Change-Id: I64bf98aecabe891c188b30dd50124aacb1e008ca
 Signed-off-by: Eric Biggers <ebiggers@google.com>
 ---

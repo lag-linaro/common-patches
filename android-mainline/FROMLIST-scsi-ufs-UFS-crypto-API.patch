@@ -1,34 +1,36 @@
 From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
 From: Satya Tangirala <satyat@google.com>
-Date: Thu, 18 Jun 2020 02:47:35 +0000
+Date: Mon, 6 Jul 2020 20:04:13 +0000
 Subject: FROMLIST: scsi: ufs: UFS crypto API
 
-Introduce functions to manipulate UFS inline encryption hardware
-in line with the JEDEC UFSHCI v2.1 specification and to work with the
-block keyslot manager.
+Introduce functions to manipulate UFS inline encryption hardware in line
+with the JEDEC UFSHCI v2.1 specification and to work with the block keyslot
+manager.
 
 The UFS crypto API will assume by default that a vendor driver doesn't
 support UFS crypto, even if the hardware advertises the capability, because
 a lot of hardware requires some special handling that's not specified in
 the aforementioned JEDEC spec. Each vendor driver must explicitly set
-hba->caps |= UFSHCD_CAP_CRYPTO before ufshcd_hba_init_crypto is called to
-opt-in to UFS crypto support.
+hba->caps |= UFSHCD_CAP_CRYPTO before ufshcd_hba_init_crypto_capabilities()
+is called to opt-in to UFS crypto support.
 
-Signed-off-by: Satya Tangirala <satyat@google.com>
+Link: https://lore.kernel.org/r/20200706200414.2027450-3-satyat@google.com
 Reviewed-by: Eric Biggers <ebiggers@google.com>
 Reviewed-by: Stanley Chu <stanley.chu@mediatek.com>
+Reviewed-by: Alim Akhtar <alim.akhtar@samsung.com>
+Signed-off-by: Satya Tangirala <satyat@google.com>
+Signed-off-by: Martin K. Petersen <martin.petersen@oracle.com>
 
 Bug: 137270441
-Link: https://lore.kernel.org/r/20200618024736.97207-3-satyat@google.com
 Test: tested as series; see Ie1b77f7615d6a7a60fdc9105c7ab2200d17636a8
 Change-Id: I98d2512858a231f11a6bf868198446378d3aa491
 ---
  drivers/scsi/ufs/Kconfig         |   9 ++
  drivers/scsi/ufs/Makefile        |   1 +
- drivers/scsi/ufs/ufshcd-crypto.c | 226 +++++++++++++++++++++++++++++++
- drivers/scsi/ufs/ufshcd-crypto.h |  42 ++++++
+ drivers/scsi/ufs/ufshcd-crypto.c | 238 +++++++++++++++++++++++++++++++
+ drivers/scsi/ufs/ufshcd-crypto.h |  46 ++++++
  drivers/scsi/ufs/ufshcd.h        |  12 ++
- 5 files changed, 290 insertions(+)
+ 5 files changed, 306 insertions(+)
  create mode 100644 drivers/scsi/ufs/ufshcd-crypto.c
  create mode 100644 drivers/scsi/ufs/ufshcd-crypto.h
 
@@ -61,10 +63,10 @@ diff --git a/drivers/scsi/ufs/Makefile b/drivers/scsi/ufs/Makefile
  obj-$(CONFIG_SCSI_UFS_HISI) += ufs-hisi.o
 diff --git a/drivers/scsi/ufs/ufshcd-crypto.c b/drivers/scsi/ufs/ufshcd-crypto.c
 new file mode 100644
-index 000000000000..65a3115d2a2d
+index 000000000000..98ff87c38aa7
 --- /dev/null
 +++ b/drivers/scsi/ufs/ufshcd-crypto.c
-@@ -0,0 +1,226 @@
+@@ -0,0 +1,238 @@
 +// SPDX-License-Identifier: GPL-2.0
 +/*
 + * Copyright 2019 Google LLC
@@ -205,18 +207,17 @@ index 000000000000..65a3115d2a2d
 +}
 +
 +/**
-+ * ufshcd_hba_init_crypto - Read crypto capabilities, init crypto fields in hba
++ * ufshcd_hba_init_crypto_capabilities - Read crypto capabilities, init crypto
++ *					 fields in hba
 + * @hba: Per adapter instance
 + *
 + * Return: 0 if crypto was initialized or is not supported, else a -errno value.
 + */
-+int ufshcd_hba_init_crypto(struct ufs_hba *hba)
++int ufshcd_hba_init_crypto_capabilities(struct ufs_hba *hba)
 +{
-+	int cap_idx = 0;
++	int cap_idx;
 +	int err = 0;
 +	enum blk_crypto_mode_num blk_mode_num;
-+	int slot = 0;
-+	int num_keyslots;
 +
 +	/*
 +	 * Don't use crypto if either the hardware doesn't advertise the
@@ -240,8 +241,8 @@ index 000000000000..65a3115d2a2d
 +	}
 +
 +	/* The actual number of configurations supported is (CFGC+1) */
-+	num_keyslots = hba->crypto_capabilities.config_count + 1;
-+	err = blk_ksm_init(&hba->ksm, num_keyslots);
++	err = blk_ksm_init(&hba->ksm,
++			   hba->crypto_capabilities.config_count + 1);
 +	if (err)
 +		goto out_free_caps;
 +
@@ -267,9 +268,6 @@ index 000000000000..65a3115d2a2d
 +				hba->crypto_cap_array[cap_idx].sdus_mask * 512;
 +	}
 +
-+	for (slot = 0; slot < num_keyslots; slot++)
-+		ufshcd_clear_keyslot(hba, slot);
-+
 +	return 0;
 +
 +out_free_caps:
@@ -278,6 +276,22 @@ index 000000000000..65a3115d2a2d
 +	/* Indicate that init failed by clearing UFSHCD_CAP_CRYPTO */
 +	hba->caps &= ~UFSHCD_CAP_CRYPTO;
 +	return err;
++}
++
++/**
++ * ufshcd_init_crypto - Initialize crypto hardware
++ * @hba: Per adapter instance
++ */
++void ufshcd_init_crypto(struct ufs_hba *hba)
++{
++	int slot;
++
++	if (!(hba->caps & UFSHCD_CAP_CRYPTO))
++		return;
++
++	/* Clear all keyslots - the number of keyslots is (CFGC + 1) */
++	for (slot = 0; slot < hba->crypto_capabilities.config_count + 1; slot++)
++		ufshcd_clear_keyslot(hba, slot);
 +}
 +
 +void ufshcd_crypto_setup_rq_keyslot_manager(struct ufs_hba *hba,
@@ -293,10 +307,10 @@ index 000000000000..65a3115d2a2d
 +}
 diff --git a/drivers/scsi/ufs/ufshcd-crypto.h b/drivers/scsi/ufs/ufshcd-crypto.h
 new file mode 100644
-index 000000000000..22677619de59
+index 000000000000..cbc58b4f5df7
 --- /dev/null
 +++ b/drivers/scsi/ufs/ufshcd-crypto.h
-@@ -0,0 +1,42 @@
+@@ -0,0 +1,46 @@
 +/* SPDX-License-Identifier: GPL-2.0 */
 +/*
 + * Copyright 2019 Google LLC
@@ -311,7 +325,9 @@ index 000000000000..22677619de59
 +
 +bool ufshcd_crypto_enable(struct ufs_hba *hba);
 +
-+int ufshcd_hba_init_crypto(struct ufs_hba *hba);
++int ufshcd_hba_init_crypto_capabilities(struct ufs_hba *hba);
++
++void ufshcd_init_crypto(struct ufs_hba *hba);
 +
 +void ufshcd_crypto_setup_rq_keyslot_manager(struct ufs_hba *hba,
 +					    struct request_queue *q);
@@ -325,10 +341,12 @@ index 000000000000..22677619de59
 +	return false;
 +}
 +
-+static inline int ufshcd_hba_init_crypto(struct ufs_hba *hba)
++static inline int ufshcd_hba_init_crypto_capabilities(struct ufs_hba *hba)
 +{
 +	return 0;
 +}
++
++static inline void ufshcd_init_crypto(struct ufs_hba *hba) { }
 +
 +static inline void ufshcd_crypto_setup_rq_keyslot_manager(struct ufs_hba *hba,
 +						struct request_queue *q) { }

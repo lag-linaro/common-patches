@@ -17,6 +17,8 @@ to the inline encryption hardware to encryption metadata. The hardware
 will internally unwrap the key and derive the metadata encryption key.
 
 Bug: 147209885
+Bug: 160883801
+Bug: 160885805
 
 Test: Validate metadata encryption & FBE with wrapped keys.
 

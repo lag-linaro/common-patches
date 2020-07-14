@@ -2,7 +2,7 @@
 # android-mainline patches
 #
 # Applies onto upstream 11ba468877bb Linux v5.8-rc5
-# Matches android-mainline fd15fc742b95 ("Revert "FROMLIST: soc: qcom: rpmpd: Allow RPMPD driver to be loaded as a module"")
+# Matches android-mainline 27b2ed4395fe ("ANDROID: update to latest fscrypt and UFS inline crypto patches")
 #
 Revert-security-lockdown-selinux-implement-SELinux-lockdown.patch
 Revert-drm-virtio-fix-DRM_FORMAT_-handling.patch
@@ -38,6 +38,12 @@ FROMLIST-fs-introduce-SB_INLINECRYPT.patch
 FROMLIST-fscrypt-add-inline-encryption-support.patch
 FROMLIST-f2fs-add-inline-encryption-support.patch
 FROMLIST-ext4-add-inline-encryption-support.patch
+FROMLIST-fscrypt-Add-functions-for-direct-I-O-support.patch
+FROMLIST-direct-io-add-support-for-fscrypt-using-blk-crypto.patch
+FROMLIST-iomap-support-direct-I-O-with-fscrypt-using-blk-crypto.patch
+FROMLIST-ext4-support-direct-I-O-with-fscrypt-using-blk-crypto.patch
+FROMLIST-f2fs-support-direct-I-O-with-fscrypt-using-blk-crypto.patch
+ANDROID-f2fs-add-back-compress-inode-check.patch
 ANDROID-arm64-copy-CONFIG_CMDLINE_EXTEND-from-ARM.patch
 ANDROID-of-Support-CONFIG_CMDLINE_EXTEND-config-option.patch
 ANDROID-Kbuild-LLVMLinux-allow-overriding-clang-target-triple.patch
@@ -441,14 +447,12 @@ ANDROID-fs-adjust-casefolding-support-to-match-android-mainline.patch
 ANDROID-ext4-Handle-casefolding-with-encryption.patch
 ANDROID-ext4-Optimize-match-for-casefolded-encrypted-dirs.patch
 ANDROID-f2fs-Handle-casefolding-with-Encryption.patch
-ANDROID-ext4-f2fs-enable-direct-I-O-with-inline-encryption.patch
 ANDROID-block-Introduce-passthrough-keyslot-manager.patch
 ANDROID-dm-add-support-for-passing-through-inline-crypto-support.patch
 ANDROID-dm-enable-may_passthrough_inline_crypto-on-some-targets.patch
 ANDROID-block-export-symbols-needed-for-modules-to-use-inline-crypto.patch
 ANDROID-dm-add-dm-default-key-target-for-metadata-encryption.patch
 ANDROID-scsi-ufs-allow-ufs-variants-to-override-sg-entry-size.patch
-ANDROID-scsi-ufs-UFS-crypto-variant-operations-API.patch
 ANDROID-block-add-hardware-wrapped-key-support.patch
 ANDROID-dm-add-support-for-passing-through-derive_raw_secret.patch
 ANDROID-dm-Add-wrapped-key-support-in-dm-default-key.patch
@@ -473,11 +477,10 @@ ANDROID-GKI-enable-CONFIG_TYPEC_TCPM.patch
 ANDROID-Makefile-append-BUILD_NUMBER-to-version-string-when-defined.patch
 ANDROID-lt9611-Sync-w-Vinod-s-most-recent-lt9611-patches-which-enable-HDMI-audio.patch
 ANDROID-db845c_gki.fragment-Add-audio-configs.patch
-ANDROID-block-fix-checking-for-wrapped-key-support.patch
 ANDROID-GKI-scripts-Makefile-update-the-lz4-command-2.patch
 ANDROID-GKI-drop-CONFIG_UAPI_HEADER_TEST-from-configs.patch
 ANDROID-sched-add-restrict-vendor-hook-to-modify-task-placement-policy-in-EAS.patch
-ANDROID-f2fs-add-back-compress-inode-check.patch
 ANDROID-sound-usb-Add-vendor-s-hooking-interface.patch
 ANDROID-vendor_hooks-FPSIMD-save-restore-by-using-vendor_hooks.patch
 ANDROID-GKI-set-CONFIG_STATIC_USERMODEHELPER_PATH.patch
+ANDROID-GKI-Enable-BOOT_CONFIG.patch

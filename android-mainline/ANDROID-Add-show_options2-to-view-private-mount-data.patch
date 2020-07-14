@@ -16,7 +16,7 @@ Signed-off-by: Daniel Rosenberg <drosen@google.com>
 diff --git a/fs/proc_namespace.c b/fs/proc_namespace.c
 --- a/fs/proc_namespace.c
 +++ b/fs/proc_namespace.c
-@@ -122,7 +122,9 @@ static int show_vfsmnt(struct seq_file *m, struct vfsmount *mnt)
+@@ -121,7 +121,9 @@ static int show_vfsmnt(struct seq_file *m, struct vfsmount *mnt)
  	if (err)
  		goto out;
  	show_mnt_opts(m, mnt);
@@ -27,7 +27,7 @@ diff --git a/fs/proc_namespace.c b/fs/proc_namespace.c
  		err = sb->s_op->show_options(m, mnt_path.dentry);
  	seq_puts(m, " 0 0\n");
  out:
-@@ -184,7 +186,9 @@ static int show_mountinfo(struct seq_file *m, struct vfsmount *mnt)
+@@ -183,7 +185,9 @@ static int show_mountinfo(struct seq_file *m, struct vfsmount *mnt)
  	err = show_sb_opts(m, sb);
  	if (err)
  		goto out;

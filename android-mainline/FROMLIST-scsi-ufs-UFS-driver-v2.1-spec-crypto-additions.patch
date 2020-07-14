@@ -1,33 +1,35 @@
 From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
 From: Satya Tangirala <satyat@google.com>
-Date: Thu, 18 Jun 2020 02:47:34 +0000
+Date: Mon, 6 Jul 2020 20:04:12 +0000
 Subject: FROMLIST: scsi: ufs: UFS driver v2.1 spec crypto additions
 
 Add the crypto registers and structs defined in v2.1 of the JEDEC UFSHCI
-specification in preparation to add support for inline encryption to
-UFS.
+specification in preparation to add support for inline encryption to UFS.
 
-Signed-off-by: Satya Tangirala <satyat@google.com>
+Link: https://lore.kernel.org/r/20200706200414.2027450-2-satyat@google.com
 Reviewed-by: Eric Biggers <ebiggers@google.com>
 Reviewed-by: Stanley Chu <stanley.chu@mediatek.com>
+Reviewed-by: Alim Akhtar <alim.akhtar@samsung.com>
+Signed-off-by: Satya Tangirala <satyat@google.com>
+Signed-off-by: Martin K. Petersen <martin.petersen@oracle.com>
 
 Bug: 137270441
-Link: https://lore.kernel.org/r/20200618024736.97207-2-satyat@google.com
 Test: tested as series; see Ie1b77f7615d6a7a60fdc9105c7ab2200d17636a8
 Change-Id: I8e4006bfd69692f7d5c1c37f660d90b9e2fa1274
 ---
- drivers/scsi/ufs/ufshcd.c |  2 ++
+ drivers/scsi/ufs/ufshcd.c |  3 ++
  drivers/scsi/ufs/ufshcd.h |  6 ++++
  drivers/scsi/ufs/ufshci.h | 67 +++++++++++++++++++++++++++++++++++++--
- 3 files changed, 73 insertions(+), 2 deletions(-)
+ 3 files changed, 74 insertions(+), 2 deletions(-)
 
 diff --git a/drivers/scsi/ufs/ufshcd.c b/drivers/scsi/ufs/ufshcd.c
 --- a/drivers/scsi/ufs/ufshcd.c
 +++ b/drivers/scsi/ufs/ufshcd.c
-@@ -4795,6 +4795,8 @@ ufshcd_transfer_rsp_status(struct ufs_hba *hba, struct ufshcd_lrb *lrbp)
+@@ -4795,6 +4795,9 @@ ufshcd_transfer_rsp_status(struct ufs_hba *hba, struct ufshcd_lrb *lrbp)
  	case OCS_MISMATCH_RESP_UPIU_SIZE:
  	case OCS_PEER_COMM_FAILURE:
  	case OCS_FATAL_ERROR:
++	case OCS_DEVICE_FATAL_ERROR:
 +	case OCS_INVALID_CRYPTO_CONFIG:
 +	case OCS_GENERAL_CRYPTO_ERROR:
  	default:

@@ -1,6 +1,6 @@
 From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
 From: Satya Tangirala <satyat@google.com>
-Date: Wed, 17 Jun 2020 07:57:29 +0000
+Date: Thu, 2 Jul 2020 01:56:04 +0000
 Subject: FROMLIST: fs: introduce SB_INLINECRYPT
 
 Introduce SB_INLINECRYPT, which is set by filesystems that wish to use
@@ -10,26 +10,19 @@ and code in fs/crypto/ needs to be able to check for this mount option
 in a filesystem-independent way.
 
 Signed-off-by: Satya Tangirala <satyat@google.com>
+Reviewed-by: Jaegeuk Kim <jaegeuk@kernel.org>
+Reviewed-by: Eric Biggers <ebiggers@google.com>
+Reviewed-by: Theodore Ts'o <tytso@mit.edu>
+Link: https://lore.kernel.org/r/20200702015607.1215430-2-satyat@google.com
+Signed-off-by: Eric Biggers <ebiggers@google.com>
 
 Bug: 137270441
-Link: https://lore.kernel.org/r/20200617075732.213198-2-satyat@google.com
 Test: tested as series; see Ie1b77f7615d6a7a60fdc9105c7ab2200d17636a8
+Change-Id: I735f55d798ffd1a95b7ef3d62ac59450748c81cb
 ---
- fs/proc_namespace.c | 1 +
- include/linux/fs.h  | 1 +
- 2 files changed, 2 insertions(+)
+ include/linux/fs.h | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/fs/proc_namespace.c b/fs/proc_namespace.c
---- a/fs/proc_namespace.c
-+++ b/fs/proc_namespace.c
-@@ -49,6 +49,7 @@ static int show_sb_opts(struct seq_file *m, struct super_block *sb)
- 		{ SB_DIRSYNC, ",dirsync" },
- 		{ SB_MANDLOCK, ",mand" },
- 		{ SB_LAZYTIME, ",lazytime" },
-+		{ SB_INLINECRYPT, ",inlinecrypt" },
- 		{ 0, NULL }
- 	};
- 	const struct proc_fs_opts *fs_infop;
 diff --git a/include/linux/fs.h b/include/linux/fs.h
 --- a/include/linux/fs.h
 +++ b/include/linux/fs.h

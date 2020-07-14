@@ -37,6 +37,7 @@ usually overwritten after fscrypt_set_bio_crypt_ctx() is called.)
 
 Bug: 137270441
 Bug: 147814592
+Bug: 160885805
 Change-Id: I69c9cd1e968ccf990e4ad96e5115b662237f5095
 Signed-off-by: Eric Biggers <ebiggers@google.com>
 ---
@@ -528,7 +529,7 @@ index 000000000000..2f1daa294835
 diff --git a/fs/crypto/inline_crypt.c b/fs/crypto/inline_crypt.c
 --- a/fs/crypto/inline_crypt.c
 +++ b/fs/crypto/inline_crypt.c
-@@ -224,6 +224,8 @@ static void fscrypt_generate_dun(const struct fscrypt_info *ci, u64 lblk_num,
+@@ -239,6 +239,8 @@ static void fscrypt_generate_dun(const struct fscrypt_info *ci, u64 lblk_num,
   * otherwise fscrypt_mergeable_bio() won't work as intended.
   *
   * The encryption context will be freed automatically when the bio is freed.
@@ -537,7 +538,7 @@ diff --git a/fs/crypto/inline_crypt.c b/fs/crypto/inline_crypt.c
   */
  void fscrypt_set_bio_crypt_ctx(struct bio *bio, const struct inode *inode,
  			       u64 first_lblk, gfp_t gfp_mask)
-@@ -231,6 +233,9 @@ void fscrypt_set_bio_crypt_ctx(struct bio *bio, const struct inode *inode,
+@@ -246,6 +248,9 @@ void fscrypt_set_bio_crypt_ctx(struct bio *bio, const struct inode *inode,
  	const struct fscrypt_info *ci = inode->i_crypt_info;
  	u64 dun[BLK_CRYPTO_DUN_ARRAY_SIZE];
  
@@ -547,7 +548,7 @@ diff --git a/fs/crypto/inline_crypt.c b/fs/crypto/inline_crypt.c
  	if (!fscrypt_inode_uses_inline_crypto(inode))
  		return;
  
-@@ -300,6 +305,9 @@ EXPORT_SYMBOL_GPL(fscrypt_set_bio_crypt_ctx_bh);
+@@ -315,6 +320,9 @@ EXPORT_SYMBOL_GPL(fscrypt_set_bio_crypt_ctx_bh);
   *
   * fscrypt_set_bio_crypt_ctx() must have already been called on the bio.
   *
@@ -557,7 +558,7 @@ diff --git a/fs/crypto/inline_crypt.c b/fs/crypto/inline_crypt.c
   * Return: true iff the I/O is mergeable
   */
  bool fscrypt_mergeable_bio(struct bio *bio, const struct inode *inode,
-@@ -310,6 +318,9 @@ bool fscrypt_mergeable_bio(struct bio *bio, const struct inode *inode,
+@@ -325,6 +333,9 @@ bool fscrypt_mergeable_bio(struct bio *bio, const struct inode *inode,
  
  	if (!!bc != fscrypt_inode_uses_inline_crypto(inode))
  		return false;
@@ -567,7 +568,7 @@ diff --git a/fs/crypto/inline_crypt.c b/fs/crypto/inline_crypt.c
  	if (!bc)
  		return true;
  
-@@ -343,7 +354,8 @@ bool fscrypt_mergeable_bio_bh(struct bio *bio,
+@@ -358,7 +369,8 @@ bool fscrypt_mergeable_bio_bh(struct bio *bio,
  	u64 next_lblk;
  
  	if (!bh_get_inode_and_lblk_num(next_bh, &inode, &next_lblk))

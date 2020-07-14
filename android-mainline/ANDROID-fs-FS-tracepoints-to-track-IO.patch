@@ -258,7 +258,7 @@ diff --git a/fs/f2fs/data.c b/fs/f2fs/data.c
  
  #define NUM_PREALLOC_POST_READ_CTXS	128
  
-@@ -3335,6 +3336,16 @@ static int f2fs_write_begin(struct file *file, struct address_space *mapping,
+@@ -3339,6 +3340,16 @@ static int f2fs_write_begin(struct file *file, struct address_space *mapping,
  	block_t blkaddr = NULL_ADDR;
  	int err = 0;
  
@@ -275,7 +275,7 @@ diff --git a/fs/f2fs/data.c b/fs/f2fs/data.c
  	trace_f2fs_write_begin(inode, pos, len, flags);
  
  	if (!f2fs_is_checkpoint_ready(sbi)) {
-@@ -3462,6 +3473,7 @@ static int f2fs_write_end(struct file *file,
+@@ -3466,6 +3477,7 @@ static int f2fs_write_end(struct file *file,
  {
  	struct inode *inode = page->mapping->host;
  
@@ -283,7 +283,7 @@ diff --git a/fs/f2fs/data.c b/fs/f2fs/data.c
  	trace_f2fs_write_end(inode, pos, len, copied);
  
  	/*
-@@ -3588,6 +3600,29 @@ static ssize_t f2fs_direct_IO(struct kiocb *iocb, struct iov_iter *iter)
+@@ -3592,6 +3604,29 @@ static ssize_t f2fs_direct_IO(struct kiocb *iocb, struct iov_iter *iter)
  
  	trace_f2fs_direct_IO_enter(inode, offset, count, rw);
  
@@ -313,7 +313,7 @@ diff --git a/fs/f2fs/data.c b/fs/f2fs/data.c
  	if (rw == WRITE && whint_mode == WHINT_MODE_OFF)
  		iocb->ki_hint = WRITE_LIFE_NOT_SET;
  
-@@ -3637,6 +3672,13 @@ static ssize_t f2fs_direct_IO(struct kiocb *iocb, struct iov_iter *iter)
+@@ -3641,6 +3676,13 @@ static ssize_t f2fs_direct_IO(struct kiocb *iocb, struct iov_iter *iter)
  	}
  
  out:

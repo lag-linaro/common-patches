@@ -26,7 +26,7 @@ Signed-off-by: Eric Biggers <ebiggers@google.com>
 diff --git a/fs/f2fs/f2fs.h b/fs/f2fs/f2fs.h
 --- a/fs/f2fs/f2fs.h
 +++ b/fs/f2fs/f2fs.h
-@@ -4081,6 +4081,8 @@ static inline bool f2fs_force_buffered_io(struct inode *inode,
+@@ -4079,6 +4079,8 @@ static inline bool f2fs_force_buffered_io(struct inode *inode,
  		return true;
  	if (fsverity_active(inode))
  		return true;
