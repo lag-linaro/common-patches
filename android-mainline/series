@@ -1,8 +1,8 @@
 #
 # android-mainline patches
 #
-# Applies onto upstream 48778464bb7d Linux v5.8-rc2
-# Matches android-mainline 1d722fa8e97b ("Merge 5.8-rc2 into android-mainline")
+# Applies onto upstream 625d3449788f Linux v5.8-rc2-1-g625d3449788f
+# Matches android-mainline 663ae7d5d011 ("Merge 625d3449788f ("Revert "kernel/printk: add kmsg SEEK_CUR handling"") into android-mainline")
 #
 Revert-security-lockdown-selinux-implement-SELinux-lockdown.patch
 Revert-drm-virtio-fix-DRM_FORMAT_-handling.patch
