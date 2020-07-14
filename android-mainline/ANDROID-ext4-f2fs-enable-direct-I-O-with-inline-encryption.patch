@@ -162,7 +162,7 @@ diff --git a/fs/direct-io.c b/fs/direct-io.c
  #include <linux/mm.h>
  #include <linux/slab.h>
  #include <linux/highmem.h>
-@@ -392,6 +393,7 @@ dio_bio_alloc(struct dio *dio, struct dio_submit *sdio,
+@@ -411,6 +412,7 @@ dio_bio_alloc(struct dio *dio, struct dio_submit *sdio,
  	      sector_t first_sector, int nr_vecs)
  {
  	struct bio *bio;
@@ -170,7 +170,7 @@ diff --git a/fs/direct-io.c b/fs/direct-io.c
  
  	/*
  	 * bio_alloc() is guaranteed to return a bio when allowed to sleep and
-@@ -399,6 +401,9 @@ dio_bio_alloc(struct dio *dio, struct dio_submit *sdio,
+@@ -418,6 +420,9 @@ dio_bio_alloc(struct dio *dio, struct dio_submit *sdio,
  	 */
  	bio = bio_alloc(GFP_KERNEL, nr_vecs);
  
@@ -180,7 +180,7 @@ diff --git a/fs/direct-io.c b/fs/direct-io.c
  	bio_set_dev(bio, bdev);
  	bio->bi_iter.bi_sector = first_sector;
  	bio_set_op_attrs(bio, dio->op, dio->op_flags);
-@@ -763,9 +768,17 @@ static inline int dio_send_cur_page(struct dio *dio, struct dio_submit *sdio,
+@@ -782,9 +787,17 @@ static inline int dio_send_cur_page(struct dio *dio, struct dio_submit *sdio,
  		 * current logical offset in the file does not equal what would
  		 * be the next logical offset in the bio, submit the bio we
  		 * have.
@@ -237,7 +237,7 @@ diff --git a/fs/ext4/file.c b/fs/ext4/file.c
 diff --git a/fs/f2fs/f2fs.h b/fs/f2fs/f2fs.h
 --- a/fs/f2fs/f2fs.h
 +++ b/fs/f2fs/f2fs.h
-@@ -3987,7 +3987,9 @@ static inline bool f2fs_force_buffered_io(struct inode *inode,
+@@ -4077,7 +4077,9 @@ static inline bool f2fs_force_buffered_io(struct inode *inode,
  	struct f2fs_sb_info *sbi = F2FS_I_SB(inode);
  	int rw = iov_iter_rw(iter);
  

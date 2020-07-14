@@ -171,7 +171,7 @@ diff --git a/drivers/scsi/ufs/ufshcd.c b/drivers/scsi/ufs/ufshcd.c
  	hba->dev_cmd.type = cmd_type;
  
  	switch (hba->ufs_version) {
-@@ -8668,6 +8694,7 @@ EXPORT_SYMBOL_GPL(ufshcd_remove);
+@@ -8664,6 +8690,7 @@ EXPORT_SYMBOL_GPL(ufshcd_remove);
   */
  void ufshcd_dealloc_host(struct ufs_hba *hba)
  {
@@ -179,7 +179,7 @@ diff --git a/drivers/scsi/ufs/ufshcd.c b/drivers/scsi/ufs/ufshcd.c
  	scsi_host_put(hba->host);
  }
  EXPORT_SYMBOL_GPL(ufshcd_dealloc_host);
-@@ -8878,6 +8905,13 @@ int ufshcd_init(struct ufs_hba *hba, void __iomem *mmio_base, unsigned int irq)
+@@ -8874,6 +8901,13 @@ int ufshcd_init(struct ufs_hba *hba, void __iomem *mmio_base, unsigned int irq)
  	/* Reset the attached device */
  	ufshcd_vops_device_reset(hba);
  

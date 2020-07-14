@@ -44,7 +44,7 @@ diff --git a/drivers/clk/qcom/dispcc-sdm845.c b/drivers/clk/qcom/dispcc-sdm845.c
 diff --git a/drivers/clk/qcom/gcc-msm8998.c b/drivers/clk/qcom/gcc-msm8998.c
 --- a/drivers/clk/qcom/gcc-msm8998.c
 +++ b/drivers/clk/qcom/gcc-msm8998.c
-@@ -3092,6 +3092,7 @@ static struct platform_driver gcc_msm8998_driver = {
+@@ -3119,6 +3119,7 @@ static struct platform_driver gcc_msm8998_driver = {
  	.driver		= {
  		.name	= "gcc-msm8998",
  		.of_match_table = gcc_msm8998_match_table,

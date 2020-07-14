@@ -1,104 +1,122 @@
 From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
 From: Daniel Rosenberg <drosen@google.com>
-Date: Thu, 6 Feb 2020 14:41:31 -0800
+Date: Wed, 8 Jul 2020 02:12:36 -0700
 Subject: FROMLIST: f2fs: Use generic casefolding support
 
 This switches f2fs over to the generic support provided in
-commit 65832afbeaaf ("fs: Add standard casefolding support")
+the previous patch.
+
+Since casefolded dentries behave the same in ext4 and f2fs, we decrease
+the maintenance burden by unifying them, and any optimizations will
+immediately apply to both.
 
 Signed-off-by: Daniel Rosenberg <drosen@google.com>
-Test: Boots, /data/media is case insensitive
+Reviewed-by: Eric Biggers <ebiggers@google.com>
+
+Link: https://lore.kernel.org/r/20200708091237.3922153-4-drosen@google.com
 Bug: 138322712
-Link: https://lore.kernel.org/linux-f2fs-devel/20200208013552.241832-1-drosen@google.com/T/#t
+Bug: 161184936
+Test: Boots, /data/media is case insensitive
 Change-Id: Ib2aecfdf029a53d116929bf6c0fc4802585f4383
 ---
- fs/f2fs/dir.c           | 63 +++++++----------------------------------
- fs/f2fs/f2fs.h          |  4 ---
- fs/f2fs/hash.c          |  2 +-
- fs/f2fs/super.c         | 10 +++----
- fs/f2fs/sysfs.c         | 10 ++++---
+ fs/f2fs/dir.c           | 84 +++++------------------------------------
+ fs/f2fs/f2fs.h          |  4 --
+ fs/f2fs/super.c         | 10 ++---
+ fs/f2fs/sysfs.c         | 10 +++--
  include/linux/f2fs_fs.h |  3 --
- 6 files changed, 22 insertions(+), 70 deletions(-)
+ 5 files changed, 20 insertions(+), 91 deletions(-)
 
 diff --git a/fs/f2fs/dir.c b/fs/f2fs/dir.c
 --- a/fs/f2fs/dir.c
 +++ b/fs/f2fs/dir.c
-@@ -114,8 +114,8 @@ static struct f2fs_dir_entry *find_in_block(struct inode *dir,
- int f2fs_ci_compare(const struct inode *parent, const struct qstr *name,
- 				const struct qstr *entry, bool quick)
+@@ -75,21 +75,22 @@ int f2fs_init_casefolded_name(const struct inode *dir,
+ 			      struct f2fs_filename *fname)
  {
--	const struct f2fs_sb_info *sbi = F2FS_SB(parent->i_sb);
+ #ifdef CONFIG_UNICODE
+-	struct f2fs_sb_info *sbi = F2FS_SB(dir->i_sb);
++	struct super_block *sb = dir->i_sb;
++	struct f2fs_sb_info *sbi = F2FS_SB(sb);
+ 
+ 	if (IS_CASEFOLDED(dir)) {
+ 		fname->cf_name.name = f2fs_kmalloc(sbi, F2FS_NAME_LEN,
+ 						   GFP_NOFS);
+ 		if (!fname->cf_name.name)
+ 			return -ENOMEM;
+-		fname->cf_name.len = utf8_casefold(sbi->s_encoding,
++		fname->cf_name.len = utf8_casefold(sb->s_encoding,
+ 						   fname->usr_fname,
+ 						   fname->cf_name.name,
+ 						   F2FS_NAME_LEN);
+ 		if ((int)fname->cf_name.len <= 0) {
+ 			kfree(fname->cf_name.name);
+ 			fname->cf_name.name = NULL;
+-			if (f2fs_has_strict_mode(sbi))
++			if (sb_has_strict_encoding(sb))
+ 				return -EINVAL;
+ 			/* fall back to treating name as opaque byte sequence */
+ 		}
+@@ -215,8 +216,8 @@ static struct f2fs_dir_entry *find_in_block(struct inode *dir,
+ static bool f2fs_match_ci_name(const struct inode *dir, const struct qstr *name,
+ 			       const u8 *de_name, u32 de_name_len)
+ {
+-	const struct f2fs_sb_info *sbi = F2FS_SB(dir->i_sb);
 -	const struct unicode_map *um = sbi->s_encoding;
-+	const struct super_block *sb = parent->i_sb;
++	const struct super_block *sb = dir->i_sb;
 +	const struct unicode_map *um = sb->s_encoding;
- 	int ret;
+ 	struct qstr entry = QSTR_INIT(de_name, de_name_len);
+ 	int res;
  
- 	if (quick)
-@@ -127,7 +127,7 @@ int f2fs_ci_compare(const struct inode *parent, const struct qstr *name,
- 		/* Handle invalid character sequence as either an error
- 		 * or as an opaque byte sequence.
+@@ -226,7 +227,7 @@ static bool f2fs_match_ci_name(const struct inode *dir, const struct qstr *name,
+ 		 * In strict mode, ignore invalid names.  In non-strict mode,
+ 		 * fall back to treating them as opaque byte sequences.
  		 */
--		if (f2fs_has_strict_mode(sbi))
-+		if (sb_has_enc_strict_mode(sb))
- 			return -EINVAL;
- 
- 		if (name->len != entry->len)
-@@ -154,7 +154,7 @@ static void f2fs_fname_setup_ci_filename(struct inode *dir,
- 	if (!cf_name->name)
- 		return;
- 
--	cf_name->len = utf8_casefold(sbi->s_encoding,
-+	cf_name->len = utf8_casefold(dir->i_sb->s_encoding,
- 					iname, cf_name->name,
- 					F2FS_NAME_LEN);
- 	if ((int)cf_name->len <= 0) {
-@@ -173,7 +173,7 @@ static inline bool f2fs_match_name(struct f2fs_dentry_ptr *d,
- {
- #ifdef CONFIG_UNICODE
- 	struct inode *parent = d->inode;
--	struct f2fs_sb_info *sbi = F2FS_I_SB(parent);
-+	struct super_block *sb = parent->i_sb;
- 	struct qstr entry;
- #endif
- 
-@@ -184,7 +184,7 @@ static inline bool f2fs_match_name(struct f2fs_dentry_ptr *d,
- 	entry.name = d->filename[bit_pos];
- 	entry.len = de->name_len;
- 
--	if (sbi->s_encoding && IS_CASEFOLDED(parent)) {
-+	if (sb->s_encoding && IS_CASEFOLDED(parent)) {
- 		if (cf_str->name) {
- 			struct qstr cf = {.name = cf_str->name,
- 					  .len = cf_str->len};
-@@ -357,8 +357,8 @@ struct f2fs_dir_entry *f2fs_find_entry(struct inode *dir,
- 	int err;
- 
- #ifdef CONFIG_UNICODE
--	if (f2fs_has_strict_mode(F2FS_I_SB(dir)) && IS_CASEFOLDED(dir) &&
--			utf8_validate(F2FS_I_SB(dir)->s_encoding, child)) {
-+	if (sb_has_enc_strict_mode(dir->i_sb) && IS_CASEFOLDED(dir) &&
-+			utf8_validate(dir->i_sb->s_encoding, child)) {
- 		*res_page = ERR_PTR(-EINVAL);
- 		return NULL;
+-		if (f2fs_has_strict_mode(sbi) || name->len != entry.len)
++		if (sb_has_strict_encoding(sb) || name->len != entry.len)
+ 			return false;
+ 		return !memcmp(name->name, entry.name, name->len);
  	}
-@@ -1077,51 +1077,8 @@ const struct file_operations f2fs_dir_operations = {
+@@ -1107,75 +1108,8 @@ const struct file_operations f2fs_dir_operations = {
  };
  
  #ifdef CONFIG_UNICODE
 -static int f2fs_d_compare(const struct dentry *dentry, unsigned int len,
 -			  const char *str, const struct qstr *name)
 -{
--	struct qstr qstr = {.name = str, .len = len };
 -	const struct dentry *parent = READ_ONCE(dentry->d_parent);
--	const struct inode *inode = READ_ONCE(parent->d_inode);
+-	const struct inode *dir = READ_ONCE(parent->d_inode);
+-	const struct f2fs_sb_info *sbi = F2FS_SB(dentry->d_sb);
+-	struct qstr entry = QSTR_INIT(str, len);
+-	char strbuf[DNAME_INLINE_LEN];
+-	int res;
 -
--	if (!inode || !IS_CASEFOLDED(inode)) {
--		if (len != name->len)
--			return -1;
--		return memcmp(str, name->name, len);
+-	if (!dir || !IS_CASEFOLDED(dir))
+-		goto fallback;
+-
+-	/*
+-	 * If the dentry name is stored in-line, then it may be concurrently
+-	 * modified by a rename.  If this happens, the VFS will eventually retry
+-	 * the lookup, so it doesn't matter what ->d_compare() returns.
+-	 * However, it's unsafe to call utf8_strncasecmp() with an unstable
+-	 * string.  Therefore, we have to copy the name into a temporary buffer.
+-	 */
+-	if (len <= DNAME_INLINE_LEN - 1) {
+-		memcpy(strbuf, str, len);
+-		strbuf[len] = 0;
+-		entry.name = strbuf;
+-		/* prevent compiler from optimizing out the temporary buffer */
+-		barrier();
 -	}
 -
--	return f2fs_ci_compare(inode, name, &qstr, false);
+-	res = utf8_strncasecmp(sbi->s_encoding, name, &entry);
+-	if (res >= 0)
+-		return res;
+-
+-	if (f2fs_has_strict_mode(sbi))
+-		return -EINVAL;
+-fallback:
+-	if (len != name->len)
+-		return 1;
+-	return !!memcmp(str, name->name, len);
 -}
 -
 -static int f2fs_d_hash(const struct dentry *dentry, struct qstr *str)
@@ -138,7 +156,7 @@ diff --git a/fs/f2fs/dir.c b/fs/f2fs/dir.c
 diff --git a/fs/f2fs/f2fs.h b/fs/f2fs/f2fs.h
 --- a/fs/f2fs/f2fs.h
 +++ b/fs/f2fs/f2fs.h
-@@ -1345,10 +1345,6 @@ struct f2fs_sb_info {
+@@ -1402,10 +1402,6 @@ struct f2fs_sb_info {
  	int valid_super_block;			/* valid super block no */
  	unsigned long s_flag;				/* flags for sbi */
  	struct mutex writepages;		/* mutex for writepages() */
@@ -149,22 +167,10 @@ diff --git a/fs/f2fs/f2fs.h b/fs/f2fs/f2fs.h
  
  #ifdef CONFIG_BLK_DEV_ZONED
  	unsigned int blocks_per_blkz;		/* F2FS blocks per zone */
-diff --git a/fs/f2fs/hash.c b/fs/f2fs/hash.c
---- a/fs/f2fs/hash.c
-+++ b/fs/f2fs/hash.c
-@@ -109,7 +109,7 @@ f2fs_hash_t f2fs_dentry_hash(const struct inode *dir,
- {
- #ifdef CONFIG_UNICODE
- 	struct f2fs_sb_info *sbi = F2FS_SB(dir->i_sb);
--	const struct unicode_map *um = sbi->s_encoding;
-+	const struct unicode_map *um = dir->i_sb->s_encoding;
- 	int r, dlen;
- 	unsigned char *buff;
- 	struct qstr folded;
 diff --git a/fs/f2fs/super.c b/fs/f2fs/super.c
 --- a/fs/f2fs/super.c
 +++ b/fs/f2fs/super.c
-@@ -1255,7 +1255,7 @@ static void f2fs_put_super(struct super_block *sb)
+@@ -1257,7 +1257,7 @@ static void f2fs_put_super(struct super_block *sb)
  	for (i = 0; i < NR_PAGE_TYPE; i++)
  		kvfree(sbi->write_io[i]);
  #ifdef CONFIG_UNICODE
@@ -173,7 +179,7 @@ diff --git a/fs/f2fs/super.c b/fs/f2fs/super.c
  #endif
  	kvfree(sbi);
  }
-@@ -3271,7 +3271,7 @@ static int f2fs_scan_devices(struct f2fs_sb_info *sbi)
+@@ -3278,7 +3278,7 @@ static int f2fs_scan_devices(struct f2fs_sb_info *sbi)
  static int f2fs_setup_casefold(struct f2fs_sb_info *sbi)
  {
  #ifdef CONFIG_UNICODE
@@ -182,7 +188,7 @@ diff --git a/fs/f2fs/super.c b/fs/f2fs/super.c
  		const struct f2fs_sb_encodings *encoding_info;
  		struct unicode_map *encoding;
  		__u16 encoding_flags;
-@@ -3302,8 +3302,8 @@ static int f2fs_setup_casefold(struct f2fs_sb_info *sbi)
+@@ -3309,8 +3309,8 @@ static int f2fs_setup_casefold(struct f2fs_sb_info *sbi)
  			 "%s-%s with flags 0x%hx", encoding_info->name,
  			 encoding_info->version?:"\b", encoding_flags);
  
@@ -193,7 +199,7 @@ diff --git a/fs/f2fs/super.c b/fs/f2fs/super.c
  		sbi->sb->s_d_op = &f2fs_dentry_ops;
  	}
  #else
-@@ -3798,7 +3798,7 @@ static int f2fs_fill_super(struct super_block *sb, void *data, int silent)
+@@ -3806,7 +3806,7 @@ static int f2fs_fill_super(struct super_block *sb, void *data, int silent)
  		kvfree(sbi->write_io[i]);
  
  #ifdef CONFIG_UNICODE
@@ -205,7 +211,7 @@ diff --git a/fs/f2fs/super.c b/fs/f2fs/super.c
 diff --git a/fs/f2fs/sysfs.c b/fs/f2fs/sysfs.c
 --- a/fs/f2fs/sysfs.c
 +++ b/fs/f2fs/sysfs.c
-@@ -175,12 +175,14 @@ static ssize_t encoding_show(struct f2fs_attr *a,
+@@ -176,12 +176,14 @@ static ssize_t encoding_show(struct f2fs_attr *a,
  		struct f2fs_sb_info *sbi, char *buf)
  {
  #ifdef CONFIG_UNICODE

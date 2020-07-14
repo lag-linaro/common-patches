@@ -1,28 +1,35 @@
 From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
 From: Daniel Rosenberg <drosen@google.com>
-Date: Thu, 6 Feb 2020 14:41:16 -0800
+Date: Wed, 8 Jul 2020 02:12:37 -0700
 Subject: FROMLIST: ext4: Use generic casefolding support
 
 This switches ext4 over to the generic support provided in
-commit 65832afbeaaf ("fs: Add standard casefolding support")
+the previous patch.
+
+Since casefolded dentries behave the same in ext4 and f2fs, we decrease
+the maintenance burden by unifying them, and any optimizations will
+immediately apply to both.
 
 Signed-off-by: Daniel Rosenberg <drosen@google.com>
-Test: Boots, /data/media is case insensitive
+Reviewed-by: Eric Biggers <ebiggers@google.com>
+
+Link: https://lore.kernel.org/r/20200708091237.3922153-5-drosen@google.com
 Bug: 138322712
-Link: https://lore.kernel.org/linux-f2fs-devel/20200208013552.241832-1-drosen@google.com/T/#t
+Bug: 161184936
+Test: Boots, /data/media is case insensitive
 Change-Id: I3a0705278100590df4c7cdd0dcdf945e9f11feb7
 ---
- fs/ext4/dir.c   | 48 ++----------------------------------------------
- fs/ext4/ext4.h  | 12 ------------
+ fs/ext4/dir.c   | 64 ++-----------------------------------------------
+ fs/ext4/ext4.h  | 12 ----------
  fs/ext4/hash.c  |  2 +-
- fs/ext4/namei.c | 20 ++++++++------------
- fs/ext4/super.c | 12 ++++++------
- 5 files changed, 17 insertions(+), 77 deletions(-)
+ fs/ext4/namei.c | 20 +++++++---------
+ fs/ext4/super.c | 12 +++++-----
+ 5 files changed, 17 insertions(+), 93 deletions(-)
 
 diff --git a/fs/ext4/dir.c b/fs/ext4/dir.c
 --- a/fs/ext4/dir.c
 +++ b/fs/ext4/dir.c
-@@ -669,52 +669,8 @@ const struct file_operations ext4_dir_operations = {
+@@ -669,68 +669,8 @@ const struct file_operations ext4_dir_operations = {
  };
  
  #ifdef CONFIG_UNICODE
@@ -32,12 +39,28 @@ diff --git a/fs/ext4/dir.c b/fs/ext4/dir.c
 -	struct qstr qstr = {.name = str, .len = len };
 -	const struct dentry *parent = READ_ONCE(dentry->d_parent);
 -	const struct inode *inode = READ_ONCE(parent->d_inode);
+-	char strbuf[DNAME_INLINE_LEN];
 -
 -	if (!inode || !IS_CASEFOLDED(inode) ||
 -	    !EXT4_SB(inode->i_sb)->s_encoding) {
 -		if (len != name->len)
 -			return -1;
 -		return memcmp(str, name->name, len);
+-	}
+-
+-	/*
+-	 * If the dentry name is stored in-line, then it may be concurrently
+-	 * modified by a rename.  If this happens, the VFS will eventually retry
+-	 * the lookup, so it doesn't matter what ->d_compare() returns.
+-	 * However, it's unsafe to call utf8_strncasecmp() with an unstable
+-	 * string.  Therefore, we have to copy the name into a temporary buffer.
+-	 */
+-	if (len <= DNAME_INLINE_LEN - 1) {
+-		memcpy(strbuf, str, len);
+-		strbuf[len] = 0;
+-		qstr.name = strbuf;
+-		/* prevent compiler from optimizing out the temporary buffer */
+-		barrier();
 -	}
 -
 -	return ext4_ci_compare(inode, name, &qstr, false);
@@ -80,7 +103,7 @@ diff --git a/fs/ext4/dir.c b/fs/ext4/dir.c
 diff --git a/fs/ext4/ext4.h b/fs/ext4/ext4.h
 --- a/fs/ext4/ext4.h
 +++ b/fs/ext4/ext4.h
-@@ -1381,14 +1381,6 @@ struct ext4_super_block {
+@@ -1393,14 +1393,6 @@ struct ext4_super_block {
  
  #define EXT4_ENC_UTF8_12_1	1
  
@@ -95,7 +118,7 @@ diff --git a/fs/ext4/ext4.h b/fs/ext4/ext4.h
  /*
   * fourth extended-fs super-block data in memory
   */
-@@ -1438,10 +1430,6 @@ struct ext4_sb_info {
+@@ -1450,10 +1442,6 @@ struct ext4_sb_info {
  	struct kobject s_kobj;
  	struct completion s_kobj_unregister;
  	struct super_block *s_sb;
@@ -137,7 +160,7 @@ diff --git a/fs/ext4/namei.c b/fs/ext4/namei.c
  		 * or as an opaque byte sequence.
  		 */
 -		if (ext4_has_strict_mode(sbi))
-+		if (sb_has_enc_strict_mode(sb))
++		if (sb_has_strict_encoding(sb))
  			return -EINVAL;
  
  		if (name->len != entry->len)
@@ -146,7 +169,7 @@ diff --git a/fs/ext4/namei.c b/fs/ext4/namei.c
  	int len;
  
 -	if (!IS_CASEFOLDED(dir) || !EXT4_SB(dir->i_sb)->s_encoding) {
-+	if (!needs_casefold(dir)) {
++	if (!IS_CASEFOLDED(dir) || !dir->i_sb->s_encoding) {
  		cf_name->name = NULL;
  		return;
  	}
@@ -164,7 +187,7 @@ diff --git a/fs/ext4/namei.c b/fs/ext4/namei.c
  
  #ifdef CONFIG_UNICODE
 -	if (EXT4_SB(parent->i_sb)->s_encoding && IS_CASEFOLDED(parent)) {
-+	if (needs_casefold(parent)) {
++	if (parent->i_sb->s_encoding && IS_CASEFOLDED(parent)) {
  		if (fname->cf_name.name) {
  			struct qstr cf = {.name = fname->cf_name.name,
  					  .len = fname->cf_name.len};
@@ -185,7 +208,7 @@ diff --git a/fs/ext4/namei.c b/fs/ext4/namei.c
 -	sbi = EXT4_SB(sb);
 -	if (ext4_has_strict_mode(sbi) && IS_CASEFOLDED(dir) &&
 -	    sbi->s_encoding && utf8_validate(sbi->s_encoding, &dentry->d_name))
-+	if (sb_has_enc_strict_mode(sb) && IS_CASEFOLDED(dir) &&
++	if (sb_has_strict_encoding(sb) && IS_CASEFOLDED(dir) &&
 +	    sb->s_encoding && utf8_validate(sb->s_encoding, &dentry->d_name))
  		return -EINVAL;
  #endif
@@ -193,7 +216,7 @@ diff --git a/fs/ext4/namei.c b/fs/ext4/namei.c
 diff --git a/fs/ext4/super.c b/fs/ext4/super.c
 --- a/fs/ext4/super.c
 +++ b/fs/ext4/super.c
-@@ -1108,7 +1108,7 @@ static void ext4_put_super(struct super_block *sb)
+@@ -1102,7 +1102,7 @@ static void ext4_put_super(struct super_block *sb)
  	fs_put_dax(sbi->s_daxdev);
  	fscrypt_free_dummy_context(&sbi->s_dummy_enc_ctx);
  #ifdef CONFIG_UNICODE
@@ -202,7 +225,7 @@ diff --git a/fs/ext4/super.c b/fs/ext4/super.c
  #endif
  	kfree(sbi);
  }
-@@ -3972,7 +3972,7 @@ static int ext4_fill_super(struct super_block *sb, void *data, int silent)
+@@ -4035,7 +4035,7 @@ static int ext4_fill_super(struct super_block *sb, void *data, int silent)
  		goto failed_mount;
  
  #ifdef CONFIG_UNICODE
@@ -211,7 +234,7 @@ diff --git a/fs/ext4/super.c b/fs/ext4/super.c
  		const struct ext4_sb_encodings *encoding_info;
  		struct unicode_map *encoding;
  		__u16 encoding_flags;
-@@ -4003,8 +4003,8 @@ static int ext4_fill_super(struct super_block *sb, void *data, int silent)
+@@ -4066,8 +4066,8 @@ static int ext4_fill_super(struct super_block *sb, void *data, int silent)
  			 "%s-%s with flags 0x%hx", encoding_info->name,
  			 encoding_info->version?:"\b", encoding_flags);
  
@@ -222,7 +245,7 @@ diff --git a/fs/ext4/super.c b/fs/ext4/super.c
  	}
  #endif
  
-@@ -4612,7 +4612,7 @@ static int ext4_fill_super(struct super_block *sb, void *data, int silent)
+@@ -4678,7 +4678,7 @@ static int ext4_fill_super(struct super_block *sb, void *data, int silent)
  	}
  
  #ifdef CONFIG_UNICODE
@@ -231,7 +254,7 @@ diff --git a/fs/ext4/super.c b/fs/ext4/super.c
  		sb->s_d_op = &ext4_dentry_ops;
  #endif
  
-@@ -4807,7 +4807,7 @@ static int ext4_fill_super(struct super_block *sb, void *data, int silent)
+@@ -4873,7 +4873,7 @@ static int ext4_fill_super(struct super_block *sb, void *data, int silent)
  		crypto_free_shash(sbi->s_chksum_driver);
  
  #ifdef CONFIG_UNICODE

@@ -15,42 +15,44 @@ Tested-by: Guru Das Srinagesh <gurus@codeaurora.org>
 Signed-off-by: Sandeep Patil <sspatil@google.com>
 Change-Id: I5a99577e8c8c38c2ea10a339223c177d18c93d37
 ---
- Documentation/ABI/testing/sysfs-class-power | 2 +-
- drivers/power/supply/power_supply_sysfs.c   | 2 +-
+ Documentation/ABI/testing/sysfs-class-power | 3 ++-
+ drivers/power/supply/power_supply_sysfs.c   | 3 +++
  include/linux/power_supply.h                | 3 +++
- 3 files changed, 5 insertions(+), 2 deletions(-)
+ 3 files changed, 8 insertions(+), 1 deletion(-)
 
 diff --git a/Documentation/ABI/testing/sysfs-class-power b/Documentation/ABI/testing/sysfs-class-power
 --- a/Documentation/ABI/testing/sysfs-class-power
 +++ b/Documentation/ABI/testing/sysfs-class-power
-@@ -190,7 +190,7 @@ Description:
+@@ -205,7 +205,8 @@ Description:
  		Valid values: "Unknown", "Good", "Overheat", "Dead",
  			      "Over voltage", "Unspecified failure", "Cold",
  			      "Watchdog timer expire", "Safety timer expire",
--			      "Over current"
-+			      "Over current", "Warm", "Cool", "Hot"
+-			      "Over current", "Calibration required"
++			      "Over current", "Calibration required",
++			      "Warm", "Cool", "Hot"
  
  What:		/sys/class/power_supply/<supply_name>/precharge_current
  Date:		June 2017
 diff --git a/drivers/power/supply/power_supply_sysfs.c b/drivers/power/supply/power_supply_sysfs.c
 --- a/drivers/power/supply/power_supply_sysfs.c
 +++ b/drivers/power/supply/power_supply_sysfs.c
-@@ -61,7 +61,7 @@ static const char * const power_supply_charge_type_text[] = {
- static const char * const power_supply_health_text[] = {
- 	"Unknown", "Good", "Overheat", "Dead", "Over voltage",
- 	"Unspecified failure", "Cold", "Watchdog timer expire",
--	"Safety timer expire", "Over current"
-+	"Safety timer expire", "Over current", "Warm", "Cool", "Hot"
+@@ -101,6 +101,9 @@ static const char * const POWER_SUPPLY_HEALTH_TEXT[] = {
+ 	[POWER_SUPPLY_HEALTH_SAFETY_TIMER_EXPIRE]   = "Safety timer expire",
+ 	[POWER_SUPPLY_HEALTH_OVERCURRENT]	    = "Over current",
+ 	[POWER_SUPPLY_HEALTH_CALIBRATION_REQUIRED]  = "Calibration required",
++	[POWER_SUPPLY_HEALTH_WARM]                  = "Warm",
++	[POWER_SUPPLY_HEALTH_COOL]                  = "Cool",
++	[POWER_SUPPLY_HEALTH_HOT]                   = "Hot",
  };
  
- static const char * const power_supply_technology_text[] = {
+ static const char * const POWER_SUPPLY_TECHNOLOGY_TEXT[] = {
 diff --git a/include/linux/power_supply.h b/include/linux/power_supply.h
 --- a/include/linux/power_supply.h
 +++ b/include/linux/power_supply.h
-@@ -61,6 +61,9 @@ enum {
- 	POWER_SUPPLY_HEALTH_WATCHDOG_TIMER_EXPIRE,
+@@ -62,6 +62,9 @@ enum {
  	POWER_SUPPLY_HEALTH_SAFETY_TIMER_EXPIRE,
  	POWER_SUPPLY_HEALTH_OVERCURRENT,
+ 	POWER_SUPPLY_HEALTH_CALIBRATION_REQUIRED,
 +	POWER_SUPPLY_HEALTH_WARM,
 +	POWER_SUPPLY_HEALTH_COOL,
 +	POWER_SUPPLY_HEALTH_HOT,

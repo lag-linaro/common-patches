@@ -70,7 +70,7 @@ diff --git a/fs/sync.c b/fs/sync.c
  #include <linux/writeback.h>
  #include <linux/syscalls.h>
  #include <linux/linkage.h>
-@@ -222,6 +222,7 @@ static int do_fsync(unsigned int fd, int datasync)
+@@ -223,6 +223,7 @@ static int do_fsync(unsigned int fd, int datasync)
  	if (f.file) {
  		ret = vfs_fsync(f.file, datasync);
  		fdput(f);

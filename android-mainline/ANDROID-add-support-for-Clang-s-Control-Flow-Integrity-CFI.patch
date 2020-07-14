@@ -29,7 +29,7 @@ Signed-off-by: Sami Tolvanen <samitolvanen@google.com>
 diff --git a/Makefile b/Makefile
 --- a/Makefile
 +++ b/Makefile
-@@ -898,6 +898,25 @@ ifdef CONFIG_LIVEPATCH
+@@ -884,6 +884,25 @@ ifdef CONFIG_LIVEPATCH
  KBUILD_CFLAGS += $(call cc-option, -flive-patching=inline-clone)
  endif
  
@@ -58,7 +58,7 @@ diff --git a/Makefile b/Makefile
 diff --git a/arch/Kconfig b/arch/Kconfig
 --- a/arch/Kconfig
 +++ b/arch/Kconfig
-@@ -558,6 +558,29 @@ config SHADOW_CALL_STACK
+@@ -552,6 +552,29 @@ config SHADOW_CALL_STACK
  	  reading and writing arbitrary memory may be able to locate them
  	  and hijack control flow by modifying the stacks.
  
@@ -168,7 +168,7 @@ index 000000000000..6ef37b35faaa
 diff --git a/include/linux/compiler-clang.h b/include/linux/compiler-clang.h
 --- a/include/linux/compiler-clang.h
 +++ b/include/linux/compiler-clang.h
-@@ -46,3 +46,5 @@
+@@ -55,3 +55,5 @@
  #if __has_feature(shadow_call_stack)
  # define __noscs	__attribute__((__no_sanitize__("shadow-call-stack")))
  #endif
@@ -177,7 +177,7 @@ diff --git a/include/linux/compiler-clang.h b/include/linux/compiler-clang.h
 diff --git a/include/linux/compiler_types.h b/include/linux/compiler_types.h
 --- a/include/linux/compiler_types.h
 +++ b/include/linux/compiler_types.h
-@@ -197,6 +197,10 @@ struct ftrace_likely_data {
+@@ -229,6 +229,10 @@ struct ftrace_likely_data {
  # define randomized_struct_fields_end
  #endif
  
@@ -225,7 +225,7 @@ diff --git a/include/linux/module.h b/include/linux/module.h
 diff --git a/init/Kconfig b/init/Kconfig
 --- a/init/Kconfig
 +++ b/init/Kconfig
-@@ -2257,7 +2257,7 @@ endif # MODULES
+@@ -2268,7 +2268,7 @@ endif # MODULES
  
  config MODULES_TREE_LOOKUP
  	def_bool y
@@ -237,7 +237,7 @@ diff --git a/init/Kconfig b/init/Kconfig
 diff --git a/kernel/Makefile b/kernel/Makefile
 --- a/kernel/Makefile
 +++ b/kernel/Makefile
-@@ -36,6 +36,9 @@ CFLAGS_kcov.o := $(call cc-option, -fno-conserve-stack -fno-stack-protector)
+@@ -40,6 +40,9 @@ CFLAGS_kcov.o := $(call cc-option, -fno-conserve-stack -fno-stack-protector)
  # cond_syscall is currently not LTO compatible
  CFLAGS_sys_ni.o = $(DISABLE_LTO)
  
@@ -247,9 +247,9 @@ diff --git a/kernel/Makefile b/kernel/Makefile
  obj-y += sched/
  obj-y += locking/
  obj-y += power/
-@@ -104,6 +107,7 @@ obj-$(CONFIG_IRQ_WORK) += irq_work.o
- obj-$(CONFIG_CPU_PM) += cpu_pm.o
+@@ -109,6 +112,7 @@ obj-$(CONFIG_CPU_PM) += cpu_pm.o
  obj-$(CONFIG_BPF) += bpf/
+ obj-$(CONFIG_KCSAN) += kcsan/
  obj-$(CONFIG_SHADOW_CALL_STACK) += scs.o
 +obj-$(CONFIG_CFI_CLANG) += cfi.o
  

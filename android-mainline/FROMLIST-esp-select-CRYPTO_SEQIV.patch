@@ -28,7 +28,7 @@ diff --git a/net/ipv4/Kconfig b/net/ipv4/Kconfig
  	select CRYPTO_DES
  	select CRYPTO_ECHAINIV
 +	select CRYPTO_SEQIV
- 	---help---
+ 	help
  	  Support for IPsec ESP.
  
 diff --git a/net/ipv6/Kconfig b/net/ipv6/Kconfig
@@ -39,6 +39,6 @@ diff --git a/net/ipv6/Kconfig b/net/ipv6/Kconfig
  	select CRYPTO_DES
  	select CRYPTO_ECHAINIV
 +	select CRYPTO_SEQIV
- 	---help---
+ 	help
  	  Support for IPsec ESP.
  

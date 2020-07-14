@@ -1,15 +1,23 @@
 From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
 From: Daniel Rosenberg <drosen@google.com>
-Date: Wed, 5 Feb 2020 16:40:52 -0800
+Date: Wed, 8 Jul 2020 02:12:34 -0700
 Subject: FROMLIST: unicode: Add utf8_casefold_hash
 
 This adds a case insensitive hash function to allow taking the hash
 without needing to allocate a casefolded copy of the string.
 
+The existing d_hash implementations for casefolding allocate memory
+within rcu-walk, by avoiding it we can be more efficient and avoid
+worrying about a failed allocation.
+
 Signed-off-by: Daniel Rosenberg <drosen@google.com>
-Test: Boots, /data/media is case insensitive
+Reviewed-by: Gabriel Krisman Bertazi <krisman@collabora.com>
+Reviewed-by: Eric Biggers <ebiggers@google.com>
+
+Link: https://lore.kernel.org/r/20200708091237.3922153-2-drosen@google.com
 Bug: 138322712
-Link: https://lore.kernel.org/linux-f2fs-devel/20200208013552.241832-1-drosen@google.com/T/#t
+Bug: 161184936
+Test: Boots, /data/media is case insensitive
 Change-Id: I43c7d38a8e22f4479397f35e6343bd326901cdba
 ---
  fs/unicode/utf8-core.c  | 23 ++++++++++++++++++++++-
@@ -47,7 +55,7 @@ diff --git a/fs/unicode/utf8-core.c b/fs/unicode/utf8-core.c
 +
 +	while ((c = utf8byte(&cur))) {
 +		if (c < 0)
-+			return c;
++			return -EINVAL;
 +		hash = partial_name_hash((unsigned char)c, hash);
 +	}
 +	str->hash = end_name_hash(hash);

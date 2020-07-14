@@ -80,7 +80,7 @@ diff --git a/fs/overlayfs/inode.c b/fs/overlayfs/inode.c
 diff --git a/fs/overlayfs/overlayfs.h b/fs/overlayfs/overlayfs.h
 --- a/fs/overlayfs/overlayfs.h
 +++ b/fs/overlayfs/overlayfs.h
-@@ -411,7 +411,7 @@ int ovl_permission(struct inode *inode, int mask);
+@@ -414,7 +414,7 @@ int ovl_permission(struct inode *inode, int mask);
  int ovl_xattr_set(struct dentry *dentry, struct inode *inode, const char *name,
  		  const void *value, size_t size, int flags);
  int ovl_xattr_get(struct dentry *dentry, struct inode *inode, const char *name,
@@ -92,7 +92,7 @@ diff --git a/fs/overlayfs/overlayfs.h b/fs/overlayfs/overlayfs.h
 diff --git a/fs/overlayfs/super.c b/fs/overlayfs/super.c
 --- a/fs/overlayfs/super.c
 +++ b/fs/overlayfs/super.c
-@@ -849,7 +849,7 @@ ovl_posix_acl_xattr_get(const struct xattr_handler *handler,
+@@ -900,7 +900,7 @@ ovl_posix_acl_xattr_get(const struct xattr_handler *handler,
  			struct dentry *dentry, struct inode *inode,
  			const char *name, void *buffer, size_t size, int flags)
  {
@@ -101,7 +101,7 @@ diff --git a/fs/overlayfs/super.c b/fs/overlayfs/super.c
  }
  
  static int __maybe_unused
-@@ -931,7 +931,7 @@ static int ovl_other_xattr_get(const struct xattr_handler *handler,
+@@ -982,7 +982,7 @@ static int ovl_other_xattr_get(const struct xattr_handler *handler,
  			       const char *name, void *buffer, size_t size,
  			       int flags)
  {

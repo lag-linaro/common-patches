@@ -16,7 +16,7 @@ Signed-off-by: Greg Kroah-Hartman <gregkh@google.com>
 diff --git a/kernel/bpf/syscall.c b/kernel/bpf/syscall.c
 --- a/kernel/bpf/syscall.c
 +++ b/kernel/bpf/syscall.c
-@@ -2134,7 +2134,7 @@ static int bpf_prog_load(union bpf_attr *attr, union bpf_attr __user *uattr)
+@@ -2121,7 +2121,7 @@ static int bpf_prog_load(union bpf_attr *attr, union bpf_attr __user *uattr)
  	    !bpf_capable())
  		return -EPERM;
  

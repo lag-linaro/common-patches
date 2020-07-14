@@ -50,7 +50,7 @@ diff --git a/fs/namespace.c b/fs/namespace.c
  	kfree_const(mnt->mnt_devname);
  #ifdef CONFIG_SMP
  	free_percpu(mnt->mnt_pcp);
-@@ -952,14 +954,26 @@ static struct mount *skip_mnt_tree(struct mount *p)
+@@ -949,14 +951,26 @@ static struct mount *skip_mnt_tree(struct mount *p)
  struct vfsmount *vfs_create_mount(struct fs_context *fc)
  {
  	struct mount *mnt;
@@ -77,7 +77,7 @@ diff --git a/fs/namespace.c b/fs/namespace.c
  	if (fc->sb_flags & SB_KERNMOUNT)
  		mnt->mnt.mnt_flags = MNT_INTERNAL;
  
-@@ -1043,6 +1057,14 @@ static struct mount *clone_mnt(struct mount *old, struct dentry *root,
+@@ -1040,6 +1054,14 @@ static struct mount *clone_mnt(struct mount *old, struct dentry *root,
  	if (!mnt)
  		return ERR_PTR(-ENOMEM);
  
@@ -146,7 +146,7 @@ diff --git a/fs/pnode.h b/fs/pnode.h
 diff --git a/include/linux/fs.h b/include/linux/fs.h
 --- a/include/linux/fs.h
 +++ b/include/linux/fs.h
-@@ -1969,6 +1969,9 @@ struct super_operations {
+@@ -1972,6 +1972,9 @@ struct super_operations {
  	int (*unfreeze_fs) (struct super_block *);
  	int (*statfs) (struct dentry *, struct kstatfs *);
  	int (*remount_fs) (struct super_block *, int *, char *);
@@ -156,7 +156,7 @@ diff --git a/include/linux/fs.h b/include/linux/fs.h
  	void (*umount_begin) (struct super_block *);
  
  	int (*show_options)(struct seq_file *, struct dentry *);
-@@ -2256,6 +2259,7 @@ struct file_system_type {
+@@ -2259,6 +2262,7 @@ struct file_system_type {
  	const struct fs_parameter_spec *parameters;
  	struct dentry *(*mount) (struct file_system_type *, int,
  		       const char *, void *);

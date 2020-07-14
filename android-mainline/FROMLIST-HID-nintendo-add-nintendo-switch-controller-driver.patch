@@ -32,7 +32,7 @@ Signed-off-by: Siarhei Vishniakou <svv@google.com>
 diff --git a/MAINTAINERS b/MAINTAINERS
 --- a/MAINTAINERS
 +++ b/MAINTAINERS
-@@ -12088,6 +12088,12 @@ W:	http://www.netlab.is.tsukuba.ac.jp/~yokota/izumi/ninja/
+@@ -12109,6 +12109,12 @@ W:	http://www.netlab.is.tsukuba.ac.jp/~yokota/izumi/ninja/
  F:	Documentation/scsi/NinjaSCSI.rst
  F:	drivers/scsi/nsp32*
  
@@ -65,7 +65,7 @@ diff --git a/drivers/hid/Kconfig b/drivers/hid/Kconfig
 +
  config HID_NTI
  	tristate "NTI keyboard adapters"
- 	---help---
+ 	help
 diff --git a/drivers/hid/Makefile b/drivers/hid/Makefile
 --- a/drivers/hid/Makefile
 +++ b/drivers/hid/Makefile

@@ -44,7 +44,7 @@ diff --git a/drivers/virtio/Kconfig b/drivers/virtio/Kconfig
  	bool "Support for legacy virtio draft 0.9.X and older devices"
 -	default y
  	depends on VIRTIO_PCI
- 	---help---
+ 	help
            Virtio PCI Card 0.9.X Draft (circa 2014) and older device support.
 @@ -36,11 +35,6 @@ config VIRTIO_PCI_LEGACY
  	  If disabled, you get a slightly smaller, non-transitional driver,

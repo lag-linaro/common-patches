@@ -115,7 +115,7 @@ diff --git a/fs/overlayfs/overlayfs.h b/fs/overlayfs/overlayfs.h
 diff --git a/fs/overlayfs/util.c b/fs/overlayfs/util.c
 --- a/fs/overlayfs/util.c
 +++ b/fs/overlayfs/util.c
-@@ -521,9 +521,9 @@ void ovl_copy_up_end(struct dentry *dentry)
+@@ -546,9 +546,9 @@ void ovl_copy_up_end(struct dentry *dentry)
  
  bool ovl_check_origin_xattr(struct dentry *dentry)
  {
@@ -127,7 +127,7 @@ diff --git a/fs/overlayfs/util.c b/fs/overlayfs/util.c
  
  	/* Zero size value means "copied up but origin unknown" */
  	if (res >= 0)
-@@ -534,13 +534,13 @@ bool ovl_check_origin_xattr(struct dentry *dentry)
+@@ -559,13 +559,13 @@ bool ovl_check_origin_xattr(struct dentry *dentry)
  
  bool ovl_check_dir_xattr(struct dentry *dentry, const char *name)
  {
@@ -143,7 +143,7 @@ diff --git a/fs/overlayfs/util.c b/fs/overlayfs/util.c
  	if (res == 1 && val == 'y')
  		return true;
  
-@@ -821,13 +821,13 @@ int ovl_lock_rename_workdir(struct dentry *workdir, struct dentry *upperdir)
+@@ -847,13 +847,13 @@ int ovl_lock_rename_workdir(struct dentry *workdir, struct dentry *upperdir)
  /* err < 0, 0 if no metacopy xattr, 1 if metacopy xattr found */
  int ovl_check_metacopy_xattr(struct dentry *dentry)
  {
@@ -159,7 +159,7 @@ diff --git a/fs/overlayfs/util.c b/fs/overlayfs/util.c
  	if (res < 0) {
  		if (res == -ENODATA || res == -EOPNOTSUPP)
  			return 0;
-@@ -836,7 +836,7 @@ int ovl_check_metacopy_xattr(struct dentry *dentry)
+@@ -862,7 +862,7 @@ int ovl_check_metacopy_xattr(struct dentry *dentry)
  
  	return 1;
  out:
@@ -168,7 +168,7 @@ diff --git a/fs/overlayfs/util.c b/fs/overlayfs/util.c
  	return res;
  }
  
-@@ -862,7 +862,7 @@ ssize_t ovl_getxattr(struct dentry *dentry, char *name, char **value,
+@@ -888,7 +888,7 @@ ssize_t ovl_getxattr(struct dentry *dentry, char *name, char **value,
  	ssize_t res;
  	char *buf = NULL;
  
@@ -177,7 +177,7 @@ diff --git a/fs/overlayfs/util.c b/fs/overlayfs/util.c
  	if (res < 0) {
  		if (res == -ENODATA || res == -EOPNOTSUPP)
  			return -ENODATA;
-@@ -874,7 +874,7 @@ ssize_t ovl_getxattr(struct dentry *dentry, char *name, char **value,
+@@ -900,7 +900,7 @@ ssize_t ovl_getxattr(struct dentry *dentry, char *name, char **value,
  		if (!buf)
  			return -ENOMEM;
  

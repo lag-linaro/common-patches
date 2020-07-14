@@ -1,0 +1,42 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: Alistair Delva <adelva@google.com>
+Date: Wed, 17 Jun 2020 21:55:14 -0700
+Subject: ANDROID: GKI: scripts: Makefile: update the lz4 command
+
+Use 'lz4' instead of 'lz4c' and increase the compression level. This
+also optimizes for decompression speed at this higher level.
+
+Bug: 159285792
+Test: launch_cvd -kernel_path bzImage
+Signed-off-by: Alistair Delva <adelva@google.com>
+Change-Id: I9604cc7d1f3600dec27ceb460f7c29d977a919b1
+---
+ Makefile             | 2 +-
+ scripts/Makefile.lib | 3 ++-
+ 2 files changed, 3 insertions(+), 2 deletions(-)
+
+diff --git a/Makefile b/Makefile
+--- a/Makefile
++++ b/Makefile
+@@ -462,7 +462,7 @@ KGZIP		= gzip
+ KBZIP2		= bzip2
+ KLZOP		= lzop
+ LZMA		= lzma
+-LZ4		= lz4c
++LZ4		= lz4
+ XZ		= xz
+ 
+ CHECKFLAGS     := -D__linux__ -Dlinux -D__STDC__ -Dunix -D__unix__ \
+diff --git a/scripts/Makefile.lib b/scripts/Makefile.lib
+--- a/scripts/Makefile.lib
++++ b/scripts/Makefile.lib
+@@ -359,7 +359,8 @@ quiet_cmd_lzo = LZO     $@
+       cmd_lzo = { cat $(real-prereqs) | $(KLZOP) -9; $(size_append); } > $@
+ 
+ quiet_cmd_lz4 = LZ4     $@
+-      cmd_lz4 = { cat $(real-prereqs) | $(LZ4) -l -c1 stdin stdout; \
++      cmd_lz4 = { cat $(real-prereqs) | \
++                  $(LZ4) -c -l -12 --favor-decSpeed stdin stdout; \
+                   $(size_append); } > $@
+ 
+ # U-Boot mkimage

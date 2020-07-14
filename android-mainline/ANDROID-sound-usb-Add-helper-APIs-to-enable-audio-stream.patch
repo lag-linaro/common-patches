@@ -114,7 +114,7 @@ diff --git a/sound/usb/card.c b/sound/usb/card.c
  	init_waitqueue_head(&chip->shutdown_wait);
  	chip->index = idx;
  	chip->dev = dev;
-@@ -737,6 +805,9 @@ static void usb_audio_disconnect(struct usb_interface *intf)
+@@ -744,6 +812,9 @@ static void usb_audio_disconnect(struct usb_interface *intf)
  
  	card = chip->card;
  
@@ -315,7 +315,7 @@ diff --git a/sound/usb/stream.c b/sound/usb/stream.c
 diff --git a/sound/usb/usbaudio.h b/sound/usb/usbaudio.h
 --- a/sound/usb/usbaudio.h
 +++ b/sound/usb/usbaudio.h
-@@ -58,6 +58,9 @@ struct snd_usb_audio {
+@@ -60,6 +60,9 @@ struct snd_usb_audio {
  	struct usb_host_interface *ctrl_intf;	/* the audio control interface */
  	struct media_device *media_dev;
  	struct media_intf_devnode *ctl_intf_media_devnode;

@@ -28,7 +28,7 @@ diff --git a/drivers/md/dm-bow.c b/drivers/md/dm-bow.c
 +	const unsigned int block_size = bc->block_size;
 +
 +	limits->logical_block_size =
-+		max_t(unsigned short, limits->logical_block_size, block_size);
++		max_t(unsigned int, limits->logical_block_size, block_size);
 +	limits->physical_block_size =
 +		max_t(unsigned int, limits->physical_block_size, block_size);
 +	limits->io_min = max_t(unsigned int, limits->io_min, block_size);

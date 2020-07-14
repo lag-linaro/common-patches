@@ -110,7 +110,7 @@ diff --git a/drivers/scsi/ufs/ufshcd.c b/drivers/scsi/ufs/ufshcd.c
  	cmd_desc_dma_addr = hba->ucdl_dma_addr;
  
  	for (i = 0; i < hba->nutrs; i++) {
-@@ -8753,6 +8755,7 @@ int ufshcd_alloc_host(struct device *dev, struct ufs_hba **hba_handle)
+@@ -8749,6 +8751,7 @@ int ufshcd_alloc_host(struct device *dev, struct ufs_hba **hba_handle)
  	hba->dev = dev;
  	*hba_handle = hba;
  	hba->dev_ref_clk_freq = REF_CLK_FREQ_INVAL;

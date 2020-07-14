@@ -108,7 +108,7 @@ diff --git a/drivers/md/Makefile b/drivers/md/Makefile
  obj-$(CONFIG_DM_FLAKEY)		+= dm-flakey.o
 diff --git a/drivers/md/dm-default-key.c b/drivers/md/dm-default-key.c
 new file mode 100644
-index 000000000000..82fbe278b384
+index 000000000000..2f1daa294835
 --- /dev/null
 +++ b/drivers/md/dm-default-key.c
 @@ -0,0 +1,413 @@
@@ -488,7 +488,7 @@ index 000000000000..82fbe278b384
 +	const unsigned int sector_size = dkc->sector_size;
 +
 +	limits->logical_block_size =
-+		max_t(unsigned short, limits->logical_block_size, sector_size);
++		max_t(unsigned int, limits->logical_block_size, sector_size);
 +	limits->physical_block_size =
 +		max_t(unsigned int, limits->physical_block_size, sector_size);
 +	limits->io_min = max_t(unsigned int, limits->io_min, sector_size);
@@ -580,7 +580,7 @@ diff --git a/fs/crypto/inline_crypt.c b/fs/crypto/inline_crypt.c
 diff --git a/fs/f2fs/data.c b/fs/f2fs/data.c
 --- a/fs/f2fs/data.c
 +++ b/fs/f2fs/data.c
-@@ -471,6 +471,8 @@ static void f2fs_set_bio_crypt_ctx(struct bio *bio, const struct inode *inode,
+@@ -472,6 +472,8 @@ static void f2fs_set_bio_crypt_ctx(struct bio *bio, const struct inode *inode,
  	 */
  	if (!fio || !fio->encrypted_page)
  		fscrypt_set_bio_crypt_ctx(bio, inode, first_idx, gfp_mask);
@@ -589,7 +589,7 @@ diff --git a/fs/f2fs/data.c b/fs/f2fs/data.c
  }
  
  static bool f2fs_crypt_mergeable_bio(struct bio *bio, const struct inode *inode,
-@@ -482,7 +484,9 @@ static bool f2fs_crypt_mergeable_bio(struct bio *bio, const struct inode *inode,
+@@ -483,7 +485,9 @@ static bool f2fs_crypt_mergeable_bio(struct bio *bio, const struct inode *inode,
  	 * read/write raw data without encryption.
  	 */
  	if (fio && fio->encrypted_page)

@@ -1,0 +1,44 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: Eric Biggers <ebiggers@google.com>
+Date: Mon, 13 Jul 2020 18:38:50 -0700
+Subject: DROP ME: Leftover pieces from "Revert "FROMLIST: pwm: Convert period
+ and duty cycle to u64""
+
+Signed-off-by: Eric Biggers <ebiggers@google.com>
+Change-Id: I349f49ed1108a197aa4c5e9a9853378c4aa560f6
+---
+ drivers/gpu/drm/i915/display/intel_panel.c | 9 +++++----
+ drivers/media/rc/ir-rx51.c                 | 2 +-
+ 2 files changed, 6 insertions(+), 5 deletions(-)
+
+diff --git a/drivers/gpu/drm/i915/display/intel_panel.c b/drivers/gpu/drm/i915/display/intel_panel.c
+--- a/drivers/gpu/drm/i915/display/intel_panel.c
++++ b/drivers/gpu/drm/i915/display/intel_panel.c
+@@ -1929,10 +1929,11 @@ static int pwm_setup_backlight(struct intel_connector *connector,
+ 		return retval;
+ 	}
+ 
+-	level = DIV_ROUND_UP(pwm_get_duty_cycle(panel->backlight.pwm) * 100,
+-			     CRC_PMIC_PWM_PERIOD_NS);
+-	panel->backlight.level =
+-		intel_panel_compute_brightness(connector, level);
++	panel->backlight.min = 0; /* 0% */
++	panel->backlight.max = 100; /* 100% */
++	panel->backlight.level = DIV_ROUND_UP(
++				 pwm_get_duty_cycle(panel->backlight.pwm) * 100,
++				 CRC_PMIC_PWM_PERIOD_NS);
+ 	panel->backlight.enabled = panel->backlight.level != 0;
+ 
+ 	drm_info(&dev_priv->drm, "Using %s PWM for LCD backlight control\n",
+diff --git a/drivers/media/rc/ir-rx51.c b/drivers/media/rc/ir-rx51.c
+--- a/drivers/media/rc/ir-rx51.c
++++ b/drivers/media/rc/ir-rx51.c
+@@ -241,7 +241,7 @@ static int ir_rx51_probe(struct platform_device *dev)
+ 	}
+ 
+ 	/* Use default, in case userspace does not set the carrier */
+-	ir_rx51.freq = DIV_ROUND_CLOSEST_ULL(pwm_get_period(pwm), NSEC_PER_SEC);
++	ir_rx51.freq = DIV_ROUND_CLOSEST(pwm_get_period(pwm), NSEC_PER_SEC);
+ 	pwm_put(pwm);
+ 
+ 	hrtimer_init(&ir_rx51.timer, CLOCK_MONOTONIC, HRTIMER_MODE_REL);

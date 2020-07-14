@@ -72,6 +72,7 @@ Change-Id: Iabbb8771939d5f66667a26bb23ddf4c562c349a1
  fs/ext2/xattr_security.c              |  2 +-
  fs/ext2/xattr_trusted.c               |  2 +-
  fs/ext2/xattr_user.c                  |  2 +-
+ fs/ext4/xattr_hurd.c                  |  3 ++-
  fs/ext4/xattr_security.c              |  2 +-
  fs/ext4/xattr_trusted.c               |  2 +-
  fs/ext4/xattr_user.c                  |  2 +-
@@ -108,7 +109,7 @@ Change-Id: Iabbb8771939d5f66667a26bb23ddf4c562c349a1
  security/integrity/evm/evm_main.c     |  3 ++-
  security/selinux/hooks.c              | 11 +++++---
  security/smack/smack_lsm.c            |  5 ++--
- 49 files changed, 131 insertions(+), 88 deletions(-)
+ 50 files changed, 133 insertions(+), 89 deletions(-)
 
 diff --git a/Documentation/filesystems/locking.rst b/Documentation/filesystems/locking.rst
 --- a/Documentation/filesystems/locking.rst
@@ -315,6 +316,19 @@ diff --git a/fs/ext2/xattr_user.c b/fs/ext2/xattr_user.c
  		    struct dentry *unused, struct inode *inode,
 -		    const char *name, void *buffer, size_t size)
 +		    const char *name, void *buffer, size_t size, int flags)
+ {
+ 	if (!test_opt(inode->i_sb, XATTR_USER))
+ 		return -EOPNOTSUPP;
+diff --git a/fs/ext4/xattr_hurd.c b/fs/ext4/xattr_hurd.c
+--- a/fs/ext4/xattr_hurd.c
++++ b/fs/ext4/xattr_hurd.c
+@@ -21,7 +21,8 @@ ext4_xattr_hurd_list(struct dentry *dentry)
+ static int
+ ext4_xattr_hurd_get(const struct xattr_handler *handler,
+ 		    struct dentry *unused, struct inode *inode,
+-		    const char *name, void *buffer, size_t size)
++		    const char *name, void *buffer, size_t size,
++		    int flags)
  {
  	if (!test_opt(inode->i_sb, XATTR_USER))
  		return -EOPNOTSUPP;
@@ -619,7 +633,7 @@ diff --git a/fs/orangefs/xattr.c b/fs/orangefs/xattr.c
 diff --git a/fs/overlayfs/super.c b/fs/overlayfs/super.c
 --- a/fs/overlayfs/super.c
 +++ b/fs/overlayfs/super.c
-@@ -847,7 +847,7 @@ static unsigned int ovl_split_lowerdirs(char *str)
+@@ -898,7 +898,7 @@ static unsigned int ovl_split_lowerdirs(char *str)
  static int __maybe_unused
  ovl_posix_acl_xattr_get(const struct xattr_handler *handler,
  			struct dentry *dentry, struct inode *inode,
@@ -628,7 +642,7 @@ diff --git a/fs/overlayfs/super.c b/fs/overlayfs/super.c
  {
  	return ovl_xattr_get(dentry, inode, handler->name, buffer, size);
  }
-@@ -912,7 +912,8 @@ ovl_posix_acl_xattr_set(const struct xattr_handler *handler,
+@@ -963,7 +963,8 @@ ovl_posix_acl_xattr_set(const struct xattr_handler *handler,
  
  static int ovl_own_xattr_get(const struct xattr_handler *handler,
  			     struct dentry *dentry, struct inode *inode,
@@ -638,7 +652,7 @@ diff --git a/fs/overlayfs/super.c b/fs/overlayfs/super.c
  {
  	return -EOPNOTSUPP;
  }
-@@ -927,7 +928,8 @@ static int ovl_own_xattr_set(const struct xattr_handler *handler,
+@@ -978,7 +979,8 @@ static int ovl_own_xattr_set(const struct xattr_handler *handler,
  
  static int ovl_other_xattr_get(const struct xattr_handler *handler,
  			       struct dentry *dentry, struct inode *inode,
@@ -837,7 +851,7 @@ diff --git a/include/linux/xattr.h b/include/linux/xattr.h
 diff --git a/include/uapi/linux/xattr.h b/include/uapi/linux/xattr.h
 --- a/include/uapi/linux/xattr.h
 +++ b/include/uapi/linux/xattr.h
-@@ -17,8 +17,11 @@
+@@ -18,8 +18,11 @@
  #if __UAPI_DEF_XATTR
  #define __USE_KERNEL_XATTR_DEFS
  
@@ -955,7 +969,7 @@ diff --git a/security/selinux/hooks.c b/security/selinux/hooks.c
 diff --git a/security/smack/smack_lsm.c b/security/smack/smack_lsm.c
 --- a/security/smack/smack_lsm.c
 +++ b/security/smack/smack_lsm.c
-@@ -288,7 +288,8 @@ static struct smack_known *smk_fetch(const char *name, struct inode *ip,
+@@ -289,7 +289,8 @@ static struct smack_known *smk_fetch(const char *name, struct inode *ip,
  	if (buffer == NULL)
  		return ERR_PTR(-ENOMEM);
  
@@ -965,7 +979,7 @@ diff --git a/security/smack/smack_lsm.c b/security/smack/smack_lsm.c
  	if (rc < 0)
  		skp = ERR_PTR(rc);
  	else if (rc == 0)
-@@ -3416,7 +3417,7 @@ static void smack_d_instantiate(struct dentry *opt_dentry, struct inode *inode)
+@@ -3417,7 +3418,7 @@ static void smack_d_instantiate(struct dentry *opt_dentry, struct inode *inode)
  			} else {
  				rc = __vfs_getxattr(dp, inode,
  					XATTR_NAME_SMACKTRANSMUTE, trattr,

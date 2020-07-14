@@ -19,7 +19,7 @@ Change-Id: I82c8982b678a46c861a24d8e9adb30153336dac6
 diff --git a/arch/Kconfig b/arch/Kconfig
 --- a/arch/Kconfig
 +++ b/arch/Kconfig
-@@ -558,6 +558,7 @@ config SHADOW_CALL_STACK
+@@ -552,6 +552,7 @@ config SHADOW_CALL_STACK
  	  reading and writing arbitrary memory may be able to locate them
  	  and hijack control flow by modifying the stacks.
  

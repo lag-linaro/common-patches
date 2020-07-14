@@ -310,7 +310,7 @@ diff --git a/drivers/scsi/ufs/ufshcd.c b/drivers/scsi/ufs/ufshcd.c
  			/* Mark completed command as NULL in LRB */
  			lrbp->cmd = NULL;
  			lrbp->compl_time_stamp = ktime_get();
-@@ -8239,6 +8242,10 @@ static int ufshcd_suspend(struct ufs_hba *hba, enum ufs_pm_op pm_op)
+@@ -8235,6 +8238,10 @@ static int ufshcd_suspend(struct ufs_hba *hba, enum ufs_pm_op pm_op)
  		req_link_state = UIC_LINK_OFF_STATE;
  	}
  
@@ -321,7 +321,7 @@ diff --git a/drivers/scsi/ufs/ufshcd.c b/drivers/scsi/ufs/ufshcd.c
  	/*
  	 * If we can't transition into any of the low power modes
  	 * just gate the clocks.
-@@ -8360,6 +8367,7 @@ static int ufshcd_suspend(struct ufs_hba *hba, enum ufs_pm_op pm_op)
+@@ -8356,6 +8363,7 @@ static int ufshcd_suspend(struct ufs_hba *hba, enum ufs_pm_op pm_op)
  	hba->clk_gating.is_suspended = false;
  	hba->dev_info.b_rpm_dev_flush_capable = false;
  	ufshcd_release(hba);
@@ -329,7 +329,7 @@ diff --git a/drivers/scsi/ufs/ufshcd.c b/drivers/scsi/ufs/ufshcd.c
  out:
  	if (hba->dev_info.b_rpm_dev_flush_capable) {
  		schedule_delayed_work(&hba->rpm_dev_flush_recheck_work,
-@@ -8387,9 +8395,11 @@ static int ufshcd_resume(struct ufs_hba *hba, enum ufs_pm_op pm_op)
+@@ -8383,9 +8391,11 @@ static int ufshcd_resume(struct ufs_hba *hba, enum ufs_pm_op pm_op)
  {
  	int ret;
  	enum uic_link_state old_link_state;
@@ -341,7 +341,7 @@ diff --git a/drivers/scsi/ufs/ufshcd.c b/drivers/scsi/ufs/ufshcd.c
  
  	ufshcd_hba_vreg_set_hpm(hba);
  	/* Make sure clocks are enabled before accessing controller */
-@@ -8439,6 +8449,10 @@ static int ufshcd_resume(struct ufs_hba *hba, enum ufs_pm_op pm_op)
+@@ -8435,6 +8445,10 @@ static int ufshcd_resume(struct ufs_hba *hba, enum ufs_pm_op pm_op)
  			goto set_old_link_state;
  	}
  
@@ -352,7 +352,7 @@ diff --git a/drivers/scsi/ufs/ufshcd.c b/drivers/scsi/ufs/ufshcd.c
  	if (ufshcd_keep_autobkops_enabled_except_suspend(hba))
  		ufshcd_enable_auto_bkops(hba);
  	else
-@@ -8466,6 +8480,9 @@ static int ufshcd_resume(struct ufs_hba *hba, enum ufs_pm_op pm_op)
+@@ -8462,6 +8476,9 @@ static int ufshcd_resume(struct ufs_hba *hba, enum ufs_pm_op pm_op)
  
  	goto out;
  

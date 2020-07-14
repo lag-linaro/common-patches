@@ -1,8 +1,8 @@
 #
 # android-mainline patches
 #
-# Applies onto upstream ad57a1022f9e Linux v5.7-13249-gad57a1022f9e
-# Matches android-mainline 1da58ab55546 ("ANDROID: fix up direct access to mmap_sem")
+# Applies onto upstream 48778464bb7d Linux v5.8-rc2
+# Matches android-mainline 1d722fa8e97b ("Merge 5.8-rc2 into android-mainline")
 #
 Revert-security-lockdown-selinux-implement-SELinux-lockdown.patch
 Revert-drm-virtio-fix-DRM_FORMAT_-handling.patch
@@ -22,13 +22,11 @@ FROMLIST-overlayfs-override_creds-off-option-bypass-creator_cred.patch
 FROMLIST-soc-qcom-rpmpd-Allow-RPMPD-driver-to-be-loaded-as-a-module.patch
 FROMLIST-soc-qcom-rpmh-Allow-RPMH-driver-to-be-loaded-as-a-module.patch
 FROMLIST-power_supply-Add-additional-health-properties-to-the-header.patch
-FROMLIST-x86_64-fix-jiffies-ODR-violation.patch
 FROMLIST-unicode-Add-utf8_casefold_hash.patch
-FROMLIST-Add-standard-casefolding-support.patch
+FROMLIST-fs-Add-standard-casefolding-support.patch
 FROMLIST-f2fs-Use-generic-casefolding-support.patch
 FROMLIST-ext4-Use-generic-casefolding-support.patch
 FROMLIST-fscrypt-Have-filesystems-handle-their-d_ops.patch
-FROMLIST-f2fs-Handle-casefolding-with-Encryption.patch
 FROMLIST-scsi-ufs-UFS-driver-v2.1-spec-crypto-additions.patch
 FROMLIST-scsi-ufs-UFS-crypto-API.patch
 FROMLIST-scsi-ufs-Add-inline-encryption-support-to-UFS.patch
@@ -273,7 +271,6 @@ ANDROID-remove-map-unmap-from-ion_dma.c.patch
 ANDROID-fix-up-uio_sys_stats-to-handle-recent-proc_ops-changes.patch
 ANDROID-fix-up-xt_quota2-for-proc_ops-changes.patch
 ANDROID-dummy-cpufreq-fix-up-5.6-rc1-API-changes.patch
-FROMLIST-pwm-Convert-period-and-duty-cycle-to-u64.patch
 ANDROID-gki_defconfig-enable-heap-and-stack-initialization.patch
 ANDROID-added-memory-initialization-tests-to-cuttlefish-config.patch
 ANDROID-gki_defconfig-enable-CONFIG_RUNTIME_TESTING_MENU.patch
@@ -440,6 +437,10 @@ ANDROID-dm-bow-Add-block_size-option.patch
 ANDROID-GKI-set-CONFIG_BLK_DEV_LOOP_MIN_COUNT-to-16.patch
 ANDROID-GKI-Enable-CONFIG_DEBUG_FS-for-Android-S.patch
 ANDROID-staging-ion-Skip-sync-if-not-mapped.patch
+ANDROID-fs-adjust-casefolding-support-to-match-android-mainline.patch
+ANDROID-ext4-Handle-casefolding-with-encryption.patch
+ANDROID-ext4-Optimize-match-for-casefolded-encrypted-dirs.patch
+ANDROID-f2fs-Handle-casefolding-with-Encryption.patch
 ANDROID-fscrypt-add-key-removal-notifier-chain.patch
 ANDROID-ext4-f2fs-enable-direct-I-O-with-inline-encryption.patch
 ANDROID-block-Introduce-passthrough-keyslot-manager.patch
@@ -458,13 +459,20 @@ ANDROID-gki_defconfig-enable-inline-encryption.patch
 ANDROID-gki_defconfig-Enable-blk-crypto-fallback.patch
 ANDROID-gki_defconfig-enable-dm-default-key.patch
 ANDROID-GKI-enable-some-more-USB-configfs-options.patch
-ANDROID-dm-default-key-avoid-truncating-the-logical-block-size.patch
-ANDROID-dm-bow-avoid-truncating-the-logical-block-size.patch
 ANDROID-Use-depmod-from-the-hermetic-toolchain.patch
 ANDROID-GKI-update-gki-defconfigs.patch
 ANDROID-bpf-Workaround-for-bpf-permissions-check-regression.patch
 FROMLIST-nsproxy-restore-EINVAL-for-non-namespace-file-descriptor.patch
 ANDROID-GKI-remove-CONFIG_EDAC-from-arm64-gki_defconfig.patch
-DROP-ME-Leftover-pieces-from-the-5.8-rc1-merge.patch
 ANDROID-GKI-fix-up-gki_defconfig-due-to-pinctrl-upstream-merges.patch
 ANDROID-fix-up-direct-access-to-mmap_sem.patch
+ANDROID-Incremental-fs-fix-up-attempt-to-copy-structures-with-READ-WRITE_ONCE.patch
+ANDROID-gki_defconfig-Enable-CONFIG_WQ_WATCHDOG.patch
+ANDROID-GKI-Enable-INTERVAL_TREE.patch
+ANDROID-GKI-scripts-Makefile-update-the-lz4-command.patch
+ANDROID-gki_defconfig-x86-Enable-KERNEL_LZ4.patch
+ANDROID-GKI-support-CONFIG_INPUT_TOUCHSCREEN.patch
+ANDROID-GKI-enable-CONFIG_TYPEC_TCPM.patch
+ANDROID-Makefile-append-BUILD_NUMBER-to-version-string-when-defined.patch
+DROP-ME-Leftover-pieces-from-the-5.8-rc1-merge.patch
+DROP-ME-Leftover-pieces-from-Revert-FROMLIST-pwm-Convert-period-and-duty-cycle-to-u64.patch
