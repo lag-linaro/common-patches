@@ -2,12 +2,14 @@
 # android-mainline patches
 #
 # Applies onto upstream dcb7fd82c75e Linux v5.8-rc4
-# Matches android-mainline ca9814bc63d1 ("Merge 5.8-rc4 into android-mainline")
+# Matches android-mainline f19515bca8c5 ("ANDROID: f2fs: add back compress inode check")
 #
 Revert-security-lockdown-selinux-implement-SELinux-lockdown.patch
 Revert-drm-virtio-fix-DRM_FORMAT_-handling.patch
 Revert-sched-core-Prevent-race-condition-between-cpuset-and-__sched_setscheduler.patch
 FROMGIT-iommu-arm-smmu-Don-t-bypass-pinned-stream-mappings.patch
+FROMGIT-driver-core-Add-device_is_dependent-to-linux-device.h.patch
+FROMGIT-of-property-Improve-cycle-detection-when-one-of-the-devices-is-never-added.patch
 FROMLIST-scsi-ufs-qcom-enter-and-exit-hibern8-during-clock-scaling.patch
 FROMLIST-scsi-ufs-Export-query-request-interfaces.patch
 FROMLIST-scsi-ufs-export-hibern8-entry-and-exit.patch
@@ -475,5 +477,8 @@ ANDROID-lt9611-Sync-w-Vinod-s-most-recent-lt9611-patches-which-enable-HDMI-audio
 ANDROID-db845c_gki.fragment-Add-audio-configs.patch
 ANDROID-block-fix-checking-for-wrapped-key-support.patch
 ANDROID-GKI-scripts-Makefile-update-the-lz4-command-2.patch
+ANDROID-GKI-drop-CONFIG_UAPI_HEADER_TEST-from-configs.patch
+ANDROID-sched-add-restrict-vendor-hook-to-modify-task-placement-policy-in-EAS.patch
+ANDROID-f2fs-add-back-compress-inode-check.patch
 DROP-ME-Leftover-pieces-from-the-5.8-rc1-merge.patch
 DROP-ME-Leftover-pieces-from-Revert-FROMLIST-pwm-Convert-period-and-duty-cycle-to-u64.patch

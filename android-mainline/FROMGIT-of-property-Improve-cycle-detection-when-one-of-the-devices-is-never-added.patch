@@ -1,0 +1,144 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: Saravana Kannan <saravanak@google.com>
+Date: Tue, 9 Jun 2020 18:19:34 -0700
+Subject: FROMGIT: of: property: Improve cycle detection when one of the
+ devices is never added
+
+Consider this example where -> means LHS device is a consumer of RHS
+device and indentation represents "child of" of the previous device.
+
+Device A -> Device C
+
+Device B -> Device A
+	Device C
+
+Without this commit:
+1. Device A is added.
+2. Device A is added to waiting for supplier list (Device C)
+3. Device B is added
+4. Device B is linked as a consumer to Device A
+5. Device A doesn't probe because it's waiting for Device C to be added.
+6. Device B doesn't probe because Device A hasn't probed.
+7. Device C will never be added because it's parent hasn't probed.
+
+So, Device A, B and C will be in a probe/add deadlock.
+
+This commit detects this scenario and stops trying to create a device
+link between Device A and Device C since doing so would create the
+following cycle:
+Device A -> Devic C -(parent)-> Device B -> Device A.
+
+With this commit:
+1. Device A is added.
+3. Device B is added
+4. Device B is linked as a consumer to Device A
+5. Device A probes.
+6. Device B probes because Device A has probed.
+7. Device C is added and probed.
+
+Signed-off-by: Saravana Kannan <saravanak@google.com>
+Link: https://lore.kernel.org/r/20200610011934.49795-3-saravanak@google.com
+Signed-off-by: Rob Herring <robh@kernel.org>
+(cherry picked from commit bb278b149df9baceac8deea0f95d73c47b3effa8
+ https://git.kernel.org/pub/scm/linux/kernel/git/robh/linux.git/ for-next)
+Signed-off-by: Saravana Kannan <saravanak@google.com>
+Bug: 160736143
+Change-Id: I56996064d6648e84462f2a898859e1b50657ae45
+---
+ drivers/of/property.c | 62 ++++++++++++++++++++++++++++++++++++++-----
+ 1 file changed, 56 insertions(+), 6 deletions(-)
+
+diff --git a/drivers/of/property.c b/drivers/of/property.c
+--- a/drivers/of/property.c
++++ b/drivers/of/property.c
+@@ -1014,6 +1014,30 @@ static bool of_is_ancestor_of(struct device_node *test_ancestor,
+ 	return false;
+ }
+ 
++/**
++ * of_get_next_parent_dev - Add device link to supplier from supplier phandle
++ * @np: device tree node
++ *
++ * Given a device tree node (@np), this function finds its closest ancestor
++ * device tree node that has a corresponding struct device.
++ *
++ * The caller of this function is expected to call put_device() on the returned
++ * device when they are done.
++ */
++static struct device *of_get_next_parent_dev(struct device_node *np)
++{
++	struct device *dev = NULL;
++
++	of_node_get(np);
++	do {
++		np = of_get_next_parent(np);
++		if (np)
++			dev = get_dev_from_fwnode(&np->fwnode);
++	} while (np && !dev);
++	of_node_put(np);
++	return dev;
++}
++
+ /**
+  * of_link_to_phandle - Add device link to supplier from supplier phandle
+  * @dev: consumer device
+@@ -1035,10 +1059,9 @@ static bool of_is_ancestor_of(struct device_node *test_ancestor,
+ static int of_link_to_phandle(struct device *dev, struct device_node *sup_np,
+ 			      u32 dl_flags)
+ {
+-	struct device *sup_dev;
++	struct device *sup_dev, *sup_par_dev;
+ 	int ret = 0;
+ 	struct device_node *tmp_np = sup_np;
+-	int is_populated;
+ 
+ 	of_node_get(sup_np);
+ 	/*
+@@ -1075,16 +1098,43 @@ static int of_link_to_phandle(struct device *dev, struct device_node *sup_np,
+ 		return -EINVAL;
+ 	}
+ 	sup_dev = get_dev_from_fwnode(&sup_np->fwnode);
+-	is_populated = of_node_check_flag(sup_np, OF_POPULATED);
+-	of_node_put(sup_np);
+-	if (!sup_dev && is_populated) {
++	if (!sup_dev && of_node_check_flag(sup_np, OF_POPULATED)) {
+ 		/* Early device without struct device. */
+ 		dev_dbg(dev, "Not linking to %pOFP - No struct device\n",
+ 			sup_np);
++		of_node_put(sup_np);
+ 		return -ENODEV;
+ 	} else if (!sup_dev) {
+-		return -EAGAIN;
++		/*
++		 * DL_FLAG_SYNC_STATE_ONLY doesn't block probing and supports
++		 * cycles. So cycle detection isn't necessary and shouldn't be
++		 * done.
++		 */
++		if (dl_flags & DL_FLAG_SYNC_STATE_ONLY) {
++			of_node_put(sup_np);
++			return -EAGAIN;
++		}
++
++		sup_par_dev = of_get_next_parent_dev(sup_np);
++
++		if (sup_par_dev && device_is_dependent(dev, sup_par_dev)) {
++			/* Cyclic dependency detected, don't try to link */
++			dev_dbg(dev, "Not linking to %pOFP - cycle detected\n",
++				sup_np);
++			ret = -EINVAL;
++		} else {
++			/*
++			 * Can't check for cycles or no cycles. So let's try
++			 * again later.
++			 */
++			ret = -EAGAIN;
++		}
++
++		of_node_put(sup_np);
++		put_device(sup_par_dev);
++		return ret;
+ 	}
++	of_node_put(sup_np);
+ 	if (!device_link_add(dev, sup_dev, dl_flags))
+ 		ret = -EINVAL;
+ 	put_device(sup_dev);
