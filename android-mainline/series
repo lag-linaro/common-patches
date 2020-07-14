@@ -2,7 +2,7 @@
 # android-mainline patches
 #
 # Applies onto upstream 11ba468877bb Linux v5.8-rc5
-# Matches android-mainline 6c201957b6fa ("Merge 5.8-rc5 into android-mainline")
+# Matches android-mainline 44a98b30ed04 ("ANDROID: fix bad revert of "FROMLIST: pwm: Convert period and duty cycle to u64"")
 #
 Revert-security-lockdown-selinux-implement-SELinux-lockdown.patch
 Revert-drm-virtio-fix-DRM_FORMAT_-handling.patch
@@ -479,5 +479,7 @@ ANDROID-GKI-scripts-Makefile-update-the-lz4-command-2.patch
 ANDROID-GKI-drop-CONFIG_UAPI_HEADER_TEST-from-configs.patch
 ANDROID-sched-add-restrict-vendor-hook-to-modify-task-placement-policy-in-EAS.patch
 ANDROID-f2fs-add-back-compress-inode-check.patch
+ANDROID-sound-usb-Add-vendor-s-hooking-interface.patch
+ANDROID-vendor_hooks-FPSIMD-save-restore-by-using-vendor_hooks.patch
+ANDROID-GKI-set-CONFIG_STATIC_USERMODEHELPER_PATH.patch
 DROP-ME-Leftover-pieces-from-the-5.8-rc1-merge.patch
-DROP-ME-Leftover-pieces-from-Revert-FROMLIST-pwm-Convert-period-and-duty-cycle-to-u64.patch
