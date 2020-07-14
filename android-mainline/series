@@ -1,8 +1,8 @@
 #
 # android-mainline patches
 #
-# Applies onto upstream 625d3449788f Linux v5.8-rc2-1-g625d3449788f
-# Matches android-mainline 6e23f5089da1 ("Revert "FROMLIST: esp: select CRYPTO_SEQIV"")
+# Applies onto upstream 9ebcfadb0610 Linux v5.8-rc3
+# Matches android-mainline 1e253d0563d2 ("Merge 5.8-rc3 into android-mainline")
 #
 Revert-security-lockdown-selinux-implement-SELinux-lockdown.patch
 Revert-drm-virtio-fix-DRM_FORMAT_-handling.patch
@@ -459,7 +459,6 @@ ANDROID-GKI-enable-some-more-USB-configfs-options.patch
 ANDROID-Use-depmod-from-the-hermetic-toolchain.patch
 ANDROID-GKI-update-gki-defconfigs.patch
 ANDROID-bpf-Workaround-for-bpf-permissions-check-regression.patch
-FROMLIST-nsproxy-restore-EINVAL-for-non-namespace-file-descriptor.patch
 ANDROID-GKI-remove-CONFIG_EDAC-from-arm64-gki_defconfig.patch
 ANDROID-GKI-fix-up-gki_defconfig-due-to-pinctrl-upstream-merges.patch
 ANDROID-fix-up-direct-access-to-mmap_sem.patch

@@ -34,7 +34,7 @@ diff --git a/include/sound/soc.h b/include/sound/soc.h
  #define SOC_SINGLE_EXT_TLV(xname, xreg, xshift, xmax, xinvert,\
  	 xhandler_get, xhandler_put, tlv_array) \
  {	.iface = SNDRV_CTL_ELEM_IFACE_MIXER, .name = xname, \
-@@ -628,6 +636,8 @@ int snd_soc_get_strobe(struct snd_kcontrol *kcontrol,
+@@ -630,6 +638,8 @@ int snd_soc_get_strobe(struct snd_kcontrol *kcontrol,
  	struct snd_ctl_elem_value *ucontrol);
  int snd_soc_put_strobe(struct snd_kcontrol *kcontrol,
  	struct snd_ctl_elem_value *ucontrol);
@@ -43,7 +43,7 @@ diff --git a/include/sound/soc.h b/include/sound/soc.h
  
  /**
   * struct snd_soc_jack_pin - Describes a pin to update based on jack detection
-@@ -1241,6 +1251,11 @@ struct soc_mreg_control {
+@@ -1243,6 +1253,11 @@ struct soc_mreg_control {
  	unsigned int regbase, regcount, nbits, invert;
  };
  
@@ -58,7 +58,7 @@ diff --git a/include/sound/soc.h b/include/sound/soc.h
 diff --git a/sound/soc/soc-core.c b/sound/soc/soc-core.c
 --- a/sound/soc/soc-core.c
 +++ b/sound/soc/soc-core.c
-@@ -2985,6 +2985,39 @@ int snd_soc_get_dai_id(struct device_node *ep)
+@@ -2986,6 +2986,39 @@ int snd_soc_get_dai_id(struct device_node *ep)
  }
  EXPORT_SYMBOL_GPL(snd_soc_get_dai_id);
  

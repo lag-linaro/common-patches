@@ -209,7 +209,7 @@ diff --git a/sound/usb/pcm.c b/sound/usb/pcm.c
  static int init_pitch_v1(struct snd_usb_audio *chip, int iface,
  			 struct usb_host_interface *alts,
  			 struct audioformat *fmt)
-@@ -604,6 +667,74 @@ static int set_format(struct snd_usb_substream *subs, struct audioformat *fmt)
+@@ -605,6 +668,74 @@ static int set_format(struct snd_usb_substream *subs, struct audioformat *fmt)
  	return 0;
  }
  
