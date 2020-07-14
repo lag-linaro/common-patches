@@ -157,7 +157,7 @@ diff --git a/drivers/iommu/arm-smmu.c b/drivers/iommu/arm-smmu.c
  
  	return true;
  }
-@@ -1164,7 +1182,7 @@ static int arm_smmu_attach_dev(struct iommu_domain *domain, struct device *dev)
+@@ -1168,7 +1186,7 @@ static int arm_smmu_attach_dev(struct iommu_domain *domain, struct device *dev)
  		return ret;
  
  	/* Ensure that the domain is finalised */

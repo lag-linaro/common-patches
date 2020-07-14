@@ -668,7 +668,7 @@ diff --git a/include/linux/blk_types.h b/include/linux/blk_types.h
 diff --git a/include/linux/fscrypt.h b/include/linux/fscrypt.h
 --- a/include/linux/fscrypt.h
 +++ b/include/linux/fscrypt.h
-@@ -623,6 +623,20 @@ static inline int fscrypt_limit_dio_pages(const struct inode *inode, loff_t pos,
+@@ -609,6 +609,20 @@ static inline int fscrypt_limit_dio_pages(const struct inode *inode, loff_t pos,
  }
  #endif /* !CONFIG_FS_ENCRYPTION_INLINE_CRYPT */
  

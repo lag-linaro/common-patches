@@ -2,11 +2,12 @@
 # android-mainline patches
 #
 # Applies onto upstream 9ebcfadb0610 Linux v5.8-rc3
-# Matches android-mainline 1e253d0563d2 ("Merge 5.8-rc3 into android-mainline")
+# Matches android-mainline 6883a1e06ba8 ("Revert "ANDROID: fscrypt: add key removal notifier chain"")
 #
 Revert-security-lockdown-selinux-implement-SELinux-lockdown.patch
 Revert-drm-virtio-fix-DRM_FORMAT_-handling.patch
 Revert-sched-core-Prevent-race-condition-between-cpuset-and-__sched_setscheduler.patch
+FROMGIT-iommu-arm-smmu-Don-t-bypass-pinned-stream-mappings.patch
 FROMLIST-scsi-ufs-qcom-enter-and-exit-hibern8-during-clock-scaling.patch
 FROMLIST-scsi-ufs-Export-query-request-interfaces.patch
 FROMLIST-scsi-ufs-export-hibern8-entry-and-exit.patch
@@ -21,6 +22,7 @@ FROMLIST-overlayfs-internal-getxattr-operations-without-sepolicy-checking.patch
 FROMLIST-overlayfs-override_creds-off-option-bypass-creator_cred.patch
 FROMLIST-soc-qcom-rpmpd-Allow-RPMPD-driver-to-be-loaded-as-a-module.patch
 FROMLIST-soc-qcom-rpmh-Allow-RPMH-driver-to-be-loaded-as-a-module.patch
+FROMLIST-ASoC-qcom-Kconfig-Tweak-dependencies-on-SND_SOC_SDM845.patch
 FROMLIST-power_supply-Add-additional-health-properties-to-the-header.patch
 FROMLIST-unicode-Add-utf8_casefold_hash.patch
 FROMLIST-fs-Add-standard-casefolding-support.patch
@@ -35,6 +37,8 @@ FROMLIST-fs-introduce-SB_INLINECRYPT.patch
 FROMLIST-fscrypt-add-inline-encryption-support.patch
 FROMLIST-f2fs-add-inline-encryption-support.patch
 FROMLIST-ext4-add-inline-encryption-support.patch
+FROMLIST-drm-msm-dpu-request-for-display-color-blocks-based-on-hw-catalog-entry.patch
+FROMLIST-drm-msm-Fix-0xfffflub-in-Refactor-address-space-initialization.patch
 ANDROID-arm64-copy-CONFIG_CMDLINE_EXTEND-from-ARM.patch
 ANDROID-of-Support-CONFIG_CMDLINE_EXTEND-config-option.patch
 ANDROID-Kbuild-LLVMLinux-allow-overriding-clang-target-triple.patch
@@ -438,7 +442,6 @@ ANDROID-fs-adjust-casefolding-support-to-match-android-mainline.patch
 ANDROID-ext4-Handle-casefolding-with-encryption.patch
 ANDROID-ext4-Optimize-match-for-casefolded-encrypted-dirs.patch
 ANDROID-f2fs-Handle-casefolding-with-Encryption.patch
-ANDROID-fscrypt-add-key-removal-notifier-chain.patch
 ANDROID-ext4-f2fs-enable-direct-I-O-with-inline-encryption.patch
 ANDROID-block-Introduce-passthrough-keyslot-manager.patch
 ANDROID-dm-add-support-for-passing-through-inline-crypto-support.patch
@@ -470,5 +473,9 @@ ANDROID-gki_defconfig-x86-Enable-KERNEL_LZ4.patch
 ANDROID-GKI-support-CONFIG_INPUT_TOUCHSCREEN.patch
 ANDROID-GKI-enable-CONFIG_TYPEC_TCPM.patch
 ANDROID-Makefile-append-BUILD_NUMBER-to-version-string-when-defined.patch
+ANDROID-lt9611-Sync-w-Vinod-s-most-recent-lt9611-patches-which-enable-HDMI-audio.patch
+ANDROID-db845c_gki.fragment-Add-audio-configs.patch
+ANDROID-block-fix-checking-for-wrapped-key-support.patch
+ANDROID-GKI-scripts-Makefile-update-the-lz4-command-2.patch
 DROP-ME-Leftover-pieces-from-the-5.8-rc1-merge.patch
 DROP-ME-Leftover-pieces-from-Revert-FROMLIST-pwm-Convert-period-and-duty-cycle-to-u64.patch

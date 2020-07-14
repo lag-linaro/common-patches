@@ -1,0 +1,37 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: Alistair Delva <adelva@google.com>
+Date: Wed, 1 Jul 2020 12:12:04 -0700
+Subject: ANDROID: GKI: scripts: Makefile: update the lz4 command (#2)
+
+When the command was switched over from 'lz4c' to 'lz4', it changed the
+meaning of '-c' in a subtle way. In the older lz4c tool, this '-cX'
+seems to be a different flag, meaning the compression level. In the
+newer lz4 tool, it means to compress to stdout. However, since kbuild
+already specifies stdout as a file name, '-c' is superfluous, and
+generates a warning:
+
+Warning : stdout won't be used ! Do you want multiple input files (-m) ?
+
+Fix it by removing the extra stdout flag.
+
+Bug: 159285792
+Bug: 160031736
+Test: build/build.sh
+Signed-off-by: Alistair Delva <adelva@google.com>
+Change-Id: I96247317ccb31f224c6a8e6e453cddde5e0c2550
+---
+ scripts/Makefile.lib | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/scripts/Makefile.lib b/scripts/Makefile.lib
+--- a/scripts/Makefile.lib
++++ b/scripts/Makefile.lib
+@@ -360,7 +360,7 @@ quiet_cmd_lzo = LZO     $@
+ 
+ quiet_cmd_lz4 = LZ4     $@
+       cmd_lz4 = { cat $(real-prereqs) | \
+-                  $(LZ4) -c -l -12 --favor-decSpeed stdin stdout; \
++                  $(LZ4) -l -12 --favor-decSpeed stdin stdout; \
+                   $(size_append); } > $@
+ 
+ # U-Boot mkimage
