@@ -2,7 +2,7 @@
 # android-mainline patches
 #
 # Applies onto upstream 625d3449788f Linux v5.8-rc2-1-g625d3449788f
-# Matches android-mainline 663ae7d5d011 ("Merge 625d3449788f ("Revert "kernel/printk: add kmsg SEEK_CUR handling"") into android-mainline")
+# Matches android-mainline 6e23f5089da1 ("Revert "FROMLIST: esp: select CRYPTO_SEQIV"")
 #
 Revert-security-lockdown-selinux-implement-SELinux-lockdown.patch
 Revert-drm-virtio-fix-DRM_FORMAT_-handling.patch
@@ -286,8 +286,6 @@ ANDROID-Incremental-fs-Support-xattrs.patch
 FROMLIST-ufs-fix-a-bug-on-printing-PRDT.patch
 ANDROID-ufs-add-quirk-to-fix-abnormal-ocs-fatal-error.patch
 ANDROID-Kconfig.gki-Remove-most-of-the-built-in-qcom-clks.patch
-FROMLIST-dt-bindings-display-msm-Add-required-dma-range-property.patch
-FROMLIST-arm64-dts-sdm845-Set-the-virtual-address-range-for-GMU-allocations.patch
 ANDROID-update-gki_defconfig-for-5.6-rc3.patch
 ANDROID-Disable-wq-fp-check-in-CFI-builds.patch
 ANDROID-gki_defconfig-Disable-CONFIG_RT_GROUP_SCHED.patch
@@ -429,7 +427,6 @@ ANDROID-fix-copyright-notice.patch
 ANDROID-net-bpf-permit-redirect-from-ingress-L3-to-egress-L2-devices-at-near-max-mtu.patch
 ANDROID-GKI-Enable-SYS_HYPERVISOR.patch
 ANDROID-Incremental-fs-Cache-successful-hash-calculations.patch
-FROMLIST-esp-select-CRYPTO_SEQIV.patch
 ANDROID-sched-Allow-EAS-without-schedutil.patch
 ANDROID-Incremental-fs-Fix-four-error-path-bugs.patch
 ANDROID-Incremental-fs-Remove-dependency-on-PKCS7_MESSAGE_PARSER.patch
