@@ -1,0 +1,25 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: Matthias Maennich <maennich@google.com>
+Date: Fri, 17 Jul 2020 18:00:57 +0200
+Subject: DROP ME: Leftover patch after CFI reverts
+
+Signed-off-by: Matthias Maennich <maennich@google.com>
+Change-Id: Id36c72a9a350ccaecc4836cb70f75d830bda5be0
+---
+ include/linux/compiler_types.h | 4 ++++
+ 1 file changed, 4 insertions(+)
+
+diff --git a/include/linux/compiler_types.h b/include/linux/compiler_types.h
+--- a/include/linux/compiler_types.h
++++ b/include/linux/compiler_types.h
+@@ -231,6 +231,10 @@ struct ftrace_likely_data {
+ # define __noscs
+ #endif
+ 
++#ifndef __norecordmcount
++# define __norecordmcount
++#endif
++
+ #ifndef asm_volatile_goto
+ #define asm_volatile_goto(x...) asm goto(x)
+ #endif

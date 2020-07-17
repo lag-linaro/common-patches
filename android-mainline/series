@@ -2,7 +2,7 @@
 # android-mainline patches
 #
 # Applies onto upstream 11ba468877bb Linux v5.8-rc5
-# Matches android-mainline 27b2ed4395fe ("ANDROID: update to latest fscrypt and UFS inline crypto patches")
+# Matches android-mainline bd98af7d214e ("Revert "ANDROID: add support for Clang's Control Flow Integrity (CFI)"")
 #
 Revert-security-lockdown-selinux-implement-SELinux-lockdown.patch
 Revert-drm-virtio-fix-DRM_FORMAT_-handling.patch
@@ -18,7 +18,6 @@ FROMLIST-drivers-irqchip-pdc-additionally-set-type-in-SPI-config-registers.patch
 FROMLIST-dt-bindings-interrupt-controller-pdc-add-SPI-config-register.patch
 FROMLIST-Add-flags-option-to-get-xattr-method-paired-to-__vfs_getxattr.patch
 BACKPORT-FROMLIST-pwm-Add-support-for-different-PWM-output-types.patch
-FROMLIST-lib-list_sort-fix-function-type-mismatches.patch
 FROMLIST-overlayfs-handle-XATTR_NOSECURITY-flag-for-get-xattr-method.patch
 FROMLIST-overlayfs-internal-getxattr-operations-without-sepolicy-checking.patch
 FROMLIST-overlayfs-override_creds-off-option-bypass-creator_cred.patch
@@ -185,11 +184,6 @@ ANDROID-gki_defconfig-disable-FUNCTION_TRACER.patch
 ANDROID-gki_defconfig-enable-CONFIG_IKHEADERS-as-m.patch
 ANDROID-gki_defconfig-FW_CACHE-to-no.patch
 ANDROID-gki_defconfig-m-s-applied-for-virtio-configs-in-arm64.patch
-ANDROID-add-support-for-Clang-s-Control-Flow-Integrity-CFI.patch
-ANDROID-arm64-add-__nocfi-to-functions-that-jump-to-a-physical-address.patch
-ANDROID-arm64-add-__pa_function.patch
-ANDROID-arm64-add-__nocfi-to-__apply_alternatives.patch
-ANDROID-arm64-kvm-disable-CFI.patch
 ANDROID-gki_defconfig-enable-CONFIG_REGULATOR_FIXED_VOLTAGE.patch
 ANDROID-ASoC-Fix-allmodconfig-build-break.patch
 ANDROID-gki_defconfig-IIO-y.patch
@@ -238,11 +232,6 @@ ANDROID-db845c-add-db845c_gki.fragment.patch
 ANDROID-db845c-Add-build-config.patch
 ANDROID-GKI-enable-CONFIG_NETFILTER_XT_MATCH_QUOTA2_LOG-y.patch
 ANDROID-GKI-enable-CONFIG_DUMMY-y.patch
-ANDROID-x86-extable-Do-not-mark-exception-callback-as-CFI.patch
-ANDROID-x86-alternatives-Use-C-int3-selftest-but-disable-KASAN.patch
-ANDROID-x86-relocs-Ignore-__typeid__-relocations.patch
-ANDROID-x86-module-Ignore-__typeid__-relocations.patch
-ANDROID-x86-map-CFI-jump-tables-in-pti_clone_entry_text.patch
 ANDROID-build-config-for-cuttlefish-ramdisk.patch
 ANDROID-virtio-net-Skip-set_features-on-non-cvq-devices.patch
 ANDROID-gki-Make-GKI-specific-modules-builtins.patch
@@ -258,7 +247,6 @@ ANDROID-gki_defconfig-Set-IKHEADERS-back-to-y.patch
 ANDROID-gki-Fixed-some-typos-in-Kconfig.gki.patch
 ANDROID-modularize-BLK_MQ_VIRTIO.patch
 ANDROID-fix-build-problem-in-include-trace-events-android_fs_template.h.patch
-ANDROID-bpf-disable-CFI-for-dispatcher-functions.patch
 ANDROID-Remove-default-y-for-VIRTIO_PCI_LEGACY.patch
 ANDROID-gki-Removed-cf-modules-from-gki_defconfig.patch
 ANDROID-gki-Enable-DRM_GEM_SHMEM_HELPER-for-GKI.patch
@@ -296,7 +284,6 @@ FROMLIST-ufs-fix-a-bug-on-printing-PRDT.patch
 ANDROID-ufs-add-quirk-to-fix-abnormal-ocs-fatal-error.patch
 ANDROID-Kconfig.gki-Remove-most-of-the-built-in-qcom-clks.patch
 ANDROID-update-gki_defconfig-for-5.6-rc3.patch
-ANDROID-Disable-wq-fp-check-in-CFI-builds.patch
 ANDROID-gki_defconfig-Disable-CONFIG_RT_GROUP_SCHED.patch
 ANDROID-gki_defconfig-disable-CONFIG_CRYPTO_MD4.patch
 ANDROID-gki-Enable-BINFMT_MISC-as-part-of-GKI.patch
@@ -313,7 +300,6 @@ ANDROID-gki-set-CONFIG_SERIAL_SPRD_CONSOLE-for-earlycon.patch
 ANDROID-gki_defconfig-add-CONFIG_IIO_BUFFER-and-CONFIG_IIO_TRIGGER.patch
 ANDROID-Unconditionally-create-bridge-tracepoints.patch
 ANDROID-gki_defconfig-Enable-MFD_SYSCON-on-x86.patch
-ANDROID-CC_FLAGS_CFI-add-fno-sanitize-blacklist.patch
 ANDROID-staging-ion-Add-an-in-kernel-interface-to-request-heap-info.patch
 ANDROID-cpufreq-times-Remove-proc-uid_concurrent_-active-policy-_time.patch
 ANDROID-cpufreq-times-Remove-per-UID-time-in-state-tracking.patch
@@ -364,7 +350,6 @@ ANDROID-Incremental-fs-get_filled_blocks-better-index_out.patch
 ANDROID-Incremental-fs-Fix-crash-polling-0-size-read_log.patch
 ANDROID-Incremental-fs-Protect-get_fill_block-and-add-a-field.patch
 ANDROID-Incremental-fs-Fix-remount.patch
-ANDROID-Fix-wq-fp-check-for-CFI-builds.patch
 ANDROID-staging-ion-move-definition-of-attachment.patch
 ANDROID-GKI-defconfig-modify-debug-configs.patch
 ANDROID-Incremental-fs-Use-64-bit-int-for-file_size-when-writing-hash-blocks.patch
@@ -408,7 +393,6 @@ ANDROID-Remove-VLA-from-uid_sys_stats.c.patch
 ANDROID-GKI-Enable-GENERIC_IRQ_CHIP.patch
 ANDROID-add-ion_stat-tracepoint-to-common-kernel.patch
 ANDROID-GKI-Enable-net-testing-options.patch
-ANDROID-cfi-fix-export-symbol-types.patch
 ANDROID-virt_wifi-fix-export-symbol-types.patch
 ANDROID-ion-fix-export-symbol-type.patch
 ANDROID-driver-gpu-drm-fix-export-symbol-types.patch
@@ -484,3 +468,4 @@ ANDROID-sound-usb-Add-vendor-s-hooking-interface.patch
 ANDROID-vendor_hooks-FPSIMD-save-restore-by-using-vendor_hooks.patch
 ANDROID-GKI-set-CONFIG_STATIC_USERMODEHELPER_PATH.patch
 ANDROID-GKI-Enable-BOOT_CONFIG.patch
+DROP-ME-Leftover-patch-after-CFI-reverts.patch
