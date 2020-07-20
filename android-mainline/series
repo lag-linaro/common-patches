@@ -2,7 +2,7 @@
 # android-mainline patches
 #
 # Applies onto upstream 11ba468877bb Linux v5.8-rc5
-# Matches android-mainline bd98af7d214e ("Revert "ANDROID: add support for Clang's Control Flow Integrity (CFI)"")
+# Matches android-mainline 16330b35600f ("ANDROID: Add vendor hooks to the scheduler")
 #
 Revert-security-lockdown-selinux-implement-SELinux-lockdown.patch
 Revert-drm-virtio-fix-DRM_FORMAT_-handling.patch
@@ -469,3 +469,4 @@ ANDROID-vendor_hooks-FPSIMD-save-restore-by-using-vendor_hooks.patch
 ANDROID-GKI-set-CONFIG_STATIC_USERMODEHELPER_PATH.patch
 ANDROID-GKI-Enable-BOOT_CONFIG.patch
 DROP-ME-Leftover-patch-after-CFI-reverts.patch
+ANDROID-Add-vendor-hooks-to-the-scheduler.patch
