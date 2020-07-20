@@ -27,7 +27,7 @@ Signed-off-by: Quentin Perret <quentin.perret@arm.com>
 diff --git a/kernel/sched/fair.c b/kernel/sched/fair.c
 --- a/kernel/sched/fair.c
 +++ b/kernel/sched/fair.c
-@@ -6539,7 +6539,7 @@ compute_energy(struct task_struct *p, int dst_cpu, struct perf_domain *pd)
+@@ -6543,7 +6543,7 @@ compute_energy(struct task_struct *p, int dst_cpu, struct perf_domain *pd)
   * other use-cases too. So, until someone finds a better way to solve this,
   * let's keep things simple by re-using the existing slow path.
   */
@@ -36,7 +36,7 @@ diff --git a/kernel/sched/fair.c b/kernel/sched/fair.c
  {
  	unsigned long prev_delta = ULONG_MAX, best_delta = ULONG_MAX;
  	struct root_domain *rd = cpu_rq(smp_processor_id())->rd;
-@@ -6553,6 +6553,12 @@ static int find_energy_efficient_cpu(struct task_struct *p, int prev_cpu)
+@@ -6557,6 +6557,12 @@ static int find_energy_efficient_cpu(struct task_struct *p, int prev_cpu)
  	if (!pd || READ_ONCE(rd->overutilized))
  		goto fail;
  
@@ -49,7 +49,7 @@ diff --git a/kernel/sched/fair.c b/kernel/sched/fair.c
  	/*
  	 * Energy-aware wake-up happens on the lowest sched_domain starting
  	 * from sd_asym_cpucapacity spanning over this_cpu and prev_cpu.
-@@ -6668,7 +6674,7 @@ select_task_rq_fair(struct task_struct *p, int prev_cpu, int sd_flag, int wake_f
+@@ -6672,7 +6678,7 @@ select_task_rq_fair(struct task_struct *p, int prev_cpu, int sd_flag, int wake_f
  		record_wakee(p);
  
  		if (sched_energy_enabled()) {

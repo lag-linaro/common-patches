@@ -31,7 +31,7 @@ Signed-off-by: Lingfeng Yang <lfy@google.com>
 diff --git a/drivers/dma-buf/dma-buf.c b/drivers/dma-buf/dma-buf.c
 --- a/drivers/dma-buf/dma-buf.c
 +++ b/drivers/dma-buf/dma-buf.c
-@@ -1303,6 +1303,18 @@ int dma_buf_get_flags(struct dma_buf *dmabuf, unsigned long *flags)
+@@ -1306,6 +1306,18 @@ int dma_buf_get_flags(struct dma_buf *dmabuf, unsigned long *flags)
  }
  EXPORT_SYMBOL_GPL(dma_buf_get_flags);
  

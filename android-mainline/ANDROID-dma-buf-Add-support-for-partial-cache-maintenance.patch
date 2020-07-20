@@ -23,7 +23,7 @@ Signed-off-by: Sandeep Patil <sspatil@google.com>
 diff --git a/drivers/dma-buf/dma-buf.c b/drivers/dma-buf/dma-buf.c
 --- a/drivers/dma-buf/dma-buf.c
 +++ b/drivers/dma-buf/dma-buf.c
-@@ -1096,6 +1096,30 @@ int dma_buf_begin_cpu_access(struct dma_buf *dmabuf,
+@@ -1099,6 +1099,30 @@ int dma_buf_begin_cpu_access(struct dma_buf *dmabuf,
  }
  EXPORT_SYMBOL_GPL(dma_buf_begin_cpu_access);
  
@@ -54,7 +54,7 @@ diff --git a/drivers/dma-buf/dma-buf.c b/drivers/dma-buf/dma-buf.c
  /**
   * dma_buf_end_cpu_access - Must be called after accessing a dma_buf from the
   * cpu in the kernel context. Calls end_cpu_access to allow exporter-specific
-@@ -1122,6 +1146,21 @@ int dma_buf_end_cpu_access(struct dma_buf *dmabuf,
+@@ -1125,6 +1149,21 @@ int dma_buf_end_cpu_access(struct dma_buf *dmabuf,
  }
  EXPORT_SYMBOL_GPL(dma_buf_end_cpu_access);
  
@@ -150,7 +150,7 @@ diff --git a/include/linux/dma-buf.h b/include/linux/dma-buf.h
  	/**
  	 * @mmap:
  	 *
-@@ -495,8 +552,14 @@ void dma_buf_unmap_attachment(struct dma_buf_attachment *, struct sg_table *,
+@@ -496,8 +553,14 @@ void dma_buf_unmap_attachment(struct dma_buf_attachment *, struct sg_table *,
  void dma_buf_move_notify(struct dma_buf *dma_buf);
  int dma_buf_begin_cpu_access(struct dma_buf *dma_buf,
  			     enum dma_data_direction dir);

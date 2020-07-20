@@ -564,7 +564,7 @@ diff --git a/fs/kernfs/inode.c b/fs/kernfs/inode.c
 diff --git a/fs/nfs/nfs4proc.c b/fs/nfs/nfs4proc.c
 --- a/fs/nfs/nfs4proc.c
 +++ b/fs/nfs/nfs4proc.c
-@@ -7353,7 +7353,8 @@ static int nfs4_xattr_set_nfs4_acl(const struct xattr_handler *handler,
+@@ -7369,7 +7369,8 @@ static int nfs4_xattr_set_nfs4_acl(const struct xattr_handler *handler,
  
  static int nfs4_xattr_get_nfs4_acl(const struct xattr_handler *handler,
  				   struct dentry *unused, struct inode *inode,
@@ -574,7 +574,7 @@ diff --git a/fs/nfs/nfs4proc.c b/fs/nfs/nfs4proc.c
  {
  	return nfs4_proc_get_acl(inode, buf, buflen);
  }
-@@ -7378,7 +7379,8 @@ static int nfs4_xattr_set_nfs4_label(const struct xattr_handler *handler,
+@@ -7394,7 +7395,8 @@ static int nfs4_xattr_set_nfs4_label(const struct xattr_handler *handler,
  
  static int nfs4_xattr_get_nfs4_label(const struct xattr_handler *handler,
  				     struct dentry *unused, struct inode *inode,
@@ -633,7 +633,7 @@ diff --git a/fs/orangefs/xattr.c b/fs/orangefs/xattr.c
 diff --git a/fs/overlayfs/super.c b/fs/overlayfs/super.c
 --- a/fs/overlayfs/super.c
 +++ b/fs/overlayfs/super.c
-@@ -898,7 +898,7 @@ static unsigned int ovl_split_lowerdirs(char *str)
+@@ -907,7 +907,7 @@ static unsigned int ovl_split_lowerdirs(char *str)
  static int __maybe_unused
  ovl_posix_acl_xattr_get(const struct xattr_handler *handler,
  			struct dentry *dentry, struct inode *inode,
@@ -642,7 +642,7 @@ diff --git a/fs/overlayfs/super.c b/fs/overlayfs/super.c
  {
  	return ovl_xattr_get(dentry, inode, handler->name, buffer, size);
  }
-@@ -963,7 +963,8 @@ ovl_posix_acl_xattr_set(const struct xattr_handler *handler,
+@@ -972,7 +972,8 @@ ovl_posix_acl_xattr_set(const struct xattr_handler *handler,
  
  static int ovl_own_xattr_get(const struct xattr_handler *handler,
  			     struct dentry *dentry, struct inode *inode,
@@ -652,7 +652,7 @@ diff --git a/fs/overlayfs/super.c b/fs/overlayfs/super.c
  {
  	return -EOPNOTSUPP;
  }
-@@ -978,7 +979,8 @@ static int ovl_own_xattr_set(const struct xattr_handler *handler,
+@@ -987,7 +988,8 @@ static int ovl_own_xattr_set(const struct xattr_handler *handler,
  
  static int ovl_other_xattr_get(const struct xattr_handler *handler,
  			       struct dentry *dentry, struct inode *inode,

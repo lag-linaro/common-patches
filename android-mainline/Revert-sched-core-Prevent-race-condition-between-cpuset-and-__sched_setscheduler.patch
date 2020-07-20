@@ -75,7 +75,7 @@ diff --git a/kernel/cgroup/cpuset.c b/kernel/cgroup/cpuset.c
 diff --git a/kernel/sched/core.c b/kernel/sched/core.c
 --- a/kernel/sched/core.c
 +++ b/kernel/sched/core.c
-@@ -4965,9 +4965,6 @@ static int __sched_setscheduler(struct task_struct *p,
+@@ -5002,9 +5002,6 @@ static int __sched_setscheduler(struct task_struct *p,
  			return retval;
  	}
  
@@ -85,7 +85,7 @@ diff --git a/kernel/sched/core.c b/kernel/sched/core.c
  	/*
  	 * Make sure no PI-waiters arrive (or leave) while we are
  	 * changing the priority of the task:
-@@ -5042,8 +5039,6 @@ static int __sched_setscheduler(struct task_struct *p,
+@@ -5079,8 +5076,6 @@ static int __sched_setscheduler(struct task_struct *p,
  	if (unlikely(oldpolicy != -1 && oldpolicy != p->policy)) {
  		policy = oldpolicy = -1;
  		task_rq_unlock(rq, p, &rf);
@@ -94,7 +94,7 @@ diff --git a/kernel/sched/core.c b/kernel/sched/core.c
  		goto recheck;
  	}
  
-@@ -5104,10 +5099,8 @@ static int __sched_setscheduler(struct task_struct *p,
+@@ -5141,10 +5136,8 @@ static int __sched_setscheduler(struct task_struct *p,
  	preempt_disable();
  	task_rq_unlock(rq, p, &rf);
  
@@ -106,7 +106,7 @@ diff --git a/kernel/sched/core.c b/kernel/sched/core.c
  
  	/* Run balance callbacks after we've adjusted the PI chain: */
  	balance_callback(rq);
-@@ -5117,8 +5110,6 @@ static int __sched_setscheduler(struct task_struct *p,
+@@ -5154,8 +5147,6 @@ static int __sched_setscheduler(struct task_struct *p,
  
  unlock:
  	task_rq_unlock(rq, p, &rf);
@@ -115,7 +115,7 @@ diff --git a/kernel/sched/core.c b/kernel/sched/core.c
  	return retval;
  }
  
-@@ -5203,14 +5194,9 @@ do_sched_setscheduler(pid_t pid, int policy, struct sched_param __user *param)
+@@ -5240,14 +5231,9 @@ do_sched_setscheduler(pid_t pid, int policy, struct sched_param __user *param)
  	rcu_read_lock();
  	retval = -ESRCH;
  	p = find_process_by_pid(pid);

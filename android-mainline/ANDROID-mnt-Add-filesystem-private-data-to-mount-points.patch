@@ -92,7 +92,7 @@ diff --git a/fs/namespace.c b/fs/namespace.c
  	if (flag & (CL_SLAVE | CL_PRIVATE | CL_SHARED_TO_SLAVE))
  		mnt->mnt_group_id = 0; /* not a peer of original */
  	else
-@@ -2609,7 +2631,15 @@ static int do_remount(struct path *path, int ms_flags, int sb_flags,
+@@ -2610,7 +2632,15 @@ static int do_remount(struct path *path, int ms_flags, int sb_flags,
  		err = -EPERM;
  		if (ns_capable(sb->s_user_ns, CAP_SYS_ADMIN)) {
  			err = reconfigure_super(fc);

@@ -1,8 +1,8 @@
 #
 # android-mainline patches
 #
-# Applies onto upstream 11ba468877bb Linux v5.8-rc5
-# Matches android-mainline 16330b35600f ("ANDROID: Add vendor hooks to the scheduler")
+# Applies onto upstream ba47d845d715 Linux v5.8-rc6
+# Matches android-mainline 9cfc3cb4ec5e ("ANDROID: Drop orphan out-of-tree diff after CFI revert")
 #
 Revert-security-lockdown-selinux-implement-SELinux-lockdown.patch
 Revert-drm-virtio-fix-DRM_FORMAT_-handling.patch
@@ -468,5 +468,4 @@ ANDROID-sound-usb-Add-vendor-s-hooking-interface.patch
 ANDROID-vendor_hooks-FPSIMD-save-restore-by-using-vendor_hooks.patch
 ANDROID-GKI-set-CONFIG_STATIC_USERMODEHELPER_PATH.patch
 ANDROID-GKI-Enable-BOOT_CONFIG.patch
-DROP-ME-Leftover-patch-after-CFI-reverts.patch
 ANDROID-Add-vendor-hooks-to-the-scheduler.patch
