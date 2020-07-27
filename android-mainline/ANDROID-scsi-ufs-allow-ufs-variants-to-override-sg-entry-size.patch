@@ -11,6 +11,7 @@ vendor-specific fields following the standard ones.
 This is needed to support inline encryption with ufs-exynos (FMP).
 
 Bug: 129991660
+Bug: 162257402
 Change-Id: I6ab9458d5c23331013e6b736d6fea378a6b5b86c
 Signed-off-by: Eric Biggers <ebiggers@google.com>
 ---

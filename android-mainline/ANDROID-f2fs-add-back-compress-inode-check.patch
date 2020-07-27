@@ -17,6 +17,7 @@ Reported at
 https://lkml.kernel.org/r/560266ca-0164-c02e-18ea-55564683d13e@huawei.com
 
 Fixes: 8912845e4e95 ("Merge 42612e776331 ("Merge tag 'f2fs-for-5.8' of git://git.kernel.org/pub/scm/linux/kernel/git/jaegeuk/f2fs") into android-mainline")
+Bug: 162255927
 Change-Id: I3f6afdd221b6e44f1caa5a92d3c751a573e284df
 Signed-off-by: Eric Biggers <ebiggers@google.com>
 ---

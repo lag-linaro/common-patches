@@ -16,6 +16,7 @@ Signed-off-by: Eric Biggers <ebiggers@google.com>
 Link: https://lore.kernel.org/r/20200710072013.177481-5-ebiggers@kernel.org
 Bug: 137270441
 Bug: 147259927
+Bug: 162257402
 Change-Id: Ia561d5a51421baaf78de52a1eaec496093a0d0ad
 ---
  drivers/scsi/ufs/ufshcd-crypto.c | 27 +++++++++++++++++----------

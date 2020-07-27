@@ -9,6 +9,7 @@ In addition, we need dm-bow to pass through inline crypto support, as
 the userdata partition in Android may be located on top of dm-bow.
 
 Bug: 137270441
+Bug: 162257830
 Change-Id: Ib9b0f67b77391fa450394568ceed441c1508de6e
 Signed-off-by: Eric Biggers <ebiggers@google.com>
 ---

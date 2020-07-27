@@ -25,6 +25,7 @@ underlying devices.
 
 Bug: 137270441
 Bug: 147814592
+Bug: 162257830
 Change-Id: If28b574f2e28268db5eb9f325d4cf8f96cb63e3f
 Signed-off-by: Eric Biggers <ebiggers@google.com>
 ---

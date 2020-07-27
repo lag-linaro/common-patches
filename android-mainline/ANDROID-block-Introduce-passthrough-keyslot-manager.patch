@@ -29,6 +29,7 @@ keyslot manager for dm devices.
 
 Bug: 137270441
 Bug: 147814592
+Bug: 162257830
 Change-Id: I6d91e83e86a73b0d6066873c8a9117cf2c089234
 Signed-off-by: Satya Tangirala <satyat@google.com>
 Signed-off-by: Eric Biggers <ebiggers@google.com>
