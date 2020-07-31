@@ -2,7 +2,7 @@
 # android-mainline patches
 #
 # Applies onto upstream ba47d845d715 Linux v5.8-rc6
-# Matches android-mainline 9cfc3cb4ec5e ("ANDROID: Drop orphan out-of-tree diff after CFI revert")
+# Matches android-mainline 000d95ac2d25 ("ANDROID: Incremental fs: Fix minor bugs")
 #
 Revert-security-lockdown-selinux-implement-SELinux-lockdown.patch
 Revert-drm-virtio-fix-DRM_FORMAT_-handling.patch
@@ -469,3 +469,12 @@ ANDROID-vendor_hooks-FPSIMD-save-restore-by-using-vendor_hooks.patch
 ANDROID-GKI-set-CONFIG_STATIC_USERMODEHELPER_PATH.patch
 ANDROID-GKI-Enable-BOOT_CONFIG.patch
 ANDROID-Add-vendor-hooks-to-the-scheduler.patch
+ANDROID-power-wakeup_reason-export-log_threaded_irq_wakeup_reason.patch
+ANDROID-power-wakeup_reason-refine-wakeup-logs.patch
+ANDROID-GKI-Enable-CHACHA20POLY1305-and-XCBC.patch
+ANDROID-GKI-defconfig-Remove-ZRAM-from-gki-defconfig.patch
+ANDROID-GKI-defconfig-Remove-ZSMALLOC-from-gki_defconfig.patch
+ANDROID-GKI-Don-t-compact-data-structures-when-CONFIG_ZSMALLOC-n.patch
+ANDROID-Incremental-fs-magic-number-compatible-32-bit.patch
+ANDROID-Incremental-fs-RCU-locks-instead-of-mutex-for-pending_reads.patch
+ANDROID-Incremental-fs-Fix-minor-bugs.patch
