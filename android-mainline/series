@@ -1,8 +1,8 @@
 #
 # android-mainline patches
 #
-# Applies onto upstream 23ee3e4e5bd2 Linux v5.8-rc6-146-g23ee3e4e5bd2
-# Matches android-mainline 183e8b83ca4d ("Merge branch 'upstream-master' into android-mainline")
+# Applies onto upstream 04300d66f0a0 Linux v5.8-rc6-301-g04300d66f0a0
+# Matches android-mainline e1c06830fe51 ("Merge 04300d66f0a0 ("Merge tag 'riscv-for-linus-5.8-rc7' of git://git.kernel.org/pub/scm/linux/kernel/git/riscv/linux into master") into android-mainline")
 #
 Revert-security-lockdown-selinux-implement-SELinux-lockdown.patch
 Revert-drm-virtio-fix-DRM_FORMAT_-handling.patch
