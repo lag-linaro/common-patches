@@ -1,8 +1,8 @@
 #
 # android-mainline patches
 #
-# Applies onto upstream 04300d66f0a0 Linux v5.8-rc6-301-g04300d66f0a0
-# Matches android-mainline 4c090c8696dc ("ANDROID: GKI: Don't compact fuse_req when CONFIG_VIRTIO_FS=n")
+# Applies onto upstream 92ed30191993 Linux v5.8-rc7
+# Matches android-mainline 4aee378171bc ("Merge 5.8-rc7 into android-mainline")
 #
 Revert-security-lockdown-selinux-implement-SELinux-lockdown.patch
 Revert-drm-virtio-fix-DRM_FORMAT_-handling.patch
