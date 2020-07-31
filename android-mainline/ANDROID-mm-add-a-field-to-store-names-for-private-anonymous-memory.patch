@@ -600,7 +600,7 @@ diff --git a/mm/mmap.c b/mm/mmap.c
  	if (vma)
  		goto out;
  
-@@ -3030,7 +3039,7 @@ static int do_brk_flags(unsigned long addr, unsigned long len, unsigned long fla
+@@ -3042,7 +3051,7 @@ static int do_brk_flags(unsigned long addr, unsigned long len, unsigned long fla
  
  	/* Can we just expand an old private anonymous mapping? */
  	vma = vma_merge(mm, prev, addr, addr + len, flags,
@@ -609,7 +609,7 @@ diff --git a/mm/mmap.c b/mm/mmap.c
  	if (vma)
  		goto out;
  
-@@ -3228,7 +3237,7 @@ struct vm_area_struct *copy_vma(struct vm_area_struct **vmap,
+@@ -3240,7 +3249,7 @@ struct vm_area_struct *copy_vma(struct vm_area_struct **vmap,
  		return NULL;	/* should never get here */
  	new_vma = vma_merge(mm, prev, addr, addr + len, vma->vm_flags,
  			    vma->anon_vma, vma->vm_file, pgoff, vma_policy(vma),

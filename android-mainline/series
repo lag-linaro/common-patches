@@ -1,8 +1,8 @@
 #
 # android-mainline patches
 #
-# Applies onto upstream ba47d845d715 Linux v5.8-rc6
-# Matches android-mainline 000d95ac2d25 ("ANDROID: Incremental fs: Fix minor bugs")
+# Applies onto upstream 23ee3e4e5bd2 Linux v5.8-rc6-146-g23ee3e4e5bd2
+# Matches android-mainline 183e8b83ca4d ("Merge branch 'upstream-master' into android-mainline")
 #
 Revert-security-lockdown-selinux-implement-SELinux-lockdown.patch
 Revert-drm-virtio-fix-DRM_FORMAT_-handling.patch
