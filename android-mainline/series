@@ -2,7 +2,7 @@
 # android-mainline patches
 #
 # Applies onto upstream 04300d66f0a0 Linux v5.8-rc6-301-g04300d66f0a0
-# Matches android-mainline e1c06830fe51 ("Merge 04300d66f0a0 ("Merge tag 'riscv-for-linus-5.8-rc7' of git://git.kernel.org/pub/scm/linux/kernel/git/riscv/linux into master") into android-mainline")
+# Matches android-mainline 4c090c8696dc ("ANDROID: GKI: Don't compact fuse_req when CONFIG_VIRTIO_FS=n")
 #
 Revert-security-lockdown-selinux-implement-SELinux-lockdown.patch
 Revert-drm-virtio-fix-DRM_FORMAT_-handling.patch
@@ -478,3 +478,4 @@ ANDROID-GKI-Don-t-compact-data-structures-when-CONFIG_ZSMALLOC-n.patch
 ANDROID-Incremental-fs-magic-number-compatible-32-bit.patch
 ANDROID-Incremental-fs-RCU-locks-instead-of-mutex-for-pending_reads.patch
 ANDROID-Incremental-fs-Fix-minor-bugs.patch
+ANDROID-GKI-Don-t-compact-fuse_req-when-CONFIG_VIRTIO_FS-n.patch
