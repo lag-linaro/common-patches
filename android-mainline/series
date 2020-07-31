@@ -2,7 +2,7 @@
 # android-mainline patches
 #
 # Applies onto upstream 92ed30191993 Linux v5.8-rc7
-# Matches android-mainline 4aee378171bc ("Merge 5.8-rc7 into android-mainline")
+# Matches android-mainline e6a522642dc3 ("ANDROID: staging: ion: Delete unused function ion_heap_buffer_zero")
 #
 Revert-security-lockdown-selinux-implement-SELinux-lockdown.patch
 Revert-drm-virtio-fix-DRM_FORMAT_-handling.patch
@@ -148,7 +148,6 @@ ANDROID-Kconfig.gki-Add-Hidden-QCOM-configs.patch
 ANDROID-Kconfig.gki-Add-hidden-MMC-config-support.patch
 ANDROID-move-up-spin_unlock_bh-ahead-of-remove_proc_entry.patch
 ANDROID-v4l2-compat-ioctl32.c-copy-reserved-fields.patch
-ANDROID-ALSA-jack-Update-supported-jack-switch-types.patch
 ANDROID-gki_defconfig-add-FORTIFY_SOURCE-remove-SPMI_MSM_PMIC_ARB.patch
 ANDROID-init-GKI-enable-hidden-configs-for-media.patch
 ANDROID-cpufreq-create-dummy-cpufreq-driver.patch
@@ -479,3 +478,17 @@ ANDROID-Incremental-fs-magic-number-compatible-32-bit.patch
 ANDROID-Incremental-fs-RCU-locks-instead-of-mutex-for-pending_reads.patch
 ANDROID-Incremental-fs-Fix-minor-bugs.patch
 ANDROID-GKI-Don-t-compact-fuse_req-when-CONFIG_VIRTIO_FS-n.patch
+ANDROID-Incremental-fs-dentry_revalidate-should-not-return-EBADF.patch
+ANDROID-Incremental-fs-Remove-annoying-pr_debugs.patch
+ANDROID-Incremental-fs-Remove-unnecessary-dependencies.patch
+ANDROID-Export-some-scheduler-APIs-for-vendor-modules.patch
+ANDROID-update-the-kernel-release-format-for-GKI.patch
+ANDROID-binder-Add-vendor-hook-to-the-binder.patch
+ANDROID-rwsem-Add-vendor-hook-to-the-rw-semaphore.patch
+ANDROID-Incremental-fs-Use-R-W-locks-to-read-write-segment-blockmap.patch
+ANDROID-staging-android-ion-Fix-compilation-error-for-ion_trace.h.patch
+ANDROID-Incremental-fs-Stress-tool.patch
+ANDROID-Incremental-fs-Adding-perf-test.patch
+ANDROID-Incremental-fs-Allow-running-a-single-test.patch
+Revert-ANDROID-ASoC-compress-fix-unsigned-integer-overflow-check.patch
+ANDROID-staging-ion-Delete-unused-function-ion_heap_buffer_zero.patch
