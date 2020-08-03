@@ -1,8 +1,8 @@
 #
 # android-mainline patches
 #
-# Applies onto upstream 92ed30191993 Linux v5.8-rc7
-# Matches android-mainline e6a522642dc3 ("ANDROID: staging: ion: Delete unused function ion_heap_buffer_zero")
+# Applies onto upstream bcf876870b95 Linux v5.8
+# Matches android-mainline 5a0b0ef46554 ("Merge 5.8 into android-mainline")
 #
 Revert-security-lockdown-selinux-implement-SELinux-lockdown.patch
 Revert-drm-virtio-fix-DRM_FORMAT_-handling.patch
