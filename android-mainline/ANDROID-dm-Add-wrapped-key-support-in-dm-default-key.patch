@@ -48,7 +48,7 @@ diff --git a/drivers/md/dm-default-key.c b/drivers/md/dm-default-key.c
  	u64 max_dun;
  };
  
-@@ -84,7 +85,7 @@ static int default_key_ctr_optional(struct dm_target *ti,
+@@ -85,7 +86,7 @@ static int default_key_ctr_optional(struct dm_target *ti,
  	struct default_key_c *dkc = ti->private;
  	struct dm_arg_set as;
  	static const struct dm_arg _args[] = {
@@ -57,7 +57,7 @@ diff --git a/drivers/md/dm-default-key.c b/drivers/md/dm-default-key.c
  	};
  	unsigned int opt_params;
  	const char *opt_string;
-@@ -117,6 +118,8 @@ static int default_key_ctr_optional(struct dm_target *ti,
+@@ -118,6 +119,8 @@ static int default_key_ctr_optional(struct dm_target *ti,
  			}
  		} else if (!strcmp(opt_string, "iv_large_sectors")) {
  			iv_large_sectors = true;
@@ -66,7 +66,7 @@ diff --git a/drivers/md/dm-default-key.c b/drivers/md/dm-default-key.c
  		} else {
  			ti->error = "Invalid feature arguments";
  			return -EINVAL;
-@@ -144,7 +147,8 @@ static int default_key_ctr(struct dm_target *ti, unsigned int argc, char **argv)
+@@ -145,7 +148,8 @@ static int default_key_ctr(struct dm_target *ti, unsigned int argc, char **argv)
  {
  	struct default_key_c *dkc;
  	const struct dm_default_key_cipher *cipher;
@@ -76,7 +76,7 @@ diff --git a/drivers/md/dm-default-key.c b/drivers/md/dm-default-key.c
  	unsigned int dun_bytes;
  	unsigned long long tmpll;
  	char dummy;
-@@ -177,12 +181,15 @@ static int default_key_ctr(struct dm_target *ti, unsigned int argc, char **argv)
+@@ -178,12 +182,15 @@ static int default_key_ctr(struct dm_target *ti, unsigned int argc, char **argv)
  	}
  
  	/* <key> */
@@ -95,7 +95,7 @@ diff --git a/drivers/md/dm-default-key.c b/drivers/md/dm-default-key.c
  		ti->error = "Malformed key string";
  		err = -EINVAL;
  		goto bad;
-@@ -230,8 +237,8 @@ static int default_key_ctr(struct dm_target *ti, unsigned int argc, char **argv)
+@@ -231,8 +238,8 @@ static int default_key_ctr(struct dm_target *ti, unsigned int argc, char **argv)
  		       (dkc->sector_bits - SECTOR_SHIFT);
  	dun_bytes = DIV_ROUND_UP(fls64(dkc->max_dun), 8);
  
@@ -106,7 +106,7 @@ diff --git a/drivers/md/dm-default-key.c b/drivers/md/dm-default-key.c
  				  dun_bytes, dkc->sector_size);
  	if (err) {
  		ti->error = "Error initializing blk-crypto key";
-@@ -331,6 +338,8 @@ static void default_key_status(struct dm_target *ti, status_type_t type,
+@@ -333,6 +340,8 @@ static void default_key_status(struct dm_target *ti, status_type_t type,
  		num_feature_args += !!ti->num_discard_bios;
  		if (dkc->sector_size != SECTOR_SIZE)
  			num_feature_args += 2;
@@ -115,7 +115,7 @@ diff --git a/drivers/md/dm-default-key.c b/drivers/md/dm-default-key.c
  		if (num_feature_args != 0) {
  			DMEMIT(" %d", num_feature_args);
  			if (ti->num_discard_bios)
-@@ -339,6 +348,8 @@ static void default_key_status(struct dm_target *ti, status_type_t type,
+@@ -341,6 +350,8 @@ static void default_key_status(struct dm_target *ti, status_type_t type,
  				DMEMIT(" sector_size:%u", dkc->sector_size);
  				DMEMIT(" iv_large_sectors");
  			}
@@ -124,7 +124,7 @@ diff --git a/drivers/md/dm-default-key.c b/drivers/md/dm-default-key.c
  		}
  		break;
  	}
-@@ -383,7 +394,7 @@ static void default_key_io_hints(struct dm_target *ti,
+@@ -385,7 +396,7 @@ static void default_key_io_hints(struct dm_target *ti,
  
  static struct target_type default_key_target = {
  	.name			= "default-key",

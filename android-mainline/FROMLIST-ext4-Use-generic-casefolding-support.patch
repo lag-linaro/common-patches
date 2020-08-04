@@ -225,7 +225,7 @@ diff --git a/fs/ext4/super.c b/fs/ext4/super.c
  #endif
  	kfree(sbi);
  }
-@@ -4035,7 +4035,7 @@ static int ext4_fill_super(struct super_block *sb, void *data, int silent)
+@@ -4047,7 +4047,7 @@ static int ext4_fill_super(struct super_block *sb, void *data, int silent)
  		goto failed_mount;
  
  #ifdef CONFIG_UNICODE
@@ -234,7 +234,7 @@ diff --git a/fs/ext4/super.c b/fs/ext4/super.c
  		const struct ext4_sb_encodings *encoding_info;
  		struct unicode_map *encoding;
  		__u16 encoding_flags;
-@@ -4066,8 +4066,8 @@ static int ext4_fill_super(struct super_block *sb, void *data, int silent)
+@@ -4078,8 +4078,8 @@ static int ext4_fill_super(struct super_block *sb, void *data, int silent)
  			 "%s-%s with flags 0x%hx", encoding_info->name,
  			 encoding_info->version?:"\b", encoding_flags);
  
@@ -245,7 +245,7 @@ diff --git a/fs/ext4/super.c b/fs/ext4/super.c
  	}
  #endif
  
-@@ -4678,7 +4678,7 @@ static int ext4_fill_super(struct super_block *sb, void *data, int silent)
+@@ -4690,7 +4690,7 @@ static int ext4_fill_super(struct super_block *sb, void *data, int silent)
  	}
  
  #ifdef CONFIG_UNICODE
@@ -254,7 +254,7 @@ diff --git a/fs/ext4/super.c b/fs/ext4/super.c
  		sb->s_d_op = &ext4_dentry_ops;
  #endif
  
-@@ -4873,7 +4873,7 @@ static int ext4_fill_super(struct super_block *sb, void *data, int silent)
+@@ -4885,7 +4885,7 @@ static int ext4_fill_super(struct super_block *sb, void *data, int silent)
  		crypto_free_shash(sbi->s_chksum_driver);
  
  #ifdef CONFIG_UNICODE

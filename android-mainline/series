@@ -1,8 +1,8 @@
 #
 # android-mainline patches
 #
-# Applies onto upstream bcf876870b95 Linux v5.8
-# Matches android-mainline 5a0b0ef46554 ("Merge 5.8 into android-mainline")
+# Applies onto upstream 382625d0d432 Linux v5.8-475-g382625d0d432
+# Matches android-mainline 98777a7eb7ee ("Merge commit 382625d0d432 ("Merge tag 'for-5.9/block-20200802' of git://git.kernel.dk/linux-block") into android-mainline")
 #
 Revert-security-lockdown-selinux-implement-SELinux-lockdown.patch
 Revert-drm-virtio-fix-DRM_FORMAT_-handling.patch
@@ -33,10 +33,6 @@ FROMLIST-scsi-ufs-UFS-driver-v2.1-spec-crypto-additions.patch
 FROMLIST-scsi-ufs-UFS-crypto-API.patch
 FROMLIST-scsi-ufs-Add-inline-encryption-support-to-UFS.patch
 FROMLIST-scsi-ufs-add-program_key-variant-op.patch
-FROMLIST-fs-introduce-SB_INLINECRYPT.patch
-FROMLIST-fscrypt-add-inline-encryption-support.patch
-FROMLIST-f2fs-add-inline-encryption-support.patch
-FROMLIST-ext4-add-inline-encryption-support.patch
 FROMLIST-fscrypt-Add-functions-for-direct-I-O-support.patch
 FROMLIST-direct-io-add-support-for-fscrypt-using-blk-crypto.patch
 FROMLIST-iomap-support-direct-I-O-with-fscrypt-using-blk-crypto.patch
@@ -324,7 +320,6 @@ ANDROID-Incremental-fs-Add-INCFS_IOC_PERMIT_FILL.patch
 ANDROID-staging-ion-Allow-for-attach-and-detach-ops-to-be-overridden.patch
 ANDROID-gki_defconfig-enabled-UAPI-header-compile-testing.patch
 ANDROID-build.config.allmodconfig-Re-enable-XFS_FS.patch
-ANDROID-dm-bow-Fix-free_show-value-is-incorrect.patch
 ANDROID-Incremental-fs-Fix-two-typos.patch
 ANDROID-Incremental-fs-Add-INCFS_IOC_GET_FILLED_BLOCKS.patch
 ANDROID-Specify-MAKE_GOALS-and-optimize-targets.patch
@@ -383,7 +378,6 @@ ANDROID-Add-C-protos-for-dma_buf-drm_prime-get_uuid.patch
 ANDROID-iommu-Kconfig-Make-ARM_SMMU-depend-on-QCOM_SCM-QCOM_SCM.patch
 ANDROID-irqchip-Kconfig-Make-QCOM_PDC-depend-on-QCOM_SCM-QCOM_SCM.patch
 ANDROID-pinctrl-qcom-Kconfig-Make-PINCTRL_MSM-selectors-depend-on-QCOM_SCM-QCOM_SCM.patch
-ANDROID-dm-bow-Fix-not-to-skip-trim-at-framented-range.patch
 ANDROID-staging-android-ion-Expose-total-heap-and-pool-sizes-via-sysfs.patch
 ANDROID-init-GKI-enable-hidden-configs-for-GPU.patch
 ANDROID-fix-wakeup-reason-findings.patch
@@ -422,7 +416,6 @@ ANDROID-Incremental-fs-Cache-successful-hash-calculations.patch
 ANDROID-sched-Allow-EAS-without-schedutil.patch
 ANDROID-Incremental-fs-Fix-four-error-path-bugs.patch
 ANDROID-Incremental-fs-Remove-dependency-on-PKCS7_MESSAGE_PARSER.patch
-ANDROID-dm-bow-Add-block_size-option.patch
 ANDROID-GKI-set-CONFIG_BLK_DEV_LOOP_MIN_COUNT-to-16.patch
 ANDROID-GKI-Enable-CONFIG_DEBUG_FS-for-Android-S.patch
 ANDROID-staging-ion-Skip-sync-if-not-mapped.patch
@@ -490,5 +483,12 @@ ANDROID-staging-android-ion-Fix-compilation-error-for-ion_trace.h.patch
 ANDROID-Incremental-fs-Stress-tool.patch
 ANDROID-Incremental-fs-Adding-perf-test.patch
 ANDROID-Incremental-fs-Allow-running-a-single-test.patch
-Revert-ANDROID-ASoC-compress-fix-unsigned-integer-overflow-check.patch
 ANDROID-staging-ion-Delete-unused-function-ion_heap_buffer_zero.patch
+ANDROID-db845c_gki.fragment-Trim-down-the-modules-list.patch
+ANDROID-Incremental-fs-Fix-incfs-to-work-on-virtio-9p.patch
+ANDROID-Kconfig.gki-Add-IRQ_CHIP-options-needed-for-PINCTRL_MSM.patch
+ANDROID-staging-ion-Delete-unused-functions-in-ion_heap.c.patch
+ANDROID-GKI-enable-RCU-configs.patch
+ANDROID-kbuild-Add-support-for-installing-out-of-tree-kernel-headers.patch
+ANDROID-defconfig-Enable-DMABUF-heaps.patch
+ANDROID-gki_defconfig-Enable-MEDIA_SUPPORT_FILTER.patch

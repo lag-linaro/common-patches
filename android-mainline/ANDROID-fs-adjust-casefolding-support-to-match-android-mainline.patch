@@ -222,7 +222,7 @@ diff --git a/fs/unicode/utf8-core.c b/fs/unicode/utf8-core.c
 diff --git a/include/linux/fs.h b/include/linux/fs.h
 --- a/include/linux/fs.h
 +++ b/include/linux/fs.h
-@@ -1397,7 +1397,7 @@ extern int send_sigurg(struct fown_struct *fown);
+@@ -1356,7 +1356,7 @@ extern int send_sigurg(struct fown_struct *fown);
  /* These flags relate to encoding and casefolding */
  #define SB_ENC_STRICT_MODE_FL	(1 << 0)
  
@@ -231,7 +231,7 @@ diff --git a/include/linux/fs.h b/include/linux/fs.h
  	(sb->s_encoding_flags & SB_ENC_STRICT_MODE_FL)
  
  /*
-@@ -3406,6 +3406,12 @@ extern int generic_check_addressable(unsigned, u64);
+@@ -3241,6 +3241,12 @@ extern int generic_check_addressable(unsigned, u64);
  extern int generic_ci_d_hash(const struct dentry *dentry, struct qstr *str);
  extern int generic_ci_d_compare(const struct dentry *dentry, unsigned int len,
  				const char *str, const struct qstr *name);

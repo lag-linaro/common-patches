@@ -58,6 +58,9 @@ to sector 0.
 
 Bug: 119769411
 Bug: 129280212
+Bug: 152116739
+Bug: 153512828
+Bug: 154411183
 Test: Dogfooded on Wahoo.
       Ran under Cuttlefish, running VtsKernelBowTest &
       VtsKernelCheckpointTest tests against 4.19, 4.14 & 4.9 kernels
@@ -65,13 +68,19 @@ Change-Id: Id70988bbd797ebe3e76fc175094388b423c8da8c
 Signed-off-by: Paul Lawrence <paullawrence@google.com>
 [maennich: Folded d00a21b8ebfb ("ANDROID: dm-bow: Fix 32 bit compile errors")
            into this patch]
+[ebiggers: Also folded in
+           feff0b223649 ("ANDROID: dm-bow: Fix free_show value is incorrect"),
+           ca986e448cf2 ("ANDROID: dm-bow: Fix not to skip trim at framented range")
+           7df64f62169c ("ANDROID: dm-bow: Add block_size option")
+           228804d48ce2 ("ANDROID: dm-bow: avoid truncating the logical block size")]
 Signed-off-by: Matthias Maennich <maennich@google.com>
+Signed-off-by: Eric Biggers <ebiggers@google.com>
 ---
  Documentation/device-mapper/dm-bow.txt |   99 ++
  drivers/md/Kconfig                     |   12 +
  drivers/md/Makefile                    |    1 +
- drivers/md/dm-bow.c                    | 1231 ++++++++++++++++++++++++
- 4 files changed, 1343 insertions(+)
+ drivers/md/dm-bow.c                    | 1296 ++++++++++++++++++++++++
+ 4 files changed, 1408 insertions(+)
  create mode 100644 Documentation/device-mapper/dm-bow.txt
  create mode 100644 drivers/md/dm-bow.c
 
@@ -213,10 +222,10 @@ diff --git a/drivers/md/Makefile b/drivers/md/Makefile
  dm-mod-objs			+= dm-init.o
 diff --git a/drivers/md/dm-bow.c b/drivers/md/dm-bow.c
 new file mode 100644
-index 000000000000..9323c7c8580d
+index 000000000000..dccc5cc5a4df
 --- /dev/null
 +++ b/drivers/md/dm-bow.c
-@@ -0,0 +1,1231 @@
+@@ -0,0 +1,1296 @@
 +/*
 + * Copyright (C) 2018 Google Limited.
 + *
@@ -840,6 +849,71 @@ index 000000000000..9323c7c8580d
 +	kfree(bc);
 +}
 +
++static void dm_bow_io_hints(struct dm_target *ti, struct queue_limits *limits)
++{
++	struct bow_context *bc = ti->private;
++	const unsigned int block_size = bc->block_size;
++
++	limits->logical_block_size =
++		max_t(unsigned int, limits->logical_block_size, block_size);
++	limits->physical_block_size =
++		max_t(unsigned int, limits->physical_block_size, block_size);
++	limits->io_min = max_t(unsigned int, limits->io_min, block_size);
++
++	if (limits->max_discard_sectors == 0) {
++		limits->discard_granularity = 1 << 12;
++		limits->max_hw_discard_sectors = 1 << 15;
++		limits->max_discard_sectors = 1 << 15;
++		bc->forward_trims = false;
++	} else {
++		limits->discard_granularity = 1 << 12;
++		bc->forward_trims = true;
++	}
++}
++
++static int dm_bow_ctr_optional(struct dm_target *ti, unsigned int argc, char **argv)
++{
++	struct bow_context *bc = ti->private;
++	struct dm_arg_set as;
++	static const struct dm_arg _args[] = {
++		{0, 1, "Invalid number of feature args"},
++	};
++	unsigned int opt_params;
++	const char *opt_string;
++	int err;
++	char dummy;
++
++	as.argc = argc;
++	as.argv = argv;
++
++	err = dm_read_arg_group(_args, &as, &opt_params, &ti->error);
++	if (err)
++		return err;
++
++	while (opt_params--) {
++		opt_string = dm_shift_arg(&as);
++		if (!opt_string) {
++			ti->error = "Not enough feature arguments";
++			return -EINVAL;
++		}
++
++		if (sscanf(opt_string, "block_size:%u%c",
++					&bc->block_size, &dummy) == 1) {
++			if (bc->block_size < SECTOR_SIZE ||
++			    bc->block_size > 4096 ||
++			    !is_power_of_2(bc->block_size)) {
++				ti->error = "Invalid block_size";
++				return -EINVAL;
++			}
++		} else {
++			ti->error = "Invalid feature arguments";
++			return -EINVAL;
++		}
++	}
++
++	return 0;
++}
++
 +static int dm_bow_ctr(struct dm_target *ti, unsigned int argc, char **argv)
 +{
 +	struct bow_context *bc;
@@ -847,7 +921,7 @@ index 000000000000..9323c7c8580d
 +	int ret;
 +	struct mapped_device *md = dm_table_get_md(ti->table);
 +
-+	if (argc != 1) {
++	if (argc < 1) {
 +		ti->error = "Invalid argument count";
 +		return -EINVAL;
 +	}
@@ -870,16 +944,14 @@ index 000000000000..9323c7c8580d
 +		goto bad;
 +	}
 +
-+	if (bc->dev->bdev->bd_queue->limits.max_discard_sectors == 0) {
-+		bc->dev->bdev->bd_queue->limits.discard_granularity = 1 << 12;
-+		bc->dev->bdev->bd_queue->limits.max_hw_discard_sectors = 1 << 15;
-+		bc->dev->bdev->bd_queue->limits.max_discard_sectors = 1 << 15;
-+		bc->forward_trims = false;
-+	} else {
-+		bc->forward_trims = true;
++	bc->block_size =
++		bdev_get_queue(bc->dev->bdev)->limits.logical_block_size;
++	if (argc > 1) {
++		ret = dm_bow_ctr_optional(ti, argc - 1, &argv[1]);
++		if (ret)
++			goto bad;
 +	}
 +
-+	bc->block_size = bc->dev->bdev->bd_queue->limits.logical_block_size;
 +	bc->block_shift = ilog2(bc->block_size);
 +	bc->log_sector = kzalloc(bc->block_size, GFP_KERNEL);
 +	if (!bc->log_sector) {
@@ -1010,6 +1082,7 @@ index 000000000000..9323c7c8580d
 +	 */
 +	original_type = br->type;
 +	sector0 = backup_br->sector;
++	bc->trims_total -= range_size(backup_br);
 +	if (backup_br->type == TRIMMED)
 +		list_del(&backup_br->trimmed_list);
 +	backup_br->type = br->type == SECTOR0_CURRENT ? SECTOR0_CURRENT
@@ -1420,7 +1493,7 @@ index 000000000000..9323c7c8580d
 +
 +static struct target_type bow_target = {
 +	.name   = "bow",
-+	.version = {1, 1, 1},
++	.version = {1, 2, 0},
 +	.module = THIS_MODULE,
 +	.ctr    = dm_bow_ctr,
 +	.dtr    = dm_bow_dtr,
@@ -1428,6 +1501,7 @@ index 000000000000..9323c7c8580d
 +	.status = dm_bow_status,
 +	.prepare_ioctl  = dm_bow_prepare_ioctl,
 +	.iterate_devices = dm_bow_iterate_devices,
++	.io_hints = dm_bow_io_hints,
 +};
 +
 +int __init dm_bow_init(void)

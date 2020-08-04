@@ -44,13 +44,13 @@ Signed-off-by: Eric Biggers <ebiggers@google.com>
  block/blk-crypto-fallback.c |   2 +
  drivers/md/Kconfig          |  21 ++
  drivers/md/Makefile         |   1 +
- drivers/md/dm-default-key.c | 413 ++++++++++++++++++++++++++++++++++++
+ drivers/md/dm-default-key.c | 415 ++++++++++++++++++++++++++++++++++++
  fs/crypto/inline_crypt.c    |  14 +-
  fs/f2fs/data.c              |   6 +-
  include/linux/blk-crypto.h  |  36 ++++
  include/linux/blk_types.h   |   3 +
  include/linux/fscrypt.h     |  14 ++
- 9 files changed, 508 insertions(+), 2 deletions(-)
+ 9 files changed, 510 insertions(+), 2 deletions(-)
  create mode 100644 drivers/md/dm-default-key.c
 
 diff --git a/block/blk-crypto-fallback.c b/block/blk-crypto-fallback.c
@@ -109,10 +109,10 @@ diff --git a/drivers/md/Makefile b/drivers/md/Makefile
  obj-$(CONFIG_DM_FLAKEY)		+= dm-flakey.o
 diff --git a/drivers/md/dm-default-key.c b/drivers/md/dm-default-key.c
 new file mode 100644
-index 000000000000..2f1daa294835
+index 000000000000..ea8fef823a8a
 --- /dev/null
 +++ b/drivers/md/dm-default-key.c
-@@ -0,0 +1,413 @@
+@@ -0,0 +1,415 @@
 +// SPDX-License-Identifier: GPL-2.0
 +/*
 + * Copyright (C) 2017 Google, Inc.
@@ -184,7 +184,8 @@ index 000000000000..2f1daa294835
 +	int err;
 +
 +	if (dkc->dev) {
-+		err = blk_crypto_evict_key(dkc->dev->bdev->bd_queue, &dkc->key);
++		err = blk_crypto_evict_key(bdev_get_queue(dkc->dev->bdev),
++					   &dkc->key);
 +		if (err && err != -ENOKEY)
 +			DMWARN("Failed to evict crypto key: %d", err);
 +		dm_put_device(ti, dkc->dev);
@@ -352,7 +353,8 @@ index 000000000000..2f1daa294835
 +		goto bad;
 +	}
 +
-+	err = blk_crypto_start_using_key(&dkc->key, dkc->dev->bdev->bd_queue);
++	err = blk_crypto_start_using_key(&dkc->key,
++					 bdev_get_queue(dkc->dev->bdev));
 +	if (err) {
 +		ti->error = "Error starting to use blk-crypto";
 +		goto bad;
@@ -529,7 +531,7 @@ index 000000000000..2f1daa294835
 diff --git a/fs/crypto/inline_crypt.c b/fs/crypto/inline_crypt.c
 --- a/fs/crypto/inline_crypt.c
 +++ b/fs/crypto/inline_crypt.c
-@@ -239,6 +239,8 @@ static void fscrypt_generate_dun(const struct fscrypt_info *ci, u64 lblk_num,
+@@ -241,6 +241,8 @@ static void fscrypt_generate_dun(const struct fscrypt_info *ci, u64 lblk_num,
   * otherwise fscrypt_mergeable_bio() won't work as intended.
   *
   * The encryption context will be freed automatically when the bio is freed.
@@ -538,8 +540,8 @@ diff --git a/fs/crypto/inline_crypt.c b/fs/crypto/inline_crypt.c
   */
  void fscrypt_set_bio_crypt_ctx(struct bio *bio, const struct inode *inode,
  			       u64 first_lblk, gfp_t gfp_mask)
-@@ -246,6 +248,9 @@ void fscrypt_set_bio_crypt_ctx(struct bio *bio, const struct inode *inode,
- 	const struct fscrypt_info *ci = inode->i_crypt_info;
+@@ -248,6 +250,9 @@ void fscrypt_set_bio_crypt_ctx(struct bio *bio, const struct inode *inode,
+ 	const struct fscrypt_info *ci;
  	u64 dun[BLK_CRYPTO_DUN_ARRAY_SIZE];
  
 +	if (fscrypt_inode_should_skip_dm_default_key(inode))
@@ -547,8 +549,8 @@ diff --git a/fs/crypto/inline_crypt.c b/fs/crypto/inline_crypt.c
 +
  	if (!fscrypt_inode_uses_inline_crypto(inode))
  		return;
- 
-@@ -315,6 +320,9 @@ EXPORT_SYMBOL_GPL(fscrypt_set_bio_crypt_ctx_bh);
+ 	ci = inode->i_crypt_info;
+@@ -318,6 +323,9 @@ EXPORT_SYMBOL_GPL(fscrypt_set_bio_crypt_ctx_bh);
   *
   * fscrypt_set_bio_crypt_ctx() must have already been called on the bio.
   *
@@ -558,7 +560,7 @@ diff --git a/fs/crypto/inline_crypt.c b/fs/crypto/inline_crypt.c
   * Return: true iff the I/O is mergeable
   */
  bool fscrypt_mergeable_bio(struct bio *bio, const struct inode *inode,
-@@ -325,6 +333,9 @@ bool fscrypt_mergeable_bio(struct bio *bio, const struct inode *inode,
+@@ -328,6 +336,9 @@ bool fscrypt_mergeable_bio(struct bio *bio, const struct inode *inode,
  
  	if (!!bc != fscrypt_inode_uses_inline_crypto(inode))
  		return false;
@@ -568,7 +570,7 @@ diff --git a/fs/crypto/inline_crypt.c b/fs/crypto/inline_crypt.c
  	if (!bc)
  		return true;
  
-@@ -358,7 +369,8 @@ bool fscrypt_mergeable_bio_bh(struct bio *bio,
+@@ -361,7 +372,8 @@ bool fscrypt_mergeable_bio_bh(struct bio *bio,
  	u64 next_lblk;
  
  	if (!bh_get_inode_and_lblk_num(next_bh, &inode, &next_lblk))
@@ -656,7 +658,7 @@ diff --git a/include/linux/blk-crypto.h b/include/linux/blk-crypto.h
 diff --git a/include/linux/blk_types.h b/include/linux/blk_types.h
 --- a/include/linux/blk_types.h
 +++ b/include/linux/blk_types.h
-@@ -189,6 +189,9 @@ struct bio {
+@@ -216,6 +216,9 @@ struct bio {
  
  #ifdef CONFIG_BLK_INLINE_ENCRYPTION
  	struct bio_crypt_ctx	*bi_crypt_context;
@@ -669,7 +671,7 @@ diff --git a/include/linux/blk_types.h b/include/linux/blk_types.h
 diff --git a/include/linux/fscrypt.h b/include/linux/fscrypt.h
 --- a/include/linux/fscrypt.h
 +++ b/include/linux/fscrypt.h
-@@ -609,6 +609,20 @@ static inline int fscrypt_limit_dio_pages(const struct inode *inode, loff_t pos,
+@@ -614,6 +614,20 @@ static inline int fscrypt_limit_dio_pages(const struct inode *inode, loff_t pos,
  }
  #endif /* !CONFIG_FS_ENCRYPTION_INLINE_CRYPT */
  

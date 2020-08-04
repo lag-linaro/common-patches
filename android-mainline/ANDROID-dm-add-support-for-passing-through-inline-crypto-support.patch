@@ -113,7 +113,7 @@ diff --git a/drivers/md/dm-table.c b/drivers/md/dm-table.c
  
  #define DM_MSG_PREFIX "table"
  
-@@ -1600,6 +1602,54 @@ static void dm_table_verify_integrity(struct dm_table *t)
+@@ -1597,6 +1599,54 @@ static void dm_table_verify_integrity(struct dm_table *t)
  	}
  }
  
@@ -168,7 +168,7 @@ diff --git a/drivers/md/dm-table.c b/drivers/md/dm-table.c
  static int device_flush_capable(struct dm_target *ti, struct dm_dev *dev,
  				sector_t start, sector_t len, void *data)
  {
-@@ -1916,6 +1966,8 @@ void dm_table_set_restrictions(struct dm_table *t, struct request_queue *q,
+@@ -1913,6 +1963,8 @@ void dm_table_set_restrictions(struct dm_table *t, struct request_queue *q,
  
  	dm_table_verify_integrity(t);
  
@@ -188,7 +188,7 @@ diff --git a/drivers/md/dm.c b/drivers/md/dm.c
  
  #define DM_MSG_PREFIX "core"
  
-@@ -1897,6 +1898,8 @@ static const struct dax_operations dm_dax_ops;
+@@ -1868,6 +1869,8 @@ static const struct dax_operations dm_dax_ops;
  
  static void dm_wq_work(struct work_struct *work);
  
@@ -197,7 +197,7 @@ diff --git a/drivers/md/dm.c b/drivers/md/dm.c
  static void cleanup_mapped_device(struct mapped_device *md)
  {
  	if (md->wq)
-@@ -1918,8 +1921,10 @@ static void cleanup_mapped_device(struct mapped_device *md)
+@@ -1889,8 +1892,10 @@ static void cleanup_mapped_device(struct mapped_device *md)
  		put_disk(md->disk);
  	}
  
@@ -209,7 +209,7 @@ diff --git a/drivers/md/dm.c b/drivers/md/dm.c
  
  	cleanup_srcu_struct(&md->io_barrier);
  
-@@ -2282,6 +2287,88 @@ struct queue_limits *dm_get_queue_limits(struct mapped_device *md)
+@@ -2252,6 +2257,88 @@ struct queue_limits *dm_get_queue_limits(struct mapped_device *md)
  }
  EXPORT_SYMBOL_GPL(dm_get_queue_limits);
  
@@ -225,7 +225,7 @@ diff --git a/drivers/md/dm.c b/drivers/md/dm.c
 +	struct dm_keyslot_evict_args *args = data;
 +	int err;
 +
-+	err = blk_crypto_evict_key(dev->bdev->bd_queue, args->key);
++	err = blk_crypto_evict_key(bdev_get_queue(dev->bdev), args->key);
 +	if (!args->err)
 +		args->err = err;
 +	/* Always try to evict the key from all devices. */
@@ -295,10 +295,10 @@ diff --git a/drivers/md/dm.c b/drivers/md/dm.c
 +}
 +#endif /* !CONFIG_BLK_INLINE_ENCRYPTION */
 +
- static void dm_init_congested_fn(struct mapped_device *md)
- {
- 	md->queue->backing_dev_info->congested_data = md;
-@@ -2321,6 +2408,9 @@ int dm_setup_md_queue(struct mapped_device *md, struct dm_table *t)
+ /*
+  * Setup the DM device's queue based on md's type
+  */
+@@ -2283,6 +2370,9 @@ int dm_setup_md_queue(struct mapped_device *md, struct dm_table *t)
  		DMERR("Cannot calculate initial queue limits");
  		return r;
  	}
@@ -323,7 +323,7 @@ diff --git a/include/linux/device-mapper.h b/include/linux/device-mapper.h
 +	bool may_passthrough_inline_crypto:1;
  };
  
- /* Each target can link one of these into the table */
+ void *dm_per_bio_data(struct bio *bio, size_t data_size);
 diff --git a/include/linux/keyslot-manager.h b/include/linux/keyslot-manager.h
 --- a/include/linux/keyslot-manager.h
 +++ b/include/linux/keyslot-manager.h

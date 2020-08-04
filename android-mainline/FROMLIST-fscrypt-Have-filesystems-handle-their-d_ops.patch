@@ -36,7 +36,7 @@ Change-Id: Iaf77f8c5961ecf22e22478701ab0b7fe2025225d
 diff --git a/fs/crypto/fname.c b/fs/crypto/fname.c
 --- a/fs/crypto/fname.c
 +++ b/fs/crypto/fname.c
-@@ -562,7 +562,7 @@ EXPORT_SYMBOL_GPL(fscrypt_fname_siphash);
+@@ -541,7 +541,7 @@ EXPORT_SYMBOL_GPL(fscrypt_fname_siphash);
   * Validate dentries in encrypted directories to make sure we aren't potentially
   * caching stale dentries after a key has been added.
   */
@@ -45,7 +45,7 @@ diff --git a/fs/crypto/fname.c b/fs/crypto/fname.c
  {
  	struct dentry *dir;
  	int err;
-@@ -601,7 +601,4 @@ static int fscrypt_d_revalidate(struct dentry *dentry, unsigned int flags)
+@@ -580,7 +580,4 @@ static int fscrypt_d_revalidate(struct dentry *dentry, unsigned int flags)
  
  	return valid;
  }
@@ -57,7 +57,7 @@ diff --git a/fs/crypto/fname.c b/fs/crypto/fname.c
 diff --git a/fs/crypto/fscrypt_private.h b/fs/crypto/fscrypt_private.h
 --- a/fs/crypto/fscrypt_private.h
 +++ b/fs/crypto/fscrypt_private.h
-@@ -270,7 +270,6 @@ int fscrypt_fname_encrypt(const struct inode *inode, const struct qstr *iname,
+@@ -294,7 +294,6 @@ int fscrypt_fname_encrypt(const struct inode *inode, const struct qstr *iname,
  			  u8 *out, unsigned int olen);
  bool fscrypt_fname_encrypted_size(const struct inode *inode, u32 orig_len,
  				  u32 max_len, u32 *encrypted_len_ret);
@@ -104,7 +104,7 @@ diff --git a/fs/ext4/namei.c b/fs/ext4/namei.c
 diff --git a/fs/ext4/super.c b/fs/ext4/super.c
 --- a/fs/ext4/super.c
 +++ b/fs/ext4/super.c
-@@ -4677,11 +4677,6 @@ static int ext4_fill_super(struct super_block *sb, void *data, int silent)
+@@ -4689,11 +4689,6 @@ static int ext4_fill_super(struct super_block *sb, void *data, int silent)
  		goto failed_mount4;
  	}
  
@@ -157,7 +157,7 @@ diff --git a/fs/f2fs/namei.c b/fs/f2fs/namei.c
 diff --git a/fs/f2fs/super.c b/fs/f2fs/super.c
 --- a/fs/f2fs/super.c
 +++ b/fs/f2fs/super.c
-@@ -3311,7 +3311,6 @@ static int f2fs_setup_casefold(struct f2fs_sb_info *sbi)
+@@ -3346,7 +3346,6 @@ static int f2fs_setup_casefold(struct f2fs_sb_info *sbi)
  
  		sbi->sb->s_encoding = encoding;
  		sbi->sb->s_encoding_flags = encoding_flags;
@@ -265,7 +265,7 @@ diff --git a/fs/ubifs/dir.c b/fs/ubifs/dir.c
 diff --git a/include/linux/fs.h b/include/linux/fs.h
 --- a/include/linux/fs.h
 +++ b/include/linux/fs.h
-@@ -3401,6 +3401,8 @@ extern int generic_ci_d_hash(const struct dentry *dentry, struct qstr *str);
+@@ -3237,6 +3237,8 @@ extern int generic_ci_d_hash(const struct dentry *dentry, struct qstr *str);
  extern int generic_ci_d_compare(const struct dentry *dentry, unsigned int len,
  				const char *str, const struct qstr *name);
  #endif
@@ -277,7 +277,7 @@ diff --git a/include/linux/fs.h b/include/linux/fs.h
 diff --git a/include/linux/fscrypt.h b/include/linux/fscrypt.h
 --- a/include/linux/fscrypt.h
 +++ b/include/linux/fscrypt.h
-@@ -141,6 +141,7 @@ static inline struct page *fscrypt_pagecache_page(struct page *bounce_page)
+@@ -149,6 +149,7 @@ static inline struct page *fscrypt_pagecache_page(struct page *bounce_page)
  }
  
  void fscrypt_free_bounce_page(struct page *bounce_page);
@@ -285,7 +285,7 @@ diff --git a/include/linux/fscrypt.h b/include/linux/fscrypt.h
  
  /* policy.c */
  int fscrypt_ioctl_set_policy(struct file *filp, const void __user *arg);
-@@ -638,8 +639,9 @@ static inline int fscrypt_prepare_rename(struct inode *old_dir,
+@@ -739,8 +740,9 @@ static inline int fscrypt_prepare_rename(struct inode *old_dir,
   * filenames are presented in encrypted form.  Therefore, we'll try to set up
   * the directory's encryption key, but even without it the lookup can continue.
   *
