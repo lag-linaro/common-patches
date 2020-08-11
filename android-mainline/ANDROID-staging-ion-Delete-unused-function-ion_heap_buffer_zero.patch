@@ -18,7 +18,7 @@ Signed-off-by: Hridya Valsaraju <hridya@google.com>
 diff --git a/drivers/staging/android/ion/ion_heap.c b/drivers/staging/android/ion/ion_heap.c
 --- a/drivers/staging/android/ion/ion_heap.c
 +++ b/drivers/staging/android/ion/ion_heap.c
-@@ -240,19 +240,6 @@ static int ion_heap_sglist_zero(struct scatterlist *sgl, unsigned int nents,
+@@ -239,19 +239,6 @@ static int ion_heap_sglist_zero(struct sg_table *sgt, pgprot_t pgprot)
  	return ret;
  }
  

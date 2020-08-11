@@ -390,7 +390,7 @@ diff --git a/drivers/staging/android/ion/ion_heap.c b/drivers/staging/android/io
  
  static int ion_heap_clear_pages(struct page **pages, int num, pgprot_t pgprot)
  {
-@@ -313,3 +319,32 @@ int ion_heap_init_shrinker(struct ion_heap *heap)
+@@ -310,3 +316,32 @@ int ion_heap_init_shrinker(struct ion_heap *heap)
  
  	return register_shrinker(&heap->shrinker);
  }

@@ -66,7 +66,7 @@ diff --git a/include/drm/drm_connector.h b/include/drm/drm_connector.h
  struct edid;
  struct i2c_adapter;
  
-@@ -1458,6 +1459,13 @@ struct drm_connector {
+@@ -1506,6 +1507,13 @@ struct drm_connector {
  
  	/** @hdr_sink_metadata: HDR Metadata Information read from sink */
  	struct hdr_sink_metadata hdr_sink_metadata;

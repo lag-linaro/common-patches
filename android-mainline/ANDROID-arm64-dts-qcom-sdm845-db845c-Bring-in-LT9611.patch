@@ -12,85 +12,13 @@ Signed-off-by: Bjorn Andersson <bjorn.andersson@linaro.org>
 Signed-off-by: John Stultz <john.stultz@linaro.org>
 Change-Id: I7bf2b82abeca7274f8e2dc69c592ed8303e3fbc6
 ---
- arch/arm64/boot/dts/qcom/sdm845-db845c.dts | 143 ++++++++++++++++++++-
- 1 file changed, 139 insertions(+), 4 deletions(-)
+ arch/arm64/boot/dts/qcom/sdm845-db845c.dts | 77 ++++++++++++++++++++--
+ 1 file changed, 73 insertions(+), 4 deletions(-)
 
 diff --git a/arch/arm64/boot/dts/qcom/sdm845-db845c.dts b/arch/arm64/boot/dts/qcom/sdm845-db845c.dts
 --- a/arch/arm64/boot/dts/qcom/sdm845-db845c.dts
 +++ b/arch/arm64/boot/dts/qcom/sdm845-db845c.dts
-@@ -74,6 +74,17 @@ bt {
- 		};
- 	};
- 
-+	hdmi-out {
-+		compatible = "hdmi-connector";
-+		type = "a";
-+
-+		port {
-+			hdmi_con: endpoint {
-+				remote-endpoint = <&lt9611_out>;
-+			};
-+		};
-+	};
-+
- 	lt9611_1v8: lt9611-vdd18-regulator {
- 		compatible = "regulator-fixed";
- 		regulator-name = "LT9611_1V8";
-@@ -382,6 +393,53 @@ &cdsp_pas {
- 	firmware-name = "qcom/sdm845/cdsp.mdt";
- };
- 
-+&dsi0 {
-+	status = "okay";
-+	vdda-supply = <&vreg_l26a_1p2>;
-+
-+#if 0
-+	qcom,dual-dsi-mode;
-+	qcom,master-dsi;
-+#endif
-+
-+	ports {
-+		port@1 {
-+			endpoint {
-+				remote-endpoint = <&lt9611_a>;
-+				data-lanes = <0 1 2 3>;
-+			};
-+		};
-+	};
-+};
-+
-+&dsi0_phy {
-+	status = "okay";
-+	vdds-supply = <&vreg_l1a_0p875>;
-+};
-+
-+#if 0
-+&dsi1 {
-+	status = "okay";
-+	vdda-supply = <&vreg_l26a_1p2>;
-+
-+	qcom,dual-dsi-mode;
-+
-+	ports {
-+		port@1 {
-+			endpoint {
-+				remote-endpoint = <&lt9611_b>;
-+				data-lanes = <0 1 2 3>;
-+			};
-+		};
-+	};
-+};
-+
-+&dsi1_phy {
-+	status = "okay";
-+	vdds-supply = <&vreg_l1a_0p875>;
-+};
-+#endif
-+
- &gcc {
- 	protected-clocks = <GCC_QSPI_CORE_CLK>,
- 			   <GCC_QSPI_CORE_CLK_SRC>,
-@@ -421,6 +479,65 @@ &pcie1_phy {
+@@ -451,6 +451,65 @@ &pcie1_phy {
  	vdda-pll-supply = <&vreg_l26a_1p2>;
  };
  
@@ -156,7 +84,7 @@ diff --git a/arch/arm64/boot/dts/qcom/sdm845-db845c.dts b/arch/arm64/boot/dts/qc
  &gpu {
  	zap-shader {
  		memory-region = <&gpu_mem>;
-@@ -744,6 +861,12 @@ wake-n {
+@@ -854,6 +913,12 @@ wake-n {
  		};
  	};
  
@@ -169,7 +97,7 @@ diff --git a/arch/arm64/boot/dts/qcom/sdm845-db845c.dts b/arch/arm64/boot/dts/qc
  	pcie0_pwren_state: pcie0-pwren {
  		pins = "gpio90";
  		function = "gpio";
-@@ -824,11 +947,15 @@ wcd_intr_default: wcd_intr_default {
+@@ -934,11 +999,15 @@ wcd_intr_default: wcd_intr_default {
  		bias-pull-down;
  		drive-strength = <2>;
  	};
@@ -189,18 +117,3 @@ diff --git a/arch/arm64/boot/dts/qcom/sdm845-db845c.dts b/arch/arm64/boot/dts/qc
  };
  
  &uart6 {
-@@ -976,6 +1103,14 @@ pinmux {
- 	};
- };
- 
-+&qup_i2c10_default {
-+	pinconf {
-+		pins = "gpio55", "gpio56";
-+		drive-strength = <2>;
-+		bias-disable;
-+	};
-+};
-+
- &qup_uart6_default {
- 	pinmux {
- 		pins = "gpio45", "gpio46", "gpio47", "gpio48";

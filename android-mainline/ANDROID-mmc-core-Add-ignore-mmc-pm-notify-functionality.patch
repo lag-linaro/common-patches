@@ -16,7 +16,7 @@ Signed-off-by: Dmitry Shmidt <dimitrysh@google.com>
 diff --git a/drivers/mmc/core/host.c b/drivers/mmc/core/host.c
 --- a/drivers/mmc/core/host.c
 +++ b/drivers/mmc/core/host.c
-@@ -463,7 +463,8 @@ int mmc_add_host(struct mmc_host *host)
+@@ -469,7 +469,8 @@ int mmc_add_host(struct mmc_host *host)
  #endif
  
  	mmc_start_host(host);
@@ -26,7 +26,7 @@ diff --git a/drivers/mmc/core/host.c b/drivers/mmc/core/host.c
  
  	return 0;
  }
-@@ -480,7 +481,8 @@ EXPORT_SYMBOL(mmc_add_host);
+@@ -486,7 +487,8 @@ EXPORT_SYMBOL(mmc_add_host);
   */
  void mmc_remove_host(struct mmc_host *host)
  {

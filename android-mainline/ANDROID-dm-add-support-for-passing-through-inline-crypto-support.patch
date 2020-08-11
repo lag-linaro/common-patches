@@ -113,7 +113,7 @@ diff --git a/drivers/md/dm-table.c b/drivers/md/dm-table.c
  
  #define DM_MSG_PREFIX "table"
  
-@@ -1597,6 +1599,54 @@ static void dm_table_verify_integrity(struct dm_table *t)
+@@ -1579,6 +1581,54 @@ static void dm_table_verify_integrity(struct dm_table *t)
  	}
  }
  
@@ -168,7 +168,7 @@ diff --git a/drivers/md/dm-table.c b/drivers/md/dm-table.c
  static int device_flush_capable(struct dm_target *ti, struct dm_dev *dev,
  				sector_t start, sector_t len, void *data)
  {
-@@ -1913,6 +1963,8 @@ void dm_table_set_restrictions(struct dm_table *t, struct request_queue *q,
+@@ -1895,6 +1945,8 @@ void dm_table_set_restrictions(struct dm_table *t, struct request_queue *q,
  
  	dm_table_verify_integrity(t);
  

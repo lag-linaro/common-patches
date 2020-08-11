@@ -23,7 +23,7 @@ Change-Id: I580e65e3df85bfbda2af5c54a1a068f6de7d27ee
 diff --git a/drivers/iommu/Kconfig b/drivers/iommu/Kconfig
 --- a/drivers/iommu/Kconfig
 +++ b/drivers/iommu/Kconfig
-@@ -382,6 +382,7 @@ config SPAPR_TCE_IOMMU
+@@ -384,6 +384,7 @@ config SPAPR_TCE_IOMMU
  config ARM_SMMU
  	tristate "ARM Ltd. System MMU (SMMU) Support"
  	depends on (ARM64 || ARM || (COMPILE_TEST && !GENERIC_ATOMIC64)) && MMU

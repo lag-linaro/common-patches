@@ -160,7 +160,7 @@ diff --git a/drivers/staging/android/ion/ion.c b/drivers/staging/android/ion/ion
  static struct sg_table *dup_sg_table(struct sg_table *table)
  {
  	struct sg_table *new_table;
-@@ -273,7 +165,7 @@ static void ion_dma_buf_release(struct dma_buf *dmabuf)
+@@ -274,7 +166,7 @@ static void ion_dma_buf_release(struct dma_buf *dmabuf)
  {
  	struct ion_buffer *buffer = dmabuf->priv;
  
@@ -169,7 +169,7 @@ diff --git a/drivers/staging/android/ion/ion.c b/drivers/staging/android/ion/ion
  }
  
  static int ion_dma_buf_begin_cpu_access(struct dma_buf *dmabuf,
-@@ -344,39 +236,14 @@ static const struct dma_buf_ops dma_buf_ops = {
+@@ -341,39 +233,14 @@ static const struct dma_buf_ops dma_buf_ops = {
  static struct dma_buf *ion_alloc_dmabuf(size_t len, unsigned int heap_id_mask,
  					unsigned int flags)
  {
@@ -211,7 +211,7 @@ diff --git a/drivers/staging/android/ion/ion.c b/drivers/staging/android/ion/ion
  	if (IS_ERR(buffer))
  		return ERR_CAST(buffer);
  
-@@ -387,7 +254,7 @@ static struct dma_buf *ion_alloc_dmabuf(size_t len, unsigned int heap_id_mask,
+@@ -384,7 +251,7 @@ static struct dma_buf *ion_alloc_dmabuf(size_t len, unsigned int heap_id_mask,
  
  	dmabuf = dma_buf_export(&exp_info);
  	if (IS_ERR(dmabuf))
@@ -475,7 +475,7 @@ diff --git a/drivers/staging/android/ion/ion_heap.c b/drivers/staging/android/io
  
  void *ion_heap_map_kernel(struct ion_heap *heap,
  			  struct ion_buffer *buffer)
-@@ -198,7 +198,7 @@ static size_t _ion_heap_freelist_drain(struct ion_heap *heap, size_t size,
+@@ -171,7 +171,7 @@ static size_t _ion_heap_freelist_drain(struct ion_heap *heap, size_t size,
  			buffer->private_flags |= ION_PRIV_FLAG_SHRINKER_FREE;
  		total_drained += buffer->size;
  		spin_unlock(&heap->free_lock);
@@ -484,7 +484,7 @@ diff --git a/drivers/staging/android/ion/ion_heap.c b/drivers/staging/android/io
  		spin_lock(&heap->free_lock);
  	}
  	spin_unlock(&heap->free_lock);
-@@ -236,7 +236,7 @@ static int ion_heap_deferred_free(void *data)
+@@ -209,7 +209,7 @@ static int ion_heap_deferred_free(void *data)
  		list_del(&buffer->list);
  		heap->free_list_size -= buffer->size;
  		spin_unlock(&heap->free_lock);

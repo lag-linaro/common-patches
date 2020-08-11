@@ -10,23 +10,9 @@ Test: kernel_net_tests
 Signed-off-by: Tri Vo <trong@google.com>
 Change-Id: I083d32b45ca985cfadfe3ce57d253b63202befde
 ---
- net/xfrm/xfrm_state.c | 3 ---
- net/xfrm/xfrm_user.c  | 3 ---
- 2 files changed, 6 deletions(-)
+ net/xfrm/xfrm_user.c | 3 ---
+ 1 file changed, 3 deletions(-)
 
-diff --git a/net/xfrm/xfrm_state.c b/net/xfrm/xfrm_state.c
---- a/net/xfrm/xfrm_state.c
-+++ b/net/xfrm/xfrm_state.c
-@@ -2271,9 +2271,6 @@ int xfrm_user_policy(struct sock *sk, int optname, u8 __user *optval, int optlen
- 	struct xfrm_mgr *km;
- 	struct xfrm_policy *pol = NULL;
- 
--	if (in_compat_syscall())
--		return -EOPNOTSUPP;
--
- 	if (!optval && !optlen) {
- 		xfrm_sk_policy_insert(sk, XFRM_POLICY_IN, NULL);
- 		xfrm_sk_policy_insert(sk, XFRM_POLICY_OUT, NULL);
 diff --git a/net/xfrm/xfrm_user.c b/net/xfrm/xfrm_user.c
 --- a/net/xfrm/xfrm_user.c
 +++ b/net/xfrm/xfrm_user.c

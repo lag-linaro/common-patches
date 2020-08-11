@@ -54,7 +54,7 @@ diff --git a/drivers/android/binder.c b/drivers/android/binder.c
  }
  
  static struct binder_node *binder_get_node_ilocked(struct binder_proc *proc,
-@@ -3222,6 +3226,7 @@ static void binder_transaction(struct binder_proc *proc,
+@@ -3226,6 +3230,7 @@ static void binder_transaction(struct binder_proc *proc,
  	INIT_LIST_HEAD(&t->fd_fixups);
  	binder_stats_created(BINDER_STAT_TRANSACTION);
  	spin_lock_init(&t->lock);
@@ -62,7 +62,7 @@ diff --git a/drivers/android/binder.c b/drivers/android/binder.c
  
  	tcomplete = kzalloc(sizeof(*tcomplete), GFP_KERNEL);
  	if (tcomplete == NULL) {
-@@ -3597,6 +3602,7 @@ static void binder_transaction(struct binder_proc *proc,
+@@ -3601,6 +3606,7 @@ static void binder_transaction(struct binder_proc *proc,
  		binder_enqueue_thread_work_ilocked(target_thread, &t->work);
  		binder_inner_proc_unlock(target_proc);
  		wake_up_interruptible_sync(&target_thread->wait);
@@ -70,7 +70,7 @@ diff --git a/drivers/android/binder.c b/drivers/android/binder.c
  		binder_restore_priority(current, in_reply_to->saved_priority);
  		binder_free_transaction(in_reply_to);
  	} else if (!(t->flags & TF_ONE_WAY)) {
-@@ -3708,6 +3714,7 @@ static void binder_transaction(struct binder_proc *proc,
+@@ -3712,6 +3718,7 @@ static void binder_transaction(struct binder_proc *proc,
  
  	BUG_ON(thread->return_error.cmd != BR_OK);
  	if (in_reply_to) {
@@ -78,7 +78,7 @@ diff --git a/drivers/android/binder.c b/drivers/android/binder.c
  		binder_restore_priority(current, in_reply_to->saved_priority);
  		thread->return_error.cmd = BR_TRANSACTION_COMPLETE;
  		binder_enqueue_thread_work(thread, &thread->return_error.work);
-@@ -4375,6 +4382,7 @@ static int binder_thread_read(struct binder_proc *proc,
+@@ -4386,6 +4393,7 @@ static int binder_thread_read(struct binder_proc *proc,
  			wait_event_interruptible(binder_user_error_wait,
  						 binder_stop_on_user_error < 2);
  		}

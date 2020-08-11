@@ -18,7 +18,7 @@ Signed-off-by: Asutosh Das <asutoshd@codeaurora.org>
 diff --git a/drivers/scsi/ufs/ufs-qcom.c b/drivers/scsi/ufs/ufs-qcom.c
 --- a/drivers/scsi/ufs/ufs-qcom.c
 +++ b/drivers/scsi/ufs/ufs-qcom.c
-@@ -1418,18 +1418,27 @@ static int ufs_qcom_clk_scale_notify(struct ufs_hba *hba,
+@@ -1428,18 +1428,27 @@ static int ufs_qcom_clk_scale_notify(struct ufs_hba *hba,
  	int err = 0;
  
  	if (status == PRE_CHANGE) {
@@ -47,7 +47,7 @@ diff --git a/drivers/scsi/ufs/ufs-qcom.c b/drivers/scsi/ufs/ufs-qcom.c
  
  		ufs_qcom_cfg_timers(hba,
  				    dev_req_params->gear_rx,
-@@ -1437,6 +1446,7 @@ static int ufs_qcom_clk_scale_notify(struct ufs_hba *hba,
+@@ -1447,6 +1456,7 @@ static int ufs_qcom_clk_scale_notify(struct ufs_hba *hba,
  				    dev_req_params->hs_rate,
  				    false);
  		ufs_qcom_update_bus_bw_vote(host);

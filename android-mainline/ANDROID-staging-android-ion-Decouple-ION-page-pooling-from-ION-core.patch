@@ -25,7 +25,7 @@ Signed-off-by: Sandeep Patil <sspatil@google.com>
 diff --git a/drivers/staging/android/ion/ion.h b/drivers/staging/android/ion/ion.h
 --- a/drivers/staging/android/ion/ion.h
 +++ b/drivers/staging/android/ion/ion.h
-@@ -249,55 +249,4 @@ size_t ion_heap_freelist_shrink(struct ion_heap *heap,
+@@ -248,55 +248,4 @@ size_t ion_heap_freelist_shrink(struct ion_heap *heap,
   */
  size_t ion_heap_freelist_size(struct ion_heap *heap);
  

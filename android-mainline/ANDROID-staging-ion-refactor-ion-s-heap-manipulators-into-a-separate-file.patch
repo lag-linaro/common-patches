@@ -17,12 +17,12 @@ Change-Id: I19205b4874a3bf52408f1fa14c3e145de1293fb4
 Co-developed-by: Isaac J. Manjarres <isaacm@codeaurora.org>
 Signed-off-by: Sandeep Patil <sspatil@google.com>
 ---
- drivers/staging/android/ion/ion.h             |  11 +-
+ drivers/staging/android/ion/ion.h             |  12 +-
  drivers/staging/android/ion/ion_buffer.c      |  17 ++
- drivers/staging/android/ion/ion_heap.c        | 233 +++++++++---------
+ drivers/staging/android/ion/ion_heap.c        | 271 ++++++++++--------
  drivers/staging/android/ion/ion_private.h     |   1 -
  drivers/staging/android/ion/ion_system_heap.c |   2 +-
- 5 files changed, 144 insertions(+), 120 deletions(-)
+ 5 files changed, 177 insertions(+), 126 deletions(-)
 
 diff --git a/drivers/staging/android/ion/ion.h b/drivers/staging/android/ion/ion.h
 --- a/drivers/staging/android/ion/ion.h
@@ -42,12 +42,12 @@ diff --git a/drivers/staging/android/ion/ion.h b/drivers/staging/android/ion/ion
  /**
   * some helpers for common operations on buffers using the sg_table
   * and vaddr fields
-@@ -161,8 +169,9 @@ void *ion_heap_map_kernel(struct ion_heap *heap, struct ion_buffer *buffer);
+@@ -161,7 +169,9 @@ void *ion_heap_map_kernel(struct ion_heap *heap, struct ion_buffer *buffer);
  void ion_heap_unmap_kernel(struct ion_heap *heap, struct ion_buffer *buffer);
  int ion_heap_map_user(struct ion_heap *heap, struct ion_buffer *buffer,
  		      struct vm_area_struct *vma);
 -int ion_heap_buffer_zero(struct ion_buffer *buffer);
- int ion_heap_pages_zero(struct page *page, size_t size, pgprot_t pgprot);
++int ion_heap_pages_zero(struct page *page, size_t size, pgprot_t pgprot);
 +int ion_heap_sglist_zero(struct scatterlist *sgl, unsigned int nents,
 +			 pgprot_t pgprot);
  
@@ -83,7 +83,7 @@ diff --git a/drivers/staging/android/ion/ion_buffer.c b/drivers/staging/android/
 diff --git a/drivers/staging/android/ion/ion_heap.c b/drivers/staging/android/ion/ion_heap.c
 --- a/drivers/staging/android/ion/ion_heap.c
 +++ b/drivers/staging/android/ion/ion_heap.c
-@@ -17,6 +17,120 @@
+@@ -17,10 +17,125 @@
  
  #include "ion_private.h"
  
@@ -204,7 +204,70 @@ diff --git a/drivers/staging/android/ion/ion_heap.c b/drivers/staging/android/io
  void *ion_heap_map_kernel(struct ion_heap *heap,
  			  struct ion_buffer *buffer)
  {
-@@ -99,12 +213,12 @@ int ion_heap_map_user(struct ion_heap *heap, struct ion_buffer *buffer,
+-	struct sg_page_iter piter;
++	struct scatterlist *sg;
++	int i, j;
+ 	void *vaddr;
+ 	pgprot_t pgprot;
+ 	struct sg_table *table = buffer->sg_table;
+@@ -37,11 +152,14 @@ void *ion_heap_map_kernel(struct ion_heap *heap,
+ 	else
+ 		pgprot = pgprot_writecombine(PAGE_KERNEL);
+ 
+-	for_each_sgtable_page(table, &piter, 0) {
+-		BUG_ON(tmp - pages >= npages);
+-		*tmp++ = sg_page_iter_page(&piter);
+-	}
++	for_each_sg(table->sgl, sg, table->nents, i) {
++		int npages_this_entry = PAGE_ALIGN(sg->length) / PAGE_SIZE;
++		struct page *page = sg_page(sg);
+ 
++		BUG_ON(i >= npages);
++		for (j = 0; j < npages_this_entry; j++)
++			*(tmp++) = page++;
++	}
+ 	vaddr = vmap(pages, npages, VM_MAP, pgprot);
+ 	vfree(pages);
+ 
+@@ -60,19 +178,32 @@ void ion_heap_unmap_kernel(struct ion_heap *heap,
+ int ion_heap_map_user(struct ion_heap *heap, struct ion_buffer *buffer,
+ 		      struct vm_area_struct *vma)
+ {
+-	struct sg_page_iter piter;
+ 	struct sg_table *table = buffer->sg_table;
+ 	unsigned long addr = vma->vm_start;
++	unsigned long offset = vma->vm_pgoff * PAGE_SIZE;
++	struct scatterlist *sg;
++	int i;
+ 	int ret;
+ 
+-	for_each_sgtable_page(table, &piter, vma->vm_pgoff) {
+-		struct page *page = sg_page_iter_page(&piter);
++	for_each_sg(table->sgl, sg, table->nents, i) {
++		struct page *page = sg_page(sg);
++		unsigned long remainder = vma->vm_end - addr;
++		unsigned long len = sg->length;
+ 
+-		ret = remap_pfn_range(vma, addr, page_to_pfn(page), PAGE_SIZE,
++		if (offset >= sg->length) {
++			offset -= sg->length;
++			continue;
++		} else if (offset) {
++			page += offset / PAGE_SIZE;
++			len = sg->length - offset;
++			offset = 0;
++		}
++		len = min(len, remainder);
++		ret = remap_pfn_range(vma, addr, page_to_pfn(page), len,
+ 				      vma->vm_page_prot);
+ 		if (ret)
+ 			return ret;
+-		addr += PAGE_SIZE;
++		addr += len;
+ 		if (addr >= vma->vm_end)
+ 			return 0;
+ 	}
+@@ -82,12 +213,12 @@ int ion_heap_map_user(struct ion_heap *heap, struct ion_buffer *buffer,
  
  static int ion_heap_clear_pages(struct page **pages, int num, pgprot_t pgprot)
  {
@@ -219,27 +282,30 @@ diff --git a/drivers/staging/android/ion/ion_heap.c b/drivers/staging/android/io
  
  	return 0;
  }
-@@ -132,19 +246,6 @@ static int ion_heap_sglist_zero(struct scatterlist *sgl, unsigned int nents,
+@@ -114,17 +245,13 @@ static int ion_heap_sglist_zero(struct sg_table *sgt, pgprot_t pgprot)
  	return ret;
  }
  
 -int ion_heap_buffer_zero(struct ion_buffer *buffer)
--{
++int ion_heap_pages_zero(struct page *page, size_t size, pgprot_t pgprot)
+ {
 -	struct sg_table *table = buffer->sg_table;
 -	pgprot_t pgprot;
--
++	struct scatterlist sg;
+ 
 -	if (buffer->flags & ION_FLAG_CACHED)
 -		pgprot = PAGE_KERNEL;
 -	else
 -		pgprot = pgprot_writecombine(PAGE_KERNEL);
 -
--	return ion_heap_sglist_zero(table->sgl, table->nents, pgprot);
--}
--
- int ion_heap_pages_zero(struct page *page, size_t size, pgprot_t pgprot)
- {
- 	struct scatterlist sg;
-@@ -174,38 +275,6 @@ size_t ion_heap_freelist_size(struct ion_heap *heap)
+-	return ion_heap_sglist_zero(table, pgprot);
++	sg_init_table(&sg, 1);
++	sg_set_page(&sg, page, size, 0);
++	return ion_heap_sglist_zero(&sg, 1, pgprot);
+ }
+ 
+ void ion_heap_freelist_add(struct ion_heap *heap, struct ion_buffer *buffer)
+@@ -147,38 +274,6 @@ size_t ion_heap_freelist_size(struct ion_heap *heap)
  	return size;
  }
  
@@ -278,7 +344,7 @@ diff --git a/drivers/staging/android/ion/ion_heap.c b/drivers/staging/android/io
  size_t ion_heap_freelist_drain(struct ion_heap *heap, size_t size)
  {
  	return _ion_heap_freelist_drain(heap, size, false);
-@@ -216,32 +285,6 @@ size_t ion_heap_freelist_shrink(struct ion_heap *heap, size_t size)
+@@ -189,32 +284,6 @@ size_t ion_heap_freelist_shrink(struct ion_heap *heap, size_t size)
  	return _ion_heap_freelist_drain(heap, size, true);
  }
  
@@ -310,8 +376,8 @@ diff --git a/drivers/staging/android/ion/ion_heap.c b/drivers/staging/android/io
 -
  int ion_heap_init_deferred_free(struct ion_heap *heap)
  {
- 	struct sched_param param = { .sched_priority = 0 };
-@@ -260,50 +303,6 @@ int ion_heap_init_deferred_free(struct ion_heap *heap)
+ 	INIT_LIST_HEAD(&heap->free_list);
+@@ -231,50 +300,6 @@ int ion_heap_init_deferred_free(struct ion_heap *heap)
  	return 0;
  }
  
@@ -381,5 +447,5 @@ diff --git a/drivers/staging/android/ion/ion_system_heap.c b/drivers/staging/and
 -		ion_heap_buffer_zero(buffer);
 +		ion_buffer_zero(buffer);
  
- 	for_each_sg(table->sgl, sg, table->nents, i)
+ 	for_each_sgtable_sg(table, sg, i)
  		free_buffer_page(sys_heap, buffer, sg_page(sg));

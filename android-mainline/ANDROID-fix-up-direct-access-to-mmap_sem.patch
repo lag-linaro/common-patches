@@ -37,7 +37,7 @@ diff --git a/drivers/misc/uid_sys_stats.c b/drivers/misc/uid_sys_stats.c
 diff --git a/kernel/sys.c b/kernel/sys.c
 --- a/kernel/sys.c
 +++ b/kernel/sys.c
-@@ -2374,7 +2374,7 @@ static int prctl_set_vma_anon_name(unsigned long start, unsigned long end,
+@@ -2377,7 +2377,7 @@ static int prctl_set_vma_anon_name(unsigned long start, unsigned long end,
  			return error;
  		if (prev)
  			vma = prev->vm_next;
@@ -46,7 +46,7 @@ diff --git a/kernel/sys.c b/kernel/sys.c
  			vma = find_vma(current->mm, start);
  	}
  }
-@@ -2402,7 +2402,7 @@ static int prctl_set_vma(unsigned long opt, unsigned long start,
+@@ -2405,7 +2405,7 @@ static int prctl_set_vma(unsigned long opt, unsigned long start,
  	if (end == start)
  		return 0;
  
@@ -55,7 +55,7 @@ diff --git a/kernel/sys.c b/kernel/sys.c
  
  	switch (opt) {
  	case PR_SET_VMA_ANON_NAME:
-@@ -2412,7 +2412,7 @@ static int prctl_set_vma(unsigned long opt, unsigned long start,
+@@ -2415,7 +2415,7 @@ static int prctl_set_vma(unsigned long opt, unsigned long start,
  		error = -EINVAL;
  	}
  

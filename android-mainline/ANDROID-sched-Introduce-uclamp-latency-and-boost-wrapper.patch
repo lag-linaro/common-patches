@@ -14,32 +14,37 @@ Change-Id: I5fc747da8b58625257a6604a3c88487b657fbe7a
 Suggested-by: Patrick Bellasi <patrick.bellasi@arm.com>
 Signed-off-by: Quentin Perret <quentin.perret@arm.com>
 ---
- kernel/sched/sched.h | 28 ++++++++++++++++++++++++++++
- 1 file changed, 28 insertions(+)
+ kernel/sched/sched.h | 29 +++++++++++++++++++++++++++++
+ 1 file changed, 29 insertions(+)
 
 diff --git a/kernel/sched/sched.h b/kernel/sched/sched.h
 --- a/kernel/sched/sched.h
 +++ b/kernel/sched/sched.h
-@@ -2373,6 +2373,11 @@ unsigned long uclamp_rq_util_with(struct rq *rq, unsigned long util,
- 
+@@ -2440,6 +2440,11 @@ unsigned long uclamp_rq_util_with(struct rq *rq, unsigned long util,
  	return clamp(util, min_util, max_util);
  }
-+
+ 
 +static inline bool uclamp_boosted(struct task_struct *p)
 +{
 +	return uclamp_eff_value(p, UCLAMP_MIN) > 0;
 +}
- #else /* CONFIG_UCLAMP_TASK */
- static inline
- unsigned long uclamp_rq_util_with(struct rq *rq, unsigned long util,
-@@ -2380,8 +2385,31 @@ unsigned long uclamp_rq_util_with(struct rq *rq, unsigned long util,
- {
++
+ /*
+  * When uclamp is compiled in, the aggregation at rq level is 'turned off'
+  * by default in the fast path and only gets turned on once userspace performs
+@@ -2460,12 +2465,36 @@ unsigned long uclamp_rq_util_with(struct rq *rq, unsigned long util,
  	return util;
  }
+ 
 +static inline bool uclamp_boosted(struct task_struct *p)
 +{
 +	return false;
 +}
++
+ static inline bool uclamp_is_used(void)
+ {
+ 	return false;
+ }
  #endif /* CONFIG_UCLAMP_TASK */
  
 +#ifdef CONFIG_UCLAMP_TASK_GROUP

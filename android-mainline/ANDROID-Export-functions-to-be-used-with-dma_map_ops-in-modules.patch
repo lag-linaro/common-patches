@@ -24,7 +24,7 @@ Change-Id: Ia77b797fcd909fce01da7431bfbde282dc70b3b3
 diff --git a/kernel/dma/direct.c b/kernel/dma/direct.c
 --- a/kernel/dma/direct.c
 +++ b/kernel/dma/direct.c
-@@ -44,6 +44,7 @@ u64 dma_direct_get_required_mask(struct device *dev)
+@@ -42,6 +42,7 @@ u64 dma_direct_get_required_mask(struct device *dev)
  
  	return (1ULL << (fls64(max_dma) - 1)) * 2 - 1;
  }
@@ -32,7 +32,7 @@ diff --git a/kernel/dma/direct.c b/kernel/dma/direct.c
  
  gfp_t dma_direct_optimal_gfp_mask(struct device *dev, u64 dma_mask,
  				  u64 *phys_limit)
-@@ -290,6 +291,7 @@ void *dma_direct_alloc(struct device *dev, size_t size,
+@@ -288,6 +289,7 @@ void *dma_direct_alloc(struct device *dev, size_t size,
  		return arch_dma_alloc(dev, size, dma_handle, gfp, attrs);
  	return dma_direct_alloc_pages(dev, size, dma_handle, gfp, attrs);
  }
@@ -40,7 +40,7 @@ diff --git a/kernel/dma/direct.c b/kernel/dma/direct.c
  
  void dma_direct_free(struct device *dev, size_t size,
  		void *cpu_addr, dma_addr_t dma_addr, unsigned long attrs)
-@@ -301,6 +303,7 @@ void dma_direct_free(struct device *dev, size_t size,
+@@ -299,6 +301,7 @@ void dma_direct_free(struct device *dev, size_t size,
  	else
  		dma_direct_free_pages(dev, size, cpu_addr, dma_addr, attrs);
  }
@@ -51,7 +51,7 @@ diff --git a/kernel/dma/direct.c b/kernel/dma/direct.c
 diff --git a/kernel/dma/mapping.c b/kernel/dma/mapping.c
 --- a/kernel/dma/mapping.c
 +++ b/kernel/dma/mapping.c
-@@ -120,6 +120,7 @@ int dma_common_get_sgtable(struct device *dev, struct sg_table *sgt,
+@@ -310,6 +310,7 @@ int dma_common_get_sgtable(struct device *dev, struct sg_table *sgt,
  		sg_set_page(sgt->sgl, page, PAGE_ALIGN(size), 0);
  	return ret;
  }
@@ -59,7 +59,7 @@ diff --git a/kernel/dma/mapping.c b/kernel/dma/mapping.c
  
  /*
   * The whole dma_get_sgtable() idea is fundamentally unsafe - it seems
-@@ -196,6 +197,7 @@ int dma_common_mmap(struct device *dev, struct vm_area_struct *vma,
+@@ -386,6 +387,7 @@ int dma_common_mmap(struct device *dev, struct vm_area_struct *vma,
  	return -ENXIO;
  #endif /* CONFIG_MMU */
  }

@@ -289,7 +289,7 @@ diff --git a/kernel/sys.c b/kernel/sys.c
  
  #include <linux/compat.h>
  #include <linux/syscalls.h>
-@@ -2275,6 +2277,153 @@ int __weak arch_prctl_spec_ctrl_set(struct task_struct *t, unsigned long which,
+@@ -2278,6 +2280,153 @@ int __weak arch_prctl_spec_ctrl_set(struct task_struct *t, unsigned long which,
  	return -EINVAL;
  }
  
@@ -443,7 +443,7 @@ diff --git a/kernel/sys.c b/kernel/sys.c
  #define PR_IO_FLUSHER (PF_MEMALLOC_NOIO | PF_LOCAL_THROTTLE)
  
  SYSCALL_DEFINE5(prctl, int, option, unsigned long, arg2, unsigned long, arg3,
-@@ -2489,6 +2638,9 @@ SYSCALL_DEFINE5(prctl, int, option, unsigned long, arg2, unsigned long, arg3,
+@@ -2492,6 +2641,9 @@ SYSCALL_DEFINE5(prctl, int, option, unsigned long, arg2, unsigned long, arg3,
  			return -EINVAL;
  		error = arch_prctl_spec_ctrl_set(me, arg2, arg3);
  		break;
@@ -609,7 +609,7 @@ diff --git a/mm/mmap.c b/mm/mmap.c
  	if (vma)
  		goto out;
  
-@@ -3240,7 +3249,7 @@ struct vm_area_struct *copy_vma(struct vm_area_struct **vmap,
+@@ -3241,7 +3250,7 @@ struct vm_area_struct *copy_vma(struct vm_area_struct **vmap,
  		return NULL;	/* should never get here */
  	new_vma = vma_merge(mm, prev, addr, addr + len, vma->vm_flags,
  			    vma->anon_vma, vma->vm_file, pgoff, vma_policy(vma),

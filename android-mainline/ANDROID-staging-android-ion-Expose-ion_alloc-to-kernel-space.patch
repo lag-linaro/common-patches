@@ -30,7 +30,7 @@ diff --git a/drivers/staging/android/ion/ion.c b/drivers/staging/android/ion/ion
   */
  
  #include <linux/debugfs.h>
-@@ -339,13 +341,13 @@ static const struct dma_buf_ops dma_buf_ops = {
+@@ -336,13 +338,13 @@ static const struct dma_buf_ops dma_buf_ops = {
  	.end_cpu_access = ion_dma_buf_end_cpu_access,
  };
  
@@ -46,7 +46,7 @@ diff --git a/drivers/staging/android/ion/ion.c b/drivers/staging/android/ion/ion
  	struct dma_buf *dmabuf;
  
  	pr_debug("%s: len %zu heap_id_mask %u flags %x\n", __func__,
-@@ -359,7 +361,7 @@ static int ion_alloc(size_t len, unsigned int heap_id_mask, unsigned int flags)
+@@ -356,7 +358,7 @@ static int ion_alloc(size_t len, unsigned int heap_id_mask, unsigned int flags)
  	len = PAGE_ALIGN(len);
  
  	if (!len)
@@ -55,7 +55,7 @@ diff --git a/drivers/staging/android/ion/ion.c b/drivers/staging/android/ion/ion
  
  	down_read(&dev->lock);
  	plist_for_each_entry(heap, &dev->heaps, node) {
-@@ -373,10 +375,10 @@ static int ion_alloc(size_t len, unsigned int heap_id_mask, unsigned int flags)
+@@ -370,10 +372,10 @@ static int ion_alloc(size_t len, unsigned int heap_id_mask, unsigned int flags)
  	up_read(&dev->lock);
  
  	if (!buffer)
@@ -68,7 +68,7 @@ diff --git a/drivers/staging/android/ion/ion.c b/drivers/staging/android/ion/ion
  
  	exp_info.ops = &dma_buf_ops;
  	exp_info.size = buffer->size;
-@@ -384,10 +386,28 @@ static int ion_alloc(size_t len, unsigned int heap_id_mask, unsigned int flags)
+@@ -381,10 +383,28 @@ static int ion_alloc(size_t len, unsigned int heap_id_mask, unsigned int flags)
  	exp_info.priv = buffer;
  
  	dmabuf = dma_buf_export(&exp_info);
@@ -99,7 +99,7 @@ diff --git a/drivers/staging/android/ion/ion.c b/drivers/staging/android/ion/ion
  
  	fd = dma_buf_fd(dmabuf, O_CLOEXEC);
  	if (fd < 0)
-@@ -492,9 +512,9 @@ static long ion_ioctl(struct file *filp, unsigned int cmd, unsigned long arg)
+@@ -489,9 +509,9 @@ static long ion_ioctl(struct file *filp, unsigned int cmd, unsigned long arg)
  	{
  		int fd;
  

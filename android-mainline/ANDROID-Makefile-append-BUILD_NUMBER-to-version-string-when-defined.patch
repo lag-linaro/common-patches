@@ -26,7 +26,7 @@ Signed-off-by: Will McVicker <willmcvicker@google.com>
 diff --git a/Makefile b/Makefile
 --- a/Makefile
 +++ b/Makefile
-@@ -1210,12 +1210,17 @@ endif
+@@ -1235,12 +1235,17 @@ endif
  # needs to be updated, so this check is forced on all builds
  
  uts_len := 64

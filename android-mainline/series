@@ -1,15 +1,13 @@
 #
 # android-mainline patches
 #
-# Applies onto upstream 382625d0d432 Linux v5.8-475-g382625d0d432
-# Matches android-mainline 98777a7eb7ee ("Merge commit 382625d0d432 ("Merge tag 'for-5.9/block-20200802' of git://git.kernel.dk/linux-block") into android-mainline")
+# Applies onto upstream 86cfccb66937 Linux v5.8-10178-g86cfccb66937
+# Matches android-mainline 2c136de3024f ("Merge 86cfccb66937 ("Merge tag 'dlm-5.9' of git://git.kernel.org/pub/scm/linux/kernel/git/teigland/linux-dlm") into android-mainline")
 #
 Revert-security-lockdown-selinux-implement-SELinux-lockdown.patch
 Revert-drm-virtio-fix-DRM_FORMAT_-handling.patch
 Revert-sched-core-Prevent-race-condition-between-cpuset-and-__sched_setscheduler.patch
 FROMGIT-iommu-arm-smmu-Don-t-bypass-pinned-stream-mappings.patch
-FROMGIT-driver-core-Add-device_is_dependent-to-linux-device.h.patch
-FROMGIT-of-property-Improve-cycle-detection-when-one-of-the-devices-is-never-added.patch
 FROMLIST-scsi-ufs-qcom-enter-and-exit-hibern8-during-clock-scaling.patch
 FROMLIST-scsi-ufs-Export-query-request-interfaces.patch
 FROMLIST-scsi-ufs-export-hibern8-entry-and-exit.patch
@@ -22,17 +20,12 @@ FROMLIST-overlayfs-handle-XATTR_NOSECURITY-flag-for-get-xattr-method.patch
 FROMLIST-overlayfs-internal-getxattr-operations-without-sepolicy-checking.patch
 FROMLIST-overlayfs-override_creds-off-option-bypass-creator_cred.patch
 FROMLIST-soc-qcom-rpmh-Allow-RPMH-driver-to-be-loaded-as-a-module.patch
-FROMLIST-ASoC-qcom-Kconfig-Tweak-dependencies-on-SND_SOC_SDM845.patch
 FROMLIST-power_supply-Add-additional-health-properties-to-the-header.patch
 FROMLIST-unicode-Add-utf8_casefold_hash.patch
 FROMLIST-fs-Add-standard-casefolding-support.patch
 FROMLIST-f2fs-Use-generic-casefolding-support.patch
 FROMLIST-ext4-Use-generic-casefolding-support.patch
 FROMLIST-fscrypt-Have-filesystems-handle-their-d_ops.patch
-FROMLIST-scsi-ufs-UFS-driver-v2.1-spec-crypto-additions.patch
-FROMLIST-scsi-ufs-UFS-crypto-API.patch
-FROMLIST-scsi-ufs-Add-inline-encryption-support-to-UFS.patch
-FROMLIST-scsi-ufs-add-program_key-variant-op.patch
 FROMLIST-fscrypt-Add-functions-for-direct-I-O-support.patch
 FROMLIST-direct-io-add-support-for-fscrypt-using-blk-crypto.patch
 FROMLIST-iomap-support-direct-I-O-with-fscrypt-using-blk-crypto.patch
@@ -276,7 +269,6 @@ ANDROID-gki_defconfig-Enable-CONFIG_NET_NS.patch
 ANDROID-clang-update-to-10.0.4.patch
 ANDROID-Incremental-fs-Support-xattrs.patch
 FROMLIST-ufs-fix-a-bug-on-printing-PRDT.patch
-ANDROID-ufs-add-quirk-to-fix-abnormal-ocs-fatal-error.patch
 ANDROID-Kconfig.gki-Remove-most-of-the-built-in-qcom-clks.patch
 ANDROID-update-gki_defconfig-for-5.6-rc3.patch
 ANDROID-gki_defconfig-Disable-CONFIG_RT_GROUP_SCHED.patch
@@ -367,9 +359,6 @@ ANDROID-Incremental-fs-Fix-create_file-performance.patch
 FROMLIST-dma-buf-add-support-for-virtio-exported-objects.patch
 FROMLIST-drm-prime-add-support-for-virtio-exported-objects.patch
 ANDROID-GKI-Add-DRM_TTM-config-to-GKI.patch
-ANDROID-irq-irqdomain-Export-irq_domain_update_bus_token.patch
-ANDROID-irq-irqchip-Export-irq_chip_retrigger_hierarchy-and-irq_chip_set_vcpu_affinity_parent.patch
-ANDROID-irqchip-Allow-QCOM_PDC-to-be-loadable-as-a-perment-module.patch
 ANDROID-pinctrl-qcom-Allow-pinctrl-msm-code-to-be-loadable-as-a-module.patch
 ANDROID-firmware-QCOM_SCM-Allow-qcom_scm-driver-to-be-loadable-as-a-permenent-module.patch
 ANDROID-Switch-CONFIG_QCOM_PDC-CONFIG_QCOM_SCM-and-CONFIG_ARM_SMMU-to-be-loaded-as-modules.patch

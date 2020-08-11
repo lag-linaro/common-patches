@@ -26,7 +26,7 @@ Change-Id: Ied1c5aba6b692e26776b3e2c050780a67cc5bae1
 diff --git a/Documentation/scheduler/sched-energy.rst b/Documentation/scheduler/sched-energy.rst
 --- a/Documentation/scheduler/sched-energy.rst
 +++ b/Documentation/scheduler/sched-energy.rst
-@@ -405,7 +405,7 @@ Consequently, the only sane governor to use together with EAS is schedutil,
+@@ -397,7 +397,7 @@ Consequently, the only sane governor to use together with EAS is schedutil,
  because it is the only one providing some degree of consistency between
  frequency requests and energy predictions.
  
@@ -38,7 +38,7 @@ diff --git a/Documentation/scheduler/sched-energy.rst b/Documentation/scheduler/
 diff --git a/drivers/cpufreq/cpufreq.c b/drivers/cpufreq/cpufreq.c
 --- a/drivers/cpufreq/cpufreq.c
 +++ b/drivers/cpufreq/cpufreq.c
-@@ -2472,7 +2472,6 @@ static int cpufreq_set_policy(struct cpufreq_policy *policy,
+@@ -2486,7 +2486,6 @@ static int cpufreq_set_policy(struct cpufreq_policy *policy,
  		ret = cpufreq_start_governor(policy);
  		if (!ret) {
  			pr_debug("governor change\n");
@@ -49,7 +49,7 @@ diff --git a/drivers/cpufreq/cpufreq.c b/drivers/cpufreq/cpufreq.c
 diff --git a/include/linux/cpufreq.h b/include/linux/cpufreq.h
 --- a/include/linux/cpufreq.h
 +++ b/include/linux/cpufreq.h
-@@ -979,14 +979,6 @@ static inline bool policy_has_boost_freq(struct cpufreq_policy *policy)
+@@ -993,14 +993,6 @@ static inline bool policy_has_boost_freq(struct cpufreq_policy *policy)
  }
  #endif
  
@@ -67,10 +67,10 @@ diff --git a/include/linux/cpufreq.h b/include/linux/cpufreq.h
 diff --git a/kernel/sched/cpufreq_schedutil.c b/kernel/sched/cpufreq_schedutil.c
 --- a/kernel/sched/cpufreq_schedutil.c
 +++ b/kernel/sched/cpufreq_schedutil.c
-@@ -914,36 +914,3 @@ static int __init sugov_register(void)
- 	return cpufreq_register_governor(&schedutil_gov);
- }
- core_initcall(sugov_register);
+@@ -910,36 +910,3 @@ struct cpufreq_governor *cpufreq_default_governor(void)
+ #endif
+ 
+ cpufreq_governor_init(schedutil_gov);
 -
 -#ifdef CONFIG_ENERGY_MODEL
 -extern bool sched_energy_update;
@@ -122,7 +122,7 @@ diff --git a/kernel/sched/topology.c b/kernel/sched/topology.c
 -extern struct cpufreq_governor schedutil_gov;
  static bool build_perf_domains(const struct cpumask *cpu_map)
  {
- 	int i, nr_pd = 0, nr_cs = 0, nr_cpus = cpumask_weight(cpu_map);
+ 	int i, nr_pd = 0, nr_ps = 0, nr_cpus = cpumask_weight(cpu_map);
  	struct perf_domain *pd = NULL, *tmp;
  	int cpu = cpumask_first(cpu_map);
  	struct root_domain *rd = cpu_rq(cpu)->rd;

@@ -21,7 +21,7 @@ Change-Id: I27a575e54ffbb0b0bfb78115edef45fc8ff585a4
 diff --git a/arch/arm64/boot/dts/qcom/sdm845.dtsi b/arch/arm64/boot/dts/qcom/sdm845.dtsi
 --- a/arch/arm64/boot/dts/qcom/sdm845.dtsi
 +++ b/arch/arm64/boot/dts/qcom/sdm845.dtsi
-@@ -3728,6 +3728,7 @@ apps_smmu: iommu@15000000 {
+@@ -4245,6 +4245,7 @@ apps_smmu: iommu@15000000 {
  			compatible = "qcom,sdm845-smmu-500", "arm,mmu-500";
  			reg = <0 0x15000000 0 0x80000>;
  			#iommu-cells = <2>;

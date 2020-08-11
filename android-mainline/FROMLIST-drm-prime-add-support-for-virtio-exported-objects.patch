@@ -76,7 +76,7 @@ diff --git a/include/drm/drm_drv.h b/include/drm/drm_drv.h
  
  #include <drm/drm_device.h>
  
-@@ -488,6 +489,15 @@ struct drm_driver {
+@@ -461,6 +462,15 @@ struct drm_driver {
  	int (*gem_prime_mmap)(struct drm_gem_object *obj,
  				struct vm_area_struct *vma);
  

@@ -14,8 +14,8 @@ Change-Id: I80ff870453472e183ab2aae7381bff91e49ae296
 ---
  drivers/android/vendor_hooks.c |  3 ++-
  include/trace/hooks/sched.h    | 23 +++++++++++++++++++++++
- kernel/sched/fair.c            |  7 +++++++
- 3 files changed, 32 insertions(+), 1 deletion(-)
+ kernel/sched/fair.c            |  8 ++++++++
+ 3 files changed, 33 insertions(+), 1 deletion(-)
  create mode 100644 include/trace/hooks/sched.h
 
 diff --git a/drivers/android/vendor_hooks.c b/drivers/android/vendor_hooks.c
@@ -65,15 +65,16 @@ index 000000000000..e4ef56686a76
 diff --git a/kernel/sched/fair.c b/kernel/sched/fair.c
 --- a/kernel/sched/fair.c
 +++ b/kernel/sched/fair.c
-@@ -23,6 +23,7 @@
+@@ -22,6 +22,8 @@
+  */
  #include "sched.h"
  
- #include <trace/events/sched.h>
 +#include <trace/hooks/sched.h>
- 
++
  /*
   * Targeted preemption latency for CPU-bound tasks:
-@@ -6710,6 +6711,12 @@ select_task_rq_fair(struct task_struct *p, int prev_cpu, int sd_flag, int wake_f
+  *
+@@ -6718,6 +6720,12 @@ select_task_rq_fair(struct task_struct *p, int prev_cpu, int sd_flag, int wake_f
  	int new_cpu = prev_cpu;
  	int want_affine = 0;
  	int sync = (wake_flags & WF_SYNC) && !(current->flags & PF_EXITING);

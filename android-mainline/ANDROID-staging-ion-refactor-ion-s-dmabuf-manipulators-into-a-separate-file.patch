@@ -18,12 +18,12 @@ Co-developed-by: Isaac J. Manjarres <isaacm@codeaurora.org>
 Signed-off-by: Sandeep Patil <sspatil@google.com>
 ---
  drivers/staging/android/ion/Makefile      |   2 +-
- drivers/staging/android/ion/ion.c         | 240 +--------------------
+ drivers/staging/android/ion/ion.c         | 237 +-------------------
  drivers/staging/android/ion/ion_buffer.c  |   6 +-
  drivers/staging/android/ion/ion_dma_buf.c | 252 ++++++++++++++++++++++
  drivers/staging/android/ion/ion_private.h |  11 +-
  include/linux/ion.h                       |  16 +-
- 6 files changed, 289 insertions(+), 238 deletions(-)
+ 6 files changed, 289 insertions(+), 235 deletions(-)
  create mode 100644 drivers/staging/android/ion/ion_dma_buf.c
 
 diff --git a/drivers/staging/android/ion/Makefile b/drivers/staging/android/ion/Makefile
@@ -38,7 +38,7 @@ diff --git a/drivers/staging/android/ion/Makefile b/drivers/staging/android/ion/
 diff --git a/drivers/staging/android/ion/ion.c b/drivers/staging/android/ion/ion.c
 --- a/drivers/staging/android/ion/ion.c
 +++ b/drivers/staging/android/ion/ion.c
-@@ -17,262 +17,38 @@
+@@ -17,259 +17,38 @@
  #include <linux/fs.h>
  #include <linux/kthread.h>
  #include <linux/list.h>
@@ -66,14 +66,14 @@ diff --git a/drivers/staging/android/ion/ion.c b/drivers/staging/android/ion/ion
 -	if (!new_table)
 -		return ERR_PTR(-ENOMEM);
 -
--	ret = sg_alloc_table(new_table, table->nents, GFP_KERNEL);
+-	ret = sg_alloc_table(new_table, table->orig_nents, GFP_KERNEL);
 -	if (ret) {
 -		kfree(new_table);
 -		return ERR_PTR(-ENOMEM);
 -	}
 -
 -	new_sg = new_table->sgl;
--	for_each_sg(table->sgl, sg, table->nents, i) {
+-	for_each_sgtable_sg(table, sg, i) {
 -		memcpy(new_sg, sg, sizeof(*sg));
 -		new_sg->dma_address = 0;
 -		new_sg = sg_next(new_sg);
@@ -143,12 +143,13 @@ diff --git a/drivers/staging/android/ion/ion.c b/drivers/staging/android/ion/ion
 -{
 -	struct ion_dma_buf_attachment *a = attachment->priv;
 -	struct sg_table *table;
+-	int ret;
 -
 -	table = a->table;
 -
--	if (!dma_map_sg(attachment->dev, table->sgl, table->nents,
--			direction))
--		return ERR_PTR(-ENOMEM);
+-	ret = dma_map_sgtable(attachment->dev, table, direction, 0);
+-	if (ret)
+-		return ERR_PTR(ret);
 -
 -	return table;
 -}
@@ -157,7 +158,7 @@ diff --git a/drivers/staging/android/ion/ion.c b/drivers/staging/android/ion/ion
 -			      struct sg_table *table,
 -			      enum dma_data_direction direction)
 -{
--	dma_unmap_sg(attachment->dev, table->sgl, table->nents, direction);
+-	dma_unmap_sgtable(attachment->dev, table, direction, 0);
 -}
 -
 -static int ion_mmap(struct dma_buf *dmabuf, struct vm_area_struct *vma)
@@ -215,10 +216,8 @@ diff --git a/drivers/staging/android/ion/ion.c b/drivers/staging/android/ion/ion
 -	}
 -
 -	mutex_lock(&buffer->lock);
--	list_for_each_entry(a, &buffer->attachments, list) {
--		dma_sync_sg_for_cpu(a->dev, a->table->sgl, a->table->nents,
--				    direction);
--	}
+-	list_for_each_entry(a, &buffer->attachments, list)
+-		dma_sync_sgtable_for_cpu(a->dev, a->table, direction);
 -
 -unlock:
 -	mutex_unlock(&buffer->lock);
@@ -238,10 +237,8 @@ diff --git a/drivers/staging/android/ion/ion.c b/drivers/staging/android/ion/ion
 -	}
 -
 -	mutex_lock(&buffer->lock);
--	list_for_each_entry(a, &buffer->attachments, list) {
--		dma_sync_sg_for_device(a->dev, a->table->sgl, a->table->nents,
--				       direction);
--	}
+-	list_for_each_entry(a, &buffer->attachments, list)
+-		dma_sync_sgtable_for_device(a->dev, a->table, direction);
 -	mutex_unlock(&buffer->lock);
 -
 -	return 0;

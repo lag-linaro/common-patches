@@ -45,7 +45,7 @@ Signed-off-by: Jeff Vander Stoep <jeffv@google.com>
 diff --git a/security/selinux/include/classmap.h b/security/selinux/include/classmap.h
 --- a/security/selinux/include/classmap.h
 +++ b/security/selinux/include/classmap.h
-@@ -116,7 +116,7 @@ struct security_class_mapping secclass_map[] = {
+@@ -117,7 +117,7 @@ struct security_class_mapping secclass_map[] = {
  	  { COMMON_IPC_PERMS, NULL } },
  	{ "netlink_route_socket",
  	  { COMMON_SOCK_PERMS,
@@ -129,7 +129,7 @@ diff --git a/security/selinux/nlmsgtab.c b/security/selinux/nlmsgtab.c
 diff --git a/security/selinux/ss/policydb.c b/security/selinux/ss/policydb.c
 --- a/security/selinux/ss/policydb.c
 +++ b/security/selinux/ss/policydb.c
-@@ -2461,6 +2461,10 @@ int policydb_read(struct policydb *p, void *fp)
+@@ -2493,6 +2493,10 @@ int policydb_read(struct policydb *p, void *fp)
  	p->reject_unknown = !!(le32_to_cpu(buf[1]) & REJECT_UNKNOWN);
  	p->allow_unknown = !!(le32_to_cpu(buf[1]) & ALLOW_UNKNOWN);
  
@@ -151,8 +151,8 @@ diff --git a/security/selinux/ss/policydb.h b/security/selinux/ss/policydb.h
  
  	/* symbol tables */
  	struct symtab symtab[SYM_NUM];
-@@ -325,6 +326,7 @@ extern int policydb_read(struct policydb *p, void *fp);
- extern int policydb_write(struct policydb *p, void *fp);
+@@ -334,6 +335,7 @@ extern struct role_trans_datum *policydb_roletr_search(
+ 	struct policydb *p, struct role_trans_key *key);
  
  #define POLICYDB_CONFIG_MLS    1
 +#define POLICYDB_CONFIG_ANDROID_NETLINK_ROUTE    (1 << 31)

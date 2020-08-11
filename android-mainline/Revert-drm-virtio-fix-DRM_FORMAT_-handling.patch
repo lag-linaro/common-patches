@@ -31,14 +31,14 @@ diff --git a/drivers/gpu/drm/virtio/virtgpu_display.c b/drivers/gpu/drm/virtio/v
  	/* lookup object associated with res handle */
  	obj = drm_gem_object_lookup(file_priv, mode_cmd->handles[0]);
  	if (!obj)
-@@ -344,7 +340,6 @@ void virtio_gpu_modeset_init(struct virtio_gpu_device *vgdev)
+@@ -325,7 +321,6 @@ void virtio_gpu_modeset_init(struct virtio_gpu_device *vgdev)
  	int i;
  
  	drm_mode_config_init(vgdev->ddev);
 -	vgdev->ddev->mode_config.quirk_addfb_prefer_host_byte_order = true;
  	vgdev->ddev->mode_config.funcs = &virtio_gpu_mode_funcs;
- 	vgdev->ddev->mode_config.helper_private = &virtio_mode_config_helpers;
  
+ 	/* modes will be validated against the framebuffer size */
 diff --git a/drivers/gpu/drm/virtio/virtgpu_plane.c b/drivers/gpu/drm/virtio/virtgpu_plane.c
 --- a/drivers/gpu/drm/virtio/virtgpu_plane.c
 +++ b/drivers/gpu/drm/virtio/virtgpu_plane.c

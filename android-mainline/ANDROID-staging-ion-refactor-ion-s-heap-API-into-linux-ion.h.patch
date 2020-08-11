@@ -433,7 +433,7 @@ diff --git a/drivers/staging/android/ion/ion_heap.c b/drivers/staging/android/io
  
  	return 0;
  }
-@@ -246,6 +234,19 @@ static int ion_heap_sglist_zero(struct scatterlist *sgl, unsigned int nents,
+@@ -245,6 +233,19 @@ static int ion_heap_sglist_zero(struct sg_table *sgt, pgprot_t pgprot)
  	return ret;
  }
  

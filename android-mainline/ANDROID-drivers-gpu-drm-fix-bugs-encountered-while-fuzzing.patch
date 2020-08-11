@@ -29,7 +29,7 @@ diff --git a/drivers/gpu/drm/drm_file.c b/drivers/gpu/drm/drm_file.c
  bool drm_dev_needs_global_mutex(struct drm_device *dev)
  {
  	/*
-@@ -421,6 +423,11 @@ int drm_open(struct inode *inode, struct file *filp)
+@@ -424,6 +426,11 @@ int drm_open(struct inode *inode, struct file *filp)
  	if (!atomic_fetch_inc(&dev->open_count))
  		need_setup = 1;
  
