@@ -156,9 +156,9 @@ diff --git a/fs/crypto/inline_crypt.c b/fs/crypto/inline_crypt.c
  #include <linux/buffer_head.h>
 +#include <linux/keyslot-manager.h>
  #include <linux/sched/mm.h>
+ #include <linux/slab.h>
  #include <linux/uio.h>
- 
-@@ -64,7 +65,8 @@ static unsigned int fscrypt_get_dun_bytes(const struct fscrypt_info *ci)
+@@ -65,7 +66,8 @@ static unsigned int fscrypt_get_dun_bytes(const struct fscrypt_info *ci)
  }
  
  /* Enable inline encryption for this file if supported. */
@@ -168,7 +168,7 @@ diff --git a/fs/crypto/inline_crypt.c b/fs/crypto/inline_crypt.c
  {
  	const struct inode *inode = ci->ci_inode;
  	struct super_block *sb = inode->i_sb;
-@@ -105,7 +107,7 @@ int fscrypt_select_encryption_impl(struct fscrypt_info *ci)
+@@ -106,7 +108,7 @@ int fscrypt_select_encryption_impl(struct fscrypt_info *ci)
  	crypto_cfg.crypto_mode = ci->ci_mode->blk_crypto_mode;
  	crypto_cfg.data_unit_size = sb->s_blocksize;
  	crypto_cfg.dun_bytes = fscrypt_get_dun_bytes(ci);
@@ -177,7 +177,7 @@ diff --git a/fs/crypto/inline_crypt.c b/fs/crypto/inline_crypt.c
  	num_devs = fscrypt_get_num_devices(sb);
  	devs = kmalloc_array(num_devs, sizeof(*devs), GFP_NOFS);
  	if (!devs)
-@@ -126,6 +128,8 @@ int fscrypt_select_encryption_impl(struct fscrypt_info *ci)
+@@ -127,6 +129,8 @@ int fscrypt_select_encryption_impl(struct fscrypt_info *ci)
  
  int fscrypt_prepare_inline_crypt_key(struct fscrypt_prepared_key *prep_key,
  				     const u8 *raw_key,
@@ -186,7 +186,7 @@ diff --git a/fs/crypto/inline_crypt.c b/fs/crypto/inline_crypt.c
  				     const struct fscrypt_info *ci)
  {
  	const struct inode *inode = ci->ci_inode;
-@@ -145,9 +149,12 @@ int fscrypt_prepare_inline_crypt_key(struct fscrypt_prepared_key *prep_key,
+@@ -146,9 +150,12 @@ int fscrypt_prepare_inline_crypt_key(struct fscrypt_prepared_key *prep_key,
  	blk_key->num_devs = num_devs;
  	fscrypt_get_devices(sb, num_devs, blk_key->devs);
  
@@ -202,7 +202,7 @@ diff --git a/fs/crypto/inline_crypt.c b/fs/crypto/inline_crypt.c
  	if (err) {
  		fscrypt_err(inode, "error %d initializing blk-crypto key", err);
  		goto fail;
-@@ -208,6 +215,21 @@ void fscrypt_destroy_inline_crypt_key(struct fscrypt_prepared_key *prep_key)
+@@ -209,6 +216,21 @@ void fscrypt_destroy_inline_crypt_key(struct fscrypt_prepared_key *prep_key)
  	}
  }
  

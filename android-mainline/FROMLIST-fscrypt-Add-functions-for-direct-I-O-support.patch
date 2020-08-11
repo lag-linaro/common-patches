@@ -56,15 +56,15 @@ diff --git a/fs/crypto/crypto.c b/fs/crypto/crypto.c
 diff --git a/fs/crypto/inline_crypt.c b/fs/crypto/inline_crypt.c
 --- a/fs/crypto/inline_crypt.c
 +++ b/fs/crypto/inline_crypt.c
-@@ -16,6 +16,7 @@
- #include <linux/blkdev.h>
+@@ -17,6 +17,7 @@
  #include <linux/buffer_head.h>
  #include <linux/sched/mm.h>
+ #include <linux/slab.h>
 +#include <linux/uio.h>
  
  #include "fscrypt_private.h"
  
-@@ -365,3 +366,74 @@ bool fscrypt_mergeable_bio_bh(struct bio *bio,
+@@ -366,3 +367,74 @@ bool fscrypt_mergeable_bio_bh(struct bio *bio,
  	return fscrypt_mergeable_bio(bio, inode, next_lblk);
  }
  EXPORT_SYMBOL_GPL(fscrypt_mergeable_bio_bh);

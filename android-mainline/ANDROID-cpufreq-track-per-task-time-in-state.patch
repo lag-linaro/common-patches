@@ -406,7 +406,7 @@ diff --git a/kernel/fork.c b/kernel/fork.c
  
  #include <asm/pgalloc.h>
  #include <linux/uaccess.h>
-@@ -462,6 +463,7 @@ void put_task_stack(struct task_struct *tsk)
+@@ -440,6 +441,7 @@ void put_task_stack(struct task_struct *tsk)
  
  void free_task(struct task_struct *tsk)
  {
@@ -414,7 +414,7 @@ diff --git a/kernel/fork.c b/kernel/fork.c
  	scs_release(tsk);
  
  #ifndef CONFIG_THREAD_INFO_IN_TASK
-@@ -1939,6 +1941,8 @@ static __latent_entropy struct task_struct *copy_process(
+@@ -1917,6 +1919,8 @@ static __latent_entropy struct task_struct *copy_process(
  	if (!p)
  		goto fork_out;
  
@@ -423,7 +423,7 @@ diff --git a/kernel/fork.c b/kernel/fork.c
  	/*
  	 * This _must_ happen before we call free_task(), i.e. before we jump
  	 * to any of the bad_fork_* labels. This is to avoid freeing
-@@ -2453,6 +2457,8 @@ long _do_fork(struct kernel_clone_args *args)
+@@ -2431,6 +2435,8 @@ long _do_fork(struct kernel_clone_args *args)
  	if (IS_ERR(p))
  		return PTR_ERR(p);
  

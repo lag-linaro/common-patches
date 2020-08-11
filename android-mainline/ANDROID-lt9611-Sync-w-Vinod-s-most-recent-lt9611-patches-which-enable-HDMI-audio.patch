@@ -15,12 +15,15 @@ Fixes: 3599a06ba2a0 ("ANDROID: drm/bridge: Introduce LT9611 DSI to HDMI bridge")
 Signed-off-by: John Stultz <john.stultz@linaro.org>
 Change-Id: Iaed396f409a5a12effcb6a9d63834483e20a1d47
 Link: https://lore.kernel.org/lkml/20200617105950.3165360-1-vkoul@kernel.org/
+[ebiggers: folded commit 55bbced2532b ("ANDROID: fix up lt9611 driver
+           due to recent drm upstream changes") into this patch]
+Signed-off-by: Eric Biggers <ebiggers@google.com>
 ---
  arch/arm64/boot/dts/qcom/sdm845-db845c.dts    |   5 +-
  drivers/gpu/drm/bridge/Kconfig                |   7 +-
  drivers/gpu/drm/bridge/Makefile               |   2 +-
- .../drm/bridge/{lt9611.c => lontium-lt9611.c} | 783 ++++++++++--------
- 4 files changed, 438 insertions(+), 359 deletions(-)
+ .../drm/bridge/{lt9611.c => lontium-lt9611.c} | 786 ++++++++++--------
+ 4 files changed, 440 insertions(+), 360 deletions(-)
  rename drivers/gpu/drm/bridge/{lt9611.c => lontium-lt9611.c} (57%)
 
 diff --git a/arch/arm64/boot/dts/qcom/sdm845-db845c.dts b/arch/arm64/boot/dts/qcom/sdm845-db845c.dts
@@ -1015,7 +1018,7 @@ rename to drivers/gpu/drm/bridge/lontium-lt9611.c
  static int lt9611_bridge_attach(struct drm_bridge *bridge,
  				enum drm_bridge_attach_flags flags)
  {
-@@ -879,27 +868,15 @@ static int lt9611_bridge_attach(struct drm_bridge *bridge,
+@@ -879,26 +868,16 @@ static int lt9611_bridge_attach(struct drm_bridge *bridge,
  	return 0;
  
  err_unregister_dsi0:
@@ -1040,13 +1043,12 @@ rename to drivers/gpu/drm/bridge/lontium-lt9611.c
 -}
 -
  static enum drm_mode_status
--lt9611_bridge_mode_valid(struct drm_bridge *bridge,
--			 const struct drm_display_mode *mode)
-+lt9611_bridge_mode_valid(struct drm_bridge *bridge, const struct drm_display_mode *mode)
+ lt9611_bridge_mode_valid(struct drm_bridge *bridge,
++			 const struct drm_display_info *info,
+ 			 const struct drm_display_mode *mode)
  {
  	struct lt9611_mode *lt9611_mode = lt9611_find_mode(mode);
- 	struct lt9611 *lt9611 = bridge_to_lt9611(bridge);
-@@ -916,8 +893,13 @@ static void lt9611_bridge_pre_enable(struct drm_bridge *bridge)
+@@ -916,8 +895,13 @@ static void lt9611_bridge_pre_enable(struct drm_bridge *bridge)
  
  	dev_dbg(lt9611->dev, "bridge pre_enable\n");
  
@@ -1062,7 +1064,7 @@ rename to drivers/gpu/drm/bridge/lontium-lt9611.c
  }
  
  static void lt9611_bridge_post_disable(struct drm_bridge *bridge)
-@@ -926,10 +908,7 @@ static void lt9611_bridge_post_disable(struct drm_bridge *bridge)
+@@ -926,10 +910,7 @@ static void lt9611_bridge_post_disable(struct drm_bridge *bridge)
  
  	dev_dbg(lt9611->dev, "bridge post_disable\n");
  
@@ -1074,16 +1076,21 @@ rename to drivers/gpu/drm/bridge/lontium-lt9611.c
  }
  
  static void lt9611_bridge_mode_set(struct drm_bridge *bridge,
-@@ -944,6 +923,8 @@ static void lt9611_bridge_mode_set(struct drm_bridge *bridge,
- 		adj_mode->hdisplay, adj_mode->vdisplay,
- 		adj_mode->vrefresh, adj_mode->clock);
+@@ -940,9 +921,10 @@ static void lt9611_bridge_mode_set(struct drm_bridge *bridge,
+ 	struct hdmi_avi_infoframe avi_frame;
+ 	int ret;
  
-+	lt9611_bridge_pre_enable(bridge);
+-	dev_dbg(lt9611->dev, "bridge mode_set: hdisplay=%d, vdisplay=%d, vrefresh=%d, clock=%d\n",
+-		adj_mode->hdisplay, adj_mode->vdisplay,
+-		adj_mode->vrefresh, adj_mode->clock);
++	dev_dbg(lt9611->dev, "bridge mode_set: hdisplay=%d, vdisplay=%d, clock=%d\n",
++		adj_mode->hdisplay, adj_mode->vdisplay, adj_mode->clock);
 +
++	lt9611_bridge_pre_enable(bridge);
+ 
  	lt9611_mipi_input_digital(lt9611, mode);
  	lt9611_pll_setup(lt9611, mode);
- 	lt9611_mipi_video_setup(lt9611, mode);
-@@ -960,7 +941,6 @@ static const struct drm_bridge_funcs lt9611_bridge_funcs = {
+@@ -960,7 +942,6 @@ static const struct drm_bridge_funcs lt9611_bridge_funcs = {
  	.attach = lt9611_bridge_attach,
  	.detach = lt9611_bridge_detach,
  	.mode_valid = lt9611_bridge_mode_valid,
@@ -1091,7 +1098,7 @@ rename to drivers/gpu/drm/bridge/lontium-lt9611.c
  	.enable = lt9611_bridge_enable,
  	.disable = lt9611_bridge_disable,
  	.post_disable = lt9611_bridge_post_disable,
-@@ -968,12 +948,11 @@ static const struct drm_bridge_funcs lt9611_bridge_funcs = {
+@@ -968,12 +949,11 @@ static const struct drm_bridge_funcs lt9611_bridge_funcs = {
  };
  
  static int lt9611_parse_dt(struct device *dev,
@@ -1106,7 +1113,7 @@ rename to drivers/gpu/drm/bridge/lontium-lt9611.c
  		return -ENODEV;
  	}
  
-@@ -995,7 +974,8 @@ static int lt9611_gpio_init(struct lt9611 *lt9611)
+@@ -995,7 +975,8 @@ static int lt9611_gpio_init(struct lt9611 *lt9611)
  		return PTR_ERR(lt9611->reset_gpio);
  	}
  
@@ -1116,7 +1123,7 @@ rename to drivers/gpu/drm/bridge/lontium-lt9611.c
  	if (IS_ERR(lt9611->enable_gpio)) {
  		dev_err(dev, "failed to acquire enable gpio\n");
  		return PTR_ERR(lt9611->enable_gpio);
-@@ -1009,20 +989,114 @@ static int lt9611_read_device_rev(struct lt9611 *lt9611)
+@@ -1009,20 +990,114 @@ static int lt9611_read_device_rev(struct lt9611 *lt9611)
  	unsigned int rev;
  	int ret;
  
@@ -1238,7 +1245,7 @@ rename to drivers/gpu/drm/bridge/lontium-lt9611.c
  {
  	struct lt9611 *lt9611;
  	struct device *dev = &client->dev;
-@@ -1039,6 +1113,7 @@ static int lt9611_probe(struct i2c_client *client,
+@@ -1039,6 +1114,7 @@ static int lt9611_probe(struct i2c_client *client,
  
  	lt9611->dev = &client->dev;
  	lt9611->client = client;
@@ -1246,7 +1253,7 @@ rename to drivers/gpu/drm/bridge/lontium-lt9611.c
  
  	lt9611->regmap = devm_regmap_init_i2c(client, &lt9611_regmap_config);
  	if (IS_ERR(lt9611->regmap)) {
-@@ -1054,17 +1129,17 @@ static int lt9611_probe(struct i2c_client *client,
+@@ -1054,17 +1130,17 @@ static int lt9611_probe(struct i2c_client *client,
  
  	ret = lt9611_gpio_init(lt9611);
  	if (ret < 0)
@@ -1267,7 +1274,7 @@ rename to drivers/gpu/drm/bridge/lontium-lt9611.c
  
  	lt9611_reset(lt9611);
  
-@@ -1074,8 +1149,6 @@ static int lt9611_probe(struct i2c_client *client,
+@@ -1074,8 +1150,6 @@ static int lt9611_probe(struct i2c_client *client,
  		goto err_disable_regulators;
  	}
  
@@ -1276,7 +1283,7 @@ rename to drivers/gpu/drm/bridge/lontium-lt9611.c
  	ret = devm_request_threaded_irq(dev, client->irq, NULL,
  					lt9611_irq_thread_handler,
  					IRQF_ONESHOT, "lt9611", lt9611);
-@@ -1093,13 +1166,14 @@ static int lt9611_probe(struct i2c_client *client,
+@@ -1093,13 +1167,14 @@ static int lt9611_probe(struct i2c_client *client,
  
  	lt9611_enable_hpd_interrupts(lt9611);
  
@@ -1293,7 +1300,7 @@ rename to drivers/gpu/drm/bridge/lontium-lt9611.c
  
  	return ret;
  }
-@@ -1109,26 +1183,25 @@ static int lt9611_remove(struct i2c_client *client)
+@@ -1109,26 +1184,25 @@ static int lt9611_remove(struct i2c_client *client)
  	struct lt9611 *lt9611 = i2c_get_clientdata(client);
  
  	disable_irq(client->irq);

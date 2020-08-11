@@ -242,7 +242,7 @@ diff --git a/drivers/md/dm-default-key.c b/drivers/md/dm-default-key.c
 diff --git a/drivers/md/dm.c b/drivers/md/dm.c
 --- a/drivers/md/dm.c
 +++ b/drivers/md/dm.c
-@@ -2318,6 +2318,8 @@ static void dm_init_inline_encryption(struct mapped_device *md)
+@@ -2319,6 +2319,8 @@ static void dm_init_inline_encryption(struct mapped_device *md)
  	 * the device restrictions.
  	 */
  	md->ksm.max_dun_bytes_supported = UINT_MAX;
@@ -265,7 +265,7 @@ diff --git a/drivers/scsi/ufs/ufshcd-crypto.c b/drivers/scsi/ufs/ufshcd-crypto.c
 diff --git a/fs/crypto/inline_crypt.c b/fs/crypto/inline_crypt.c
 --- a/fs/crypto/inline_crypt.c
 +++ b/fs/crypto/inline_crypt.c
-@@ -105,6 +105,7 @@ int fscrypt_select_encryption_impl(struct fscrypt_info *ci)
+@@ -106,6 +106,7 @@ int fscrypt_select_encryption_impl(struct fscrypt_info *ci)
  	crypto_cfg.crypto_mode = ci->ci_mode->blk_crypto_mode;
  	crypto_cfg.data_unit_size = sb->s_blocksize;
  	crypto_cfg.dun_bytes = fscrypt_get_dun_bytes(ci);
@@ -273,7 +273,7 @@ diff --git a/fs/crypto/inline_crypt.c b/fs/crypto/inline_crypt.c
  	num_devs = fscrypt_get_num_devices(sb);
  	devs = kmalloc_array(num_devs, sizeof(*devs), GFP_NOFS);
  	if (!devs)
-@@ -144,8 +145,9 @@ int fscrypt_prepare_inline_crypt_key(struct fscrypt_prepared_key *prep_key,
+@@ -145,8 +146,9 @@ int fscrypt_prepare_inline_crypt_key(struct fscrypt_prepared_key *prep_key,
  	blk_key->num_devs = num_devs;
  	fscrypt_get_devices(sb, num_devs, blk_key->devs);
  

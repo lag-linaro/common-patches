@@ -53,7 +53,7 @@ diff --git a/drivers/md/Kconfig b/drivers/md/Kconfig
 diff --git a/drivers/md/Makefile b/drivers/md/Makefile
 --- a/drivers/md/Makefile
 +++ b/drivers/md/Makefile
-@@ -83,6 +83,10 @@ ifeq ($(CONFIG_DM_UEVENT),y)
+@@ -86,6 +86,10 @@ ifeq ($(CONFIG_DM_UEVENT),y)
  dm-mod-objs			+= dm-uevent.o
  endif
  
@@ -302,7 +302,7 @@ index 000000000000..a9f102aa379e
 diff --git a/drivers/md/dm-verity-target.c b/drivers/md/dm-verity-target.c
 --- a/drivers/md/dm-verity-target.c
 +++ b/drivers/md/dm-verity-target.c
-@@ -251,8 +251,12 @@ static int verity_handle_err(struct dm_verity *v, enum verity_block_type type,
+@@ -252,8 +252,12 @@ static int verity_handle_err(struct dm_verity *v, enum verity_block_type type,
  	if (v->mode == DM_VERITY_MODE_LOGGING)
  		return 0;
  
@@ -314,12 +314,12 @@ diff --git a/drivers/md/dm-verity-target.c b/drivers/md/dm-verity-target.c
  		kernel_restart("dm-verity device corrupted");
 +	}
  
- 	return 1;
- }
+ 	if (v->mode == DM_VERITY_MODE_PANIC)
+ 		panic("dm-verity device corrupted");
 diff --git a/drivers/md/dm-verity.h b/drivers/md/dm-verity.h
 --- a/drivers/md/dm-verity.h
 +++ b/drivers/md/dm-verity.h
-@@ -128,4 +128,6 @@ extern int verity_hash(struct dm_verity *v, struct ahash_request *req,
+@@ -129,4 +129,6 @@ extern int verity_hash(struct dm_verity *v, struct ahash_request *req,
  extern int verity_hash_for_block(struct dm_verity *v, struct dm_verity_io *io,
  				 sector_t block, u8 *digest, bool *is_zero);
  

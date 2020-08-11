@@ -18,8 +18,8 @@ Signed-off-by: Kalesh Singh <kaleshsingh@google.com>
 diff --git a/include/linux/mmzone.h b/include/linux/mmzone.h
 --- a/include/linux/mmzone.h
 +++ b/include/linux/mmzone.h
-@@ -161,9 +161,7 @@ enum zone_stat_item {
- #endif
+@@ -155,9 +155,7 @@ enum zone_stat_item {
+ 	NR_PAGETABLE,		/* used for pagetables */
  	/* Second 128 byte cacheline */
  	NR_BOUNCE,
 -#if IS_ENABLED(CONFIG_ZSMALLOC)
@@ -31,9 +31,9 @@ diff --git a/include/linux/mmzone.h b/include/linux/mmzone.h
 diff --git a/mm/vmstat.c b/mm/vmstat.c
 --- a/mm/vmstat.c
 +++ b/mm/vmstat.c
-@@ -1123,9 +1123,7 @@ const char * const vmstat_text[] = {
- 	"nr_shadow_call_stack",
- #endif
+@@ -1141,9 +1141,7 @@ const char * const vmstat_text[] = {
+ 	"nr_mlock",
+ 	"nr_page_table_pages",
  	"nr_bounce",
 -#if IS_ENABLED(CONFIG_ZSMALLOC)
  	"nr_zspages",

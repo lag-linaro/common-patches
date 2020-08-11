@@ -1,8 +1,8 @@
 #
 # android-mainline patches
 #
-# Applies onto upstream 86cfccb66937 Linux v5.8-10178-g86cfccb66937
-# Matches android-mainline 2c136de3024f ("Merge 86cfccb66937 ("Merge tag 'dlm-5.9' of git://git.kernel.org/pub/scm/linux/kernel/git/teigland/linux-dlm") into android-mainline")
+# Applies onto upstream 06a81c1c7db9 Linux v5.8-11735-g06a81c1c7db9
+# Matches android-mainline c630edbf79e2 ("Merge 06a81c1c7db9 ("Merge tag 'arm64-fixes' of git://git.kernel.org/pub/scm/linux/kernel/git/arm64/linux") into android-mainline")
 #
 Revert-security-lockdown-selinux-implement-SELinux-lockdown.patch
 Revert-drm-virtio-fix-DRM_FORMAT_-handling.patch
@@ -20,7 +20,6 @@ FROMLIST-overlayfs-handle-XATTR_NOSECURITY-flag-for-get-xattr-method.patch
 FROMLIST-overlayfs-internal-getxattr-operations-without-sepolicy-checking.patch
 FROMLIST-overlayfs-override_creds-off-option-bypass-creator_cred.patch
 FROMLIST-soc-qcom-rpmh-Allow-RPMH-driver-to-be-loaded-as-a-module.patch
-FROMLIST-power_supply-Add-additional-health-properties-to-the-header.patch
 FROMLIST-unicode-Add-utf8_casefold_hash.patch
 FROMLIST-fs-Add-standard-casefolding-support.patch
 FROMLIST-f2fs-Use-generic-casefolding-support.patch
@@ -66,8 +65,6 @@ ANDROID-cpufreq-times-add-proc-uid_concurrent_-active-policy-_time.patch
 ANDROID-cpufreq-times-record-fast-switch-frequency-transitions.patch
 ANDROID-dm-bow-Add-dm-bow-feature.patch
 ANDROID-cpufreq-times-don-t-copy-invalid-freqs-from-freq-table.patch
-ANDROID-Add-show_options2-to-view-private-mount-data.patch
-ANDROID-mnt-Add-filesystem-private-data-to-mount-points.patch
 ANDROID-Expose-gki_defconfig-to-build.config.patch
 ANDROID-gki_defconfig-initial-config.patch
 ANDROID-xfrm-remove-in_compat_syscall-checks.patch
@@ -470,3 +467,5 @@ ANDROID-GKI-enable-RCU-configs.patch
 ANDROID-kbuild-Add-support-for-installing-out-of-tree-kernel-headers.patch
 ANDROID-defconfig-Enable-DMABUF-heaps.patch
 ANDROID-gki_defconfig-Enable-MEDIA_SUPPORT_FILTER.patch
+ANDROID-GKI-update-defconfigs-due-to-mainline-merges.patch
+ANDROID-GKI-update-gki_defconfig-due-to-upstream-changes.patch

@@ -34,6 +34,9 @@ Change-Id: I765a42be8e964bfd3e2886d1ca85a29d60c3bb3e
 Signed-off-by: Rik van Riel <riel@redhat.com>
 Signed-off-by: Colin Cross <ccross@android.com>
 Signed-off-by: Suren Baghdasaryan <surenb@google.com>
+[ebiggers: folded commit aa9752dec8d8 ("ANDROID: mm: fix up removal of
+           vm_total_pages problem") into this patch]
+Signed-off-by: Eric Biggers <ebiggers@google.com>
 ---
  Documentation/admin-guide/sysctl/vm.rst | 16 ++++++++++++++++
  kernel/sysctl.c                         | 11 +++++++++++
@@ -130,7 +133,7 @@ diff --git a/mm/page_alloc.c b/mm/page_alloc.c
  static unsigned long nr_kernel_pages __initdata;
  static unsigned long nr_all_pages __initdata;
  static unsigned long dma_reserve __initdata;
-@@ -7753,6 +7765,7 @@ static void setup_per_zone_lowmem_reserve(void)
+@@ -7759,6 +7771,7 @@ static void setup_per_zone_lowmem_reserve(void)
  static void __setup_per_zone_wmarks(void)
  {
  	unsigned long pages_min = min_free_kbytes >> (PAGE_SHIFT - 10);
@@ -138,7 +141,7 @@ diff --git a/mm/page_alloc.c b/mm/page_alloc.c
  	unsigned long lowmem_pages = 0;
  	struct zone *zone;
  	unsigned long flags;
-@@ -7764,11 +7777,13 @@ static void __setup_per_zone_wmarks(void)
+@@ -7770,11 +7783,13 @@ static void __setup_per_zone_wmarks(void)
  	}
  
  	for_each_zone(zone) {
@@ -149,11 +152,11 @@ diff --git a/mm/page_alloc.c b/mm/page_alloc.c
  		tmp = (u64)pages_min * zone_managed_pages(zone);
  		do_div(tmp, lowmem_pages);
 +		low = (u64)pages_low * zone_managed_pages(zone);
-+		do_div(low, vm_total_pages);
++		do_div(low, nr_free_zone_pages(gfp_zone(GFP_HIGHUSER_MOVABLE)));
  		if (is_highmem(zone)) {
  			/*
  			 * __GFP_HIGH and PF_MEMALLOC allocations usually don't
-@@ -7802,8 +7817,8 @@ static void __setup_per_zone_wmarks(void)
+@@ -7808,8 +7823,8 @@ static void __setup_per_zone_wmarks(void)
  				      watermark_scale_factor, 10000));
  
  		zone->watermark_boost = 0;
@@ -164,7 +167,7 @@ diff --git a/mm/page_alloc.c b/mm/page_alloc.c
  
  		spin_unlock_irqrestore(&zone->lock, flags);
  	}
-@@ -7886,7 +7901,7 @@ core_initcall(init_per_zone_wmark_min)
+@@ -7892,7 +7907,7 @@ core_initcall(init_per_zone_wmark_min)
  /*
   * min_free_kbytes_sysctl_handler - just a wrapper around proc_dointvec() so
   *	that we can call two helper functions whenever min_free_kbytes

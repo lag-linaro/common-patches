@@ -265,7 +265,7 @@ diff --git a/fs/ubifs/dir.c b/fs/ubifs/dir.c
 diff --git a/include/linux/fs.h b/include/linux/fs.h
 --- a/include/linux/fs.h
 +++ b/include/linux/fs.h
-@@ -3245,6 +3245,8 @@ extern int generic_ci_d_hash(const struct dentry *dentry, struct qstr *str);
+@@ -3264,6 +3264,8 @@ extern int generic_ci_d_hash(const struct dentry *dentry, struct qstr *str);
  extern int generic_ci_d_compare(const struct dentry *dentry, unsigned int len,
  				const char *str, const struct qstr *name);
  #endif
