@@ -152,7 +152,7 @@ diff --git a/drivers/staging/android/ion/ion.c b/drivers/staging/android/ion/ion
 +	dev->heap_cnt--;
  	up_write(&dev->lock);
  }
- EXPORT_SYMBOL(ion_device_remove_heap);
+ EXPORT_SYMBOL_GPL(ion_device_remove_heap);
 diff --git a/drivers/staging/android/ion/ion_private.h b/drivers/staging/android/ion/ion_private.h
 --- a/drivers/staging/android/ion/ion_private.h
 +++ b/drivers/staging/android/ion/ion_private.h

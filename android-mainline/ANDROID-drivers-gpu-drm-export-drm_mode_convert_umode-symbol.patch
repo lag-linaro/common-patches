@@ -19,7 +19,7 @@ diff --git a/drivers/gpu/drm/drm_modes.c b/drivers/gpu/drm/drm_modes.c
  
  	return 0;
  }
-+EXPORT_SYMBOL(drm_mode_convert_umode);
++EXPORT_SYMBOL_GPL(drm_mode_convert_umode);
  
  /**
   * drm_mode_is_420_only - if a given videomode can be only supported in YCBCR420

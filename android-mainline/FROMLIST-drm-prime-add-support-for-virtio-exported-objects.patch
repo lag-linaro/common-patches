@@ -20,10 +20,14 @@ Bug: 153580313
 Link: https://lore.kernel.org/lkml/20200311112004.47138-3-stevensd@chromium.org/
 Change-Id: I0599ce4cafee3dc705805c1ad97295bea264cfdf
 Signed-off-by: Lingfeng Yang <lfy@google.com>
+[ebiggers: folded in fix from commit e556869703e4 ("ANDROID: Add C
+           protos for dma_buf/drm_prime get_uuid")]
+Signed-off-by: Eric Biggers <ebiggers@google.com>
 ---
  drivers/gpu/drm/drm_prime.c | 23 +++++++++++++++++++++++
  include/drm/drm_drv.h       | 10 ++++++++++
- 2 files changed, 33 insertions(+)
+ include/drm/drm_prime.h     |  1 +
+ 3 files changed, 34 insertions(+)
 
 diff --git a/drivers/gpu/drm/drm_prime.c b/drivers/gpu/drm/drm_prime.c
 --- a/drivers/gpu/drm/drm_prime.c
@@ -92,3 +96,13 @@ diff --git a/include/drm/drm_drv.h b/include/drm/drm_drv.h
  	/**
  	 * @dumb_create:
  	 *
+diff --git a/include/drm/drm_prime.h b/include/drm/drm_prime.h
+--- a/include/drm/drm_prime.h
++++ b/include/drm/drm_prime.h
+@@ -104,5 +104,6 @@ void drm_prime_gem_destroy(struct drm_gem_object *obj, struct sg_table *sg);
+ int drm_prime_sg_to_page_addr_arrays(struct sg_table *sgt, struct page **pages,
+ 				     dma_addr_t *addrs, int max_pages);
+ 
++int drm_gem_dmabuf_get_uuid(struct dma_buf *dma_buf, uuid_t *uuid);
+ 
+ #endif /* __DRM_PRIME_H__ */

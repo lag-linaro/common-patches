@@ -79,14 +79,18 @@ to the module:
 Bug: 156285741
 Signed-off-by: Todd Kjos <tkjos@google.com>
 Change-Id: I6a7d1c8919dae91c965e2a0450df50eac2d282db
+[ebiggers: folded commit dc419bab7424 ("ANDROID: fix copyright notice")
+           into this patch]
+Signed-off-by: Eric Biggers <ebiggers@google.com>
 ---
  arch/arm64/configs/gki_defconfig   |  1 +
  arch/x86/configs/gki_defconfig     |  1 +
  drivers/android/Kconfig            |  9 ++++
  drivers/android/Makefile           |  1 +
  drivers/android/vendor_hooks.c     | 16 +++++++
+ include/linux/android_vendor.h     |  2 +-
  include/trace/hooks/vendor_hooks.h | 72 ++++++++++++++++++++++++++++++
- 6 files changed, 100 insertions(+)
+ 7 files changed, 101 insertions(+), 1 deletion(-)
  create mode 100644 drivers/android/vendor_hooks.c
  create mode 100644 include/trace/hooks/vendor_hooks.h
 
@@ -141,7 +145,7 @@ diff --git a/drivers/android/Makefile b/drivers/android/Makefile
 +obj-$(CONFIG_ANDROID_VENDOR_HOOKS) += vendor_hooks.o
 diff --git a/drivers/android/vendor_hooks.c b/drivers/android/vendor_hooks.c
 new file mode 100644
-index 000000000000..4a403a81eed3
+index 000000000000..cf75759e4c3f
 --- /dev/null
 +++ b/drivers/android/vendor_hooks.c
 @@ -0,0 +1,16 @@
@@ -150,7 +154,7 @@ index 000000000000..4a403a81eed3
 + *
 + * Android Vendor Hook Support
 + *
-+ * Copyright (C) 2020 Google, Inc.
++ * Copyright 2020 Google LLC
 + */
 +
 +#define CREATE_TRACE_POINTS
@@ -161,6 +165,18 @@ index 000000000000..4a403a81eed3
 + * associated with them) to allow external modules to probe them.
 + */
 +
+diff --git a/include/linux/android_vendor.h b/include/linux/android_vendor.h
+--- a/include/linux/android_vendor.h
++++ b/include/linux/android_vendor.h
+@@ -2,7 +2,7 @@
+ /*
+  * android_vendor.h - Android vendor data
+  *
+- * Copyright (C) 2020 Google, Inc.
++ * Copyright 2020 Google LLC
+  *
+  * These macros are to be used to reserve space in kernel data structures
+  * for use by vendor modules.
 diff --git a/include/trace/hooks/vendor_hooks.h b/include/trace/hooks/vendor_hooks.h
 new file mode 100644
 index 000000000000..9d9ae21895dd

@@ -17,6 +17,9 @@ Bug: 120445600
 
 Signed-off-by: Kelly Rossmoyer <krossmo@google.com>
 Change-Id: I903b811a0fe11a605a25815c3a341668a23de700
+[ebiggers: folded commit f46fe356eb44 ("ANDROID: fix wakeup reason
+           findings") into this patch]
+Signed-off-by: Eric Biggers <ebiggers@google.com>
 ---
  drivers/base/power/main.c     |  13 +-
  drivers/base/power/wakeup.c   |  21 +-
@@ -25,8 +28,8 @@ Change-Id: I903b811a0fe11a605a25815c3a341668a23de700
  kernel/irq/chip.c             |  17 +-
  kernel/power/process.c        |   9 -
  kernel/power/suspend.c        |  20 +-
- kernel/power/wakeup_reason.c  | 393 +++++++++++++++++++++++++---------
- 8 files changed, 362 insertions(+), 125 deletions(-)
+ kernel/power/wakeup_reason.c  | 400 +++++++++++++++++++++++++---------
+ 8 files changed, 367 insertions(+), 127 deletions(-)
 
 diff --git a/drivers/base/power/main.c b/drivers/base/power/main.c
 --- a/drivers/base/power/main.c
@@ -343,7 +346,7 @@ diff --git a/kernel/power/wakeup_reason.c b/kernel/power/wakeup_reason.c
   * This software is licensed under the terms of the GNU General Public
   * License version 2, as published by the Free Software Foundation, and
   * may be copied, distributed, and modified under those terms.
-@@ -26,42 +26,282 @@
+@@ -26,42 +26,283 @@
  #include <linux/spinlock.h>
  #include <linux/notifier.h>
  #include <linux/suspend.h>
@@ -442,7 +445,7 @@ diff --git a/kernel/power/wakeup_reason.c b/kernel/power/wakeup_reason.c
 +
 +static bool add_sibling_node_sorted(struct list_head *head, int irq)
 +{
-+	struct wakeup_irq_node *n;
++	struct wakeup_irq_node *n = NULL;
 +	struct list_head *predecessor = head;
 +
 +	if (unlikely(WARN_ON(!head)))
@@ -464,8 +467,7 @@ diff --git a/kernel/power/wakeup_reason.c b/kernel/power/wakeup_reason.c
 +	if (n) {
 +		list_add(&n->siblings, predecessor);
 +		return true;
- 	}
--	spin_unlock_irqrestore(&resume_reason_lock, flags);
++	}
 +
 +	return false;
 +}
@@ -539,7 +541,8 @@ diff --git a/kernel/power/wakeup_reason.c b/kernel/power/wakeup_reason.c
 +	spin_unlock_irqrestore(&wakeup_reason_lock, flags);
 +}
 +
-+void __log_abort_or_abnormal_wake(bool abort, const char *fmt, va_list args)
++static void __log_abort_or_abnormal_wake(bool abort, const char *fmt,
++					 va_list args)
 +{
 +	unsigned long flags;
 +
@@ -632,7 +635,8 @@ diff --git a/kernel/power/wakeup_reason.c b/kernel/power/wakeup_reason.c
 +				       non_irq_wake_reason);
 +		spin_unlock_irqrestore(&wakeup_reason_lock, flags);
 +		return buf_offset;
-+	}
+ 	}
+-	spin_unlock_irqrestore(&resume_reason_lock, flags);
 +
 +	if (!list_empty(&leaf_irqs))
 +		list_for_each_entry(n, &leaf_irqs, siblings)
@@ -648,18 +652,20 @@ diff --git a/kernel/power/wakeup_reason.c b/kernel/power/wakeup_reason.c
  	return buf_offset;
  }
  
-@@ -90,8 +330,8 @@ static ssize_t last_suspend_time_show(struct kobject *kobj,
+@@ -90,8 +331,10 @@ static ssize_t last_suspend_time_show(struct kobject *kobj,
  
  	/* Export suspend_resume_time and sleep_time in pair here. */
  	return sprintf(buf, "%llu.%09lu %llu.%09lu\n",
 -				suspend_resume_time.tv_sec, suspend_resume_time.tv_nsec,
 -				sleep_time.tv_sec, sleep_time.tv_nsec);
-+		       suspend_resume_time.tv_sec, suspend_resume_time.tv_nsec,
-+		       sleep_time.tv_sec, sleep_time.tv_nsec);
++		       (unsigned long long)suspend_resume_time.tv_sec,
++		       suspend_resume_time.tv_nsec,
++		       (unsigned long long)sleep_time.tv_sec,
++		       sleep_time.tv_nsec);
  }
  
  static struct kobj_attribute resume_reason = __ATTR_RO(last_resume_reason);
-@@ -106,74 +346,24 @@ static struct attribute_group attr_group = {
+@@ -106,74 +349,24 @@ static struct attribute_group attr_group = {
  	.attrs = attrs,
  };
  
@@ -736,15 +742,15 @@ diff --git a/kernel/power/wakeup_reason.c b/kernel/power/wakeup_reason.c
  		break;
  	default:
  		break;
-@@ -185,31 +375,40 @@ static struct notifier_block wakeup_reason_pm_notifier_block = {
+@@ -185,31 +378,40 @@ static struct notifier_block wakeup_reason_pm_notifier_block = {
  	.notifier_call = wakeup_reason_pm_event,
  };
  
 -/* Initializes the sysfs parameter
 - * registers the pm_event notifier
 - */
- int __init wakeup_reason_init(void)
- {
+-int __init wakeup_reason_init(void)
+-{
 -	int retval;
 -	spin_lock_init(&resume_reason_lock);
 -	retval = register_pm_notifier(&wakeup_reason_pm_notifier_block);
@@ -757,6 +763,8 @@ diff --git a/kernel/power/wakeup_reason.c b/kernel/power/wakeup_reason.c
 -		printk(KERN_WARNING "[%s] failed to create a sysfs kobject\n",
 -				__func__);
 -		return 1;
++static int __init wakeup_reason_init(void)
++{
 +	if (register_pm_notifier(&wakeup_reason_pm_notifier_block)) {
 +		pr_warn("[%s] failed to register PM notifier\n", __func__);
 +		goto fail;

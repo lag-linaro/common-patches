@@ -16,6 +16,9 @@ Test: manual test on cuttlefish
 Bug: 154302786
 Signed-off-by: Ioannis Ilkos <ilkos@google.com>
 Change-Id: I31a49d2c7778be307fdc1c9cc6847c44e026957f
+[ebiggers: folded commit 9e6551efaaa0 ("ANDROID: staging: android: ion:
+           Fix compilation error for ion_trace.h") into this patch]
+Signed-off-by: Eric Biggers <ebiggers@google.com>
 ---
  drivers/staging/android/ion/Makefile     |  1 +
  drivers/staging/android/ion/ion_buffer.c | 20 ++++++++-
@@ -81,7 +84,7 @@ diff --git a/drivers/staging/android/ion/ion_buffer.c b/drivers/staging/android/
  		ion_heap_freelist_add(heap, buffer);
 diff --git a/drivers/staging/android/ion/ion_trace.h b/drivers/staging/android/ion/ion_trace.h
 new file mode 100644
-index 000000000000..8233691a73eb
+index 000000000000..eacb47d4f135
 --- /dev/null
 +++ b/drivers/staging/android/ion/ion_trace.h
 @@ -0,0 +1,55 @@
@@ -101,7 +104,7 @@ index 000000000000..8233691a73eb
 +#include <linux/tracepoint.h>
 +
 +#ifndef __ION_PTR_TO_HASHVAL
-+static unsigned int __ion_ptr_to_hash(const void *ptr)
++static unsigned int __maybe_unused __ion_ptr_to_hash(const void *ptr)
 +{
 +	unsigned long hashval;
 +

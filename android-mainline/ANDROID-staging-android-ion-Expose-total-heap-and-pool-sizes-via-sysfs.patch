@@ -128,7 +128,7 @@ diff --git a/drivers/staging/android/ion/ion.c b/drivers/staging/android/ion/ion
 +++ b/drivers/staging/android/ion/ion.c
 @@ -421,6 +421,63 @@ void ion_device_remove_heap(struct ion_heap *heap)
  }
- EXPORT_SYMBOL(ion_device_remove_heap);
+ EXPORT_SYMBOL_GPL(ion_device_remove_heap);
  
 +static ssize_t
 +total_heaps_kb_show(struct kobject *kobj, struct kobj_attribute *attr,

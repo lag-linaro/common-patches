@@ -185,8 +185,6 @@ ANDROID-cuttlefish_defconfig-Enable-CONFIG_GNSS.patch
 ANDROID-drivers-gpu-drm-export-drm_mode_convert_umode-symbol.patch
 ANDROID-ion-flush-cache-before-exporting-non-cached-buffers.patch
 ANDROID-mm-memory.c-export-mm_trace_rss_stat.patch
-ANDROID-SoC-core-export-snd_soc_info_multi_ext-as-gpl-only.patch
-ANDROID-export-mm_trace_rss_stat-as-gpl-only.patch
 ANDROID-mm-Throttle-rss_stat-tracepoint.patch
 ANDROID-add-initial-ABI-whitelist-for-android-mainline.patch
 ANDROID-gki_defconfig-Set-BINFMT_MISC-as-m.patch
@@ -234,7 +232,6 @@ ANDROID-gki_defconfig-Enable-req-modules-in-GKI.patch
 ANDROID-gki_defconfig-Set-IKHEADERS-back-to-y.patch
 ANDROID-gki-Fixed-some-typos-in-Kconfig.gki.patch
 ANDROID-modularize-BLK_MQ_VIRTIO.patch
-ANDROID-fix-build-problem-in-include-trace-events-android_fs_template.h.patch
 ANDROID-Remove-default-y-for-VIRTIO_PCI_LEGACY.patch
 ANDROID-gki-Removed-cf-modules-from-gki_defconfig.patch
 ANDROID-gki-Enable-DRM_GEM_SHMEM_HELPER-for-GKI.patch
@@ -363,22 +360,16 @@ ANDROID-pinctrl-qcom-Allow-pinctrl-msm-code-to-be-loadable-as-a-module.patch
 ANDROID-firmware-QCOM_SCM-Allow-qcom_scm-driver-to-be-loadable-as-a-permenent-module.patch
 ANDROID-Switch-CONFIG_QCOM_PDC-CONFIG_QCOM_SCM-and-CONFIG_ARM_SMMU-to-be-loaded-as-modules.patch
 ANDROID-build.config.allmodconfig-Remove-outdated-XFS_FS-comment.patch
-ANDROID-Add-C-protos-for-dma_buf-drm_prime-get_uuid.patch
 ANDROID-iommu-Kconfig-Make-ARM_SMMU-depend-on-QCOM_SCM-QCOM_SCM.patch
 ANDROID-irqchip-Kconfig-Make-QCOM_PDC-depend-on-QCOM_SCM-QCOM_SCM.patch
 ANDROID-pinctrl-qcom-Kconfig-Make-PINCTRL_MSM-selectors-depend-on-QCOM_SCM-QCOM_SCM.patch
 ANDROID-staging-android-ion-Expose-total-heap-and-pool-sizes-via-sysfs.patch
 ANDROID-init-GKI-enable-hidden-configs-for-GPU.patch
-ANDROID-fix-wakeup-reason-findings.patch
 ANDROID-Incremental-fs-Use-simple-compression-in-log-buffer.patch
 ANDROID-Remove-VLA-from-uid_sys_stats.c.patch
 ANDROID-GKI-Enable-GENERIC_IRQ_CHIP.patch
 ANDROID-add-ion_stat-tracepoint-to-common-kernel.patch
 ANDROID-GKI-Enable-net-testing-options.patch
-ANDROID-virt_wifi-fix-export-symbol-types.patch
-ANDROID-ion-fix-export-symbol-type.patch
-ANDROID-driver-gpu-drm-fix-export-symbol-types.patch
-ANDROID-drivers-gpu-drm-fix-export-symbol-type.patch
 ANDROID-Incremental-fs-Add-setattr-call.patch
 ANDROID-GKI-enable-CONFIG_RTC_SYSTOHC.patch
 ANDROID-README-Add-requirement-for-Bug-tag-for-FROMLIST.patch
@@ -398,7 +389,6 @@ ANDROID-Incremental-fs-Fix-scheduling-while-atomic-error.patch
 ANDROID-Incremental-fs-wake-up-log-pollers-less-often.patch
 ANDROID-export-Disable-symbol-trimming-on-modules.patch
 ANDROID-clang-update-to-11.0.1.patch
-ANDROID-fix-copyright-notice.patch
 ANDROID-net-bpf-permit-redirect-from-ingress-L3-to-egress-L2-devices-at-near-max-mtu.patch
 ANDROID-GKI-Enable-SYS_HYPERVISOR.patch
 ANDROID-Incremental-fs-Cache-successful-hash-calculations.patch
@@ -468,7 +458,6 @@ ANDROID-update-the-kernel-release-format-for-GKI.patch
 ANDROID-binder-Add-vendor-hook-to-the-binder.patch
 ANDROID-rwsem-Add-vendor-hook-to-the-rw-semaphore.patch
 ANDROID-Incremental-fs-Use-R-W-locks-to-read-write-segment-blockmap.patch
-ANDROID-staging-android-ion-Fix-compilation-error-for-ion_trace.h.patch
 ANDROID-Incremental-fs-Stress-tool.patch
 ANDROID-Incremental-fs-Adding-perf-test.patch
 ANDROID-Incremental-fs-Allow-running-a-single-test.patch

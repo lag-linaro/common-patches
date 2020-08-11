@@ -23,10 +23,13 @@ Bug: 153580313
 Link: https://lore.kernel.org/lkml/20200311112004.47138-2-stevensd@chromium.org/
 Change-Id: Ifb429e36ebbba9feead6fd1792fbefa9ca097f0c
 Signed-off-by: Lingfeng Yang <lfy@google.com>
+[ebiggers: folded in fix from commit e556869703e4 ("ANDROID: Add C
+           protos for dma_buf/drm_prime get_uuid")]
+Signed-off-by: Eric Biggers <ebiggers@google.com>
 ---
  drivers/dma-buf/dma-buf.c | 12 ++++++++++++
- include/linux/dma-buf.h   | 15 +++++++++++++++
- 2 files changed, 27 insertions(+)
+ include/linux/dma-buf.h   | 17 +++++++++++++++++
+ 2 files changed, 29 insertions(+)
 
 diff --git a/drivers/dma-buf/dma-buf.c b/drivers/dma-buf/dma-buf.c
 --- a/drivers/dma-buf/dma-buf.c
@@ -75,3 +78,10 @@ diff --git a/include/linux/dma-buf.h b/include/linux/dma-buf.h
  	/**
  	 * @get_flags:
  	 *
+@@ -584,4 +599,6 @@ int dma_buf_mmap(struct dma_buf *, struct vm_area_struct *,
+ void *dma_buf_vmap(struct dma_buf *);
+ void dma_buf_vunmap(struct dma_buf *, void *vaddr);
+ int dma_buf_get_flags(struct dma_buf *dmabuf, unsigned long *flags);
++int dma_buf_get_uuid(struct dma_buf *dmabuf, uuid_t *uuid);
++
+ #endif /* __DMA_BUF_H__ */

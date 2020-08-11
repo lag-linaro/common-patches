@@ -297,7 +297,7 @@ diff --git a/drivers/staging/android/ion/ion.c b/drivers/staging/android/ion/ion
 +	up_write(&dev->lock);
  }
 -EXPORT_SYMBOL(ion_device_add_heap);
-+EXPORT_SYMBOL(ion_device_remove_heap);
++EXPORT_SYMBOL_GPL(ion_device_remove_heap);
  
  static int ion_device_create(void)
  {

@@ -22,6 +22,9 @@ Signed-off-by: Alistair Delva <adelva@google.com>
 [maennich: Folded eab894210465 ("ANDROID: fix kernelci build-break")
            into this patch]
 Signed-off-by: Matthias Maennich <maennich@google.com>
+[ebiggers: Folded 05c743211664 ("ANDROID: fix build problem in
+           include/trace/events/android_fs_template.h") into this patch]
+Signed-off-by: Eric Biggers <ebiggers@google.com>
 ---
  fs/ext4/inline.c                           | 14 +++++
  fs/ext4/inode.c                            | 24 ++++++++
@@ -511,7 +514,7 @@ index 000000000000..7edb6bcfe482
 +#endif
 diff --git a/include/trace/events/android_fs_template.h b/include/trace/events/android_fs_template.h
 new file mode 100644
-index 000000000000..b23d17b56c63
+index 000000000000..efc487816e83
 --- /dev/null
 +++ b/include/trace/events/android_fs_template.h
 @@ -0,0 +1,64 @@
@@ -525,13 +528,13 @@ index 000000000000..b23d17b56c63
 +		 pid_t pid, char *pathname, char *command),
 +	TP_ARGS(inode, offset, bytes, pid, pathname, command),
 +	TP_STRUCT__entry(
-+		__string(pathbuf, pathname);
-+		__field(loff_t,	offset);
-+		__field(int,	bytes);
-+		__field(loff_t,	i_size);
-+		__string(cmdline, command);
-+		__field(pid_t,	pid);
-+		__field(ino_t,	ino);
++		__string(pathbuf, pathname)
++		__field(loff_t,	offset)
++		__field(int,	bytes)
++		__field(loff_t,	i_size)
++		__string(cmdline, command)
++		__field(pid_t,	pid)
++		__field(ino_t,	ino)
 +	),
 +	TP_fast_assign(
 +		{
@@ -562,9 +565,9 @@ index 000000000000..b23d17b56c63
 +	TP_PROTO(struct inode *inode, loff_t offset, int bytes),
 +	TP_ARGS(inode, offset, bytes),
 +	TP_STRUCT__entry(
-+		__field(ino_t,	ino);
-+		__field(loff_t,	offset);
-+		__field(int,	bytes);
++		__field(ino_t,	ino)
++		__field(loff_t,	offset)
++		__field(int,	bytes)
 +	),
 +	TP_fast_assign(
 +		{
