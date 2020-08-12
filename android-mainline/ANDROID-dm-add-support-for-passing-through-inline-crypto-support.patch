@@ -29,18 +29,18 @@ Bug: 162257830
 Change-Id: If28b574f2e28268db5eb9f325d4cf8f96cb63e3f
 Signed-off-by: Eric Biggers <ebiggers@google.com>
 ---
- block/keyslot-manager.c         | 33 ++++++++++++
+ block/keyslot-manager.c         | 34 ++++++++++++
  drivers/md/dm-core.h            |  4 ++
  drivers/md/dm-table.c           | 52 +++++++++++++++++++
  drivers/md/dm.c                 | 92 ++++++++++++++++++++++++++++++++-
  include/linux/device-mapper.h   |  6 +++
  include/linux/keyslot-manager.h |  7 +++
- 6 files changed, 193 insertions(+), 1 deletion(-)
+ 6 files changed, 194 insertions(+), 1 deletion(-)
 
 diff --git a/block/keyslot-manager.c b/block/keyslot-manager.c
 --- a/block/keyslot-manager.c
 +++ b/block/keyslot-manager.c
-@@ -416,6 +416,39 @@ void blk_ksm_unregister(struct request_queue *q)
+@@ -416,6 +416,40 @@ void blk_ksm_unregister(struct request_queue *q)
  {
  	q->ksm = NULL;
  }
@@ -66,7 +66,8 @@ diff --git a/block/keyslot-manager.c b/block/keyslot-manager.c
 +		parent->max_dun_bytes_supported =
 +			min(parent->max_dun_bytes_supported,
 +			    child->max_dun_bytes_supported);
-+		for (i = 0; i < ARRAY_SIZE(child->crypto_modes_supported); i++) {
++		for (i = 0; i < ARRAY_SIZE(child->crypto_modes_supported);
++		     i++) {
 +			parent->crypto_modes_supported[i] &=
 +				child->crypto_modes_supported[i];
 +		}

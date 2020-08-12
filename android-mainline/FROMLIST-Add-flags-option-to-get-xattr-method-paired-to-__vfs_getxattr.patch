@@ -741,7 +741,7 @@ diff --git a/fs/ubifs/xattr.c b/fs/ubifs/xattr.c
 diff --git a/fs/xattr.c b/fs/xattr.c
 --- a/fs/xattr.c
 +++ b/fs/xattr.c
-@@ -281,7 +281,7 @@ vfs_getxattr_alloc(struct dentry *dentry, const char *name, char **xattr_value,
+@@ -345,7 +345,7 @@ vfs_getxattr_alloc(struct dentry *dentry, const char *name, char **xattr_value,
  		return PTR_ERR(handler);
  	if (!handler->get)
  		return -EOPNOTSUPP;
@@ -750,7 +750,7 @@ diff --git a/fs/xattr.c b/fs/xattr.c
  	if (error < 0)
  		return error;
  
-@@ -292,32 +292,20 @@ vfs_getxattr_alloc(struct dentry *dentry, const char *name, char **xattr_value,
+@@ -356,32 +356,20 @@ vfs_getxattr_alloc(struct dentry *dentry, const char *name, char **xattr_value,
  		memset(value, 0, error + 1);
  	}
  
@@ -787,7 +787,7 @@ diff --git a/fs/xattr.c b/fs/xattr.c
  	error = xattr_permission(inode, name, MAY_READ);
  	if (error)
  		return error;
-@@ -339,7 +327,19 @@ vfs_getxattr(struct dentry *dentry, const char *name, void *value, size_t size)
+@@ -403,7 +391,19 @@ vfs_getxattr(struct dentry *dentry, const char *name, void *value, size_t size)
  		return ret;
  	}
  nolsm:

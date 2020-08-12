@@ -261,7 +261,7 @@ diff --git a/fs/f2fs/data.c b/fs/f2fs/data.c
  
  #define NUM_PREALLOC_POST_READ_CTXS	128
  
-@@ -3337,6 +3338,16 @@ static int f2fs_write_begin(struct file *file, struct address_space *mapping,
+@@ -3373,6 +3374,16 @@ static int f2fs_write_begin(struct file *file, struct address_space *mapping,
  	block_t blkaddr = NULL_ADDR;
  	int err = 0;
  
@@ -278,7 +278,7 @@ diff --git a/fs/f2fs/data.c b/fs/f2fs/data.c
  	trace_f2fs_write_begin(inode, pos, len, flags);
  
  	if (!f2fs_is_checkpoint_ready(sbi)) {
-@@ -3464,6 +3475,7 @@ static int f2fs_write_end(struct file *file,
+@@ -3500,6 +3511,7 @@ static int f2fs_write_end(struct file *file,
  {
  	struct inode *inode = page->mapping->host;
  
@@ -286,7 +286,7 @@ diff --git a/fs/f2fs/data.c b/fs/f2fs/data.c
  	trace_f2fs_write_end(inode, pos, len, copied);
  
  	/*
-@@ -3590,6 +3602,29 @@ static ssize_t f2fs_direct_IO(struct kiocb *iocb, struct iov_iter *iter)
+@@ -3630,6 +3642,29 @@ static ssize_t f2fs_direct_IO(struct kiocb *iocb, struct iov_iter *iter)
  
  	trace_f2fs_direct_IO_enter(inode, offset, count, rw);
  
@@ -316,7 +316,7 @@ diff --git a/fs/f2fs/data.c b/fs/f2fs/data.c
  	if (rw == WRITE && whint_mode == WHINT_MODE_OFF)
  		iocb->ki_hint = WRITE_LIFE_NOT_SET;
  
-@@ -3639,6 +3674,13 @@ static ssize_t f2fs_direct_IO(struct kiocb *iocb, struct iov_iter *iter)
+@@ -3679,6 +3714,13 @@ static ssize_t f2fs_direct_IO(struct kiocb *iocb, struct iov_iter *iter)
  	}
  
  out:
@@ -333,15 +333,15 @@ diff --git a/fs/f2fs/data.c b/fs/f2fs/data.c
 diff --git a/fs/f2fs/inline.c b/fs/f2fs/inline.c
 --- a/fs/f2fs/inline.c
 +++ b/fs/f2fs/inline.c
-@@ -12,6 +12,7 @@
- 
+@@ -13,6 +13,7 @@
  #include "f2fs.h"
  #include "node.h"
+ #include <trace/events/f2fs.h>
 +#include <trace/events/android_fs.h>
  
  bool f2fs_may_inline_data(struct inode *inode)
  {
-@@ -85,14 +86,29 @@ int f2fs_read_inline_data(struct inode *inode, struct page *page)
+@@ -86,14 +87,29 @@ int f2fs_read_inline_data(struct inode *inode, struct page *page)
  {
  	struct page *ipage;
  
@@ -371,7 +371,7 @@ diff --git a/fs/f2fs/inline.c b/fs/f2fs/inline.c
  		return -EAGAIN;
  	}
  
-@@ -104,6 +120,8 @@ int f2fs_read_inline_data(struct inode *inode, struct page *page)
+@@ -105,6 +121,8 @@ int f2fs_read_inline_data(struct inode *inode, struct page *page)
  	if (!PageUptodate(page))
  		SetPageUptodate(page);
  	f2fs_put_page(ipage, 1);

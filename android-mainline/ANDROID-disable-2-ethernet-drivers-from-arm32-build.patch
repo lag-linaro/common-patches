@@ -1,0 +1,42 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: Greg Kroah-Hartman <gregkh@google.com>
+Date: Mon, 10 Aug 2020 13:24:44 +0200
+Subject: ANDROID: disable 2 ethernet drivers from arm32 build
+
+Right now both the sfc and aquantia drivers are failing to build in
+Linus's tree with the following errors:
+	ERROR: modpost: "__aeabi_uldivmod" [drivers/net/ethernet/sfc/sfc.ko] undefined!
+	ERROR: modpost: "__bad_udelay" [drivers/net/ethernet/aquantia/atlantic/atlantic.ko] undefined!
+
+Fix this for now by disabling building these drivers on arm32.
+
+Signed-off-by: Greg Kroah-Hartman <gregkh@google.com>
+Change-Id: If849576f4cab9a35ea4a7998853f9ee37346a0fd
+---
+ drivers/net/ethernet/aquantia/Kconfig | 2 +-
+ drivers/net/ethernet/sfc/Kconfig      | 1 +
+ 2 files changed, 2 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/net/ethernet/aquantia/Kconfig b/drivers/net/ethernet/aquantia/Kconfig
+--- a/drivers/net/ethernet/aquantia/Kconfig
++++ b/drivers/net/ethernet/aquantia/Kconfig
+@@ -19,7 +19,7 @@ if NET_VENDOR_AQUANTIA
+ config AQTION
+ 	tristate "aQuantia AQtion(tm) Support"
+ 	depends on PCI
+-	depends on X86_64 || ARM64 || COMPILE_TEST
++	depends on X86_64 || ARM64
+ 	depends on MACSEC || MACSEC=n
+ 	help
+ 	  This enables the support for the aQuantia AQtion(tm) Ethernet card.
+diff --git a/drivers/net/ethernet/sfc/Kconfig b/drivers/net/ethernet/sfc/Kconfig
+--- a/drivers/net/ethernet/sfc/Kconfig
++++ b/drivers/net/ethernet/sfc/Kconfig
+@@ -19,6 +19,7 @@ if NET_VENDOR_SOLARFLARE
+ config SFC
+ 	tristate "Solarflare SFC9000/SFC9100/EF100-family support"
+ 	depends on PCI
++	depends on X86_64 || ARM64
+ 	select MDIO
+ 	select CRC32
+ 	imply PTP_1588_CLOCK

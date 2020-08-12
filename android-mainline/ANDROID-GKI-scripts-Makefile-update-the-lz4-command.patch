@@ -30,7 +30,7 @@ diff --git a/Makefile b/Makefile
 diff --git a/scripts/Makefile.lib b/scripts/Makefile.lib
 --- a/scripts/Makefile.lib
 +++ b/scripts/Makefile.lib
-@@ -364,7 +364,8 @@ quiet_cmd_lzo = LZO     $@
+@@ -376,7 +376,8 @@ quiet_cmd_lzo = LZO     $@
        cmd_lzo = { cat $(real-prereqs) | $(KLZOP) -9; $(size_append); } > $@
  
  quiet_cmd_lz4 = LZ4     $@

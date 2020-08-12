@@ -1,13 +1,16 @@
 #
 # android-mainline patches
 #
-# Applies onto upstream 06a81c1c7db9 Linux v5.8-11735-g06a81c1c7db9
-# Matches android-mainline c630edbf79e2 ("Merge 06a81c1c7db9 ("Merge tag 'arm64-fixes' of git://git.kernel.org/pub/scm/linux/kernel/git/arm64/linux") into android-mainline")
+# Applies onto upstream 00e4db51259a Linux v5.8-12299-g00e4db51259a
+# Matches android-mainline 6b78d00f74c5 ("ANDROID: block/keyslot-manager: fix checkpatch warning")
 #
 Revert-security-lockdown-selinux-implement-SELinux-lockdown.patch
 Revert-drm-virtio-fix-DRM_FORMAT_-handling.patch
 Revert-sched-core-Prevent-race-condition-between-cpuset-and-__sched_setscheduler.patch
+FROMGIT-net-Revert-net-optimize-the-sockptr_t-for-unified-kernel-user-address-spaces.patch
+FROMGIT-irqchip-Fix-probing-deferal-when-using-IRQCHIP_PLATFORM_DRIVER-helpers.patch
 FROMGIT-iommu-arm-smmu-Don-t-bypass-pinned-stream-mappings.patch
+FROMLIST-tty-serial-qcom_geni_serial-Drop-__init-from-qcom_geni_console_setup.patch
 FROMLIST-scsi-ufs-qcom-enter-and-exit-hibern8-during-clock-scaling.patch
 FROMLIST-scsi-ufs-Export-query-request-interfaces.patch
 FROMLIST-scsi-ufs-export-hibern8-entry-and-exit.patch
@@ -469,3 +472,6 @@ ANDROID-defconfig-Enable-DMABUF-heaps.patch
 ANDROID-gki_defconfig-Enable-MEDIA_SUPPORT_FILTER.patch
 ANDROID-GKI-update-defconfigs-due-to-mainline-merges.patch
 ANDROID-GKI-update-gki_defconfig-due-to-upstream-changes.patch
+ANDROID-enable-CONFIG_INIT_STACK_ALL_ZERO-y.patch
+ANDROID-Add-build.config.gki-debug.patch
+ANDROID-disable-2-ethernet-drivers-from-arm32-build.patch

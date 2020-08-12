@@ -211,14 +211,15 @@ diff --git a/block/keyslot-manager.c b/block/keyslot-manager.c
  /**
   * blk_ksm_intersect_modes() - restrict supported modes by child device
   * @parent: The keyslot manager for parent device
-@@ -438,12 +483,14 @@ void blk_ksm_intersect_modes(struct blk_keyslot_manager *parent,
+@@ -438,6 +483,7 @@ void blk_ksm_intersect_modes(struct blk_keyslot_manager *parent,
  		parent->max_dun_bytes_supported =
  			min(parent->max_dun_bytes_supported,
  			    child->max_dun_bytes_supported);
 +		parent->features &= child->features;
- 		for (i = 0; i < ARRAY_SIZE(child->crypto_modes_supported); i++) {
+ 		for (i = 0; i < ARRAY_SIZE(child->crypto_modes_supported);
+ 		     i++) {
  			parent->crypto_modes_supported[i] &=
- 				child->crypto_modes_supported[i];
+@@ -445,6 +491,7 @@ void blk_ksm_intersect_modes(struct blk_keyslot_manager *parent,
  		}
  	} else {
  		parent->max_dun_bytes_supported = 0;
@@ -302,7 +303,7 @@ diff --git a/include/linux/blk-crypto.h b/include/linux/blk-crypto.h
   *	filesystem block size or the disk sector size.
   * @dun_bytes: the maximum number of bytes of DUN used when using this key
 + * @is_hw_wrapped: @raw points to a wrapped key to be used by an inline
-+ * 	encryption hardware that accepts wrapped keys.
++ *	encryption hardware that accepts wrapped keys.
   */
  struct blk_crypto_config {
  	enum blk_crypto_mode_num crypto_mode;

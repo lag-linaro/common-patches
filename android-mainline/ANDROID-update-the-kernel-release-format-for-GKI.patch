@@ -29,7 +29,7 @@ Change-Id: I33f40e424ca967b85d810cdb12c6a2c58e4197b7
 diff --git a/Makefile b/Makefile
 --- a/Makefile
 +++ b/Makefile
-@@ -1169,7 +1169,8 @@ targets := vmlinux
+@@ -1173,7 +1173,8 @@ targets := vmlinux
  $(sort $(vmlinux-deps) $(subdir-modorder)): descend ;
  
  filechk_kernel.release = \
@@ -39,7 +39,7 @@ diff --git a/Makefile b/Makefile
  
  # Store (new) KERNELRELEASE string in include/config/kernel.release
  include/config/kernel.release: FORCE
-@@ -1869,7 +1870,8 @@ checkstack:
+@@ -1873,7 +1874,8 @@ checkstack:
  	$(PERL) $(srctree)/scripts/checkstack.pl $(CHECKSTACK_ARCH)
  
  kernelrelease:

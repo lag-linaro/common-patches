@@ -156,7 +156,7 @@ diff --git a/fs/f2fs/dir.c b/fs/f2fs/dir.c
 diff --git a/fs/f2fs/f2fs.h b/fs/f2fs/f2fs.h
 --- a/fs/f2fs/f2fs.h
 +++ b/fs/f2fs/f2fs.h
-@@ -1402,10 +1402,6 @@ struct f2fs_sb_info {
+@@ -1404,10 +1404,6 @@ struct f2fs_sb_info {
  	int valid_super_block;			/* valid super block no */
  	unsigned long s_flag;				/* flags for sbi */
  	struct mutex writepages;		/* mutex for writepages() */
@@ -170,16 +170,16 @@ diff --git a/fs/f2fs/f2fs.h b/fs/f2fs/f2fs.h
 diff --git a/fs/f2fs/super.c b/fs/f2fs/super.c
 --- a/fs/f2fs/super.c
 +++ b/fs/f2fs/super.c
-@@ -1266,7 +1266,7 @@ static void f2fs_put_super(struct super_block *sb)
+@@ -1280,7 +1280,7 @@ static void f2fs_put_super(struct super_block *sb)
  	for (i = 0; i < NR_PAGE_TYPE; i++)
  		kvfree(sbi->write_io[i]);
  #ifdef CONFIG_UNICODE
 -	utf8_unload(sbi->s_encoding);
 +	utf8_unload(sb->s_encoding);
  #endif
- 	kvfree(sbi);
+ 	kfree(sbi);
  }
-@@ -3313,7 +3313,7 @@ static int f2fs_scan_devices(struct f2fs_sb_info *sbi)
+@@ -3329,7 +3329,7 @@ static int f2fs_scan_devices(struct f2fs_sb_info *sbi)
  static int f2fs_setup_casefold(struct f2fs_sb_info *sbi)
  {
  #ifdef CONFIG_UNICODE
@@ -188,7 +188,7 @@ diff --git a/fs/f2fs/super.c b/fs/f2fs/super.c
  		const struct f2fs_sb_encodings *encoding_info;
  		struct unicode_map *encoding;
  		__u16 encoding_flags;
-@@ -3344,8 +3344,8 @@ static int f2fs_setup_casefold(struct f2fs_sb_info *sbi)
+@@ -3360,8 +3360,8 @@ static int f2fs_setup_casefold(struct f2fs_sb_info *sbi)
  			 "%s-%s with flags 0x%hx", encoding_info->name,
  			 encoding_info->version?:"\b", encoding_flags);
  
@@ -199,7 +199,7 @@ diff --git a/fs/f2fs/super.c b/fs/f2fs/super.c
  		sbi->sb->s_d_op = &f2fs_dentry_ops;
  	}
  #else
-@@ -3841,7 +3841,7 @@ static int f2fs_fill_super(struct super_block *sb, void *data, int silent)
+@@ -3857,7 +3857,7 @@ static int f2fs_fill_super(struct super_block *sb, void *data, int silent)
  		kvfree(sbi->write_io[i]);
  
  #ifdef CONFIG_UNICODE
