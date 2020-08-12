@@ -8,13 +8,13 @@ Test: Treehugger
 Change-Id: Ib1de19b851f8dc07f77e4b6ec5acf88b6051b070
 Signed-off-by: Ram Muthiah <rammuthiah@google.com>
 ---
- arch/arm64/configs/gki_defconfig | 20 --------------------
+ arch/arm64/configs/gki_defconfig | 21 ---------------------
  arch/x86/configs/gki_defconfig   | 23 -----------------------
  build.config.cuttlefish.aarch64  |  1 +
  build.config.cuttlefish.x86_64   |  1 +
  build.config.gki                 |  1 -
  cuttlefish.fragment              |  4 +---
- 6 files changed, 3 insertions(+), 47 deletions(-)
+ 6 files changed, 3 insertions(+), 48 deletions(-)
 
 diff --git a/arch/arm64/configs/gki_defconfig b/arch/arm64/configs/gki_defconfig
 --- a/arch/arm64/configs/gki_defconfig
@@ -102,7 +102,7 @@ diff --git a/arch/arm64/configs/gki_defconfig b/arch/arm64/configs/gki_defconfig
  CONFIG_USB_CONFIGFS=y
  CONFIG_USB_CONFIGFS_UEVENT=y
  CONFIG_USB_CONFIGFS_F_FS=y
-@@ -362,16 +348,10 @@ CONFIG_LEDS_TRIGGERS=y
+@@ -362,17 +348,10 @@ CONFIG_LEDS_TRIGGERS=y
  CONFIG_EDAC=y
  CONFIG_RTC_CLASS=y
  # CONFIG_RTC_SYSTOHC is not set
@@ -112,6 +112,7 @@ diff --git a/arch/arm64/configs/gki_defconfig b/arch/arm64/configs/gki_defconfig
  CONFIG_DMADEVICES=y
  CONFIG_UIO=y
 -CONFIG_VIRTIO_PCI=m
+-# CONFIG_VIRTIO_PCI_LEGACY is not set
 -CONFIG_VIRTIO_PMEM=m
 -CONFIG_VIRTIO_INPUT=m
 -CONFIG_VIRTIO_MMIO=m

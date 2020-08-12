@@ -232,7 +232,6 @@ ANDROID-gki_defconfig-Enable-req-modules-in-GKI.patch
 ANDROID-gki_defconfig-Set-IKHEADERS-back-to-y.patch
 ANDROID-gki-Fixed-some-typos-in-Kconfig.gki.patch
 ANDROID-modularize-BLK_MQ_VIRTIO.patch
-ANDROID-Remove-default-y-for-VIRTIO_PCI_LEGACY.patch
 ANDROID-gki-Removed-cf-modules-from-gki_defconfig.patch
 ANDROID-gki-Enable-DRM_GEM_SHMEM_HELPER-for-GKI.patch
 ANDROID-Initial-commit-of-Incremental-FS.patch
@@ -275,7 +274,6 @@ ANDROID-net-wireless-Add-module_param-mac_prefix-to-mac80211_hwsim.patch
 ANDROID-gki_defconfig-Enable-CONFIG_RD_LZ4.patch
 ANDROID-GKI-Remove-CONFIG_BRIDGE-from-arm64-config.patch
 ANDROID-ASoC-core-Fix-soc_pcm_hw_params-crash.patch
-ANDROID-Re-add-default-y-for-VIRTIO_PCI_LEGACY.patch
 ANDROID-GKI-Add-SND_INTEL_NHLT.patch
 ANDROID-GKI-Added-missing-SND-configs.patch
 ANDROID-GKI-build-in-HVC_DRIVER.patch
@@ -475,3 +473,4 @@ ANDROID-GKI-update-gki_defconfig-due-to-upstream-changes.patch
 ANDROID-enable-CONFIG_INIT_STACK_ALL_ZERO-y.patch
 ANDROID-Add-build.config.gki-debug.patch
 ANDROID-disable-2-ethernet-drivers-from-arm32-build.patch
+DROP-ME-bad-revert-of-rockpi4_defconfig.patch
