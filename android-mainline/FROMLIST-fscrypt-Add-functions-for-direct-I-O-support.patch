@@ -64,7 +64,7 @@ diff --git a/fs/crypto/inline_crypt.c b/fs/crypto/inline_crypt.c
  
  #include "fscrypt_private.h"
  
-@@ -366,3 +367,74 @@ bool fscrypt_mergeable_bio_bh(struct bio *bio,
+@@ -378,3 +379,74 @@ bool fscrypt_mergeable_bio_bh(struct bio *bio,
  	return fscrypt_mergeable_bio(bio, inode, next_lblk);
  }
  EXPORT_SYMBOL_GPL(fscrypt_mergeable_bio_bh);
@@ -174,4 +174,4 @@ diff --git a/include/linux/fscrypt.h b/include/linux/fscrypt.h
 +}
  #endif /* !CONFIG_FS_ENCRYPTION_INLINE_CRYPT */
  
- /**
+ #if IS_ENABLED(CONFIG_FS_ENCRYPTION) && IS_ENABLED(CONFIG_DM_DEFAULT_KEY)

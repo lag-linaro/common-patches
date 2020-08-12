@@ -20,7 +20,7 @@ Signed-off-by: Saravana Kannan <saravanak@google.com>
 diff --git a/arch/arm64/configs/db845c_gki.fragment b/arch/arm64/configs/db845c_gki.fragment
 --- a/arch/arm64/configs/db845c_gki.fragment
 +++ b/arch/arm64/configs/db845c_gki.fragment
-@@ -43,7 +43,10 @@ CONFIG_USB_ROLE_SWITCH=m
+@@ -42,7 +42,10 @@ CONFIG_USB_ROLE_SWITCH=m
  CONFIG_USB_ULPI_BUS=m
  CONFIG_MMC_SDHCI_MSM=m
  CONFIG_RTC_DRV_PM8XXX=m

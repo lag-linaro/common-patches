@@ -17,9 +17,9 @@ Change-Id: I853e1b6a9a51e24f770423bbc39fdd84265d78fc
 ---
  arch/arm64/include/asm/processor.h |  3 +++
  arch/arm64/kernel/process.c        |  3 +++
- drivers/android/vendor_hooks.c     |  2 ++
+ drivers/android/vendor_hooks.c     |  3 ++-
  include/trace/hooks/fpsimd.h       | 26 ++++++++++++++++++++++++++
- 4 files changed, 34 insertions(+)
+ 4 files changed, 34 insertions(+), 1 deletion(-)
  create mode 100644 include/trace/hooks/fpsimd.h
 
 diff --git a/arch/arm64/include/asm/processor.h b/arch/arm64/include/asm/processor.h
@@ -65,17 +65,17 @@ diff --git a/arch/arm64/kernel/process.c b/arch/arm64/kernel/process.c
 diff --git a/drivers/android/vendor_hooks.c b/drivers/android/vendor_hooks.c
 --- a/drivers/android/vendor_hooks.c
 +++ b/drivers/android/vendor_hooks.c
-@@ -9,9 +9,11 @@
+@@ -8,9 +8,10 @@
+ 
  #define CREATE_TRACE_POINTS
  #include <trace/hooks/vendor_hooks.h>
- #include <trace/hooks/sched.h>
 +#include <trace/hooks/fpsimd.h>
  
  /*
   * Export tracepoints that act as a bare tracehook (ie: have no trace event
   * associated with them) to allow external modules to probe them.
   */
- EXPORT_TRACEPOINT_SYMBOL_GPL(android_rvh_select_task_rq_fair);
+-
 +EXPORT_TRACEPOINT_SYMBOL_GPL(android_vh_is_fpsimd_save);
 diff --git a/include/trace/hooks/fpsimd.h b/include/trace/hooks/fpsimd.h
 new file mode 100644

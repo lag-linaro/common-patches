@@ -26,18 +26,17 @@ Change-Id: I007a5e26f3db2adaeaf4e5ccea414ce7abfa83b8
 diff --git a/drivers/android/vendor_hooks.c b/drivers/android/vendor_hooks.c
 --- a/drivers/android/vendor_hooks.c
 +++ b/drivers/android/vendor_hooks.c
-@@ -11,6 +11,7 @@
- #include <trace/hooks/sched.h>
+@@ -9,9 +9,14 @@
+ #define CREATE_TRACE_POINTS
+ #include <trace/hooks/vendor_hooks.h>
  #include <trace/hooks/fpsimd.h>
- #include <trace/hooks/binder.h>
 +#include <trace/hooks/rwsem.h>
  
  /*
   * Export tracepoints that act as a bare tracehook (ie: have no trace event
-@@ -28,3 +29,7 @@ EXPORT_TRACEPOINT_SYMBOL_GPL(android_vh_is_fpsimd_save);
- EXPORT_TRACEPOINT_SYMBOL_GPL(android_vh_binder_transaction_init);
- EXPORT_TRACEPOINT_SYMBOL_GPL(android_vh_binder_set_priority);
- EXPORT_TRACEPOINT_SYMBOL_GPL(android_vh_binder_restore_priority);
+  * associated with them) to allow external modules to probe them.
+  */
+ EXPORT_TRACEPOINT_SYMBOL_GPL(android_vh_is_fpsimd_save);
 +EXPORT_TRACEPOINT_SYMBOL_GPL(android_vh_rwsem_init);
 +EXPORT_TRACEPOINT_SYMBOL_GPL(android_vh_rwsem_wake);
 +EXPORT_TRACEPOINT_SYMBOL_GPL(android_vh_rwsem_write_finished);

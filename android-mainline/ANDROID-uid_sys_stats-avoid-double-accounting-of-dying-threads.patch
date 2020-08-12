@@ -35,7 +35,7 @@ Signed-off-by: Rickard Möller <rickard.moller@sony.com>
 diff --git a/drivers/misc/uid_sys_stats.c b/drivers/misc/uid_sys_stats.c
 --- a/drivers/misc/uid_sys_stats.c
 +++ b/drivers/misc/uid_sys_stats.c
-@@ -358,9 +358,12 @@ static int uid_cputime_show(struct seq_file *m, void *v)
+@@ -357,9 +357,12 @@ static int uid_cputime_show(struct seq_file *m, void *v)
  				__func__, uid);
  			return -ENOMEM;
  		}
@@ -51,7 +51,7 @@ diff --git a/drivers/misc/uid_sys_stats.c b/drivers/misc/uid_sys_stats.c
  	} while_each_thread(temp, task);
  	rcu_read_unlock();
  
-@@ -453,6 +456,10 @@ static void add_uid_io_stats(struct uid_entry *uid_entry,
+@@ -449,6 +452,10 @@ static void add_uid_io_stats(struct uid_entry *uid_entry,
  {
  	struct io_stats *io_slot = &uid_entry->io[slot];
  

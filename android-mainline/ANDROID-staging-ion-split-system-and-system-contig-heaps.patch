@@ -11,40 +11,16 @@ Test: ion-unit-tests
 
 Change-Id: I8bdada5531fbf148e4d097e94e406a232874913a
 Signed-off-by: Sandeep Patil <sspatil@google.com>
+[ebiggers: split the gki_defconfig changes into a separate patch]
+Signed-off-by: Eric Biggers <ebiggers@google.com>
 ---
- arch/arm64/configs/gki_defconfig              |   2 +
- arch/x86/configs/gki_defconfig                |   2 +
  drivers/staging/android/ion/heaps/Kconfig     |   8 ++
  drivers/staging/android/ion/heaps/Makefile    |   1 +
  .../ion/heaps/ion_system_contig_heap.c        | 111 ++++++++++++++++++
  .../android/ion/heaps/ion_system_heap.c       |  95 ---------------
- 6 files changed, 124 insertions(+), 95 deletions(-)
+ 4 files changed, 120 insertions(+), 95 deletions(-)
  create mode 100644 drivers/staging/android/ion/heaps/ion_system_contig_heap.c
 
-diff --git a/arch/arm64/configs/gki_defconfig b/arch/arm64/configs/gki_defconfig
---- a/arch/arm64/configs/gki_defconfig
-+++ b/arch/arm64/configs/gki_defconfig
-@@ -346,6 +346,8 @@ CONFIG_STAGING=y
- CONFIG_ASHMEM=y
- CONFIG_ANDROID_VSOC=y
- CONFIG_ION=y
-+CONFIG_ION_SYSTEM_HEAP=y
-+CONFIG_ION_SYSTEM_CONTIG_HEAP=y
- CONFIG_COMMON_CLK_SCPI=y
- CONFIG_HWSPINLOCK=y
- CONFIG_MAILBOX=y
-diff --git a/arch/x86/configs/gki_defconfig b/arch/x86/configs/gki_defconfig
---- a/arch/x86/configs/gki_defconfig
-+++ b/arch/x86/configs/gki_defconfig
-@@ -295,6 +295,8 @@ CONFIG_VIRTIO_MMIO_CMDLINE_DEVICES=y
- CONFIG_STAGING=y
- CONFIG_ASHMEM=y
- CONFIG_ION=y
-+CONFIG_ION_SYSTEM_HEAP=y
-+CONFIG_ION_SYSTEM_CONTIG_HEAP=y
- CONFIG_PM_DEVFREQ=y
- CONFIG_ANDROID=y
- CONFIG_ANDROID_BINDER_IPC=y
 diff --git a/drivers/staging/android/ion/heaps/Kconfig b/drivers/staging/android/ion/heaps/Kconfig
 --- a/drivers/staging/android/ion/heaps/Kconfig
 +++ b/drivers/staging/android/ion/heaps/Kconfig

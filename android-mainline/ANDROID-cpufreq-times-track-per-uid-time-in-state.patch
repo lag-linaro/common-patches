@@ -123,7 +123,7 @@ diff --git a/drivers/misc/uid_sys_stats.c b/drivers/misc/uid_sys_stats.c
  #include <linux/err.h>
  #include <linux/hashtable.h>
  #include <linux/init.h>
-@@ -420,6 +421,9 @@ static ssize_t uid_remove_write(struct file *file,
+@@ -423,6 +424,9 @@ static ssize_t uid_remove_write(struct file *file,
  		return -EINVAL;
  	}
  

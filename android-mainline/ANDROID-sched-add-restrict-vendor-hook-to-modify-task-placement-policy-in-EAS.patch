@@ -12,27 +12,31 @@ Bug: 158263250
 Signed-off-by: Yun Hsiang <yun.hsiang@mediatek.com>
 Change-Id: I80ff870453472e183ab2aae7381bff91e49ae296
 ---
- drivers/android/vendor_hooks.c |  3 ++-
+ drivers/android/vendor_hooks.c |  2 ++
  include/trace/hooks/sched.h    | 23 +++++++++++++++++++++++
  kernel/sched/fair.c            |  8 ++++++++
- 3 files changed, 33 insertions(+), 1 deletion(-)
+ 3 files changed, 33 insertions(+)
  create mode 100644 include/trace/hooks/sched.h
 
 diff --git a/drivers/android/vendor_hooks.c b/drivers/android/vendor_hooks.c
 --- a/drivers/android/vendor_hooks.c
 +++ b/drivers/android/vendor_hooks.c
-@@ -8,9 +8,10 @@
+@@ -8,6 +8,7 @@
  
  #define CREATE_TRACE_POINTS
  #include <trace/hooks/vendor_hooks.h>
 +#include <trace/hooks/sched.h>
+ #include <trace/hooks/fpsimd.h>
+ #include <trace/hooks/rwsem.h>
  
- /*
+@@ -15,6 +16,7 @@
   * Export tracepoints that act as a bare tracehook (ie: have no trace event
   * associated with them) to allow external modules to probe them.
   */
--
 +EXPORT_TRACEPOINT_SYMBOL_GPL(android_rvh_select_task_rq_fair);
+ EXPORT_TRACEPOINT_SYMBOL_GPL(android_vh_is_fpsimd_save);
+ EXPORT_TRACEPOINT_SYMBOL_GPL(android_vh_rwsem_init);
+ EXPORT_TRACEPOINT_SYMBOL_GPL(android_vh_rwsem_wake);
 diff --git a/include/trace/hooks/sched.h b/include/trace/hooks/sched.h
 new file mode 100644
 index 000000000000..e4ef56686a76

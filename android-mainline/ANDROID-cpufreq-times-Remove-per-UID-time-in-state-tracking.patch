@@ -50,7 +50,7 @@ diff --git a/drivers/cpufreq/cpufreq_times.c b/drivers/cpufreq/cpufreq_times.c
  
  /**
   * struct cpu_freqs - per-cpu frequency information
-@@ -150,9 +134,7 @@ void cpufreq_acct_update_power(struct task_struct *p, u64 cputime)
+@@ -152,9 +136,7 @@ void cpufreq_acct_update_power(struct task_struct *p, u64 cputime)
  {
  	unsigned long flags;
  	unsigned int state;
@@ -60,7 +60,7 @@ diff --git a/drivers/cpufreq/cpufreq_times.c b/drivers/cpufreq/cpufreq_times.c
  
  	if (!freqs || is_idle_task(p) || p->flags & PF_EXITING)
  		return;
-@@ -164,12 +146,6 @@ void cpufreq_acct_update_power(struct task_struct *p, u64 cputime)
+@@ -166,12 +148,6 @@ void cpufreq_acct_update_power(struct task_struct *p, u64 cputime)
  	    p->time_in_state)
  		p->time_in_state[state] += cputime;
  	spin_unlock_irqrestore(&task_time_in_state_lock, flags);
@@ -72,8 +72,8 @@ diff --git a/drivers/cpufreq/cpufreq_times.c b/drivers/cpufreq/cpufreq_times.c
 -	spin_unlock_irqrestore(&uid_lock, flags);
  }
  
- static int cpufreq_times_get_index(struct cpu_freqs *freqs, unsigned int freq)
-@@ -221,27 +197,6 @@ void cpufreq_times_create_policy(struct cpufreq_policy *policy)
+ void cpufreq_times_create_policy(struct cpufreq_policy *policy)
+@@ -213,27 +189,6 @@ void cpufreq_times_create_policy(struct cpufreq_policy *policy)
  		all_freqs[cpu] = freqs;
  }
  

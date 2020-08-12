@@ -20,16 +20,19 @@ Signed-off-by: Will McVicker <willmcvicker@google.com>
 Bug: 159842160
 Change-Id: I33f40e424ca967b85d810cdb12c6a2c58e4197b7
 [willmcvicker: squash with commit 0c0d417747d8e289b2808c3fca32c845f82fd5e5]
+[ebiggers: split the build.config.common change into a separate patch so
+           that changes to upstream files are kept separate from the
+           Android-specific build files.]
+Signed-off-by: Eric Biggers <ebiggers@google.com>
 ---
  Makefile                |  6 ++++--
- build.config.common     |  1 +
  scripts/setlocalversion | 26 +++++++++++++++++++++++++-
- 3 files changed, 30 insertions(+), 3 deletions(-)
+ 2 files changed, 29 insertions(+), 3 deletions(-)
 
 diff --git a/Makefile b/Makefile
 --- a/Makefile
 +++ b/Makefile
-@@ -1173,7 +1173,8 @@ targets := vmlinux
+@@ -1208,7 +1208,8 @@ targets := vmlinux
  $(sort $(vmlinux-deps) $(subdir-modorder)): descend ;
  
  filechk_kernel.release = \
@@ -39,7 +42,7 @@ diff --git a/Makefile b/Makefile
  
  # Store (new) KERNELRELEASE string in include/config/kernel.release
  include/config/kernel.release: FORCE
-@@ -1873,7 +1874,8 @@ checkstack:
+@@ -1883,7 +1884,8 @@ checkstack:
  	$(PERL) $(srctree)/scripts/checkstack.pl $(CHECKSTACK_ARCH)
  
  kernelrelease:
@@ -49,15 +52,6 @@ diff --git a/Makefile b/Makefile
  
  kernelversion:
  	@echo $(KERNELVERSION)
-diff --git a/build.config.common b/build.config.common
---- a/build.config.common
-+++ b/build.config.common
-@@ -1,4 +1,5 @@
- BRANCH=android-mainline
-+KMI_GENERATION=0
- KERNEL_DIR=common
- 
- CC=clang
 diff --git a/scripts/setlocalversion b/scripts/setlocalversion
 --- a/scripts/setlocalversion
 +++ b/scripts/setlocalversion

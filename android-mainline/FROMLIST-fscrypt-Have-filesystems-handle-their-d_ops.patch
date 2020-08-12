@@ -285,7 +285,7 @@ diff --git a/include/linux/fscrypt.h b/include/linux/fscrypt.h
  
  /* policy.c */
  int fscrypt_ioctl_set_policy(struct file *filp, const void __user *arg);
-@@ -739,8 +740,9 @@ static inline int fscrypt_prepare_rename(struct inode *old_dir,
+@@ -753,8 +754,9 @@ static inline int fscrypt_prepare_rename(struct inode *old_dir,
   * filenames are presented in encrypted form.  Therefore, we'll try to set up
   * the directory's encryption key, but even without it the lookup can continue.
   *

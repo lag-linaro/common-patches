@@ -47,8 +47,9 @@ Signed-off-by: Dmitry Shmidt <dimitrysh@google.com>
 [AmitP: Fix get_user_pages_remote() call to align with upstream commit
         5b56d49fc31d ("mm: add locked parameter to get_user_pages_remote()")]
 Signed-off-by: Amit Pundir <amit.pundir@linaro.org>
-[ebiggers: folded commit 7df9282d8ecb ("ANDROID: mm: fix up new call to
-           vma_merge()") into this patch]
+[ebiggers: folded in fixes from the following commits:
+           1da58ab55546 ("ANDROID: fix up direct access to mmap_sem")
+           7df9282d8ecb ("ANDROID: mm: fix up new call to vma_merge()")]
 Signed-off-by: Eric Biggers <ebiggers@google.com>
 ---
  Documentation/filesystems/proc.rst |   6 ++
@@ -393,7 +394,7 @@ diff --git a/kernel/sys.c b/kernel/sys.c
 +			return error;
 +		if (prev)
 +			vma = prev->vm_next;
-+		else	/* madvise_remove dropped mmap_sem */
++		else	/* madvise_remove dropped mmap_lock */
 +			vma = find_vma(current->mm, start);
 +	}
 +}
@@ -421,7 +422,7 @@ diff --git a/kernel/sys.c b/kernel/sys.c
 +	if (end == start)
 +		return 0;
 +
-+	down_write(&mm->mmap_sem);
++	mmap_write_lock(mm);
 +
 +	switch (opt) {
 +	case PR_SET_VMA_ANON_NAME:
@@ -431,7 +432,7 @@ diff --git a/kernel/sys.c b/kernel/sys.c
 +		error = -EINVAL;
 +	}
 +
-+	up_write(&mm->mmap_sem);
++	mmap_write_unlock(mm);
 +
 +	return error;
 +}

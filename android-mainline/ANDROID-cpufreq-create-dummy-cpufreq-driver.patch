@@ -22,37 +22,15 @@ Signed-off-by: Connor O'Brien <connoro@google.com>
 [maennich: Folded the following patch into this patch
            50118fa88e6a ("ANDROID: dummy_cpufreq: Implement get()")]
 Signed-off-by: Matthias Maennich <maennich@google.com>
+[ebiggers: split the gki_defconfig changes into a separate patch]
+Signed-off-by: Eric Biggers <ebiggers@google.com>
 ---
- arch/arm64/configs/gki_defconfig |  1 +
- arch/x86/configs/gki_defconfig   |  1 +
- drivers/cpufreq/Kconfig          |  9 +++++
- drivers/cpufreq/Makefile         |  2 ++
- drivers/cpufreq/dummy-cpufreq.c  | 60 ++++++++++++++++++++++++++++++++
- 5 files changed, 73 insertions(+)
+ drivers/cpufreq/Kconfig         |  9 +++++
+ drivers/cpufreq/Makefile        |  2 ++
+ drivers/cpufreq/dummy-cpufreq.c | 60 +++++++++++++++++++++++++++++++++
+ 3 files changed, 71 insertions(+)
  create mode 100644 drivers/cpufreq/dummy-cpufreq.c
 
-diff --git a/arch/arm64/configs/gki_defconfig b/arch/arm64/configs/gki_defconfig
---- a/arch/arm64/configs/gki_defconfig
-+++ b/arch/arm64/configs/gki_defconfig
-@@ -61,6 +61,7 @@ CONFIG_CPU_FREQ_TIMES=y
- CONFIG_CPU_FREQ_DEFAULT_GOV_SCHEDUTIL=y
- CONFIG_CPU_FREQ_GOV_POWERSAVE=y
- CONFIG_CPU_FREQ_GOV_CONSERVATIVE=y
-+CONFIG_CPUFREQ_DUMMY=m
- CONFIG_ARM_SCPI_CPUFREQ=y
- CONFIG_ARM_SCMI_CPUFREQ=y
- CONFIG_ARM_SCMI_PROTOCOL=y
-diff --git a/arch/x86/configs/gki_defconfig b/arch/x86/configs/gki_defconfig
---- a/arch/x86/configs/gki_defconfig
-+++ b/arch/x86/configs/gki_defconfig
-@@ -46,6 +46,7 @@ CONFIG_PM_WAKELOCKS_LIMIT=0
- # CONFIG_PM_WAKELOCKS_GC is not set
- CONFIG_CPU_FREQ_TIMES=y
- CONFIG_CPU_FREQ_GOV_POWERSAVE=y
-+CONFIG_CPUFREQ_DUMMY=m
- CONFIG_IA32_EMULATION=y
- CONFIG_KPROBES=y
- CONFIG_MODULES=y
 diff --git a/drivers/cpufreq/Kconfig b/drivers/cpufreq/Kconfig
 --- a/drivers/cpufreq/Kconfig
 +++ b/drivers/cpufreq/Kconfig

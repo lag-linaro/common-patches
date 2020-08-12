@@ -13,6 +13,9 @@ vendor-specific data is required).
 Bug: 156285741
 Signed-off-by: Todd Kjos <tkjos@google.com>
 Change-Id: Ic23b2760ece93facdc51cc35718a4154aba810f9
+[ebiggers: folded in fix from commit dc419bab7424
+           ("ANDROID: fix copyright notice")]
+Signed-off-by: Eric Biggers <ebiggers@google.com>
 ---
  include/linux/android_vendor.h | 32 ++++++++++++++++++++++++++++++++
  1 file changed, 32 insertions(+)
@@ -20,7 +23,7 @@ Change-Id: Ic23b2760ece93facdc51cc35718a4154aba810f9
 
 diff --git a/include/linux/android_vendor.h b/include/linux/android_vendor.h
 new file mode 100644
-index 000000000000..2af355d224af
+index 000000000000..c0d3abb54037
 --- /dev/null
 +++ b/include/linux/android_vendor.h
 @@ -0,0 +1,32 @@
@@ -28,7 +31,7 @@ index 000000000000..2af355d224af
 +/*
 + * android_vendor.h - Android vendor data
 + *
-+ * Copyright (C) 2020 Google, Inc.
++ * Copyright 2020 Google LLC
 + *
 + * These macros are to be used to reserve space in kernel data structures
 + * for use by vendor modules.

@@ -16,10 +16,10 @@ Signed-off-by: John Stultz <john.stultz@linaro.org>
 diff --git a/arch/arm64/configs/db845c_gki.fragment b/arch/arm64/configs/db845c_gki.fragment
 --- a/arch/arm64/configs/db845c_gki.fragment
 +++ b/arch/arm64/configs/db845c_gki.fragment
-@@ -99,3 +99,50 @@ CONFIG_QCOM_RPMPD=m
- CONFIG_QCOM_PDC=m
- CONFIG_QCOM_SCM=m
- CONFIG_ARM_SMMU=m
+@@ -90,3 +90,50 @@ CONFIG_QCOM_GLINK_SSR=m
+ CONFIG_RPMSG_QCOM_GLINK_RPM=m
+ CONFIG_QCOM_SMD_RPM=m
+ CONFIG_QCOM_RPMPD=m
 +# XXX Audio bits start here
 +CONFIG_I2C_CHARDEV=m
 +CONFIG_I2C_MUX=m
