@@ -2,11 +2,12 @@
 # android-mainline patches
 #
 # Applies onto upstream 00e4db51259a Linux v5.8-12299-g00e4db51259a
-# Matches android-mainline 6b78d00f74c5 ("ANDROID: block/keyslot-manager: fix checkpatch warning")
+# Matches android-mainline ab8e3215a682 ("ANDROID: soc: qcom: rpmh: fix bad merge resolution")
 #
 _____ANNOTATION-Android-vendor-hooks_____.patch
 ANDROID-GKI-add-android_vendor.h.patch
 ANDROID-add-support-for-vendor-hooks.patch
+ANDROID-fix-redefinition-error-for-restricted-vendor-hooks.patch
 _____ANNOTATION-kbuild-changes_____.patch
 ANDROID-Kbuild-LLVMLinux-allow-overriding-clang-target-triple.patch
 ANDROID-kbuild-Add-support-for-installing-out-of-tree-kernel-headers.patch
@@ -305,6 +306,7 @@ ANDROID-db845c_gki.fragment-Enable-config-options-to-support-wifi-on-db845c.patc
 ANDROID-db845c_gki.fragment-Remove-nonexistent-CONFIG_USB_DWC3_DISABLE_GADGET_SG-value.patch
 ANDROID-lt9611-Sync-w-Vinod-s-most-recent-lt9611-patches-which-enable-HDMI-audio.patch
 ANDROID-db845c_gki.fragment-Add-audio-configs.patch
+ANDROID-soc-qcom-rpmh-fix-bad-merge-resolution.patch
 _____ANNOTATION-Android-kconfigs-and-build-scripts_____.patch
 ANDROID-Expose-gki_defconfig-to-build.config.patch
 ANDROID-gki_defconfig-initial-config.patch
@@ -506,5 +508,6 @@ ANDROID-GKI-update-defconfigs-due-to-mainline-merges.patch
 ANDROID-GKI-update-gki_defconfig-due-to-upstream-changes.patch
 ANDROID-enable-CONFIG_INIT_STACK_ALL_ZERO-y.patch
 ANDROID-Add-build.config.gki-debug.patch
+ANDROID-GKI-enable-LEDS_CLASS_FLASH.patch
 DROP-ME-bad-revert-of-rockpi4_defconfig.patch
 _____ANNOTATION-remove-ANNOTATIONS-file_____.patch
