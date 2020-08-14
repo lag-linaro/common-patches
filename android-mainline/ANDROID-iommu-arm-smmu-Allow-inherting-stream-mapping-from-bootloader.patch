@@ -23,14 +23,14 @@ Signed-off-by: John Stultz <john.stultz@linaro.org>
 Change-Id: Ibb3784360a4424f7dc7c64a241811642aa0de7f4
 Bug: 146449535
 ---
- drivers/iommu/arm-smmu-qcom.c | 39 +++++++++++++++++++++++++++++++++++
- drivers/iommu/arm-smmu.c      | 30 +++++++++++++++++++++------
- drivers/iommu/arm-smmu.h      |  1 +
+ drivers/iommu/arm/arm-smmu/arm-smmu-qcom.c | 39 ++++++++++++++++++++++
+ drivers/iommu/arm/arm-smmu/arm-smmu.c      | 30 +++++++++++++----
+ drivers/iommu/arm/arm-smmu/arm-smmu.h      |  1 +
  3 files changed, 64 insertions(+), 6 deletions(-)
 
-diff --git a/drivers/iommu/arm-smmu-qcom.c b/drivers/iommu/arm-smmu-qcom.c
---- a/drivers/iommu/arm-smmu-qcom.c
-+++ b/drivers/iommu/arm-smmu-qcom.c
+diff --git a/drivers/iommu/arm/arm-smmu/arm-smmu-qcom.c b/drivers/iommu/arm/arm-smmu/arm-smmu-qcom.c
+--- a/drivers/iommu/arm/arm-smmu/arm-smmu-qcom.c
++++ b/drivers/iommu/arm/arm-smmu/arm-smmu-qcom.c
 @@ -3,6 +3,7 @@
   * Copyright (c) 2019, The Linux Foundation. All rights reserved.
   */
@@ -91,10 +91,10 @@ diff --git a/drivers/iommu/arm-smmu-qcom.c b/drivers/iommu/arm-smmu-qcom.c
  	.reset = qcom_smmu500_reset,
  };
  
-diff --git a/drivers/iommu/arm-smmu.c b/drivers/iommu/arm-smmu.c
---- a/drivers/iommu/arm-smmu.c
-+++ b/drivers/iommu/arm-smmu.c
-@@ -223,9 +223,20 @@ static int arm_smmu_register_legacy_master(struct device *dev,
+diff --git a/drivers/iommu/arm/arm-smmu/arm-smmu.c b/drivers/iommu/arm/arm-smmu/arm-smmu.c
+--- a/drivers/iommu/arm/arm-smmu/arm-smmu.c
++++ b/drivers/iommu/arm/arm-smmu/arm-smmu.c
+@@ -220,9 +220,20 @@ static int arm_smmu_register_legacy_master(struct device *dev,
  }
  #endif /* CONFIG_ARM_SMMU_LEGACY_DT_BINDINGS */
  
@@ -116,7 +116,7 @@ diff --git a/drivers/iommu/arm-smmu.c b/drivers/iommu/arm-smmu.c
  
  	do {
  		idx = find_next_zero_bit(map, end, start);
-@@ -650,7 +661,8 @@ static void arm_smmu_write_context_bank(struct arm_smmu_device *smmu, int idx)
+@@ -647,7 +658,8 @@ static void arm_smmu_write_context_bank(struct arm_smmu_device *smmu, int idx)
  }
  
  static int arm_smmu_init_domain_context(struct iommu_domain *domain,
@@ -126,7 +126,7 @@ diff --git a/drivers/iommu/arm-smmu.c b/drivers/iommu/arm-smmu.c
  {
  	int irq, start, ret = 0;
  	unsigned long ias, oas;
-@@ -764,8 +776,7 @@ static int arm_smmu_init_domain_context(struct iommu_domain *domain,
+@@ -762,8 +774,7 @@ static int arm_smmu_init_domain_context(struct iommu_domain *domain,
  		ret = -EINVAL;
  		goto out_unlock;
  	}
@@ -136,7 +136,7 @@ diff --git a/drivers/iommu/arm-smmu.c b/drivers/iommu/arm-smmu.c
  	if (ret < 0)
  		goto out_unlock;
  
-@@ -1032,12 +1043,19 @@ static int arm_smmu_find_sme(struct arm_smmu_device *smmu, u16 id, u16 mask)
+@@ -1036,12 +1047,19 @@ static int arm_smmu_find_sme(struct arm_smmu_device *smmu, u16 id, u16 mask)
  
  static bool arm_smmu_free_sme(struct arm_smmu_device *smmu, int idx)
  {
@@ -157,7 +157,7 @@ diff --git a/drivers/iommu/arm-smmu.c b/drivers/iommu/arm-smmu.c
  
  	return true;
  }
-@@ -1168,7 +1186,7 @@ static int arm_smmu_attach_dev(struct iommu_domain *domain, struct device *dev)
+@@ -1172,7 +1190,7 @@ static int arm_smmu_attach_dev(struct iommu_domain *domain, struct device *dev)
  		return ret;
  
  	/* Ensure that the domain is finalised */
@@ -166,10 +166,10 @@ diff --git a/drivers/iommu/arm-smmu.c b/drivers/iommu/arm-smmu.c
  	if (ret < 0)
  		goto rpm_put;
  
-diff --git a/drivers/iommu/arm-smmu.h b/drivers/iommu/arm-smmu.h
---- a/drivers/iommu/arm-smmu.h
-+++ b/drivers/iommu/arm-smmu.h
-@@ -257,6 +257,7 @@ struct arm_smmu_s2cr {
+diff --git a/drivers/iommu/arm/arm-smmu/arm-smmu.h b/drivers/iommu/arm/arm-smmu/arm-smmu.h
+--- a/drivers/iommu/arm/arm-smmu/arm-smmu.h
++++ b/drivers/iommu/arm/arm-smmu/arm-smmu.h
+@@ -260,6 +260,7 @@ struct arm_smmu_s2cr {
  	enum arm_smmu_s2cr_type		type;
  	enum arm_smmu_s2cr_privcfg	privcfg;
  	u8				cbndx;

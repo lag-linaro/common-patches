@@ -1,8 +1,8 @@
 #
 # android-mainline patches
 #
-# Applies onto upstream 00e4db51259a Linux v5.8-12299-g00e4db51259a
-# Matches android-mainline ab8e3215a682 ("ANDROID: soc: qcom: rpmh: fix bad merge resolution")
+# Applies onto upstream fb893de323e2 Linux v5.8-12609-gfb893de323e2
+# Matches android-mainline eb1a2a5f9bf8 ("Merge fb893de323e2 ("Merge tag 'tag-chrome-platform-for-v5.9' of git://git.kernel.org/pub/scm/linux/kernel/git/chrome-platform/linux") into android-mainline")
 #
 _____ANNOTATION-Android-vendor-hooks_____.patch
 ANDROID-GKI-add-android_vendor.h.patch

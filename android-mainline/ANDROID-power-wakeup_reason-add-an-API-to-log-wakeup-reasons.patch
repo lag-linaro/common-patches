@@ -166,7 +166,7 @@ diff --git a/drivers/base/syscore.c b/drivers/base/syscore.c
 diff --git a/include/linux/suspend.h b/include/linux/suspend.h
 --- a/include/linux/suspend.h
 +++ b/include/linux/suspend.h
-@@ -511,6 +511,7 @@ extern bool pm_get_wakeup_count(unsigned int *count, bool block);
+@@ -517,6 +517,7 @@ extern bool pm_get_wakeup_count(unsigned int *count, bool block);
  extern bool pm_save_wakeup_count(unsigned int count);
  extern void pm_wakep_autosleep_enabled(bool set);
  extern void pm_print_active_wakeup_sources(void);

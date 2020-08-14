@@ -26,13 +26,13 @@ Signed-off-by: John Stultz <john.stultz@linaro.org>
  https://github.com/freedreno/kernel-msm.git wip/c630-5.8-rc1)
 Change-Id: Iecc6e3d1feedee178e04f7da8f601ee12bd5ae3b
 ---
- drivers/iommu/arm-smmu.c | 4 ++++
+ drivers/iommu/arm/arm-smmu/arm-smmu.c | 4 ++++
  1 file changed, 4 insertions(+)
 
-diff --git a/drivers/iommu/arm-smmu.c b/drivers/iommu/arm-smmu.c
---- a/drivers/iommu/arm-smmu.c
-+++ b/drivers/iommu/arm-smmu.c
-@@ -1139,6 +1139,10 @@ static int arm_smmu_domain_add_master(struct arm_smmu_domain *smmu_domain,
+diff --git a/drivers/iommu/arm/arm-smmu/arm-smmu.c b/drivers/iommu/arm/arm-smmu/arm-smmu.c
+--- a/drivers/iommu/arm/arm-smmu/arm-smmu.c
++++ b/drivers/iommu/arm/arm-smmu/arm-smmu.c
+@@ -1143,6 +1143,10 @@ static int arm_smmu_domain_add_master(struct arm_smmu_domain *smmu_domain,
  		if (type == s2cr[idx].type && cbndx == s2cr[idx].cbndx)
  			continue;
  
