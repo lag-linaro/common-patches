@@ -2,7 +2,7 @@
 # android-mainline patches
 #
 # Applies onto upstream fb893de323e2 Linux v5.8-12609-gfb893de323e2
-# Matches android-mainline eb1a2a5f9bf8 ("Merge fb893de323e2 ("Merge tag 'tag-chrome-platform-for-v5.9' of git://git.kernel.org/pub/scm/linux/kernel/git/chrome-platform/linux") into android-mainline")
+# Matches android-mainline 22b27c439f54 ("ANDROID: Incremental fs: Don't allow renaming .index directory.")
 #
 _____ANNOTATION-Android-vendor-hooks_____.patch
 ANDROID-GKI-add-android_vendor.h.patch
@@ -19,6 +19,11 @@ _____ANNOTATION-arm64-changes_____.patch
 ANDROID-arm64-copy-CONFIG_CMDLINE_EXTEND-from-ARM.patch
 ANDROID-of-Support-CONFIG_CMDLINE_EXTEND-config-option.patch
 ANDROID-vendor_hooks-FPSIMD-save-restore-by-using-vendor_hooks.patch
+ANDROID-ARM-prima2-Register-with-kernel-restart-handler.patch
+ANDROID-ARM-xen-Register-with-kernel-restart-handler.patch
+ANDROID-ARM-Register-with-kernel-restart-handler.patch
+ANDROID-ARM64-Remove-arm_pm_restart.patch
+ANDROID-ARM-Remove-arm_pm_restart.patch
 _____ANNOTATION-iommu-changes_____.patch
 FROMGIT-iommu-arm-smmu-Don-t-bypass-pinned-stream-mappings.patch
 ANDROID-iommu-arm-smmu-Expose-s2cr-and-smr-structs-to-impl.patch
@@ -30,6 +35,10 @@ ANDROID-rwsem-Add-vendor-hook-to-the-rw-semaphore.patch
 CHROMIUM-cgroups-relax-permissions-on-moving-tasks-between-cgroups.patch
 ANDROID-export-Disable-symbol-trimming-on-modules.patch
 ANDROID-unconditionally-compile-sig_ok-in-struct-module.patch
+ANDROID-futex-Add-vendor-hook-for-wait-queue.patch
+ANDROID-GKI-signal-Export-for-__lock_task_sighand.patch
+ANDROID-GKI-time-Export-for-nsec_to_clock_t.patch
+ANDROID-GKI-pid-Export-for-find_task_by_vpid.patch
 _____ANNOTATION-power-management-changes_____.patch
 ANDROID-power-wakeup_reason-add-an-API-to-log-wakeup-reasons.patch
 ANDROID-Log-which-device-failed-to-suspend-in-dpm_suspend_start.patch
@@ -38,6 +47,7 @@ ANDROID-power-wakeup_reason-export-log_threaded_irq_wakeup_reason.patch
 ANDROID-power-wakeup_reason-refine-wakeup-logs.patch
 _____ANNOTATION-scheduler-changes_____.patch
 Revert-sched-core-Prevent-race-condition-between-cpuset-and-__sched_setscheduler.patch
+Revert-sched-Remove-sched_setscheduler-EXPORTs.patch
 ANDROID-sched-Unconditionally-honor-sync-flag-for-energy-aware-wakeups.patch
 ANDROID-sched-core-Add-a-latency-sensitive-flag-to-uclamp.patch
 ANDROID-sched-Introduce-uclamp-latency-and-boost-wrapper.patch
@@ -47,6 +57,10 @@ ANDROID-sched-Allow-EAS-without-schedutil.patch
 ANDROID-sched-add-restrict-vendor-hook-to-modify-task-placement-policy-in-EAS.patch
 ANDROID-Add-vendor-hooks-to-the-scheduler.patch
 ANDROID-Export-some-scheduler-APIs-for-vendor-modules.patch
+ANDROID-sched-add-vendor-hooks-to-handle-scheduling-priority.patch
+ANDROID-GKI-core-Export-for-runqueues.patch
+ANDROID-GKI-cputime-Export-for-thread_group_cputime_adjusted.patch
+ANDROID-GKI-loadavg-Export-for-get_avenrun.patch
 _____ANNOTATION-uid_sys_stats-support_____.patch
 ANDROID-uid_cputime-Adds-accounting-for-the-cputimes-per-uid.patch
 ANDROID-uid_cputime-add-per-uid-IO-usage-accounting.patch
@@ -129,6 +143,7 @@ ANDROID-fix-build-problem-in-drivers-soc-qcom-rpmh-rsc.c.patch
 ANDROID-GKI-driver-core-Set-fw_devlink-on-by-default.patch
 ANDROID-gnss-Add-command-line-test-driver.patch
 ANDROID-Export-functions-to-be-used-with-dma_map_ops-in-modules.patch
+ANDROID-drivers-firmware-psci-Register-with-kernel-restart-handler.patch
 _____ANNOTATION-tty-changes_____.patch
 FROMLIST-tty-serial-qcom_geni_serial-Drop-__init-from-qcom_geni_console_setup.patch
 ANDROID-serdev-add-platform-device-support.patch
@@ -148,6 +163,7 @@ ANDROID-usb-gadget-f_audio_source-New-gadget-driver-for-audio-output.patch
 ANDROID-usb-gadget-configfs-Support-multiple-android-instances.patch
 _____ANNOTATION-graphics-changes_____.patch
 Revert-drm-virtio-fix-DRM_FORMAT_-handling.patch
+ANDROID-Revert-drm-virtio-Call-the-right-shmem-helpers.patch
 ANDROID-Allow-DRM_IOCTL_MODE_-_DUMB-for-render-clients.patch
 ANDROID-include-uapi-drm-add-additional-QCOM-modifiers.patch
 ANDROID-drivers-gpu-drm-add-support-for-secure-framebuffer.patch
@@ -268,6 +284,7 @@ ANDROID-Incremental-fs-Stress-tool.patch
 ANDROID-Incremental-fs-Adding-perf-test.patch
 ANDROID-Incremental-fs-Allow-running-a-single-test.patch
 ANDROID-Incremental-fs-Fix-incfs-to-work-on-virtio-9p.patch
+ANDROID-Incremental-fs-Don-t-allow-renaming-.index-directory.patch
 _____ANNOTATION-networking-changes_____.patch
 FROMGIT-net-Revert-net-optimize-the-sockptr_t-for-unified-kernel-user-address-spaces.patch
 ANDROID-net-xfrm-make-PF_KEY-SHA256-use-RFC-compliant-truncation.patch
@@ -509,5 +526,6 @@ ANDROID-GKI-update-gki_defconfig-due-to-upstream-changes.patch
 ANDROID-enable-CONFIG_INIT_STACK_ALL_ZERO-y.patch
 ANDROID-Add-build.config.gki-debug.patch
 ANDROID-GKI-enable-LEDS_CLASS_FLASH.patch
+ANDROID-GKI-enable-CONFIG_LEDS_TRIGGER_TIMER.patch
 DROP-ME-bad-revert-of-rockpi4_defconfig.patch
 _____ANNOTATION-remove-ANNOTATIONS-file_____.patch
