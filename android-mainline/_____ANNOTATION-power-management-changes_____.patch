@@ -11,7 +11,7 @@ Signed-off-by: Eric Biggers <ebiggers@google.com>
 diff --git a/ANNOTATIONS b/ANNOTATIONS
 --- a/ANNOTATIONS
 +++ b/ANNOTATIONS
-@@ -3,3 +3,4 @@ kbuild changes
+@@ -4,3 +4,4 @@ kbuild changes
  arm64 changes
  iommu changes
  core kernel changes

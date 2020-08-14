@@ -54,7 +54,7 @@ diff --git a/Documentation/admin-guide/sysctl/vm.rst b/Documentation/admin-guide
  - hugetlb_shm_group
  - laptop_mode
  - legacy_va_layout
-@@ -290,6 +291,21 @@ only use the low memory and they can fill it up with dirty data without
+@@ -305,6 +306,21 @@ only use the low memory and they can fill it up with dirty data without
  any throttling.
  
  
@@ -89,7 +89,7 @@ diff --git a/kernel/sysctl.c b/kernel/sysctl.c
  /* Constants used for minimum and  maximum */
  #ifdef CONFIG_LOCKUP_DETECTOR
  static int sixty = 60;
-@@ -2896,6 +2899,14 @@ static struct ctl_table vm_table[] = {
+@@ -2905,6 +2908,14 @@ static struct ctl_table vm_table[] = {
  		.extra1		= SYSCTL_ONE,
  		.extra2		= &one_thousand,
  	},

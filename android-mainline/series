@@ -1,9 +1,11 @@
 #
 # android-mainline patches
 #
-# Applies onto upstream fb893de323e2 Linux v5.8-12609-gfb893de323e2
-# Matches android-mainline 22b27c439f54 ("ANDROID: Incremental fs: Don't allow renaming .index directory.")
+# Applies onto upstream a1d21081a60d Linux v5.8-13249-ga1d21081a60d
+# Matches android-mainline 682b15d47163 ("Merge a1d21081a60d ("Merge git://git.kernel.org/pub/scm/linux/kernel/git/netdev/net") into android-mainline")
 #
+_____ANNOTATION-pending-upstream_____.patch
+FROMLIST-exec-Restore-EACCES-of-S_ISDIR-execve.patch
 _____ANNOTATION-Android-vendor-hooks_____.patch
 ANDROID-GKI-add-android_vendor.h.patch
 ANDROID-add-support-for-vendor-hooks.patch
@@ -143,6 +145,7 @@ ANDROID-fix-build-problem-in-drivers-soc-qcom-rpmh-rsc.c.patch
 ANDROID-GKI-driver-core-Set-fw_devlink-on-by-default.patch
 ANDROID-gnss-Add-command-line-test-driver.patch
 ANDROID-Export-functions-to-be-used-with-dma_map_ops-in-modules.patch
+ANDROID-Export-dma_heap_add-to-modularize-heaps.patch
 ANDROID-drivers-firmware-psci-Register-with-kernel-restart-handler.patch
 _____ANNOTATION-tty-changes_____.patch
 FROMLIST-tty-serial-qcom_geni_serial-Drop-__init-from-qcom_geni_console_setup.patch
@@ -286,7 +289,6 @@ ANDROID-Incremental-fs-Allow-running-a-single-test.patch
 ANDROID-Incremental-fs-Fix-incfs-to-work-on-virtio-9p.patch
 ANDROID-Incremental-fs-Don-t-allow-renaming-.index-directory.patch
 _____ANNOTATION-networking-changes_____.patch
-FROMGIT-net-Revert-net-optimize-the-sockptr_t-for-unified-kernel-user-address-spaces.patch
 ANDROID-net-xfrm-make-PF_KEY-SHA256-use-RFC-compliant-truncation.patch
 ANDROID-netfilter-xt_quota2-adding-the-original-quota2-from-xtables-addons.patch
 ANDROID-fix-up-xt_quota2-for-proc_ops-changes.patch
@@ -323,7 +325,6 @@ ANDROID-db845c_gki.fragment-Enable-config-options-to-support-wifi-on-db845c.patc
 ANDROID-db845c_gki.fragment-Remove-nonexistent-CONFIG_USB_DWC3_DISABLE_GADGET_SG-value.patch
 ANDROID-lt9611-Sync-w-Vinod-s-most-recent-lt9611-patches-which-enable-HDMI-audio.patch
 ANDROID-db845c_gki.fragment-Add-audio-configs.patch
-ANDROID-soc-qcom-rpmh-fix-bad-merge-resolution.patch
 _____ANNOTATION-Android-kconfigs-and-build-scripts_____.patch
 ANDROID-Expose-gki_defconfig-to-build.config.patch
 ANDROID-gki_defconfig-initial-config.patch
@@ -344,7 +345,6 @@ ANDROID-Remove-CONFIG_USELIB-from-x86-gki-config.patch
 ANDROID-update-gki_defconfig.patch
 ANDROID-update-arm64-gki_defconfig.patch
 ANDROID-update-gki_defconfig-2.patch
-ANDROID-arm64-defconfig-Enable-EAS-by-default.patch
 ANDROID-Initial-abi_gki_aarch64-definition.patch
 ANDROID-gki_defconfig-Enable-BPF_JIT-and-BPF_JIT_ALWAYS_ON.patch
 ANDROID-gki_defconfig-enable-REGULATOR.patch
@@ -527,5 +527,4 @@ ANDROID-enable-CONFIG_INIT_STACK_ALL_ZERO-y.patch
 ANDROID-Add-build.config.gki-debug.patch
 ANDROID-GKI-enable-LEDS_CLASS_FLASH.patch
 ANDROID-GKI-enable-CONFIG_LEDS_TRIGGER_TIMER.patch
-DROP-ME-bad-revert-of-rockpi4_defconfig.patch
 _____ANNOTATION-remove-ANNOTATIONS-file_____.patch

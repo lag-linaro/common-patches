@@ -50,6 +50,9 @@ Signed-off-by: Amit Pundir <amit.pundir@linaro.org>
 [ebiggers: folded in fixes from the following commits:
            1da58ab55546 ("ANDROID: fix up direct access to mmap_sem")
            7df9282d8ecb ("ANDROID: mm: fix up new call to vma_merge()")]
+           b5c8a97d5085 ("ANDROID: fix up 60500a42286d ("ANDROID: mm:
+                          add a field to store names for private
+                          anonymous memory")")
 Signed-off-by: Eric Biggers <ebiggers@google.com>
 ---
  Documentation/filesystems/proc.rst |   6 ++
@@ -127,8 +130,8 @@ diff --git a/fs/proc/task_mmu.c b/fs/proc/task_mmu.c
 +		long pages_pinned;
 +		struct page *page;
 +
-+		pages_pinned = get_user_pages_remote(current, mm,
-+				page_start_vaddr, 1, 0, &page, NULL, NULL);
++		pages_pinned = get_user_pages_remote(mm, page_start_vaddr, 1, 0,
++						     &page, NULL, NULL);
 +		if (pages_pinned < 1) {
 +			seq_puts(m, "<fault>]");
 +			return;
@@ -221,7 +224,7 @@ diff --git a/fs/userfaultfd.c b/fs/userfaultfd.c
 diff --git a/include/linux/mm.h b/include/linux/mm.h
 --- a/include/linux/mm.h
 +++ b/include/linux/mm.h
-@@ -2481,7 +2481,7 @@ static inline int vma_adjust(struct vm_area_struct *vma, unsigned long start,
+@@ -2483,7 +2483,7 @@ static inline int vma_adjust(struct vm_area_struct *vma, unsigned long start,
  extern struct vm_area_struct *vma_merge(struct mm_struct *,
  	struct vm_area_struct *prev, unsigned long addr, unsigned long end,
  	unsigned long vm_flags, struct anon_vma *, struct file *, pgoff_t,

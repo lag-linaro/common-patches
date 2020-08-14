@@ -7,12 +7,10 @@ Signed-off-by: Eric Biggers <ebiggers@google.com>
 ---
  ANNOTATIONS | 1 +
  1 file changed, 1 insertion(+)
- create mode 100644 ANNOTATIONS
 
 diff --git a/ANNOTATIONS b/ANNOTATIONS
-new file mode 100644
-index 000000000000..eb158d686b9b
---- /dev/null
+--- a/ANNOTATIONS
 +++ b/ANNOTATIONS
-@@ -0,0 +1 @@
+@@ -1 +1,2 @@
+ pending upstream
 +Android vendor hooks

@@ -32,7 +32,7 @@ diff --git a/drivers/clk/clk.c b/drivers/clk/clk.c
  	unsigned int		enable_count;
  	unsigned int		prepare_count;
  	unsigned int		protect_count;
-@@ -1304,6 +1306,38 @@ static int __init clk_disable_unused(void)
+@@ -1298,6 +1300,38 @@ static int __init clk_disable_unused(void)
  }
  late_initcall_sync(clk_disable_unused);
  
@@ -71,7 +71,7 @@ diff --git a/drivers/clk/clk.c b/drivers/clk/clk.c
  static int clk_core_determine_round_nolock(struct clk_core *core,
  					   struct clk_rate_request *req)
  {
-@@ -1710,6 +1744,33 @@ int clk_hw_get_parent_index(struct clk_hw *hw)
+@@ -1704,6 +1738,33 @@ int clk_hw_get_parent_index(struct clk_hw *hw)
  }
  EXPORT_SYMBOL_GPL(clk_hw_get_parent_index);
  
@@ -105,7 +105,7 @@ diff --git a/drivers/clk/clk.c b/drivers/clk/clk.c
  /*
   * Update the orphan status of @core and all its children.
   */
-@@ -3353,6 +3414,7 @@ static void clk_core_reparent_orphans_nolock(void)
+@@ -3376,6 +3437,7 @@ static void clk_core_reparent_orphans_nolock(void)
  			__clk_set_parent_after(orphan, parent, NULL);
  			__clk_recalc_accuracies(orphan);
  			__clk_recalc_rates(orphan, 0);
@@ -113,7 +113,7 @@ diff --git a/drivers/clk/clk.c b/drivers/clk/clk.c
  		}
  	}
  }
-@@ -3511,6 +3573,8 @@ static int __clk_core_init(struct clk_core *core)
+@@ -3534,6 +3596,8 @@ static int __clk_core_init(struct clk_core *core)
  		rate = 0;
  	core->rate = core->req_rate = rate;
  
@@ -122,7 +122,7 @@ diff --git a/drivers/clk/clk.c b/drivers/clk/clk.c
  	/*
  	 * Enable CLK_IS_CRITICAL clocks so newly added critical clocks
  	 * don't get accidentally disabled when walking the orphan tree and
-@@ -3537,6 +3601,7 @@ static int __clk_core_init(struct clk_core *core)
+@@ -3560,6 +3624,7 @@ static int __clk_core_init(struct clk_core *core)
  		}
  	}
  

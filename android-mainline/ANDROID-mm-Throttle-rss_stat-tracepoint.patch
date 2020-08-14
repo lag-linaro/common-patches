@@ -22,7 +22,7 @@ Signed-off-by: Joel Fernandes <joelaf@google.com>
 diff --git a/include/linux/mm.h b/include/linux/mm.h
 --- a/include/linux/mm.h
 +++ b/include/linux/mm.h
-@@ -1865,27 +1865,28 @@ static inline unsigned long get_mm_counter(struct mm_struct *mm, int member)
+@@ -1867,27 +1867,28 @@ static inline unsigned long get_mm_counter(struct mm_struct *mm, int member)
  	return (unsigned long)val;
  }
  
@@ -58,7 +58,7 @@ diff --git a/include/linux/mm.h b/include/linux/mm.h
 diff --git a/mm/memory.c b/mm/memory.c
 --- a/mm/memory.c
 +++ b/mm/memory.c
-@@ -153,9 +153,21 @@ static int __init init_zero_pfn(void)
+@@ -155,9 +155,21 @@ static int __init init_zero_pfn(void)
  }
  core_initcall(init_zero_pfn);
  

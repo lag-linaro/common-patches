@@ -11,7 +11,7 @@ Signed-off-by: Eric Biggers <ebiggers@google.com>
 diff --git a/ANNOTATIONS b/ANNOTATIONS
 --- a/ANNOTATIONS
 +++ b/ANNOTATIONS
-@@ -10,3 +10,4 @@ cpufreq changes
+@@ -11,3 +11,4 @@ cpufreq changes
  mm (memory management) changes
  security changes
  binder changes

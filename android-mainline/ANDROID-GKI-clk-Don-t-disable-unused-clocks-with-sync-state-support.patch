@@ -34,7 +34,7 @@ Change-Id: I1f1dbca4994a5b7085930996e1cc5e848266436c
 diff --git a/drivers/clk/clk.c b/drivers/clk/clk.c
 --- a/drivers/clk/clk.c
 +++ b/drivers/clk/clk.c
-@@ -1202,6 +1202,10 @@ static void __init clk_unprepare_unused_subtree(struct clk_core *core)
+@@ -1196,6 +1196,10 @@ static void __init clk_unprepare_unused_subtree(struct clk_core *core)
  	hlist_for_each_entry(child, &core->children, child_node)
  		clk_unprepare_unused_subtree(child);
  
@@ -45,7 +45,7 @@ diff --git a/drivers/clk/clk.c b/drivers/clk/clk.c
  	if (core->prepare_count)
  		return;
  
-@@ -1233,6 +1237,10 @@ static void __init clk_disable_unused_subtree(struct clk_core *core)
+@@ -1227,6 +1231,10 @@ static void __init clk_disable_unused_subtree(struct clk_core *core)
  	hlist_for_each_entry(child, &core->children, child_node)
  		clk_disable_unused_subtree(child);
  
