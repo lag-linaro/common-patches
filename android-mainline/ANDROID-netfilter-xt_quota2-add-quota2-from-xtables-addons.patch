@@ -1,18 +1,17 @@
 From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
 From: JP Abgrall <jpa@google.com>
 Date: Tue, 21 Jun 2011 11:14:49 -0700
-Subject: ANDROID: netfilter: xt_quota2: adding the original quota2 from
- xtables-addons
+Subject: ANDROID: netfilter: xt_quota2: add quota2 from xtables-addons
 
-The original xt_quota in the kernel is plain broken:
+xt_quota in the kernel is plain broken:
   - counts quota at a per CPU level
     (was written back when ubiquitous SMP was just a dream)
   - provides no way to count across IPV4/IPV6.
 
-This patch is the original unaltered code from:
-  http://sourceforge.net/projects/xtables-addons
-
-  at commit e84391ce665cef046967f796dd91026851d6bbf3
+Therefore this patch adds xt_quota2, derived from
+"extensions/xt_quota2.c" from xtables-addons
+(https://sourceforge.net/projects/xtables-addons)
+at commit e84391ce665cef046967f796dd91026851d6bbf3.
 
 Bug: 120445421
 Change-Id: I19d49858840effee9ecf6cff03c23b45a97efdeb
@@ -23,6 +22,11 @@ Signed-off-by: Alistair Delva <adelva@google.com>
 [maennich: Folded eab894210465 ("ANDROID: fix kernelci build-break")
            into this patch]
 Signed-off-by: Matthias Maennich <maennich@google.com>
+[ebiggers: Folded in the following commits:
+           8a35207f24f0 ("ANDROID: fix up xt_quota2 for proc_ops changes")
+           91e5e077d8df ("ANDROID: move up spin_unlock_bh() ahead of remove_proc_entry()").
+           Also updated the commit message.]
+Signed-off-by: Eric Biggers <ebiggers@google.com>
 ---
  include/linux/netfilter/xt_quota2.h |  26 ++
  net/netfilter/Kconfig               |  23 ++
@@ -110,7 +114,7 @@ diff --git a/net/netfilter/Makefile b/net/netfilter/Makefile
  obj-$(CONFIG_NETFILTER_XT_MATCH_RECENT) += xt_recent.o
 diff --git a/net/netfilter/xt_quota2.c b/net/netfilter/xt_quota2.c
 new file mode 100644
-index 000000000000..24b774263aa6
+index 000000000000..7ed29d40dee0
 --- /dev/null
 +++ b/net/netfilter/xt_quota2.c
 @@ -0,0 +1,401 @@
@@ -285,10 +289,10 @@ index 000000000000..24b774263aa6
 +	return size;
 +}
 +
-+static const struct file_operations q2_counter_fops = {
-+	.read		= quota_proc_read,
-+	.write		= quota_proc_write,
-+	.llseek		= default_llseek,
++static const struct proc_ops q2_counter_fops = {
++	.proc_read	= quota_proc_read,
++	.proc_write	= quota_proc_write,
++	.proc_lseek	= default_llseek,
 +};
 +
 +static struct xt_quota_counter *
@@ -412,8 +416,8 @@ index 000000000000..24b774263aa6
 +	}
 +
 +	list_del(&e->list);
-+	remove_proc_entry(e->name, proc_xt_quota);
 +	spin_unlock_bh(&counter_list_lock);
++	remove_proc_entry(e->name, proc_xt_quota);
 +	kfree(e);
 +}
 +

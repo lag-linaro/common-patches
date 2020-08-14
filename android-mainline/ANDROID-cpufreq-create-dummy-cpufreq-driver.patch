@@ -22,7 +22,9 @@ Signed-off-by: Connor O'Brien <connoro@google.com>
 [maennich: Folded the following patch into this patch
            50118fa88e6a ("ANDROID: dummy_cpufreq: Implement get()")]
 Signed-off-by: Matthias Maennich <maennich@google.com>
-[ebiggers: split the gki_defconfig changes into a separate patch]
+[ebiggers: Folded in the following commit:
+           10852347dc32 ("ANDROID: dummy-cpufreq: fix up 5.6-rc1 API changes").
+           Also split the gki_defconfig changes into a separate patch.]
 Signed-off-by: Eric Biggers <ebiggers@google.com>
 ---
  drivers/cpufreq/Kconfig         |  9 +++++
@@ -64,7 +66,7 @@ diff --git a/drivers/cpufreq/Makefile b/drivers/cpufreq/Makefile
  # Link order matters. K8 is preferred to ACPI because of firmware bugs in early
 diff --git a/drivers/cpufreq/dummy-cpufreq.c b/drivers/cpufreq/dummy-cpufreq.c
 new file mode 100644
-index 000000000000..ea40d5c7a9fa
+index 000000000000..e74ef6782e5a
 --- /dev/null
 +++ b/drivers/cpufreq/dummy-cpufreq.c
 @@ -0,0 +1,60 @@
@@ -98,7 +100,7 @@ index 000000000000..ea40d5c7a9fa
 +	return 1;
 +}
 +
-+static int dummy_cpufreq_verify(struct cpufreq_policy *policy)
++static int dummy_cpufreq_verify(struct cpufreq_policy_data *data)
 +{
 +	return 0;
 +}

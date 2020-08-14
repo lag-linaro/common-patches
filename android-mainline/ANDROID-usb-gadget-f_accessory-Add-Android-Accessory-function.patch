@@ -38,13 +38,16 @@ Signed-off-by: Alistair Delva <adelva@google.com>
 [maennich: Folded the following patch in this patch:
            f4f6f40ebc62 ("ANDROID: usb: gadget: Fix dependency for f_accessory")]
 Signed-off-by: Matthias Maennich <maennich@google.com>
+[ebiggers: Folded in the following commit:
+           fd734b5e295a ("ANDROID: USB: f_accessory: Check dev pointer before decoding ctrl request")]
+Signed-off-by: Eric Biggers <ebiggers@google.com>
 ---
  drivers/usb/gadget/Kconfig                |   11 +
  drivers/usb/gadget/function/Makefile      |    2 +
- drivers/usb/gadget/function/f_accessory.c | 1352 +++++++++++++++++++++
+ drivers/usb/gadget/function/f_accessory.c | 1358 +++++++++++++++++++++
  include/linux/usb/f_accessory.h           |   23 +
  include/uapi/linux/usb/f_accessory.h      |  146 +++
- 5 files changed, 1534 insertions(+)
+ 5 files changed, 1540 insertions(+)
  create mode 100644 drivers/usb/gadget/function/f_accessory.c
  create mode 100644 include/linux/usb/f_accessory.h
  create mode 100644 include/uapi/linux/usb/f_accessory.h
@@ -88,10 +91,10 @@ diff --git a/drivers/usb/gadget/function/Makefile b/drivers/usb/gadget/function/
 +obj-$(CONFIG_USB_F_ACC)		+= usb_f_accessory.o
 diff --git a/drivers/usb/gadget/function/f_accessory.c b/drivers/usb/gadget/function/f_accessory.c
 new file mode 100644
-index 000000000000..7aa2656a2328
+index 000000000000..d33229c35282
 --- /dev/null
 +++ b/drivers/usb/gadget/function/f_accessory.c
-@@ -0,0 +1,1352 @@
+@@ -0,0 +1,1358 @@
 +/*
 + * Gadget Function Driver for Android USB accessories
 + *
@@ -927,6 +930,12 @@ index 000000000000..7aa2656a2328
 +	u16	w_length = le16_to_cpu(ctrl->wLength);
 +	unsigned long flags;
 +
++	/*
++	 * If instance is not created which is the case in power off charging
++	 * mode, dev will be NULL. Hence return error if it is the case.
++	 */
++	if (!dev)
++		return -ENODEV;
 +/*
 +	printk(KERN_INFO "acc_ctrlrequest "
 +			"%02x.%02x v%04x i%04x l%u\n",
