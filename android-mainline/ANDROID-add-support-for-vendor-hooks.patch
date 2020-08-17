@@ -104,7 +104,7 @@ diff --git a/drivers/android/Kconfig b/drivers/android/Kconfig
 +config ANDROID_VENDOR_HOOKS
 +	bool "Android Vendor Hooks"
 +	depends on TRACEPOINTS
-+	---help---
++	help
 +	  Enable vendor hooks implemented as tracepoints
 +
 +	  Allow vendor modules to attach to tracepoint "hooks" defined via

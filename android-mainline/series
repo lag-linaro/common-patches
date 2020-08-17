@@ -2,7 +2,7 @@
 # android-mainline patches
 #
 # Applies onto upstream a1d21081a60d Linux v5.8-13249-ga1d21081a60d
-# Matches android-mainline 682b15d47163 ("Merge a1d21081a60d ("Merge git://git.kernel.org/pub/scm/linux/kernel/git/netdev/net") into android-mainline")
+# Matches android-mainline 9edfd6c57a10 ("ANDROID: fix up Android-specific Kconfig ---help--- strings")
 #
 _____ANNOTATION-pending-upstream_____.patch
 FROMLIST-exec-Restore-EACCES-of-S_ISDIR-execve.patch
@@ -142,6 +142,7 @@ ANDROID-Export-functions-to-be-used-with-dma_map_ops-in-modules.patch
 ANDROID-Export-dma_heap_add-to-modularize-heaps.patch
 ANDROID-drivers-firmware-psci-Register-with-kernel-restart-handler.patch
 _____ANNOTATION-tty-changes_____.patch
+Revert-Revert-tty-serial-samsung_tty-build-it-for-any-platform.patch
 FROMLIST-tty-serial-qcom_geni_serial-Drop-__init-from-qcom_geni_console_setup.patch
 ANDROID-serdev-add-platform-device-support.patch
 ANDROID-serdev-restrict-claim-of-platform-devices.patch
@@ -517,4 +518,5 @@ ANDROID-enable-CONFIG_INIT_STACK_ALL_ZERO-y.patch
 ANDROID-Add-build.config.gki-debug.patch
 ANDROID-GKI-enable-LEDS_CLASS_FLASH.patch
 ANDROID-GKI-enable-CONFIG_LEDS_TRIGGER_TIMER.patch
+ANDROID-gki-Set-CONFIG_SERIAL_SAMSUNG-for-early-con.patch
 _____ANNOTATION-remove-ANNOTATIONS-file_____.patch
