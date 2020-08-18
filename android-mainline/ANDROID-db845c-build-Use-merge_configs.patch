@@ -18,9 +18,9 @@ Change-Id: I32d5d6576bb4bdc115b32e7e7ef3ef1e9daa2323
 diff --git a/build.config.db845c b/build.config.db845c
 --- a/build.config.db845c
 +++ b/build.config.db845c
-@@ -2,8 +2,8 @@
- . ${ROOT_DIR}/common/build.config.aarch64
+@@ -3,8 +3,8 @@
  
+ BUILD_INITRAMFS=1
  DEFCONFIG=db845c_gki_defconfig
 -PRE_DEFCONFIG_CMDS="cat ./common/arch/arm64/configs/gki_defconfig ./common/arch/arm64/configs/db845c_gki.fragment > ./common/arch/arm64/configs/${DEFCONFIG};"
 -POST_DEFCONFIG_CMDS="rm ./common/arch/arm64/configs/${DEFCONFIG}"

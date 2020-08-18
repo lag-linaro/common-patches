@@ -2,7 +2,7 @@
 # android-mainline patches
 #
 # Applies onto upstream 9123e3a74ec7 Linux v5.9-rc1
-# Matches android-mainline 2a3286f860e0 ("Merge 5.9-rc1 into android-mainline")
+# Matches android-mainline 29f30c592bd7 ("ANDROID: net: xfrm: make PF_KEY SHA256 use RFC-compliant truncation. [v2]")
 #
 _____ANNOTATION-pending-upstream_____.patch
 _____ANNOTATION-Android-vendor-hooks_____.patch
@@ -314,6 +314,7 @@ ANDROID-db845c_gki.fragment-Enable-config-options-to-support-wifi-on-db845c.patc
 ANDROID-db845c_gki.fragment-Remove-nonexistent-CONFIG_USB_DWC3_DISABLE_GADGET_SG-value.patch
 ANDROID-lt9611-Sync-w-Vinod-s-most-recent-lt9611-patches-which-enable-HDMI-audio.patch
 ANDROID-db845c_gki.fragment-Add-audio-configs.patch
+ANDROID-db845c-set-BUILD_INITRAMFS-1.patch
 _____ANNOTATION-Android-kconfigs-and-build-scripts_____.patch
 ANDROID-Expose-gki_defconfig-to-build.config.patch
 ANDROID-gki_defconfig-initial-config.patch
@@ -517,4 +518,6 @@ ANDROID-Add-build.config.gki-debug.patch
 ANDROID-GKI-enable-LEDS_CLASS_FLASH.patch
 ANDROID-GKI-enable-CONFIG_LEDS_TRIGGER_TIMER.patch
 ANDROID-gki-Set-CONFIG_SERIAL_SAMSUNG-for-early-con.patch
+ANDROID-GKI-Enable-CEC-support.patch
+ANDROID-GKI-Build-CEC_-CORE-NOTIFIER-PIN-in.patch
 _____ANNOTATION-remove-ANNOTATIONS-file_____.patch

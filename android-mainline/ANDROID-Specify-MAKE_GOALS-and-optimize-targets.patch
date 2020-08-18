@@ -64,7 +64,7 @@ diff --git a/build.config.arm b/build.config.arm
 diff --git a/build.config.db845c b/build.config.db845c
 --- a/build.config.db845c
 +++ b/build.config.db845c
-@@ -5,7 +5,12 @@ DEFCONFIG=db845c_gki_defconfig
+@@ -6,7 +6,12 @@ DEFCONFIG=db845c_gki_defconfig
  PRE_DEFCONFIG_CMDS="cat ./common/arch/arm64/configs/gki_defconfig ./common/arch/arm64/configs/db845c_gki.fragment > ./common/arch/arm64/configs/${DEFCONFIG};"
  POST_DEFCONFIG_CMDS="rm ./common/arch/arm64/configs/${DEFCONFIG}"
  
