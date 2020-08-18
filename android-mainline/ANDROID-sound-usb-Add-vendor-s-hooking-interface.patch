@@ -190,7 +190,7 @@ diff --git a/sound/usb/card.c b/sound/usb/card.c
 diff --git a/sound/usb/card.h b/sound/usb/card.h
 --- a/sound/usb/card.h
 +++ b/sound/usb/card.h
-@@ -185,4 +185,21 @@ struct snd_usb_substream *find_snd_usb_substream(unsigned int card_num,
+@@ -186,4 +186,21 @@ struct snd_usb_substream *find_snd_usb_substream(unsigned int card_num,
  	unsigned int pcm_idx, unsigned int direction, struct snd_usb_audio
  	**uchip, void (*disconnect_cb)(struct snd_usb_audio *chip));
  

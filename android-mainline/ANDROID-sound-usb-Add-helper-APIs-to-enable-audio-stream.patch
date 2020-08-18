@@ -127,7 +127,7 @@ diff --git a/sound/usb/card.c b/sound/usb/card.c
 diff --git a/sound/usb/card.h b/sound/usb/card.h
 --- a/sound/usb/card.h
 +++ b/sound/usb/card.h
-@@ -181,4 +181,8 @@ struct snd_usb_stream {
+@@ -182,4 +182,8 @@ struct snd_usb_stream {
  	struct list_head list;
  };
  

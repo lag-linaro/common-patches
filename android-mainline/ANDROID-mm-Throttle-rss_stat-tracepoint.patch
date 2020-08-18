@@ -22,7 +22,7 @@ Signed-off-by: Joel Fernandes <joelaf@google.com>
 diff --git a/include/linux/mm.h b/include/linux/mm.h
 --- a/include/linux/mm.h
 +++ b/include/linux/mm.h
-@@ -1867,27 +1867,28 @@ static inline unsigned long get_mm_counter(struct mm_struct *mm, int member)
+@@ -1868,27 +1868,28 @@ static inline unsigned long get_mm_counter(struct mm_struct *mm, int member)
  	return (unsigned long)val;
  }
  

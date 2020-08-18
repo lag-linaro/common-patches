@@ -105,8 +105,8 @@ diff --git a/include/linux/pwm.h b/include/linux/pwm.h
   * struct pwm_state - state of a PWM channel
   * @period: PWM period (in nanoseconds)
 @@ -59,6 +70,7 @@ struct pwm_state {
- 	unsigned int period;
- 	unsigned int duty_cycle;
+ 	u64 period;
+ 	u64 duty_cycle;
  	enum pwm_polarity polarity;
 +	enum pwm_output_type output_type;
  	bool enabled;

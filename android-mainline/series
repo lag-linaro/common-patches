@@ -1,11 +1,10 @@
 #
 # android-mainline patches
 #
-# Applies onto upstream a1d21081a60d Linux v5.8-13249-ga1d21081a60d
-# Matches android-mainline 9edfd6c57a10 ("ANDROID: fix up Android-specific Kconfig ---help--- strings")
+# Applies onto upstream 4b6c093e21d3 Linux v5.8-13660-g4b6c093e21d3
+# Matches android-mainline df7e491a37d9 ("Merge 4b6c093e21d3 ("Merge tag 'block-5.9-2020-08-14' of git://git.kernel.dk/linux-block") into android-mainline")
 #
 _____ANNOTATION-pending-upstream_____.patch
-FROMLIST-exec-Restore-EACCES-of-S_ISDIR-execve.patch
 _____ANNOTATION-Android-vendor-hooks_____.patch
 ANDROID-GKI-add-android_vendor.h.patch
 ANDROID-add-support-for-vendor-hooks.patch

@@ -26,7 +26,7 @@ Signed-off-by: Quentin Perret <quentin.perret@arm.com>
 diff --git a/kernel/sched/core.c b/kernel/sched/core.c
 --- a/kernel/sched/core.c
 +++ b/kernel/sched/core.c
-@@ -7857,6 +7857,27 @@ static int cpu_uclamp_max_show(struct seq_file *sf, void *v)
+@@ -7850,6 +7850,27 @@ static int cpu_uclamp_max_show(struct seq_file *sf, void *v)
  	cpu_uclamp_print(sf, UCLAMP_MAX);
  	return 0;
  }
@@ -54,7 +54,7 @@ diff --git a/kernel/sched/core.c b/kernel/sched/core.c
  #endif /* CONFIG_UCLAMP_TASK_GROUP */
  
  #ifdef CONFIG_FAIR_GROUP_SCHED
-@@ -8225,6 +8246,12 @@ static struct cftype cpu_legacy_files[] = {
+@@ -8218,6 +8239,12 @@ static struct cftype cpu_legacy_files[] = {
  		.seq_show = cpu_uclamp_max_show,
  		.write = cpu_uclamp_max_write,
  	},
@@ -67,7 +67,7 @@ diff --git a/kernel/sched/core.c b/kernel/sched/core.c
  #endif
  	{ }	/* Terminate */
  };
-@@ -8406,6 +8433,12 @@ static struct cftype cpu_files[] = {
+@@ -8399,6 +8426,12 @@ static struct cftype cpu_files[] = {
  		.seq_show = cpu_uclamp_max_show,
  		.write = cpu_uclamp_max_write,
  	},
