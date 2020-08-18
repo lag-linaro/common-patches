@@ -2,7 +2,7 @@
 # android-mainline patches
 #
 # Applies onto upstream 4b6c093e21d3 Linux v5.8-13660-g4b6c093e21d3
-# Matches android-mainline df7e491a37d9 ("Merge 4b6c093e21d3 ("Merge tag 'block-5.9-2020-08-14' of git://git.kernel.dk/linux-block") into android-mainline")
+# Matches android-mainline b05e7404b71a ("ANDROID: fix up bad merge resolution / bad revert in soc_pcm_hw_params()")
 #
 _____ANNOTATION-pending-upstream_____.patch
 _____ANNOTATION-Android-vendor-hooks_____.patch
@@ -175,9 +175,7 @@ FROMLIST-dma-buf-add-support-for-virtio-exported-objects.patch
 FROMLIST-drm-prime-add-support-for-virtio-exported-objects.patch
 _____ANNOTATION-sound-changes_____.patch
 ANDROID-SoC-core-Introduce-macro-SOC_SINGLE_MULTI_EXT.patch
-ANDROID-ASoC-Fix-allmodconfig-build-break.patch
 ANDROID-sound-usb-Add-helper-APIs-to-enable-audio-stream.patch
-ANDROID-ASoC-core-Fix-soc_pcm_hw_params-crash.patch
 ANDROID-sound-usb-Ensure-UAC3-Power-Domain-is-set-to-D0-when-enabling-stream.patch
 ANDROID-sound-usb-Add-vendor-s-hooking-interface.patch
 _____ANNOTATION-media-changes_____.patch
@@ -230,6 +228,7 @@ ANDROID-ext4-Handle-casefolding-with-encryption.patch
 ANDROID-ext4-Optimize-match-for-casefolded-encrypted-dirs.patch
 ANDROID-f2fs-Handle-casefolding-with-Encryption.patch
 ANDROID-GKI-Don-t-compact-fuse_req-when-CONFIG_VIRTIO_FS-n.patch
+ANDROID-add-flags-variable-to-nfs4_xattr_get_nfs4_user.patch
 _____ANNOTATION-Incremental-filesystem_____.patch
 ANDROID-Initial-commit-of-Incremental-FS.patch
 ANDROID-Make-incfs-selftests-pass.patch
