@@ -1,8 +1,8 @@
 #
 # android-mainline patches
 #
-# Applies onto upstream 4b6c093e21d3 Linux v5.8-13660-g4b6c093e21d3
-# Matches android-mainline b05e7404b71a ("ANDROID: fix up bad merge resolution / bad revert in soc_pcm_hw_params()")
+# Applies onto upstream 9123e3a74ec7 Linux v5.9-rc1
+# Matches android-mainline 2a3286f860e0 ("Merge 5.9-rc1 into android-mainline")
 #
 _____ANNOTATION-pending-upstream_____.patch
 _____ANNOTATION-Android-vendor-hooks_____.patch
