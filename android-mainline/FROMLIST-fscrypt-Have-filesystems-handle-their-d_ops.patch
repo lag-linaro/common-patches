@@ -104,7 +104,7 @@ diff --git a/fs/ext4/namei.c b/fs/ext4/namei.c
 diff --git a/fs/ext4/super.c b/fs/ext4/super.c
 --- a/fs/ext4/super.c
 +++ b/fs/ext4/super.c
-@@ -4689,11 +4689,6 @@ static int ext4_fill_super(struct super_block *sb, void *data, int silent)
+@@ -4719,11 +4719,6 @@ static int ext4_fill_super(struct super_block *sb, void *data, int silent)
  		goto failed_mount4;
  	}
  
@@ -265,7 +265,7 @@ diff --git a/fs/ubifs/dir.c b/fs/ubifs/dir.c
 diff --git a/include/linux/fs.h b/include/linux/fs.h
 --- a/include/linux/fs.h
 +++ b/include/linux/fs.h
-@@ -3274,6 +3274,8 @@ extern int generic_ci_d_hash(const struct dentry *dentry, struct qstr *str);
+@@ -3277,6 +3277,8 @@ extern int generic_ci_d_hash(const struct dentry *dentry, struct qstr *str);
  extern int generic_ci_d_compare(const struct dentry *dentry, unsigned int len,
  				const char *str, const struct qstr *name);
  #endif

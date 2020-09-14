@@ -38,7 +38,7 @@ Signed-off-by: Park Bumgyu <bumgyu.park@samsung.com>
 diff --git a/drivers/android/vendor_hooks.c b/drivers/android/vendor_hooks.c
 --- a/drivers/android/vendor_hooks.c
 +++ b/drivers/android/vendor_hooks.c
-@@ -18,6 +18,13 @@
+@@ -19,6 +19,13 @@
   * associated with them) to allow external modules to probe them.
   */
  EXPORT_TRACEPOINT_SYMBOL_GPL(android_rvh_select_task_rq_fair);

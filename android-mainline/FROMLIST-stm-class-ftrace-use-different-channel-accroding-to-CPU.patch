@@ -1,0 +1,40 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: Tingwei Zhang <tingwei@codeaurora.org>
+Date: Sat, 18 Jul 2020 14:39:53 +0800
+Subject: FROMLIST: stm class: ftrace: use different channel accroding to CPU
+
+To avoid mixup of packets from differnt ftrace packets simultaneously,
+use different channel for packets from different CPU.
+
+Bug: 160464759
+Link: https://lore.kernel.org/patchwork/cover/1280618/
+Signed-off-by: Tingwei Zhang <tingwei@codeaurora.org>
+Reviewed-by: Steven Rostedt (VMware) <rostedt@goodmis.org>
+Change-Id: I5e0afe8e6fb60f73c4ce3165b80db38e60f82031
+---
+ drivers/hwtracing/stm/ftrace.c | 5 ++++-
+ 1 file changed, 4 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/hwtracing/stm/ftrace.c b/drivers/hwtracing/stm/ftrace.c
+--- a/drivers/hwtracing/stm/ftrace.c
++++ b/drivers/hwtracing/stm/ftrace.c
+@@ -37,8 +37,10 @@ static void notrace
+ stm_ftrace_write(struct trace_export *export, const void *buf, unsigned int len)
+ {
+ 	struct stm_ftrace *stm = container_of(export, struct stm_ftrace, ftrace);
++	/* This is called from trace system with preemption disabled */
++	unsigned int cpu = smp_processor_id();
+ 
+-	stm_source_write(&stm->data, STM_FTRACE_CHAN, buf, len);
++	stm_source_write(&stm->data, STM_FTRACE_CHAN + cpu, buf, len);
+ }
+ 
+ static int stm_ftrace_link(struct stm_source_data *data)
+@@ -63,6 +65,7 @@ static int __init stm_ftrace_init(void)
+ {
+ 	int ret;
+ 
++	stm_ftrace.data.nr_chans = num_possible_cpus();
+ 	ret = stm_source_register_device(NULL, &stm_ftrace.data);
+ 	if (ret)
+ 		pr_err("Failed to register stm_source - ftrace.\n");

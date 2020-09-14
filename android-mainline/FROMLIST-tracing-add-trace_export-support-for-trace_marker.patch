@@ -1,0 +1,69 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: Tingwei Zhang <tingwei@codeaurora.org>
+Date: Wed, 22 Jul 2020 18:44:32 +0800
+Subject: FROMLIST: tracing: add trace_export support for trace_marker
+
+Add the support to route trace_marker buffer to other destination
+via trace_export.
+
+Bug: 160464759
+Link: https://lore.kernel.org/patchwork/cover/1280618/
+Signed-off-by: Tingwei Zhang <tingwei@codeaurora.org>
+Reviewed-by: Steven Rostedt (VMware) <rostedt@goodmis.org>
+Change-Id: I870f1902e48d05947667ac0ecda7a9d17a982890
+---
+ include/linux/trace.h | 1 +
+ kernel/trace/trace.c  | 9 +++++++++
+ 2 files changed, 10 insertions(+)
+
+diff --git a/include/linux/trace.h b/include/linux/trace.h
+--- a/include/linux/trace.h
++++ b/include/linux/trace.h
+@@ -6,6 +6,7 @@
+ 
+ #define TRACE_EXPORT_FUNCTION	BIT(0)
+ #define TRACE_EXPORT_EVENT	BIT(1)
++#define TRACE_EXPORT_MARKER	BIT(2)
+ 
+ /*
+  * The trace export - an export of Ftrace output. The trace_export
+diff --git a/kernel/trace/trace.c b/kernel/trace/trace.c
+--- a/kernel/trace/trace.c
++++ b/kernel/trace/trace.c
+@@ -271,6 +271,7 @@ static struct trace_export __rcu *ftrace_exports_list __read_mostly;
+ 
+ static DEFINE_STATIC_KEY_FALSE(trace_function_exports_enabled);
+ static DEFINE_STATIC_KEY_FALSE(trace_event_exports_enabled);
++static DEFINE_STATIC_KEY_FALSE(trace_marker_exports_enabled);
+ 
+ static inline void ftrace_exports_enable(struct trace_export *export)
+ {
+@@ -279,6 +280,9 @@ static inline void ftrace_exports_enable(struct trace_export *export)
+ 
+ 	if (export->flags & TRACE_EXPORT_EVENT)
+ 		static_branch_inc(&trace_event_exports_enabled);
++
++	if (export->flags & TRACE_EXPORT_MARKER)
++		static_branch_inc(&trace_marker_exports_enabled);
+ }
+ 
+ static inline void ftrace_exports_disable(struct trace_export *export)
+@@ -288,6 +292,9 @@ static inline void ftrace_exports_disable(struct trace_export *export)
+ 
+ 	if (export->flags & TRACE_EXPORT_EVENT)
+ 		static_branch_dec(&trace_event_exports_enabled);
++
++	if (export->flags & TRACE_EXPORT_MARKER)
++		static_branch_dec(&trace_marker_exports_enabled);
+ }
+ 
+ static void ftrace_exports(struct ring_buffer_event *event, int flag)
+@@ -6687,6 +6694,8 @@ tracing_mark_write(struct file *filp, const char __user *ubuf,
+ 	} else
+ 		entry->buf[cnt] = '\0';
+ 
++	if (static_branch_unlikely(&trace_marker_exports_enabled))
++		ftrace_exports(event, TRACE_EXPORT_MARKER);
+ 	__buffer_unlock_commit(buffer, event);
+ 
+ 	if (tt)

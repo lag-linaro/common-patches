@@ -35,7 +35,7 @@ diff --git a/drivers/cpufreq/cpufreq.c b/drivers/cpufreq/cpufreq.c
  		policy->cur = freqs->new;
  	}
  }
-@@ -2060,9 +2060,15 @@ EXPORT_SYMBOL(cpufreq_unregister_notifier);
+@@ -2059,9 +2059,15 @@ EXPORT_SYMBOL(cpufreq_unregister_notifier);
  unsigned int cpufreq_driver_fast_switch(struct cpufreq_policy *policy,
  					unsigned int target_freq)
  {

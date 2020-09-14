@@ -21,7 +21,7 @@ Change-Id: Id6024fc2a3bbde1e46a29070981fa64b3f667075
 diff --git a/fs/ext4/ext4.h b/fs/ext4/ext4.h
 --- a/fs/ext4/ext4.h
 +++ b/fs/ext4/ext4.h
-@@ -2489,9 +2489,9 @@ extern unsigned ext4_free_clusters_after_init(struct super_block *sb,
+@@ -2522,9 +2522,9 @@ extern unsigned ext4_free_clusters_after_init(struct super_block *sb,
  ext4_fsblk_t ext4_inode_to_goal_block(struct inode *);
  
  #ifdef CONFIG_UNICODE
@@ -33,7 +33,7 @@ diff --git a/fs/ext4/ext4.h b/fs/ext4/ext4.h
  #endif
  
  #ifdef CONFIG_FS_ENCRYPTION
-@@ -2522,9 +2522,9 @@ static inline int ext4_fname_setup_filename(struct inode *dir,
+@@ -2555,9 +2555,9 @@ static inline int ext4_fname_setup_filename(struct inode *dir,
  	ext4_fname_from_fscrypt_name(fname, &name);
  
  #ifdef CONFIG_UNICODE
@@ -45,7 +45,7 @@ diff --git a/fs/ext4/ext4.h b/fs/ext4/ext4.h
  }
  
  static inline int ext4_fname_prepare_lookup(struct inode *dir,
-@@ -2541,9 +2541,9 @@ static inline int ext4_fname_prepare_lookup(struct inode *dir,
+@@ -2574,9 +2574,9 @@ static inline int ext4_fname_prepare_lookup(struct inode *dir,
  	ext4_fname_from_fscrypt_name(fname, &name);
  
  #ifdef CONFIG_UNICODE
@@ -57,7 +57,7 @@ diff --git a/fs/ext4/ext4.h b/fs/ext4/ext4.h
  }
  
  static inline void ext4_fname_free_filename(struct ext4_filename *fname)
-@@ -2568,15 +2568,16 @@ static inline int ext4_fname_setup_filename(struct inode *dir,
+@@ -2601,15 +2601,16 @@ static inline int ext4_fname_setup_filename(struct inode *dir,
  					    int lookup,
  					    struct ext4_filename *fname)
  {
@@ -158,7 +158,7 @@ diff --git a/fs/ext4/namei.c b/fs/ext4/namei.c
  			}
  			return !ext4_ci_compare(parent, &cf, de->name,
  							de->name_len, true);
-@@ -2057,15 +2065,11 @@ void ext4_insert_dentry(struct inode *dir,
+@@ -2067,15 +2075,11 @@ void ext4_insert_dentry(struct inode *dir,
  	de->name_len = fname_len(fname);
  	memcpy(de->name, fname_name(fname), fname_len(fname));
  	if (ext4_hash_in_dirent(dir)) {
@@ -177,7 +177,7 @@ diff --git a/fs/ext4/namei.c b/fs/ext4/namei.c
  	}
  }
  
-@@ -2216,10 +2220,9 @@ static int make_indexed_dir(handle_t *handle, struct ext4_filename *fname,
+@@ -2226,10 +2230,9 @@ static int make_indexed_dir(handle_t *handle, struct ext4_filename *fname,
  	if (fname->hinfo.hash_version <= DX_HASH_TEA)
  		fname->hinfo.hash_version += EXT4_SB(dir->i_sb)->s_hash_unsigned;
  	fname->hinfo.seed = EXT4_SB(dir->i_sb)->s_hash_seed;

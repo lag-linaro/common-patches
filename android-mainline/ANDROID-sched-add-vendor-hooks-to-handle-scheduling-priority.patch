@@ -19,7 +19,7 @@ Change-Id: Ic85835852690d0060666107d9108560f5023496b
 diff --git a/drivers/android/vendor_hooks.c b/drivers/android/vendor_hooks.c
 --- a/drivers/android/vendor_hooks.c
 +++ b/drivers/android/vendor_hooks.c
-@@ -25,6 +25,11 @@ EXPORT_TRACEPOINT_SYMBOL_GPL(android_rvh_enqueue_task);
+@@ -26,6 +26,11 @@ EXPORT_TRACEPOINT_SYMBOL_GPL(android_rvh_enqueue_task);
  EXPORT_TRACEPOINT_SYMBOL_GPL(android_rvh_dequeue_task);
  EXPORT_TRACEPOINT_SYMBOL_GPL(android_rvh_can_migrate_task);
  EXPORT_TRACEPOINT_SYMBOL_GPL(android_rvh_find_lowest_rq);

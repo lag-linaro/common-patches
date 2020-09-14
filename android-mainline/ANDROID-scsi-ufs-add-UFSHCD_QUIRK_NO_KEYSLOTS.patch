@@ -1,0 +1,74 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: Eric Biggers <ebiggers@google.com>
+Date: Sat, 22 Aug 2020 10:47:33 -0700
+Subject: ANDROID: scsi: ufs: add UFSHCD_QUIRK_NO_KEYSLOTS
+
+Add UFSHCD_QUIRK_NO_KEYSLOTS which tells ufshcd-core that the host
+controller supports encryption, but it uses a nonstandard mechanism
+where the standard crypto registers aren't used and there is no concept
+of keyslots.  ufs_hba_variant_ops::init() is expected to initialize
+ufs_hba::ksm as a passthrough keyslot manager.
+
+This is needed for FMP support.
+
+Bug: 166139333
+Bug: 162257402
+Change-Id: Ieb77b3713b2624490dad4f86d44ef16461dd8ce7
+Signed-off-by: Eric Biggers <ebiggers@google.com>
+---
+ drivers/scsi/ufs/ufshcd-crypto.c | 9 +++++++++
+ drivers/scsi/ufs/ufshcd.h        | 9 +++++++++
+ 2 files changed, 18 insertions(+)
+
+diff --git a/drivers/scsi/ufs/ufshcd-crypto.c b/drivers/scsi/ufs/ufshcd-crypto.c
+--- a/drivers/scsi/ufs/ufshcd-crypto.c
++++ b/drivers/scsi/ufs/ufshcd-crypto.c
+@@ -119,6 +119,9 @@ bool ufshcd_crypto_enable(struct ufs_hba *hba)
+ 	if (!(hba->caps & UFSHCD_CAP_CRYPTO))
+ 		return false;
+ 
++	if (hba->quirks & UFSHCD_QUIRK_NO_KEYSLOTS)
++		return false;
++
+ 	/* Reset might clear all keys, so reprogram all the keys. */
+ 	blk_ksm_reprogram_all_keys(&hba->ksm);
+ 	return true;
+@@ -157,6 +160,9 @@ int ufshcd_hba_init_crypto_capabilities(struct ufs_hba *hba)
+ 	int err = 0;
+ 	enum blk_crypto_mode_num blk_mode_num;
+ 
++	if (hba->quirks & UFSHCD_QUIRK_NO_KEYSLOTS)
++		return 0;
++
+ 	/*
+ 	 * Don't use crypto if either the hardware doesn't advertise the
+ 	 * standard crypto capability bit *or* if the vendor specific driver
+@@ -227,6 +233,9 @@ void ufshcd_init_crypto(struct ufs_hba *hba)
+ 	if (!(hba->caps & UFSHCD_CAP_CRYPTO))
+ 		return;
+ 
++	if (hba->quirks & UFSHCD_QUIRK_NO_KEYSLOTS)
++		return;
++
+ 	/* Clear all keyslots - the number of keyslots is (CFGC + 1) */
+ 	for (slot = 0; slot < hba->crypto_capabilities.config_count + 1; slot++)
+ 		ufshcd_clear_keyslot(hba, slot);
+diff --git a/drivers/scsi/ufs/ufshcd.h b/drivers/scsi/ufs/ufshcd.h
+--- a/drivers/scsi/ufs/ufshcd.h
++++ b/drivers/scsi/ufs/ufshcd.h
+@@ -530,6 +530,15 @@ enum ufshcd_quirks {
+ 	 * auto-hibernate capability but it doesn't work.
+ 	 */
+ 	UFSHCD_QUIRK_BROKEN_AUTO_HIBERN8		= 1 << 11,
++
++	/*
++	 * This quirk needs to be enabled if the host controller supports inline
++	 * encryption, but it uses a nonstandard mechanism where the standard
++	 * crypto registers aren't used and there is no concept of keyslots.
++	 * ufs_hba_variant_ops::init() is expected to initialize ufs_hba::ksm as
++	 * a passthrough keyslot manager.
++	 */
++	UFSHCD_QUIRK_NO_KEYSLOTS			= 1 << 12,
+ };
+ 
+ enum ufshcd_caps {

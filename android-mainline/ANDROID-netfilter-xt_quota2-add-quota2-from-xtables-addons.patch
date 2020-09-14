@@ -25,14 +25,15 @@ Signed-off-by: Matthias Maennich <maennich@google.com>
 [ebiggers: Folded in the following commits:
            8a35207f24f0 ("ANDROID: fix up xt_quota2 for proc_ops changes")
            91e5e077d8df ("ANDROID: move up spin_unlock_bh() ahead of remove_proc_entry()").
+           b20eacd8ddbd ("ANDROID: fix a bug in quota2")
            Also updated the commit message.]
 Signed-off-by: Eric Biggers <ebiggers@google.com>
 ---
  include/linux/netfilter/xt_quota2.h |  26 ++
  net/netfilter/Kconfig               |  23 ++
  net/netfilter/Makefile              |   1 +
- net/netfilter/xt_quota2.c           | 401 ++++++++++++++++++++++++++++
- 4 files changed, 451 insertions(+)
+ net/netfilter/xt_quota2.c           | 400 ++++++++++++++++++++++++++++
+ 4 files changed, 450 insertions(+)
  create mode 100644 include/linux/netfilter/xt_quota2.h
  create mode 100644 net/netfilter/xt_quota2.c
 
@@ -114,10 +115,10 @@ diff --git a/net/netfilter/Makefile b/net/netfilter/Makefile
  obj-$(CONFIG_NETFILTER_XT_MATCH_RECENT) += xt_recent.o
 diff --git a/net/netfilter/xt_quota2.c b/net/netfilter/xt_quota2.c
 new file mode 100644
-index 000000000000..7ed29d40dee0
+index 000000000000..2d87ad19b4bb
 --- /dev/null
 +++ b/net/netfilter/xt_quota2.c
-@@ -0,0 +1,401 @@
+@@ -0,0 +1,400 @@
 +/*
 + * xt_quota2 - enhanced xt_quota that can count upwards and in packets
 + * as a minimal accounting match.
@@ -426,6 +427,8 @@ index 000000000000..7ed29d40dee0
 +{
 +	struct xt_quota_mtinfo2 *q = (void *)par->matchinfo;
 +	struct xt_quota_counter *e = q->master;
++	int charge = (q->flags & XT_QUOTA_PACKET) ? 1 : skb->len;
++	bool no_change = q->flags & XT_QUOTA_NO_CHANGE;
 +	bool ret = q->flags & XT_QUOTA_INVERT;
 +
 +	spin_lock_bh(&e->lock);
@@ -434,24 +437,21 @@ index 000000000000..7ed29d40dee0
 +		 * While no_change is pointless in "grow" mode, we will
 +		 * implement it here simply to have a consistent behavior.
 +		 */
-+		if (!(q->flags & XT_QUOTA_NO_CHANGE)) {
-+			e->quota += (q->flags & XT_QUOTA_PACKET) ? 1 : skb->len;
-+		}
-+		ret = true;
++		if (!no_change)
++			e->quota += charge;
++		ret = true; /* note: does not respect inversion (bug??) */
 +	} else {
-+		if (e->quota >= skb->len) {
-+			if (!(q->flags & XT_QUOTA_NO_CHANGE))
-+				e->quota -= (q->flags & XT_QUOTA_PACKET) ? 1 : skb->len;
++		if (e->quota > charge) {
++			if (!no_change)
++				e->quota -= charge;
 +			ret = !ret;
-+		} else {
++		} else if (e->quota) {
 +			/* We are transitioning, log that fact. */
-+			if (e->quota) {
-+				quota2_log(xt_hooknum(par),
-+					   skb,
-+					   xt_in(par),
-+					   xt_out(par),
-+					   q->name);
-+			}
++			quota2_log(xt_hooknum(par),
++				   skb,
++				   xt_in(par),
++				   xt_out(par),
++				   q->name);
 +			/* we do not allow even small packets from now on */
 +			e->quota = 0;
 +		}

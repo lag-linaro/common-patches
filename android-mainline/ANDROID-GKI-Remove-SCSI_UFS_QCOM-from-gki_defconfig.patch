@@ -1,0 +1,26 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: Todd Kjos <tkjos@google.com>
+Date: Tue, 25 Aug 2020 16:07:36 -0700
+Subject: ANDROID: GKI: Remove SCSI_UFS_QCOM from gki_defconfig
+
+Remove building in CONFIG_SCSI_UFS_QCOM as the in-kernel driver is quite out of
+date so QCOM needs to use the out-of-tree version.
+
+Bug: 166075280
+Signed-off-by: Todd Kjos <tkjos@google.com>
+Change-Id: Ib1c4aace1553c0ab76d63e7c954ee0ff4ec144f8
+---
+ arch/arm64/configs/gki_defconfig | 1 -
+ 1 file changed, 1 deletion(-)
+
+diff --git a/arch/arm64/configs/gki_defconfig b/arch/arm64/configs/gki_defconfig
+--- a/arch/arm64/configs/gki_defconfig
++++ b/arch/arm64/configs/gki_defconfig
+@@ -229,7 +229,6 @@ CONFIG_BLK_DEV_SD=y
+ CONFIG_SCSI_UFSHCD=y
+ CONFIG_SCSI_UFSHCD_PCI=y
+ CONFIG_SCSI_UFSHCD_PLATFORM=y
+-CONFIG_SCSI_UFS_QCOM=y
+ CONFIG_SCSI_UFS_HISI=y
+ CONFIG_SCSI_UFS_CRYPTO=y
+ CONFIG_MD=y

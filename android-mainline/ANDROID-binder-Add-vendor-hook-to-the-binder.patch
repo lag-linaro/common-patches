@@ -96,10 +96,10 @@ diff --git a/drivers/android/vendor_hooks.c b/drivers/android/vendor_hooks.c
 +#include <trace/hooks/binder.h>
  #include <trace/hooks/rwsem.h>
  #include <trace/hooks/futex.h>
- 
-@@ -31,6 +32,9 @@ EXPORT_TRACEPOINT_SYMBOL_GPL(android_rvh_finish_prio_fork);
- EXPORT_TRACEPOINT_SYMBOL_GPL(android_rvh_set_user_nice);
+ #include <trace/hooks/dtask.h>
+@@ -36,6 +37,9 @@ EXPORT_TRACEPOINT_SYMBOL_GPL(android_rvh_set_user_nice);
  EXPORT_TRACEPOINT_SYMBOL_GPL(android_rvh_setscheduler);
+ EXPORT_TRACEPOINT_SYMBOL_GPL(android_vh_arch_set_freq_scale);
  EXPORT_TRACEPOINT_SYMBOL_GPL(android_vh_is_fpsimd_save);
 +EXPORT_TRACEPOINT_SYMBOL_GPL(android_vh_binder_transaction_init);
 +EXPORT_TRACEPOINT_SYMBOL_GPL(android_vh_binder_set_priority);

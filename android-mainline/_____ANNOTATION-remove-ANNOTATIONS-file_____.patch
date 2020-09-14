@@ -8,20 +8,21 @@ The ANNOTATION commits had to update this file as a workaround for
 
 Signed-off-by: Eric Biggers <ebiggers@google.com>
 ---
- ANNOTATIONS | 31 -------------------------------
- 1 file changed, 31 deletions(-)
+ ANNOTATIONS | 32 --------------------------------
+ 1 file changed, 32 deletions(-)
  delete mode 100644 ANNOTATIONS
 
 diff --git a/ANNOTATIONS b/ANNOTATIONS
 deleted file mode 100644
-index 533dc69a6a4b..000000000000
+index c01635f7d69e..000000000000
 --- a/ANNOTATIONS
 +++ /dev/null
-@@ -1,31 +0,0 @@
+@@ -1,32 +0,0 @@
 -pending upstream
 -Android vendor hooks
 -kbuild changes
--arm64 changes
+-x86 changes
+-arm and arm64 changes
 -iommu changes
 -core kernel changes
 -power management changes

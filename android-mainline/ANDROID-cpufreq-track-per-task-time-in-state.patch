@@ -82,7 +82,7 @@ diff --git a/drivers/cpufreq/cpufreq.c b/drivers/cpufreq/cpufreq.c
  		policy->cur = freqs->new;
  	}
  }
-@@ -1477,6 +1479,7 @@ static int cpufreq_online(unsigned int cpu)
+@@ -1476,6 +1478,7 @@ static int cpufreq_online(unsigned int cpu)
  			goto out_destroy_policy;
  
  		cpufreq_stats_create_table(policy);
@@ -384,7 +384,7 @@ index 000000000000..bfef6e62c68a
 diff --git a/include/linux/sched.h b/include/linux/sched.h
 --- a/include/linux/sched.h
 +++ b/include/linux/sched.h
-@@ -865,6 +865,10 @@ struct task_struct {
+@@ -866,6 +866,10 @@ struct task_struct {
  	u64				stimescaled;
  #endif
  	u64				gtime;

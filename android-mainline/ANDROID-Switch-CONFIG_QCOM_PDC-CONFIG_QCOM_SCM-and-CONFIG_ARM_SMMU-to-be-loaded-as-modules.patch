@@ -20,7 +20,7 @@ Change-Id: I0509628322b20dea5f7e16e973d93d369c0c2bff
 diff --git a/arch/arm64/configs/db845c_gki.fragment b/arch/arm64/configs/db845c_gki.fragment
 --- a/arch/arm64/configs/db845c_gki.fragment
 +++ b/arch/arm64/configs/db845c_gki.fragment
-@@ -96,6 +96,9 @@ CONFIG_QCOM_GLINK_SSR=m
+@@ -94,6 +94,9 @@ CONFIG_QCOM_GLINK_SSR=m
  CONFIG_RPMSG_QCOM_GLINK_RPM=m
  CONFIG_QCOM_SMD_RPM=m
  CONFIG_QCOM_RPMPD=m

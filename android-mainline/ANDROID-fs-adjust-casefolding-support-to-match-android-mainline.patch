@@ -51,7 +51,7 @@ diff --git a/fs/ext4/namei.c b/fs/ext4/namei.c
  		if (fname->cf_name.name) {
  			struct qstr cf = {.name = fname->cf_name.name,
  					  .len = fname->cf_name.len};
-@@ -2188,7 +2188,7 @@ static int ext4_add_entry(handle_t *handle, struct dentry *dentry,
+@@ -2198,7 +2198,7 @@ static int ext4_add_entry(handle_t *handle, struct dentry *dentry,
  		return -EINVAL;
  
  #ifdef CONFIG_UNICODE
@@ -231,7 +231,7 @@ diff --git a/include/linux/fs.h b/include/linux/fs.h
  	(sb->s_encoding_flags & SB_ENC_STRICT_MODE_FL)
  
  /*
-@@ -3273,6 +3273,12 @@ extern int generic_check_addressable(unsigned, u64);
+@@ -3276,6 +3276,12 @@ extern int generic_check_addressable(unsigned, u64);
  extern int generic_ci_d_hash(const struct dentry *dentry, struct qstr *str);
  extern int generic_ci_d_compare(const struct dentry *dentry, unsigned int len,
  				const char *str, const struct qstr *name);

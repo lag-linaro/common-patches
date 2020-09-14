@@ -11,11 +11,14 @@ new module parameter is specified:
 Bug: 146517987
 Change-Id: Ibf331ad6e6d8712a405921530f217f7122428b13
 Signed-off-by: Alistair Delva <adelva@google.com>
+[ebiggers: Folded in the following commit:
+           a299997ad06c ("ANDROID: tty: fix tty name overflow")]
+Signed-off-by: Eric Biggers <ebiggers@google.com>
 ---
  drivers/tty/serdev/core.c           | 15 +++++++++------
- drivers/tty/serdev/serdev-ttyport.c | 26 +++++++++++++++++++++++++-
+ drivers/tty/serdev/serdev-ttyport.c | 30 ++++++++++++++++++++++++++++-
  include/linux/serdev.h              | 14 +++++++++++++-
- 3 files changed, 47 insertions(+), 8 deletions(-)
+ 3 files changed, 51 insertions(+), 8 deletions(-)
 
 diff --git a/drivers/tty/serdev/core.c b/drivers/tty/serdev/core.c
 --- a/drivers/tty/serdev/core.c
@@ -89,7 +92,7 @@ diff --git a/drivers/tty/serdev/serdev-ttyport.c b/drivers/tty/serdev/serdev-tty
  	int ret;
  
  	if (!port || !drv || !parent)
-@@ -286,7 +293,24 @@ struct device *serdev_tty_port_register(struct tty_port *port,
+@@ -286,7 +293,28 @@ struct device *serdev_tty_port_register(struct tty_port *port,
  	port->client_ops = &client_ops;
  	port->client_data = ctrl;
  
@@ -102,12 +105,16 @@ diff --git a/drivers/tty/serdev/serdev-ttyport.c b/drivers/tty/serdev/serdev-tty
 +	 * be ignored.
 +	 */
 +	if (parent->bus == &platform_bus_type) {
-+		char tty_port_name[7];
++		if (pdev_tty_port) {
++			unsigned long pdev_idx;
++			int tty_len = strlen(drv->name);
 +
-+		sprintf(tty_port_name, "%s%d", drv->name, idx);
-+		if (pdev_tty_port &&
-+		    !strcmp(pdev_tty_port, tty_port_name)) {
-+			platform = true;
++			if (!strncmp(pdev_tty_port, drv->name, tty_len)) {
++				if (!kstrtoul(pdev_tty_port + tty_len, 10,
++					     &pdev_idx) && pdev_idx == idx) {
++					platform = true;
++				}
++			}
 +		}
 +	}
 +

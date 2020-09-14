@@ -66,7 +66,7 @@ diff --git a/include/linux/ipv6.h b/include/linux/ipv6.h
 diff --git a/include/net/addrconf.h b/include/net/addrconf.h
 --- a/include/net/addrconf.h
 +++ b/include/net/addrconf.h
-@@ -269,6 +269,18 @@ static inline bool ipv6_is_mld(struct sk_buff *skb, int nexthdr, int offset)
+@@ -270,6 +270,18 @@ static inline bool ipv6_is_mld(struct sk_buff *skb, int nexthdr, int offset)
  void addrconf_prefix_rcv(struct net_device *dev,
  			 u8 *opt, int len, bool sllao);
  
@@ -104,7 +104,7 @@ diff --git a/net/ipv6/addrconf.c b/net/ipv6/addrconf.c
  	.proxy_ndp		= 0,
  	.accept_source_route	= 0,	/* we do not accept RH0 by default. */
  	.disable_ipv6		= 0,
-@@ -2391,6 +2393,26 @@ static void ipv6_gen_rnd_iid(struct in6_addr *addr)
+@@ -2377,6 +2379,26 @@ static void ipv6_gen_rnd_iid(struct in6_addr *addr)
  		goto regen;
  }
  
@@ -131,7 +131,7 @@ diff --git a/net/ipv6/addrconf.c b/net/ipv6/addrconf.c
  /*
   *	Add prefix route.
   */
-@@ -2401,7 +2423,7 @@ addrconf_prefix_route(struct in6_addr *pfx, int plen, u32 metric,
+@@ -2387,7 +2409,7 @@ addrconf_prefix_route(struct in6_addr *pfx, int plen, u32 metric,
  		      u32 flags, gfp_t gfp_flags)
  {
  	struct fib6_config cfg = {
@@ -140,7 +140,7 @@ diff --git a/net/ipv6/addrconf.c b/net/ipv6/addrconf.c
  		.fc_metric = metric ? : IP6_RT_PRIO_ADDRCONF,
  		.fc_ifindex = dev->ifindex,
  		.fc_expires = expires,
-@@ -2436,7 +2458,7 @@ static struct fib6_info *addrconf_get_prefix_route(const struct in6_addr *pfx,
+@@ -2422,7 +2444,7 @@ static struct fib6_info *addrconf_get_prefix_route(const struct in6_addr *pfx,
  	struct fib6_node *fn;
  	struct fib6_info *rt = NULL;
  	struct fib6_table *table;
@@ -149,7 +149,7 @@ diff --git a/net/ipv6/addrconf.c b/net/ipv6/addrconf.c
  
  	table = fib6_get_table(dev_net(dev), tb_id);
  	if (!table)
-@@ -6722,6 +6744,13 @@ static const struct ctl_table addrconf_sysctl[] = {
+@@ -6708,6 +6730,13 @@ static const struct ctl_table addrconf_sysctl[] = {
  	},
  #endif
  #endif
