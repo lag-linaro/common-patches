@@ -43,7 +43,7 @@ diff --git a/arch/arm64/configs/db845c_gki.fragment b/arch/arm64/configs/db845c_
  CONFIG_QCOM_LLCC=m
  CONFIG_QCOM_RMTFS_MEM=m
  CONFIG_QCOM_SMEM=m
-@@ -70,7 +66,6 @@ CONFIG_ATH10K_AHB=y
+@@ -71,7 +67,6 @@ CONFIG_ATH10K_AHB=y
  CONFIG_ATH10K=m
  CONFIG_ATH10K_PCI=m
  CONFIG_ATH10K_SNOC=m
@@ -51,7 +51,7 @@ diff --git a/arch/arm64/configs/db845c_gki.fragment b/arch/arm64/configs/db845c_
  CONFIG_QRTR_SMD=m
  CONFIG_QCOM_FASTRPC=m
  CONFIG_QCOM_APCS_IPC=m
-@@ -81,19 +76,14 @@ CONFIG_QCOM_Q6V5_MSS=m
+@@ -82,19 +77,14 @@ CONFIG_QCOM_Q6V5_MSS=m
  CONFIG_QCOM_Q6V5_PAS=m
  CONFIG_QCOM_Q6V5_WCSS=m
  CONFIG_QCOM_SYSMON=m
@@ -71,7 +71,7 @@ diff --git a/arch/arm64/configs/db845c_gki.fragment b/arch/arm64/configs/db845c_
  CONFIG_QCOM_PDC=m
  CONFIG_QCOM_SCM=m
  CONFIG_ARM_SMMU=m
-@@ -110,8 +100,6 @@ CONFIG_SPI_QCOM_GENI=m
+@@ -112,8 +102,6 @@ CONFIG_SPI_QCOM_GENI=m
  CONFIG_GPIO_WCD934X=m
  CONFIG_MFD_WCD934X=m
  CONFIG_REGULATOR_GPIO=m
@@ -80,7 +80,7 @@ diff --git a/arch/arm64/configs/db845c_gki.fragment b/arch/arm64/configs/db845c_
  CONFIG_SND_SOC_QCOM=m
  CONFIG_SND_SOC_QCOM_COMMON=m
  CONFIG_SND_SOC_QDSP6_COMMON=m
-@@ -124,23 +112,164 @@ CONFIG_SND_SOC_QDSP6_ASM=m
+@@ -126,23 +114,164 @@ CONFIG_SND_SOC_QDSP6_ASM=m
  CONFIG_SND_SOC_QDSP6_ASM_DAI=m
  CONFIG_SND_SOC_QDSP6=m
  CONFIG_SND_SOC_SDM845=m

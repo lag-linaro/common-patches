@@ -1,8 +1,8 @@
 #
 # android-mainline patches
 #
-# Applies onto upstream 43b10d5a9053 Linux v5.9-rc5
-# Matches android-mainline 9c16520a3386 ("Merge 5.9-rc5 into android-mainline")
+# Applies onto upstream 856deb866d16 Linux v5.9-rc5
+# Matches android-mainline d4d1163e5358 ("ANDROID: Incremental fs: Add INCFS_IOC_GET_BLOCK_COUNT")
 #
 _____ANNOTATION-pending-upstream_____.patch
 FROMLIST-coresight-stm-support-marked-packet.patch
@@ -324,6 +324,8 @@ ANDROID-Incremental-fs-Add-.blocks_written-file.patch
 ANDROID-Incremental-fs-Remove-attributes-from-file.patch
 ANDROID-Incremental-fs-Remove-back-links-and-crcs.patch
 ANDROID-Incremental-fs-Remove-block-HASH-flag.patch
+ANDROID-Incremental-fs-Make-compatible-with-existing-files.patch
+ANDROID-Incremental-fs-Add-INCFS_IOC_GET_BLOCK_COUNT.patch
 _____ANNOTATION-networking-changes_____.patch
 ANDROID-net-xfrm-make-PF_KEY-SHA256-use-RFC-compliant-truncation.patch
 ANDROID-netfilter-xt_quota2-add-quota2-from-xtables-addons.patch
@@ -362,6 +364,7 @@ ANDROID-lt9611-Sync-w-Vinod-s-most-recent-lt9611-patches-which-enable-HDMI-audio
 ANDROID-db845c_gki.fragment-Add-audio-configs.patch
 ANDROID-db845c-set-BUILD_INITRAMFS-1.patch
 ANDROID-db845c_gki.fragment-remove-CONFIG_USB_EHCI_HCD-and-CONFIG_USB_EHCI_HCD_PLATFORM.patch
+ANDROID-db845c_gki.fragment-Add-missing-qcom-drivers-required-for-cpufreq-functionality.patch
 _____ANNOTATION-Android-kconfigs-and-build-scripts_____.patch
 ANDROID-Expose-gki_defconfig-to-build.config.patch
 ANDROID-gki_defconfig-initial-config.patch
@@ -595,5 +598,8 @@ ANDROID-GKI-Enable-IR-RC-support.patch
 ANDROID-GKI-Enable-CONFIG_REMOTEPROC_CDEV.patch
 ANDROID-gki_defconfig-enable-IOMMU_LIMIT_IOVA_ALIGNMENT.patch
 ANDROID-gki_defconfig-enable-f2fs-compression-by-GKI.patch
+ANDROID-GKI-add-CONFIG_BT-to-x86-gki_defconfig.patch
+ANDROID-GKI-Enable-CONFIG_BT_HIDP-as-it-is-needed-by-some-platforms.patch
+ANDROID-GKI-build-in-more-Bluetooth-drivers.patch
+ANDROID-GKI-enable-CONFIG_JUMP_LABEL.patch
 _____ANNOTATION-remove-ANNOTATIONS-file_____.patch
-DROP-ME-bad-merge-resolution.patch

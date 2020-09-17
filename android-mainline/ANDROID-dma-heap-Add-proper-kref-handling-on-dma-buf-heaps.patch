@@ -25,10 +25,6 @@ Change-Id: I9f9e27f640c926882a639d6ad5dc3019d7e2c2b0
 Link: https://lore.kernel.org/lkml/20200725032633.125006-1-john.stultz@linaro.org/T/#u
 Bug: 154341375
 ---
-v2: Fix potential race with kref_put being called while another
-    cpu was scanning the list to take a ref, pointed out by
-    Hridya
----
  drivers/dma-buf/dma-heap.c | 35 +++++++++++++++++++++++++++++++----
  include/linux/dma-heap.h   |  6 ++++++
  2 files changed, 37 insertions(+), 4 deletions(-)
