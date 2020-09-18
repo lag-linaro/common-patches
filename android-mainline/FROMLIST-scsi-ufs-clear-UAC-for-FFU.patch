@@ -1,0 +1,74 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: Jaegeuk Kim <jaegeuk@google.com>
+Date: Mon, 11 May 2020 10:27:41 -0700
+Subject: FROMLIST: scsi: ufs: clear UAC for FFU
+
+Let's clear UAC to run FFU or RPMB ops.
+
+Bug: 158050260
+Bug: 156130055
+Signed-off-by: Jaegeuk Kim <jaegeuk@google.com>
+Link: https://lore.kernel.org/linux-scsi/20200915204532.1672300-2-jaegeuk@kernel.org/T/#u
+Change-Id: Id0f99336d7d84b51f1d0b5d8483ab3eec7b40741
+---
+ drivers/scsi/ufs/ufshcd.c | 41 +++++++++++++++++++++++++++++++++++++++
+ 1 file changed, 41 insertions(+)
+
+diff --git a/drivers/scsi/ufs/ufshcd.c b/drivers/scsi/ufs/ufshcd.c
+--- a/drivers/scsi/ufs/ufshcd.c
++++ b/drivers/scsi/ufs/ufshcd.c
+@@ -7389,6 +7389,45 @@ static int ufshcd_add_lus(struct ufs_hba *hba)
+ 	return ret;
+ }
+ 
++static int
++ufshcd_send_request_sense(struct ufs_hba *hba, struct scsi_device *sdp);
++
++static int ufshcd_clear_uac(struct ufs_hba *hba)
++{
++	struct scsi_device *sdp;
++	unsigned long flags;
++	int ret = 0;
++
++	spin_lock_irqsave(hba->host->host_lock, flags);
++	sdp = hba->sdev_ufs_device;
++	if (sdp) {
++		ret = scsi_device_get(sdp);
++		if (!ret && !scsi_device_online(sdp)) {
++			ret = -ENODEV;
++			scsi_device_put(sdp);
++		}
++	} else {
++		ret = -ENODEV;
++	}
++	spin_unlock_irqrestore(hba->host->host_lock, flags);
++	if (ret)
++		goto out_err;
++
++	if (hba->wlun_dev_clr_ua) {
++		ret = ufshcd_send_request_sense(hba, sdp);
++		if (ret)
++			goto out;
++		/* Unit attention condition is cleared now */
++		hba->wlun_dev_clr_ua = false;
++	}
++out:
++	scsi_device_put(sdp);
++out_err:
++	if (ret)
++		dev_err(hba->dev, "%s: UAC clear ret = %d\n", __func__, ret);
++	return ret;
++}
++
+ /**
+  * ufshcd_probe_hba - probe hba to detect device and initialize
+  * @hba: per-adapter instance
+@@ -7504,6 +7543,8 @@ static void ufshcd_async_scan(void *data, async_cookie_t cookie)
+ 		pm_runtime_put_sync(hba->dev);
+ 		ufshcd_exit_clk_scaling(hba);
+ 		ufshcd_hba_exit(hba);
++	} else {
++		ufshcd_clear_uac(hba);
+ 	}
+ }
+ 
