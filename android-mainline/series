@@ -2,7 +2,7 @@
 # android-mainline patches
 #
 # Applies onto upstream 856deb866d16 Linux v5.9-rc5
-# Matches android-mainline 87cca254c9c3 ("ANDROID: Incremental fs: Fix dangling else")
+# Matches android-mainline 0df7b95498a9 ("ANDROID: gic: Add vendor hook for gic-v3 resume")
 #
 _____ANNOTATION-pending-upstream_____.patch
 FROMLIST-coresight-stm-support-marked-packet.patch
@@ -176,6 +176,7 @@ ANDROID-GKI-driver-core-Set-fw_devlink-on-by-default.patch
 ANDROID-gnss-Add-command-line-test-driver.patch
 ANDROID-Export-functions-to-be-used-with-dma_map_ops-in-modules.patch
 ANDROID-drivers-firmware-psci-Register-with-kernel-restart-handler.patch
+ANDROID-gic-Add-vendor-hook-for-gic-v3-resume.patch
 _____ANNOTATION-tty-changes_____.patch
 Revert-Revert-tty-serial-samsung_tty-build-it-for-any-platform.patch
 ANDROID-serdev-add-platform-device-support.patch
@@ -373,6 +374,7 @@ ANDROID-db845c-set-BUILD_INITRAMFS-1.patch
 ANDROID-db845c_gki.fragment-remove-CONFIG_USB_EHCI_HCD-and-CONFIG_USB_EHCI_HCD_PLATFORM.patch
 ANDROID-db845c_gki.fragment-Add-missing-qcom-drivers-required-for-cpufreq-functionality.patch
 _____ANNOTATION-Android-kconfigs-and-build-scripts_____.patch
+FROMLIST-Makefile-add-fuse-ld-lld-to-KBUILD_HOSTLDFLAGS-when-LLVM-1.patch
 ANDROID-Expose-gki_defconfig-to-build.config.patch
 ANDROID-gki_defconfig-initial-config.patch
 ANDROID-Add-initial-rockpi4_defconfig.patch
@@ -609,4 +611,5 @@ ANDROID-GKI-add-CONFIG_BT-to-x86-gki_defconfig.patch
 ANDROID-GKI-Enable-CONFIG_BT_HIDP-as-it-is-needed-by-some-platforms.patch
 ANDROID-GKI-build-in-more-Bluetooth-drivers.patch
 ANDROID-GKI-enable-CONFIG_JUMP_LABEL.patch
+ANDROID-Makefile-add-compiler-rt-dependency-explicitly.patch
 _____ANNOTATION-remove-ANNOTATIONS-file_____.patch
