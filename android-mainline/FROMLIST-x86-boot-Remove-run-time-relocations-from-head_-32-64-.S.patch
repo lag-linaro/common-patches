@@ -39,7 +39,7 @@ Change-Id: Ic40c42463ec7c1d15726b39e949743bf62016b42
 diff --git a/arch/x86/boot/compressed/Makefile b/arch/x86/boot/compressed/Makefile
 --- a/arch/x86/boot/compressed/Makefile
 +++ b/arch/x86/boot/compressed/Makefile
-@@ -52,16 +52,8 @@ UBSAN_SANITIZE :=n
+@@ -54,16 +54,8 @@ UBSAN_SANITIZE :=n
  KBUILD_LDFLAGS := -m elf_$(UTS_MACHINE)
  # Compressed kernel should be built as PIE since it may be loaded at any
  # address by the bootloader.

@@ -38,9 +38,9 @@ diff --git a/arch/x86/boot/compressed/Makefile b/arch/x86/boot/compressed/Makefi
  KBUILD_CFLAGS += -fno-asynchronous-unwind-tables
  KBUILD_CFLAGS += -D__DISABLE_EXPORTS
 +KBUILD_CFLAGS += -include $(srctree)/$(src)/hidden.h
+ # Disable relocation relaxation in case the link is not PIE.
+ KBUILD_CFLAGS += $(call as-option,-Wa$(comma)-mrelax-relocations=no)
  
- KBUILD_AFLAGS  := $(KBUILD_CFLAGS) -D__ASSEMBLY__
- GCOV_PROFILE := n
 diff --git a/arch/x86/boot/compressed/hidden.h b/arch/x86/boot/compressed/hidden.h
 new file mode 100644
 index 000000000000..49a17b6b5962

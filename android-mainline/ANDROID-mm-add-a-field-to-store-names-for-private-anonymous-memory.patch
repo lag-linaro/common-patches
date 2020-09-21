@@ -224,7 +224,7 @@ diff --git a/fs/userfaultfd.c b/fs/userfaultfd.c
 diff --git a/include/linux/mm.h b/include/linux/mm.h
 --- a/include/linux/mm.h
 +++ b/include/linux/mm.h
-@@ -2489,7 +2489,7 @@ static inline int vma_adjust(struct vm_area_struct *vma, unsigned long start,
+@@ -2491,7 +2491,7 @@ static inline int vma_adjust(struct vm_area_struct *vma, unsigned long start,
  extern struct vm_area_struct *vma_merge(struct mm_struct *,
  	struct vm_area_struct *prev, unsigned long addr, unsigned long end,
  	unsigned long vm_flags, struct anon_vma *, struct file *, pgoff_t,
@@ -488,7 +488,7 @@ diff --git a/mm/mempolicy.c b/mm/mempolicy.c
 diff --git a/mm/mlock.c b/mm/mlock.c
 --- a/mm/mlock.c
 +++ b/mm/mlock.c
-@@ -534,7 +534,7 @@ static int mlock_fixup(struct vm_area_struct *vma, struct vm_area_struct **prev,
+@@ -540,7 +540,7 @@ static int mlock_fixup(struct vm_area_struct *vma, struct vm_area_struct **prev,
  	pgoff = vma->vm_pgoff + ((start - vma->vm_start) >> PAGE_SHIFT);
  	*prev = vma_merge(mm, *prev, start, end, newflags, vma->anon_vma,
  			  vma->vm_file, pgoff, vma_policy(vma),

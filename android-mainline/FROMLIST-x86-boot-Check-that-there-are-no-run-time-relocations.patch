@@ -27,7 +27,7 @@ Change-Id: I13a1e5a3292e3b4fb054e1489f269964a31428e9
 diff --git a/arch/x86/boot/compressed/Makefile b/arch/x86/boot/compressed/Makefile
 --- a/arch/x86/boot/compressed/Makefile
 +++ b/arch/x86/boot/compressed/Makefile
-@@ -52,7 +52,7 @@ UBSAN_SANITIZE :=n
+@@ -54,7 +54,7 @@ UBSAN_SANITIZE :=n
  KBUILD_LDFLAGS := -m elf_$(UTS_MACHINE)
  # Compressed kernel should be built as PIE since it may be loaded at any
  # address by the bootloader.
@@ -36,7 +36,7 @@ diff --git a/arch/x86/boot/compressed/Makefile b/arch/x86/boot/compressed/Makefi
  LDFLAGS_vmlinux += -T
  
  hostprogs	:= mkpiggy
-@@ -87,30 +87,8 @@ vmlinux-objs-$(CONFIG_ACPI) += $(obj)/acpi.o
+@@ -89,30 +89,8 @@ vmlinux-objs-$(CONFIG_ACPI) += $(obj)/acpi.o
  vmlinux-objs-$(CONFIG_EFI_MIXED) += $(obj)/efi_thunk_$(BITS).o
  efi-obj-$(CONFIG_EFI_STUB) = $(objtree)/drivers/firmware/efi/libstub/lib.a
  

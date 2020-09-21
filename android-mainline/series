@@ -1,8 +1,8 @@
 #
 # android-mainline patches
 #
-# Applies onto upstream 856deb866d16 Linux v5.9-rc5
-# Matches android-mainline 0df7b95498a9 ("ANDROID: gic: Add vendor hook for gic-v3 resume")
+# Applies onto upstream ba4f184e126b Linux v5.9-rc6
+# Matches android-mainline ee385f5df957 ("Merge 5.9-rc6 into android-mainline")
 #
 _____ANNOTATION-pending-upstream_____.patch
 FROMLIST-coresight-stm-support-marked-packet.patch
