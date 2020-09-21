@@ -56,7 +56,7 @@ diff --git a/drivers/scsi/ufs/ufshcd-crypto.c b/drivers/scsi/ufs/ufshcd-crypto.c
 diff --git a/drivers/scsi/ufs/ufshcd.h b/drivers/scsi/ufs/ufshcd.h
 --- a/drivers/scsi/ufs/ufshcd.h
 +++ b/drivers/scsi/ufs/ufshcd.h
-@@ -530,6 +530,15 @@ enum ufshcd_quirks {
+@@ -535,6 +535,15 @@ enum ufshcd_quirks {
  	 * auto-hibernate capability but it doesn't work.
  	 */
  	UFSHCD_QUIRK_BROKEN_AUTO_HIBERN8		= 1 << 11,

@@ -27,7 +27,7 @@ diff --git a/drivers/scsi/ufs/ufshcd.c b/drivers/scsi/ufs/ufshcd.c
  static inline void ufshcd_add_delay_before_dme_cmd(struct ufs_hba *hba);
  static int ufshcd_host_reset_and_restore(struct ufs_hba *hba);
  static void ufshcd_resume_clkscaling(struct ufs_hba *hba);
-@@ -3905,7 +3904,7 @@ static int __ufshcd_uic_hibern8_enter(struct ufs_hba *hba)
+@@ -3908,7 +3907,7 @@ static int __ufshcd_uic_hibern8_enter(struct ufs_hba *hba)
  	return ret;
  }
  
@@ -36,7 +36,7 @@ diff --git a/drivers/scsi/ufs/ufshcd.c b/drivers/scsi/ufs/ufshcd.c
  {
  	int ret = 0, retries;
  
-@@ -3917,6 +3916,7 @@ static int ufshcd_uic_hibern8_enter(struct ufs_hba *hba)
+@@ -3920,6 +3919,7 @@ static int ufshcd_uic_hibern8_enter(struct ufs_hba *hba)
  out:
  	return ret;
  }
@@ -47,7 +47,7 @@ diff --git a/drivers/scsi/ufs/ufshcd.c b/drivers/scsi/ufs/ufshcd.c
 diff --git a/drivers/scsi/ufs/ufshcd.h b/drivers/scsi/ufs/ufshcd.h
 --- a/drivers/scsi/ufs/ufshcd.h
 +++ b/drivers/scsi/ufs/ufshcd.h
-@@ -1190,5 +1190,6 @@ static inline u8 ufshcd_scsi_to_upiu_lun(unsigned int scsi_lun)
+@@ -1195,5 +1195,6 @@ static inline u8 ufshcd_scsi_to_upiu_lun(unsigned int scsi_lun)
  
  int ufshcd_dump_regs(struct ufs_hba *hba, size_t offset, size_t len,
  		     const char *prefix);

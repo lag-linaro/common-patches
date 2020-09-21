@@ -2,7 +2,7 @@
 # android-mainline patches
 #
 # Applies onto upstream ba4f184e126b Linux v5.9-rc6
-# Matches android-mainline ee385f5df957 ("Merge 5.9-rc6 into android-mainline")
+# Matches android-mainline 9590fe06e079 ("FROMLIST: scsi: add more contexts in the ufs tracepoints")
 #
 _____ANNOTATION-pending-upstream_____.patch
 FROMLIST-coresight-stm-support-marked-packet.patch
@@ -221,6 +221,7 @@ ANDROID-virtio-virtio_input-Set-the-amount-of-multitouch-slots-in-virtio-input.p
 ANDROID-virtio-virtio_input-pass-_DIRECT-only-if-the-device-advertises-_DIRECT.patch
 FROMLIST-HID-nintendo-add-nintendo-switch-controller-driver.patch
 _____ANNOTATION-UFS-driver-changes_____.patch
+FROMGIT-scsi-ufs-Add-some-debug-information-to-ufshcd_print_host_state.patch
 FROMLIST-scsi-ufs-qcom-enter-and-exit-hibern8-during-clock-scaling.patch
 FROMLIST-scsi-ufs-Export-query-request-interfaces.patch
 FROMLIST-scsi-ufs-export-hibern8-entry-and-exit.patch
@@ -228,6 +229,7 @@ FROMLIST-ufs-fix-a-bug-on-printing-PRDT.patch
 FROMLIST-scsi-ufs-atomic-update-for-clkgating_enable.patch
 FROMLIST-scsi-ufs-clear-UAC-for-FFU.patch
 FROMLIST-scsi-ufs-use-WQ_HIGHPRI-for-gating-work.patch
+FROMLIST-scsi-add-more-contexts-in-the-ufs-tracepoints.patch
 ANDROID-scsi-ufs-allow-ufs-variants-to-override-sg-entry-size.patch
 ANDROID-scsi-ufs-add-fill_prdt-variant-op.patch
 ANDROID-scsi-ufs-add-UFSHCD_QUIRK_NO_KEYSLOTS.patch
@@ -334,6 +336,7 @@ ANDROID-Incremental-fs-Add-hash-block-counts-to-IOC_IOCTL_GET_BLOCK_COUNT.patch
 ANDROID-Incremental-fs-Fix-filled-block-count-from-get-filled-blocks.patch
 ANDROID-Incremental-fs-Fix-uninitialized-variable.patch
 ANDROID-Incremental-fs-Fix-dangling-else.patch
+ANDROID-Incremental-fs-Add-.incomplete-folder.patch
 _____ANNOTATION-networking-changes_____.patch
 ANDROID-net-xfrm-make-PF_KEY-SHA256-use-RFC-compliant-truncation.patch
 ANDROID-netfilter-xt_quota2-add-quota2-from-xtables-addons.patch
@@ -375,6 +378,7 @@ ANDROID-db845c_gki.fragment-remove-CONFIG_USB_EHCI_HCD-and-CONFIG_USB_EHCI_HCD_P
 ANDROID-db845c_gki.fragment-Add-missing-qcom-drivers-required-for-cpufreq-functionality.patch
 _____ANNOTATION-Android-kconfigs-and-build-scripts_____.patch
 FROMLIST-Makefile-add-fuse-ld-lld-to-KBUILD_HOSTLDFLAGS-when-LLVM-1.patch
+FROMLIST-dax-Fix-compilation-for-CONFIG_DAX-CONFIG_FS_DAX.patch
 ANDROID-Expose-gki_defconfig-to-build.config.patch
 ANDROID-gki_defconfig-initial-config.patch
 ANDROID-Add-initial-rockpi4_defconfig.patch
