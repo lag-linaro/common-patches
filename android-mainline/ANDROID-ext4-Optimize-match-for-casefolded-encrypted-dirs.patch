@@ -103,7 +103,7 @@ diff --git a/fs/ext4/namei.c b/fs/ext4/namei.c
 +	struct dx_hash_info *hinfo = &name->hinfo;
  	int len;
  
- 	if (!needs_casefold(dir)) {
+ 	if (!IS_CASEFOLDED(dir) || !dir->i_sb->s_encoding) {
  		cf_name->name = NULL;
 -		return;
 +		return 0;

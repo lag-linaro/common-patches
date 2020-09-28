@@ -46,7 +46,7 @@ diff --git a/fs/f2fs/dir.c b/fs/f2fs/dir.c
  #include <linux/fs.h>
  #include <linux/f2fs_fs.h>
  #include <linux/sched/signal.h>
-@@ -217,9 +218,28 @@ static bool f2fs_match_ci_name(const struct inode *dir, const struct qstr *name,
+@@ -218,9 +219,28 @@ static bool f2fs_match_ci_name(const struct inode *dir, const struct qstr *name,
  {
  	const struct super_block *sb = dir->i_sb;
  	const struct unicode_map *um = sb->s_encoding;
@@ -75,10 +75,10 @@ diff --git a/fs/f2fs/dir.c b/fs/f2fs/dir.c
  	res = utf8_strncasecmp_folded(um, name, &entry);
  	if (res < 0) {
  		/*
-@@ -227,9 +247,12 @@ static bool f2fs_match_ci_name(const struct inode *dir, const struct qstr *name,
+@@ -228,9 +248,12 @@ static bool f2fs_match_ci_name(const struct inode *dir, const struct qstr *name,
  		 * fall back to treating them as opaque byte sequences.
  		 */
- 		if (sb_has_enc_strict_mode(sb) || name->len != entry.len)
+ 		if (sb_has_strict_encoding(sb) || name->len != entry.len)
 -			return false;
 -		return !memcmp(name->name, entry.name, name->len);
 +			res = 1;
@@ -90,7 +90,7 @@ diff --git a/fs/f2fs/dir.c b/fs/f2fs/dir.c
  	return res == 0;
  }
  #endif /* CONFIG_UNICODE */
-@@ -454,17 +477,39 @@ void f2fs_set_link(struct inode *dir, struct f2fs_dir_entry *de,
+@@ -455,17 +478,39 @@ void f2fs_set_link(struct inode *dir, struct f2fs_dir_entry *de,
  	f2fs_put_page(page, 1);
  }
  
@@ -131,7 +131,7 @@ diff --git a/fs/f2fs/dir.c b/fs/f2fs/dir.c
  	set_page_dirty(ipage);
  }
  
-@@ -547,11 +592,7 @@ struct page *f2fs_init_inode_metadata(struct inode *inode, struct inode *dir,
+@@ -548,11 +593,7 @@ struct page *f2fs_init_inode_metadata(struct inode *inode, struct inode *dir,
  			return page;
  	}
  

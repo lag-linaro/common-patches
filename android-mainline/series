@@ -272,11 +272,9 @@ ANDROID-f2fs-add-back-compress-inode-check.patch
 ANDROID-fs-epoll-use-freezable-blocking-call.patch
 ANDROID-fs-FS-tracepoints-to-track-IO.patch
 ANDROID-Add-a-tracepoint-for-mapping-inode-to-full-path.patch
-ANDROID-fs-adjust-casefolding-support-to-match-android-mainline.patch
 ANDROID-ext4-Handle-casefolding-with-encryption.patch
 ANDROID-ext4-Optimize-match-for-casefolded-encrypted-dirs.patch
 ANDROID-f2fs-Handle-casefolding-with-Encryption.patch
-ANDROID-sync-generic-casefolding-code-with-patches-going-upstream.patch
 ANDROID-GKI-Don-t-compact-fuse_req-when-CONFIG_VIRTIO_FS-n.patch
 ANDROID-add-flags-variable-to-nfs4_xattr_get_nfs4_user.patch
 _____ANNOTATION-Incremental-filesystem_____.patch
