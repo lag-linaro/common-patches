@@ -1,8 +1,8 @@
 #
 # android-mainline patches
 #
-# Applies onto upstream ba4f184e126b Linux v5.9-rc6
-# Matches android-mainline 07f80e7c1e5f ("ANDROID: sched: add cpumask parameter to cpu capacity vendor hook")
+# Applies onto upstream a1bffa48745a Linux v5.9-rc6-338-ga1bffa48745a
+# Matches android-mainline fb3b36d52f38 ("Merge a1bffa48745a ("Merge tag 'scsi-fixes' of git://git.kernel.org/pub/scm/linux/kernel/git/jejb/scsi") into 'android-mainline'")
 #
 _____ANNOTATION-pending-upstream_____.patch
 FROMLIST-coresight-stm-support-marked-packet.patch
@@ -384,7 +384,6 @@ ANDROID-db845c_gki.fragment-remove-CONFIG_USB_EHCI_HCD-and-CONFIG_USB_EHCI_HCD_P
 ANDROID-db845c_gki.fragment-Add-missing-qcom-drivers-required-for-cpufreq-functionality.patch
 _____ANNOTATION-Android-kconfigs-and-build-scripts_____.patch
 FROMLIST-Makefile-add-fuse-ld-lld-to-KBUILD_HOSTLDFLAGS-when-LLVM-1.patch
-FROMLIST-dax-Fix-compilation-for-CONFIG_DAX-CONFIG_FS_DAX.patch
 ANDROID-Expose-gki_defconfig-to-build.config.patch
 ANDROID-gki_defconfig-initial-config.patch
 ANDROID-Add-initial-rockpi4_defconfig.patch

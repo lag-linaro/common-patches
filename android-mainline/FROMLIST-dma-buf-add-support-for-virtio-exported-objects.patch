@@ -34,7 +34,7 @@ Signed-off-by: Eric Biggers <ebiggers@google.com>
 diff --git a/drivers/dma-buf/dma-buf.c b/drivers/dma-buf/dma-buf.c
 --- a/drivers/dma-buf/dma-buf.c
 +++ b/drivers/dma-buf/dma-buf.c
-@@ -1306,6 +1306,18 @@ int dma_buf_get_flags(struct dma_buf *dmabuf, unsigned long *flags)
+@@ -1308,6 +1308,18 @@ int dma_buf_get_flags(struct dma_buf *dmabuf, unsigned long *flags)
  }
  EXPORT_SYMBOL_GPL(dma_buf_get_flags);
  

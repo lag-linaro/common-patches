@@ -179,8 +179,8 @@ diff --git a/net/ipv6/route.c b/net/ipv6/route.c
  		.fc_nlinfo.nl_net = net,
  	};
  
--	cfg.fc_table = l3mdev_fib_table(dev) ? : RT6_TABLE_INFO,
-+	cfg.fc_table = l3mdev_fib_table(dev) ? : addrconf_rt_table(dev, RT6_TABLE_INFO),
+-	cfg.fc_table = l3mdev_fib_table(dev) ? : RT6_TABLE_INFO;
++	cfg.fc_table = l3mdev_fib_table(dev) ? : addrconf_rt_table(dev, RT6_TABLE_INFO);
  	cfg.fc_dst = *prefix;
  	cfg.fc_gateway = *gwaddr;
  
