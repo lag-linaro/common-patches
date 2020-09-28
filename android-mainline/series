@@ -2,7 +2,7 @@
 # android-mainline patches
 #
 # Applies onto upstream a1bffa48745a Linux v5.9-rc6-338-ga1bffa48745a
-# Matches android-mainline fb3b36d52f38 ("Merge a1bffa48745a ("Merge tag 'scsi-fixes' of git://git.kernel.org/pub/scm/linux/kernel/git/jejb/scsi") into 'android-mainline'")
+# Matches android-mainline 76bfcb2dc2f3 ("ANDROID: sync generic casefolding code with patches going upstream")
 #
 _____ANNOTATION-pending-upstream_____.patch
 FROMLIST-coresight-stm-support-marked-packet.patch
@@ -276,6 +276,7 @@ ANDROID-fs-adjust-casefolding-support-to-match-android-mainline.patch
 ANDROID-ext4-Handle-casefolding-with-encryption.patch
 ANDROID-ext4-Optimize-match-for-casefolded-encrypted-dirs.patch
 ANDROID-f2fs-Handle-casefolding-with-Encryption.patch
+ANDROID-sync-generic-casefolding-code-with-patches-going-upstream.patch
 ANDROID-GKI-Don-t-compact-fuse_req-when-CONFIG_VIRTIO_FS-n.patch
 ANDROID-add-flags-variable-to-nfs4_xattr_get_nfs4_user.patch
 _____ANNOTATION-Incremental-filesystem_____.patch
