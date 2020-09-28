@@ -2,7 +2,7 @@
 # android-mainline patches
 #
 # Applies onto upstream ba4f184e126b Linux v5.9-rc6
-# Matches android-mainline 9590fe06e079 ("FROMLIST: scsi: add more contexts in the ufs tracepoints")
+# Matches android-mainline 07f80e7c1e5f ("ANDROID: sched: add cpumask parameter to cpu capacity vendor hook")
 #
 _____ANNOTATION-pending-upstream_____.patch
 FROMLIST-coresight-stm-support-marked-packet.patch
@@ -63,6 +63,7 @@ ANDROID-futex-Add-vendor-hook-for-wait-queue.patch
 ANDROID-GKI-signal-Export-for-__lock_task_sighand.patch
 ANDROID-GKI-time-Export-for-nsec_to_clock_t.patch
 ANDROID-GKI-pid-Export-for-find_task_by_vpid.patch
+ANDROID-Export-perf_event_read_local-function.patch
 _____ANNOTATION-power-management-changes_____.patch
 ANDROID-power-wakeup_reason-add-an-API-to-log-wakeup-reasons.patch
 ANDROID-Log-which-device-failed-to-suspend-in-dpm_suspend_start.patch
@@ -92,6 +93,7 @@ ANDROID-sched-add-restrict-vendor-hook-to-modify-load-balance-behavior.patch
 ANDROID-GKI-core-Export-for-runqueues.patch
 ANDROID-GKI-cputime-Export-for-thread_group_cputime_adjusted.patch
 ANDROID-GKI-loadavg-Export-for-get_avenrun.patch
+ANDROID-sched-add-cpumask-parameter-to-cpu-capacity-vendor-hook.patch
 _____ANNOTATION-uid_sys_stats-support_____.patch
 ANDROID-uid_cputime-Adds-accounting-for-the-cputimes-per-uid.patch
 ANDROID-uid_cputime-add-per-uid-IO-usage-accounting.patch
@@ -192,6 +194,7 @@ ANDROID-usb-gadget-f_midi-create-F_midi-device.patch
 ANDROID-usb-gadget-f_midi-set-fi-f-to-NULL-when-free-f_midi-function.patch
 ANDROID-usb-gadget-f_audio_source-New-gadget-driver-for-audio-output.patch
 ANDROID-usb-gadget-configfs-Support-multiple-android-instances.patch
+ANDROID-usb-typec-tcpm-Add-chip-level-callback-to-check-for-contaminant.patch
 _____ANNOTATION-graphics-changes_____.patch
 Revert-drm-virtio-fix-DRM_FORMAT_-handling.patch
 ANDROID-Allow-DRM_IOCTL_MODE_-_DUMB-for-render-clients.patch
@@ -234,6 +237,9 @@ ANDROID-scsi-ufs-allow-ufs-variants-to-override-sg-entry-size.patch
 ANDROID-scsi-ufs-add-fill_prdt-variant-op.patch
 ANDROID-scsi-ufs-add-UFSHCD_QUIRK_NO_KEYSLOTS.patch
 ANDROID-scsi-ufs-add-UFSHCD_QUIRK_KEYS_IN_PRDT.patch
+ANDROID-export-bkops-and-query-flag-query-functions.patch
+ANDROID-scsi-ufs-add-a-hook-to-prepare-command.patch
+ANDROID-scsi-ufs-add-a-hook-to-add-sysfs-entries.patch
 _____ANNOTATION-MMC-driver-changes_____.patch
 ANDROID-mmc-core-Add-ignore-mmc-pm-notify-functionality.patch
 _____ANNOTATION-block-changes_____.patch
@@ -616,4 +622,7 @@ ANDROID-GKI-Enable-CONFIG_BT_HIDP-as-it-is-needed-by-some-platforms.patch
 ANDROID-GKI-build-in-more-Bluetooth-drivers.patch
 ANDROID-GKI-enable-CONFIG_JUMP_LABEL.patch
 ANDROID-Makefile-add-compiler-rt-dependency-explicitly.patch
+ANDROID-GKI-enable-CONFIG_SONY_FF.patch
+ANDROID-build.config.common-enable-LLVM-1.patch
+ANDROID-GKI-Add-CONFIG_EDAC-for-gki_defconfig.patch
 _____ANNOTATION-remove-ANNOTATIONS-file_____.patch
