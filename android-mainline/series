@@ -1,8 +1,8 @@
 #
 # android-mainline patches
 #
-# Applies onto upstream a1b8638ba132 Linux v5.9-rc7
-# Matches android-mainline 0bbae53bf635 ("ANDROID: perf: Export clock_set_rate tracepoint")
+# Applies onto upstream 549738f15da0 Linux v5.9-rc8
+# Matches android-mainline 114c58d041c5 ("Merge 5.9-rc8 into android-mainline")
 #
 _____ANNOTATION-pending-upstream_____.patch
 FROMGIT-genirq-Add-fasteoi-IPI-flow.patch

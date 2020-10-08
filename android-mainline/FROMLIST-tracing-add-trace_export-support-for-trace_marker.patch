@@ -58,7 +58,7 @@ diff --git a/kernel/trace/trace.c b/kernel/trace/trace.c
  }
  
  static void ftrace_exports(struct ring_buffer_event *event, int flag)
-@@ -6687,6 +6694,8 @@ tracing_mark_write(struct file *filp, const char __user *ubuf,
+@@ -6689,6 +6696,8 @@ tracing_mark_write(struct file *filp, const char __user *ubuf,
  	} else
  		entry->buf[cnt] = '\0';
  
