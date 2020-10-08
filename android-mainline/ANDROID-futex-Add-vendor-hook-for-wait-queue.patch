@@ -26,14 +26,15 @@ diff --git a/drivers/android/vendor_hooks.c b/drivers/android/vendor_hooks.c
  #include <trace/hooks/rwsem.h>
 +#include <trace/hooks/futex.h>
  #include <trace/hooks/mpam.h>
+ #include <trace/hooks/debug.h>
  
- /*
-@@ -21,4 +22,5 @@ EXPORT_TRACEPOINT_SYMBOL_GPL(android_vh_rwsem_init);
+@@ -22,5 +23,6 @@ EXPORT_TRACEPOINT_SYMBOL_GPL(android_vh_rwsem_init);
  EXPORT_TRACEPOINT_SYMBOL_GPL(android_vh_rwsem_wake);
  EXPORT_TRACEPOINT_SYMBOL_GPL(android_vh_rwsem_write_finished);
  EXPORT_TRACEPOINT_SYMBOL_GPL(android_vh_alter_rwsem_list_add);
 +EXPORT_TRACEPOINT_SYMBOL_GPL(android_vh_alter_futex_plist_add);
  EXPORT_TRACEPOINT_SYMBOL_GPL(android_vh_mpam_set);
+ EXPORT_TRACEPOINT_SYMBOL_GPL(android_vh_ipi_stop);
 diff --git a/include/trace/hooks/futex.h b/include/trace/hooks/futex.h
 new file mode 100644
 index 000000000000..cbf6abb66a57

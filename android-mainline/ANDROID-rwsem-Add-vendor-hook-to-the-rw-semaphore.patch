@@ -32,9 +32,9 @@ diff --git a/drivers/android/vendor_hooks.c b/drivers/android/vendor_hooks.c
  #include <trace/hooks/fpsimd.h>
 +#include <trace/hooks/rwsem.h>
  #include <trace/hooks/mpam.h>
+ #include <trace/hooks/debug.h>
  
- /*
-@@ -16,4 +17,8 @@
+@@ -17,5 +18,9 @@
   * associated with them) to allow external modules to probe them.
   */
  EXPORT_TRACEPOINT_SYMBOL_GPL(android_vh_is_fpsimd_save);
@@ -43,6 +43,7 @@ diff --git a/drivers/android/vendor_hooks.c b/drivers/android/vendor_hooks.c
 +EXPORT_TRACEPOINT_SYMBOL_GPL(android_vh_rwsem_write_finished);
 +EXPORT_TRACEPOINT_SYMBOL_GPL(android_vh_alter_rwsem_list_add);
  EXPORT_TRACEPOINT_SYMBOL_GPL(android_vh_mpam_set);
+ EXPORT_TRACEPOINT_SYMBOL_GPL(android_vh_ipi_stop);
 diff --git a/include/linux/rwsem.h b/include/linux/rwsem.h
 --- a/include/linux/rwsem.h
 +++ b/include/linux/rwsem.h

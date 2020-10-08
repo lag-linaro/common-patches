@@ -29,7 +29,7 @@ diff --git a/drivers/android/vendor_hooks.c b/drivers/android/vendor_hooks.c
  #include <trace/hooks/fpsimd.h>
  #include <trace/hooks/rwsem.h>
  #include <trace/hooks/futex.h>
-@@ -17,6 +18,7 @@
+@@ -19,6 +20,7 @@
   * Export tracepoints that act as a bare tracehook (ie: have no trace event
   * associated with them) to allow external modules to probe them.
   */

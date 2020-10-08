@@ -12,19 +12,10 @@ Bug: 168248326
 Signed-off-by: YT Chang <yt.chang@mediatek.com>
 Change-Id: I77ec043576139806551b978eb1bdf9f637442dfb
 ---
- drivers/android/vendor_hooks.c | 1 +
- include/trace/hooks/sched.h    | 6 ++++++
- kernel/sched/fair.c            | 6 +++++-
- 3 files changed, 12 insertions(+), 1 deletion(-)
+ include/trace/hooks/sched.h | 6 ++++++
+ kernel/sched/fair.c         | 6 +++++-
+ 2 files changed, 11 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/android/vendor_hooks.c b/drivers/android/vendor_hooks.c
---- a/drivers/android/vendor_hooks.c
-+++ b/drivers/android/vendor_hooks.c
-@@ -50,3 +50,4 @@ EXPORT_TRACEPOINT_SYMBOL_GPL(android_vh_rwsem_write_wait_finish);
- EXPORT_TRACEPOINT_SYMBOL_GPL(android_vh_sched_show_task);
- EXPORT_TRACEPOINT_SYMBOL_GPL(android_vh_cpu_idle);
- EXPORT_TRACEPOINT_SYMBOL_GPL(android_vh_mpam_set);
-+EXPORT_TRACEPOINT_SYMBOL_GPL(android_rvh_find_busiest_group);
 diff --git a/include/trace/hooks/sched.h b/include/trace/hooks/sched.h
 --- a/include/trace/hooks/sched.h
 +++ b/include/trace/hooks/sched.h

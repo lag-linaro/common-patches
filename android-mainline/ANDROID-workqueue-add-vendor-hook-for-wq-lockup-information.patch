@@ -12,28 +12,30 @@ Signed-off-by: Sangmoon Kim <sangmoon.kim@samsung.com>
 Change-Id: I203dbc6faa77687ea48769f76658d28b29ef46fd
 (cherry picked from commit 2ea974a00c7bdbbee140d68d8867ddcbfb529ecc)
 ---
- drivers/android/vendor_hooks.c |  2 ++
+ drivers/android/vendor_hooks.c |  3 +++
  include/trace/hooks/wqlockup.h | 24 ++++++++++++++++++++++++
  kernel/workqueue.c             |  5 +++++
- 3 files changed, 31 insertions(+)
+ 3 files changed, 32 insertions(+)
  create mode 100644 include/trace/hooks/wqlockup.h
 
 diff --git a/drivers/android/vendor_hooks.c b/drivers/android/vendor_hooks.c
 --- a/drivers/android/vendor_hooks.c
 +++ b/drivers/android/vendor_hooks.c
-@@ -18,6 +18,7 @@
- #include <trace/hooks/topology.h>
+@@ -12,6 +12,7 @@
+ #include <trace/hooks/rwsem.h>
+ #include <trace/hooks/futex.h>
  #include <trace/hooks/mpam.h>
- #include <trace/hooks/gic.h>
 +#include <trace/hooks/wqlockup.h>
+ #include <trace/hooks/debug.h>
  
  /*
-  * Export tracepoints that act as a bare tracehook (ie: have no trace event
-@@ -57,3 +58,4 @@ EXPORT_TRACEPOINT_SYMBOL_GPL(android_vh_cpu_idle);
+@@ -25,4 +26,6 @@ EXPORT_TRACEPOINT_SYMBOL_GPL(android_vh_rwsem_write_finished);
+ EXPORT_TRACEPOINT_SYMBOL_GPL(android_vh_alter_rwsem_list_add);
+ EXPORT_TRACEPOINT_SYMBOL_GPL(android_vh_alter_futex_plist_add);
  EXPORT_TRACEPOINT_SYMBOL_GPL(android_vh_mpam_set);
- EXPORT_TRACEPOINT_SYMBOL_GPL(android_rvh_find_busiest_group);
- EXPORT_TRACEPOINT_SYMBOL_GPL(android_vh_gic_resume);
++EXPORT_TRACEPOINT_SYMBOL_GPL(android_rvh_find_busiest_group);
 +EXPORT_TRACEPOINT_SYMBOL_GPL(android_vh_wq_lockup_pool);
+ EXPORT_TRACEPOINT_SYMBOL_GPL(android_vh_ipi_stop);
 diff --git a/include/trace/hooks/wqlockup.h b/include/trace/hooks/wqlockup.h
 new file mode 100644
 index 000000000000..de70eacaa8c8

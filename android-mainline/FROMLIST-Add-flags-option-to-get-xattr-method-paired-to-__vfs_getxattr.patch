@@ -89,7 +89,7 @@ Change-Id: Iabbb8771939d5f66667a26bb23ddf4c562c349a1
  fs/jffs2/xattr_user.c                 |  3 ++-
  fs/jfs/xattr.c                        |  5 ++--
  fs/kernfs/inode.c                     |  3 ++-
- fs/nfs/nfs4proc.c                     |  6 +++--
+ fs/nfs/nfs4proc.c                     |  9 ++++---
  fs/ocfs2/xattr.c                      |  9 ++++---
  fs/orangefs/xattr.c                   |  3 ++-
  fs/overlayfs/super.c                  |  8 +++---
@@ -109,7 +109,7 @@ Change-Id: Iabbb8771939d5f66667a26bb23ddf4c562c349a1
  security/integrity/evm/evm_main.c     |  3 ++-
  security/selinux/hooks.c              | 11 +++++---
  security/smack/smack_lsm.c            |  5 ++--
- 50 files changed, 133 insertions(+), 89 deletions(-)
+ 50 files changed, 135 insertions(+), 90 deletions(-)
 
 diff --git a/Documentation/filesystems/locking.rst b/Documentation/filesystems/locking.rst
 --- a/Documentation/filesystems/locking.rst
@@ -584,6 +584,16 @@ diff --git a/fs/nfs/nfs4proc.c b/fs/nfs/nfs4proc.c
  {
  	if (security_ismaclabel(key))
  		return nfs4_get_security_label(inode, buf, buflen);
+@@ -7503,7 +7505,8 @@ static int nfs4_xattr_set_nfs4_user(const struct xattr_handler *handler,
+ 
+ static int nfs4_xattr_get_nfs4_user(const struct xattr_handler *handler,
+ 				    struct dentry *unused, struct inode *inode,
+-				    const char *key, void *buf, size_t buflen)
++				    const char *key, void *buf, size_t buflen,
++				    int flags)
+ {
+ 	struct nfs_access_entry cache;
+ 	ssize_t ret;
 diff --git a/fs/ocfs2/xattr.c b/fs/ocfs2/xattr.c
 --- a/fs/ocfs2/xattr.c
 +++ b/fs/ocfs2/xattr.c

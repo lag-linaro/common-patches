@@ -44,18 +44,18 @@ diff --git a/arch/arm64/kernel/smp.c b/arch/arm64/kernel/smp.c
 diff --git a/drivers/android/vendor_hooks.c b/drivers/android/vendor_hooks.c
 --- a/drivers/android/vendor_hooks.c
 +++ b/drivers/android/vendor_hooks.c
-@@ -19,6 +19,7 @@
+@@ -10,6 +10,7 @@
+ #include <trace/hooks/vendor_hooks.h>
+ #include <trace/hooks/fpsimd.h>
  #include <trace/hooks/mpam.h>
- #include <trace/hooks/gic.h>
- #include <trace/hooks/wqlockup.h>
 +#include <trace/hooks/debug.h>
  
  /*
   * Export tracepoints that act as a bare tracehook (ie: have no trace event
-@@ -59,3 +60,4 @@ EXPORT_TRACEPOINT_SYMBOL_GPL(android_vh_mpam_set);
- EXPORT_TRACEPOINT_SYMBOL_GPL(android_rvh_find_busiest_group);
- EXPORT_TRACEPOINT_SYMBOL_GPL(android_vh_gic_resume);
- EXPORT_TRACEPOINT_SYMBOL_GPL(android_vh_wq_lockup_pool);
+@@ -17,3 +18,4 @@
+  */
+ EXPORT_TRACEPOINT_SYMBOL_GPL(android_vh_is_fpsimd_save);
+ EXPORT_TRACEPOINT_SYMBOL_GPL(android_vh_mpam_set);
 +EXPORT_TRACEPOINT_SYMBOL_GPL(android_vh_ipi_stop);
 diff --git a/include/trace/hooks/debug.h b/include/trace/hooks/debug.h
 new file mode 100644

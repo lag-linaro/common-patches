@@ -1,8 +1,7 @@
 From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
 From: Valentin Schneider <valentin.schneider@arm.com>
 Date: Thu, 30 Jul 2020 18:03:20 +0100
-Subject: BACKPORT: FROMGIT: irqchip/gic-v2, v3: Implement
- irq_chip->irq_retrigger()
+Subject: FROMGIT: irqchip/gic-v2, v3: Implement irq_chip->irq_retrigger()
 
 While digging around IRQCHIP_EOI_IF_HANDLED and irq/resend.c, it has come
 to my attention that the IRQ resend situation seems a bit precarious for
@@ -26,7 +25,6 @@ Link: https://lore.kernel.org/r/20200730170321.31228-2-valentin.schneider@arm.co
 Bug: 140053385
 (cherry picked from commit 17f644e949ffb14e9c8870d99bc574066d8b685c
  https://git.kernel.org/pub/scm/linux/kernel/git/maz/arm-platforms.git irq/gic-retrigger)
-(resolved trivial merge conflict in drivers/irqchip/irq-gic.c)
 Change-Id: I1c5e81c7cf33155e81ba31615e5eaf3f578350c2
 Signed-off-by: Eric Biggers <ebiggers@google.com>
 ---
@@ -37,7 +35,7 @@ Signed-off-by: Eric Biggers <ebiggers@google.com>
 diff --git a/drivers/irqchip/irq-gic-v3.c b/drivers/irqchip/irq-gic-v3.c
 --- a/drivers/irqchip/irq-gic-v3.c
 +++ b/drivers/irqchip/irq-gic-v3.c
-@@ -1220,6 +1220,11 @@ static int gic_set_affinity(struct irq_data *d, const struct cpumask *mask_val,
+@@ -1214,6 +1214,11 @@ static int gic_set_affinity(struct irq_data *d, const struct cpumask *mask_val,
  #define gic_smp_init()		do { } while(0)
  #endif
  
@@ -49,7 +47,7 @@ diff --git a/drivers/irqchip/irq-gic-v3.c b/drivers/irqchip/irq-gic-v3.c
  #ifdef CONFIG_CPU_PM
  static int gic_cpu_pm_notifier(struct notifier_block *self,
  			       unsigned long cmd, void *v)
-@@ -1275,6 +1280,7 @@ static struct irq_chip gic_chip = {
+@@ -1249,6 +1254,7 @@ static struct irq_chip gic_chip = {
  	.irq_eoi		= gic_eoi_irq,
  	.irq_set_type		= gic_set_type,
  	.irq_set_affinity	= gic_set_affinity,
@@ -57,7 +55,7 @@ diff --git a/drivers/irqchip/irq-gic-v3.c b/drivers/irqchip/irq-gic-v3.c
  	.irq_get_irqchip_state	= gic_irq_get_irqchip_state,
  	.irq_set_irqchip_state	= gic_irq_set_irqchip_state,
  	.irq_nmi_setup		= gic_irq_nmi_setup,
-@@ -1292,6 +1298,7 @@ static struct irq_chip gic_eoimode1_chip = {
+@@ -1266,6 +1272,7 @@ static struct irq_chip gic_eoimode1_chip = {
  	.irq_eoi		= gic_eoimode1_eoi_irq,
  	.irq_set_type		= gic_set_type,
  	.irq_set_affinity	= gic_set_affinity,

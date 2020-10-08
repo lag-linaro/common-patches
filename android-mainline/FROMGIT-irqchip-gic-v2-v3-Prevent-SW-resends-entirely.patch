@@ -1,7 +1,7 @@
 From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
 From: Valentin Schneider <valentin.schneider@arm.com>
 Date: Thu, 30 Jul 2020 18:03:21 +0100
-Subject: BACKPORT: FROMGIT: irqchip/gic-v2, v3: Prevent SW resends entirely
+Subject: FROMGIT: irqchip/gic-v2, v3: Prevent SW resends entirely
 
 The GIC irqchips can now use a HW resend when a retrigger is invoked by
 check_irq_resend(). However, should the HW resend fail, check_irq_resend()
@@ -21,7 +21,6 @@ Link: https://lore.kernel.org/r/20200730170321.31228-3-valentin.schneider@arm.co
 Bug: 140053385
 (cherry picked from commit 1b57d91b969cda1d2c3530f2e829ca366a9c7df7
  https://git.kernel.org/pub/scm/linux/kernel/git/maz/arm-platforms.git irq/gic-retrigger)
-(resolved trivial merge conflict in drivers/irqchip/irq-gic.c)
 Change-Id: I26d068ff58660627b4fd02f2d0483f81f0cd2094
 Signed-off-by: Eric Biggers <ebiggers@google.com>
 ---
@@ -32,7 +31,7 @@ Signed-off-by: Eric Biggers <ebiggers@google.com>
 diff --git a/drivers/irqchip/irq-gic-v3.c b/drivers/irqchip/irq-gic-v3.c
 --- a/drivers/irqchip/irq-gic-v3.c
 +++ b/drivers/irqchip/irq-gic-v3.c
-@@ -1314,6 +1314,7 @@ static int gic_irq_domain_map(struct irq_domain *d, unsigned int irq,
+@@ -1288,6 +1288,7 @@ static int gic_irq_domain_map(struct irq_domain *d, unsigned int irq,
  			      irq_hw_number_t hw)
  {
  	struct irq_chip *chip = &gic_chip;
@@ -40,7 +39,7 @@ diff --git a/drivers/irqchip/irq-gic-v3.c b/drivers/irqchip/irq-gic-v3.c
  
  	if (static_branch_likely(&supports_deactivate_key))
  		chip = &gic_eoimode1_chip;
-@@ -1338,7 +1339,7 @@ static int gic_irq_domain_map(struct irq_domain *d, unsigned int irq,
+@@ -1312,7 +1313,7 @@ static int gic_irq_domain_map(struct irq_domain *d, unsigned int irq,
  		irq_domain_set_info(d, irq, hw, chip, d->host_data,
  				    handle_fasteoi_irq, NULL, NULL);
  		irq_set_probe(irq);
@@ -49,7 +48,7 @@ diff --git a/drivers/irqchip/irq-gic-v3.c b/drivers/irqchip/irq-gic-v3.c
  		break;
  
  	case LPI_RANGE:
-@@ -1352,6 +1353,8 @@ static int gic_irq_domain_map(struct irq_domain *d, unsigned int irq,
+@@ -1326,6 +1327,8 @@ static int gic_irq_domain_map(struct irq_domain *d, unsigned int irq,
  		return -EPERM;
  	}
  
