@@ -2,7 +2,7 @@
 # android-mainline patches
 #
 # Applies onto upstream 549738f15da0 Linux v5.9-rc8
-# Matches android-mainline 114c58d041c5 ("Merge 5.9-rc8 into android-mainline")
+# Matches android-mainline 710cc7493c34 ("ANDROID: inode_owner_or_capable called during execv")
 #
 _____ANNOTATION-pending-upstream_____.patch
 FROMGIT-genirq-Add-fasteoi-IPI-flow.patch
@@ -266,6 +266,7 @@ ANDROID-scsi-ufs-add-UFSHCD_QUIRK_KEYS_IN_PRDT.patch
 ANDROID-export-bkops-and-query-flag-query-functions.patch
 ANDROID-scsi-ufs-add-a-hook-to-prepare-command.patch
 ANDROID-scsi-ufs-add-a-hook-to-add-sysfs-entries.patch
+ANDROID-scsi-ufs-add-hooks-to-monitor-stats-of-UFS-traffic.patch
 _____ANNOTATION-MMC-driver-changes_____.patch
 ANDROID-mmc-core-Add-ignore-mmc-pm-notify-functionality.patch
 _____ANNOTATION-block-changes_____.patch
@@ -284,6 +285,8 @@ FROMLIST-Add-flags-option-to-get-xattr-method-paired-to-__vfs_getxattr.patch
 FROMLIST-overlayfs-handle-XATTR_NOSECURITY-flag-for-get-xattr-method.patch
 FROMLIST-overlayfs-internal-getxattr-operations-without-sepolicy-checking.patch
 FROMLIST-overlayfs-override_creds-off-option-bypass-creator_cred.patch
+ANDROID-overlayfs-readdir-override_creds-off-option-bypass-creator_cred.patch
+ANDROID-inode_owner_or_capable-called-during-execv.patch
 FROMLIST-unicode-Add-utf8_casefold_hash.patch
 FROMLIST-fs-Add-standard-casefolding-support.patch
 FROMLIST-f2fs-Use-generic-casefolding-support.patch
@@ -370,6 +373,7 @@ ANDROID-Incremental-fs-Fix-dangling-else.patch
 ANDROID-Incremental-fs-Add-.incomplete-folder.patch
 ANDROID-Incremental-fs-Add-per-UID-read-timeouts.patch
 ANDROID-Incremental-fs-Fix-misuse-of-cpu_to_leXX-and-poll-return.patch
+ANDROID-Incremental-fs-Fix-read_log_test-which-failed-sporadically.patch
 _____ANNOTATION-networking-changes_____.patch
 ANDROID-net-xfrm-make-PF_KEY-SHA256-use-RFC-compliant-truncation.patch
 ANDROID-netfilter-xt_quota2-add-quota2-from-xtables-addons.patch
@@ -396,6 +400,7 @@ ANDROID-db845c-Add-build-config.patch
 ANDROID-db845c-Update-db845c_gki.fragment-to-add-support-for-bluetooth-modules.patch
 ANDROID-pinctrl-qcom-Allow-pinctrl-msm-code-to-be-loadable-as-a-module.patch
 FROMLIST-soc-qcom-rpmh-Allow-RPMH-driver-to-be-loaded-as-a-module.patch
+FROMLIST-soc-qcom-cmd-db-allow-loading-as-a-module.patch
 ANDROID-firmware-QCOM_SCM-Allow-qcom_scm-driver-to-be-loadable-as-a-permenent-module.patch
 FROMLIST-irqchip-qcom-pdc-Allow-QCOM_PDC-to-be-loadable-as-a-permanent-module.patch
 ANDROID-irqchip-Kconfig-Make-QCOM_PDC-depend-on-QCOM_SCM-QCOM_SCM.patch
@@ -654,6 +659,7 @@ ANDROID-GKI-Add-CONFIG_EDAC-for-gki_defconfig.patch
 ANDROID-move-builds-to-use-gas-prebuilts.patch
 ANDROID-GKI-Enable-CONFIG_TYPEC_TCPCI.patch
 ANDROID-GKI-Build-INCREMENTAL_FS-into-GKI.patch
+ANDROID-GKI-enable-CONFIG_CPU_FREQ_STAT-and-more-thermal-configs.patch
 _____ANNOTATION-Patches-for-bringing-up-new-SoCs_____.patch
 ANDROID-serial-msm_geni_serial_earlycon-Add-Earlycon-support.patch
 _____ANNOTATION-remove-ANNOTATIONS-file_____.patch
@@ -670,3 +676,5 @@ FROMGIT-genirq-Walk-the-irq_data-hierarchy-when-resending-an-interrupt.patch
 BACKPORT-FROMGIT-irqchip-gic-v2-v3-Implement-irq_chip-irq_retrigger.patch
 FROMGIT-irqchip-git-v3-its-Implement-irq_retrigger-callback-for-device-triggered-LPIs.patch
 BACKPORT-FROMGIT-irqchip-gic-v2-v3-Prevent-SW-resends-entirely.patch
+ANDROID-workqueue-add-vendor-hook-for-wq-lockup-information.patch
+ANDROID-vendor_hooks-Add-new-android-vendor-hooks-for-ipi-stop.patch
