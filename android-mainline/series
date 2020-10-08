@@ -2,9 +2,21 @@
 # android-mainline patches
 #
 # Applies onto upstream a1b8638ba132 Linux v5.9-rc7
-# Matches android-mainline 23516028ff64 ("ANDROID: Incremental fs: Fix misuse of cpu_to_leXX and poll return")
+# Matches android-mainline 0bbae53bf635 ("ANDROID: perf: Export clock_set_rate tracepoint")
 #
 _____ANNOTATION-pending-upstream_____.patch
+FROMGIT-genirq-Add-fasteoi-IPI-flow.patch
+FROMGIT-genirq-Allow-interrupts-to-be-excluded-from-proc-interrupts.patch
+FROMGIT-arm64-Allow-IPIs-to-be-handled-as-normal-interrupts.patch
+FROMGIT-ARM-Allow-IPIs-to-be-handled-as-normal-interrupts.patch
+FROMGIT-irqchip-gic-v3-Describe-the-SGI-range.patch
+FROMGIT-arm64-Kill-__smp_cross_call-and-co.patch
+FROMGIT-arm64-Remove-custom-IRQ-stat-accounting.patch
+FROMGIT-ARM-Kill-__smp_cross_call-and-co.patch
+FROMGIT-ARM-Remove-custom-IRQ-stat-accounting.patch
+FROMGIT-arm64-Fix-Wunused-function-warning-when-CONFIG_HOTPLUG_CPU.patch
+FROMGIT-arm-Move-ipi_teardown-to-a-CONFIG_HOTPLUG_CPU-section.patch
+FROMGIT-ARM-Handle-no-IPI-being-registered-in-show_ipi_list.patch
 FROMLIST-coresight-stm-support-marked-packet.patch
 FROMLIST-stm-class-ftrace-change-dependency-to-TRACING.patch
 FROMLIST-tracing-add-flag-to-control-different-traces.patch
@@ -43,6 +55,8 @@ ANDROID-ARM-xen-Register-with-kernel-restart-handler.patch
 ANDROID-ARM-Register-with-kernel-restart-handler.patch
 ANDROID-ARM64-Remove-arm_pm_restart.patch
 ANDROID-ARM-Remove-arm_pm_restart.patch
+ANDROID-arm64-traps-export-dump_backtrace-symbol.patch
+ANDROID-arm64-debug-monitors-export-break-hook-APIs.patch
 _____ANNOTATION-iommu-changes_____.patch
 FROMGIT-iommu-arm-smmu-Don-t-bypass-pinned-stream-mappings.patch
 ANDROID-iommu-arm-smmu-Expose-s2cr-and-smr-structs-to-impl.patch
@@ -72,6 +86,9 @@ ANDROID-power-wakeup_reason-export-log_threaded_irq_wakeup_reason.patch
 ANDROID-power-wakeup_reason-refine-wakeup-logs.patch
 ANDROID-power-Export-log_-suspend_abort-abnormal_wakeup-_reason.patch
 ANDROID-power_supply-Add-a-helper-function-to-retrieve-psy-array-from-phandle.patch
+ANDROID-power_supply-Add-POWER_SUPPLY_CHARGE_TYPE_TAPER.patch
+ANDROID-PM-sleep-export-device_pm_callback_start-end-trace-event.patch
+ANDROID-perf-Export-clock_set_rate-tracepoint.patch
 _____ANNOTATION-scheduler-changes_____.patch
 Revert-sched-core-Prevent-race-condition-between-cpuset-and-__sched_setscheduler.patch
 Revert-sched-Remove-sched_setscheduler-EXPORTs.patch
@@ -113,6 +130,7 @@ ANDROID-add-extra-free-kbytes-tunable.patch
 ANDROID-mm-memory.c-export-mm_trace_rss_stat.patch
 ANDROID-mm-Throttle-rss_stat-tracepoint.patch
 ANDROID-GKI-Don-t-compact-data-structures-when-CONFIG_ZSMALLOC-n.patch
+ANDROID-mm-cma-retry-allocations-in-cma_alloc.patch
 _____ANNOTATION-security-changes_____.patch
 Revert-security-lockdown-selinux-implement-SELinux-lockdown.patch
 ANDROID-selinux-modify-RTM_GETLINK-permission.patch
@@ -179,8 +197,10 @@ ANDROID-gnss-Add-command-line-test-driver.patch
 ANDROID-Export-functions-to-be-used-with-dma_map_ops-in-modules.patch
 ANDROID-drivers-firmware-psci-Register-with-kernel-restart-handler.patch
 ANDROID-gic-Add-vendor-hook-for-gic-v3-resume.patch
+ANDROID-rpmsg-core-Add-signal-API-support.patch
 _____ANNOTATION-tty-changes_____.patch
 Revert-Revert-tty-serial-samsung_tty-build-it-for-any-platform.patch
+FROMLIST-hvc_dcc-bind-driver-to-core0-for-reads-and-writes.patch
 ANDROID-serdev-add-platform-device-support.patch
 ANDROID-serdev-restrict-claim-of-platform-devices.patch
 _____ANNOTATION-USB-changes_____.patch
@@ -195,8 +215,10 @@ ANDROID-usb-gadget-f_midi-set-fi-f-to-NULL-when-free-f_midi-function.patch
 ANDROID-usb-gadget-f_audio_source-New-gadget-driver-for-audio-output.patch
 ANDROID-usb-gadget-configfs-Support-multiple-android-instances.patch
 ANDROID-usb-typec-tcpm-Add-chip-level-callback-to-check-for-contaminant.patch
+ANDROID-usb-typec-tcpm-Bring-back-tcpm_update_sink_capabilities.patch
 _____ANNOTATION-graphics-changes_____.patch
 Revert-drm-virtio-fix-DRM_FORMAT_-handling.patch
+FROMGIT-drm-virtio-Fix-use-after-free-in-get_capset_info-callback.patch
 ANDROID-Allow-DRM_IOCTL_MODE_-_DUMB-for-render-clients.patch
 ANDROID-include-uapi-drm-add-additional-QCOM-modifiers.patch
 ANDROID-drivers-gpu-drm-add-support-for-secure-framebuffer.patch
@@ -219,6 +241,9 @@ ANDROID-sound-usb-Add-vendor-s-hooking-interface.patch
 _____ANNOTATION-media-changes_____.patch
 ANDROID-v4l2-compat-ioctl32.c-copy-reserved-fields.patch
 ANDROID-media-increase-video-max-frame-number.patch
+FROMGIT-media-v4l2-ctrls-Add-encoder-constant-quality-control.patch
+FROMGIT-media-v4l2-ctrl-Add-frame-skip-std-encoder-control.patch
+FROMGIT-v4l2-ctrl-Add-VP9-codec-levels.patch
 _____ANNOTATION-input-and-HID-changes_____.patch
 ANDROID-virtio-virtio_input-Set-the-amount-of-multitouch-slots-in-virtio-input.patch
 ANDROID-virtio-virtio_input-pass-_DIRECT-only-if-the-device-advertises-_DIRECT.patch
@@ -233,6 +258,7 @@ FROMLIST-scsi-ufs-atomic-update-for-clkgating_enable.patch
 FROMLIST-scsi-ufs-clear-UAC-for-FFU.patch
 FROMLIST-scsi-ufs-use-WQ_HIGHPRI-for-gating-work.patch
 FROMLIST-scsi-add-more-contexts-in-the-ufs-tracepoints.patch
+FROMLIST-scsi-ufs-clear-uac-for-rpmb-lun.patch
 ANDROID-scsi-ufs-allow-ufs-variants-to-override-sg-entry-size.patch
 ANDROID-scsi-ufs-add-fill_prdt-variant-op.patch
 ANDROID-scsi-ufs-add-UFSHCD_QUIRK_NO_KEYSLOTS.patch
@@ -625,4 +651,22 @@ ANDROID-Makefile-add-compiler-rt-dependency-explicitly.patch
 ANDROID-GKI-enable-CONFIG_SONY_FF.patch
 ANDROID-build.config.common-enable-LLVM-1.patch
 ANDROID-GKI-Add-CONFIG_EDAC-for-gki_defconfig.patch
+ANDROID-move-builds-to-use-gas-prebuilts.patch
+ANDROID-GKI-Enable-CONFIG_TYPEC_TCPCI.patch
+ANDROID-GKI-Build-INCREMENTAL_FS-into-GKI.patch
+_____ANNOTATION-Patches-for-bringing-up-new-SoCs_____.patch
+ANDROID-serial-msm_geni_serial_earlycon-Add-Earlycon-support.patch
 _____ANNOTATION-remove-ANNOTATIONS-file_____.patch
+BACKPORT-FROMGIT-irqchip-gic-v3-Configure-SGIs-as-standard-interrupts.patch
+FROMGIT-irqchip-gic-Refactor-SMP-configuration.patch
+FROMGIT-irqchip-gic-Configure-SGIs-as-standard-interrupts.patch
+FROMGIT-irqchip-gic-common-Don-t-enable-SGIs-by-default.patch
+FROMGIT-irqchip-bcm2836-Configure-mailbox-interrupts-as-standard-interrupts.patch
+FROMGIT-irqchip-hip04-Configure-IPIs-as-standard-interrupts.patch
+FROMGIT-irqchip-armada-370-xp-Configure-IPIs-as-standard-interrupts.patch
+FROMGIT-irqchip-bcm2836-Provide-mask-unmask-dummy-methods-for-IPIs.patch
+FROMGIT-irqchip-gic-Cleanup-Franken-GIC-handling.patch
+FROMGIT-genirq-Walk-the-irq_data-hierarchy-when-resending-an-interrupt.patch
+BACKPORT-FROMGIT-irqchip-gic-v2-v3-Implement-irq_chip-irq_retrigger.patch
+FROMGIT-irqchip-git-v3-its-Implement-irq_retrigger-callback-for-device-triggered-LPIs.patch
+BACKPORT-FROMGIT-irqchip-gic-v2-v3-Prevent-SW-resends-entirely.patch

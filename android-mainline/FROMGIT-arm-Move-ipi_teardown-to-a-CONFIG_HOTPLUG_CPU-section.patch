@@ -1,0 +1,66 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: Marc Zyngier <maz@kernel.org>
+Date: Fri, 18 Sep 2020 17:19:46 +0100
+Subject: FROMGIT: arm: Move ipi_teardown() to a CONFIG_HOTPLUG_CPU section
+
+ipi_teardown() is only used when CONFIG_HOTPLUG_CPU is enabled.
+Move the function to a location guarded by this config option.
+
+Signed-off-by: Marc Zyngier <maz@kernel.org>
+
+Bug: 140053385
+(cherry picked from commit ac15a54e03d13686d2fc016a88311801b0734046
+ https://git.kernel.org/pub/scm/linux/kernel/git/maz/arm-platforms.git irq/ipi-as-irq)
+Change-Id: I9018dba7a6f7ff2a451f2405609d8d02b9bf767d
+Signed-off-by: Eric Biggers <ebiggers@google.com>
+---
+ arch/arm/kernel/smp.c | 23 +++++++++++------------
+ 1 file changed, 11 insertions(+), 12 deletions(-)
+
+diff --git a/arch/arm/kernel/smp.c b/arch/arm/kernel/smp.c
+--- a/arch/arm/kernel/smp.c
++++ b/arch/arm/kernel/smp.c
+@@ -85,7 +85,6 @@ static int nr_ipi __read_mostly = NR_IPI;
+ static struct irq_desc *ipi_desc[MAX_IPI] __read_mostly;
+ 
+ static void ipi_setup(int cpu);
+-static void ipi_teardown(int cpu);
+ 
+ static DECLARE_COMPLETION(cpu_running);
+ 
+@@ -236,6 +235,17 @@ int platform_can_hotplug_cpu(unsigned int cpu)
+ 	return cpu != 0;
+ }
+ 
++static void ipi_teardown(int cpu)
++{
++	int i;
++
++	if (WARN_ON_ONCE(!ipi_irq_base))
++		return;
++
++	for (i = 0; i < nr_ipi; i++)
++		disable_percpu_irq(ipi_irq_base + i);
++}
++
+ /*
+  * __cpu_disable runs on the processor to be shutdown.
+  */
+@@ -707,17 +717,6 @@ static void ipi_setup(int cpu)
+ 		enable_percpu_irq(ipi_irq_base + i, 0);
+ }
+ 
+-static void ipi_teardown(int cpu)
+-{
+-	int i;
+-
+-	if (WARN_ON_ONCE(!ipi_irq_base))
+-		return;
+-
+-	for (i = 0; i < nr_ipi; i++)
+-		disable_percpu_irq(ipi_irq_base + i);
+-}
+-
+ void __init set_smp_ipi_range(int ipi_base, int n)
+ {
+ 	int i;

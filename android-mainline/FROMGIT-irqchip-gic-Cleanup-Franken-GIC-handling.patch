@@ -1,0 +1,120 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: Marc Zyngier <maz@kernel.org>
+Date: Tue, 15 Sep 2020 14:03:51 +0100
+Subject: FROMGIT: irqchip/gic: Cleanup Franken-GIC handling
+
+Introduce a static key identifying Samsung's unique creation, allowing
+to replace the indirect call to compute the base addresses with
+a simple test on the static key.
+
+Faster, cheaper, negative diffstat.
+
+Tested-by: Marek Szyprowski <m.szyprowski@samsung.com>
+Signed-off-by: Marc Zyngier <maz@kernel.org>
+
+Bug: 140053385
+(cherry picked from commit 8594c3b85171b6f68e34e07b533ec2f1bf7fb065
+ https://git.kernel.org/pub/scm/linux/kernel/git/maz/arm-platforms.git irq/ipi-as-irq)
+Change-Id: I380d7bd5dac454ec7f9407512589e252c5504113
+Signed-off-by: Eric Biggers <ebiggers@google.com>
+---
+ drivers/irqchip/irq-gic.c | 41 ++++++++++++---------------------------
+ 1 file changed, 12 insertions(+), 29 deletions(-)
+
+diff --git a/drivers/irqchip/irq-gic.c b/drivers/irqchip/irq-gic.c
+--- a/drivers/irqchip/irq-gic.c
++++ b/drivers/irqchip/irq-gic.c
+@@ -83,9 +83,6 @@ struct gic_chip_data {
+ #endif
+ 	struct irq_domain *domain;
+ 	unsigned int gic_irqs;
+-#ifdef CONFIG_GIC_NON_BANKED
+-	void __iomem *(*get_base)(union gic_base *);
+-#endif
+ };
+ 
+ #ifdef CONFIG_BL_SWITCHER
+@@ -127,35 +124,27 @@ static struct gic_kvm_info gic_v2_kvm_info;
+ static DEFINE_PER_CPU(u32, sgi_intid);
+ 
+ #ifdef CONFIG_GIC_NON_BANKED
+-static void __iomem *gic_get_percpu_base(union gic_base *base)
+-{
+-	return raw_cpu_read(*base->percpu_base);
+-}
++static DEFINE_STATIC_KEY_FALSE(frankengic_key);
+ 
+-static void __iomem *gic_get_common_base(union gic_base *base)
++static void enable_frankengic(void)
+ {
+-	return base->common_base;
++	static_branch_enable(&frankengic_key);
+ }
+ 
+-static inline void __iomem *gic_data_dist_base(struct gic_chip_data *data)
++static inline void __iomem *__get_base(union gic_base *base)
+ {
+-	return data->get_base(&data->dist_base);
+-}
++	if (static_branch_unlikely(&frankengic_key))
++		return raw_cpu_read(*base->percpu_base);
+ 
+-static inline void __iomem *gic_data_cpu_base(struct gic_chip_data *data)
+-{
+-	return data->get_base(&data->cpu_base);
++	return base->common_base;
+ }
+ 
+-static inline void gic_set_base_accessor(struct gic_chip_data *data,
+-					 void __iomem *(*f)(union gic_base *))
+-{
+-	data->get_base = f;
+-}
++#define gic_data_dist_base(d)	__get_base(&(d)->dist_base)
++#define gic_data_cpu_base(d)	__get_base(&(d)->cpu_base)
+ #else
+ #define gic_data_dist_base(d)	((d)->dist_base.common_base)
+ #define gic_data_cpu_base(d)	((d)->cpu_base.common_base)
+-#define gic_set_base_accessor(d, f)
++#define enable_frankengic()	do { } while(0)
+ #endif
+ 
+ static inline void __iomem *gic_dist_base(struct irq_data *d)
+@@ -307,7 +296,7 @@ static int gic_set_type(struct irq_data *d, unsigned int type)
+ 
+ 	/* Interrupt configuration for SGIs can't be changed */
+ 	if (gicirq < 16)
+-		return type == IRQ_TYPE_EDGE_RISING ? 0 : -EINVAL;
++		return type != IRQ_TYPE_EDGE_RISING ? -EINVAL : 0;
+ 
+ 	/* SPIs have restrictions on the supported types */
+ 	if (gicirq >= 32 && type != IRQ_TYPE_LEVEL_HIGH &&
+@@ -720,11 +709,6 @@ static int gic_notifier(struct notifier_block *self, unsigned long cmd,	void *v)
+ 	int i;
+ 
+ 	for (i = 0; i < CONFIG_ARM_GIC_MAX_NR; i++) {
+-#ifdef CONFIG_GIC_NON_BANKED
+-		/* Skip over unused GICs */
+-		if (!gic_data[i].get_base)
+-			continue;
+-#endif
+ 		switch (cmd) {
+ 		case CPU_PM_ENTER:
+ 			gic_cpu_save(&gic_data[i]);
+@@ -1165,7 +1149,7 @@ static int gic_init_bases(struct gic_chip_data *gic,
+ 				gic->raw_cpu_base + offset;
+ 		}
+ 
+-		gic_set_base_accessor(gic, gic_get_percpu_base);
++		enable_frankengic();
+ 	} else {
+ 		/* Normal, sane GIC... */
+ 		WARN(gic->percpu_offset,
+@@ -1173,7 +1157,6 @@ static int gic_init_bases(struct gic_chip_data *gic,
+ 		     gic->percpu_offset);
+ 		gic->dist_base.common_base = gic->raw_dist_base;
+ 		gic->cpu_base.common_base = gic->raw_cpu_base;
+-		gic_set_base_accessor(gic, gic_get_common_base);
+ 	}
+ 
+ 	/*

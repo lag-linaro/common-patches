@@ -1,0 +1,107 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: Marc Zyngier <maz@kernel.org>
+Date: Tue, 19 May 2020 14:58:13 +0100
+Subject: FROMGIT: genirq: Allow interrupts to be excluded from
+ /proc/interrupts
+
+A number of architectures implement IPI statistics directly,
+duplicating the core kstat_irqs accounting. As we move IPIs to
+being actual IRQs, we would end-up with a confusing display
+in /proc/interrupts (where the IPIs would appear twice).
+
+In order to solve this, allow interrupts to be flagged as
+"hidden", which excludes them from /proc/interrupts.
+
+Reviewed-by: Valentin Schneider <valentin.schneider@arm.com>
+Signed-off-by: Marc Zyngier <maz@kernel.org>
+
+Bug: 140053385
+(cherry picked from commit 83cfac95c01817819c2a51f0931d798d851f8a08
+ https://git.kernel.org/pub/scm/linux/kernel/git/maz/arm-platforms.git irq/ipi-as-irq)
+Change-Id: I46da38d255406a158b5c03e6b02cab80b47180aa
+Signed-off-by: Eric Biggers <ebiggers@google.com>
+---
+ include/linux/irq.h   | 4 +++-
+ kernel/irq/debugfs.c  | 1 +
+ kernel/irq/proc.c     | 2 +-
+ kernel/irq/settings.h | 7 +++++++
+ 4 files changed, 12 insertions(+), 2 deletions(-)
+
+diff --git a/include/linux/irq.h b/include/linux/irq.h
+--- a/include/linux/irq.h
++++ b/include/linux/irq.h
+@@ -71,6 +71,7 @@ enum irqchip_irq_state;
+  *				  it from the spurious interrupt detection
+  *				  mechanism and from core side polling.
+  * IRQ_DISABLE_UNLAZY		- Disable lazy irq disable
++ * IRQ_HIDDEN			- Don't show up in /proc/interrupts
+  */
+ enum {
+ 	IRQ_TYPE_NONE		= 0x00000000,
+@@ -97,13 +98,14 @@ enum {
+ 	IRQ_PER_CPU_DEVID	= (1 << 17),
+ 	IRQ_IS_POLLED		= (1 << 18),
+ 	IRQ_DISABLE_UNLAZY	= (1 << 19),
++	IRQ_HIDDEN		= (1 << 20),
+ };
+ 
+ #define IRQF_MODIFY_MASK	\
+ 	(IRQ_TYPE_SENSE_MASK | IRQ_NOPROBE | IRQ_NOREQUEST | \
+ 	 IRQ_NOAUTOEN | IRQ_MOVE_PCNTXT | IRQ_LEVEL | IRQ_NO_BALANCING | \
+ 	 IRQ_PER_CPU | IRQ_NESTED_THREAD | IRQ_NOTHREAD | IRQ_PER_CPU_DEVID | \
+-	 IRQ_IS_POLLED | IRQ_DISABLE_UNLAZY)
++	 IRQ_IS_POLLED | IRQ_DISABLE_UNLAZY | IRQ_HIDDEN)
+ 
+ #define IRQ_NO_BALANCING_MASK	(IRQ_PER_CPU | IRQ_NO_BALANCING)
+ 
+diff --git a/kernel/irq/debugfs.c b/kernel/irq/debugfs.c
+--- a/kernel/irq/debugfs.c
++++ b/kernel/irq/debugfs.c
+@@ -136,6 +136,7 @@ static const struct irq_bit_descr irqdesc_states[] = {
+ 	BIT_MASK_DESCR(_IRQ_PER_CPU_DEVID),
+ 	BIT_MASK_DESCR(_IRQ_IS_POLLED),
+ 	BIT_MASK_DESCR(_IRQ_DISABLE_UNLAZY),
++	BIT_MASK_DESCR(_IRQ_HIDDEN),
+ };
+ 
+ static const struct irq_bit_descr irqdesc_istates[] = {
+diff --git a/kernel/irq/proc.c b/kernel/irq/proc.c
+--- a/kernel/irq/proc.c
++++ b/kernel/irq/proc.c
+@@ -485,7 +485,7 @@ int show_interrupts(struct seq_file *p, void *v)
+ 
+ 	rcu_read_lock();
+ 	desc = irq_to_desc(i);
+-	if (!desc)
++	if (!desc || irq_settings_is_hidden(desc))
+ 		goto outsparse;
+ 
+ 	if (desc->kstat_irqs)
+diff --git a/kernel/irq/settings.h b/kernel/irq/settings.h
+--- a/kernel/irq/settings.h
++++ b/kernel/irq/settings.h
+@@ -17,6 +17,7 @@ enum {
+ 	_IRQ_PER_CPU_DEVID	= IRQ_PER_CPU_DEVID,
+ 	_IRQ_IS_POLLED		= IRQ_IS_POLLED,
+ 	_IRQ_DISABLE_UNLAZY	= IRQ_DISABLE_UNLAZY,
++	_IRQ_HIDDEN		= IRQ_HIDDEN,
+ 	_IRQF_MODIFY_MASK	= IRQF_MODIFY_MASK,
+ };
+ 
+@@ -31,6 +32,7 @@ enum {
+ #define IRQ_PER_CPU_DEVID	GOT_YOU_MORON
+ #define IRQ_IS_POLLED		GOT_YOU_MORON
+ #define IRQ_DISABLE_UNLAZY	GOT_YOU_MORON
++#define IRQ_HIDDEN		GOT_YOU_MORON
+ #undef IRQF_MODIFY_MASK
+ #define IRQF_MODIFY_MASK	GOT_YOU_MORON
+ 
+@@ -167,3 +169,8 @@ static inline void irq_settings_clr_disable_unlazy(struct irq_desc *desc)
+ {
+ 	desc->status_use_accessors &= ~_IRQ_DISABLE_UNLAZY;
+ }
++
++static inline bool irq_settings_is_hidden(struct irq_desc *desc)
++{
++	return desc->status_use_accessors & _IRQ_HIDDEN;
++}

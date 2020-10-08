@@ -1,0 +1,115 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: Marc Zyngier <maz@kernel.org>
+Date: Mon, 22 Jun 2020 22:15:54 +0100
+Subject: FROMGIT: ARM: Kill __smp_cross_call and co
+
+The old IPI registration interface is now unused on arm, so let's
+get rid of it.
+
+Reviewed-by: Valentin Schneider <valentin.schneider@arm.com>
+Signed-off-by: Marc Zyngier <maz@kernel.org>
+
+Bug: 140053385
+(cherry picked from commit 8aa837cb7a032884c787b15de81f7d9de8af0869
+ https://git.kernel.org/pub/scm/linux/kernel/git/maz/arm-platforms.git irq/ipi-as-irq)
+Change-Id: Ib1feecf3fc23c76277c50c872769f0ff2dd1bbd9
+Signed-off-by: Eric Biggers <ebiggers@google.com>
+---
+ arch/arm/include/asm/smp.h |  6 ------
+ arch/arm/kernel/smp.c      | 26 +++++++-------------------
+ 2 files changed, 7 insertions(+), 25 deletions(-)
+
+diff --git a/arch/arm/include/asm/smp.h b/arch/arm/include/asm/smp.h
+--- a/arch/arm/include/asm/smp.h
++++ b/arch/arm/include/asm/smp.h
+@@ -39,12 +39,6 @@ void handle_IPI(int ipinr, struct pt_regs *regs);
+  */
+ extern void smp_init_cpus(void);
+ 
+-
+-/*
+- * Provide a function to raise an IPI cross call on CPUs in callmap.
+- */
+-extern void set_smp_cross_call(void (*)(const struct cpumask *, unsigned int));
+-
+ /*
+  * Register IPI interrupts with the arch SMP code
+  */
+diff --git a/arch/arm/kernel/smp.c b/arch/arm/kernel/smp.c
+--- a/arch/arm/kernel/smp.c
++++ b/arch/arm/kernel/smp.c
+@@ -511,14 +511,6 @@ void __init smp_prepare_cpus(unsigned int max_cpus)
+ 	}
+ }
+ 
+-static void (*__smp_cross_call)(const struct cpumask *, unsigned int);
+-
+-void __init set_smp_cross_call(void (*fn)(const struct cpumask *, unsigned int))
+-{
+-	if (!__smp_cross_call)
+-		__smp_cross_call = fn;
+-}
+-
+ static const char *ipi_types[NR_IPI] __tracepoint_string = {
+ #define S(x,s)	[x] = s
+ 	S(IPI_WAKEUP, "CPU wakeup interrupts"),
+@@ -530,11 +522,7 @@ static const char *ipi_types[NR_IPI] __tracepoint_string = {
+ 	S(IPI_COMPLETION, "completion interrupts"),
+ };
+ 
+-static void smp_cross_call(const struct cpumask *target, unsigned int ipinr)
+-{
+-	trace_ipi_raise_rcuidle(target, ipi_types[ipinr]);
+-	__smp_cross_call(target, ipinr);
+-}
++static void smp_cross_call(const struct cpumask *target, unsigned int ipinr);
+ 
+ void show_ipi_list(struct seq_file *p, int prec)
+ {
+@@ -713,16 +701,17 @@ static irqreturn_t ipi_handler(int irq, void *data)
+ 	return IRQ_HANDLED;
+ }
+ 
+-static void ipi_send(const struct cpumask *target, unsigned int ipi)
++static void smp_cross_call(const struct cpumask *target, unsigned int ipinr)
+ {
+-	__ipi_send_mask(ipi_desc[ipi], target);
++	trace_ipi_raise_rcuidle(target, ipi_types[ipinr]);
++	__ipi_send_mask(ipi_desc[ipinr], target);
+ }
+ 
+ static void ipi_setup(int cpu)
+ {
+ 	int i;
+ 
+-	if (!ipi_irq_base)
++	if (WARN_ON_ONCE(!ipi_irq_base))
+ 		return;
+ 
+ 	for (i = 0; i < nr_ipi; i++)
+@@ -733,7 +722,7 @@ static void ipi_teardown(int cpu)
+ {
+ 	int i;
+ 
+-	if (!ipi_irq_base)
++	if (WARN_ON_ONCE(!ipi_irq_base))
+ 		return;
+ 
+ 	for (i = 0; i < nr_ipi; i++)
+@@ -759,7 +748,6 @@ void __init set_smp_ipi_range(int ipi_base, int n)
+ 	}
+ 
+ 	ipi_irq_base = ipi_base;
+-	set_smp_cross_call(ipi_send);
+ 
+ 	/* Setup the boot CPU immediately */
+ 	ipi_setup(smp_processor_id());
+@@ -872,7 +860,7 @@ core_initcall(register_cpufreq_notifier);
+ 
+ static void raise_nmi(cpumask_t *mask)
+ {
+-	__smp_cross_call(mask, IPI_CPU_BACKTRACE);
++	__ipi_send_mask(ipi_desc[IPI_CPU_BACKTRACE], mask);
+ }
+ 
+ void arch_trigger_cpumask_backtrace(const cpumask_t *mask, bool exclude_self)

@@ -153,7 +153,7 @@ diff --git a/drivers/irqchip/irq-gic-v3.c b/drivers/irqchip/irq-gic-v3.c
  
  #include <linux/irqchip.h>
  #include <linux/irqchip/arm-gic-common.h>
-@@ -658,6 +660,9 @@ static asmlinkage void __exception_irq_entry gic_handle_irq(struct pt_regs *regs
+@@ -669,6 +671,9 @@ static asmlinkage void __exception_irq_entry gic_handle_irq(struct pt_regs *regs
  		err = handle_domain_irq(gic_data.domain, irqnr, regs);
  		if (err) {
  			WARN_ONCE(true, "Unexpected interrupt received!\n");

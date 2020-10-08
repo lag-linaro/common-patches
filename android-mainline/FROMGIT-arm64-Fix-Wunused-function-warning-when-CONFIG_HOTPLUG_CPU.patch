@@ -1,0 +1,60 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: YueHaibing <yuehaibing@huawei.com>
+Date: Fri, 18 Sep 2020 20:33:18 +0800
+Subject: FROMGIT: arm64: Fix -Wunused-function warning when
+ !CONFIG_HOTPLUG_CPU
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+If CONFIG_HOTPLUG_CPU is n, gcc warns:
+
+arch/arm64/kernel/smp.c:967:13: warning: ‘ipi_teardown’ defined but not used [-Wunused-function]
+ static void ipi_teardown(int cpu)
+             ^~~~~~~~~~~~
+
+Use #ifdef guard this.
+
+Signed-off-by: YueHaibing <yuehaibing@huawei.com>
+Signed-off-by: Marc Zyngier <maz@kernel.org>
+Link: https://lore.kernel.org/r/20200918123318.23764-1-yuehaibing@huawei.com
+
+Bug: 140053385
+(cherry picked from commit 9d9edb962e910552c9c008800ec907293a47852e
+ https://git.kernel.org/pub/scm/linux/kernel/git/maz/arm-platforms.git irq/ipi-as-irq)
+Change-Id: I55651169b5641d7eda174a0c2ebffda07da4c8f4
+Signed-off-by: Eric Biggers <ebiggers@google.com>
+---
+ arch/arm64/kernel/smp.c | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
+
+diff --git a/arch/arm64/kernel/smp.c b/arch/arm64/kernel/smp.c
+--- a/arch/arm64/kernel/smp.c
++++ b/arch/arm64/kernel/smp.c
+@@ -82,9 +82,9 @@ static int nr_ipi __read_mostly = NR_IPI;
+ static struct irq_desc *ipi_desc[NR_IPI] __read_mostly;
+ 
+ static void ipi_setup(int cpu);
+-static void ipi_teardown(int cpu);
+ 
+ #ifdef CONFIG_HOTPLUG_CPU
++static void ipi_teardown(int cpu);
+ static int op_cpu_kill(unsigned int cpu);
+ #else
+ static inline int op_cpu_kill(unsigned int cpu)
+@@ -964,6 +964,7 @@ static void ipi_setup(int cpu)
+ 		enable_percpu_irq(ipi_irq_base + i, 0);
+ }
+ 
++#ifdef CONFIG_HOTPLUG_CPU
+ static void ipi_teardown(int cpu)
+ {
+ 	int i;
+@@ -974,6 +975,7 @@ static void ipi_teardown(int cpu)
+ 	for (i = 0; i < nr_ipi; i++)
+ 		disable_percpu_irq(ipi_irq_base + i);
+ }
++#endif
+ 
+ void __init set_smp_ipi_range(int ipi_base, int n)
+ {

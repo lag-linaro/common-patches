@@ -8,16 +8,16 @@ The ANNOTATION commits had to update this file as a workaround for
 
 Signed-off-by: Eric Biggers <ebiggers@google.com>
 ---
- ANNOTATIONS | 32 --------------------------------
- 1 file changed, 32 deletions(-)
+ ANNOTATIONS | 33 ---------------------------------
+ 1 file changed, 33 deletions(-)
  delete mode 100644 ANNOTATIONS
 
 diff --git a/ANNOTATIONS b/ANNOTATIONS
 deleted file mode 100644
-index c01635f7d69e..000000000000
+index d1353a38dcb9..000000000000
 --- a/ANNOTATIONS
 +++ /dev/null
-@@ -1,32 +0,0 @@
+@@ -1,33 +0,0 @@
 -pending upstream
 -Android vendor hooks
 -kbuild changes
@@ -50,3 +50,4 @@ index c01635f7d69e..000000000000
 -hardware-wrapped key support
 -db845c (DragonBoard 845c) support
 -Android kconfigs and build scripts
+-Bringup patches

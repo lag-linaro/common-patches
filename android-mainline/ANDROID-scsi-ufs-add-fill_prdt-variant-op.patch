@@ -50,7 +50,7 @@ diff --git a/drivers/scsi/ufs/ufshcd.h b/drivers/scsi/ufs/ufshcd.h
  };
  
  /* clock gating state  */
-@@ -1178,6 +1182,16 @@ static inline void ufshcd_vops_config_scaling_param(struct ufs_hba *hba,
+@@ -1179,6 +1183,16 @@ static inline void ufshcd_vops_config_scaling_param(struct ufs_hba *hba,
  		hba->vops->config_scaling_param(hba, profile, data);
  }
  

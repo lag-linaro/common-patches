@@ -1,0 +1,34 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: Marc Zyngier <maz@kernel.org>
+Date: Mon, 14 Sep 2020 17:21:16 +0100
+Subject: FROMGIT: irqchip/bcm2836: Provide mask/unmask dummy methods for IPIs
+
+Although it doesn't seem possible to disable individual mailbox
+interrupts, we still need to provide some callbacks.
+
+Fixes: 09eb672ce4fb ("irqchip/bcm2836: Configure mailbox interrupts as standard interrupts")
+Reported-by: Marek Szyprowski <m.szyprowski@samsung.com>
+Tested-by: Marek Szyprowski <m.szyprowski@samsung.com>
+Signed-off-by: Marc Zyngier <maz@kernel.org>
+
+Bug: 140053385
+(cherry picked from commit c3330399931be38ce459e82bf7dea140338ae43f
+ https://git.kernel.org/pub/scm/linux/kernel/git/maz/arm-platforms.git irq/ipi-as-irq)
+Change-Id: If492c16e0d840e59afe93f338659490a6e50c814
+Signed-off-by: Eric Biggers <ebiggers@google.com>
+---
+ drivers/irqchip/irq-bcm2836.c | 2 ++
+ 1 file changed, 2 insertions(+)
+
+diff --git a/drivers/irqchip/irq-bcm2836.c b/drivers/irqchip/irq-bcm2836.c
+--- a/drivers/irqchip/irq-bcm2836.c
++++ b/drivers/irqchip/irq-bcm2836.c
+@@ -193,6 +193,8 @@ static void bcm2836_arm_irqchip_ipi_send_mask(struct irq_data *d,
+ 
+ static struct irq_chip bcm2836_arm_irqchip_ipi = {
+ 	.name		= "IPI",
++	.irq_mask	= bcm2836_arm_irqchip_dummy_op,
++	.irq_unmask	= bcm2836_arm_irqchip_dummy_op,
+ 	.irq_eoi	= bcm2836_arm_irqchip_ipi_eoi,
+ 	.ipi_send_mask	= bcm2836_arm_irqchip_ipi_send_mask,
+ };

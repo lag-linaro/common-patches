@@ -111,7 +111,7 @@ diff --git a/drivers/scsi/ufs/ufshcd.c b/drivers/scsi/ufs/ufshcd.c
  	cmd_desc_dma_addr = hba->ucdl_dma_addr;
  
  	for (i = 0; i < hba->nutrs; i++) {
-@@ -8802,6 +8804,7 @@ int ufshcd_alloc_host(struct device *dev, struct ufs_hba **hba_handle)
+@@ -8820,6 +8822,7 @@ int ufshcd_alloc_host(struct device *dev, struct ufs_hba **hba_handle)
  	hba->dev = dev;
  	*hba_handle = hba;
  	hba->dev_ref_clk_freq = REF_CLK_FREQ_INVAL;
@@ -130,7 +130,7 @@ diff --git a/drivers/scsi/ufs/ufshcd.h b/drivers/scsi/ufs/ufshcd.h
   * @irq: Irq number of the controller
   * @active_uic_cmd: handle of active UIC command
   * @uic_cmd_mutex: mutex for uic command
-@@ -693,6 +694,7 @@ struct ufs_hba {
+@@ -694,6 +695,7 @@ struct ufs_hba {
  	const struct ufs_hba_variant_ops *vops;
  	struct ufs_hba_variant_params *vps;
  	void *priv;
