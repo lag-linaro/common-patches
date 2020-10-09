@@ -78,7 +78,7 @@ diff --git a/drivers/scsi/ufs/ufshcd.c b/drivers/scsi/ufs/ufshcd.c
 diff --git a/drivers/scsi/ufs/ufshcd.h b/drivers/scsi/ufs/ufshcd.h
 --- a/drivers/scsi/ufs/ufshcd.h
 +++ b/drivers/scsi/ufs/ufshcd.h
-@@ -1014,8 +1014,14 @@ int ufshcd_read_desc_param(struct ufs_hba *hba,
+@@ -1020,8 +1020,14 @@ int ufshcd_read_desc_param(struct ufs_hba *hba,
  			   u8 param_size);
  int ufshcd_query_attr(struct ufs_hba *hba, enum query_opcode opcode,
  		      enum attr_idn idn, u8 index, u8 selector, u32 *attr_val);

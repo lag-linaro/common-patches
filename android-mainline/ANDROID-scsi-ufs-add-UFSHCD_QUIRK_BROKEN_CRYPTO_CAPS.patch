@@ -1,0 +1,53 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: Eric Biggers <ebiggers@google.com>
+Date: Thu, 8 Oct 2020 17:11:27 -0700
+Subject: ANDROID: scsi: ufs: add UFSHCD_QUIRK_BROKEN_CRYPTO_CAPS
+
+Add UFSHCD_QUIRK_BROKEN_CRYPTO_CAPS which tells ufshcd-core that the
+host controller supports inline encryption, but it doesn't use the
+standard crypto capability registers.  If enabled, the standard code
+won't initialize the keyslot manager; ufs_hba_variant_ops::init() must
+do it instead.
+
+This is needed for FMP support.
+
+Bug: 166139333
+Bug: 162257402
+Change-Id: I757c84d3434b935faa8ba7fcf5318af91e694d04
+Signed-off-by: Eric Biggers <ebiggers@google.com>
+---
+ drivers/scsi/ufs/ufshcd-crypto.c | 3 +++
+ drivers/scsi/ufs/ufshcd.h        | 8 ++++++++
+ 2 files changed, 11 insertions(+)
+
+diff --git a/drivers/scsi/ufs/ufshcd-crypto.c b/drivers/scsi/ufs/ufshcd-crypto.c
+--- a/drivers/scsi/ufs/ufshcd-crypto.c
++++ b/drivers/scsi/ufs/ufshcd-crypto.c
+@@ -157,6 +157,9 @@ int ufshcd_hba_init_crypto_capabilities(struct ufs_hba *hba)
+ 	int err = 0;
+ 	enum blk_crypto_mode_num blk_mode_num;
+ 
++	if (hba->quirks & UFSHCD_QUIRK_BROKEN_CRYPTO_CAPS)
++		return 0;
++
+ 	/*
+ 	 * Don't use crypto if either the hardware doesn't advertise the
+ 	 * standard crypto capability bit *or* if the vendor specific driver
+diff --git a/drivers/scsi/ufs/ufshcd.h b/drivers/scsi/ufs/ufshcd.h
+--- a/drivers/scsi/ufs/ufshcd.h
++++ b/drivers/scsi/ufs/ufshcd.h
+@@ -535,6 +535,14 @@ enum ufshcd_quirks {
+ 	 * auto-hibernate capability but it doesn't work.
+ 	 */
+ 	UFSHCD_QUIRK_BROKEN_AUTO_HIBERN8		= 1 << 11,
++
++	/*
++	 * This quirk needs to be enabled if the host controller supports inline
++	 * encryption, but it doesn't use the standard crypto capability
++	 * registers.  If enabled, the standard code won't initialize the
++	 * keyslot manager; ufs_hba_variant_ops::init() must do it instead.
++	 */
++	UFSHCD_QUIRK_BROKEN_CRYPTO_CAPS			= 1 << 20,
+ };
+ 
+ enum ufshcd_caps {

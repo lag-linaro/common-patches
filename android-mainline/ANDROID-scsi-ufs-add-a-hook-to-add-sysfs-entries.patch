@@ -92,7 +92,7 @@ diff --git a/drivers/scsi/ufs/ufshcd.h b/drivers/scsi/ufs/ufshcd.h
  };
  
  /* clock gating state  */
-@@ -1225,6 +1227,13 @@ static inline void ufshcd_vops_prepare_command(struct ufs_hba *hba,
+@@ -1231,6 +1233,13 @@ static inline void ufshcd_vops_prepare_command(struct ufs_hba *hba,
  		hba->vops->prepare_command(hba, rq, lrbp);
  }
  

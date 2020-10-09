@@ -2,7 +2,7 @@
 # android-mainline patches
 #
 # Applies onto upstream 549738f15da0 Linux v5.9-rc8
-# Matches android-mainline 710cc7493c34 ("ANDROID: inode_owner_or_capable called during execv")
+# Matches android-mainline 74e7fc049218 ("ANDROID: scsi: ufs: split up UFSHCD_QUIRK_NO_KEYSLOTS")
 #
 _____ANNOTATION-pending-upstream_____.patch
 FROMGIT-genirq-Add-fasteoi-IPI-flow.patch
@@ -218,6 +218,8 @@ Revert-Revert-tty-serial-samsung_tty-build-it-for-any-platform.patch
 FROMLIST-hvc_dcc-bind-driver-to-core0-for-reads-and-writes.patch
 ANDROID-serdev-add-platform-device-support.patch
 ANDROID-serdev-restrict-claim-of-platform-devices.patch
+ANDROID-tty-hvc_dcc-Add-parameter-to-enable-DCC.patch
+ANDROID-Add-more-hvc-devices-for-virtio-console.patch
 _____ANNOTATION-USB-changes_____.patch
 ANDROID-usb-gadget-configfs-Add-usb_function-ptr-to-fi-struct.patch
 ANDROID-usb-gadget-configfs-Add-Uevent-to-notify-userspace.patch
@@ -276,8 +278,10 @@ FROMLIST-scsi-add-more-contexts-in-the-ufs-tracepoints.patch
 FROMLIST-scsi-ufs-clear-uac-for-rpmb-lun.patch
 ANDROID-scsi-ufs-allow-ufs-variants-to-override-sg-entry-size.patch
 ANDROID-scsi-ufs-add-fill_prdt-variant-op.patch
-ANDROID-scsi-ufs-add-UFSHCD_QUIRK_NO_KEYSLOTS.patch
+ANDROID-scsi-ufs-add-UFSHCD_QUIRK_BROKEN_CRYPTO_CAPS.patch
+ANDROID-scsi-ufs-add-UFSHCD_QUIRK_BROKEN_CRYPTO_ENABLE.patch
 ANDROID-scsi-ufs-add-UFSHCD_QUIRK_KEYS_IN_PRDT.patch
+ANDROID-scsi-ufs-allow-for-there-to-be-no-keyslots.patch
 ANDROID-export-bkops-and-query-flag-query-functions.patch
 ANDROID-scsi-ufs-add-a-hook-to-prepare-command.patch
 ANDROID-scsi-ufs-add-a-hook-to-add-sysfs-entries.patch
@@ -674,6 +678,7 @@ ANDROID-move-builds-to-use-gas-prebuilts.patch
 ANDROID-GKI-Enable-CONFIG_TYPEC_TCPCI.patch
 ANDROID-GKI-Build-INCREMENTAL_FS-into-GKI.patch
 ANDROID-GKI-enable-CONFIG_CPU_FREQ_STAT-and-more-thermal-configs.patch
+ANDROID-gki_defconfig-Enable-serialized-DCC-driver.patch
 _____ANNOTATION-Patches-for-bringing-up-new-SoCs_____.patch
 ANDROID-serial-msm_geni_serial_earlycon-Add-Earlycon-support.patch
 _____ANNOTATION-remove-ANNOTATIONS-file_____.patch

@@ -1,0 +1,52 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: Eric Biggers <ebiggers@google.com>
+Date: Thu, 8 Oct 2020 17:14:09 -0700
+Subject: ANDROID: scsi: ufs: add UFSHCD_QUIRK_BROKEN_CRYPTO_ENABLE
+
+Add UFSHCD_QUIRK_BROKEN_CRYPTO_ENABLE which tells ufshcd-core that the
+host controller supports inline encryption, but the
+CRYPTO_GENERAL_ENABLE bit is not implemented and breaks the HCE sequence
+if used.
+
+This is needed for FMP support.
+
+Bug: 166139333
+Bug: 162257402
+Change-Id: I1757cdc480cc790767396f7cecd97c3b9d632096
+Signed-off-by: Eric Biggers <ebiggers@google.com>
+---
+ drivers/scsi/ufs/ufshcd-crypto.c | 4 ++++
+ drivers/scsi/ufs/ufshcd.h        | 7 +++++++
+ 2 files changed, 11 insertions(+)
+
+diff --git a/drivers/scsi/ufs/ufshcd-crypto.c b/drivers/scsi/ufs/ufshcd-crypto.c
+--- a/drivers/scsi/ufs/ufshcd-crypto.c
++++ b/drivers/scsi/ufs/ufshcd-crypto.c
+@@ -121,6 +121,10 @@ bool ufshcd_crypto_enable(struct ufs_hba *hba)
+ 
+ 	/* Reset might clear all keys, so reprogram all the keys. */
+ 	blk_ksm_reprogram_all_keys(&hba->ksm);
++
++	if (hba->quirks & UFSHCD_QUIRK_BROKEN_CRYPTO_ENABLE)
++		return false;
++
+ 	return true;
+ }
+ 
+diff --git a/drivers/scsi/ufs/ufshcd.h b/drivers/scsi/ufs/ufshcd.h
+--- a/drivers/scsi/ufs/ufshcd.h
++++ b/drivers/scsi/ufs/ufshcd.h
+@@ -543,6 +543,13 @@ enum ufshcd_quirks {
+ 	 * keyslot manager; ufs_hba_variant_ops::init() must do it instead.
+ 	 */
+ 	UFSHCD_QUIRK_BROKEN_CRYPTO_CAPS			= 1 << 20,
++
++	/*
++	 * This quirk needs to be enabled if the host controller supports inline
++	 * encryption, but the CRYPTO_GENERAL_ENABLE bit is not implemented and
++	 * breaks the HCE sequence if used.
++	 */
++	UFSHCD_QUIRK_BROKEN_CRYPTO_ENABLE		= 1 << 21,
+ };
+ 
+ enum ufshcd_caps {
