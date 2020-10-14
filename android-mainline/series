@@ -2,7 +2,7 @@
 # android-mainline patches
 #
 # Applies onto upstream 549738f15da0 Linux v5.9-rc8
-# Matches android-mainline 74e7fc049218 ("ANDROID: scsi: ufs: split up UFSHCD_QUIRK_NO_KEYSLOTS")
+# Matches android-mainline 96191021a564 ("FROMLIST: soc: qcom: Kconfig: make RPMH match Command DB setting")
 #
 _____ANNOTATION-pending-upstream_____.patch
 FROMGIT-genirq-Add-fasteoi-IPI-flow.patch
@@ -682,3 +682,5 @@ ANDROID-gki_defconfig-Enable-serialized-DCC-driver.patch
 _____ANNOTATION-Patches-for-bringing-up-new-SoCs_____.patch
 ANDROID-serial-msm_geni_serial_earlycon-Add-Earlycon-support.patch
 _____ANNOTATION-remove-ANNOTATIONS-file_____.patch
+ANDROID-GKI-enable-THERMAL_EMERGENCY_POWEROFF-feature.patch
+FROMLIST-soc-qcom-Kconfig-make-RPMH-match-Command-DB-setting.patch
