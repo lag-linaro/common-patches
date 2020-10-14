@@ -615,9 +615,9 @@ diff --git a/mm/mmap.c b/mm/mmap.c
 +				NULL, vma->vm_file, vma->vm_pgoff, NULL, NULL_VM_UFFD_CTX,
 +				vma_get_anon_name(vma));
  			if (merge) {
- 				fput(file);
- 				vm_area_free(vma);
-@@ -3063,7 +3073,7 @@ static int do_brk_flags(unsigned long addr, unsigned long len, unsigned long fla
+ 				/* ->mmap() can change vma->vm_file and fput the original file. So
+ 				 * fput the vma->vm_file here or we would add an extra fput for file
+@@ -3067,7 +3077,7 @@ static int do_brk_flags(unsigned long addr, unsigned long len, unsigned long fla
  
  	/* Can we just expand an old private anonymous mapping? */
  	vma = vma_merge(mm, prev, addr, addr + len, flags,
@@ -626,7 +626,7 @@ diff --git a/mm/mmap.c b/mm/mmap.c
  	if (vma)
  		goto out;
  
-@@ -3262,7 +3272,7 @@ struct vm_area_struct *copy_vma(struct vm_area_struct **vmap,
+@@ -3266,7 +3276,7 @@ struct vm_area_struct *copy_vma(struct vm_area_struct **vmap,
  		return NULL;	/* should never get here */
  	new_vma = vma_merge(mm, prev, addr, addr + len, vma->vm_flags,
  			    vma->anon_vma, vma->vm_file, pgoff, vma_policy(vma),

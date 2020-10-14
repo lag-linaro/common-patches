@@ -1,8 +1,8 @@
 #
 # android-mainline patches
 #
-# Applies onto upstream 549738f15da0 Linux v5.9-rc8
-# Matches android-mainline 96191021a564 ("FROMLIST: soc: qcom: Kconfig: make RPMH match Command DB setting")
+# Applies onto upstream bbf5c979011a Linux v5.9
+# Matches android-mainline 8de87f4d1c52 ("Merge 5.9 into android-mainline")
 #
 _____ANNOTATION-pending-upstream_____.patch
 FROMGIT-genirq-Add-fasteoi-IPI-flow.patch
