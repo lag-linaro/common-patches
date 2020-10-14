@@ -41,8 +41,8 @@ diff --git a/drivers/soc/qcom/Kconfig b/drivers/soc/qcom/Kconfig
 -	bool "Qualcomm RPM-Hardened (RPMH) Communication"
 +	tristate "Qualcomm RPM-Hardened (RPMH) Communication"
  	depends on ARCH_QCOM || COMPILE_TEST
+ 	depends on (QCOM_COMMAND_DB || !QCOM_COMMAND_DB)
  	help
- 	  Support for communication with the hardened-RPM blocks in
 diff --git a/drivers/soc/qcom/rpmh-rsc.c b/drivers/soc/qcom/rpmh-rsc.c
 --- a/drivers/soc/qcom/rpmh-rsc.c
 +++ b/drivers/soc/qcom/rpmh-rsc.c

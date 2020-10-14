@@ -15,7 +15,7 @@ Change-Id: Ifa7b70671fed5fef8c287a765e947130c6dd6c66
 diff --git a/arch/arm64/configs/gki_defconfig b/arch/arm64/configs/gki_defconfig
 --- a/arch/arm64/configs/gki_defconfig
 +++ b/arch/arm64/configs/gki_defconfig
-@@ -336,6 +336,7 @@ CONFIG_POWER_RESET_HISI=y
+@@ -337,6 +337,7 @@ CONFIG_POWER_RESET_HISI=y
  # CONFIG_HWMON is not set
  CONFIG_THERMAL=y
  CONFIG_THERMAL_STATISTICS=y
@@ -26,7 +26,7 @@ diff --git a/arch/arm64/configs/gki_defconfig b/arch/arm64/configs/gki_defconfig
 diff --git a/arch/x86/configs/gki_defconfig b/arch/x86/configs/gki_defconfig
 --- a/arch/x86/configs/gki_defconfig
 +++ b/arch/x86/configs/gki_defconfig
-@@ -293,6 +293,7 @@ CONFIG_SPI=y
+@@ -294,6 +294,7 @@ CONFIG_SPI=y
  CONFIG_GPIOLIB=y
  # CONFIG_HWMON is not set
  CONFIG_THERMAL_STATISTICS=y

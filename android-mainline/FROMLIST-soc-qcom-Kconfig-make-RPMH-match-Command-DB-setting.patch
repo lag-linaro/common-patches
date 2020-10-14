@@ -32,7 +32,7 @@ diff --git a/drivers/soc/qcom/Kconfig b/drivers/soc/qcom/Kconfig
 +++ b/drivers/soc/qcom/Kconfig
 @@ -94,6 +94,7 @@ config QCOM_RMTFS_MEM
  config QCOM_RPMH
- 	tristate "Qualcomm RPM-Hardened (RPMH) Communication"
+ 	bool "Qualcomm RPM-Hardened (RPMH) Communication"
  	depends on ARCH_QCOM || COMPILE_TEST
 +	depends on (QCOM_COMMAND_DB || !QCOM_COMMAND_DB)
  	help

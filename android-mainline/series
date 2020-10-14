@@ -2,7 +2,7 @@
 # android-mainline patches
 #
 # Applies onto upstream bbf5c979011a Linux v5.9
-# Matches android-mainline 8de87f4d1c52 ("Merge 5.9 into android-mainline")
+# Matches android-mainline 99be12b566d5 ("FROMLIST: arm64: vdso32: Allow ld.lld to properly link the VDSO")
 #
 _____ANNOTATION-pending-upstream_____.patch
 FROMGIT-genirq-Add-fasteoi-IPI-flow.patch
@@ -39,6 +39,7 @@ FROMLIST-stm-class-ftrace-enable-supported-trace-export-flag.patch
 FROMLIST-stm-class-ftrace-use-different-channel-accroding-to-CPU.patch
 FROMLIST-pinctrl-sunxi-add-support-for-the-Allwinner-A100-pin-controller.patch
 FROMLIST-clk-sunxi-ng-add-support-for-the-Allwinner-A100-CCU.patch
+FROMLIST-clk-Export-clk_register_composite.patch
 FROMLIST-x86-boot-compressed-Move-.got.plt-entries-out-of-the-.got-section.patch
 FROMLIST-x86-boot-compressed-Force-hidden-visibility-for-all-symbol-references.patch
 FROMLIST-x86-boot-compressed-Get-rid-of-GOT-fixup-code.patch
@@ -46,6 +47,8 @@ FROMLIST-x86-boot-Add-.text.-to-setup.ld.patch
 FROMLIST-x86-boot-Remove-run-time-relocations-from-.head.text-code.patch
 FROMLIST-x86-boot-Remove-run-time-relocations-from-head_-32-64-.S.patch
 FROMLIST-x86-boot-Check-that-there-are-no-run-time-relocations.patch
+FROMLIST-arm64-vdso32-Allow-ld.lld-to-properly-link-the-VDSO.patch
+FROMLIST-soc-qcom-Kconfig-make-RPMH-match-Command-DB-setting.patch
 _____ANNOTATION-Android-vendor-hooks_____.patch
 ANDROID-GKI-add-android_vendor.h.patch
 ANDROID-add-support-for-vendor-hooks.patch
@@ -237,7 +240,6 @@ _____ANNOTATION-graphics-changes_____.patch
 Revert-drm-virtio-fix-DRM_FORMAT_-handling.patch
 FROMGIT-drm-virtio-Fix-use-after-free-in-get_capset_info-callback.patch
 ANDROID-Allow-DRM_IOCTL_MODE_-_DUMB-for-render-clients.patch
-ANDROID-include-uapi-drm-add-additional-QCOM-modifiers.patch
 ANDROID-drivers-gpu-drm-add-support-for-secure-framebuffer.patch
 ANDROID-include-drm-increase-DRM-max-property-count-to-64.patch
 ANDROID-include-drm-support-unicasting-mipi-cmds-to-dsi-ctrls.patch
@@ -679,8 +681,8 @@ ANDROID-GKI-Enable-CONFIG_TYPEC_TCPCI.patch
 ANDROID-GKI-Build-INCREMENTAL_FS-into-GKI.patch
 ANDROID-GKI-enable-CONFIG_CPU_FREQ_STAT-and-more-thermal-configs.patch
 ANDROID-gki_defconfig-Enable-serialized-DCC-driver.patch
+ANDROID-GKI-add-built-in-BCM-Bluetooth-driver.patch
+ANDROID-GKI-enable-THERMAL_EMERGENCY_POWEROFF-feature.patch
 _____ANNOTATION-Patches-for-bringing-up-new-SoCs_____.patch
 ANDROID-serial-msm_geni_serial_earlycon-Add-Earlycon-support.patch
 _____ANNOTATION-remove-ANNOTATIONS-file_____.patch
-ANDROID-GKI-enable-THERMAL_EMERGENCY_POWEROFF-feature.patch
-FROMLIST-soc-qcom-Kconfig-make-RPMH-match-Command-DB-setting.patch
