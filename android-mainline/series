@@ -2,7 +2,7 @@
 # android-mainline patches
 #
 # Applies onto upstream bbf5c979011a Linux v5.9
-# Matches android-mainline bbdc899cf77d ("Revert "ANDROID: drivers: gpu: drm: add support for secure framebuffer"")
+# Matches android-mainline 013498c9237b ("FROMLIST: clk: versatile: remove dependency on ARCH_*")
 #
 _____ANNOTATION-pending-upstream_____.patch
 FROMGIT-genirq-Add-fasteoi-IPI-flow.patch
@@ -40,6 +40,7 @@ FROMLIST-stm-class-ftrace-use-different-channel-accroding-to-CPU.patch
 FROMLIST-pinctrl-sunxi-add-support-for-the-Allwinner-A100-pin-controller.patch
 FROMLIST-clk-sunxi-ng-add-support-for-the-Allwinner-A100-CCU.patch
 FROMLIST-clk-Export-clk_register_composite.patch
+FROMLIST-clk-versatile-remove-dependency-on-ARCH_.patch
 FROMLIST-x86-boot-compressed-Move-.got.plt-entries-out-of-the-.got-section.patch
 FROMLIST-x86-boot-compressed-Force-hidden-visibility-for-all-symbol-references.patch
 FROMLIST-x86-boot-compressed-Get-rid-of-GOT-fixup-code.patch
@@ -129,6 +130,7 @@ ANDROID-GKI-core-Export-for-runqueues.patch
 ANDROID-GKI-cputime-Export-for-thread_group_cputime_adjusted.patch
 ANDROID-GKI-loadavg-Export-for-get_avenrun.patch
 ANDROID-sched-add-cpumask-parameter-to-cpu-capacity-vendor-hook.patch
+ANDROID-trace-sched-add-sched-blocked-tracepoint-which-dumps-out-context-of-sleep.patch
 _____ANNOTATION-uid_sys_stats-support_____.patch
 ANDROID-uid_cputime-Adds-accounting-for-the-cputimes-per-uid.patch
 ANDROID-uid_cputime-add-per-uid-IO-usage-accounting.patch
@@ -680,6 +682,7 @@ ANDROID-GKI-enable-CONFIG_CPU_FREQ_STAT-and-more-thermal-configs.patch
 ANDROID-gki_defconfig-Enable-serialized-DCC-driver.patch
 ANDROID-GKI-add-built-in-BCM-Bluetooth-driver.patch
 ANDROID-GKI-enable-THERMAL_EMERGENCY_POWEROFF-feature.patch
+ANDROID-GKI-Add-configs-needed-for-ARM-Fixed-Virtual-Platform.patch
 _____ANNOTATION-Patches-for-bringing-up-new-SoCs_____.patch
 ANDROID-serial-msm_geni_serial_earlycon-Add-Earlycon-support.patch
 _____ANNOTATION-remove-ANNOTATIONS-file_____.patch

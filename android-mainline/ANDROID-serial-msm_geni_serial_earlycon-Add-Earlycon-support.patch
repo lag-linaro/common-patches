@@ -13,11 +13,14 @@ Test: Earlyconsole logs are fine and switch to kernel console is fine.
 Change-Id: I34c9910cc8aa9586f842362fae62bc7127bcee5e
 Signed-off-by: Mukesh Kumar Savaliya <msavaliy@codeaurora.org>
 Signed-off-by: Akash Asthana <akashast@codeaurora.org>
+[maennich: folded ce5b427af1a1 ("ANDROID: serial:
+msm_geni_serial_earlycon: Remove unused variable") into this patch]
+Signed-off-by: Matthias Maennich <maennich@google.com>
 ---
  drivers/tty/serial/Kconfig                    |   8 +
  drivers/tty/serial/Makefile                   |   1 +
- drivers/tty/serial/msm_geni_serial_earlycon.c | 360 ++++++++++++++++++
- 3 files changed, 369 insertions(+)
+ drivers/tty/serial/msm_geni_serial_earlycon.c | 354 ++++++++++++++++++
+ 3 files changed, 363 insertions(+)
  create mode 100644 drivers/tty/serial/msm_geni_serial_earlycon.c
 
 diff --git a/drivers/tty/serial/Kconfig b/drivers/tty/serial/Kconfig
@@ -51,10 +54,10 @@ diff --git a/drivers/tty/serial/Makefile b/drivers/tty/serial/Makefile
  obj-$(CONFIG_SERIAL_ALTERA_UART) += altera_uart.o
 diff --git a/drivers/tty/serial/msm_geni_serial_earlycon.c b/drivers/tty/serial/msm_geni_serial_earlycon.c
 new file mode 100644
-index 000000000000..6ff6df568c62
+index 000000000000..3c214fa5738d
 --- /dev/null
 +++ b/drivers/tty/serial/msm_geni_serial_earlycon.c
-@@ -0,0 +1,360 @@
+@@ -0,0 +1,354 @@
 +// SPDX-License-Identifier: GPL-2.0-only
 +/*
 + * Copyright (c) 2020, The Linux Foundation. All rights reserved.
@@ -358,10 +361,7 @@ index 000000000000..6ff6df568c62
 +	int ret = 0;
 +	u32 tx_trans_cfg = 0;
 +	u32 tx_parity_cfg = 0;
-+	u32 rx_trans_cfg = 0;
-+	u32 rx_parity_cfg = 0;
 +	u32 stop_bit = 0;
-+	u32 rx_stale = 0;
 +	u32 bits_per_char = 0;
 +	unsigned long cfg0, cfg1;
 +	struct uart_port *uport = &dev->port;
@@ -387,11 +387,8 @@ index 000000000000..6ff6df568c62
 +	 */
 +	tx_trans_cfg |= UART_CTS_MASK;
 +	tx_parity_cfg = 0;
-+	rx_trans_cfg = 0;
-+	rx_parity_cfg = 0;
 +	bits_per_char = 0x8;
 +	stop_bit = 0;
-+	rx_stale = 0x18;
 +
 +	msm_geni_serial_poll_abort_tx(uport);
 +
