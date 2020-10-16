@@ -1,0 +1,27 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: Matthias Maennich <maennich@google.com>
+Date: Fri, 16 Oct 2020 22:14:28 +0100
+Subject: DROP ME: Out of tree difference caused by unclean revert
+
+Commit 88adaf726ee3 ("Revert "ANDROID: drivers: gpu: drm: fix bugs
+encountered while fuzzing"") introduced an out-of-tree difference that
+this patch compensates.
+
+Signed-off-by: Matthias Maennich <maennich@google.com>
+Change-Id: Id202836e3e8fa05da2144e2ca5a915b92f34dbae
+---
+ drivers/gpu/drm/drm_property.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/drivers/gpu/drm/drm_property.c b/drivers/gpu/drm/drm_property.c
+--- a/drivers/gpu/drm/drm_property.c
++++ b/drivers/gpu/drm/drm_property.c
+@@ -561,7 +561,7 @@ drm_property_create_blob(struct drm_device *dev, size_t length,
+ 	struct drm_property_blob *blob;
+ 	int ret;
+ 
+-	if (!length || length > INT_MAX - sizeof(struct drm_property_blob))
++	if (!length || length > ULONG_MAX - sizeof(struct drm_property_blob))
+ 		return ERR_PTR(-EINVAL);
+ 
+ 	blob = kvzalloc(sizeof(struct drm_property_blob)+length, GFP_KERNEL);

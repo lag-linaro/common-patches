@@ -2,7 +2,7 @@
 # android-mainline patches
 #
 # Applies onto upstream bbf5c979011a Linux v5.9
-# Matches android-mainline 99be12b566d5 ("FROMLIST: arm64: vdso32: Allow ld.lld to properly link the VDSO")
+# Matches android-mainline bbdc899cf77d ("Revert "ANDROID: drivers: gpu: drm: add support for secure framebuffer"")
 #
 _____ANNOTATION-pending-upstream_____.patch
 FROMGIT-genirq-Add-fasteoi-IPI-flow.patch
@@ -223,6 +223,7 @@ ANDROID-serdev-add-platform-device-support.patch
 ANDROID-serdev-restrict-claim-of-platform-devices.patch
 ANDROID-tty-hvc_dcc-Add-parameter-to-enable-DCC.patch
 ANDROID-Add-more-hvc-devices-for-virtio-console.patch
+ANDROID-sysrq-add-vendor-hook-for-sysrq-crash-information.patch
 _____ANNOTATION-USB-changes_____.patch
 ANDROID-usb-gadget-configfs-Add-usb_function-ptr-to-fi-struct.patch
 ANDROID-usb-gadget-configfs-Add-Uevent-to-notify-userspace.patch
@@ -240,13 +241,9 @@ _____ANNOTATION-graphics-changes_____.patch
 Revert-drm-virtio-fix-DRM_FORMAT_-handling.patch
 FROMGIT-drm-virtio-Fix-use-after-free-in-get_capset_info-callback.patch
 ANDROID-Allow-DRM_IOCTL_MODE_-_DUMB-for-render-clients.patch
-ANDROID-drivers-gpu-drm-add-support-for-secure-framebuffer.patch
 ANDROID-include-drm-increase-DRM-max-property-count-to-64.patch
 ANDROID-include-drm-support-unicasting-mipi-cmds-to-dsi-ctrls.patch
 ANDROID-drm-dsi-add-two-DSI-mode-flags-for-BLLP.patch
-ANDROID-driver-gpu-drm-add-notifier-for-panel-related-events.patch
-ANDROID-drivers-gpu-drm-fix-bugs-encountered-while-fuzzing.patch
-ANDROID-include-uapi-drm-add-additional-drm-mode-flags.patch
 ANDROID-drivers-gpu-drm-add-support-to-batch-commands.patch
 ANDROID-drivers-gpu-drm-export-drm_mode_convert_umode-symbol.patch
 ANDROID-drm-bridge-Introduce-LT9611-DSI-to-HDMI-bridge.patch
@@ -686,3 +683,4 @@ ANDROID-GKI-enable-THERMAL_EMERGENCY_POWEROFF-feature.patch
 _____ANNOTATION-Patches-for-bringing-up-new-SoCs_____.patch
 ANDROID-serial-msm_geni_serial_earlycon-Add-Earlycon-support.patch
 _____ANNOTATION-remove-ANNOTATIONS-file_____.patch
+DROP-ME-Out-of-tree-difference-caused-by-unclean-revert.patch
