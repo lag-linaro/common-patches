@@ -2,7 +2,7 @@
 # android-mainline patches
 #
 # Applies onto upstream 6734e20e3920 Linux v5.9-159-g6734e20e3920
-# Matches android-mainline 1c84293163fa ("Merge 6734e20e3920 ("Merge tag 'arm64-upstream' of git://git.kernel.org/pub/scm/linux/kernel/git/arm64/linux") into android-mainline")
+# Matches android-mainline c6e5f9d7cf2f ("ANDROID: cpu-hotplug: Always use real time scheduling when hotplugging a CPU")
 #
 _____ANNOTATION-pending-upstream_____.patch
 FROMGIT-genirq-Add-fasteoi-IPI-flow.patch
@@ -72,6 +72,7 @@ ANDROID-ARM-xen-Register-with-kernel-restart-handler.patch
 ANDROID-ARM-Register-with-kernel-restart-handler.patch
 ANDROID-ARM64-Remove-arm_pm_restart.patch
 ANDROID-ARM-Remove-arm_pm_restart.patch
+ANDROID-arm64-traps-export-dump_backtrace-symbol.patch
 ANDROID-arm64-debug-monitors-export-break-hook-APIs.patch
 ANDROID-vendor_hooks-Add-new-android-vendor-hooks-for-ipi-stop.patch
 _____ANNOTATION-iommu-changes_____.patch
@@ -130,6 +131,7 @@ ANDROID-GKI-cputime-Export-for-thread_group_cputime_adjusted.patch
 ANDROID-GKI-loadavg-Export-for-get_avenrun.patch
 ANDROID-sched-add-cpumask-parameter-to-cpu-capacity-vendor-hook.patch
 ANDROID-trace-sched-add-sched-blocked-tracepoint-which-dumps-out-context-of-sleep.patch
+ANDROID-cpu-hotplug-Always-use-real-time-scheduling-when-hotplugging-a-CPU.patch
 _____ANNOTATION-uid_sys_stats-support_____.patch
 ANDROID-uid_cputime-Adds-accounting-for-the-cputimes-per-uid.patch
 ANDROID-uid_cputime-add-per-uid-IO-usage-accounting.patch
