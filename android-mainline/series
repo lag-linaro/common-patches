@@ -2,7 +2,7 @@
 # android-mainline patches
 #
 # Applies onto upstream bbf5c979011a Linux v5.9
-# Matches android-mainline 013498c9237b ("FROMLIST: clk: versatile: remove dependency on ARCH_*")
+# Matches android-mainline 2e78374d868d ("ANDROID: GKI: Enable CONFIG_X86_X2APIC")
 #
 _____ANNOTATION-pending-upstream_____.patch
 FROMGIT-genirq-Add-fasteoi-IPI-flow.patch
@@ -683,6 +683,7 @@ ANDROID-gki_defconfig-Enable-serialized-DCC-driver.patch
 ANDROID-GKI-add-built-in-BCM-Bluetooth-driver.patch
 ANDROID-GKI-enable-THERMAL_EMERGENCY_POWEROFF-feature.patch
 ANDROID-GKI-Add-configs-needed-for-ARM-Fixed-Virtual-Platform.patch
+ANDROID-GKI-Enable-CONFIG_X86_X2APIC.patch
 _____ANNOTATION-Patches-for-bringing-up-new-SoCs_____.patch
 ANDROID-serial-msm_geni_serial_earlycon-Add-Earlycon-support.patch
 _____ANNOTATION-remove-ANNOTATIONS-file_____.patch
