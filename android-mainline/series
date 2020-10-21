@@ -1,8 +1,8 @@
 #
 # android-mainline patches
 #
-# Applies onto upstream bbf5c979011a Linux v5.9
-# Matches android-mainline 2e78374d868d ("ANDROID: GKI: Enable CONFIG_X86_X2APIC")
+# Applies onto upstream 6734e20e3920 Linux v5.9-159-g6734e20e3920
+# Matches android-mainline 1c84293163fa ("Merge 6734e20e3920 ("Merge tag 'arm64-upstream' of git://git.kernel.org/pub/scm/linux/kernel/git/arm64/linux") into android-mainline")
 #
 _____ANNOTATION-pending-upstream_____.patch
 FROMGIT-genirq-Add-fasteoi-IPI-flow.patch
@@ -72,7 +72,6 @@ ANDROID-ARM-xen-Register-with-kernel-restart-handler.patch
 ANDROID-ARM-Register-with-kernel-restart-handler.patch
 ANDROID-ARM64-Remove-arm_pm_restart.patch
 ANDROID-ARM-Remove-arm_pm_restart.patch
-ANDROID-arm64-traps-export-dump_backtrace-symbol.patch
 ANDROID-arm64-debug-monitors-export-break-hook-APIs.patch
 ANDROID-vendor_hooks-Add-new-android-vendor-hooks-for-ipi-stop.patch
 _____ANNOTATION-iommu-changes_____.patch

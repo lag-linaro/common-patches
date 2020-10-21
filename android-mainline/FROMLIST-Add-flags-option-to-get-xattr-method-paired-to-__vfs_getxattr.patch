@@ -878,7 +878,7 @@ diff --git a/include/uapi/linux/xattr.h b/include/uapi/linux/xattr.h
 diff --git a/mm/shmem.c b/mm/shmem.c
 --- a/mm/shmem.c
 +++ b/mm/shmem.c
-@@ -3259,7 +3259,8 @@ static int shmem_initxattrs(struct inode *inode,
+@@ -3268,7 +3268,8 @@ static int shmem_initxattrs(struct inode *inode,
  
  static int shmem_xattr_handler_get(const struct xattr_handler *handler,
  				   struct dentry *unused, struct inode *inode,
