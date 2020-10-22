@@ -1,8 +1,8 @@
 #
 # android-mainline patches
 #
-# Applies onto upstream 2646fb032f51 Linux v5.9-730-g2646fb032f51
-# Matches android-mainline a1de8402d10a ("Merge 2646fb032f51 ("Merge tag 'x86-hyperv-2020-10-12' of git://git.kernel.org/pub/scm/linux/kernel/git/tip/tip") into android-mainline")
+# Applies onto upstream ced3a9eb3cd0 Linux v5.9-733-gced3a9eb3cd0
+# Matches android-mainline abe7c7f2fa30 ("Merge ced3a9eb3cd0 ("Merge tag 'ia64_for_5.10' of git://git.kernel.org/pub/scm/linux/kernel/git/aegl/linux") into android-mainline")
 #
 _____ANNOTATION-pending-upstream_____.patch
 FROMLIST-coresight-stm-support-marked-packet.patch
