@@ -2,7 +2,7 @@
 # android-mainline patches
 #
 # Applies onto upstream dd502a81077a Linux v5.9-629-gdd502a81077a
-# Matches android-mainline 14f56bd1a89d ("Merge dd502a81077a ("Merge tag 'core-static_call-2020-10-12' of git://git.kernel.org/pub/scm/linux/kernel/git/tip/tip") into android-mainline")
+# Matches android-mainline ff0771e5f881 ("ANDROID: disable ANDROID_VENDOR_HOOKS")
 #
 _____ANNOTATION-pending-upstream_____.patch
 FROMLIST-coresight-stm-support-marked-packet.patch
@@ -659,3 +659,4 @@ _____ANNOTATION-remove-ANNOTATIONS-file_____.patch
 DROP-ME-Out-of-tree-difference-caused-by-unclean-revert.patch
 DROP-ME-Out-of-tree-difference-by-unclean-upstream-merge.patch
 DROP-ME-This-compensates-a-left-over-patch-after-merging-5.10-rc1.patch
+ANDROID-disable-ANDROID_VENDOR_HOOKS.patch
