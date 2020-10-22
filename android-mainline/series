@@ -1,8 +1,8 @@
 #
 # android-mainline patches
 #
-# Applies onto upstream b85cac574592 Linux v5.9-716-gb85cac574592
-# Matches android-mainline b5d70aad5f05 ("Merge b85cac574592 ("Merge tag 'x86-kaslr-2020-10-12' of git://git.kernel.org/pub/scm/linux/kernel/git/tip/tip") into android-mainline")
+# Applies onto upstream c1b4ec85ee40 Linux v5.9-719-gc1b4ec85ee40
+# Matches android-mainline 4d1f9d30901e ("Merge c1b4ec85ee40 ("Merge tag 'x86-mm-2020-10-12' of git://git.kernel.org/pub/scm/linux/kernel/git/tip/tip") into android-mainline")
 #
 _____ANNOTATION-pending-upstream_____.patch
 FROMLIST-coresight-stm-support-marked-packet.patch
