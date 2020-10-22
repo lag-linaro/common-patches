@@ -1,8 +1,8 @@
 #
 # android-mainline patches
 #
-# Applies onto upstream c457cc800e89 Linux v5.9-375-gc457cc800e89
-# Matches android-mainline eb87047f0823 ("Merge c457cc800e89 ("Merge tag 'irq-core-2020-10-12' of git://git.kernel.org/pub/scm/linux/kernel/git/tip/tip") into android-mainline")
+# Applies onto upstream cc7343724eb7 Linux v5.9-416-gcc7343724eb7
+# Matches android-mainline b251b0cd60fb ("Merge cc7343724eb7 ("Merge tag 'x86-irq-2020-10-12' of git://git.kernel.org/pub/scm/linux/kernel/git/tip/tip") into android-mainline")
 #
 _____ANNOTATION-pending-upstream_____.patch
 FROMLIST-coresight-stm-support-marked-packet.patch
