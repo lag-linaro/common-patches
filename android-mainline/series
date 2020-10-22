@@ -1,8 +1,8 @@
 #
 # android-mainline patches
 #
-# Applies onto upstream ed016af52ee3 Linux v5.9-542-ged016af52ee3
-# Matches android-mainline 9826fd5ce89c ("Merge ed016af52ee3 ("Merge tag 'locking-core-2020-10-12' of git://git.kernel.org/pub/scm/linux/kernel/git/tip/tip") into android-mainline")
+# Applies onto upstream e6412f9833db Linux v5.9-570-ge6412f9833db
+# Matches android-mainline c75d00fcaf5a ("Merge e6412f9833db ("Merge tag 'efi-core-2020-10-12' of git://git.kernel.org/pub/scm/linux/kernel/git/tip/tip") into android-mainline")
 #
 _____ANNOTATION-pending-upstream_____.patch
 FROMLIST-coresight-stm-support-marked-packet.patch
