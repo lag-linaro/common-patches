@@ -1,8 +1,8 @@
 #
 # android-mainline patches
 #
-# Applies onto upstream e6412f9833db Linux v5.9-570-ge6412f9833db
-# Matches android-mainline c75d00fcaf5a ("Merge e6412f9833db ("Merge tag 'efi-core-2020-10-12' of git://git.kernel.org/pub/scm/linux/kernel/git/tip/tip") into android-mainline")
+# Applies onto upstream 34eb62d868d7 Linux v5.9-607-g34eb62d868d7
+# Matches android-mainline 43105055d5d5 ("Merge 34eb62d868d7 ("Merge tag 'core-build-2020-10-12' of git://git.kernel.org/pub/scm/linux/kernel/git/tip/tip") into android-mainline")
 #
 _____ANNOTATION-pending-upstream_____.patch
 FROMLIST-coresight-stm-support-marked-packet.patch
@@ -16,13 +16,6 @@ FROMLIST-pinctrl-sunxi-add-support-for-the-Allwinner-A100-pin-controller.patch
 FROMLIST-clk-sunxi-ng-add-support-for-the-Allwinner-A100-CCU.patch
 FROMLIST-clk-Export-clk_register_composite.patch
 FROMLIST-clk-versatile-remove-dependency-on-ARCH_.patch
-FROMLIST-x86-boot-compressed-Move-.got.plt-entries-out-of-the-.got-section.patch
-FROMLIST-x86-boot-compressed-Force-hidden-visibility-for-all-symbol-references.patch
-FROMLIST-x86-boot-compressed-Get-rid-of-GOT-fixup-code.patch
-FROMLIST-x86-boot-Add-.text.-to-setup.ld.patch
-FROMLIST-x86-boot-Remove-run-time-relocations-from-.head.text-code.patch
-FROMLIST-x86-boot-Remove-run-time-relocations-from-head_-32-64-.S.patch
-FROMLIST-x86-boot-Check-that-there-are-no-run-time-relocations.patch
 FROMLIST-arm64-vdso32-Allow-ld.lld-to-properly-link-the-VDSO.patch
 FROMLIST-soc-qcom-Kconfig-make-RPMH-match-Command-DB-setting.patch
 _____ANNOTATION-Android-vendor-hooks_____.patch
@@ -665,3 +658,4 @@ ANDROID-serial-msm_geni_serial_earlycon-Add-Earlycon-support.patch
 _____ANNOTATION-remove-ANNOTATIONS-file_____.patch
 DROP-ME-Out-of-tree-difference-caused-by-unclean-revert.patch
 DROP-ME-Out-of-tree-difference-by-unclean-upstream-merge.patch
+DROP-ME-This-compensates-a-left-over-patch-after-merging-5.10-rc1.patch
