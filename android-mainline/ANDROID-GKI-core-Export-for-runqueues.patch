@@ -19,7 +19,7 @@ Change-Id: I3e80a46bef2e7c92714b68cc5b6b617ac50bc478
 diff --git a/kernel/sched/core.c b/kernel/sched/core.c
 --- a/kernel/sched/core.c
 +++ b/kernel/sched/core.c
-@@ -45,6 +45,7 @@ EXPORT_TRACEPOINT_SYMBOL_GPL(sched_util_est_se_tp);
+@@ -46,6 +46,7 @@ EXPORT_TRACEPOINT_SYMBOL_GPL(sched_util_est_se_tp);
  EXPORT_TRACEPOINT_SYMBOL_GPL(sched_update_nr_running_tp);
  
  DEFINE_PER_CPU_SHARED_ALIGNED(struct rq, runqueues);

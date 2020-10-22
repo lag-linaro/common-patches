@@ -107,7 +107,7 @@ diff --git a/kernel/sched/cpufreq_schedutil.c b/kernel/sched/cpufreq_schedutil.c
 diff --git a/kernel/sched/topology.c b/kernel/sched/topology.c
 --- a/kernel/sched/topology.c
 +++ b/kernel/sched/topology.c
-@@ -309,7 +309,6 @@ static void sched_energy_set(bool has_eas)
+@@ -323,7 +323,6 @@ static void sched_energy_set(bool has_eas)
   *    2. the SD_ASYM_CPUCAPACITY flag is set in the sched_domain hierarchy.
   *    3. no SMT is detected.
   *    4. the EM complexity is low enough to keep scheduling overheads low;
@@ -115,7 +115,7 @@ diff --git a/kernel/sched/topology.c b/kernel/sched/topology.c
   *
   * The complexity of the Energy Model is defined as:
   *
-@@ -329,15 +328,12 @@ static void sched_energy_set(bool has_eas)
+@@ -343,15 +342,12 @@ static void sched_energy_set(bool has_eas)
   */
  #define EM_MAX_COMPLEXITY 2048
  
@@ -131,7 +131,7 @@ diff --git a/kernel/sched/topology.c b/kernel/sched/topology.c
  
  	if (!sysctl_sched_energy_aware)
  		goto free;
-@@ -363,19 +359,6 @@ static bool build_perf_domains(const struct cpumask *cpu_map)
+@@ -377,19 +373,6 @@ static bool build_perf_domains(const struct cpumask *cpu_map)
  		if (find_pd(pd, i))
  			continue;
  
