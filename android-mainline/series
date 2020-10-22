@@ -1,8 +1,8 @@
 #
 # android-mainline patches
 #
-# Applies onto upstream 3bff6112c80c Linux v5.9-675-g3bff6112c80c
-# Matches android-mainline 977a3890c790 ("Merge 3bff6112c80c ("Merge tag 'perf-core-2020-10-12' of git://git.kernel.org/pub/scm/linux/kernel/git/tip/tip") into android-mainline")
+# Applies onto upstream 1c6890707eb1 Linux v5.9-693-g1c6890707eb1
+# Matches android-mainline f8f91cf02cba ("Merge 1c6890707eb1 ("Merge tag 'perf-kprobes-2020-10-12' of git://git.kernel.org/pub/scm/linux/kernel/git/tip/tip") into android-common")
 #
 _____ANNOTATION-pending-upstream_____.patch
 FROMLIST-coresight-stm-support-marked-packet.patch
