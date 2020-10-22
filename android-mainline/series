@@ -1,8 +1,8 @@
 #
 # android-mainline patches
 #
-# Applies onto upstream ced3a9eb3cd0 Linux v5.9-733-gced3a9eb3cd0
-# Matches android-mainline abe7c7f2fa30 ("Merge ced3a9eb3cd0 ("Merge tag 'ia64_for_5.10' of git://git.kernel.org/pub/scm/linux/kernel/git/aegl/linux") into android-mainline")
+# Applies onto upstream 50d228345a03 Linux v5.9-815-g50d228345a03
+# Matches android-mainline c8f7eef135a4 ("Merge 50d228345a03 ("Merge tag 'docs-5.10' of git://git.lwn.net/linux") into android-mainline")
 #
 _____ANNOTATION-pending-upstream_____.patch
 FROMLIST-coresight-stm-support-marked-packet.patch
