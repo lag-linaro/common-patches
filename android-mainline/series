@@ -1,8 +1,8 @@
 #
 # android-mainline patches
 #
-# Applies onto upstream 1e6d1d96461e Linux v5.9-282-g1e6d1d96461e
-# Matches android-mainline 369d0dda537c ("Merge 1e6d1d96461e ("Merge tag 'x86_core_for_v5.10' of git://git.kernel.org/pub/scm/linux/kernel/git/tip/tip") into android-mainline")
+# Applies onto upstream 20d49bfcc3d2 Linux v5.9-286-g20d49bfcc3d2
+# Matches android-mainline 60735ebe2a4f ("Merge 20d49bfcc3d2 ("Merge tag 'core-debugobjects-2020-10-12' of git://git.kernel.org/pub/scm/linux/kernel/git/tip/tip") into android-mainline")
 #
 _____ANNOTATION-pending-upstream_____.patch
 FROMGIT-genirq-Add-fasteoi-IPI-flow.patch
