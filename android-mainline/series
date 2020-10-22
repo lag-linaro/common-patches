@@ -1,8 +1,8 @@
 #
 # android-mainline patches
 #
-# Applies onto upstream 6734e20e3920 Linux v5.9-159-g6734e20e3920
-# Matches android-mainline c6e5f9d7cf2f ("ANDROID: cpu-hotplug: Always use real time scheduling when hotplugging a CPU")
+# Applies onto upstream a9a4b7d9a638 Linux v5.9-189-ga9a4b7d9a638
+# Matches android-mainline 6ae9f9a7185b ("Merge a9a4b7d9a638 ("Merge tag 'edac_updates_for_v5.10' of git://git.kernel.org/pub/scm/linux/kernel/git/ras/ras") into android-mainline")
 #
 _____ANNOTATION-pending-upstream_____.patch
 FROMGIT-genirq-Add-fasteoi-IPI-flow.patch
