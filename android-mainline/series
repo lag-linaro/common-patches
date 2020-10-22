@@ -1,8 +1,8 @@
 #
 # android-mainline patches
 #
-# Applies onto upstream edaa5ddf3833 Linux v5.9-471-gedaa5ddf3833
-# Matches android-mainline c2f57c792b00 ("Merge edaa5ddf3833 ("Merge tag 'sched-core-2020-10-12' of git://git.kernel.org/pub/scm/linux/kernel/git/tip/tip") into android-mainline")
+# Applies onto upstream ed016af52ee3 Linux v5.9-542-ged016af52ee3
+# Matches android-mainline 9826fd5ce89c ("Merge ed016af52ee3 ("Merge tag 'locking-core-2020-10-12' of git://git.kernel.org/pub/scm/linux/kernel/git/tip/tip") into android-mainline")
 #
 _____ANNOTATION-pending-upstream_____.patch
 FROMLIST-coresight-stm-support-marked-packet.patch
