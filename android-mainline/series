@@ -1,8 +1,8 @@
 #
 # android-mainline patches
 #
-# Applies onto upstream 50d228345a03 Linux v5.9-815-g50d228345a03
-# Matches android-mainline c8f7eef135a4 ("Merge 50d228345a03 ("Merge tag 'docs-5.10' of git://git.lwn.net/linux") into android-mainline")
+# Applies onto upstream c90578360c92 Linux v5.9-835-gc90578360c92
+# Matches android-mainline 0b5642206206 ("Merge c90578360c92 ("Merge branch 'work.csum_and_copy' of git://git.kernel.org/pub/scm/linux/kernel/git/viro/vfs") into android-mainline")
 #
 _____ANNOTATION-pending-upstream_____.patch
 FROMLIST-coresight-stm-support-marked-packet.patch
