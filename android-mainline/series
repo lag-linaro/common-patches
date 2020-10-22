@@ -1,8 +1,8 @@
 #
 # android-mainline patches
 #
-# Applies onto upstream ee4a925107d1 Linux v5.9-728-gee4a925107d1
-# Matches android-mainline ccccfe1530c9 ("Merge ee4a925107d1 ("Merge tag 'x86-paravirt-2020-10-12' of git://git.kernel.org/pub/scm/linux/kernel/git/tip/tip") into android-mainline")
+# Applies onto upstream 2646fb032f51 Linux v5.9-730-g2646fb032f51
+# Matches android-mainline a1de8402d10a ("Merge 2646fb032f51 ("Merge tag 'x86-hyperv-2020-10-12' of git://git.kernel.org/pub/scm/linux/kernel/git/tip/tip") into android-mainline")
 #
 _____ANNOTATION-pending-upstream_____.patch
 FROMLIST-coresight-stm-support-marked-packet.patch
