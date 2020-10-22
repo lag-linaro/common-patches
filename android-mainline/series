@@ -1,8 +1,8 @@
 #
 # android-mainline patches
 #
-# Applies onto upstream ca1b66922a70 Linux v5.9-210-gca1b66922a70
-# Matches android-mainline 1d0156db22f2 ("Merge ca1b66922a70 ("Merge tag 'ras_updates_for_v5.10' of git://git.kernel.org/pub/scm/linux/kernel/git/tip/tip") into android-mainline")
+# Applies onto upstream 92a0610b6acd Linux v5.9-222-g92a0610b6acd
+# Matches android-mainline cef3d3861a6f ("Merge 92a0610b6acd ("Merge tag 'x86_cpu_for_v5.10' of git://git.kernel.org/pub/scm/linux/kernel/git/tip/tip") into android-mainline")
 #
 _____ANNOTATION-pending-upstream_____.patch
 FROMGIT-genirq-Add-fasteoi-IPI-flow.patch
