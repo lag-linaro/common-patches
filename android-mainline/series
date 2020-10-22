@@ -1,35 +1,10 @@
 #
 # android-mainline patches
 #
-# Applies onto upstream f5f59336a9ae Linux v5.9-304-gf5f59336a9ae
-# Matches android-mainline 03a2f92b6170 ("Merge f5f59336a9ae ("Merge tag 'timers-core-2020-10-12' of git://git.kernel.org/pub/scm/linux/kernel/git/tip/tip") into android-mainline")
+# Applies onto upstream c457cc800e89 Linux v5.9-375-gc457cc800e89
+# Matches android-mainline eb87047f0823 ("Merge c457cc800e89 ("Merge tag 'irq-core-2020-10-12' of git://git.kernel.org/pub/scm/linux/kernel/git/tip/tip") into android-mainline")
 #
 _____ANNOTATION-pending-upstream_____.patch
-FROMGIT-genirq-Add-fasteoi-IPI-flow.patch
-FROMGIT-genirq-Allow-interrupts-to-be-excluded-from-proc-interrupts.patch
-FROMGIT-arm64-Allow-IPIs-to-be-handled-as-normal-interrupts.patch
-FROMGIT-ARM-Allow-IPIs-to-be-handled-as-normal-interrupts.patch
-FROMGIT-irqchip-gic-v3-Describe-the-SGI-range.patch
-FROMGIT-arm64-Kill-__smp_cross_call-and-co.patch
-FROMGIT-arm64-Remove-custom-IRQ-stat-accounting.patch
-FROMGIT-ARM-Kill-__smp_cross_call-and-co.patch
-FROMGIT-ARM-Remove-custom-IRQ-stat-accounting.patch
-FROMGIT-arm64-Fix-Wunused-function-warning-when-CONFIG_HOTPLUG_CPU.patch
-FROMGIT-arm-Move-ipi_teardown-to-a-CONFIG_HOTPLUG_CPU-section.patch
-FROMGIT-ARM-Handle-no-IPI-being-registered-in-show_ipi_list.patch
-FROMGIT-irqchip-gic-v3-Configure-SGIs-as-standard-interrupts.patch
-FROMGIT-irqchip-gic-Refactor-SMP-configuration.patch
-FROMGIT-irqchip-gic-Configure-SGIs-as-standard-interrupts.patch
-FROMGIT-irqchip-gic-common-Don-t-enable-SGIs-by-default.patch
-FROMGIT-irqchip-bcm2836-Configure-mailbox-interrupts-as-standard-interrupts.patch
-FROMGIT-irqchip-hip04-Configure-IPIs-as-standard-interrupts.patch
-FROMGIT-irqchip-armada-370-xp-Configure-IPIs-as-standard-interrupts.patch
-FROMGIT-irqchip-bcm2836-Provide-mask-unmask-dummy-methods-for-IPIs.patch
-FROMGIT-irqchip-gic-Cleanup-Franken-GIC-handling.patch
-FROMGIT-genirq-Walk-the-irq_data-hierarchy-when-resending-an-interrupt.patch
-FROMGIT-irqchip-gic-v2-v3-Implement-irq_chip-irq_retrigger.patch
-FROMGIT-irqchip-git-v3-its-Implement-irq_retrigger-callback-for-device-triggered-LPIs.patch
-FROMGIT-irqchip-gic-v2-v3-Prevent-SW-resends-entirely.patch
 FROMLIST-coresight-stm-support-marked-packet.patch
 FROMLIST-stm-class-ftrace-change-dependency-to-TRACING.patch
 FROMLIST-tracing-add-flag-to-control-different-traces.patch

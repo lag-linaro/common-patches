@@ -53,7 +53,7 @@ diff --git a/drivers/irqchip/irq-gic-v3.c b/drivers/irqchip/irq-gic-v3.c
  #include "irq-gic-common.h"
  
  #define GICD_INT_NMI_PRI	(GICD_INT_DEF_PRI & ~0x80)
-@@ -1250,6 +1253,26 @@ static void gic_cpu_pm_init(void)
+@@ -1257,6 +1260,26 @@ static void gic_cpu_pm_init(void)
  static inline void gic_cpu_pm_init(void) { }
  #endif /* CONFIG_CPU_PM */
  
@@ -80,7 +80,7 @@ diff --git a/drivers/irqchip/irq-gic-v3.c b/drivers/irqchip/irq-gic-v3.c
  static struct irq_chip gic_chip = {
  	.name			= "GICv3",
  	.irq_mask		= gic_mask_irq,
-@@ -1681,6 +1704,7 @@ static int __init gic_init_bases(void __iomem *dist_base,
+@@ -1713,6 +1736,7 @@ static int __init gic_init_bases(void __iomem *dist_base,
  	gic_cpu_init();
  	gic_smp_init();
  	gic_cpu_pm_init();

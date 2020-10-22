@@ -142,7 +142,7 @@ diff --git a/drivers/irqchip/qcom-pdc.c b/drivers/irqchip/qcom-pdc.c
  	return irq_chip_set_type_parent(d, type);
  }
  
-@@ -377,6 +447,7 @@ static int pdc_setup_pin_mapping(struct device_node *np)
+@@ -387,6 +457,7 @@ static int pdc_setup_pin_mapping(struct device_node *np)
  static int qcom_pdc_init(struct device_node *node, struct device_node *parent)
  {
  	struct irq_domain *parent_domain, *pdc_domain, *pdc_gpio_domain;
@@ -150,7 +150,7 @@ diff --git a/drivers/irqchip/qcom-pdc.c b/drivers/irqchip/qcom-pdc.c
  	int ret;
  
  	pdc_base = of_iomap(node, 0);
-@@ -407,6 +478,27 @@ static int qcom_pdc_init(struct device_node *node, struct device_node *parent)
+@@ -417,6 +488,27 @@ static int qcom_pdc_init(struct device_node *node, struct device_node *parent)
  		goto fail;
  	}
  
@@ -178,7 +178,7 @@ diff --git a/drivers/irqchip/qcom-pdc.c b/drivers/irqchip/qcom-pdc.c
  	pdc_gpio_domain = irq_domain_create_hierarchy(parent_domain,
  					IRQ_DOMAIN_FLAG_QCOM_PDC_WAKEUP,
  					PDC_MAX_GPIO_IRQS,
-@@ -424,6 +516,7 @@ static int qcom_pdc_init(struct device_node *node, struct device_node *parent)
+@@ -434,6 +526,7 @@ static int qcom_pdc_init(struct device_node *node, struct device_node *parent)
  
  remove:
  	irq_domain_remove(pdc_domain);
