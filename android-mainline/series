@@ -1,8 +1,8 @@
 #
 # android-mainline patches
 #
-# Applies onto upstream 34eb62d868d7 Linux v5.9-607-g34eb62d868d7
-# Matches android-mainline 43105055d5d5 ("Merge 34eb62d868d7 ("Merge tag 'core-build-2020-10-12' of git://git.kernel.org/pub/scm/linux/kernel/git/tip/tip") into android-mainline")
+# Applies onto upstream dd502a81077a Linux v5.9-629-gdd502a81077a
+# Matches android-mainline 14f56bd1a89d ("Merge dd502a81077a ("Merge tag 'core-static_call-2020-10-12' of git://git.kernel.org/pub/scm/linux/kernel/git/tip/tip") into android-mainline")
 #
 _____ANNOTATION-pending-upstream_____.patch
 FROMLIST-coresight-stm-support-marked-packet.patch
