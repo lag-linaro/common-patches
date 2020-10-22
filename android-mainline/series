@@ -2,7 +2,7 @@
 # android-mainline patches
 #
 # Applies onto upstream c90578360c92 Linux v5.9-835-gc90578360c92
-# Matches android-mainline 0b5642206206 ("Merge c90578360c92 ("Merge branch 'work.csum_and_copy' of git://git.kernel.org/pub/scm/linux/kernel/git/viro/vfs") into android-mainline")
+# Matches android-mainline f1a25121dd6a ("ANDROID: dma-buf: Cleanup minor usage in "Add proper kref handling on dma-buf heaps"")
 #
 _____ANNOTATION-pending-upstream_____.patch
 FROMLIST-coresight-stm-support-marked-packet.patch
@@ -21,6 +21,7 @@ FROMLIST-soc-qcom-Kconfig-make-RPMH-match-Command-DB-setting.patch
 _____ANNOTATION-Android-vendor-hooks_____.patch
 ANDROID-GKI-add-android_vendor.h.patch
 ANDROID-add-support-for-vendor-hooks.patch
+ANDROID-use-static_call-for-restricted-hooks.patch
 _____ANNOTATION-kbuild-changes_____.patch
 FROMLIST-kbuild-Add-dtc-flag-test.patch
 ANDROID-Kbuild-LLVMLinux-allow-overriding-clang-target-triple.patch
@@ -170,6 +171,7 @@ ANDROID-dma-heap-Add-proper-kref-handling-on-dma-buf-heaps.patch
 ANDROID-dma-heap-Refactor-code-to-allow-for-future-in-kernel-users.patch
 ANDROID-dma-heap-Rework-allocation-calls-to-return-struct-dma_buf-instead-of-fd.patch
 ANDROID-dma-heap-Provide-accessors-so-that-in-kernel-drivers-can-allocate-dmabufs-from-specific-heaps.patch
+ANDROID-dma-buf-Cleanup-minor-usage-in-Add-proper-kref-handling-on-dma-buf-heaps.patch
 _____ANNOTATION-driver-framework-and-misc-driver-changes_____.patch
 FROMLIST-drivers-irqchip-pdc-additionally-set-type-in-SPI-config-registers.patch
 FROMLIST-dt-bindings-interrupt-controller-pdc-add-SPI-config-register.patch
@@ -659,4 +661,3 @@ _____ANNOTATION-remove-ANNOTATIONS-file_____.patch
 DROP-ME-Out-of-tree-difference-caused-by-unclean-revert.patch
 DROP-ME-Out-of-tree-difference-by-unclean-upstream-merge.patch
 DROP-ME-This-compensates-a-left-over-patch-after-merging-5.10-rc1.patch
-ANDROID-disable-ANDROID_VENDOR_HOOKS.patch
