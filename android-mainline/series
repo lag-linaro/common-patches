@@ -2,7 +2,7 @@
 # android-mainline patches
 #
 # Applies onto upstream c90578360c92 Linux v5.9-835-gc90578360c92
-# Matches android-mainline f1a25121dd6a ("ANDROID: dma-buf: Cleanup minor usage in "Add proper kref handling on dma-buf heaps"")
+# Matches android-mainline dfd572c112aa ("ANDROID: irqchip/gic-v3: fix bad merge resolution")
 #
 _____ANNOTATION-pending-upstream_____.patch
 FROMLIST-coresight-stm-support-marked-packet.patch
@@ -210,6 +210,7 @@ ANDROID-usb-gadget-f_audio_source-New-gadget-driver-for-audio-output.patch
 ANDROID-usb-gadget-configfs-Support-multiple-android-instances.patch
 ANDROID-usb-typec-tcpm-Add-chip-level-callback-to-check-for-contaminant.patch
 ANDROID-usb-typec-tcpm-Bring-back-tcpm_update_sink_capabilities.patch
+ANDROID-usb-f_accessory-Send-uevent-when-receive-control-request.patch
 _____ANNOTATION-graphics-changes_____.patch
 Revert-drm-virtio-fix-DRM_FORMAT_-handling.patch
 FROMGIT-drm-virtio-Fix-use-after-free-in-get_capset_info-callback.patch
@@ -655,9 +656,10 @@ ANDROID-GKI-add-built-in-BCM-Bluetooth-driver.patch
 ANDROID-GKI-enable-THERMAL_EMERGENCY_POWEROFF-feature.patch
 ANDROID-GKI-Add-configs-needed-for-ARM-Fixed-Virtual-Platform.patch
 ANDROID-GKI-Enable-CONFIG_X86_X2APIC.patch
+ANDROID-GKI-Enable-CONFIG_USB_ANNOUNCE_NEW_DEVICES.patch
+ANDROID-GKI-add-built-in-PCIE_DW_PLAT_EP.patch
 _____ANNOTATION-Patches-for-bringing-up-new-SoCs_____.patch
 ANDROID-serial-msm_geni_serial_earlycon-Add-Earlycon-support.patch
 _____ANNOTATION-remove-ANNOTATIONS-file_____.patch
 DROP-ME-Out-of-tree-difference-caused-by-unclean-revert.patch
-DROP-ME-Out-of-tree-difference-by-unclean-upstream-merge.patch
 DROP-ME-This-compensates-a-left-over-patch-after-merging-5.10-rc1.patch
