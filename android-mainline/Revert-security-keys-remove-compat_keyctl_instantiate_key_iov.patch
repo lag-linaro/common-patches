@@ -1,0 +1,96 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: Greg Kroah-Hartman <gregkh@google.com>
+Date: Fri, 23 Oct 2020 10:19:23 +0200
+Subject: Revert "security/keys: remove compat_keyctl_instantiate_key_iov"
+
+This reverts commit 5d47b394794d3086c1c338cc014011a9ee34005c.
+
+Bug: 171539436
+Signed-off-by: Greg Kroah-Hartman <gregkh@google.com>
+Change-Id: I08f80f63ab81079046628e9558475ceaf22273c2
+---
+ security/keys/compat.c   | 36 ++++++++++++++++++++++++++++++++++--
+ security/keys/internal.h |  5 +++++
+ security/keys/keyctl.c   |  2 +-
+ 3 files changed, 40 insertions(+), 3 deletions(-)
+
+diff --git a/security/keys/compat.c b/security/keys/compat.c
+--- a/security/keys/compat.c
++++ b/security/keys/compat.c
+@@ -11,6 +11,38 @@
+ #include <linux/slab.h>
+ #include "internal.h"
+ 
++/*
++ * Instantiate a key with the specified compatibility multipart payload and
++ * link the key into the destination keyring if one is given.
++ *
++ * The caller must have the appropriate instantiation permit set for this to
++ * work (see keyctl_assume_authority).  No other permissions are required.
++ *
++ * If successful, 0 will be returned.
++ */
++static long compat_keyctl_instantiate_key_iov(
++	key_serial_t id,
++	const struct compat_iovec __user *_payload_iov,
++	unsigned ioc,
++	key_serial_t ringid)
++{
++	struct iovec iovstack[UIO_FASTIOV], *iov = iovstack;
++	struct iov_iter from;
++	long ret;
++
++	if (!_payload_iov)
++		ioc = 0;
++
++	ret = import_iovec(WRITE, (const struct iovec __user *)_payload_iov,
++			   ioc, ARRAY_SIZE(iovstack), &iov, &from);
++	if (ret < 0)
++		return ret;
++
++	ret = keyctl_instantiate_key_common(id, &from, ringid);
++	kfree(iov);
++	return ret;
++}
++
+ /*
+  * The key control system call, 32-bit compatibility version for 64-bit archs
+  */
+@@ -81,8 +113,8 @@ COMPAT_SYSCALL_DEFINE5(keyctl, u32, option,
+ 		return keyctl_reject_key(arg2, arg3, arg4, arg5);
+ 
+ 	case KEYCTL_INSTANTIATE_IOV:
+-		return keyctl_instantiate_key_iov(arg2, compat_ptr(arg3), arg4,
+-						  arg5);
++		return compat_keyctl_instantiate_key_iov(
++			arg2, compat_ptr(arg3), arg4, arg5);
+ 
+ 	case KEYCTL_INVALIDATE:
+ 		return keyctl_invalidate_key(arg2);
+diff --git a/security/keys/internal.h b/security/keys/internal.h
+--- a/security/keys/internal.h
++++ b/security/keys/internal.h
+@@ -262,6 +262,11 @@ extern long keyctl_instantiate_key_iov(key_serial_t,
+ 				       const struct iovec __user *,
+ 				       unsigned, key_serial_t);
+ extern long keyctl_invalidate_key(key_serial_t);
++
++struct iov_iter;
++extern long keyctl_instantiate_key_common(key_serial_t,
++					  struct iov_iter *,
++					  key_serial_t);
+ extern long keyctl_restrict_keyring(key_serial_t id,
+ 				    const char __user *_type,
+ 				    const char __user *_restriction);
+diff --git a/security/keys/keyctl.c b/security/keys/keyctl.c
+--- a/security/keys/keyctl.c
++++ b/security/keys/keyctl.c
+@@ -1164,7 +1164,7 @@ static int keyctl_change_reqkey_auth(struct key *key)
+  *
+  * If successful, 0 will be returned.
+  */
+-static long keyctl_instantiate_key_common(key_serial_t id,
++long keyctl_instantiate_key_common(key_serial_t id,
+ 				   struct iov_iter *from,
+ 				   key_serial_t ringid)
+ {

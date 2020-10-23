@@ -130,7 +130,7 @@ diff --git a/fs/libfs.c b/fs/libfs.c
 diff --git a/include/linux/fs.h b/include/linux/fs.h
 --- a/include/linux/fs.h
 +++ b/include/linux/fs.h
-@@ -1363,6 +1363,12 @@ extern int send_sigurg(struct fown_struct *fown);
+@@ -1371,6 +1371,12 @@ extern int send_sigurg(struct fown_struct *fown);
  #define SB_ACTIVE	(1<<30)
  #define SB_NOUSER	(1<<31)
  
@@ -143,7 +143,7 @@ diff --git a/include/linux/fs.h b/include/linux/fs.h
  /*
   *	Umount options
   */
-@@ -1432,6 +1438,10 @@ struct super_block {
+@@ -1440,6 +1446,10 @@ struct super_block {
  #endif
  #ifdef CONFIG_FS_VERITY
  	const struct fsverity_operations *s_vop;
@@ -154,7 +154,7 @@ diff --git a/include/linux/fs.h b/include/linux/fs.h
  #endif
  	struct hlist_bl_head	s_roots;	/* alternate root dentries for NFS */
  	struct list_head	s_mounts;	/* list of mounts; _not_ for fs use */
-@@ -3249,6 +3259,12 @@ extern int generic_file_fsync(struct file *, loff_t, loff_t, int);
+@@ -3262,6 +3272,12 @@ extern int generic_file_fsync(struct file *, loff_t, loff_t, int);
  
  extern int generic_check_addressable(unsigned, u64);
  

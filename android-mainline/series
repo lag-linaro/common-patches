@@ -2,8 +2,16 @@
 # android-mainline patches
 #
 # Applies onto upstream e18afa5bfa4a Linux v5.9-849-ge18afa5bfa4a
-# Matches android-mainline 4742d2d830e4 ("Merge e18afa5bfa4a ("Merge branch 'work.quota-compat' of git://git.kernel.org/pub/scm/linux/kernel/git/viro/vfs") into android-mainline")
+# Matches android-mainline 1c9bbee57862 ("Revert "iov_iter: move rw_copy_check_uvector() into lib/iov_iter.c"")
 #
+Revert-security-keys-remove-compat_keyctl_instantiate_key_iov.patch
+Revert-mm-remove-compat_process_vm_-readv-writev.patch
+Revert-fs-remove-compat_sys_vmsplice.patch
+Revert-fs-remove-the-compat-readv-writev-syscalls.patch
+Revert-fs-remove-various-compat-readv-writev-helpers.patch
+Revert-iov_iter-transparently-handle-compat-iovecs-in-import_iovec.patch
+Revert-iov_iter-refactor-rw_copy_check_uvector-and-import_iovec.patch
+Revert-iov_iter-move-rw_copy_check_uvector-into-lib-iov_iter.c.patch
 _____ANNOTATION-pending-upstream_____.patch
 FROMLIST-coresight-stm-support-marked-packet.patch
 FROMLIST-stm-class-ftrace-change-dependency-to-TRACING.patch
