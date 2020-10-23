@@ -1,8 +1,8 @@
 #
 # android-mainline patches
 #
-# Applies onto upstream 865c50e1d279 Linux v5.9-858-g865c50e1d279
-# Matches android-mainline 0438bd576f76 ("Merge 865c50e1d279 ("x86/uaccess: utilize CONFIG_CC_HAS_ASM_GOTO_OUTPUT") into android-mainline")
+# Applies onto upstream 39a5101f989e Linux v5.9-1064-g39a5101f989e
+# Matches android-mainline f52c09b3c9c5 ("Merge 39a5101f989e ("Merge branch 'linus' of git://git.kernel.org/pub/scm/linux/kernel/git/herbert/crypto-2.6") into android-mainline")
 #
 Revert-security-keys-remove-compat_keyctl_instantiate_key_iov.patch
 Revert-mm-remove-compat_process_vm_-readv-writev.patch
@@ -525,7 +525,6 @@ ANDROID-GKI-Remove-CONFIG_BRIDGE-from-arm64-config.patch
 ANDROID-GKI-Add-SND_INTEL_NHLT.patch
 ANDROID-GKI-Added-missing-SND-configs.patch
 ANDROID-GKI-build-in-HVC_DRIVER.patch
-ANDROID-Removed-default-m-for-virtual-sw-crypto-device.patch
 ANDROID-gki-set-CONFIG_SERIAL_SPRD_CONSOLE-for-earlycon.patch
 ANDROID-gki_defconfig-add-CONFIG_IIO_BUFFER-and-CONFIG_IIO_TRIGGER.patch
 ANDROID-gki_defconfig-Enable-MFD_SYSCON-on-x86.patch
