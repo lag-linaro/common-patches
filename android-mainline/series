@@ -1,8 +1,8 @@
 #
 # android-mainline patches
 #
-# Applies onto upstream 22230cd2c55b Linux v5.9-853-g22230cd2c55b
-# Matches android-mainline 1158041ed1ed ("Merge 22230cd2c55b ("Merge branch 'compat.mount' of git://git.kernel.org/pub/scm/linux/kernel/git/viro/vfs") into android-mainline")
+# Applies onto upstream 53acd350503d Linux v5.9-855-g53acd350503d
+# Matches android-mainline 04e9454d59ec ("Merge 53acd350503d ("Merge tag 'locks-v5.10-1' of git://git.kernel.org/pub/scm/linux/kernel/git/jlayton/linux") into android-mainline")
 #
 Revert-security-keys-remove-compat_keyctl_instantiate_key_iov.patch
 Revert-mm-remove-compat_process_vm_-readv-writev.patch
