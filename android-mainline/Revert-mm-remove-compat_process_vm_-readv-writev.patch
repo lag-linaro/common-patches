@@ -170,7 +170,7 @@ diff --git a/arch/x86/entry/syscalls/syscall_64.tbl b/arch/x86/entry/syscalls/sy
 diff --git a/include/linux/compat.h b/include/linux/compat.h
 --- a/include/linux/compat.h
 +++ b/include/linux/compat.h
-@@ -780,6 +780,14 @@ asmlinkage long compat_sys_open_by_handle_at(int mountdirfd,
+@@ -774,6 +774,14 @@ asmlinkage long compat_sys_open_by_handle_at(int mountdirfd,
  					     int flags);
  asmlinkage long compat_sys_sendmmsg(int fd, struct compat_mmsghdr __user *mmsg,
  				    unsigned vlen, unsigned int flags);

@@ -201,7 +201,7 @@ diff --git a/fs/read_write.c b/fs/read_write.c
 diff --git a/include/linux/compat.h b/include/linux/compat.h
 --- a/include/linux/compat.h
 +++ b/include/linux/compat.h
-@@ -545,6 +545,10 @@ asmlinkage long compat_sys_getdents(unsigned int fd,
+@@ -539,6 +539,10 @@ asmlinkage long compat_sys_getdents(unsigned int fd,
  
  /* fs/read_write.c */
  asmlinkage long compat_sys_lseek(unsigned int, compat_off_t, unsigned int);

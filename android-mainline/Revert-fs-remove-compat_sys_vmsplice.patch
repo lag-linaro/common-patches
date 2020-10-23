@@ -243,7 +243,7 @@ diff --git a/fs/splice.c b/fs/splice.c
 diff --git a/include/linux/compat.h b/include/linux/compat.h
 --- a/include/linux/compat.h
 +++ b/include/linux/compat.h
-@@ -597,6 +597,10 @@ asmlinkage long compat_sys_signalfd4(int ufd,
+@@ -591,6 +591,10 @@ asmlinkage long compat_sys_signalfd4(int ufd,
  				     const compat_sigset_t __user *sigmask,
  				     compat_size_t sigsetsize, int flags);
  

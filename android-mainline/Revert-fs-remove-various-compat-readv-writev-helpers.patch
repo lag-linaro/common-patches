@@ -276,7 +276,7 @@ diff --git a/fs/read_write.c b/fs/read_write.c
 diff --git a/include/linux/compat.h b/include/linux/compat.h
 --- a/include/linux/compat.h
 +++ b/include/linux/compat.h
-@@ -546,25 +546,25 @@ asmlinkage long compat_sys_getdents(unsigned int fd,
+@@ -540,25 +540,25 @@ asmlinkage long compat_sys_getdents(unsigned int fd,
  /* fs/read_write.c */
  asmlinkage long compat_sys_lseek(unsigned int, compat_off_t, unsigned int);
  asmlinkage ssize_t compat_sys_readv(compat_ulong_t fd,
@@ -308,7 +308,7 @@ diff --git a/include/linux/compat.h b/include/linux/compat.h
  		unsigned long vlen, loff_t pos);
  #endif
  
-@@ -800,20 +800,20 @@ asmlinkage long compat_sys_execveat(int dfd, const char __user *filename,
+@@ -794,20 +794,20 @@ asmlinkage long compat_sys_execveat(int dfd, const char __user *filename,
  		     const compat_uptr_t __user *argv,
  		     const compat_uptr_t __user *envp, int flags);
  asmlinkage ssize_t compat_sys_preadv2(compat_ulong_t fd,

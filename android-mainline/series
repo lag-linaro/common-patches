@@ -1,8 +1,8 @@
 #
 # android-mainline patches
 #
-# Applies onto upstream e18afa5bfa4a Linux v5.9-849-ge18afa5bfa4a
-# Matches android-mainline 1c9bbee57862 ("Revert "iov_iter: move rw_copy_check_uvector() into lib/iov_iter.c"")
+# Applies onto upstream 22230cd2c55b Linux v5.9-853-g22230cd2c55b
+# Matches android-mainline 1158041ed1ed ("Merge 22230cd2c55b ("Merge branch 'compat.mount' of git://git.kernel.org/pub/scm/linux/kernel/git/viro/vfs") into android-mainline")
 #
 Revert-security-keys-remove-compat_keyctl_instantiate_key_iov.patch
 Revert-mm-remove-compat_process_vm_-readv-writev.patch
