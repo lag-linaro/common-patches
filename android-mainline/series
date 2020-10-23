@@ -1,8 +1,8 @@
 #
 # android-mainline patches
 #
-# Applies onto upstream 85ed13e78dbe Linux v5.9-845-g85ed13e78dbe
-# Matches android-mainline 87b0d10a7031 ("Merge 85ed13e78dbe ("Merge branch 'work.iov_iter' of git://git.kernel.org/pub/scm/linux/kernel/git/viro/vfs") into android-common")
+# Applies onto upstream e18afa5bfa4a Linux v5.9-849-ge18afa5bfa4a
+# Matches android-mainline 4742d2d830e4 ("Merge e18afa5bfa4a ("Merge branch 'work.quota-compat' of git://git.kernel.org/pub/scm/linux/kernel/git/viro/vfs") into android-mainline")
 #
 _____ANNOTATION-pending-upstream_____.patch
 FROMLIST-coresight-stm-support-marked-packet.patch
