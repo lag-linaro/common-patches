@@ -1,8 +1,8 @@
 #
 # android-mainline patches
 #
-# Applies onto upstream 53acd350503d Linux v5.9-855-g53acd350503d
-# Matches android-mainline 04e9454d59ec ("Merge 53acd350503d ("Merge tag 'locks-v5.10-1' of git://git.kernel.org/pub/scm/linux/kernel/git/jlayton/linux") into android-mainline")
+# Applies onto upstream 865c50e1d279 Linux v5.9-858-g865c50e1d279
+# Matches android-mainline 0438bd576f76 ("Merge 865c50e1d279 ("x86/uaccess: utilize CONFIG_CC_HAS_ASM_GOTO_OUTPUT") into android-mainline")
 #
 Revert-security-keys-remove-compat_keyctl_instantiate_key_iov.patch
 Revert-mm-remove-compat_process_vm_-readv-writev.patch
