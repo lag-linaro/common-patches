@@ -1,8 +1,8 @@
 #
 # android-mainline patches
 #
-# Applies onto upstream c90578360c92 Linux v5.9-835-gc90578360c92
-# Matches android-mainline dfd572c112aa ("ANDROID: irqchip/gic-v3: fix bad merge resolution")
+# Applies onto upstream 85ed13e78dbe Linux v5.9-845-g85ed13e78dbe
+# Matches android-mainline 87b0d10a7031 ("Merge 85ed13e78dbe ("Merge branch 'work.iov_iter' of git://git.kernel.org/pub/scm/linux/kernel/git/viro/vfs") into android-common")
 #
 _____ANNOTATION-pending-upstream_____.patch
 FROMLIST-coresight-stm-support-marked-packet.patch
