@@ -597,7 +597,7 @@ diff --git a/fs/ext4/namei.c b/fs/ext4/namei.c
  
  	if (ext4_has_metadata_csum(dir->i_sb))
  		entry_space -= sizeof(struct dx_tail);
-@@ -684,7 +688,10 @@ static struct stats dx_show_leaf(struct inode *dir,
+@@ -683,7 +687,10 @@ static struct stats dx_show_leaf(struct inode *dir,
  						name = fname_crypto_str.name;
  						len = fname_crypto_str.len;
  					}
@@ -609,7 +609,7 @@ diff --git a/fs/ext4/namei.c b/fs/ext4/namei.c
  						       de->name_len, &h);
  					printk("%*.s:(E)%x.%u ", len, name,
  					       h.hash, (unsigned) ((char *) de
-@@ -700,7 +707,7 @@ static struct stats dx_show_leaf(struct inode *dir,
+@@ -699,7 +706,7 @@ static struct stats dx_show_leaf(struct inode *dir,
  				       (unsigned) ((char *) de - base));
  #endif
  			}
@@ -618,7 +618,7 @@ diff --git a/fs/ext4/namei.c b/fs/ext4/namei.c
  			names++;
  		}
  		de = ext4_next_entry(de, size);
-@@ -772,11 +779,25 @@ dx_probe(struct ext4_filename *fname, struct inode *dir,
+@@ -771,11 +778,25 @@ dx_probe(struct ext4_filename *fname, struct inode *dir,
  	root = (struct dx_root *) frame->bh->b_data;
  	if (root->info.hash_version != DX_HASH_TEA &&
  	    root->info.hash_version != DX_HASH_HALF_MD4 &&
@@ -645,7 +645,7 @@ diff --git a/fs/ext4/namei.c b/fs/ext4/namei.c
  	if (fname)
  		hinfo = &fname->hinfo;
  	hinfo->hash_version = root->info.hash_version;
-@@ -998,6 +1019,7 @@ static int htree_dirblock_to_tree(struct file *dir_file,
+@@ -997,6 +1018,7 @@ static int htree_dirblock_to_tree(struct file *dir_file,
  	struct ext4_dir_entry_2 *de, *top;
  	int err = 0, count = 0;
  	struct fscrypt_str fname_crypto_str = FSTR_INIT(NULL, 0), tmp_str;
@@ -653,7 +653,7 @@ diff --git a/fs/ext4/namei.c b/fs/ext4/namei.c
  
  	dxtrace(printk(KERN_INFO "In htree dirblock_to_tree: block %lu\n",
  							(unsigned long)block));
-@@ -1006,9 +1028,11 @@ static int htree_dirblock_to_tree(struct file *dir_file,
+@@ -1005,9 +1027,11 @@ static int htree_dirblock_to_tree(struct file *dir_file,
  		return PTR_ERR(bh);
  
  	de = (struct ext4_dir_entry_2 *) bh->b_data;
@@ -666,7 +666,7 @@ diff --git a/fs/ext4/namei.c b/fs/ext4/namei.c
  	/* Check if the directory is encrypted */
  	if (IS_ENCRYPTED(dir)) {
  		err = fscrypt_get_encryption_info(dir);
-@@ -1026,13 +1050,23 @@ static int htree_dirblock_to_tree(struct file *dir_file,
+@@ -1025,13 +1049,23 @@ static int htree_dirblock_to_tree(struct file *dir_file,
  
  	for (; de < top; de = ext4_next_entry(de, dir->i_sb->s_blocksize)) {
  		if (ext4_check_dir_entry(dir, NULL, de, bh,
@@ -692,7 +692,7 @@ diff --git a/fs/ext4/namei.c b/fs/ext4/namei.c
  		if ((hinfo->hash < start_hash) ||
  		    ((hinfo->hash == start_hash) &&
  		     (hinfo->minor_hash < start_minor_hash)))
-@@ -1101,7 +1135,11 @@ int ext4_htree_fill_tree(struct file *dir_file, __u32 start_hash,
+@@ -1100,7 +1134,11 @@ int ext4_htree_fill_tree(struct file *dir_file, __u32 start_hash,
  		       start_hash, start_minor_hash));
  	dir = file_inode(dir_file);
  	if (!(ext4_test_inode_flag(dir, EXT4_INODE_INDEX))) {
@@ -705,7 +705,7 @@ diff --git a/fs/ext4/namei.c b/fs/ext4/namei.c
  		if (hinfo.hash_version <= DX_HASH_TEA)
  			hinfo.hash_version +=
  				EXT4_SB(dir->i_sb)->s_hash_unsigned;
-@@ -1194,11 +1232,12 @@ int ext4_htree_fill_tree(struct file *dir_file, __u32 start_hash,
+@@ -1193,11 +1231,12 @@ int ext4_htree_fill_tree(struct file *dir_file, __u32 start_hash,
  static inline int search_dirblock(struct buffer_head *bh,
  				  struct inode *dir,
  				  struct ext4_filename *fname,
@@ -719,7 +719,7 @@ diff --git a/fs/ext4/namei.c b/fs/ext4/namei.c
  }
  
  /*
-@@ -1219,7 +1258,10 @@ static int dx_make_map(struct inode *dir, struct ext4_dir_entry_2 *de,
+@@ -1218,7 +1257,10 @@ static int dx_make_map(struct inode *dir, struct ext4_dir_entry_2 *de,
  
  	while ((char *) de < base + blocksize) {
  		if (de->name_len && de->inode) {
@@ -731,7 +731,7 @@ diff --git a/fs/ext4/namei.c b/fs/ext4/namei.c
  			map_tail--;
  			map_tail->hash = h.hash;
  			map_tail->offs = ((char *) de - base)>>2;
-@@ -1283,31 +1325,47 @@ static void dx_insert_block(struct dx_frame *frame, u32 hash, ext4_lblk_t block)
+@@ -1282,31 +1324,47 @@ static void dx_insert_block(struct dx_frame *frame, u32 hash, ext4_lblk_t block)
   * Returns: 0 if the directory entry matches, more than 0 if it
   * doesn't match or less than zero on error.
   */
@@ -791,7 +791,7 @@ diff --git a/fs/ext4/namei.c b/fs/ext4/namei.c
  	return ret;
  }
  
-@@ -1343,14 +1401,11 @@ void ext4_fname_setup_ci_filename(struct inode *dir, const struct qstr *iname,
+@@ -1342,14 +1400,11 @@ void ext4_fname_setup_ci_filename(struct inode *dir, const struct qstr *iname,
   *
   * Return: %true if the directory entry matches, otherwise %false.
   */
@@ -808,7 +808,7 @@ diff --git a/fs/ext4/namei.c b/fs/ext4/namei.c
  
  	if (!de->inode)
  		return false;
-@@ -1366,10 +1421,23 @@ static inline bool ext4_match(const struct inode *parent,
+@@ -1365,10 +1420,23 @@ static inline bool ext4_match(const struct inode *parent,
  		if (fname->cf_name.name) {
  			struct qstr cf = {.name = fname->cf_name.name,
  					  .len = fname->cf_name.len};
@@ -835,7 +835,7 @@ diff --git a/fs/ext4/namei.c b/fs/ext4/namei.c
  	}
  #endif
  
-@@ -1381,7 +1449,8 @@ static inline bool ext4_match(const struct inode *parent,
+@@ -1380,7 +1448,8 @@ static inline bool ext4_match(const struct inode *parent,
   */
  int ext4_search_dir(struct buffer_head *bh, char *search_buf, int buf_size,
  		    struct inode *dir, struct ext4_filename *fname,
@@ -845,7 +845,7 @@ diff --git a/fs/ext4/namei.c b/fs/ext4/namei.c
  {
  	struct ext4_dir_entry_2 * de;
  	char * dlimit;
-@@ -1397,7 +1466,7 @@ int ext4_search_dir(struct buffer_head *bh, char *search_buf, int buf_size,
+@@ -1396,7 +1465,7 @@ int ext4_search_dir(struct buffer_head *bh, char *search_buf, int buf_size,
  			/* found a match - just to be sure, do
  			 * a full check */
  			if (ext4_check_dir_entry(dir, NULL, de, bh, search_buf,
@@ -854,7 +854,7 @@ diff --git a/fs/ext4/namei.c b/fs/ext4/namei.c
  				return -1;
  			*res_dir = de;
  			return 1;
-@@ -1443,7 +1512,7 @@ static int is_dx_internal_node(struct inode *dir, ext4_lblk_t block,
+@@ -1442,7 +1511,7 @@ static int is_dx_internal_node(struct inode *dir, ext4_lblk_t block,
  static struct buffer_head *__ext4_find_entry(struct inode *dir,
  					     struct ext4_filename *fname,
  					     struct ext4_dir_entry_2 **res_dir,
@@ -863,7 +863,7 @@ diff --git a/fs/ext4/namei.c b/fs/ext4/namei.c
  {
  	struct super_block *sb;
  	struct buffer_head *bh_use[NAMEI_RA_SIZE];
-@@ -1467,6 +1536,8 @@ static struct buffer_head *__ext4_find_entry(struct inode *dir,
+@@ -1466,6 +1535,8 @@ static struct buffer_head *__ext4_find_entry(struct inode *dir,
  		int has_inline_data = 1;
  		ret = ext4_find_inline_entry(dir, fname, res_dir,
  					     &has_inline_data);
@@ -872,7 +872,7 @@ diff --git a/fs/ext4/namei.c b/fs/ext4/namei.c
  		if (has_inline_data) {
  			if (inlined)
  				*inlined = 1;
-@@ -1485,7 +1556,7 @@ static struct buffer_head *__ext4_find_entry(struct inode *dir,
+@@ -1484,7 +1555,7 @@ static struct buffer_head *__ext4_find_entry(struct inode *dir,
  		goto restart;
  	}
  	if (is_dx(dir)) {
@@ -881,7 +881,7 @@ diff --git a/fs/ext4/namei.c b/fs/ext4/namei.c
  		/*
  		 * On success, or if the error was file not found,
  		 * return.  Otherwise, fall back to doing a search the
-@@ -1551,9 +1622,11 @@ static struct buffer_head *__ext4_find_entry(struct inode *dir,
+@@ -1550,9 +1621,11 @@ static struct buffer_head *__ext4_find_entry(struct inode *dir,
  			goto cleanup_and_exit;
  		}
  		set_buffer_verified(bh);
@@ -894,7 +894,7 @@ diff --git a/fs/ext4/namei.c b/fs/ext4/namei.c
  			EXT4_I(dir)->i_dir_start_lookup = block;
  			ret = bh;
  			goto cleanup_and_exit;
-@@ -1588,7 +1661,7 @@ static struct buffer_head *__ext4_find_entry(struct inode *dir,
+@@ -1587,7 +1660,7 @@ static struct buffer_head *__ext4_find_entry(struct inode *dir,
  static struct buffer_head *ext4_find_entry(struct inode *dir,
  					   const struct qstr *d_name,
  					   struct ext4_dir_entry_2 **res_dir,
@@ -903,7 +903,7 @@ diff --git a/fs/ext4/namei.c b/fs/ext4/namei.c
  {
  	int err;
  	struct ext4_filename fname;
-@@ -1600,7 +1673,7 @@ static struct buffer_head *ext4_find_entry(struct inode *dir,
+@@ -1599,7 +1672,7 @@ static struct buffer_head *ext4_find_entry(struct inode *dir,
  	if (err)
  		return ERR_PTR(err);
  
@@ -912,7 +912,7 @@ diff --git a/fs/ext4/namei.c b/fs/ext4/namei.c
  
  	ext4_fname_free_filename(&fname);
  	return bh;
-@@ -1621,7 +1694,7 @@ static struct buffer_head *ext4_lookup_entry(struct inode *dir,
+@@ -1620,7 +1693,7 @@ static struct buffer_head *ext4_lookup_entry(struct inode *dir,
  	if (err)
  		return ERR_PTR(err);
  
@@ -921,7 +921,7 @@ diff --git a/fs/ext4/namei.c b/fs/ext4/namei.c
  
  	ext4_fname_free_filename(&fname);
  	return bh;
-@@ -1629,7 +1702,7 @@ static struct buffer_head *ext4_lookup_entry(struct inode *dir,
+@@ -1628,7 +1701,7 @@ static struct buffer_head *ext4_lookup_entry(struct inode *dir,
  
  static struct buffer_head * ext4_dx_find_entry(struct inode *dir,
  			struct ext4_filename *fname,
@@ -930,7 +930,7 @@ diff --git a/fs/ext4/namei.c b/fs/ext4/namei.c
  {
  	struct super_block * sb = dir->i_sb;
  	struct dx_frame frames[EXT4_HTREE_LEVEL], *frame;
-@@ -1645,11 +1718,13 @@ static struct buffer_head * ext4_dx_find_entry(struct inode *dir,
+@@ -1644,11 +1717,13 @@ static struct buffer_head * ext4_dx_find_entry(struct inode *dir,
  		return (struct buffer_head *) frame;
  	do {
  		block = dx_get_block(frame->at);
@@ -945,7 +945,7 @@ diff --git a/fs/ext4/namei.c b/fs/ext4/namei.c
  					 block << EXT4_BLOCK_SIZE_BITS(sb),
  					 res_dir);
  		if (retval == 1)
-@@ -1744,7 +1819,7 @@ struct dentry *ext4_get_parent(struct dentry *child)
+@@ -1743,7 +1818,7 @@ struct dentry *ext4_get_parent(struct dentry *child)
  	struct ext4_dir_entry_2 * de;
  	struct buffer_head *bh;
  
@@ -954,7 +954,7 @@ diff --git a/fs/ext4/namei.c b/fs/ext4/namei.c
  	if (IS_ERR(bh))
  		return ERR_CAST(bh);
  	if (!bh)
-@@ -1766,7 +1841,8 @@ struct dentry *ext4_get_parent(struct dentry *child)
+@@ -1765,7 +1840,8 @@ struct dentry *ext4_get_parent(struct dentry *child)
   * Returns pointer to last entry moved.
   */
  static struct ext4_dir_entry_2 *
@@ -964,7 +964,7 @@ diff --git a/fs/ext4/namei.c b/fs/ext4/namei.c
  		unsigned blocksize)
  {
  	unsigned rec_len = 0;
-@@ -1774,7 +1850,8 @@ dx_move_dirents(char *from, char *to, struct dx_map_entry *map, int count,
+@@ -1773,7 +1849,8 @@ dx_move_dirents(char *from, char *to, struct dx_map_entry *map, int count,
  	while (count--) {
  		struct ext4_dir_entry_2 *de = (struct ext4_dir_entry_2 *)
  						(from + (map->offs<<2));
@@ -974,7 +974,7 @@ diff --git a/fs/ext4/namei.c b/fs/ext4/namei.c
  		memcpy (to, de, rec_len);
  		((struct ext4_dir_entry_2 *) to)->rec_len =
  				ext4_rec_len_to_disk(rec_len, blocksize);
-@@ -1789,7 +1866,8 @@ dx_move_dirents(char *from, char *to, struct dx_map_entry *map, int count,
+@@ -1788,7 +1865,8 @@ dx_move_dirents(char *from, char *to, struct dx_map_entry *map, int count,
   * Compact each dir entry in the range to the minimal rec_len.
   * Returns pointer to last entry in range.
   */
@@ -984,7 +984,7 @@ diff --git a/fs/ext4/namei.c b/fs/ext4/namei.c
  {
  	struct ext4_dir_entry_2 *next, *to, *prev, *de = (struct ext4_dir_entry_2 *) base;
  	unsigned rec_len = 0;
-@@ -1798,7 +1876,7 @@ static struct ext4_dir_entry_2* dx_pack_dirents(char *base, unsigned blocksize)
+@@ -1797,7 +1875,7 @@ static struct ext4_dir_entry_2* dx_pack_dirents(char *base, unsigned blocksize)
  	while ((char*)de < base + blocksize) {
  		next = ext4_next_entry(de, blocksize);
  		if (de->inode && de->name_len) {
@@ -993,7 +993,7 @@ diff --git a/fs/ext4/namei.c b/fs/ext4/namei.c
  			if (de > to)
  				memmove(to, de, rec_len);
  			to->rec_len = ext4_rec_len_to_disk(rec_len, blocksize);
-@@ -1816,13 +1894,12 @@ static struct ext4_dir_entry_2* dx_pack_dirents(char *base, unsigned blocksize)
+@@ -1815,13 +1893,12 @@ static struct ext4_dir_entry_2* dx_pack_dirents(char *base, unsigned blocksize)
   * Returns pointer to de in block into which the new entry will be inserted.
   */
  static struct ext4_dir_entry_2 *do_split(handle_t *handle, struct inode *dir,
@@ -1009,7 +1009,7 @@ diff --git a/fs/ext4/namei.c b/fs/ext4/namei.c
  	u32 hash2;
  	struct dx_map_entry *map;
  	char *data1 = (*bh)->b_data, *data2;
-@@ -1834,7 +1911,7 @@ static struct ext4_dir_entry_2 *do_split(handle_t *handle, struct inode *dir,
+@@ -1833,7 +1910,7 @@ static struct ext4_dir_entry_2 *do_split(handle_t *handle, struct inode *dir,
  	if (ext4_has_metadata_csum(dir->i_sb))
  		csum_size = sizeof(struct ext4_dir_entry_tail);
  
@@ -1018,7 +1018,7 @@ diff --git a/fs/ext4/namei.c b/fs/ext4/namei.c
  	if (IS_ERR(bh2)) {
  		brelse(*bh);
  		*bh = NULL;
-@@ -1888,9 +1965,9 @@ static struct ext4_dir_entry_2 *do_split(handle_t *handle, struct inode *dir,
+@@ -1887,9 +1964,9 @@ static struct ext4_dir_entry_2 *do_split(handle_t *handle, struct inode *dir,
  					hash2, split, count-split));
  
  	/* Fancy dance to stay within two buffers */
@@ -1030,7 +1030,7 @@ diff --git a/fs/ext4/namei.c b/fs/ext4/namei.c
  	de->rec_len = ext4_rec_len_to_disk(data1 + (blocksize - csum_size) -
  					   (char *) de,
  					   blocksize);
-@@ -1912,7 +1989,7 @@ static struct ext4_dir_entry_2 *do_split(handle_t *handle, struct inode *dir,
+@@ -1911,7 +1988,7 @@ static struct ext4_dir_entry_2 *do_split(handle_t *handle, struct inode *dir,
  		swap(*bh, bh2);
  		de = de2;
  	}
@@ -1039,7 +1039,7 @@ diff --git a/fs/ext4/namei.c b/fs/ext4/namei.c
  	err = ext4_handle_dirty_dirblock(handle, dir, bh2);
  	if (err)
  		goto journal_error;
-@@ -1932,13 +2009,14 @@ static struct ext4_dir_entry_2 *do_split(handle_t *handle, struct inode *dir,
+@@ -1931,13 +2008,14 @@ static struct ext4_dir_entry_2 *do_split(handle_t *handle, struct inode *dir,
  }
  
  int ext4_find_dest_de(struct inode *dir, struct inode *inode,
@@ -1055,7 +1055,7 @@ diff --git a/fs/ext4/namei.c b/fs/ext4/namei.c
  	int nlen, rlen;
  	unsigned int offset = 0;
  	char *top;
-@@ -1947,11 +2025,11 @@ int ext4_find_dest_de(struct inode *dir, struct inode *inode,
+@@ -1946,11 +2024,11 @@ int ext4_find_dest_de(struct inode *dir, struct inode *inode,
  	top = buf + buf_size - reclen;
  	while ((char *) de <= top) {
  		if (ext4_check_dir_entry(dir, NULL, de, bh,
@@ -1069,7 +1069,7 @@ diff --git a/fs/ext4/namei.c b/fs/ext4/namei.c
  		rlen = ext4_rec_len_from_disk(de->rec_len, buf_size);
  		if ((de->inode ? rlen - nlen : rlen) >= reclen)
  			break;
-@@ -1965,7 +2043,8 @@ int ext4_find_dest_de(struct inode *dir, struct inode *inode,
+@@ -1964,7 +2042,8 @@ int ext4_find_dest_de(struct inode *dir, struct inode *inode,
  	return 0;
  }
  
@@ -1079,7 +1079,7 @@ diff --git a/fs/ext4/namei.c b/fs/ext4/namei.c
  			struct ext4_dir_entry_2 *de,
  			int buf_size,
  			struct ext4_filename *fname)
-@@ -1973,7 +2052,7 @@ void ext4_insert_dentry(struct inode *inode,
+@@ -1972,7 +2051,7 @@ void ext4_insert_dentry(struct inode *inode,
  
  	int nlen, rlen;
  
@@ -1088,7 +1088,7 @@ diff --git a/fs/ext4/namei.c b/fs/ext4/namei.c
  	rlen = ext4_rec_len_from_disk(de->rec_len, buf_size);
  	if (de->inode) {
  		struct ext4_dir_entry_2 *de1 =
-@@ -1987,6 +2066,17 @@ void ext4_insert_dentry(struct inode *inode,
+@@ -1986,6 +2065,17 @@ void ext4_insert_dentry(struct inode *inode,
  	ext4_set_de_type(inode->i_sb, de, inode->i_mode);
  	de->name_len = fname_len(fname);
  	memcpy(de->name, fname_name(fname), fname_len(fname));
@@ -1106,7 +1106,7 @@ diff --git a/fs/ext4/namei.c b/fs/ext4/namei.c
  }
  
  /*
-@@ -2000,6 +2090,7 @@ void ext4_insert_dentry(struct inode *inode,
+@@ -1999,6 +2089,7 @@ void ext4_insert_dentry(struct inode *inode,
  static int add_dirent_to_buf(handle_t *handle, struct ext4_filename *fname,
  			     struct inode *dir,
  			     struct inode *inode, struct ext4_dir_entry_2 *de,
@@ -1114,7 +1114,7 @@ diff --git a/fs/ext4/namei.c b/fs/ext4/namei.c
  			     struct buffer_head *bh)
  {
  	unsigned int	blocksize = dir->i_sb->s_blocksize;
-@@ -2010,7 +2101,7 @@ static int add_dirent_to_buf(handle_t *handle, struct ext4_filename *fname,
+@@ -2009,7 +2100,7 @@ static int add_dirent_to_buf(handle_t *handle, struct ext4_filename *fname,
  		csum_size = sizeof(struct ext4_dir_entry_tail);
  
  	if (!de) {
@@ -1123,7 +1123,7 @@ diff --git a/fs/ext4/namei.c b/fs/ext4/namei.c
  					blocksize - csum_size, fname, &de);
  		if (err)
  			return err;
-@@ -2023,7 +2114,7 @@ static int add_dirent_to_buf(handle_t *handle, struct ext4_filename *fname,
+@@ -2022,7 +2113,7 @@ static int add_dirent_to_buf(handle_t *handle, struct ext4_filename *fname,
  	}
  
  	/* By now the buffer is marked for journaling */
@@ -1132,7 +1132,7 @@ diff --git a/fs/ext4/namei.c b/fs/ext4/namei.c
  
  	/*
  	 * XXX shouldn't update any times until successful
-@@ -2115,11 +2206,16 @@ static int make_indexed_dir(handle_t *handle, struct ext4_filename *fname,
+@@ -2114,11 +2205,16 @@ static int make_indexed_dir(handle_t *handle, struct ext4_filename *fname,
  
  	/* Initialize the root; the dot dirents already exist */
  	de = (struct ext4_dir_entry_2 *) (&root->dotdot);
@@ -1152,7 +1152,7 @@ diff --git a/fs/ext4/namei.c b/fs/ext4/namei.c
  	entries = root->entries;
  	dx_set_block(entries, 1);
  	dx_set_count(entries, 1);
-@@ -2130,7 +2226,12 @@ static int make_indexed_dir(handle_t *handle, struct ext4_filename *fname,
+@@ -2129,7 +2225,12 @@ static int make_indexed_dir(handle_t *handle, struct ext4_filename *fname,
  	if (fname->hinfo.hash_version <= DX_HASH_TEA)
  		fname->hinfo.hash_version += EXT4_SB(dir->i_sb)->s_hash_unsigned;
  	fname->hinfo.seed = EXT4_SB(dir->i_sb)->s_hash_seed;
@@ -1166,7 +1166,7 @@ diff --git a/fs/ext4/namei.c b/fs/ext4/namei.c
  
  	memset(frames, 0, sizeof(frames));
  	frame = frames;
-@@ -2145,13 +2246,13 @@ static int make_indexed_dir(handle_t *handle, struct ext4_filename *fname,
+@@ -2144,13 +2245,13 @@ static int make_indexed_dir(handle_t *handle, struct ext4_filename *fname,
  	if (retval)
  		goto out_frames;	
  
@@ -1182,7 +1182,7 @@ diff --git a/fs/ext4/namei.c b/fs/ext4/namei.c
  out_frames:
  	/*
  	 * Even if the block split failed, we have to properly write
-@@ -2248,7 +2349,7 @@ static int ext4_add_entry(handle_t *handle, struct dentry *dentry,
+@@ -2247,7 +2348,7 @@ static int ext4_add_entry(handle_t *handle, struct dentry *dentry,
  			goto out;
  		}
  		retval = add_dirent_to_buf(handle, &fname, dir, inode,
@@ -1191,7 +1191,7 @@ diff --git a/fs/ext4/namei.c b/fs/ext4/namei.c
  		if (retval != -ENOSPC)
  			goto out;
  
-@@ -2275,7 +2376,7 @@ static int ext4_add_entry(handle_t *handle, struct dentry *dentry,
+@@ -2274,7 +2375,7 @@ static int ext4_add_entry(handle_t *handle, struct dentry *dentry,
  	if (csum_size)
  		ext4_initialize_dirent_tail(bh, blocksize);
  
@@ -1200,7 +1200,7 @@ diff --git a/fs/ext4/namei.c b/fs/ext4/namei.c
  out:
  	ext4_fname_free_filename(&fname);
  	brelse(bh);
-@@ -2297,6 +2398,7 @@ static int ext4_dx_add_entry(handle_t *handle, struct ext4_filename *fname,
+@@ -2296,6 +2397,7 @@ static int ext4_dx_add_entry(handle_t *handle, struct ext4_filename *fname,
  	struct ext4_dir_entry_2 *de;
  	int restart;
  	int err;
@@ -1208,7 +1208,7 @@ diff --git a/fs/ext4/namei.c b/fs/ext4/namei.c
  
  again:
  	restart = 0;
-@@ -2305,7 +2407,8 @@ static int ext4_dx_add_entry(handle_t *handle, struct ext4_filename *fname,
+@@ -2304,7 +2406,8 @@ static int ext4_dx_add_entry(handle_t *handle, struct ext4_filename *fname,
  		return PTR_ERR(frame);
  	entries = frame->entries;
  	at = frame->at;
@@ -1218,7 +1218,7 @@ diff --git a/fs/ext4/namei.c b/fs/ext4/namei.c
  	if (IS_ERR(bh)) {
  		err = PTR_ERR(bh);
  		bh = NULL;
-@@ -2317,7 +2420,7 @@ static int ext4_dx_add_entry(handle_t *handle, struct ext4_filename *fname,
+@@ -2316,7 +2419,7 @@ static int ext4_dx_add_entry(handle_t *handle, struct ext4_filename *fname,
  	if (err)
  		goto journal_error;
  
@@ -1227,7 +1227,7 @@ diff --git a/fs/ext4/namei.c b/fs/ext4/namei.c
  	if (err != -ENOSPC)
  		goto cleanup;
  
-@@ -2437,12 +2540,12 @@ static int ext4_dx_add_entry(handle_t *handle, struct ext4_filename *fname,
+@@ -2436,12 +2539,12 @@ static int ext4_dx_add_entry(handle_t *handle, struct ext4_filename *fname,
  			goto journal_error;
  		}
  	}
@@ -1242,7 +1242,7 @@ diff --git a/fs/ext4/namei.c b/fs/ext4/namei.c
  	goto cleanup;
  
  journal_error:
-@@ -2464,6 +2567,7 @@ static int ext4_dx_add_entry(handle_t *handle, struct ext4_filename *fname,
+@@ -2463,6 +2566,7 @@ static int ext4_dx_add_entry(handle_t *handle, struct ext4_filename *fname,
   */
  int ext4_generic_delete_entry(struct inode *dir,
  			      struct ext4_dir_entry_2 *de_del,
@@ -1250,7 +1250,7 @@ diff --git a/fs/ext4/namei.c b/fs/ext4/namei.c
  			      struct buffer_head *bh,
  			      void *entry_buf,
  			      int buf_size,
-@@ -2478,7 +2582,7 @@ int ext4_generic_delete_entry(struct inode *dir,
+@@ -2477,7 +2581,7 @@ int ext4_generic_delete_entry(struct inode *dir,
  	de = (struct ext4_dir_entry_2 *)entry_buf;
  	while (i < buf_size - csum_size) {
  		if (ext4_check_dir_entry(dir, NULL, de, bh,
@@ -1259,7 +1259,7 @@ diff --git a/fs/ext4/namei.c b/fs/ext4/namei.c
  			return -EFSCORRUPTED;
  		if (de == de_del)  {
  			if (pde)
-@@ -2503,6 +2607,7 @@ int ext4_generic_delete_entry(struct inode *dir,
+@@ -2502,6 +2606,7 @@ int ext4_generic_delete_entry(struct inode *dir,
  static int ext4_delete_entry(handle_t *handle,
  			     struct inode *dir,
  			     struct ext4_dir_entry_2 *de_del,
@@ -1267,7 +1267,7 @@ diff --git a/fs/ext4/namei.c b/fs/ext4/namei.c
  			     struct buffer_head *bh)
  {
  	int err, csum_size = 0;
-@@ -2523,7 +2628,7 @@ static int ext4_delete_entry(handle_t *handle,
+@@ -2522,7 +2627,7 @@ static int ext4_delete_entry(handle_t *handle,
  	if (unlikely(err))
  		goto out;
  
@@ -1276,7 +1276,7 @@ diff --git a/fs/ext4/namei.c b/fs/ext4/namei.c
  					dir->i_sb->s_blocksize, csum_size);
  	if (err)
  		goto out;
-@@ -2716,7 +2821,7 @@ struct ext4_dir_entry_2 *ext4_init_dot_dotdot(struct inode *inode,
+@@ -2715,7 +2820,7 @@ struct ext4_dir_entry_2 *ext4_init_dot_dotdot(struct inode *inode,
  {
  	de->inode = cpu_to_le32(inode->i_ino);
  	de->name_len = 1;
@@ -1285,7 +1285,7 @@ diff --git a/fs/ext4/namei.c b/fs/ext4/namei.c
  					   blocksize);
  	strcpy(de->name, ".");
  	ext4_set_de_type(inode->i_sb, de, S_IFDIR);
-@@ -2726,11 +2831,12 @@ struct ext4_dir_entry_2 *ext4_init_dot_dotdot(struct inode *inode,
+@@ -2725,11 +2830,12 @@ struct ext4_dir_entry_2 *ext4_init_dot_dotdot(struct inode *inode,
  	de->name_len = 2;
  	if (!dotdot_real_len)
  		de->rec_len = ext4_rec_len_to_disk(blocksize -
@@ -1300,7 +1300,7 @@ diff --git a/fs/ext4/namei.c b/fs/ext4/namei.c
  	strcpy(de->name, "..");
  	ext4_set_de_type(inode->i_sb, de, S_IFDIR);
  
-@@ -2860,7 +2966,8 @@ bool ext4_empty_dir(struct inode *inode)
+@@ -2859,7 +2965,8 @@ bool ext4_empty_dir(struct inode *inode)
  	}
  
  	sb = inode->i_sb;
@@ -1310,7 +1310,7 @@ diff --git a/fs/ext4/namei.c b/fs/ext4/namei.c
  		EXT4_ERROR_INODE(inode, "invalid size");
  		return true;
  	}
-@@ -2872,7 +2979,7 @@ bool ext4_empty_dir(struct inode *inode)
+@@ -2871,7 +2978,7 @@ bool ext4_empty_dir(struct inode *inode)
  		return true;
  
  	de = (struct ext4_dir_entry_2 *) bh->b_data;
@@ -1319,7 +1319,7 @@ diff --git a/fs/ext4/namei.c b/fs/ext4/namei.c
  				 0) ||
  	    le32_to_cpu(de->inode) != inode->i_ino || strcmp(".", de->name)) {
  		ext4_warning_inode(inode, "directory missing '.'");
-@@ -2881,7 +2988,7 @@ bool ext4_empty_dir(struct inode *inode)
+@@ -2880,7 +2987,7 @@ bool ext4_empty_dir(struct inode *inode)
  	}
  	offset = ext4_rec_len_from_disk(de->rec_len, sb->s_blocksize);
  	de = ext4_next_entry(de, sb->s_blocksize);
@@ -1328,7 +1328,7 @@ diff --git a/fs/ext4/namei.c b/fs/ext4/namei.c
  				 offset) ||
  	    le32_to_cpu(de->inode) == 0 || strcmp("..", de->name)) {
  		ext4_warning_inode(inode, "directory missing '..'");
-@@ -2905,7 +3012,7 @@ bool ext4_empty_dir(struct inode *inode)
+@@ -2904,7 +3011,7 @@ bool ext4_empty_dir(struct inode *inode)
  		de = (struct ext4_dir_entry_2 *) (bh->b_data +
  					(offset & (sb->s_blocksize - 1)));
  		if (ext4_check_dir_entry(inode, NULL, de, bh,
@@ -1337,7 +1337,7 @@ diff --git a/fs/ext4/namei.c b/fs/ext4/namei.c
  			offset = (offset | (sb->s_blocksize - 1)) + 1;
  			continue;
  		}
-@@ -3100,6 +3207,8 @@ static int ext4_rmdir(struct inode *dir, struct dentry *dentry)
+@@ -3099,6 +3206,8 @@ static int ext4_rmdir(struct inode *dir, struct dentry *dentry)
  	struct buffer_head *bh;
  	struct ext4_dir_entry_2 *de;
  	handle_t *handle = NULL;
@@ -1346,7 +1346,7 @@ diff --git a/fs/ext4/namei.c b/fs/ext4/namei.c
  
  	if (unlikely(ext4_forced_shutdown(EXT4_SB(dir->i_sb))))
  		return -EIO;
-@@ -3114,7 +3223,7 @@ static int ext4_rmdir(struct inode *dir, struct dentry *dentry)
+@@ -3113,7 +3222,7 @@ static int ext4_rmdir(struct inode *dir, struct dentry *dentry)
  		return retval;
  
  	retval = -ENOENT;
@@ -1355,7 +1355,7 @@ diff --git a/fs/ext4/namei.c b/fs/ext4/namei.c
  	if (IS_ERR(bh))
  		return PTR_ERR(bh);
  	if (!bh)
-@@ -3141,7 +3250,7 @@ static int ext4_rmdir(struct inode *dir, struct dentry *dentry)
+@@ -3140,7 +3249,7 @@ static int ext4_rmdir(struct inode *dir, struct dentry *dentry)
  	if (IS_DIRSYNC(dir))
  		ext4_handle_sync(handle);
  
@@ -1364,7 +1364,7 @@ diff --git a/fs/ext4/namei.c b/fs/ext4/namei.c
  	if (retval)
  		goto end_rmdir;
  	if (!EXT4_DIR_LINK_EMPTY(inode))
-@@ -3189,6 +3298,7 @@ static int ext4_unlink(struct inode *dir, struct dentry *dentry)
+@@ -3188,6 +3297,7 @@ static int ext4_unlink(struct inode *dir, struct dentry *dentry)
  	struct buffer_head *bh;
  	struct ext4_dir_entry_2 *de;
  	handle_t *handle = NULL;
@@ -1372,7 +1372,7 @@ diff --git a/fs/ext4/namei.c b/fs/ext4/namei.c
  
  	if (unlikely(ext4_forced_shutdown(EXT4_SB(dir->i_sb))))
  		return -EIO;
-@@ -3203,7 +3313,7 @@ static int ext4_unlink(struct inode *dir, struct dentry *dentry)
+@@ -3202,7 +3312,7 @@ static int ext4_unlink(struct inode *dir, struct dentry *dentry)
  	if (retval)
  		goto out_trace;
  
@@ -1381,7 +1381,7 @@ diff --git a/fs/ext4/namei.c b/fs/ext4/namei.c
  	if (IS_ERR(bh)) {
  		retval = PTR_ERR(bh);
  		goto out_trace;
-@@ -3230,7 +3340,7 @@ static int ext4_unlink(struct inode *dir, struct dentry *dentry)
+@@ -3229,7 +3339,7 @@ static int ext4_unlink(struct inode *dir, struct dentry *dentry)
  	if (IS_DIRSYNC(dir))
  		ext4_handle_sync(handle);
  
@@ -1390,7 +1390,7 @@ diff --git a/fs/ext4/namei.c b/fs/ext4/namei.c
  	if (retval)
  		goto out_handle;
  	dir->i_ctime = dir->i_mtime = current_time(dir);
-@@ -3494,6 +3604,7 @@ struct ext4_renament {
+@@ -3493,6 +3603,7 @@ struct ext4_renament {
  	int dir_nlink_delta;
  
  	/* entry for "dentry" */
@@ -1398,7 +1398,7 @@ diff --git a/fs/ext4/namei.c b/fs/ext4/namei.c
  	struct buffer_head *bh;
  	struct ext4_dir_entry_2 *de;
  	int inlined;
-@@ -3581,12 +3692,13 @@ static int ext4_find_delete_entry(handle_t *handle, struct inode *dir,
+@@ -3580,12 +3691,13 @@ static int ext4_find_delete_entry(handle_t *handle, struct inode *dir,
  	int retval = -ENOENT;
  	struct buffer_head *bh;
  	struct ext4_dir_entry_2 *de;
@@ -1414,7 +1414,7 @@ diff --git a/fs/ext4/namei.c b/fs/ext4/namei.c
  		brelse(bh);
  	}
  	return retval;
-@@ -3610,7 +3722,8 @@ static void ext4_rename_delete(handle_t *handle, struct ext4_renament *ent,
+@@ -3609,7 +3721,8 @@ static void ext4_rename_delete(handle_t *handle, struct ext4_renament *ent,
  		retval = ext4_find_delete_entry(handle, ent->dir,
  						&ent->dentry->d_name);
  	} else {
@@ -1424,7 +1424,7 @@ diff --git a/fs/ext4/namei.c b/fs/ext4/namei.c
  		if (retval == -ENOENT) {
  			retval = ext4_find_delete_entry(handle, ent->dir,
  							&ent->dentry->d_name);
-@@ -3723,7 +3836,8 @@ static int ext4_rename(struct inode *old_dir, struct dentry *old_dentry,
+@@ -3722,7 +3835,8 @@ static int ext4_rename(struct inode *old_dir, struct dentry *old_dentry,
  			return retval;
  	}
  
@@ -1434,7 +1434,7 @@ diff --git a/fs/ext4/namei.c b/fs/ext4/namei.c
  	if (IS_ERR(old.bh))
  		return PTR_ERR(old.bh);
  	/*
-@@ -3737,7 +3851,7 @@ static int ext4_rename(struct inode *old_dir, struct dentry *old_dentry,
+@@ -3736,7 +3850,7 @@ static int ext4_rename(struct inode *old_dir, struct dentry *old_dentry,
  		goto end_rename;
  
  	new.bh = ext4_find_entry(new.dir, &new.dentry->d_name,
@@ -1443,7 +1443,7 @@ diff --git a/fs/ext4/namei.c b/fs/ext4/namei.c
  	if (IS_ERR(new.bh)) {
  		retval = PTR_ERR(new.bh);
  		new.bh = NULL;
-@@ -3927,7 +4041,7 @@ static int ext4_cross_rename(struct inode *old_dir, struct dentry *old_dentry,
+@@ -3926,7 +4040,7 @@ static int ext4_cross_rename(struct inode *old_dir, struct dentry *old_dentry,
  		return retval;
  
  	old.bh = ext4_find_entry(old.dir, &old.dentry->d_name,
@@ -1452,7 +1452,7 @@ diff --git a/fs/ext4/namei.c b/fs/ext4/namei.c
  	if (IS_ERR(old.bh))
  		return PTR_ERR(old.bh);
  	/*
-@@ -3941,7 +4055,7 @@ static int ext4_cross_rename(struct inode *old_dir, struct dentry *old_dentry,
+@@ -3940,7 +4054,7 @@ static int ext4_cross_rename(struct inode *old_dir, struct dentry *old_dentry,
  		goto end_rename;
  
  	new.bh = ext4_find_entry(new.dir, &new.dentry->d_name,

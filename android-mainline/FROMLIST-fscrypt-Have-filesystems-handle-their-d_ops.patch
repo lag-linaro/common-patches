@@ -17,7 +17,7 @@ Bug: 161184936
 Link: https://lore.kernel.org/linux-f2fs-devel/20200208013552.241832-1-drosen@google.com/T/#t
 Change-Id: Iaf77f8c5961ecf22e22478701ab0b7fe2025225d
 ---
- fs/crypto/fname.c           |  7 ++----
+ fs/crypto/fname.c           |  4 ---
  fs/crypto/fscrypt_private.h |  1 -
  fs/crypto/hooks.c           |  1 -
  fs/ext4/dir.c               |  7 ------
@@ -30,37 +30,27 @@ Change-Id: Iaf77f8c5961ecf22e22478701ab0b7fe2025225d
  fs/libfs.c                  | 50 +++++++++++++++++++++++++++++++++++++
  fs/ubifs/dir.c              | 18 +++++++++++++
  include/linux/fs.h          |  2 ++
- include/linux/fscrypt.h     |  6 +++--
- 14 files changed, 78 insertions(+), 32 deletions(-)
+ include/linux/fscrypt.h     |  5 ++--
+ 14 files changed, 75 insertions(+), 31 deletions(-)
 
 diff --git a/fs/crypto/fname.c b/fs/crypto/fname.c
 --- a/fs/crypto/fname.c
 +++ b/fs/crypto/fname.c
-@@ -541,7 +541,7 @@ EXPORT_SYMBOL_GPL(fscrypt_fname_siphash);
-  * Validate dentries in encrypted directories to make sure we aren't potentially
-  * caching stale dentries after a key has been added.
-  */
--static int fscrypt_d_revalidate(struct dentry *dentry, unsigned int flags)
-+int fscrypt_d_revalidate(struct dentry *dentry, unsigned int flags)
- {
- 	struct dentry *dir;
- 	int err;
-@@ -580,7 +580,4 @@ static int fscrypt_d_revalidate(struct dentry *dentry, unsigned int flags)
- 
+@@ -570,7 +570,3 @@ int fscrypt_d_revalidate(struct dentry *dentry, unsigned int flags)
  	return valid;
  }
+ EXPORT_SYMBOL_GPL(fscrypt_d_revalidate);
 -
 -const struct dentry_operations fscrypt_d_ops = {
 -	.d_revalidate = fscrypt_d_revalidate,
 -};
-+EXPORT_SYMBOL_GPL(fscrypt_d_revalidate);
 diff --git a/fs/crypto/fscrypt_private.h b/fs/crypto/fscrypt_private.h
 --- a/fs/crypto/fscrypt_private.h
 +++ b/fs/crypto/fscrypt_private.h
 @@ -294,7 +294,6 @@ int fscrypt_fname_encrypt(const struct inode *inode, const struct qstr *iname,
- 			  u8 *out, unsigned int olen);
- bool fscrypt_fname_encrypted_size(const struct inode *inode, u32 orig_len,
- 				  u32 max_len, u32 *encrypted_len_ret);
+ bool fscrypt_fname_encrypted_size(const union fscrypt_policy *policy,
+ 				  u32 orig_len, u32 max_len,
+ 				  u32 *encrypted_len_ret);
 -extern const struct dentry_operations fscrypt_d_ops;
  
  /* hkdf.c */
@@ -68,9 +58,9 @@ diff --git a/fs/crypto/fscrypt_private.h b/fs/crypto/fscrypt_private.h
 diff --git a/fs/crypto/hooks.c b/fs/crypto/hooks.c
 --- a/fs/crypto/hooks.c
 +++ b/fs/crypto/hooks.c
-@@ -118,7 +118,6 @@ int __fscrypt_prepare_lookup(struct inode *dir, struct dentry *dentry,
+@@ -117,7 +117,6 @@ int __fscrypt_prepare_lookup(struct inode *dir, struct dentry *dentry,
  		spin_lock(&dentry->d_lock);
- 		dentry->d_flags |= DCACHE_ENCRYPTED_NAME;
+ 		dentry->d_flags |= DCACHE_NOKEY_NAME;
  		spin_unlock(&dentry->d_lock);
 -		d_set_d_op(dentry, &fscrypt_d_ops);
  	}
@@ -93,7 +83,7 @@ diff --git a/fs/ext4/dir.c b/fs/ext4/dir.c
 diff --git a/fs/ext4/namei.c b/fs/ext4/namei.c
 --- a/fs/ext4/namei.c
 +++ b/fs/ext4/namei.c
-@@ -1615,6 +1615,7 @@ static struct buffer_head *ext4_lookup_entry(struct inode *dir,
+@@ -1614,6 +1614,7 @@ static struct buffer_head *ext4_lookup_entry(struct inode *dir,
  	struct buffer_head *bh;
  
  	err = ext4_fname_prepare_lookup(dir, dentry, &fname);
@@ -133,7 +123,7 @@ diff --git a/fs/f2fs/dir.c b/fs/f2fs/dir.c
 diff --git a/fs/f2fs/f2fs.h b/fs/f2fs/f2fs.h
 --- a/fs/f2fs/f2fs.h
 +++ b/fs/f2fs/f2fs.h
-@@ -3730,9 +3730,6 @@ static inline void f2fs_update_sit_info(struct f2fs_sb_info *sbi) {}
+@@ -3723,9 +3723,6 @@ static inline void f2fs_update_sit_info(struct f2fs_sb_info *sbi) {}
  #endif
  
  extern const struct file_operations f2fs_dir_operations;
@@ -146,7 +136,7 @@ diff --git a/fs/f2fs/f2fs.h b/fs/f2fs/f2fs.h
 diff --git a/fs/f2fs/namei.c b/fs/f2fs/namei.c
 --- a/fs/f2fs/namei.c
 +++ b/fs/f2fs/namei.c
-@@ -492,6 +492,7 @@ static struct dentry *f2fs_lookup(struct inode *dir, struct dentry *dentry,
+@@ -497,6 +497,7 @@ static struct dentry *f2fs_lookup(struct inode *dir, struct dentry *dentry,
  	}
  
  	err = f2fs_prepare_lookup(dir, dentry, &fname);
@@ -157,7 +147,7 @@ diff --git a/fs/f2fs/namei.c b/fs/f2fs/namei.c
 diff --git a/fs/f2fs/super.c b/fs/f2fs/super.c
 --- a/fs/f2fs/super.c
 +++ b/fs/f2fs/super.c
-@@ -3362,7 +3362,6 @@ static int f2fs_setup_casefold(struct f2fs_sb_info *sbi)
+@@ -3361,7 +3361,6 @@ static int f2fs_setup_casefold(struct f2fs_sb_info *sbi)
  
  		sbi->sb->s_encoding = encoding;
  		sbi->sb->s_encoding_flags = encoding_flags;
@@ -204,7 +194,7 @@ diff --git a/fs/libfs.c b/fs/libfs.c
 +void generic_set_encrypted_ci_d_ops(struct inode *dir, struct dentry *dentry)
 +{
 +#ifdef CONFIG_FS_ENCRYPTION
-+	if (dentry->d_flags & DCACHE_ENCRYPTED_NAME) {
++	if (dentry->d_flags & DCACHE_NOKEY_NAME) {
 +#ifdef CONFIG_UNICODE
 +		if (dir->i_sb->s_encoding) {
 +			d_set_d_op(dentry, &generic_encrypted_ci_dentry_ops);
@@ -226,7 +216,7 @@ diff --git a/fs/libfs.c b/fs/libfs.c
 diff --git a/fs/ubifs/dir.c b/fs/ubifs/dir.c
 --- a/fs/ubifs/dir.c
 +++ b/fs/ubifs/dir.c
-@@ -196,6 +196,7 @@ static int dbg_check_name(const struct ubifs_info *c,
+@@ -190,6 +190,7 @@ static int dbg_check_name(const struct ubifs_info *c,
  	return 0;
  }
  
@@ -234,7 +224,7 @@ diff --git a/fs/ubifs/dir.c b/fs/ubifs/dir.c
  static struct dentry *ubifs_lookup(struct inode *dir, struct dentry *dentry,
  				   unsigned int flags)
  {
-@@ -209,6 +210,7 @@ static struct dentry *ubifs_lookup(struct inode *dir, struct dentry *dentry,
+@@ -203,6 +204,7 @@ static struct dentry *ubifs_lookup(struct inode *dir, struct dentry *dentry,
  	dbg_gen("'%pd' in dir ino %lu", dentry, dir->i_ino);
  
  	err = fscrypt_prepare_lookup(dir, dentry, &nm);
@@ -242,7 +232,7 @@ diff --git a/fs/ubifs/dir.c b/fs/ubifs/dir.c
  	if (err == -ENOENT)
  		return d_splice_alias(NULL, dentry);
  	if (err)
-@@ -1655,3 +1657,19 @@ const struct file_operations ubifs_dir_operations = {
+@@ -1649,3 +1651,19 @@ const struct file_operations ubifs_dir_operations = {
  	.compat_ioctl   = ubifs_compat_ioctl,
  #endif
  };
@@ -256,7 +246,7 @@ diff --git a/fs/ubifs/dir.c b/fs/ubifs/dir.c
 +static void ubifs_set_d_ops(struct inode *dir, struct dentry *dentry)
 +{
 +#ifdef CONFIG_FS_ENCRYPTION
-+	if (dentry->d_flags & DCACHE_ENCRYPTED_NAME) {
++	if (dentry->d_flags & DCACHE_NOKEY_NAME) {
 +		d_set_d_op(dentry, &ubifs_encrypted_dentry_ops);
 +		return;
 +	}
@@ -277,23 +267,15 @@ diff --git a/include/linux/fs.h b/include/linux/fs.h
 diff --git a/include/linux/fscrypt.h b/include/linux/fscrypt.h
 --- a/include/linux/fscrypt.h
 +++ b/include/linux/fscrypt.h
-@@ -149,6 +149,7 @@ static inline struct page *fscrypt_pagecache_page(struct page *bounce_page)
- }
- 
- void fscrypt_free_bounce_page(struct page *bounce_page);
-+int fscrypt_d_revalidate(struct dentry *dentry, unsigned int flags);
- 
- /* policy.c */
- int fscrypt_ioctl_set_policy(struct file *filp, const void __user *arg);
-@@ -753,8 +754,9 @@ static inline int fscrypt_prepare_rename(struct inode *old_dir,
-  * filenames are presented in encrypted form.  Therefore, we'll try to set up
-  * the directory's encryption key, but even without it the lookup can continue.
+@@ -755,8 +755,9 @@ static inline int fscrypt_prepare_rename(struct inode *old_dir,
+  * directory's encryption key is available, then the lookup is assumed to be by
+  * plaintext name; otherwise, it is assumed to be by no-key name.
   *
 - * This also installs a custom ->d_revalidate() method which will invalidate the
 - * dentry if it was created without the key and the key is later added.
-+ * After calling this function, a filesystem should ensure that it's dentry
-+ * operations contain fscrypt_d_revalidate if DCACHE_ENCRYPTED_NAME was set,
++ * After calling this function, a filesystem should ensure that its dentry
++ * operations contain fscrypt_d_revalidate if DCACHE_NOKEY_NAME was set,
 + * so that the dentry can be invalidated if the key is later added.
   *
-  * Return: 0 on success; -ENOENT if key is unavailable but the filename isn't a
-  * correctly formed encoded ciphertext name, so a negative dentry should be
+  * Return: 0 on success; -ENOENT if the directory's key is unavailable but the
+  * filename isn't a valid no-key name, so a negative dentry should be created;

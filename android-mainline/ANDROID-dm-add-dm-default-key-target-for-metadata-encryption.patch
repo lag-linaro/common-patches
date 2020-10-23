@@ -531,7 +531,7 @@ index 000000000000..ea8fef823a8a
 diff --git a/fs/crypto/inline_crypt.c b/fs/crypto/inline_crypt.c
 --- a/fs/crypto/inline_crypt.c
 +++ b/fs/crypto/inline_crypt.c
-@@ -241,6 +241,8 @@ static void fscrypt_generate_dun(const struct fscrypt_info *ci, u64 lblk_num,
+@@ -238,6 +238,8 @@ static void fscrypt_generate_dun(const struct fscrypt_info *ci, u64 lblk_num,
   * otherwise fscrypt_mergeable_bio() won't work as intended.
   *
   * The encryption context will be freed automatically when the bio is freed.
@@ -540,7 +540,7 @@ diff --git a/fs/crypto/inline_crypt.c b/fs/crypto/inline_crypt.c
   */
  void fscrypt_set_bio_crypt_ctx(struct bio *bio, const struct inode *inode,
  			       u64 first_lblk, gfp_t gfp_mask)
-@@ -248,6 +250,9 @@ void fscrypt_set_bio_crypt_ctx(struct bio *bio, const struct inode *inode,
+@@ -245,6 +247,9 @@ void fscrypt_set_bio_crypt_ctx(struct bio *bio, const struct inode *inode,
  	const struct fscrypt_info *ci;
  	u64 dun[BLK_CRYPTO_DUN_ARRAY_SIZE];
  
@@ -550,7 +550,7 @@ diff --git a/fs/crypto/inline_crypt.c b/fs/crypto/inline_crypt.c
  	if (!fscrypt_inode_uses_inline_crypto(inode))
  		return;
  	ci = inode->i_crypt_info;
-@@ -318,6 +323,9 @@ EXPORT_SYMBOL_GPL(fscrypt_set_bio_crypt_ctx_bh);
+@@ -315,6 +320,9 @@ EXPORT_SYMBOL_GPL(fscrypt_set_bio_crypt_ctx_bh);
   *
   * fscrypt_set_bio_crypt_ctx() must have already been called on the bio.
   *
@@ -560,7 +560,7 @@ diff --git a/fs/crypto/inline_crypt.c b/fs/crypto/inline_crypt.c
   * Return: true iff the I/O is mergeable
   */
  bool fscrypt_mergeable_bio(struct bio *bio, const struct inode *inode,
-@@ -328,6 +336,9 @@ bool fscrypt_mergeable_bio(struct bio *bio, const struct inode *inode,
+@@ -325,6 +333,9 @@ bool fscrypt_mergeable_bio(struct bio *bio, const struct inode *inode,
  
  	if (!!bc != fscrypt_inode_uses_inline_crypto(inode))
  		return false;
@@ -570,7 +570,7 @@ diff --git a/fs/crypto/inline_crypt.c b/fs/crypto/inline_crypt.c
  	if (!bc)
  		return true;
  
-@@ -361,7 +372,8 @@ bool fscrypt_mergeable_bio_bh(struct bio *bio,
+@@ -358,7 +369,8 @@ bool fscrypt_mergeable_bio_bh(struct bio *bio,
  	u64 next_lblk;
  
  	if (!bh_get_inode_and_lblk_num(next_bh, &inode, &next_lblk))
@@ -671,7 +671,7 @@ diff --git a/include/linux/blk_types.h b/include/linux/blk_types.h
 diff --git a/include/linux/fscrypt.h b/include/linux/fscrypt.h
 --- a/include/linux/fscrypt.h
 +++ b/include/linux/fscrypt.h
-@@ -594,6 +594,20 @@ static inline bool fscrypt_mergeable_bio_bh(struct bio *bio,
+@@ -597,6 +597,20 @@ static inline bool fscrypt_mergeable_bio_bh(struct bio *bio,
  }
  #endif /* !CONFIG_FS_ENCRYPTION_INLINE_CRYPT */
  

@@ -272,9 +272,9 @@ diff --git a/fs/crypto/inline_crypt.c b/fs/crypto/inline_crypt.c
  	crypto_cfg.dun_bytes = fscrypt_get_dun_bytes(ci);
 +	crypto_cfg.is_hw_wrapped = false;
  	num_devs = fscrypt_get_num_devices(sb);
- 	devs = kmalloc_array(num_devs, sizeof(*devs), GFP_NOFS);
+ 	devs = kmalloc_array(num_devs, sizeof(*devs), GFP_KERNEL);
  	if (!devs)
-@@ -145,8 +146,9 @@ int fscrypt_prepare_inline_crypt_key(struct fscrypt_prepared_key *prep_key,
+@@ -144,8 +145,9 @@ int fscrypt_prepare_inline_crypt_key(struct fscrypt_prepared_key *prep_key,
  	blk_key->num_devs = num_devs;
  	fscrypt_get_devices(sb, num_devs, blk_key->devs);
  

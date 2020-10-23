@@ -175,7 +175,7 @@ diff --git a/fs/crypto/inline_crypt.c b/fs/crypto/inline_crypt.c
 -	crypto_cfg.is_hw_wrapped = false;
 +	crypto_cfg.is_hw_wrapped = is_hw_wrapped_key;
  	num_devs = fscrypt_get_num_devices(sb);
- 	devs = kmalloc_array(num_devs, sizeof(*devs), GFP_NOFS);
+ 	devs = kmalloc_array(num_devs, sizeof(*devs), GFP_KERNEL);
  	if (!devs)
 @@ -127,6 +129,8 @@ int fscrypt_select_encryption_impl(struct fscrypt_info *ci)
  
@@ -186,7 +186,7 @@ diff --git a/fs/crypto/inline_crypt.c b/fs/crypto/inline_crypt.c
  				     const struct fscrypt_info *ci)
  {
  	const struct inode *inode = ci->ci_inode;
-@@ -146,9 +150,12 @@ int fscrypt_prepare_inline_crypt_key(struct fscrypt_prepared_key *prep_key,
+@@ -145,9 +149,12 @@ int fscrypt_prepare_inline_crypt_key(struct fscrypt_prepared_key *prep_key,
  	blk_key->num_devs = num_devs;
  	fscrypt_get_devices(sb, num_devs, blk_key->devs);
  
@@ -202,7 +202,7 @@ diff --git a/fs/crypto/inline_crypt.c b/fs/crypto/inline_crypt.c
  	if (err) {
  		fscrypt_err(inode, "error %d initializing blk-crypto key", err);
  		goto fail;
-@@ -209,6 +216,21 @@ void fscrypt_destroy_inline_crypt_key(struct fscrypt_prepared_key *prep_key)
+@@ -206,6 +213,21 @@ void fscrypt_destroy_inline_crypt_key(struct fscrypt_prepared_key *prep_key)
  	}
  }
  
@@ -319,7 +319,7 @@ diff --git a/fs/crypto/keyring.c b/fs/crypto/keyring.c
 diff --git a/fs/crypto/keysetup.c b/fs/crypto/keysetup.c
 --- a/fs/crypto/keysetup.c
 +++ b/fs/crypto/keysetup.c
-@@ -118,12 +118,17 @@ fscrypt_allocate_skcipher(struct fscrypt_mode *mode, const u8 *raw_key,
+@@ -119,12 +119,17 @@ fscrypt_allocate_skcipher(struct fscrypt_mode *mode, const u8 *raw_key,
   * (fs-layer or blk-crypto) will be used.
   */
  int fscrypt_prepare_key(struct fscrypt_prepared_key *prep_key,
@@ -339,7 +339,7 @@ diff --git a/fs/crypto/keysetup.c b/fs/crypto/keysetup.c
  
  	tfm = fscrypt_allocate_skcipher(ci->ci_mode, raw_key, ci->ci_inode);
  	if (IS_ERR(tfm))
-@@ -149,7 +154,9 @@ void fscrypt_destroy_prepared_key(struct fscrypt_prepared_key *prep_key)
+@@ -150,7 +155,9 @@ void fscrypt_destroy_prepared_key(struct fscrypt_prepared_key *prep_key)
  int fscrypt_set_per_file_enc_key(struct fscrypt_info *ci, const u8 *raw_key)
  {
  	ci->ci_owns_key = true;
@@ -350,7 +350,7 @@ diff --git a/fs/crypto/keysetup.c b/fs/crypto/keysetup.c
  }
  
  static int setup_per_mode_enc_key(struct fscrypt_info *ci,
-@@ -181,24 +188,48 @@ static int setup_per_mode_enc_key(struct fscrypt_info *ci,
+@@ -182,24 +189,48 @@ static int setup_per_mode_enc_key(struct fscrypt_info *ci,
  	if (fscrypt_is_key_prepared(prep_key, ci))
  		goto done_unlock;
  
@@ -416,7 +416,7 @@ diff --git a/fs/crypto/keysetup.c b/fs/crypto/keysetup.c
  done_unlock:
  	ci->ci_enc_key = *prep_key;
  	err = 0;
-@@ -264,6 +295,14 @@ static int fscrypt_setup_v2_file_key(struct fscrypt_info *ci,
+@@ -282,6 +313,14 @@ static int fscrypt_setup_v2_file_key(struct fscrypt_info *ci,
  {
  	int err;
  
@@ -431,7 +431,7 @@ diff --git a/fs/crypto/keysetup.c b/fs/crypto/keysetup.c
  	if (ci->ci_policy.v2.flags & FSCRYPT_POLICY_FLAG_DIRECT_KEY) {
  		/*
  		 * DIRECT_KEY: instead of deriving per-file encryption keys, the
-@@ -333,10 +372,6 @@ static int setup_file_encryption_key(struct fscrypt_info *ci,
+@@ -352,10 +391,6 @@ static int setup_file_encryption_key(struct fscrypt_info *ci,
  	struct fscrypt_key_specifier mk_spec;
  	int err;
  
@@ -442,7 +442,7 @@ diff --git a/fs/crypto/keysetup.c b/fs/crypto/keysetup.c
  	switch (ci->ci_policy.version) {
  	case FSCRYPT_POLICY_V1:
  		mk_spec.type = FSCRYPT_KEY_SPEC_TYPE_DESCRIPTOR;
-@@ -361,6 +396,10 @@ static int setup_file_encryption_key(struct fscrypt_info *ci,
+@@ -380,6 +415,10 @@ static int setup_file_encryption_key(struct fscrypt_info *ci,
  		    ci->ci_policy.version != FSCRYPT_POLICY_V1)
  			return PTR_ERR(key);
  
@@ -453,7 +453,7 @@ diff --git a/fs/crypto/keysetup.c b/fs/crypto/keysetup.c
  		/*
  		 * As a legacy fallback for v1 policies, search for the key in
  		 * the current task's subscribed keyrings too.  Don't move this
-@@ -395,6 +434,10 @@ static int setup_file_encryption_key(struct fscrypt_info *ci,
+@@ -414,6 +453,10 @@ static int setup_file_encryption_key(struct fscrypt_info *ci,
  		goto out_release_key;
  	}
  
@@ -480,7 +480,7 @@ diff --git a/fs/crypto/keysetup_v1.c b/fs/crypto/keysetup_v1.c
 diff --git a/include/uapi/linux/fscrypt.h b/include/uapi/linux/fscrypt.h
 --- a/include/uapi/linux/fscrypt.h
 +++ b/include/uapi/linux/fscrypt.h
-@@ -126,7 +126,10 @@ struct fscrypt_add_key_arg {
+@@ -125,7 +125,10 @@ struct fscrypt_add_key_arg {
  	struct fscrypt_key_specifier key_spec;
  	__u32 raw_size;
  	__u32 key_id;

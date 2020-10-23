@@ -1,8 +1,8 @@
 #
 # android-mainline patches
 #
-# Applies onto upstream 39a5101f989e Linux v5.9-1064-g39a5101f989e
-# Matches android-mainline f52c09b3c9c5 ("Merge 39a5101f989e ("Merge branch 'linus' of git://git.kernel.org/pub/scm/linux/kernel/git/herbert/crypto-2.6") into android-mainline")
+# Applies onto upstream 6f5032a852f9 Linux v5.9-1084-g6f5032a852f9
+# Matches android-mainline 9d77f49849d3 ("Merge 6f5032a852f9 ("Merge tag 'fscrypt-for-linus' of git://git.kernel.org/pub/scm/fs/fscrypt/fscrypt") into android-mainline")
 #
 Revert-security-keys-remove-compat_keyctl_instantiate_key_iov.patch
 Revert-mm-remove-compat_process_vm_-readv-writev.patch
@@ -670,3 +670,4 @@ ANDROID-serial-msm_geni_serial_earlycon-Add-Earlycon-support.patch
 _____ANNOTATION-remove-ANNOTATIONS-file_____.patch
 DROP-ME-Out-of-tree-difference-caused-by-unclean-revert.patch
 DROP-ME-This-compensates-a-left-over-patch-after-merging-5.10-rc1.patch
+DROP-ME-revert-ANDROID-adjust-5.10-fscrypt-merge-resolution.patch

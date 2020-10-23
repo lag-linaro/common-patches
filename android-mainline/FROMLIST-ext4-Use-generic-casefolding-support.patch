@@ -144,7 +144,7 @@ diff --git a/fs/ext4/hash.c b/fs/ext4/hash.c
 diff --git a/fs/ext4/namei.c b/fs/ext4/namei.c
 --- a/fs/ext4/namei.c
 +++ b/fs/ext4/namei.c
-@@ -1286,8 +1286,8 @@ static void dx_insert_block(struct dx_frame *frame, u32 hash, ext4_lblk_t block)
+@@ -1285,8 +1285,8 @@ static void dx_insert_block(struct dx_frame *frame, u32 hash, ext4_lblk_t block)
  int ext4_ci_compare(const struct inode *parent, const struct qstr *name,
  		    const struct qstr *entry, bool quick)
  {
@@ -155,7 +155,7 @@ diff --git a/fs/ext4/namei.c b/fs/ext4/namei.c
  	int ret;
  
  	if (quick)
-@@ -1299,7 +1299,7 @@ int ext4_ci_compare(const struct inode *parent, const struct qstr *name,
+@@ -1298,7 +1298,7 @@ int ext4_ci_compare(const struct inode *parent, const struct qstr *name,
  		/* Handle invalid character sequence as either an error
  		 * or as an opaque byte sequence.
  		 */
@@ -164,7 +164,7 @@ diff --git a/fs/ext4/namei.c b/fs/ext4/namei.c
  			return -EINVAL;
  
  		if (name->len != entry->len)
-@@ -1316,7 +1316,7 @@ void ext4_fname_setup_ci_filename(struct inode *dir, const struct qstr *iname,
+@@ -1315,7 +1315,7 @@ void ext4_fname_setup_ci_filename(struct inode *dir, const struct qstr *iname,
  {
  	int len;
  
@@ -173,7 +173,7 @@ diff --git a/fs/ext4/namei.c b/fs/ext4/namei.c
  		cf_name->name = NULL;
  		return;
  	}
-@@ -1325,7 +1325,7 @@ void ext4_fname_setup_ci_filename(struct inode *dir, const struct qstr *iname,
+@@ -1324,7 +1324,7 @@ void ext4_fname_setup_ci_filename(struct inode *dir, const struct qstr *iname,
  	if (!cf_name->name)
  		return;
  
@@ -182,7 +182,7 @@ diff --git a/fs/ext4/namei.c b/fs/ext4/namei.c
  			    iname, cf_name->name,
  			    EXT4_NAME_LEN);
  	if (len <= 0) {
-@@ -1362,7 +1362,7 @@ static inline bool ext4_match(const struct inode *parent,
+@@ -1361,7 +1361,7 @@ static inline bool ext4_match(const struct inode *parent,
  #endif
  
  #ifdef CONFIG_UNICODE
@@ -191,7 +191,7 @@ diff --git a/fs/ext4/namei.c b/fs/ext4/namei.c
  		if (fname->cf_name.name) {
  			struct qstr cf = {.name = fname->cf_name.name,
  					  .len = fname->cf_name.len};
-@@ -2181,9 +2181,6 @@ static int ext4_add_entry(handle_t *handle, struct dentry *dentry,
+@@ -2180,9 +2180,6 @@ static int ext4_add_entry(handle_t *handle, struct dentry *dentry,
  	struct buffer_head *bh = NULL;
  	struct ext4_dir_entry_2 *de;
  	struct super_block *sb;
@@ -201,7 +201,7 @@ diff --git a/fs/ext4/namei.c b/fs/ext4/namei.c
  	struct ext4_filename fname;
  	int	retval;
  	int	dx_fallback=0;
-@@ -2200,9 +2197,8 @@ static int ext4_add_entry(handle_t *handle, struct dentry *dentry,
+@@ -2199,9 +2196,8 @@ static int ext4_add_entry(handle_t *handle, struct dentry *dentry,
  		return -EINVAL;
  
  #ifdef CONFIG_UNICODE
@@ -218,7 +218,7 @@ diff --git a/fs/ext4/super.c b/fs/ext4/super.c
 +++ b/fs/ext4/super.c
 @@ -1106,7 +1106,7 @@ static void ext4_put_super(struct super_block *sb)
  	fs_put_dax(sbi->s_daxdev);
- 	fscrypt_free_dummy_context(&sbi->s_dummy_enc_ctx);
+ 	fscrypt_free_dummy_policy(&sbi->s_dummy_enc_policy);
  #ifdef CONFIG_UNICODE
 -	utf8_unload(sbi->s_encoding);
 +	utf8_unload(sb->s_encoding);
