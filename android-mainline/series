@@ -1,8 +1,8 @@
 #
 # android-mainline patches
 #
-# Applies onto upstream 3e4fb4346c78 Linux v5.9-4105-g3e4fb4346c78
-# Matches android-mainline a11fd12c2374 ("Merge 3e4fb4346c78 ("Merge tag 'spdx-5.10-rc1' of git://git.kernel.org/pub/scm/linux/kernel/git/gregkh/spdx") into android-mailine")
+# Applies onto upstream ade7afe3e606 Linux v5.9-4587-gade7afe3e606
+# Matches android-mainline 558647c50729 ("Merge ade7afe3e606 ("Merge tag 'staging-5.10-rc1' of git://git.kernel.org/pub/scm/linux/kernel/git/gregkh/staging") into android-mainline")
 #
 Revert-security-keys-remove-compat_keyctl_instantiate_key_iov.patch
 Revert-mm-remove-compat_process_vm_-readv-writev.patch
