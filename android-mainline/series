@@ -2,7 +2,7 @@
 # android-mainline patches
 #
 # Applies onto upstream 857d64485e7c Linux v5.9-2333-g857d64485e7c
-# Matches android-mainline 0b405dbc609b ("Merge 857d64485e7c ("Merge tag 'x86_urgent_for_v5.10-rc1' of git://git.kernel.org/pub/scm/linux/kernel/git/tip/tip") into android-mainline")
+# Matches android-mainline dbdf52541af6 ("ANDROID: sched: export wake_up_if_idle()")
 #
 Revert-security-keys-remove-compat_keyctl_instantiate_key_iov.patch
 Revert-mm-remove-compat_process_vm_-readv-writev.patch
@@ -26,6 +26,7 @@ FROMLIST-clk-Export-clk_register_composite.patch
 FROMLIST-clk-versatile-remove-dependency-on-ARCH_.patch
 FROMLIST-arm64-vdso32-Allow-ld.lld-to-properly-link-the-VDSO.patch
 FROMLIST-soc-qcom-Kconfig-make-RPMH-match-Command-DB-setting.patch
+FROMLIST-cpuidle-governor-export-cpuidle-governor-functions.patch
 _____ANNOTATION-Android-vendor-hooks_____.patch
 ANDROID-GKI-add-android_vendor.h.patch
 ANDROID-add-support-for-vendor-hooks.patch
@@ -71,6 +72,7 @@ ANDROID-unconditionally-compile-sig_ok-in-struct-module.patch
 ANDROID-futex-Add-vendor-hook-for-wait-queue.patch
 ANDROID-GKI-signal-Export-for-__lock_task_sighand.patch
 ANDROID-GKI-time-Export-for-nsec_to_clock_t.patch
+ANDROID-tick-nohz-export-tick_nohz_get_sleep_length.patch
 ANDROID-GKI-pid-Export-for-find_task_by_vpid.patch
 ANDROID-Export-perf_event_read_local-function.patch
 ANDROID-workqueue-add-vendor-hook-for-wq-lockup-information.patch
@@ -109,6 +111,7 @@ ANDROID-GKI-loadavg-Export-for-get_avenrun.patch
 ANDROID-sched-add-cpumask-parameter-to-cpu-capacity-vendor-hook.patch
 ANDROID-trace-sched-add-sched-blocked-tracepoint-which-dumps-out-context-of-sleep.patch
 ANDROID-cpu-hotplug-Always-use-real-time-scheduling-when-hotplugging-a-CPU.patch
+ANDROID-sched-export-wake_up_if_idle.patch
 _____ANNOTATION-uid_sys_stats-support_____.patch
 ANDROID-uid_cputime-Adds-accounting-for-the-cputimes-per-uid.patch
 ANDROID-uid_cputime-add-per-uid-IO-usage-accounting.patch
