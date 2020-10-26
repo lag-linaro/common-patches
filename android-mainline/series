@@ -1,8 +1,8 @@
 #
 # android-mainline patches
 #
-# Applies onto upstream 6ad4bf6ea160 Linux v5.9-2590-g6ad4bf6ea160
-# Matches android-mainline e24a525c0d9d ("Merge 6ad4bf6ea160 ("Merge tag 'io_uring-5.10-2020-10-12' of git://git.kernel.dk/linux-block") into android-mainline")
+# Applies onto upstream 79ec6d9cac46 Linux v5.9-2597-g79ec6d9cac46
+# Matches android-mainline 6a83be969617 ("Merge 79ec6d9cac46 ("Merge tag 'libata-5.10-2020-10-12' of git://git.kernel.dk/linux-block") into android-mainline")
 #
 Revert-security-keys-remove-compat_keyctl_instantiate_key_iov.patch
 Revert-mm-remove-compat_process_vm_-readv-writev.patch
