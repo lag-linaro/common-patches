@@ -1,8 +1,8 @@
 #
 # android-mainline patches
 #
-# Applies onto upstream 0486beaf88d2 Linux v5.9-2265-g0486beaf88d2
-# Matches android-mainline 56860c854271 ("Merge 0486beaf88d2 ("Merge tag 'gpio-v5.10-1' of git://git.kernel.org/pub/scm/linux/kernel/git/linusw/linux-gpio") into android-mainline")
+# Applies onto upstream c4439713e82a Linux v5.9-2330-gc4439713e82a
+# Matches android-mainline cc35535c2715 ("Merge c4439713e82a ("Merge tag 'hwmon-for-v5.10' of git://git.kernel.org/pub/scm/linux/kernel/git/groeck/linux-staging") into android-mainline")
 #
 Revert-security-keys-remove-compat_keyctl_instantiate_key_iov.patch
 Revert-mm-remove-compat_process_vm_-readv-writev.patch
