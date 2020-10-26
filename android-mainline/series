@@ -2,7 +2,7 @@
 # android-mainline patches
 #
 # Applies onto upstream d5660df4a555 Linux v5.9-2956-gd5660df4a555
-# Matches android-mainline 75c90a8c3a2f ("Merge d5660df4a555 ("Merge branch 'akpm' (patches from Andrew)") into android-mainline")
+# Matches android-mainline 83f76c848d6d ("ANDROID: GKI: remove explicit CONFIG_SECCOMP from defconfig for arm64")
 #
 Revert-security-keys-remove-compat_keyctl_instantiate_key_iov.patch
 Revert-mm-remove-compat_process_vm_-readv-writev.patch
@@ -666,6 +666,7 @@ ANDROID-GKI-Add-configs-needed-for-ARM-Fixed-Virtual-Platform.patch
 ANDROID-GKI-Enable-CONFIG_X86_X2APIC.patch
 ANDROID-GKI-Enable-CONFIG_USB_ANNOUNCE_NEW_DEVICES.patch
 ANDROID-GKI-add-built-in-PCIE_DW_PLAT_EP.patch
+ANDROID-GKI-remove-explicit-CONFIG_SECCOMP-from-defconfig-for-arm64.patch
 _____ANNOTATION-Patches-for-bringing-up-new-SoCs_____.patch
 ANDROID-serial-msm_geni_serial_earlycon-Add-Earlycon-support.patch
 _____ANNOTATION-remove-ANNOTATIONS-file_____.patch
