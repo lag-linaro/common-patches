@@ -2,7 +2,7 @@
 # android-mainline patches
 #
 # Applies onto upstream 79db2b74aa14 Linux v5.9-3250-g79db2b74aa14
-# Matches android-mainline 37afce95bb00 ("Merge 79db2b74aa14 ("Merge branch 'stable/for-linus-5.10' of git://git.kernel.org/pub/scm/linux/kernel/git/konrad/swiotlb") into android-mainline")
+# Matches android-mainline e131b0689278 ("ANDROID: adjust 5.10 fscrypt merge resolution")
 #
 Revert-security-keys-remove-compat_keyctl_instantiate_key_iov.patch
 Revert-mm-remove-compat_process_vm_-readv-writev.patch
@@ -672,4 +672,3 @@ ANDROID-serial-msm_geni_serial_earlycon-Add-Earlycon-support.patch
 _____ANNOTATION-remove-ANNOTATIONS-file_____.patch
 DROP-ME-Out-of-tree-difference-caused-by-unclean-revert.patch
 DROP-ME-This-compensates-a-left-over-patch-after-merging-5.10-rc1.patch
-DROP-ME-revert-ANDROID-adjust-5.10-fscrypt-merge-resolution.patch
