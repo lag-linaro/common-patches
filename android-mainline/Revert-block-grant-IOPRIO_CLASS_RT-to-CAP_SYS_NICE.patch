@@ -1,0 +1,39 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: Greg Kroah-Hartman <gregkh@google.com>
+Date: Sat, 24 Oct 2020 17:27:45 +0200
+Subject: Revert "block: grant IOPRIO_CLASS_RT to CAP_SYS_NICE"
+
+This reverts commit 9d3a39a5f1e45827b008fff1ee9cf3cac3409665 as that
+commit causes a bunch of SELinux errors.
+
+Signed-off-by: Greg Kroah-Hartman <gregkh@google.com>
+Change-Id: I73dc15c4ecddcf1950ca7fca2cc107be27da8f3f
+---
+ block/ioprio.c                  | 2 +-
+ include/uapi/linux/capability.h | 2 --
+ 2 files changed, 1 insertion(+), 3 deletions(-)
+
+diff --git a/block/ioprio.c b/block/ioprio.c
+--- a/block/ioprio.c
++++ b/block/ioprio.c
+@@ -69,7 +69,7 @@ int ioprio_check_cap(int ioprio)
+ 
+ 	switch (class) {
+ 		case IOPRIO_CLASS_RT:
+-			if (!capable(CAP_SYS_NICE) && !capable(CAP_SYS_ADMIN))
++			if (!capable(CAP_SYS_ADMIN))
+ 				return -EPERM;
+ 			fallthrough;
+ 			/* rt has prio field too */
+diff --git a/include/uapi/linux/capability.h b/include/uapi/linux/capability.h
+--- a/include/uapi/linux/capability.h
++++ b/include/uapi/linux/capability.h
+@@ -288,8 +288,6 @@ struct vfs_ns_cap_data {
+    processes and setting the scheduling algorithm used by another
+    process. */
+ /* Allow setting cpu affinity on other processes */
+-/* Allow setting realtime ioprio class */
+-/* Allow setting ioprio class on other processes */
+ 
+ #define CAP_SYS_NICE         23
+ 

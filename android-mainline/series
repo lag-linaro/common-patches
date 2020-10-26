@@ -2,7 +2,7 @@
 # android-mainline patches
 #
 # Applies onto upstream 3ad11d7ac887 Linux v5.9-2526-g3ad11d7ac887
-# Matches android-mainline c62fe038feff ("Merge 3ad11d7ac887 ("Merge tag 'block-5.10-2020-10-12' of git://git.kernel.dk/linux-block") into android-mainline")
+# Matches android-mainline 35cda5af62ea ("Revert "block: grant IOPRIO_CLASS_RT to CAP_SYS_NICE"")
 #
 Revert-security-keys-remove-compat_keyctl_instantiate_key_iov.patch
 Revert-mm-remove-compat_process_vm_-readv-writev.patch
@@ -12,6 +12,7 @@ Revert-fs-remove-various-compat-readv-writev-helpers.patch
 Revert-iov_iter-transparently-handle-compat-iovecs-in-import_iovec.patch
 Revert-iov_iter-refactor-rw_copy_check_uvector-and-import_iovec.patch
 Revert-iov_iter-move-rw_copy_check_uvector-into-lib-iov_iter.c.patch
+Revert-block-grant-IOPRIO_CLASS_RT-to-CAP_SYS_NICE.patch
 _____ANNOTATION-pending-upstream_____.patch
 FROMLIST-coresight-stm-support-marked-packet.patch
 FROMLIST-stm-class-ftrace-change-dependency-to-TRACING.patch
