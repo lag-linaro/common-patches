@@ -1,8 +1,8 @@
 #
 # android-mainline patches
 #
-# Applies onto upstream 647412daeb45 Linux v5.9-1363-g647412daeb45
-# Matches android-mainline aec70853968c ("Merge 647412daeb45 ("Merge tag 'mmc-v5.10' of git://git.kernel.org/pub/scm/linux/kernel/git/ulfh/mmc") into android-mainline")
+# Applies onto upstream 0486beaf88d2 Linux v5.9-2265-g0486beaf88d2
+# Matches android-mainline 56860c854271 ("Merge 0486beaf88d2 ("Merge tag 'gpio-v5.10-1' of git://git.kernel.org/pub/scm/linux/kernel/git/linusw/linux-gpio") into android-mainline")
 #
 Revert-security-keys-remove-compat_keyctl_instantiate_key_iov.patch
 Revert-mm-remove-compat_process_vm_-readv-writev.patch
@@ -239,9 +239,6 @@ ANDROID-sound-usb-Add-vendor-s-hooking-interface.patch
 _____ANNOTATION-media-changes_____.patch
 ANDROID-v4l2-compat-ioctl32.c-copy-reserved-fields.patch
 ANDROID-media-increase-video-max-frame-number.patch
-FROMGIT-media-v4l2-ctrls-Add-encoder-constant-quality-control.patch
-FROMGIT-media-v4l2-ctrl-Add-frame-skip-std-encoder-control.patch
-FROMGIT-v4l2-ctrl-Add-VP9-codec-levels.patch
 _____ANNOTATION-input-and-HID-changes_____.patch
 ANDROID-virtio-virtio_input-Set-the-amount-of-multitouch-slots-in-virtio-input.patch
 ANDROID-virtio-virtio_input-pass-_DIRECT-only-if-the-device-advertises-_DIRECT.patch

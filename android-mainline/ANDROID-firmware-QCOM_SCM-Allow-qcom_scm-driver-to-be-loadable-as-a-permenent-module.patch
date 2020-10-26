@@ -45,7 +45,7 @@ diff --git a/drivers/firmware/Makefile b/drivers/firmware/Makefile
 diff --git a/drivers/firmware/qcom_scm.c b/drivers/firmware/qcom_scm.c
 --- a/drivers/firmware/qcom_scm.c
 +++ b/drivers/firmware/qcom_scm.c
-@@ -1256,6 +1256,7 @@ static const struct of_device_id qcom_scm_dt_match[] = {
+@@ -1280,6 +1280,7 @@ static const struct of_device_id qcom_scm_dt_match[] = {
  	{ .compatible = "qcom,scm" },
  	{}
  };
@@ -53,7 +53,7 @@ diff --git a/drivers/firmware/qcom_scm.c b/drivers/firmware/qcom_scm.c
  
  static struct platform_driver qcom_scm_driver = {
  	.driver = {
-@@ -1271,3 +1272,6 @@ static int __init qcom_scm_init(void)
+@@ -1295,3 +1296,6 @@ static int __init qcom_scm_init(void)
  	return platform_driver_register(&qcom_scm_driver);
  }
  subsys_initcall(qcom_scm_init);
