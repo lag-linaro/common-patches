@@ -32,7 +32,7 @@ diff --git a/fs/direct-io.c b/fs/direct-io.c
  #include <linux/mm.h>
  #include <linux/slab.h>
  #include <linux/highmem.h>
-@@ -411,6 +412,7 @@ dio_bio_alloc(struct dio *dio, struct dio_submit *sdio,
+@@ -392,6 +393,7 @@ dio_bio_alloc(struct dio *dio, struct dio_submit *sdio,
  	      sector_t first_sector, int nr_vecs)
  {
  	struct bio *bio;
@@ -40,7 +40,7 @@ diff --git a/fs/direct-io.c b/fs/direct-io.c
  
  	/*
  	 * bio_alloc() is guaranteed to return a bio when allowed to sleep and
-@@ -418,6 +420,9 @@ dio_bio_alloc(struct dio *dio, struct dio_submit *sdio,
+@@ -399,6 +401,9 @@ dio_bio_alloc(struct dio *dio, struct dio_submit *sdio,
  	 */
  	bio = bio_alloc(GFP_KERNEL, nr_vecs);
  
@@ -50,7 +50,7 @@ diff --git a/fs/direct-io.c b/fs/direct-io.c
  	bio_set_dev(bio, bdev);
  	bio->bi_iter.bi_sector = first_sector;
  	bio_set_op_attrs(bio, dio->op, dio->op_flags);
-@@ -782,9 +787,17 @@ static inline int dio_send_cur_page(struct dio *dio, struct dio_submit *sdio,
+@@ -763,9 +768,17 @@ static inline int dio_send_cur_page(struct dio *dio, struct dio_submit *sdio,
  		 * current logical offset in the file does not equal what would
  		 * be the next logical offset in the bio, submit the bio we
  		 * have.

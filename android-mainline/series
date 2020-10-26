@@ -1,8 +1,8 @@
 #
 # android-mainline patches
 #
-# Applies onto upstream 6f5032a852f9 Linux v5.9-1084-g6f5032a852f9
-# Matches android-mainline 9d77f49849d3 ("Merge 6f5032a852f9 ("Merge tag 'fscrypt-for-linus' of git://git.kernel.org/pub/scm/fs/fscrypt/fscrypt") into android-mainline")
+# Applies onto upstream 647412daeb45 Linux v5.9-1363-g647412daeb45
+# Matches android-mainline aec70853968c ("Merge 647412daeb45 ("Merge tag 'mmc-v5.10' of git://git.kernel.org/pub/scm/linux/kernel/git/ulfh/mmc") into android-mainline")
 #
 Revert-security-keys-remove-compat_keyctl_instantiate_key_iov.patch
 Revert-mm-remove-compat_process_vm_-readv-writev.patch
