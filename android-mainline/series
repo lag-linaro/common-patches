@@ -1,8 +1,8 @@
 #
 # android-mainline patches
 #
-# Applies onto upstream 79db2b74aa14 Linux v5.9-3250-g79db2b74aa14
-# Matches android-mainline e131b0689278 ("ANDROID: adjust 5.10 fscrypt merge resolution")
+# Applies onto upstream 531d29b0b674 Linux v5.9-3311-g531d29b0b674
+# Matches android-mainline 1316a9db4da0 ("Merge 531d29b0b674 ("Merge tag 'iommu-updates-v5.10' of git://git.kernel.org/pub/scm/linux/kernel/git/joro/iommu") into android-mainline")
 #
 Revert-security-keys-remove-compat_keyctl_instantiate_key_iov.patch
 Revert-mm-remove-compat_process_vm_-readv-writev.patch
@@ -56,7 +56,6 @@ ANDROID-arm64-debug-monitors-export-break-hook-APIs.patch
 ANDROID-vendor_hooks-Add-new-android-vendor-hooks-for-ipi-stop.patch
 _____ANNOTATION-iommu-changes_____.patch
 FROMGIT-iommu-arm-smmu-Don-t-bypass-pinned-stream-mappings.patch
-ANDROID-iommu-arm-smmu-Expose-s2cr-and-smr-structs-to-impl.patch
 ANDROID-iommu-arm-smmu-Allow-inherting-stream-mapping-from-bootloader.patch
 FROMLIST-iommu-dma-Allow-drivers-to-reserve-an-iova-range.patch
 FROMLIST-iommu-iova-Add-a-best-fit-algorithm.patch

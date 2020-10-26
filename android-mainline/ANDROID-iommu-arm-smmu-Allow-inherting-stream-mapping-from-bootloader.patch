@@ -24,9 +24,9 @@ Change-Id: Ibb3784360a4424f7dc7c64a241811642aa0de7f4
 Bug: 146449535
 ---
  drivers/iommu/arm/arm-smmu/arm-smmu-qcom.c | 39 ++++++++++++++++++++++
- drivers/iommu/arm/arm-smmu/arm-smmu.c      | 30 +++++++++++++----
- drivers/iommu/arm/arm-smmu/arm-smmu.h      |  1 +
- 3 files changed, 64 insertions(+), 6 deletions(-)
+ drivers/iommu/arm/arm-smmu/arm-smmu.c      |  9 ++++-
+ drivers/iommu/arm/arm-smmu/arm-smmu.h      |  2 +-
+ 3 files changed, 48 insertions(+), 2 deletions(-)
 
 diff --git a/drivers/iommu/arm/arm-smmu/arm-smmu-qcom.c b/drivers/iommu/arm/arm-smmu/arm-smmu-qcom.c
 --- a/drivers/iommu/arm/arm-smmu/arm-smmu-qcom.c
@@ -94,49 +94,7 @@ diff --git a/drivers/iommu/arm/arm-smmu/arm-smmu-qcom.c b/drivers/iommu/arm/arm-
 diff --git a/drivers/iommu/arm/arm-smmu/arm-smmu.c b/drivers/iommu/arm/arm-smmu/arm-smmu.c
 --- a/drivers/iommu/arm/arm-smmu/arm-smmu.c
 +++ b/drivers/iommu/arm/arm-smmu/arm-smmu.c
-@@ -220,9 +220,20 @@ static int arm_smmu_register_legacy_master(struct device *dev,
- }
- #endif /* CONFIG_ARM_SMMU_LEGACY_DT_BINDINGS */
- 
--static int __arm_smmu_alloc_bitmap(unsigned long *map, int start, int end)
-+static int __arm_smmu_alloc_cb(struct arm_smmu_device *smmu, int start,
-+			       struct device *dev)
- {
-+	struct iommu_fwspec *fwspec = dev_iommu_fwspec_get(dev);
-+	struct arm_smmu_master_cfg *cfg = dev_iommu_priv_get(dev);
-+	unsigned long *map = smmu->context_map;
-+	int end = smmu->num_context_banks;
- 	int idx;
-+	int i;
-+
-+	for_each_cfg_sme(cfg, fwspec, i, idx) {
-+		if (smmu->s2crs[idx].pinned)
-+			return smmu->s2crs[idx].cbndx;
-+	}
- 
- 	do {
- 		idx = find_next_zero_bit(map, end, start);
-@@ -647,7 +658,8 @@ static void arm_smmu_write_context_bank(struct arm_smmu_device *smmu, int idx)
- }
- 
- static int arm_smmu_init_domain_context(struct iommu_domain *domain,
--					struct arm_smmu_device *smmu)
-+					struct arm_smmu_device *smmu,
-+					struct device *dev)
- {
- 	int irq, start, ret = 0;
- 	unsigned long ias, oas;
-@@ -762,8 +774,7 @@ static int arm_smmu_init_domain_context(struct iommu_domain *domain,
- 		ret = -EINVAL;
- 		goto out_unlock;
- 	}
--	ret = __arm_smmu_alloc_bitmap(smmu->context_map, start,
--				      smmu->num_context_banks);
-+	ret = __arm_smmu_alloc_cb(smmu, start, dev);
- 	if (ret < 0)
- 		goto out_unlock;
- 
-@@ -1036,12 +1047,19 @@ static int arm_smmu_find_sme(struct arm_smmu_device *smmu, u16 id, u16 mask)
+@@ -1030,12 +1030,19 @@ static int arm_smmu_find_sme(struct arm_smmu_device *smmu, u16 id, u16 mask)
  
  static bool arm_smmu_free_sme(struct arm_smmu_device *smmu, int idx)
  {
@@ -157,19 +115,10 @@ diff --git a/drivers/iommu/arm/arm-smmu/arm-smmu.c b/drivers/iommu/arm/arm-smmu/
  
  	return true;
  }
-@@ -1172,7 +1190,7 @@ static int arm_smmu_attach_dev(struct iommu_domain *domain, struct device *dev)
- 		return ret;
- 
- 	/* Ensure that the domain is finalised */
--	ret = arm_smmu_init_domain_context(domain, smmu);
-+	ret = arm_smmu_init_domain_context(domain, smmu, dev);
- 	if (ret < 0)
- 		goto rpm_put;
- 
 diff --git a/drivers/iommu/arm/arm-smmu/arm-smmu.h b/drivers/iommu/arm/arm-smmu/arm-smmu.h
 --- a/drivers/iommu/arm/arm-smmu/arm-smmu.h
 +++ b/drivers/iommu/arm/arm-smmu/arm-smmu.h
-@@ -260,6 +260,7 @@ struct arm_smmu_s2cr {
+@@ -262,13 +262,13 @@ struct arm_smmu_s2cr {
  	enum arm_smmu_s2cr_type		type;
  	enum arm_smmu_s2cr_privcfg	privcfg;
  	u8				cbndx;
@@ -177,3 +126,10 @@ diff --git a/drivers/iommu/arm/arm-smmu/arm-smmu.h b/drivers/iommu/arm/arm-smmu/
  };
  
  struct arm_smmu_smr {
+ 	u16				mask;
+ 	u16				id;
+ 	bool				valid;
+-	bool				pinned;
+ };
+ 
+ struct arm_smmu_device {
