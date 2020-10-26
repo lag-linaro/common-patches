@@ -314,7 +314,7 @@ diff --git a/fs/proc/base.c b/fs/proc/base.c
  #include <trace/events/oom.h>
  #include "internal.h"
  #include "fd.h"
-@@ -3252,6 +3253,9 @@ static const struct pid_entry tgid_base_stuff[] = {
+@@ -3251,6 +3252,9 @@ static const struct pid_entry tgid_base_stuff[] = {
  #ifdef CONFIG_LIVEPATCH
  	ONE("patch_state",  S_IRUSR, proc_pid_patch_state),
  #endif
@@ -324,7 +324,7 @@ diff --git a/fs/proc/base.c b/fs/proc/base.c
  #ifdef CONFIG_STACKLEAK_METRICS
  	ONE("stack_depth", S_IRUGO, proc_stack_depth),
  #endif
-@@ -3587,6 +3591,9 @@ static const struct pid_entry tid_base_stuff[] = {
+@@ -3586,6 +3590,9 @@ static const struct pid_entry tid_base_stuff[] = {
  #ifdef CONFIG_PROC_PID_ARCH_STATUS
  	ONE("arch_status", S_IRUGO, proc_pid_arch_status),
  #endif
@@ -414,7 +414,7 @@ diff --git a/kernel/fork.c b/kernel/fork.c
  	scs_release(tsk);
  
  #ifndef CONFIG_THREAD_INFO_IN_TASK
-@@ -1920,6 +1922,8 @@ static __latent_entropy struct task_struct *copy_process(
+@@ -1939,6 +1941,8 @@ static __latent_entropy struct task_struct *copy_process(
  	if (!p)
  		goto fork_out;
  
@@ -423,7 +423,7 @@ diff --git a/kernel/fork.c b/kernel/fork.c
  	/*
  	 * This _must_ happen before we call free_task(), i.e. before we jump
  	 * to any of the bad_fork_* labels. This is to avoid freeing
-@@ -2438,6 +2442,8 @@ long _do_fork(struct kernel_clone_args *args)
+@@ -2459,6 +2463,8 @@ long _do_fork(struct kernel_clone_args *args)
  	if (IS_ERR(p))
  		return PTR_ERR(p);
  

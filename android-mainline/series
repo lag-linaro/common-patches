@@ -1,8 +1,8 @@
 #
 # android-mainline patches
 #
-# Applies onto upstream 7cd4ecd9177b Linux v5.9-2681-g7cd4ecd9177b
-# Matches android-mainline aedaedc74979 ("Merge 7cd4ecd9177b ("Merge tag 'drivers-5.10-2020-10-12' of git://git.kernel.dk/linux-block") into android-mainline")
+# Applies onto upstream d5660df4a555 Linux v5.9-2956-gd5660df4a555
+# Matches android-mainline 75c90a8c3a2f ("Merge d5660df4a555 ("Merge branch 'akpm' (patches from Andrew)") into android-mainline")
 #
 Revert-security-keys-remove-compat_keyctl_instantiate_key_iov.patch
 Revert-mm-remove-compat_process_vm_-readv-writev.patch

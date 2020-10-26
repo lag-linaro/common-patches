@@ -57,7 +57,7 @@ diff --git a/security/selinux/include/classmap.h b/security/selinux/include/clas
 diff --git a/security/selinux/include/security.h b/security/selinux/include/security.h
 --- a/security/selinux/include/security.h
 +++ b/security/selinux/include/security.h
-@@ -110,6 +110,7 @@ struct selinux_state {
+@@ -97,6 +97,7 @@ struct selinux_state {
  	bool checkreqprot;
  	bool initialized;
  	bool policycap[__POLICYDB_CAPABILITY_MAX];
@@ -65,8 +65,8 @@ diff --git a/security/selinux/include/security.h b/security/selinux/include/secu
  
  	struct page *status_page;
  	struct mutex status_lock;
-@@ -222,6 +223,13 @@ static inline bool selinux_policycap_genfs_seclabel_symlinks(void)
- 	return state->policycap[POLICYDB_CAPABILITY_GENFS_SECLABEL_SYMLINKS];
+@@ -219,6 +220,13 @@ static inline bool selinux_policycap_genfs_seclabel_symlinks(void)
+ 	return READ_ONCE(state->policycap[POLICYDB_CAPABILITY_GENFS_SECLABEL_SYMLINKS]);
  }
  
 +static inline bool selinux_android_nlroute_getlink(void)
@@ -78,8 +78,8 @@ diff --git a/security/selinux/include/security.h b/security/selinux/include/secu
 +
  int security_mls_enabled(struct selinux_state *state);
  int security_load_policy(struct selinux_state *state,
- 			 void *data, size_t len);
-@@ -440,5 +448,6 @@ extern void avtab_cache_init(void);
+ 			void *data, size_t len,
+@@ -445,5 +453,6 @@ extern void avtab_cache_init(void);
  extern void ebitmap_cache_init(void);
  extern void hashtab_cache_init(void);
  extern int security_sidtab_hash_stats(struct selinux_state *state, char *page);
@@ -162,7 +162,7 @@ diff --git a/security/selinux/ss/policydb.h b/security/selinux/ss/policydb.h
 diff --git a/security/selinux/ss/services.c b/security/selinux/ss/services.c
 --- a/security/selinux/ss/services.c
 +++ b/security/selinux/ss/services.c
-@@ -2115,6 +2115,9 @@ static void security_load_policycaps(struct selinux_state *state)
+@@ -2136,6 +2136,9 @@ static void security_load_policycaps(struct selinux_state *state,
  			pr_info("SELinux:  unknown policy capability %u\n",
  				i);
  	}
@@ -171,4 +171,4 @@ diff --git a/security/selinux/ss/services.c b/security/selinux/ss/services.c
 +	selinux_nlmsg_init();
  }
  
- static int security_preserve_bools(struct selinux_state *state,
+ static int security_preserve_bools(struct selinux_policy *oldpolicy,

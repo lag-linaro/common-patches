@@ -26,7 +26,7 @@ Signed-off-by: Elliot Berman <eberman@codeaurora.org>
 diff --git a/arch/arm/kernel/setup.c b/arch/arm/kernel/setup.c
 --- a/arch/arm/kernel/setup.c
 +++ b/arch/arm/kernel/setup.c
-@@ -1073,6 +1073,20 @@ void __init hyp_mode_check(void)
+@@ -1079,6 +1079,20 @@ void __init hyp_mode_check(void)
  #endif
  }
  
@@ -47,7 +47,7 @@ diff --git a/arch/arm/kernel/setup.c b/arch/arm/kernel/setup.c
  void __init setup_arch(char **cmdline_p)
  {
  	const struct machine_desc *mdesc;
-@@ -1132,8 +1146,10 @@ void __init setup_arch(char **cmdline_p)
+@@ -1138,8 +1152,10 @@ void __init setup_arch(char **cmdline_p)
  	paging_init(mdesc);
  	request_standard_resources(mdesc);
  
