@@ -18,10 +18,10 @@ cluster
 Change-Id: Ib63d19006878fafb88475e401ef243bdd8b11979
 Signed-off-by: Connor O'Brien <connoro@google.com>
 ---
- drivers/cpufreq/cpufreq.c       | 10 ++++++++--
+ drivers/cpufreq/cpufreq.c       |  2 +-
  drivers/cpufreq/cpufreq_times.c | 15 ++++-----------
  include/linux/cpufreq_times.h   |  5 +++--
- 3 files changed, 15 insertions(+), 15 deletions(-)
+ 3 files changed, 8 insertions(+), 14 deletions(-)
 
 diff --git a/drivers/cpufreq/cpufreq.c b/drivers/cpufreq/cpufreq.c
 --- a/drivers/cpufreq/cpufreq.c
@@ -35,23 +35,6 @@ diff --git a/drivers/cpufreq/cpufreq.c b/drivers/cpufreq/cpufreq.c
  		policy->cur = freqs->new;
  	}
  }
-@@ -2059,9 +2059,15 @@ EXPORT_SYMBOL(cpufreq_unregister_notifier);
- unsigned int cpufreq_driver_fast_switch(struct cpufreq_policy *policy,
- 					unsigned int target_freq)
- {
-+	int ret;
-+
- 	target_freq = clamp_val(target_freq, policy->min, policy->max);
- 
--	return cpufreq_driver->fast_switch(policy, target_freq);
-+	ret = cpufreq_driver->fast_switch(policy, target_freq);
-+	if (ret)
-+		cpufreq_times_record_transition(policy, ret);
-+
-+	return ret;
- }
- EXPORT_SYMBOL_GPL(cpufreq_driver_fast_switch);
- 
 diff --git a/drivers/cpufreq/cpufreq_times.c b/drivers/cpufreq/cpufreq_times.c
 --- a/drivers/cpufreq/cpufreq_times.c
 +++ b/drivers/cpufreq/cpufreq_times.c

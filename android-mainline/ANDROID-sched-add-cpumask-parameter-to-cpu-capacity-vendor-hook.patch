@@ -18,7 +18,7 @@ Change-Id: I983a3aca2195f7c37c43d31fa588c999a825ee49
 diff --git a/drivers/base/arch_topology.c b/drivers/base/arch_topology.c
 --- a/drivers/base/arch_topology.c
 +++ b/drivers/base/arch_topology.c
-@@ -44,7 +44,7 @@ void arch_set_freq_scale(struct cpumask *cpus, unsigned long cur_freq,
+@@ -53,7 +53,7 @@ void topology_set_freq_scale(const struct cpumask *cpus, unsigned long cur_freq,
  
  	scale = (cur_freq << SCHED_CAPACITY_SHIFT) / max_freq;
  

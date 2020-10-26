@@ -31,7 +31,7 @@ Signed-off-by: Elliot Berman <eberman@codeaurora.org>
 diff --git a/drivers/firmware/psci/psci.c b/drivers/firmware/psci/psci.c
 --- a/drivers/firmware/psci/psci.c
 +++ b/drivers/firmware/psci/psci.c
-@@ -256,7 +256,8 @@ static int get_set_conduit_method(struct device_node *np)
+@@ -259,7 +259,8 @@ static int get_set_conduit_method(struct device_node *np)
  	return 0;
  }
  
@@ -41,7 +41,7 @@ diff --git a/drivers/firmware/psci/psci.c b/drivers/firmware/psci/psci.c
  {
  	if ((reboot_mode == REBOOT_WARM || reboot_mode == REBOOT_SOFT) &&
  	    psci_system_reset2_supported) {
-@@ -269,8 +270,15 @@ static void psci_sys_reset(enum reboot_mode reboot_mode, const char *cmd)
+@@ -272,8 +273,15 @@ static void psci_sys_reset(enum reboot_mode reboot_mode, const char *cmd)
  	} else {
  		invoke_psci_fn(PSCI_0_2_FN_SYSTEM_RESET, 0, 0, 0);
  	}
@@ -57,7 +57,7 @@ diff --git a/drivers/firmware/psci/psci.c b/drivers/firmware/psci/psci.c
  static void psci_sys_poweroff(void)
  {
  	invoke_psci_fn(PSCI_0_2_FN_SYSTEM_OFF, 0, 0, 0);
-@@ -437,7 +445,7 @@ static void __init psci_0_2_set_functions(void)
+@@ -440,7 +448,7 @@ static void __init psci_0_2_set_functions(void)
  
  	psci_ops.migrate_info_type = psci_migrate_info_type;
  

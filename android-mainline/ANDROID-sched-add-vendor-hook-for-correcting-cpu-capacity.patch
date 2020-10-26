@@ -52,9 +52,9 @@ diff --git a/drivers/base/arch_topology.c b/drivers/base/arch_topology.c
  #include <linux/smp.h>
 +#include <trace/hooks/topology.h>
  
- __weak bool arch_freq_counters_available(struct cpumask *cpus)
+ bool topology_scale_freq_invariant(void)
  {
-@@ -43,6 +44,8 @@ void arch_set_freq_scale(struct cpumask *cpus, unsigned long cur_freq,
+@@ -52,6 +53,8 @@ void topology_set_freq_scale(const struct cpumask *cpus, unsigned long cur_freq,
  
  	scale = (cur_freq << SCHED_CAPACITY_SHIFT) / max_freq;
  

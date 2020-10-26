@@ -1,8 +1,8 @@
 #
 # android-mainline patches
 #
-# Applies onto upstream d5660df4a555 Linux v5.9-2956-gd5660df4a555
-# Matches android-mainline 83f76c848d6d ("ANDROID: GKI: remove explicit CONFIG_SECCOMP from defconfig for arm64")
+# Applies onto upstream 79db2b74aa14 Linux v5.9-3250-g79db2b74aa14
+# Matches android-mainline 37afce95bb00 ("Merge 79db2b74aa14 ("Merge branch 'stable/for-linus-5.10' of git://git.kernel.org/pub/scm/linux/kernel/git/konrad/swiotlb") into android-mainline")
 #
 Revert-security-keys-remove-compat_keyctl_instantiate_key_iov.patch
 Revert-mm-remove-compat_process_vm_-readv-writev.patch

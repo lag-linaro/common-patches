@@ -34,7 +34,7 @@ diff --git a/arch/arm/xen/enlighten.c b/arch/arm/xen/enlighten.c
  #include <linux/time64.h>
  #include <linux/timekeeping.h>
  #include <linux/timekeeper_internal.h>
-@@ -180,11 +181,18 @@ void xen_reboot(int reason)
+@@ -181,11 +182,18 @@ void xen_reboot(int reason)
  	BUG_ON(rc);
  }
  
@@ -54,7 +54,7 @@ diff --git a/arch/arm/xen/enlighten.c b/arch/arm/xen/enlighten.c
  
  static void xen_power_off(void)
  {
-@@ -404,7 +412,7 @@ static int __init xen_pm_init(void)
+@@ -406,7 +414,7 @@ static int __init xen_pm_init(void)
  		return -ENODEV;
  
  	pm_power_off = xen_power_off;
