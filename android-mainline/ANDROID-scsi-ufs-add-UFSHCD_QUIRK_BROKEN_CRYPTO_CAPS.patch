@@ -17,8 +17,8 @@ Change-Id: I757c84d3434b935faa8ba7fcf5318af91e694d04
 Signed-off-by: Eric Biggers <ebiggers@google.com>
 ---
  drivers/scsi/ufs/ufshcd-crypto.c | 3 +++
- drivers/scsi/ufs/ufshcd.h        | 8 ++++++++
- 2 files changed, 11 insertions(+)
+ drivers/scsi/ufs/ufshcd.h        | 7 +++++++
+ 2 files changed, 10 insertions(+)
 
 diff --git a/drivers/scsi/ufs/ufshcd-crypto.c b/drivers/scsi/ufs/ufshcd-crypto.c
 --- a/drivers/scsi/ufs/ufshcd-crypto.c
@@ -36,11 +36,10 @@ diff --git a/drivers/scsi/ufs/ufshcd-crypto.c b/drivers/scsi/ufs/ufshcd-crypto.c
 diff --git a/drivers/scsi/ufs/ufshcd.h b/drivers/scsi/ufs/ufshcd.h
 --- a/drivers/scsi/ufs/ufshcd.h
 +++ b/drivers/scsi/ufs/ufshcd.h
-@@ -535,6 +535,14 @@ enum ufshcd_quirks {
- 	 * auto-hibernate capability but it doesn't work.
+@@ -546,6 +546,13 @@ enum ufshcd_quirks {
  	 */
- 	UFSHCD_QUIRK_BROKEN_AUTO_HIBERN8		= 1 << 11,
-+
+ 	UFSHCI_QUIRK_SKIP_MANUAL_WB_FLUSH_CTRL		= 1 << 12,
+ 
 +	/*
 +	 * This quirk needs to be enabled if the host controller supports inline
 +	 * encryption, but it doesn't use the standard crypto capability

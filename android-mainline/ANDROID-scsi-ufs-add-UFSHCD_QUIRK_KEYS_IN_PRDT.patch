@@ -55,7 +55,7 @@ diff --git a/drivers/scsi/ufs/ufshcd-crypto.h b/drivers/scsi/ufs/ufshcd-crypto.h
 diff --git a/drivers/scsi/ufs/ufshcd.c b/drivers/scsi/ufs/ufshcd.c
 --- a/drivers/scsi/ufs/ufshcd.c
 +++ b/drivers/scsi/ufs/ufshcd.c
-@@ -4932,6 +4932,7 @@ static void __ufshcd_transfer_req_compl(struct ufs_hba *hba,
+@@ -4946,6 +4946,7 @@ static void __ufshcd_transfer_req_compl(struct ufs_hba *hba,
  			result = ufshcd_transfer_rsp_status(hba, lrbp);
  			scsi_dma_unmap(cmd);
  			cmd->result = result;
@@ -66,7 +66,7 @@ diff --git a/drivers/scsi/ufs/ufshcd.c b/drivers/scsi/ufs/ufshcd.c
 diff --git a/drivers/scsi/ufs/ufshcd.h b/drivers/scsi/ufs/ufshcd.h
 --- a/drivers/scsi/ufs/ufshcd.h
 +++ b/drivers/scsi/ufs/ufshcd.h
-@@ -550,6 +550,13 @@ enum ufshcd_quirks {
+@@ -560,6 +560,13 @@ enum ufshcd_quirks {
  	 * breaks the HCE sequence if used.
  	 */
  	UFSHCD_QUIRK_BROKEN_CRYPTO_ENABLE		= 1 << 21,

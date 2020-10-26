@@ -18,7 +18,7 @@ Change-Id: I8d61b3cf1ec043d2d30490b356eaa03b424ac704
 diff --git a/drivers/scsi/ufs/ufshcd.c b/drivers/scsi/ufs/ufshcd.c
 --- a/drivers/scsi/ufs/ufshcd.c
 +++ b/drivers/scsi/ufs/ufshcd.c
-@@ -335,7 +335,7 @@ static void ufshcd_add_command_trace(struct ufs_hba *hba,
+@@ -347,7 +347,7 @@ static void ufshcd_add_command_trace(struct ufs_hba *hba,
  		unsigned int tag, const char *str)
  {
  	sector_t lba = -1;
@@ -27,7 +27,7 @@ diff --git a/drivers/scsi/ufs/ufshcd.c b/drivers/scsi/ufs/ufshcd.c
  	u32 intr, doorbell;
  	struct ufshcd_lrb *lrbp = &hba->lrb[tag];
  	struct scsi_cmnd *cmd = lrbp->cmd;
-@@ -361,13 +361,15 @@ static void ufshcd_add_command_trace(struct ufs_hba *hba,
+@@ -373,13 +373,15 @@ static void ufshcd_add_command_trace(struct ufs_hba *hba,
  				lba = cmd->request->bio->bi_iter.bi_sector;
  			transfer_len = be32_to_cpu(
  				lrbp->ucd_req_ptr->sc.exp_data_transfer_len);
