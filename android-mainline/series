@@ -1,8 +1,8 @@
 #
 # android-mainline patches
 #
-# Applies onto upstream c4439713e82a Linux v5.9-2330-gc4439713e82a
-# Matches android-mainline cc35535c2715 ("Merge c4439713e82a ("Merge tag 'hwmon-for-v5.10' of git://git.kernel.org/pub/scm/linux/kernel/git/groeck/linux-staging") into android-mainline")
+# Applies onto upstream 857d64485e7c Linux v5.9-2333-g857d64485e7c
+# Matches android-mainline 0b405dbc609b ("Merge 857d64485e7c ("Merge tag 'x86_urgent_for_v5.10-rc1' of git://git.kernel.org/pub/scm/linux/kernel/git/tip/tip") into android-mainline")
 #
 Revert-security-keys-remove-compat_keyctl_instantiate_key_iov.patch
 Revert-mm-remove-compat_process_vm_-readv-writev.patch
