@@ -21,7 +21,7 @@ Change-Id: I0db9cc50c93eedff0f3e9dea0ac09a5d17d118f0
 diff --git a/kernel/pid.c b/kernel/pid.c
 --- a/kernel/pid.c
 +++ b/kernel/pid.c
-@@ -420,6 +420,7 @@ struct task_struct *find_task_by_vpid(pid_t vnr)
+@@ -421,6 +421,7 @@ struct task_struct *find_task_by_vpid(pid_t vnr)
  {
  	return find_task_by_pid_ns(vnr, task_active_pid_ns(current));
  }
