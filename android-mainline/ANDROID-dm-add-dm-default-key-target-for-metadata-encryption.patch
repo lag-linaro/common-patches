@@ -606,20 +606,24 @@ diff --git a/fs/f2fs/data.c b/fs/f2fs/data.c
 diff --git a/include/linux/blk-crypto.h b/include/linux/blk-crypto.h
 --- a/include/linux/blk-crypto.h
 +++ b/include/linux/blk-crypto.h
-@@ -112,12 +112,48 @@ static inline bool bio_has_crypt_ctx(struct bio *bio)
+@@ -112,6 +112,9 @@ static inline bool bio_has_crypt_ctx(struct bio *bio)
  
  #endif /* CONFIG_BLK_INLINE_ENCRYPTION */
  
 +static inline void bio_clone_skip_dm_default_key(struct bio *dst,
 +						 const struct bio *src);
 +
- void __bio_crypt_clone(struct bio *dst, struct bio *src, gfp_t gfp_mask);
- static inline void bio_crypt_clone(struct bio *dst, struct bio *src,
- 				   gfp_t gfp_mask)
+ int __bio_crypt_clone(struct bio *dst, struct bio *src, gfp_t gfp_mask);
+ /**
+  * bio_crypt_clone - clone bio encryption context
+@@ -127,9 +130,42 @@ int __bio_crypt_clone(struct bio *dst, struct bio *src, gfp_t gfp_mask);
+ static inline int bio_crypt_clone(struct bio *dst, struct bio *src,
+ 				  gfp_t gfp_mask)
  {
 +	bio_clone_skip_dm_default_key(dst, src);
  	if (bio_has_crypt_ctx(src))
- 		__bio_crypt_clone(dst, src, gfp_mask);
+ 		return __bio_crypt_clone(dst, src, gfp_mask);
+ 	return 0;
  }
  
 +#if IS_ENABLED(CONFIG_DM_DEFAULT_KEY)
@@ -658,7 +662,7 @@ diff --git a/include/linux/blk-crypto.h b/include/linux/blk-crypto.h
 diff --git a/include/linux/blk_types.h b/include/linux/blk_types.h
 --- a/include/linux/blk_types.h
 +++ b/include/linux/blk_types.h
-@@ -216,6 +216,9 @@ struct bio {
+@@ -217,6 +217,9 @@ struct bio {
  
  #ifdef CONFIG_BLK_INLINE_ENCRYPTION
  	struct bio_crypt_ctx	*bi_crypt_context;

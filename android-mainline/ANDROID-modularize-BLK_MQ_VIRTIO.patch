@@ -15,7 +15,7 @@ Signed-off-by: Ram Muthiah <rammuthiah@google.com>
 diff --git a/block/Kconfig b/block/Kconfig
 --- a/block/Kconfig
 +++ b/block/Kconfig
-@@ -223,7 +223,7 @@ config BLK_MQ_PCI
+@@ -221,7 +221,7 @@ config BLK_MQ_PCI
  	default y
  
  config BLK_MQ_VIRTIO

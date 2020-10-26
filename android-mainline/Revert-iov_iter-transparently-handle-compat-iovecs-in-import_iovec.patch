@@ -25,7 +25,7 @@ Change-Id: I44ac1575af118ddbc3ee22a70f81cba282f5372a
 diff --git a/block/scsi_ioctl.c b/block/scsi_ioctl.c
 --- a/block/scsi_ioctl.c
 +++ b/block/scsi_ioctl.c
-@@ -333,8 +333,16 @@ static int sg_io(struct request_queue *q, struct gendisk *bd_disk,
+@@ -331,8 +331,16 @@ static int sg_io(struct request_queue *q, struct gendisk *bd_disk,
  		struct iov_iter i;
  		struct iovec *iov = NULL;
  
