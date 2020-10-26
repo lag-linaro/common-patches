@@ -84,7 +84,7 @@ diff --git a/fs/aio.c b/fs/aio.c
 diff --git a/fs/io_uring.c b/fs/io_uring.c
 --- a/fs/io_uring.c
 +++ b/fs/io_uring.c
-@@ -2852,8 +2852,13 @@ static ssize_t __io_import_iovec(int rw, struct io_kiocb *req,
+@@ -2991,8 +2991,13 @@ static ssize_t __io_import_iovec(int rw, struct io_kiocb *req,
  		return ret;
  	}
  
@@ -100,7 +100,7 @@ diff --git a/fs/io_uring.c b/fs/io_uring.c
  }
  
  static ssize_t io_import_iovec(int rw, struct io_kiocb *req,
-@@ -4195,9 +4200,8 @@ static int __io_recvmsg_copy_hdr(struct io_kiocb *req,
+@@ -4332,9 +4337,8 @@ static int __io_recvmsg_copy_hdr(struct io_kiocb *req,
  				sr->len);
  		iomsg->iov = NULL;
  	} else {
@@ -112,7 +112,7 @@ diff --git a/fs/io_uring.c b/fs/io_uring.c
  		if (ret > 0)
  			ret = 0;
  	}
-@@ -4237,9 +4241,9 @@ static int __io_compat_recvmsg_copy_hdr(struct io_kiocb *req,
+@@ -4374,9 +4378,9 @@ static int __io_compat_recvmsg_copy_hdr(struct io_kiocb *req,
  		sr->len = iomsg->iov[0].iov_len;
  		iomsg->iov = NULL;
  	} else {

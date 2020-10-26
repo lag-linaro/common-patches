@@ -61,7 +61,7 @@ diff --git a/include/linux/sched.h b/include/linux/sched.h
  
  /* task_struct member predeclarations (sorted alphabetically): */
  struct audit_context;
-@@ -1316,6 +1317,7 @@ struct task_struct {
+@@ -1321,6 +1322,7 @@ struct task_struct {
  					__mce_reserved : 62;
  	struct callback_head		mce_kill_me;
  #endif

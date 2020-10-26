@@ -384,7 +384,7 @@ index 000000000000..bfef6e62c68a
 diff --git a/include/linux/sched.h b/include/linux/sched.h
 --- a/include/linux/sched.h
 +++ b/include/linux/sched.h
-@@ -866,6 +866,10 @@ struct task_struct {
+@@ -867,6 +867,10 @@ struct task_struct {
  	u64				stimescaled;
  #endif
  	u64				gtime;
@@ -398,15 +398,15 @@ diff --git a/include/linux/sched.h b/include/linux/sched.h
 diff --git a/kernel/fork.c b/kernel/fork.c
 --- a/kernel/fork.c
 +++ b/kernel/fork.c
-@@ -95,6 +95,7 @@
- #include <linux/stackleak.h>
+@@ -96,6 +96,7 @@
  #include <linux/kasan.h>
  #include <linux/scs.h>
+ #include <linux/io_uring.h>
 +#include <linux/cpufreq_times.h>
  
  #include <asm/pgalloc.h>
  #include <linux/uaccess.h>
-@@ -440,6 +441,7 @@ void put_task_stack(struct task_struct *tsk)
+@@ -441,6 +442,7 @@ void put_task_stack(struct task_struct *tsk)
  
  void free_task(struct task_struct *tsk)
  {
@@ -414,7 +414,7 @@ diff --git a/kernel/fork.c b/kernel/fork.c
  	scs_release(tsk);
  
  #ifndef CONFIG_THREAD_INFO_IN_TASK
-@@ -1918,6 +1920,8 @@ static __latent_entropy struct task_struct *copy_process(
+@@ -1920,6 +1922,8 @@ static __latent_entropy struct task_struct *copy_process(
  	if (!p)
  		goto fork_out;
  
@@ -423,7 +423,7 @@ diff --git a/kernel/fork.c b/kernel/fork.c
  	/*
  	 * This _must_ happen before we call free_task(), i.e. before we jump
  	 * to any of the bad_fork_* labels. This is to avoid freeing
-@@ -2432,6 +2436,8 @@ long _do_fork(struct kernel_clone_args *args)
+@@ -2438,6 +2442,8 @@ long _do_fork(struct kernel_clone_args *args)
  	if (IS_ERR(p))
  		return PTR_ERR(p);
  

@@ -74,7 +74,7 @@ diff --git a/include/linux/fs.h b/include/linux/fs.h
  /*
   * Attribute flags.  These should be or-ed together to figure out what
   * has been changed!
-@@ -1879,6 +1887,11 @@ static inline int call_mmap(struct file *file, struct vm_area_struct *vma)
+@@ -1882,6 +1890,11 @@ static inline int call_mmap(struct file *file, struct vm_area_struct *vma)
  	return file->f_op->mmap(file, vma);
  }
  

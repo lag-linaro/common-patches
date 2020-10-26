@@ -1,8 +1,8 @@
 #
 # android-mainline patches
 #
-# Applies onto upstream 3ad11d7ac887 Linux v5.9-2526-g3ad11d7ac887
-# Matches android-mainline 35cda5af62ea ("Revert "block: grant IOPRIO_CLASS_RT to CAP_SYS_NICE"")
+# Applies onto upstream 6ad4bf6ea160 Linux v5.9-2590-g6ad4bf6ea160
+# Matches android-mainline e24a525c0d9d ("Merge 6ad4bf6ea160 ("Merge tag 'io_uring-5.10-2020-10-12' of git://git.kernel.dk/linux-block") into android-mainline")
 #
 Revert-security-keys-remove-compat_keyctl_instantiate_key_iov.patch
 Revert-mm-remove-compat_process_vm_-readv-writev.patch
