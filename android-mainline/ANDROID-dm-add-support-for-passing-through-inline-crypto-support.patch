@@ -84,15 +84,15 @@ diff --git a/block/keyslot-manager.c b/block/keyslot-manager.c
 diff --git a/drivers/md/dm-core.h b/drivers/md/dm-core.h
 --- a/drivers/md/dm-core.h
 +++ b/drivers/md/dm-core.h
-@@ -12,6 +12,7 @@
- #include <linux/kthread.h>
+@@ -13,6 +13,7 @@
  #include <linux/ktime.h>
+ #include <linux/genhd.h>
  #include <linux/blk-mq.h>
 +#include <linux/keyslot-manager.h>
  
  #include <trace/events/block.h>
  
-@@ -49,6 +50,9 @@ struct mapped_device {
+@@ -52,6 +53,9 @@ struct mapped_device {
  
  	int numa_node_id;
  	struct request_queue *queue;
@@ -105,7 +105,7 @@ diff --git a/drivers/md/dm-core.h b/drivers/md/dm-core.h
 diff --git a/drivers/md/dm-table.c b/drivers/md/dm-table.c
 --- a/drivers/md/dm-table.c
 +++ b/drivers/md/dm-table.c
-@@ -21,6 +21,8 @@
+@@ -22,6 +22,8 @@
  #include <linux/blk-mq.h>
  #include <linux/mount.h>
  #include <linux/dax.h>
@@ -114,7 +114,7 @@ diff --git a/drivers/md/dm-table.c b/drivers/md/dm-table.c
  
  #define DM_MSG_PREFIX "table"
  
-@@ -1583,6 +1585,54 @@ static void dm_table_verify_integrity(struct dm_table *t)
+@@ -1536,6 +1538,54 @@ static void dm_table_verify_integrity(struct dm_table *t)
  	}
  }
  
@@ -169,7 +169,7 @@ diff --git a/drivers/md/dm-table.c b/drivers/md/dm-table.c
  static int device_flush_capable(struct dm_target *ti, struct dm_dev *dev,
  				sector_t start, sector_t len, void *data)
  {
-@@ -1931,6 +1981,8 @@ void dm_table_set_restrictions(struct dm_table *t, struct request_queue *q,
+@@ -1870,6 +1920,8 @@ void dm_table_set_restrictions(struct dm_table *t, struct request_queue *q,
  
  	dm_table_verify_integrity(t);
  
@@ -189,7 +189,7 @@ diff --git a/drivers/md/dm.c b/drivers/md/dm.c
  
  #define DM_MSG_PREFIX "core"
  
-@@ -1856,6 +1857,8 @@ static const struct dax_operations dm_dax_ops;
+@@ -1721,6 +1722,8 @@ static const struct dax_operations dm_dax_ops;
  
  static void dm_wq_work(struct work_struct *work);
  
@@ -198,7 +198,7 @@ diff --git a/drivers/md/dm.c b/drivers/md/dm.c
  static void cleanup_mapped_device(struct mapped_device *md)
  {
  	if (md->wq)
-@@ -1877,8 +1880,10 @@ static void cleanup_mapped_device(struct mapped_device *md)
+@@ -1742,8 +1745,10 @@ static void cleanup_mapped_device(struct mapped_device *md)
  		put_disk(md->disk);
  	}
  
@@ -210,7 +210,7 @@ diff --git a/drivers/md/dm.c b/drivers/md/dm.c
  
  	cleanup_srcu_struct(&md->io_barrier);
  
-@@ -2229,6 +2234,88 @@ struct queue_limits *dm_get_queue_limits(struct mapped_device *md)
+@@ -2092,6 +2097,88 @@ struct queue_limits *dm_get_queue_limits(struct mapped_device *md)
  }
  EXPORT_SYMBOL_GPL(dm_get_queue_limits);
  
@@ -299,7 +299,7 @@ diff --git a/drivers/md/dm.c b/drivers/md/dm.c
  /*
   * Setup the DM device's queue based on md's type
   */
-@@ -2260,6 +2347,9 @@ int dm_setup_md_queue(struct mapped_device *md, struct dm_table *t)
+@@ -2123,6 +2210,9 @@ int dm_setup_md_queue(struct mapped_device *md, struct dm_table *t)
  		DMERR("Cannot calculate initial queue limits");
  		return r;
  	}
@@ -312,7 +312,7 @@ diff --git a/drivers/md/dm.c b/drivers/md/dm.c
 diff --git a/include/linux/device-mapper.h b/include/linux/device-mapper.h
 --- a/include/linux/device-mapper.h
 +++ b/include/linux/device-mapper.h
-@@ -326,6 +326,12 @@ struct dm_target {
+@@ -325,6 +325,12 @@ struct dm_target {
  	 * whether or not its underlying devices have support.
  	 */
  	bool discards_supported:1;

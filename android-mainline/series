@@ -1,8 +1,8 @@
 #
 # android-mainline patches
 #
-# Applies onto upstream 6e4dc3d59284 Linux v5.9-3407-g6e4dc3d59284
-# Matches android-mainline 8c3d23ed9c24 ("Merge 6e4dc3d59284 ("Merge tag 'for-linus-5.10-1' of git://github.com/cminyard/linux-ipmi") into android-mainline")
+# Applies onto upstream 4815519ed0af Linux v5.9-3429-g4815519ed0af
+# Matches android-mainline cf785fec6267 ("Merge 4815519ed0af ("Merge tag 'for-5.10/dm-changes' of git://git.kernel.org/pub/scm/linux/kernel/git/device-mapper/linux-dm") into android-mainline")
 #
 Revert-security-keys-remove-compat_keyctl_instantiate_key_iov.patch
 Revert-mm-remove-compat_process_vm_-readv-writev.patch
