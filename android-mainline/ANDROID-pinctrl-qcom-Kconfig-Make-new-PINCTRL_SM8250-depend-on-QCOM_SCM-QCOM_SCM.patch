@@ -27,7 +27,7 @@ Change-Id: I7c7b9b46d17ccc5d29e81be3b0b6ca77b3f139d3
 diff --git a/drivers/pinctrl/qcom/Kconfig b/drivers/pinctrl/qcom/Kconfig
 --- a/drivers/pinctrl/qcom/Kconfig
 +++ b/drivers/pinctrl/qcom/Kconfig
-@@ -242,6 +242,7 @@ config PINCTRL_SM8150
+@@ -251,6 +251,7 @@ config PINCTRL_SM8150
  config PINCTRL_SM8250
  	tristate "Qualcomm Technologies Inc SM8250 pin controller driver"
  	depends on GPIOLIB && OF

@@ -152,7 +152,7 @@ diff --git a/drivers/base/syscore.c b/drivers/base/syscore.c
  
  static LIST_HEAD(syscore_ops_list);
  static DEFINE_MUTEX(syscore_ops_lock);
-@@ -74,7 +75,9 @@ int syscore_suspend(void)
+@@ -73,7 +74,9 @@ int syscore_suspend(void)
  	return 0;
  
   err_out:

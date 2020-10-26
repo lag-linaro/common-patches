@@ -71,7 +71,7 @@ diff --git a/drivers/pinctrl/qcom/Kconfig b/drivers/pinctrl/qcom/Kconfig
  	select PINCTRL_MSM
  	help
  	  This is the pinctrl, pinmux, pinconf and gpiolib driver for
-@@ -65,6 +71,7 @@ config PINCTRL_IPQ6018
+@@ -74,6 +80,7 @@ config PINCTRL_MSM8226
  config PINCTRL_MSM8660
  	tristate "Qualcomm 8660 pin controller driver"
  	depends on GPIOLIB && OF
@@ -79,7 +79,7 @@ diff --git a/drivers/pinctrl/qcom/Kconfig b/drivers/pinctrl/qcom/Kconfig
  	select PINCTRL_MSM
  	help
  	  This is the pinctrl, pinmux, pinconf and gpiolib driver for the
-@@ -73,6 +80,7 @@ config PINCTRL_MSM8660
+@@ -82,6 +89,7 @@ config PINCTRL_MSM8660
  config PINCTRL_MSM8960
  	tristate "Qualcomm 8960 pin controller driver"
  	depends on GPIOLIB && OF
@@ -87,7 +87,7 @@ diff --git a/drivers/pinctrl/qcom/Kconfig b/drivers/pinctrl/qcom/Kconfig
  	select PINCTRL_MSM
  	help
  	  This is the pinctrl, pinmux, pinconf and gpiolib driver for the
-@@ -81,6 +89,7 @@ config PINCTRL_MSM8960
+@@ -90,6 +98,7 @@ config PINCTRL_MSM8960
  config PINCTRL_MDM9615
  	tristate "Qualcomm 9615 pin controller driver"
  	depends on GPIOLIB && OF
@@ -95,7 +95,7 @@ diff --git a/drivers/pinctrl/qcom/Kconfig b/drivers/pinctrl/qcom/Kconfig
  	select PINCTRL_MSM
  	help
  	  This is the pinctrl, pinmux, pinconf and gpiolib driver for the
-@@ -89,6 +98,7 @@ config PINCTRL_MDM9615
+@@ -98,6 +107,7 @@ config PINCTRL_MDM9615
  config PINCTRL_MSM8X74
  	tristate "Qualcomm 8x74 pin controller driver"
  	depends on GPIOLIB && OF
@@ -103,7 +103,7 @@ diff --git a/drivers/pinctrl/qcom/Kconfig b/drivers/pinctrl/qcom/Kconfig
  	select PINCTRL_MSM
  	help
  	  This is the pinctrl, pinmux, pinconf and gpiolib driver for the
-@@ -97,6 +107,7 @@ config PINCTRL_MSM8X74
+@@ -106,6 +116,7 @@ config PINCTRL_MSM8X74
  config PINCTRL_MSM8916
  	tristate "Qualcomm 8916 pin controller driver"
  	depends on GPIOLIB && OF
@@ -111,7 +111,7 @@ diff --git a/drivers/pinctrl/qcom/Kconfig b/drivers/pinctrl/qcom/Kconfig
  	select PINCTRL_MSM
  	help
  	  This is the pinctrl, pinmux, pinconf and gpiolib driver for the
-@@ -105,6 +116,7 @@ config PINCTRL_MSM8916
+@@ -114,6 +125,7 @@ config PINCTRL_MSM8916
  config PINCTRL_MSM8976
  	tristate "Qualcomm 8976 pin controller driver"
  	depends on GPIOLIB && OF
@@ -119,7 +119,7 @@ diff --git a/drivers/pinctrl/qcom/Kconfig b/drivers/pinctrl/qcom/Kconfig
  	select PINCTRL_MSM
  	help
  	  This is the pinctrl, pinmux, pinconf and gpiolib driver for the
-@@ -115,6 +127,7 @@ config PINCTRL_MSM8976
+@@ -124,6 +136,7 @@ config PINCTRL_MSM8976
  config PINCTRL_MSM8994
  	tristate "Qualcomm 8994 pin controller driver"
  	depends on GPIOLIB && OF
@@ -127,7 +127,7 @@ diff --git a/drivers/pinctrl/qcom/Kconfig b/drivers/pinctrl/qcom/Kconfig
  	select PINCTRL_MSM
  	help
  	  This is the pinctrl, pinmux, pinconf and gpiolib driver for the
-@@ -124,6 +137,7 @@ config PINCTRL_MSM8994
+@@ -133,6 +146,7 @@ config PINCTRL_MSM8994
  config PINCTRL_MSM8996
  	tristate "Qualcomm MSM8996 pin controller driver"
  	depends on GPIOLIB && OF
@@ -135,7 +135,7 @@ diff --git a/drivers/pinctrl/qcom/Kconfig b/drivers/pinctrl/qcom/Kconfig
  	select PINCTRL_MSM
  	help
  	  This is the pinctrl, pinmux, pinconf and gpiolib driver for the
-@@ -132,6 +146,7 @@ config PINCTRL_MSM8996
+@@ -141,6 +155,7 @@ config PINCTRL_MSM8996
  config PINCTRL_MSM8998
  	tristate "Qualcomm MSM8998 pin controller driver"
  	depends on GPIOLIB && OF
@@ -143,7 +143,7 @@ diff --git a/drivers/pinctrl/qcom/Kconfig b/drivers/pinctrl/qcom/Kconfig
  	select PINCTRL_MSM
  	help
  	  This is the pinctrl, pinmux, pinconf and gpiolib driver for the
-@@ -140,6 +155,7 @@ config PINCTRL_MSM8998
+@@ -149,6 +164,7 @@ config PINCTRL_MSM8998
  config PINCTRL_QCS404
  	tristate "Qualcomm QCS404 pin controller driver"
  	depends on GPIOLIB && OF
@@ -151,7 +151,7 @@ diff --git a/drivers/pinctrl/qcom/Kconfig b/drivers/pinctrl/qcom/Kconfig
  	select PINCTRL_MSM
  	help
  	  This is the pinctrl, pinmux, pinconf and gpiolib driver for the
-@@ -148,6 +164,7 @@ config PINCTRL_QCS404
+@@ -157,6 +173,7 @@ config PINCTRL_QCS404
  config PINCTRL_QDF2XXX
  	tristate "Qualcomm Technologies QDF2xxx pin controller driver"
  	depends on GPIOLIB && ACPI
@@ -159,7 +159,7 @@ diff --git a/drivers/pinctrl/qcom/Kconfig b/drivers/pinctrl/qcom/Kconfig
  	select PINCTRL_MSM
  	help
  	  This is the GPIO driver for the TLMM block found on the
-@@ -185,6 +202,7 @@ config PINCTRL_QCOM_SSBI_PMIC
+@@ -194,6 +211,7 @@ config PINCTRL_QCOM_SSBI_PMIC
  config PINCTRL_SC7180
  	tristate "Qualcomm Technologies Inc SC7180 pin controller driver"
  	depends on GPIOLIB && OF
@@ -167,7 +167,7 @@ diff --git a/drivers/pinctrl/qcom/Kconfig b/drivers/pinctrl/qcom/Kconfig
  	select PINCTRL_MSM
  	help
  	  This is the pinctrl, pinmux, pinconf and gpiolib driver for the
-@@ -194,6 +212,7 @@ config PINCTRL_SC7180
+@@ -203,6 +221,7 @@ config PINCTRL_SC7180
  config PINCTRL_SDM660
  	tristate "Qualcomm Technologies Inc SDM660 pin controller driver"
  	depends on GPIOLIB && OF
@@ -175,7 +175,7 @@ diff --git a/drivers/pinctrl/qcom/Kconfig b/drivers/pinctrl/qcom/Kconfig
  	select PINCTRL_MSM
  	help
  	 This is the pinctrl, pinmux, pinconf and gpiolib driver for the
-@@ -203,6 +222,7 @@ config PINCTRL_SDM660
+@@ -212,6 +231,7 @@ config PINCTRL_SDM660
  config PINCTRL_SDM845
  	tristate "Qualcomm Technologies Inc SDM845 pin controller driver"
  	depends on GPIOLIB && (OF || ACPI)
@@ -183,7 +183,7 @@ diff --git a/drivers/pinctrl/qcom/Kconfig b/drivers/pinctrl/qcom/Kconfig
  	select PINCTRL_MSM
  	help
  	 This is the pinctrl, pinmux, pinconf and gpiolib driver for the
-@@ -212,6 +232,7 @@ config PINCTRL_SDM845
+@@ -221,6 +241,7 @@ config PINCTRL_SDM845
  config PINCTRL_SM8150
  	tristate "Qualcomm Technologies Inc SM8150 pin controller driver"
  	depends on GPIOLIB && OF

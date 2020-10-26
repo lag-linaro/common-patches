@@ -16,7 +16,7 @@ Signed-off-by: Will McVicker <willmcvicker@google.com>
 diff --git a/drivers/tty/serial/Kconfig b/drivers/tty/serial/Kconfig
 --- a/drivers/tty/serial/Kconfig
 +++ b/drivers/tty/serial/Kconfig
-@@ -235,7 +235,6 @@ config SERIAL_CLPS711X_CONSOLE
+@@ -236,7 +236,6 @@ config SERIAL_CLPS711X_CONSOLE
  
  config SERIAL_SAMSUNG
  	tristate "Samsung SoC serial support"

@@ -46,7 +46,7 @@ Signed-off-by: John Stultz <john.stultz@linaro.org>
 diff --git a/drivers/irqchip/Kconfig b/drivers/irqchip/Kconfig
 --- a/drivers/irqchip/Kconfig
 +++ b/drivers/irqchip/Kconfig
-@@ -425,7 +425,7 @@ config GOLDFISH_PIC
+@@ -433,7 +433,7 @@ config GOLDFISH_PIC
           for Goldfish based virtual platforms.
  
  config QCOM_PDC

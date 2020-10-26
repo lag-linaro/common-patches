@@ -36,7 +36,7 @@ Change-Id: Ie5e3f25ad74a0f07edb862b8258ad875ea308d30
 diff --git a/drivers/tty/hvc/Kconfig b/drivers/tty/hvc/Kconfig
 --- a/drivers/tty/hvc/Kconfig
 +++ b/drivers/tty/hvc/Kconfig
-@@ -86,6 +86,27 @@ config HVC_DCC
+@@ -87,6 +87,27 @@ config HVC_DCC
  	  driver. This console is used through a JTAG only on ARM. If you don't have
  	  a JTAG then you probably don't want this option.
  

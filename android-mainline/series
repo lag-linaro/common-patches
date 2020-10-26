@@ -1,8 +1,8 @@
 #
 # android-mainline patches
 #
-# Applies onto upstream 55e0500eb5c0 Linux v5.9-3657-g55e0500eb5c0
-# Matches android-mainline 22a7eefbebcf ("Merge 55e0500eb5c0 ("Merge tag 'scsi-misc' of git://git.kernel.org/pub/scm/linux/kernel/git/jejb/scsi") into android-mainline")
+# Applies onto upstream 3e4fb4346c78 Linux v5.9-4105-g3e4fb4346c78
+# Matches android-mainline a11fd12c2374 ("Merge 3e4fb4346c78 ("Merge tag 'spdx-5.10-rc1' of git://git.kernel.org/pub/scm/linux/kernel/git/gregkh/spdx") into android-mailine")
 #
 Revert-security-keys-remove-compat_keyctl_instantiate_key_iov.patch
 Revert-mm-remove-compat_process_vm_-readv-writev.patch
@@ -21,7 +21,6 @@ FROMLIST-tracing-add-trace_export-support-for-event-trace.patch
 FROMLIST-tracing-add-trace_export-support-for-trace_marker.patch
 FROMLIST-stm-class-ftrace-enable-supported-trace-export-flag.patch
 FROMLIST-stm-class-ftrace-use-different-channel-accroding-to-CPU.patch
-FROMLIST-pinctrl-sunxi-add-support-for-the-Allwinner-A100-pin-controller.patch
 FROMLIST-clk-sunxi-ng-add-support-for-the-Allwinner-A100-CCU.patch
 FROMLIST-clk-Export-clk_register_composite.patch
 FROMLIST-clk-versatile-remove-dependency-on-ARCH_.patch

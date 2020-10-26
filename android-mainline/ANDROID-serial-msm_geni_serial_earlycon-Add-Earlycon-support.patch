@@ -26,7 +26,7 @@ Signed-off-by: Matthias Maennich <maennich@google.com>
 diff --git a/drivers/tty/serial/Kconfig b/drivers/tty/serial/Kconfig
 --- a/drivers/tty/serial/Kconfig
 +++ b/drivers/tty/serial/Kconfig
-@@ -963,6 +963,14 @@ config SERIAL_MSM_CONSOLE
+@@ -965,6 +965,14 @@ config SERIAL_MSM_CONSOLE
  	select SERIAL_CORE_CONSOLE
  	select SERIAL_EARLYCON
  
