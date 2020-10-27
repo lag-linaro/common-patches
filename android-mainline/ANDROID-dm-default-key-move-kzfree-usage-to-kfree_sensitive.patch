@@ -1,0 +1,32 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: Greg Kroah-Hartman <gregkh@google.com>
+Date: Mon, 26 Oct 2020 12:37:42 +0100
+Subject: ANDROID: dm-default-key: move kzfree() usage to kfree_sensitive()
+
+kzfree() is about to go away, as it was attempted in 5.9-rc1, but will
+really happen in 5.10-rc1.  So move the dm-default-key.c file to use
+kfree_sensitive() as it should be using.
+
+Bug: 137270441
+Bug: 147814592
+Cc: Eric Biggers <ebiggers@google.com>
+Signed-off-by: Greg Kroah-Hartman <gregkh@google.com>
+Change-Id: Idc1c004eabbda7e4854866f6c9cf71bd61f9b1df
+---
+ drivers/md/dm-default-key.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/drivers/md/dm-default-key.c b/drivers/md/dm-default-key.c
+--- a/drivers/md/dm-default-key.c
++++ b/drivers/md/dm-default-key.c
+@@ -76,8 +76,8 @@ static void default_key_dtr(struct dm_target *ti)
+ 			DMWARN("Failed to evict crypto key: %d", err);
+ 		dm_put_device(ti, dkc->dev);
+ 	}
+-	kzfree(dkc->cipher_string);
+-	kzfree(dkc);
++	kfree_sensitive(dkc->cipher_string);
++	kfree_sensitive(dkc);
+ }
+ 
+ static int default_key_ctr_optional(struct dm_target *ti,

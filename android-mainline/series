@@ -2,7 +2,7 @@
 # android-mainline patches
 #
 # Applies onto upstream 24717cfbbbbf Linux v5.9-12518-g24717cfbbbbf
-# Matches android-mainline af2e7ea59ca3 ("Merge 24717cfbbbbf ("Merge tag 'nfsd-5.10' of git://linux-nfs.org/~bfields/linux") into android-mainline")
+# Matches android-mainline f886255925a5 ("FROMLIST: checkpatch: Enable GIT_DIR environment use to set git repository location")
 #
 Revert-security-keys-remove-compat_keyctl_instantiate_key_iov.patch
 Revert-mm-remove-compat_process_vm_-readv-writev.patch
@@ -656,3 +656,5 @@ DROP-ME-Out-of-tree-difference-caused-by-unclean-revert.patch
 DROP-ME-This-compensates-a-left-over-patch-after-merging-5.10-rc1.patch
 DROP-ME-trivial-revert-merge-leftover.patch
 DROP-ME-Compensate-left-out-merge.patch
+ANDROID-dm-default-key-move-kzfree-usage-to-kfree_sensitive.patch
+FROMLIST-checkpatch-Enable-GIT_DIR-environment-use-to-set-git-repository-location.patch
