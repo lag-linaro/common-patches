@@ -1,8 +1,8 @@
 #
 # android-mainline patches
 #
-# Applies onto upstream 7a3dadedc82e Linux v5.9-11338-g7a3dadedc82e
-# Matches android-mainline 27574f163171 ("Merge 7a3dadedc82e ("Merge tag 'f2fs-for-5.10-rc1' of git://git.kernel.org/pub/scm/linux/kernel/git/jaegeuk/f2fs") into android-mainline")
+# Applies onto upstream fad70111d57e Linux v5.9-11345-gfad70111d57e
+# Matches android-mainline d131e058e353 ("Merge fad70111d57e ("Merge tag 'afs-fixes-20201016' of git://git.kernel.org/pub/scm/linux/kernel/git/dhowells/linux-fs") into android-mainline")
 #
 Revert-security-keys-remove-compat_keyctl_instantiate_key_iov.patch
 Revert-mm-remove-compat_process_vm_-readv-writev.patch
