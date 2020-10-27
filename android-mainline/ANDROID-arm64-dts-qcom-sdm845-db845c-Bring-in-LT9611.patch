@@ -7,18 +7,21 @@ Enable MDSS and DSI and add the LT9611 HDMI bridge. DSI1 is supposedly
 needed for 4k support, but is left commented out as this is yet to be
 functional.
 
+Add LT9611 DSI to HDMI bridge driver, as well as the
+i2s initialization logic.
+
 Bug: 146449535
 Signed-off-by: Bjorn Andersson <bjorn.andersson@linaro.org>
 Signed-off-by: John Stultz <john.stultz@linaro.org>
 Change-Id: I7bf2b82abeca7274f8e2dc69c592ed8303e3fbc6
 ---
- arch/arm64/boot/dts/qcom/sdm845-db845c.dts | 77 ++++++++++++++++++++--
- 1 file changed, 73 insertions(+), 4 deletions(-)
+ arch/arm64/boot/dts/qcom/sdm845-db845c.dts | 78 ++++++++++++++++++++--
+ 1 file changed, 74 insertions(+), 4 deletions(-)
 
 diff --git a/arch/arm64/boot/dts/qcom/sdm845-db845c.dts b/arch/arm64/boot/dts/qcom/sdm845-db845c.dts
 --- a/arch/arm64/boot/dts/qcom/sdm845-db845c.dts
 +++ b/arch/arm64/boot/dts/qcom/sdm845-db845c.dts
-@@ -451,6 +451,65 @@ &pcie1_phy {
+@@ -451,6 +451,66 @@ &pcie1_phy {
  	vdda-pll-supply = <&vreg_l26a_1p2>;
  };
  
@@ -26,9 +29,10 @@ diff --git a/arch/arm64/boot/dts/qcom/sdm845-db845c.dts b/arch/arm64/boot/dts/qc
 +	status = "okay";
 +	clock-frequency = <400000>;
 +
-+	hdmi-bridge@3b {
-+		compatible = "lt,lt9611";
++	lt9611_codec: hdmi-bridge@3b {
++		compatible = "lontium,lt9611";
 +		reg = <0x3b>;
++		#sound-dai-cells = <1>;
 +
 +		interrupts-extended = <&tlmm 84 IRQ_TYPE_EDGE_FALLING>;
 +
@@ -84,7 +88,7 @@ diff --git a/arch/arm64/boot/dts/qcom/sdm845-db845c.dts b/arch/arm64/boot/dts/qc
  &gpu {
  	zap-shader {
  		memory-region = <&gpu_mem>;
-@@ -854,6 +913,12 @@ wake-n {
+@@ -854,6 +914,12 @@ wake-n {
  		};
  	};
  
@@ -97,7 +101,7 @@ diff --git a/arch/arm64/boot/dts/qcom/sdm845-db845c.dts b/arch/arm64/boot/dts/qc
  	pcie0_pwren_state: pcie0-pwren {
  		pins = "gpio90";
  		function = "gpio";
-@@ -934,11 +999,15 @@ wcd_intr_default: wcd_intr_default {
+@@ -934,11 +1000,15 @@ wcd_intr_default: wcd_intr_default {
  		bias-pull-down;
  		drive-strength = <2>;
  	};

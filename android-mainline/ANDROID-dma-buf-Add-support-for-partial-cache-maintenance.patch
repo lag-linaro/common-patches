@@ -150,7 +150,7 @@ diff --git a/include/linux/dma-buf.h b/include/linux/dma-buf.h
  	/**
  	 * @mmap:
  	 *
-@@ -496,8 +553,14 @@ void dma_buf_unmap_attachment(struct dma_buf_attachment *, struct sg_table *,
+@@ -497,8 +554,14 @@ void dma_buf_unmap_attachment(struct dma_buf_attachment *, struct sg_table *,
  void dma_buf_move_notify(struct dma_buf *dma_buf);
  int dma_buf_begin_cpu_access(struct dma_buf *dma_buf,
  			     enum dma_data_direction dir);

@@ -32,7 +32,7 @@ Signed-off-by: Eric Biggers <ebiggers@google.com>
 diff --git a/drivers/gpu/drm/drm_prime.c b/drivers/gpu/drm/drm_prime.c
 --- a/drivers/gpu/drm/drm_prime.c
 +++ b/drivers/gpu/drm/drm_prime.c
-@@ -779,6 +779,28 @@ int drm_gem_dmabuf_mmap(struct dma_buf *dma_buf, struct vm_area_struct *vma)
+@@ -780,6 +780,28 @@ int drm_gem_dmabuf_mmap(struct dma_buf *dma_buf, struct vm_area_struct *vma)
  }
  EXPORT_SYMBOL(drm_gem_dmabuf_mmap);
  
@@ -61,7 +61,7 @@ diff --git a/drivers/gpu/drm/drm_prime.c b/drivers/gpu/drm/drm_prime.c
  static const struct dma_buf_ops drm_gem_prime_dmabuf_ops =  {
  	.cache_sgt_mapping = true,
  	.attach = drm_gem_map_attach,
-@@ -789,6 +811,7 @@ static const struct dma_buf_ops drm_gem_prime_dmabuf_ops =  {
+@@ -790,6 +812,7 @@ static const struct dma_buf_ops drm_gem_prime_dmabuf_ops =  {
  	.mmap = drm_gem_dmabuf_mmap,
  	.vmap = drm_gem_dmabuf_vmap,
  	.vunmap = drm_gem_dmabuf_vunmap,
@@ -80,7 +80,7 @@ diff --git a/include/drm/drm_drv.h b/include/drm/drm_drv.h
  
  #include <drm/drm_device.h>
  
-@@ -461,6 +462,15 @@ struct drm_driver {
+@@ -460,6 +461,15 @@ struct drm_driver {
  	int (*gem_prime_mmap)(struct drm_gem_object *obj,
  				struct vm_area_struct *vma);
  
@@ -99,7 +99,7 @@ diff --git a/include/drm/drm_drv.h b/include/drm/drm_drv.h
 diff --git a/include/drm/drm_prime.h b/include/drm/drm_prime.h
 --- a/include/drm/drm_prime.h
 +++ b/include/drm/drm_prime.h
-@@ -104,5 +104,6 @@ void drm_prime_gem_destroy(struct drm_gem_object *obj, struct sg_table *sg);
+@@ -107,5 +107,6 @@ void drm_prime_gem_destroy(struct drm_gem_object *obj, struct sg_table *sg);
  int drm_prime_sg_to_page_addr_arrays(struct sg_table *sgt, struct page **pages,
  				     dma_addr_t *addrs, int max_pages);
  

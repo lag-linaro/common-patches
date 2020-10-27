@@ -20,7 +20,7 @@ Signed-off-by: Greg Hartman <ghartman@google.com>
 diff --git a/drivers/gpu/drm/virtio/virtgpu_display.c b/drivers/gpu/drm/virtio/virtgpu_display.c
 --- a/drivers/gpu/drm/virtio/virtgpu_display.c
 +++ b/drivers/gpu/drm/virtio/virtgpu_display.c
-@@ -298,10 +298,6 @@ virtio_gpu_user_framebuffer_create(struct drm_device *dev,
+@@ -296,10 +296,6 @@ virtio_gpu_user_framebuffer_create(struct drm_device *dev,
  	struct virtio_gpu_framebuffer *virtio_gpu_fb;
  	int ret;
  
@@ -31,10 +31,10 @@ diff --git a/drivers/gpu/drm/virtio/virtgpu_display.c b/drivers/gpu/drm/virtio/v
  	/* lookup object associated with res handle */
  	obj = drm_gem_object_lookup(file_priv, mode_cmd->handles[0]);
  	if (!obj)
-@@ -332,7 +328,6 @@ void virtio_gpu_modeset_init(struct virtio_gpu_device *vgdev)
- 	int i;
+@@ -333,7 +329,6 @@ int virtio_gpu_modeset_init(struct virtio_gpu_device *vgdev)
+ 	if (ret)
+ 		return ret;
  
- 	drm_mode_config_init(vgdev->ddev);
 -	vgdev->ddev->mode_config.quirk_addfb_prefer_host_byte_order = true;
  	vgdev->ddev->mode_config.funcs = &virtio_gpu_mode_funcs;
  

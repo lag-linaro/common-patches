@@ -1,8 +1,8 @@
 #
 # android-mainline patches
 #
-# Applies onto upstream 726eb70e0d34 Linux v5.9-5381-g726eb70e0d34
-# Matches android-mainline 1e8a6b61a6e8 ("Merge 726eb70e0d34 ("Merge tag 'char-misc-5.10-rc1' of git://git.kernel.org/pub/scm/linux/kernel/git/gregkh/char-misc") into android-mainline")
+# Applies onto upstream 93b694d096cc Linux v5.9-6905-g93b694d096cc
+# Matches android-mainline 5baf8a8e5cd1 ("Merge 93b694d096cc ("Merge tag 'drm-next-2020-10-15' of git://anongit.freedesktop.org/drm/drm") into android-mainline")
 #
 Revert-security-keys-remove-compat_keyctl_instantiate_key_iov.patch
 Revert-mm-remove-compat_process_vm_-readv-writev.patch
@@ -216,14 +216,12 @@ ANDROID-usb-typec-tcpm-Bring-back-tcpm_update_sink_capabilities.patch
 ANDROID-usb-f_accessory-Send-uevent-when-receive-control-request.patch
 _____ANNOTATION-graphics-changes_____.patch
 Revert-drm-virtio-fix-DRM_FORMAT_-handling.patch
-FROMGIT-drm-virtio-Fix-use-after-free-in-get_capset_info-callback.patch
 ANDROID-Allow-DRM_IOCTL_MODE_-_DUMB-for-render-clients.patch
 ANDROID-include-drm-increase-DRM-max-property-count-to-64.patch
 ANDROID-include-drm-support-unicasting-mipi-cmds-to-dsi-ctrls.patch
 ANDROID-drm-dsi-add-two-DSI-mode-flags-for-BLLP.patch
 ANDROID-drivers-gpu-drm-add-support-to-batch-commands.patch
 ANDROID-drivers-gpu-drm-export-drm_mode_convert_umode-symbol.patch
-ANDROID-drm-bridge-Introduce-LT9611-DSI-to-HDMI-bridge.patch
 FROMLIST-dma-buf-add-support-for-virtio-exported-objects.patch
 FROMLIST-drm-prime-add-support-for-virtio-exported-objects.patch
 _____ANNOTATION-sound-changes_____.patch
@@ -398,7 +396,6 @@ ANDROID-pinctrl-qcom-Kconfig-Make-PINCTRL_MSM-selectors-depend-on-QCOM_SCM-QCOM_
 ANDROID-pinctrl-qcom-Kconfig-Make-new-PINCTRL_SM8250-depend-on-QCOM_SCM-QCOM_SCM.patch
 ANDROID-db845c_gki.fragment-Enable-config-options-to-support-wifi-on-db845c.patch
 ANDROID-db845c_gki.fragment-Remove-nonexistent-CONFIG_USB_DWC3_DISABLE_GADGET_SG-value.patch
-ANDROID-lt9611-Sync-w-Vinod-s-most-recent-lt9611-patches-which-enable-HDMI-audio.patch
 ANDROID-db845c_gki.fragment-Add-audio-configs.patch
 ANDROID-db845c-set-BUILD_INITRAMFS-1.patch
 ANDROID-db845c_gki.fragment-remove-CONFIG_USB_EHCI_HCD-and-CONFIG_USB_EHCI_HCD_PLATFORM.patch
