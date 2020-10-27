@@ -1,8 +1,8 @@
 #
 # android-mainline patches
 #
-# Applies onto upstream 93b694d096cc Linux v5.9-6905-g93b694d096cc
-# Matches android-mainline 5baf8a8e5cd1 ("Merge 93b694d096cc ("Merge tag 'drm-next-2020-10-15' of git://anongit.freedesktop.org/drm/drm") into android-mainline")
+# Applies onto upstream c48b75b7271d Linux v5.9-7457-gc48b75b7271d
+# Matches android-mainline cc5b1bd7fa8b ("Merge c48b75b7271d ("Merge tag 'sound-5.10-rc1' of git://git.kernel.org/pub/scm/linux/kernel/git/tiwai/sound") into android-mainline")
 #
 Revert-security-keys-remove-compat_keyctl_instantiate_key_iov.patch
 Revert-mm-remove-compat_process_vm_-readv-writev.patch
