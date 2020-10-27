@@ -1,8 +1,8 @@
 #
 # android-mainline patches
 #
-# Applies onto upstream ade7afe3e606 Linux v5.9-4587-gade7afe3e606
-# Matches android-mainline 558647c50729 ("Merge ade7afe3e606 ("Merge tag 'staging-5.10-rc1' of git://git.kernel.org/pub/scm/linux/kernel/git/gregkh/staging") into android-mainline")
+# Applies onto upstream c6dbef730762 Linux v5.9-4974-gc6dbef730762
+# Matches android-mainline 54629410393b ("Merge c6dbef730762 ("Merge tag 'usb-5.10-rc1' of git://git.kernel.org/pub/scm/linux/kernel/git/gregkh/usb") into android-mainline")
 #
 Revert-security-keys-remove-compat_keyctl_instantiate_key_iov.patch
 Revert-mm-remove-compat_process_vm_-readv-writev.patch
