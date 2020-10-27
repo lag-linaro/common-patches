@@ -1,8 +1,8 @@
 #
 # android-mainline patches
 #
-# Applies onto upstream 071a0578b0ce Linux v5.9-11359-g071a0578b0ce
-# Matches android-mainline 75811193a28e ("Merge 071a0578b0ce ("Merge tag 'ovl-update-5.10' of git://git.kernel.org/pub/scm/linux/kernel/git/mszeredi/vfs") into android-mainline")
+# Applies onto upstream 9d9af1007bc0 Linux v5.9-11776-g9d9af1007bc0
+# Matches android-mainline 2bbf9acc477e ("Merge 9d9af1007bc0 ("Merge tag 'perf-tools-for-v5.10-2020-10-15' of git://git.kernel.org/pub/scm/linux/kernel/git/acme/linux") into android-mainline")
 #
 Revert-security-keys-remove-compat_keyctl_instantiate_key_iov.patch
 Revert-mm-remove-compat_process_vm_-readv-writev.patch
