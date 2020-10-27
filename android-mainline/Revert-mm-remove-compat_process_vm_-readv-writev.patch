@@ -156,7 +156,7 @@ diff --git a/arch/x86/entry/syscalls/syscall_32.tbl b/arch/x86/entry/syscalls/sy
 diff --git a/arch/x86/entry/syscalls/syscall_64.tbl b/arch/x86/entry/syscalls/syscall_64.tbl
 --- a/arch/x86/entry/syscalls/syscall_64.tbl
 +++ b/arch/x86/entry/syscalls/syscall_64.tbl
-@@ -395,8 +395,8 @@
+@@ -396,8 +396,8 @@
  536	x32	rt_tgsigqueueinfo	compat_sys_rt_tgsigqueueinfo
  537	x32	recvmmsg		compat_sys_recvmmsg_time64
  538	x32	sendmmsg		compat_sys_sendmmsg

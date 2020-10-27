@@ -463,7 +463,7 @@ diff --git a/kernel/sys.c b/kernel/sys.c
 diff --git a/mm/madvise.c b/mm/madvise.c
 --- a/mm/madvise.c
 +++ b/mm/madvise.c
-@@ -135,7 +135,7 @@ static long madvise_behavior(struct vm_area_struct *vma,
+@@ -136,7 +136,7 @@ static long madvise_behavior(struct vm_area_struct *vma,
  	pgoff = vma->vm_pgoff + ((start - vma->vm_start) >> PAGE_SHIFT);
  	*prev = vma_merge(mm, *prev, start, end, new_flags, vma->anon_vma,
  			  vma->vm_file, pgoff, vma_policy(vma),
@@ -500,7 +500,7 @@ diff --git a/mm/mlock.c b/mm/mlock.c
 diff --git a/mm/mmap.c b/mm/mmap.c
 --- a/mm/mmap.c
 +++ b/mm/mmap.c
-@@ -984,7 +984,8 @@ int __vma_adjust(struct vm_area_struct *vma, unsigned long start,
+@@ -1028,7 +1028,8 @@ int __vma_adjust(struct vm_area_struct *vma, unsigned long start,
   */
  static inline int is_mergeable_vma(struct vm_area_struct *vma,
  				struct file *file, unsigned long vm_flags,
@@ -510,7 +510,7 @@ diff --git a/mm/mmap.c b/mm/mmap.c
  {
  	/*
  	 * VM_SOFTDIRTY should not prevent from VMA merging, if we
-@@ -1002,6 +1003,8 @@ static inline int is_mergeable_vma(struct vm_area_struct *vma,
+@@ -1046,6 +1047,8 @@ static inline int is_mergeable_vma(struct vm_area_struct *vma,
  		return 0;
  	if (!is_mergeable_vm_userfaultfd_ctx(vma, vm_userfaultfd_ctx))
  		return 0;
@@ -519,7 +519,7 @@ diff --git a/mm/mmap.c b/mm/mmap.c
  	return 1;
  }
  
-@@ -1034,9 +1037,10 @@ static int
+@@ -1078,9 +1081,10 @@ static int
  can_vma_merge_before(struct vm_area_struct *vma, unsigned long vm_flags,
  		     struct anon_vma *anon_vma, struct file *file,
  		     pgoff_t vm_pgoff,
@@ -532,7 +532,7 @@ diff --git a/mm/mmap.c b/mm/mmap.c
  	    is_mergeable_anon_vma(anon_vma, vma->anon_vma, vma)) {
  		if (vma->vm_pgoff == vm_pgoff)
  			return 1;
-@@ -1055,9 +1059,10 @@ static int
+@@ -1099,9 +1103,10 @@ static int
  can_vma_merge_after(struct vm_area_struct *vma, unsigned long vm_flags,
  		    struct anon_vma *anon_vma, struct file *file,
  		    pgoff_t vm_pgoff,
@@ -545,7 +545,7 @@ diff --git a/mm/mmap.c b/mm/mmap.c
  	    is_mergeable_anon_vma(anon_vma, vma->anon_vma, vma)) {
  		pgoff_t vm_pglen;
  		vm_pglen = vma_pages(vma);
-@@ -1068,9 +1073,9 @@ can_vma_merge_after(struct vm_area_struct *vma, unsigned long vm_flags,
+@@ -1112,9 +1117,9 @@ can_vma_merge_after(struct vm_area_struct *vma, unsigned long vm_flags,
  }
  
  /*
@@ -558,7 +558,7 @@ diff --git a/mm/mmap.c b/mm/mmap.c
   *
   * In most cases - when called for mmap, brk or mremap - [addr,end) is
   * certain not to be mapped by the time vma_merge is called; but when
-@@ -1115,7 +1120,8 @@ struct vm_area_struct *vma_merge(struct mm_struct *mm,
+@@ -1159,7 +1164,8 @@ struct vm_area_struct *vma_merge(struct mm_struct *mm,
  			unsigned long end, unsigned long vm_flags,
  			struct anon_vma *anon_vma, struct file *file,
  			pgoff_t pgoff, struct mempolicy *policy,
@@ -568,7 +568,7 @@ diff --git a/mm/mmap.c b/mm/mmap.c
  {
  	pgoff_t pglen = (end - addr) >> PAGE_SHIFT;
  	struct vm_area_struct *area, *next;
-@@ -1148,7 +1154,8 @@ struct vm_area_struct *vma_merge(struct mm_struct *mm,
+@@ -1189,7 +1195,8 @@ struct vm_area_struct *vma_merge(struct mm_struct *mm,
  			mpol_equal(vma_policy(prev), policy) &&
  			can_vma_merge_after(prev, vm_flags,
  					    anon_vma, file, pgoff,
@@ -578,7 +578,7 @@ diff --git a/mm/mmap.c b/mm/mmap.c
  		/*
  		 * OK, it can.  Can we now merge in the successor as well?
  		 */
-@@ -1157,7 +1164,8 @@ struct vm_area_struct *vma_merge(struct mm_struct *mm,
+@@ -1198,7 +1205,8 @@ struct vm_area_struct *vma_merge(struct mm_struct *mm,
  				can_vma_merge_before(next, vm_flags,
  						     anon_vma, file,
  						     pgoff+pglen,
@@ -588,7 +588,7 @@ diff --git a/mm/mmap.c b/mm/mmap.c
  				is_mergeable_anon_vma(prev->anon_vma,
  						      next->anon_vma, NULL)) {
  							/* cases 1, 6 */
-@@ -1180,7 +1188,8 @@ struct vm_area_struct *vma_merge(struct mm_struct *mm,
+@@ -1221,7 +1229,8 @@ struct vm_area_struct *vma_merge(struct mm_struct *mm,
  			mpol_equal(policy, vma_policy(next)) &&
  			can_vma_merge_before(next, vm_flags,
  					     anon_vma, file, pgoff+pglen,
@@ -598,7 +598,7 @@ diff --git a/mm/mmap.c b/mm/mmap.c
  		if (prev && addr < prev->vm_end)	/* case 4 */
  			err = __vma_adjust(prev, prev->vm_start,
  					 addr, prev->vm_pgoff, NULL, next);
-@@ -1728,7 +1737,7 @@ unsigned long mmap_region(struct file *file, unsigned long addr,
+@@ -1765,7 +1774,7 @@ unsigned long mmap_region(struct file *file, unsigned long addr,
  	 * Can we just expand an old mapping?
  	 */
  	vma = vma_merge(mm, prev, addr, addr + len, vm_flags,
@@ -607,7 +607,7 @@ diff --git a/mm/mmap.c b/mm/mmap.c
  	if (vma)
  		goto out;
  
-@@ -1776,7 +1785,8 @@ unsigned long mmap_region(struct file *file, unsigned long addr,
+@@ -1813,7 +1822,8 @@ unsigned long mmap_region(struct file *file, unsigned long addr,
  		 */
  		if (unlikely(vm_flags != vma->vm_flags && prev)) {
  			merge = vma_merge(mm, prev, vma->vm_start, vma->vm_end, vma->vm_flags,
@@ -617,7 +617,7 @@ diff --git a/mm/mmap.c b/mm/mmap.c
  			if (merge) {
  				/* ->mmap() can change vma->vm_file and fput the original file. So
  				 * fput the vma->vm_file here or we would add an extra fput for file
-@@ -3070,7 +3080,7 @@ static int do_brk_flags(unsigned long addr, unsigned long len, unsigned long fla
+@@ -3102,7 +3112,7 @@ static int do_brk_flags(unsigned long addr, unsigned long len, unsigned long fla
  
  	/* Can we just expand an old private anonymous mapping? */
  	vma = vma_merge(mm, prev, addr, addr + len, flags,
@@ -626,7 +626,7 @@ diff --git a/mm/mmap.c b/mm/mmap.c
  	if (vma)
  		goto out;
  
-@@ -3269,7 +3279,7 @@ struct vm_area_struct *copy_vma(struct vm_area_struct **vmap,
+@@ -3301,7 +3311,7 @@ struct vm_area_struct *copy_vma(struct vm_area_struct **vmap,
  		return NULL;	/* should never get here */
  	new_vma = vma_merge(mm, prev, addr, addr + len, vma->vm_flags,
  			    vma->anon_vma, vma->vm_file, pgoff, vma_policy(vma),

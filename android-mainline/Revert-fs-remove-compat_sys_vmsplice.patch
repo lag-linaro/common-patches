@@ -138,7 +138,7 @@ diff --git a/arch/x86/entry/syscalls/syscall_32.tbl b/arch/x86/entry/syscalls/sy
 diff --git a/arch/x86/entry/syscalls/syscall_64.tbl b/arch/x86/entry/syscalls/syscall_64.tbl
 --- a/arch/x86/entry/syscalls/syscall_64.tbl
 +++ b/arch/x86/entry/syscalls/syscall_64.tbl
-@@ -388,7 +388,7 @@
+@@ -389,7 +389,7 @@
  529	x32	waitid			compat_sys_waitid
  530	x32	set_robust_list		compat_sys_set_robust_list
  531	x32	get_robust_list		compat_sys_get_robust_list

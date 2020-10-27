@@ -738,7 +738,7 @@ diff --git a/fs/squashfs/xattr.c b/fs/squashfs/xattr.c
 diff --git a/fs/ubifs/xattr.c b/fs/ubifs/xattr.c
 --- a/fs/ubifs/xattr.c
 +++ b/fs/ubifs/xattr.c
-@@ -669,7 +669,8 @@ int ubifs_init_security(struct inode *dentry, struct inode *inode,
+@@ -671,7 +671,8 @@ int ubifs_init_security(struct inode *dentry, struct inode *inode,
  
  static int xattr_get(const struct xattr_handler *handler,
  			   struct dentry *dentry, struct inode *inode,

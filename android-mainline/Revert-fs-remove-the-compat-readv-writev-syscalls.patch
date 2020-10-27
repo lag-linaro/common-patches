@@ -156,7 +156,7 @@ diff --git a/arch/x86/entry/syscalls/syscall_32.tbl b/arch/x86/entry/syscalls/sy
 diff --git a/arch/x86/entry/syscalls/syscall_64.tbl b/arch/x86/entry/syscalls/syscall_64.tbl
 --- a/arch/x86/entry/syscalls/syscall_64.tbl
 +++ b/arch/x86/entry/syscalls/syscall_64.tbl
-@@ -371,8 +371,8 @@
+@@ -372,8 +372,8 @@
  512	x32	rt_sigaction		compat_sys_rt_sigaction
  513	x32	rt_sigreturn		compat_sys_x32_rt_sigreturn
  514	x32	ioctl			compat_sys_ioctl

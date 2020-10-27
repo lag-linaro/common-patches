@@ -1,8 +1,8 @@
 #
 # android-mainline patches
 #
-# Applies onto upstream 9d9af1007bc0 Linux v5.9-11776-g9d9af1007bc0
-# Matches android-mainline 2bbf9acc477e ("Merge 9d9af1007bc0 ("Merge tag 'perf-tools-for-v5.10-2020-10-15' of git://git.kernel.org/pub/scm/linux/kernel/git/acme/linux") into android-mainline")
+# Applies onto upstream 922a763ae178 Linux v5.9-11958-g922a763ae178
+# Matches android-mainline b3dd1b5952fd ("Merge 922a763ae178 ("Merge tag 'zonefs-5.10-rc1' of git://git.kernel.org/pub/scm/linux/kernel/git/dlemoal/zonefs") into android-mainline")
 #
 Revert-security-keys-remove-compat_keyctl_instantiate_key_iov.patch
 Revert-mm-remove-compat_process_vm_-readv-writev.patch
