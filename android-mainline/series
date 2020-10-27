@@ -1,8 +1,8 @@
 #
 # android-mainline patches
 #
-# Applies onto upstream 5a32c3413d33 Linux v5.9-7630-g5a32c3413d33
-# Matches android-mainline a53bc328cc86 ("ANDROID: ion: fix movement of dma header file")
+# Applies onto upstream 2d0f6b0aab9a Linux v5.9-7738-g2d0f6b0aab9a
+# Matches android-mainline 8bc601f293d4 ("Merge 2d0f6b0aab9a ("Merge tag 'hyperv-next-signed' of git://git.kernel.org/pub/scm/linux/kernel/git/hyperv/linux") into android-mainline")
 #
 Revert-security-keys-remove-compat_keyctl_instantiate_key_iov.patch
 Revert-mm-remove-compat_process_vm_-readv-writev.patch
