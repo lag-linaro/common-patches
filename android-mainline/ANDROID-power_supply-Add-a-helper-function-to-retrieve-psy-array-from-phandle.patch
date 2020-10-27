@@ -126,7 +126,7 @@ diff --git a/drivers/power/supply/power_supply_core.c b/drivers/power/supply/pow
 diff --git a/include/linux/power_supply.h b/include/linux/power_supply.h
 --- a/include/linux/power_supply.h
 +++ b/include/linux/power_supply.h
-@@ -379,12 +379,21 @@ extern void power_supply_put(struct power_supply *psy);
+@@ -386,12 +386,21 @@ extern void power_supply_put(struct power_supply *psy);
  #ifdef CONFIG_OF
  extern struct power_supply *power_supply_get_by_phandle(struct device_node *np,
  							const char *property);

@@ -1,8 +1,8 @@
 #
 # android-mainline patches
 #
-# Applies onto upstream 694565356c2e Linux v5.9-11985-g694565356c2e
-# Matches android-mainline caf51e6b4904 ("Merge 694565356c2e ("Merge tag 'fuse-update-5.10' of git://git.kernel.org/pub/scm/linux/kernel/git/mszeredi/fuse") into android-mainline")
+# Applies onto upstream 38525c6919e2 Linux v5.9-12193-g38525c6919e2
+# Matches android-mainline 0a824c2254c2 ("Merge 38525c6919e2 ("Merge tag 'for-v5.10' of git://git.kernel.org/pub/scm/linux/kernel/git/sre/linux-power-supply") into android-mainline")
 #
 Revert-security-keys-remove-compat_keyctl_instantiate_key_iov.patch
 Revert-mm-remove-compat_process_vm_-readv-writev.patch

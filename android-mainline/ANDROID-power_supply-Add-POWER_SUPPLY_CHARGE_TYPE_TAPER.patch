@@ -17,7 +17,7 @@ Change-Id: I49d3033eec671156ffd113d8d0e3972d2cdad982
 diff --git a/drivers/power/supply/power_supply_sysfs.c b/drivers/power/supply/power_supply_sysfs.c
 --- a/drivers/power/supply/power_supply_sysfs.c
 +++ b/drivers/power/supply/power_supply_sysfs.c
-@@ -88,6 +88,7 @@ static const char * const POWER_SUPPLY_CHARGE_TYPE_TEXT[] = {
+@@ -89,6 +89,7 @@ static const char * const POWER_SUPPLY_CHARGE_TYPE_TEXT[] = {
  	[POWER_SUPPLY_CHARGE_TYPE_ADAPTIVE]	= "Adaptive",
  	[POWER_SUPPLY_CHARGE_TYPE_CUSTOM]	= "Custom",
  	[POWER_SUPPLY_CHARGE_TYPE_LONGLIFE]	= "Long Life",
