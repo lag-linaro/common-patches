@@ -1,8 +1,8 @@
 #
 # android-mainline patches
 #
-# Applies onto upstream 38525c6919e2 Linux v5.9-12193-g38525c6919e2
-# Matches android-mainline 0a824c2254c2 ("Merge 38525c6919e2 ("Merge tag 'for-v5.10' of git://git.kernel.org/pub/scm/linux/kernel/git/sre/linux-power-supply") into android-mainline")
+# Applies onto upstream b7769c45b8d9 Linux v5.9-12444-gb7769c45b8d9
+# Matches android-mainline ade4233b8cf8 ("Merge b7769c45b8d9 ("Merge tag 'rtc-5.10' of git://git.kernel.org/pub/scm/linux/kernel/git/abelloni/linux") into android-mainline")
 #
 Revert-security-keys-remove-compat_keyctl_instantiate_key_iov.patch
 Revert-mm-remove-compat_process_vm_-readv-writev.patch

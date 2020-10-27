@@ -314,7 +314,7 @@ diff --git a/fs/proc/base.c b/fs/proc/base.c
  #include <trace/events/oom.h>
  #include "internal.h"
  #include "fd.h"
-@@ -3251,6 +3252,9 @@ static const struct pid_entry tgid_base_stuff[] = {
+@@ -3255,6 +3256,9 @@ static const struct pid_entry tgid_base_stuff[] = {
  #ifdef CONFIG_LIVEPATCH
  	ONE("patch_state",  S_IRUSR, proc_pid_patch_state),
  #endif
@@ -324,7 +324,7 @@ diff --git a/fs/proc/base.c b/fs/proc/base.c
  #ifdef CONFIG_STACKLEAK_METRICS
  	ONE("stack_depth", S_IRUGO, proc_stack_depth),
  #endif
-@@ -3586,6 +3590,9 @@ static const struct pid_entry tid_base_stuff[] = {
+@@ -3590,6 +3594,9 @@ static const struct pid_entry tid_base_stuff[] = {
  #ifdef CONFIG_PROC_PID_ARCH_STATUS
  	ONE("arch_status", S_IRUGO, proc_pid_arch_status),
  #endif
