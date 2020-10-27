@@ -111,7 +111,7 @@ diff --git a/include/linux/uio.h b/include/linux/uio.h
 diff --git a/lib/iov_iter.c b/lib/iov_iter.c
 --- a/lib/iov_iter.c
 +++ b/lib/iov_iter.c
-@@ -7,7 +7,6 @@
+@@ -8,7 +8,6 @@
  #include <linux/slab.h>
  #include <linux/vmalloc.h>
  #include <linux/splice.h>
@@ -119,7 +119,7 @@ diff --git a/lib/iov_iter.c b/lib/iov_iter.c
  #include <net/checksum.h>
  #include <linux/scatterlist.h>
  #include <linux/instrumented.h>
-@@ -1646,133 +1645,107 @@ const void *dup_iter(struct iov_iter *new, struct iov_iter *old, gfp_t flags)
+@@ -1651,133 +1650,107 @@ const void *dup_iter(struct iov_iter *new, struct iov_iter *old, gfp_t flags)
  }
  EXPORT_SYMBOL(dup_iter);
  
@@ -330,7 +330,7 @@ diff --git a/lib/iov_iter.c b/lib/iov_iter.c
  }
  
  /**
-@@ -1781,10 +1754,10 @@ ssize_t __import_iovec(int type, const struct iovec __user *uvec,
+@@ -1786,10 +1759,10 @@ ssize_t __import_iovec(int type, const struct iovec __user *uvec,
   *     &struct iov_iter iterator to access it.
   *
   * @type: One of %READ or %WRITE.
@@ -343,7 +343,7 @@ diff --git a/lib/iov_iter.c b/lib/iov_iter.c
   *     on-stack) kernel array.
   * @i: Pointer to iterator that will be initialized on success.
   *
-@@ -1797,21 +1770,120 @@ ssize_t __import_iovec(int type, const struct iovec __user *uvec,
+@@ -1802,21 +1775,120 @@ ssize_t __import_iovec(int type, const struct iovec __user *uvec,
   *
   * Return: Negative error code on error, bytes imported on success
   */
@@ -380,9 +380,7 @@ diff --git a/lib/iov_iter.c b/lib/iov_iter.c
 +		const struct compat_iovec __user *uvector,
 +		unsigned long nr_segs, unsigned long fast_segs,
 +		struct iovec *fast_pointer, struct iovec **ret_pointer)
- {
--	return __import_iovec(type, (const struct iovec __user *)uvec, nr_segs,
--			     fast_segs, iovp, i, true);
++{
 +	compat_ssize_t tot_len;
 +	struct iovec *iov = *ret_pointer = fast_pointer;
 +	ssize_t ret = 0;
@@ -455,7 +453,9 @@ diff --git a/lib/iov_iter.c b/lib/iov_iter.c
 +		const struct compat_iovec __user * uvector,
 +		unsigned nr_segs, unsigned fast_segs,
 +		struct iovec **iov, struct iov_iter *i)
-+{
+ {
+-	return __import_iovec(type, (const struct iovec __user *)uvec, nr_segs,
+-			     fast_segs, iovp, i, true);
 +	ssize_t n;
 +	struct iovec *p;
 +	n = compat_rw_copy_check_uvector(type, uvector, nr_segs, fast_segs,

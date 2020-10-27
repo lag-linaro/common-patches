@@ -154,7 +154,7 @@ diff --git a/include/linux/fs.h b/include/linux/fs.h
  #endif
  	struct hlist_bl_head	s_roots;	/* alternate root dentries for NFS */
  	struct list_head	s_mounts;	/* list of mounts; _not_ for fs use */
-@@ -3228,6 +3238,12 @@ extern int generic_file_fsync(struct file *, loff_t, loff_t, int);
+@@ -3202,6 +3212,12 @@ extern int generic_file_fsync(struct file *, loff_t, loff_t, int);
  
  extern int generic_check_addressable(unsigned, u64);
  

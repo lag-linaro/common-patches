@@ -1,8 +1,8 @@
 #
 # android-mainline patches
 #
-# Applies onto upstream 9ff9b0d392ea Linux v5.9-10630-g9ff9b0d392ea
-# Matches android-mainline 5a8acc99f75b ("Merge 9ff9b0d392ea ("Merge tag 'net-next-5.10' of git://git.kernel.org/pub/scm/linux/kernel/git/netdev/net-next") into android-mainline")
+# Applies onto upstream 54a4c789ca80 Linux v5.9-11286-g54a4c789ca80
+# Matches android-mainline 05d2a661fda3 ("Merge 54a4c789ca80 ("Merge tag 'docs/v5.10-1' of git://git.kernel.org/pub/scm/linux/kernel/git/mchehab/linux-media") into android-mainline")
 #
 Revert-security-keys-remove-compat_keyctl_instantiate_key_iov.patch
 Revert-mm-remove-compat_process_vm_-readv-writev.patch

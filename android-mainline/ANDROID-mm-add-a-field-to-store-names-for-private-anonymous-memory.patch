@@ -191,17 +191,17 @@ diff --git a/fs/proc/task_mmu.c b/fs/proc/task_mmu.c
 diff --git a/fs/userfaultfd.c b/fs/userfaultfd.c
 --- a/fs/userfaultfd.c
 +++ b/fs/userfaultfd.c
-@@ -874,7 +874,8 @@ static int userfaultfd_release(struct inode *inode, struct file *file)
- 					 new_flags, vma->anon_vma,
- 					 vma->vm_file, vma->vm_pgoff,
- 					 vma_policy(vma),
--					 NULL_VM_UFFD_CTX);
-+					 NULL_VM_UFFD_CTX,
-+					 vma_get_anon_name(vma));
- 			if (prev)
- 				vma = prev;
- 			else
-@@ -1425,7 +1426,8 @@ static int userfaultfd_register(struct userfaultfd_ctx *ctx,
+@@ -869,7 +869,8 @@ static int userfaultfd_release(struct inode *inode, struct file *file)
+ 				 new_flags, vma->anon_vma,
+ 				 vma->vm_file, vma->vm_pgoff,
+ 				 vma_policy(vma),
+-				 NULL_VM_UFFD_CTX);
++				 NULL_VM_UFFD_CTX,
++				 vma_get_anon_name(vma));
+ 		if (prev)
+ 			vma = prev;
+ 		else
+@@ -1417,7 +1418,8 @@ static int userfaultfd_register(struct userfaultfd_ctx *ctx,
  		prev = vma_merge(mm, prev, start, vma_end, new_flags,
  				 vma->anon_vma, vma->vm_file, vma->vm_pgoff,
  				 vma_policy(vma),
@@ -211,7 +211,7 @@ diff --git a/fs/userfaultfd.c b/fs/userfaultfd.c
  		if (prev) {
  			vma = prev;
  			goto next;
-@@ -1597,7 +1599,8 @@ static int userfaultfd_unregister(struct userfaultfd_ctx *ctx,
+@@ -1587,7 +1589,8 @@ static int userfaultfd_unregister(struct userfaultfd_ctx *ctx,
  		prev = vma_merge(mm, prev, start, vma_end, new_flags,
  				 vma->anon_vma, vma->vm_file, vma->vm_pgoff,
  				 vma_policy(vma),
@@ -617,7 +617,7 @@ diff --git a/mm/mmap.c b/mm/mmap.c
  			if (merge) {
  				/* ->mmap() can change vma->vm_file and fput the original file. So
  				 * fput the vma->vm_file here or we would add an extra fput for file
-@@ -3073,7 +3083,7 @@ static int do_brk_flags(unsigned long addr, unsigned long len, unsigned long fla
+@@ -3070,7 +3080,7 @@ static int do_brk_flags(unsigned long addr, unsigned long len, unsigned long fla
  
  	/* Can we just expand an old private anonymous mapping? */
  	vma = vma_merge(mm, prev, addr, addr + len, flags,
@@ -626,7 +626,7 @@ diff --git a/mm/mmap.c b/mm/mmap.c
  	if (vma)
  		goto out;
  
-@@ -3272,7 +3282,7 @@ struct vm_area_struct *copy_vma(struct vm_area_struct **vmap,
+@@ -3269,7 +3279,7 @@ struct vm_area_struct *copy_vma(struct vm_area_struct **vmap,
  		return NULL;	/* should never get here */
  	new_vma = vma_merge(mm, prev, addr, addr + len, vma->vm_flags,
  			    vma->anon_vma, vma->vm_file, pgoff, vma_policy(vma),

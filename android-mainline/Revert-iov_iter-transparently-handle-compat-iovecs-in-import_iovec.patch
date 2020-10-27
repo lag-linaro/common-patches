@@ -181,7 +181,7 @@ diff --git a/include/linux/uio.h b/include/linux/uio.h
 diff --git a/lib/iov_iter.c b/lib/iov_iter.c
 --- a/lib/iov_iter.c
 +++ b/lib/iov_iter.c
-@@ -1801,11 +1801,21 @@ ssize_t import_iovec(int type, const struct iovec __user *uvec,
+@@ -1806,11 +1806,21 @@ ssize_t import_iovec(int type, const struct iovec __user *uvec,
  		 unsigned nr_segs, unsigned fast_segs,
  		 struct iovec **iovp, struct iov_iter *i)
  {
