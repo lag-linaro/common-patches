@@ -106,7 +106,7 @@ diff --git a/Documentation/filesystems/overlayfs.rst b/Documentation/filesystems
 diff --git a/fs/overlayfs/copy_up.c b/fs/overlayfs/copy_up.c
 --- a/fs/overlayfs/copy_up.c
 +++ b/fs/overlayfs/copy_up.c
-@@ -933,7 +933,7 @@ static int ovl_copy_up_flags(struct dentry *dentry, int flags)
+@@ -962,7 +962,7 @@ static int ovl_copy_up_flags(struct dentry *dentry, int flags)
  		dput(parent);
  		dput(next);
  	}
@@ -195,7 +195,7 @@ diff --git a/fs/overlayfs/file.c b/fs/overlayfs/file.c
  
  	pr_debug("open(%p[%pD2/%c], 0%o) -> (%p, 0%o)\n",
  		 file, file, ovl_whatisit(inode, realinode), file->f_flags,
-@@ -202,7 +202,7 @@ static loff_t ovl_llseek(struct file *file, loff_t offset, int whence)
+@@ -209,7 +209,7 @@ static loff_t ovl_llseek(struct file *file, loff_t offset, int whence)
  
  	old_cred = ovl_override_creds(inode->i_sb);
  	ret = vfs_llseek(real.file, offset, whence);
@@ -204,7 +204,7 @@ diff --git a/fs/overlayfs/file.c b/fs/overlayfs/file.c
  
  	file->f_pos = real.file->f_pos;
  	ovl_inode_unlock(inode);
-@@ -316,7 +316,8 @@ static ssize_t ovl_read_iter(struct kiocb *iocb, struct iov_iter *iter)
+@@ -323,7 +323,8 @@ static ssize_t ovl_read_iter(struct kiocb *iocb, struct iov_iter *iter)
  			ovl_aio_cleanup_handler(aio_req);
  	}
  out:
@@ -214,7 +214,7 @@ diff --git a/fs/overlayfs/file.c b/fs/overlayfs/file.c
  	ovl_file_accessed(file);
  
  	fdput(real);
-@@ -376,7 +377,7 @@ static ssize_t ovl_write_iter(struct kiocb *iocb, struct iov_iter *iter)
+@@ -388,7 +389,7 @@ static ssize_t ovl_write_iter(struct kiocb *iocb, struct iov_iter *iter)
  			ovl_aio_cleanup_handler(aio_req);
  	}
  out:
@@ -223,7 +223,7 @@ diff --git a/fs/overlayfs/file.c b/fs/overlayfs/file.c
  	fdput(real);
  
  out_unlock:
-@@ -399,7 +400,7 @@ static ssize_t ovl_splice_read(struct file *in, loff_t *ppos,
+@@ -411,7 +412,7 @@ static ssize_t ovl_splice_read(struct file *in, loff_t *ppos,
  
  	old_cred = ovl_override_creds(file_inode(in)->i_sb);
  	ret = generic_file_splice_read(real.file, ppos, pipe, len, flags);
@@ -232,7 +232,7 @@ diff --git a/fs/overlayfs/file.c b/fs/overlayfs/file.c
  
  	ovl_file_accessed(in);
  	fdput(real);
-@@ -420,7 +421,7 @@ ovl_splice_write(struct pipe_inode_info *pipe, struct file *out,
+@@ -432,7 +433,7 @@ ovl_splice_write(struct pipe_inode_info *pipe, struct file *out,
  
  	old_cred = ovl_override_creds(file_inode(out)->i_sb);
  	ret = iter_file_splice_write(pipe, real.file, ppos, len, flags);
@@ -241,7 +241,7 @@ diff --git a/fs/overlayfs/file.c b/fs/overlayfs/file.c
  
  	ovl_file_accessed(out);
  	fdput(real);
-@@ -441,7 +442,7 @@ static int ovl_fsync(struct file *file, loff_t start, loff_t end, int datasync)
+@@ -456,7 +457,7 @@ static int ovl_fsync(struct file *file, loff_t start, loff_t end, int datasync)
  	if (file_inode(real.file) == ovl_inode_upper(file_inode(file))) {
  		old_cred = ovl_override_creds(file_inode(file)->i_sb);
  		ret = vfs_fsync_range(real.file, start, end, datasync);
@@ -250,7 +250,7 @@ diff --git a/fs/overlayfs/file.c b/fs/overlayfs/file.c
  	}
  
  	fdput(real);
-@@ -465,7 +466,7 @@ static int ovl_mmap(struct file *file, struct vm_area_struct *vma)
+@@ -480,7 +481,7 @@ static int ovl_mmap(struct file *file, struct vm_area_struct *vma)
  
  	old_cred = ovl_override_creds(file_inode(file)->i_sb);
  	ret = call_mmap(vma->vm_file, vma);
@@ -259,7 +259,7 @@ diff --git a/fs/overlayfs/file.c b/fs/overlayfs/file.c
  
  	if (ret) {
  		/* Drop reference count from new vm_file value */
-@@ -493,7 +494,7 @@ static long ovl_fallocate(struct file *file, int mode, loff_t offset, loff_t len
+@@ -508,7 +509,7 @@ static long ovl_fallocate(struct file *file, int mode, loff_t offset, loff_t len
  
  	old_cred = ovl_override_creds(file_inode(file)->i_sb);
  	ret = vfs_fallocate(real.file, mode, offset, len);
@@ -268,7 +268,7 @@ diff --git a/fs/overlayfs/file.c b/fs/overlayfs/file.c
  
  	/* Update size */
  	ovl_copyattr(ovl_inode_real(inode), inode);
-@@ -515,7 +516,7 @@ static int ovl_fadvise(struct file *file, loff_t offset, loff_t len, int advice)
+@@ -530,7 +531,7 @@ static int ovl_fadvise(struct file *file, loff_t offset, loff_t len, int advice)
  
  	old_cred = ovl_override_creds(file_inode(file)->i_sb);
  	ret = vfs_fadvise(real.file, offset, len, advice);
@@ -277,7 +277,7 @@ diff --git a/fs/overlayfs/file.c b/fs/overlayfs/file.c
  
  	fdput(real);
  
-@@ -537,7 +538,7 @@ static long ovl_real_ioctl(struct file *file, unsigned int cmd,
+@@ -552,7 +553,7 @@ static long ovl_real_ioctl(struct file *file, unsigned int cmd,
  	ret = security_file_ioctl(real.file, cmd, arg);
  	if (!ret)
  		ret = vfs_ioctl(real.file, cmd, arg);
@@ -286,7 +286,7 @@ diff --git a/fs/overlayfs/file.c b/fs/overlayfs/file.c
  
  	fdput(real);
  
-@@ -727,7 +728,7 @@ static loff_t ovl_copyfile(struct file *file_in, loff_t pos_in,
+@@ -741,7 +742,7 @@ static loff_t ovl_copyfile(struct file *file_in, loff_t pos_in,
  						flags);
  		break;
  	}
@@ -352,7 +352,7 @@ diff --git a/fs/overlayfs/inode.c b/fs/overlayfs/inode.c
  	return res;
  }
  
-@@ -413,7 +413,7 @@ ssize_t ovl_listxattr(struct dentry *dentry, char *list, size_t size)
+@@ -416,7 +416,7 @@ ssize_t ovl_listxattr(struct dentry *dentry, char *list, size_t size)
  
  	old_cred = ovl_override_creds(dentry->d_sb);
  	res = vfs_listxattr(realdentry, list, size);
@@ -361,7 +361,7 @@ diff --git a/fs/overlayfs/inode.c b/fs/overlayfs/inode.c
  	if (res <= 0 || size == 0)
  		return res;
  
-@@ -448,7 +448,7 @@ struct posix_acl *ovl_get_acl(struct inode *inode, int type)
+@@ -451,7 +451,7 @@ struct posix_acl *ovl_get_acl(struct inode *inode, int type)
  
  	old_cred = ovl_override_creds(inode->i_sb);
  	acl = get_acl(realinode, type);
@@ -370,7 +370,7 @@ diff --git a/fs/overlayfs/inode.c b/fs/overlayfs/inode.c
  
  	return acl;
  }
-@@ -482,7 +482,7 @@ static int ovl_fiemap(struct inode *inode, struct fiemap_extent_info *fieinfo,
+@@ -485,7 +485,7 @@ static int ovl_fiemap(struct inode *inode, struct fiemap_extent_info *fieinfo,
  
  	old_cred = ovl_override_creds(inode->i_sb);
  	err = realinode->i_op->fiemap(realinode, fieinfo, start, len);
@@ -382,7 +382,7 @@ diff --git a/fs/overlayfs/inode.c b/fs/overlayfs/inode.c
 diff --git a/fs/overlayfs/namei.c b/fs/overlayfs/namei.c
 --- a/fs/overlayfs/namei.c
 +++ b/fs/overlayfs/namei.c
-@@ -1095,7 +1095,7 @@ struct dentry *ovl_lookup(struct inode *dir, struct dentry *dentry,
+@@ -1098,7 +1098,7 @@ struct dentry *ovl_lookup(struct inode *dir, struct dentry *dentry,
  	ovl_dentry_update_reval(dentry, upperdentry,
  			DCACHE_OP_REVALIDATE | DCACHE_OP_WEAK_REVALIDATE);
  
@@ -391,7 +391,7 @@ diff --git a/fs/overlayfs/namei.c b/fs/overlayfs/namei.c
  	if (origin_path) {
  		dput(origin_path->dentry);
  		kfree(origin_path);
-@@ -1122,7 +1122,7 @@ struct dentry *ovl_lookup(struct inode *dir, struct dentry *dentry,
+@@ -1125,7 +1125,7 @@ struct dentry *ovl_lookup(struct inode *dir, struct dentry *dentry,
  	kfree(upperredirect);
  out:
  	kfree(d.redirect);
@@ -400,7 +400,7 @@ diff --git a/fs/overlayfs/namei.c b/fs/overlayfs/namei.c
  	return ERR_PTR(err);
  }
  
-@@ -1174,7 +1174,7 @@ bool ovl_lower_positive(struct dentry *dentry)
+@@ -1177,7 +1177,7 @@ bool ovl_lower_positive(struct dentry *dentry)
  			dput(this);
  		}
  	}
@@ -412,7 +412,7 @@ diff --git a/fs/overlayfs/namei.c b/fs/overlayfs/namei.c
 diff --git a/fs/overlayfs/overlayfs.h b/fs/overlayfs/overlayfs.h
 --- a/fs/overlayfs/overlayfs.h
 +++ b/fs/overlayfs/overlayfs.h
-@@ -238,6 +238,7 @@ int ovl_want_write(struct dentry *dentry);
+@@ -259,6 +259,7 @@ int ovl_want_write(struct dentry *dentry);
  void ovl_drop_write(struct dentry *dentry);
  struct dentry *ovl_workdir(struct dentry *dentry);
  const struct cred *ovl_override_creds(struct super_block *sb);
@@ -423,10 +423,10 @@ diff --git a/fs/overlayfs/overlayfs.h b/fs/overlayfs/overlayfs.h
 diff --git a/fs/overlayfs/ovl_entry.h b/fs/overlayfs/ovl_entry.h
 --- a/fs/overlayfs/ovl_entry.h
 +++ b/fs/overlayfs/ovl_entry.h
-@@ -17,6 +17,7 @@ struct ovl_config {
- 	bool nfs_export;
+@@ -18,6 +18,7 @@ struct ovl_config {
  	int xino;
  	bool metacopy;
+ 	bool ovl_volatile;
 +	bool override_creds;
  };
  
@@ -443,7 +443,7 @@ diff --git a/fs/overlayfs/readdir.c b/fs/overlayfs/readdir.c
  
  	return err;
  }
-@@ -956,7 +956,7 @@ int ovl_check_empty_dir(struct dentry *dentry, struct list_head *list)
+@@ -986,7 +986,7 @@ int ovl_check_empty_dir(struct dentry *dentry, struct list_head *list)
  
  	old_cred = ovl_override_creds(dentry->d_sb);
  	err = ovl_dir_read_merged(dentry, list, &root);
@@ -467,35 +467,35 @@ diff --git a/fs/overlayfs/super.c b/fs/overlayfs/super.c
  static void ovl_entry_stack_free(struct ovl_entry *oe)
  {
  	unsigned int i;
-@@ -362,6 +367,9 @@ static int ovl_show_options(struct seq_file *m, struct dentry *dentry)
- 	if (ofs->config.metacopy != ovl_metacopy_def)
- 		seq_printf(m, ",metacopy=%s",
+@@ -366,6 +371,9 @@ static int ovl_show_options(struct seq_file *m, struct dentry *dentry)
  			   ofs->config.metacopy ? "on" : "off");
+ 	if (ofs->config.ovl_volatile)
+ 		seq_puts(m, ",volatile");
 +	if (ofs->config.override_creds != ovl_override_creds_def)
 +		seq_show_option(m, "override_creds",
 +				ofs->config.override_creds ? "on" : "off");
  	return 0;
  }
  
-@@ -411,6 +419,8 @@ enum {
- 	OPT_XINO_AUTO,
+@@ -418,6 +426,8 @@ enum {
  	OPT_METACOPY_ON,
  	OPT_METACOPY_OFF,
+ 	OPT_VOLATILE,
 +	OPT_OVERRIDE_CREDS_ON,
 +	OPT_OVERRIDE_CREDS_OFF,
  	OPT_ERR,
  };
  
-@@ -429,6 +439,8 @@ static const match_table_t ovl_tokens = {
- 	{OPT_XINO_AUTO,			"xino=auto"},
+@@ -437,6 +447,8 @@ static const match_table_t ovl_tokens = {
  	{OPT_METACOPY_ON,		"metacopy=on"},
  	{OPT_METACOPY_OFF,		"metacopy=off"},
+ 	{OPT_VOLATILE,			"volatile"},
 +	{OPT_OVERRIDE_CREDS_ON,		"override_creds=on"},
 +	{OPT_OVERRIDE_CREDS_OFF,	"override_creds=off"},
  	{OPT_ERR,			NULL}
  };
  
-@@ -488,6 +500,7 @@ static int ovl_parse_opt(char *opt, struct ovl_config *config)
+@@ -496,6 +508,7 @@ static int ovl_parse_opt(char *opt, struct ovl_config *config)
  	config->redirect_mode = kstrdup(ovl_redirect_mode_def(), GFP_KERNEL);
  	if (!config->redirect_mode)
  		return -ENOMEM;
@@ -503,8 +503,8 @@ diff --git a/fs/overlayfs/super.c b/fs/overlayfs/super.c
  
  	while ((p = ovl_next_opt(&opt)) != NULL) {
  		int token;
-@@ -573,6 +586,14 @@ static int ovl_parse_opt(char *opt, struct ovl_config *config)
- 			metacopy_opt = true;
+@@ -585,6 +598,14 @@ static int ovl_parse_opt(char *opt, struct ovl_config *config)
+ 			config->ovl_volatile = true;
  			break;
  
 +		case OPT_OVERRIDE_CREDS_ON:
@@ -518,7 +518,7 @@ diff --git a/fs/overlayfs/super.c b/fs/overlayfs/super.c
  		default:
  			pr_err("unrecognized mount option \"%s\" or missing value\n",
  					p);
-@@ -1926,7 +1947,6 @@ static int ovl_fill_super(struct super_block *sb, void *data, int silent)
+@@ -2007,7 +2028,6 @@ static int ovl_fill_super(struct super_block *sb, void *data, int silent)
  	kfree(splitlower);
  
  	sb->s_root = root_dentry;
@@ -547,7 +547,7 @@ diff --git a/fs/overlayfs/util.c b/fs/overlayfs/util.c
  /*
   * Check if underlying fs supports file handles and try to determine encoding
   * type, in order to deduce maximum inode number used by fs.
-@@ -801,7 +809,7 @@ int ovl_nlink_start(struct dentry *dentry)
+@@ -823,7 +831,7 @@ int ovl_nlink_start(struct dentry *dentry)
  	 * value relative to the upper inode nlink in an upper inode xattr.
  	 */
  	err = ovl_set_nlink_upper(dentry);
@@ -556,7 +556,7 @@ diff --git a/fs/overlayfs/util.c b/fs/overlayfs/util.c
  
  out:
  	if (err)
-@@ -819,7 +827,7 @@ void ovl_nlink_end(struct dentry *dentry)
+@@ -841,7 +849,7 @@ void ovl_nlink_end(struct dentry *dentry)
  
  		old_cred = ovl_override_creds(dentry->d_sb);
  		ovl_cleanup_index(dentry);

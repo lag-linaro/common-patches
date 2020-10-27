@@ -1,8 +1,8 @@
 #
 # android-mainline patches
 #
-# Applies onto upstream fad70111d57e Linux v5.9-11345-gfad70111d57e
-# Matches android-mainline d131e058e353 ("Merge fad70111d57e ("Merge tag 'afs-fixes-20201016' of git://git.kernel.org/pub/scm/linux/kernel/git/dhowells/linux-fs") into android-mainline")
+# Applies onto upstream 071a0578b0ce Linux v5.9-11359-g071a0578b0ce
+# Matches android-mainline 75811193a28e ("Merge 071a0578b0ce ("Merge tag 'ovl-update-5.10' of git://git.kernel.org/pub/scm/linux/kernel/git/mszeredi/vfs") into android-mainline")
 #
 Revert-security-keys-remove-compat_keyctl_instantiate_key_iov.patch
 Revert-mm-remove-compat_process_vm_-readv-writev.patch
