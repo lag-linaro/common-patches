@@ -1,8 +1,8 @@
 #
 # android-mainline patches
 #
-# Applies onto upstream 2d0f6b0aab9a Linux v5.9-7738-g2d0f6b0aab9a
-# Matches android-mainline 8bc601f293d4 ("Merge 2d0f6b0aab9a ("Merge tag 'hyperv-next-signed' of git://git.kernel.org/pub/scm/linux/kernel/git/hyperv/linux") into android-mainline")
+# Applies onto upstream 840e5bb326bb Linux v5.9-7810-g840e5bb326bb
+# Matches android-mainline c77aeec72a52 ("Merge 840e5bb326bb ("Merge tag 'integrity-v5.10' of git://git.kernel.org/pub/scm/linux/kernel/git/zohar/linux-integrity") into android-mainline")
 #
 Revert-security-keys-remove-compat_keyctl_instantiate_key_iov.patch
 Revert-mm-remove-compat_process_vm_-readv-writev.patch

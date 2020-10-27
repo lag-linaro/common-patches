@@ -927,7 +927,7 @@ diff --git a/security/commoncap.c b/security/commoncap.c
 diff --git a/security/integrity/evm/evm_main.c b/security/integrity/evm/evm_main.c
 --- a/security/integrity/evm/evm_main.c
 +++ b/security/integrity/evm/evm_main.c
-@@ -98,7 +98,8 @@ static int evm_find_protected_xattrs(struct dentry *dentry)
+@@ -101,7 +101,8 @@ static int evm_find_protected_xattrs(struct dentry *dentry)
  		return -EOPNOTSUPP;
  
  	list_for_each_entry_lockless(xattr, &evm_config_xattrnames, list) {
