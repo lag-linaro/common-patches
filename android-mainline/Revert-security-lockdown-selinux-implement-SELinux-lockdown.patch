@@ -43,7 +43,7 @@ diff --git a/include/linux/lsm_audit.h b/include/linux/lsm_audit.h
 diff --git a/include/linux/security.h b/include/linux/security.h
 --- a/include/linux/security.h
 +++ b/include/linux/security.h
-@@ -129,8 +129,6 @@ enum lockdown_reason {
+@@ -130,8 +130,6 @@ enum lockdown_reason {
  	LOCKDOWN_CONFIDENTIALITY_MAX,
  };
  
@@ -114,7 +114,7 @@ diff --git a/security/lsm_audit.c b/security/lsm_audit.c
 diff --git a/security/security.c b/security/security.c
 --- a/security/security.c
 +++ b/security/security.c
-@@ -34,39 +34,6 @@
+@@ -35,39 +35,6 @@
  /* How many LSMs were built into the kernel? */
  #define LSM_COUNT (__end_lsm_info - __start_lsm_info)
  
@@ -157,7 +157,7 @@ diff --git a/security/security.c b/security/security.c
 diff --git a/security/selinux/hooks.c b/security/selinux/hooks.c
 --- a/security/selinux/hooks.c
 +++ b/security/selinux/hooks.c
-@@ -6838,34 +6838,6 @@ static void selinux_bpf_prog_free(struct bpf_prog_aux *aux)
+@@ -6840,34 +6840,6 @@ static void selinux_bpf_prog_free(struct bpf_prog_aux *aux)
  }
  #endif
  
@@ -192,7 +192,7 @@ diff --git a/security/selinux/hooks.c b/security/selinux/hooks.c
  struct lsm_blob_sizes selinux_blob_sizes __lsm_ro_after_init = {
  	.lbs_cred = sizeof(struct task_security_struct),
  	.lbs_file = sizeof(struct file_security_struct),
-@@ -7171,8 +7143,6 @@ static struct security_hook_list selinux_hooks[] __lsm_ro_after_init = {
+@@ -7173,8 +7145,6 @@ static struct security_hook_list selinux_hooks[] __lsm_ro_after_init = {
  	LSM_HOOK_INIT(perf_event_write, selinux_perf_event_write),
  #endif
  

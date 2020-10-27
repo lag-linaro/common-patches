@@ -64,10 +64,10 @@ diff --git a/drivers/misc/Kconfig b/drivers/misc/Kconfig
 diff --git a/drivers/misc/Makefile b/drivers/misc/Makefile
 --- a/drivers/misc/Makefile
 +++ b/drivers/misc/Makefile
-@@ -57,3 +57,4 @@ obj-$(CONFIG_PVPANIC)   	+= pvpanic.o
- obj-$(CONFIG_HABANA_AI)		+= habanalabs/
+@@ -58,3 +58,4 @@ obj-$(CONFIG_HABANA_AI)		+= habanalabs/
  obj-$(CONFIG_UACCE)		+= uacce/
  obj-$(CONFIG_XILINX_SDFEC)	+= xilinx_sdfec.o
+ obj-$(CONFIG_HISI_HIKEY_USB)	+= hisi_hikey_usb.o
 +obj-$(CONFIG_UID_SYS_STATS)	+= uid_sys_stats.o
 diff --git a/drivers/misc/uid_sys_stats.c b/drivers/misc/uid_sys_stats.c
 new file mode 100644
