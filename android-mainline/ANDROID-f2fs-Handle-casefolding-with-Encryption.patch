@@ -46,7 +46,7 @@ diff --git a/fs/f2fs/dir.c b/fs/f2fs/dir.c
  #include <linux/fs.h>
  #include <linux/f2fs_fs.h>
  #include <linux/sched/signal.h>
-@@ -218,9 +219,28 @@ static bool f2fs_match_ci_name(const struct inode *dir, const struct qstr *name,
+@@ -212,9 +213,28 @@ static bool f2fs_match_ci_name(const struct inode *dir, const struct qstr *name,
  {
  	const struct super_block *sb = dir->i_sb;
  	const struct unicode_map *um = sb->s_encoding;
@@ -75,7 +75,7 @@ diff --git a/fs/f2fs/dir.c b/fs/f2fs/dir.c
  	res = utf8_strncasecmp_folded(um, name, &entry);
  	if (res < 0) {
  		/*
-@@ -228,9 +248,12 @@ static bool f2fs_match_ci_name(const struct inode *dir, const struct qstr *name,
+@@ -222,9 +242,12 @@ static bool f2fs_match_ci_name(const struct inode *dir, const struct qstr *name,
  		 * fall back to treating them as opaque byte sequences.
  		 */
  		if (sb_has_strict_encoding(sb) || name->len != entry.len)
@@ -90,7 +90,7 @@ diff --git a/fs/f2fs/dir.c b/fs/f2fs/dir.c
  	return res == 0;
  }
  #endif /* CONFIG_UNICODE */
-@@ -455,17 +478,39 @@ void f2fs_set_link(struct inode *dir, struct f2fs_dir_entry *de,
+@@ -448,17 +471,39 @@ void f2fs_set_link(struct inode *dir, struct f2fs_dir_entry *de,
  	f2fs_put_page(page, 1);
  }
  
@@ -131,7 +131,7 @@ diff --git a/fs/f2fs/dir.c b/fs/f2fs/dir.c
  	set_page_dirty(ipage);
  }
  
-@@ -548,11 +593,7 @@ struct page *f2fs_init_inode_metadata(struct inode *inode, struct inode *dir,
+@@ -541,11 +586,7 @@ struct page *f2fs_init_inode_metadata(struct inode *inode, struct inode *dir,
  			return page;
  	}
  
@@ -147,7 +147,7 @@ diff --git a/fs/f2fs/dir.c b/fs/f2fs/dir.c
 diff --git a/fs/f2fs/f2fs.h b/fs/f2fs/f2fs.h
 --- a/fs/f2fs/f2fs.h
 +++ b/fs/f2fs/f2fs.h
-@@ -532,9 +532,11 @@ struct f2fs_filename {
+@@ -533,9 +533,11 @@ struct f2fs_filename {
  #ifdef CONFIG_UNICODE
  	/*
  	 * For casefolded directories: the casefolded name, but it's left NULL
@@ -222,7 +222,7 @@ diff --git a/fs/f2fs/recovery.c b/fs/f2fs/recovery.c
 diff --git a/fs/f2fs/super.c b/fs/f2fs/super.c
 --- a/fs/f2fs/super.c
 +++ b/fs/f2fs/super.c
-@@ -3333,12 +3333,6 @@ static int f2fs_setup_casefold(struct f2fs_sb_info *sbi)
+@@ -3400,12 +3400,6 @@ static int f2fs_setup_casefold(struct f2fs_sb_info *sbi)
  		struct unicode_map *encoding;
  		__u16 encoding_flags;
  

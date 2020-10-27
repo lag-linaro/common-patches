@@ -1,0 +1,22 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: Matthias Maennich <maennich@google.com>
+Date: Tue, 27 Oct 2020 17:35:04 +0000
+Subject: DROP ME: trivial revert/merge leftover
+
+Signed-off-by: Matthias Maennich <maennich@google.com>
+Change-Id: I0b0dc8e27451be41e9a1988c8b3862ded3cdcabd
+---
+ include/linux/fs.h | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/include/linux/fs.h b/include/linux/fs.h
+--- a/include/linux/fs.h
++++ b/include/linux/fs.h
+@@ -3217,6 +3217,7 @@ extern int generic_ci_d_hash(const struct dentry *dentry, struct qstr *str);
+ extern int generic_ci_d_compare(const struct dentry *dentry, unsigned int len,
+ 				const char *str, const struct qstr *name);
+ #endif
++
+ extern void generic_set_encrypted_ci_d_ops(struct inode *dir,
+ 					   struct dentry *dentry);
+ 

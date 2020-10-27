@@ -1,8 +1,8 @@
 #
 # android-mainline patches
 #
-# Applies onto upstream 54a4c789ca80 Linux v5.9-11286-g54a4c789ca80
-# Matches android-mainline 05d2a661fda3 ("Merge 54a4c789ca80 ("Merge tag 'docs/v5.10-1' of git://git.kernel.org/pub/scm/linux/kernel/git/mchehab/linux-media") into android-mainline")
+# Applies onto upstream 7a3dadedc82e Linux v5.9-11338-g7a3dadedc82e
+# Matches android-mainline 27574f163171 ("Merge 7a3dadedc82e ("Merge tag 'f2fs-for-5.10-rc1' of git://git.kernel.org/pub/scm/linux/kernel/git/jaegeuk/f2fs") into android-mainline")
 #
 Revert-security-keys-remove-compat_keyctl_instantiate_key_iov.patch
 Revert-mm-remove-compat_process_vm_-readv-writev.patch
@@ -275,9 +275,6 @@ FROMLIST-overlayfs-internal-getxattr-operations-without-sepolicy-checking.patch
 FROMLIST-overlayfs-override_creds-off-option-bypass-creator_cred.patch
 ANDROID-overlayfs-readdir-override_creds-off-option-bypass-creator_cred.patch
 ANDROID-inode_owner_or_capable-called-during-execv.patch
-FROMLIST-unicode-Add-utf8_casefold_hash.patch
-FROMLIST-fs-Add-standard-casefolding-support.patch
-FROMLIST-f2fs-Use-generic-casefolding-support.patch
 FROMLIST-ext4-Use-generic-casefolding-support.patch
 FROMLIST-fscrypt-Have-filesystems-handle-their-d_ops.patch
 FROMLIST-fscrypt-Add-functions-for-direct-I-O-support.patch
@@ -657,3 +654,4 @@ ANDROID-serial-msm_geni_serial_earlycon-Add-Earlycon-support.patch
 _____ANNOTATION-remove-ANNOTATIONS-file_____.patch
 DROP-ME-Out-of-tree-difference-caused-by-unclean-revert.patch
 DROP-ME-This-compensates-a-left-over-patch-after-merging-5.10-rc1.patch
+DROP-ME-trivial-revert-merge-leftover.patch
