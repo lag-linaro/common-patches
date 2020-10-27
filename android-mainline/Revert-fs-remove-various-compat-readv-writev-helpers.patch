@@ -16,7 +16,7 @@ Change-Id: I680effca58fd0fd38fd9ff551d81e9dc26183b5f
 diff --git a/fs/read_write.c b/fs/read_write.c
 --- a/fs/read_write.c
 +++ b/fs/read_write.c
-@@ -1076,107 +1076,226 @@ SYSCALL_DEFINE6(pwritev2, unsigned long, fd, const struct iovec __user *, vec,
+@@ -1095,107 +1095,226 @@ SYSCALL_DEFINE6(pwritev2, unsigned long, fd, const struct iovec __user *, vec,
  	return do_pwritev(fd, vec, vlen, pos, flags);
  }
  

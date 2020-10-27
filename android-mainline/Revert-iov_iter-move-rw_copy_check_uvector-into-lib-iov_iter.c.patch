@@ -16,7 +16,7 @@ Change-Id: I325ae5c3edd6b4cd4213a5c63fec17df842930b7
 diff --git a/fs/read_write.c b/fs/read_write.c
 --- a/fs/read_write.c
 +++ b/fs/read_write.c
-@@ -760,6 +760,185 @@ static ssize_t do_loop_readv_writev(struct file *filp, struct iov_iter *iter,
+@@ -779,6 +779,185 @@ static ssize_t do_loop_readv_writev(struct file *filp, struct iov_iter *iter,
  	return ret;
  }
  

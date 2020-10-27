@@ -128,7 +128,7 @@ diff --git a/fs/io_uring.c b/fs/io_uring.c
 diff --git a/fs/read_write.c b/fs/read_write.c
 --- a/fs/read_write.c
 +++ b/fs/read_write.c
-@@ -1086,8 +1086,7 @@ static size_t compat_readv(struct file *file,
+@@ -1105,8 +1105,7 @@ static size_t compat_readv(struct file *file,
  	struct iov_iter iter;
  	ssize_t ret;
  
@@ -138,7 +138,7 @@ diff --git a/fs/read_write.c b/fs/read_write.c
  	if (ret >= 0) {
  		ret = do_iter_read(file, &iter, pos, flags);
  		kfree(iov);
-@@ -1195,8 +1194,7 @@ static size_t compat_writev(struct file *file,
+@@ -1214,8 +1213,7 @@ static size_t compat_writev(struct file *file,
  	struct iov_iter iter;
  	ssize_t ret;
  
@@ -151,7 +151,7 @@ diff --git a/fs/read_write.c b/fs/read_write.c
 diff --git a/fs/splice.c b/fs/splice.c
 --- a/fs/splice.c
 +++ b/fs/splice.c
-@@ -1407,7 +1407,7 @@ COMPAT_SYSCALL_DEFINE4(vmsplice, int, fd, const struct compat_iovec __user *, io
+@@ -1305,7 +1305,7 @@ COMPAT_SYSCALL_DEFINE4(vmsplice, int, fd, const struct compat_iovec __user *, io
  	if (error)
  		return error;
  

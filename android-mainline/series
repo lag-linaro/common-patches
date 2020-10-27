@@ -1,8 +1,8 @@
 #
 # android-mainline patches
 #
-# Applies onto upstream 24717cfbbbbf Linux v5.9-12518-g24717cfbbbbf
-# Matches android-mainline f886255925a5 ("FROMLIST: checkpatch: Enable GIT_DIR environment use to set git repository location")
+# Applies onto upstream f56e65dff6ad Linux v5.9-12535-gf56e65dff6ad
+# Matches android-mainline 899641996064 ("Merge f56e65dff6ad ("Merge branch 'work.set_fs' of git://git.kernel.org/pub/scm/linux/kernel/git/viro/vfs") into android-mainline")
 #
 Revert-security-keys-remove-compat_keyctl_instantiate_key_iov.patch
 Revert-mm-remove-compat_process_vm_-readv-writev.patch

@@ -170,7 +170,7 @@ diff --git a/arch/x86/entry/syscalls/syscall_64.tbl b/arch/x86/entry/syscalls/sy
 diff --git a/fs/read_write.c b/fs/read_write.c
 --- a/fs/read_write.c
 +++ b/fs/read_write.c
-@@ -1082,6 +1082,13 @@ SYSCALL_DEFINE6(pwritev2, unsigned long, fd, const struct iovec __user *, vec,
+@@ -1101,6 +1101,13 @@ SYSCALL_DEFINE6(pwritev2, unsigned long, fd, const struct iovec __user *, vec,
   * in_compat_syscall().
   */
  #ifdef CONFIG_COMPAT
@@ -184,7 +184,7 @@ diff --git a/fs/read_write.c b/fs/read_write.c
  #ifdef __ARCH_WANT_COMPAT_SYS_PREADV64
  COMPAT_SYSCALL_DEFINE4(preadv64, unsigned long, fd,
  		const struct iovec __user *, vec,
-@@ -1123,6 +1130,13 @@ COMPAT_SYSCALL_DEFINE6(preadv2, compat_ulong_t, fd,
+@@ -1142,6 +1149,13 @@ COMPAT_SYSCALL_DEFINE6(preadv2, compat_ulong_t, fd,
  	return do_preadv(fd, vec, vlen, pos, flags);
  }
  
