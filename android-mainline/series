@@ -1,8 +1,8 @@
 #
 # android-mainline patches
 #
-# Applies onto upstream f065199d4df0 Linux v5.9-7565-gf065199d4df0
-# Matches android-mainline b5e70561ddb6 ("Merge f065199d4df0 ("Merge tag 'dmaengine-5.10-rc1' of git://git.kernel.org/pub/scm/linux/kernel/git/vkoul/dmaengine") into android-mainline")
+# Applies onto upstream 5a32c3413d33 Linux v5.9-7630-g5a32c3413d33
+# Matches android-mainline 2d63baf0b5c6 ("Merge 5a32c3413d33 ("Merge tag 'dma-mapping-5.10' of git://git.infradead.org/users/hch/dma-mapping") into android-mainline")
 #
 Revert-security-keys-remove-compat_keyctl_instantiate_key_iov.patch
 Revert-mm-remove-compat_process_vm_-readv-writev.patch

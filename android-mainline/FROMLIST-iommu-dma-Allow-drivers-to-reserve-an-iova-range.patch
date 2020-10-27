@@ -22,7 +22,7 @@ Signed-off-by: Chris Goldsworthy <cgoldswo@codeaurora.org>
 diff --git a/drivers/iommu/dma-iommu.c b/drivers/iommu/dma-iommu.c
 --- a/drivers/iommu/dma-iommu.c
 +++ b/drivers/iommu/dma-iommu.c
-@@ -371,6 +371,34 @@ static int iommu_dma_deferred_attach(struct device *dev,
+@@ -370,6 +370,34 @@ static int iommu_dma_deferred_attach(struct device *dev,
  	return 0;
  }
  

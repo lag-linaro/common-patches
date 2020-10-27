@@ -23,7 +23,7 @@ Signed-off-by: Chris Goldsworthy <cgoldswo@codeaurora.org>
 diff --git a/drivers/iommu/dma-iommu.c b/drivers/iommu/dma-iommu.c
 --- a/drivers/iommu/dma-iommu.c
 +++ b/drivers/iommu/dma-iommu.c
-@@ -399,6 +399,24 @@ int iommu_dma_reserve_iova(struct device *dev, dma_addr_t base,
+@@ -398,6 +398,24 @@ int iommu_dma_reserve_iova(struct device *dev, dma_addr_t base,
  }
  EXPORT_SYMBOL(iommu_dma_reserve_iova);
  
