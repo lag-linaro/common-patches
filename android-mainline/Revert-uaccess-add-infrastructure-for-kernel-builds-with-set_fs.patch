@@ -1,0 +1,351 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: Greg Kroah-Hartman <gregkh@google.com>
+Date: Tue, 27 Oct 2020 10:28:07 +0100
+Subject: Revert "uaccess: add infrastructure for kernel builds with set_fs()"
+
+This reverts commit 5e6e9852d6f76e01b2e6803c74258afa5b432bc5.
+
+Bug: 171770067
+Signed-off-by: Greg Kroah-Hartman <gregkh@google.com>
+Change-Id: I81d56855a2492cc8bc97e47702dcec1c408603f4
+---
+ arch/Kconfig            |  3 ---
+ arch/alpha/Kconfig      |  1 -
+ arch/arc/Kconfig        |  1 -
+ arch/arm/Kconfig        |  1 -
+ arch/arm64/Kconfig      |  1 -
+ arch/c6x/Kconfig        |  1 -
+ arch/csky/Kconfig       |  1 -
+ arch/h8300/Kconfig      |  1 -
+ arch/hexagon/Kconfig    |  1 -
+ arch/ia64/Kconfig       |  1 -
+ arch/m68k/Kconfig       |  1 -
+ arch/microblaze/Kconfig |  1 -
+ arch/mips/Kconfig       |  1 -
+ arch/nds32/Kconfig      |  1 -
+ arch/nios2/Kconfig      |  1 -
+ arch/openrisc/Kconfig   |  1 -
+ arch/parisc/Kconfig     |  1 -
+ arch/powerpc/Kconfig    |  1 -
+ arch/riscv/Kconfig      |  1 -
+ arch/s390/Kconfig       |  1 -
+ arch/sh/Kconfig         |  1 -
+ arch/sparc/Kconfig      |  1 -
+ arch/um/Kconfig         |  1 -
+ arch/x86/Kconfig        |  1 -
+ arch/xtensa/Kconfig     |  1 -
+ include/linux/uaccess.h | 18 ------------------
+ 26 files changed, 45 deletions(-)
+
+diff --git a/arch/Kconfig b/arch/Kconfig
+--- a/arch/Kconfig
++++ b/arch/Kconfig
+@@ -24,9 +24,6 @@ config KEXEC_ELF
+ config HAVE_IMA_KEXEC
+ 	bool
+ 
+-config SET_FS
+-	bool
+-
+ config HOTPLUG_SMT
+ 	bool
+ 
+diff --git a/arch/alpha/Kconfig b/arch/alpha/Kconfig
+--- a/arch/alpha/Kconfig
++++ b/arch/alpha/Kconfig
+@@ -39,7 +39,6 @@ config ALPHA
+ 	select OLD_SIGSUSPEND
+ 	select CPU_NO_EFFICIENT_FFS if !ALPHA_EV67
+ 	select MMU_GATHER_NO_RANGE
+-	select SET_FS
+ 	help
+ 	  The Alpha is a 64-bit general-purpose processor designed and
+ 	  marketed by the Digital Equipment Corporation of blessed memory,
+diff --git a/arch/arc/Kconfig b/arch/arc/Kconfig
+--- a/arch/arc/Kconfig
++++ b/arch/arc/Kconfig
+@@ -48,7 +48,6 @@ config ARC
+ 	select PCI_SYSCALL if PCI
+ 	select PERF_USE_VMALLOC if ARC_CACHE_VIPT_ALIASING
+ 	select HAVE_ARCH_JUMP_LABEL if ISA_ARCV2 && !CPU_ENDIAN_BE32
+-	select SET_FS
+ 
+ config ARCH_HAS_CACHE_LINE_SIZE
+ 	def_bool y
+diff --git a/arch/arm/Kconfig b/arch/arm/Kconfig
+--- a/arch/arm/Kconfig
++++ b/arch/arm/Kconfig
+@@ -120,7 +120,6 @@ config ARM
+ 	select PCI_SYSCALL if PCI
+ 	select PERF_USE_VMALLOC
+ 	select RTC_LIB
+-	select SET_FS
+ 	select SYS_SUPPORTS_APM_EMULATION
+ 	# Above selects are sorted alphabetically; please add new ones
+ 	# according to that.  Thanks.
+diff --git a/arch/arm64/Kconfig b/arch/arm64/Kconfig
+--- a/arch/arm64/Kconfig
++++ b/arch/arm64/Kconfig
+@@ -194,7 +194,6 @@ config ARM64
+ 	select PCI_SYSCALL if PCI
+ 	select POWER_RESET
+ 	select POWER_SUPPLY
+-	select SET_FS
+ 	select SPARSE_IRQ
+ 	select SWIOTLB
+ 	select SYSCTL_EXCEPTION_TRACE
+diff --git a/arch/c6x/Kconfig b/arch/c6x/Kconfig
+--- a/arch/c6x/Kconfig
++++ b/arch/c6x/Kconfig
+@@ -22,7 +22,6 @@ config C6X
+ 	select GENERIC_CLOCKEVENTS
+ 	select MODULES_USE_ELF_RELA
+ 	select MMU_GATHER_NO_RANGE if MMU
+-	select SET_FS
+ 
+ config MMU
+ 	def_bool n
+diff --git a/arch/csky/Kconfig b/arch/csky/Kconfig
+--- a/arch/csky/Kconfig
++++ b/arch/csky/Kconfig
+@@ -78,7 +78,6 @@ config CSKY
+ 	select PCI_DOMAINS_GENERIC if PCI
+ 	select PCI_SYSCALL if PCI
+ 	select PCI_MSI if PCI
+-	select SET_FS
+ 
+ config LOCKDEP_SUPPORT
+ 	def_bool y
+diff --git a/arch/h8300/Kconfig b/arch/h8300/Kconfig
+--- a/arch/h8300/Kconfig
++++ b/arch/h8300/Kconfig
+@@ -25,7 +25,6 @@ config H8300
+ 	select HAVE_ARCH_KGDB
+ 	select HAVE_ARCH_HASH
+ 	select CPU_NO_EFFICIENT_FFS
+-	select SET_FS
+ 	select UACCESS_MEMCPY
+ 
+ config CPU_BIG_ENDIAN
+diff --git a/arch/hexagon/Kconfig b/arch/hexagon/Kconfig
+--- a/arch/hexagon/Kconfig
++++ b/arch/hexagon/Kconfig
+@@ -31,7 +31,6 @@ config HEXAGON
+ 	select GENERIC_CLOCKEVENTS_BROADCAST
+ 	select MODULES_USE_ELF_RELA
+ 	select GENERIC_CPU_DEVICES
+-	select SET_FS
+ 	help
+ 	  Qualcomm Hexagon is a processor architecture designed for high
+ 	  performance and low power across a wide variety of applications.
+diff --git a/arch/ia64/Kconfig b/arch/ia64/Kconfig
+--- a/arch/ia64/Kconfig
++++ b/arch/ia64/Kconfig
+@@ -56,7 +56,6 @@ config IA64
+ 	select NEED_SG_DMA_LENGTH
+ 	select NUMA if !FLATMEM
+ 	select PCI_MSI_ARCH_FALLBACKS if PCI_MSI
+-	select SET_FS
+ 	default y
+ 	help
+ 	  The Itanium Processor Family is Intel's 64-bit successor to
+diff --git a/arch/m68k/Kconfig b/arch/m68k/Kconfig
+--- a/arch/m68k/Kconfig
++++ b/arch/m68k/Kconfig
+@@ -31,7 +31,6 @@ config M68K
+ 	select NO_DMA if !MMU && !COLDFIRE
+ 	select OLD_SIGACTION
+ 	select OLD_SIGSUSPEND3
+-	select SET_FS
+ 	select UACCESS_MEMCPY if !MMU
+ 	select VIRT_TO_BUS
+ 
+diff --git a/arch/microblaze/Kconfig b/arch/microblaze/Kconfig
+--- a/arch/microblaze/Kconfig
++++ b/arch/microblaze/Kconfig
+@@ -47,7 +47,6 @@ config MICROBLAZE
+ 	select CPU_NO_EFFICIENT_FFS
+ 	select MMU_GATHER_NO_RANGE if MMU
+ 	select SPARSE_IRQ
+-	select SET_FS
+ 
+ # Endianness selection
+ choice
+diff --git a/arch/mips/Kconfig b/arch/mips/Kconfig
+--- a/arch/mips/Kconfig
++++ b/arch/mips/Kconfig
+@@ -88,7 +88,6 @@ config MIPS
+ 	select PERF_USE_VMALLOC
+ 	select PCI_MSI_ARCH_FALLBACKS if PCI_MSI
+ 	select RTC_LIB
+-	select SET_FS
+ 	select SYSCTL_EXCEPTION_TRACE
+ 	select VIRT_TO_BUS
+ 
+diff --git a/arch/nds32/Kconfig b/arch/nds32/Kconfig
+--- a/arch/nds32/Kconfig
++++ b/arch/nds32/Kconfig
+@@ -48,7 +48,6 @@ config NDS32
+ 	select HAVE_FUNCTION_GRAPH_TRACER
+ 	select HAVE_FTRACE_MCOUNT_RECORD
+ 	select HAVE_DYNAMIC_FTRACE
+-	select SET_FS
+ 	help
+ 	  Andes(nds32) Linux support.
+ 
+diff --git a/arch/nios2/Kconfig b/arch/nios2/Kconfig
+--- a/arch/nios2/Kconfig
++++ b/arch/nios2/Kconfig
+@@ -27,7 +27,6 @@ config NIOS2
+ 	select USB_ARCH_HAS_HCD if USB_SUPPORT
+ 	select CPU_NO_EFFICIENT_FFS
+ 	select MMU_GATHER_NO_RANGE if MMU
+-	select SET_FS
+ 
+ config GENERIC_CSUM
+ 	def_bool y
+diff --git a/arch/openrisc/Kconfig b/arch/openrisc/Kconfig
+--- a/arch/openrisc/Kconfig
++++ b/arch/openrisc/Kconfig
+@@ -39,7 +39,6 @@ config OPENRISC
+ 	select ARCH_WANT_FRAME_POINTERS
+ 	select GENERIC_IRQ_MULTI_HANDLER
+ 	select MMU_GATHER_NO_RANGE if MMU
+-	select SET_FS
+ 
+ config CPU_BIG_ENDIAN
+ 	def_bool y
+diff --git a/arch/parisc/Kconfig b/arch/parisc/Kconfig
+--- a/arch/parisc/Kconfig
++++ b/arch/parisc/Kconfig
+@@ -63,7 +63,6 @@ config PARISC
+ 	select HAVE_FTRACE_MCOUNT_RECORD if HAVE_DYNAMIC_FTRACE
+ 	select HAVE_KPROBES_ON_FTRACE
+ 	select HAVE_DYNAMIC_FTRACE_WITH_REGS
+-	select SET_FS
+ 
+ 	help
+ 	  The PA-RISC microprocessor is designed by Hewlett-Packard and used
+diff --git a/arch/powerpc/Kconfig b/arch/powerpc/Kconfig
+--- a/arch/powerpc/Kconfig
++++ b/arch/powerpc/Kconfig
+@@ -253,7 +253,6 @@ config PPC
+ 	select PCI_SYSCALL			if PCI
+ 	select PPC_DAWR				if PPC64
+ 	select RTC_LIB
+-	select SET_FS
+ 	select SPARSE_IRQ
+ 	select SYSCTL_EXCEPTION_TRACE
+ 	select THREAD_INFO_IN_TASK
+diff --git a/arch/riscv/Kconfig b/arch/riscv/Kconfig
+--- a/arch/riscv/Kconfig
++++ b/arch/riscv/Kconfig
+@@ -88,7 +88,6 @@ config RISCV
+ 	select SPARSE_IRQ
+ 	select SYSCTL_EXCEPTION_TRACE
+ 	select THREAD_INFO_IN_TASK
+-	select SET_FS
+ 
+ config ARCH_MMAP_RND_BITS_MIN
+ 	default 18 if 64BIT
+diff --git a/arch/s390/Kconfig b/arch/s390/Kconfig
+--- a/arch/s390/Kconfig
++++ b/arch/s390/Kconfig
+@@ -191,7 +191,6 @@ config S390
+ 	select PCI_DOMAINS		if PCI
+ 	select PCI_MSI			if PCI
+ 	select PCI_MSI_ARCH_FALLBACKS	if PCI_MSI
+-	select SET_FS
+ 	select SPARSE_IRQ
+ 	select SYSCTL_EXCEPTION_TRACE
+ 	select THREAD_INFO_IN_TASK
+diff --git a/arch/sh/Kconfig b/arch/sh/Kconfig
+--- a/arch/sh/Kconfig
++++ b/arch/sh/Kconfig
+@@ -71,7 +71,6 @@ config SUPERH
+ 	select PERF_EVENTS
+ 	select PERF_USE_VMALLOC
+ 	select RTC_LIB
+-	select SET_FS
+ 	select SPARSE_IRQ
+ 	help
+ 	  The SuperH is a RISC processor targeted for use in embedded systems
+diff --git a/arch/sparc/Kconfig b/arch/sparc/Kconfig
+--- a/arch/sparc/Kconfig
++++ b/arch/sparc/Kconfig
+@@ -51,7 +51,6 @@ config SPARC
+ 	select LOCKDEP_SMALL if LOCKDEP
+ 	select NEED_DMA_MAP_STATE
+ 	select NEED_SG_DMA_LENGTH
+-	select SET_FS
+ 
+ config SPARC32
+ 	def_bool !64BIT
+diff --git a/arch/um/Kconfig b/arch/um/Kconfig
+--- a/arch/um/Kconfig
++++ b/arch/um/Kconfig
+@@ -19,7 +19,6 @@ config UML
+ 	select GENERIC_CPU_DEVICES
+ 	select GENERIC_CLOCKEVENTS
+ 	select HAVE_GCC_PLUGINS
+-	select SET_FS
+ 	select TTY # Needed for line.c
+ 
+ config MMU
+diff --git a/arch/x86/Kconfig b/arch/x86/Kconfig
+--- a/arch/x86/Kconfig
++++ b/arch/x86/Kconfig
+@@ -240,7 +240,6 @@ config X86
+ 	select HAVE_ARCH_KCSAN			if X86_64
+ 	select X86_FEATURE_NAMES		if PROC_FS
+ 	select PROC_PID_ARCH_STATUS		if PROC_FS
+-	select SET_FS
+ 	imply IMA_SECURE_AND_OR_TRUSTED_BOOT    if EFI
+ 
+ config INSTRUCTION_DECODER
+diff --git a/arch/xtensa/Kconfig b/arch/xtensa/Kconfig
+--- a/arch/xtensa/Kconfig
++++ b/arch/xtensa/Kconfig
+@@ -41,7 +41,6 @@ config XTENSA
+ 	select IRQ_DOMAIN
+ 	select MODULES_USE_ELF_RELA
+ 	select PERF_USE_VMALLOC
+-	select SET_FS
+ 	select VIRT_TO_BUS
+ 	help
+ 	  Xtensa processors are 32-bit RISC machines designed by Tensilica
+diff --git a/include/linux/uaccess.h b/include/linux/uaccess.h
+--- a/include/linux/uaccess.h
++++ b/include/linux/uaccess.h
+@@ -10,7 +10,6 @@
+ 
+ #include <asm/uaccess.h>
+ 
+-#ifdef CONFIG_SET_FS
+ /*
+  * Force the uaccess routines to be wired up for actual userspace access,
+  * overriding any possible set_fs(KERNEL_DS) still lingering around.  Undone
+@@ -28,23 +27,6 @@ static inline void force_uaccess_end(mm_segment_t oldfs)
+ {
+ 	set_fs(oldfs);
+ }
+-#else /* CONFIG_SET_FS */
+-typedef struct {
+-	/* empty dummy */
+-} mm_segment_t;
+-
+-#define uaccess_kernel()		(false)
+-#define user_addr_max()			(TASK_SIZE_MAX)
+-
+-static inline mm_segment_t force_uaccess_begin(void)
+-{
+-	return (mm_segment_t) { };
+-}
+-
+-static inline void force_uaccess_end(mm_segment_t oldfs)
+-{
+-}
+-#endif /* CONFIG_SET_FS */
+ 
+ /*
+  * Architectures should provide two primitives (raw_copy_{to,from}_user())

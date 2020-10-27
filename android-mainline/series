@@ -2,7 +2,7 @@
 # android-mainline patches
 #
 # Applies onto upstream f56e65dff6ad Linux v5.9-12535-gf56e65dff6ad
-# Matches android-mainline 899641996064 ("Merge f56e65dff6ad ("Merge branch 'work.set_fs' of git://git.kernel.org/pub/scm/linux/kernel/git/viro/vfs") into android-mainline")
+# Matches android-mainline 6a0e0ecdd4b2 ("Revert "fs: don't allow splice read/write without explicit ops"")
 #
 Revert-security-keys-remove-compat_keyctl_instantiate_key_iov.patch
 Revert-mm-remove-compat_process_vm_-readv-writev.patch
@@ -13,6 +13,17 @@ Revert-iov_iter-transparently-handle-compat-iovecs-in-import_iovec.patch
 Revert-iov_iter-refactor-rw_copy_check_uvector-and-import_iovec.patch
 Revert-iov_iter-move-rw_copy_check_uvector-into-lib-iov_iter.c.patch
 Revert-block-grant-IOPRIO_CLASS_RT-to-CAP_SYS_NICE.patch
+Revert-fs-Allow-a-NULL-pos-pointer-to-__kernel_read.patch
+Revert-fs-Allow-a-NULL-pos-pointer-to-__kernel_write.patch
+Revert-powerpc-remove-address-space-overrides-using-set_fs.patch
+Revert-powerpc-use-non-set_fs-based-maccess-routines.patch
+Revert-x86-remove-address-space-overrides-using-set_fs.patch
+Revert-x86-make-TASK_SIZE_MAX-usable-from-assembly-code.patch
+Revert-x86-move-PAGE_OFFSET-TASK_SIZE-friends-to-page_-32-64-_types.h.patch
+Revert-lkdtm-remove-set_fs-based-tests.patch
+Revert-test_bitmap-remove-user-bitmap-tests.patch
+Revert-uaccess-add-infrastructure-for-kernel-builds-with-set_fs.patch
+Revert-fs-don-t-allow-splice-read-write-without-explicit-ops.patch
 _____ANNOTATION-pending-upstream_____.patch
 FROMLIST-clk-sunxi-ng-add-support-for-the-Allwinner-A100-CCU.patch
 FROMLIST-clk-Export-clk_register_composite.patch
@@ -20,6 +31,7 @@ FROMLIST-clk-versatile-remove-dependency-on-ARCH_.patch
 FROMLIST-arm64-vdso32-Allow-ld.lld-to-properly-link-the-VDSO.patch
 FROMLIST-soc-qcom-Kconfig-make-RPMH-match-Command-DB-setting.patch
 FROMLIST-cpuidle-governor-export-cpuidle-governor-functions.patch
+FROMLIST-checkpatch-Enable-GIT_DIR-environment-use-to-set-git-repository-location.patch
 _____ANNOTATION-Android-vendor-hooks_____.patch
 ANDROID-GKI-add-android_vendor.h.patch
 ANDROID-add-support-for-vendor-hooks.patch
@@ -372,6 +384,7 @@ _____ANNOTATION-hardware-wrapped-key-support_____.patch
 ANDROID-block-add-hardware-wrapped-key-support.patch
 ANDROID-dm-add-support-for-passing-through-derive_raw_secret.patch
 ANDROID-dm-Add-wrapped-key-support-in-dm-default-key.patch
+ANDROID-dm-default-key-move-kzfree-usage-to-kfree_sensitive.patch
 ANDROID-fscrypt-add-support-for-hardware-wrapped-keys.patch
 _____ANNOTATION-db845c-DragonBoard-845c-support_____.patch
 ANDROID-arm64-dts-sdm845-Enable-FW-implemented-safe-sequence-handler-on-MTP.patch
@@ -656,5 +669,3 @@ DROP-ME-Out-of-tree-difference-caused-by-unclean-revert.patch
 DROP-ME-This-compensates-a-left-over-patch-after-merging-5.10-rc1.patch
 DROP-ME-trivial-revert-merge-leftover.patch
 DROP-ME-Compensate-left-out-merge.patch
-ANDROID-dm-default-key-move-kzfree-usage-to-kfree_sensitive.patch
-FROMLIST-checkpatch-Enable-GIT_DIR-environment-use-to-set-git-repository-location.patch

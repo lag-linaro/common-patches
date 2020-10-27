@@ -1,0 +1,32 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: Greg Kroah-Hartman <gregkh@google.com>
+Date: Tue, 27 Oct 2020 10:20:17 +0100
+Subject: Revert "fs: Allow a NULL pos pointer to __kernel_read"
+
+This reverts commit 7b84b665c874f60d84547635341e418f20cbbab2.
+
+Bug: 171770067
+Signed-off-by: Greg Kroah-Hartman <gregkh@google.com>
+Change-Id: Ibd2082a7f7e84974f0ce52814553f22e493cfcbf
+---
+ fs/read_write.c | 5 ++---
+ 1 file changed, 2 insertions(+), 3 deletions(-)
+
+diff --git a/fs/read_write.c b/fs/read_write.c
+--- a/fs/read_write.c
++++ b/fs/read_write.c
+@@ -449,12 +449,11 @@ ssize_t __kernel_read(struct file *file, void *buf, size_t count, loff_t *pos)
+ 		return warn_unsupported(file, "read");
+ 
+ 	init_sync_kiocb(&kiocb, file);
+-	kiocb.ki_pos = pos ? *pos : 0;
++	kiocb.ki_pos = *pos;
+ 	iov_iter_kvec(&iter, READ, &iov, 1, iov.iov_len);
+ 	ret = file->f_op->read_iter(&kiocb, &iter);
+ 	if (ret > 0) {
+-		if (pos)
+-			*pos = kiocb.ki_pos;
++		*pos = kiocb.ki_pos;
+ 		fsnotify_access(file);
+ 		add_rchar(current, ret);
+ 	}

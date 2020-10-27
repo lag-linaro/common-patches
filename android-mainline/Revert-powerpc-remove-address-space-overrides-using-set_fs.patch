@@ -1,0 +1,199 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: Greg Kroah-Hartman <gregkh@google.com>
+Date: Tue, 27 Oct 2020 10:20:21 +0100
+Subject: Revert "powerpc: remove address space overrides using set_fs()"
+
+This reverts commit 5ae4998b5d6fc703a16c9fa935fb7d335843bf22.
+
+Bug: 171770067
+Signed-off-by: Greg Kroah-Hartman <gregkh@google.com>
+Change-Id: I4de8c34ddda2f5b5b23db1a97485ce12f6962f9e
+---
+ arch/powerpc/Kconfig                   |  1 +
+ arch/powerpc/include/asm/processor.h   |  7 ++++
+ arch/powerpc/include/asm/thread_info.h |  5 ++-
+ arch/powerpc/include/asm/uaccess.h     | 51 +++++++++++++++++++++++---
+ arch/powerpc/kernel/signal.c           |  3 ++
+ arch/powerpc/lib/sstep.c               |  6 +--
+ 6 files changed, 64 insertions(+), 9 deletions(-)
+
+diff --git a/arch/powerpc/Kconfig b/arch/powerpc/Kconfig
+--- a/arch/powerpc/Kconfig
++++ b/arch/powerpc/Kconfig
+@@ -253,6 +253,7 @@ config PPC
+ 	select PCI_SYSCALL			if PCI
+ 	select PPC_DAWR				if PPC64
+ 	select RTC_LIB
++	select SET_FS
+ 	select SPARSE_IRQ
+ 	select SYSCTL_EXCEPTION_TRACE
+ 	select THREAD_INFO_IN_TASK
+diff --git a/arch/powerpc/include/asm/processor.h b/arch/powerpc/include/asm/processor.h
+--- a/arch/powerpc/include/asm/processor.h
++++ b/arch/powerpc/include/asm/processor.h
+@@ -83,6 +83,10 @@ struct task_struct;
+ void start_thread(struct pt_regs *regs, unsigned long fdptr, unsigned long sp);
+ void release_thread(struct task_struct *);
+ 
++typedef struct {
++	unsigned long seg;
++} mm_segment_t;
++
+ #define TS_FPR(i) fp_state.fpr[i][TS_FPROFFSET]
+ #define TS_CKFPR(i) ckfp_state.fpr[i][TS_FPROFFSET]
+ 
+@@ -144,6 +148,7 @@ struct thread_struct {
+ 	unsigned long	ksp_vsid;
+ #endif
+ 	struct pt_regs	*regs;		/* Pointer to saved register state */
++	mm_segment_t	addr_limit;	/* for get_fs() validation */
+ #ifdef CONFIG_BOOKE
+ 	/* BookE base exception scratch space; align on cacheline */
+ 	unsigned long	normsave[8] ____cacheline_aligned;
+@@ -291,6 +296,7 @@ struct thread_struct {
+ #define INIT_THREAD { \
+ 	.ksp = INIT_SP, \
+ 	.ksp_limit = INIT_SP_LIMIT, \
++	.addr_limit = KERNEL_DS, \
+ 	.pgdir = swapper_pg_dir, \
+ 	.fpexc_mode = MSR_FE0 | MSR_FE1, \
+ 	SPEFSCR_INIT \
+@@ -298,6 +304,7 @@ struct thread_struct {
+ #else
+ #define INIT_THREAD  { \
+ 	.ksp = INIT_SP, \
++	.addr_limit = KERNEL_DS, \
+ 	.fpexc_mode = 0, \
+ }
+ #endif
+diff --git a/arch/powerpc/include/asm/thread_info.h b/arch/powerpc/include/asm/thread_info.h
+--- a/arch/powerpc/include/asm/thread_info.h
++++ b/arch/powerpc/include/asm/thread_info.h
+@@ -90,6 +90,7 @@ void arch_setup_new_exec(void);
+ #define TIF_SYSCALL_TRACE	0	/* syscall trace active */
+ #define TIF_SIGPENDING		1	/* signal pending */
+ #define TIF_NEED_RESCHED	2	/* rescheduling necessary */
++#define TIF_FSCHECK		3	/* Check FS is USER_DS on return */
+ #define TIF_SYSCALL_EMU		4	/* syscall emulation active */
+ #define TIF_RESTORE_TM		5	/* need to restore TM FP/VEC/VSX */
+ #define TIF_PATCH_PENDING	6	/* pending live patching update */
+@@ -129,6 +130,7 @@ void arch_setup_new_exec(void);
+ #define _TIF_SYSCALL_TRACEPOINT	(1<<TIF_SYSCALL_TRACEPOINT)
+ #define _TIF_EMULATE_STACK_STORE	(1<<TIF_EMULATE_STACK_STORE)
+ #define _TIF_NOHZ		(1<<TIF_NOHZ)
++#define _TIF_FSCHECK		(1<<TIF_FSCHECK)
+ #define _TIF_SYSCALL_EMU	(1<<TIF_SYSCALL_EMU)
+ #define _TIF_SYSCALL_DOTRACE	(_TIF_SYSCALL_TRACE | _TIF_SYSCALL_AUDIT | \
+ 				 _TIF_SECCOMP | _TIF_SYSCALL_TRACEPOINT | \
+@@ -136,7 +138,8 @@ void arch_setup_new_exec(void);
+ 
+ #define _TIF_USER_WORK_MASK	(_TIF_SIGPENDING | _TIF_NEED_RESCHED | \
+ 				 _TIF_NOTIFY_RESUME | _TIF_UPROBE | \
+-				 _TIF_RESTORE_TM | _TIF_PATCH_PENDING)
++				 _TIF_RESTORE_TM | _TIF_PATCH_PENDING | \
++				 _TIF_FSCHECK)
+ #define _TIF_PERSYSCALL_MASK	(_TIF_RESTOREALL|_TIF_NOERROR)
+ 
+ /* Bits in local_flags */
+diff --git a/arch/powerpc/include/asm/uaccess.h b/arch/powerpc/include/asm/uaccess.h
+--- a/arch/powerpc/include/asm/uaccess.h
++++ b/arch/powerpc/include/asm/uaccess.h
+@@ -8,21 +8,62 @@
+ #include <asm/extable.h>
+ #include <asm/kup.h>
+ 
++/*
++ * The fs value determines whether argument validity checking should be
++ * performed or not.  If get_fs() == USER_DS, checking is performed, with
++ * get_fs() == KERNEL_DS, checking is bypassed.
++ *
++ * For historical reasons, these macros are grossly misnamed.
++ *
++ * The fs/ds values are now the highest legal address in the "segment".
++ * This simplifies the checking in the routines below.
++ */
++
++#define MAKE_MM_SEG(s)  ((mm_segment_t) { (s) })
++
++#define KERNEL_DS	MAKE_MM_SEG(~0UL)
+ #ifdef __powerpc64__
+ /* We use TASK_SIZE_USER64 as TASK_SIZE is not constant */
+-#define TASK_SIZE_MAX		TASK_SIZE_USER64
++#define USER_DS		MAKE_MM_SEG(TASK_SIZE_USER64 - 1)
+ #else
+-#define TASK_SIZE_MAX		TASK_SIZE
++#define USER_DS		MAKE_MM_SEG(TASK_SIZE - 1)
+ #endif
+ 
+-static inline bool __access_ok(unsigned long addr, unsigned long size)
++#define get_fs()	(current->thread.addr_limit)
++
++static inline void set_fs(mm_segment_t fs)
+ {
+-	return addr < TASK_SIZE_MAX && size <= TASK_SIZE_MAX - addr;
++	current->thread.addr_limit = fs;
++	/* On user-mode return check addr_limit (fs) is correct */
++	set_thread_flag(TIF_FSCHECK);
+ }
+ 
++#define uaccess_kernel() (get_fs().seg == KERNEL_DS.seg)
++#define user_addr_max()	(get_fs().seg)
++
++#ifdef __powerpc64__
++/*
++ * This check is sufficient because there is a large enough
++ * gap between user addresses and the kernel addresses
++ */
++#define __access_ok(addr, size, segment)	\
++	(((addr) <= (segment).seg) && ((size) <= (segment).seg))
++
++#else
++
++static inline int __access_ok(unsigned long addr, unsigned long size,
++			mm_segment_t seg)
++{
++	if (addr > seg.seg)
++		return 0;
++	return (size == 0 || size - 1 <= seg.seg - addr);
++}
++
++#endif
++
+ #define access_ok(addr, size)		\
+ 	(__chk_user_ptr(addr),		\
+-	 __access_ok((unsigned long)(addr), (size)))
++	 __access_ok((__force unsigned long)(addr), (size), get_fs()))
+ 
+ /*
+  * These are the main single-value transfer routines.  They automatically
+diff --git a/arch/powerpc/kernel/signal.c b/arch/powerpc/kernel/signal.c
+--- a/arch/powerpc/kernel/signal.c
++++ b/arch/powerpc/kernel/signal.c
+@@ -312,6 +312,9 @@ void do_notify_resume(struct pt_regs *regs, unsigned long thread_info_flags)
+ {
+ 	user_exit();
+ 
++	/* Check valid addr_limit, TIF check is done there */
++	addr_limit_user_check();
++
+ 	if (thread_info_flags & _TIF_UPROBE)
+ 		uprobe_notify_resume(regs);
+ 
+diff --git a/arch/powerpc/lib/sstep.c b/arch/powerpc/lib/sstep.c
+--- a/arch/powerpc/lib/sstep.c
++++ b/arch/powerpc/lib/sstep.c
+@@ -108,11 +108,11 @@ static nokprobe_inline long address_ok(struct pt_regs *regs,
+ {
+ 	if (!user_mode(regs))
+ 		return 1;
+-	if (__access_ok(ea, nb))
++	if (__access_ok(ea, nb, USER_DS))
+ 		return 1;
+-	if (__access_ok(ea, 1))
++	if (__access_ok(ea, 1, USER_DS))
+ 		/* Access overlaps the end of the user region */
+-		regs->dar = TASK_SIZE_MAX - 1;
++		regs->dar = USER_DS.seg;
+ 	else
+ 		regs->dar = ea;
+ 	return 0;
