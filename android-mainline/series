@@ -1,8 +1,8 @@
 #
 # android-mainline patches
 #
-# Applies onto upstream 840e5bb326bb Linux v5.9-7810-g840e5bb326bb
-# Matches android-mainline c77aeec72a52 ("Merge 840e5bb326bb ("Merge tag 'integrity-v5.10' of git://git.kernel.org/pub/scm/linux/kernel/git/zohar/linux-integrity") into android-mainline")
+# Applies onto upstream 9ff9b0d392ea Linux v5.9-10630-g9ff9b0d392ea
+# Matches android-mainline 5a8acc99f75b ("Merge 9ff9b0d392ea ("Merge tag 'net-next-5.10' of git://git.kernel.org/pub/scm/linux/kernel/git/netdev/net-next") into android-mainline")
 #
 Revert-security-keys-remove-compat_keyctl_instantiate_key_iov.patch
 Revert-mm-remove-compat_process_vm_-readv-writev.patch
@@ -366,7 +366,6 @@ ANDROID-net-xfrm-make-PF_KEY-SHA256-use-RFC-compliant-truncation.patch
 ANDROID-netfilter-xt_quota2-add-quota2-from-xtables-addons.patch
 ANDROID-netfilter-xt_IDLETIMER-Add-new-netlink-msg-type.patch
 ANDROID-net-ipv6-autoconf-routes-into-per-device-tables.patch
-ANDROID-xfrm-remove-in_compat_syscall-checks.patch
 ANDROID-virt_wifi-Add-data-ops-for-scan-data-simulation.patch
 ANDROID-virtio-net-Skip-set_features-on-non-cvq-devices.patch
 ANDROID-net-wireless-Add-module_param-mac_prefix-to-mac80211_hwsim.patch

@@ -70,13 +70,13 @@ Signed-off-by: Alistair Delva <adelva@google.com>
 diff --git a/drivers/net/virtio_net.c b/drivers/net/virtio_net.c
 --- a/drivers/net/virtio_net.c
 +++ b/drivers/net/virtio_net.c
-@@ -2529,6 +2529,9 @@ static int virtnet_set_features(struct net_device *dev,
- 	u64 offloads;
+@@ -2541,6 +2541,9 @@ static int virtnet_set_features(struct net_device *dev,
+ 	u64 offloads = vi->guest_offloads;
  	int err;
  
 +	if (!vi->has_cvq)
 +		return 0;
 +
- 	if ((dev->features ^ features) & NETIF_F_LRO) {
- 		if (vi->xdp_queue_pairs)
- 			return -EBUSY;
+ 	/* Don't allow configuration while XDP is active. */
+ 	if (vi->xdp_queue_pairs)
+ 		return -EBUSY;
