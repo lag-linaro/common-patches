@@ -1,8 +1,8 @@
 #
 # android-mainline patches
 #
-# Applies onto upstream c48b75b7271d Linux v5.9-7457-gc48b75b7271d
-# Matches android-mainline cc5b1bd7fa8b ("Merge c48b75b7271d ("Merge tag 'sound-5.10-rc1' of git://git.kernel.org/pub/scm/linux/kernel/git/tiwai/sound") into android-mainline")
+# Applies onto upstream f065199d4df0 Linux v5.9-7565-gf065199d4df0
+# Matches android-mainline b5e70561ddb6 ("Merge f065199d4df0 ("Merge tag 'dmaengine-5.10-rc1' of git://git.kernel.org/pub/scm/linux/kernel/git/vkoul/dmaengine") into android-mainline")
 #
 Revert-security-keys-remove-compat_keyctl_instantiate_key_iov.patch
 Revert-mm-remove-compat_process_vm_-readv-writev.patch
