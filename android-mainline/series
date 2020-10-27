@@ -2,7 +2,7 @@
 # android-mainline patches
 #
 # Applies onto upstream 5a32c3413d33 Linux v5.9-7630-g5a32c3413d33
-# Matches android-mainline 2d63baf0b5c6 ("Merge 5a32c3413d33 ("Merge tag 'dma-mapping-5.10' of git://git.infradead.org/users/hch/dma-mapping") into android-mainline")
+# Matches android-mainline a53bc328cc86 ("ANDROID: ion: fix movement of dma header file")
 #
 Revert-security-keys-remove-compat_keyctl_instantiate_key_iov.patch
 Revert-mm-remove-compat_process_vm_-readv-writev.patch

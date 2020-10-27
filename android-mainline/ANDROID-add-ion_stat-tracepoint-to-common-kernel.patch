@@ -39,7 +39,7 @@ diff --git a/drivers/staging/android/ion/ion_buffer.c b/drivers/staging/android/
 +++ b/drivers/staging/android/ion/ion_buffer.c
 @@ -11,10 +11,26 @@
  #include <linux/vmalloc.h>
- #include <linux/dma-noncoherent.h>
+ #include <linux/dma-map-ops.h>
  
 +#define CREATE_TRACE_POINTS
 +#include "ion_trace.h"

@@ -74,7 +74,7 @@ diff --git a/drivers/staging/android/ion/ion_buffer.c b/drivers/staging/android/
  #include <linux/module.h>
  #include <linux/slab.h>
  #include <linux/vmalloc.h>
-+#include <linux/dma-noncoherent.h>
++#include <linux/dma-map-ops.h>
  
  #include "ion_private.h"
  
