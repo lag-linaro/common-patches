@@ -17,7 +17,7 @@ Change-Id: I06c7f478742171c60f73e126ae3f5aa110ddde3e
 diff --git a/arch/arm64/configs/gki_defconfig b/arch/arm64/configs/gki_defconfig
 --- a/arch/arm64/configs/gki_defconfig
 +++ b/arch/arm64/configs/gki_defconfig
-@@ -363,7 +363,6 @@ CONFIG_LEDS_CLASS=y
+@@ -362,7 +362,6 @@ CONFIG_LEDS_CLASS=y
  CONFIG_LEDS_TRIGGERS=y
  CONFIG_EDAC=y
  CONFIG_RTC_CLASS=y

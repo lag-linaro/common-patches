@@ -20,7 +20,7 @@ diff --git a/arch/arm64/configs/gki_defconfig b/arch/arm64/configs/gki_defconfig
  CONFIG_NF_CONNTRACK=y
  CONFIG_NF_CONNTRACK_SECMARK=y
  CONFIG_NF_CONNTRACK_EVENTS=y
-@@ -357,7 +356,6 @@ CONFIG_DMADEVICES=y
+@@ -356,7 +355,6 @@ CONFIG_DMADEVICES=y
  CONFIG_UIO=y
  CONFIG_STAGING=y
  CONFIG_ASHMEM=y

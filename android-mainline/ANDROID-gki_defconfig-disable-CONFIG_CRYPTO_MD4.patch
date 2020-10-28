@@ -23,7 +23,7 @@ Signed-off-by: Eric Biggers <ebiggers@google.com>
 diff --git a/arch/arm64/configs/gki_defconfig b/arch/arm64/configs/gki_defconfig
 --- a/arch/arm64/configs/gki_defconfig
 +++ b/arch/arm64/configs/gki_defconfig
-@@ -454,7 +454,6 @@ CONFIG_SECURITY_SELINUX=y
+@@ -453,7 +453,6 @@ CONFIG_SECURITY_SELINUX=y
  CONFIG_INIT_STACK_ALL=y
  CONFIG_INIT_ON_ALLOC_DEFAULT_ON=y
  CONFIG_CRYPTO_ADIANTUM=y

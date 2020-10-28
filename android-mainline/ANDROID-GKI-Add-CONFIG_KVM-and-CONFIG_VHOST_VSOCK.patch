@@ -43,7 +43,7 @@ diff --git a/arch/arm64/configs/gki_defconfig b/arch/arm64/configs/gki_defconfig
  CONFIG_BPF_JIT=y
  CONFIG_BT=y
  CONFIG_CFG80211=y
-@@ -403,6 +405,7 @@ CONFIG_DMADEVICES=y
+@@ -402,6 +404,7 @@ CONFIG_DMADEVICES=y
  CONFIG_DMABUF_HEAPS=y
  CONFIG_DMABUF_HEAPS_SYSTEM=y
  CONFIG_UIO=y

@@ -16,7 +16,7 @@ Signed-off-by: Alistair Delva <adelva@google.com>
 diff --git a/arch/arm64/configs/gki_defconfig b/arch/arm64/configs/gki_defconfig
 --- a/arch/arm64/configs/gki_defconfig
 +++ b/arch/arm64/configs/gki_defconfig
-@@ -399,7 +399,6 @@ CONFIG_ANDROID=y
+@@ -398,7 +398,6 @@ CONFIG_ANDROID=y
  CONFIG_ANDROID_BINDER_IPC=y
  CONFIG_LIBNVDIMM=y
  # CONFIG_ND_BLK is not set

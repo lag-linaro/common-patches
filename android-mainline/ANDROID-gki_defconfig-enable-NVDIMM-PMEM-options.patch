@@ -18,7 +18,7 @@ Signed-off-by: Kenny Root <kroot@google.com>
 diff --git a/arch/arm64/configs/gki_defconfig b/arch/arm64/configs/gki_defconfig
 --- a/arch/arm64/configs/gki_defconfig
 +++ b/arch/arm64/configs/gki_defconfig
-@@ -370,6 +370,7 @@ CONFIG_DMADEVICES=y
+@@ -369,6 +369,7 @@ CONFIG_DMADEVICES=y
  CONFIG_UIO=y
  CONFIG_VIRTIO_PCI=m
  # CONFIG_VIRTIO_PCI_LEGACY is not set
@@ -26,7 +26,7 @@ diff --git a/arch/arm64/configs/gki_defconfig b/arch/arm64/configs/gki_defconfig
  CONFIG_VIRTIO_INPUT=m
  CONFIG_VIRTIO_MMIO=m
  CONFIG_VIRTIO_MMIO_CMDLINE_DEVICES=y
-@@ -396,6 +397,9 @@ CONFIG_QCOM_PDC=y
+@@ -395,6 +396,9 @@ CONFIG_QCOM_PDC=y
  CONFIG_GENERIC_PHY=y
  CONFIG_ANDROID=y
  CONFIG_ANDROID_BINDER_IPC=y

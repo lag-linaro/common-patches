@@ -16,7 +16,7 @@ Signed-off-by: Alistair Delva <adelva@google.com>
 diff --git a/arch/arm64/configs/gki_defconfig b/arch/arm64/configs/gki_defconfig
 --- a/arch/arm64/configs/gki_defconfig
 +++ b/arch/arm64/configs/gki_defconfig
-@@ -428,6 +428,7 @@ CONFIG_HWSPINLOCK=y
+@@ -427,6 +427,7 @@ CONFIG_HWSPINLOCK=y
  # CONFIG_SUN50I_ERRATUM_UNKNOWN1 is not set
  CONFIG_MAILBOX=y
  CONFIG_REMOTEPROC=y

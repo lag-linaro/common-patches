@@ -18,7 +18,7 @@ Test: atest NintendoSwitchProTest
 diff --git a/arch/arm64/configs/gki_defconfig b/arch/arm64/configs/gki_defconfig
 --- a/arch/arm64/configs/gki_defconfig
 +++ b/arch/arm64/configs/gki_defconfig
-@@ -329,6 +329,7 @@ CONFIG_HID_ELECOM=y
+@@ -328,6 +328,7 @@ CONFIG_HID_ELECOM=y
  CONFIG_HID_MAGICMOUSE=y
  CONFIG_HID_MICROSOFT=y
  CONFIG_HID_MULTITOUCH=y

@@ -17,7 +17,7 @@ Signed-off-by: Hridya Valsaraju <hridya@google.com>
 diff --git a/arch/arm64/configs/gki_defconfig b/arch/arm64/configs/gki_defconfig
 --- a/arch/arm64/configs/gki_defconfig
 +++ b/arch/arm64/configs/gki_defconfig
-@@ -375,6 +375,7 @@ CONFIG_QCOM_PDC=y
+@@ -374,6 +374,7 @@ CONFIG_QCOM_PDC=y
  CONFIG_GENERIC_PHY=y
  CONFIG_ANDROID=y
  CONFIG_ANDROID_BINDER_IPC=y

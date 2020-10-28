@@ -21,7 +21,7 @@ Change-Id: Ia68d6e233e86b405ea4fbc0e292e6b0778c90704
 diff --git a/arch/arm64/configs/gki_defconfig b/arch/arm64/configs/gki_defconfig
 --- a/arch/arm64/configs/gki_defconfig
 +++ b/arch/arm64/configs/gki_defconfig
-@@ -324,6 +324,7 @@ CONFIG_REGULATOR=y
+@@ -323,6 +323,7 @@ CONFIG_REGULATOR=y
  CONFIG_REGULATOR_FIXED_VOLTAGE=y
  CONFIG_MEDIA_CEC_SUPPORT=y
  CONFIG_MEDIA_SUPPORT_FILTER=y

@@ -15,7 +15,7 @@ Signed-off-by: Hridya Valsaraju <hridya@google.com>
 diff --git a/arch/arm64/configs/gki_defconfig b/arch/arm64/configs/gki_defconfig
 --- a/arch/arm64/configs/gki_defconfig
 +++ b/arch/arm64/configs/gki_defconfig
-@@ -357,7 +357,6 @@ CONFIG_ASHMEM=y
+@@ -356,7 +356,6 @@ CONFIG_ASHMEM=y
  CONFIG_ANDROID_VSOC=y
  CONFIG_ION=y
  CONFIG_ION_SYSTEM_HEAP=y

@@ -16,7 +16,7 @@ Signed-off-by: Eric Biggers <ebiggers@google.com>
 diff --git a/arch/arm64/configs/gki_defconfig b/arch/arm64/configs/gki_defconfig
 --- a/arch/arm64/configs/gki_defconfig
 +++ b/arch/arm64/configs/gki_defconfig
-@@ -392,6 +392,7 @@ CONFIG_GENERIC_PHY=y
+@@ -391,6 +391,7 @@ CONFIG_GENERIC_PHY=y
  CONFIG_ANDROID=y
  CONFIG_ANDROID_BINDER_IPC=y
  CONFIG_ANDROID_BINDERFS=y

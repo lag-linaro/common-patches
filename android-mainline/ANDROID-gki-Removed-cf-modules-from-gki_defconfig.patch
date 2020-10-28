@@ -86,7 +86,7 @@ diff --git a/arch/arm64/configs/gki_defconfig b/arch/arm64/configs/gki_defconfig
  # CONFIG_HW_RANDOM_CAVIUM is not set
  # CONFIG_DEVPORT is not set
  # CONFIG_I2C_COMPAT is not set
-@@ -320,7 +308,6 @@ CONFIG_MEDIA_CONTROLLER=y
+@@ -319,7 +307,6 @@ CONFIG_MEDIA_CONTROLLER=y
  # CONFIG_VGA_ARB is not set
  CONFIG_DRM=y
  # CONFIG_DRM_FBDEV_EMULATION is not set
@@ -94,7 +94,7 @@ diff --git a/arch/arm64/configs/gki_defconfig b/arch/arm64/configs/gki_defconfig
  CONFIG_BACKLIGHT_CLASS_DEVICE=y
  CONFIG_SOUND=y
  CONFIG_SND=y
-@@ -344,7 +331,6 @@ CONFIG_USB_HIDDEV=y
+@@ -343,7 +330,6 @@ CONFIG_USB_HIDDEV=y
  CONFIG_USB=y
  CONFIG_USB_OTG=y
  CONFIG_USB_GADGET=y
@@ -102,7 +102,7 @@ diff --git a/arch/arm64/configs/gki_defconfig b/arch/arm64/configs/gki_defconfig
  CONFIG_USB_CONFIGFS=y
  CONFIG_USB_CONFIGFS_UEVENT=y
  CONFIG_USB_CONFIGFS_F_FS=y
-@@ -362,17 +348,10 @@ CONFIG_LEDS_TRIGGERS=y
+@@ -361,17 +347,10 @@ CONFIG_LEDS_TRIGGERS=y
  CONFIG_EDAC=y
  CONFIG_RTC_CLASS=y
  # CONFIG_RTC_SYSTOHC is not set

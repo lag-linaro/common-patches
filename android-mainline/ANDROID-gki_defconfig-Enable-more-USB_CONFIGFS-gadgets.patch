@@ -21,7 +21,7 @@ Signed-off-by: Greg Kroah-Hartman <gregkh@google.com>
 diff --git a/arch/arm64/configs/gki_defconfig b/arch/arm64/configs/gki_defconfig
 --- a/arch/arm64/configs/gki_defconfig
 +++ b/arch/arm64/configs/gki_defconfig
-@@ -335,6 +335,9 @@ CONFIG_USB_OTG=y
+@@ -334,6 +334,9 @@ CONFIG_USB_OTG=y
  CONFIG_USB_GADGET=y
  CONFIG_USB_CONFIGFS=y
  CONFIG_USB_CONFIGFS_UEVENT=y

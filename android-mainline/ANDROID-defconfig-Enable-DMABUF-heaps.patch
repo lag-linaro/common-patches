@@ -16,7 +16,7 @@ Signed-off-by: Hridya Valsaraju <hridya@google.com>
 diff --git a/arch/arm64/configs/gki_defconfig b/arch/arm64/configs/gki_defconfig
 --- a/arch/arm64/configs/gki_defconfig
 +++ b/arch/arm64/configs/gki_defconfig
-@@ -373,6 +373,8 @@ CONFIG_RTC_CLASS=y
+@@ -372,6 +372,8 @@ CONFIG_RTC_CLASS=y
  CONFIG_RTC_DRV_PL030=y
  CONFIG_RTC_DRV_PL031=y
  CONFIG_DMADEVICES=y

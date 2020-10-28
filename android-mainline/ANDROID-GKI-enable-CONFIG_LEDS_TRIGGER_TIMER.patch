@@ -19,7 +19,7 @@ Signed-off-by: Guru Das Srinagesh <gurus@codeaurora.org>
 diff --git a/arch/arm64/configs/gki_defconfig b/arch/arm64/configs/gki_defconfig
 --- a/arch/arm64/configs/gki_defconfig
 +++ b/arch/arm64/configs/gki_defconfig
-@@ -370,6 +370,7 @@ CONFIG_NEW_LEDS=y
+@@ -369,6 +369,7 @@ CONFIG_NEW_LEDS=y
  CONFIG_LEDS_CLASS=y
  CONFIG_LEDS_CLASS_FLASH=y
  CONFIG_LEDS_TRIGGERS=y

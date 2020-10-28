@@ -14,7 +14,7 @@ Signed-off-by: Tri Vo <trong@google.com>
 diff --git a/arch/arm64/configs/gki_defconfig b/arch/arm64/configs/gki_defconfig
 --- a/arch/arm64/configs/gki_defconfig
 +++ b/arch/arm64/configs/gki_defconfig
-@@ -337,6 +337,7 @@ CONFIG_RTC_CLASS=y
+@@ -336,6 +336,7 @@ CONFIG_RTC_CLASS=y
  CONFIG_RTC_DRV_PL030=y
  CONFIG_RTC_DRV_PL031=y
  CONFIG_DMADEVICES=y

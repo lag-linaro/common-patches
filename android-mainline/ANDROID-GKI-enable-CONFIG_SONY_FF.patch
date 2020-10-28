@@ -14,7 +14,7 @@ Change-Id: Id9ebb1937b669b999ccc5daccaadb04f88449497
 diff --git a/arch/arm64/configs/gki_defconfig b/arch/arm64/configs/gki_defconfig
 --- a/arch/arm64/configs/gki_defconfig
 +++ b/arch/arm64/configs/gki_defconfig
-@@ -384,6 +384,7 @@ CONFIG_HID_MULTITOUCH=y
+@@ -383,6 +383,7 @@ CONFIG_HID_MULTITOUCH=y
  CONFIG_HID_NINTENDO=y
  CONFIG_HID_PLANTRONICS=y
  CONFIG_HID_SONY=y

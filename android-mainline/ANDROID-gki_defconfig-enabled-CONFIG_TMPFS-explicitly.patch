@@ -35,7 +35,7 @@ Signed-off-by: Yongqin Liu <yongqin.liu@linaro.org>
 diff --git a/arch/arm64/configs/gki_defconfig b/arch/arm64/configs/gki_defconfig
 --- a/arch/arm64/configs/gki_defconfig
 +++ b/arch/arm64/configs/gki_defconfig
-@@ -387,6 +387,7 @@ CONFIG_FUSE_FS=y
+@@ -386,6 +386,7 @@ CONFIG_FUSE_FS=y
  CONFIG_OVERLAY_FS=y
  CONFIG_MSDOS_FS=y
  CONFIG_VFAT_FS=y

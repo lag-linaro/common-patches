@@ -16,7 +16,7 @@ Signed-off-by: Eric Biggers <ebiggers@google.com>
 diff --git a/arch/arm64/configs/gki_defconfig b/arch/arm64/configs/gki_defconfig
 --- a/arch/arm64/configs/gki_defconfig
 +++ b/arch/arm64/configs/gki_defconfig
-@@ -381,6 +381,8 @@ CONFIG_EXT4_FS_SECURITY=y
+@@ -380,6 +380,8 @@ CONFIG_EXT4_FS_SECURITY=y
  CONFIG_F2FS_FS=y
  CONFIG_F2FS_FS_SECURITY=y
  CONFIG_FS_ENCRYPTION=y

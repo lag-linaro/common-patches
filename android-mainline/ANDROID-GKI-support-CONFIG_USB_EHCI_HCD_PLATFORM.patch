@@ -22,7 +22,7 @@ Signed-off-by: Connor O'Brien <connoro@google.com>
 diff --git a/arch/arm64/configs/gki_defconfig b/arch/arm64/configs/gki_defconfig
 --- a/arch/arm64/configs/gki_defconfig
 +++ b/arch/arm64/configs/gki_defconfig
-@@ -354,6 +354,7 @@ CONFIG_HID_STEAM=y
+@@ -353,6 +353,7 @@ CONFIG_HID_STEAM=y
  CONFIG_USB_HIDDEV=y
  CONFIG_USB_OTG=y
  CONFIG_USB_EHCI_HCD=y

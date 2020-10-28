@@ -13,7 +13,7 @@ Change-Id: Iabbf2262e6e7795c2a5c108617d2f59f08819958
 diff --git a/arch/arm64/configs/gki_defconfig b/arch/arm64/configs/gki_defconfig
 --- a/arch/arm64/configs/gki_defconfig
 +++ b/arch/arm64/configs/gki_defconfig
-@@ -478,9 +478,9 @@ CONFIG_DEBUG_INFO=y
+@@ -477,9 +477,9 @@ CONFIG_DEBUG_INFO=y
  CONFIG_MAGIC_SYSRQ=y
  CONFIG_DEBUG_STACK_USAGE=y
  CONFIG_DEBUG_MEMORY_INIT=y

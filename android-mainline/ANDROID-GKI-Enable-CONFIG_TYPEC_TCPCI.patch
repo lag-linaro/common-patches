@@ -18,7 +18,7 @@ Signed-off-by: Alistair Delva <adelva@google.com>
 diff --git a/arch/arm64/configs/gki_defconfig b/arch/arm64/configs/gki_defconfig
 --- a/arch/arm64/configs/gki_defconfig
 +++ b/arch/arm64/configs/gki_defconfig
-@@ -408,6 +408,7 @@ CONFIG_USB_CONFIGFS_F_MIDI=y
+@@ -407,6 +407,7 @@ CONFIG_USB_CONFIGFS_F_MIDI=y
  CONFIG_USB_CONFIGFS_F_HID=y
  CONFIG_TYPEC=y
  CONFIG_TYPEC_TCPM=y

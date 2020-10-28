@@ -2,7 +2,7 @@
 # android-mainline patches
 #
 # Applies onto upstream 1f70935f637d Linux v5.9-13604-g1f70935f637d
-# Matches android-mainline 79c83f152bc9 ("Merge 1f70935f637d ("Merge tag 'armsoc-fixes' of git://git.kernel.org/pub/scm/linux/kernel/git/soc/soc") into android-mainline")
+# Matches android-mainline c8a1a1d5dffa ("ANDROID: GKI: Drop CONFIG_POWER_AVS from arm64 gki_defconfig")
 #
 Revert-security-keys-remove-compat_keyctl_instantiate_key_iov.patch
 Revert-mm-remove-compat_process_vm_-readv-writev.patch

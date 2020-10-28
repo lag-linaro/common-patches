@@ -17,7 +17,7 @@ Change-Id: I79c47a598601d2316fb3ff66d3eef8b6f0a6149e
 diff --git a/arch/arm64/configs/gki_defconfig b/arch/arm64/configs/gki_defconfig
 --- a/arch/arm64/configs/gki_defconfig
 +++ b/arch/arm64/configs/gki_defconfig
-@@ -354,12 +354,14 @@ CONFIG_USB_GADGET=y
+@@ -353,12 +353,14 @@ CONFIG_USB_GADGET=y
  CONFIG_USB_CONFIGFS=y
  CONFIG_USB_CONFIGFS_UEVENT=y
  CONFIG_USB_CONFIGFS_SERIAL=y

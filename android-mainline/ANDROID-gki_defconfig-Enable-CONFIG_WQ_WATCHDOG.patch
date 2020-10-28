@@ -17,7 +17,7 @@ Change-Id: I14d2b112d2d4d1a4a920c71f254fc4ba4d3cd57c
 diff --git a/arch/arm64/configs/gki_defconfig b/arch/arm64/configs/gki_defconfig
 --- a/arch/arm64/configs/gki_defconfig
 +++ b/arch/arm64/configs/gki_defconfig
-@@ -499,6 +499,7 @@ CONFIG_PANIC_ON_OOPS=y
+@@ -498,6 +498,7 @@ CONFIG_PANIC_ON_OOPS=y
  CONFIG_PANIC_TIMEOUT=-1
  CONFIG_SOFTLOCKUP_DETECTOR=y
  # CONFIG_DETECT_HUNG_TASK is not set
