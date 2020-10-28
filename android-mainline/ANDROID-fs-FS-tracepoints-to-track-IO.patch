@@ -87,7 +87,7 @@ diff --git a/fs/ext4/inode.c b/fs/ext4/inode.c
  
  static __u32 ext4_inode_csum(struct inode *inode, struct ext4_inode *raw,
  			      struct ext4_inode_info *ei)
-@@ -1127,6 +1128,16 @@ static int ext4_write_begin(struct file *file, struct address_space *mapping,
+@@ -1133,6 +1134,16 @@ static int ext4_write_begin(struct file *file, struct address_space *mapping,
  	if (unlikely(ext4_forced_shutdown(EXT4_SB(inode->i_sb))))
  		return -EIO;
  
@@ -104,7 +104,7 @@ diff --git a/fs/ext4/inode.c b/fs/ext4/inode.c
  	trace_ext4_write_begin(inode, pos, len, flags);
  	/*
  	 * Reserve one block more for addition to orphan list in case
-@@ -1269,6 +1280,7 @@ static int ext4_write_end(struct file *file,
+@@ -1275,6 +1286,7 @@ static int ext4_write_end(struct file *file,
  	int inline_data = ext4_has_inline_data(inode);
  	bool verity = ext4_verity_in_progress(inode);
  
@@ -112,7 +112,7 @@ diff --git a/fs/ext4/inode.c b/fs/ext4/inode.c
  	trace_ext4_write_end(inode, pos, len, copied);
  	if (inline_data) {
  		ret = ext4_write_inline_data_end(inode, pos, len,
-@@ -1379,6 +1391,7 @@ static int ext4_journalled_write_end(struct file *file,
+@@ -1385,6 +1397,7 @@ static int ext4_journalled_write_end(struct file *file,
  	int inline_data = ext4_has_inline_data(inode);
  	bool verity = ext4_verity_in_progress(inode);
  
@@ -120,7 +120,7 @@ diff --git a/fs/ext4/inode.c b/fs/ext4/inode.c
  	trace_ext4_journalled_write_end(inode, pos, len, copied);
  	from = pos & (PAGE_SIZE - 1);
  	to = from + len;
-@@ -2942,6 +2955,16 @@ static int ext4_da_write_begin(struct file *file, struct address_space *mapping,
+@@ -2951,6 +2964,16 @@ static int ext4_da_write_begin(struct file *file, struct address_space *mapping,
  					len, flags, pagep, fsdata);
  	}
  	*fsdata = (void *)0;
@@ -137,7 +137,7 @@ diff --git a/fs/ext4/inode.c b/fs/ext4/inode.c
  	trace_ext4_da_write_begin(inode, pos, len, flags);
  
  	if (ext4_test_inode_state(inode, EXT4_STATE_MAY_INLINE_DATA)) {
-@@ -3060,6 +3083,7 @@ static int ext4_da_write_end(struct file *file,
+@@ -3069,6 +3092,7 @@ static int ext4_da_write_end(struct file *file,
  		return ext4_write_end(file, mapping, pos,
  				      len, copied, page, fsdata);
  

@@ -1,8 +1,8 @@
 #
 # android-mainline patches
 #
-# Applies onto upstream f56e65dff6ad Linux v5.9-12535-gf56e65dff6ad
-# Matches android-mainline 6a0e0ecdd4b2 ("Revert "fs: don't allow splice read/write without explicit ops"")
+# Applies onto upstream 96485e446260 Linux v5.9-12582-g96485e446260
+# Matches android-mainline 862e667eb765 ("Merge 96485e446260 ("Merge tag 'ext4_for_linus' of git://git.kernel.org/pub/scm/linux/kernel/git/tytso/ext4") into android-mainline")
 #
 Revert-security-keys-remove-compat_keyctl_instantiate_key_iov.patch
 Revert-mm-remove-compat_process_vm_-readv-writev.patch

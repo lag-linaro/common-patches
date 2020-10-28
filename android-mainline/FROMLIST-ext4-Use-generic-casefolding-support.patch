@@ -19,26 +19,27 @@ Bug: 161184936
 Test: Boots, /data/media is case insensitive
 Change-Id: I3a0705278100590df4c7cdd0dcdf945e9f11feb7
 ---
- fs/ext4/dir.c   | 64 ++-----------------------------------------------
- fs/ext4/ext4.h  | 12 ----------
+ fs/ext4/dir.c   | 66 -------------------------------------------------
+ fs/ext4/ext4.h  | 12 ---------
  fs/ext4/hash.c  |  2 +-
- fs/ext4/namei.c | 20 +++++++---------
- fs/ext4/super.c | 12 +++++-----
- 5 files changed, 17 insertions(+), 93 deletions(-)
+ fs/ext4/namei.c | 20 ++++++---------
+ fs/ext4/super.c | 12 ++++-----
+ 5 files changed, 15 insertions(+), 97 deletions(-)
 
 diff --git a/fs/ext4/dir.c b/fs/ext4/dir.c
 --- a/fs/ext4/dir.c
 +++ b/fs/ext4/dir.c
-@@ -669,68 +669,8 @@ const struct file_operations ext4_dir_operations = {
+@@ -668,69 +668,3 @@ const struct file_operations ext4_dir_operations = {
+ 	.release	= ext4_release_dir,
  };
  
- #ifdef CONFIG_UNICODE
+-#ifdef CONFIG_UNICODE
 -static int ext4_d_compare(const struct dentry *dentry, unsigned int len,
 -			  const char *str, const struct qstr *name)
 -{
 -	struct qstr qstr = {.name = str, .len = len };
 -	const struct dentry *parent = READ_ONCE(dentry->d_parent);
--	const struct inode *inode = READ_ONCE(parent->d_inode);
+-	const struct inode *inode = d_inode_rcu(parent);
 -	char strbuf[DNAME_INLINE_LEN];
 -
 -	if (!inode || !IS_CASEFOLDED(inode) ||
@@ -70,7 +71,7 @@ diff --git a/fs/ext4/dir.c b/fs/ext4/dir.c
 -{
 -	const struct ext4_sb_info *sbi = EXT4_SB(dentry->d_sb);
 -	const struct unicode_map *um = sbi->s_encoding;
--	const struct inode *inode = READ_ONCE(dentry->d_inode);
+-	const struct inode *inode = d_inode_rcu(dentry);
 -	unsigned char *norm;
 -	int len, ret = 0;
 -
@@ -93,17 +94,15 @@ diff --git a/fs/ext4/dir.c b/fs/ext4/dir.c
 -	return ret;
 -}
 -
- const struct dentry_operations ext4_dentry_ops = {
+-const struct dentry_operations ext4_dentry_ops = {
 -	.d_hash = ext4_d_hash,
 -	.d_compare = ext4_d_compare,
-+	.d_hash = generic_ci_d_hash,
-+	.d_compare = generic_ci_d_compare,
- };
- #endif
+-};
+-#endif
 diff --git a/fs/ext4/ext4.h b/fs/ext4/ext4.h
 --- a/fs/ext4/ext4.h
 +++ b/fs/ext4/ext4.h
-@@ -1411,14 +1411,6 @@ struct ext4_super_block {
+@@ -1443,14 +1443,6 @@ struct ext4_super_block {
  
  #define EXT4_ENC_UTF8_12_1	1
  
@@ -118,7 +117,7 @@ diff --git a/fs/ext4/ext4.h b/fs/ext4/ext4.h
  /*
   * fourth extended-fs super-block data in memory
   */
-@@ -1468,10 +1460,6 @@ struct ext4_sb_info {
+@@ -1500,10 +1492,6 @@ struct ext4_sb_info {
  	struct kobject s_kobj;
  	struct completion s_kobj_unregister;
  	struct super_block *s_sb;
@@ -216,7 +215,7 @@ diff --git a/fs/ext4/namei.c b/fs/ext4/namei.c
 diff --git a/fs/ext4/super.c b/fs/ext4/super.c
 --- a/fs/ext4/super.c
 +++ b/fs/ext4/super.c
-@@ -1106,7 +1106,7 @@ static void ext4_put_super(struct super_block *sb)
+@@ -1288,7 +1288,7 @@ static void ext4_put_super(struct super_block *sb)
  	fs_put_dax(sbi->s_daxdev);
  	fscrypt_free_dummy_policy(&sbi->s_dummy_enc_policy);
  #ifdef CONFIG_UNICODE
@@ -225,7 +224,7 @@ diff --git a/fs/ext4/super.c b/fs/ext4/super.c
  #endif
  	kfree(sbi);
  }
-@@ -4077,7 +4077,7 @@ static int ext4_fill_super(struct super_block *sb, void *data, int silent)
+@@ -4303,7 +4303,7 @@ static int ext4_fill_super(struct super_block *sb, void *data, int silent)
  		goto failed_mount;
  
  #ifdef CONFIG_UNICODE
@@ -234,7 +233,7 @@ diff --git a/fs/ext4/super.c b/fs/ext4/super.c
  		const struct ext4_sb_encodings *encoding_info;
  		struct unicode_map *encoding;
  		__u16 encoding_flags;
-@@ -4108,8 +4108,8 @@ static int ext4_fill_super(struct super_block *sb, void *data, int silent)
+@@ -4334,8 +4334,8 @@ static int ext4_fill_super(struct super_block *sb, void *data, int silent)
  			 "%s-%s with flags 0x%hx", encoding_info->name,
  			 encoding_info->version?:"\b", encoding_flags);
  
@@ -245,7 +244,7 @@ diff --git a/fs/ext4/super.c b/fs/ext4/super.c
  	}
  #endif
  
-@@ -4720,7 +4720,7 @@ static int ext4_fill_super(struct super_block *sb, void *data, int silent)
+@@ -4975,7 +4975,7 @@ static int ext4_fill_super(struct super_block *sb, void *data, int silent)
  	}
  
  #ifdef CONFIG_UNICODE
@@ -254,7 +253,7 @@ diff --git a/fs/ext4/super.c b/fs/ext4/super.c
  		sb->s_d_op = &ext4_dentry_ops;
  #endif
  
-@@ -4928,7 +4928,7 @@ static int ext4_fill_super(struct super_block *sb, void *data, int silent)
+@@ -5184,7 +5184,7 @@ static int ext4_fill_super(struct super_block *sb, void *data, int silent)
  		crypto_free_shash(sbi->s_chksum_driver);
  
  #ifdef CONFIG_UNICODE
