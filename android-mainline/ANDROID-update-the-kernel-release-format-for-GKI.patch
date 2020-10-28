@@ -32,7 +32,7 @@ Signed-off-by: Eric Biggers <ebiggers@google.com>
 diff --git a/Makefile b/Makefile
 --- a/Makefile
 +++ b/Makefile
-@@ -1200,7 +1200,8 @@ targets := vmlinux
+@@ -1209,7 +1209,8 @@ targets := vmlinux
  $(sort $(vmlinux-deps) $(subdir-modorder)): descend ;
  
  filechk_kernel.release = \
@@ -42,7 +42,7 @@ diff --git a/Makefile b/Makefile
  
  # Store (new) KERNELRELEASE string in include/config/kernel.release
  include/config/kernel.release: FORCE
-@@ -1875,7 +1876,8 @@ checkstack:
+@@ -1921,7 +1922,8 @@ checkstack:
  	$(PERL) $(srctree)/scripts/checkstack.pl $(CHECKSTACK_ARCH)
  
  kernelrelease:
@@ -98,7 +98,7 @@ diff --git a/scripts/setlocalversion b/scripts/setlocalversion
  fi
 @@ -47,6 +67,10 @@ scm_version()
  	if test -z "$(git rev-parse --show-cdup 2>/dev/null)" &&
- 	   head=$(git rev-parse --verify --short HEAD 2>/dev/null); then
+ 	   head=$(git rev-parse --verify HEAD 2>/dev/null); then
  
 +		if [ -n "$android_release" ] && [ -n "$kmi_generation" ]; then
 +			printf '%s' "-$android_release-$kmi_generation"

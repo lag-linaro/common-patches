@@ -78,11 +78,11 @@ diff --git a/arch/arm64/kernel/vdso32/Makefile b/arch/arm64/kernel/vdso32/Makefi
 -VDSO_LDFLAGS += -Wl,-z,max-page-size=4096 -Wl,-z,common-page-size=4096
 -VDSO_LDFLAGS += -nostdlib -shared -mfloat-abi=soft
 -VDSO_LDFLAGS += -Wl,--hash-style=sysv
--VDSO_LDFLAGS += -Wl,--build-id
+-VDSO_LDFLAGS += -Wl,--build-id=sha1
 -VDSO_LDFLAGS += $(call cc32-ldoption,-fuse-ld=bfd)
 +VDSO_LDFLAGS += -Bsymbolic --no-undefined -soname=linux-vdso.so.1
 +VDSO_LDFLAGS += -z max-page-size=4096 -z common-page-size=4096
-+VDSO_LDFLAGS += -nostdlib -shared --hash-style=sysv --build-id
++VDSO_LDFLAGS += -nostdlib -shared --hash-style=sysv --build-id=sha1
  
  
  # Borrow vdsomunge.c from the arm vDSO
