@@ -269,7 +269,6 @@ ANDROID-export-bkops-and-query-flag-query-functions.patch
 ANDROID-scsi-ufs-add-a-hook-to-prepare-command.patch
 ANDROID-scsi-ufs-add-a-hook-to-add-sysfs-entries.patch
 ANDROID-scsi-ufs-add-hooks-to-monitor-stats-of-UFS-traffic.patch
-ANDROID-scsi-ufs-fix-more-bad-merge-resolutions-with-custom-sg-entry-size.patch
 _____ANNOTATION-MMC-driver-changes_____.patch
 ANDROID-mmc-core-Add-ignore-mmc-pm-notify-functionality.patch
 _____ANNOTATION-block-changes_____.patch
@@ -387,7 +386,6 @@ _____ANNOTATION-hardware-wrapped-key-support_____.patch
 ANDROID-block-add-hardware-wrapped-key-support.patch
 ANDROID-dm-add-support-for-passing-through-derive_raw_secret.patch
 ANDROID-dm-Add-wrapped-key-support-in-dm-default-key.patch
-ANDROID-dm-default-key-move-kzfree-usage-to-kfree_sensitive.patch
 ANDROID-fscrypt-add-support-for-hardware-wrapped-keys.patch
 _____ANNOTATION-db845c-DragonBoard-845c-support_____.patch
 ANDROID-arm64-dts-sdm845-Enable-FW-implemented-safe-sequence-handler-on-MTP.patch

@@ -109,7 +109,7 @@ diff --git a/drivers/md/Makefile b/drivers/md/Makefile
  obj-$(CONFIG_DM_FLAKEY)		+= dm-flakey.o
 diff --git a/drivers/md/dm-default-key.c b/drivers/md/dm-default-key.c
 new file mode 100644
-index 000000000000..ea8fef823a8a
+index 000000000000..ce99da3a3b98
 --- /dev/null
 +++ b/drivers/md/dm-default-key.c
 @@ -0,0 +1,415 @@
@@ -190,8 +190,8 @@ index 000000000000..ea8fef823a8a
 +			DMWARN("Failed to evict crypto key: %d", err);
 +		dm_put_device(ti, dkc->dev);
 +	}
-+	kzfree(dkc->cipher_string);
-+	kzfree(dkc);
++	kfree_sensitive(dkc->cipher_string);
++	kfree_sensitive(dkc);
 +}
 +
 +static int default_key_ctr_optional(struct dm_target *ti,

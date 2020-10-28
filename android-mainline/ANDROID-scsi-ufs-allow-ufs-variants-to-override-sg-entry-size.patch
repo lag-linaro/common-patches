@@ -15,14 +15,23 @@ Bug: 162257402
 Change-Id: I6ab9458d5c23331013e6b736d6fea378a6b5b86c
 Signed-off-by: Eric Biggers <ebiggers@google.com>
 ---
- drivers/scsi/ufs/ufshcd.c | 31 +++++++++++++++++--------------
+ drivers/scsi/ufs/ufshcd.c | 36 +++++++++++++++++++-----------------
  drivers/scsi/ufs/ufshcd.h |  2 ++
  drivers/scsi/ufs/ufshci.h | 12 ++++++++++--
- 3 files changed, 29 insertions(+), 16 deletions(-)
+ 3 files changed, 31 insertions(+), 19 deletions(-)
 
 diff --git a/drivers/scsi/ufs/ufshcd.c b/drivers/scsi/ufs/ufshcd.c
 --- a/drivers/scsi/ufs/ufshcd.c
 +++ b/drivers/scsi/ufs/ufshcd.c
+@@ -477,7 +477,7 @@ void ufshcd_print_trs(struct ufs_hba *hba, unsigned long bitmap, bool pr_prdt)
+ 		prdt_length = le16_to_cpu(
+ 			lrbp->utr_descriptor_ptr->prd_table_length);
+ 		if (hba->quirks & UFSHCD_QUIRK_PRDT_BYTE_GRAN)
+-			prdt_length /= sizeof(struct ufshcd_sg_entry);
++			prdt_length /= hba->sg_entry_size;
+ 
+ 		dev_err(hba->dev,
+ 			"UPIU[%d] - PRDT - %d entries  phys@0x%llx\n",
 @@ -486,7 +486,7 @@ void ufshcd_print_trs(struct ufs_hba *hba, unsigned long bitmap, bool pr_prdt)
  
  		if (pr_prdt)
@@ -41,7 +50,14 @@ diff --git a/drivers/scsi/ufs/ufshcd.c b/drivers/scsi/ufs/ufshcd.c
  	struct scatterlist *sg;
  	struct scsi_cmnd *cmd;
  	int sg_segments;
-@@ -2214,16 +2214,17 @@ static int ufshcd_map_sg(struct ufs_hba *hba, struct ufshcd_lrb *lrbp)
+@@ -2208,22 +2208,22 @@ static int ufshcd_map_sg(struct ufs_hba *hba, struct ufshcd_lrb *lrbp)
+ 
+ 		if (hba->quirks & UFSHCD_QUIRK_PRDT_BYTE_GRAN)
+ 			lrbp->utr_descriptor_ptr->prd_table_length =
+-				cpu_to_le16((sg_segments *
+-					sizeof(struct ufshcd_sg_entry)));
++				cpu_to_le16(sg_segments * hba->sg_entry_size);
+ 		else
  			lrbp->utr_descriptor_ptr->prd_table_length =
  				cpu_to_le16((u16) (sg_segments));
  
@@ -64,7 +80,7 @@ diff --git a/drivers/scsi/ufs/ufshcd.c b/drivers/scsi/ufs/ufshcd.c
  		}
  	} else {
  		lrbp->utr_descriptor_ptr->prd_table_length = 0;
-@@ -2482,10 +2483,11 @@ static inline u16 ufshcd_upiu_wlun_to_scsi_wlun(u8 upiu_wlun_id)
+@@ -2482,10 +2482,11 @@ static inline u16 ufshcd_upiu_wlun_to_scsi_wlun(u8 upiu_wlun_id)
  
  static void ufshcd_init_lrb(struct ufs_hba *hba, struct ufshcd_lrb *lrb, int i)
  {
@@ -78,7 +94,7 @@ diff --git a/drivers/scsi/ufs/ufshcd.c b/drivers/scsi/ufs/ufshcd.c
  	u16 response_offset = offsetof(struct utp_transfer_cmd_desc,
  				       response_upiu);
  	u16 prdt_offset = offsetof(struct utp_transfer_cmd_desc, prd_table);
-@@ -2493,11 +2495,11 @@ static void ufshcd_init_lrb(struct ufs_hba *hba, struct ufshcd_lrb *lrb, int i)
+@@ -2493,11 +2494,11 @@ static void ufshcd_init_lrb(struct ufs_hba *hba, struct ufshcd_lrb *lrb, int i)
  	lrb->utr_descriptor_ptr = utrdlp + i;
  	lrb->utrd_dma_addr = hba->utrdl_dma_addr +
  		i * sizeof(struct utp_transfer_req_desc);
@@ -93,7 +109,7 @@ diff --git a/drivers/scsi/ufs/ufshcd.c b/drivers/scsi/ufs/ufshcd.c
  	lrb->ucd_prdt_dma_addr = cmd_desc_element_addr + prdt_offset;
  }
  
-@@ -3406,7 +3408,7 @@ static int ufshcd_memory_alloc(struct ufs_hba *hba)
+@@ -3406,7 +3407,7 @@ static int ufshcd_memory_alloc(struct ufs_hba *hba)
  	size_t utmrdl_size, utrdl_size, ucdl_size;
  
  	/* Allocate memory for UTP command descriptors */
@@ -102,7 +118,7 @@ diff --git a/drivers/scsi/ufs/ufshcd.c b/drivers/scsi/ufs/ufshcd.c
  	hba->ucdl_base_addr = dmam_alloc_coherent(hba->dev,
  						  ucdl_size,
  						  &hba->ucdl_dma_addr,
-@@ -3500,7 +3502,7 @@ static void ufshcd_host_memory_configure(struct ufs_hba *hba)
+@@ -3500,7 +3501,7 @@ static void ufshcd_host_memory_configure(struct ufs_hba *hba)
  	prdt_offset =
  		offsetof(struct utp_transfer_cmd_desc, prd_table);
  
@@ -111,7 +127,7 @@ diff --git a/drivers/scsi/ufs/ufshcd.c b/drivers/scsi/ufs/ufshcd.c
  	cmd_desc_dma_addr = hba->ucdl_dma_addr;
  
  	for (i = 0; i < hba->nutrs; i++) {
-@@ -9040,6 +9042,7 @@ int ufshcd_alloc_host(struct device *dev, struct ufs_hba **hba_handle)
+@@ -9040,6 +9041,7 @@ int ufshcd_alloc_host(struct device *dev, struct ufs_hba **hba_handle)
  	hba->dev = dev;
  	*hba_handle = hba;
  	hba->dev_ref_clk_freq = REF_CLK_FREQ_INVAL;
