@@ -1,8 +1,8 @@
 #
 # android-mainline patches
 #
-# Applies onto upstream 1f70935f637d Linux v5.9-13604-g1f70935f637d
-# Matches android-mainline c8a1a1d5dffa ("ANDROID: GKI: Drop CONFIG_POWER_AVS from arm64 gki_defconfig")
+# Applies onto upstream e731f3146ff3 Linux v5.9-13742-ge731f3146ff3
+# Matches android-mainline 460adfb49933 ("Merge e731f3146ff3 ("Merge tag 'armsoc-soc' of git://git.kernel.org/pub/scm/linux/kernel/git/soc/soc") into android-mainline")
 #
 Revert-security-keys-remove-compat_keyctl_instantiate_key_iov.patch
 Revert-mm-remove-compat_process_vm_-readv-writev.patch
