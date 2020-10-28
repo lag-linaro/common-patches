@@ -2,7 +2,7 @@
 # android-mainline patches
 #
 # Applies onto upstream 45fe605832c8 Linux v5.9-14629-g45fe605832c8
-# Matches android-mainline dba28ed467b2 ("Merge 45fe605832c8 ("Merge tag 'armsoc-defconfig' of git://git.kernel.org/pub/scm/linux/kernel/git/soc/soc") into android-mainline")
+# Matches android-mainline 9da1f37103d9 ("ANDROID: cpu: Don't prevent hotplug from DL/BATCH/IDLE")
 #
 Revert-security-keys-remove-compat_keyctl_instantiate_key_iov.patch
 Revert-mm-remove-compat_process_vm_-readv-writev.patch
@@ -24,6 +24,7 @@ Revert-lkdtm-remove-set_fs-based-tests.patch
 Revert-test_bitmap-remove-user-bitmap-tests.patch
 Revert-uaccess-add-infrastructure-for-kernel-builds-with-set_fs.patch
 Revert-fs-don-t-allow-splice-read-write-without-explicit-ops.patch
+Revert-arm64-dts-qcom-sdm845-db845c-Fix-hdmi-nodes.patch
 _____ANNOTATION-pending-upstream_____.patch
 FROMLIST-clk-Export-clk_register_composite.patch
 FROMLIST-clk-versatile-remove-dependency-on-ARCH_.patch
@@ -31,6 +32,7 @@ FROMLIST-arm64-vdso32-Allow-ld.lld-to-properly-link-the-VDSO.patch
 FROMLIST-soc-qcom-Kconfig-make-RPMH-match-Command-DB-setting.patch
 FROMLIST-cpuidle-governor-export-cpuidle-governor-functions.patch
 FROMLIST-checkpatch-Enable-GIT_DIR-environment-use-to-set-git-repository-location.patch
+FROMLIST-interconnect-qcom-sdm845-Enable-keepalive-for-the-MM1-BCM.patch
 _____ANNOTATION-Android-vendor-hooks_____.patch
 ANDROID-GKI-add-android_vendor.h.patch
 ANDROID-add-support-for-vendor-hooks.patch
@@ -115,6 +117,7 @@ ANDROID-sched-add-cpumask-parameter-to-cpu-capacity-vendor-hook.patch
 ANDROID-trace-sched-add-sched-blocked-tracepoint-which-dumps-out-context-of-sleep.patch
 ANDROID-cpu-hotplug-Always-use-real-time-scheduling-when-hotplugging-a-CPU.patch
 ANDROID-sched-export-wake_up_if_idle.patch
+ANDROID-cpu-Don-t-prevent-hotplug-from-DL-BATCH-IDLE.patch
 _____ANNOTATION-uid_sys_stats-support_____.patch
 ANDROID-uid_cputime-Adds-accounting-for-the-cputimes-per-uid.patch
 ANDROID-uid_cputime-add-per-uid-IO-usage-accounting.patch
@@ -266,6 +269,7 @@ ANDROID-export-bkops-and-query-flag-query-functions.patch
 ANDROID-scsi-ufs-add-a-hook-to-prepare-command.patch
 ANDROID-scsi-ufs-add-a-hook-to-add-sysfs-entries.patch
 ANDROID-scsi-ufs-add-hooks-to-monitor-stats-of-UFS-traffic.patch
+ANDROID-scsi-ufs-fix-more-bad-merge-resolutions-with-custom-sg-entry-size.patch
 _____ANNOTATION-MMC-driver-changes_____.patch
 ANDROID-mmc-core-Add-ignore-mmc-pm-notify-functionality.patch
 _____ANNOTATION-block-changes_____.patch
@@ -390,6 +394,7 @@ ANDROID-arm64-dts-sdm845-Enable-FW-implemented-safe-sequence-handler-on-MTP.patc
 ANDROID-arm64-dts-qcom-db845c-Enable-PCIe-controllers.patch
 ANDROID-arm64-dts-qcom-sdm845-db845c-Bring-in-LT9611.patch
 ANDROID-arm64-dts-db845c-add-Low-speed-expansion-i2c-and-spi-nodes.patch
+ANDROID-dts-Align-sdm845-dts-files-with-upstream.patch
 ANDROID-db845c-add-db845c_gki.fragment.patch
 ANDROID-db845c-Add-build-config.patch
 ANDROID-db845c-Update-db845c_gki.fragment-to-add-support-for-bluetooth-modules.patch
@@ -509,7 +514,7 @@ ANDROID-cf-build-Use-merge_configs.patch
 ANDROID-gki_defconfig-Enable-MAC80211_RC_MINSTREL.patch
 ANDROID-gki_defconfig-Enable-XDP_SOCKETS.patch
 ANDROID-gki_defconfig-Enable-CONFIG_NET_NS.patch
-ANDROID-clang-update-to-10.0.4.patch
+ANDROID-clang-update-to-11.0.5.patch
 ANDROID-Kconfig.gki-Remove-most-of-the-built-in-qcom-clks.patch
 ANDROID-update-gki_defconfig-for-5.6-rc3.patch
 ANDROID-gki_defconfig-Disable-CONFIG_RT_GROUP_SCHED.patch
@@ -545,7 +550,6 @@ ANDROID-GKI-Add-CONFIG_RPMSG-to-gki_defconfig.patch
 ANDROID-gki_defconfig-Enable-CONFIG_REMOTEPROC.patch
 ANDROID-GKI-defconfig-Enable-CONFIG_SHUFFLE_PAGE_ALLOCATOR.patch
 ANDROID-GKI-enable-CONFIG_WIREGUARD.patch
-ANDROID-clang-update-to-10.0.5.patch
 ANDROID-GKI-Removed-cuttlefish-configs.patch
 ANDROID-Enable-HID_NINTENDO-as-y.patch
 ANDROID-GKI-defconfig-enable-CONFIG_THERMAL_GOV_POWER_ALLOCATOR.patch
@@ -553,7 +557,6 @@ ANDROID-db845c-build-Use-merge_configs.patch
 ANDROID-GKI-defconfig-modify-debug-configs.patch
 ANDROID-GKI-Remove-SCHED_AUTOGROUP.patch
 ANDROID-GKI-update-defconfig-for-upstream-Kconfig-changes.patch
-ANDROID-clang-update-to-10.0.6.patch
 ANDROID-GKI-fix-up-gki_defconfig-for-x86.patch
 ANDROID-GKI-enable-CONFIG_ARM_PSCI_CPUIDLE.patch
 ANDROID-Re-enable-CONFIG_STM-for-allmodconfig.patch
@@ -574,7 +577,6 @@ ANDROID-GKI-x86-Drop-CONFIG_DEVPORT.patch
 ANDROID-GKI-enable-CONFIG_IRQ_TIME_ACCOUNTING.patch
 ANDROID-GKI-Enable-CONFIG_STATIC_USERMODEHELPER.patch
 ANDROID-gki_defconfig-enable-vendor-hooks.patch
-ANDROID-clang-update-to-11.0.1.patch
 ANDROID-GKI-Enable-SYS_HYPERVISOR.patch
 ANDROID-GKI-set-CONFIG_BLK_DEV_LOOP_MIN_COUNT-to-16.patch
 ANDROID-GKI-Enable-CONFIG_DEBUG_FS-for-Android-S.patch
@@ -661,6 +663,9 @@ ANDROID-GKI-Enable-CONFIG_X86_X2APIC.patch
 ANDROID-GKI-Enable-CONFIG_USB_ANNOUNCE_NEW_DEVICES.patch
 ANDROID-GKI-add-built-in-PCIE_DW_PLAT_EP.patch
 ANDROID-GKI-remove-explicit-CONFIG_SECCOMP-from-defconfig-for-arm64.patch
+ANDROID-Kconfig.gki-Enable-media-controller-configs.patch
+ANDROID-gki_defconfig-Enable-CONFIG_MEMORY_HOTREMOVE.patch
+ANDROID-gki_defconfig-Enable-memory-hotplug.patch
 _____ANNOTATION-Patches-for-bringing-up-new-SoCs_____.patch
 ANDROID-serial-msm_geni_serial_earlycon-Add-Earlycon-support.patch
 _____ANNOTATION-remove-ANNOTATIONS-file_____.patch
