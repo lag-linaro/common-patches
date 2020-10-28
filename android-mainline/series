@@ -1,8 +1,8 @@
 #
 # android-mainline patches
 #
-# Applies onto upstream 96485e446260 Linux v5.9-12582-g96485e446260
-# Matches android-mainline 862e667eb765 ("Merge 96485e446260 ("Merge tag 'ext4_for_linus' of git://git.kernel.org/pub/scm/linux/kernel/git/tytso/ext4") into android-mainline")
+# Applies onto upstream 00937f36b09e Linux v5.9-12757-g00937f36b09e
+# Matches android-mainline 4349cb92c36c ("Merge 00937f36b09e ("Merge tag 'pci-v5.10-changes' of git://git.kernel.org/pub/scm/linux/kernel/git/helgaas/pci") into android-mainline")
 #
 Revert-security-keys-remove-compat_keyctl_instantiate_key_iov.patch
 Revert-mm-remove-compat_process_vm_-readv-writev.patch
