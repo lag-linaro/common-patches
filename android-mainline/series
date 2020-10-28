@@ -1,8 +1,8 @@
 #
 # android-mainline patches
 #
-# Applies onto upstream 746b25b1aa0f Linux v5.9-12982-g746b25b1aa0f
-# Matches android-mainline 7b9e6a4876ac ("Merge 746b25b1aa0f ("Merge tag 'kbuild-v5.10' of git://git.kernel.org/pub/scm/linux/kernel/git/masahiroy/linux-kbuild") into android-mainline")
+# Applies onto upstream 032c7ed95817 Linux v5.9-13002-g032c7ed95817
+# Matches android-mainline 97a0d475c598 ("Merge 032c7ed95817 ("Merge tag 'arm64-upstream' of git://git.kernel.org/pub/scm/linux/kernel/git/arm64/linux") into android-mainline")
 #
 Revert-security-keys-remove-compat_keyctl_instantiate_key_iov.patch
 Revert-mm-remove-compat_process_vm_-readv-writev.patch
