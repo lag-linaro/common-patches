@@ -54,7 +54,7 @@ diff --git a/drivers/soc/qcom/rpmh-rsc.c b/drivers/soc/qcom/rpmh-rsc.c
  #include <linux/of.h>
  #include <linux/of_irq.h>
  #include <linux/of_platform.h>
-@@ -1025,6 +1026,8 @@ static const struct of_device_id rpmh_drv_match[] = {
+@@ -1018,6 +1019,8 @@ static const struct of_device_id rpmh_drv_match[] = {
  	{ .compatible = "qcom,rpmh-rsc", },
  	{ }
  };
@@ -63,7 +63,7 @@ diff --git a/drivers/soc/qcom/rpmh-rsc.c b/drivers/soc/qcom/rpmh-rsc.c
  
  static struct platform_driver rpmh_driver = {
  	.probe = rpmh_rsc_probe,
-@@ -1040,3 +1043,6 @@ static int __init rpmh_driver_init(void)
+@@ -1033,3 +1036,6 @@ static int __init rpmh_driver_init(void)
  	return platform_driver_register(&rpmh_driver);
  }
  arch_initcall(rpmh_driver_init);
