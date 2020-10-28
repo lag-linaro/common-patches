@@ -30,7 +30,7 @@ Change-Id: I3f95d6c8c2e86a810fd6334d5e7e2ec1d8f684fa
 diff --git a/drivers/soc/qcom/Kconfig b/drivers/soc/qcom/Kconfig
 --- a/drivers/soc/qcom/Kconfig
 +++ b/drivers/soc/qcom/Kconfig
-@@ -94,6 +94,7 @@ config QCOM_RMTFS_MEM
+@@ -110,6 +110,7 @@ config QCOM_RMTFS_MEM
  config QCOM_RPMH
  	bool "Qualcomm RPM-Hardened (RPMH) Communication"
  	depends on ARCH_QCOM || COMPILE_TEST

@@ -74,7 +74,7 @@ diff --git a/drivers/base/power/main.c b/drivers/base/power/main.c
  
  #include "../base.h"
  #include "power.h"
-@@ -1593,6 +1594,7 @@ static int __device_suspend(struct device *dev, pm_message_t state, bool async)
+@@ -1592,6 +1593,7 @@ static int __device_suspend(struct device *dev, pm_message_t state, bool async)
  	pm_callback_t callback = NULL;
  	const char *info = NULL;
  	int error = 0;
@@ -82,7 +82,7 @@ diff --git a/drivers/base/power/main.c b/drivers/base/power/main.c
  	DECLARE_DPM_WATCHDOG_ON_STACK(wd);
  
  	TRACE_DEVICE(dev);
-@@ -1620,6 +1622,9 @@ static int __device_suspend(struct device *dev, pm_message_t state, bool async)
+@@ -1619,6 +1621,9 @@ static int __device_suspend(struct device *dev, pm_message_t state, bool async)
  
  	if (pm_wakeup_pending()) {
  		dev->power.direct_complete = false;

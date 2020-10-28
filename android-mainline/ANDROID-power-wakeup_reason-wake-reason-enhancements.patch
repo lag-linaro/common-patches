@@ -34,7 +34,7 @@ Signed-off-by: Eric Biggers <ebiggers@google.com>
 diff --git a/drivers/base/power/main.c b/drivers/base/power/main.c
 --- a/drivers/base/power/main.c
 +++ b/drivers/base/power/main.c
-@@ -1235,6 +1235,8 @@ static int __device_suspend_noirq(struct device *dev, pm_message_t state, bool a
+@@ -1234,6 +1234,8 @@ static int __device_suspend_noirq(struct device *dev, pm_message_t state, bool a
  	error = dpm_run_callback(callback, dev, state, info);
  	if (error) {
  		async_error = error;
@@ -43,7 +43,7 @@ diff --git a/drivers/base/power/main.c b/drivers/base/power/main.c
  		goto Complete;
  	}
  
-@@ -1427,6 +1429,8 @@ static int __device_suspend_late(struct device *dev, pm_message_t state, bool as
+@@ -1426,6 +1428,8 @@ static int __device_suspend_late(struct device *dev, pm_message_t state, bool as
  	error = dpm_run_callback(callback, dev, state, info);
  	if (error) {
  		async_error = error;
@@ -52,7 +52,7 @@ diff --git a/drivers/base/power/main.c b/drivers/base/power/main.c
  		goto Complete;
  	}
  	dpm_propagate_wakeup_to_parent(dev);
-@@ -1594,7 +1598,6 @@ static int __device_suspend(struct device *dev, pm_message_t state, bool async)
+@@ -1593,7 +1597,6 @@ static int __device_suspend(struct device *dev, pm_message_t state, bool async)
  	pm_callback_t callback = NULL;
  	const char *info = NULL;
  	int error = 0;
@@ -60,7 +60,7 @@ diff --git a/drivers/base/power/main.c b/drivers/base/power/main.c
  	DECLARE_DPM_WATCHDOG_ON_STACK(wd);
  
  	TRACE_DEVICE(dev);
-@@ -1622,9 +1625,6 @@ static int __device_suspend(struct device *dev, pm_message_t state, bool async)
+@@ -1621,9 +1624,6 @@ static int __device_suspend(struct device *dev, pm_message_t state, bool async)
  
  	if (pm_wakeup_pending()) {
  		dev->power.direct_complete = false;
@@ -70,7 +70,7 @@ diff --git a/drivers/base/power/main.c b/drivers/base/power/main.c
  		async_error = -EBUSY;
  		goto Complete;
  	}
-@@ -1701,6 +1701,9 @@ static int __device_suspend(struct device *dev, pm_message_t state, bool async)
+@@ -1700,6 +1700,9 @@ static int __device_suspend(struct device *dev, pm_message_t state, bool async)
  
  		dpm_propagate_wakeup_to_parent(dev);
  		dpm_clear_superiors_direct_complete(dev);
@@ -80,7 +80,7 @@ diff --git a/drivers/base/power/main.c b/drivers/base/power/main.c
  	}
  
  	device_unlock(dev);
-@@ -1905,6 +1908,8 @@ int dpm_prepare(pm_message_t state)
+@@ -1904,6 +1907,8 @@ int dpm_prepare(pm_message_t state)
  			}
  			pr_info("Device %s not prepared for power transition: code %d\n",
  				dev_name(dev), error);

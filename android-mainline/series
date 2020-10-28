@@ -1,8 +1,8 @@
 #
 # android-mainline patches
 #
-# Applies onto upstream 032c7ed95817 Linux v5.9-13002-g032c7ed95817
-# Matches android-mainline 97a0d475c598 ("Merge 032c7ed95817 ("Merge tag 'arm64-upstream' of git://git.kernel.org/pub/scm/linux/kernel/git/arm64/linux") into android-mainline")
+# Applies onto upstream 1f70935f637d Linux v5.9-13604-g1f70935f637d
+# Matches android-mainline 79c83f152bc9 ("Merge 1f70935f637d ("Merge tag 'armsoc-fixes' of git://git.kernel.org/pub/scm/linux/kernel/git/soc/soc") into android-mainline")
 #
 Revert-security-keys-remove-compat_keyctl_instantiate_key_iov.patch
 Revert-mm-remove-compat_process_vm_-readv-writev.patch
@@ -667,4 +667,3 @@ _____ANNOTATION-remove-ANNOTATIONS-file_____.patch
 DROP-ME-Out-of-tree-difference-caused-by-unclean-revert.patch
 DROP-ME-This-compensates-a-left-over-patch-after-merging-5.10-rc1.patch
 DROP-ME-trivial-revert-merge-leftover.patch
-DROP-ME-Compensate-left-out-merge.patch
