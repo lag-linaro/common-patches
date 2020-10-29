@@ -1,8 +1,8 @@
 #
 # android-mainline patches
 #
-# Applies onto upstream 0593c1b4598a Linux v5.9-14639-g0593c1b4598a
-# Matches android-mainline 96a3f5ac39bd ("FROMLIST: proc "single files": switch to ->read_iter")
+# Applies onto upstream 0746c4a9f3d3 Linux v5.9-14751-g0746c4a9f3d3
+# Matches android-mainline 338f8e80b425 ("Merge 0746c4a9f3d3 ("Merge branch 'i2c/for-5.10' of git://git.kernel.org/pub/scm/linux/kernel/git/wsa/linux") into android-mainline")
 #
 Revert-security-keys-remove-compat_keyctl_instantiate_key_iov.patch
 Revert-mm-remove-compat_process_vm_-readv-writev.patch

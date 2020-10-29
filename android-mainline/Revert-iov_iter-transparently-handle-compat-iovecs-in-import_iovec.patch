@@ -84,7 +84,7 @@ diff --git a/fs/aio.c b/fs/aio.c
 diff --git a/fs/io_uring.c b/fs/io_uring.c
 --- a/fs/io_uring.c
 +++ b/fs/io_uring.c
-@@ -3084,8 +3084,13 @@ static ssize_t __io_import_iovec(int rw, struct io_kiocb *req,
+@@ -3092,8 +3092,13 @@ static ssize_t __io_import_iovec(int rw, struct io_kiocb *req,
  		return ret;
  	}
  
@@ -100,7 +100,7 @@ diff --git a/fs/io_uring.c b/fs/io_uring.c
  }
  
  static ssize_t io_import_iovec(int rw, struct io_kiocb *req,
-@@ -4425,9 +4430,8 @@ static int __io_recvmsg_copy_hdr(struct io_kiocb *req,
+@@ -4430,9 +4435,8 @@ static int __io_recvmsg_copy_hdr(struct io_kiocb *req,
  				sr->len);
  		iomsg->iov = NULL;
  	} else {
@@ -112,7 +112,7 @@ diff --git a/fs/io_uring.c b/fs/io_uring.c
  		if (ret > 0)
  			ret = 0;
  	}
-@@ -4467,9 +4471,9 @@ static int __io_compat_recvmsg_copy_hdr(struct io_kiocb *req,
+@@ -4472,9 +4476,9 @@ static int __io_compat_recvmsg_copy_hdr(struct io_kiocb *req,
  		sr->len = iomsg->iov[0].iov_len;
  		iomsg->iov = NULL;
  	} else {
@@ -151,7 +151,7 @@ diff --git a/fs/read_write.c b/fs/read_write.c
 diff --git a/fs/splice.c b/fs/splice.c
 --- a/fs/splice.c
 +++ b/fs/splice.c
-@@ -1305,7 +1305,7 @@ COMPAT_SYSCALL_DEFINE4(vmsplice, int, fd, const struct compat_iovec __user *, io
+@@ -1342,7 +1342,7 @@ COMPAT_SYSCALL_DEFINE4(vmsplice, int, fd, const struct compat_iovec __user *, io
  	if (error)
  		return error;
  

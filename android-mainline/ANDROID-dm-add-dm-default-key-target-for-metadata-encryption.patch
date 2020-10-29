@@ -662,7 +662,7 @@ diff --git a/include/linux/blk-crypto.h b/include/linux/blk-crypto.h
 diff --git a/include/linux/blk_types.h b/include/linux/blk_types.h
 --- a/include/linux/blk_types.h
 +++ b/include/linux/blk_types.h
-@@ -217,6 +217,9 @@ struct bio {
+@@ -235,6 +235,9 @@ struct bio {
  
  #ifdef CONFIG_BLK_INLINE_ENCRYPTION
  	struct bio_crypt_ctx	*bi_crypt_context;
