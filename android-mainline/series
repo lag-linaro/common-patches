@@ -2,7 +2,7 @@
 # android-mainline patches
 #
 # Applies onto upstream 0746c4a9f3d3 Linux v5.9-14751-g0746c4a9f3d3
-# Matches android-mainline 338f8e80b425 ("Merge 0746c4a9f3d3 ("Merge branch 'i2c/for-5.10' of git://git.kernel.org/pub/scm/linux/kernel/git/wsa/linux") into android-mainline")
+# Matches android-mainline 4cc2f83c77aa ("ANDROID: vendor_hooks: fix __section macro")
 #
 Revert-security-keys-remove-compat_keyctl_instantiate_key_iov.patch
 Revert-mm-remove-compat_process_vm_-readv-writev.patch
@@ -666,3 +666,4 @@ DROP-ME-Out-of-tree-difference-caused-by-unclean-revert.patch
 DROP-ME-This-compensates-a-left-over-patch-after-merging-5.10-rc1.patch
 DROP-ME-trivial-revert-merge-leftover.patch
 FROMLIST-proc-single-files-switch-to-read_iter.patch
+ANDROID-vendor_hooks-fix-__section-macro.patch
