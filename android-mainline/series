@@ -2,7 +2,7 @@
 # android-mainline patches
 #
 # Applies onto upstream 0593c1b4598a Linux v5.9-14639-g0593c1b4598a
-# Matches android-mainline bbaefffb7feb ("Merge 0593c1b4598a ("Merge tag 'riscv-for-linus-5.10-mw1' of git://git.kernel.org/pub/scm/linux/kernel/git/riscv/linux") into android-mainline")
+# Matches android-mainline 96a3f5ac39bd ("FROMLIST: proc "single files": switch to ->read_iter")
 #
 Revert-security-keys-remove-compat_keyctl_instantiate_key_iov.patch
 Revert-mm-remove-compat_process_vm_-readv-writev.patch
@@ -665,3 +665,4 @@ _____ANNOTATION-remove-ANNOTATIONS-file_____.patch
 DROP-ME-Out-of-tree-difference-caused-by-unclean-revert.patch
 DROP-ME-This-compensates-a-left-over-patch-after-merging-5.10-rc1.patch
 DROP-ME-trivial-revert-merge-leftover.patch
+FROMLIST-proc-single-files-switch-to-read_iter.patch

@@ -1,0 +1,28 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: Greg Kroah-Hartman <gregkh@google.com>
+Date: Wed, 28 Oct 2020 16:56:05 +0100
+Subject: FROMLIST: proc "single files": switch to ->read_iter
+
+Implement ->read_iter for all proc single files so that more bionic
+tests cases can pass.
+
+Bug: 171770067
+Link: https://lore.kernel.org/r/20201027080745.GA31045@infradead.org
+Signed-off-by: Greg Kroah-Hartman <gregkh@google.com>
+Change-Id: Id2797cb2bc8607a26102afbebf8c18d0c77a08b8
+---
+ fs/proc/generic.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/fs/proc/generic.c b/fs/proc/generic.c
+--- a/fs/proc/generic.c
++++ b/fs/proc/generic.c
+@@ -621,7 +621,7 @@ static int proc_single_open(struct inode *inode, struct file *file)
+ static const struct proc_ops proc_single_ops = {
+ 	/* not permanent -- can call into arbitrary ->single_show */
+ 	.proc_open	= proc_single_open,
+-	.proc_read	= seq_read,
++	.proc_read_iter = seq_read_iter,
+ 	.proc_lseek	= seq_lseek,
+ 	.proc_release	= single_release,
+ };
