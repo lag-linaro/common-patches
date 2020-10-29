@@ -2,7 +2,7 @@
 # android-mainline patches
 #
 # Applies onto upstream 45fe605832c8 Linux v5.9-14629-g45fe605832c8
-# Matches android-mainline 9da1f37103d9 ("ANDROID: cpu: Don't prevent hotplug from DL/BATCH/IDLE")
+# Matches android-mainline d801fe130c3e ("FROMLIST: proc/cpuinfo: switch to ->read_iter")
 #
 Revert-security-keys-remove-compat_keyctl_instantiate_key_iov.patch
 Revert-mm-remove-compat_process_vm_-readv-writev.patch
@@ -13,17 +13,6 @@ Revert-iov_iter-transparently-handle-compat-iovecs-in-import_iovec.patch
 Revert-iov_iter-refactor-rw_copy_check_uvector-and-import_iovec.patch
 Revert-iov_iter-move-rw_copy_check_uvector-into-lib-iov_iter.c.patch
 Revert-block-grant-IOPRIO_CLASS_RT-to-CAP_SYS_NICE.patch
-Revert-fs-Allow-a-NULL-pos-pointer-to-__kernel_read.patch
-Revert-fs-Allow-a-NULL-pos-pointer-to-__kernel_write.patch
-Revert-powerpc-remove-address-space-overrides-using-set_fs.patch
-Revert-powerpc-use-non-set_fs-based-maccess-routines.patch
-Revert-x86-remove-address-space-overrides-using-set_fs.patch
-Revert-x86-make-TASK_SIZE_MAX-usable-from-assembly-code.patch
-Revert-x86-move-PAGE_OFFSET-TASK_SIZE-friends-to-page_-32-64-_types.h.patch
-Revert-lkdtm-remove-set_fs-based-tests.patch
-Revert-test_bitmap-remove-user-bitmap-tests.patch
-Revert-uaccess-add-infrastructure-for-kernel-builds-with-set_fs.patch
-Revert-fs-don-t-allow-splice-read-write-without-explicit-ops.patch
 Revert-arm64-dts-qcom-sdm845-db845c-Fix-hdmi-nodes.patch
 _____ANNOTATION-pending-upstream_____.patch
 FROMLIST-clk-Export-clk_register_composite.patch
@@ -33,6 +22,12 @@ FROMLIST-soc-qcom-Kconfig-make-RPMH-match-Command-DB-setting.patch
 FROMLIST-cpuidle-governor-export-cpuidle-governor-functions.patch
 FROMLIST-checkpatch-Enable-GIT_DIR-environment-use-to-set-git-repository-location.patch
 FROMLIST-interconnect-qcom-sdm845-Enable-keepalive-for-the-MM1-BCM.patch
+FROMLIST-crypto-x86-poly1305-add-back-a-needed-assignment.patch
+FROMLIST-cachefiles-Handle-readpage-error-correctly.patch
+FROMLIST-scsi-qla2xxx-remove-incorrect-sparse-ifdef.patch
+FROMLIST-seq_file-add-seq_read_iter.patch
+FROMLIST-proc-wire-up-generic_file_splice_read-for-iter-ops.patch
+FROMLIST-proc-cpuinfo-switch-to-read_iter.patch
 _____ANNOTATION-Android-vendor-hooks_____.patch
 ANDROID-GKI-add-android_vendor.h.patch
 ANDROID-add-support-for-vendor-hooks.patch

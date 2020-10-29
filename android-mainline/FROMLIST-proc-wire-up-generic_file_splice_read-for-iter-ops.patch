@@ -1,0 +1,36 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: Christoph Hellwig <hch@lst.de>
+Date: Tue, 27 Oct 2020 17:24:40 +0100
+Subject: FROMLIST: proc: wire up generic_file_splice_read for iter ops
+
+Wire up generic_file_splice_read for the iter based proxy ops, so
+that splice reads from them work.
+
+Bug: 171770067
+Link: https://lore.kernel.org/r/20201027080745.GA31045@infradead.org
+Signed-off-by: Christoph Hellwig <hch@lst.de>
+Signed-off-by: Greg Kroah-Hartman <gregkh@google.com>
+Change-Id: I163a0609fd23059121d0f28359abe2a4b39b5031
+---
+ fs/proc/inode.c | 2 ++
+ 1 file changed, 2 insertions(+)
+
+diff --git a/fs/proc/inode.c b/fs/proc/inode.c
+--- a/fs/proc/inode.c
++++ b/fs/proc/inode.c
+@@ -597,6 +597,7 @@ static const struct file_operations proc_iter_file_ops = {
+ 	.llseek		= proc_reg_llseek,
+ 	.read_iter	= proc_reg_read_iter,
+ 	.write		= proc_reg_write,
++	.splice_read	= generic_file_splice_read,
+ 	.poll		= proc_reg_poll,
+ 	.unlocked_ioctl	= proc_reg_unlocked_ioctl,
+ 	.mmap		= proc_reg_mmap,
+@@ -622,6 +623,7 @@ static const struct file_operations proc_reg_file_ops_compat = {
+ static const struct file_operations proc_iter_file_ops_compat = {
+ 	.llseek		= proc_reg_llseek,
+ 	.read_iter	= proc_reg_read_iter,
++	.splice_read	= generic_file_splice_read,
+ 	.write		= proc_reg_write,
+ 	.poll		= proc_reg_poll,
+ 	.unlocked_ioctl	= proc_reg_unlocked_ioctl,

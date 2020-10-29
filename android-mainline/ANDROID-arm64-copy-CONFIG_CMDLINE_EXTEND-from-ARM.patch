@@ -17,7 +17,7 @@ Signed-off-by: Colin Cross <ccross@android.com>
 diff --git a/arch/arm64/Kconfig b/arch/arm64/Kconfig
 --- a/arch/arm64/Kconfig
 +++ b/arch/arm64/Kconfig
-@@ -1825,6 +1825,23 @@ config CMDLINE
+@@ -1826,6 +1826,23 @@ config CMDLINE
  	  entering them here. As a minimum, you should specify the the
  	  root device (e.g. root=/dev/nfs).
  
@@ -41,7 +41,7 @@ diff --git a/arch/arm64/Kconfig b/arch/arm64/Kconfig
  config CMDLINE_FORCE
  	bool "Always use the default kernel command string"
  	depends on CMDLINE != ""
-@@ -1833,6 +1850,7 @@ config CMDLINE_FORCE
+@@ -1834,6 +1851,7 @@ config CMDLINE_FORCE
  	  loader passes other arguments to the kernel.
  	  This is useful if you cannot or don't want to change the
  	  command-line options your boot loader passes to the kernel.

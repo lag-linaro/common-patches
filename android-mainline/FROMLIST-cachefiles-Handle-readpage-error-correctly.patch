@@ -1,0 +1,40 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: "Matthew Wilcox (Oracle)" <willy@infradead.org>
+Date: Mon, 26 Oct 2020 09:12:10 +0000
+Subject: FROMLIST: cachefiles: Handle readpage error correctly
+
+If ->readpage returns an error, it has already unlocked the page.
+
+Bug: 171770067
+Link: https://lore.kernel.org/r/20201027080745.GA31045@infradead.org
+Fixes: 5e929b33c393 ("CacheFiles: Handle truncate unlocking the page we're reading")
+Cc: stable@vger.kernel.org
+Signed-off-by: Matthew Wilcox (Oracle) <willy@infradead.org>
+Signed-off-by: David Howells <dhowells@redhat.com>
+Signed-off-by: Linus Torvalds <torvalds@linux-foundation.org>
+Signed-off-by: Greg Kroah-Hartman <gregkh@google.com>
+Change-Id: I18814ade2a1b989bda4b732bf6bacecf4ad1b9a3
+---
+ fs/cachefiles/rdwr.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
+
+diff --git a/fs/cachefiles/rdwr.c b/fs/cachefiles/rdwr.c
+--- a/fs/cachefiles/rdwr.c
++++ b/fs/cachefiles/rdwr.c
+@@ -121,7 +121,7 @@ static int cachefiles_read_reissue(struct cachefiles_object *object,
+ 		_debug("reissue read");
+ 		ret = bmapping->a_ops->readpage(NULL, backpage);
+ 		if (ret < 0)
+-			goto unlock_discard;
++			goto discard;
+ 	}
+ 
+ 	/* but the page may have been read before the monitor was installed, so
+@@ -138,6 +138,7 @@ static int cachefiles_read_reissue(struct cachefiles_object *object,
+ 
+ unlock_discard:
+ 	unlock_page(backpage);
++discard:
+ 	spin_lock_irq(&object->work_lock);
+ 	list_del(&monitor->op_link);
+ 	spin_unlock_irq(&object->work_lock);
