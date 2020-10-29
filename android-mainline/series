@@ -1,8 +1,8 @@
 #
 # android-mainline patches
 #
-# Applies onto upstream 0746c4a9f3d3 Linux v5.9-14751-g0746c4a9f3d3
-# Matches android-mainline 4cc2f83c77aa ("ANDROID: vendor_hooks: fix __section macro")
+# Applies onto upstream 3650b228f83a Linux v5.10-rc1
+# Matches android-mainline 67d3ed57657b ("Merge 'v5.10-rc1' into android-mainline")
 #
 Revert-security-keys-remove-compat_keyctl_instantiate_key_iov.patch
 Revert-mm-remove-compat_process_vm_-readv-writev.patch
@@ -20,7 +20,6 @@ FROMLIST-clk-versatile-remove-dependency-on-ARCH_.patch
 FROMLIST-arm64-vdso32-Allow-ld.lld-to-properly-link-the-VDSO.patch
 FROMLIST-soc-qcom-Kconfig-make-RPMH-match-Command-DB-setting.patch
 FROMLIST-cpuidle-governor-export-cpuidle-governor-functions.patch
-FROMLIST-checkpatch-Enable-GIT_DIR-environment-use-to-set-git-repository-location.patch
 FROMLIST-interconnect-qcom-sdm845-Enable-keepalive-for-the-MM1-BCM.patch
 FROMLIST-crypto-x86-poly1305-add-back-a-needed-assignment.patch
 FROMLIST-cachefiles-Handle-readpage-error-correctly.patch
