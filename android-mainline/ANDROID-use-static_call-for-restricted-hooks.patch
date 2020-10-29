@@ -10,6 +10,8 @@ optimization for restricted vendor hooks.
 Fixes: d25e37d89dd2 ("tracepoint: Optimize using static_call()")
 Signed-off-by: Todd Kjos <tkjos@google.com>
 Change-Id: I336db7e90b733ac4098ce342001cc31fd215d137
+[maennich: folded 81a825319f1d ("ANDROID: vendor_hooks: fix __section macro")]
+Signed-off-by: Matthias Maennich <maennich@google.com>
 ---
  include/trace/hooks/vendor_hooks.h | 46 ++++++++++++++++++++++++------
  1 file changed, 37 insertions(+), 9 deletions(-)
@@ -23,11 +25,11 @@ diff --git a/include/trace/hooks/vendor_hooks.h b/include/trace/hooks/vendor_hoo
  
 +#define DEFINE_HOOK_FN(_name, _reg, _unreg, proto, args)		\
 +	static const char __tpstrtab_##_name[]				\
-+	__section(__tracepoints_strings) = #_name;			\
++	__section("__tracepoints_strings") = #_name;			\
 +	extern struct static_call_key STATIC_CALL_KEY(tp_func_##_name);	\
 +	int __traceiter_##_name(void *__data, proto);			\
 +	struct tracepoint __tracepoint_##_name	__used			\
-+	__section(__tracepoints) = {					\
++	__section("__tracepoints") = {					\
 +		.name = __tpstrtab_##_name,				\
 +		.key = STATIC_KEY_INIT_FALSE,				\
 +		.static_call_key = &STATIC_CALL_KEY(tp_func_##_name),	\

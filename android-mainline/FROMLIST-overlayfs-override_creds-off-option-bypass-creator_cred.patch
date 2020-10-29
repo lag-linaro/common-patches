@@ -412,7 +412,7 @@ diff --git a/fs/overlayfs/namei.c b/fs/overlayfs/namei.c
 diff --git a/fs/overlayfs/overlayfs.h b/fs/overlayfs/overlayfs.h
 --- a/fs/overlayfs/overlayfs.h
 +++ b/fs/overlayfs/overlayfs.h
-@@ -259,6 +259,7 @@ int ovl_want_write(struct dentry *dentry);
+@@ -253,6 +253,7 @@ int ovl_want_write(struct dentry *dentry);
  void ovl_drop_write(struct dentry *dentry);
  struct dentry *ovl_workdir(struct dentry *dentry);
  const struct cred *ovl_override_creds(struct super_block *sb);

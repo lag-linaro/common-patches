@@ -2,7 +2,7 @@
 # android-mainline patches
 #
 # Applies onto upstream 3650b228f83a Linux v5.10-rc1
-# Matches android-mainline 67d3ed57657b ("Merge 'v5.10-rc1' into android-mainline")
+# Matches android-mainline 8d5dc2cf06e9 ("ANDROID: overlayfs: fixup after upstream merge")
 #
 Revert-security-keys-remove-compat_keyctl_instantiate_key_iov.patch
 Revert-mm-remove-compat_process_vm_-readv-writev.patch
@@ -27,6 +27,8 @@ FROMLIST-scsi-qla2xxx-remove-incorrect-sparse-ifdef.patch
 FROMLIST-seq_file-add-seq_read_iter.patch
 FROMLIST-proc-wire-up-generic_file_splice_read-for-iter-ops.patch
 FROMLIST-proc-cpuinfo-switch-to-read_iter.patch
+FROMLIST-proc-single-files-switch-to-read_iter.patch
+FROMLIST-char-misc-increase-DYNAMIC_MINORS-value.patch
 _____ANNOTATION-Android-vendor-hooks_____.patch
 ANDROID-GKI-add-android_vendor.h.patch
 ANDROID-add-support-for-vendor-hooks.patch
@@ -664,5 +666,3 @@ _____ANNOTATION-remove-ANNOTATIONS-file_____.patch
 DROP-ME-Out-of-tree-difference-caused-by-unclean-revert.patch
 DROP-ME-This-compensates-a-left-over-patch-after-merging-5.10-rc1.patch
 DROP-ME-trivial-revert-merge-leftover.patch
-FROMLIST-proc-single-files-switch-to-read_iter.patch
-ANDROID-vendor_hooks-fix-__section-macro.patch
