@@ -55,7 +55,7 @@ diff --git a/drivers/scsi/ufs/ufshcd-crypto.h b/drivers/scsi/ufs/ufshcd-crypto.h
 diff --git a/drivers/scsi/ufs/ufshcd.c b/drivers/scsi/ufs/ufshcd.c
 --- a/drivers/scsi/ufs/ufshcd.c
 +++ b/drivers/scsi/ufs/ufshcd.c
-@@ -4945,6 +4945,7 @@ static void __ufshcd_transfer_req_compl(struct ufs_hba *hba,
+@@ -4946,6 +4946,7 @@ static void __ufshcd_transfer_req_compl(struct ufs_hba *hba,
  			result = ufshcd_transfer_rsp_status(hba, lrbp);
  			scsi_dma_unmap(cmd);
  			cmd->result = result;
