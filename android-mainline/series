@@ -1,8 +1,8 @@
 #
 # android-mainline patches
 #
-# Applies onto upstream 65b55d4c85e5 Linux v5.10-rc1-215-g65b55d4c85e5
-# Matches android-mainline c13605829f39 ("Merge 65b55d4c85e5 ("Merge tag 'arm-soc-fixes-v5.10-1' of git://git.kernel.org/pub/scm/linux/kernel/git/soc/soc") into android-mainline")
+# Applies onto upstream 11ad2a73de10 Linux v5.10-rc1-217-g11ad2a73de10
+# Matches android-mainline 83a8892ba072 ("Merge 11ad2a73de10 ("Merge tag 'asm-generic-fixes-5.10' of git://git.kernel.org/pub/scm/linux/kernel/git/arnd/asm-generic") into android-mainline")
 #
 Revert-block-grant-IOPRIO_CLASS_RT-to-CAP_SYS_NICE.patch
 Revert-arm64-dts-qcom-sdm845-db845c-Fix-hdmi-nodes.patch
