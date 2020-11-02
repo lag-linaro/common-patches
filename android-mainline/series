@@ -2,7 +2,7 @@
 # android-mainline patches
 #
 # Applies onto upstream 23859ae44402 Linux v5.10-rc1-30-g23859ae44402
-# Matches android-mainline 3d1dec1f42d9 ("Merge 23859ae44402 ("Merge tag 'trace-v5.10-rc1' of git://git.kernel.org/pub/scm/linux/kernel/git/rostedt/linux-trace") into android-mainline")
+# Matches android-mainline ee9e1751522a ("ANDROID: Enable generation of BTF type information")
 #
 Revert-block-grant-IOPRIO_CLASS_RT-to-CAP_SYS_NICE.patch
 Revert-arm64-dts-qcom-sdm845-db845c-Fix-hdmi-nodes.patch
@@ -653,6 +653,8 @@ ANDROID-GKI-remove-explicit-CONFIG_SECCOMP-from-defconfig-for-arm64.patch
 ANDROID-Kconfig.gki-Enable-media-controller-configs.patch
 ANDROID-gki_defconfig-Enable-CONFIG_MEMORY_HOTREMOVE.patch
 ANDROID-gki_defconfig-Enable-memory-hotplug.patch
+ANDROID-gki_defconfig-Enable-CONFIG_PAGE_OWNER.patch
+ANDROID-Enable-generation-of-BTF-type-information.patch
 _____ANNOTATION-Patches-for-bringing-up-new-SoCs_____.patch
 ANDROID-serial-msm_geni_serial_earlycon-Add-Earlycon-support.patch
 ANDROID-arm64-Add-support-for-asymmetric-AArch32-EL0-configurations.patch
@@ -660,5 +662,4 @@ ANDROID-arm64-Handle-AArch32-tasks-running-on-non-AArch32-cpu.patch
 ANDROID-arm64-Disallow-offlining-the-last-aarch32-cpu.patch
 ANDROID-arm64-kvm-Hide-asym-aarch32-systems-from-KVM.patch
 ANDROID-arm64-Enable-KVM-for-Asym-AArch32.patch
-ANDROID-gki_defconfig-Enable-CONFIG_PAGE_OWNER.patch
 _____ANNOTATION-remove-ANNOTATIONS-file_____.patch
