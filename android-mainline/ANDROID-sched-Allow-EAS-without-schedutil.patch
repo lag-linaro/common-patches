@@ -38,7 +38,7 @@ diff --git a/Documentation/scheduler/sched-energy.rst b/Documentation/scheduler/
 diff --git a/drivers/cpufreq/cpufreq.c b/drivers/cpufreq/cpufreq.c
 --- a/drivers/cpufreq/cpufreq.c
 +++ b/drivers/cpufreq/cpufreq.c
-@@ -2494,7 +2494,6 @@ static int cpufreq_set_policy(struct cpufreq_policy *policy,
+@@ -2507,7 +2507,6 @@ static int cpufreq_set_policy(struct cpufreq_policy *policy,
  		ret = cpufreq_start_governor(policy);
  		if (!ret) {
  			pr_debug("governor change\n");
@@ -49,7 +49,7 @@ diff --git a/drivers/cpufreq/cpufreq.c b/drivers/cpufreq/cpufreq.c
 diff --git a/include/linux/cpufreq.h b/include/linux/cpufreq.h
 --- a/include/linux/cpufreq.h
 +++ b/include/linux/cpufreq.h
-@@ -1000,14 +1000,6 @@ static inline bool policy_has_boost_freq(struct cpufreq_policy *policy)
+@@ -1009,14 +1009,6 @@ static inline bool policy_has_boost_freq(struct cpufreq_policy *policy)
  }
  #endif
  
@@ -67,7 +67,7 @@ diff --git a/include/linux/cpufreq.h b/include/linux/cpufreq.h
 diff --git a/kernel/sched/cpufreq_schedutil.c b/kernel/sched/cpufreq_schedutil.c
 --- a/kernel/sched/cpufreq_schedutil.c
 +++ b/kernel/sched/cpufreq_schedutil.c
-@@ -897,36 +897,3 @@ struct cpufreq_governor *cpufreq_default_governor(void)
+@@ -899,36 +899,3 @@ struct cpufreq_governor *cpufreq_default_governor(void)
  #endif
  
  cpufreq_governor_init(schedutil_gov);

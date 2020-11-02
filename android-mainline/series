@@ -1,8 +1,8 @@
 #
 # android-mainline patches
 #
-# Applies onto upstream 58130a6cd062 Linux v5.10-rc1-41-g58130a6cd062
-# Matches android-mainline 25eea2387885 ("Merge 58130a6cd062 ("Merge tag 'ext4_for_linus_fixes' of git://git.kernel.org/pub/scm/linux/kernel/git/tytso/ext4") into android-mainline")
+# Applies onto upstream 65b55d4c85e5 Linux v5.10-rc1-215-g65b55d4c85e5
+# Matches android-mainline c13605829f39 ("Merge 65b55d4c85e5 ("Merge tag 'arm-soc-fixes-v5.10-1' of git://git.kernel.org/pub/scm/linux/kernel/git/soc/soc") into android-mainline")
 #
 Revert-block-grant-IOPRIO_CLASS_RT-to-CAP_SYS_NICE.patch
 Revert-arm64-dts-qcom-sdm845-db845c-Fix-hdmi-nodes.patch
