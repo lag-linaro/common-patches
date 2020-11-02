@@ -1,8 +1,8 @@
 #
 # android-mainline patches
 #
-# Applies onto upstream 23859ae44402 Linux v5.10-rc1-30-g23859ae44402
-# Matches android-mainline ee9e1751522a ("ANDROID: Enable generation of BTF type information")
+# Applies onto upstream 58130a6cd062 Linux v5.10-rc1-41-g58130a6cd062
+# Matches android-mainline 25eea2387885 ("Merge 58130a6cd062 ("Merge tag 'ext4_for_linus_fixes' of git://git.kernel.org/pub/scm/linux/kernel/git/tytso/ext4") into android-mainline")
 #
 Revert-block-grant-IOPRIO_CLASS_RT-to-CAP_SYS_NICE.patch
 Revert-arm64-dts-qcom-sdm845-db845c-Fix-hdmi-nodes.patch
