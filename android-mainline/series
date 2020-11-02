@@ -2,16 +2,8 @@
 # android-mainline patches
 #
 # Applies onto upstream 3650b228f83a Linux v5.10-rc1
-# Matches android-mainline 7ba2f04cb6df ("ANDROID: arm64: Enable KVM for Asym AArch32")
+# Matches android-mainline d62653ee89a6 ("Revert "Revert "security/keys: remove compat_keyctl_instantiate_key_iov""")
 #
-Revert-security-keys-remove-compat_keyctl_instantiate_key_iov.patch
-Revert-mm-remove-compat_process_vm_-readv-writev.patch
-Revert-fs-remove-compat_sys_vmsplice.patch
-Revert-fs-remove-the-compat-readv-writev-syscalls.patch
-Revert-fs-remove-various-compat-readv-writev-helpers.patch
-Revert-iov_iter-transparently-handle-compat-iovecs-in-import_iovec.patch
-Revert-iov_iter-refactor-rw_copy_check_uvector-and-import_iovec.patch
-Revert-iov_iter-move-rw_copy_check_uvector-into-lib-iov_iter.c.patch
 Revert-block-grant-IOPRIO_CLASS_RT-to-CAP_SYS_NICE.patch
 Revert-arm64-dts-qcom-sdm845-db845c-Fix-hdmi-nodes.patch
 _____ANNOTATION-pending-upstream_____.patch
@@ -76,6 +68,7 @@ ANDROID-tick-nohz-export-tick_nohz_get_sleep_length.patch
 ANDROID-GKI-pid-Export-for-find_task_by_vpid.patch
 ANDROID-Export-perf_event_read_local-function.patch
 ANDROID-workqueue-add-vendor-hook-for-wq-lockup-information.patch
+ANDROID-um-Return-to-old-__section-declarations-for-um.patch
 _____ANNOTATION-power-management-changes_____.patch
 ANDROID-power-wakeup_reason-add-an-API-to-log-wakeup-reasons.patch
 ANDROID-Log-which-device-failed-to-suspend-in-dpm_suspend_start.patch
@@ -671,7 +664,5 @@ ANDROID-arm64-Handle-AArch32-tasks-running-on-non-AArch32-cpu.patch
 ANDROID-arm64-Disallow-offlining-the-last-aarch32-cpu.patch
 ANDROID-arm64-kvm-Hide-asym-aarch32-systems-from-KVM.patch
 ANDROID-arm64-Enable-KVM-for-Asym-AArch32.patch
+ANDROID-gki_defconfig-Enable-CONFIG_PAGE_OWNER.patch
 _____ANNOTATION-remove-ANNOTATIONS-file_____.patch
-DROP-ME-Out-of-tree-difference-caused-by-unclean-revert.patch
-DROP-ME-This-compensates-a-left-over-patch-after-merging-5.10-rc1.patch
-DROP-ME-trivial-revert-merge-leftover.patch

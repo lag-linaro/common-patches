@@ -1,0 +1,41 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: "J. Avila" <elavila@google.com>
+Date: Fri, 30 Oct 2020 17:42:29 +0000
+Subject: ANDROID: um: Return to old __section declarations for um
+
+There are build issues in certain targets due to a recent change to the
+section declarations (33def8498fdde180023444b08e12b72a9efed41d). Until
+this is reconciled properly, revert to the older declaration style for a
+few files.
+
+Signed-off-by: J. Avila <elavila@google.com>
+Change-Id: Id34aeca94bb395f79fb6a3710f92c6827964a79d
+---
+ arch/um/kernel/skas/clone.c | 2 +-
+ arch/x86/um/stub_segv.c     | 2 +-
+ 2 files changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/arch/um/kernel/skas/clone.c b/arch/um/kernel/skas/clone.c
+--- a/arch/um/kernel/skas/clone.c
++++ b/arch/um/kernel/skas/clone.c
+@@ -21,7 +21,7 @@
+  * on some systems.
+  */
+ 
+-void __section(".__syscall_stub")
++void __attribute__ ((__section__ (".__syscall_stub")))
+ stub_clone_handler(void)
+ {
+ 	struct stub_data *data = (struct stub_data *) STUB_DATA;
+diff --git a/arch/x86/um/stub_segv.c b/arch/x86/um/stub_segv.c
+--- a/arch/x86/um/stub_segv.c
++++ b/arch/x86/um/stub_segv.c
+@@ -8,7 +8,7 @@
+ #include <sysdep/mcontext.h>
+ #include <sys/ucontext.h>
+ 
+-void __section(".__syscall_stub")
++void __attribute__ ((__section__ (".__syscall_stub")))
+ stub_segv_handler(int sig, siginfo_t *info, void *p)
+ {
+ 	ucontext_t *uc = p;
