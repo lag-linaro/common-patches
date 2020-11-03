@@ -1,8 +1,8 @@
 #
 # android-mainline patches
 #
-# Applies onto upstream 2d38c80d5baf Linux v5.10-rc1-334-g2d38c80d5baf
-# Matches android-mainline 7a8f2caae1b6 ("Merge 2d38c80d5baf ("Merge tag 'for-linus' of git://git.kernel.org/pub/scm/virt/kvm/kvm") into android-mainline")
+# Applies onto upstream 3cea11cd5e3b Linux v5.10-rc2
+# Matches android-mainline acd4caf0df0b ("Merge tag 'v5.10-rc2' into android-mainline")
 #
 Revert-block-grant-IOPRIO_CLASS_RT-to-CAP_SYS_NICE.patch
 Revert-arm64-dts-qcom-sdm845-db845c-Fix-hdmi-nodes.patch
@@ -11,7 +11,6 @@ FROMLIST-clk-Export-clk_register_composite.patch
 FROMLIST-clk-versatile-remove-dependency-on-ARCH_.patch
 FROMLIST-soc-qcom-Kconfig-make-RPMH-match-Command-DB-setting.patch
 FROMLIST-cpuidle-governor-export-cpuidle-governor-functions.patch
-FROMLIST-interconnect-qcom-sdm845-Enable-keepalive-for-the-MM1-BCM.patch
 FROMLIST-seq_file-add-seq_read_iter.patch
 FROMLIST-proc-wire-up-generic_file_splice_read-for-iter-ops.patch
 FROMLIST-proc-cpuinfo-switch-to-read_iter.patch
