@@ -1,8 +1,8 @@
 #
 # android-mainline patches
 #
-# Applies onto upstream c2dc4c073fb7 Linux v5.10-rc1-313-gc2dc4c073fb7
-# Matches android-mainline b0748cf3e158 ("Merge c2dc4c073fb7 ("Merge tag 'for_linus' of git://git.kernel.org/pub/scm/linux/kernel/git/mst/vhost") into android-mainline")
+# Applies onto upstream 2d38c80d5baf Linux v5.10-rc1-334-g2d38c80d5baf
+# Matches android-mainline 7a8f2caae1b6 ("Merge 2d38c80d5baf ("Merge tag 'for-linus' of git://git.kernel.org/pub/scm/virt/kvm/kvm") into android-mainline")
 #
 Revert-block-grant-IOPRIO_CLASS_RT-to-CAP_SYS_NICE.patch
 Revert-arm64-dts-qcom-sdm845-db845c-Fix-hdmi-nodes.patch
