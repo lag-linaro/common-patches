@@ -2,7 +2,7 @@
 # android-mainline patches
 #
 # Applies onto upstream 3cea11cd5e3b Linux v5.10-rc2
-# Matches android-mainline acd4caf0df0b ("Merge tag 'v5.10-rc2' into android-mainline")
+# Matches android-mainline 709eab3f9656 ("ANDROID: GKI: Enable DEBUG_INFO_DWARF4")
 #
 Revert-block-grant-IOPRIO_CLASS_RT-to-CAP_SYS_NICE.patch
 Revert-arm64-dts-qcom-sdm845-db845c-Fix-hdmi-nodes.patch
@@ -276,7 +276,6 @@ FROMLIST-overlayfs-internal-getxattr-operations-without-sepolicy-checking.patch
 FROMLIST-overlayfs-override_creds-off-option-bypass-creator_cred.patch
 ANDROID-overlayfs-readdir-override_creds-off-option-bypass-creator_cred.patch
 ANDROID-inode_owner_or_capable-called-during-execv.patch
-FROMLIST-ext4-Use-generic-casefolding-support.patch
 FROMLIST-fscrypt-Have-filesystems-handle-their-d_ops.patch
 FROMLIST-fscrypt-Add-functions-for-direct-I-O-support.patch
 FROMLIST-direct-io-add-support-for-fscrypt-using-blk-crypto.patch
@@ -653,6 +652,7 @@ ANDROID-gki_defconfig-Enable-CONFIG_MEMORY_HOTREMOVE.patch
 ANDROID-gki_defconfig-Enable-memory-hotplug.patch
 ANDROID-gki_defconfig-Enable-CONFIG_PAGE_OWNER.patch
 ANDROID-Enable-generation-of-BTF-type-information.patch
+ANDROID-GKI-Enable-DEBUG_INFO_DWARF4.patch
 _____ANNOTATION-Patches-for-bringing-up-new-SoCs_____.patch
 ANDROID-serial-msm_geni_serial_earlycon-Add-Earlycon-support.patch
 ANDROID-arm64-Add-support-for-asymmetric-AArch32-EL0-configurations.patch

@@ -1,6 +1,6 @@
 From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
 From: Daniel Rosenberg <drosen@google.com>
-Date: Mon, 27 Jan 2020 20:04:40 -0800
+Date: Wed, 8 Jul 2020 02:12:37 -0700
 Subject: FROMLIST: fscrypt: Have filesystems handle their d_ops
 
 This shifts the responsibility of setting up dentry operations from
@@ -20,7 +20,7 @@ Change-Id: Iaf77f8c5961ecf22e22478701ab0b7fe2025225d
  fs/crypto/fname.c           |  4 ---
  fs/crypto/fscrypt_private.h |  1 -
  fs/crypto/hooks.c           |  1 -
- fs/ext4/dir.c               |  1 -
+ fs/ext4/dir.c               |  7 ------
  fs/ext4/namei.c             |  1 +
  fs/ext4/super.c             |  5 ----
  fs/f2fs/dir.c               |  7 ------
@@ -31,7 +31,7 @@ Change-Id: Iaf77f8c5961ecf22e22478701ab0b7fe2025225d
  fs/ubifs/dir.c              | 18 +++++++++++++
  include/linux/fs.h          |  2 ++
  include/linux/fscrypt.h     |  5 ++--
- 14 files changed, 75 insertions(+), 25 deletions(-)
+ 14 files changed, 75 insertions(+), 31 deletions(-)
 
 diff --git a/fs/crypto/fname.c b/fs/crypto/fname.c
 --- a/fs/crypto/fname.c
@@ -69,11 +69,17 @@ diff --git a/fs/crypto/hooks.c b/fs/crypto/hooks.c
 diff --git a/fs/ext4/dir.c b/fs/ext4/dir.c
 --- a/fs/ext4/dir.c
 +++ b/fs/ext4/dir.c
-@@ -667,4 +667,3 @@ const struct file_operations ext4_dir_operations = {
+@@ -667,10 +667,3 @@ const struct file_operations ext4_dir_operations = {
  	.open		= ext4_dir_open,
  	.release	= ext4_release_dir,
  };
 -
+-#ifdef CONFIG_UNICODE
+-const struct dentry_operations ext4_dentry_ops = {
+-	.d_hash = generic_ci_d_hash,
+-	.d_compare = generic_ci_d_compare,
+-};
+-#endif
 diff --git a/fs/ext4/namei.c b/fs/ext4/namei.c
 --- a/fs/ext4/namei.c
 +++ b/fs/ext4/namei.c
