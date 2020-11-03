@@ -2,7 +2,7 @@
 # android-mainline patches
 #
 # Applies onto upstream 3cea11cd5e3b Linux v5.10-rc2
-# Matches android-mainline 709eab3f9656 ("ANDROID: GKI: Enable DEBUG_INFO_DWARF4")
+# Matches android-mainline 9ee350d7eccb ("FROMLIST: fuse: Use daemon creds in passthrough mode")
 #
 Revert-block-grant-IOPRIO_CLASS_RT-to-CAP_SYS_NICE.patch
 Revert-arm64-dts-qcom-sdm845-db845c-Fix-hdmi-nodes.patch
@@ -16,6 +16,11 @@ FROMLIST-proc-wire-up-generic_file_splice_read-for-iter-ops.patch
 FROMLIST-proc-cpuinfo-switch-to-read_iter.patch
 FROMLIST-proc-single-files-switch-to-read_iter.patch
 FROMLIST-char-misc-increase-DYNAMIC_MINORS-value.patch
+FROMLIST-fuse-Definitions-and-ioctl-for-passthrough.patch
+FROMLIST-fuse-Passthrough-initialization-and-release.patch
+FROMLIST-fuse-Introduce-synchronous-read-and-write-for-passthrough.patch
+FROMLIST-fuse-Handle-asynchronous-read-and-write-in-passthrough.patch
+FROMLIST-fuse-Use-daemon-creds-in-passthrough-mode.patch
 _____ANNOTATION-Android-vendor-hooks_____.patch
 ANDROID-GKI-add-android_vendor.h.patch
 ANDROID-add-support-for-vendor-hooks.patch
