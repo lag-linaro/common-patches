@@ -49,7 +49,7 @@ Change-Id: I1a9860a883f001ddebb4df9dee7504edf970d593
 diff --git a/arch/arm64/Kconfig b/arch/arm64/Kconfig
 --- a/arch/arm64/Kconfig
 +++ b/arch/arm64/Kconfig
-@@ -1888,6 +1888,20 @@ config DMI
+@@ -1908,6 +1908,20 @@ config DMI
  
  endmenu
  
@@ -275,7 +275,7 @@ diff --git a/arch/arm64/kernel/cpufeature.c b/arch/arm64/kernel/cpufeature.c
 diff --git a/arch/arm64/kernel/cpuinfo.c b/arch/arm64/kernel/cpuinfo.c
 --- a/arch/arm64/kernel/cpuinfo.c
 +++ b/arch/arm64/kernel/cpuinfo.c
-@@ -370,32 +370,6 @@ static void __cpuinfo_store_cpu(struct cpuinfo_arm64 *info)
+@@ -371,32 +371,6 @@ static void __cpuinfo_store_cpu(struct cpuinfo_arm64 *info)
  	info->reg_id_aa64pfr1 = read_cpuid(ID_AA64PFR1_EL1);
  	info->reg_id_aa64zfr0 = read_cpuid(ID_AA64ZFR0_EL1);
  
@@ -308,7 +308,7 @@ diff --git a/arch/arm64/kernel/cpuinfo.c b/arch/arm64/kernel/cpuinfo.c
  	if (IS_ENABLED(CONFIG_ARM64_SVE) &&
  	    id_aa64pfr0_sve(info->reg_id_aa64pfr0))
  		info->reg_zcr = read_zcr_features();
-@@ -403,10 +377,51 @@ static void __cpuinfo_store_cpu(struct cpuinfo_arm64 *info)
+@@ -404,10 +378,51 @@ static void __cpuinfo_store_cpu(struct cpuinfo_arm64 *info)
  	cpuinfo_detect_icache_policy(info);
  }
  
@@ -360,7 +360,7 @@ diff --git a/arch/arm64/kernel/cpuinfo.c b/arch/arm64/kernel/cpuinfo.c
  	update_cpu_features(smp_processor_id(), info, &boot_cpu_data);
  }
  
-@@ -414,7 +429,11 @@ void __init cpuinfo_store_boot_cpu(void)
+@@ -415,7 +430,11 @@ void __init cpuinfo_store_boot_cpu(void)
  {
  	struct cpuinfo_arm64 *info = &per_cpu(cpu_data, 0);
  	__cpuinfo_store_cpu(info);

@@ -1,15 +1,14 @@
 #
 # android-mainline patches
 #
-# Applies onto upstream 11ad2a73de10 Linux v5.10-rc1-217-g11ad2a73de10
-# Matches android-mainline 83a8892ba072 ("Merge 11ad2a73de10 ("Merge tag 'asm-generic-fixes-5.10' of git://git.kernel.org/pub/scm/linux/kernel/git/arnd/asm-generic") into android-mainline")
+# Applies onto upstream aab6bf505a8e Linux v5.10-rc1-235-gaab6bf505a8e
+# Matches android-mainline d110cda09ba3 ("Merge aab6bf505a8e ("Merge tag 'arm64-fixes' of git://git.kernel.org/pub/scm/linux/kernel/git/arm64/linux") into android-mainline")
 #
 Revert-block-grant-IOPRIO_CLASS_RT-to-CAP_SYS_NICE.patch
 Revert-arm64-dts-qcom-sdm845-db845c-Fix-hdmi-nodes.patch
 _____ANNOTATION-pending-upstream_____.patch
 FROMLIST-clk-Export-clk_register_composite.patch
 FROMLIST-clk-versatile-remove-dependency-on-ARCH_.patch
-FROMLIST-arm64-vdso32-Allow-ld.lld-to-properly-link-the-VDSO.patch
 FROMLIST-soc-qcom-Kconfig-make-RPMH-match-Command-DB-setting.patch
 FROMLIST-cpuidle-governor-export-cpuidle-governor-functions.patch
 FROMLIST-interconnect-qcom-sdm845-Enable-keepalive-for-the-MM1-BCM.patch
