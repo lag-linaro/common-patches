@@ -2,7 +2,7 @@
 # android-mainline patches
 #
 # Applies onto upstream 3cea11cd5e3b Linux v5.10-rc2
-# Matches android-mainline 9ee350d7eccb ("FROMLIST: fuse: Use daemon creds in passthrough mode")
+# Matches android-mainline 70735d9b05a1 ("ANDROID: dma-buf: heaps: Allow cma heaps to be configured as a module")
 #
 Revert-block-grant-IOPRIO_CLASS_RT-to-CAP_SYS_NICE.patch
 Revert-arm64-dts-qcom-sdm845-db845c-Fix-hdmi-nodes.patch
@@ -47,6 +47,7 @@ ANDROID-ARM-Remove-arm_pm_restart.patch
 ANDROID-arm64-traps-export-dump_backtrace-symbol.patch
 ANDROID-arm64-debug-monitors-export-break-hook-APIs.patch
 ANDROID-vendor_hooks-Add-new-android-vendor-hooks-for-ipi-stop.patch
+ANDROID-arm64-smp-fix-Lockdep-warning-RCU-used-illegally-from-idle-CPU.patch
 _____ANNOTATION-iommu-changes_____.patch
 FROMGIT-iommu-arm-smmu-Don-t-bypass-pinned-stream-mappings.patch
 ANDROID-iommu-arm-smmu-Allow-inherting-stream-mapping-from-bootloader.patch
@@ -178,6 +179,8 @@ ANDROID-dma-heap-Refactor-code-to-allow-for-future-in-kernel-users.patch
 ANDROID-dma-heap-Rework-allocation-calls-to-return-struct-dma_buf-instead-of-fd.patch
 ANDROID-dma-heap-Provide-accessors-so-that-in-kernel-drivers-can-allocate-dmabufs-from-specific-heaps.patch
 ANDROID-dma-buf-Cleanup-minor-usage-in-Add-proper-kref-handling-on-dma-buf-heaps.patch
+ANDROID-dma-Rework-so-dev_get_cma_area-can-be-called-from-a-module.patch
+ANDROID-dma-buf-heaps-Allow-cma-heaps-to-be-configured-as-a-module.patch
 _____ANNOTATION-driver-framework-and-misc-driver-changes_____.patch
 FROMLIST-drivers-irqchip-pdc-additionally-set-type-in-SPI-config-registers.patch
 FROMLIST-dt-bindings-interrupt-controller-pdc-add-SPI-config-register.patch
