@@ -26,13 +26,14 @@ diff --git a/drivers/android/vendor_hooks.c b/drivers/android/vendor_hooks.c
  #include <trace/hooks/wqlockup.h>
  #include <trace/hooks/debug.h>
  
-@@ -57,5 +58,6 @@ EXPORT_TRACEPOINT_SYMBOL_GPL(android_vh_sched_show_task);
+@@ -57,6 +58,7 @@ EXPORT_TRACEPOINT_SYMBOL_GPL(android_vh_sched_show_task);
  EXPORT_TRACEPOINT_SYMBOL_GPL(android_vh_cpu_idle);
  EXPORT_TRACEPOINT_SYMBOL_GPL(android_vh_mpam_set);
  EXPORT_TRACEPOINT_SYMBOL_GPL(android_rvh_find_busiest_group);
 +EXPORT_TRACEPOINT_SYMBOL_GPL(android_vh_gic_resume);
  EXPORT_TRACEPOINT_SYMBOL_GPL(android_vh_wq_lockup_pool);
  EXPORT_TRACEPOINT_SYMBOL_GPL(android_vh_ipi_stop);
+ EXPORT_TRACEPOINT_SYMBOL_GPL(android_vh_dump_throttled_rt_tasks);
 diff --git a/drivers/irqchip/irq-gic-v3.c b/drivers/irqchip/irq-gic-v3.c
 --- a/drivers/irqchip/irq-gic-v3.c
 +++ b/drivers/irqchip/irq-gic-v3.c

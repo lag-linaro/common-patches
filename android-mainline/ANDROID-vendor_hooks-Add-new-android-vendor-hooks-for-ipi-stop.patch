@@ -17,8 +17,8 @@ Signed-off-by: Jonglin Lee <jonglin@google.com>
 ---
  arch/arm64/kernel/smp.c        |  3 +++
  drivers/android/vendor_hooks.c |  2 ++
- include/trace/hooks/debug.h    | 25 +++++++++++++++++++++++++
- 3 files changed, 30 insertions(+)
+ include/trace/hooks/debug.h    | 26 ++++++++++++++++++++++++++
+ 3 files changed, 31 insertions(+)
  create mode 100644 include/trace/hooks/debug.h
 
 diff --git a/arch/arm64/kernel/smp.c b/arch/arm64/kernel/smp.c
@@ -59,10 +59,10 @@ diff --git a/drivers/android/vendor_hooks.c b/drivers/android/vendor_hooks.c
 +EXPORT_TRACEPOINT_SYMBOL_GPL(android_vh_ipi_stop);
 diff --git a/include/trace/hooks/debug.h b/include/trace/hooks/debug.h
 new file mode 100644
-index 000000000000..12ce5cf5e9a8
+index 000000000000..ac006d7fdd0a
 --- /dev/null
 +++ b/include/trace/hooks/debug.h
-@@ -0,0 +1,25 @@
+@@ -0,0 +1,26 @@
 +/* SPDX-License-Identifier: GPL-2.0 */
 +#undef TRACE_SYSTEM
 +#define TRACE_SYSTEM debug
@@ -83,6 +83,7 @@ index 000000000000..12ce5cf5e9a8
 +	TP_ARGS(regs))
 +#else
 +#define trace_android_vh_ipi_stop(regs)
++#define trace_android_vh_ipi_stop_rcuidle(regs)
 +#endif
 +
 +#endif /* _TRACE_HOOK_DEBUG_H */

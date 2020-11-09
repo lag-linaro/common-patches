@@ -2,7 +2,7 @@
 # android-mainline patches
 #
 # Applies onto upstream 3cea11cd5e3b Linux v5.10-rc2
-# Matches android-mainline e067b296e0e0 ("Revert "ANDROID: gki_defconfig: Enable CONFIG_PAGE_OWNER"")
+# Matches android-mainline 95a43fc99f14 ("ANDROID: Incremental fs: Add zstd compression support")
 #
 Revert-block-grant-IOPRIO_CLASS_RT-to-CAP_SYS_NICE.patch
 Revert-arm64-dts-qcom-sdm845-db845c-Fix-hdmi-nodes.patch
@@ -48,6 +48,8 @@ ANDROID-arm64-traps-export-dump_backtrace-symbol.patch
 ANDROID-arm64-debug-monitors-export-break-hook-APIs.patch
 ANDROID-vendor_hooks-Add-new-android-vendor-hooks-for-ipi-stop.patch
 ANDROID-arm64-smp-fix-Lockdep-warning-RCU-used-illegally-from-idle-CPU.patch
+ANDROID-arm64-allow-hooks-into-ipi.patch
+ANDROID-arm-allow-hooks-into-ipi.patch
 _____ANNOTATION-iommu-changes_____.patch
 FROMGIT-iommu-arm-smmu-Don-t-bypass-pinned-stream-mappings.patch
 ANDROID-iommu-arm-smmu-Allow-inherting-stream-mapping-from-bootloader.patch
@@ -70,6 +72,7 @@ ANDROID-tick-nohz-export-tick_nohz_get_sleep_length.patch
 ANDROID-GKI-pid-Export-for-find_task_by_vpid.patch
 ANDROID-Export-perf_event_read_local-function.patch
 ANDROID-workqueue-add-vendor-hook-for-wq-lockup-information.patch
+ANDROID-printk-printk_deferred-for-modules.patch
 _____ANNOTATION-power-management-changes_____.patch
 ANDROID-power-wakeup_reason-add-an-API-to-log-wakeup-reasons.patch
 ANDROID-Log-which-device-failed-to-suspend-in-dpm_suspend_start.patch
@@ -108,6 +111,7 @@ ANDROID-cpu-hotplug-Always-use-real-time-scheduling-when-hotplugging-a-CPU.patch
 ANDROID-sched-export-wake_up_if_idle.patch
 ANDROID-cpu-Don-t-prevent-hotplug-from-DL-BATCH-IDLE.patch
 ANDROID-sched-gki-add-padding-to-some-structs-to-support-WALT.patch
+ANDROID-sched-Add-trace-hook-for-rt-throttle-dump.patch
 _____ANNOTATION-uid_sys_stats-support_____.patch
 ANDROID-uid_cputime-Adds-accounting-for-the-cputimes-per-uid.patch
 ANDROID-uid_cputime-add-per-uid-IO-usage-accounting.patch
@@ -366,6 +370,9 @@ ANDROID-Incremental-fs-Add-.incomplete-folder.patch
 ANDROID-Incremental-fs-Add-per-UID-read-timeouts.patch
 ANDROID-Incremental-fs-Fix-misuse-of-cpu_to_leXX-and-poll-return.patch
 ANDROID-Incremental-fs-Fix-read_log_test-which-failed-sporadically.patch
+ANDROID-Incremental-fs-Initialize-mount-options-correctly.patch
+ANDROID-Incremental-fs-Small-improvements.patch
+ANDROID-Incremental-fs-Add-zstd-compression-support.patch
 _____ANNOTATION-networking-changes_____.patch
 ANDROID-net-xfrm-make-PF_KEY-SHA256-use-RFC-compliant-truncation.patch
 ANDROID-netfilter-xt_quota2-add-quota2-from-xtables-addons.patch
@@ -376,6 +383,7 @@ ANDROID-virtio-net-Skip-set_features-on-non-cvq-devices.patch
 ANDROID-net-wireless-Add-module_param-mac_prefix-to-mac80211_hwsim.patch
 ANDROID-Unconditionally-create-bridge-tracepoints.patch
 ANDROID-net-bpf-permit-redirect-from-ingress-L3-to-egress-L2-devices-at-near-max-mtu.patch
+ANDROID-Temporarily-disable-XFRM_USER_COMPAT-filtering.patch
 _____ANNOTATION-hardware-wrapped-key-support_____.patch
 ANDROID-block-add-hardware-wrapped-key-support.patch
 ANDROID-dm-add-support-for-passing-through-derive_raw_secret.patch
