@@ -1,8 +1,8 @@
 #
 # android-mainline patches
 #
-# Applies onto upstream 4ef8451b3326 Linux v5.10-rc2-81-g4ef8451b3326
-# Matches android-mainline 07933490aec0 ("Merge 4ef8451b3326 ("Merge tag 'perf-tools-for-v5.10-2020-11-03' of git://git.kernel.org/pub/scm/linux/kernel/git/acme/linux") into android-mainline")
+# Applies onto upstream 521b619acdc8 Linux v5.10-rc2-140-g521b619acdc8
+# Matches android-mainline 3d5e271d109c ("Merge 521b619acdc8 ("Merge tag 'linux-kselftest-kunit-fixes-5.10-rc3' of git://git.kernel.org/pub/scm/linux/kernel/git/shuah/linux-kselftest") into android-mainline")
 #
 Revert-block-grant-IOPRIO_CLASS_RT-to-CAP_SYS_NICE.patch
 Revert-arm64-dts-qcom-sdm845-db845c-Fix-hdmi-nodes.patch
