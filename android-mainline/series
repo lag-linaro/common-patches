@@ -1,8 +1,8 @@
 #
 # android-mainline patches
 #
-# Applies onto upstream 3cea11cd5e3b Linux v5.10-rc2
-# Matches android-mainline 95a43fc99f14 ("ANDROID: Incremental fs: Add zstd compression support")
+# Applies onto upstream 4ef8451b3326 Linux v5.10-rc2-81-g4ef8451b3326
+# Matches android-mainline 07933490aec0 ("Merge 4ef8451b3326 ("Merge tag 'perf-tools-for-v5.10-2020-11-03' of git://git.kernel.org/pub/scm/linux/kernel/git/acme/linux") into android-mainline")
 #
 Revert-block-grant-IOPRIO_CLASS_RT-to-CAP_SYS_NICE.patch
 Revert-arm64-dts-qcom-sdm845-db845c-Fix-hdmi-nodes.patch
