@@ -1,8 +1,8 @@
 #
 # android-mainline patches
 #
-# Applies onto upstream 521b619acdc8 Linux v5.10-rc2-140-g521b619acdc8
-# Matches android-mainline aca265111afa ("ANDROID: fuse: Add support for d_canonical_path")
+# Applies onto upstream f8394f232b1e Linux v5.10-rc3
+# Matches android-mainline 2cfc344f813d ("Merge 5.10-rc3 into android-mainline")
 #
 Revert-block-grant-IOPRIO_CLASS_RT-to-CAP_SYS_NICE.patch
 Revert-arm64-dts-qcom-sdm845-db845c-Fix-hdmi-nodes.patch
@@ -11,10 +11,6 @@ FROMLIST-clk-Export-clk_register_composite.patch
 FROMLIST-clk-versatile-remove-dependency-on-ARCH_.patch
 FROMLIST-soc-qcom-Kconfig-make-RPMH-match-Command-DB-setting.patch
 FROMLIST-cpuidle-governor-export-cpuidle-governor-functions.patch
-FROMLIST-seq_file-add-seq_read_iter.patch
-FROMLIST-proc-wire-up-generic_file_splice_read-for-iter-ops.patch
-FROMLIST-proc-cpuinfo-switch-to-read_iter.patch
-FROMLIST-proc-single-files-switch-to-read_iter.patch
 FROMLIST-char-misc-increase-DYNAMIC_MINORS-value.patch
 FROMLIST-fuse-Definitions-and-ioctl-for-passthrough.patch
 FROMLIST-fuse-Passthrough-initialization-and-release.patch
