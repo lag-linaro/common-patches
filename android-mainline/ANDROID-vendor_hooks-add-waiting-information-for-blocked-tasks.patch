@@ -36,7 +36,7 @@ diff --git a/drivers/android/vendor_hooks.c b/drivers/android/vendor_hooks.c
  #include <trace/hooks/mpam.h>
  #include <trace/hooks/wqlockup.h>
  #include <trace/hooks/debug.h>
-@@ -39,6 +40,13 @@ EXPORT_TRACEPOINT_SYMBOL_GPL(android_vh_rwsem_wake);
+@@ -40,6 +41,13 @@ EXPORT_TRACEPOINT_SYMBOL_GPL(android_vh_rwsem_wake);
  EXPORT_TRACEPOINT_SYMBOL_GPL(android_vh_rwsem_write_finished);
  EXPORT_TRACEPOINT_SYMBOL_GPL(android_vh_alter_rwsem_list_add);
  EXPORT_TRACEPOINT_SYMBOL_GPL(android_vh_alter_futex_plist_add);

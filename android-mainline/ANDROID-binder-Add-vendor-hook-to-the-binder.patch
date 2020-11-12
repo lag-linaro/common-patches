@@ -97,7 +97,7 @@ diff --git a/drivers/android/vendor_hooks.c b/drivers/android/vendor_hooks.c
  #include <trace/hooks/rwsem.h>
  #include <trace/hooks/futex.h>
  #include <trace/hooks/dtask.h>
-@@ -38,6 +39,9 @@ EXPORT_TRACEPOINT_SYMBOL_GPL(android_rvh_set_user_nice);
+@@ -39,6 +40,9 @@ EXPORT_TRACEPOINT_SYMBOL_GPL(android_rvh_set_user_nice);
  EXPORT_TRACEPOINT_SYMBOL_GPL(android_rvh_setscheduler);
  EXPORT_TRACEPOINT_SYMBOL_GPL(android_vh_arch_set_freq_scale);
  EXPORT_TRACEPOINT_SYMBOL_GPL(android_vh_is_fpsimd_save);

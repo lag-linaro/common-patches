@@ -30,7 +30,7 @@ diff --git a/drivers/android/vendor_hooks.c b/drivers/android/vendor_hooks.c
  #include <trace/hooks/mpam.h>
  #include <trace/hooks/wqlockup.h>
  #include <trace/hooks/debug.h>
-@@ -47,6 +48,7 @@ EXPORT_TRACEPOINT_SYMBOL_GPL(android_vh_rwsem_read_wait_finish);
+@@ -48,6 +49,7 @@ EXPORT_TRACEPOINT_SYMBOL_GPL(android_vh_rwsem_read_wait_finish);
  EXPORT_TRACEPOINT_SYMBOL_GPL(android_vh_rwsem_write_wait_start);
  EXPORT_TRACEPOINT_SYMBOL_GPL(android_vh_rwsem_write_wait_finish);
  EXPORT_TRACEPOINT_SYMBOL_GPL(android_vh_sched_show_task);

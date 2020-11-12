@@ -2,7 +2,7 @@
 # android-mainline patches
 #
 # Applies onto upstream f8394f232b1e Linux v5.10-rc3
-# Matches android-mainline 2cfc344f813d ("Merge 5.10-rc3 into android-mainline")
+# Matches android-mainline 00c6f53e034e ("ANDROID: gic-v3: Add vendor hook to GIC v3")
 #
 Revert-block-grant-IOPRIO_CLASS_RT-to-CAP_SYS_NICE.patch
 Revert-arm64-dts-qcom-sdm845-db845c-Fix-hdmi-nodes.patch
@@ -17,6 +17,7 @@ FROMLIST-fuse-Passthrough-initialization-and-release.patch
 FROMLIST-fuse-Introduce-synchronous-read-and-write-for-passthrough.patch
 FROMLIST-fuse-Handle-asynchronous-read-and-write-in-passthrough.patch
 FROMLIST-fuse-Use-daemon-creds-in-passthrough-mode.patch
+FROMLIST-Kbuild-do-not-emit-debug-info-for-assembly-with-LLVM_IAS-1.patch
 _____ANNOTATION-Android-vendor-hooks_____.patch
 ANDROID-GKI-add-android_vendor.h.patch
 ANDROID-add-support-for-vendor-hooks.patch
@@ -69,6 +70,8 @@ ANDROID-GKI-pid-Export-for-find_task_by_vpid.patch
 ANDROID-Export-perf_event_read_local-function.patch
 ANDROID-workqueue-add-vendor-hook-for-wq-lockup-information.patch
 ANDROID-printk-printk_deferred-for-modules.patch
+ANDROID-Reduce-log-level-for-couple-of-prints-in-hotplug-flow.patch
+ANDROID-printk-add-vendor-hook-for-console-flush.patch
 _____ANNOTATION-power-management-changes_____.patch
 ANDROID-power-wakeup_reason-add-an-API-to-log-wakeup-reasons.patch
 ANDROID-Log-which-device-failed-to-suspend-in-dpm_suspend_start.patch
@@ -108,6 +111,13 @@ ANDROID-sched-export-wake_up_if_idle.patch
 ANDROID-cpu-Don-t-prevent-hotplug-from-DL-BATCH-IDLE.patch
 ANDROID-sched-gki-add-padding-to-some-structs-to-support-WALT.patch
 ANDROID-sched-Add-trace-hook-for-rt-throttle-dump.patch
+ANDROID-sched-avoid-placing-RT-threads-on-cores-handling-softirqs.patch
+ANDROID-sched-avoid-migrating-when-softint-on-tgt-cpu-should-be-short.patch
+ANDROID-softirq-defer-softirq-processing-to-ksoftirqd-if-CPU-is-busy-with-RT.patch
+ANDROID-Revert-Mark-HI-and-TASKLET-softirq-synchronous.patch
+ANDROID-Revert-softirq-Let-ksoftirqd-do-its-job.patch
+ANDROID-trace-Add-trace-points-for-tasklet-entry-exit.patch
+ANDROID-vendor_hooks-Add-hook-for-jiffies-updates.patch
 _____ANNOTATION-uid_sys_stats-support_____.patch
 ANDROID-uid_cputime-Adds-accounting-for-the-cputimes-per-uid.patch
 ANDROID-uid_cputime-add-per-uid-IO-usage-accounting.patch
@@ -198,6 +208,7 @@ ANDROID-Export-functions-to-be-used-with-dma_map_ops-in-modules.patch
 ANDROID-drivers-firmware-psci-Register-with-kernel-restart-handler.patch
 ANDROID-gic-Add-vendor-hook-for-gic-v3-resume.patch
 ANDROID-rpmsg-core-Add-signal-API-support.patch
+ANDROID-clk-Enable-writable-debugfs-files.patch
 _____ANNOTATION-tty-changes_____.patch
 Revert-Revert-tty-serial-samsung_tty-build-it-for-any-platform.patch
 FROMLIST-hvc_dcc-bind-driver-to-core0-for-reads-and-writes.patch
@@ -206,6 +217,7 @@ ANDROID-serdev-restrict-claim-of-platform-devices.patch
 ANDROID-tty-hvc_dcc-Add-parameter-to-enable-DCC.patch
 ANDROID-Add-more-hvc-devices-for-virtio-console.patch
 ANDROID-sysrq-add-vendor-hook-for-sysrq-crash-information.patch
+ANDROID-gic-v3-Add-vendor-hook-to-GIC-v3.patch
 _____ANNOTATION-USB-changes_____.patch
 ANDROID-usb-gadget-configfs-Add-usb_function-ptr-to-fi-struct.patch
 ANDROID-usb-gadget-configfs-Add-Uevent-to-notify-userspace.patch
@@ -264,6 +276,7 @@ ANDROID-export-bkops-and-query-flag-query-functions.patch
 ANDROID-scsi-ufs-add-a-hook-to-prepare-command.patch
 ANDROID-scsi-ufs-add-a-hook-to-add-sysfs-entries.patch
 ANDROID-scsi-ufs-add-hooks-to-monitor-stats-of-UFS-traffic.patch
+ANDROID-scsi-ufs-revise-and-fix-custom-keyslot-manager-support.patch
 _____ANNOTATION-MMC-driver-changes_____.patch
 ANDROID-mmc-core-Add-ignore-mmc-pm-notify-functionality.patch
 _____ANNOTATION-block-changes_____.patch
@@ -298,6 +311,9 @@ ANDROID-ext4-Handle-casefolding-with-encryption.patch
 ANDROID-ext4-Optimize-match-for-casefolded-encrypted-dirs.patch
 ANDROID-f2fs-Handle-casefolding-with-Encryption.patch
 ANDROID-GKI-Don-t-compact-fuse_req-when-CONFIG_VIRTIO_FS-n.patch
+ANDROID-vfs-d_canonical_path-for-stacked-FS.patch
+ANDROID-fuse-Add-support-for-d_canonical_path.patch
+ANDROID-ext4-fix-encrypt-casefold-support.patch
 _____ANNOTATION-Incremental-filesystem_____.patch
 ANDROID-Initial-commit-of-Incremental-FS.patch
 ANDROID-Make-incfs-selftests-pass.patch
@@ -664,6 +680,12 @@ ANDROID-gki_defconfig-Enable-CONFIG_MEMORY_HOTREMOVE.patch
 ANDROID-gki_defconfig-Enable-memory-hotplug.patch
 ANDROID-Enable-generation-of-BTF-type-information.patch
 ANDROID-GKI-Enable-DEBUG_INFO_DWARF4.patch
+ANDROID-GKI-build-in-a-kernel-command-line-of-rw.patch
+ANDROID-Enable-hermetic-toolchain.patch
+ANDROID-GKI-Enable-CONFIG_RT_SOFTINT_OPTIMIZATION.patch
+Revert-ANDROID-Kbuild-LLVMLinux-allow-overriding-clang-target-triple.patch
+ANDROID-enable-LLVM_IAS-1-for-clang-s-integrated-assembler-for-aarch64.patch
+ANDROID-arm64-gki_defconfig-Disable-RANDOMIZE_MODULE_REGION_FULL.patch
 _____ANNOTATION-Patches-for-bringing-up-new-SoCs_____.patch
 ANDROID-serial-msm_geni_serial_earlycon-Add-Earlycon-support.patch
 ANDROID-arm64-Add-support-for-asymmetric-AArch32-EL0-configurations.patch
@@ -672,6 +694,3 @@ ANDROID-arm64-Disallow-offlining-the-last-aarch32-cpu.patch
 ANDROID-arm64-kvm-Hide-asym-aarch32-systems-from-KVM.patch
 ANDROID-arm64-Enable-KVM-for-Asym-AArch32.patch
 _____ANNOTATION-remove-ANNOTATIONS-file_____.patch
-ANDROID-GKI-build-in-a-kernel-command-line-of-rw.patch
-ANDROID-vfs-d_canonical_path-for-stacked-FS.patch
-ANDROID-fuse-Add-support-for-d_canonical_path.patch
