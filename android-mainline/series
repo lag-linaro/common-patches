@@ -1,8 +1,8 @@
 #
 # android-mainline patches
 #
-# Applies onto upstream 585e5b17b92d Linux v5.10-rc3-207-g585e5b17b92d
-# Matches android-mainline 76b58ff07b29 ("ANDROID: sched_clock: Add vendor hook to print epoch values")
+# Applies onto upstream f01c30de86f1 Linux v5.10-rc3-296-gf01c30de86f1
+# Matches android-mainline 73936cf2dda7 ("Merge f01c30de86f1 ("Merge tag 'vfs-5.10-fixes-2' of git://git.kernel.org/pub/scm/fs/xfs/xfs-linux") into android-mainline")
 #
 Revert-block-grant-IOPRIO_CLASS_RT-to-CAP_SYS_NICE.patch
 Revert-arm64-dts-qcom-sdm845-db845c-Fix-hdmi-nodes.patch

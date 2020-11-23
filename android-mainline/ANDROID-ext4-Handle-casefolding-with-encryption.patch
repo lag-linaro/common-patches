@@ -1458,7 +1458,7 @@ diff --git a/fs/ext4/namei.c b/fs/ext4/namei.c
 diff --git a/fs/ext4/super.c b/fs/ext4/super.c
 --- a/fs/ext4/super.c
 +++ b/fs/ext4/super.c
-@@ -4304,12 +4304,6 @@ static int ext4_fill_super(struct super_block *sb, void *data, int silent)
+@@ -4293,12 +4293,6 @@ static int ext4_fill_super(struct super_block *sb, void *data, int silent)
  		struct unicode_map *encoding;
  		__u16 encoding_flags;
  

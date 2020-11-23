@@ -100,7 +100,7 @@ diff --git a/arch/arm64/include/asm/cpufeature.h b/arch/arm64/include/asm/cpufea
  #include <linux/jump_label.h>
  #include <linux/kernel.h>
  
-@@ -392,6 +393,8 @@ static __always_inline bool is_hyp_code(void)
+@@ -394,6 +395,8 @@ static __always_inline bool is_hyp_code(void)
  	return is_vhe_hyp_code() || is_nvhe_hyp_code();
  }
  
@@ -232,7 +232,7 @@ diff --git a/arch/arm64/kernel/cpufeature.c b/arch/arm64/kernel/cpufeature.c
  static void update_cpu_ftr_reg(struct arm64_ftr_reg *reg, u64 new)
  {
  	const struct arm64_ftr_bits *ftrp;
-@@ -1726,6 +1730,16 @@ cpucap_panic_on_conflict(const struct arm64_cpu_capabilities *cap)
+@@ -1728,6 +1732,16 @@ cpucap_panic_on_conflict(const struct arm64_cpu_capabilities *cap)
  	return !!(cap->type & ARM64_CPUCAP_PANIC_ON_CONFLICT);
  }
  
@@ -249,7 +249,7 @@ diff --git a/arch/arm64/kernel/cpufeature.c b/arch/arm64/kernel/cpufeature.c
  static const struct arm64_cpu_capabilities arm64_features[] = {
  	{
  		.desc = "GIC system register CPU interface",
-@@ -1802,7 +1816,12 @@ static const struct arm64_cpu_capabilities arm64_features[] = {
+@@ -1804,7 +1818,12 @@ static const struct arm64_cpu_capabilities arm64_features[] = {
  	{
  		.desc = "32-bit EL0 Support",
  		.capability = ARM64_HAS_32BIT_EL0,
@@ -262,7 +262,7 @@ diff --git a/arch/arm64/kernel/cpufeature.c b/arch/arm64/kernel/cpufeature.c
  		.matches = has_cpuid_feature,
  		.sys_reg = SYS_ID_AA64PFR0_EL1,
  		.sign = FTR_UNSIGNED,
-@@ -2594,7 +2613,8 @@ static void verify_local_cpu_capabilities(void)
+@@ -2596,7 +2615,8 @@ static void verify_local_cpu_capabilities(void)
  
  	verify_local_elf_hwcaps(arm64_elf_hwcaps);
  
@@ -391,7 +391,7 @@ diff --git a/arch/arm64/kernel/process.c b/arch/arm64/kernel/process.c
  /*
   * ARM erratum 1418040 handling, affecting the 32bit view of CNTVCT.
   * Assuming the virtual counter is enabled at the beginning of times:
-@@ -555,6 +564,7 @@ __notrace_funcgraph struct task_struct *__switch_to(struct task_struct *prev,
+@@ -554,6 +563,7 @@ __notrace_funcgraph struct task_struct *__switch_to(struct task_struct *prev,
  	uao_thread_switch(next);
  	ssbs_thread_switch(next);
  	erratum_1418040_thread_switch(prev, next);
@@ -399,7 +399,7 @@ diff --git a/arch/arm64/kernel/process.c b/arch/arm64/kernel/process.c
  	/*
  	 *  vendor hook is needed before the dsb(),
  	 *  because MPAM is related to cache maintenance.
-@@ -632,6 +642,13 @@ void arch_setup_new_exec(void)
+@@ -631,6 +641,13 @@ void arch_setup_new_exec(void)
  		arch_prctl_spec_ctrl_set(current, PR_SPEC_STORE_BYPASS,
  					 PR_SPEC_ENABLE);
  	}
