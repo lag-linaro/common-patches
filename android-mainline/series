@@ -1,8 +1,8 @@
 #
 # android-mainline patches
 #
-# Applies onto upstream e28c0d7c92c8 Linux v5.10-rc3-329-ge28c0d7c92c8
-# Matches android-mainline 73fd557b3091 ("Merge e28c0d7c92c8 ("Merge branch 'akpm' (patches from Andrew)") into android-mainline")
+# Applies onto upstream 9cfd9c45994b Linux v5.10-rc3-391-g9cfd9c45994b
+# Matches android-mainline dccb6e8d02d4 ("Merge 9cfd9c45994b ("Merge tag 'char-misc-5.10-rc4' of git://git.kernel.org/pub/scm/linux/kernel/git/gregkh/char-misc") into android-mainline")
 #
 Revert-block-grant-IOPRIO_CLASS_RT-to-CAP_SYS_NICE.patch
 Revert-arm64-dts-qcom-sdm845-db845c-Fix-hdmi-nodes.patch

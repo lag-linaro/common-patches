@@ -80,10 +80,10 @@ diff --git a/arch/arm64/kvm/sys_regs.c b/arch/arm64/kvm/sys_regs.c
  			val |= ARMV8_PMU_PMCR_LC;
  		__vcpu_sys_reg(vcpu, PMCR_EL0) = val;
  		kvm_pmu_handle_pmcr(vcpu, val);
-@@ -1131,6 +1131,15 @@ static u64 read_id_reg(const struct kvm_vcpu *vcpu,
- 		if (!(val & (0xfUL << ID_AA64PFR0_CSV2_SHIFT)) &&
- 		    arm64_get_spectre_v2_state() == SPECTRE_UNAFFECTED)
- 			val |= (1UL << ID_AA64PFR0_CSV2_SHIFT);
+@@ -1122,6 +1122,15 @@ static u64 read_id_reg(const struct kvm_vcpu *vcpu,
+ 		val &= ~(0xfUL << ID_AA64PFR0_AMU_SHIFT);
+ 		val &= ~(0xfUL << ID_AA64PFR0_CSV2_SHIFT);
+ 		val |= ((u64)vcpu->kvm->arch.pfr0_csv2 << ID_AA64PFR0_CSV2_SHIFT);
 +
 +		if (!kvm_system_supports_32bit_el0()) {
 +			/*
