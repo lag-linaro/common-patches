@@ -1,8 +1,8 @@
 #
 # android-mainline patches
 #
-# Applies onto upstream 09162bc32c88 Linux v5.10-rc4
-# Matches android-mainline ebce8ec6bd55 ("ANDROID: sched: rt: rearrange invocation of find_lowest_rq() vendor hook")
+# Applies onto upstream 4d02da974ea8 Linux v5.10-rc4-283-g4d02da974ea8
+# Matches android-mainline d53cfb36d955 ("Merge 4d02da974ea8 ("Merge tag 'net-5.10-rc5' of git://git.kernel.org/pub/scm/linux/kernel/git/netdev/net") into android-mainline")
 #
 Revert-block-grant-IOPRIO_CLASS_RT-to-CAP_SYS_NICE.patch
 Revert-arm64-dts-qcom-sdm845-db845c-Fix-hdmi-nodes.patch
