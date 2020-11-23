@@ -50,7 +50,7 @@ diff --git a/drivers/scsi/ufs/ufshcd-crypto.c b/drivers/scsi/ufs/ufshcd-crypto.c
 diff --git a/drivers/scsi/ufs/ufshcd.h b/drivers/scsi/ufs/ufshcd.h
 --- a/drivers/scsi/ufs/ufshcd.h
 +++ b/drivers/scsi/ufs/ufshcd.h
-@@ -557,11 +557,12 @@ enum ufshcd_quirks {
+@@ -559,11 +559,12 @@ enum ufshcd_quirks {
  
  	/*
  	 * This quirk needs to be enabled if the host controller supports inline

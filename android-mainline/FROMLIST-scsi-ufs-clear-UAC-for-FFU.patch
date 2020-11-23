@@ -17,7 +17,7 @@ Change-Id: Id0f99336d7d84b51f1d0b5d8483ab3eec7b40741
 diff --git a/drivers/scsi/ufs/ufshcd.c b/drivers/scsi/ufs/ufshcd.c
 --- a/drivers/scsi/ufs/ufshcd.c
 +++ b/drivers/scsi/ufs/ufshcd.c
-@@ -7604,6 +7604,45 @@ static int ufshcd_add_lus(struct ufs_hba *hba)
+@@ -7626,6 +7626,45 @@ static int ufshcd_add_lus(struct ufs_hba *hba)
  	return ret;
  }
  
@@ -63,7 +63,7 @@ diff --git a/drivers/scsi/ufs/ufshcd.c b/drivers/scsi/ufs/ufshcd.c
  /**
   * ufshcd_probe_hba - probe hba to detect device and initialize
   * @hba: per-adapter instance
-@@ -7723,6 +7762,8 @@ static void ufshcd_async_scan(void *data, async_cookie_t cookie)
+@@ -7745,6 +7784,8 @@ static void ufshcd_async_scan(void *data, async_cookie_t cookie)
  		pm_runtime_put_sync(hba->dev);
  		ufshcd_exit_clk_scaling(hba);
  		ufshcd_hba_exit(hba);

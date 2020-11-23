@@ -24,7 +24,7 @@ diff --git a/drivers/scsi/ufs/ufshcd.c b/drivers/scsi/ufs/ufshcd.c
  	ufshcd_add_command_trace(hba, task_tag, "send");
  	ufshcd_clk_scaling_start_busy(hba);
  	__set_bit(task_tag, &hba->outstanding_reqs);
-@@ -4952,6 +4953,7 @@ static void __ufshcd_transfer_req_compl(struct ufs_hba *hba,
+@@ -4974,6 +4975,7 @@ static void __ufshcd_transfer_req_compl(struct ufs_hba *hba,
  		lrbp->compl_time_stamp = ktime_get();
  		cmd = lrbp->cmd;
  		if (cmd) {
@@ -35,7 +35,7 @@ diff --git a/drivers/scsi/ufs/ufshcd.c b/drivers/scsi/ufs/ufshcd.c
 diff --git a/drivers/scsi/ufs/ufshcd.h b/drivers/scsi/ufs/ufshcd.h
 --- a/drivers/scsi/ufs/ufshcd.h
 +++ b/drivers/scsi/ufs/ufshcd.h
-@@ -291,6 +291,8 @@ struct ufs_pwr_mode_info {
+@@ -293,6 +293,8 @@ struct ufs_pwr_mode_info {
   *	       variant-specific PRDT fields can be initialized too
   * @prepare_command: called when receiving a request in the first place
   * @update_sysfs: adds vendor-specific sysfs entries
@@ -44,7 +44,7 @@ diff --git a/drivers/scsi/ufs/ufshcd.h b/drivers/scsi/ufs/ufshcd.h
   */
  struct ufs_hba_variant_ops {
  	const char *name;
-@@ -331,6 +333,8 @@ struct ufs_hba_variant_ops {
+@@ -333,6 +335,8 @@ struct ufs_hba_variant_ops {
  	void    (*prepare_command)(struct ufs_hba *hba,
  				struct request *rq, struct ufshcd_lrb *lrbp);
  	int     (*update_sysfs)(struct ufs_hba *hba);
@@ -53,7 +53,7 @@ diff --git a/drivers/scsi/ufs/ufshcd.h b/drivers/scsi/ufs/ufshcd.h
  };
  
  /* clock gating state  */
-@@ -1256,6 +1260,20 @@ static inline int ufshcd_vops_update_sysfs(struct ufs_hba *hba)
+@@ -1258,6 +1262,20 @@ static inline int ufshcd_vops_update_sysfs(struct ufs_hba *hba)
  	return 0;
  }
  

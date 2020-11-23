@@ -1,8 +1,8 @@
 #
 # android-mainline patches
 #
-# Applies onto upstream f01c30de86f1 Linux v5.10-rc3-296-gf01c30de86f1
-# Matches android-mainline 73936cf2dda7 ("Merge f01c30de86f1 ("Merge tag 'vfs-5.10-fixes-2' of git://git.kernel.org/pub/scm/fs/xfs/xfs-linux") into android-mainline")
+# Applies onto upstream e28c0d7c92c8 Linux v5.10-rc3-329-ge28c0d7c92c8
+# Matches android-mainline 73fd557b3091 ("Merge e28c0d7c92c8 ("Merge branch 'akpm' (patches from Andrew)") into android-mainline")
 #
 Revert-block-grant-IOPRIO_CLASS_RT-to-CAP_SYS_NICE.patch
 Revert-arm64-dts-qcom-sdm845-db845c-Fix-hdmi-nodes.patch
