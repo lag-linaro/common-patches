@@ -61,7 +61,7 @@ diff --git a/include/linux/sched.h b/include/linux/sched.h
  
  /* task_struct member predeclarations (sorted alphabetically): */
  struct audit_context;
-@@ -1325,6 +1326,7 @@ struct task_struct {
+@@ -1347,6 +1348,7 @@ struct task_struct {
  					__mce_reserved : 62;
  	struct callback_head		mce_kill_me;
  #endif
@@ -234,7 +234,7 @@ diff --git a/kernel/sched/core.c b/kernel/sched/core.c
  
  /*
   * Export tracepoints that act as a bare tracehook (ie: have no trace event
-@@ -6458,6 +6459,7 @@ void sched_show_task(struct task_struct *p)
+@@ -6464,6 +6465,7 @@ void sched_show_task(struct task_struct *p)
  		(unsigned long)task_thread_info(p)->flags);
  
  	print_worker_info(KERN_INFO, p);

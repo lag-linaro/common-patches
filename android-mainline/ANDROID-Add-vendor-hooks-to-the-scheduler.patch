@@ -144,7 +144,7 @@ diff --git a/kernel/sched/core.c b/kernel/sched/core.c
  
  	/*
  	 * If the node that the CPU is on has been offlined, cpu_to_node()
-@@ -4004,6 +4014,8 @@ void scheduler_tick(void)
+@@ -4009,6 +4019,8 @@ void scheduler_tick(void)
  	rq->idle_balance = idle_cpu(cpu);
  	trigger_load_balance(rq);
  #endif
@@ -156,7 +156,7 @@ diff --git a/kernel/sched/core.c b/kernel/sched/core.c
 diff --git a/kernel/sched/fair.c b/kernel/sched/fair.c
 --- a/kernel/sched/fair.c
 +++ b/kernel/sched/fair.c
-@@ -7567,9 +7567,14 @@ static
+@@ -7568,9 +7568,14 @@ static
  int can_migrate_task(struct task_struct *p, struct lb_env *env)
  {
  	int tsk_cache_hot;

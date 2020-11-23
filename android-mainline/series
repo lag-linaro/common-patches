@@ -1,8 +1,8 @@
 #
 # android-mainline patches
 #
-# Applies onto upstream a349e4c65960 Linux v5.10-rc4-384-ga349e4c65960
-# Matches android-mainline 03d720f4bde8 ("Merge a349e4c65960 ("Merge tag 'xfs-5.10-fixes-7' of git://git.kernel.org/pub/scm/fs/xfs/xfs-linux") into android-mainline")
+# Applies onto upstream 418baf2c28f3 Linux v5.10-rc5
+# Matches android-mainline 5acba58e59f2 ("Merge 5.10-rc5 into android-mainline")
 #
 Revert-block-grant-IOPRIO_CLASS_RT-to-CAP_SYS_NICE.patch
 Revert-arm64-dts-qcom-sdm845-db845c-Fix-hdmi-nodes.patch

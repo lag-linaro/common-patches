@@ -313,7 +313,7 @@ diff --git a/fs/ext4/ext4.h b/fs/ext4/ext4.h
  			struct ext4_dir_entry_2 *de,
  			int buf_size,
  			struct ext4_filename *fname);
-@@ -2910,10 +2954,11 @@ extern int ext4_search_dir(struct buffer_head *bh,
+@@ -2911,10 +2955,11 @@ extern int ext4_search_dir(struct buffer_head *bh,
  			   int buf_size,
  			   struct inode *dir,
  			   struct ext4_filename *fname,
@@ -326,7 +326,7 @@ diff --git a/fs/ext4/ext4.h b/fs/ext4/ext4.h
  				     struct buffer_head *bh,
  				     void *entry_buf,
  				     int buf_size,
-@@ -3475,9 +3520,6 @@ extern void ext4_initialize_dirent_tail(struct buffer_head *bh,
+@@ -3476,9 +3521,6 @@ extern void ext4_initialize_dirent_tail(struct buffer_head *bh,
  					unsigned int blocksize);
  extern int ext4_handle_dirty_dirblock(handle_t *handle, struct inode *inode,
  				      struct buffer_head *bh);
@@ -1458,7 +1458,7 @@ diff --git a/fs/ext4/namei.c b/fs/ext4/namei.c
 diff --git a/fs/ext4/super.c b/fs/ext4/super.c
 --- a/fs/ext4/super.c
 +++ b/fs/ext4/super.c
-@@ -4293,12 +4293,6 @@ static int ext4_fill_super(struct super_block *sb, void *data, int silent)
+@@ -4289,12 +4289,6 @@ static int ext4_fill_super(struct super_block *sb, void *data, int silent)
  		struct unicode_map *encoding;
  		__u16 encoding_flags;
  
