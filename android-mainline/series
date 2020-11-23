@@ -1,8 +1,8 @@
 #
 # android-mainline patches
 #
-# Applies onto upstream eccc87672492 Linux v5.10-rc3-104-geccc87672492
-# Matches android-mainline 7f6480e40c8f ("Merge eccc87672492 ("Merge branch 'fixes' of git://git.kernel.org/pub/scm/linux/kernel/git/viro/vfs") into android-mainline")
+# Applies onto upstream 3d5e28bff7ad Linux v5.10-rc3-107-g3d5e28bff7ad
+# Matches android-mainline 34eebce472a6 ("Merge 3d5e28bff7ad ("Merge branch 'stable/for-linus-5.10-rc2' of git://git.kernel.org/pub/scm/linux/kernel/git/konrad/swiotlb") into android-mainline")
 #
 Revert-block-grant-IOPRIO_CLASS_RT-to-CAP_SYS_NICE.patch
 Revert-arm64-dts-qcom-sdm845-db845c-Fix-hdmi-nodes.patch
