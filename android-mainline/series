@@ -1,8 +1,8 @@
 #
 # android-mainline patches
 #
-# Applies onto upstream 3d5e28bff7ad Linux v5.10-rc3-107-g3d5e28bff7ad
-# Matches android-mainline 4e1d08e6a688 ("FROMLIST: fuse: Fix colliding FUSE_PASSTHROUGH flag")
+# Applies onto upstream 585e5b17b92d Linux v5.10-rc3-207-g585e5b17b92d
+# Matches android-mainline 3428a2f7829a ("Merge 585e5b17b92d ("Merge tag 'fscrypt-for-linus' of git://git.kernel.org/pub/scm/fs/fscrypt/fscrypt") into android-mainline")
 #
 Revert-block-grant-IOPRIO_CLASS_RT-to-CAP_SYS_NICE.patch
 Revert-arm64-dts-qcom-sdm845-db845c-Fix-hdmi-nodes.patch
