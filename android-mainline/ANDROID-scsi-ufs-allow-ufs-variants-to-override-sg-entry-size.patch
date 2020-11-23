@@ -138,7 +138,7 @@ diff --git a/drivers/scsi/ufs/ufshcd.c b/drivers/scsi/ufs/ufshcd.c
 diff --git a/drivers/scsi/ufs/ufshcd.h b/drivers/scsi/ufs/ufshcd.h
 --- a/drivers/scsi/ufs/ufshcd.h
 +++ b/drivers/scsi/ufs/ufshcd.h
-@@ -624,6 +624,7 @@ struct ufs_hba_variant_params {
+@@ -639,6 +639,7 @@ struct ufs_hba_variant_params {
   * @ufs_version: UFS Version to which controller complies
   * @vops: pointer to variant specific operations
   * @priv: pointer to variant specific private data
@@ -146,7 +146,7 @@ diff --git a/drivers/scsi/ufs/ufshcd.h b/drivers/scsi/ufs/ufshcd.h
   * @irq: Irq number of the controller
   * @active_uic_cmd: handle of active UIC command
   * @uic_cmd_mutex: mutex for uic command
-@@ -710,6 +711,7 @@ struct ufs_hba {
+@@ -725,6 +726,7 @@ struct ufs_hba {
  	const struct ufs_hba_variant_ops *vops;
  	struct ufs_hba_variant_params *vps;
  	void *priv;

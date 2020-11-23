@@ -1,7 +1,7 @@
 From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
 From: Jaegeuk Kim <jaegeuk@google.com>
 Date: Thu, 27 Jun 2019 11:19:50 -0700
-Subject: FROMLIST: scsi: ufs: atomic update for clkgating_enable
+Subject: FROMLIST: scsi: ufs: atomic update for clkgating_enable (2)
 
 When giving a stress test which enables/disables clkgating, we hit device
 timeout sometimes. This patch avoids subtle racy condition to address it.

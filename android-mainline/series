@@ -276,17 +276,15 @@ FROMLIST-scsi-ufs-avoid-to-call-REQ_CLKS_OFF-to-CLKS_OFF.patch
 FROMLIST-scsi-ufs-atomic-update-for-clkgating_enable-2.patch
 FROMLIST-scsi-ufs-fix-clkgating-on-off-correctly.patch
 FROMLIST-scsi-ufs-show-lba-and-length-for-unmap-commands.patch
+ANDROID-scsi-ufs-allow-overriding-the-blk_keyslot_manager.patch
+ANDROID-scsi-ufs-add-UFSHCD_QUIRK_BROKEN_CRYPTO_ENABLE.patch
 ANDROID-scsi-ufs-allow-ufs-variants-to-override-sg-entry-size.patch
 ANDROID-scsi-ufs-add-fill_prdt-variant-op.patch
-ANDROID-scsi-ufs-add-UFSHCD_QUIRK_BROKEN_CRYPTO_CAPS.patch
-ANDROID-scsi-ufs-add-UFSHCD_QUIRK_BROKEN_CRYPTO_ENABLE.patch
 ANDROID-scsi-ufs-add-UFSHCD_QUIRK_KEYS_IN_PRDT.patch
-ANDROID-scsi-ufs-allow-for-there-to-be-no-keyslots.patch
 ANDROID-export-bkops-and-query-flag-query-functions.patch
 ANDROID-scsi-ufs-add-a-hook-to-prepare-command.patch
 ANDROID-scsi-ufs-add-a-hook-to-add-sysfs-entries.patch
 ANDROID-scsi-ufs-add-hooks-to-monitor-stats-of-UFS-traffic.patch
-ANDROID-scsi-ufs-revise-and-fix-custom-keyslot-manager-support.patch
 ANDROID-scsi-ufs-Allow-prepare_command-to-return-error-code.patch
 _____ANNOTATION-MMC-driver-changes_____.patch
 ANDROID-mmc-core-Add-ignore-mmc-pm-notify-functionality.patch
@@ -324,7 +322,6 @@ ANDROID-f2fs-Handle-casefolding-with-Encryption.patch
 ANDROID-GKI-Don-t-compact-fuse_req-when-CONFIG_VIRTIO_FS-n.patch
 ANDROID-vfs-d_canonical_path-for-stacked-FS.patch
 ANDROID-fuse-Add-support-for-d_canonical_path.patch
-ANDROID-ext4-fix-encrypt-casefold-support.patch
 _____ANNOTATION-Incremental-filesystem_____.patch
 ANDROID-Initial-commit-of-Incremental-FS.patch
 ANDROID-Make-incfs-selftests-pass.patch

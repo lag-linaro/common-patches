@@ -22,10 +22,10 @@ Signed-off-by: Eric Biggers <ebiggers@google.com>
 diff --git a/drivers/scsi/ufs/ufshcd-crypto.c b/drivers/scsi/ufs/ufshcd-crypto.c
 --- a/drivers/scsi/ufs/ufshcd-crypto.c
 +++ b/drivers/scsi/ufs/ufshcd-crypto.c
-@@ -121,6 +121,10 @@ bool ufshcd_crypto_enable(struct ufs_hba *hba)
- 
+@@ -122,6 +122,10 @@ bool ufshcd_crypto_enable(struct ufs_hba *hba)
  	/* Reset might clear all keys, so reprogram all the keys. */
- 	blk_ksm_reprogram_all_keys(&hba->ksm);
+ 	if (hba->ksm.num_slots)
+ 		blk_ksm_reprogram_all_keys(&hba->ksm);
 +
 +	if (hba->quirks & UFSHCD_QUIRK_BROKEN_CRYPTO_ENABLE)
 +		return false;
@@ -36,10 +36,10 @@ diff --git a/drivers/scsi/ufs/ufshcd-crypto.c b/drivers/scsi/ufs/ufshcd-crypto.c
 diff --git a/drivers/scsi/ufs/ufshcd.h b/drivers/scsi/ufs/ufshcd.h
 --- a/drivers/scsi/ufs/ufshcd.h
 +++ b/drivers/scsi/ufs/ufshcd.h
-@@ -555,6 +555,13 @@ enum ufshcd_quirks {
- 	 * keyslot manager; ufs_hba_variant_ops::init() must do it instead.
+@@ -552,6 +552,13 @@ enum ufshcd_quirks {
+ 	 * ufs_hba_variant_ops::init() must do it instead.
  	 */
- 	UFSHCD_QUIRK_BROKEN_CRYPTO_CAPS			= 1 << 20,
+ 	UFSHCD_QUIRK_CUSTOM_KEYSLOT_MANAGER		= 1 << 20,
 +
 +	/*
 +	 * This quirk needs to be enabled if the host controller supports inline

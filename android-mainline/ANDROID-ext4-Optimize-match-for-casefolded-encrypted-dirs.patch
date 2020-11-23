@@ -90,7 +90,7 @@ diff --git a/fs/ext4/namei.c b/fs/ext4/namei.c
  		ext4fs_dirhash(dir, fname_name(fname), fname_len(fname), hinfo);
  	hash = hinfo->hash;
  
-@@ -1368,19 +1370,21 @@ static int ext4_ci_compare(const struct inode *parent, const struct qstr *name,
+@@ -1368,20 +1370,22 @@ static int ext4_ci_compare(const struct inode *parent, const struct qstr *name,
  	return ret;
  }
  
@@ -103,7 +103,8 @@ diff --git a/fs/ext4/namei.c b/fs/ext4/namei.c
 +	struct dx_hash_info *hinfo = &name->hinfo;
  	int len;
  
- 	if (!IS_CASEFOLDED(dir) || !dir->i_sb->s_encoding) {
+ 	if (!IS_CASEFOLDED(dir) || !dir->i_sb->s_encoding ||
+ 	    (IS_ENCRYPTED(dir) && !fscrypt_has_encryption_key(dir))) {
  		cf_name->name = NULL;
 -		return;
 +		return 0;
@@ -116,7 +117,7 @@ diff --git a/fs/ext4/namei.c b/fs/ext4/namei.c
  
  	len = utf8_casefold(dir->i_sb->s_encoding,
  			    iname, cf_name->name,
-@@ -1388,10 +1392,18 @@ void ext4_fname_setup_ci_filename(struct inode *dir, const struct qstr *iname,
+@@ -1389,10 +1393,18 @@ void ext4_fname_setup_ci_filename(struct inode *dir, const struct qstr *iname,
  	if (len <= 0) {
  		kfree(cf_name->name);
  		cf_name->name = NULL;
@@ -136,7 +137,7 @@ diff --git a/fs/ext4/namei.c b/fs/ext4/namei.c
  }
  #endif
  
-@@ -1421,16 +1433,12 @@ static bool ext4_match(struct inode *parent,
+@@ -1423,16 +1435,12 @@ static bool ext4_match(struct inode *parent,
  			struct qstr cf = {.name = fname->cf_name.name,
  					  .len = fname->cf_name.len};
  			if (IS_ENCRYPTED(parent)) {
@@ -158,7 +159,7 @@ diff --git a/fs/ext4/namei.c b/fs/ext4/namei.c
  			}
  			return !ext4_ci_compare(parent, &cf, de->name,
  							de->name_len, true);
-@@ -2066,15 +2074,11 @@ void ext4_insert_dentry(struct inode *dir,
+@@ -2068,15 +2076,11 @@ void ext4_insert_dentry(struct inode *dir,
  	de->name_len = fname_len(fname);
  	memcpy(de->name, fname_name(fname), fname_len(fname));
  	if (ext4_hash_in_dirent(dir)) {
@@ -177,7 +178,7 @@ diff --git a/fs/ext4/namei.c b/fs/ext4/namei.c
  	}
  }
  
-@@ -2225,10 +2229,9 @@ static int make_indexed_dir(handle_t *handle, struct ext4_filename *fname,
+@@ -2227,10 +2231,9 @@ static int make_indexed_dir(handle_t *handle, struct ext4_filename *fname,
  	if (fname->hinfo.hash_version <= DX_HASH_TEA)
  		fname->hinfo.hash_version += EXT4_SB(dir->i_sb)->s_hash_unsigned;
  	fname->hinfo.seed = EXT4_SB(dir->i_sb)->s_hash_seed;
