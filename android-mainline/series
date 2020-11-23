@@ -2,7 +2,7 @@
 # android-mainline patches
 #
 # Applies onto upstream 09162bc32c88 Linux v5.10-rc4
-# Matches android-mainline 0f68e36ebe46 ("Merge 'v5.10-rc4' into android-mainline")
+# Matches android-mainline ebce8ec6bd55 ("ANDROID: sched: rt: rearrange invocation of find_lowest_rq() vendor hook")
 #
 Revert-block-grant-IOPRIO_CLASS_RT-to-CAP_SYS_NICE.patch
 Revert-arm64-dts-qcom-sdm845-db845c-Fix-hdmi-nodes.patch
@@ -122,10 +122,14 @@ ANDROID-Revert-softirq-Let-ksoftirqd-do-its-job.patch
 ANDROID-trace-Add-trace-points-for-tasklet-entry-exit.patch
 ANDROID-vendor_hooks-Add-hook-for-jiffies-updates.patch
 ANDROID-sched_clock-Add-vendor-hook-to-print-epoch-values.patch
+ANDROID-sched-Export-few-scheduler-symbols-for-vendor-modules.patch
+ANDROID-Sched-Export-sched_feat_keys-symbol-needed-by-vendor-modules.patch
+ANDROID-sched-rt-rearrange-invocation-of-find_lowest_rq-vendor-hook.patch
 _____ANNOTATION-uid_sys_stats-support_____.patch
 ANDROID-uid_cputime-Adds-accounting-for-the-cputimes-per-uid.patch
 ANDROID-uid_cputime-add-per-uid-IO-usage-accounting.patch
 ANDROID-taskstats-track-fsync-syscalls.patch
+ANDROID-uid_sys_stats-report-uid_cputime-stats-in-microseconds.patch
 _____ANNOTATION-cpufreq-changes_____.patch
 ANDROID-cpufreq-track-per-task-time-in-state.patch
 ANDROID-cpufreq-times-track-per-uid-time-in-state.patch
@@ -142,6 +146,7 @@ ANDROID-mm-memory.c-export-mm_trace_rss_stat.patch
 ANDROID-mm-Throttle-rss_stat-tracepoint.patch
 ANDROID-GKI-Don-t-compact-data-structures-when-CONFIG_ZSMALLOC-n.patch
 ANDROID-mm-cma-retry-allocations-in-cma_alloc.patch
+ANDROID-mm-memblock-export-memblock_end_of_DRAM.patch
 _____ANNOTATION-security-changes_____.patch
 Revert-security-lockdown-selinux-implement-SELinux-lockdown.patch
 ANDROID-selinux-modify-RTM_GETLINK-permission.patch
@@ -694,6 +699,7 @@ ANDROID-enable-LLVM_IAS-1-for-clang-s-integrated-assembler-for-aarch64.patch
 ANDROID-arm64-gki_defconfig-Disable-RANDOMIZE_MODULE_REGION_FULL.patch
 ANDROID-ARM-Use-zImage-instead-of-Image.patch
 ANDROID-enable-LLVM_IAS-1-for-clang-s-integrated-assembler-for-x86_64.patch
+ANDROID-GKI-enable-CONFIG_SUN4I_TIMER.patch
 _____ANNOTATION-Patches-for-bringing-up-new-SoCs_____.patch
 ANDROID-serial-msm_geni_serial_earlycon-Add-Earlycon-support.patch
 ANDROID-arm64-Add-support-for-asymmetric-AArch32-EL0-configurations.patch
