@@ -2,7 +2,7 @@
 # android-mainline patches
 #
 # Applies onto upstream 3d5e28bff7ad Linux v5.10-rc3-107-g3d5e28bff7ad
-# Matches android-mainline 34eebce472a6 ("Merge 3d5e28bff7ad ("Merge branch 'stable/for-linus-5.10-rc2' of git://git.kernel.org/pub/scm/linux/kernel/git/konrad/swiotlb") into android-mainline")
+# Matches android-mainline 4e1d08e6a688 ("FROMLIST: fuse: Fix colliding FUSE_PASSTHROUGH flag")
 #
 Revert-block-grant-IOPRIO_CLASS_RT-to-CAP_SYS_NICE.patch
 Revert-arm64-dts-qcom-sdm845-db845c-Fix-hdmi-nodes.patch
@@ -17,6 +17,7 @@ FROMLIST-fuse-Passthrough-initialization-and-release.patch
 FROMLIST-fuse-Introduce-synchronous-read-and-write-for-passthrough.patch
 FROMLIST-fuse-Handle-asynchronous-read-and-write-in-passthrough.patch
 FROMLIST-fuse-Use-daemon-creds-in-passthrough-mode.patch
+FROMLIST-fuse-Fix-colliding-FUSE_PASSTHROUGH-flag.patch
 FROMLIST-Kbuild-do-not-emit-debug-info-for-assembly-with-LLVM_IAS-1.patch
 _____ANNOTATION-Android-vendor-hooks_____.patch
 ANDROID-GKI-add-android_vendor.h.patch
