@@ -1,8 +1,8 @@
 #
 # android-mainline patches
 #
-# Applies onto upstream f8394f232b1e Linux v5.10-rc3
-# Matches android-mainline 00c6f53e034e ("ANDROID: gic-v3: Add vendor hook to GIC v3")
+# Applies onto upstream eccc87672492 Linux v5.10-rc3-104-geccc87672492
+# Matches android-mainline 7f6480e40c8f ("Merge eccc87672492 ("Merge branch 'fixes' of git://git.kernel.org/pub/scm/linux/kernel/git/viro/vfs") into android-mainline")
 #
 Revert-block-grant-IOPRIO_CLASS_RT-to-CAP_SYS_NICE.patch
 Revert-arm64-dts-qcom-sdm845-db845c-Fix-hdmi-nodes.patch
