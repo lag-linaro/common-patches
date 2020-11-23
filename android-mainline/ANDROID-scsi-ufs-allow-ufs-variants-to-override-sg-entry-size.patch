@@ -23,7 +23,7 @@ Signed-off-by: Eric Biggers <ebiggers@google.com>
 diff --git a/drivers/scsi/ufs/ufshcd.c b/drivers/scsi/ufs/ufshcd.c
 --- a/drivers/scsi/ufs/ufshcd.c
 +++ b/drivers/scsi/ufs/ufshcd.c
-@@ -477,7 +477,7 @@ void ufshcd_print_trs(struct ufs_hba *hba, unsigned long bitmap, bool pr_prdt)
+@@ -482,7 +482,7 @@ void ufshcd_print_trs(struct ufs_hba *hba, unsigned long bitmap, bool pr_prdt)
  		prdt_length = le16_to_cpu(
  			lrbp->utr_descriptor_ptr->prd_table_length);
  		if (hba->quirks & UFSHCD_QUIRK_PRDT_BYTE_GRAN)
@@ -32,7 +32,7 @@ diff --git a/drivers/scsi/ufs/ufshcd.c b/drivers/scsi/ufs/ufshcd.c
  
  		dev_err(hba->dev,
  			"UPIU[%d] - PRDT - %d entries  phys@0x%llx\n",
-@@ -486,7 +486,7 @@ void ufshcd_print_trs(struct ufs_hba *hba, unsigned long bitmap, bool pr_prdt)
+@@ -491,7 +491,7 @@ void ufshcd_print_trs(struct ufs_hba *hba, unsigned long bitmap, bool pr_prdt)
  
  		if (pr_prdt)
  			ufshcd_hex_dump("UPIU PRDT: ", lrbp->ucd_prdt_ptr,
@@ -41,7 +41,7 @@ diff --git a/drivers/scsi/ufs/ufshcd.c b/drivers/scsi/ufs/ufshcd.c
  	}
  }
  
-@@ -2194,7 +2194,7 @@ int ufshcd_send_uic_cmd(struct ufs_hba *hba, struct uic_command *uic_cmd)
+@@ -2199,7 +2199,7 @@ int ufshcd_send_uic_cmd(struct ufs_hba *hba, struct uic_command *uic_cmd)
   */
  static int ufshcd_map_sg(struct ufs_hba *hba, struct ufshcd_lrb *lrbp)
  {
@@ -50,7 +50,7 @@ diff --git a/drivers/scsi/ufs/ufshcd.c b/drivers/scsi/ufs/ufshcd.c
  	struct scatterlist *sg;
  	struct scsi_cmnd *cmd;
  	int sg_segments;
-@@ -2209,22 +2209,22 @@ static int ufshcd_map_sg(struct ufs_hba *hba, struct ufshcd_lrb *lrbp)
+@@ -2214,22 +2214,22 @@ static int ufshcd_map_sg(struct ufs_hba *hba, struct ufshcd_lrb *lrbp)
  
  		if (hba->quirks & UFSHCD_QUIRK_PRDT_BYTE_GRAN)
  			lrbp->utr_descriptor_ptr->prd_table_length =
@@ -80,7 +80,7 @@ diff --git a/drivers/scsi/ufs/ufshcd.c b/drivers/scsi/ufs/ufshcd.c
  		}
  	} else {
  		lrbp->utr_descriptor_ptr->prd_table_length = 0;
-@@ -2483,10 +2483,11 @@ static inline u16 ufshcd_upiu_wlun_to_scsi_wlun(u8 upiu_wlun_id)
+@@ -2488,10 +2488,11 @@ static inline u16 ufshcd_upiu_wlun_to_scsi_wlun(u8 upiu_wlun_id)
  
  static void ufshcd_init_lrb(struct ufs_hba *hba, struct ufshcd_lrb *lrb, int i)
  {
@@ -94,7 +94,7 @@ diff --git a/drivers/scsi/ufs/ufshcd.c b/drivers/scsi/ufs/ufshcd.c
  	u16 response_offset = offsetof(struct utp_transfer_cmd_desc,
  				       response_upiu);
  	u16 prdt_offset = offsetof(struct utp_transfer_cmd_desc, prd_table);
-@@ -2494,11 +2495,11 @@ static void ufshcd_init_lrb(struct ufs_hba *hba, struct ufshcd_lrb *lrb, int i)
+@@ -2499,11 +2500,11 @@ static void ufshcd_init_lrb(struct ufs_hba *hba, struct ufshcd_lrb *lrb, int i)
  	lrb->utr_descriptor_ptr = utrdlp + i;
  	lrb->utrd_dma_addr = hba->utrdl_dma_addr +
  		i * sizeof(struct utp_transfer_req_desc);
@@ -109,7 +109,7 @@ diff --git a/drivers/scsi/ufs/ufshcd.c b/drivers/scsi/ufs/ufshcd.c
  	lrb->ucd_prdt_dma_addr = cmd_desc_element_addr + prdt_offset;
  }
  
-@@ -3407,7 +3408,7 @@ static int ufshcd_memory_alloc(struct ufs_hba *hba)
+@@ -3412,7 +3413,7 @@ static int ufshcd_memory_alloc(struct ufs_hba *hba)
  	size_t utmrdl_size, utrdl_size, ucdl_size;
  
  	/* Allocate memory for UTP command descriptors */
@@ -118,7 +118,7 @@ diff --git a/drivers/scsi/ufs/ufshcd.c b/drivers/scsi/ufs/ufshcd.c
  	hba->ucdl_base_addr = dmam_alloc_coherent(hba->dev,
  						  ucdl_size,
  						  &hba->ucdl_dma_addr,
-@@ -3501,7 +3502,7 @@ static void ufshcd_host_memory_configure(struct ufs_hba *hba)
+@@ -3506,7 +3507,7 @@ static void ufshcd_host_memory_configure(struct ufs_hba *hba)
  	prdt_offset =
  		offsetof(struct utp_transfer_cmd_desc, prd_table);
  
@@ -127,7 +127,7 @@ diff --git a/drivers/scsi/ufs/ufshcd.c b/drivers/scsi/ufs/ufshcd.c
  	cmd_desc_dma_addr = hba->ucdl_dma_addr;
  
  	for (i = 0; i < hba->nutrs; i++) {
-@@ -9041,6 +9042,7 @@ int ufshcd_alloc_host(struct device *dev, struct ufs_hba **hba_handle)
+@@ -9046,6 +9047,7 @@ int ufshcd_alloc_host(struct device *dev, struct ufs_hba **hba_handle)
  	hba->dev = dev;
  	*hba_handle = hba;
  	hba->dev_ref_clk_freq = REF_CLK_FREQ_INVAL;

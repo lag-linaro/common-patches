@@ -2,7 +2,7 @@
 # android-mainline patches
 #
 # Applies onto upstream 585e5b17b92d Linux v5.10-rc3-207-g585e5b17b92d
-# Matches android-mainline 3428a2f7829a ("Merge 585e5b17b92d ("Merge tag 'fscrypt-for-linus' of git://git.kernel.org/pub/scm/fs/fscrypt/fscrypt") into android-mainline")
+# Matches android-mainline 76b58ff07b29 ("ANDROID: sched_clock: Add vendor hook to print epoch values")
 #
 Revert-block-grant-IOPRIO_CLASS_RT-to-CAP_SYS_NICE.patch
 Revert-arm64-dts-qcom-sdm845-db845c-Fix-hdmi-nodes.patch
@@ -32,6 +32,7 @@ ANDROID-update-the-kernel-release-format-for-GKI.patch
 ANDROID-GKI-scripts-Makefile-update-the-lz4-command.patch
 _____ANNOTATION-x86-changes_____.patch
 ANDROID-Setting-up-GS-before-calling-__restore_processor_state.patch
+ANDROID-x86-entry-work-around-LLVM_IAS-1-bug-in-LSL.patch
 _____ANNOTATION-arm-and-arm64-changes_____.patch
 ANDROID-arm64-copy-CONFIG_CMDLINE_EXTEND-from-ARM.patch
 ANDROID-of-Support-CONFIG_CMDLINE_EXTEND-config-option.patch
@@ -48,6 +49,7 @@ ANDROID-vendor_hooks-Add-new-android-vendor-hooks-for-ipi-stop.patch
 ANDROID-arm64-smp-fix-Lockdep-warning-RCU-used-illegally-from-idle-CPU.patch
 ANDROID-arm64-allow-hooks-into-ipi.patch
 ANDROID-arm-allow-hooks-into-ipi.patch
+ANDROID-ARM-Bump-command-line-size.patch
 _____ANNOTATION-iommu-changes_____.patch
 FROMGIT-iommu-arm-smmu-Don-t-bypass-pinned-stream-mappings.patch
 ANDROID-iommu-arm-smmu-Allow-inherting-stream-mapping-from-bootloader.patch
@@ -119,6 +121,7 @@ ANDROID-Revert-Mark-HI-and-TASKLET-softirq-synchronous.patch
 ANDROID-Revert-softirq-Let-ksoftirqd-do-its-job.patch
 ANDROID-trace-Add-trace-points-for-tasklet-entry-exit.patch
 ANDROID-vendor_hooks-Add-hook-for-jiffies-updates.patch
+ANDROID-sched_clock-Add-vendor-hook-to-print-epoch-values.patch
 _____ANNOTATION-uid_sys_stats-support_____.patch
 ANDROID-uid_cputime-Adds-accounting-for-the-cputimes-per-uid.patch
 ANDROID-uid_cputime-add-per-uid-IO-usage-accounting.patch
@@ -267,6 +270,7 @@ FROMLIST-scsi-ufs-clear-uac-for-rpmb-lun.patch
 FROMLIST-scsi-ufs-avoid-to-call-REQ_CLKS_OFF-to-CLKS_OFF.patch
 FROMLIST-scsi-ufs-atomic-update-for-clkgating_enable-2.patch
 FROMLIST-scsi-ufs-fix-clkgating-on-off-correctly.patch
+FROMLIST-scsi-ufs-show-lba-and-length-for-unmap-commands.patch
 ANDROID-scsi-ufs-allow-ufs-variants-to-override-sg-entry-size.patch
 ANDROID-scsi-ufs-add-fill_prdt-variant-op.patch
 ANDROID-scsi-ufs-add-UFSHCD_QUIRK_BROKEN_CRYPTO_CAPS.patch
@@ -278,6 +282,7 @@ ANDROID-scsi-ufs-add-a-hook-to-prepare-command.patch
 ANDROID-scsi-ufs-add-a-hook-to-add-sysfs-entries.patch
 ANDROID-scsi-ufs-add-hooks-to-monitor-stats-of-UFS-traffic.patch
 ANDROID-scsi-ufs-revise-and-fix-custom-keyslot-manager-support.patch
+ANDROID-scsi-ufs-Allow-prepare_command-to-return-error-code.patch
 _____ANNOTATION-MMC-driver-changes_____.patch
 ANDROID-mmc-core-Add-ignore-mmc-pm-notify-functionality.patch
 _____ANNOTATION-block-changes_____.patch
@@ -687,6 +692,8 @@ ANDROID-GKI-Enable-CONFIG_RT_SOFTINT_OPTIMIZATION.patch
 Revert-ANDROID-Kbuild-LLVMLinux-allow-overriding-clang-target-triple.patch
 ANDROID-enable-LLVM_IAS-1-for-clang-s-integrated-assembler-for-aarch64.patch
 ANDROID-arm64-gki_defconfig-Disable-RANDOMIZE_MODULE_REGION_FULL.patch
+ANDROID-ARM-Use-zImage-instead-of-Image.patch
+ANDROID-enable-LLVM_IAS-1-for-clang-s-integrated-assembler-for-x86_64.patch
 _____ANNOTATION-Patches-for-bringing-up-new-SoCs_____.patch
 ANDROID-serial-msm_geni_serial_earlycon-Add-Earlycon-support.patch
 ANDROID-arm64-Add-support-for-asymmetric-AArch32-EL0-configurations.patch

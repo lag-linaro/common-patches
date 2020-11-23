@@ -25,15 +25,17 @@ diff --git a/drivers/android/vendor_hooks.c b/drivers/android/vendor_hooks.c
  #include <trace/hooks/sysrqcrash.h>
  #include <trace/hooks/printk.h>
 +#include <trace/hooks/gic_v3.h>
+ #include <trace/hooks/epoch.h>
  
  /*
-  * Export tracepoints that act as a bare tracehook (ie: have no trace event
-@@ -67,3 +68,5 @@ EXPORT_TRACEPOINT_SYMBOL_GPL(android_vh_sysrq_crash);
+@@ -68,5 +69,7 @@ EXPORT_TRACEPOINT_SYMBOL_GPL(android_vh_sysrq_crash);
  EXPORT_TRACEPOINT_SYMBOL_GPL(android_vh_dump_throttled_rt_tasks);
  EXPORT_TRACEPOINT_SYMBOL_GPL(android_vh_printk_hotplug);
  EXPORT_TRACEPOINT_SYMBOL_GPL(android_vh_jiffies_update);
 +EXPORT_TRACEPOINT_SYMBOL_GPL(android_vh_gic_v3_set_affinity);
 +EXPORT_TRACEPOINT_SYMBOL_GPL(android_vh_gic_v3_affinity_init);
+ EXPORT_TRACEPOINT_SYMBOL_GPL(android_vh_show_suspend_epoch_val);
+ EXPORT_TRACEPOINT_SYMBOL_GPL(android_vh_show_resume_epoch_val);
 diff --git a/drivers/irqchip/irq-gic-v3.c b/drivers/irqchip/irq-gic-v3.c
 --- a/drivers/irqchip/irq-gic-v3.c
 +++ b/drivers/irqchip/irq-gic-v3.c
