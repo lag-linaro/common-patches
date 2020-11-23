@@ -1,8 +1,8 @@
 #
 # android-mainline patches
 #
-# Applies onto upstream 27bba9c532a8 Linux v5.10-rc4-368-g27bba9c532a8
-# Matches android-mainline 26d2906f9606 ("Merge 27bba9c532a8 ("Merge tag 'scsi-fixes' of git://git.kernel.org/pub/scm/linux/kernel/git/jejb/scsi") into android-mainline")
+# Applies onto upstream a349e4c65960 Linux v5.10-rc4-384-ga349e4c65960
+# Matches android-mainline 03d720f4bde8 ("Merge a349e4c65960 ("Merge tag 'xfs-5.10-fixes-7' of git://git.kernel.org/pub/scm/fs/xfs/xfs-linux") into android-mainline")
 #
 Revert-block-grant-IOPRIO_CLASS_RT-to-CAP_SYS_NICE.patch
 Revert-arm64-dts-qcom-sdm845-db845c-Fix-hdmi-nodes.patch
