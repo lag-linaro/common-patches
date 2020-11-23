@@ -1,8 +1,8 @@
 #
 # android-mainline patches
 #
-# Applies onto upstream 4d02da974ea8 Linux v5.10-rc4-283-g4d02da974ea8
-# Matches android-mainline 69b784673fed ("ANDROID: gki_defconfig: Enable SERIAL_MSM_GENI_EARLY_CONSOLE")
+# Applies onto upstream 27bba9c532a8 Linux v5.10-rc4-368-g27bba9c532a8
+# Matches android-mainline 26d2906f9606 ("Merge 27bba9c532a8 ("Merge tag 'scsi-fixes' of git://git.kernel.org/pub/scm/linux/kernel/git/jejb/scsi") into android-mainline")
 #
 Revert-block-grant-IOPRIO_CLASS_RT-to-CAP_SYS_NICE.patch
 Revert-arm64-dts-qcom-sdm845-db845c-Fix-hdmi-nodes.patch

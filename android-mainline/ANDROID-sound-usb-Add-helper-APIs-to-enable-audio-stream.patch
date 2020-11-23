@@ -98,7 +98,7 @@ diff --git a/sound/usb/card.c b/sound/usb/card.c
  /*
   * disconnect streams
   * called from usb_audio_disconnect()
-@@ -447,6 +513,7 @@ static void snd_usb_audio_free(struct snd_card *card)
+@@ -451,6 +517,7 @@ static void snd_usb_audio_free(struct snd_card *card)
  	list_for_each_entry_safe(ep, n, &chip->ep_list, list)
  		snd_usb_endpoint_free(ep);
  
@@ -106,7 +106,7 @@ diff --git a/sound/usb/card.c b/sound/usb/card.c
  	mutex_destroy(&chip->mutex);
  	if (!atomic_read(&chip->shutdown))
  		dev_set_drvdata(&chip->dev->dev, NULL);
-@@ -589,6 +656,7 @@ static int snd_usb_audio_create(struct usb_interface *intf,
+@@ -593,6 +660,7 @@ static int snd_usb_audio_create(struct usb_interface *intf,
  
  	chip = card->private_data;
  	mutex_init(&chip->mutex);
@@ -114,7 +114,7 @@ diff --git a/sound/usb/card.c b/sound/usb/card.c
  	init_waitqueue_head(&chip->shutdown_wait);
  	chip->index = idx;
  	chip->dev = dev;
-@@ -859,6 +927,9 @@ static void usb_audio_disconnect(struct usb_interface *intf)
+@@ -863,6 +931,9 @@ static void usb_audio_disconnect(struct usb_interface *intf)
  
  	card = chip->card;
  
