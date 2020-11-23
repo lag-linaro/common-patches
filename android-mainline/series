@@ -2,7 +2,7 @@
 # android-mainline patches
 #
 # Applies onto upstream 4d02da974ea8 Linux v5.10-rc4-283-g4d02da974ea8
-# Matches android-mainline d53cfb36d955 ("Merge 4d02da974ea8 ("Merge tag 'net-5.10-rc5' of git://git.kernel.org/pub/scm/linux/kernel/git/netdev/net") into android-mainline")
+# Matches android-mainline 69b784673fed ("ANDROID: gki_defconfig: Enable SERIAL_MSM_GENI_EARLY_CONSOLE")
 #
 Revert-block-grant-IOPRIO_CLASS_RT-to-CAP_SYS_NICE.patch
 Revert-arm64-dts-qcom-sdm845-db845c-Fix-hdmi-nodes.patch
@@ -700,6 +700,8 @@ ANDROID-arm64-gki_defconfig-Disable-RANDOMIZE_MODULE_REGION_FULL.patch
 ANDROID-ARM-Use-zImage-instead-of-Image.patch
 ANDROID-enable-LLVM_IAS-1-for-clang-s-integrated-assembler-for-x86_64.patch
 ANDROID-GKI-enable-CONFIG_SUN4I_TIMER.patch
+ANDROID-gki_defconfig-Remove-QCOM_COMMAND_DB-y.patch
+ANDROID-gki_defconfig-Enable-SERIAL_MSM_GENI_EARLY_CONSOLE.patch
 _____ANNOTATION-Patches-for-bringing-up-new-SoCs_____.patch
 ANDROID-serial-msm_geni_serial_earlycon-Add-Earlycon-support.patch
 ANDROID-arm64-Add-support-for-asymmetric-AArch32-EL0-configurations.patch
