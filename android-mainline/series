@@ -2,7 +2,7 @@
 # android-mainline patches
 #
 # Applies onto upstream 418baf2c28f3 Linux v5.10-rc5
-# Matches android-mainline 5acba58e59f2 ("Merge 5.10-rc5 into android-mainline")
+# Matches android-mainline db102bc6beef ("ANDROID: GKI: Enable CONFIG_USB_XHCI_HCD")
 #
 Revert-block-grant-IOPRIO_CLASS_RT-to-CAP_SYS_NICE.patch
 Revert-arm64-dts-qcom-sdm845-db845c-Fix-hdmi-nodes.patch
@@ -702,6 +702,7 @@ ANDROID-enable-LLVM_IAS-1-for-clang-s-integrated-assembler-for-x86_64.patch
 ANDROID-GKI-enable-CONFIG_SUN4I_TIMER.patch
 ANDROID-gki_defconfig-Remove-QCOM_COMMAND_DB-y.patch
 ANDROID-gki_defconfig-Enable-SERIAL_MSM_GENI_EARLY_CONSOLE.patch
+ANDROID-GKI-Enable-CONFIG_USB_XHCI_HCD.patch
 _____ANNOTATION-Patches-for-bringing-up-new-SoCs_____.patch
 ANDROID-serial-msm_geni_serial_earlycon-Add-Earlycon-support.patch
 ANDROID-arm64-Add-support-for-asymmetric-AArch32-EL0-configurations.patch
