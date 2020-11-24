@@ -2,11 +2,12 @@
 # android-mainline patches
 #
 # Applies onto upstream 418baf2c28f3 Linux v5.10-rc5
-# Matches android-mainline db102bc6beef ("ANDROID: GKI: Enable CONFIG_USB_XHCI_HCD")
+# Matches android-mainline fb2cb28d35f8 ("ANDROID: sched: add missing data type for cpu variable")
 #
 Revert-block-grant-IOPRIO_CLASS_RT-to-CAP_SYS_NICE.patch
 Revert-arm64-dts-qcom-sdm845-db845c-Fix-hdmi-nodes.patch
 _____ANNOTATION-pending-upstream_____.patch
+FROMGIT-scsi-ufs-Put-HBA-into-LPM-during-gating.patch
 FROMLIST-clk-Export-clk_register_composite.patch
 FROMLIST-clk-versatile-remove-dependency-on-ARCH_.patch
 FROMLIST-soc-qcom-Kconfig-make-RPMH-match-Command-DB-setting.patch
@@ -125,6 +126,9 @@ ANDROID-sched_clock-Add-vendor-hook-to-print-epoch-values.patch
 ANDROID-sched-Export-few-scheduler-symbols-for-vendor-modules.patch
 ANDROID-Sched-Export-sched_feat_keys-symbol-needed-by-vendor-modules.patch
 ANDROID-sched-rt-rearrange-invocation-of-find_lowest_rq-vendor-hook.patch
+ANDROID-sched-fair-Have-sync-honor-fits_capacity.patch
+ANDROID-sched-Add-restrict-vendor-hooks-for-load-balance.patch
+ANDROID-sched-add-missing-data-type-for-cpu-variable.patch
 _____ANNOTATION-uid_sys_stats-support_____.patch
 ANDROID-uid_cputime-Adds-accounting-for-the-cputimes-per-uid.patch
 ANDROID-uid_cputime-add-per-uid-IO-usage-accounting.patch
@@ -218,6 +222,7 @@ ANDROID-drivers-firmware-psci-Register-with-kernel-restart-handler.patch
 ANDROID-gic-Add-vendor-hook-for-gic-v3-resume.patch
 ANDROID-rpmsg-core-Add-signal-API-support.patch
 ANDROID-clk-Enable-writable-debugfs-files.patch
+ANDROID-add-vendor-hooks-to-override-show_cpufinfo_max_freq.patch
 _____ANNOTATION-tty-changes_____.patch
 Revert-Revert-tty-serial-samsung_tty-build-it-for-any-platform.patch
 FROMLIST-hvc_dcc-bind-driver-to-core0-for-reads-and-writes.patch
@@ -241,6 +246,7 @@ ANDROID-usb-gadget-configfs-Support-multiple-android-instances.patch
 ANDROID-usb-typec-tcpm-Add-chip-level-callback-to-check-for-contaminant.patch
 ANDROID-usb-typec-tcpm-Bring-back-tcpm_update_sink_capabilities.patch
 ANDROID-usb-f_accessory-Send-uevent-when-receive-control-request.patch
+ANDROID-usb-f_accessory-avoid-requeuing-write-req-if-disconnected.patch
 _____ANNOTATION-graphics-changes_____.patch
 Revert-drm-virtio-fix-DRM_FORMAT_-handling.patch
 ANDROID-Allow-DRM_IOCTL_MODE_-_DUMB-for-render-clients.patch
@@ -700,6 +706,12 @@ ANDROID-GKI-enable-CONFIG_SUN4I_TIMER.patch
 ANDROID-gki_defconfig-Remove-QCOM_COMMAND_DB-y.patch
 ANDROID-gki_defconfig-Enable-SERIAL_MSM_GENI_EARLY_CONSOLE.patch
 ANDROID-GKI-Enable-CONFIG_USB_XHCI_HCD.patch
+ANDROID-GKI-enable-a-bunch-of-HID-config-options-y.patch
+ANDROID-GKI-enable-CONFIG_SCSI_UFS_DWC_TC_PLATFORM.patch
+ANDROID-GKI-Enable-CONFIG_USB_TYPEC_UCSI.patch
+ANDROID-GKI-enable-CONFIG_SCSI_UFS_BSG-y.patch
+ANDROID-arm64-gki_defconfig-Disable-VHE.patch
+ANDROID-db845c_gki.fragment-Remove-USB_XHCI_HCD-and-XHCI_PCI_RENESAS-configs.patch
 _____ANNOTATION-Patches-for-bringing-up-new-SoCs_____.patch
 ANDROID-serial-msm_geni_serial_earlycon-Add-Earlycon-support.patch
 ANDROID-arm64-Add-support-for-asymmetric-AArch32-EL0-configurations.patch

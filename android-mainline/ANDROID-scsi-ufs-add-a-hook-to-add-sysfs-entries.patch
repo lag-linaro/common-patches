@@ -64,7 +64,7 @@ diff --git a/drivers/scsi/ufs/ufs-sysfs.h b/drivers/scsi/ufs/ufs-sysfs.h
 diff --git a/drivers/scsi/ufs/ufshcd.c b/drivers/scsi/ufs/ufshcd.c
 --- a/drivers/scsi/ufs/ufshcd.c
 +++ b/drivers/scsi/ufs/ufshcd.c
-@@ -9293,7 +9293,7 @@ int ufshcd_init(struct ufs_hba *hba, void __iomem *mmio_base, unsigned int irq)
+@@ -9298,7 +9298,7 @@ int ufshcd_init(struct ufs_hba *hba, void __iomem *mmio_base, unsigned int irq)
  	ufshcd_set_ufs_dev_active(hba);
  
  	async_schedule(ufshcd_async_scan, hba);
@@ -92,7 +92,7 @@ diff --git a/drivers/scsi/ufs/ufshcd.h b/drivers/scsi/ufs/ufshcd.h
  };
  
  /* clock gating state  */
-@@ -1250,6 +1252,13 @@ static inline void ufshcd_vops_prepare_command(struct ufs_hba *hba,
+@@ -1263,6 +1265,13 @@ static inline void ufshcd_vops_prepare_command(struct ufs_hba *hba,
  		hba->vops->prepare_command(hba, rq, lrbp);
  }
  

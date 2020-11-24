@@ -20,7 +20,7 @@ Signed-off-by: Eric Biggers <ebiggers@google.com>
 diff --git a/drivers/scsi/ufs/ufshcd.c b/drivers/scsi/ufs/ufshcd.c
 --- a/drivers/scsi/ufs/ufshcd.c
 +++ b/drivers/scsi/ufs/ufshcd.c
-@@ -2246,7 +2246,7 @@ static int ufshcd_map_sg(struct ufs_hba *hba, struct ufshcd_lrb *lrbp)
+@@ -2251,7 +2251,7 @@ static int ufshcd_map_sg(struct ufs_hba *hba, struct ufshcd_lrb *lrbp)
  		lrbp->utr_descriptor_ptr->prd_table_length = 0;
  	}
  
@@ -50,7 +50,7 @@ diff --git a/drivers/scsi/ufs/ufshcd.h b/drivers/scsi/ufs/ufshcd.h
  };
  
  /* clock gating state  */
-@@ -1213,6 +1217,16 @@ static inline void ufshcd_vops_config_scaling_param(struct ufs_hba *hba,
+@@ -1226,6 +1230,16 @@ static inline void ufshcd_vops_config_scaling_param(struct ufs_hba *hba,
  		hba->vops->config_scaling_param(hba, profile, data);
  }
  

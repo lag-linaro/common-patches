@@ -23,7 +23,7 @@ Signed-off-by: Eric Biggers <ebiggers@google.com>
 diff --git a/drivers/scsi/ufs/ufshcd.c b/drivers/scsi/ufs/ufshcd.c
 --- a/drivers/scsi/ufs/ufshcd.c
 +++ b/drivers/scsi/ufs/ufshcd.c
-@@ -482,7 +482,7 @@ void ufshcd_print_trs(struct ufs_hba *hba, unsigned long bitmap, bool pr_prdt)
+@@ -484,7 +484,7 @@ void ufshcd_print_trs(struct ufs_hba *hba, unsigned long bitmap, bool pr_prdt)
  		prdt_length = le16_to_cpu(
  			lrbp->utr_descriptor_ptr->prd_table_length);
  		if (hba->quirks & UFSHCD_QUIRK_PRDT_BYTE_GRAN)
@@ -32,7 +32,7 @@ diff --git a/drivers/scsi/ufs/ufshcd.c b/drivers/scsi/ufs/ufshcd.c
  
  		dev_err(hba->dev,
  			"UPIU[%d] - PRDT - %d entries  phys@0x%llx\n",
-@@ -491,7 +491,7 @@ void ufshcd_print_trs(struct ufs_hba *hba, unsigned long bitmap, bool pr_prdt)
+@@ -493,7 +493,7 @@ void ufshcd_print_trs(struct ufs_hba *hba, unsigned long bitmap, bool pr_prdt)
  
  		if (pr_prdt)
  			ufshcd_hex_dump("UPIU PRDT: ", lrbp->ucd_prdt_ptr,
@@ -41,7 +41,7 @@ diff --git a/drivers/scsi/ufs/ufshcd.c b/drivers/scsi/ufs/ufshcd.c
  	}
  }
  
-@@ -2210,7 +2210,7 @@ int ufshcd_send_uic_cmd(struct ufs_hba *hba, struct uic_command *uic_cmd)
+@@ -2215,7 +2215,7 @@ int ufshcd_send_uic_cmd(struct ufs_hba *hba, struct uic_command *uic_cmd)
   */
  static int ufshcd_map_sg(struct ufs_hba *hba, struct ufshcd_lrb *lrbp)
  {
@@ -50,7 +50,7 @@ diff --git a/drivers/scsi/ufs/ufshcd.c b/drivers/scsi/ufs/ufshcd.c
  	struct scatterlist *sg;
  	struct scsi_cmnd *cmd;
  	int sg_segments;
-@@ -2225,22 +2225,22 @@ static int ufshcd_map_sg(struct ufs_hba *hba, struct ufshcd_lrb *lrbp)
+@@ -2230,22 +2230,22 @@ static int ufshcd_map_sg(struct ufs_hba *hba, struct ufshcd_lrb *lrbp)
  
  		if (hba->quirks & UFSHCD_QUIRK_PRDT_BYTE_GRAN)
  			lrbp->utr_descriptor_ptr->prd_table_length =
@@ -80,7 +80,7 @@ diff --git a/drivers/scsi/ufs/ufshcd.c b/drivers/scsi/ufs/ufshcd.c
  		}
  	} else {
  		lrbp->utr_descriptor_ptr->prd_table_length = 0;
-@@ -2499,10 +2499,11 @@ static inline u16 ufshcd_upiu_wlun_to_scsi_wlun(u8 upiu_wlun_id)
+@@ -2504,10 +2504,11 @@ static inline u16 ufshcd_upiu_wlun_to_scsi_wlun(u8 upiu_wlun_id)
  
  static void ufshcd_init_lrb(struct ufs_hba *hba, struct ufshcd_lrb *lrb, int i)
  {
@@ -94,7 +94,7 @@ diff --git a/drivers/scsi/ufs/ufshcd.c b/drivers/scsi/ufs/ufshcd.c
  	u16 response_offset = offsetof(struct utp_transfer_cmd_desc,
  				       response_upiu);
  	u16 prdt_offset = offsetof(struct utp_transfer_cmd_desc, prd_table);
-@@ -2510,11 +2511,11 @@ static void ufshcd_init_lrb(struct ufs_hba *hba, struct ufshcd_lrb *lrb, int i)
+@@ -2515,11 +2516,11 @@ static void ufshcd_init_lrb(struct ufs_hba *hba, struct ufshcd_lrb *lrb, int i)
  	lrb->utr_descriptor_ptr = utrdlp + i;
  	lrb->utrd_dma_addr = hba->utrdl_dma_addr +
  		i * sizeof(struct utp_transfer_req_desc);
@@ -109,7 +109,7 @@ diff --git a/drivers/scsi/ufs/ufshcd.c b/drivers/scsi/ufs/ufshcd.c
  	lrb->ucd_prdt_dma_addr = cmd_desc_element_addr + prdt_offset;
  }
  
-@@ -3423,7 +3424,7 @@ static int ufshcd_memory_alloc(struct ufs_hba *hba)
+@@ -3428,7 +3429,7 @@ static int ufshcd_memory_alloc(struct ufs_hba *hba)
  	size_t utmrdl_size, utrdl_size, ucdl_size;
  
  	/* Allocate memory for UTP command descriptors */
@@ -118,7 +118,7 @@ diff --git a/drivers/scsi/ufs/ufshcd.c b/drivers/scsi/ufs/ufshcd.c
  	hba->ucdl_base_addr = dmam_alloc_coherent(hba->dev,
  						  ucdl_size,
  						  &hba->ucdl_dma_addr,
-@@ -3517,7 +3518,7 @@ static void ufshcd_host_memory_configure(struct ufs_hba *hba)
+@@ -3522,7 +3523,7 @@ static void ufshcd_host_memory_configure(struct ufs_hba *hba)
  	prdt_offset =
  		offsetof(struct utp_transfer_cmd_desc, prd_table);
  
@@ -127,7 +127,7 @@ diff --git a/drivers/scsi/ufs/ufshcd.c b/drivers/scsi/ufs/ufshcd.c
  	cmd_desc_dma_addr = hba->ucdl_dma_addr;
  
  	for (i = 0; i < hba->nutrs; i++) {
-@@ -9069,6 +9070,7 @@ int ufshcd_alloc_host(struct device *dev, struct ufs_hba **hba_handle)
+@@ -9074,6 +9075,7 @@ int ufshcd_alloc_host(struct device *dev, struct ufs_hba **hba_handle)
  	hba->dev = dev;
  	*hba_handle = hba;
  	hba->dev_ref_clk_freq = REF_CLK_FREQ_INVAL;
@@ -138,7 +138,7 @@ diff --git a/drivers/scsi/ufs/ufshcd.c b/drivers/scsi/ufs/ufshcd.c
 diff --git a/drivers/scsi/ufs/ufshcd.h b/drivers/scsi/ufs/ufshcd.h
 --- a/drivers/scsi/ufs/ufshcd.h
 +++ b/drivers/scsi/ufs/ufshcd.h
-@@ -639,6 +639,7 @@ struct ufs_hba_variant_params {
+@@ -646,6 +646,7 @@ struct ufs_hba_variant_params {
   * @ufs_version: UFS Version to which controller complies
   * @vops: pointer to variant specific operations
   * @priv: pointer to variant specific private data
@@ -146,7 +146,7 @@ diff --git a/drivers/scsi/ufs/ufshcd.h b/drivers/scsi/ufs/ufshcd.h
   * @irq: Irq number of the controller
   * @active_uic_cmd: handle of active UIC command
   * @uic_cmd_mutex: mutex for uic command
-@@ -725,6 +726,7 @@ struct ufs_hba {
+@@ -732,6 +733,7 @@ struct ufs_hba {
  	const struct ufs_hba_variant_ops *vops;
  	struct ufs_hba_variant_params *vps;
  	void *priv;
