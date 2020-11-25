@@ -2,7 +2,7 @@
 # android-mainline patches
 #
 # Applies onto upstream 418baf2c28f3 Linux v5.10-rc5
-# Matches android-mainline fb2cb28d35f8 ("ANDROID: sched: add missing data type for cpu variable")
+# Matches android-mainline ffea51ec1f7a ("ANDROID: vfs: d_canonical_path cleanup #if 0")
 #
 Revert-block-grant-IOPRIO_CLASS_RT-to-CAP_SYS_NICE.patch
 Revert-arm64-dts-qcom-sdm845-db845c-Fix-hdmi-nodes.patch
