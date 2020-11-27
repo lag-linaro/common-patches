@@ -2,12 +2,16 @@
 # android-mainline patches
 #
 # Applies onto upstream 418baf2c28f3 Linux v5.10-rc5
-# Matches android-mainline ffea51ec1f7a ("ANDROID: vfs: d_canonical_path cleanup #if 0")
+# Matches android-mainline 3b3c8050fc27 ("FROMGIT: usb: typec: tcpci_maxim: Fix vbus stuck on upon diconnecting sink")
 #
 Revert-block-grant-IOPRIO_CLASS_RT-to-CAP_SYS_NICE.patch
 Revert-arm64-dts-qcom-sdm845-db845c-Fix-hdmi-nodes.patch
 _____ANNOTATION-pending-upstream_____.patch
 FROMGIT-scsi-ufs-Put-HBA-into-LPM-during-gating.patch
+FROMGIT-usb-typec-tcpm-Refactor-logic-for-new-source-frs-typec-current.patch
+FROMGIT-usb-typec-tcpm-frs-sourcing-vbus-callback.patch
+FROMGIT-usb-typec-tcpci-frs-sourcing-vbus-callback.patch
+FROMGIT-usb-typec-tcpci_maxim-Fix-vbus-stuck-on-upon-diconnecting-sink.patch
 FROMLIST-clk-Export-clk_register_composite.patch
 FROMLIST-clk-versatile-remove-dependency-on-ARCH_.patch
 FROMLIST-soc-qcom-Kconfig-make-RPMH-match-Command-DB-setting.patch
@@ -20,6 +24,10 @@ FROMLIST-fuse-Handle-asynchronous-read-and-write-in-passthrough.patch
 FROMLIST-fuse-Use-daemon-creds-in-passthrough-mode.patch
 FROMLIST-fuse-Fix-colliding-FUSE_PASSTHROUGH-flag.patch
 FROMLIST-Kbuild-do-not-emit-debug-info-for-assembly-with-LLVM_IAS-1.patch
+FROMLIST-USB-gadget-f_acm-add-support-for-SuperSpeed-Plus.patch
+FROMLIST-USB-gadget-f_fs-add-SuperSpeed-Plus-support.patch
+FROMLIST-USB-gadget-f_midi-setup-SuperSpeed-Plus-descriptors.patch
+FROMLIST-USB-gadget-f_rndis-fix-bitrate-for-SuperSpeed-and-above.patch
 _____ANNOTATION-Android-vendor-hooks_____.patch
 ANDROID-GKI-add-android_vendor.h.patch
 ANDROID-add-support-for-vendor-hooks.patch
@@ -204,6 +212,13 @@ ANDROID-dma-heap-Provide-accessors-so-that-in-kernel-drivers-can-allocate-dmabuf
 ANDROID-dma-buf-Cleanup-minor-usage-in-Add-proper-kref-handling-on-dma-buf-heaps.patch
 ANDROID-dma-Rework-so-dev_get_cma_area-can-be-called-from-a-module.patch
 ANDROID-dma-buf-heaps-Allow-cma-heaps-to-be-configured-as-a-module.patch
+ANDROID-staging-ion-Export-query-function-to-be-used-in-modules.patch
+ANDROID-staging-ion-use-dma_-un-map_sg_attrs.patch
+ANDROID-staging-ion-optimize-cache-operation-for-non-cached-buffer.patch
+ANDROID-staging-ion-Fix-potential-memory-corruption.patch
+ANDROID-staging-ion-remove-kmap-from-begin-end-_cpu_access.patch
+ANDROID-staging-ion-Remove-unused-local-variable-vaddr.patch
+ANDROID-staging-ion-export-some-ion-symbols.patch
 _____ANNOTATION-driver-framework-and-misc-driver-changes_____.patch
 FROMLIST-drivers-irqchip-pdc-additionally-set-type-in-SPI-config-registers.patch
 FROMLIST-dt-bindings-interrupt-controller-pdc-add-SPI-config-register.patch
@@ -239,6 +254,7 @@ ANDROID-usb-gadget-configfs-Add-function-devices-to-the-parent.patch
 ANDROID-usb-gadget-configfs-Add-state-attribute-to-android_device.patch
 ANDROID-usb-gadget-configfs-Add-device-attribute-to-determine-gadget-state.patch
 ANDROID-usb-gadget-f_accessory-Add-Android-Accessory-function.patch
+ANDROID-USB-gadget-f_accessory-add-support-for-SuperSpeed-Plus.patch
 ANDROID-usb-gadget-f_midi-create-F_midi-device.patch
 ANDROID-usb-gadget-f_midi-set-fi-f-to-NULL-when-free-f_midi-function.patch
 ANDROID-usb-gadget-f_audio_source-New-gadget-driver-for-audio-output.patch
@@ -325,6 +341,7 @@ ANDROID-Add-a-tracepoint-for-mapping-inode-to-full-path.patch
 ANDROID-ext4-Handle-casefolding-with-encryption.patch
 ANDROID-ext4-Optimize-match-for-casefolded-encrypted-dirs.patch
 ANDROID-f2fs-Handle-casefolding-with-Encryption.patch
+ANDROID-sync-encrypt-casefold-support-with-patches-going-upstream.patch
 ANDROID-GKI-Don-t-compact-fuse_req-when-CONFIG_VIRTIO_FS-n.patch
 ANDROID-vfs-d_canonical_path-for-stacked-FS.patch
 ANDROID-fuse-Add-support-for-d_canonical_path.patch
@@ -712,6 +729,9 @@ ANDROID-GKI-Enable-CONFIG_USB_TYPEC_UCSI.patch
 ANDROID-GKI-enable-CONFIG_SCSI_UFS_BSG-y.patch
 ANDROID-arm64-gki_defconfig-Disable-VHE.patch
 ANDROID-db845c_gki.fragment-Remove-USB_XHCI_HCD-and-XHCI_PCI_RENESAS-configs.patch
+ANDROID-configs-gki-add-CONFIG_PRINTK_CALLER.patch
+ANDROID-configs-gki-add-CONFIG_LEDS_TRIGGER_TRANSIENT.patch
+ANDROID-configs-gki-add-CONFIG_PSTORE_PMSG.patch
 _____ANNOTATION-Patches-for-bringing-up-new-SoCs_____.patch
 ANDROID-serial-msm_geni_serial_earlycon-Add-Earlycon-support.patch
 ANDROID-arm64-Add-support-for-asymmetric-AArch32-EL0-configurations.patch

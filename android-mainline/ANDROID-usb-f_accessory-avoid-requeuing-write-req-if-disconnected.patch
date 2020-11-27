@@ -29,7 +29,7 @@ Signed-off-by: Jack Pham <jackp@codeaurora.org>
 diff --git a/drivers/usb/gadget/function/f_accessory.c b/drivers/usb/gadget/function/f_accessory.c
 --- a/drivers/usb/gadget/function/f_accessory.c
 +++ b/drivers/usb/gadget/function/f_accessory.c
-@@ -664,16 +664,16 @@ static ssize_t acc_write(struct file *fp, const char __user *buf,
+@@ -733,16 +733,16 @@ static ssize_t acc_write(struct file *fp, const char __user *buf,
  	}
  
  	while (count > 0) {
