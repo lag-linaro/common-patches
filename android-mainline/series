@@ -2,7 +2,7 @@
 # android-mainline patches
 #
 # Applies onto upstream fa02fcd94b0c Linux v5.10-rc5-22-gfa02fcd94b0c
-# Matches android-mainline 888533a0775f ("Merge fa02fcd94b0c ("Merge tag 'media/v5.10-2' of git://git.kernel.org/pub/scm/linux/kernel/git/mchehab/linux-media") into android-mainline")
+# Matches android-mainline c72dcf02e125 ("FROMGIT: usb: typec: tcpm: Disregard vbus off while in PR_SWAP_SNK_SRC_SOURCE_ON")
 #
 Revert-block-grant-IOPRIO_CLASS_RT-to-CAP_SYS_NICE.patch
 Revert-arm64-dts-qcom-sdm845-db845c-Fix-hdmi-nodes.patch
@@ -12,6 +12,13 @@ FROMGIT-usb-typec-tcpm-Refactor-logic-for-new-source-frs-typec-current.patch
 FROMGIT-usb-typec-tcpm-frs-sourcing-vbus-callback.patch
 FROMGIT-usb-typec-tcpci-frs-sourcing-vbus-callback.patch
 FROMGIT-usb-typec-tcpci_maxim-Fix-vbus-stuck-on-upon-diconnecting-sink.patch
+FROMGIT-usb-typec-tcpm-Implement-enabling-Auto-Discharge-disconnect-support.patch
+FROMGIT-usb-typec-tcpci-Implement-Auto-discharge-disconnect-callbacks.patch
+FROMGIT-usb-typec-tcpci_maxim-Enable-auto-discharge-disconnect.patch
+FROMGIT-usb-typec-tcpci_maxim-Fix-uninitialized-return-variable.patch
+FROMGIT-dt-bindings-usb-Maxim-type-c-controller-device-tree-binding-document.patch
+FROMGIT-usb-typec-tcpci_maxim-Fix-the-compatible-string.patch
+FROMGIT-usb-typec-tcpm-Disregard-vbus-off-while-in-PR_SWAP_SNK_SRC_SOURCE_ON.patch
 FROMLIST-clk-Export-clk_register_composite.patch
 FROMLIST-clk-versatile-remove-dependency-on-ARCH_.patch
 FROMLIST-soc-qcom-Kconfig-make-RPMH-match-Command-DB-setting.patch
@@ -732,6 +739,7 @@ ANDROID-db845c_gki.fragment-Remove-USB_XHCI_HCD-and-XHCI_PCI_RENESAS-configs.pat
 ANDROID-configs-gki-add-CONFIG_PRINTK_CALLER.patch
 ANDROID-configs-gki-add-CONFIG_LEDS_TRIGGER_TRANSIENT.patch
 ANDROID-configs-gki-add-CONFIG_PSTORE_PMSG.patch
+ANDROID-extract-cert-omit-PKCS-11-support-if-building-against-BoringSSL.patch
 _____ANNOTATION-Patches-for-bringing-up-new-SoCs_____.patch
 ANDROID-serial-msm_geni_serial_earlycon-Add-Earlycon-support.patch
 ANDROID-arm64-Add-support-for-asymmetric-AArch32-EL0-configurations.patch
