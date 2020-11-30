@@ -35,6 +35,9 @@ FROMLIST-USB-gadget-f_acm-add-support-for-SuperSpeed-Plus.patch
 FROMLIST-USB-gadget-f_fs-add-SuperSpeed-Plus-support.patch
 FROMLIST-USB-gadget-f_midi-setup-SuperSpeed-Plus-descriptors.patch
 FROMLIST-USB-gadget-f_rndis-fix-bitrate-for-SuperSpeed-and-above.patch
+FROMGIT-libfs-Add-generic-function-for-setting-dentry_ops.patch
+FROMGIT-fscrypt-Have-filesystems-handle-their-d_ops.patch
+FROMGIT-f2fs-Handle-casefolding-with-Encryption.patch
 _____ANNOTATION-Android-vendor-hooks_____.patch
 ANDROID-GKI-add-android_vendor.h.patch
 ANDROID-add-support-for-vendor-hooks.patch
@@ -335,7 +338,6 @@ FROMLIST-overlayfs-internal-getxattr-operations-without-sepolicy-checking.patch
 FROMLIST-overlayfs-override_creds-off-option-bypass-creator_cred.patch
 ANDROID-overlayfs-readdir-override_creds-off-option-bypass-creator_cred.patch
 ANDROID-inode_owner_or_capable-called-during-execv.patch
-FROMLIST-fscrypt-Have-filesystems-handle-their-d_ops.patch
 FROMLIST-fscrypt-Add-functions-for-direct-I-O-support.patch
 FROMLIST-direct-io-add-support-for-fscrypt-using-blk-crypto.patch
 FROMLIST-iomap-support-direct-I-O-with-fscrypt-using-blk-crypto.patch
@@ -347,8 +349,6 @@ ANDROID-fs-FS-tracepoints-to-track-IO.patch
 ANDROID-Add-a-tracepoint-for-mapping-inode-to-full-path.patch
 ANDROID-ext4-Handle-casefolding-with-encryption.patch
 ANDROID-ext4-Optimize-match-for-casefolded-encrypted-dirs.patch
-ANDROID-f2fs-Handle-casefolding-with-Encryption.patch
-ANDROID-sync-encrypt-casefold-support-with-patches-going-upstream.patch
 ANDROID-GKI-Don-t-compact-fuse_req-when-CONFIG_VIRTIO_FS-n.patch
 ANDROID-vfs-d_canonical_path-for-stacked-FS.patch
 ANDROID-fuse-Add-support-for-d_canonical_path.patch

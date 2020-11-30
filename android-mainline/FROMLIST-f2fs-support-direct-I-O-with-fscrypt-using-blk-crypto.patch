@@ -20,7 +20,7 @@ Change-Id: Ice27ed87c732c4a83a71297f38364f312fb9b3d8
 diff --git a/fs/f2fs/f2fs.h b/fs/f2fs/f2fs.h
 --- a/fs/f2fs/f2fs.h
 +++ b/fs/f2fs/f2fs.h
-@@ -4117,7 +4117,9 @@ static inline bool f2fs_force_buffered_io(struct inode *inode,
+@@ -4119,7 +4119,9 @@ static inline bool f2fs_force_buffered_io(struct inode *inode,
  	struct f2fs_sb_info *sbi = F2FS_I_SB(inode);
  	int rw = iov_iter_rw(iter);
  

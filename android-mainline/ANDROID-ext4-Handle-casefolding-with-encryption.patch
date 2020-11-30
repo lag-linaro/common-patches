@@ -326,7 +326,7 @@ diff --git a/fs/ext4/ext4.h b/fs/ext4/ext4.h
  				     struct buffer_head *bh,
  				     void *entry_buf,
  				     int buf_size,
-@@ -3476,9 +3521,6 @@ extern void ext4_initialize_dirent_tail(struct buffer_head *bh,
+@@ -3472,9 +3517,6 @@ extern void ext4_initialize_dirent_tail(struct buffer_head *bh,
  					unsigned int blocksize);
  extern int ext4_handle_dirty_dirblock(handle_t *handle, struct inode *inode,
  				      struct buffer_head *bh);

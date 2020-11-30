@@ -1,7 +1,7 @@
 From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
-From: Eric Biggers <ebiggers@google.com>
-Date: Mon, 13 Jul 2020 18:41:04 -0700
-Subject: ANDROID: f2fs: Handle casefolding with Encryption
+From: Daniel Rosenberg <drosen@google.com>
+Date: Thu, 19 Nov 2020 06:09:04 +0000
+Subject: FROMGIT: f2fs: Handle casefolding with Encryption
 
 Expand f2fs's casefolding support to include encrypted directories.  To
 index casefolded+encrypted directories, we use the SipHash of the
@@ -14,26 +14,27 @@ can't compute the dirhash when recovering a new dentry in an encrypted +
 casefolded directory.  To avoid having to force a checkpoint when a new
 file is fsync'ed, store the dirhash on-disk appended to i_name.
 
-Based on patches from Daniel Rosenberg <drosen@google.com> and
-Jaegeuk Kim <jaegeuk@kernel.org>.
+This patch incorporates work by Eric Biggers <ebiggers@google.com>
+and Jaegeuk Kim <jaegeuk@kernel.org>.
 
+Co-developed-by: Eric Biggers <ebiggers@google.com>
 Signed-off-by: Eric Biggers <ebiggers@google.com>
+Signed-off-by: Daniel Rosenberg <drosen@google.com>
+Reviewed-by: Eric Biggers <ebiggers@google.com>
+Signed-off-by: Jaegeuk Kim <jaegeuk@kernel.org>
 
-Link: https://lore.kernel.org/r/20200507075905.953777-5-ebiggers@kernel.org
-(resolved conflicts with generic casefolding support, removed
- "INCOMPLETE", added missing 'f2fs_hash_t *' cast, and actually allow
- mounting with encrypt+casefold.)
-Bug: 138322712
+(cherry picked from commit 632cc618fa14e9b36dac2062c4359c97e285ffaa
+ https://git.kernel.org/pub/scm/linux/kernel/git/jaegeuk/f2fs.git dev)
 Bug: 161184936
-Test: Boots, /data/media is case insensitive
-Change-Id: I8f1e324472668e27d3e059cc80e4c981ce89dd9b
+Change-Id: I18387784e55f31bec6b59e3e8666fa54bc4f6c86
 ---
- fs/f2fs/dir.c      | 57 +++++++++++++++++++++++++++++++++++++++-------
- fs/f2fs/f2fs.h     |  8 ++++---
- fs/f2fs/hash.c     | 11 ++++++++-
- fs/f2fs/recovery.c | 12 +++++++++-
- fs/f2fs/super.c    |  6 -----
- 5 files changed, 75 insertions(+), 19 deletions(-)
+ fs/f2fs/dir.c      | 98 +++++++++++++++++++++++++++++++++++-----------
+ fs/f2fs/f2fs.h     |  8 ++--
+ fs/f2fs/hash.c     | 11 +++++-
+ fs/f2fs/inline.c   |  4 ++
+ fs/f2fs/recovery.c | 12 +++++-
+ fs/f2fs/super.c    |  6 ---
+ 6 files changed, 106 insertions(+), 33 deletions(-)
 
 diff --git a/fs/f2fs/dir.c b/fs/f2fs/dir.c
 --- a/fs/f2fs/dir.c
@@ -46,7 +47,16 @@ diff --git a/fs/f2fs/dir.c b/fs/f2fs/dir.c
  #include <linux/fs.h>
  #include <linux/f2fs_fs.h>
  #include <linux/sched/signal.h>
-@@ -212,9 +213,28 @@ static bool f2fs_match_ci_name(const struct inode *dir, const struct qstr *name,
+@@ -206,30 +207,55 @@ static struct f2fs_dir_entry *find_in_block(struct inode *dir,
+ /*
+  * Test whether a case-insensitive directory entry matches the filename
+  * being searched for.
++ *
++ * Returns 1 for a match, 0 for no match, and -errno on an error.
+  */
+-static bool f2fs_match_ci_name(const struct inode *dir, const struct qstr *name,
++static int f2fs_match_ci_name(const struct inode *dir, const struct qstr *name,
+ 			       const u8 *de_name, u32 de_name_len)
  {
  	const struct super_block *sb = dir->i_sb;
  	const struct unicode_map *um = sb->s_encoding;
@@ -59,11 +69,11 @@ diff --git a/fs/f2fs/dir.c b/fs/f2fs/dir.c
 +			FSTR_INIT((u8 *)de_name, de_name_len);
 +
 +		if (WARN_ON_ONCE(!fscrypt_has_encryption_key(dir)))
-+			return false;
++			return -EINVAL;
 +
 +		decrypted_name.name = kmalloc(de_name_len, GFP_KERNEL);
 +		if (!decrypted_name.name)
-+			return false;
++			return -ENOMEM;
 +		res = fscrypt_fname_disk_to_usr(dir, 0, 0, &encrypted_name,
 +						&decrypted_name);
 +		if (res < 0)
@@ -73,24 +83,79 @@ diff --git a/fs/f2fs/dir.c b/fs/f2fs/dir.c
 +	}
 +
  	res = utf8_strncasecmp_folded(um, name, &entry);
- 	if (res < 0) {
- 		/*
-@@ -222,9 +242,12 @@ static bool f2fs_match_ci_name(const struct inode *dir, const struct qstr *name,
- 		 * fall back to treating them as opaque byte sequences.
- 		 */
- 		if (sb_has_strict_encoding(sb) || name->len != entry.len)
+-	if (res < 0) {
+-		/*
+-		 * In strict mode, ignore invalid names.  In non-strict mode,
+-		 * fall back to treating them as opaque byte sequences.
+-		 */
+-		if (sb_has_strict_encoding(sb) || name->len != entry.len)
 -			return false;
 -		return !memcmp(name->name, entry.name, name->len);
-+			res = 1;
-+		else
-+			res = memcmp(name->name, entry.name, name->len);
++	/*
++	 * In strict mode, ignore invalid names.  In non-strict mode,
++	 * fall back to treating them as opaque byte sequences.
++	 */
++	if (res < 0 && !sb_has_strict_encoding(sb)) {
++		res = name->len == entry.len &&
++				memcmp(name->name, entry.name, name->len) == 0;
++	} else {
++		/* utf8_strncasecmp_folded returns 0 on match */
++		res = (res == 0);
  	}
+-	return res == 0;
 +out:
 +	kfree(decrypted_name.name);
- 	return res == 0;
++	return res;
  }
  #endif /* CONFIG_UNICODE */
-@@ -448,17 +471,39 @@ void f2fs_set_link(struct inode *dir, struct f2fs_dir_entry *de,
+ 
+-static inline bool f2fs_match_name(const struct inode *dir,
++static inline int f2fs_match_name(const struct inode *dir,
+ 				   const struct f2fs_filename *fname,
+ 				   const u8 *de_name, u32 de_name_len)
+ {
+@@ -256,6 +282,7 @@ struct f2fs_dir_entry *f2fs_find_target_dentry(const struct f2fs_dentry_ptr *d,
+ 	struct f2fs_dir_entry *de;
+ 	unsigned long bit_pos = 0;
+ 	int max_len = 0;
++	int res = 0;
+ 
+ 	if (max_slots)
+ 		*max_slots = 0;
+@@ -273,10 +300,15 @@ struct f2fs_dir_entry *f2fs_find_target_dentry(const struct f2fs_dentry_ptr *d,
+ 			continue;
+ 		}
+ 
+-		if (de->hash_code == fname->hash &&
+-		    f2fs_match_name(d->inode, fname, d->filename[bit_pos],
+-				    le16_to_cpu(de->name_len)))
+-			goto found;
++		if (de->hash_code == fname->hash) {
++			res = f2fs_match_name(d->inode, fname,
++					      d->filename[bit_pos],
++					      le16_to_cpu(de->name_len));
++			if (res < 0)
++				return ERR_PTR(res);
++			if (res)
++				goto found;
++		}
+ 
+ 		if (max_slots && max_len > *max_slots)
+ 			*max_slots = max_len;
+@@ -326,7 +358,11 @@ static struct f2fs_dir_entry *find_in_level(struct inode *dir,
+ 		}
+ 
+ 		de = find_in_block(dir, dentry_page, fname, &max_slots);
+-		if (de) {
++		if (IS_ERR(de)) {
++			*res_page = ERR_CAST(de);
++			de = NULL;
++			break;
++		} else if (de) {
+ 			*res_page = dentry_page;
+ 			break;
+ 		}
+@@ -448,17 +484,39 @@ void f2fs_set_link(struct inode *dir, struct f2fs_dir_entry *de,
  	f2fs_put_page(page, 1);
  }
  
@@ -131,7 +196,7 @@ diff --git a/fs/f2fs/dir.c b/fs/f2fs/dir.c
  	set_page_dirty(ipage);
  }
  
-@@ -541,11 +586,7 @@ struct page *f2fs_init_inode_metadata(struct inode *inode, struct inode *dir,
+@@ -541,11 +599,7 @@ struct page *f2fs_init_inode_metadata(struct inode *inode, struct inode *dir,
  			return page;
  	}
  
@@ -190,6 +255,20 @@ diff --git a/fs/f2fs/hash.c b/fs/f2fs/hash.c
  	}
  #endif
  	fname->hash = cpu_to_le32(TEA_hash_name(name, len));
+diff --git a/fs/f2fs/inline.c b/fs/f2fs/inline.c
+--- a/fs/f2fs/inline.c
++++ b/fs/f2fs/inline.c
+@@ -332,6 +332,10 @@ struct f2fs_dir_entry *f2fs_find_in_inline_dir(struct inode *dir,
+ 	make_dentry_ptr_inline(dir, &d, inline_dentry);
+ 	de = f2fs_find_target_dentry(&d, fname, NULL);
+ 	unlock_page(ipage);
++	if (IS_ERR(de)) {
++		*res_page = ERR_CAST(de);
++		de = NULL;
++	}
+ 	if (de)
+ 		*res_page = ipage;
+ 	else
 diff --git a/fs/f2fs/recovery.c b/fs/f2fs/recovery.c
 --- a/fs/f2fs/recovery.c
 +++ b/fs/f2fs/recovery.c
