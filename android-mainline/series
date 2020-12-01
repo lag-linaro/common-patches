@@ -2,10 +2,11 @@
 # android-mainline patches
 #
 # Applies onto upstream 85a2c56cb445 Linux v5.10-rc5-26-g85a2c56cb445
-# Matches android-mainline 6397739ba11e ("Merge 85a2c56cb445 ("Merge tag 'pm-5.10-rc6' of git://git.kernel.org/pub/scm/linux/kernel/git/rafael/linux-pm") into android-mainline")
+# Matches android-mainline ed418393116f ("ANDROID: GKI: export dev_pm_qos_read_value")
 #
 Revert-block-grant-IOPRIO_CLASS_RT-to-CAP_SYS_NICE.patch
 Revert-arm64-dts-qcom-sdm845-db845c-Fix-hdmi-nodes.patch
+Revert-thermal-Make-thermal_zone_device_is_enabled-available-to-core-only.patch
 _____ANNOTATION-pending-upstream_____.patch
 FROMGIT-scsi-ufs-Put-HBA-into-LPM-during-gating.patch
 FROMGIT-usb-typec-tcpm-Refactor-logic-for-new-source-frs-typec-current.patch
@@ -19,6 +20,25 @@ FROMGIT-usb-typec-tcpci_maxim-Fix-uninitialized-return-variable.patch
 FROMGIT-dt-bindings-usb-Maxim-type-c-controller-device-tree-binding-document.patch
 FROMGIT-usb-typec-tcpci_maxim-Fix-the-compatible-string.patch
 FROMGIT-usb-typec-tcpm-Disregard-vbus-off-while-in-PR_SWAP_SNK_SRC_SOURCE_ON.patch
+FROMGIT-usb-typec-tcpm-Stay-in-SNK_TRY_WAIT_DEBOUNCE_CHECK_VBUS-till-Rp-is-seen.patch
+FROMGIT-usb-typec-ucsi-acpi-Always-decode-connector-change-information.patch
+FROMGIT-usb-typec-ucsi-Work-around-PPM-losing-change-information.patch
+FROMGIT-usb-typec-Correct-the-bit-values-for-the-Thunderbolt-rounded-non-rounded-cable-support.patch
+FROMGIT-usb-typec-intel_pmc_mux-Configure-Thunderbolt-cable-generation-bits.patch
+FROMGIT-platform-chrome-cros_ec_typec-Correct-the-Thunderbolt-rounded-non-rounded-cable-support.patch
+FROMGIT-usb-typec-Remove-one-bit-support-for-the-Thunderbolt-rounded-non-rounded-cable.patch
+FROMGIT-usb-typec-Add-number-of-altmodes-partner-attr.patch
+FROMGIT-usb-typec-Add-plug-num_altmodes-sysfs-attr.patch
+FROMGIT-usb-typec-Fix-num_altmodes-kernel-doc-error.patch
+FROMGIT-usb-typec-Consolidate-sysfs-ABI-documentation.patch
+FROMGIT-usb-typec-Expose-Product-Type-VDOs-via-sysfs.patch
+FROMGIT-usb-typec-Constify-static-attribute_group-structs.patch
+FROMGIT-usb-pd-DFP-product-types.patch
+FROMGIT-usb-typec-Add-type-sysfs-attribute-file-for-partners.patch
+FROMGIT-libfs-Add-generic-function-for-setting-dentry_ops.patch
+FROMGIT-fscrypt-Have-filesystems-handle-their-d_ops.patch
+FROMGIT-f2fs-Handle-casefolding-with-Encryption.patch
+FROMLIST-modpost-Make-static-exports-fatal.patch
 FROMLIST-clk-Export-clk_register_composite.patch
 FROMLIST-clk-versatile-remove-dependency-on-ARCH_.patch
 FROMLIST-soc-qcom-Kconfig-make-RPMH-match-Command-DB-setting.patch
@@ -35,9 +55,6 @@ FROMLIST-USB-gadget-f_acm-add-support-for-SuperSpeed-Plus.patch
 FROMLIST-USB-gadget-f_fs-add-SuperSpeed-Plus-support.patch
 FROMLIST-USB-gadget-f_midi-setup-SuperSpeed-Plus-descriptors.patch
 FROMLIST-USB-gadget-f_rndis-fix-bitrate-for-SuperSpeed-and-above.patch
-FROMGIT-libfs-Add-generic-function-for-setting-dentry_ops.patch
-FROMGIT-fscrypt-Have-filesystems-handle-their-d_ops.patch
-FROMGIT-f2fs-Handle-casefolding-with-Encryption.patch
 _____ANNOTATION-Android-vendor-hooks_____.patch
 ANDROID-GKI-add-android_vendor.h.patch
 ANDROID-add-support-for-vendor-hooks.patch
@@ -49,6 +66,7 @@ ANDROID-kbuild-Add-support-for-installing-out-of-tree-kernel-headers.patch
 ANDROID-Makefile-append-BUILD_NUMBER-to-version-string-when-defined.patch
 ANDROID-update-the-kernel-release-format-for-GKI.patch
 ANDROID-GKI-scripts-Makefile-update-the-lz4-command.patch
+ANDROID-modpost-Forbid-double-exports.patch
 _____ANNOTATION-x86-changes_____.patch
 ANDROID-Setting-up-GS-before-calling-__restore_processor_state.patch
 ANDROID-x86-entry-work-around-LLVM_IAS-1-bug-in-LSL.patch
@@ -105,6 +123,7 @@ ANDROID-power_supply-Add-a-helper-function-to-retrieve-psy-array-from-phandle.pa
 ANDROID-power_supply-Add-POWER_SUPPLY_CHARGE_TYPE_TAPER.patch
 ANDROID-PM-sleep-export-device_pm_callback_start-end-trace-event.patch
 ANDROID-perf-Export-clock_set_rate-tracepoint.patch
+ANDROID-GKI-export-dev_pm_qos_read_value.patch
 _____ANNOTATION-scheduler-changes_____.patch
 Revert-sched-core-Prevent-race-condition-between-cpuset-and-__sched_setscheduler.patch
 Revert-sched-Remove-sched_setscheduler-EXPORTs.patch
@@ -147,6 +166,16 @@ ANDROID-sched-rt-rearrange-invocation-of-find_lowest_rq-vendor-hook.patch
 ANDROID-sched-fair-Have-sync-honor-fits_capacity.patch
 ANDROID-sched-Add-restrict-vendor-hooks-for-load-balance.patch
 ANDROID-sched-add-missing-data-type-for-cpu-variable.patch
+ANDROID-sched-Add-env-cpus-to-android_rvh_sched_nohz_balancer_kick.patch
+ANDROID-sched-core-Export-symbols-needed-by-modules.patch
+ANDROID-arch_topology-Export-symbol-for-thermal-pressure-notification.patch
+ANDROID-sched-Add-vendor-hooks-for-find_energy_efficient_cpu.patch
+ANDROID-attribute-page-lock-and-waitqueue-functions-as-sched.patch
+ANDROID-sched-Add-vendor-hooks-for-override-sugov-behavior.patch
+ANDROID-sched-Add-vendor-hooks-for-skipping-sugov-update.patch
+ANDROID-sched-Export-symbols-for-vendor-EAS-wakup-path-function.patch
+ANDROID-cpuset-Make-cpusets-restore-on-hotplug.patch
+ANDROID-kernel-cgroup-cpuset-Clear-cpus_requested-for-empty-buf.patch
 _____ANNOTATION-uid_sys_stats-support_____.patch
 ANDROID-uid_cputime-Adds-accounting-for-the-cputimes-per-uid.patch
 ANDROID-uid_cputime-add-per-uid-IO-usage-accounting.patch
@@ -281,6 +310,7 @@ ANDROID-include-drm-support-unicasting-mipi-cmds-to-dsi-ctrls.patch
 ANDROID-drm-dsi-add-two-DSI-mode-flags-for-BLLP.patch
 ANDROID-drivers-gpu-drm-add-support-to-batch-commands.patch
 ANDROID-drivers-gpu-drm-export-drm_mode_convert_umode-symbol.patch
+ANDROID-drm-expose-drm_mode_convert_to_umode-to-display-module.patch
 FROMLIST-dma-buf-add-support-for-virtio-exported-objects.patch
 FROMLIST-drm-prime-add-support-for-virtio-exported-objects.patch
 _____ANNOTATION-sound-changes_____.patch
@@ -740,6 +770,7 @@ ANDROID-configs-gki-add-CONFIG_PRINTK_CALLER.patch
 ANDROID-configs-gki-add-CONFIG_LEDS_TRIGGER_TRANSIENT.patch
 ANDROID-configs-gki-add-CONFIG_PSTORE_PMSG.patch
 ANDROID-extract-cert-omit-PKCS-11-support-if-building-against-BoringSSL.patch
+ANDROID-GKI-enable-CONFIG_THERMAL_NETLINK.patch
 _____ANNOTATION-Patches-for-bringing-up-new-SoCs_____.patch
 ANDROID-serial-msm_geni_serial_earlycon-Add-Earlycon-support.patch
 ANDROID-arm64-Add-support-for-asymmetric-AArch32-EL0-configurations.patch
