@@ -1,8 +1,8 @@
 #
 # android-mainline patches
 #
-# Applies onto upstream fa02fcd94b0c Linux v5.10-rc5-22-gfa02fcd94b0c
-# Matches android-mainline c72dcf02e125 ("FROMGIT: usb: typec: tcpm: Disregard vbus off while in PR_SWAP_SNK_SRC_SOURCE_ON")
+# Applies onto upstream 85a2c56cb445 Linux v5.10-rc5-26-g85a2c56cb445
+# Matches android-mainline 6397739ba11e ("Merge 85a2c56cb445 ("Merge tag 'pm-5.10-rc6' of git://git.kernel.org/pub/scm/linux/kernel/git/rafael/linux-pm") into android-mainline")
 #
 Revert-block-grant-IOPRIO_CLASS_RT-to-CAP_SYS_NICE.patch
 Revert-arm64-dts-qcom-sdm845-db845c-Fix-hdmi-nodes.patch
