@@ -25,10 +25,10 @@ diff --git a/drivers/android/vendor_hooks.c b/drivers/android/vendor_hooks.c
  #include <trace/hooks/printk.h>
  #include <trace/hooks/epoch.h>
 +#include <trace/hooks/cpufreq.h>
+ #include <trace/hooks/mm.h>
  
  /*
-  * Export tracepoints that act as a bare tracehook (ie: have no trace event
-@@ -68,6 +69,8 @@ EXPORT_TRACEPOINT_SYMBOL_GPL(android_vh_printk_hotplug);
+@@ -71,6 +72,8 @@ EXPORT_TRACEPOINT_SYMBOL_GPL(android_vh_printk_hotplug);
  EXPORT_TRACEPOINT_SYMBOL_GPL(android_vh_jiffies_update);
  EXPORT_TRACEPOINT_SYMBOL_GPL(android_vh_show_suspend_epoch_val);
  EXPORT_TRACEPOINT_SYMBOL_GPL(android_vh_show_resume_epoch_val);

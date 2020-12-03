@@ -1,0 +1,32 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: Daniel Mentz <danielmentz@google.com>
+Date: Thu, 13 Aug 2020 18:53:03 -0700
+Subject: ANDROID: spi: of: Populate fwnode in of_register_spi_device
+
+This allows the of_devlink feature to work across spi devices too.  This
+avoid unnecessary probe deferrals of spi devices, defers consumers of
+spi devices till the spi devices probe, and allows spi drivers to
+implement sync_state() callbacks.
+
+Signed-off-by: Daniel Mentz <danielmentz@google.com>
+Change-Id: I5b6a9423815b144e9e57074f0d380b1978f9a4f5
+(cherry picked from commit f3bd5bff1e5e21941df1fbaa24d9fa8a5e02cf5e)
+(cherry picked from commit b08a50dfd398c4f854bbdd959e763cfb38f9a578)
+Signed-off-by: Will McVicker <willmcvicker@google.com>
+(cherry picked from commit 624c2f0ea860fe09ef39ad0310777e8d7693dfa7)
+Signed-off-by: Will McVicker <willmcvicker@google.com>
+---
+ drivers/spi/spi.c | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/drivers/spi/spi.c b/drivers/spi/spi.c
+--- a/drivers/spi/spi.c
++++ b/drivers/spi/spi.c
+@@ -2026,6 +2026,7 @@ of_register_spi_device(struct spi_controller *ctlr, struct device_node *nc)
+ 	/* Store a pointer to the node in the device structure */
+ 	of_node_get(nc);
+ 	spi->dev.of_node = nc;
++	spi->dev.fwnode = of_fwnode_handle(nc);
+ 
+ 	/* Register the new device */
+ 	rc = spi_add_device(spi);

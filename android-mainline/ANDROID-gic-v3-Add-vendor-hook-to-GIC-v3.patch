@@ -27,8 +27,8 @@ diff --git a/drivers/android/vendor_hooks.c b/drivers/android/vendor_hooks.c
 +#include <trace/hooks/gic_v3.h>
  #include <trace/hooks/epoch.h>
  #include <trace/hooks/cpufreq.h>
- 
-@@ -69,6 +70,8 @@ EXPORT_TRACEPOINT_SYMBOL_GPL(android_vh_sysrq_crash);
+ #include <trace/hooks/mm.h>
+@@ -72,6 +73,8 @@ EXPORT_TRACEPOINT_SYMBOL_GPL(android_vh_sysrq_crash);
  EXPORT_TRACEPOINT_SYMBOL_GPL(android_vh_dump_throttled_rt_tasks);
  EXPORT_TRACEPOINT_SYMBOL_GPL(android_vh_printk_hotplug);
  EXPORT_TRACEPOINT_SYMBOL_GPL(android_vh_jiffies_update);

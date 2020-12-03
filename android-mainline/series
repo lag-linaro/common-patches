@@ -2,7 +2,7 @@
 # android-mainline patches
 #
 # Applies onto upstream b65054597872 Linux v5.10-rc6
-# Matches android-mainline f491a438fe97 ("Merge 5.10-rc6 into android-mainline")
+# Matches android-mainline 37d7ed1b2285 ("ANDROID: binder: Add vendor hooks")
 #
 Revert-block-grant-IOPRIO_CLASS_RT-to-CAP_SYS_NICE.patch
 Revert-arm64-dts-qcom-sdm845-db845c-Fix-hdmi-nodes.patch
@@ -38,6 +38,7 @@ FROMGIT-usb-typec-Add-type-sysfs-attribute-file-for-partners.patch
 FROMGIT-libfs-Add-generic-function-for-setting-dentry_ops.patch
 FROMGIT-fscrypt-Have-filesystems-handle-their-d_ops.patch
 FROMGIT-f2fs-Handle-casefolding-with-Encryption.patch
+FROMGIT-arm64-mm-account-for-hotplug-memory-when-randomizing-the-linear-region.patch
 FROMLIST-modpost-Make-static-exports-fatal.patch
 FROMLIST-clk-Export-clk_register_composite.patch
 FROMLIST-clk-versatile-remove-dependency-on-ARCH_.patch
@@ -176,6 +177,9 @@ ANDROID-sched-Add-vendor-hooks-for-skipping-sugov-update.patch
 ANDROID-sched-Export-symbols-for-vendor-EAS-wakup-path-function.patch
 ANDROID-cpuset-Make-cpusets-restore-on-hotplug.patch
 ANDROID-kernel-cgroup-cpuset-Clear-cpus_requested-for-empty-buf.patch
+ANDROID-sched-core-Add-vendor-hook-to-change-task-affinity.patch
+ANDROID-sched-cpuset-Add-vendor-hook-to-change-tasks-affinity.patch
+ANDROID-sched-Track-wake_q-length.patch
 _____ANNOTATION-uid_sys_stats-support_____.patch
 ANDROID-uid_cputime-Adds-accounting-for-the-cputimes-per-uid.patch
 ANDROID-uid_cputime-add-per-uid-IO-usage-accounting.patch
@@ -198,13 +202,17 @@ ANDROID-mm-Throttle-rss_stat-tracepoint.patch
 ANDROID-GKI-Don-t-compact-data-structures-when-CONFIG_ZSMALLOC-n.patch
 ANDROID-mm-cma-retry-allocations-in-cma_alloc.patch
 ANDROID-mm-memblock-export-memblock_end_of_DRAM.patch
+ANDROID-cma-redirect-page-allocation-to-CMA.patch
+ANDROID-mm-add-cma-pcp-list.patch
+ANDROID-mm-Create-vendor-hooks-to-control-ZONE_MOVABLE-allocations.patch
 _____ANNOTATION-security-changes_____.patch
 Revert-security-lockdown-selinux-implement-SELinux-lockdown.patch
 ANDROID-selinux-modify-RTM_GETLINK-permission.patch
 _____ANNOTATION-binder-changes_____.patch
+Revert-binder-Prevent-context-manager-from-incrementing-ref-0.patch
 ANDROID-binder-add-support-for-RT-prio-inheritance.patch
 ANDROID-binder-Add-vendor-hook-to-the-binder.patch
-Revert-binder-Prevent-context-manager-from-incrementing-ref-0.patch
+ANDROID-binder-Add-vendor-hooks.patch
 _____ANNOTATION-ion-changes_____.patch
 ANDROID-staging-android-ion-Decouple-ION-page-pooling-from-ION-core.patch
 ANDROID-staging-android-ion-Expose-ion_alloc-to-kernel-space.patch
@@ -277,6 +285,8 @@ ANDROID-gic-Add-vendor-hook-for-gic-v3-resume.patch
 ANDROID-rpmsg-core-Add-signal-API-support.patch
 ANDROID-clk-Enable-writable-debugfs-files.patch
 ANDROID-add-vendor-hooks-to-override-show_cpufinfo_max_freq.patch
+ANDROID-pcie-dwc-driver-export-dw_handle_msi_irq.patch
+ANDROID-spi-of-Populate-fwnode-in-of_register_spi_device.patch
 _____ANNOTATION-tty-changes_____.patch
 Revert-Revert-tty-serial-samsung_tty-build-it-for-any-platform.patch
 FROMLIST-hvc_dcc-bind-driver-to-core0-for-reads-and-writes.patch
@@ -296,6 +306,7 @@ ANDROID-usb-gadget-f_accessory-Add-Android-Accessory-function.patch
 ANDROID-USB-gadget-f_accessory-add-support-for-SuperSpeed-Plus.patch
 ANDROID-usb-gadget-f_midi-create-F_midi-device.patch
 ANDROID-usb-gadget-f_midi-set-fi-f-to-NULL-when-free-f_midi-function.patch
+ANDROID-usb-gadget-f_midi-Avoid-invalid-pointer-access.patch
 ANDROID-usb-gadget-f_audio_source-New-gadget-driver-for-audio-output.patch
 ANDROID-usb-gadget-configfs-Support-multiple-android-instances.patch
 ANDROID-usb-typec-tcpm-Add-chip-level-callback-to-check-for-contaminant.patch
@@ -455,6 +466,7 @@ ANDROID-Incremental-fs-Small-improvements.patch
 ANDROID-Incremental-fs-Add-zstd-compression-support.patch
 _____ANNOTATION-networking-changes_____.patch
 ANDROID-net-xfrm-make-PF_KEY-SHA256-use-RFC-compliant-truncation.patch
+ANDROID-net-xfrm-always-export-pktgen_xfrm_outer_mode_output.patch
 ANDROID-netfilter-xt_quota2-add-quota2-from-xtables-addons.patch
 ANDROID-netfilter-xt_IDLETIMER-Add-new-netlink-msg-type.patch
 ANDROID-net-ipv6-autoconf-routes-into-per-device-tables.patch
@@ -771,6 +783,7 @@ ANDROID-configs-gki-add-CONFIG_LEDS_TRIGGER_TRANSIENT.patch
 ANDROID-configs-gki-add-CONFIG_PSTORE_PMSG.patch
 ANDROID-extract-cert-omit-PKCS-11-support-if-building-against-BoringSSL.patch
 ANDROID-GKI-enable-CONFIG_THERMAL_NETLINK.patch
+ANDROID-gki-build-in-DMA_VIRTUAL_CHANNELS.patch
 _____ANNOTATION-Patches-for-bringing-up-new-SoCs_____.patch
 ANDROID-serial-msm_geni_serial_earlycon-Add-Earlycon-support.patch
 ANDROID-arm64-Add-support-for-asymmetric-AArch32-EL0-configurations.patch
