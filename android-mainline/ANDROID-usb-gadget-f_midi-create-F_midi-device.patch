@@ -103,4 +103,4 @@ diff --git a/drivers/usb/gadget/function/f_midi.c b/drivers/usb/gadget/function/
 +	fi->f = &midi->func;
  	return &midi->func;
  
- setup_fail:
+ midi_free:

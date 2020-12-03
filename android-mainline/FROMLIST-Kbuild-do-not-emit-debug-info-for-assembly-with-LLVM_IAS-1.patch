@@ -36,7 +36,7 @@ Change-Id: I55c8ad79dfeaae478c8de52d484e76fb2e37c194
 diff --git a/Makefile b/Makefile
 --- a/Makefile
 +++ b/Makefile
-@@ -828,7 +828,9 @@ else
+@@ -826,7 +826,9 @@ else
  DEBUG_CFLAGS	+= -g
  endif
  

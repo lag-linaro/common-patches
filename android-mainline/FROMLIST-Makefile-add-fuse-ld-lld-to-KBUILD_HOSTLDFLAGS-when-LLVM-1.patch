@@ -38,9 +38,9 @@ Change-Id: I54b79beceb669ec06a017d3f5c3627ccf3655986
 diff --git a/Makefile b/Makefile
 --- a/Makefile
 +++ b/Makefile
-@@ -435,6 +435,7 @@ OBJDUMP		= llvm-objdump
+@@ -434,6 +434,7 @@ OBJCOPY		= llvm-objcopy
+ OBJDUMP		= llvm-objdump
  READELF		= llvm-readelf
- OBJSIZE		= llvm-size
  STRIP		= llvm-strip
 +KBUILD_HOSTLDFLAGS	+= -fuse-ld=lld
  else

@@ -1,8 +1,8 @@
 #
 # android-mainline patches
 #
-# Applies onto upstream c84e1efae022 Linux v5.10-rc5-313-gc84e1efae022
-# Matches android-mainline b19651bfcc69 ("Merge c84e1efae022 ("Merge tag 'asm-generic-fixes-5.10-2' of git://git.kernel.org/pub/scm/linux/kernel/git/arnd/asm-generic") into android-mainline")
+# Applies onto upstream aae5ab854e38 Linux v5.10-rc5-357-gaae5ab854e38
+# Matches android-mainline 7e4e57a1d17c ("Merge aae5ab854e38 ("Merge tag 'riscv-for-linus-5.10-rc6' of git://git.kernel.org/pub/scm/linux/kernel/git/riscv/linux") into android-mainline")
 #
 Revert-block-grant-IOPRIO_CLASS_RT-to-CAP_SYS_NICE.patch
 Revert-arm64-dts-qcom-sdm845-db845c-Fix-hdmi-nodes.patch
