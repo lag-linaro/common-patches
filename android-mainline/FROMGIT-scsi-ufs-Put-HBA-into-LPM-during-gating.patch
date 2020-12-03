@@ -35,7 +35,7 @@ diff --git a/drivers/scsi/ufs/ufshcd.c b/drivers/scsi/ufs/ufshcd.c
  
  static inline bool ufshcd_valid_tag(struct ufs_hba *hba, int tag)
  {
-@@ -1548,6 +1550,7 @@ static void ufshcd_ungate_work(struct work_struct *work)
+@@ -1555,6 +1557,7 @@ static void ufshcd_ungate_work(struct work_struct *work)
  	}
  
  	spin_unlock_irqrestore(hba->host->host_lock, flags);
@@ -43,7 +43,7 @@ diff --git a/drivers/scsi/ufs/ufshcd.c b/drivers/scsi/ufs/ufshcd.c
  	ufshcd_setup_clocks(hba, true);
  
  	ufshcd_enable_irq(hba);
-@@ -1713,6 +1716,8 @@ static void ufshcd_gate_work(struct work_struct *work)
+@@ -1720,6 +1723,8 @@ static void ufshcd_gate_work(struct work_struct *work)
  		/* If link is active, device ref_clk can't be switched off */
  		__ufshcd_setup_clocks(hba, false, true);
  
@@ -52,7 +52,7 @@ diff --git a/drivers/scsi/ufs/ufshcd.c b/drivers/scsi/ufs/ufshcd.c
  	/*
  	 * In case you are here to cancel this work the gating state
  	 * would be marked as REQ_CLKS_ON. In this case keep the state
-@@ -8427,13 +8432,13 @@ static int ufshcd_vreg_set_hpm(struct ufs_hba *hba)
+@@ -8440,13 +8445,13 @@ static int ufshcd_vreg_set_hpm(struct ufs_hba *hba)
  
  static void ufshcd_hba_vreg_set_lpm(struct ufs_hba *hba)
  {

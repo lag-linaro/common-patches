@@ -1,8 +1,8 @@
 #
 # android-mainline patches
 #
-# Applies onto upstream 85a2c56cb445 Linux v5.10-rc5-26-g85a2c56cb445
-# Matches android-mainline ed418393116f ("ANDROID: GKI: export dev_pm_qos_read_value")
+# Applies onto upstream c84e1efae022 Linux v5.10-rc5-313-gc84e1efae022
+# Matches android-mainline b19651bfcc69 ("Merge c84e1efae022 ("Merge tag 'asm-generic-fixes-5.10-2' of git://git.kernel.org/pub/scm/linux/kernel/git/arnd/asm-generic") into android-mainline")
 #
 Revert-block-grant-IOPRIO_CLASS_RT-to-CAP_SYS_NICE.patch
 Revert-arm64-dts-qcom-sdm845-db845c-Fix-hdmi-nodes.patch

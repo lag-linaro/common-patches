@@ -19,7 +19,7 @@ Signed-off-by: Jaegeuk Kim <jaegeuk@google.com>
 diff --git a/drivers/scsi/ufs/ufshcd.c b/drivers/scsi/ufs/ufshcd.c
 --- a/drivers/scsi/ufs/ufshcd.c
 +++ b/drivers/scsi/ufs/ufshcd.c
-@@ -1811,19 +1811,19 @@ static ssize_t ufshcd_clkgate_enable_store(struct device *dev,
+@@ -1818,19 +1818,19 @@ static ssize_t ufshcd_clkgate_enable_store(struct device *dev,
  		return -EINVAL;
  
  	value = !!value;

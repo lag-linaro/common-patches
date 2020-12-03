@@ -152,7 +152,7 @@ diff --git a/block/blk-crypto.c b/block/blk-crypto.c
 diff --git a/block/keyslot-manager.c b/block/keyslot-manager.c
 --- a/block/keyslot-manager.c
 +++ b/block/keyslot-manager.c
-@@ -304,6 +304,13 @@ bool blk_ksm_crypto_cfg_supported(struct blk_keyslot_manager *ksm,
+@@ -311,6 +311,13 @@ bool blk_ksm_crypto_cfg_supported(struct blk_keyslot_manager *ksm,
  		return false;
  	if (ksm->max_dun_bytes_supported < cfg->dun_bytes)
  		return false;
@@ -166,7 +166,7 @@ diff --git a/block/keyslot-manager.c b/block/keyslot-manager.c
  	return true;
  }
  
-@@ -418,6 +425,44 @@ void blk_ksm_unregister(struct request_queue *q)
+@@ -425,6 +432,44 @@ void blk_ksm_unregister(struct request_queue *q)
  }
  EXPORT_SYMBOL_GPL(blk_ksm_unregister);
  
@@ -211,7 +211,7 @@ diff --git a/block/keyslot-manager.c b/block/keyslot-manager.c
  /**
   * blk_ksm_intersect_modes() - restrict supported modes by child device
   * @parent: The keyslot manager for parent device
-@@ -438,6 +483,7 @@ void blk_ksm_intersect_modes(struct blk_keyslot_manager *parent,
+@@ -445,6 +490,7 @@ void blk_ksm_intersect_modes(struct blk_keyslot_manager *parent,
  		parent->max_dun_bytes_supported =
  			min(parent->max_dun_bytes_supported,
  			    child->max_dun_bytes_supported);
@@ -219,7 +219,7 @@ diff --git a/block/keyslot-manager.c b/block/keyslot-manager.c
  		for (i = 0; i < ARRAY_SIZE(child->crypto_modes_supported);
  		     i++) {
  			parent->crypto_modes_supported[i] &=
-@@ -445,6 +491,7 @@ void blk_ksm_intersect_modes(struct blk_keyslot_manager *parent,
+@@ -452,6 +498,7 @@ void blk_ksm_intersect_modes(struct blk_keyslot_manager *parent,
  		}
  	} else {
  		parent->max_dun_bytes_supported = 0;
