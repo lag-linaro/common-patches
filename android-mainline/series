@@ -1,8 +1,8 @@
 #
 # android-mainline patches
 #
-# Applies onto upstream b65054597872 Linux v5.10-rc6
-# Matches android-mainline 37d7ed1b2285 ("ANDROID: binder: Add vendor hooks")
+# Applies onto upstream 509a15421674 Linux v5.10-rc6-20-g509a15421674
+# Matches android-mainline ea89512d4508 ("Merge 509a15421674 ("Merge tag '5.10-rc6-smb3-fixes' of git://git.samba.org/sfrench/cifs-2.6") into android-mainline")
 #
 Revert-block-grant-IOPRIO_CLASS_RT-to-CAP_SYS_NICE.patch
 Revert-arm64-dts-qcom-sdm845-db845c-Fix-hdmi-nodes.patch
