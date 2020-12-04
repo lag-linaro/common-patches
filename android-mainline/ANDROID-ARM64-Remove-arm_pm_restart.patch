@@ -43,7 +43,7 @@ diff --git a/arch/arm64/kernel/process.c b/arch/arm64/kernel/process.c
  
 -void (*arm_pm_restart)(enum reboot_mode reboot_mode, const char *cmd);
 -
- static void __cpu_do_idle(void)
+ static void noinstr __cpu_do_idle(void)
  {
  	dsb(sy);
 @@ -201,10 +199,7 @@ void machine_restart(char *cmd)

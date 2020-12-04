@@ -1,8 +1,8 @@
 #
 # android-mainline patches
 #
-# Applies onto upstream 509a15421674 Linux v5.10-rc6-20-g509a15421674
-# Matches android-mainline 2e14f01dc4ab ("ANDROID: tracing: Add restricted vendor hooks for preemptirq events")
+# Applies onto upstream 34816d20f173 Linux v5.10-rc6-60-g34816d20f173
+# Matches android-mainline 0ba6450eb7e6 ("Merge 34816d20f173 ("Merge tag 'gfs2-v5.10-rc5-fixes' of git://git.kernel.org/pub/scm/linux/kernel/git/gfs2/linux-gfs2") into android-mainline")
 #
 Revert-block-grant-IOPRIO_CLASS_RT-to-CAP_SYS_NICE.patch
 Revert-arm64-dts-qcom-sdm845-db845c-Fix-hdmi-nodes.patch
