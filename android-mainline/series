@@ -2,7 +2,7 @@
 # android-mainline patches
 #
 # Applies onto upstream 34816d20f173 Linux v5.10-rc6-60-g34816d20f173
-# Matches android-mainline 0ba6450eb7e6 ("Merge 34816d20f173 ("Merge tag 'gfs2-v5.10-rc5-fixes' of git://git.kernel.org/pub/scm/linux/kernel/git/gfs2/linux-gfs2") into android-mainline")
+# Matches android-mainline 292f430816f3 ("ANDROID: Sched: Add restricted vendor hooks for scheduler")
 #
 Revert-block-grant-IOPRIO_CLASS_RT-to-CAP_SYS_NICE.patch
 Revert-arm64-dts-qcom-sdm845-db845c-Fix-hdmi-nodes.patch
@@ -184,6 +184,7 @@ ANDROID-sched-cpuset-Add-vendor-hook-to-change-tasks-affinity.patch
 ANDROID-sched-Track-wake_q-length.patch
 ANDROID-Sched-Export-scheduler-symbols-needed-by-vendor-modules.patch
 ANDROID-tracing-Add-restricted-vendor-hooks-for-preemptirq-events.patch
+ANDROID-Sched-Add-restricted-vendor-hooks-for-scheduler.patch
 _____ANNOTATION-uid_sys_stats-support_____.patch
 ANDROID-uid_cputime-Adds-accounting-for-the-cputimes-per-uid.patch
 ANDROID-uid_cputime-add-per-uid-IO-usage-accounting.patch

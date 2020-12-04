@@ -441,9 +441,9 @@ diff --git a/kernel/sched/cputime.c b/kernel/sched/cputime.c
   */
 +#include <linux/cpufreq_times.h>
  #include "sched.h"
+ #include <trace/hooks/sched.h>
  
- #ifdef CONFIG_IRQ_TIME_ACCOUNTING
-@@ -130,6 +131,9 @@ void account_user_time(struct task_struct *p, u64 cputime)
+@@ -133,6 +134,9 @@ void account_user_time(struct task_struct *p, u64 cputime)
  
  	/* Account for user time used */
  	acct_account_cputime(p);
@@ -453,7 +453,7 @@ diff --git a/kernel/sched/cputime.c b/kernel/sched/cputime.c
  }
  
  /*
-@@ -174,6 +178,9 @@ void account_system_index_time(struct task_struct *p,
+@@ -177,6 +181,9 @@ void account_system_index_time(struct task_struct *p,
  
  	/* Account for system time used */
  	acct_account_cputime(p);
