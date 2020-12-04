@@ -2,7 +2,7 @@
 # android-mainline patches
 #
 # Applies onto upstream 509a15421674 Linux v5.10-rc6-20-g509a15421674
-# Matches android-mainline ea89512d4508 ("Merge 509a15421674 ("Merge tag '5.10-rc6-smb3-fixes' of git://git.samba.org/sfrench/cifs-2.6") into android-mainline")
+# Matches android-mainline 2e14f01dc4ab ("ANDROID: tracing: Add restricted vendor hooks for preemptirq events")
 #
 Revert-block-grant-IOPRIO_CLASS_RT-to-CAP_SYS_NICE.patch
 Revert-arm64-dts-qcom-sdm845-db845c-Fix-hdmi-nodes.patch
@@ -56,6 +56,8 @@ FROMLIST-USB-gadget-f_acm-add-support-for-SuperSpeed-Plus.patch
 FROMLIST-USB-gadget-f_fs-add-SuperSpeed-Plus-support.patch
 FROMLIST-USB-gadget-f_midi-setup-SuperSpeed-Plus-descriptors.patch
 FROMLIST-USB-gadget-f_rndis-fix-bitrate-for-SuperSpeed-and-above.patch
+FROMLIST-scsi-ufs-clear-uac-for-RPMB-after-ufshcd-resets.patch
+FROMLIST-scripts-merge_config-add-strict-mode-to-fail-upon-any-redefinition.patch
 _____ANNOTATION-Android-vendor-hooks_____.patch
 ANDROID-GKI-add-android_vendor.h.patch
 ANDROID-add-support-for-vendor-hooks.patch
@@ -180,6 +182,8 @@ ANDROID-kernel-cgroup-cpuset-Clear-cpus_requested-for-empty-buf.patch
 ANDROID-sched-core-Add-vendor-hook-to-change-task-affinity.patch
 ANDROID-sched-cpuset-Add-vendor-hook-to-change-tasks-affinity.patch
 ANDROID-sched-Track-wake_q-length.patch
+ANDROID-Sched-Export-scheduler-symbols-needed-by-vendor-modules.patch
+ANDROID-tracing-Add-restricted-vendor-hooks-for-preemptirq-events.patch
 _____ANNOTATION-uid_sys_stats-support_____.patch
 ANDROID-uid_cputime-Adds-accounting-for-the-cputimes-per-uid.patch
 ANDROID-uid_cputime-add-per-uid-IO-usage-accounting.patch

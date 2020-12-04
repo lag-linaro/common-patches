@@ -21,7 +21,7 @@ Change-Id: Ice47cbd199850aadd15166ac414fd97db3a79aad
 diff --git a/drivers/scsi/ufs/ufshcd.c b/drivers/scsi/ufs/ufshcd.c
 --- a/drivers/scsi/ufs/ufshcd.c
 +++ b/drivers/scsi/ufs/ufshcd.c
-@@ -1827,7 +1827,7 @@ static ssize_t ufshcd_clkgate_enable_store(struct device *dev,
+@@ -1828,7 +1828,7 @@ static ssize_t ufshcd_clkgate_enable_store(struct device *dev,
  		goto out;
  
  	if (value)

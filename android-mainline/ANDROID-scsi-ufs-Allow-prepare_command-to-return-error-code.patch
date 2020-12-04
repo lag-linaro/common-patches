@@ -20,7 +20,7 @@ Signed-off-by: Stanley Chu <stanley.chu@mediatek.com>
 diff --git a/drivers/scsi/ufs/ufshcd.c b/drivers/scsi/ufs/ufshcd.c
 --- a/drivers/scsi/ufs/ufshcd.c
 +++ b/drivers/scsi/ufs/ufshcd.c
-@@ -2580,7 +2580,12 @@ static int ufshcd_queuecommand(struct Scsi_Host *host, struct scsi_cmnd *cmd)
+@@ -2581,7 +2581,12 @@ static int ufshcd_queuecommand(struct Scsi_Host *host, struct scsi_cmnd *cmd)
  	lrbp->lun = ufshcd_scsi_to_upiu_lun(cmd->device->lun);
  	lrbp->intr_cmd = !ufshcd_is_intr_aggr_allowed(hba) ? true : false;
  
