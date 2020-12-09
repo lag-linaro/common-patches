@@ -384,7 +384,7 @@ index 000000000000..bfef6e62c68a
 diff --git a/include/linux/sched.h b/include/linux/sched.h
 --- a/include/linux/sched.h
 +++ b/include/linux/sched.h
-@@ -889,6 +889,10 @@ struct task_struct {
+@@ -893,6 +893,10 @@ struct task_struct {
  	u64				stimescaled;
  #endif
  	u64				gtime;

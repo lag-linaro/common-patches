@@ -2,11 +2,12 @@
 # android-mainline patches
 #
 # Applies onto upstream 34816d20f173 Linux v5.10-rc6-60-g34816d20f173
-# Matches android-mainline 292f430816f3 ("ANDROID: Sched: Add restricted vendor hooks for scheduler")
+# Matches android-mainline 1f7ba8693d16 ("FROMGIT: f2fs: fix race of pending_pages in decompression")
 #
 Revert-block-grant-IOPRIO_CLASS_RT-to-CAP_SYS_NICE.patch
 Revert-arm64-dts-qcom-sdm845-db845c-Fix-hdmi-nodes.patch
 Revert-thermal-Make-thermal_zone_device_is_enabled-available-to-core-only.patch
+Revert-cgroup-cpuset-Convert-cpuset_mutex-to-percpu_rwsem.patch
 _____ANNOTATION-pending-upstream_____.patch
 FROMGIT-scsi-ufs-Put-HBA-into-LPM-during-gating.patch
 FROMGIT-usb-typec-tcpm-Refactor-logic-for-new-source-frs-typec-current.patch
@@ -38,6 +39,7 @@ FROMGIT-usb-typec-Add-type-sysfs-attribute-file-for-partners.patch
 FROMGIT-libfs-Add-generic-function-for-setting-dentry_ops.patch
 FROMGIT-fscrypt-Have-filesystems-handle-their-d_ops.patch
 FROMGIT-f2fs-Handle-casefolding-with-Encryption.patch
+FROMGIT-f2fs-fix-race-of-pending_pages-in-decompression.patch
 FROMGIT-arm64-mm-account-for-hotplug-memory-when-randomizing-the-linear-region.patch
 FROMLIST-modpost-Make-static-exports-fatal.patch
 FROMLIST-clk-Export-clk_register_composite.patch
@@ -185,6 +187,15 @@ ANDROID-sched-Track-wake_q-length.patch
 ANDROID-Sched-Export-scheduler-symbols-needed-by-vendor-modules.patch
 ANDROID-tracing-Add-restricted-vendor-hooks-for-preemptirq-events.patch
 ANDROID-Sched-Add-restricted-vendor-hooks-for-scheduler.patch
+ANDROID-stop_machine-stop_one_cpu_async.patch
+ANDROID-sched-rt-cpu_active_mask-intersection.patch
+ANDROID-sched-fair-update_max_interval-active_mask-dependant.patch
+ANDROID-cgroup-cpuset-rely-on-active_mask-for-guaranteed-online-CPU.patch
+ANDROID-cpu-hotplug-protect-_cpu_down-against-partial-HP.patch
+ANDROID-cpu-hotplug-add-pause-resume_cpus-interface.patch
+ANDROID-cpu-hotplug-add-migration-to-paused_cpus.patch
+ANDROID-cpu-hotplug-rebuild-sched-domains-immediately.patch
+ANDROID-cpu-hotplug-vendor-hook-for-resume-cpus.patch
 _____ANNOTATION-uid_sys_stats-support_____.patch
 ANDROID-uid_cputime-Adds-accounting-for-the-cputimes-per-uid.patch
 ANDROID-uid_cputime-add-per-uid-IO-usage-accounting.patch
@@ -789,6 +800,7 @@ ANDROID-configs-gki-add-CONFIG_PSTORE_PMSG.patch
 ANDROID-extract-cert-omit-PKCS-11-support-if-building-against-BoringSSL.patch
 ANDROID-GKI-enable-CONFIG_THERMAL_NETLINK.patch
 ANDROID-gki-build-in-DMA_VIRTUAL_CHANNELS.patch
+ANDROID-Disable-hermetic-toolchain-for-allmodconfig-builds.patch
 _____ANNOTATION-Patches-for-bringing-up-new-SoCs_____.patch
 ANDROID-serial-msm_geni_serial_earlycon-Add-Earlycon-support.patch
 ANDROID-arm64-Add-support-for-asymmetric-AArch32-EL0-configurations.patch

@@ -26,7 +26,7 @@ Signed-off-by: Satya Durga Srinivasu Prabhala <satyap@codeaurora.org>
 diff --git a/kernel/cgroup/cpuset.c b/kernel/cgroup/cpuset.c
 --- a/kernel/cgroup/cpuset.c
 +++ b/kernel/cgroup/cpuset.c
-@@ -1483,23 +1483,23 @@ static int update_cpumask(struct cpuset *cs, struct cpuset *trialcs,
+@@ -1482,23 +1482,23 @@ static int update_cpumask(struct cpuset *cs, struct cpuset *trialcs,
  		return -EACCES;
  
  	/*
