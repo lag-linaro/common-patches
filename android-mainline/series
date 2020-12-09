@@ -2,7 +2,7 @@
 # android-mainline patches
 #
 # Applies onto upstream 0477e9288185 Linux v5.10-rc7
-# Matches android-mainline ca0c76873c25 ("Merge 5.10-rc7 into android-mainline")
+# Matches android-mainline de4163f521a8 ("FROMGIT: usb: typec: tcpci_maxim: Enable VSAFE0V signalling")
 #
 Revert-block-grant-IOPRIO_CLASS_RT-to-CAP_SYS_NICE.patch
 Revert-arm64-dts-qcom-sdm845-db845c-Fix-hdmi-nodes.patch
@@ -10,6 +10,9 @@ Revert-thermal-Make-thermal_zone_device_is_enabled-available-to-core-only.patch
 Revert-cgroup-cpuset-Convert-cpuset_mutex-to-percpu_rwsem.patch
 _____ANNOTATION-pending-upstream_____.patch
 FROMGIT-scsi-ufs-Put-HBA-into-LPM-during-gating.patch
+FROMGIT-scsi-ufs-Serialize-eh_work-with-system-PM-events-and-async-scan.patch
+BACKPORT-FROMGIT-scsi-ufs-Fix-a-race-condition-between-ufshcd_abort-and-eh_work.patch
+FROMGIT-scsi-ufs-Print-host-regs-in-IRQ-handler-when-AH8-error-happens.patch
 FROMGIT-usb-typec-tcpm-Refactor-logic-for-new-source-frs-typec-current.patch
 FROMGIT-usb-typec-tcpm-frs-sourcing-vbus-callback.patch
 FROMGIT-usb-typec-tcpci-frs-sourcing-vbus-callback.patch
@@ -36,6 +39,12 @@ FROMGIT-usb-typec-Expose-Product-Type-VDOs-via-sysfs.patch
 FROMGIT-usb-typec-Constify-static-attribute_group-structs.patch
 FROMGIT-usb-pd-DFP-product-types.patch
 FROMGIT-usb-typec-Add-type-sysfs-attribute-file-for-partners.patch
+FROMGIT-usb-typec-intel_pmc_mux-Use-correct-response-message-bits.patch
+FROMGIT-usb-typec-tcpm-Pass-down-negotiated-rev-to-update-retry-count.patch
+FROMGIT-usb-typec-tcpm-Clear-send_discover-in-tcpm_check_send_discover.patch
+FROMGIT-usb-typec-tcpm-Introduce-vsafe0v-for-vbus.patch
+FROMGIT-usb-typec-tcpci-Add-support-to-report-vSafe0V.patch
+FROMGIT-usb-typec-tcpci_maxim-Enable-VSAFE0V-signalling.patch
 FROMGIT-libfs-Add-generic-function-for-setting-dentry_ops.patch
 FROMGIT-fscrypt-Have-filesystems-handle-their-d_ops.patch
 FROMGIT-f2fs-Handle-casefolding-with-Encryption.patch
@@ -800,6 +809,7 @@ ANDROID-extract-cert-omit-PKCS-11-support-if-building-against-BoringSSL.patch
 ANDROID-GKI-enable-CONFIG_THERMAL_NETLINK.patch
 ANDROID-gki-build-in-DMA_VIRTUAL_CHANNELS.patch
 ANDROID-Disable-hermetic-toolchain-for-allmodconfig-builds.patch
+ANDROID-GKI-enable-CONFIG_USB_DWC3-to-be-build-in.patch
 _____ANNOTATION-Patches-for-bringing-up-new-SoCs_____.patch
 ANDROID-serial-msm_geni_serial_earlycon-Add-Earlycon-support.patch
 ANDROID-arm64-Add-support-for-asymmetric-AArch32-EL0-configurations.patch

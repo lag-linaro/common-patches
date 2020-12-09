@@ -20,7 +20,7 @@ Signed-off-by: Stanley Chu <stanley.chu@mediatek.com>
 diff --git a/drivers/scsi/ufs/ufshcd.c b/drivers/scsi/ufs/ufshcd.c
 --- a/drivers/scsi/ufs/ufshcd.c
 +++ b/drivers/scsi/ufs/ufshcd.c
-@@ -2581,7 +2581,12 @@ static int ufshcd_queuecommand(struct Scsi_Host *host, struct scsi_cmnd *cmd)
+@@ -2589,7 +2589,12 @@ static int ufshcd_queuecommand(struct Scsi_Host *host, struct scsi_cmnd *cmd)
  	lrbp->lun = ufshcd_scsi_to_upiu_lun(cmd->device->lun);
  	lrbp->intr_cmd = !ufshcd_is_intr_aggr_allowed(hba) ? true : false;
  
@@ -37,7 +37,7 @@ diff --git a/drivers/scsi/ufs/ufshcd.c b/drivers/scsi/ufs/ufshcd.c
 diff --git a/drivers/scsi/ufs/ufshcd.h b/drivers/scsi/ufs/ufshcd.h
 --- a/drivers/scsi/ufs/ufshcd.h
 +++ b/drivers/scsi/ufs/ufshcd.h
-@@ -332,7 +332,7 @@ struct ufs_hba_variant_ops {
+@@ -334,7 +334,7 @@ struct ufs_hba_variant_ops {
  			       const union ufs_crypto_cfg_entry *cfg, int slot);
  	int	(*fill_prdt)(struct ufs_hba *hba, struct ufshcd_lrb *lrbp,
  			     unsigned int segments);
@@ -46,7 +46,7 @@ diff --git a/drivers/scsi/ufs/ufshcd.h b/drivers/scsi/ufs/ufshcd.h
  				struct request *rq, struct ufshcd_lrb *lrbp);
  	int     (*update_sysfs)(struct ufs_hba *hba);
  	void	(*send_command)(struct ufs_hba *hba, struct ufshcd_lrb *lrbp);
-@@ -1262,11 +1262,12 @@ static inline int ufshcd_vops_fill_prdt(struct ufs_hba *hba,
+@@ -1265,11 +1265,12 @@ static inline int ufshcd_vops_fill_prdt(struct ufs_hba *hba,
  	return 0;
  }
  

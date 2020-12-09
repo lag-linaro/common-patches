@@ -32,7 +32,7 @@ diff --git a/drivers/scsi/ufs/ufshcd.c b/drivers/scsi/ufs/ufshcd.c
 diff --git a/drivers/scsi/ufs/ufshcd.h b/drivers/scsi/ufs/ufshcd.h
 --- a/drivers/scsi/ufs/ufshcd.h
 +++ b/drivers/scsi/ufs/ufshcd.h
-@@ -289,6 +289,8 @@ struct ufs_pwr_mode_info {
+@@ -291,6 +291,8 @@ struct ufs_pwr_mode_info {
   * @phy_initialization: used to initialize phys
   * @device_reset: called to issue a reset pulse on the UFS device
   * @program_key: program or evict an inline encryption key
@@ -41,7 +41,7 @@ diff --git a/drivers/scsi/ufs/ufshcd.h b/drivers/scsi/ufs/ufshcd.h
   */
  struct ufs_hba_variant_ops {
  	const char *name;
-@@ -324,6 +326,8 @@ struct ufs_hba_variant_ops {
+@@ -326,6 +328,8 @@ struct ufs_hba_variant_ops {
  					void *data);
  	int	(*program_key)(struct ufs_hba *hba,
  			       const union ufs_crypto_cfg_entry *cfg, int slot);
@@ -50,7 +50,7 @@ diff --git a/drivers/scsi/ufs/ufshcd.h b/drivers/scsi/ufs/ufshcd.h
  };
  
  /* clock gating state  */
-@@ -1226,6 +1230,16 @@ static inline void ufshcd_vops_config_scaling_param(struct ufs_hba *hba,
+@@ -1229,6 +1233,16 @@ static inline void ufshcd_vops_config_scaling_param(struct ufs_hba *hba,
  		hba->vops->config_scaling_param(hba, profile, data);
  }
  

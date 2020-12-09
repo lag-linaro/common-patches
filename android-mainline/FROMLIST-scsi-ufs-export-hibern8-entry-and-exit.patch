@@ -27,7 +27,7 @@ diff --git a/drivers/scsi/ufs/ufshcd.c b/drivers/scsi/ufs/ufshcd.c
  static inline void ufshcd_add_delay_before_dme_cmd(struct ufs_hba *hba);
  static int ufshcd_host_reset_and_restore(struct ufs_hba *hba);
  static void ufshcd_resume_clkscaling(struct ufs_hba *hba);
-@@ -3945,7 +3944,7 @@ int ufshcd_link_recovery(struct ufs_hba *hba)
+@@ -3959,7 +3958,7 @@ int ufshcd_link_recovery(struct ufs_hba *hba)
  }
  EXPORT_SYMBOL_GPL(ufshcd_link_recovery);
  
@@ -36,7 +36,7 @@ diff --git a/drivers/scsi/ufs/ufshcd.c b/drivers/scsi/ufs/ufshcd.c
  {
  	int ret;
  	struct uic_command uic_cmd = {0};
-@@ -3967,6 +3966,7 @@ static int ufshcd_uic_hibern8_enter(struct ufs_hba *hba)
+@@ -3981,6 +3980,7 @@ static int ufshcd_uic_hibern8_enter(struct ufs_hba *hba)
  
  	return ret;
  }
@@ -47,7 +47,7 @@ diff --git a/drivers/scsi/ufs/ufshcd.c b/drivers/scsi/ufs/ufshcd.c
 diff --git a/drivers/scsi/ufs/ufshcd.h b/drivers/scsi/ufs/ufshcd.h
 --- a/drivers/scsi/ufs/ufshcd.h
 +++ b/drivers/scsi/ufs/ufshcd.h
-@@ -1227,5 +1227,6 @@ static inline u8 ufshcd_scsi_to_upiu_lun(unsigned int scsi_lun)
+@@ -1230,5 +1230,6 @@ static inline u8 ufshcd_scsi_to_upiu_lun(unsigned int scsi_lun)
  
  int ufshcd_dump_regs(struct ufs_hba *hba, size_t offset, size_t len,
  		     const char *prefix);

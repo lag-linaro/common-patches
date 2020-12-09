@@ -19,7 +19,7 @@ Change-Id: Icb206c902187c90b38dd14924987725e9977e47c
 diff --git a/drivers/usb/typec/tcpm/tcpm.c b/drivers/usb/typec/tcpm/tcpm.c
 --- a/drivers/usb/typec/tcpm/tcpm.c
 +++ b/drivers/usb/typec/tcpm/tcpm.c
-@@ -4941,6 +4941,49 @@ static int tcpm_fw_get_caps(struct tcpm_port *port,
+@@ -4981,6 +4981,49 @@ static int tcpm_fw_get_caps(struct tcpm_port *port,
  	return 0;
  }
  
@@ -72,7 +72,7 @@ diff --git a/drivers/usb/typec/tcpm/tcpm.c b/drivers/usb/typec/tcpm/tcpm.c
 diff --git a/include/linux/usb/tcpm.h b/include/linux/usb/tcpm.h
 --- a/include/linux/usb/tcpm.h
 +++ b/include/linux/usb/tcpm.h
-@@ -144,6 +144,10 @@ struct tcpm_port;
+@@ -151,6 +151,10 @@ struct tcpm_port;
  struct tcpm_port *tcpm_register_port(struct device *dev, struct tcpc_dev *tcpc);
  void tcpm_unregister_port(struct tcpm_port *port);
  
