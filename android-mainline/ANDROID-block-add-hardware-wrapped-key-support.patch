@@ -243,7 +243,7 @@ diff --git a/drivers/md/dm-default-key.c b/drivers/md/dm-default-key.c
 diff --git a/drivers/md/dm.c b/drivers/md/dm.c
 --- a/drivers/md/dm.c
 +++ b/drivers/md/dm.c
-@@ -2158,6 +2158,8 @@ static void dm_init_inline_encryption(struct mapped_device *md)
+@@ -2159,6 +2159,8 @@ static void dm_init_inline_encryption(struct mapped_device *md)
  	 * the device restrictions.
  	 */
  	md->ksm.max_dun_bytes_supported = UINT_MAX;

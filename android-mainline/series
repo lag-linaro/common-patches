@@ -1,8 +1,8 @@
 #
 # android-mainline patches
 #
-# Applies onto upstream 34816d20f173 Linux v5.10-rc6-60-g34816d20f173
-# Matches android-mainline 1f7ba8693d16 ("FROMGIT: f2fs: fix race of pending_pages in decompression")
+# Applies onto upstream 0477e9288185 Linux v5.10-rc7
+# Matches android-mainline ca0c76873c25 ("Merge 5.10-rc7 into android-mainline")
 #
 Revert-block-grant-IOPRIO_CLASS_RT-to-CAP_SYS_NICE.patch
 Revert-arm64-dts-qcom-sdm845-db845c-Fix-hdmi-nodes.patch
@@ -53,7 +53,6 @@ FROMLIST-fuse-Introduce-synchronous-read-and-write-for-passthrough.patch
 FROMLIST-fuse-Handle-asynchronous-read-and-write-in-passthrough.patch
 FROMLIST-fuse-Use-daemon-creds-in-passthrough-mode.patch
 FROMLIST-fuse-Fix-colliding-FUSE_PASSTHROUGH-flag.patch
-FROMLIST-Kbuild-do-not-emit-debug-info-for-assembly-with-LLVM_IAS-1.patch
 FROMLIST-USB-gadget-f_acm-add-support-for-SuperSpeed-Plus.patch
 FROMLIST-USB-gadget-f_fs-add-SuperSpeed-Plus-support.patch
 FROMLIST-USB-gadget-f_midi-setup-SuperSpeed-Plus-descriptors.patch

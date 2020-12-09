@@ -61,7 +61,7 @@ diff --git a/kernel/cpu.c b/kernel/cpu.c
  #include "smpboot.h"
  
  /**
-@@ -1257,6 +1260,10 @@ int resume_cpus(struct cpumask *cpus)
+@@ -1261,6 +1264,10 @@ int resume_cpus(struct cpumask *cpus)
  	for_each_cpu(cpu, cpus)
  		set_cpu_active(cpu, true);
  

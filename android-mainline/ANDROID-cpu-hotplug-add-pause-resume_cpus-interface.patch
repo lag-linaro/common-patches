@@ -74,7 +74,7 @@ diff --git a/include/linux/sched/hotplug.h b/include/linux/sched/hotplug.h
 diff --git a/kernel/cpu.c b/kernel/cpu.c
 --- a/kernel/cpu.c
 +++ b/kernel/cpu.c
-@@ -1093,6 +1093,121 @@ int remove_cpu(unsigned int cpu)
+@@ -1097,6 +1097,121 @@ int remove_cpu(unsigned int cpu)
  }
  EXPORT_SYMBOL_GPL(remove_cpu);
  

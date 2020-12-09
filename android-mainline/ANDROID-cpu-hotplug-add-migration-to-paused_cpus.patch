@@ -54,7 +54,7 @@ diff --git a/include/linux/sched/hotplug.h b/include/linux/sched/hotplug.h
 diff --git a/kernel/cpu.c b/kernel/cpu.c
 --- a/kernel/cpu.c
 +++ b/kernel/cpu.c
-@@ -1095,6 +1095,34 @@ EXPORT_SYMBOL_GPL(remove_cpu);
+@@ -1099,6 +1099,34 @@ EXPORT_SYMBOL_GPL(remove_cpu);
  
  extern bool dl_cpu_busy(unsigned int cpu);
  
@@ -89,7 +89,7 @@ diff --git a/kernel/cpu.c b/kernel/cpu.c
  int pause_cpus(struct cpumask *cpus)
  {
  	int err = 0;
-@@ -1125,8 +1153,45 @@ int pause_cpus(struct cpumask *cpus)
+@@ -1129,8 +1157,45 @@ int pause_cpus(struct cpumask *cpus)
  	if (cpumask_empty(cpus))
  		goto err_cpu_maps_update;
  
@@ -135,7 +135,7 @@ diff --git a/kernel/cpu.c b/kernel/cpu.c
  	cpuhp_tasks_frozen = 0;
  
  	if (sched_cpus_deactivate_nosync(cpus)) {
-@@ -1134,6 +1199,14 @@ int pause_cpus(struct cpumask *cpus)
+@@ -1138,6 +1203,14 @@ int pause_cpus(struct cpumask *cpus)
  		goto err_cpus_write_unlock;
  	}
  

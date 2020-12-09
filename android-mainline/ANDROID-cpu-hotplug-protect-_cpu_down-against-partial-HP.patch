@@ -21,7 +21,7 @@ Signed-off-by: Vincent Donnefort <vincent.donnefort@arm.com>
 diff --git a/kernel/cpu.c b/kernel/cpu.c
 --- a/kernel/cpu.c
 +++ b/kernel/cpu.c
-@@ -996,7 +996,7 @@ static int __ref _cpu_down(unsigned int cpu, int tasks_frozen,
+@@ -1000,7 +1000,7 @@ static int __ref _cpu_down(unsigned int cpu, int tasks_frozen,
  	struct cpuhp_cpu_state *st = per_cpu_ptr(&cpuhp_state, cpu);
  	int prev_state, ret = 0;
  

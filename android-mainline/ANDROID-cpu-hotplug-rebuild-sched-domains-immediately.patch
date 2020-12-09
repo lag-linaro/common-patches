@@ -84,7 +84,7 @@ diff --git a/kernel/cpu.c b/kernel/cpu.c
  
  #include <trace/events/power.h>
  #define CREATE_TRACE_POINTS
-@@ -1253,6 +1254,15 @@ int resume_cpus(struct cpumask *cpus)
+@@ -1257,6 +1258,15 @@ int resume_cpus(struct cpumask *cpus)
  	if (cpumask_empty(cpus))
  		goto err_cpu_maps_update;
  

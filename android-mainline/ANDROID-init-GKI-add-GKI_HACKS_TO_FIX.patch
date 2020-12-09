@@ -23,7 +23,7 @@ Signed-off-by: Todd Kjos <tkjos@google.com>
 diff --git a/init/Kconfig b/init/Kconfig
 --- a/init/Kconfig
 +++ b/init/Kconfig
-@@ -2357,3 +2357,5 @@ config ARCH_HAS_SYNC_CORE_BEFORE_USERMODE
+@@ -2367,3 +2367,5 @@ config ARCH_HAS_SYNC_CORE_BEFORE_USERMODE
  # <asm/syscall_wrapper.h>.
  config ARCH_HAS_SYSCALL_WRAPPER
  	def_bool n
