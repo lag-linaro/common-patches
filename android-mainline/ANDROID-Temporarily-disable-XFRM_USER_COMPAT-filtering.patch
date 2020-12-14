@@ -22,36 +22,39 @@ Bug: 172541864
 Signed-off-by: Alistair Delva <adelva@google.com>
 Change-Id: Ifbea109070650dfcb4f93a3cc692c18a8d11ab44
 ---
- net/xfrm/xfrm_state.c | 25 ++++++++++++++-----------
+ net/xfrm/xfrm_state.c | 27 +++++++++++++++------------
  net/xfrm/xfrm_user.c  | 29 ++++++++++++++++-------------
- 2 files changed, 30 insertions(+), 24 deletions(-)
+ 2 files changed, 31 insertions(+), 25 deletions(-)
 
 diff --git a/net/xfrm/xfrm_state.c b/net/xfrm/xfrm_state.c
 --- a/net/xfrm/xfrm_state.c
 +++ b/net/xfrm/xfrm_state.c
-@@ -2379,17 +2379,20 @@ int xfrm_user_policy(struct sock *sk, int optname, sockptr_t optval, int optlen)
+@@ -2379,19 +2379,22 @@ int xfrm_user_policy(struct sock *sk, int optname, sockptr_t optval, int optlen)
  	if (IS_ERR(data))
  		return PTR_ERR(data);
  
 -	if (in_compat_syscall()) {
 -		struct xfrm_translator *xtr = xfrm_get_translator();
 -
--		if (!xtr)
--			return -EOPNOTSUPP;
--
--		err = xtr->xlate_user_policy_sockptr(&data, optlen);
--		xfrm_put_translator(xtr);
--		if (err) {
+-		if (!xtr) {
 -			kfree(data);
--			return err;
+-			return -EOPNOTSUPP;
+-		}
 +	/* Use the 64-bit / untranslated format on Android, even for compat */
 +	if (!IS_ENABLED(CONFIG_ANDROID) || IS_ENABLED(CONFIG_XFRM_USER_COMPAT)) {
 +		if (in_compat_syscall()) {
 +			struct xfrm_translator *xtr = xfrm_get_translator();
 +
-+			if (!xtr)
++			if (!xtr) {
++				kfree(data);
 +				return -EOPNOTSUPP;
-+
++			}
+ 
+-		err = xtr->xlate_user_policy_sockptr(&data, optlen);
+-		xfrm_put_translator(xtr);
+-		if (err) {
+-			kfree(data);
+-			return err;
 +			err = xtr->xlate_user_policy_sockptr(&data, optlen);
 +			xfrm_put_translator(xtr);
 +			if (err) {

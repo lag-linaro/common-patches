@@ -1,8 +1,8 @@
 #
 # android-mainline patches
 #
-# Applies onto upstream a2f5ea9e314b Linux v5.10-rc7-34-ga2f5ea9e314b
-# Matches android-mainline 83bf345abc0b ("ANDROID: dm: dm-user: New target that proxies BIOs to userspace")
+# Applies onto upstream 33dc9614dc20 Linux v5.10-rc7-149-g33dc9614dc20
+# Matches android-mainline a07068169063 ("Merge 33dc9614dc20 ("Merge tag 'ktest-v5.10-rc6' of git://git.kernel.org/pub/scm/linux/kernel/git/rostedt/linux-ktest") into android-mainline")
 #
 Revert-block-grant-IOPRIO_CLASS_RT-to-CAP_SYS_NICE.patch
 Revert-arm64-dts-qcom-sdm845-db845c-Fix-hdmi-nodes.patch
