@@ -1,8 +1,8 @@
 #
 # android-mainline patches
 #
-# Applies onto upstream 33dc9614dc20 Linux v5.10-rc7-149-g33dc9614dc20
-# Matches android-mainline 67e762efc70f ("ANDROID: configs: GKI: disable ARMv8.3 PAC")
+# Applies onto upstream 7f376f1917d7 Linux v5.10-rc7-220-g7f376f1917d7
+# Matches android-mainline 35dcb7ff81b4 ("Merge 7f376f1917d7 ("Merge tag 'mtd/fixes-for-5.10-rc8' of git://git.kernel.org/pub/scm/linux/kernel/git/mtd/linux") into android-mainline")
 #
 Revert-block-grant-IOPRIO_CLASS_RT-to-CAP_SYS_NICE.patch
 Revert-arm64-dts-qcom-sdm845-db845c-Fix-hdmi-nodes.patch
