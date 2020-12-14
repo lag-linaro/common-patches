@@ -1,8 +1,8 @@
 #
 # android-mainline patches
 #
-# Applies onto upstream a68a0262abda Linux v5.10-rc7-10-ga68a0262abda
-# Matches android-mainline 6f58dc1f83f0 ("ANDROID: sched: Fix sched_cpu_drain CONFIG_HOTPLUG_CPU dependence")
+# Applies onto upstream a2f5ea9e314b Linux v5.10-rc7-34-ga2f5ea9e314b
+# Matches android-mainline c6481686b6e0 ("Merge a2f5ea9e314b ("Merge tag 'arm-soc-fixes-v5.10-4b' of git://git.kernel.org/pub/scm/linux/kernel/git/soc/soc") into android-mainline")
 #
 Revert-block-grant-IOPRIO_CLASS_RT-to-CAP_SYS_NICE.patch
 Revert-arm64-dts-qcom-sdm845-db845c-Fix-hdmi-nodes.patch
