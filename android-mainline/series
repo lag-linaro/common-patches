@@ -1,8 +1,8 @@
 #
 # android-mainline patches
 #
-# Applies onto upstream 0477e9288185 Linux v5.10-rc7
-# Matches android-mainline b3fd6681f20f ("ANDROID: db845c_gki.fragment: Drop CONFIG_USB_DWC3 from config frament")
+# Applies onto upstream a68a0262abda Linux v5.10-rc7-10-ga68a0262abda
+# Matches android-mainline 4de82f1b3b54 ("Merge a68a0262abda ("mm/madvise: remove racy mm ownership check") into android-mainline")
 #
 Revert-block-grant-IOPRIO_CLASS_RT-to-CAP_SYS_NICE.patch
 Revert-arm64-dts-qcom-sdm845-db845c-Fix-hdmi-nodes.patch
