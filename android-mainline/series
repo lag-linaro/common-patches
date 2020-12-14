@@ -2,7 +2,7 @@
 # android-mainline patches
 #
 # Applies onto upstream a68a0262abda Linux v5.10-rc7-10-ga68a0262abda
-# Matches android-mainline 4de82f1b3b54 ("Merge a68a0262abda ("mm/madvise: remove racy mm ownership check") into android-mainline")
+# Matches android-mainline 6f58dc1f83f0 ("ANDROID: sched: Fix sched_cpu_drain CONFIG_HOTPLUG_CPU dependence")
 #
 Revert-block-grant-IOPRIO_CLASS_RT-to-CAP_SYS_NICE.patch
 Revert-arm64-dts-qcom-sdm845-db845c-Fix-hdmi-nodes.patch

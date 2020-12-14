@@ -17,6 +17,9 @@ state.
 Bug: 161210528
 Change-Id: Ie26c2e4c42665dd61d41a899a84536e56bf2b887
 Signed-off-by: Vincent Donnefort <vincent.donnefort@arm.com>
+[maennich: folded 6f58dc1f83f0 ("ANDROID: sched: Fix
+sched_cpu_drain CONFIG_HOTPLUG_CPU dependence") into this patch]
+Signed-off-by: Matthias Maennich <maennich@google.com>
 ---
  include/linux/sched.h         |  4 ++
  include/linux/sched/hotplug.h |  2 +
@@ -205,7 +208,7 @@ diff --git a/kernel/sched/core.c b/kernel/sched/core.c
  			raw_spin_unlock(&next->pi_lock);
  			continue;
  		}
-@@ -6854,6 +6876,12 @@ static void migrate_tasks(struct rq *dead_rq, struct rq_flags *rf)
+@@ -6854,8 +6876,48 @@ static void migrate_tasks(struct rq *dead_rq, struct rq_flags *rf)
  		raw_spin_unlock(&next->pi_lock);
  	}
  
@@ -217,11 +220,7 @@ diff --git a/kernel/sched/core.c b/kernel/sched/core.c
 +
  	rq->stop = stop;
  }
- #endif /* CONFIG_HOTPLUG_CPU */
-@@ -6936,6 +6964,40 @@ static int cpuset_cpu_inactive(unsigned int cpu)
- 	return 0;
- }
- 
++
 +static int drain_rq_cpu_stop(void *data)
 +{
 +	struct rq *rq = this_rq();
@@ -255,10 +254,9 @@ diff --git a/kernel/sched/core.c b/kernel/sched/core.c
 +	if (rq_drain->done)
 +		cpu_stop_work_wait(rq_drain);
 +}
-+
- int sched_cpu_activate(unsigned int cpu)
- {
- 	struct rq *rq = cpu_rq(cpu);
+ #endif /* CONFIG_HOTPLUG_CPU */
+ 
+ void set_rq_online(struct rq *rq)
 @@ -7087,7 +7149,7 @@ int sched_cpu_dying(unsigned int cpu)
  		BUG_ON(!cpumask_test_cpu(cpu, rq->rd->span));
  		set_rq_offline(rq);
