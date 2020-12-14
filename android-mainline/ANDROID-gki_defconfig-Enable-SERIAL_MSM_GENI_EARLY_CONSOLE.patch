@@ -15,7 +15,7 @@ Signed-off-by: Elliot Berman <eberman@codeaurora.org>
 diff --git a/arch/arm64/configs/gki_defconfig b/arch/arm64/configs/gki_defconfig
 --- a/arch/arm64/configs/gki_defconfig
 +++ b/arch/arm64/configs/gki_defconfig
-@@ -318,6 +318,7 @@ CONFIG_SERIAL_AMBA_PL011=y
+@@ -316,6 +316,7 @@ CONFIG_SERIAL_AMBA_PL011=y
  CONFIG_SERIAL_AMBA_PL011_CONSOLE=y
  CONFIG_SERIAL_SAMSUNG=y
  CONFIG_SERIAL_SAMSUNG_CONSOLE=y

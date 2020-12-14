@@ -17,7 +17,7 @@ Change-Id: I3c8d57dafbf985533e7d5b0977aaa8155cc34cf3
 diff --git a/arch/arm64/configs/gki_defconfig b/arch/arm64/configs/gki_defconfig
 --- a/arch/arm64/configs/gki_defconfig
 +++ b/arch/arm64/configs/gki_defconfig
-@@ -251,6 +251,7 @@ CONFIG_SCSI_UFSHCD_PCI=y
+@@ -249,6 +249,7 @@ CONFIG_SCSI_UFSHCD_PCI=y
  CONFIG_SCSI_UFSHCD_PLATFORM=y
  CONFIG_SCSI_UFS_DWC_TC_PLATFORM=y
  CONFIG_SCSI_UFS_HISI=y
@@ -28,7 +28,7 @@ diff --git a/arch/arm64/configs/gki_defconfig b/arch/arm64/configs/gki_defconfig
 diff --git a/arch/x86/configs/gki_defconfig b/arch/x86/configs/gki_defconfig
 --- a/arch/x86/configs/gki_defconfig
 +++ b/arch/x86/configs/gki_defconfig
-@@ -226,6 +226,7 @@ CONFIG_SCSI_UFSHCD=y
+@@ -224,6 +224,7 @@ CONFIG_SCSI_UFSHCD=y
  CONFIG_SCSI_UFSHCD_PCI=y
  CONFIG_SCSI_UFSHCD_PLATFORM=y
  CONFIG_SCSI_UFS_DWC_TC_PLATFORM=y

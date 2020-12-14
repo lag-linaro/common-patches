@@ -15,7 +15,7 @@ Signed-off-by: Elliot Berman <eberman@codeaurora.org>
 diff --git a/arch/arm64/configs/gki_defconfig b/arch/arm64/configs/gki_defconfig
 --- a/arch/arm64/configs/gki_defconfig
 +++ b/arch/arm64/configs/gki_defconfig
-@@ -458,7 +458,6 @@ CONFIG_IOMMU_LIMIT_IOVA_ALIGNMENT=y
+@@ -456,7 +456,6 @@ CONFIG_IOMMU_LIMIT_IOVA_ALIGNMENT=y
  CONFIG_REMOTEPROC=y
  CONFIG_REMOTEPROC_CDEV=y
  CONFIG_RPMSG_CHAR=y

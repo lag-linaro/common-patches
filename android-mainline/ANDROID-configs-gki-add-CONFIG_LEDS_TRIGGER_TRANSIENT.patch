@@ -17,7 +17,7 @@ Signed-off-by: Will McVicker <willmcvicker@google.com>
 diff --git a/arch/arm64/configs/gki_defconfig b/arch/arm64/configs/gki_defconfig
 --- a/arch/arm64/configs/gki_defconfig
 +++ b/arch/arm64/configs/gki_defconfig
-@@ -446,6 +446,7 @@ CONFIG_MMC_SDHCI=y
+@@ -444,6 +444,7 @@ CONFIG_MMC_SDHCI=y
  CONFIG_MMC_SDHCI_PLTFM=y
  CONFIG_LEDS_CLASS_FLASH=y
  CONFIG_LEDS_TRIGGER_TIMER=y
@@ -28,7 +28,7 @@ diff --git a/arch/arm64/configs/gki_defconfig b/arch/arm64/configs/gki_defconfig
 diff --git a/arch/x86/configs/gki_defconfig b/arch/x86/configs/gki_defconfig
 --- a/arch/x86/configs/gki_defconfig
 +++ b/arch/x86/configs/gki_defconfig
-@@ -400,6 +400,7 @@ CONFIG_MMC_SDHCI=y
+@@ -398,6 +398,7 @@ CONFIG_MMC_SDHCI=y
  CONFIG_MMC_SDHCI_PLTFM=y
  CONFIG_LEDS_CLASS_FLASH=y
  CONFIG_LEDS_TRIGGER_TIMER=y

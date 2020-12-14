@@ -2,7 +2,7 @@
 # android-mainline patches
 #
 # Applies onto upstream 0477e9288185 Linux v5.10-rc7
-# Matches android-mainline de4163f521a8 ("FROMGIT: usb: typec: tcpci_maxim: Enable VSAFE0V signalling")
+# Matches android-mainline b3fd6681f20f ("ANDROID: db845c_gki.fragment: Drop CONFIG_USB_DWC3 from config frament")
 #
 Revert-block-grant-IOPRIO_CLASS_RT-to-CAP_SYS_NICE.patch
 Revert-arm64-dts-qcom-sdm845-db845c-Fix-hdmi-nodes.patch
@@ -290,6 +290,11 @@ ANDROID-staging-ion-Fix-potential-memory-corruption.patch
 ANDROID-staging-ion-remove-kmap-from-begin-end-_cpu_access.patch
 ANDROID-staging-ion-Remove-unused-local-variable-vaddr.patch
 ANDROID-staging-ion-export-some-ion-symbols.patch
+BACKPORT-dma-buf-system_heap-Rework-system-heap-to-use-sgtables-instead-of-pagelists.patch
+BACKPORT-dma-buf-heaps-Move-heap-helper-logic-into-the-cma_heap-implementation.patch
+BACKPORT-dma-buf-heaps-Remove-heap-helpers-code.patch
+BACKPORT-dma-buf-heaps-Skip-sync-if-not-mapped.patch
+BACKPORT-dma-buf-system_heap-Allocate-higher-order-pages-if-available.patch
 _____ANNOTATION-driver-framework-and-misc-driver-changes_____.patch
 FROMLIST-drivers-irqchip-pdc-additionally-set-type-in-SPI-config-registers.patch
 FROMLIST-dt-bindings-interrupt-controller-pdc-add-SPI-config-register.patch
@@ -784,7 +789,6 @@ ANDROID-gki_defconfig-Enable-CONFIG_MEMORY_HOTREMOVE.patch
 ANDROID-gki_defconfig-Enable-memory-hotplug.patch
 ANDROID-Enable-generation-of-BTF-type-information.patch
 ANDROID-GKI-Enable-DEBUG_INFO_DWARF4.patch
-ANDROID-GKI-build-in-a-kernel-command-line-of-rw.patch
 ANDROID-Enable-hermetic-toolchain.patch
 ANDROID-GKI-Enable-CONFIG_RT_SOFTINT_OPTIMIZATION.patch
 Revert-ANDROID-Kbuild-LLVMLinux-allow-overriding-clang-target-triple.patch
@@ -810,6 +814,7 @@ ANDROID-GKI-enable-CONFIG_THERMAL_NETLINK.patch
 ANDROID-gki-build-in-DMA_VIRTUAL_CHANNELS.patch
 ANDROID-Disable-hermetic-toolchain-for-allmodconfig-builds.patch
 ANDROID-GKI-enable-CONFIG_USB_DWC3-to-be-build-in.patch
+ANDROID-db845c_gki.fragment-Drop-CONFIG_USB_DWC3-from-config-frament.patch
 _____ANNOTATION-Patches-for-bringing-up-new-SoCs_____.patch
 ANDROID-serial-msm_geni_serial_earlycon-Add-Earlycon-support.patch
 ANDROID-arm64-Add-support-for-asymmetric-AArch32-EL0-configurations.patch
