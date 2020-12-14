@@ -1,8 +1,8 @@
 #
 # android-mainline patches
 #
-# Applies onto upstream 7f376f1917d7 Linux v5.10-rc7-220-g7f376f1917d7
-# Matches android-mainline aa7a923818eb ("FROMGIT: cpuidle: psci: Enable suspend-to-idle for PSCI OSI mode")
+# Applies onto upstream 6bff9bb8a292 Linux v5.10-rc7-254-g6bff9bb8a292
+# Matches android-mainline 3f43bd6f2c3b ("Merge 6bff9bb8a292 ("Merge tag 'scsi-fixes' of git://git.kernel.org/pub/scm/linux/kernel/git/jejb/scsi") into android-mainline")
 #
 Revert-block-grant-IOPRIO_CLASS_RT-to-CAP_SYS_NICE.patch
 Revert-arm64-dts-qcom-sdm845-db845c-Fix-hdmi-nodes.patch
