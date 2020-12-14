@@ -2,7 +2,7 @@
 # android-mainline patches
 #
 # Applies onto upstream 7f376f1917d7 Linux v5.10-rc7-220-g7f376f1917d7
-# Matches android-mainline 35dcb7ff81b4 ("Merge 7f376f1917d7 ("Merge tag 'mtd/fixes-for-5.10-rc8' of git://git.kernel.org/pub/scm/linux/kernel/git/mtd/linux") into android-mainline")
+# Matches android-mainline aa7a923818eb ("FROMGIT: cpuidle: psci: Enable suspend-to-idle for PSCI OSI mode")
 #
 Revert-block-grant-IOPRIO_CLASS_RT-to-CAP_SYS_NICE.patch
 Revert-arm64-dts-qcom-sdm845-db845c-Fix-hdmi-nodes.patch
@@ -57,6 +57,9 @@ FROMGIT-fscrypt-Have-filesystems-handle-their-d_ops.patch
 FROMGIT-f2fs-Handle-casefolding-with-Encryption.patch
 FROMGIT-f2fs-fix-race-of-pending_pages-in-decompression.patch
 FROMGIT-arm64-mm-account-for-hotplug-memory-when-randomizing-the-linear-region.patch
+FROMGIT-PM-domains-Rename-pm_genpd_syscore_poweroff-poweron.patch
+FROMGIT-PM-domains-Enable-dev_pm_genpd_suspend-resume-for-suspend-to-idle.patch
+FROMGIT-cpuidle-psci-Enable-suspend-to-idle-for-PSCI-OSI-mode.patch
 FROMLIST-modpost-Make-static-exports-fatal.patch
 FROMLIST-clk-Export-clk_register_composite.patch
 FROMLIST-clk-versatile-remove-dependency-on-ARCH_.patch
