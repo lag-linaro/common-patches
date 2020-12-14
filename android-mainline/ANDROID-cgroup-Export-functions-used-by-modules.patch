@@ -1,0 +1,36 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: Abhijeet Dharmapurikar <adharmap@codeaurora.org>
+Date: Fri, 11 Dec 2020 16:42:56 -0800
+Subject: ANDROID: cgroup: Export functions used by modules
+
+Below symbols would be used by vendor modules for tracking tasks
+in various cgroups
+	1. cgroup_taskset_first
+	2. cgroup_taskset_next
+
+Bug: 175045928
+Change-Id: I6d89148eb4c71174a02a27acab196ff940be9082
+Signed-off-by: Abhijeet Dharmapurikar <adharmap@codeaurora.org>
+---
+ kernel/cgroup/cgroup.c | 2 ++
+ 1 file changed, 2 insertions(+)
+
+diff --git a/kernel/cgroup/cgroup.c b/kernel/cgroup/cgroup.c
+--- a/kernel/cgroup/cgroup.c
++++ b/kernel/cgroup/cgroup.c
+@@ -2331,6 +2331,7 @@ struct task_struct *cgroup_taskset_first(struct cgroup_taskset *tset,
+ 
+ 	return cgroup_taskset_next(tset, dst_cssp);
+ }
++EXPORT_SYMBOL_GPL(cgroup_taskset_first);
+ 
+ /**
+  * cgroup_taskset_next - iterate to the next task in taskset
+@@ -2377,6 +2378,7 @@ struct task_struct *cgroup_taskset_next(struct cgroup_taskset *tset,
+ 
+ 	return NULL;
+ }
++EXPORT_SYMBOL_GPL(cgroup_taskset_next);
+ 
+ /**
+  * cgroup_taskset_migrate - migrate a taskset

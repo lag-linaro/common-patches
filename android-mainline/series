@@ -2,7 +2,7 @@
 # android-mainline patches
 #
 # Applies onto upstream 2c85ebc57b3e Linux v5.10
-# Matches android-mainline b9e54f8e02e2 ("Merge tag 'v5.10' into android-mainline")
+# Matches android-mainline 7923ce03f7b8 ("ANDROID: sched: Export key used by module")
 #
 Revert-block-grant-IOPRIO_CLASS_RT-to-CAP_SYS_NICE.patch
 Revert-arm64-dts-qcom-sdm845-db845c-Fix-hdmi-nodes.patch
@@ -215,6 +215,8 @@ ANDROID-cpu-hotplug-add-migration-to-paused_cpus.patch
 ANDROID-cpu-hotplug-rebuild-sched-domains-immediately.patch
 ANDROID-cpu-hotplug-vendor-hook-for-resume-cpus.patch
 ANDROID-sched-Add-rvh-for-cpu-controller-cgroup-attach.patch
+ANDROID-cgroup-Export-functions-used-by-modules.patch
+ANDROID-sched-Export-key-used-by-module.patch
 _____ANNOTATION-uid_sys_stats-support_____.patch
 ANDROID-uid_cputime-Adds-accounting-for-the-cputimes-per-uid.patch
 ANDROID-uid_cputime-add-per-uid-IO-usage-accounting.patch

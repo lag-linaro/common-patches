@@ -1,0 +1,25 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: Abhijeet Dharmapurikar <adharmap@codeaurora.org>
+Date: Fri, 11 Dec 2020 16:53:43 -0800
+Subject: ANDROID: sched: Export key used by module
+
+sched_uclamp_used will be used by vendor modules for enhancing placements.
+
+Bug: 175448875
+Change-Id: Ib6aa7839ae4d72de6490e2d1ff92729830830e3b
+Signed-off-by: Abhijeet Dharmapurikar <adharmap@codeaurora.org>
+---
+ kernel/sched/core.c | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/kernel/sched/core.c b/kernel/sched/core.c
+--- a/kernel/sched/core.c
++++ b/kernel/sched/core.c
+@@ -938,6 +938,7 @@ static struct uclamp_se uclamp_default[UCLAMP_CNT];
+  *   * An admin modifying the cgroup cpu.uclamp.{min, max}
+  */
+ DEFINE_STATIC_KEY_FALSE(sched_uclamp_used);
++EXPORT_SYMBOL_GPL(sched_uclamp_used);
+ 
+ /* Integer rounded range for each bucket */
+ #define UCLAMP_BUCKET_DELTA DIV_ROUND_CLOSEST(SCHED_CAPACITY_SCALE, UCLAMP_BUCKETS)
