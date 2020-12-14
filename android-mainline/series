@@ -2,7 +2,7 @@
 # android-mainline patches
 #
 # Applies onto upstream a2f5ea9e314b Linux v5.10-rc7-34-ga2f5ea9e314b
-# Matches android-mainline c6481686b6e0 ("Merge a2f5ea9e314b ("Merge tag 'arm-soc-fixes-v5.10-4b' of git://git.kernel.org/pub/scm/linux/kernel/git/soc/soc") into android-mainline")
+# Matches android-mainline 83bf345abc0b ("ANDROID: dm: dm-user: New target that proxies BIOs to userspace")
 #
 Revert-block-grant-IOPRIO_CLASS_RT-to-CAP_SYS_NICE.patch
 Revert-arm64-dts-qcom-sdm845-db845c-Fix-hdmi-nodes.patch
@@ -45,6 +45,7 @@ FROMGIT-usb-typec-tcpm-Clear-send_discover-in-tcpm_check_send_discover.patch
 FROMGIT-usb-typec-tcpm-Introduce-vsafe0v-for-vbus.patch
 FROMGIT-usb-typec-tcpci-Add-support-to-report-vSafe0V.patch
 FROMGIT-usb-typec-tcpci_maxim-Enable-VSAFE0V-signalling.patch
+FROMGIT-usb-typec-intel_pmc_mux-Configure-cable-generation-value-for-USB4.patch
 FROMGIT-libfs-Add-generic-function-for-setting-dentry_ops.patch
 FROMGIT-fscrypt-Have-filesystems-handle-their-d_ops.patch
 FROMGIT-f2fs-Handle-casefolding-with-Encryption.patch
@@ -204,6 +205,7 @@ ANDROID-cpu-hotplug-add-pause-resume_cpus-interface.patch
 ANDROID-cpu-hotplug-add-migration-to-paused_cpus.patch
 ANDROID-cpu-hotplug-rebuild-sched-domains-immediately.patch
 ANDROID-cpu-hotplug-vendor-hook-for-resume-cpus.patch
+ANDROID-sched-Add-rvh-for-cpu-controller-cgroup-attach.patch
 _____ANNOTATION-uid_sys_stats-support_____.patch
 ANDROID-uid_cputime-Adds-accounting-for-the-cputimes-per-uid.patch
 ANDROID-uid_cputime-add-per-uid-IO-usage-accounting.patch
@@ -401,6 +403,8 @@ ANDROID-dm-bow-Add-dm-bow-feature.patch
 ANDROID-dm-add-support-for-passing-through-inline-crypto-support.patch
 ANDROID-dm-enable-may_passthrough_inline_crypto-on-some-targets.patch
 ANDROID-dm-add-dm-default-key-target-for-metadata-encryption.patch
+ANDROID-uapi-Add-dm-user-structure-definition.patch
+ANDROID-dm-dm-user-New-target-that-proxies-BIOs-to-userspace.patch
 _____ANNOTATION-filesystem-changes_____.patch
 FROMLIST-Add-flags-option-to-get-xattr-method-paired-to-__vfs_getxattr.patch
 FROMLIST-overlayfs-handle-XATTR_NOSECURITY-flag-for-get-xattr-method.patch
@@ -493,6 +497,11 @@ ANDROID-Incremental-fs-Fix-read_log_test-which-failed-sporadically.patch
 ANDROID-Incremental-fs-Initialize-mount-options-correctly.patch
 ANDROID-Incremental-fs-Small-improvements.patch
 ANDROID-Incremental-fs-Add-zstd-compression-support.patch
+ANDROID-Incremental-fs-Add-zstd-feature-flag.patch
+ANDROID-Incremental-fs-Add-v2-feature-flag.patch
+ANDROID-Incremental-fs-Change-per-UID-timeouts-to-microseconds.patch
+ANDROID-Incremental-fs-Fix-incfs_test-use-of-atol-open.patch
+ANDROID-Incremental-fs-Set-credentials-before-reading-writing.patch
 _____ANNOTATION-networking-changes_____.patch
 ANDROID-net-xfrm-make-PF_KEY-SHA256-use-RFC-compliant-truncation.patch
 ANDROID-net-xfrm-always-export-pktgen_xfrm_outer_mode_output.patch
@@ -815,6 +824,7 @@ ANDROID-gki-build-in-DMA_VIRTUAL_CHANNELS.patch
 ANDROID-Disable-hermetic-toolchain-for-allmodconfig-builds.patch
 ANDROID-GKI-enable-CONFIG_USB_DWC3-to-be-build-in.patch
 ANDROID-db845c_gki.fragment-Drop-CONFIG_USB_DWC3-from-config-frament.patch
+ANDROID-x86-configs-gki-add-missing-CONFIG_BLK_CGROUP.patch
 _____ANNOTATION-Patches-for-bringing-up-new-SoCs_____.patch
 ANDROID-serial-msm_geni_serial_earlycon-Add-Earlycon-support.patch
 ANDROID-arm64-Add-support-for-asymmetric-AArch32-EL0-configurations.patch
