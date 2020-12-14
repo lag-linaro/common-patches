@@ -58,7 +58,7 @@ diff --git a/drivers/usb/typec/tcpm/tcpm.c b/drivers/usb/typec/tcpm/tcpm.c
  static u32 tcpm_get_current_limit(struct tcpm_port *port)
  {
  	enum typec_cc_status cc;
-@@ -2858,6 +2876,7 @@ static int tcpm_src_attach(struct tcpm_port *port)
+@@ -2868,6 +2886,7 @@ static int tcpm_src_attach(struct tcpm_port *port)
  	port->partner = NULL;
  
  	port->attached = true;
@@ -66,7 +66,7 @@ diff --git a/drivers/usb/typec/tcpm/tcpm.c b/drivers/usb/typec/tcpm/tcpm.c
  	port->send_discover = true;
  
  	return 0;
-@@ -2981,6 +3000,7 @@ static int tcpm_snk_attach(struct tcpm_port *port)
+@@ -2991,6 +3010,7 @@ static int tcpm_snk_attach(struct tcpm_port *port)
  	port->partner = NULL;
  
  	port->attached = true;
@@ -74,7 +74,7 @@ diff --git a/drivers/usb/typec/tcpm/tcpm.c b/drivers/usb/typec/tcpm/tcpm.c
  	port->send_discover = true;
  
  	return 0;
-@@ -3008,6 +3028,7 @@ static int tcpm_acc_attach(struct tcpm_port *port)
+@@ -3018,6 +3038,7 @@ static int tcpm_acc_attach(struct tcpm_port *port)
  	tcpm_typec_connect(port);
  
  	port->attached = true;
@@ -82,7 +82,7 @@ diff --git a/drivers/usb/typec/tcpm/tcpm.c b/drivers/usb/typec/tcpm/tcpm.c
  
  	return 0;
  }
-@@ -3090,6 +3111,15 @@ static void run_state_machine(struct tcpm_port *port)
+@@ -3100,6 +3121,15 @@ static void run_state_machine(struct tcpm_port *port)
  		if (!port->non_pd_role_swap)
  			tcpm_swap_complete(port, -ENOTCONN);
  		tcpm_src_detach(port);
@@ -98,7 +98,7 @@ diff --git a/drivers/usb/typec/tcpm/tcpm.c b/drivers/usb/typec/tcpm/tcpm.c
  		if (tcpm_start_toggling(port, tcpm_rp_cc(port))) {
  			tcpm_set_state(port, TOGGLING, 0);
  			break;
-@@ -3099,6 +3129,7 @@ static void run_state_machine(struct tcpm_port *port)
+@@ -3109,6 +3139,7 @@ static void run_state_machine(struct tcpm_port *port)
  			tcpm_set_state(port, SNK_UNATTACHED, PD_T_DRP_SNK);
  		break;
  	case SRC_ATTACH_WAIT:
@@ -106,7 +106,7 @@ diff --git a/drivers/usb/typec/tcpm/tcpm.c b/drivers/usb/typec/tcpm/tcpm.c
  		if (tcpm_port_is_debug(port))
  			tcpm_set_state(port, DEBUG_ACC_ATTACHED,
  				       PD_T_CC_DEBOUNCE);
-@@ -3113,6 +3144,7 @@ static void run_state_machine(struct tcpm_port *port)
+@@ -3123,6 +3154,7 @@ static void run_state_machine(struct tcpm_port *port)
  		break;
  
  	case SNK_TRY:
@@ -114,7 +114,7 @@ diff --git a/drivers/usb/typec/tcpm/tcpm.c b/drivers/usb/typec/tcpm/tcpm.c
  		port->try_snk_count++;
  		/*
  		 * Requirements:
-@@ -3287,6 +3319,15 @@ static void run_state_machine(struct tcpm_port *port)
+@@ -3297,6 +3329,15 @@ static void run_state_machine(struct tcpm_port *port)
  			tcpm_swap_complete(port, -ENOTCONN);
  		tcpm_pps_complete(port, -ENOTCONN);
  		tcpm_snk_detach(port);
@@ -130,7 +130,7 @@ diff --git a/drivers/usb/typec/tcpm/tcpm.c b/drivers/usb/typec/tcpm/tcpm.c
  		if (tcpm_start_toggling(port, TYPEC_CC_RD)) {
  			tcpm_set_state(port, TOGGLING, 0);
  			break;
-@@ -3296,6 +3337,7 @@ static void run_state_machine(struct tcpm_port *port)
+@@ -3306,6 +3347,7 @@ static void run_state_machine(struct tcpm_port *port)
  			tcpm_set_state(port, SRC_UNATTACHED, PD_T_DRP_SRC);
  		break;
  	case SNK_ATTACH_WAIT:
@@ -138,7 +138,7 @@ diff --git a/drivers/usb/typec/tcpm/tcpm.c b/drivers/usb/typec/tcpm/tcpm.c
  		if ((port->cc1 == TYPEC_CC_OPEN &&
  		     port->cc2 != TYPEC_CC_OPEN) ||
  		    (port->cc1 != TYPEC_CC_OPEN &&
-@@ -3307,17 +3349,20 @@ static void run_state_machine(struct tcpm_port *port)
+@@ -3317,17 +3359,20 @@ static void run_state_machine(struct tcpm_port *port)
  				       PD_T_PD_DEBOUNCE);
  		break;
  	case SNK_DEBOUNCED:
@@ -162,7 +162,7 @@ diff --git a/drivers/usb/typec/tcpm/tcpm.c b/drivers/usb/typec/tcpm/tcpm.c
  		break;
  
  	case SRC_TRY:
-@@ -4221,6 +4266,7 @@ static void _tcpm_pd_vbus_off(struct tcpm_port *port)
+@@ -4231,6 +4276,7 @@ static void _tcpm_pd_vbus_off(struct tcpm_port *port)
  	case SNK_TRYWAIT_DEBOUNCE:
  		break;
  	case SNK_ATTACH_WAIT:

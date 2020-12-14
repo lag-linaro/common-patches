@@ -2,7 +2,7 @@
 # android-mainline patches
 #
 # Applies onto upstream 33dc9614dc20 Linux v5.10-rc7-149-g33dc9614dc20
-# Matches android-mainline a07068169063 ("Merge 33dc9614dc20 ("Merge tag 'ktest-v5.10-rc6' of git://git.kernel.org/pub/scm/linux/kernel/git/rostedt/linux-ktest") into android-mainline")
+# Matches android-mainline 67e762efc70f ("ANDROID: configs: GKI: disable ARMv8.3 PAC")
 #
 Revert-block-grant-IOPRIO_CLASS_RT-to-CAP_SYS_NICE.patch
 Revert-arm64-dts-qcom-sdm845-db845c-Fix-hdmi-nodes.patch
@@ -46,6 +46,12 @@ FROMGIT-usb-typec-tcpm-Introduce-vsafe0v-for-vbus.patch
 FROMGIT-usb-typec-tcpci-Add-support-to-report-vSafe0V.patch
 FROMGIT-usb-typec-tcpci_maxim-Enable-VSAFE0V-signalling.patch
 FROMGIT-usb-typec-intel_pmc_mux-Configure-cable-generation-value-for-USB4.patch
+FROMGIT-USB-typec-tcpm-Hard-Reset-after-not-receiving-a-Request.patch
+FROMGIT-USB-typec-tcpm-Fix-PR_SWAP-error-handling.patch
+FROMGIT-USB-typec-tcpm-Add-a-30ms-room-for-tPSSourceOn-in-PR_SWAP.patch
+FROMGIT-USB-typec-tcpci-Add-Bleed-discharge-to-POWER_CONTROL-definition.patch
+FROMGIT-usb-typec-Add-class-for-plug-alt-mode-device.patch
+FROMGIT-usb-typec-tcpci-Enable-bleed-discharge-when-auto-discharge-is-enabled.patch
 FROMGIT-libfs-Add-generic-function-for-setting-dentry_ops.patch
 FROMGIT-fscrypt-Have-filesystems-handle-their-d_ops.patch
 FROMGIT-f2fs-Handle-casefolding-with-Encryption.patch
@@ -825,6 +831,7 @@ ANDROID-Disable-hermetic-toolchain-for-allmodconfig-builds.patch
 ANDROID-GKI-enable-CONFIG_USB_DWC3-to-be-build-in.patch
 ANDROID-db845c_gki.fragment-Drop-CONFIG_USB_DWC3-from-config-frament.patch
 ANDROID-x86-configs-gki-add-missing-CONFIG_BLK_CGROUP.patch
+ANDROID-configs-GKI-disable-ARMv8.3-PAC.patch
 _____ANNOTATION-Patches-for-bringing-up-new-SoCs_____.patch
 ANDROID-serial-msm_geni_serial_earlycon-Add-Earlycon-support.patch
 ANDROID-arm64-Add-support-for-asymmetric-AArch32-EL0-configurations.patch
