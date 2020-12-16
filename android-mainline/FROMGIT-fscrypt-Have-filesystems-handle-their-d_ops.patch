@@ -43,7 +43,7 @@ Change-Id: Ib9086321633a00e62386ccde7b4c2e775a1a7979
 diff --git a/fs/crypto/fname.c b/fs/crypto/fname.c
 --- a/fs/crypto/fname.c
 +++ b/fs/crypto/fname.c
-@@ -570,7 +570,3 @@ int fscrypt_d_revalidate(struct dentry *dentry, unsigned int flags)
+@@ -574,7 +574,3 @@ int fscrypt_d_revalidate(struct dentry *dentry, unsigned int flags)
  	return valid;
  }
  EXPORT_SYMBOL_GPL(fscrypt_d_revalidate);
@@ -54,7 +54,7 @@ diff --git a/fs/crypto/fname.c b/fs/crypto/fname.c
 diff --git a/fs/crypto/fscrypt_private.h b/fs/crypto/fscrypt_private.h
 --- a/fs/crypto/fscrypt_private.h
 +++ b/fs/crypto/fscrypt_private.h
-@@ -294,7 +294,6 @@ int fscrypt_fname_encrypt(const struct inode *inode, const struct qstr *iname,
+@@ -297,7 +297,6 @@ int fscrypt_fname_encrypt(const struct inode *inode, const struct qstr *iname,
  bool fscrypt_fname_encrypted_size(const union fscrypt_policy *policy,
  				  u32 orig_len, u32 max_len,
  				  u32 *encrypted_len_ret);
@@ -65,7 +65,7 @@ diff --git a/fs/crypto/fscrypt_private.h b/fs/crypto/fscrypt_private.h
 diff --git a/fs/crypto/hooks.c b/fs/crypto/hooks.c
 --- a/fs/crypto/hooks.c
 +++ b/fs/crypto/hooks.c
-@@ -117,7 +117,6 @@ int __fscrypt_prepare_lookup(struct inode *dir, struct dentry *dentry,
+@@ -108,7 +108,6 @@ int __fscrypt_prepare_lookup(struct inode *dir, struct dentry *dentry,
  		spin_lock(&dentry->d_lock);
  		dentry->d_flags |= DCACHE_NOKEY_NAME;
  		spin_unlock(&dentry->d_lock);
@@ -76,8 +76,8 @@ diff --git a/fs/crypto/hooks.c b/fs/crypto/hooks.c
 diff --git a/fs/ext4/dir.c b/fs/ext4/dir.c
 --- a/fs/ext4/dir.c
 +++ b/fs/ext4/dir.c
-@@ -667,10 +667,3 @@ const struct file_operations ext4_dir_operations = {
- 	.open		= ext4_dir_open,
+@@ -657,10 +657,3 @@ const struct file_operations ext4_dir_operations = {
+ 	.fsync		= ext4_sync_file,
  	.release	= ext4_release_dir,
  };
 -
@@ -104,7 +104,7 @@ diff --git a/fs/ext4/ext4.h b/fs/ext4/ext4.h
 diff --git a/fs/ext4/namei.c b/fs/ext4/namei.c
 --- a/fs/ext4/namei.c
 +++ b/fs/ext4/namei.c
-@@ -1614,6 +1614,7 @@ static struct buffer_head *ext4_lookup_entry(struct inode *dir,
+@@ -1608,6 +1608,7 @@ static struct buffer_head *ext4_lookup_entry(struct inode *dir,
  	struct buffer_head *bh;
  
  	err = ext4_fname_prepare_lookup(dir, dentry, &fname);
@@ -130,7 +130,7 @@ diff --git a/fs/ext4/super.c b/fs/ext4/super.c
 diff --git a/fs/f2fs/dir.c b/fs/f2fs/dir.c
 --- a/fs/f2fs/dir.c
 +++ b/fs/f2fs/dir.c
-@@ -1099,10 +1099,3 @@ const struct file_operations f2fs_dir_operations = {
+@@ -1091,10 +1091,3 @@ const struct file_operations f2fs_dir_operations = {
  	.compat_ioctl   = f2fs_compat_ioctl,
  #endif
  };
@@ -144,7 +144,7 @@ diff --git a/fs/f2fs/dir.c b/fs/f2fs/dir.c
 diff --git a/fs/f2fs/f2fs.h b/fs/f2fs/f2fs.h
 --- a/fs/f2fs/f2fs.h
 +++ b/fs/f2fs/f2fs.h
-@@ -3767,9 +3767,6 @@ static inline void f2fs_update_sit_info(struct f2fs_sb_info *sbi) {}
+@@ -3769,9 +3769,6 @@ static inline void f2fs_update_sit_info(struct f2fs_sb_info *sbi) {}
  #endif
  
  extern const struct file_operations f2fs_dir_operations;
@@ -190,9 +190,9 @@ diff --git a/fs/ubifs/dir.c b/fs/ubifs/dir.c
 diff --git a/include/linux/fscrypt.h b/include/linux/fscrypt.h
 --- a/include/linux/fscrypt.h
 +++ b/include/linux/fscrypt.h
-@@ -741,8 +741,11 @@ static inline int fscrypt_prepare_rename(struct inode *old_dir,
-  * directory's encryption key is available, then the lookup is assumed to be by
-  * plaintext name; otherwise, it is assumed to be by no-key name.
+@@ -757,8 +757,11 @@ static inline int fscrypt_prepare_rename(struct inode *old_dir,
+  * key is available, then the lookup is assumed to be by plaintext name;
+  * otherwise, it is assumed to be by no-key name.
   *
 - * This also installs a custom ->d_revalidate() method which will invalidate the
 - * dentry if it was created without the key and the key is later added.

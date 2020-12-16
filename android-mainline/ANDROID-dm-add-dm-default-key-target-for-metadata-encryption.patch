@@ -675,7 +675,7 @@ diff --git a/include/linux/blk_types.h b/include/linux/blk_types.h
 diff --git a/include/linux/fscrypt.h b/include/linux/fscrypt.h
 --- a/include/linux/fscrypt.h
 +++ b/include/linux/fscrypt.h
-@@ -597,6 +597,20 @@ static inline bool fscrypt_mergeable_bio_bh(struct bio *bio,
+@@ -639,6 +639,20 @@ static inline bool fscrypt_mergeable_bio_bh(struct bio *bio,
  }
  #endif /* !CONFIG_FS_ENCRYPTION_INLINE_CRYPT */
  

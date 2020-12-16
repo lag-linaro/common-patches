@@ -142,7 +142,7 @@ diff --git a/fs/crypto/inline_crypt.c b/fs/crypto/inline_crypt.c
 diff --git a/include/linux/fscrypt.h b/include/linux/fscrypt.h
 --- a/include/linux/fscrypt.h
 +++ b/include/linux/fscrypt.h
-@@ -567,6 +567,11 @@ bool fscrypt_mergeable_bio(struct bio *bio, const struct inode *inode,
+@@ -609,6 +609,11 @@ bool fscrypt_mergeable_bio(struct bio *bio, const struct inode *inode,
  bool fscrypt_mergeable_bio_bh(struct bio *bio,
  			      const struct buffer_head *next_bh);
  
@@ -154,7 +154,7 @@ diff --git a/include/linux/fscrypt.h b/include/linux/fscrypt.h
  #else /* CONFIG_FS_ENCRYPTION_INLINE_CRYPT */
  
  static inline bool __fscrypt_inode_uses_inline_crypto(const struct inode *inode)
-@@ -595,6 +600,20 @@ static inline bool fscrypt_mergeable_bio_bh(struct bio *bio,
+@@ -637,6 +642,20 @@ static inline bool fscrypt_mergeable_bio_bh(struct bio *bio,
  {
  	return true;
  }
