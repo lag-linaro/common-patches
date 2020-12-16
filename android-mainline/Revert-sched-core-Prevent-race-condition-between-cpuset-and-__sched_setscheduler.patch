@@ -57,7 +57,7 @@ diff --git a/kernel/cgroup/cpuset.c b/kernel/cgroup/cpuset.c
 @@ -334,17 +334,6 @@ static struct cpuset top_cpuset = {
   */
  
- static DEFINE_MUTEX(cpuset_mutex);
+ DEFINE_STATIC_PERCPU_RWSEM(cpuset_rwsem);
 -
 -void cpuset_read_lock(void)
 -{

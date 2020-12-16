@@ -2,12 +2,11 @@
 # android-mainline patches
 #
 # Applies onto upstream 533369b145d8 Linux v5.10-3063-g533369b145d8
-# Matches android-mainline 482ed74e4051 ("Merge 533369b145d8 ("Merge tag 'timers-core-2020-12-14' of git://git.kernel.org/pub/scm/linux/kernel/git/tip/tip") into android-mailine")
+# Matches android-mainline 52172897b41f ("Revert "ANDROID: stop_machine: stop_one_cpu_async"")
 #
 Revert-block-grant-IOPRIO_CLASS_RT-to-CAP_SYS_NICE.patch
 Revert-arm64-dts-qcom-sdm845-db845c-Fix-hdmi-nodes.patch
 Revert-thermal-Make-thermal_zone_device_is_enabled-available-to-core-only.patch
-Revert-cgroup-cpuset-Convert-cpuset_mutex-to-percpu_rwsem.patch
 _____ANNOTATION-pending-upstream_____.patch
 FROMGIT-scsi-ufs-Put-HBA-into-LPM-during-gating.patch
 FROMGIT-scsi-ufs-Serialize-eh_work-with-system-PM-events-and-async-scan.patch
@@ -203,15 +202,6 @@ ANDROID-sched-Track-wake_q-length.patch
 ANDROID-Sched-Export-scheduler-symbols-needed-by-vendor-modules.patch
 ANDROID-tracing-Add-restricted-vendor-hooks-for-preemptirq-events.patch
 ANDROID-Sched-Add-restricted-vendor-hooks-for-scheduler.patch
-ANDROID-stop_machine-stop_one_cpu_async.patch
-ANDROID-sched-rt-cpu_active_mask-intersection.patch
-ANDROID-sched-fair-update_max_interval-active_mask-dependant.patch
-ANDROID-cgroup-cpuset-rely-on-active_mask-for-guaranteed-online-CPU.patch
-ANDROID-cpu-hotplug-protect-_cpu_down-against-partial-HP.patch
-ANDROID-cpu-hotplug-add-pause-resume_cpus-interface.patch
-ANDROID-cpu-hotplug-add-migration-to-paused_cpus.patch
-ANDROID-cpu-hotplug-rebuild-sched-domains-immediately.patch
-ANDROID-cpu-hotplug-vendor-hook-for-resume-cpus.patch
 ANDROID-sched-Add-rvh-for-cpu-controller-cgroup-attach.patch
 ANDROID-cgroup-Export-functions-used-by-modules.patch
 ANDROID-sched-Export-key-used-by-module.patch
@@ -844,3 +834,4 @@ ANDROID-arm64-kvm-Hide-asym-aarch32-systems-from-KVM.patch
 ANDROID-arm64-Enable-KVM-for-Asym-AArch32.patch
 _____ANNOTATION-remove-ANNOTATIONS-file_____.patch
 DROP-ME-minor-out-of-tree-difference.patch
+ANDROID-sched-Export-sched_setattr_nocheck.patch
