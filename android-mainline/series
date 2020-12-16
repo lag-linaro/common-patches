@@ -2,7 +2,7 @@
 # android-mainline patches
 #
 # Applies onto upstream 586592478b1f Linux v5.10-2664-g586592478b1f
-# Matches android-mainline 8f30fa368997 ("Merge 586592478b1f ("Merge tag 's390-5.11-1' of git://git.kernel.org/pub/scm/linux/kernel/git/s390/linux") into android-mainline")
+# Matches android-mainline 78b9769f2995 ("ANDROID: Incremental fs: sha.h has been split into two, handle this.")
 #
 Revert-block-grant-IOPRIO_CLASS_RT-to-CAP_SYS_NICE.patch
 Revert-arm64-dts-qcom-sdm845-db845c-Fix-hdmi-nodes.patch
@@ -512,6 +512,7 @@ ANDROID-Incremental-fs-Add-v2-feature-flag.patch
 ANDROID-Incremental-fs-Change-per-UID-timeouts-to-microseconds.patch
 ANDROID-Incremental-fs-Fix-incfs_test-use-of-atol-open.patch
 ANDROID-Incremental-fs-Set-credentials-before-reading-writing.patch
+ANDROID-Incremental-fs-sha.h-has-been-split-into-two-handle-this.patch
 _____ANNOTATION-networking-changes_____.patch
 ANDROID-net-xfrm-make-PF_KEY-SHA256-use-RFC-compliant-truncation.patch
 ANDROID-net-xfrm-always-export-pktgen_xfrm_outer_mode_output.patch

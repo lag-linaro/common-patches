@@ -1,0 +1,28 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: Greg Kroah-Hartman <gregkh@google.com>
+Date: Tue, 15 Dec 2020 15:42:38 +0100
+Subject: ANDROID: Incremental fs: sha.h has been split into two, handle this.
+
+commit a24d22b225ce ("crypto: sha - split sha.h into sha1.h and sha2.h")
+got rid of sha.h, which broke the incfs build.  Fix this up by picking
+the correct .h file to include.
+
+Fixes: a24d22b225ce ("crypto: sha - split sha.h into sha1.h and sha2.h")
+Change-Id: I7a733430f48dc9f35a88c18bf549b62da11070a9
+Signed-off-by: Greg Kroah-Hartman <gregkh@google.com>
+---
+ fs/incfs/integrity.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/fs/incfs/integrity.c b/fs/incfs/integrity.c
+--- a/fs/incfs/integrity.c
++++ b/fs/incfs/integrity.c
+@@ -2,7 +2,7 @@
+ /*
+  * Copyright 2019 Google LLC
+  */
+-#include <crypto/sha.h>
++#include <crypto/sha2.h>
+ #include <crypto/hash.h>
+ #include <linux/err.h>
+ #include <linux/version.h>
