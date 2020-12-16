@@ -28,7 +28,7 @@ Signed-off-by: J. Avila <elavila@google.com>
 diff --git a/include/linux/sched.h b/include/linux/sched.h
 --- a/include/linux/sched.h
 +++ b/include/linux/sched.h
-@@ -1652,6 +1652,16 @@ current_restore_flags(unsigned long orig_flags, unsigned long flags)
+@@ -1658,6 +1658,16 @@ current_restore_flags(unsigned long orig_flags, unsigned long flags)
  
  extern int cpuset_cpumask_can_shrink(const struct cpumask *cur, const struct cpumask *trial);
  extern int task_can_attach(struct task_struct *p, const struct cpumask *cs_cpus_allowed);

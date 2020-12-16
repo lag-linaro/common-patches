@@ -62,7 +62,7 @@ diff --git a/kernel/time/tick-common.c b/kernel/time/tick-common.c
  
  #include <asm/irq_regs.h>
  
-@@ -94,6 +95,7 @@ static void tick_periodic(int cpu)
+@@ -95,6 +96,7 @@ static void tick_periodic(int cpu)
  		write_seqcount_end(&jiffies_seq);
  		raw_spin_unlock(&jiffies_lock);
  		update_wall_time();
@@ -73,7 +73,7 @@ diff --git a/kernel/time/tick-common.c b/kernel/time/tick-common.c
 diff --git a/kernel/time/tick-sched.c b/kernel/time/tick-sched.c
 --- a/kernel/time/tick-sched.c
 +++ b/kernel/time/tick-sched.c
-@@ -25,6 +25,7 @@
+@@ -26,6 +26,7 @@
  #include <linux/posix-timers.h>
  #include <linux/context_tracking.h>
  #include <linux/mm.h>
@@ -81,7 +81,7 @@ diff --git a/kernel/time/tick-sched.c b/kernel/time/tick-sched.c
  
  #include <asm/irq_regs.h>
  
-@@ -143,8 +144,10 @@ static void tick_sched_do_timer(struct tick_sched *ts, ktime_t now)
+@@ -193,8 +194,10 @@ static void tick_sched_do_timer(struct tick_sched *ts, ktime_t now)
  #endif
  
  	/* Check, if the jiffies need an update */

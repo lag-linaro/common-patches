@@ -92,7 +92,7 @@ diff --git a/kernel/sched/core.c b/kernel/sched/core.c
  
  	/*
  	 * The child is not yet in the pid-hash so no cgroup attach races,
-@@ -4854,6 +4856,7 @@ void rt_mutex_setprio(struct task_struct *p, struct task_struct *pi_task)
+@@ -4855,6 +4857,7 @@ void rt_mutex_setprio(struct task_struct *p, struct task_struct *pi_task)
  	struct rq_flags rf;
  	struct rq *rq;
  
@@ -100,7 +100,7 @@ diff --git a/kernel/sched/core.c b/kernel/sched/core.c
  	/* XXX used to be waiter->prio, not waiter->task->prio */
  	prio = __rt_effective_prio(pi_task, p->normal_prio);
  
-@@ -4986,6 +4989,7 @@ void set_user_nice(struct task_struct *p, long nice)
+@@ -4987,6 +4990,7 @@ void set_user_nice(struct task_struct *p, long nice)
  	 */
  	rq = task_rq_lock(p, &rf);
  	update_rq_clock(rq);
@@ -108,7 +108,7 @@ diff --git a/kernel/sched/core.c b/kernel/sched/core.c
  
  	/*
  	 * The RT priorities are set via sched_setscheduler(), but we still
-@@ -5208,6 +5212,8 @@ static void __setscheduler(struct rq *rq, struct task_struct *p,
+@@ -5209,6 +5213,8 @@ static void __setscheduler(struct rq *rq, struct task_struct *p,
  		p->sched_class = &rt_sched_class;
  	else
  		p->sched_class = &fair_sched_class;

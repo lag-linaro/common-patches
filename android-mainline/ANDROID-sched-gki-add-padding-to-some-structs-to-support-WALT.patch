@@ -47,15 +47,15 @@ diff --git a/include/linux/arch_topology.h b/include/linux/arch_topology.h
 diff --git a/include/linux/sched.h b/include/linux/sched.h
 --- a/include/linux/sched.h
 +++ b/include/linux/sched.h
-@@ -1348,7 +1348,7 @@ struct task_struct {
+@@ -1350,7 +1350,7 @@ struct task_struct {
  					__mce_reserved : 62;
  	struct callback_head		mce_kill_me;
  #endif
 -	ANDROID_VENDOR_DATA_ARRAY(1, 2);
 +	ANDROID_VENDOR_DATA_ARRAY(1, 64);
  
- 	/*
- 	 * New fields for task_struct should be added above here, so that
+ #ifdef CONFIG_KRETPROBES
+ 	struct llist_head               kretprobe_instances;
 diff --git a/include/linux/sched/topology.h b/include/linux/sched/topology.h
 --- a/include/linux/sched/topology.h
 +++ b/include/linux/sched/topology.h

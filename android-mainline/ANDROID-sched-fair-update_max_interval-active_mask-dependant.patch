@@ -19,7 +19,7 @@ Signed-off-by: Vincent Donnefort <vincent.donnefort@arm.com>
 diff --git a/kernel/sched/core.c b/kernel/sched/core.c
 --- a/kernel/sched/core.c
 +++ b/kernel/sched/core.c
-@@ -6971,6 +6971,8 @@ int sched_cpu_activate(unsigned int cpu)
+@@ -6972,6 +6972,8 @@ int sched_cpu_activate(unsigned int cpu)
  	}
  	rq_unlock_irqrestore(rq, &rf);
  
@@ -28,7 +28,7 @@ diff --git a/kernel/sched/core.c b/kernel/sched/core.c
  	return 0;
  }
  
-@@ -7005,6 +7007,9 @@ int sched_cpu_deactivate(unsigned int cpu)
+@@ -7006,6 +7008,9 @@ int sched_cpu_deactivate(unsigned int cpu)
  		return ret;
  	}
  	sched_domains_numa_masks_clear(cpu);
@@ -38,7 +38,7 @@ diff --git a/kernel/sched/core.c b/kernel/sched/core.c
  	return 0;
  }
  
-@@ -7013,7 +7018,6 @@ static void sched_rq_cpu_starting(unsigned int cpu)
+@@ -7014,7 +7019,6 @@ static void sched_rq_cpu_starting(unsigned int cpu)
  	struct rq *rq = cpu_rq(cpu);
  
  	rq->calc_load_update = calc_load_update;
@@ -46,7 +46,7 @@ diff --git a/kernel/sched/core.c b/kernel/sched/core.c
  }
  
  int sched_cpu_starting(unsigned int cpu)
-@@ -7045,7 +7049,6 @@ int sched_cpu_dying(unsigned int cpu)
+@@ -7046,7 +7050,6 @@ int sched_cpu_dying(unsigned int cpu)
  	trace_android_rvh_sched_cpu_dying(cpu);
  
  	calc_load_migrate(rq);

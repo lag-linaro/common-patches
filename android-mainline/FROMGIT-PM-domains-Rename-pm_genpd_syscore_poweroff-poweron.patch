@@ -86,7 +86,7 @@ diff --git a/drivers/base/power/domain.c b/drivers/base/power/domain.c
 diff --git a/drivers/clocksource/sh_cmt.c b/drivers/clocksource/sh_cmt.c
 --- a/drivers/clocksource/sh_cmt.c
 +++ b/drivers/clocksource/sh_cmt.c
-@@ -658,7 +658,7 @@ static void sh_cmt_clocksource_suspend(struct clocksource *cs)
+@@ -668,7 +668,7 @@ static void sh_cmt_clocksource_suspend(struct clocksource *cs)
  		return;
  
  	sh_cmt_stop(ch, FLAG_CLOCKSOURCE);
@@ -95,7 +95,7 @@ diff --git a/drivers/clocksource/sh_cmt.c b/drivers/clocksource/sh_cmt.c
  }
  
  static void sh_cmt_clocksource_resume(struct clocksource *cs)
-@@ -668,7 +668,7 @@ static void sh_cmt_clocksource_resume(struct clocksource *cs)
+@@ -678,7 +678,7 @@ static void sh_cmt_clocksource_resume(struct clocksource *cs)
  	if (!ch->cs_enabled)
  		return;
  
@@ -104,7 +104,7 @@ diff --git a/drivers/clocksource/sh_cmt.c b/drivers/clocksource/sh_cmt.c
  	sh_cmt_start(ch, FLAG_CLOCKSOURCE);
  }
  
-@@ -760,7 +760,7 @@ static void sh_cmt_clock_event_suspend(struct clock_event_device *ced)
+@@ -770,7 +770,7 @@ static void sh_cmt_clock_event_suspend(struct clock_event_device *ced)
  {
  	struct sh_cmt_channel *ch = ced_to_sh_cmt(ced);
  
@@ -113,7 +113,7 @@ diff --git a/drivers/clocksource/sh_cmt.c b/drivers/clocksource/sh_cmt.c
  	clk_unprepare(ch->cmt->clk);
  }
  
-@@ -769,7 +769,7 @@ static void sh_cmt_clock_event_resume(struct clock_event_device *ced)
+@@ -779,7 +779,7 @@ static void sh_cmt_clock_event_resume(struct clock_event_device *ced)
  	struct sh_cmt_channel *ch = ced_to_sh_cmt(ced);
  
  	clk_prepare(ch->cmt->clk);

@@ -206,7 +206,7 @@ diff --git a/kernel/sched/core.c b/kernel/sched/core.c
  	update_rq_clock(rq);
  	thermal_pressure = arch_scale_thermal_pressure(cpu_of(rq));
  	update_thermal_load_avg(rq_clock_thermal(rq), rq, thermal_pressure);
-@@ -4535,6 +4547,7 @@ static void __sched notrace __schedule(bool preempt)
+@@ -4536,6 +4548,7 @@ static void __sched notrace __schedule(bool preempt)
  	clear_tsk_need_resched(prev);
  	clear_preempt_need_resched();
  
@@ -214,7 +214,7 @@ diff --git a/kernel/sched/core.c b/kernel/sched/core.c
  	if (likely(prev != next)) {
  		rq->nr_switches++;
  		/*
-@@ -7007,6 +7020,7 @@ int sched_cpu_starting(unsigned int cpu)
+@@ -7008,6 +7021,7 @@ int sched_cpu_starting(unsigned int cpu)
  {
  	sched_rq_cpu_starting(cpu);
  	sched_tick_start(cpu);
@@ -222,7 +222,7 @@ diff --git a/kernel/sched/core.c b/kernel/sched/core.c
  	return 0;
  }
  
-@@ -7028,6 +7042,8 @@ int sched_cpu_dying(unsigned int cpu)
+@@ -7029,6 +7043,8 @@ int sched_cpu_dying(unsigned int cpu)
  	BUG_ON(rq->nr_running != 1);
  	rq_unlock_irqrestore(rq, &rf);
  

@@ -199,7 +199,7 @@ diff --git a/kernel/cpu.c b/kernel/cpu.c
 diff --git a/kernel/sched/core.c b/kernel/sched/core.c
 --- a/kernel/sched/core.c
 +++ b/kernel/sched/core.c
-@@ -6976,19 +6976,27 @@ int sched_cpu_activate(unsigned int cpu)
+@@ -6977,19 +6977,27 @@ int sched_cpu_activate(unsigned int cpu)
  	return 0;
  }
  
@@ -236,7 +236,7 @@ diff --git a/kernel/sched/core.c b/kernel/sched/core.c
  
  #ifdef CONFIG_SCHED_SMT
  	/*
-@@ -7013,6 +7021,43 @@ int sched_cpu_deactivate(unsigned int cpu)
+@@ -7014,6 +7022,43 @@ int sched_cpu_deactivate(unsigned int cpu)
  	return 0;
  }
  

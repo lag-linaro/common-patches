@@ -1,8 +1,8 @@
 #
 # android-mainline patches
 #
-# Applies onto upstream 0ca2ce81eb8e Linux v5.10-2750-g0ca2ce81eb8e
-# Matches android-mainline 80b1c109be75 ("Merge 0ca2ce81eb8e ("Merge tag 'arm64-upstream' of git://git.kernel.org/pub/scm/linux/kernel/git/arm64/linux") into android-mainline")
+# Applies onto upstream 533369b145d8 Linux v5.10-3063-g533369b145d8
+# Matches android-mainline 482ed74e4051 ("Merge 533369b145d8 ("Merge tag 'timers-core-2020-12-14' of git://git.kernel.org/pub/scm/linux/kernel/git/tip/tip") into android-mailine")
 #
 Revert-block-grant-IOPRIO_CLASS_RT-to-CAP_SYS_NICE.patch
 Revert-arm64-dts-qcom-sdm845-db845c-Fix-hdmi-nodes.patch

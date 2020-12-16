@@ -26,7 +26,7 @@ diff --git a/kernel/sched/core.c b/kernel/sched/core.c
  
  /*
   * When a task is enqueued on a rq, the clamp bucket currently defined by the
-@@ -5129,6 +5130,7 @@ int idle_cpu(int cpu)
+@@ -5130,6 +5131,7 @@ int idle_cpu(int cpu)
  
  	return 1;
  }

@@ -53,7 +53,7 @@ diff --git a/drivers/android/vendor_hooks.c b/drivers/android/vendor_hooks.c
 diff --git a/include/linux/sched.h b/include/linux/sched.h
 --- a/include/linux/sched.h
 +++ b/include/linux/sched.h
-@@ -34,6 +34,7 @@
+@@ -35,6 +35,7 @@
  #include <linux/rseq.h>
  #include <linux/seqlock.h>
  #include <linux/kcsan.h>
@@ -61,14 +61,14 @@ diff --git a/include/linux/sched.h b/include/linux/sched.h
  
  /* task_struct member predeclarations (sorted alphabetically): */
  struct audit_context;
-@@ -1347,6 +1348,7 @@ struct task_struct {
+@@ -1349,6 +1350,7 @@ struct task_struct {
  					__mce_reserved : 62;
  	struct callback_head		mce_kill_me;
  #endif
 +	ANDROID_VENDOR_DATA_ARRAY(1, 2);
  
- 	/*
- 	 * New fields for task_struct should be added above here, so that
+ #ifdef CONFIG_KRETPROBES
+ 	struct llist_head               kretprobe_instances;
 diff --git a/include/trace/hooks/dtask.h b/include/trace/hooks/dtask.h
 new file mode 100644
 index 000000000000..f4fafbfedc23
@@ -174,8 +174,8 @@ diff --git a/kernel/locking/rwsem.c b/kernel/locking/rwsem.c
 +#include <trace/hooks/dtask.h>
  
  /*
-  * The least significant 3 bits of the owner value has the following
-@@ -1090,6 +1091,7 @@ rwsem_down_read_slowpath(struct rw_semaphore *sem, int state)
+  * The least significant 2 bits of the owner value has the following
+@@ -983,6 +984,7 @@ rwsem_down_read_slowpath(struct rw_semaphore *sem, long count, int state)
  	wake_up_q(&wake_q);
  
  	/* wait to be given the lock */
@@ -183,7 +183,7 @@ diff --git a/kernel/locking/rwsem.c b/kernel/locking/rwsem.c
  	for (;;) {
  		set_current_state(state);
  		if (!smp_load_acquire(&waiter.task)) {
-@@ -1109,6 +1111,7 @@ rwsem_down_read_slowpath(struct rw_semaphore *sem, int state)
+@@ -1002,6 +1004,7 @@ rwsem_down_read_slowpath(struct rw_semaphore *sem, long count, int state)
  	}
  
  	__set_current_state(TASK_RUNNING);
@@ -191,7 +191,7 @@ diff --git a/kernel/locking/rwsem.c b/kernel/locking/rwsem.c
  	lockevent_inc(rwsem_rlock);
  	return sem;
  
-@@ -1120,6 +1123,7 @@ rwsem_down_read_slowpath(struct rw_semaphore *sem, int state)
+@@ -1013,6 +1016,7 @@ rwsem_down_read_slowpath(struct rw_semaphore *sem, long count, int state)
  	}
  	raw_spin_unlock_irq(&sem->wait_lock);
  	__set_current_state(TASK_RUNNING);
@@ -199,7 +199,7 @@ diff --git a/kernel/locking/rwsem.c b/kernel/locking/rwsem.c
  	lockevent_inc(rwsem_rlock_fail);
  	return ERR_PTR(-EINTR);
  }
-@@ -1220,6 +1224,7 @@ rwsem_down_write_slowpath(struct rw_semaphore *sem, int state)
+@@ -1091,6 +1095,7 @@ rwsem_down_write_slowpath(struct rw_semaphore *sem, int state)
  wait:
  	trace_android_vh_rwsem_wake(sem);
  	/* wait until we successfully acquire the lock */
@@ -207,15 +207,15 @@ diff --git a/kernel/locking/rwsem.c b/kernel/locking/rwsem.c
  	set_current_state(state);
  	for (;;) {
  		if (rwsem_try_write_lock(sem, wstate)) {
-@@ -1279,6 +1284,7 @@ rwsem_down_write_slowpath(struct rw_semaphore *sem, int state)
+@@ -1150,6 +1155,7 @@ rwsem_down_write_slowpath(struct rw_semaphore *sem, int state)
  		raw_spin_lock_irq(&sem->wait_lock);
  	}
  	__set_current_state(TASK_RUNNING);
 +	trace_android_vh_rwsem_write_wait_finish(sem);
  	list_del(&waiter.list);
- 	rwsem_disable_reader_optspin(sem, disable_rspin);
  	raw_spin_unlock_irq(&sem->wait_lock);
-@@ -1288,6 +1294,7 @@ rwsem_down_write_slowpath(struct rw_semaphore *sem, int state)
+ 	lockevent_inc(rwsem_wlock);
+@@ -1158,6 +1164,7 @@ rwsem_down_write_slowpath(struct rw_semaphore *sem, int state)
  
  out_nolock:
  	__set_current_state(TASK_RUNNING);
@@ -234,7 +234,7 @@ diff --git a/kernel/sched/core.c b/kernel/sched/core.c
  
  /*
   * Export tracepoints that act as a bare tracehook (ie: have no trace event
-@@ -6464,6 +6465,7 @@ void sched_show_task(struct task_struct *p)
+@@ -6465,6 +6466,7 @@ void sched_show_task(struct task_struct *p)
  		(unsigned long)task_thread_info(p)->flags);
  
  	print_worker_info(KERN_INFO, p);

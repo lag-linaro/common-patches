@@ -31,7 +31,7 @@ Signed-off-by: Matthias Maennich <maennich@google.com>
 diff --git a/include/linux/sched.h b/include/linux/sched.h
 --- a/include/linux/sched.h
 +++ b/include/linux/sched.h
-@@ -710,6 +710,10 @@ struct task_struct {
+@@ -711,6 +711,10 @@ struct task_struct {
  	struct uclamp_se		uclamp[UCLAMP_CNT];
  #endif
  
@@ -156,7 +156,7 @@ diff --git a/kernel/cpu.c b/kernel/cpu.c
 diff --git a/kernel/sched/core.c b/kernel/sched/core.c
 --- a/kernel/sched/core.c
 +++ b/kernel/sched/core.c
-@@ -6783,11 +6783,14 @@ static struct task_struct *__pick_migrate_task(struct rq *rq)
+@@ -6784,11 +6784,14 @@ static struct task_struct *__pick_migrate_task(struct rq *rq)
   * Called with rq->lock held even though we'er in stop_machine() and
   * there's no concurrency possible, we hold the required locks anyway
   * because of lock validation efforts.
@@ -173,7 +173,7 @@ diff --git a/kernel/sched/core.c b/kernel/sched/core.c
  	struct rq_flags orf = *rf;
  	int dest_cpu;
  
-@@ -6819,6 +6822,18 @@ static void migrate_tasks(struct rq *dead_rq, struct rq_flags *rf)
+@@ -6820,6 +6823,18 @@ static void migrate_tasks(struct rq *dead_rq, struct rq_flags *rf)
  
  		next = __pick_migrate_task(rq);
  
@@ -192,7 +192,7 @@ diff --git a/kernel/sched/core.c b/kernel/sched/core.c
  		/*
  		 * Rules for changing task_struct::cpus_mask are holding
  		 * both pi_lock and rq->lock, such that holding either
-@@ -6837,7 +6852,14 @@ static void migrate_tasks(struct rq *dead_rq, struct rq_flags *rf)
+@@ -6838,7 +6853,14 @@ static void migrate_tasks(struct rq *dead_rq, struct rq_flags *rf)
  		 * changed the task, WARN if weird stuff happened, because in
  		 * that case the above rq->lock drop is a fail too.
  		 */
@@ -208,7 +208,7 @@ diff --git a/kernel/sched/core.c b/kernel/sched/core.c
  			raw_spin_unlock(&next->pi_lock);
  			continue;
  		}
-@@ -6854,8 +6876,48 @@ static void migrate_tasks(struct rq *dead_rq, struct rq_flags *rf)
+@@ -6855,8 +6877,48 @@ static void migrate_tasks(struct rq *dead_rq, struct rq_flags *rf)
  		raw_spin_unlock(&next->pi_lock);
  	}
  
@@ -257,7 +257,7 @@ diff --git a/kernel/sched/core.c b/kernel/sched/core.c
  #endif /* CONFIG_HOTPLUG_CPU */
  
  void set_rq_online(struct rq *rq)
-@@ -7087,7 +7149,7 @@ int sched_cpu_dying(unsigned int cpu)
+@@ -7088,7 +7150,7 @@ int sched_cpu_dying(unsigned int cpu)
  		BUG_ON(!cpumask_test_cpu(cpu, rq->rd->span));
  		set_rq_offline(rq);
  	}
