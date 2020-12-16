@@ -34,7 +34,7 @@ Signed-off-by: Eric Biggers <ebiggers@google.com>
 diff --git a/drivers/dma-buf/dma-buf.c b/drivers/dma-buf/dma-buf.c
 --- a/drivers/dma-buf/dma-buf.c
 +++ b/drivers/dma-buf/dma-buf.c
-@@ -1308,6 +1308,18 @@ int dma_buf_get_flags(struct dma_buf *dmabuf, unsigned long *flags)
+@@ -1333,6 +1333,18 @@ int dma_buf_get_flags(struct dma_buf *dmabuf, unsigned long *flags)
  }
  EXPORT_SYMBOL_GPL(dma_buf_get_flags);
  
@@ -56,9 +56,9 @@ diff --git a/drivers/dma-buf/dma-buf.c b/drivers/dma-buf/dma-buf.c
 diff --git a/include/linux/dma-buf.h b/include/linux/dma-buf.h
 --- a/include/linux/dma-buf.h
 +++ b/include/linux/dma-buf.h
-@@ -325,6 +325,21 @@ struct dma_buf_ops {
- 	void *(*vmap)(struct dma_buf *);
- 	void (*vunmap)(struct dma_buf *, void *vaddr);
+@@ -327,6 +327,21 @@ struct dma_buf_ops {
+ 	int (*vmap)(struct dma_buf *dmabuf, struct dma_buf_map *map);
+ 	void (*vunmap)(struct dma_buf *dmabuf, struct dma_buf_map *map);
  
 +	/**
 +	 * @get_uuid
@@ -78,9 +78,9 @@ diff --git a/include/linux/dma-buf.h b/include/linux/dma-buf.h
  	/**
  	 * @get_flags:
  	 *
-@@ -585,4 +600,6 @@ int dma_buf_mmap(struct dma_buf *, struct vm_area_struct *,
- void *dma_buf_vmap(struct dma_buf *);
- void dma_buf_vunmap(struct dma_buf *, void *vaddr);
+@@ -587,4 +602,6 @@ int dma_buf_mmap(struct dma_buf *, struct vm_area_struct *,
+ int dma_buf_vmap(struct dma_buf *dmabuf, struct dma_buf_map *map);
+ void dma_buf_vunmap(struct dma_buf *dmabuf, struct dma_buf_map *map);
  int dma_buf_get_flags(struct dma_buf *dmabuf, unsigned long *flags);
 +int dma_buf_get_uuid(struct dma_buf *dmabuf, uuid_t *uuid);
 +

@@ -1,8 +1,8 @@
 #
 # android-mainline patches
 #
-# Applies onto upstream 2c85ebc57b3e Linux v5.10
-# Matches android-mainline 7923ce03f7b8 ("ANDROID: sched: Export key used by module")
+# Applies onto upstream 1d36dffa5d88 Linux v5.10-1775-g1d36dffa5d88
+# Matches android-mainline 6c49e685e23d ("Merge 1d36dffa5d88 ("Merge tag 'drm-next-2020-12-11' of git://anongit.freedesktop.org/drm/drm") into android-mainline")
 #
 Revert-block-grant-IOPRIO_CLASS_RT-to-CAP_SYS_NICE.patch
 Revert-arm64-dts-qcom-sdm845-db845c-Fix-hdmi-nodes.patch

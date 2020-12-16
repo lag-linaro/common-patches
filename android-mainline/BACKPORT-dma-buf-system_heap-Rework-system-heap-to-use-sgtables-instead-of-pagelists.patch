@@ -47,8 +47,8 @@ Signed-off-by: John Stultz <john.stultz@linaro.org>
 interface]
 Signed-off-by: Hridya Valsaraju <hridya@google.com>
 ---
- drivers/dma-buf/heaps/system_heap.c | 344 ++++++++++++++++++++++++----
- 1 file changed, 298 insertions(+), 46 deletions(-)
+ drivers/dma-buf/heaps/system_heap.c | 347 ++++++++++++++++++++++++----
+ 1 file changed, 301 insertions(+), 46 deletions(-)
 
 diff --git a/drivers/dma-buf/heaps/system_heap.c b/drivers/dma-buf/heaps/system_heap.c
 --- a/drivers/dma-buf/heaps/system_heap.c
@@ -66,7 +66,7 @@ diff --git a/drivers/dma-buf/heaps/system_heap.c b/drivers/dma-buf/heaps/system_
   */
  
  #include <linux/dma-buf.h>
-@@ -15,80 +19,329 @@
+@@ -15,80 +19,332 @@
  #include <linux/module.h>
  #include <linux/scatterlist.h>
  #include <linux/slab.h>
@@ -211,7 +211,10 @@ diff --git a/drivers/dma-buf/heaps/system_heap.c b/drivers/dma-buf/heaps/system_
 +{
 +	struct system_heap_buffer *buffer = dmabuf->priv;
 +	struct dma_heap_attachment *a;
-+
+ 
+-	for (pg = 0; pg < buffer->pagecount; pg++)
+-		__free_page(buffer->pages[pg]);
+-	kfree(buffer->pages);
 +	mutex_lock(&buffer->lock);
 +
 +	if (buffer->vmap_cnt)
@@ -273,7 +276,7 @@ diff --git a/drivers/dma-buf/heaps/system_heap.c b/drivers/dma-buf/heaps/system_
 +	return vaddr;
 +}
 +
-+static void *system_heap_vmap(struct dma_buf *dmabuf)
++static int system_heap_vmap(struct dma_buf *dmabuf, struct dma_buf_map *map)
 +{
 +	struct system_heap_buffer *buffer = dmabuf->priv;
 +	void *vaddr;
@@ -286,21 +289,21 @@ diff --git a/drivers/dma-buf/heaps/system_heap.c b/drivers/dma-buf/heaps/system_
 +	}
 +
 +	vaddr = system_heap_do_vmap(buffer);
-+	if (IS_ERR(vaddr))
-+		goto out;
- 
--	for (pg = 0; pg < buffer->pagecount; pg++)
--		__free_page(buffer->pages[pg]);
--	kfree(buffer->pages);
++	if (IS_ERR(vaddr)) {
++		mutex_unlock(&buffer->lock);
++		return PTR_ERR(vaddr);
++	}
++
 +	buffer->vaddr = vaddr;
 +	buffer->vmap_cnt++;
 +out:
 +	mutex_unlock(&buffer->lock);
 +
-+	return vaddr;
++	dma_buf_map_set_vaddr(map, vaddr);
++	return 0;
 +}
 +
-+static void system_heap_vunmap(struct dma_buf *dmabuf, void *vaddr)
++static void system_heap_vunmap(struct dma_buf *dmabuf, struct dma_buf_map *map)
 +{
 +	struct system_heap_buffer *buffer = dmabuf->priv;
 +
@@ -438,7 +441,7 @@ diff --git a/drivers/dma-buf/heaps/system_heap.c b/drivers/dma-buf/heaps/system_
  
  	return ERR_PTR(ret);
  }
-@@ -100,7 +353,6 @@ static const struct dma_heap_ops system_heap_ops = {
+@@ -100,7 +356,6 @@ static const struct dma_heap_ops system_heap_ops = {
  static int system_heap_create(void)
  {
  	struct dma_heap_export_info exp_info;
@@ -446,7 +449,7 @@ diff --git a/drivers/dma-buf/heaps/system_heap.c b/drivers/dma-buf/heaps/system_
  
  	exp_info.name = "system";
  	exp_info.ops = &system_heap_ops;
-@@ -108,9 +360,9 @@ static int system_heap_create(void)
+@@ -108,9 +363,9 @@ static int system_heap_create(void)
  
  	sys_heap = dma_heap_add(&exp_info);
  	if (IS_ERR(sys_heap))

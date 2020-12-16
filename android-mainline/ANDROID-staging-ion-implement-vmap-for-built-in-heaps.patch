@@ -18,20 +18,25 @@ Change-Id: I243eb7ded49843e719532ad1b1cb7ab37e84460d
 (cherry picked from commit 2a84b66a5d223bea26fb4680d162f039ff0560a0)
 Signed-off-by: Hridya Valsaraju <hridya@google.com>
 ---
- drivers/staging/android/ion/ion_dma_buf.c | 19 ++++++++++++++-----
- 1 file changed, 14 insertions(+), 5 deletions(-)
+ drivers/staging/android/ion/ion_dma_buf.c | 24 ++++++++++++++++-------
+ 1 file changed, 17 insertions(+), 7 deletions(-)
 
 diff --git a/drivers/staging/android/ion/ion_dma_buf.c b/drivers/staging/android/ion/ion_dma_buf.c
 --- a/drivers/staging/android/ion/ion_dma_buf.c
 +++ b/drivers/staging/android/ion/ion_dma_buf.c
-@@ -265,11 +265,16 @@ static void *ion_dma_buf_vmap(struct dma_buf *dmabuf)
+@@ -261,26 +261,36 @@ static int ion_dma_buf_mmap(struct dma_buf *dmabuf, struct vm_area_struct *vma)
+ 	return ret;
+ }
+ 
+-static void *ion_dma_buf_vmap(struct dma_buf *dmabuf)
++static int ion_dma_buf_vmap(struct dma_buf *dmabuf, struct dma_buf_map *map)
  {
  	struct ion_buffer *buffer = dmabuf->priv;
  	struct ion_heap *heap = buffer->heap;
 +	void *vaddr;
 +
 +	if (heap->buf_ops.vmap)
-+		return heap->buf_ops.vmap(dmabuf);
++		return heap->buf_ops.vmap(dmabuf, map);
  
 -	if (!heap->buf_ops.vmap)
 -		return ERR_PTR(-EOPNOTSUPP);
@@ -40,17 +45,19 @@ diff --git a/drivers/staging/android/ion/ion_dma_buf.c b/drivers/staging/android
 +	mutex_unlock(&buffer->lock);
  
 -	return heap->buf_ops.vmap(dmabuf);
-+	return vaddr;
++	dma_buf_map_set_vaddr(map, vaddr);
++	return 0;
  }
  
- static void ion_dma_buf_vunmap(struct dma_buf *dmabuf, void *vaddr)
-@@ -277,10 +282,14 @@ static void ion_dma_buf_vunmap(struct dma_buf *dmabuf, void *vaddr)
+-static void ion_dma_buf_vunmap(struct dma_buf *dmabuf, void *vaddr)
++static void ion_dma_buf_vunmap(struct dma_buf *dmabuf, struct dma_buf_map *map)
+ {
  	struct ion_buffer *buffer = dmabuf->priv;
  	struct ion_heap *heap = buffer->heap;
  
 -	if (!heap->buf_ops.vunmap)
 +	if (heap->buf_ops.vunmap) {
-+		heap->buf_ops.vunmap(dmabuf, vaddr);
++		heap->buf_ops.vunmap(dmabuf, map);
  		return;
 +	}
  

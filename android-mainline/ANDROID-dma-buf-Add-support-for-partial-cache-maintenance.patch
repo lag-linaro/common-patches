@@ -23,7 +23,7 @@ Signed-off-by: Sandeep Patil <sspatil@google.com>
 diff --git a/drivers/dma-buf/dma-buf.c b/drivers/dma-buf/dma-buf.c
 --- a/drivers/dma-buf/dma-buf.c
 +++ b/drivers/dma-buf/dma-buf.c
-@@ -1101,6 +1101,30 @@ int dma_buf_begin_cpu_access(struct dma_buf *dmabuf,
+@@ -1122,6 +1122,30 @@ int dma_buf_begin_cpu_access(struct dma_buf *dmabuf,
  }
  EXPORT_SYMBOL_GPL(dma_buf_begin_cpu_access);
  
@@ -54,7 +54,7 @@ diff --git a/drivers/dma-buf/dma-buf.c b/drivers/dma-buf/dma-buf.c
  /**
   * dma_buf_end_cpu_access - Must be called after accessing a dma_buf from the
   * cpu in the kernel context. Calls end_cpu_access to allow exporter-specific
-@@ -1127,6 +1151,21 @@ int dma_buf_end_cpu_access(struct dma_buf *dmabuf,
+@@ -1148,6 +1172,21 @@ int dma_buf_end_cpu_access(struct dma_buf *dmabuf,
  }
  EXPORT_SYMBOL_GPL(dma_buf_end_cpu_access);
  
@@ -79,7 +79,7 @@ diff --git a/drivers/dma-buf/dma-buf.c b/drivers/dma-buf/dma-buf.c
 diff --git a/include/linux/dma-buf.h b/include/linux/dma-buf.h
 --- a/include/linux/dma-buf.h
 +++ b/include/linux/dma-buf.h
-@@ -209,6 +209,41 @@ struct dma_buf_ops {
+@@ -211,6 +211,41 @@ struct dma_buf_ops {
  	 */
  	int (*begin_cpu_access)(struct dma_buf *, enum dma_data_direction);
  
@@ -121,7 +121,7 @@ diff --git a/include/linux/dma-buf.h b/include/linux/dma-buf.h
  	/**
  	 * @end_cpu_access:
  	 *
-@@ -228,6 +263,28 @@ struct dma_buf_ops {
+@@ -230,6 +265,28 @@ struct dma_buf_ops {
  	 */
  	int (*end_cpu_access)(struct dma_buf *, enum dma_data_direction);
  
@@ -150,7 +150,7 @@ diff --git a/include/linux/dma-buf.h b/include/linux/dma-buf.h
  	/**
  	 * @mmap:
  	 *
-@@ -497,8 +554,14 @@ void dma_buf_unmap_attachment(struct dma_buf_attachment *, struct sg_table *,
+@@ -499,8 +556,14 @@ void dma_buf_unmap_attachment(struct dma_buf_attachment *, struct sg_table *,
  void dma_buf_move_notify(struct dma_buf *dma_buf);
  int dma_buf_begin_cpu_access(struct dma_buf *dma_buf,
  			     enum dma_data_direction dir);
