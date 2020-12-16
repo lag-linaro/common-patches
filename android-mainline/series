@@ -2,7 +2,7 @@
 # android-mainline patches
 #
 # Applies onto upstream 1d36dffa5d88 Linux v5.10-1775-g1d36dffa5d88
-# Matches android-mainline 6c49e685e23d ("Merge 1d36dffa5d88 ("Merge tag 'drm-next-2020-12-11' of git://anongit.freedesktop.org/drm/drm") into android-mainline")
+# Matches android-mainline 39cbc3ab246f ("Revert "ANDROID: v4l2-compat-ioctl32.c: copy reserved fields"")
 #
 Revert-block-grant-IOPRIO_CLASS_RT-to-CAP_SYS_NICE.patch
 Revert-arm64-dts-qcom-sdm845-db845c-Fix-hdmi-nodes.patch
@@ -372,7 +372,6 @@ ANDROID-sound-usb-Add-helper-APIs-to-enable-audio-stream.patch
 ANDROID-sound-usb-Ensure-UAC3-Power-Domain-is-set-to-D0-when-enabling-stream.patch
 ANDROID-sound-usb-Add-vendor-s-hooking-interface.patch
 _____ANNOTATION-media-changes_____.patch
-ANDROID-v4l2-compat-ioctl32.c-copy-reserved-fields.patch
 ANDROID-media-increase-video-max-frame-number.patch
 _____ANNOTATION-input-and-HID-changes_____.patch
 ANDROID-virtio-virtio_input-Set-the-amount-of-multitouch-slots-in-virtio-input.patch

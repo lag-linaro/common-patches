@@ -43,13 +43,13 @@ Signed-off-by: John Stultz <john.stultz@linaro.org>
 interface]
 Signed-off-by: Hridya Valsaraju <hridya@google.com>
 ---
- drivers/dma-buf/heaps/cma_heap.c | 316 ++++++++++++++++++++++++++-----
- 1 file changed, 266 insertions(+), 50 deletions(-)
+ drivers/dma-buf/heaps/cma_heap.c | 319 ++++++++++++++++++++++++++-----
+ 1 file changed, 269 insertions(+), 50 deletions(-)
 
 diff --git a/drivers/dma-buf/heaps/cma_heap.c b/drivers/dma-buf/heaps/cma_heap.c
 --- a/drivers/dma-buf/heaps/cma_heap.c
 +++ b/drivers/dma-buf/heaps/cma_heap.c
-@@ -2,76 +2,290 @@
+@@ -2,76 +2,293 @@
  /*
   * DMABUF CMA heap exporter
   *
@@ -255,7 +255,7 @@ diff --git a/drivers/dma-buf/heaps/cma_heap.c b/drivers/dma-buf/heaps/cma_heap.c
 +	return vaddr;
 +}
 +
-+static void *cma_heap_vmap(struct dma_buf *dmabuf)
++static int cma_heap_vmap(struct dma_buf *dmabuf, struct dma_buf_map *map)
 +{
 +	struct cma_heap_buffer *buffer = dmabuf->priv;
 +	void *vaddr;
@@ -268,18 +268,21 @@ diff --git a/drivers/dma-buf/heaps/cma_heap.c b/drivers/dma-buf/heaps/cma_heap.c
 +	}
 +
 +	vaddr = cma_heap_do_vmap(buffer);
-+	if (IS_ERR(vaddr))
-+		goto out;
++	if (IS_ERR(vaddr)) {
++		mutex_unlock(&buffer->lock);
++		return PTR_ERR(vaddr);
++	}
 +
 +	buffer->vaddr = vaddr;
 +	buffer->vmap_cnt++;
 +out:
 +	mutex_unlock(&buffer->lock);
 +
-+	return vaddr;
++	dma_buf_map_set_vaddr(map, vaddr);
++	return 0;
 +}
 +
-+static void cma_heap_vunmap(struct dma_buf *dmabuf, void *vaddr)
++static void cma_heap_vunmap(struct dma_buf *dmabuf, struct dma_buf_map *map)
 +{
 +	struct cma_heap_buffer *buffer = dmabuf->priv;
 +
@@ -374,7 +377,7 @@ diff --git a/drivers/dma-buf/heaps/cma_heap.c b/drivers/dma-buf/heaps/cma_heap.c
  		struct page *page = cma_pages;
  
  		while (nr_clear_pages > 0) {
-@@ -85,7 +299,6 @@ struct dma_buf *cma_heap_allocate(struct dma_heap *heap,
+@@ -85,7 +302,6 @@ struct dma_buf *cma_heap_allocate(struct dma_heap *heap,
  			 */
  			if (fatal_signal_pending(current))
  				goto free_cma;
@@ -382,7 +385,7 @@ diff --git a/drivers/dma-buf/heaps/cma_heap.c b/drivers/dma-buf/heaps/cma_heap.c
  			page++;
  			nr_clear_pages--;
  		}
-@@ -93,36 +306,39 @@ struct dma_buf *cma_heap_allocate(struct dma_heap *heap,
+@@ -93,36 +309,39 @@ struct dma_buf *cma_heap_allocate(struct dma_heap *heap,
  		memset(page_address(cma_pages), 0, size);
  	}
  
