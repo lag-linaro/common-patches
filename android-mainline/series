@@ -1,8 +1,8 @@
 #
 # android-mainline patches
 #
-# Applies onto upstream 586592478b1f Linux v5.10-2664-g586592478b1f
-# Matches android-mainline 78b9769f2995 ("ANDROID: Incremental fs: sha.h has been split into two, handle this.")
+# Applies onto upstream 0ca2ce81eb8e Linux v5.10-2750-g0ca2ce81eb8e
+# Matches android-mainline 80b1c109be75 ("Merge 0ca2ce81eb8e ("Merge tag 'arm64-upstream' of git://git.kernel.org/pub/scm/linux/kernel/git/arm64/linux") into android-mainline")
 #
 Revert-block-grant-IOPRIO_CLASS_RT-to-CAP_SYS_NICE.patch
 Revert-arm64-dts-qcom-sdm845-db845c-Fix-hdmi-nodes.patch
@@ -56,7 +56,6 @@ FROMGIT-libfs-Add-generic-function-for-setting-dentry_ops.patch
 FROMGIT-fscrypt-Have-filesystems-handle-their-d_ops.patch
 FROMGIT-f2fs-Handle-casefolding-with-Encryption.patch
 FROMGIT-f2fs-fix-race-of-pending_pages-in-decompression.patch
-FROMGIT-arm64-mm-account-for-hotplug-memory-when-randomizing-the-linear-region.patch
 FROMGIT-PM-domains-Rename-pm_genpd_syscore_poweroff-poweron.patch
 FROMGIT-PM-domains-Enable-dev_pm_genpd_suspend-resume-for-suspend-to-idle.patch
 FROMGIT-cpuidle-psci-Enable-suspend-to-idle-for-PSCI-OSI-mode.patch
@@ -94,7 +93,6 @@ _____ANNOTATION-x86-changes_____.patch
 ANDROID-Setting-up-GS-before-calling-__restore_processor_state.patch
 ANDROID-x86-entry-work-around-LLVM_IAS-1-bug-in-LSL.patch
 _____ANNOTATION-arm-and-arm64-changes_____.patch
-ANDROID-arm64-copy-CONFIG_CMDLINE_EXTEND-from-ARM.patch
 ANDROID-of-Support-CONFIG_CMDLINE_EXTEND-config-option.patch
 ANDROID-vendor_hooks-FPSIMD-save-restore-by-using-vendor_hooks.patch
 ANDROID-mpam-add-vendor-hook-to-record-MPAM.patch
@@ -845,3 +843,4 @@ ANDROID-arm64-Disallow-offlining-the-last-aarch32-cpu.patch
 ANDROID-arm64-kvm-Hide-asym-aarch32-systems-from-KVM.patch
 ANDROID-arm64-Enable-KVM-for-Asym-AArch32.patch
 _____ANNOTATION-remove-ANNOTATIONS-file_____.patch
+DROP-ME-minor-out-of-tree-difference.patch

@@ -16,7 +16,7 @@ Change-Id: I0e58f72f97f2952485dd4318f36b68e8afa0e454
 diff --git a/arch/arm64/kernel/debug-monitors.c b/arch/arm64/kernel/debug-monitors.c
 --- a/arch/arm64/kernel/debug-monitors.c
 +++ b/arch/arm64/kernel/debug-monitors.c
-@@ -284,21 +284,25 @@ void register_user_break_hook(struct break_hook *hook)
+@@ -283,21 +283,25 @@ void register_user_break_hook(struct break_hook *hook)
  {
  	register_debug_hook(&hook->node, &user_break_hook);
  }

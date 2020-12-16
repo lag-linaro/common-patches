@@ -39,17 +39,17 @@ Change-Id: I1a9860a883f001ddebb4df9dee7504edf970d593
  arch/arm64/Kconfig                   | 14 ++++++
  arch/arm64/include/asm/cpu.h         |  2 +
  arch/arm64/include/asm/cpufeature.h  |  3 ++
- arch/arm64/include/asm/thread_info.h |  6 ++-
+ arch/arm64/include/asm/thread_info.h |  5 +-
  arch/arm64/kernel/cpufeature.c       | 74 ++++++++++++++++++----------
  arch/arm64/kernel/cpuinfo.c          | 71 ++++++++++++++++----------
  arch/arm64/kernel/process.c          | 17 +++++++
  arch/arm64/kernel/signal.c           | 19 +++++++
- 8 files changed, 152 insertions(+), 54 deletions(-)
+ 8 files changed, 151 insertions(+), 54 deletions(-)
 
 diff --git a/arch/arm64/Kconfig b/arch/arm64/Kconfig
 --- a/arch/arm64/Kconfig
 +++ b/arch/arm64/Kconfig
-@@ -1909,6 +1909,20 @@ config DMI
+@@ -1895,6 +1895,20 @@ config DMI
  
  endmenu
  
@@ -112,16 +112,16 @@ diff --git a/arch/arm64/include/asm/cpufeature.h b/arch/arm64/include/asm/cpufea
 diff --git a/arch/arm64/include/asm/thread_info.h b/arch/arm64/include/asm/thread_info.h
 --- a/arch/arm64/include/asm/thread_info.h
 +++ b/arch/arm64/include/asm/thread_info.h
-@@ -68,6 +68,7 @@ void arch_release_task_struct(struct task_struct *tsk);
+@@ -64,6 +64,7 @@ void arch_release_task_struct(struct task_struct *tsk);
+ #define TIF_FOREIGN_FPSTATE	3	/* CPU's FP state is not current's */
  #define TIF_UPROBE		4	/* uprobe breakpoint or singlestep */
- #define TIF_FSCHECK		5	/* Check FS is USER_DS on return */
- #define TIF_MTE_ASYNC_FAULT	6	/* MTE Asynchronous Tag Check Fault */
-+#define TIF_CHECK_32BIT_AFFINITY 7	/* Check thread affinity for asymmetric AArch32 */
+ #define TIF_MTE_ASYNC_FAULT	5	/* MTE Asynchronous Tag Check Fault */
++#define TIF_CHECK_32BIT_AFFINITY 6	/* Check thread affinity for asymmetric AArch32 */
  #define TIF_SYSCALL_TRACE	8	/* syscall trace active */
  #define TIF_SYSCALL_AUDIT	9	/* syscall auditing */
  #define TIF_SYSCALL_TRACEPOINT	10	/* syscall tracepoint for ftrace */
-@@ -96,12 +97,15 @@ void arch_release_task_struct(struct task_struct *tsk);
- #define _TIF_FSCHECK		(1 << TIF_FSCHECK)
+@@ -91,12 +92,14 @@ void arch_release_task_struct(struct task_struct *tsk);
+ #define _TIF_UPROBE		(1 << TIF_UPROBE)
  #define _TIF_SINGLESTEP		(1 << TIF_SINGLESTEP)
  #define _TIF_32BIT		(1 << TIF_32BIT)
 +#define _TIF_CHECK_32BIT_AFFINITY (1 << TIF_CHECK_32BIT_AFFINITY)
@@ -130,10 +130,9 @@ diff --git a/arch/arm64/include/asm/thread_info.h b/arch/arm64/include/asm/threa
  
  #define _TIF_WORK_MASK		(_TIF_NEED_RESCHED | _TIF_SIGPENDING | \
  				 _TIF_NOTIFY_RESUME | _TIF_FOREIGN_FPSTATE | \
--				 _TIF_UPROBE | _TIF_FSCHECK | _TIF_MTE_ASYNC_FAULT)
-+				 _TIF_UPROBE | _TIF_FSCHECK | \
-+				 _TIF_MTE_ASYNC_FAULT | \
-+				_TIF_CHECK_32BIT_AFFINITY)
+-				 _TIF_UPROBE | _TIF_MTE_ASYNC_FAULT)
++				 _TIF_UPROBE | _TIF_MTE_ASYNC_FAULT | \
++				 _TIF_CHECK_32BIT_AFFINITY)
  
  #define _TIF_SYSCALL_WORK	(_TIF_SYSCALL_TRACE | _TIF_SYSCALL_AUDIT | \
  				 _TIF_SYSCALL_TRACEPOINT | _TIF_SECCOMP | \
@@ -148,7 +147,7 @@ diff --git a/arch/arm64/kernel/cpufeature.c b/arch/arm64/kernel/cpufeature.c
  #include <linux/crash_dump.h>
  #include <linux/sort.h>
  #include <linux/stop_machine.h>
-@@ -221,7 +220,11 @@ static const struct arm64_ftr_bits ftr_id_aa64pfr0[] = {
+@@ -217,7 +216,11 @@ static const struct arm64_ftr_bits ftr_id_aa64pfr0[] = {
  	ARM64_FTR_BITS(FTR_HIDDEN, FTR_NONSTRICT, FTR_LOWER_SAFE, ID_AA64PFR0_EL3_SHIFT, 4, 0),
  	ARM64_FTR_BITS(FTR_HIDDEN, FTR_NONSTRICT, FTR_LOWER_SAFE, ID_AA64PFR0_EL2_SHIFT, 4, 0),
  	ARM64_FTR_BITS(FTR_HIDDEN, FTR_NONSTRICT, FTR_LOWER_SAFE, ID_AA64PFR0_EL1_SHIFT, 4, ID_AA64PFR0_EL1_64BIT_ONLY),
@@ -160,7 +159,7 @@ diff --git a/arch/arm64/kernel/cpufeature.c b/arch/arm64/kernel/cpufeature.c
  	ARM64_FTR_END,
  };
  
-@@ -756,7 +759,7 @@ static void __init sort_ftr_regs(void)
+@@ -752,7 +755,7 @@ static void __init sort_ftr_regs(void)
   * Any bits that are not covered by an arm64_ftr_bits entry are considered
   * RES0 for the system-wide value, and must strictly match.
   */
@@ -169,7 +168,7 @@ diff --git a/arch/arm64/kernel/cpufeature.c b/arch/arm64/kernel/cpufeature.c
  {
  	u64 val = 0;
  	u64 strict_mask = ~0x0ULL;
-@@ -838,30 +841,6 @@ void __init init_cpu_features(struct cpuinfo_arm64 *info)
+@@ -834,30 +837,6 @@ void __init init_cpu_features(struct cpuinfo_arm64 *info)
  	init_cpu_ftr_reg(SYS_ID_AA64PFR1_EL1, info->reg_id_aa64pfr1);
  	init_cpu_ftr_reg(SYS_ID_AA64ZFR0_EL1, info->reg_id_aa64zfr0);
  
@@ -200,7 +199,7 @@ diff --git a/arch/arm64/kernel/cpufeature.c b/arch/arm64/kernel/cpufeature.c
  	if (id_aa64pfr0_sve(info->reg_id_aa64pfr0)) {
  		init_cpu_ftr_reg(SYS_ZCR_EL1, info->reg_zcr);
  		sve_init_vq_map();
-@@ -880,6 +859,31 @@ void __init init_cpu_features(struct cpuinfo_arm64 *info)
+@@ -876,6 +855,31 @@ void __init init_cpu_features(struct cpuinfo_arm64 *info)
  	setup_boot_cpu_capabilities();
  }
  
@@ -232,7 +231,7 @@ diff --git a/arch/arm64/kernel/cpufeature.c b/arch/arm64/kernel/cpufeature.c
  static void update_cpu_ftr_reg(struct arm64_ftr_reg *reg, u64 new)
  {
  	const struct arm64_ftr_bits *ftrp;
-@@ -1728,6 +1732,16 @@ cpucap_panic_on_conflict(const struct arm64_cpu_capabilities *cap)
+@@ -1731,6 +1735,16 @@ cpucap_panic_on_conflict(const struct arm64_cpu_capabilities *cap)
  	return !!(cap->type & ARM64_CPUCAP_PANIC_ON_CONFLICT);
  }
  
@@ -249,7 +248,7 @@ diff --git a/arch/arm64/kernel/cpufeature.c b/arch/arm64/kernel/cpufeature.c
  static const struct arm64_cpu_capabilities arm64_features[] = {
  	{
  		.desc = "GIC system register CPU interface",
-@@ -1804,7 +1818,12 @@ static const struct arm64_cpu_capabilities arm64_features[] = {
+@@ -1785,7 +1799,12 @@ static const struct arm64_cpu_capabilities arm64_features[] = {
  	{
  		.desc = "32-bit EL0 Support",
  		.capability = ARM64_HAS_32BIT_EL0,
@@ -262,7 +261,7 @@ diff --git a/arch/arm64/kernel/cpufeature.c b/arch/arm64/kernel/cpufeature.c
  		.matches = has_cpuid_feature,
  		.sys_reg = SYS_ID_AA64PFR0_EL1,
  		.sign = FTR_UNSIGNED,
-@@ -2596,7 +2615,8 @@ static void verify_local_cpu_capabilities(void)
+@@ -2587,7 +2606,8 @@ static void verify_local_cpu_capabilities(void)
  
  	verify_local_elf_hwcaps(arm64_elf_hwcaps);
  
@@ -375,7 +374,7 @@ diff --git a/arch/arm64/kernel/cpuinfo.c b/arch/arm64/kernel/cpuinfo.c
 diff --git a/arch/arm64/kernel/process.c b/arch/arm64/kernel/process.c
 --- a/arch/arm64/kernel/process.c
 +++ b/arch/arm64/kernel/process.c
-@@ -506,6 +506,15 @@ static void entry_task_switch(struct task_struct *next)
+@@ -494,6 +494,15 @@ static void entry_task_switch(struct task_struct *next)
  	__this_cpu_write(__entry_task, next);
  }
  
@@ -391,15 +390,15 @@ diff --git a/arch/arm64/kernel/process.c b/arch/arm64/kernel/process.c
  /*
   * ARM erratum 1418040 handling, affecting the 32bit view of CNTVCT.
   * Assuming the virtual counter is enabled at the beginning of times:
-@@ -554,6 +563,7 @@ __notrace_funcgraph struct task_struct *__switch_to(struct task_struct *prev,
- 	uao_thread_switch(next);
+@@ -541,6 +550,7 @@ __notrace_funcgraph struct task_struct *__switch_to(struct task_struct *prev,
+ 	entry_task_switch(next);
  	ssbs_thread_switch(next);
  	erratum_1418040_thread_switch(prev, next);
 +	aarch32_thread_switch(next);
  	/*
  	 *  vendor hook is needed before the dsb(),
  	 *  because MPAM is related to cache maintenance.
-@@ -631,6 +641,13 @@ void arch_setup_new_exec(void)
+@@ -618,6 +628,13 @@ void arch_setup_new_exec(void)
  		arch_prctl_spec_ctrl_set(current, PR_SPEC_STORE_BYPASS,
  					 PR_SPEC_ENABLE);
  	}
@@ -443,7 +442,7 @@ diff --git a/arch/arm64/kernel/signal.c b/arch/arm64/kernel/signal.c
  asmlinkage void do_notify_resume(struct pt_regs *regs,
  				 unsigned long thread_flags)
  {
-@@ -933,6 +946,12 @@ asmlinkage void do_notify_resume(struct pt_regs *regs,
+@@ -930,6 +943,12 @@ asmlinkage void do_notify_resume(struct pt_regs *regs,
  		} else {
  			local_daif_restore(DAIF_PROCCTX);
  

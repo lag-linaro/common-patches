@@ -17,7 +17,7 @@ Change-Id: I62d8fd58ac950846f18cf2cb848a3b59922e9bd6
 diff --git a/arch/arm64/Kconfig b/arch/arm64/Kconfig
 --- a/arch/arm64/Kconfig
 +++ b/arch/arm64/Kconfig
-@@ -1911,7 +1911,7 @@ endmenu
+@@ -1897,7 +1897,7 @@ endmenu
  
  config ASYMMETRIC_AARCH32
  	bool "Allow support for asymmetric AArch32 support"

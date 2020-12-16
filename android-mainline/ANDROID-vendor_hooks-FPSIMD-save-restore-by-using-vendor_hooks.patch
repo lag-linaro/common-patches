@@ -25,7 +25,7 @@ Change-Id: I853e1b6a9a51e24f770423bbc39fdd84265d78fc
 diff --git a/arch/arm64/include/asm/processor.h b/arch/arm64/include/asm/processor.h
 --- a/arch/arm64/include/asm/processor.h
 +++ b/arch/arm64/include/asm/processor.h
-@@ -27,6 +27,7 @@
+@@ -24,6 +24,7 @@
  #include <linux/stddef.h>
  #include <linux/string.h>
  #include <linux/thread_info.h>
@@ -33,7 +33,7 @@ diff --git a/arch/arm64/include/asm/processor.h b/arch/arm64/include/asm/process
  
  #include <vdso/processor.h>
  
-@@ -141,6 +142,8 @@ struct thread_struct {
+@@ -139,6 +140,8 @@ struct thread_struct {
  		struct user_fpsimd_state fpsimd_state;
  	} uw;
  
@@ -53,7 +53,7 @@ diff --git a/arch/arm64/kernel/process.c b/arch/arm64/kernel/process.c
  
  #include <asm/alternative.h>
  #include <asm/arch_gicv3.h>
-@@ -573,6 +574,8 @@ __notrace_funcgraph struct task_struct *__switch_to(struct task_struct *prev,
+@@ -560,6 +561,8 @@ __notrace_funcgraph struct task_struct *__switch_to(struct task_struct *prev,
  	 */
  	mte_thread_switch(next);
  
