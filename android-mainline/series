@@ -1,8 +1,8 @@
 #
 # android-mainline patches
 #
-# Applies onto upstream 1d36dffa5d88 Linux v5.10-1775-g1d36dffa5d88
-# Matches android-mainline 39cbc3ab246f ("Revert "ANDROID: v4l2-compat-ioctl32.c: copy reserved fields"")
+# Applies onto upstream fab0fca1da5c Linux v5.10-2258-gfab0fca1da5c
+# Matches android-mainline 7283bfe051a1 ("Merge fab0fca1da5c ("Merge tag 'media/v5.11-1' of git://git.kernel.org/pub/scm/linux/kernel/git/mchehab/linux-media") into android-mainline")
 #
 Revert-block-grant-IOPRIO_CLASS_RT-to-CAP_SYS_NICE.patch
 Revert-arm64-dts-qcom-sdm845-db845c-Fix-hdmi-nodes.patch

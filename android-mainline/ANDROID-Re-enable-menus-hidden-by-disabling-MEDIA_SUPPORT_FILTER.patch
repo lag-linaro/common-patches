@@ -75,7 +75,7 @@ diff --git a/arch/x86/configs/gki_defconfig b/arch/x86/configs/gki_defconfig
 diff --git a/drivers/media/Kconfig b/drivers/media/Kconfig
 --- a/drivers/media/Kconfig
 +++ b/drivers/media/Kconfig
-@@ -66,8 +66,7 @@ menu "Media device types"
+@@ -65,8 +65,7 @@ menu "Media device types"
  # Multimedia support - automatically enable V4L2 and DVB core
  #
  config MEDIA_CAMERA_SUPPORT
@@ -85,7 +85,7 @@ diff --git a/drivers/media/Kconfig b/drivers/media/Kconfig
  	default y if !MEDIA_SUPPORT_FILTER
  	help
  	  Enable support for webcams and video grabbers.
-@@ -75,8 +74,7 @@ config MEDIA_CAMERA_SUPPORT
+@@ -74,8 +73,7 @@ config MEDIA_CAMERA_SUPPORT
  	  Say Y when you have a webcam or a video capture grabber board.
  
  config MEDIA_ANALOG_TV_SUPPORT
@@ -95,7 +95,7 @@ diff --git a/drivers/media/Kconfig b/drivers/media/Kconfig
  	default y if !MEDIA_SUPPORT_FILTER
  	help
  	  Enable analog TV support.
-@@ -89,8 +87,7 @@ config MEDIA_ANALOG_TV_SUPPORT
+@@ -88,8 +86,7 @@ config MEDIA_ANALOG_TV_SUPPORT
  		will disable support for them.
  
  config MEDIA_DIGITAL_TV_SUPPORT
@@ -105,7 +105,7 @@ diff --git a/drivers/media/Kconfig b/drivers/media/Kconfig
  	default y if !MEDIA_SUPPORT_FILTER
  	help
  	  Enable digital TV support.
-@@ -99,8 +96,7 @@ config MEDIA_DIGITAL_TV_SUPPORT
+@@ -98,8 +95,7 @@ config MEDIA_DIGITAL_TV_SUPPORT
  	  hybrid digital TV and analog TV.
  
  config MEDIA_RADIO_SUPPORT
@@ -115,7 +115,7 @@ diff --git a/drivers/media/Kconfig b/drivers/media/Kconfig
  	default y if !MEDIA_SUPPORT_FILTER
  	help
  	  Enable AM/FM radio support.
-@@ -115,8 +111,7 @@ config MEDIA_RADIO_SUPPORT
+@@ -114,8 +110,7 @@ config MEDIA_RADIO_SUPPORT
  		disable support for them.
  
  config MEDIA_SDR_SUPPORT
@@ -125,7 +125,7 @@ diff --git a/drivers/media/Kconfig b/drivers/media/Kconfig
  	default y if !MEDIA_SUPPORT_FILTER
  	help
  	  Enable software defined radio support.
-@@ -124,8 +119,7 @@ config MEDIA_SDR_SUPPORT
+@@ -123,8 +118,7 @@ config MEDIA_SDR_SUPPORT
  	  Say Y when you have a software defined radio device.
  
  config MEDIA_PLATFORM_SUPPORT
@@ -135,7 +135,7 @@ diff --git a/drivers/media/Kconfig b/drivers/media/Kconfig
  	default y if !MEDIA_SUPPORT_FILTER
  	help
  	  Enable support for complex cameras, codecs, and other hardware
-@@ -138,8 +132,7 @@ config MEDIA_PLATFORM_SUPPORT
+@@ -137,8 +131,7 @@ config MEDIA_PLATFORM_SUPPORT
  	  Say Y when you want to be able so see such devices.
  
  config MEDIA_TEST_SUPPORT
