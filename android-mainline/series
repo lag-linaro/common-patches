@@ -2,7 +2,7 @@
 # android-mainline patches
 #
 # Applies onto upstream 7c7fdaf6ad9f Linux v5.10-2283-g7c7fdaf6ad9f
-# Matches android-mainline 7f0869519894 ("Merge 7c7fdaf6ad9f ("Merge tag 'fscrypt-for-linus' of git://git.kernel.org/pub/scm/fs/fscrypt/fscrypt") into android-mainline")
+# Matches android-mainline 869d6f075233 ("ANDROID: fix up fscrypt merge to build properly")
 #
 Revert-block-grant-IOPRIO_CLASS_RT-to-CAP_SYS_NICE.patch
 Revert-arm64-dts-qcom-sdm845-db845c-Fix-hdmi-nodes.patch
