@@ -67,7 +67,7 @@ diff --git a/net/xfrm/xfrm_state.c b/net/xfrm/xfrm_state.c
 diff --git a/net/xfrm/xfrm_user.c b/net/xfrm/xfrm_user.c
 --- a/net/xfrm/xfrm_user.c
 +++ b/net/xfrm/xfrm_user.c
-@@ -2705,19 +2705,22 @@ static int xfrm_user_rcv_msg(struct sk_buff *skb, struct nlmsghdr *nlh,
+@@ -2765,19 +2765,22 @@ static int xfrm_user_rcv_msg(struct sk_buff *skb, struct nlmsghdr *nlh,
  	if (!netlink_net_capable(skb, CAP_NET_ADMIN))
  		return -EPERM;
  

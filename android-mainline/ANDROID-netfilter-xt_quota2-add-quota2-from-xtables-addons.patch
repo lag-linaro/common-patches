@@ -72,7 +72,7 @@ index 000000000000..a3918718cbf8
 diff --git a/net/netfilter/Kconfig b/net/netfilter/Kconfig
 --- a/net/netfilter/Kconfig
 +++ b/net/netfilter/Kconfig
-@@ -1477,6 +1477,29 @@ config NETFILTER_XT_MATCH_QUOTA
+@@ -1487,6 +1487,29 @@ config NETFILTER_XT_MATCH_QUOTA
  	  If you want to compile it as a module, say M here and read
  	  <file:Documentation/kbuild/modules.rst>.  If unsure, say `N'.
  
@@ -105,7 +105,7 @@ diff --git a/net/netfilter/Kconfig b/net/netfilter/Kconfig
 diff --git a/net/netfilter/Makefile b/net/netfilter/Makefile
 --- a/net/netfilter/Makefile
 +++ b/net/netfilter/Makefile
-@@ -197,6 +197,7 @@ obj-$(CONFIG_NETFILTER_XT_MATCH_PHYSDEV) += xt_physdev.o
+@@ -198,6 +198,7 @@ obj-$(CONFIG_NETFILTER_XT_MATCH_PHYSDEV) += xt_physdev.o
  obj-$(CONFIG_NETFILTER_XT_MATCH_PKTTYPE) += xt_pkttype.o
  obj-$(CONFIG_NETFILTER_XT_MATCH_POLICY) += xt_policy.o
  obj-$(CONFIG_NETFILTER_XT_MATCH_QUOTA) += xt_quota.o

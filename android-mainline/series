@@ -1,8 +1,8 @@
 #
 # android-mainline patches
 #
-# Applies onto upstream ac73e3dc8acd Linux v5.10-3409-gac73e3dc8acd
-# Matches android-mainline f1ee68a8f6bd ("Revert "Revert "security,lockdown,selinux: implement SELinux lockdown""")
+# Applies onto upstream d635a69dd498 Linux v5.10-5507-gd635a69dd498
+# Matches android-mainline 6b30baa9aae1 ("Merge d635a69dd498 ("Merge tag 'net-next-5.11' of git://git.kernel.org/pub/scm/linux/kernel/git/netdev/net-next") into android-mainline")
 #
 Revert-block-grant-IOPRIO_CLASS_RT-to-CAP_SYS_NICE.patch
 Revert-arm64-dts-qcom-sdm845-db845c-Fix-hdmi-nodes.patch
