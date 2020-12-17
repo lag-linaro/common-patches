@@ -1,8 +1,8 @@
 #
 # android-mainline patches
 #
-# Applies onto upstream 7240153a9bdb Linux v5.10-6320-g7240153a9bdb
-# Matches android-mainline f98aec4981cc ("Merge 7240153a9bdb ("Merge tag 'driver-core-5.11-rc1' of git://git.kernel.org/pub/scm/linux/kernel/git/gregkh/driver-core") into android-mainline")
+# Applies onto upstream 2911ed9f47b4 Linux v5.10-6637-g2911ed9f47b4
+# Matches android-mainline b1e6a9854787 ("Merge 2911ed9f47b4 ("Merge tag 'char-misc-5.11-rc1' of git://git.kernel.org/pub/scm/linux/kernel/git/gregkh/char-misc") into android-mailine")
 #
 Revert-block-grant-IOPRIO_CLASS_RT-to-CAP_SYS_NICE.patch
 Revert-arm64-dts-qcom-sdm845-db845c-Fix-hdmi-nodes.patch
@@ -24,7 +24,6 @@ FROMLIST-clk-Export-clk_register_composite.patch
 FROMLIST-clk-versatile-remove-dependency-on-ARCH_.patch
 FROMLIST-soc-qcom-Kconfig-make-RPMH-match-Command-DB-setting.patch
 FROMLIST-cpuidle-governor-export-cpuidle-governor-functions.patch
-FROMLIST-char-misc-increase-DYNAMIC_MINORS-value.patch
 FROMLIST-fuse-Definitions-and-ioctl-for-passthrough.patch
 FROMLIST-fuse-Passthrough-initialization-and-release.patch
 FROMLIST-fuse-Introduce-synchronous-read-and-write-for-passthrough.patch
