@@ -1,8 +1,8 @@
 #
 # android-mainline patches
 #
-# Applies onto upstream 0cee54c890a4 Linux v5.10-6185-g0cee54c890a4
-# Matches android-mainline be1f7c11fa39 ("Merge 0cee54c890a4 ("Merge tag 'usb-5.11-rc1' of git://git.kernel.org/pub/scm/linux/kernel/git/gregkh/usb") into android-mainline")
+# Applies onto upstream 157f809894f3 Linux v5.10-6279-g157f809894f3
+# Matches android-mainline 543db7de4d64 ("Merge 157f809894f3 ("Merge tag 'tty-5.11-rc1' of git://git.kernel.org/pub/scm/linux/kernel/git/gregkh/tty") into android-mainline")
 #
 Revert-block-grant-IOPRIO_CLASS_RT-to-CAP_SYS_NICE.patch
 Revert-arm64-dts-qcom-sdm845-db845c-Fix-hdmi-nodes.patch

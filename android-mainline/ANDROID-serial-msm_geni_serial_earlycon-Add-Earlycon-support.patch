@@ -26,7 +26,7 @@ Signed-off-by: Matthias Maennich <maennich@google.com>
 diff --git a/drivers/tty/serial/Kconfig b/drivers/tty/serial/Kconfig
 --- a/drivers/tty/serial/Kconfig
 +++ b/drivers/tty/serial/Kconfig
-@@ -966,6 +966,14 @@ config SERIAL_MSM_CONSOLE
+@@ -950,6 +950,14 @@ config SERIAL_MSM_CONSOLE
  	select SERIAL_CORE_CONSOLE
  	select SERIAL_EARLYCON
  
@@ -44,7 +44,7 @@ diff --git a/drivers/tty/serial/Kconfig b/drivers/tty/serial/Kconfig
 diff --git a/drivers/tty/serial/Makefile b/drivers/tty/serial/Makefile
 --- a/drivers/tty/serial/Makefile
 +++ b/drivers/tty/serial/Makefile
-@@ -56,6 +56,7 @@ obj-$(CONFIG_SERIAL_VR41XX) += vr41xx_siu.o
+@@ -55,6 +55,7 @@ obj-$(CONFIG_SERIAL_VR41XX) += vr41xx_siu.o
  obj-$(CONFIG_SERIAL_ATMEL) += atmel_serial.o
  obj-$(CONFIG_SERIAL_UARTLITE) += uartlite.o
  obj-$(CONFIG_SERIAL_MSM) += msm_serial.o
