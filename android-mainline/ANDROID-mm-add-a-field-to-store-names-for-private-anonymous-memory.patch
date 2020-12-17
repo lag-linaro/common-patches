@@ -191,7 +191,7 @@ diff --git a/fs/proc/task_mmu.c b/fs/proc/task_mmu.c
 diff --git a/fs/userfaultfd.c b/fs/userfaultfd.c
 --- a/fs/userfaultfd.c
 +++ b/fs/userfaultfd.c
-@@ -869,7 +869,8 @@ static int userfaultfd_release(struct inode *inode, struct file *file)
+@@ -876,7 +876,8 @@ static int userfaultfd_release(struct inode *inode, struct file *file)
  				 new_flags, vma->anon_vma,
  				 vma->vm_file, vma->vm_pgoff,
  				 vma_policy(vma),
@@ -201,7 +201,7 @@ diff --git a/fs/userfaultfd.c b/fs/userfaultfd.c
  		if (prev)
  			vma = prev;
  		else
-@@ -1417,7 +1418,8 @@ static int userfaultfd_register(struct userfaultfd_ctx *ctx,
+@@ -1424,7 +1425,8 @@ static int userfaultfd_register(struct userfaultfd_ctx *ctx,
  		prev = vma_merge(mm, prev, start, vma_end, new_flags,
  				 vma->anon_vma, vma->vm_file, vma->vm_pgoff,
  				 vma_policy(vma),
@@ -211,7 +211,7 @@ diff --git a/fs/userfaultfd.c b/fs/userfaultfd.c
  		if (prev) {
  			vma = prev;
  			goto next;
-@@ -1587,7 +1589,8 @@ static int userfaultfd_unregister(struct userfaultfd_ctx *ctx,
+@@ -1594,7 +1596,8 @@ static int userfaultfd_unregister(struct userfaultfd_ctx *ctx,
  		prev = vma_merge(mm, prev, start, vma_end, new_flags,
  				 vma->anon_vma, vma->vm_file, vma->vm_pgoff,
  				 vma_policy(vma),
@@ -224,7 +224,7 @@ diff --git a/fs/userfaultfd.c b/fs/userfaultfd.c
 diff --git a/include/linux/mm.h b/include/linux/mm.h
 --- a/include/linux/mm.h
 +++ b/include/linux/mm.h
-@@ -2522,7 +2522,7 @@ static inline int vma_adjust(struct vm_area_struct *vma, unsigned long start,
+@@ -2520,7 +2520,7 @@ static inline int vma_adjust(struct vm_area_struct *vma, unsigned long start,
  extern struct vm_area_struct *vma_merge(struct mm_struct *,
  	struct vm_area_struct *prev, unsigned long addr, unsigned long end,
  	unsigned long vm_flags, struct anon_vma *, struct file *, pgoff_t,
@@ -236,7 +236,7 @@ diff --git a/include/linux/mm.h b/include/linux/mm.h
 diff --git a/include/linux/mm_types.h b/include/linux/mm_types.h
 --- a/include/linux/mm_types.h
 +++ b/include/linux/mm_types.h
-@@ -336,11 +336,18 @@ struct vm_area_struct {
+@@ -337,11 +337,18 @@ struct vm_area_struct {
  	/*
  	 * For areas with an address space and backing store,
  	 * linkage into the address_space->i_mmap interval tree.
@@ -259,7 +259,7 @@ diff --git a/include/linux/mm_types.h b/include/linux/mm_types.h
  
  	/*
  	 * A file's MAP_PRIVATE vma can be in both i_mmap tree and anon_vma
-@@ -786,4 +793,13 @@ typedef struct {
+@@ -794,4 +801,13 @@ typedef struct {
  	unsigned long val;
  } swp_entry_t;
  

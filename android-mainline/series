@@ -1,8 +1,8 @@
 #
 # android-mainline patches
 #
-# Applies onto upstream 148842c98a24 Linux v5.10-3208-g148842c98a24
-# Matches android-mainline e6c166040a46 ("Revert "ANDROID: cma: redirect page allocation to CMA"")
+# Applies onto upstream ac73e3dc8acd Linux v5.10-3409-gac73e3dc8acd
+# Matches android-mainline 8c3b398d8ce2 ("Merge ac73e3dc8acd ("Merge branch 'akpm' (patches from Andrew)") into android-mainline")
 #
 Revert-block-grant-IOPRIO_CLASS_RT-to-CAP_SYS_NICE.patch
 Revert-arm64-dts-qcom-sdm845-db845c-Fix-hdmi-nodes.patch

@@ -18,8 +18,8 @@ Signed-off-by: Kalesh Singh <kaleshsingh@google.com>
 diff --git a/include/linux/mmzone.h b/include/linux/mmzone.h
 --- a/include/linux/mmzone.h
 +++ b/include/linux/mmzone.h
-@@ -155,9 +155,7 @@ enum zone_stat_item {
- 	NR_PAGETABLE,		/* used for pagetables */
+@@ -154,9 +154,7 @@ enum zone_stat_item {
+ 	NR_MLOCK,		/* mlock()ed pages found and moved off LRU */
  	/* Second 128 byte cacheline */
  	NR_BOUNCE,
 -#if IS_ENABLED(CONFIG_ZSMALLOC)
@@ -31,9 +31,9 @@ diff --git a/include/linux/mmzone.h b/include/linux/mmzone.h
 diff --git a/mm/vmstat.c b/mm/vmstat.c
 --- a/mm/vmstat.c
 +++ b/mm/vmstat.c
-@@ -1159,9 +1159,7 @@ const char * const vmstat_text[] = {
+@@ -1158,9 +1158,7 @@ const char * const vmstat_text[] = {
+ 	"nr_zone_write_pending",
  	"nr_mlock",
- 	"nr_page_table_pages",
  	"nr_bounce",
 -#if IS_ENABLED(CONFIG_ZSMALLOC)
  	"nr_zspages",

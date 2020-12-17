@@ -136,7 +136,7 @@ diff --git a/mm/memory.c b/mm/memory.c
  
  #include <trace/events/kmem.h>
  
-@@ -3293,8 +3294,10 @@ vm_fault_t do_swap_page(struct vm_fault *vmf)
+@@ -3304,8 +3305,10 @@ vm_fault_t do_swap_page(struct vm_fault *vmf)
  		if (data_race(si->flags & SWP_SYNCHRONOUS_IO) &&
  		    __swap_count(entry) == 1) {
  			/* skip swapcache */
@@ -160,7 +160,7 @@ diff --git a/mm/mmzone.c b/mm/mmzone.c
  
  struct pglist_data *first_online_pgdat(void)
  {
-@@ -113,3 +114,19 @@ int page_cpupid_xchg_last(struct page *page, int cpupid)
+@@ -99,3 +100,19 @@ int page_cpupid_xchg_last(struct page *page, int cpupid)
  	return last_cpupid;
  }
  #endif

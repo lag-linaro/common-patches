@@ -23,7 +23,7 @@ Signed-off-by: Todd Kjos <tkjos@google.com>
 diff --git a/include/trace/events/sched.h b/include/trace/events/sched.h
 --- a/include/trace/events/sched.h
 +++ b/include/trace/events/sched.h
-@@ -402,6 +402,30 @@ DEFINE_EVENT_SCHEDSTAT(sched_stat_template, sched_stat_blocked,
+@@ -486,6 +486,30 @@ DEFINE_EVENT_SCHEDSTAT(sched_stat_template, sched_stat_blocked,
  	     TP_PROTO(struct task_struct *tsk, u64 delay),
  	     TP_ARGS(tsk, delay));
  

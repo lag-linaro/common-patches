@@ -12,7 +12,7 @@ Change-Id: Id1a3ffb246e070741f30d9ce314a339cdb13b575
 diff --git a/arch/arm64/Kconfig b/arch/arm64/Kconfig
 --- a/arch/arm64/Kconfig
 +++ b/arch/arm64/Kconfig
-@@ -1857,7 +1857,6 @@ config CMDLINE_FORCE
+@@ -1854,7 +1854,6 @@ config CMDLINE_FORCE
  	  loader passes other arguments to the kernel.
  	  This is useful if you cannot or don't want to change the
  	  command-line options your boot loader passes to the kernel.

@@ -57,7 +57,7 @@ diff --git a/mm/cma.c b/mm/cma.c
  #include <trace/events/cma.h>
  
  #include "cma.h"
-@@ -418,6 +420,8 @@ struct page *cma_alloc(struct cma *cma, size_t count, unsigned int align,
+@@ -417,6 +419,8 @@ struct page *cma_alloc(struct cma *cma, size_t count, unsigned int align,
  	size_t i;
  	struct page *page = NULL;
  	int ret = -ENOMEM;
@@ -66,7 +66,7 @@ diff --git a/mm/cma.c b/mm/cma.c
  
  	if (!cma || !cma->count || !cma->bitmap)
  		return NULL;
-@@ -442,8 +446,28 @@ struct page *cma_alloc(struct cma *cma, size_t count, unsigned int align,
+@@ -441,8 +445,28 @@ struct page *cma_alloc(struct cma *cma, size_t count, unsigned int align,
  				bitmap_maxno, start, bitmap_count, mask,
  				offset);
  		if (bitmap_no >= bitmap_maxno) {
