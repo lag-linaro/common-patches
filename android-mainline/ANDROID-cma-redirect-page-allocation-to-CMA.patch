@@ -82,7 +82,7 @@ diff --git a/include/linux/gfp.h b/include/linux/gfp.h
 diff --git a/include/linux/highmem.h b/include/linux/highmem.h
 --- a/include/linux/highmem.h
 +++ b/include/linux/highmem.h
-@@ -274,7 +274,9 @@ static inline struct page *
+@@ -194,7 +194,9 @@ static inline struct page *
  alloc_zeroed_user_highpage_movable(struct vm_area_struct *vma,
  					unsigned long vaddr)
  {

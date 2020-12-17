@@ -144,7 +144,7 @@ diff --git a/kernel/sched/core.c b/kernel/sched/core.c
  
  	/*
  	 * If the node that the CPU is on has been offlined, cpu_to_node()
-@@ -4532,6 +4542,8 @@ void scheduler_tick(void)
+@@ -4557,6 +4567,8 @@ void scheduler_tick(void)
  	rq->idle_balance = idle_cpu(cpu);
  	trigger_load_balance(rq);
  #endif

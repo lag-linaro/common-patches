@@ -1,8 +1,8 @@
 #
 # android-mainline patches
 #
-# Applies onto upstream adb35e8dc98b Linux v5.10-3127-gadb35e8dc98b
-# Matches android-mainline 03c69872d6d8 ("ANDROID: GKI: Unhide VIRTIO_DMA_SHARED_BUFFER")
+# Applies onto upstream 148842c98a24 Linux v5.10-3208-g148842c98a24
+# Matches android-mainline cbc135c55e3b ("Merge 148842c98a24 ("Merge tag 'x86-apic-2020-12-14' of git://git.kernel.org/pub/scm/linux/kernel/git/tip/tip") into android-mainline")
 #
 Revert-block-grant-IOPRIO_CLASS_RT-to-CAP_SYS_NICE.patch
 Revert-arm64-dts-qcom-sdm845-db845c-Fix-hdmi-nodes.patch
