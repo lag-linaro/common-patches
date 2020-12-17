@@ -2,7 +2,7 @@
 # android-mainline patches
 #
 # Applies onto upstream d635a69dd498 Linux v5.10-5507-gd635a69dd498
-# Matches android-mainline 6b30baa9aae1 ("Merge d635a69dd498 ("Merge tag 'net-next-5.11' of git://git.kernel.org/pub/scm/linux/kernel/git/netdev/net-next") into android-mainline")
+# Matches android-mainline 47b04badb498 ("Revert "ANDROID: sound: usb: Add vendor's hooking interface"")
 #
 Revert-block-grant-IOPRIO_CLASS_RT-to-CAP_SYS_NICE.patch
 Revert-arm64-dts-qcom-sdm845-db845c-Fix-hdmi-nodes.patch
@@ -365,9 +365,6 @@ FROMLIST-drm-prime-add-support-for-virtio-exported-objects.patch
 FROMLIST-drm-msm-Fix-WARN_ON-splat-in-_free_object.patch
 _____ANNOTATION-sound-changes_____.patch
 ANDROID-SoC-core-Introduce-macro-SOC_SINGLE_MULTI_EXT.patch
-ANDROID-sound-usb-Add-helper-APIs-to-enable-audio-stream.patch
-ANDROID-sound-usb-Ensure-UAC3-Power-Domain-is-set-to-D0-when-enabling-stream.patch
-ANDROID-sound-usb-Add-vendor-s-hooking-interface.patch
 _____ANNOTATION-media-changes_____.patch
 ANDROID-media-increase-video-max-frame-number.patch
 _____ANNOTATION-input-and-HID-changes_____.patch
