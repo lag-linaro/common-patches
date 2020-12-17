@@ -1,8 +1,8 @@
 #
 # android-mainline patches
 #
-# Applies onto upstream d635a69dd498 Linux v5.10-5507-gd635a69dd498
-# Matches android-mainline 47b04badb498 ("Revert "ANDROID: sound: usb: Add vendor's hooking interface"")
+# Applies onto upstream c367caf1a38b Linux v5.10-6004-gc367caf1a38b
+# Matches android-mainline 92262fb865b1 ("Merge c367caf1a38b ("Merge tag 'sound-5.11-rc1' of git://git.kernel.org/pub/scm/linux/kernel/git/tiwai/sound") into android-mainline")
 #
 Revert-block-grant-IOPRIO_CLASS_RT-to-CAP_SYS_NICE.patch
 Revert-arm64-dts-qcom-sdm845-db845c-Fix-hdmi-nodes.patch
