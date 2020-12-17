@@ -1,8 +1,8 @@
 #
 # android-mainline patches
 #
-# Applies onto upstream 533369b145d8 Linux v5.10-3063-g533369b145d8
-# Matches android-mainline 52172897b41f ("Revert "ANDROID: stop_machine: stop_one_cpu_async"")
+# Applies onto upstream adb35e8dc98b Linux v5.10-3127-gadb35e8dc98b
+# Matches android-mainline 0dd08d580104 ("Merge adb35e8dc98b ("Merge tag 'sched-core-2020-12-14' of git://git.kernel.org/pub/scm/linux/kernel/git/tip/tip") into android-mainline")
 #
 Revert-block-grant-IOPRIO_CLASS_RT-to-CAP_SYS_NICE.patch
 Revert-arm64-dts-qcom-sdm845-db845c-Fix-hdmi-nodes.patch
@@ -205,6 +205,7 @@ ANDROID-Sched-Add-restricted-vendor-hooks-for-scheduler.patch
 ANDROID-sched-Add-rvh-for-cpu-controller-cgroup-attach.patch
 ANDROID-cgroup-Export-functions-used-by-modules.patch
 ANDROID-sched-Export-key-used-by-module.patch
+ANDROID-sched-Export-sched_setattr_nocheck.patch
 _____ANNOTATION-uid_sys_stats-support_____.patch
 ANDROID-uid_cputime-Adds-accounting-for-the-cputimes-per-uid.patch
 ANDROID-uid_cputime-add-per-uid-IO-usage-accounting.patch
@@ -834,4 +835,3 @@ ANDROID-arm64-kvm-Hide-asym-aarch32-systems-from-KVM.patch
 ANDROID-arm64-Enable-KVM-for-Asym-AArch32.patch
 _____ANNOTATION-remove-ANNOTATIONS-file_____.patch
 DROP-ME-minor-out-of-tree-difference.patch
-ANDROID-sched-Export-sched_setattr_nocheck.patch

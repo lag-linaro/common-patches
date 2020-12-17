@@ -18,10 +18,10 @@ Change-Id: Ied1c5aba6b692e26776b3e2c050780a67cc5bae1
 ---
  Documentation/scheduler/sched-energy.rst |  2 +-
  drivers/cpufreq/cpufreq.c                |  1 -
- include/linux/cpufreq.h                  |  8 ------
- kernel/sched/cpufreq_schedutil.c         | 33 ------------------------
- kernel/sched/topology.c                  | 17 ------------
- 5 files changed, 1 insertion(+), 60 deletions(-)
+ include/linux/cpufreq.h                  |  8 --------
+ kernel/sched/cpufreq_schedutil.c         | 26 ------------------------
+ kernel/sched/topology.c                  | 19 +----------------
+ 5 files changed, 2 insertions(+), 54 deletions(-)
 
 diff --git a/Documentation/scheduler/sched-energy.rst b/Documentation/scheduler/sched-energy.rst
 --- a/Documentation/scheduler/sched-energy.rst
@@ -67,22 +67,15 @@ diff --git a/include/linux/cpufreq.h b/include/linux/cpufreq.h
 diff --git a/kernel/sched/cpufreq_schedutil.c b/kernel/sched/cpufreq_schedutil.c
 --- a/kernel/sched/cpufreq_schedutil.c
 +++ b/kernel/sched/cpufreq_schedutil.c
-@@ -897,36 +897,3 @@ struct cpufreq_governor *cpufreq_default_governor(void)
+@@ -897,29 +897,3 @@ struct cpufreq_governor *cpufreq_default_governor(void)
  #endif
  
  cpufreq_governor_init(schedutil_gov);
 -
 -#ifdef CONFIG_ENERGY_MODEL
--extern bool sched_energy_update;
--extern struct mutex sched_energy_mutex;
--
 -static void rebuild_sd_workfn(struct work_struct *work)
 -{
--	mutex_lock(&sched_energy_mutex);
--	sched_energy_update = true;
--	rebuild_sched_domains();
--	sched_energy_update = false;
--	mutex_unlock(&sched_energy_mutex);
+-	rebuild_sched_domains_energy();
 -}
 -static DECLARE_WORK(rebuild_sd_work, rebuild_sd_workfn);
 -
@@ -107,15 +100,17 @@ diff --git a/kernel/sched/cpufreq_schedutil.c b/kernel/sched/cpufreq_schedutil.c
 diff --git a/kernel/sched/topology.c b/kernel/sched/topology.c
 --- a/kernel/sched/topology.c
 +++ b/kernel/sched/topology.c
-@@ -323,7 +323,6 @@ static void sched_energy_set(bool has_eas)
+@@ -327,8 +327,7 @@ static void sched_energy_set(bool has_eas)
   *    2. the SD_ASYM_CPUCAPACITY flag is set in the sched_domain hierarchy.
   *    3. no SMT is detected.
   *    4. the EM complexity is low enough to keep scheduling overheads low;
 - *    5. schedutil is driving the frequency of all CPUs of the rd;
+- *    6. frequency invariance support is present;
++ *    5. frequency invariance support is present;
   *
   * The complexity of the Energy Model is defined as:
   *
-@@ -343,15 +342,12 @@ static void sched_energy_set(bool has_eas)
+@@ -348,15 +347,12 @@ static void sched_energy_set(bool has_eas)
   */
  #define EM_MAX_COMPLEXITY 2048
  
@@ -131,7 +126,7 @@ diff --git a/kernel/sched/topology.c b/kernel/sched/topology.c
  
  	if (!sysctl_sched_energy_aware)
  		goto free;
-@@ -377,19 +373,6 @@ static bool build_perf_domains(const struct cpumask *cpu_map)
+@@ -390,19 +386,6 @@ static bool build_perf_domains(const struct cpumask *cpu_map)
  		if (find_pd(pd, i))
  			continue;
  

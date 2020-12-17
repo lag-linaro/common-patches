@@ -29,7 +29,7 @@ Change-Id: I9a98167face92e70aba847d9f04d0c216065478c
 diff --git a/include/linux/sched.h b/include/linux/sched.h
 --- a/include/linux/sched.h
 +++ b/include/linux/sched.h
-@@ -1002,6 +1002,7 @@ struct task_struct {
+@@ -1007,6 +1007,7 @@ struct task_struct {
  	raw_spinlock_t			pi_lock;
  
  	struct wake_q_node		wake_q;
@@ -59,7 +59,7 @@ diff --git a/include/linux/sched/wake_q.h b/include/linux/sched/wake_q.h
 diff --git a/kernel/sched/core.c b/kernel/sched/core.c
 --- a/kernel/sched/core.c
 +++ b/kernel/sched/core.c
-@@ -538,6 +538,7 @@ static bool __wake_q_add(struct wake_q_head *head, struct task_struct *task)
+@@ -530,6 +530,7 @@ static bool __wake_q_add(struct wake_q_head *head, struct task_struct *task)
  	 */
  	*head->lastp = node;
  	head->lastp = &node->next;
@@ -67,7 +67,7 @@ diff --git a/kernel/sched/core.c b/kernel/sched/core.c
  	return true;
  }
  
-@@ -594,12 +595,14 @@ void wake_up_q(struct wake_q_head *head)
+@@ -586,12 +587,14 @@ void wake_up_q(struct wake_q_head *head)
  		/* Task can safely be re-inserted now: */
  		node = node->next;
  		task->wake_q.next = NULL;

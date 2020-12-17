@@ -47,7 +47,7 @@ diff --git a/include/linux/arch_topology.h b/include/linux/arch_topology.h
 diff --git a/include/linux/sched.h b/include/linux/sched.h
 --- a/include/linux/sched.h
 +++ b/include/linux/sched.h
-@@ -1350,7 +1350,7 @@ struct task_struct {
+@@ -1355,7 +1355,7 @@ struct task_struct {
  					__mce_reserved : 62;
  	struct callback_head		mce_kill_me;
  #endif
@@ -86,8 +86,8 @@ diff --git a/kernel/sched/sched.h b/kernel/sched/sched.h
 +#include <linux/android_vendor.h>
  
  #include <asm/tlb.h>
- #include <asm-generic/vmlinux.lds.h>
-@@ -430,6 +431,8 @@ struct task_group {
+ 
+@@ -423,6 +424,8 @@ struct task_group {
  	struct uclamp_se	uclamp[UCLAMP_CNT];
  	/* Latency-sensitive flag used for a task group */
  	unsigned int		latency_sensitive;
@@ -96,7 +96,7 @@ diff --git a/kernel/sched/sched.h b/kernel/sched/sched.h
  #endif
  
  };
-@@ -830,6 +833,8 @@ struct root_domain {
+@@ -832,6 +835,8 @@ struct root_domain {
  	 * CPUs of the rd. Protected by RCU.
  	 */
  	struct perf_domain __rcu *pd;
@@ -105,10 +105,10 @@ diff --git a/kernel/sched/sched.h b/kernel/sched/sched.h
  };
  
  extern void init_defrootdomain(void);
-@@ -1050,6 +1055,8 @@ struct rq {
- 	/* Must be inspected within a rcu lock section */
- 	struct cpuidle_state	*idle_state;
+@@ -1063,6 +1068,8 @@ struct rq {
  #endif
+ 	unsigned int		push_busy;
+ 	struct cpu_stop_work	push_work;
 +
 +	ANDROID_VENDOR_DATA_ARRAY(1, 96);
  };

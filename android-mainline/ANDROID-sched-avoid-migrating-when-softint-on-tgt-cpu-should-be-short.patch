@@ -50,7 +50,7 @@ diff --git a/include/linux/interrupt.h b/include/linux/interrupt.h
 diff --git a/kernel/sched/rt.c b/kernel/sched/rt.c
 --- a/kernel/sched/rt.c
 +++ b/kernel/sched/rt.c
-@@ -1439,15 +1439,20 @@ static int find_lowest_rq(struct task_struct *task);
+@@ -1441,15 +1441,20 @@ static int find_lowest_rq(struct task_struct *task);
  #ifdef CONFIG_RT_SOFTINT_OPTIMIZATION
  /*
   * Return whether the task on the given cpu is currently non-preemptible

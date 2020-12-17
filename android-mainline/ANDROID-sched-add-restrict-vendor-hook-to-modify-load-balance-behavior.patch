@@ -42,7 +42,7 @@ diff --git a/include/trace/hooks/sched.h b/include/trace/hooks/sched.h
 diff --git a/kernel/sched/fair.c b/kernel/sched/fair.c
 --- a/kernel/sched/fair.c
 +++ b/kernel/sched/fair.c
-@@ -9252,8 +9252,12 @@ static struct sched_group *find_busiest_group(struct lb_env *env)
+@@ -9293,8 +9293,12 @@ static struct sched_group *find_busiest_group(struct lb_env *env)
  
  	if (sched_energy_enabled()) {
  		struct root_domain *rd = env->dst_rq->rd;

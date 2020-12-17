@@ -57,7 +57,7 @@ diff --git a/include/trace/events/sched.h b/include/trace/events/sched.h
 diff --git a/kernel/sched/fair.c b/kernel/sched/fair.c
 --- a/kernel/sched/fair.c
 +++ b/kernel/sched/fair.c
-@@ -983,6 +983,7 @@ update_stats_enqueue_sleeper(struct cfs_rq *cfs_rq, struct sched_entity *se)
+@@ -992,6 +992,7 @@ update_stats_enqueue_sleeper(struct cfs_rq *cfs_rq, struct sched_entity *se)
  			}
  
  			trace_sched_stat_blocked(tsk, delta);

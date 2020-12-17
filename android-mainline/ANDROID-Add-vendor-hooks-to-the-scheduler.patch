@@ -113,7 +113,7 @@ diff --git a/kernel/sched/core.c b/kernel/sched/core.c
  /*
   * Export tracepoints that act as a bare tracehook (ie: have no trace event
   * associated with them) to allow external modules to probe them.
-@@ -1570,6 +1572,8 @@ static inline void enqueue_task(struct rq *rq, struct task_struct *p, int flags)
+@@ -1594,6 +1596,8 @@ static inline void enqueue_task(struct rq *rq, struct task_struct *p, int flags)
  
  	uclamp_rq_inc(rq, p);
  	p->sched_class->enqueue_task(rq, p, flags);
@@ -122,7 +122,7 @@ diff --git a/kernel/sched/core.c b/kernel/sched/core.c
  }
  
  static inline void dequeue_task(struct rq *rq, struct task_struct *p, int flags)
-@@ -1584,6 +1588,8 @@ static inline void dequeue_task(struct rq *rq, struct task_struct *p, int flags)
+@@ -1608,6 +1612,8 @@ static inline void dequeue_task(struct rq *rq, struct task_struct *p, int flags)
  
  	uclamp_rq_dec(rq, p);
  	p->sched_class->dequeue_task(rq, p, flags);
@@ -131,7 +131,7 @@ diff --git a/kernel/sched/core.c b/kernel/sched/core.c
  }
  
  void activate_task(struct rq *rq, struct task_struct *p, int flags)
-@@ -2280,7 +2286,11 @@ static int select_fallback_rq(int cpu, struct task_struct *p)
+@@ -2726,7 +2732,11 @@ static int select_fallback_rq(int cpu, struct task_struct *p)
  	int nid = cpu_to_node(cpu);
  	const struct cpumask *nodemask = NULL;
  	enum { cpuset, possible, fail } state = cpuset;
@@ -144,7 +144,7 @@ diff --git a/kernel/sched/core.c b/kernel/sched/core.c
  
  	/*
  	 * If the node that the CPU is on has been offlined, cpu_to_node()
-@@ -4009,6 +4019,8 @@ void scheduler_tick(void)
+@@ -4532,6 +4542,8 @@ void scheduler_tick(void)
  	rq->idle_balance = idle_cpu(cpu);
  	trigger_load_balance(rq);
  #endif
@@ -156,7 +156,7 @@ diff --git a/kernel/sched/core.c b/kernel/sched/core.c
 diff --git a/kernel/sched/fair.c b/kernel/sched/fair.c
 --- a/kernel/sched/fair.c
 +++ b/kernel/sched/fair.c
-@@ -7568,9 +7568,14 @@ static
+@@ -7593,9 +7593,14 @@ static
  int can_migrate_task(struct task_struct *p, struct lb_env *env)
  {
  	int tsk_cache_hot;
@@ -183,20 +183,20 @@ diff --git a/kernel/sched/rt.c b/kernel/sched/rt.c
  int sched_rr_timeslice = RR_TIMESLICE;
  int sysctl_sched_rr_timeslice = (MSEC_PER_SEC / HZ) * RR_TIMESLICE;
  /* More than 4 hours if BW_SHIFT equals 20. */
-@@ -1433,6 +1435,12 @@ select_task_rq_rt(struct task_struct *p, int cpu, int sd_flag, int flags)
+@@ -1435,6 +1437,12 @@ select_task_rq_rt(struct task_struct *p, int cpu, int flags)
  	struct task_struct *curr;
  	struct rq *rq;
  	bool test;
 +	int target_cpu = -1;
 +
-+	trace_android_rvh_select_task_rq_rt(p, cpu, sd_flag,
++	trace_android_rvh_select_task_rq_rt(p, cpu, flags & 0xF,
 +					flags, &target_cpu);
 +	if (target_cpu >= 0)
 +		return target_cpu;
  
  	/* For anything but wake ups, just return the task_cpu */
- 	if (sd_flag != SD_BALANCE_WAKE && sd_flag != SD_BALANCE_FORK)
-@@ -1693,6 +1701,11 @@ static int find_lowest_rq(struct task_struct *task)
+ 	if (!(flags & (WF_TTWU | WF_FORK)))
+@@ -1695,6 +1703,11 @@ static int find_lowest_rq(struct task_struct *task)
  	int this_cpu = smp_processor_id();
  	int cpu      = task_cpu(task);
  	int ret;

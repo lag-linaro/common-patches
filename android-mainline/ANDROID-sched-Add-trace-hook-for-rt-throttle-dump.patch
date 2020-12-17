@@ -50,7 +50,7 @@ diff --git a/include/trace/hooks/sched.h b/include/trace/hooks/sched.h
 diff --git a/kernel/sched/rt.c b/kernel/sched/rt.c
 --- a/kernel/sched/rt.c
 +++ b/kernel/sched/rt.c
-@@ -973,6 +973,13 @@ static int sched_rt_runtime_exceeded(struct rt_rq *rt_rq)
+@@ -974,6 +974,13 @@ static int sched_rt_runtime_exceeded(struct rt_rq *rt_rq)
  		if (likely(rt_b->rt_runtime)) {
  			rt_rq->rt_throttled = 1;
  			printk_deferred_once("sched: RT throttling activated\n");
