@@ -1,0 +1,34 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: Will Deacon <willdeacon@google.com>
+Date: Tue, 15 Dec 2020 17:11:11 +0000
+Subject: ANDROID: usb: f_accessory: Cancel any pending work before teardown
+
+Tearing down and freeing the 'acc_dev' structure when there is
+potentially asynchronous work queued involving its member fields is
+likely to lead to use-after-free issues.
+
+Cancel any pending work before freeing the structure.
+
+Bug: 173789633
+Signed-off-by: Will Deacon <willdeacon@google.com>
+Change-Id: I68a91274aea18034637b738d558d043ac74fadf4
+---
+ drivers/usb/gadget/function/f_accessory.c | 6 ++++++
+ 1 file changed, 6 insertions(+)
+
+diff --git a/drivers/usb/gadget/function/f_accessory.c b/drivers/usb/gadget/function/f_accessory.c
+--- a/drivers/usb/gadget/function/f_accessory.c
++++ b/drivers/usb/gadget/function/f_accessory.c
+@@ -302,6 +302,12 @@ static void __put_acc_dev(struct kref *kref)
+ 	struct acc_dev_ref *ref = container_of(kref, struct acc_dev_ref, kref);
+ 	struct acc_dev *dev = ref->acc_dev;
+ 
++	/* Cancel any async work */
++	cancel_delayed_work_sync(&dev->start_work);
++	cancel_work_sync(&dev->getprotocol_work);
++	cancel_work_sync(&dev->sendstring_work);
++	cancel_work_sync(&dev->hid_work);
++
+ 	ref->acc_dev = NULL;
+ 	kfree(dev);
+ }

@@ -1,0 +1,34 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: Will Deacon <willdeacon@google.com>
+Date: Tue, 15 Dec 2020 13:39:54 +0000
+Subject: ANDROID: usb: f_accessory: Remove stale comments
+
+Neither acc_gadget_bind() nor acc_gadget_register_driver() exist, so
+remove the stale comments that refer to them.
+
+Bug: 173789633
+Signed-off-by: Will Deacon <willdeacon@google.com>
+Change-Id: If396ba3bcac3ca59c48e5a5faa0a8520534ed625
+---
+ drivers/usb/gadget/function/f_accessory.c | 2 --
+ 1 file changed, 2 deletions(-)
+
+diff --git a/drivers/usb/gadget/function/f_accessory.c b/drivers/usb/gadget/function/f_accessory.c
+--- a/drivers/usb/gadget/function/f_accessory.c
++++ b/drivers/usb/gadget/function/f_accessory.c
+@@ -274,7 +274,6 @@ static struct usb_gadget_strings *acc_strings[] = {
+ 	NULL,
+ };
+ 
+-/* temporary variable used between acc_open() and acc_gadget_bind() */
+ static struct acc_dev *_acc_dev;
+ 
+ struct acc_instance {
+@@ -1307,7 +1306,6 @@ static int acc_setup(void)
+ 	INIT_WORK(&dev->getprotocol_work, acc_getprotocol_work);
+ 	INIT_WORK(&dev->sendstring_work, acc_sendstring_work);
+ 
+-	/* _acc_dev must be set before calling usb_gadget_register_driver */
+ 	_acc_dev = dev;
+ 
+ 	ret = misc_register(&acc_device);
