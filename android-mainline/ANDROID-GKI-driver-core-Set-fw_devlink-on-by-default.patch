@@ -20,7 +20,7 @@ Change-Id: I5f63b0359082713bd7d3629abc14209f9667de3b
 diff --git a/drivers/base/core.c b/drivers/base/core.c
 --- a/drivers/base/core.c
 +++ b/drivers/base/core.c
-@@ -1409,7 +1409,7 @@ static void device_links_purge(struct device *dev)
+@@ -1437,7 +1437,7 @@ static void device_links_purge(struct device *dev)
  	device_links_write_unlock();
  }
  

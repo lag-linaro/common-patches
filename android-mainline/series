@@ -1,8 +1,8 @@
 #
 # android-mainline patches
 #
-# Applies onto upstream 157f809894f3 Linux v5.10-6279-g157f809894f3
-# Matches android-mainline 543db7de4d64 ("Merge 157f809894f3 ("Merge tag 'tty-5.11-rc1' of git://git.kernel.org/pub/scm/linux/kernel/git/gregkh/tty") into android-mainline")
+# Applies onto upstream 7240153a9bdb Linux v5.10-6320-g7240153a9bdb
+# Matches android-mainline f98aec4981cc ("Merge 7240153a9bdb ("Merge tag 'driver-core-5.11-rc1' of git://git.kernel.org/pub/scm/linux/kernel/git/gregkh/driver-core") into android-mainline")
 #
 Revert-block-grant-IOPRIO_CLASS_RT-to-CAP_SYS_NICE.patch
 Revert-arm64-dts-qcom-sdm845-db845c-Fix-hdmi-nodes.patch
