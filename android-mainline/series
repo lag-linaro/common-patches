@@ -2,7 +2,7 @@
 # android-mainline patches
 #
 # Applies onto upstream ac73e3dc8acd Linux v5.10-3409-gac73e3dc8acd
-# Matches android-mainline 8c3b398d8ce2 ("Merge ac73e3dc8acd ("Merge branch 'akpm' (patches from Andrew)") into android-mainline")
+# Matches android-mainline f1ee68a8f6bd ("Revert "Revert "security,lockdown,selinux: implement SELinux lockdown""")
 #
 Revert-block-grant-IOPRIO_CLASS_RT-to-CAP_SYS_NICE.patch
 Revert-arm64-dts-qcom-sdm845-db845c-Fix-hdmi-nodes.patch
@@ -231,7 +231,6 @@ ANDROID-mm-cma-retry-allocations-in-cma_alloc.patch
 ANDROID-mm-memblock-export-memblock_end_of_DRAM.patch
 ANDROID-mm-Create-vendor-hooks-to-control-ZONE_MOVABLE-allocations.patch
 _____ANNOTATION-security-changes_____.patch
-Revert-security-lockdown-selinux-implement-SELinux-lockdown.patch
 ANDROID-selinux-modify-RTM_GETLINK-permission.patch
 _____ANNOTATION-binder-changes_____.patch
 Revert-binder-Prevent-context-manager-from-incrementing-ref-0.patch
@@ -845,3 +844,4 @@ ANDROID-arm64-kvm-Hide-asym-aarch32-systems-from-KVM.patch
 ANDROID-arm64-Enable-KVM-for-Asym-AArch32.patch
 _____ANNOTATION-remove-ANNOTATIONS-file_____.patch
 DROP-ME-minor-out-of-tree-difference.patch
+DROP-ME-minor-out-of-tree-difference-in-security-lsm_audit.c.patch
