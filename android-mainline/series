@@ -2,7 +2,7 @@
 # android-mainline patches
 #
 # Applies onto upstream 148842c98a24 Linux v5.10-3208-g148842c98a24
-# Matches android-mainline cbc135c55e3b ("Merge 148842c98a24 ("Merge tag 'x86-apic-2020-12-14' of git://git.kernel.org/pub/scm/linux/kernel/git/tip/tip") into android-mainline")
+# Matches android-mainline e6c166040a46 ("Revert "ANDROID: cma: redirect page allocation to CMA"")
 #
 Revert-block-grant-IOPRIO_CLASS_RT-to-CAP_SYS_NICE.patch
 Revert-arm64-dts-qcom-sdm845-db845c-Fix-hdmi-nodes.patch
@@ -75,6 +75,7 @@ FROMLIST-USB-gadget-f_fs-add-SuperSpeed-Plus-support.patch
 FROMLIST-USB-gadget-f_midi-setup-SuperSpeed-Plus-descriptors.patch
 FROMLIST-USB-gadget-f_rndis-fix-bitrate-for-SuperSpeed-and-above.patch
 FROMLIST-scsi-ufs-clear-uac-for-RPMB-after-ufshcd-resets.patch
+FROMLIST-scsi-ufs-fix-livelock-on-ufshcd_clear_ua_wlun.patch
 FROMLIST-scripts-merge_config-add-strict-mode-to-fail-upon-any-redefinition.patch
 _____ANNOTATION-Android-vendor-hooks_____.patch
 ANDROID-GKI-add-android_vendor.h.patch
@@ -228,8 +229,6 @@ ANDROID-mm-Throttle-rss_stat-tracepoint.patch
 ANDROID-GKI-Don-t-compact-data-structures-when-CONFIG_ZSMALLOC-n.patch
 ANDROID-mm-cma-retry-allocations-in-cma_alloc.patch
 ANDROID-mm-memblock-export-memblock_end_of_DRAM.patch
-ANDROID-cma-redirect-page-allocation-to-CMA.patch
-ANDROID-mm-add-cma-pcp-list.patch
 ANDROID-mm-Create-vendor-hooks-to-control-ZONE_MOVABLE-allocations.patch
 _____ANNOTATION-security-changes_____.patch
 Revert-security-lockdown-selinux-implement-SELinux-lockdown.patch

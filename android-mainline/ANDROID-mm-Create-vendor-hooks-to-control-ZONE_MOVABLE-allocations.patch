@@ -48,7 +48,7 @@ diff --git a/drivers/android/vendor_hooks.c b/drivers/android/vendor_hooks.c
 diff --git a/include/linux/gfp.h b/include/linux/gfp.h
 --- a/include/linux/gfp.h
 +++ b/include/linux/gfp.h
-@@ -462,16 +462,7 @@ static inline bool gfpflags_normal_context(const gfp_t gfp_flags)
+@@ -447,16 +447,7 @@ static inline bool gfpflags_normal_context(const gfp_t gfp_flags)
  	| 1 << (___GFP_MOVABLE | ___GFP_DMA32 | ___GFP_DMA | ___GFP_HIGHMEM)  \
  )
  

@@ -17,7 +17,7 @@ Change-Id: Ia088deb649a7f9dbabbdc1622041ea30f1e2f375
 diff --git a/drivers/scsi/ufs/ufshcd.c b/drivers/scsi/ufs/ufshcd.c
 --- a/drivers/scsi/ufs/ufshcd.c
 +++ b/drivers/scsi/ufs/ufshcd.c
-@@ -7143,7 +7143,6 @@ static inline void ufshcd_blk_pm_runtime_init(struct scsi_device *sdev)
+@@ -7144,7 +7144,6 @@ static inline void ufshcd_blk_pm_runtime_init(struct scsi_device *sdev)
  static int ufshcd_scsi_add_wlus(struct ufs_hba *hba)
  {
  	int ret = 0;
@@ -25,7 +25,7 @@ diff --git a/drivers/scsi/ufs/ufshcd.c b/drivers/scsi/ufs/ufshcd.c
  	struct scsi_device *sdev_boot;
  
  	hba->sdev_ufs_device = __scsi_add_device(hba->host, 0, 0,
-@@ -7156,14 +7155,14 @@ static int ufshcd_scsi_add_wlus(struct ufs_hba *hba)
+@@ -7157,14 +7156,14 @@ static int ufshcd_scsi_add_wlus(struct ufs_hba *hba)
  	ufshcd_blk_pm_runtime_init(hba->sdev_ufs_device);
  	scsi_device_put(hba->sdev_ufs_device);
  
@@ -45,7 +45,7 @@ diff --git a/drivers/scsi/ufs/ufshcd.c b/drivers/scsi/ufs/ufshcd.c
  
  	sdev_boot = __scsi_add_device(hba->host, 0, 0,
  		ufshcd_upiu_wlun_to_scsi_wlun(UFS_UPIU_BOOT_WLUN), NULL);
-@@ -7690,14 +7689,20 @@ static int ufshcd_add_lus(struct ufs_hba *hba)
+@@ -7691,14 +7690,20 @@ static int ufshcd_add_lus(struct ufs_hba *hba)
  static int
  ufshcd_send_request_sense(struct ufs_hba *hba, struct scsi_device *sdp);
  
@@ -68,7 +68,7 @@ diff --git a/drivers/scsi/ufs/ufshcd.c b/drivers/scsi/ufs/ufshcd.c
  	if (sdp) {
  		ret = scsi_device_get(sdp);
  		if (!ret && !scsi_device_online(sdp)) {
-@@ -7711,18 +7716,31 @@ static int ufshcd_clear_uac(struct ufs_hba *hba)
+@@ -7712,18 +7717,31 @@ static int ufshcd_clear_uac(struct ufs_hba *hba)
  	if (ret)
  		goto out_err;
  
@@ -109,7 +109,7 @@ diff --git a/drivers/scsi/ufs/ufshcd.c b/drivers/scsi/ufs/ufshcd.c
  	return ret;
  }
  
-@@ -7848,7 +7866,7 @@ static void ufshcd_async_scan(void *data, async_cookie_t cookie)
+@@ -7849,7 +7867,7 @@ static void ufshcd_async_scan(void *data, async_cookie_t cookie)
  		ufshcd_exit_clk_scaling(hba);
  		ufshcd_hba_exit(hba);
  	} else {

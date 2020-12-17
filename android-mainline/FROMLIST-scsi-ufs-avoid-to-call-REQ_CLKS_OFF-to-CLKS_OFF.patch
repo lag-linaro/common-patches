@@ -16,7 +16,7 @@ Change-Id: Ia5cad145189c266b1bfba34ad3875f8ccf8ec322
 diff --git a/drivers/scsi/ufs/ufshcd.c b/drivers/scsi/ufs/ufshcd.c
 --- a/drivers/scsi/ufs/ufshcd.c
 +++ b/drivers/scsi/ufs/ufshcd.c
-@@ -1759,7 +1759,8 @@ static void __ufshcd_release(struct ufs_hba *hba)
+@@ -1760,7 +1760,8 @@ static void __ufshcd_release(struct ufs_hba *hba)
  	if (hba->clk_gating.active_reqs || hba->clk_gating.is_suspended ||
  	    hba->ufshcd_state != UFSHCD_STATE_OPERATIONAL ||
  	    ufshcd_any_tag_in_use(hba) || hba->outstanding_tasks ||
