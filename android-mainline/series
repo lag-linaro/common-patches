@@ -1,8 +1,8 @@
 #
 # android-mainline patches
 #
-# Applies onto upstream c367caf1a38b Linux v5.10-6004-gc367caf1a38b
-# Matches android-mainline 92262fb865b1 ("Merge c367caf1a38b ("Merge tag 'sound-5.11-rc1' of git://git.kernel.org/pub/scm/linux/kernel/git/tiwai/sound") into android-mainline")
+# Applies onto upstream 0cee54c890a4 Linux v5.10-6185-g0cee54c890a4
+# Matches android-mainline be1f7c11fa39 ("Merge 0cee54c890a4 ("Merge tag 'usb-5.11-rc1' of git://git.kernel.org/pub/scm/linux/kernel/git/gregkh/usb") into android-mainline")
 #
 Revert-block-grant-IOPRIO_CLASS_RT-to-CAP_SYS_NICE.patch
 Revert-arm64-dts-qcom-sdm845-db845c-Fix-hdmi-nodes.patch
@@ -12,45 +12,6 @@ FROMGIT-scsi-ufs-Put-HBA-into-LPM-during-gating.patch
 FROMGIT-scsi-ufs-Serialize-eh_work-with-system-PM-events-and-async-scan.patch
 BACKPORT-FROMGIT-scsi-ufs-Fix-a-race-condition-between-ufshcd_abort-and-eh_work.patch
 FROMGIT-scsi-ufs-Print-host-regs-in-IRQ-handler-when-AH8-error-happens.patch
-FROMGIT-usb-typec-tcpm-Refactor-logic-for-new-source-frs-typec-current.patch
-FROMGIT-usb-typec-tcpm-frs-sourcing-vbus-callback.patch
-FROMGIT-usb-typec-tcpci-frs-sourcing-vbus-callback.patch
-FROMGIT-usb-typec-tcpci_maxim-Fix-vbus-stuck-on-upon-diconnecting-sink.patch
-FROMGIT-usb-typec-tcpm-Implement-enabling-Auto-Discharge-disconnect-support.patch
-FROMGIT-usb-typec-tcpci-Implement-Auto-discharge-disconnect-callbacks.patch
-FROMGIT-usb-typec-tcpci_maxim-Enable-auto-discharge-disconnect.patch
-FROMGIT-usb-typec-tcpci_maxim-Fix-uninitialized-return-variable.patch
-FROMGIT-dt-bindings-usb-Maxim-type-c-controller-device-tree-binding-document.patch
-FROMGIT-usb-typec-tcpci_maxim-Fix-the-compatible-string.patch
-FROMGIT-usb-typec-tcpm-Disregard-vbus-off-while-in-PR_SWAP_SNK_SRC_SOURCE_ON.patch
-FROMGIT-usb-typec-tcpm-Stay-in-SNK_TRY_WAIT_DEBOUNCE_CHECK_VBUS-till-Rp-is-seen.patch
-FROMGIT-usb-typec-ucsi-acpi-Always-decode-connector-change-information.patch
-FROMGIT-usb-typec-ucsi-Work-around-PPM-losing-change-information.patch
-FROMGIT-usb-typec-Correct-the-bit-values-for-the-Thunderbolt-rounded-non-rounded-cable-support.patch
-FROMGIT-usb-typec-intel_pmc_mux-Configure-Thunderbolt-cable-generation-bits.patch
-FROMGIT-platform-chrome-cros_ec_typec-Correct-the-Thunderbolt-rounded-non-rounded-cable-support.patch
-FROMGIT-usb-typec-Remove-one-bit-support-for-the-Thunderbolt-rounded-non-rounded-cable.patch
-FROMGIT-usb-typec-Add-number-of-altmodes-partner-attr.patch
-FROMGIT-usb-typec-Add-plug-num_altmodes-sysfs-attr.patch
-FROMGIT-usb-typec-Fix-num_altmodes-kernel-doc-error.patch
-FROMGIT-usb-typec-Consolidate-sysfs-ABI-documentation.patch
-FROMGIT-usb-typec-Expose-Product-Type-VDOs-via-sysfs.patch
-FROMGIT-usb-typec-Constify-static-attribute_group-structs.patch
-FROMGIT-usb-pd-DFP-product-types.patch
-FROMGIT-usb-typec-Add-type-sysfs-attribute-file-for-partners.patch
-FROMGIT-usb-typec-intel_pmc_mux-Use-correct-response-message-bits.patch
-FROMGIT-usb-typec-tcpm-Pass-down-negotiated-rev-to-update-retry-count.patch
-FROMGIT-usb-typec-tcpm-Clear-send_discover-in-tcpm_check_send_discover.patch
-FROMGIT-usb-typec-tcpm-Introduce-vsafe0v-for-vbus.patch
-FROMGIT-usb-typec-tcpci-Add-support-to-report-vSafe0V.patch
-FROMGIT-usb-typec-tcpci_maxim-Enable-VSAFE0V-signalling.patch
-FROMGIT-usb-typec-intel_pmc_mux-Configure-cable-generation-value-for-USB4.patch
-FROMGIT-USB-typec-tcpm-Hard-Reset-after-not-receiving-a-Request.patch
-FROMGIT-USB-typec-tcpm-Fix-PR_SWAP-error-handling.patch
-FROMGIT-USB-typec-tcpm-Add-a-30ms-room-for-tPSSourceOn-in-PR_SWAP.patch
-FROMGIT-USB-typec-tcpci-Add-Bleed-discharge-to-POWER_CONTROL-definition.patch
-FROMGIT-usb-typec-Add-class-for-plug-alt-mode-device.patch
-FROMGIT-usb-typec-tcpci-Enable-bleed-discharge-when-auto-discharge-is-enabled.patch
 FROMGIT-libfs-Add-generic-function-for-setting-dentry_ops.patch
 FROMGIT-fscrypt-Have-filesystems-handle-their-d_ops.patch
 FROMGIT-f2fs-Handle-casefolding-with-Encryption.patch
@@ -70,10 +31,7 @@ FROMLIST-fuse-Introduce-synchronous-read-and-write-for-passthrough.patch
 FROMLIST-fuse-Handle-asynchronous-read-and-write-in-passthrough.patch
 FROMLIST-fuse-Use-daemon-creds-in-passthrough-mode.patch
 FROMLIST-fuse-Fix-colliding-FUSE_PASSTHROUGH-flag.patch
-FROMLIST-USB-gadget-f_acm-add-support-for-SuperSpeed-Plus.patch
 FROMLIST-USB-gadget-f_fs-add-SuperSpeed-Plus-support.patch
-FROMLIST-USB-gadget-f_midi-setup-SuperSpeed-Plus-descriptors.patch
-FROMLIST-USB-gadget-f_rndis-fix-bitrate-for-SuperSpeed-and-above.patch
 FROMLIST-scsi-ufs-clear-uac-for-RPMB-after-ufshcd-resets.patch
 FROMLIST-scsi-ufs-fix-livelock-on-ufshcd_clear_ua_wlun.patch
 FROMLIST-scripts-merge_config-add-strict-mode-to-fail-upon-any-redefinition.patch
