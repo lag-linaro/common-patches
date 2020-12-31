@@ -23,7 +23,7 @@ Signed-off-by: Alexander Potapenko <glider@google.com>
 diff --git a/arch/arm64/configs/gki_defconfig b/arch/arm64/configs/gki_defconfig
 --- a/arch/arm64/configs/gki_defconfig
 +++ b/arch/arm64/configs/gki_defconfig
-@@ -451,6 +451,8 @@ CONFIG_SECURITY_NETWORK=y
+@@ -448,6 +448,8 @@ CONFIG_SECURITY_NETWORK=y
  CONFIG_HARDENED_USERCOPY=y
  CONFIG_FORTIFY_SOURCE=y
  CONFIG_SECURITY_SELINUX=y
@@ -35,7 +35,7 @@ diff --git a/arch/arm64/configs/gki_defconfig b/arch/arm64/configs/gki_defconfig
 diff --git a/arch/x86/configs/gki_defconfig b/arch/x86/configs/gki_defconfig
 --- a/arch/x86/configs/gki_defconfig
 +++ b/arch/x86/configs/gki_defconfig
-@@ -390,6 +390,8 @@ CONFIG_SECURITY_NETWORK=y
+@@ -387,6 +387,8 @@ CONFIG_SECURITY_NETWORK=y
  CONFIG_HARDENED_USERCOPY=y
  CONFIG_FORTIFY_SOURCE=y
  CONFIG_SECURITY_SELINUX=y

@@ -1,0 +1,23 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: Matthias Maennich <maennich@google.com>
+Date: Thu, 17 Dec 2020 15:11:02 +0000
+Subject: ANDROID: build.config.common: allow overriding of HERMETIC_TOOLCHAIN
+
+This is required at the moment to be set by build_abi.sh.
+
+Bug: 175681515
+Signed-off-by: Matthias Maennich <maennich@google.com>
+Change-Id: I2657652c3fd3755fe2cee7a9a9ab01989a0bc8f3
+---
+ build.config.common | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/build.config.common b/build.config.common
+--- a/build.config.common
++++ b/build.config.common
+@@ -12,4 +12,4 @@ STOP_SHIP_TRACEPRINTK=1
+ IN_KERNEL_MODULES=1
+ DO_NOT_STRIP_MODULES=1
+ 
+-HERMETIC_TOOLCHAIN=1
++HERMETIC_TOOLCHAIN=${HERMETIC_TOOLCHAIN:-1}

@@ -19,7 +19,7 @@ Signed-off-by: Hridya Valsaraju <hridya@google.com>
 diff --git a/arch/arm64/configs/gki_defconfig b/arch/arm64/configs/gki_defconfig
 --- a/arch/arm64/configs/gki_defconfig
 +++ b/arch/arm64/configs/gki_defconfig
-@@ -488,6 +488,7 @@ CONFIG_DEBUG_INFO=y
+@@ -486,6 +486,7 @@ CONFIG_DEBUG_INFO=y
  CONFIG_HEADERS_INSTALL=y
  # CONFIG_SECTION_MISMATCH_WARN_ONLY is not set
  CONFIG_MAGIC_SYSRQ=y
@@ -30,7 +30,7 @@ diff --git a/arch/arm64/configs/gki_defconfig b/arch/arm64/configs/gki_defconfig
 diff --git a/arch/x86/configs/gki_defconfig b/arch/x86/configs/gki_defconfig
 --- a/arch/x86/configs/gki_defconfig
 +++ b/arch/x86/configs/gki_defconfig
-@@ -434,6 +434,7 @@ CONFIG_DEBUG_INFO=y
+@@ -432,6 +432,7 @@ CONFIG_DEBUG_INFO=y
  CONFIG_HEADERS_INSTALL=y
  # CONFIG_SECTION_MISMATCH_WARN_ONLY is not set
  CONFIG_MAGIC_SYSRQ=y

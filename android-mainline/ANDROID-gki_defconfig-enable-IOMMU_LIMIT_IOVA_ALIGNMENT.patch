@@ -17,7 +17,7 @@ Change-Id: I1e92fb14dd0518746e5e53fab80234915a7f0d68
 diff --git a/arch/arm64/configs/gki_defconfig b/arch/arm64/configs/gki_defconfig
 --- a/arch/arm64/configs/gki_defconfig
 +++ b/arch/arm64/configs/gki_defconfig
-@@ -426,6 +426,7 @@ CONFIG_COMMON_CLK_SCPI=y
+@@ -424,6 +424,7 @@ CONFIG_COMMON_CLK_SCPI=y
  CONFIG_HWSPINLOCK=y
  # CONFIG_SUN50I_ERRATUM_UNKNOWN1 is not set
  CONFIG_MAILBOX=y

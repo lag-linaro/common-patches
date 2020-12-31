@@ -16,7 +16,7 @@ Change-Id: Ifeeb3d1f3458d46491ba6cd363656bf4737b5cd3
 diff --git a/arch/arm64/configs/gki_defconfig b/arch/arm64/configs/gki_defconfig
 --- a/arch/arm64/configs/gki_defconfig
 +++ b/arch/arm64/configs/gki_defconfig
-@@ -479,7 +479,9 @@ CONFIG_STATIC_USERMODEHELPER_PATH=""
+@@ -477,7 +477,9 @@ CONFIG_STATIC_USERMODEHELPER_PATH=""
  CONFIG_SECURITY_SELINUX=y
  CONFIG_INIT_STACK_ALL=y
  CONFIG_INIT_ON_ALLOC_DEFAULT_ON=y
@@ -29,7 +29,7 @@ diff --git a/arch/arm64/configs/gki_defconfig b/arch/arm64/configs/gki_defconfig
 diff --git a/arch/x86/configs/gki_defconfig b/arch/x86/configs/gki_defconfig
 --- a/arch/x86/configs/gki_defconfig
 +++ b/arch/x86/configs/gki_defconfig
-@@ -426,7 +426,9 @@ CONFIG_STATIC_USERMODEHELPER_PATH=""
+@@ -424,7 +424,9 @@ CONFIG_STATIC_USERMODEHELPER_PATH=""
  CONFIG_SECURITY_SELINUX=y
  CONFIG_INIT_STACK_ALL=y
  CONFIG_INIT_ON_ALLOC_DEFAULT_ON=y

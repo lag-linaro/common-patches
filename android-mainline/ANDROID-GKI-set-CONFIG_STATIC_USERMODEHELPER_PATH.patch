@@ -19,7 +19,7 @@ Change-Id: I1d9f003c15a6b1d9a7f47804e50661a44a0725d5
 diff --git a/arch/arm64/configs/gki_defconfig b/arch/arm64/configs/gki_defconfig
 --- a/arch/arm64/configs/gki_defconfig
 +++ b/arch/arm64/configs/gki_defconfig
-@@ -475,6 +475,7 @@ CONFIG_HARDENED_USERCOPY=y
+@@ -473,6 +473,7 @@ CONFIG_HARDENED_USERCOPY=y
  # CONFIG_HARDENED_USERCOPY_FALLBACK is not set
  CONFIG_FORTIFY_SOURCE=y
  CONFIG_STATIC_USERMODEHELPER=y
@@ -30,7 +30,7 @@ diff --git a/arch/arm64/configs/gki_defconfig b/arch/arm64/configs/gki_defconfig
 diff --git a/arch/x86/configs/gki_defconfig b/arch/x86/configs/gki_defconfig
 --- a/arch/x86/configs/gki_defconfig
 +++ b/arch/x86/configs/gki_defconfig
-@@ -422,6 +422,7 @@ CONFIG_HARDENED_USERCOPY=y
+@@ -420,6 +420,7 @@ CONFIG_HARDENED_USERCOPY=y
  # CONFIG_HARDENED_USERCOPY_FALLBACK is not set
  CONFIG_FORTIFY_SOURCE=y
  CONFIG_STATIC_USERMODEHELPER=y

@@ -14,7 +14,7 @@ Signed-off-by: Ram Muthiah <rammuthiah@google.com>
 diff --git a/arch/x86/configs/gki_defconfig b/arch/x86/configs/gki_defconfig
 --- a/arch/x86/configs/gki_defconfig
 +++ b/arch/x86/configs/gki_defconfig
-@@ -334,6 +334,7 @@ CONFIG_ANDROID=y
+@@ -331,6 +331,7 @@ CONFIG_ANDROID=y
  CONFIG_ANDROID_BINDER_IPC=y
  CONFIG_LIBNVDIMM=y
  # CONFIG_ND_BLK is not set

@@ -18,7 +18,7 @@ Signed-off-by: Will McVicker <willmcvicker@google.com>
 diff --git a/arch/arm64/configs/gki_defconfig b/arch/arm64/configs/gki_defconfig
 --- a/arch/arm64/configs/gki_defconfig
 +++ b/arch/arm64/configs/gki_defconfig
-@@ -509,6 +509,7 @@ CONFIG_TMPFS=y
+@@ -507,6 +507,7 @@ CONFIG_TMPFS=y
  # CONFIG_EFIVAR_FS is not set
  CONFIG_PSTORE=y
  CONFIG_PSTORE_CONSOLE=y
@@ -29,7 +29,7 @@ diff --git a/arch/arm64/configs/gki_defconfig b/arch/arm64/configs/gki_defconfig
 diff --git a/arch/x86/configs/gki_defconfig b/arch/x86/configs/gki_defconfig
 --- a/arch/x86/configs/gki_defconfig
 +++ b/arch/x86/configs/gki_defconfig
-@@ -447,6 +447,7 @@ CONFIG_TMPFS_POSIX_ACL=y
+@@ -445,6 +445,7 @@ CONFIG_TMPFS_POSIX_ACL=y
  # CONFIG_EFIVAR_FS is not set
  CONFIG_PSTORE=y
  CONFIG_PSTORE_CONSOLE=y

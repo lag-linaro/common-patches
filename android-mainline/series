@@ -2,7 +2,7 @@
 # android-mainline patches
 #
 # Applies onto upstream 2911ed9f47b4 Linux v5.10-6637-g2911ed9f47b4
-# Matches android-mainline b1e6a9854787 ("Merge 2911ed9f47b4 ("Merge tag 'char-misc-5.11-rc1' of git://git.kernel.org/pub/scm/linux/kernel/git/gregkh/char-misc") into android-mailine")
+# Matches android-mainline 0b2a6b913757 ("ANDROID: delete ION code")
 #
 Revert-block-grant-IOPRIO_CLASS_RT-to-CAP_SYS_NICE.patch
 Revert-arm64-dts-qcom-sdm845-db845c-Fix-hdmi-nodes.patch
@@ -247,6 +247,7 @@ ANDROID-staging-ion-Fix-potential-memory-corruption.patch
 ANDROID-staging-ion-remove-kmap-from-begin-end-_cpu_access.patch
 ANDROID-staging-ion-Remove-unused-local-variable-vaddr.patch
 ANDROID-staging-ion-export-some-ion-symbols.patch
+ANDROID-delete-ION-code.patch
 BACKPORT-dma-buf-system_heap-Rework-system-heap-to-use-sgtables-instead-of-pagelists.patch
 BACKPORT-dma-buf-heaps-Move-heap-helper-logic-into-the-cma_heap-implementation.patch
 BACKPORT-dma-buf-heaps-Remove-heap-helpers-code.patch
@@ -308,6 +309,7 @@ ANDROID-usb-f_accessory-Fix-teardown-ordering-in-acc_release.patch
 ANDROID-usb-f_accessory-Don-t-corrupt-global-state-on-double-registration.patch
 ANDROID-usb-f_accessory-Cancel-any-pending-work-before-teardown.patch
 ANDROID-usb-f_accessory-Avoid-bitfields-for-shared-variables.patch
+ANDROID-usb-f_accessory-Don-t-drop-NULL-reference-in-acc_disconnect.patch
 _____ANNOTATION-graphics-changes_____.patch
 Revert-drm-virtio-fix-DRM_FORMAT_-handling.patch
 ANDROID-Allow-DRM_IOCTL_MODE_-_DUMB-for-render-clients.patch
@@ -510,7 +512,6 @@ FROMLIST-Makefile-add-fuse-ld-lld-to-KBUILD_HOSTLDFLAGS-when-LLVM-1.patch
 ANDROID-Expose-gki_defconfig-to-build.config.patch
 ANDROID-gki_defconfig-initial-config.patch
 ANDROID-Add-initial-rockpi4_defconfig.patch
-ANDROID-gki_defconfig-enable-ion-system-contig-heap.patch
 ANDROID-CONFIG_MMC-m.patch
 ANDROID-gki_defconfig-enable-CONFIG_UIO.patch
 ANDROID-init-GKI-add-GKI_HACKS_TO_FIX.patch
@@ -601,7 +602,6 @@ ANDROID-gki_defconfig-Relocate-INCREMENTAL_FS.patch
 ANDROID-gki_defconfig-enable-heap-and-stack-initialization.patch
 ANDROID-added-memory-initialization-tests-to-cuttlefish-config.patch
 ANDROID-gki_defconfig-enable-CONFIG_RUNTIME_TESTING_MENU.patch
-ANDROID-gki_defconfig-disable-system_contig-ion-heap.patch
 ANDROID-cf-build-Use-merge_configs.patch
 ANDROID-gki_defconfig-Enable-MAC80211_RC_MINSTREL.patch
 ANDROID-gki_defconfig-Enable-XDP_SOCKETS.patch
@@ -789,6 +789,7 @@ ANDROID-db845c_gki.fragment-Drop-CONFIG_USB_DWC3-from-config-frament.patch
 ANDROID-x86-configs-gki-add-missing-CONFIG_BLK_CGROUP.patch
 ANDROID-configs-GKI-disable-ARMv8.3-PAC.patch
 ANDROID-GKI-Unhide-VIRTIO_DMA_SHARED_BUFFER.patch
+ANDROID-build.config.common-allow-overriding-of-HERMETIC_TOOLCHAIN.patch
 _____ANNOTATION-Patches-for-bringing-up-new-SoCs_____.patch
 ANDROID-serial-msm_geni_serial_earlycon-Add-Earlycon-support.patch
 ANDROID-arm64-Add-support-for-asymmetric-AArch32-EL0-configurations.patch

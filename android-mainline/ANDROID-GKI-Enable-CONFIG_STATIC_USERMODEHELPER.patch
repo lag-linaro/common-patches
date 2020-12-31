@@ -16,7 +16,7 @@ Signed-off-by: Alistair Delva <adelva@google.com>
 diff --git a/arch/arm64/configs/gki_defconfig b/arch/arm64/configs/gki_defconfig
 --- a/arch/arm64/configs/gki_defconfig
 +++ b/arch/arm64/configs/gki_defconfig
-@@ -468,6 +468,7 @@ CONFIG_SECURITY_NETWORK=y
+@@ -466,6 +466,7 @@ CONFIG_SECURITY_NETWORK=y
  CONFIG_HARDENED_USERCOPY=y
  # CONFIG_HARDENED_USERCOPY_FALLBACK is not set
  CONFIG_FORTIFY_SOURCE=y
@@ -27,7 +27,7 @@ diff --git a/arch/arm64/configs/gki_defconfig b/arch/arm64/configs/gki_defconfig
 diff --git a/arch/x86/configs/gki_defconfig b/arch/x86/configs/gki_defconfig
 --- a/arch/x86/configs/gki_defconfig
 +++ b/arch/x86/configs/gki_defconfig
-@@ -413,6 +413,7 @@ CONFIG_SECURITY_NETWORK=y
+@@ -411,6 +411,7 @@ CONFIG_SECURITY_NETWORK=y
  CONFIG_HARDENED_USERCOPY=y
  # CONFIG_HARDENED_USERCOPY_FALLBACK is not set
  CONFIG_FORTIFY_SOURCE=y

@@ -230,7 +230,7 @@ diff --git a/arch/x86/configs/gki_defconfig b/arch/x86/configs/gki_defconfig
 -CONFIG_VIRTIO_MMIO_CMDLINE_DEVICES=y
  CONFIG_STAGING=y
  CONFIG_ASHMEM=y
- CONFIG_ION=y
+ CONFIG_PM_DEVFREQ=y
 diff --git a/build.config.cuttlefish.aarch64 b/build.config.cuttlefish.aarch64
 --- a/build.config.cuttlefish.aarch64
 +++ b/build.config.cuttlefish.aarch64

@@ -18,7 +18,7 @@ Change-Id: Ideceaa13139ad2408f56fe888a438bc20c5707a2
 diff --git a/arch/arm64/configs/gki_defconfig b/arch/arm64/configs/gki_defconfig
 --- a/arch/arm64/configs/gki_defconfig
 +++ b/arch/arm64/configs/gki_defconfig
-@@ -481,12 +481,13 @@ CONFIG_HEADERS_INSTALL=y
+@@ -479,12 +479,13 @@ CONFIG_HEADERS_INSTALL=y
  CONFIG_MAGIC_SYSRQ=y
  CONFIG_DEBUG_STACK_USAGE=y
  CONFIG_DEBUG_MEMORY_INIT=y
@@ -37,7 +37,7 @@ diff --git a/arch/arm64/configs/gki_defconfig b/arch/arm64/configs/gki_defconfig
 diff --git a/arch/x86/configs/gki_defconfig b/arch/x86/configs/gki_defconfig
 --- a/arch/x86/configs/gki_defconfig
 +++ b/arch/x86/configs/gki_defconfig
-@@ -426,9 +426,10 @@ CONFIG_HEADERS_INSTALL=y
+@@ -424,9 +424,10 @@ CONFIG_HEADERS_INSTALL=y
  CONFIG_MAGIC_SYSRQ=y
  CONFIG_DEBUG_STACK_USAGE=y
  CONFIG_DEBUG_MEMORY_INIT=y

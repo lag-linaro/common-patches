@@ -15,7 +15,7 @@ Signed-off-by: Paul Lawrence <paullawrence@google.com>
 diff --git a/arch/arm64/configs/gki_defconfig b/arch/arm64/configs/gki_defconfig
 --- a/arch/arm64/configs/gki_defconfig
 +++ b/arch/arm64/configs/gki_defconfig
-@@ -389,6 +389,7 @@ CONFIG_QUOTA=y
+@@ -386,6 +386,7 @@ CONFIG_QUOTA=y
  CONFIG_QFMT_V2=y
  CONFIG_FUSE_FS=y
  CONFIG_OVERLAY_FS=y
@@ -26,7 +26,7 @@ diff --git a/arch/arm64/configs/gki_defconfig b/arch/arm64/configs/gki_defconfig
 diff --git a/arch/x86/configs/gki_defconfig b/arch/x86/configs/gki_defconfig
 --- a/arch/x86/configs/gki_defconfig
 +++ b/arch/x86/configs/gki_defconfig
-@@ -324,6 +324,7 @@ CONFIG_QUOTA=y
+@@ -321,6 +321,7 @@ CONFIG_QUOTA=y
  CONFIG_QFMT_V2=y
  CONFIG_FUSE_FS=y
  CONFIG_OVERLAY_FS=y

@@ -21,7 +21,7 @@ Signed-off-by: Alistair Delva <adelva@google.com>
 diff --git a/arch/x86/configs/gki_defconfig b/arch/x86/configs/gki_defconfig
 --- a/arch/x86/configs/gki_defconfig
 +++ b/arch/x86/configs/gki_defconfig
-@@ -413,4 +413,3 @@ CONFIG_SOFTLOCKUP_DETECTOR=y
+@@ -410,4 +410,3 @@ CONFIG_SOFTLOCKUP_DETECTOR=y
  # CONFIG_DETECT_HUNG_TASK is not set
  CONFIG_SCHEDSTATS=y
  CONFIG_UNWINDER_FRAME_POINTER=y
