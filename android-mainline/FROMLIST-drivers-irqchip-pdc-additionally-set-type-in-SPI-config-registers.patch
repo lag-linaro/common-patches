@@ -26,8 +26,8 @@ Change-Id: I73250a04f67549dbf75c40b3672b6b1b78ff8adb
 Signed-off-by: Maulik Shah <mkshah@codeaurora.org>
 Link: https://patchwork.kernel.org/patch/11145353
 ---
- drivers/irqchip/qcom-pdc.c | 93 ++++++++++++++++++++++++++++++++++++++
- 1 file changed, 93 insertions(+)
+ drivers/irqchip/qcom-pdc.c | 92 ++++++++++++++++++++++++++++++++++++++
+ 1 file changed, 92 insertions(+)
 
 diff --git a/drivers/irqchip/qcom-pdc.c b/drivers/irqchip/qcom-pdc.c
 --- a/drivers/irqchip/qcom-pdc.c
@@ -120,18 +120,16 @@ diff --git a/drivers/irqchip/qcom-pdc.c b/drivers/irqchip/qcom-pdc.c
  /*
   * GIC does not handle falling edge or active low. To allow falling edge and
   * active low interrupts to be handled at GIC, PDC has an inverter that inverts
-@@ -158,7 +221,9 @@ enum pdc_irq_config_bits {
+@@ -158,6 +221,7 @@ enum pdc_irq_config_bits {
  static int qcom_pdc_gic_set_type(struct irq_data *d, unsigned int type)
  {
  	int pin_out = d->hwirq;
 +	int parent_hwirq = d->parent_data->hwirq;
  	enum pdc_irq_config_bits pdc_type;
-+	int ret;
- 
- 	if (pin_out == GPIO_NO_WAKE_IRQ)
- 		return 0;
-@@ -189,6 +254,11 @@ static int qcom_pdc_gic_set_type(struct irq_data *d, unsigned int type)
- 
+ 	enum pdc_irq_config_bits old_pdc_type;
+ 	int ret;
+@@ -192,6 +256,11 @@ static int qcom_pdc_gic_set_type(struct irq_data *d, unsigned int type)
+ 	old_pdc_type = pdc_reg_read(IRQ_i_CFG, pin_out);
  	pdc_reg_write(IRQ_i_CFG, pin_out, pdc_type);
  
 +	/* Additionally, configure (only) the GPIO in the f/w */
@@ -139,10 +137,10 @@ diff --git a/drivers/irqchip/qcom-pdc.c b/drivers/irqchip/qcom-pdc.c
 +	if (ret)
 +		return ret;
 +
- 	return irq_chip_set_type_parent(d, type);
- }
- 
-@@ -387,6 +457,7 @@ static int pdc_setup_pin_mapping(struct device_node *np)
+ 	ret = irq_chip_set_type_parent(d, type);
+ 	if (ret)
+ 		return ret;
+@@ -406,6 +475,7 @@ static int pdc_setup_pin_mapping(struct device_node *np)
  static int qcom_pdc_init(struct device_node *node, struct device_node *parent)
  {
  	struct irq_domain *parent_domain, *pdc_domain, *pdc_gpio_domain;
@@ -150,7 +148,7 @@ diff --git a/drivers/irqchip/qcom-pdc.c b/drivers/irqchip/qcom-pdc.c
  	int ret;
  
  	pdc_base = of_iomap(node, 0);
-@@ -417,6 +488,27 @@ static int qcom_pdc_init(struct device_node *node, struct device_node *parent)
+@@ -436,6 +506,27 @@ static int qcom_pdc_init(struct device_node *node, struct device_node *parent)
  		goto fail;
  	}
  
@@ -178,7 +176,7 @@ diff --git a/drivers/irqchip/qcom-pdc.c b/drivers/irqchip/qcom-pdc.c
  	pdc_gpio_domain = irq_domain_create_hierarchy(parent_domain,
  					IRQ_DOMAIN_FLAG_QCOM_PDC_WAKEUP,
  					PDC_MAX_GPIO_IRQS,
-@@ -434,6 +526,7 @@ static int qcom_pdc_init(struct device_node *node, struct device_node *parent)
+@@ -453,6 +544,7 @@ static int qcom_pdc_init(struct device_node *node, struct device_node *parent)
  
  remove:
  	irq_domain_remove(pdc_domain);

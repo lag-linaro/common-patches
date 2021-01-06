@@ -20,7 +20,7 @@ Change-Id: I1843de08edf5bb2eee806845f4b5e0a305da5fe7
 diff --git a/kernel/sched/cputime.c b/kernel/sched/cputime.c
 --- a/kernel/sched/cputime.c
 +++ b/kernel/sched/cputime.c
-@@ -460,6 +460,7 @@ void thread_group_cputime_adjusted(struct task_struct *p, u64 *ut, u64 *st)
+@@ -458,6 +458,7 @@ void thread_group_cputime_adjusted(struct task_struct *p, u64 *ut, u64 *st)
  	*ut = cputime.utime;
  	*st = cputime.stime;
  }
@@ -28,7 +28,7 @@ diff --git a/kernel/sched/cputime.c b/kernel/sched/cputime.c
  
  #else /* !CONFIG_VIRT_CPU_ACCOUNTING_NATIVE: */
  
-@@ -629,6 +630,8 @@ void thread_group_cputime_adjusted(struct task_struct *p, u64 *ut, u64 *st)
+@@ -627,6 +628,8 @@ void thread_group_cputime_adjusted(struct task_struct *p, u64 *ut, u64 *st)
  	thread_group_cputime(p, &cputime);
  	cputime_adjust(&cputime, &p->signal->prev_cputime, ut, st);
  }

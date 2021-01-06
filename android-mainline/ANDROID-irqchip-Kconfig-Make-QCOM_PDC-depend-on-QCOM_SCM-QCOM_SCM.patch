@@ -23,7 +23,7 @@ Change-Id: Ie1a3c0644e49646c2b071b878cf1263d46be8e0d
 diff --git a/drivers/irqchip/Kconfig b/drivers/irqchip/Kconfig
 --- a/drivers/irqchip/Kconfig
 +++ b/drivers/irqchip/Kconfig
-@@ -433,6 +433,7 @@ config GOLDFISH_PIC
+@@ -426,6 +426,7 @@ config GOLDFISH_PIC
  config QCOM_PDC
  	tristate "QCOM PDC"
  	depends on ARCH_QCOM

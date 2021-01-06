@@ -46,7 +46,7 @@ Signed-off-by: John Stultz <john.stultz@linaro.org>
 diff --git a/drivers/irqchip/Kconfig b/drivers/irqchip/Kconfig
 --- a/drivers/irqchip/Kconfig
 +++ b/drivers/irqchip/Kconfig
-@@ -431,7 +431,7 @@ config GOLDFISH_PIC
+@@ -424,7 +424,7 @@ config GOLDFISH_PIC
           for Goldfish based virtual platforms.
  
  config QCOM_PDC
@@ -70,7 +70,7 @@ diff --git a/drivers/irqchip/qcom-pdc.c b/drivers/irqchip/qcom-pdc.c
  #include <linux/soc/qcom/irq.h>
  #include <linux/spinlock.h>
  #include <linux/slab.h>
-@@ -533,4 +535,28 @@ static int qcom_pdc_init(struct device_node *node, struct device_node *parent)
+@@ -551,4 +553,28 @@ static int qcom_pdc_init(struct device_node *node, struct device_node *parent)
  	return ret;
  }
  
