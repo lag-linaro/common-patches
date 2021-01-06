@@ -1,8 +1,8 @@
 #
 # android-mainline patches
 #
-# Applies onto upstream 605ea5aafe13 Linux v5.10-7211-g605ea5aafe13
-# Matches android-mainline ae4d3eeca30a ("Merge 605ea5aafe13 ("Merge tag 'spi-v5.11' of git://git.kernel.org/pub/scm/linux/kernel/git/broonie/spi") into android-mainline")
+# Applies onto upstream ce51c2b7ceb2 Linux v5.10-7321-gce51c2b7ceb2
+# Matches android-mainline 8b882de4c13a ("Merge ce51c2b7ceb2 ("Merge tag 'mmc-v5.11' of git://git.kernel.org/pub/scm/linux/kernel/git/ulfh/mmc") into android-mainline")
 #
 Revert-block-grant-IOPRIO_CLASS_RT-to-CAP_SYS_NICE.patch
 Revert-arm64-dts-qcom-sdm845-db845c-Fix-hdmi-nodes.patch
