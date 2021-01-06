@@ -13,6 +13,6 @@ diff --git a/ANNOTATIONS b/ANNOTATIONS
 +++ b/ANNOTATIONS
 @@ -14,3 +14,4 @@ security changes
  binder changes
- ion changes
+ dma-buf changes
  driver framework and misc driver changes
 +tty changes

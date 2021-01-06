@@ -14,5 +14,5 @@ diff --git a/ANNOTATIONS b/ANNOTATIONS
 @@ -13,3 +13,4 @@ mm (memory management) changes
  security changes
  binder changes
- ion changes
+ dma-buf changes
 +driver framework and misc driver changes

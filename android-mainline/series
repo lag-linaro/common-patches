@@ -1,8 +1,8 @@
 #
 # android-mainline patches
 #
-# Applies onto upstream 2911ed9f47b4 Linux v5.10-6637-g2911ed9f47b4
-# Matches android-mainline 0b2a6b913757 ("ANDROID: delete ION code")
+# Applies onto upstream 3db1a3fa9880 Linux v5.10-6984-g3db1a3fa9880
+# Matches android-mainline 37684c73c149 ("Merge 3db1a3fa9880 ("Merge tag 'staging-5.11-rc1' of git://git.kernel.org/pub/scm/linux/kernel/git/gregkh/staging") into android-mainline")
 #
 Revert-block-grant-IOPRIO_CLASS_RT-to-CAP_SYS_NICE.patch
 Revert-arm64-dts-qcom-sdm845-db845c-Fix-hdmi-nodes.patch
@@ -194,44 +194,11 @@ Revert-binder-Prevent-context-manager-from-incrementing-ref-0.patch
 ANDROID-binder-add-support-for-RT-prio-inheritance.patch
 ANDROID-binder-Add-vendor-hook-to-the-binder.patch
 ANDROID-binder-Add-vendor-hooks.patch
-_____ANNOTATION-ion-changes_____.patch
-ANDROID-staging-android-ion-Decouple-ION-page-pooling-from-ION-core.patch
-ANDROID-staging-android-ion-Expose-ion_alloc-to-kernel-space.patch
+_____ANNOTATION-dma-buf-changes_____.patch
 ANDROID-dma-buf-Add-support-for-partial-cache-maintenance.patch
 ANDROID-dma-buf-Add-support-for-mapping-buffers-with-DMA-attributes.patch
 ANDROID-dma-buf-Add-support-to-get-flags-associated-with-a-buffer.patch
-ANDROID-staging-ion-refactor-ion-s-buffer-manipulators-into-a-separate-file.patch
-ANDROID-staging-ion-refactor-ion-s-dmabuf-manipulators-into-a-separate-file.patch
-ANDROID-staging-ion-refactor-ion-s-heap-manipulators-into-a-separate-file.patch
-ANDROID-staging-ion-Move-ion-heaps-into-their-own-directory.patch
-ANDROID-staging-ion-refactor-ion-s-heap-API-into-linux-ion.h.patch
-ANDROID-staging-ion-split-system-and-system-contig-heaps.patch
-ANDROID-staging-ion-make-system-and-contig-heaps-modular.patch
-ANDROID-staging-ion-move-uapi-ion.h-to-uapi-linux-ion.h.patch
-ANDROID-staging-ion-reserve-specific-heap-ids-for-known-heap-types.patch
-ANDROID-staging-ion-add-support-for-consistent-heap-ids.patch
-ANDROID-staging-ion-Add-support-for-heap-specific-dma_buf_ops.patch
-ANDROID-staging-ion-Remove-unnecessary-ion-heap-ops.patch
-ANDROID-staging-ion-fix-off-by-1-error-in-heap-search.patch
-ANDROID-staging-ion-uapi-match-the-existing-heap-type-enums.patch
-ANDROID-staging-ion-export-ion_free-for-ion_heaps.patch
 ANDROID-GKI-export-cma-symbols-for-cma-heap-as-a-module.patch
-ANDROID-staging-ion-make-cma-heap-a-module.patch
-ANDROID-Add-an-IOCTL-to-check-ION-ABI-version.patch
-ANDROID-ion-Fix-buffer_lock-mutex-initialization.patch
-ANDROID-ion-Remove-unused-rbtree-for-ion_buffer.patch
-ANDROID-ion-flush-cache-before-exporting-non-cached-buffers.patch
-ANDROID-remove-map-unmap-from-ion_dma.c.patch
-ANDROID-staging-ion-delete-unused-heap-types-and-IDs.patch
-ANDROID-staging-ion-Add-an-in-kernel-interface-to-request-heap-info.patch
-ANDROID-staging-ion-Allow-for-attach-and-detach-ops-to-be-overridden.patch
-ANDROID-staging-ion-move-definition-of-attachment.patch
-ANDROID-staging-ion-implement-vmap-for-built-in-heaps.patch
-ANDROID-staging-android-ion-Expose-total-heap-and-pool-sizes-via-sysfs.patch
-ANDROID-add-ion_stat-tracepoint-to-common-kernel.patch
-ANDROID-staging-ion-Skip-sync-if-not-mapped.patch
-ANDROID-staging-ion-Delete-unused-function-ion_heap_buffer_zero.patch
-ANDROID-staging-ion-Delete-unused-functions-in-ion_heap.c.patch
 ANDROID-Export-dma_heap_add-to-modularize-heaps.patch
 ANDROID-dma-heap-Add-proper-kref-handling-on-dma-buf-heaps.patch
 ANDROID-dma-heap-Refactor-code-to-allow-for-future-in-kernel-users.patch
@@ -240,14 +207,6 @@ ANDROID-dma-heap-Provide-accessors-so-that-in-kernel-drivers-can-allocate-dmabuf
 ANDROID-dma-buf-Cleanup-minor-usage-in-Add-proper-kref-handling-on-dma-buf-heaps.patch
 ANDROID-dma-Rework-so-dev_get_cma_area-can-be-called-from-a-module.patch
 ANDROID-dma-buf-heaps-Allow-cma-heaps-to-be-configured-as-a-module.patch
-ANDROID-staging-ion-Export-query-function-to-be-used-in-modules.patch
-ANDROID-staging-ion-use-dma_-un-map_sg_attrs.patch
-ANDROID-staging-ion-optimize-cache-operation-for-non-cached-buffer.patch
-ANDROID-staging-ion-Fix-potential-memory-corruption.patch
-ANDROID-staging-ion-remove-kmap-from-begin-end-_cpu_access.patch
-ANDROID-staging-ion-Remove-unused-local-variable-vaddr.patch
-ANDROID-staging-ion-export-some-ion-symbols.patch
-ANDROID-delete-ION-code.patch
 BACKPORT-dma-buf-system_heap-Rework-system-heap-to-use-sgtables-instead-of-pagelists.patch
 BACKPORT-dma-buf-heaps-Move-heap-helper-logic-into-the-cma_heap-implementation.patch
 BACKPORT-dma-buf-heaps-Remove-heap-helpers-code.patch
@@ -800,3 +759,5 @@ ANDROID-arm64-Enable-KVM-for-Asym-AArch32.patch
 _____ANNOTATION-remove-ANNOTATIONS-file_____.patch
 DROP-ME-minor-out-of-tree-difference.patch
 DROP-ME-minor-out-of-tree-difference-in-security-lsm_audit.c.patch
+DROP-ME-obsolete-ION-documentation.patch
+DROP-ME-Out-of-tree-difference-caused-by-the-ION-deletion.patch

@@ -14,7 +14,7 @@ Signed-off-by: Eric Biggers <ebiggers@google.com>
 
 diff --git a/ANNOTATIONS b/ANNOTATIONS
 deleted file mode 100644
-index d1353a38dcb9..000000000000
+index 0c64b56de820..000000000000
 --- a/ANNOTATIONS
 +++ /dev/null
 @@ -1,33 +0,0 @@
@@ -32,7 +32,7 @@ index d1353a38dcb9..000000000000
 -mm (memory management) changes
 -security changes
 -binder changes
--ion changes
+-dma-buf changes
 -driver framework and misc driver changes
 -tty changes
 -USB changes
