@@ -43,7 +43,7 @@ diff --git a/include/trace/hooks/sched.h b/include/trace/hooks/sched.h
 diff --git a/kernel/sched/rt.c b/kernel/sched/rt.c
 --- a/kernel/sched/rt.c
 +++ b/kernel/sched/rt.c
-@@ -1738,13 +1738,8 @@ static int find_lowest_rq(struct task_struct *task)
+@@ -1733,13 +1733,8 @@ static int find_lowest_rq(struct task_struct *task)
  	struct sched_domain *sd;
  	struct cpumask *lowest_mask = this_cpu_cpumask_var_ptr(local_cpu_mask);
  	int this_cpu = smp_processor_id();
@@ -58,7 +58,7 @@ diff --git a/kernel/sched/rt.c b/kernel/sched/rt.c
  
  	/* Make sure the mask is initialized first */
  	if (unlikely(!lowest_mask))
-@@ -1768,9 +1763,15 @@ static int find_lowest_rq(struct task_struct *task)
+@@ -1763,9 +1758,15 @@ static int find_lowest_rq(struct task_struct *task)
  				  task, lowest_mask);
  	}
  

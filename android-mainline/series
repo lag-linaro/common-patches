@@ -2,7 +2,7 @@
 # android-mainline patches
 #
 # Applies onto upstream 5b200f578960 Linux v5.10-7004-g5b200f578960
-# Matches android-mainline 44ede8412e2d ("Merge 5b200f578960 ("Merge branch 'akpm' (patches from Andrew)") into android-mainline")
+# Matches android-mainline 4196c1dafc4f ("Revert "ANDROID: sched: avoid migrating when softint on tgt cpu should be short"")
 #
 Revert-block-grant-IOPRIO_CLASS_RT-to-CAP_SYS_NICE.patch
 Revert-arm64-dts-qcom-sdm845-db845c-Fix-hdmi-nodes.patch
@@ -130,12 +130,7 @@ ANDROID-cpu-Don-t-prevent-hotplug-from-DL-BATCH-IDLE.patch
 ANDROID-sched-gki-add-padding-to-some-structs-to-support-WALT.patch
 ANDROID-sched-Add-trace-hook-for-rt-throttle-dump.patch
 ANDROID-sched-avoid-placing-RT-threads-on-cores-handling-softirqs.patch
-ANDROID-sched-avoid-migrating-when-softint-on-tgt-cpu-should-be-short.patch
-ANDROID-softirq-defer-softirq-processing-to-ksoftirqd-if-CPU-is-busy-with-RT.patch
-ANDROID-Revert-Mark-HI-and-TASKLET-softirq-synchronous.patch
-ANDROID-Revert-softirq-Let-ksoftirqd-do-its-job.patch
 ANDROID-softirq-Export-irq_handler_entry-tracepoint.patch
-ANDROID-trace-Add-trace-points-for-tasklet-entry-exit.patch
 ANDROID-vendor_hooks-Add-hook-for-jiffies-updates.patch
 ANDROID-sched_clock-Add-vendor-hook-to-print-epoch-values.patch
 ANDROID-sched-Export-few-scheduler-symbols-for-vendor-modules.patch

@@ -118,5 +118,5 @@ diff --git a/kernel/softirq.c b/kernel/softirq.c
  DEFINE_PER_CPU(struct task_struct *, ksoftirqd);
 +EXPORT_PER_CPU_SYMBOL_GPL(ksoftirqd);
  
- /*
-  * active_softirqs -- per cpu, a mask of softirqs that are being handled,
+ const char * const softirq_to_name[NR_SOFTIRQS] = {
+ 	"HI", "TIMER", "NET_TX", "NET_RX", "BLOCK", "IRQ_POLL",
