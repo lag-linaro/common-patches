@@ -18,7 +18,7 @@ Change-Id: I745708b7d4ae1fcacbc359ed2f3fda462d95ea6a
 diff --git a/MAINTAINERS b/MAINTAINERS
 --- a/MAINTAINERS
 +++ b/MAINTAINERS
-@@ -8685,6 +8685,13 @@ F:	Documentation/hwmon/ina2xx.rst
+@@ -8687,6 +8687,13 @@ F:	Documentation/hwmon/ina2xx.rst
  F:	drivers/hwmon/ina2xx.c
  F:	include/linux/platform_data/ina2xx.h
  
