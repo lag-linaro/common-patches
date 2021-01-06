@@ -18,7 +18,7 @@ Signed-off-by: Kalesh Singh <kaleshsingh@google.com>
 diff --git a/include/linux/mmzone.h b/include/linux/mmzone.h
 --- a/include/linux/mmzone.h
 +++ b/include/linux/mmzone.h
-@@ -154,9 +154,7 @@ enum zone_stat_item {
+@@ -153,9 +153,7 @@ enum zone_stat_item {
  	NR_MLOCK,		/* mlock()ed pages found and moved off LRU */
  	/* Second 128 byte cacheline */
  	NR_BOUNCE,

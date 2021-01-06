@@ -1,8 +1,8 @@
 #
 # android-mainline patches
 #
-# Applies onto upstream 3db1a3fa9880 Linux v5.10-6984-g3db1a3fa9880
-# Matches android-mainline 0c64f7a00edb ("Revert "FROMLIST: scsi: ufs: fix livelock on ufshcd_clear_ua_wlun"")
+# Applies onto upstream 5b200f578960 Linux v5.10-7004-g5b200f578960
+# Matches android-mainline 44ede8412e2d ("Merge 5b200f578960 ("Merge branch 'akpm' (patches from Andrew)") into android-mainline")
 #
 Revert-block-grant-IOPRIO_CLASS_RT-to-CAP_SYS_NICE.patch
 Revert-arm64-dts-qcom-sdm845-db845c-Fix-hdmi-nodes.patch
