@@ -1,0 +1,27 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: Prasad Sodagudi <psodagud@codeaurora.org>
+Date: Sat, 16 May 2020 10:38:10 -0700
+Subject: ANDROID: softirq: Export irq_handler_entry tracepoint
+
+Export irq_handle_entry tracepoint, so that vendor modules
+can register probes for this tracepoint.
+
+Bug: 175806230
+Change-Id: Ieb276e1938ccf819a847cde37d5a25bfa00efe05
+Signed-off-by: Prasad Sodagudi <psodagud@codeaurora.org>
+---
+ kernel/softirq.c | 2 ++
+ 1 file changed, 2 insertions(+)
+
+diff --git a/kernel/softirq.c b/kernel/softirq.c
+--- a/kernel/softirq.c
++++ b/kernel/softirq.c
+@@ -29,6 +29,8 @@
+ #define CREATE_TRACE_POINTS
+ #include <trace/events/irq.h>
+ 
++EXPORT_TRACEPOINT_SYMBOL_GPL(irq_handler_entry);
++
+ /*
+    - No shared variables, all the data are CPU local.
+    - If a softirq needs serialization, let it serialize itself

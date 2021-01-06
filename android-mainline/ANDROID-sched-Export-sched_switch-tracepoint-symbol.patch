@@ -1,0 +1,26 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: Prasad Sodagudi <psodagud@codeaurora.org>
+Date: Sat, 16 May 2020 10:33:19 -0700
+Subject: ANDROID: sched: Export sched_switch tracepoint symbol
+
+Export sched_switch tracepoint symbol, so that modules
+can register probes.
+
+Bug: 175806230
+Change-Id: Id114a0aa1760f6e3da0b2b2b814893df5af9fe9d
+Signed-off-by: Prasad Sodagudi <psodagud@codeaurora.org>
+---
+ kernel/sched/core.c | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/kernel/sched/core.c b/kernel/sched/core.c
+--- a/kernel/sched/core.c
++++ b/kernel/sched/core.c
+@@ -44,6 +44,7 @@ EXPORT_TRACEPOINT_SYMBOL_GPL(sched_overutilized_tp);
+ EXPORT_TRACEPOINT_SYMBOL_GPL(sched_util_est_cfs_tp);
+ EXPORT_TRACEPOINT_SYMBOL_GPL(sched_util_est_se_tp);
+ EXPORT_TRACEPOINT_SYMBOL_GPL(sched_update_nr_running_tp);
++EXPORT_TRACEPOINT_SYMBOL_GPL(sched_switch);
+ 
+ DEFINE_PER_CPU_SHARED_ALIGNED(struct rq, runqueues);
+ EXPORT_SYMBOL_GPL(runqueues);

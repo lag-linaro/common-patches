@@ -81,7 +81,7 @@ diff --git a/include/trace/events/irq.h b/include/trace/events/irq.h
 diff --git a/kernel/softirq.c b/kernel/softirq.c
 --- a/kernel/softirq.c
 +++ b/kernel/softirq.c
-@@ -559,10 +559,15 @@ static void tasklet_action_common(struct softirq_action *a,
+@@ -561,10 +561,15 @@ static void tasklet_action_common(struct softirq_action *a,
  				if (!test_and_clear_bit(TASKLET_STATE_SCHED,
  							&t->state))
  					BUG();

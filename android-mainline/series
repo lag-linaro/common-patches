@@ -2,7 +2,7 @@
 # android-mainline patches
 #
 # Applies onto upstream 3db1a3fa9880 Linux v5.10-6984-g3db1a3fa9880
-# Matches android-mainline 37684c73c149 ("Merge 3db1a3fa9880 ("Merge tag 'staging-5.11-rc1' of git://git.kernel.org/pub/scm/linux/kernel/git/gregkh/staging") into android-mainline")
+# Matches android-mainline 0c64f7a00edb ("Revert "FROMLIST: scsi: ufs: fix livelock on ufshcd_clear_ua_wlun"")
 #
 Revert-block-grant-IOPRIO_CLASS_RT-to-CAP_SYS_NICE.patch
 Revert-arm64-dts-qcom-sdm845-db845c-Fix-hdmi-nodes.patch
@@ -32,7 +32,6 @@ FROMLIST-fuse-Use-daemon-creds-in-passthrough-mode.patch
 FROMLIST-fuse-Fix-colliding-FUSE_PASSTHROUGH-flag.patch
 FROMLIST-USB-gadget-f_fs-add-SuperSpeed-Plus-support.patch
 FROMLIST-scsi-ufs-clear-uac-for-RPMB-after-ufshcd-resets.patch
-FROMLIST-scsi-ufs-fix-livelock-on-ufshcd_clear_ua_wlun.patch
 FROMLIST-scripts-merge_config-add-strict-mode-to-fail-upon-any-redefinition.patch
 _____ANNOTATION-Android-vendor-hooks_____.patch
 ANDROID-GKI-add-android_vendor.h.patch
@@ -135,6 +134,7 @@ ANDROID-sched-avoid-migrating-when-softint-on-tgt-cpu-should-be-short.patch
 ANDROID-softirq-defer-softirq-processing-to-ksoftirqd-if-CPU-is-busy-with-RT.patch
 ANDROID-Revert-Mark-HI-and-TASKLET-softirq-synchronous.patch
 ANDROID-Revert-softirq-Let-ksoftirqd-do-its-job.patch
+ANDROID-softirq-Export-irq_handler_entry-tracepoint.patch
 ANDROID-trace-Add-trace-points-for-tasklet-entry-exit.patch
 ANDROID-vendor_hooks-Add-hook-for-jiffies-updates.patch
 ANDROID-sched_clock-Add-vendor-hook-to-print-epoch-values.patch
@@ -164,6 +164,7 @@ ANDROID-sched-Add-rvh-for-cpu-controller-cgroup-attach.patch
 ANDROID-cgroup-Export-functions-used-by-modules.patch
 ANDROID-sched-Export-key-used-by-module.patch
 ANDROID-sched-Export-sched_setattr_nocheck.patch
+ANDROID-sched-Export-sched_switch-tracepoint-symbol.patch
 _____ANNOTATION-uid_sys_stats-support_____.patch
 ANDROID-uid_cputime-Adds-accounting-for-the-cputimes-per-uid.patch
 ANDROID-uid_cputime-add-per-uid-IO-usage-accounting.patch
