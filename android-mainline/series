@@ -1,8 +1,8 @@
 #
 # android-mainline patches
 #
-# Applies onto upstream ce51c2b7ceb2 Linux v5.10-7321-gce51c2b7ceb2
-# Matches android-mainline ad39a2c85de0 ("Revert "ANDROID: Revert "thermal: Make thermal_zone_device_is_enabled() available to core only""")
+# Applies onto upstream b109bc722953 Linux v5.10-7581-gb109bc722953
+# Matches android-mainline 024e0a28bc9b ("Merge b109bc722953 ("Merge tag 'thermal-v5.11-rc1' of git://git.kernel.org/pub/scm/linux/kernel/git/thermal/linux") into android-mainline")
 #
 Revert-block-grant-IOPRIO_CLASS_RT-to-CAP_SYS_NICE.patch
 Revert-arm64-dts-qcom-sdm845-db845c-Fix-hdmi-nodes.patch
