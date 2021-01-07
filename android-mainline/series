@@ -1,8 +1,8 @@
 #
 # android-mainline patches
 #
-# Applies onto upstream b80affe33fdd Linux v5.10-8482-gb80affe33fdd
-# Matches android-mainline 6f38301bff91 ("Revert "ubsan: enable for all*config builds"")
+# Applies onto upstream d3eb52113d16 Linux v5.10-8517-gd3eb52113d16
+# Matches android-mainline f935593e3678 ("Merge d3eb52113d16 ("Merge tag 'printk-for-5.11' of git://git.kernel.org/pub/scm/linux/kernel/git/printk/linux") into android-mainline")
 #
 Revert-block-grant-IOPRIO_CLASS_RT-to-CAP_SYS_NICE.patch
 Revert-arm64-dts-qcom-sdm845-db845c-Fix-hdmi-nodes.patch

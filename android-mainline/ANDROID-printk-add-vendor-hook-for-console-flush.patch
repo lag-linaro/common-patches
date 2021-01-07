@@ -76,7 +76,7 @@ diff --git a/kernel/printk/printk.c b/kernel/printk/printk.c
  
  #include "printk_ringbuffer.h"
  #include "console_cmdline.h"
-@@ -2293,6 +2295,12 @@ void resume_console(void)
+@@ -2346,6 +2348,12 @@ void resume_console(void)
   */
  static int console_cpu_notify(unsigned int cpu)
  {
