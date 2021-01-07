@@ -1,8 +1,8 @@
 #
 # android-mainline patches
 #
-# Applies onto upstream faf145d6f3f3 Linux v5.10-8341-gfaf145d6f3f3
-# Matches android-mainline ce168524f8b0 ("ANDROID: Incremental fs: switch ksys_close() to close_fd()")
+# Applies onto upstream e2dc4957349a Linux v5.10-8437-ge2dc4957349a
+# Matches android-mainline db03c04708ae ("Merge e2dc4957349a ("Merge tag 'asm-generic-cleanup-5.11' of git://git.kernel.org/pub/scm/linux/kernel/git/arnd/asm-generic") into android-mainline")
 #
 Revert-block-grant-IOPRIO_CLASS_RT-to-CAP_SYS_NICE.patch
 Revert-arm64-dts-qcom-sdm845-db845c-Fix-hdmi-nodes.patch
