@@ -1,8 +1,8 @@
 #
 # android-mainline patches
 #
-# Applies onto upstream e2dc4957349a Linux v5.10-8437-ge2dc4957349a
-# Matches android-mainline db03c04708ae ("Merge e2dc4957349a ("Merge tag 'asm-generic-cleanup-5.11' of git://git.kernel.org/pub/scm/linux/kernel/git/arnd/asm-generic") into android-mainline")
+# Applies onto upstream 157807123c94 Linux v5.10-8463-g157807123c94
+# Matches android-mainline f54886677323 ("Merge 157807123c94 ("Merge tag 'asm-generic-mmu-context-5.11' of git://git.kernel.org/pub/scm/linux/kernel/git/arnd/asm-generic") into android-mainline")
 #
 Revert-block-grant-IOPRIO_CLASS_RT-to-CAP_SYS_NICE.patch
 Revert-arm64-dts-qcom-sdm845-db845c-Fix-hdmi-nodes.patch
