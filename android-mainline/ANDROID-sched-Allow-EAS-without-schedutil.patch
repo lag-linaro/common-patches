@@ -26,7 +26,7 @@ Change-Id: Ied1c5aba6b692e26776b3e2c050780a67cc5bae1
 diff --git a/Documentation/scheduler/sched-energy.rst b/Documentation/scheduler/sched-energy.rst
 --- a/Documentation/scheduler/sched-energy.rst
 +++ b/Documentation/scheduler/sched-energy.rst
-@@ -397,7 +397,7 @@ Consequently, the only sane governor to use together with EAS is schedutil,
+@@ -402,7 +402,7 @@ Consequently, the only sane governor to use together with EAS is schedutil,
  because it is the only one providing some degree of consistency between
  frequency requests and energy predictions.
  
@@ -38,7 +38,7 @@ diff --git a/Documentation/scheduler/sched-energy.rst b/Documentation/scheduler/
 diff --git a/drivers/cpufreq/cpufreq.c b/drivers/cpufreq/cpufreq.c
 --- a/drivers/cpufreq/cpufreq.c
 +++ b/drivers/cpufreq/cpufreq.c
-@@ -2509,7 +2509,6 @@ static int cpufreq_set_policy(struct cpufreq_policy *policy,
+@@ -2512,7 +2512,6 @@ static int cpufreq_set_policy(struct cpufreq_policy *policy,
  		ret = cpufreq_start_governor(policy);
  		if (!ret) {
  			pr_debug("governor change\n");
@@ -49,7 +49,7 @@ diff --git a/drivers/cpufreq/cpufreq.c b/drivers/cpufreq/cpufreq.c
 diff --git a/include/linux/cpufreq.h b/include/linux/cpufreq.h
 --- a/include/linux/cpufreq.h
 +++ b/include/linux/cpufreq.h
-@@ -1023,14 +1023,6 @@ static inline bool policy_has_boost_freq(struct cpufreq_policy *policy)
+@@ -1018,14 +1018,6 @@ static inline bool policy_has_boost_freq(struct cpufreq_policy *policy)
  }
  #endif
  
@@ -67,7 +67,7 @@ diff --git a/include/linux/cpufreq.h b/include/linux/cpufreq.h
 diff --git a/kernel/sched/cpufreq_schedutil.c b/kernel/sched/cpufreq_schedutil.c
 --- a/kernel/sched/cpufreq_schedutil.c
 +++ b/kernel/sched/cpufreq_schedutil.c
-@@ -897,29 +897,3 @@ struct cpufreq_governor *cpufreq_default_governor(void)
+@@ -895,29 +895,3 @@ struct cpufreq_governor *cpufreq_default_governor(void)
  #endif
  
  cpufreq_governor_init(schedutil_gov);

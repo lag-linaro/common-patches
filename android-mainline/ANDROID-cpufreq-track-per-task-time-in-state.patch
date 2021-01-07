@@ -74,7 +74,7 @@ diff --git a/drivers/cpufreq/cpufreq.c b/drivers/cpufreq/cpufreq.c
  #include <linux/cpu_cooling.h>
  #include <linux/delay.h>
  #include <linux/device.h>
-@@ -387,6 +388,7 @@ static void cpufreq_notify_transition(struct cpufreq_policy *policy,
+@@ -389,6 +390,7 @@ static void cpufreq_notify_transition(struct cpufreq_policy *policy,
  					 CPUFREQ_POSTCHANGE, freqs);
  
  		cpufreq_stats_record_transition(policy, freqs->new);
@@ -82,7 +82,7 @@ diff --git a/drivers/cpufreq/cpufreq.c b/drivers/cpufreq/cpufreq.c
  		policy->cur = freqs->new;
  	}
  }
-@@ -1479,6 +1481,7 @@ static int cpufreq_online(unsigned int cpu)
+@@ -1484,6 +1486,7 @@ static int cpufreq_online(unsigned int cpu)
  			goto out_destroy_policy;
  
  		cpufreq_stats_create_table(policy);

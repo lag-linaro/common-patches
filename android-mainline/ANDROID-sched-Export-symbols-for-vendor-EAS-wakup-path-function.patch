@@ -18,7 +18,7 @@ Signed-off-by: Will McVicker <willmcvicker@google.com>
 diff --git a/kernel/sched/cpufreq_schedutil.c b/kernel/sched/cpufreq_schedutil.c
 --- a/kernel/sched/cpufreq_schedutil.c
 +++ b/kernel/sched/cpufreq_schedutil.c
-@@ -283,6 +283,7 @@ unsigned long schedutil_cpu_util(int cpu, unsigned long util_cfs,
+@@ -282,6 +282,7 @@ unsigned long schedutil_cpu_util(int cpu, unsigned long util_cfs,
  
  	return min(max, util);
  }

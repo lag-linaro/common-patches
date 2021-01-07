@@ -1,8 +1,8 @@
 #
 # android-mainline patches
 #
-# Applies onto upstream b109bc722953 Linux v5.10-7581-gb109bc722953
-# Matches android-mainline 024e0a28bc9b ("Merge b109bc722953 ("Merge tag 'thermal-v5.11-rc1' of git://git.kernel.org/pub/scm/linux/kernel/git/thermal/linux") into android-mainline")
+# Applies onto upstream b4ec805464a4 Linux v5.10-7683-gb4ec805464a4
+# Matches android-mainline bcf67c66f71e ("Merge b4ec805464a4 ("Merge tag 'pm-5.11-rc1' of git://git.kernel.org/pub/scm/linux/kernel/git/rafael/linux-pm") into android-mainline")
 #
 Revert-block-grant-IOPRIO_CLASS_RT-to-CAP_SYS_NICE.patch
 Revert-arm64-dts-qcom-sdm845-db845c-Fix-hdmi-nodes.patch
@@ -15,9 +15,6 @@ FROMGIT-libfs-Add-generic-function-for-setting-dentry_ops.patch
 FROMGIT-fscrypt-Have-filesystems-handle-their-d_ops.patch
 FROMGIT-f2fs-Handle-casefolding-with-Encryption.patch
 FROMGIT-f2fs-fix-race-of-pending_pages-in-decompression.patch
-FROMGIT-PM-domains-Rename-pm_genpd_syscore_poweroff-poweron.patch
-FROMGIT-PM-domains-Enable-dev_pm_genpd_suspend-resume-for-suspend-to-idle.patch
-FROMGIT-cpuidle-psci-Enable-suspend-to-idle-for-PSCI-OSI-mode.patch
 FROMLIST-modpost-Make-static-exports-fatal.patch
 FROMLIST-clk-Export-clk_register_composite.patch
 FROMLIST-clk-versatile-remove-dependency-on-ARCH_.patch
