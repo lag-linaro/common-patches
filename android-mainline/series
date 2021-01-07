@@ -1,8 +1,8 @@
 #
 # android-mainline patches
 #
-# Applies onto upstream 37373d9c37a3 Linux v5.10-8305-g37373d9c37a3
-# Matches android-mainline a4b7f5269d0b ("Merge 37373d9c37a3 ("Merge branch 'regset.followup' of git://git.kernel.org/pub/scm/linux/kernel/git/viro/vfs") into android-mainline")
+# Applies onto upstream faf145d6f3f3 Linux v5.10-8341-gfaf145d6f3f3
+# Matches android-mainline 1c3f31967b05 ("Merge faf145d6f3f3 ("Merge branch 'exec-for-v5.11' of git://git.kernel.org/pub/scm/linux/kernel/git/ebiederm/user-namespace") into android-mainline")
 #
 Revert-block-grant-IOPRIO_CLASS_RT-to-CAP_SYS_NICE.patch
 Revert-arm64-dts-qcom-sdm845-db845c-Fix-hdmi-nodes.patch
