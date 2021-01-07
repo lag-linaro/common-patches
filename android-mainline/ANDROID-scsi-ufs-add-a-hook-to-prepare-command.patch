@@ -20,7 +20,7 @@ Change-Id: Ib91a735c2cbd215c1854ff57ef9a92642c41e005
 diff --git a/drivers/scsi/ufs/ufshcd.c b/drivers/scsi/ufs/ufshcd.c
 --- a/drivers/scsi/ufs/ufshcd.c
 +++ b/drivers/scsi/ufs/ufshcd.c
-@@ -2588,6 +2588,8 @@ static int ufshcd_queuecommand(struct Scsi_Host *host, struct scsi_cmnd *cmd)
+@@ -2594,6 +2594,8 @@ static int ufshcd_queuecommand(struct Scsi_Host *host, struct scsi_cmnd *cmd)
  	lrbp->lun = ufshcd_scsi_to_upiu_lun(cmd->device->lun);
  	lrbp->intr_cmd = !ufshcd_is_intr_aggr_allowed(hba) ? true : false;
  
@@ -32,16 +32,16 @@ diff --git a/drivers/scsi/ufs/ufshcd.c b/drivers/scsi/ufs/ufshcd.c
 diff --git a/drivers/scsi/ufs/ufshcd.h b/drivers/scsi/ufs/ufshcd.h
 --- a/drivers/scsi/ufs/ufshcd.h
 +++ b/drivers/scsi/ufs/ufshcd.h
-@@ -293,6 +293,7 @@ struct ufs_pwr_mode_info {
-  * @program_key: program or evict an inline encryption key
+@@ -326,6 +326,7 @@ struct ufs_pwr_mode_info {
+  * @event_notify: called to notify important events
   * @fill_prdt: called after initializing the standard PRDT fields so that any
   *	       variant-specific PRDT fields can be initialized too
 + * @prepare_command: called when receiving a request in the first place
   */
  struct ufs_hba_variant_ops {
  	const char *name;
-@@ -330,6 +331,8 @@ struct ufs_hba_variant_ops {
- 			       const union ufs_crypto_cfg_entry *cfg, int slot);
+@@ -364,6 +365,8 @@ struct ufs_hba_variant_ops {
+ 				enum ufs_event_type evt, void *data);
  	int	(*fill_prdt)(struct ufs_hba *hba, struct ufshcd_lrb *lrbp,
  			     unsigned int segments);
 +	void    (*prepare_command)(struct ufs_hba *hba,
@@ -49,7 +49,7 @@ diff --git a/drivers/scsi/ufs/ufshcd.h b/drivers/scsi/ufs/ufshcd.h
  };
  
  /* clock gating state  */
-@@ -1256,6 +1259,13 @@ static inline int ufshcd_vops_fill_prdt(struct ufs_hba *hba,
+@@ -1282,6 +1285,13 @@ static inline int ufshcd_vops_fill_prdt(struct ufs_hba *hba,
  	return 0;
  }
  

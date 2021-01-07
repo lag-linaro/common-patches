@@ -21,7 +21,7 @@ Change-Id: Id8c1197ec704e998e89dc25cc69b0f6a1b86e978
 diff --git a/drivers/scsi/ufs/ufs-sysfs.c b/drivers/scsi/ufs/ufs-sysfs.c
 --- a/drivers/scsi/ufs/ufs-sysfs.c
 +++ b/drivers/scsi/ufs/ufs-sysfs.c
-@@ -862,15 +862,23 @@ const struct attribute_group ufs_sysfs_lun_attributes_group = {
+@@ -869,15 +869,23 @@ const struct attribute_group ufs_sysfs_lun_attributes_group = {
  	.attrs = ufs_sysfs_lun_attributes,
  };
  
@@ -64,7 +64,7 @@ diff --git a/drivers/scsi/ufs/ufs-sysfs.h b/drivers/scsi/ufs/ufs-sysfs.h
 diff --git a/drivers/scsi/ufs/ufshcd.c b/drivers/scsi/ufs/ufshcd.c
 --- a/drivers/scsi/ufs/ufshcd.c
 +++ b/drivers/scsi/ufs/ufshcd.c
-@@ -9355,7 +9355,7 @@ int ufshcd_init(struct ufs_hba *hba, void __iomem *mmio_base, unsigned int irq)
+@@ -9407,7 +9407,7 @@ int ufshcd_init(struct ufs_hba *hba, void __iomem *mmio_base, unsigned int irq)
  	ufshcd_set_ufs_dev_active(hba);
  
  	async_schedule(ufshcd_async_scan, hba);
@@ -76,7 +76,7 @@ diff --git a/drivers/scsi/ufs/ufshcd.c b/drivers/scsi/ufs/ufshcd.c
 diff --git a/drivers/scsi/ufs/ufshcd.h b/drivers/scsi/ufs/ufshcd.h
 --- a/drivers/scsi/ufs/ufshcd.h
 +++ b/drivers/scsi/ufs/ufshcd.h
-@@ -294,6 +294,7 @@ struct ufs_pwr_mode_info {
+@@ -327,6 +327,7 @@ struct ufs_pwr_mode_info {
   * @fill_prdt: called after initializing the standard PRDT fields so that any
   *	       variant-specific PRDT fields can be initialized too
   * @prepare_command: called when receiving a request in the first place
@@ -84,7 +84,7 @@ diff --git a/drivers/scsi/ufs/ufshcd.h b/drivers/scsi/ufs/ufshcd.h
   */
  struct ufs_hba_variant_ops {
  	const char *name;
-@@ -333,6 +334,7 @@ struct ufs_hba_variant_ops {
+@@ -367,6 +368,7 @@ struct ufs_hba_variant_ops {
  			     unsigned int segments);
  	void    (*prepare_command)(struct ufs_hba *hba,
  				struct request *rq, struct ufshcd_lrb *lrbp);
@@ -92,7 +92,7 @@ diff --git a/drivers/scsi/ufs/ufshcd.h b/drivers/scsi/ufs/ufshcd.h
  };
  
  /* clock gating state  */
-@@ -1266,6 +1268,13 @@ static inline void ufshcd_vops_prepare_command(struct ufs_hba *hba,
+@@ -1292,6 +1294,13 @@ static inline void ufshcd_vops_prepare_command(struct ufs_hba *hba,
  		hba->vops->prepare_command(hba, rq, lrbp);
  }
  

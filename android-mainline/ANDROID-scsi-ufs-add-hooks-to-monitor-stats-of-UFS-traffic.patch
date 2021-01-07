@@ -16,7 +16,7 @@ Change-Id: I7b692ad1dbca1aa3f37b10d7ab91e89499bb68cd
 diff --git a/drivers/scsi/ufs/ufshcd.c b/drivers/scsi/ufs/ufshcd.c
 --- a/drivers/scsi/ufs/ufshcd.c
 +++ b/drivers/scsi/ufs/ufshcd.c
-@@ -1977,6 +1977,7 @@ void ufshcd_send_command(struct ufs_hba *hba, unsigned int task_tag)
+@@ -1983,6 +1983,7 @@ void ufshcd_send_command(struct ufs_hba *hba, unsigned int task_tag)
  	lrbp->issue_time_stamp = ktime_get();
  	lrbp->compl_time_stamp = ktime_set(0, 0);
  	ufshcd_vops_setup_xfer_req(hba, task_tag, (lrbp->cmd ? true : false));
@@ -24,7 +24,7 @@ diff --git a/drivers/scsi/ufs/ufshcd.c b/drivers/scsi/ufs/ufshcd.c
  	ufshcd_add_command_trace(hba, task_tag, "send");
  	ufshcd_clk_scaling_start_busy(hba);
  	__set_bit(task_tag, &hba->outstanding_reqs);
-@@ -5009,6 +5010,7 @@ static void __ufshcd_transfer_req_compl(struct ufs_hba *hba,
+@@ -5044,6 +5045,7 @@ static void __ufshcd_transfer_req_compl(struct ufs_hba *hba,
  		lrbp->compl_time_stamp = ktime_get();
  		cmd = lrbp->cmd;
  		if (cmd) {
@@ -35,7 +35,7 @@ diff --git a/drivers/scsi/ufs/ufshcd.c b/drivers/scsi/ufs/ufshcd.c
 diff --git a/drivers/scsi/ufs/ufshcd.h b/drivers/scsi/ufs/ufshcd.h
 --- a/drivers/scsi/ufs/ufshcd.h
 +++ b/drivers/scsi/ufs/ufshcd.h
-@@ -295,6 +295,8 @@ struct ufs_pwr_mode_info {
+@@ -328,6 +328,8 @@ struct ufs_pwr_mode_info {
   *	       variant-specific PRDT fields can be initialized too
   * @prepare_command: called when receiving a request in the first place
   * @update_sysfs: adds vendor-specific sysfs entries
@@ -44,7 +44,7 @@ diff --git a/drivers/scsi/ufs/ufshcd.h b/drivers/scsi/ufs/ufshcd.h
   */
  struct ufs_hba_variant_ops {
  	const char *name;
-@@ -335,6 +337,8 @@ struct ufs_hba_variant_ops {
+@@ -369,6 +371,8 @@ struct ufs_hba_variant_ops {
  	void    (*prepare_command)(struct ufs_hba *hba,
  				struct request *rq, struct ufshcd_lrb *lrbp);
  	int     (*update_sysfs)(struct ufs_hba *hba);
@@ -53,7 +53,7 @@ diff --git a/drivers/scsi/ufs/ufshcd.h b/drivers/scsi/ufs/ufshcd.h
  };
  
  /* clock gating state  */
-@@ -1275,6 +1279,20 @@ static inline int ufshcd_vops_update_sysfs(struct ufs_hba *hba)
+@@ -1301,6 +1305,20 @@ static inline int ufshcd_vops_update_sysfs(struct ufs_hba *hba)
  	return 0;
  }
  
