@@ -2,7 +2,7 @@
 # android-mainline patches
 #
 # Applies onto upstream faf145d6f3f3 Linux v5.10-8341-gfaf145d6f3f3
-# Matches android-mainline 1c3f31967b05 ("Merge faf145d6f3f3 ("Merge branch 'exec-for-v5.11' of git://git.kernel.org/pub/scm/linux/kernel/git/ebiederm/user-namespace") into android-mainline")
+# Matches android-mainline ce168524f8b0 ("ANDROID: Incremental fs: switch ksys_close() to close_fd()")
 #
 Revert-block-grant-IOPRIO_CLASS_RT-to-CAP_SYS_NICE.patch
 Revert-arm64-dts-qcom-sdm845-db845c-Fix-hdmi-nodes.patch
@@ -417,6 +417,7 @@ ANDROID-Incremental-fs-Change-per-UID-timeouts-to-microseconds.patch
 ANDROID-Incremental-fs-Fix-incfs_test-use-of-atol-open.patch
 ANDROID-Incremental-fs-Set-credentials-before-reading-writing.patch
 ANDROID-Incremental-fs-sha.h-has-been-split-into-two-handle-this.patch
+ANDROID-Incremental-fs-switch-ksys_close-to-close_fd.patch
 _____ANNOTATION-networking-changes_____.patch
 ANDROID-net-xfrm-make-PF_KEY-SHA256-use-RFC-compliant-truncation.patch
 ANDROID-net-xfrm-always-export-pktgen_xfrm_outer_mode_output.patch
