@@ -1,0 +1,65 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: Greg Kroah-Hartman <gregkh@google.com>
+Date: Sat, 19 Dec 2020 15:15:57 +0100
+Subject: Revert "ubsan: enable for all*config builds"
+
+This reverts commit d0a3ac549f389c1511a4df0d7638536305205d20 as it
+breaks allmodconfig builds on clang.
+
+Cc: Kees Cook <keescook@chromium.org>
+Cc: Stephen Rothwell <sfr@canb.auug.org.au>
+Cc: Andrey Ryabinin <aryabinin@virtuozzo.com>
+Cc: Ard Biesheuvel <ardb@kernel.org>
+Cc: Arnd Bergmann <arnd@arndb.de>
+Cc: Dmitry Vyukov <dvyukov@google.com>
+Cc: George Popescu <georgepope@android.com>
+Cc: Herbert Xu <herbert@gondor.apana.org.au>
+Cc: Linus Torvalds <torvalds@linux-foundation.org>
+Cc: Marco Elver <elver@google.com>
+Cc: Masahiro Yamada <masahiroy@kernel.org>
+Cc: Michal Marek <michal.lkml@markovi.net>
+Cc: Nathan Chancellor <natechancellor@gmail.com>
+Cc: Nick Desaulniers <ndesaulniers@google.com>
+Cc: Peter Oberparleiter <oberpar@linux.ibm.com>
+Cc: Randy Dunlap <rdunlap@infradead.org>
+Signed-off-by: Greg Kroah-Hartman <gregkh@google.com>
+Change-Id: Ia7c51274268d1a64ed19837825a5fb1debaaeea1
+---
+ arch/powerpc/kernel/vmlinux.lds.S | 4 ----
+ lib/Kconfig.ubsan                 | 3 ++-
+ 2 files changed, 2 insertions(+), 5 deletions(-)
+
+diff --git a/arch/powerpc/kernel/vmlinux.lds.S b/arch/powerpc/kernel/vmlinux.lds.S
+--- a/arch/powerpc/kernel/vmlinux.lds.S
++++ b/arch/powerpc/kernel/vmlinux.lds.S
+@@ -313,10 +313,6 @@ SECTIONS
+ #else
+ 	.data : AT(ADDR(.data) - LOAD_OFFSET) {
+ 		DATA_DATA
+-#ifdef CONFIG_UBSAN
+-		*(.data..Lubsan_data*)
+-		*(.data..Lubsan_type*)
+-#endif
+ 		*(.data.rel*)
+ 		*(.toc1)
+ 		*(.branch_lt)
+diff --git a/lib/Kconfig.ubsan b/lib/Kconfig.ubsan
+--- a/lib/Kconfig.ubsan
++++ b/lib/Kconfig.ubsan
+@@ -160,7 +160,7 @@ config UBSAN_ENUM
+ config UBSAN_ALIGNMENT
+ 	bool "Perform checking for misaligned pointer usage"
+ 	default !HAVE_EFFICIENT_UNALIGNED_ACCESS
+-	depends on !UBSAN_TRAP && !COMPILE_TEST
++	depends on !UBSAN_TRAP
+ 	depends on $(cc-option,-fsanitize=alignment)
+ 	help
+ 	  This option enables the check of unaligned memory accesses.
+@@ -170,6 +170,7 @@ config UBSAN_ALIGNMENT
+ config UBSAN_SANITIZE_ALL
+ 	bool "Enable instrumentation for the entire kernel"
+ 	depends on ARCH_HAS_UBSAN_SANITIZE_ALL
++	depends on !COMPILE_TEST
+ 	default y
+ 	help
+ 	  This option activates instrumentation for the entire kernel.

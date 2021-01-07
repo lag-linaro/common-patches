@@ -2,10 +2,11 @@
 # android-mainline patches
 #
 # Applies onto upstream b80affe33fdd Linux v5.10-8482-gb80affe33fdd
-# Matches android-mainline c4966468f53f ("Merge b80affe33fdd ("Merge tag 'linux-kselftest-fixes-5.11-rc1' of git://git.kernel.org/pub/scm/linux/kernel/git/shuah/linux-kselftest") into android-mainline")
+# Matches android-mainline 6f38301bff91 ("Revert "ubsan: enable for all*config builds"")
 #
 Revert-block-grant-IOPRIO_CLASS_RT-to-CAP_SYS_NICE.patch
 Revert-arm64-dts-qcom-sdm845-db845c-Fix-hdmi-nodes.patch
+Revert-ubsan-enable-for-all-config-builds.patch
 _____ANNOTATION-pending-upstream_____.patch
 FROMGIT-scsi-ufs-Put-HBA-into-LPM-during-gating.patch
 FROMGIT-scsi-ufs-Serialize-eh_work-with-system-PM-events-and-async-scan.patch
