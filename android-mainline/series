@@ -2,7 +2,7 @@
 # android-mainline patches
 #
 # Applies onto upstream 489e9fea66f3 Linux v5.10-7849-g489e9fea66f3
-# Matches android-mainline 97c7e8a8c354 ("Merge 489e9fea66f3 ("Merge tag 'pci-v5.11-changes' of git://git.kernel.org/pub/scm/linux/kernel/git/helgaas/pci") into android-mainline")
+# Matches android-mainline 0998ba703e2d ("ANDROID: GKI: remove CONFIG_CRC8=y")
 #
 Revert-block-grant-IOPRIO_CLASS_RT-to-CAP_SYS_NICE.patch
 Revert-arm64-dts-qcom-sdm845-db845c-Fix-hdmi-nodes.patch
@@ -741,6 +741,7 @@ ANDROID-x86-configs-gki-add-missing-CONFIG_BLK_CGROUP.patch
 ANDROID-configs-GKI-disable-ARMv8.3-PAC.patch
 ANDROID-GKI-Unhide-VIRTIO_DMA_SHARED_BUFFER.patch
 ANDROID-build.config.common-allow-overriding-of-HERMETIC_TOOLCHAIN.patch
+ANDROID-GKI-remove-CONFIG_CRC8-y.patch
 _____ANNOTATION-Patches-for-bringing-up-new-SoCs_____.patch
 ANDROID-serial-msm_geni_serial_earlycon-Add-Earlycon-support.patch
 ANDROID-arm64-Add-support-for-asymmetric-AArch32-EL0-configurations.patch
