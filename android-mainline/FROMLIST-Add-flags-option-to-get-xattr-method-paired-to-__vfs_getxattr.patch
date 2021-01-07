@@ -200,7 +200,7 @@ diff --git a/fs/afs/xattr.c b/fs/afs/xattr.c
 diff --git a/fs/btrfs/xattr.c b/fs/btrfs/xattr.c
 --- a/fs/btrfs/xattr.c
 +++ b/fs/btrfs/xattr.c
-@@ -353,7 +353,8 @@ ssize_t btrfs_listxattr(struct dentry *dentry, char *buffer, size_t size)
+@@ -355,7 +355,8 @@ ssize_t btrfs_listxattr(struct dentry *dentry, char *buffer, size_t size)
  
  static int btrfs_xattr_handler_get(const struct xattr_handler *handler,
  				   struct dentry *unused, struct inode *inode,

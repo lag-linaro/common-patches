@@ -1,8 +1,8 @@
 #
 # android-mainline patches
 #
-# Applies onto upstream 489e9fea66f3 Linux v5.10-7849-g489e9fea66f3
-# Matches android-mainline 0998ba703e2d ("ANDROID: GKI: remove CONFIG_CRC8=y")
+# Applies onto upstream 9867cb1fd510 Linux v5.10-8132-g9867cb1fd510
+# Matches android-mainline 15c84c847abf ("Merge 9867cb1fd510 ("Merge tag 'jfs-5.11' of git://github.com/kleikamp/linux-shaggy") into android-mainline")
 #
 Revert-block-grant-IOPRIO_CLASS_RT-to-CAP_SYS_NICE.patch
 Revert-arm64-dts-qcom-sdm845-db845c-Fix-hdmi-nodes.patch
