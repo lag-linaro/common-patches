@@ -1,8 +1,8 @@
 #
 # android-mainline patches
 #
-# Applies onto upstream d3eb52113d16 Linux v5.10-8517-gd3eb52113d16
-# Matches android-mainline f935593e3678 ("Merge d3eb52113d16 ("Merge tag 'printk-for-5.11' of git://git.kernel.org/pub/scm/linux/kernel/git/printk/linux") into android-mainline")
+# Applies onto upstream 69f637c33560 Linux v5.10-8934-g69f637c33560
+# Matches android-mainline a14ed4197e7b ("Merge 69f637c33560 ("Merge tag 'for-5.11/drivers-2020-12-14' of git://git.kernel.dk/linux-block") into android-mainline")
 #
 Revert-block-grant-IOPRIO_CLASS_RT-to-CAP_SYS_NICE.patch
 Revert-arm64-dts-qcom-sdm845-db845c-Fix-hdmi-nodes.patch

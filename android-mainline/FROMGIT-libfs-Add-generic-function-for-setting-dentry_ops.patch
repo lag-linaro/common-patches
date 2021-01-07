@@ -117,7 +117,7 @@ diff --git a/fs/libfs.c b/fs/libfs.c
 diff --git a/include/linux/fs.h b/include/linux/fs.h
 --- a/include/linux/fs.h
 +++ b/include/linux/fs.h
-@@ -3201,6 +3201,7 @@ extern int generic_ci_d_hash(const struct dentry *dentry, struct qstr *str);
+@@ -3198,6 +3198,7 @@ extern int generic_ci_d_hash(const struct dentry *dentry, struct qstr *str);
  extern int generic_ci_d_compare(const struct dentry *dentry, unsigned int len,
  				const char *str, const struct qstr *name);
  #endif
