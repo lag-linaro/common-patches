@@ -49,7 +49,7 @@ Change-Id: I1a9860a883f001ddebb4df9dee7504edf970d593
 diff --git a/arch/arm64/Kconfig b/arch/arm64/Kconfig
 --- a/arch/arm64/Kconfig
 +++ b/arch/arm64/Kconfig
-@@ -1892,6 +1892,20 @@ config DMI
+@@ -1891,6 +1891,20 @@ config DMI
  
  endmenu
  

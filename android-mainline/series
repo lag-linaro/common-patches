@@ -1,8 +1,8 @@
 #
 # android-mainline patches
 #
-# Applies onto upstream 157807123c94 Linux v5.10-8463-g157807123c94
-# Matches android-mainline f54886677323 ("Merge 157807123c94 ("Merge tag 'asm-generic-mmu-context-5.11' of git://git.kernel.org/pub/scm/linux/kernel/git/arnd/asm-generic") into android-mainline")
+# Applies onto upstream 7a932e570288 Linux v5.10-8479-g7a932e570288
+# Matches android-mainline b146340d9a5c ("Merge 7a932e570288 ("Merge tag 'asm-generic-timers-5.11' of git://git.kernel.org/pub/scm/linux/kernel/git/arnd/asm-generic") into android-mainline")
 #
 Revert-block-grant-IOPRIO_CLASS_RT-to-CAP_SYS_NICE.patch
 Revert-arm64-dts-qcom-sdm845-db845c-Fix-hdmi-nodes.patch
