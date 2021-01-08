@@ -2,7 +2,7 @@
 # android-mainline patches
 #
 # Applies onto upstream 787fec8ac15c Linux v5.10-11699-g787fec8ac15c
-# Matches android-mainline 653770d302d9 ("Merge 787fec8ac15c ("Merge tag 'for-linus-5.11-rc1' of git://git.kernel.org/pub/scm/linux/kernel/git/rw/ubifs") into android-mainline")
+# Matches android-mainline 19cb948c52e6 ("ANDROID: usb: gadget: f_accessory: fix CTS test stuck")
 #
 Revert-block-grant-IOPRIO_CLASS_RT-to-CAP_SYS_NICE.patch
 Revert-arm64-dts-qcom-sdm845-db845c-Fix-hdmi-nodes.patch
@@ -246,6 +246,7 @@ ANDROID-usb-f_accessory-Don-t-corrupt-global-state-on-double-registration.patch
 ANDROID-usb-f_accessory-Cancel-any-pending-work-before-teardown.patch
 ANDROID-usb-f_accessory-Avoid-bitfields-for-shared-variables.patch
 ANDROID-usb-f_accessory-Don-t-drop-NULL-reference-in-acc_disconnect.patch
+ANDROID-usb-gadget-f_accessory-fix-CTS-test-stuck.patch
 _____ANNOTATION-graphics-changes_____.patch
 Revert-drm-virtio-fix-DRM_FORMAT_-handling.patch
 ANDROID-Allow-DRM_IOCTL_MODE_-_DUMB-for-render-clients.patch
@@ -713,6 +714,7 @@ ANDROID-build.config.common-allow-overriding-of-HERMETIC_TOOLCHAIN.patch
 ANDROID-GKI-remove-CONFIG_CRC8-y.patch
 ANDROID-GKI-remove-CONFIG_IOMMU_LIMIT_IOVA_ALIGNMENT-y.patch
 ANDROID-db845c_gki.fragment-make-sure-MSM_PINCTRL-m.patch
+ANDROID-GKI-Enable-CRYPTO_MD5.patch
 _____ANNOTATION-Patches-for-bringing-up-new-SoCs_____.patch
 ANDROID-serial-msm_geni_serial_earlycon-Add-Earlycon-support.patch
 ANDROID-arm64-Add-support-for-asymmetric-AArch32-EL0-configurations.patch
