@@ -1,8 +1,8 @@
 #
 # android-mainline patches
 #
-# Applies onto upstream 60f7c503d971 Linux v5.10-9214-g60f7c503d971
-# Matches android-mainline 2df351e3a399 ("Merge 60f7c503d971 ("Merge tag 'scsi-misc' of git://git.kernel.org/pub/scm/linux/kernel/git/jejb/scsi") into android-mainline")
+# Applies onto upstream 009bd55dfcc8 Linux v5.10-9366-g009bd55dfcc8
+# Matches android-mainline 0899e3f73db5 ("Merge 009bd55dfcc8 ("Merge tag 'for-linus' of git://git.kernel.org/pub/scm/linux/kernel/git/rdma/rdma") into android-mainline")
 #
 Revert-block-grant-IOPRIO_CLASS_RT-to-CAP_SYS_NICE.patch
 Revert-arm64-dts-qcom-sdm845-db845c-Fix-hdmi-nodes.patch
