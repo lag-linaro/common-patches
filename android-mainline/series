@@ -1,8 +1,8 @@
 #
 # android-mainline patches
 #
-# Applies onto upstream a701262c02ce Linux v5.10-9621-ga701262c02ce
-# Matches android-mainline 9bd358202127 ("Merge a701262c02ce ("Merge tag 'mtd/for-5.11' of git://git.kernel.org/pub/scm/linux/kernel/git/mtd/linux") into android-mainline")
+# Applies onto upstream f68e4041ef63 Linux v5.10-9706-gf68e4041ef63
+# Matches android-mainline d02770216788 ("Merge f68e4041ef63 ("Merge tag 'pinctrl-v5.11-1' of git://git.kernel.org/pub/scm/linux/kernel/git/linusw/linux-pinctrl") into android-mainline")
 #
 Revert-block-grant-IOPRIO_CLASS_RT-to-CAP_SYS_NICE.patch
 Revert-arm64-dts-qcom-sdm845-db845c-Fix-hdmi-nodes.patch
@@ -427,15 +427,12 @@ ANDROID-dts-Align-sdm845-dts-files-with-upstream.patch
 ANDROID-db845c-add-db845c_gki.fragment.patch
 ANDROID-db845c-Add-build-config.patch
 ANDROID-db845c-Update-db845c_gki.fragment-to-add-support-for-bluetooth-modules.patch
-ANDROID-pinctrl-qcom-Allow-pinctrl-msm-code-to-be-loadable-as-a-module.patch
 FROMLIST-soc-qcom-rpmh-Allow-RPMH-driver-to-be-loaded-as-a-module.patch
 FROMLIST-soc-qcom-cmd-db-allow-loading-as-a-module.patch
 ANDROID-firmware-QCOM_SCM-Allow-qcom_scm-driver-to-be-loadable-as-a-permenent-module.patch
 FROMLIST-irqchip-qcom-pdc-Allow-QCOM_PDC-to-be-loadable-as-a-permanent-module.patch
 ANDROID-irqchip-Kconfig-Make-QCOM_PDC-depend-on-QCOM_SCM-QCOM_SCM.patch
 ANDROID-iommu-Kconfig-Make-ARM_SMMU-depend-on-QCOM_SCM-QCOM_SCM.patch
-ANDROID-pinctrl-qcom-Kconfig-Make-PINCTRL_MSM-selectors-depend-on-QCOM_SCM-QCOM_SCM.patch
-ANDROID-pinctrl-qcom-Kconfig-Make-new-PINCTRL_SM8250-depend-on-QCOM_SCM-QCOM_SCM.patch
 ANDROID-db845c_gki.fragment-Enable-config-options-to-support-wifi-on-db845c.patch
 ANDROID-db845c_gki.fragment-Remove-nonexistent-CONFIG_USB_DWC3_DISABLE_GADGET_SG-value.patch
 ANDROID-db845c_gki.fragment-Add-audio-configs.patch
