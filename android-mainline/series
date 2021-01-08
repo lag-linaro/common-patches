@@ -1,8 +1,8 @@
 #
 # android-mainline patches
 #
-# Applies onto upstream f68e4041ef63 Linux v5.10-9706-gf68e4041ef63
-# Matches android-mainline d02770216788 ("Merge f68e4041ef63 ("Merge tag 'pinctrl-v5.11-1' of git://git.kernel.org/pub/scm/linux/kernel/git/linusw/linux-pinctrl") into android-mainline")
+# Applies onto upstream 9805529ec544 Linux v5.10-10584-g9805529ec544
+# Matches android-mainline 701c8a1a2f1b ("Merge 9805529ec544 ("Merge tag 'arm-soc-dt-5.11' of git://git.kernel.org/pub/scm/linux/kernel/git/soc/soc") into android-mainline")
 #
 Revert-block-grant-IOPRIO_CLASS_RT-to-CAP_SYS_NICE.patch
 Revert-arm64-dts-qcom-sdm845-db845c-Fix-hdmi-nodes.patch
