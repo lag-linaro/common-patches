@@ -1,8 +1,8 @@
 #
 # android-mainline patches
 #
-# Applies onto upstream e13300bdaa68 Linux v5.10-11678-ge13300bdaa68
-# Matches android-mainline a13ca010ff49 ("Merge e13300bdaa68 ("Merge tag '5.11-rc-smb3' of git://git.samba.org/sfrench/cifs-2.6") into android-mainline")
+# Applies onto upstream 787fec8ac15c Linux v5.10-11699-g787fec8ac15c
+# Matches android-mainline 653770d302d9 ("Merge 787fec8ac15c ("Merge tag 'for-linus-5.11-rc1' of git://git.kernel.org/pub/scm/linux/kernel/git/rw/ubifs") into android-mainline")
 #
 Revert-block-grant-IOPRIO_CLASS_RT-to-CAP_SYS_NICE.patch
 Revert-arm64-dts-qcom-sdm845-db845c-Fix-hdmi-nodes.patch
