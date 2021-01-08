@@ -2,7 +2,7 @@
 # android-mainline patches
 #
 # Applies onto upstream 65de0b89d7d5 Linux v5.10-10966-g65de0b89d7d5
-# Matches android-mainline 7b889bd062f4 ("Merge 65de0b89d7d5 ("Merge tag 'fuse-update-5.11' of git://git.kernel.org/pub/scm/linux/kernel/git/mszeredi/fuse") into android-mainline")
+# Matches android-mainline 90c0ad07bd2b ("Revert "FROMLIST: overlayfs: override_creds=off option bypass creator_cred"")
 #
 Revert-block-grant-IOPRIO_CLASS_RT-to-CAP_SYS_NICE.patch
 Revert-arm64-dts-qcom-sdm845-db845c-Fix-hdmi-nodes.patch
@@ -299,9 +299,6 @@ _____ANNOTATION-filesystem-changes_____.patch
 FROMLIST-Add-flags-option-to-get-xattr-method-paired-to-__vfs_getxattr.patch
 FROMLIST-overlayfs-handle-XATTR_NOSECURITY-flag-for-get-xattr-method.patch
 FROMLIST-overlayfs-internal-getxattr-operations-without-sepolicy-checking.patch
-FROMLIST-overlayfs-override_creds-off-option-bypass-creator_cred.patch
-ANDROID-overlayfs-readdir-override_creds-off-option-bypass-creator_cred.patch
-ANDROID-inode_owner_or_capable-called-during-execv.patch
 FROMLIST-fscrypt-Add-functions-for-direct-I-O-support.patch
 FROMLIST-direct-io-add-support-for-fscrypt-using-blk-crypto.patch
 FROMLIST-iomap-support-direct-I-O-with-fscrypt-using-blk-crypto.patch
