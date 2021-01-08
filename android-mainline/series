@@ -1,8 +1,8 @@
 #
 # android-mainline patches
 #
-# Applies onto upstream 009bd55dfcc8 Linux v5.10-9366-g009bd55dfcc8
-# Matches android-mainline 0899e3f73db5 ("Merge 009bd55dfcc8 ("Merge tag 'for-linus' of git://git.kernel.org/pub/scm/linux/kernel/git/rdma/rdma") into android-mainline")
+# Applies onto upstream 007c74e16c1a Linux v5.10-9368-g007c74e16c1a
+# Matches android-mainline 9f27b3a16c7b ("Merge 007c74e16c1a ("Merge branch 'stable/for-linus-5.11' of git://git.kernel.org/pub/scm/linux/kernel/git/konrad/swiotlb") into android-mainline")
 #
 Revert-block-grant-IOPRIO_CLASS_RT-to-CAP_SYS_NICE.patch
 Revert-arm64-dts-qcom-sdm845-db845c-Fix-hdmi-nodes.patch
