@@ -2,7 +2,7 @@
 # android-mainline patches
 #
 # Applies onto upstream 007c74e16c1a Linux v5.10-9368-g007c74e16c1a
-# Matches android-mainline 9f27b3a16c7b ("Merge 007c74e16c1a ("Merge branch 'stable/for-linus-5.11' of git://git.kernel.org/pub/scm/linux/kernel/git/konrad/swiotlb") into android-mainline")
+# Matches android-mainline 0cb1adebab01 ("Revert "FROMLIST: iommu/dma: Allow drivers to reserve an iova range"")
 #
 Revert-block-grant-IOPRIO_CLASS_RT-to-CAP_SYS_NICE.patch
 Revert-arm64-dts-qcom-sdm845-db845c-Fix-hdmi-nodes.patch
@@ -60,11 +60,6 @@ ANDROID-ARM-Bump-command-line-size.patch
 _____ANNOTATION-iommu-changes_____.patch
 FROMGIT-iommu-arm-smmu-Don-t-bypass-pinned-stream-mappings.patch
 ANDROID-iommu-arm-smmu-Allow-inherting-stream-mapping-from-bootloader.patch
-FROMLIST-iommu-dma-Allow-drivers-to-reserve-an-iova-range.patch
-FROMLIST-iommu-iova-Add-a-best-fit-algorithm.patch
-FROMLIST-iommu-iova-Support-limiting-IOVA-alignment.patch
-FROMLIST-iommu-iova-Retry-from-last-rb-tree-node-if-iova-search-fails.patch
-FROMLIST-iommu-iova-Free-global-iova-rcache-on-iova-alloc-failure.patch
 _____ANNOTATION-core-kernel-changes_____.patch
 FROMLIST-reboot-Export-reboot_mode.patch
 ANDROID-cpu-send-KOBJ_ONLINE-event-when-enabling-cpus.patch
@@ -731,6 +726,7 @@ ANDROID-configs-GKI-disable-ARMv8.3-PAC.patch
 ANDROID-GKI-Unhide-VIRTIO_DMA_SHARED_BUFFER.patch
 ANDROID-build.config.common-allow-overriding-of-HERMETIC_TOOLCHAIN.patch
 ANDROID-GKI-remove-CONFIG_CRC8-y.patch
+ANDROID-GKI-remove-CONFIG_IOMMU_LIMIT_IOVA_ALIGNMENT-y.patch
 _____ANNOTATION-Patches-for-bringing-up-new-SoCs_____.patch
 ANDROID-serial-msm_geni_serial_earlycon-Add-Earlycon-support.patch
 ANDROID-arm64-Add-support-for-asymmetric-AArch32-EL0-configurations.patch
