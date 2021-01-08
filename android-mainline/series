@@ -1,8 +1,8 @@
 #
 # android-mainline patches
 #
-# Applies onto upstream 345b17acb1aa Linux v5.10-11732-g345b17acb1aa
-# Matches android-mainline af0030648aa4 ("UPSTREAM: um: random: Register random as hwrng-core device")
+# Applies onto upstream a409ed156a90 Linux v5.10-11825-ga409ed156a90
+# Matches android-mainline 4a559bce32b9 ("Merge a409ed156a90 ("Merge tag 'gpio-v5.11-1' of git://git.kernel.org/pub/scm/linux/kernel/git/linusw/linux-gpio") into android-mainline")
 #
 Revert-Merge-345b17acb1aa-Merge-tag-for-linus-5.11-rc1-of-git-git.kernel.org-pub-scm-linux-kernel-git-rw-uml-into-android-mainline.patch
 Revert-block-grant-IOPRIO_CLASS_RT-to-CAP_SYS_NICE.patch
