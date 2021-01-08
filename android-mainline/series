@@ -1,8 +1,8 @@
 #
 # android-mainline patches
 #
-# Applies onto upstream 0c6c887835b5 Linux v5.10-11585-g0c6c887835b5
-# Matches android-mainline 44afdb747739 ("Merge 0c6c887835b5 ("Merge tag 'for-linus' of git://github.com/openrisc/linux") into android-mainline")
+# Applies onto upstream d64c6f96ba86 Linux v5.10-11622-gd64c6f96ba86
+# Matches android-mainline 5e1ec0730d47 ("Merge d64c6f96ba86 ("Merge tag 'net-5.11-rc1' of git://git.kernel.org/pub/scm/linux/kernel/git/netdev/net") into android-mainline")
 #
 Revert-block-grant-IOPRIO_CLASS_RT-to-CAP_SYS_NICE.patch
 Revert-arm64-dts-qcom-sdm845-db845c-Fix-hdmi-nodes.patch
