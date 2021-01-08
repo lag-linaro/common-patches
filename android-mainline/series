@@ -1,8 +1,8 @@
 #
 # android-mainline patches
 #
-# Applies onto upstream d64c6f96ba86 Linux v5.10-11622-gd64c6f96ba86
-# Matches android-mainline 9313f1ea14f8 ("ANDROID: db845c_gki.fragment make sure MSM_PINCTRL=m")
+# Applies onto upstream e13300bdaa68 Linux v5.10-11678-ge13300bdaa68
+# Matches android-mainline a13ca010ff49 ("Merge e13300bdaa68 ("Merge tag '5.11-rc-smb3' of git://git.samba.org/sfrench/cifs-2.6") into android-mainline")
 #
 Revert-block-grant-IOPRIO_CLASS_RT-to-CAP_SYS_NICE.patch
 Revert-arm64-dts-qcom-sdm845-db845c-Fix-hdmi-nodes.patch
