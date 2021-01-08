@@ -1,8 +1,8 @@
 #
 # android-mainline patches
 #
-# Applies onto upstream 278f54c46164 Linux v5.10-9483-g278f54c46164
-# Matches android-mainline 93401f8ab0a1 ("Merge 278f54c46164 ("Merge tag 'mfd-next-5.11' of git://git.kernel.org/pub/scm/linux/kernel/git/lee/mfd") into android-mainline")
+# Applies onto upstream a701262c02ce Linux v5.10-9621-ga701262c02ce
+# Matches android-mainline 9bd358202127 ("Merge a701262c02ce ("Merge tag 'mtd/for-5.11' of git://git.kernel.org/pub/scm/linux/kernel/git/mtd/linux") into android-mainline")
 #
 Revert-block-grant-IOPRIO_CLASS_RT-to-CAP_SYS_NICE.patch
 Revert-arm64-dts-qcom-sdm845-db845c-Fix-hdmi-nodes.patch
