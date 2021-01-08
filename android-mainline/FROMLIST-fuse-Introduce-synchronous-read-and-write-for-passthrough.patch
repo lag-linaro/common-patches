@@ -41,7 +41,7 @@ Change-Id: If76bb8725e1ac567f9dbe3edb79ebb4d43d77dfb
 diff --git a/fs/fuse/file.c b/fs/fuse/file.c
 --- a/fs/fuse/file.c
 +++ b/fs/fuse/file.c
-@@ -1563,7 +1563,9 @@ static ssize_t fuse_file_read_iter(struct kiocb *iocb, struct iov_iter *to)
+@@ -1581,7 +1581,9 @@ static ssize_t fuse_file_read_iter(struct kiocb *iocb, struct iov_iter *to)
  	if (FUSE_IS_DAX(inode))
  		return fuse_dax_read_iter(iocb, to);
  
@@ -52,7 +52,7 @@ diff --git a/fs/fuse/file.c b/fs/fuse/file.c
  		return fuse_cache_read_iter(iocb, to);
  	else
  		return fuse_direct_read_iter(iocb, to);
-@@ -1581,7 +1583,9 @@ static ssize_t fuse_file_write_iter(struct kiocb *iocb, struct iov_iter *from)
+@@ -1599,7 +1601,9 @@ static ssize_t fuse_file_write_iter(struct kiocb *iocb, struct iov_iter *from)
  	if (FUSE_IS_DAX(inode))
  		return fuse_dax_write_iter(iocb, from);
  
@@ -66,7 +66,7 @@ diff --git a/fs/fuse/file.c b/fs/fuse/file.c
 diff --git a/fs/fuse/fuse_i.h b/fs/fuse/fuse_i.h
 --- a/fs/fuse/fuse_i.h
 +++ b/fs/fuse/fuse_i.h
-@@ -1235,5 +1235,7 @@ int fuse_passthrough_open(struct fuse_dev *fud,
+@@ -1238,5 +1238,7 @@ int fuse_passthrough_open(struct fuse_dev *fud,
  int fuse_passthrough_setup(struct fuse_conn *fc, struct fuse_file *ff,
  			   struct fuse_open_out *openarg);
  void fuse_passthrough_release(struct fuse_passthrough *passthrough);

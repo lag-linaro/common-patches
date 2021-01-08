@@ -15,7 +15,7 @@ Signed-off-by: Alistair Delva <adelva@google.com>
 diff --git a/fs/fuse/fuse_i.h b/fs/fuse/fuse_i.h
 --- a/fs/fuse/fuse_i.h
 +++ b/fs/fuse/fuse_i.h
-@@ -385,10 +385,8 @@ struct fuse_req {
+@@ -387,10 +387,8 @@ struct fuse_req {
  	/** Used to wake up the task waiting for completion of request*/
  	wait_queue_head_t waitq;
  

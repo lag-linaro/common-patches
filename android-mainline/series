@@ -1,8 +1,8 @@
 #
 # android-mainline patches
 #
-# Applies onto upstream ff49c86f27e4 Linux v5.10-10949-gff49c86f27e4
-# Matches android-mainline fd30fc5ebe2f ("Merge ff49c86f27e4 ("Merge tag 'f2fs-for-5.11-rc1' of git://git.kernel.org/pub/scm/linux/kernel/git/jaegeuk/f2fs") into android-mainline")
+# Applies onto upstream 65de0b89d7d5 Linux v5.10-10966-g65de0b89d7d5
+# Matches android-mainline 7b889bd062f4 ("Merge 65de0b89d7d5 ("Merge tag 'fuse-update-5.11' of git://git.kernel.org/pub/scm/linux/kernel/git/mszeredi/fuse") into android-mainline")
 #
 Revert-block-grant-IOPRIO_CLASS_RT-to-CAP_SYS_NICE.patch
 Revert-arm64-dts-qcom-sdm845-db845c-Fix-hdmi-nodes.patch
@@ -17,7 +17,6 @@ FROMLIST-fuse-Passthrough-initialization-and-release.patch
 FROMLIST-fuse-Introduce-synchronous-read-and-write-for-passthrough.patch
 FROMLIST-fuse-Handle-asynchronous-read-and-write-in-passthrough.patch
 FROMLIST-fuse-Use-daemon-creds-in-passthrough-mode.patch
-FROMLIST-fuse-Fix-colliding-FUSE_PASSTHROUGH-flag.patch
 FROMLIST-USB-gadget-f_fs-add-SuperSpeed-Plus-support.patch
 FROMLIST-scsi-ufs-clear-uac-for-RPMB-after-ufshcd-resets.patch
 FROMLIST-scripts-merge_config-add-strict-mode-to-fail-upon-any-redefinition.patch
