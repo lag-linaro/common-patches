@@ -1,8 +1,8 @@
 #
 # android-mainline patches
 #
-# Applies onto upstream 65de0b89d7d5 Linux v5.10-10966-g65de0b89d7d5
-# Matches android-mainline 90c0ad07bd2b ("Revert "FROMLIST: overlayfs: override_creds=off option bypass creator_cred"")
+# Applies onto upstream 92dbc9dedccb Linux v5.10-10984-g92dbc9dedccb
+# Matches android-mainline 68d0da6f3e6b ("Merge 92dbc9dedccb ("Merge tag 'ovl-update-5.11' of git://git.kernel.org/pub/scm/linux/kernel/git/mszeredi/vfs") into android-mainline")
 #
 Revert-block-grant-IOPRIO_CLASS_RT-to-CAP_SYS_NICE.patch
 Revert-arm64-dts-qcom-sdm845-db845c-Fix-hdmi-nodes.patch
