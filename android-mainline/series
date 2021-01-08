@@ -2,7 +2,7 @@
 # android-mainline patches
 #
 # Applies onto upstream d64c6f96ba86 Linux v5.10-11622-gd64c6f96ba86
-# Matches android-mainline 5e1ec0730d47 ("Merge d64c6f96ba86 ("Merge tag 'net-5.11-rc1' of git://git.kernel.org/pub/scm/linux/kernel/git/netdev/net") into android-mainline")
+# Matches android-mainline 9313f1ea14f8 ("ANDROID: db845c_gki.fragment make sure MSM_PINCTRL=m")
 #
 Revert-block-grant-IOPRIO_CLASS_RT-to-CAP_SYS_NICE.patch
 Revert-arm64-dts-qcom-sdm845-db845c-Fix-hdmi-nodes.patch
@@ -712,6 +712,7 @@ ANDROID-GKI-Unhide-VIRTIO_DMA_SHARED_BUFFER.patch
 ANDROID-build.config.common-allow-overriding-of-HERMETIC_TOOLCHAIN.patch
 ANDROID-GKI-remove-CONFIG_CRC8-y.patch
 ANDROID-GKI-remove-CONFIG_IOMMU_LIMIT_IOVA_ALIGNMENT-y.patch
+ANDROID-db845c_gki.fragment-make-sure-MSM_PINCTRL-m.patch
 _____ANNOTATION-Patches-for-bringing-up-new-SoCs_____.patch
 ANDROID-serial-msm_geni_serial_earlycon-Add-Earlycon-support.patch
 ANDROID-arm64-Add-support-for-asymmetric-AArch32-EL0-configurations.patch
