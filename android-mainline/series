@@ -2,12 +2,15 @@
 # android-mainline patches
 #
 # Applies onto upstream 345b17acb1aa Linux v5.10-11732-g345b17acb1aa
-# Matches android-mainline 47665a337717 ("Merge 345b17acb1aa ("Merge tag 'for-linus-5.11-rc1' of git://git.kernel.org/pub/scm/linux/kernel/git/rw/uml") into android-mainline")
+# Matches android-mainline af0030648aa4 ("UPSTREAM: um: random: Register random as hwrng-core device")
 #
+Revert-Merge-345b17acb1aa-Merge-tag-for-linus-5.11-rc1-of-git-git.kernel.org-pub-scm-linux-kernel-git-rw-uml-into-android-mainline.patch
 Revert-block-grant-IOPRIO_CLASS_RT-to-CAP_SYS_NICE.patch
 Revert-arm64-dts-qcom-sdm845-db845c-Fix-hdmi-nodes.patch
 Revert-ubsan-enable-for-all-config-builds.patch
 _____ANNOTATION-pending-upstream_____.patch
+UPSTREAM-um-Convert-tasklets-to-use-new-tasklet_setup-API.patch
+UPSTREAM-um-random-Register-random-as-hwrng-core-device.patch
 FROMLIST-modpost-Make-static-exports-fatal.patch
 FROMLIST-clk-Export-clk_register_composite.patch
 FROMLIST-clk-versatile-remove-dependency-on-ARCH_.patch

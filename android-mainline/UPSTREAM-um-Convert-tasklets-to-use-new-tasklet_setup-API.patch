@@ -1,0 +1,46 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: Allen Pais <allen.lkml@gmail.com>
+Date: Mon, 17 Aug 2020 14:45:55 +0530
+Subject: UPSTREAM: um: Convert tasklets to use new tasklet_setup() API
+
+In preparation for unconditionally passing the
+struct tasklet_struct pointer to all tasklet
+callbacks, switch to using the new tasklet_setup()
+and from_tasklet() to pass the tasklet pointer explicitly.
+
+Bug: 176213565
+Signed-off-by: Romain Perier <romain.perier@gmail.com>
+Signed-off-by: Allen Pais <allen.lkml@gmail.com>
+Acked-By: Anton Ivanov <anton.ivanov@cambridgegreys.com>
+Signed-off-by: Richard Weinberger <richard@nod.at>
+(cherry picked from commit db03b428278501e4da4339d7528d8408f050d0ac)
+Signed-off-by: Greg Kroah-Hartman <gregkh@google.com>
+Change-Id: I1f77c36f00370d81bb9d1ae37b23c5da350f8061
+---
+ arch/um/drivers/vector_kern.c | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
+
+diff --git a/arch/um/drivers/vector_kern.c b/arch/um/drivers/vector_kern.c
+--- a/arch/um/drivers/vector_kern.c
++++ b/arch/um/drivers/vector_kern.c
+@@ -1196,9 +1196,9 @@ static int vector_net_close(struct net_device *dev)
+ 
+ /* TX tasklet */
+ 
+-static void vector_tx_poll(unsigned long data)
++static void vector_tx_poll(struct tasklet_struct *t)
+ {
+-	struct vector_private *vp = (struct vector_private *)data;
++	struct vector_private *vp = from_tasklet(vp, t, tx_poll);
+ 
+ 	vp->estats.tx_kicks++;
+ 	vector_send(vp->tx_queue);
+@@ -1629,7 +1629,7 @@ static void vector_eth_configure(
+ 	});
+ 
+ 	dev->features = dev->hw_features = (NETIF_F_SG | NETIF_F_FRAGLIST);
+-	tasklet_init(&vp->tx_poll, vector_tx_poll, (unsigned long)vp);
++	tasklet_setup(&vp->tx_poll, vector_tx_poll);
+ 	INIT_WORK(&vp->reset_tx, vector_reset_tx);
+ 
+ 	timer_setup(&vp->tl, vector_timer_expire, 0);
