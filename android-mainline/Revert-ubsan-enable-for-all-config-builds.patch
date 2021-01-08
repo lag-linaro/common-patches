@@ -32,7 +32,7 @@ Change-Id: Ia7c51274268d1a64ed19837825a5fb1debaaeea1
 diff --git a/arch/powerpc/kernel/vmlinux.lds.S b/arch/powerpc/kernel/vmlinux.lds.S
 --- a/arch/powerpc/kernel/vmlinux.lds.S
 +++ b/arch/powerpc/kernel/vmlinux.lds.S
-@@ -313,10 +313,6 @@ SECTIONS
+@@ -296,10 +296,6 @@ SECTIONS
  #else
  	.data : AT(ADDR(.data) - LOAD_OFFSET) {
  		DATA_DATA
