@@ -1,8 +1,8 @@
 #
 # android-mainline patches
 #
-# Applies onto upstream 787fec8ac15c Linux v5.10-11699-g787fec8ac15c
-# Matches android-mainline 19cb948c52e6 ("ANDROID: usb: gadget: f_accessory: fix CTS test stuck")
+# Applies onto upstream 345b17acb1aa Linux v5.10-11732-g345b17acb1aa
+# Matches android-mainline 47665a337717 ("Merge 345b17acb1aa ("Merge tag 'for-linus-5.11-rc1' of git://git.kernel.org/pub/scm/linux/kernel/git/rw/uml") into android-mainline")
 #
 Revert-block-grant-IOPRIO_CLASS_RT-to-CAP_SYS_NICE.patch
 Revert-arm64-dts-qcom-sdm845-db845c-Fix-hdmi-nodes.patch
@@ -194,7 +194,6 @@ _____ANNOTATION-driver-framework-and-misc-driver-changes_____.patch
 FROMLIST-drivers-irqchip-pdc-additionally-set-type-in-SPI-config-registers.patch
 FROMLIST-dt-bindings-interrupt-controller-pdc-add-SPI-config-register.patch
 BACKPORT-FROMLIST-pwm-Add-support-for-different-PWM-output-types.patch
-ANDROID-Revert-um-irq-don-t-set-the-chip-for-all-irqs.patch
 ANDROID-clk-add-pre-and-post-change-rate-callbacks.patch
 ANDROID-PCI-qcom-Fix-the-fixup-of-PCI_VENDOR_ID_QCOM.patch
 ANDROID-GKI-clk-Add-support-for-clock-providers-with-sync-state.patch
