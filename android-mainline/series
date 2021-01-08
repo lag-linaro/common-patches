@@ -1,8 +1,8 @@
 #
 # android-mainline patches
 #
-# Applies onto upstream 8a5be36b9303 Linux v5.10-11576-g8a5be36b9303
-# Matches android-mainline 2a1e8fbc76f0 ("Merge 8a5be36b9303 ("Merge tag 'powerpc-5.11-1' of git://git.kernel.org/pub/scm/linux/kernel/git/powerpc/linux") into android-mainline")
+# Applies onto upstream 0c6c887835b5 Linux v5.10-11585-g0c6c887835b5
+# Matches android-mainline 44afdb747739 ("Merge 0c6c887835b5 ("Merge tag 'for-linus' of git://github.com/openrisc/linux") into android-mainline")
 #
 Revert-block-grant-IOPRIO_CLASS_RT-to-CAP_SYS_NICE.patch
 Revert-arm64-dts-qcom-sdm845-db845c-Fix-hdmi-nodes.patch
