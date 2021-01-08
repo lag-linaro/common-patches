@@ -2,12 +2,13 @@
 # android-mainline patches
 #
 # Applies onto upstream a409ed156a90 Linux v5.10-11825-ga409ed156a90
-# Matches android-mainline 4a559bce32b9 ("Merge a409ed156a90 ("Merge tag 'gpio-v5.11-1' of git://git.kernel.org/pub/scm/linux/kernel/git/linusw/linux-gpio") into android-mainline")
+# Matches android-mainline 5ade8f493f20 ("ANDROID: GKI: enable CONFIG_SRAM")
 #
 Revert-Merge-345b17acb1aa-Merge-tag-for-linus-5.11-rc1-of-git-git.kernel.org-pub-scm-linux-kernel-git-rw-uml-into-android-mainline.patch
 Revert-block-grant-IOPRIO_CLASS_RT-to-CAP_SYS_NICE.patch
 Revert-arm64-dts-qcom-sdm845-db845c-Fix-hdmi-nodes.patch
 Revert-ubsan-enable-for-all-config-builds.patch
+Revert-security-lockdown-selinux-implement-SELinux-lockdown.patch
 _____ANNOTATION-pending-upstream_____.patch
 UPSTREAM-um-Convert-tasklets-to-use-new-tasklet_setup-API.patch
 UPSTREAM-um-random-Register-random-as-hwrng-core-device.patch
@@ -717,6 +718,7 @@ ANDROID-GKI-remove-CONFIG_CRC8-y.patch
 ANDROID-GKI-remove-CONFIG_IOMMU_LIMIT_IOVA_ALIGNMENT-y.patch
 ANDROID-db845c_gki.fragment-make-sure-MSM_PINCTRL-m.patch
 ANDROID-GKI-Enable-CRYPTO_MD5.patch
+ANDROID-GKI-enable-CONFIG_SRAM.patch
 _____ANNOTATION-Patches-for-bringing-up-new-SoCs_____.patch
 ANDROID-serial-msm_geni_serial_earlycon-Add-Earlycon-support.patch
 ANDROID-arm64-Add-support-for-asymmetric-AArch32-EL0-configurations.patch
@@ -726,7 +728,6 @@ ANDROID-arm64-kvm-Hide-asym-aarch32-systems-from-KVM.patch
 ANDROID-arm64-Enable-KVM-for-Asym-AArch32.patch
 _____ANNOTATION-remove-ANNOTATIONS-file_____.patch
 DROP-ME-minor-out-of-tree-difference.patch
-DROP-ME-minor-out-of-tree-difference-in-security-lsm_audit.c.patch
 DROP-ME-obsolete-ION-documentation.patch
 DROP-ME-Out-of-tree-difference-caused-by-the-ION-deletion.patch
 DROP-ME-minor-out-of-tree-difference-after-merging-scsi-misc.patch
