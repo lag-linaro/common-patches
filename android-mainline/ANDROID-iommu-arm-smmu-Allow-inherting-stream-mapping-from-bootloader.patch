@@ -36,11 +36,11 @@ diff --git a/drivers/iommu/arm/arm-smmu/arm-smmu-qcom.c b/drivers/iommu/arm/arm-
   */
  
 +#include <linux/bitfield.h>
+ #include <linux/adreno-smmu-priv.h>
  #include <linux/of_device.h>
  #include <linux/qcom_scm.h>
- 
-@@ -12,6 +13,43 @@ struct qcom_smmu {
- 	struct arm_smmu_device smmu;
+@@ -15,6 +16,43 @@ struct qcom_smmu {
+ 	u8 bypass_cbndx;
  };
  
 +static int qcom_sdm845_smmu500_cfg_probe(struct arm_smmu_device *smmu)
@@ -80,21 +80,21 @@ diff --git a/drivers/iommu/arm/arm-smmu/arm-smmu-qcom.c b/drivers/iommu/arm/arm-
 +	return 0;
 +}
 +
- static const struct of_device_id qcom_smmu_client_of_match[] __maybe_unused = {
- 	{ .compatible = "qcom,adreno" },
- 	{ .compatible = "qcom,mdp4" },
-@@ -62,6 +100,7 @@ static int qcom_smmu500_reset(struct arm_smmu_device *smmu)
- 
+ static struct qcom_smmu *to_qcom_smmu(struct arm_smmu_device *smmu)
+ {
+ 	return container_of(smmu, struct qcom_smmu, smmu);
+@@ -292,6 +330,7 @@ static int qcom_smmu500_reset(struct arm_smmu_device *smmu)
  static const struct arm_smmu_impl qcom_smmu_impl = {
+ 	.cfg_probe = qcom_smmu_cfg_probe,
  	.def_domain_type = qcom_smmu_def_domain_type,
 +	.cfg_probe = qcom_sdm845_smmu500_cfg_probe,
  	.reset = qcom_smmu500_reset,
+ 	.write_s2cr = qcom_smmu_write_s2cr,
  };
- 
 diff --git a/drivers/iommu/arm/arm-smmu/arm-smmu.c b/drivers/iommu/arm/arm-smmu/arm-smmu.c
 --- a/drivers/iommu/arm/arm-smmu/arm-smmu.c
 +++ b/drivers/iommu/arm/arm-smmu/arm-smmu.c
-@@ -1030,12 +1030,19 @@ static int arm_smmu_find_sme(struct arm_smmu_device *smmu, u16 id, u16 mask)
+@@ -1021,12 +1021,19 @@ static int arm_smmu_find_sme(struct arm_smmu_device *smmu, u16 id, u16 mask)
  
  static bool arm_smmu_free_sme(struct arm_smmu_device *smmu, int idx)
  {
@@ -118,7 +118,7 @@ diff --git a/drivers/iommu/arm/arm-smmu/arm-smmu.c b/drivers/iommu/arm/arm-smmu/
 diff --git a/drivers/iommu/arm/arm-smmu/arm-smmu.h b/drivers/iommu/arm/arm-smmu/arm-smmu.h
 --- a/drivers/iommu/arm/arm-smmu/arm-smmu.h
 +++ b/drivers/iommu/arm/arm-smmu/arm-smmu.h
-@@ -262,13 +262,13 @@ struct arm_smmu_s2cr {
+@@ -263,13 +263,13 @@ struct arm_smmu_s2cr {
  	enum arm_smmu_s2cr_type		type;
  	enum arm_smmu_s2cr_privcfg	privcfg;
  	u8				cbndx;

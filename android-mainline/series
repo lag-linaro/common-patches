@@ -1,8 +1,8 @@
 #
 # android-mainline patches
 #
-# Applies onto upstream 007c74e16c1a Linux v5.10-9368-g007c74e16c1a
-# Matches android-mainline 0cb1adebab01 ("Revert "FROMLIST: iommu/dma: Allow drivers to reserve an iova range"")
+# Applies onto upstream 19778dd504b5 Linux v5.10-9429-g19778dd504b5
+# Matches android-mainline c6d2959e1986 ("Merge 19778dd504b5 ("Merge tag 'iommu-updates-v5.11' of git://git.kernel.org/pub/scm/linux/kernel/git/arm64/linux") into android-mainline")
 #
 Revert-block-grant-IOPRIO_CLASS_RT-to-CAP_SYS_NICE.patch
 Revert-arm64-dts-qcom-sdm845-db845c-Fix-hdmi-nodes.patch

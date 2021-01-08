@@ -32,7 +32,7 @@ Change-Id: Iecc6e3d1feedee178e04f7da8f601ee12bd5ae3b
 diff --git a/drivers/iommu/arm/arm-smmu/arm-smmu.c b/drivers/iommu/arm/arm-smmu/arm-smmu.c
 --- a/drivers/iommu/arm/arm-smmu/arm-smmu.c
 +++ b/drivers/iommu/arm/arm-smmu/arm-smmu.c
-@@ -1123,6 +1123,10 @@ static int arm_smmu_domain_add_master(struct arm_smmu_domain *smmu_domain,
+@@ -1114,6 +1114,10 @@ static int arm_smmu_domain_add_master(struct arm_smmu_domain *smmu_domain,
  		if (type == s2cr[idx].type && cbndx == s2cr[idx].cbndx)
  			continue;
  
