@@ -2,7 +2,7 @@
 # android-mainline patches
 #
 # Applies onto upstream 4e31dcc0a923 Linux v5.10-12739-g4e31dcc0a923
-# Matches android-mainline 4d34b17ef60d ("Merge 4e31dcc0a923 ("Merge tag 'hwmon-for-v5.11-take2' of git://git.kernel.org/pub/scm/linux/kernel/git/groeck/linux-staging") into android-mainline")
+# Matches android-mainline e59f3e191a24 ("ANDROID: GKI: make VIDEOBUF2_DMA_CONTIG under GKI_HIDDEN_MEDIA_CONFIGS")
 #
 Revert-Merge-345b17acb1aa-Merge-tag-for-linus-5.11-rc1-of-git-git.kernel.org-pub-scm-linux-kernel-git-rw-uml-into-android-mainline.patch
 Revert-block-grant-IOPRIO_CLASS_RT-to-CAP_SYS_NICE.patch
@@ -720,6 +720,8 @@ ANDROID-db845c_gki.fragment-make-sure-MSM_PINCTRL-m.patch
 ANDROID-GKI-Enable-CRYPTO_MD5.patch
 ANDROID-GKI-enable-CONFIG_SRAM.patch
 ANDROID-GKI-Enable-XFRM_MIGRATE.patch
+ANDROID-GKI-disable-CONFIG_MEMCG.patch
+ANDROID-GKI-make-VIDEOBUF2_DMA_CONTIG-under-GKI_HIDDEN_MEDIA_CONFIGS.patch
 _____ANNOTATION-Patches-for-bringing-up-new-SoCs_____.patch
 ANDROID-serial-msm_geni_serial_earlycon-Add-Earlycon-support.patch
 ANDROID-arm64-Add-support-for-asymmetric-AArch32-EL0-configurations.patch
