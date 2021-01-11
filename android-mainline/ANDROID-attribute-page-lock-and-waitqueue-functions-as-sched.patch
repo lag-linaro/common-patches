@@ -115,7 +115,7 @@ diff --git a/include/linux/pagemap.h b/include/linux/pagemap.h
 diff --git a/kernel/sched/wait.c b/kernel/sched/wait.c
 --- a/kernel/sched/wait.c
 +++ b/kernel/sched/wait.c
-@@ -384,7 +384,8 @@ void finish_wait(struct wait_queue_head *wq_head, struct wait_queue_entry *wq_en
+@@ -399,7 +399,8 @@ void finish_wait(struct wait_queue_head *wq_head, struct wait_queue_entry *wq_en
  }
  EXPORT_SYMBOL(finish_wait);
  
@@ -125,7 +125,7 @@ diff --git a/kernel/sched/wait.c b/kernel/sched/wait.c
  {
  	int ret = default_wake_function(wq_entry, mode, sync, key);
  
-@@ -420,7 +421,7 @@ static inline bool is_kthread_should_stop(void)
+@@ -435,7 +436,7 @@ static inline bool is_kthread_should_stop(void)
   * }						smp_mb(); // C
   * remove_wait_queue(&wq_head, &wait);		wq_entry->flags |= WQ_FLAG_WOKEN;
   */
@@ -134,7 +134,7 @@ diff --git a/kernel/sched/wait.c b/kernel/sched/wait.c
  {
  	/*
  	 * The below executes an smp_mb(), which matches with the full barrier
-@@ -445,7 +446,8 @@ long wait_woken(struct wait_queue_entry *wq_entry, unsigned mode, long timeout)
+@@ -460,7 +461,8 @@ long wait_woken(struct wait_queue_entry *wq_entry, unsigned mode, long timeout)
  }
  EXPORT_SYMBOL(wait_woken);
  

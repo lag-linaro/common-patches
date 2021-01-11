@@ -50,7 +50,7 @@ diff --git a/arch/arm64/include/asm/cpufeature.h b/arch/arm64/include/asm/cpufea
 diff --git a/arch/arm64/kvm/guest.c b/arch/arm64/kvm/guest.c
 --- a/arch/arm64/kvm/guest.c
 +++ b/arch/arm64/kvm/guest.c
-@@ -226,7 +226,7 @@ static int set_core_reg(struct kvm_vcpu *vcpu, const struct kvm_one_reg *reg)
+@@ -225,7 +225,7 @@ static int set_core_reg(struct kvm_vcpu *vcpu, const struct kvm_one_reg *reg)
  		u64 mode = (*(u64 *)valp) & PSR_AA32_MODE_MASK;
  		switch (mode) {
  		case PSR_AA32_MODE_USR:
@@ -62,7 +62,7 @@ diff --git a/arch/arm64/kvm/guest.c b/arch/arm64/kvm/guest.c
 diff --git a/arch/arm64/kvm/sys_regs.c b/arch/arm64/kvm/sys_regs.c
 --- a/arch/arm64/kvm/sys_regs.c
 +++ b/arch/arm64/kvm/sys_regs.c
-@@ -670,7 +670,7 @@ static void reset_pmcr(struct kvm_vcpu *vcpu, const struct sys_reg_desc *r)
+@@ -601,7 +601,7 @@ static void reset_pmcr(struct kvm_vcpu *vcpu, const struct sys_reg_desc *r)
  	 */
  	val = ((pmcr & ~ARMV8_PMU_PMCR_MASK)
  	       | (ARMV8_PMU_PMCR_MASK & 0xdecafbad)) & (~ARMV8_PMU_PMCR_E);
@@ -71,7 +71,7 @@ diff --git a/arch/arm64/kvm/sys_regs.c b/arch/arm64/kvm/sys_regs.c
  		val |= ARMV8_PMU_PMCR_LC;
  	__vcpu_sys_reg(vcpu, r->reg) = val;
  }
-@@ -722,7 +722,7 @@ static bool access_pmcr(struct kvm_vcpu *vcpu, struct sys_reg_params *p,
+@@ -651,7 +651,7 @@ static bool access_pmcr(struct kvm_vcpu *vcpu, struct sys_reg_params *p,
  		val = __vcpu_sys_reg(vcpu, PMCR_EL0);
  		val &= ~ARMV8_PMU_PMCR_MASK;
  		val |= p->regval & ARMV8_PMU_PMCR_MASK;
@@ -80,10 +80,10 @@ diff --git a/arch/arm64/kvm/sys_regs.c b/arch/arm64/kvm/sys_regs.c
  			val |= ARMV8_PMU_PMCR_LC;
  		__vcpu_sys_reg(vcpu, PMCR_EL0) = val;
  		kvm_pmu_handle_pmcr(vcpu, val);
-@@ -1122,6 +1122,15 @@ static u64 read_id_reg(const struct kvm_vcpu *vcpu,
- 		val &= ~(0xfUL << ID_AA64PFR0_AMU_SHIFT);
- 		val &= ~(0xfUL << ID_AA64PFR0_CSV2_SHIFT);
+@@ -1028,6 +1028,15 @@ static u64 read_id_reg(const struct kvm_vcpu *vcpu,
  		val |= ((u64)vcpu->kvm->arch.pfr0_csv2 << ID_AA64PFR0_CSV2_SHIFT);
+ 		val &= ~(0xfUL << ID_AA64PFR0_CSV3_SHIFT);
+ 		val |= ((u64)vcpu->kvm->arch.pfr0_csv3 << ID_AA64PFR0_CSV3_SHIFT);
 +
 +		if (!kvm_system_supports_32bit_el0()) {
 +			/*

@@ -226,7 +226,7 @@ diff --git a/fs/ceph/xattr.c b/fs/ceph/xattr.c
 diff --git a/fs/cifs/xattr.c b/fs/cifs/xattr.c
 --- a/fs/cifs/xattr.c
 +++ b/fs/cifs/xattr.c
-@@ -281,7 +281,7 @@ static int cifs_creation_time_get(struct dentry *dentry, struct inode *inode,
+@@ -288,7 +288,7 @@ static int cifs_creation_time_get(struct dentry *dentry, struct inode *inode,
  
  static int cifs_xattr_get(const struct xattr_handler *handler,
  			  struct dentry *dentry, struct inode *inode,
