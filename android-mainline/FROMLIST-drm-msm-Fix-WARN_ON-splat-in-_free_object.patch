@@ -60,7 +60,7 @@ Change-Id: I9cdca64718f03352a45a5b1a2d5ef19e3de3e971
 diff --git a/drivers/gpu/drm/msm/msm_gem.c b/drivers/gpu/drm/msm/msm_gem.c
 --- a/drivers/gpu/drm/msm/msm_gem.c
 +++ b/drivers/gpu/drm/msm/msm_gem.c
-@@ -990,6 +990,8 @@ void msm_gem_free_object(struct drm_gem_object *obj)
+@@ -988,6 +988,8 @@ void msm_gem_free_object(struct drm_gem_object *obj)
  		if (msm_obj->pages)
  			kvfree(msm_obj->pages);
  
@@ -69,7 +69,7 @@ diff --git a/drivers/gpu/drm/msm/msm_gem.c b/drivers/gpu/drm/msm/msm_gem.c
  		/* dma_buf_detach() grabs resv lock, so we need to unlock
  		 * prior to drm_prime_gem_destroy
  		 */
-@@ -999,11 +1001,10 @@ void msm_gem_free_object(struct drm_gem_object *obj)
+@@ -997,11 +999,10 @@ void msm_gem_free_object(struct drm_gem_object *obj)
  	} else {
  		msm_gem_vunmap(obj);
  		put_pages(obj);

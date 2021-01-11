@@ -35,10 +35,9 @@ Bug: 155218010
 Link: https://lore.kernel.org/lkml/20191025234834.28214-3-john.stultz@linaro.org/
 Signed-off-by: Hridya Valsaraju <hridya@google.com>
 ---
- drivers/dma-buf/dma-heap.c           | 1 +
- drivers/dma-buf/heaps/Kconfig        | 2 +-
- drivers/dma-buf/heaps/heap-helpers.c | 2 ++
- 3 files changed, 4 insertions(+), 1 deletion(-)
+ drivers/dma-buf/dma-heap.c    | 1 +
+ drivers/dma-buf/heaps/Kconfig | 2 +-
+ 2 files changed, 2 insertions(+), 1 deletion(-)
 
 diff --git a/drivers/dma-buf/dma-heap.c b/drivers/dma-buf/dma-heap.c
 --- a/drivers/dma-buf/dma-heap.c
@@ -63,22 +62,3 @@ diff --git a/drivers/dma-buf/heaps/Kconfig b/drivers/dma-buf/heaps/Kconfig
  	depends on DMABUF_HEAPS && DMA_CMA
  	help
  	  Choose this option to enable dma-buf CMA heap. This heap is backed
-diff --git a/drivers/dma-buf/heaps/heap-helpers.c b/drivers/dma-buf/heaps/heap-helpers.c
---- a/drivers/dma-buf/heaps/heap-helpers.c
-+++ b/drivers/dma-buf/heaps/heap-helpers.c
-@@ -24,6 +24,7 @@ void init_heap_helper_buffer(struct heap_helper_buffer *buffer,
- 	INIT_LIST_HEAD(&buffer->attachments);
- 	buffer->free = free;
- }
-+EXPORT_SYMBOL_GPL(init_heap_helper_buffer);
- 
- struct dma_buf *heap_helper_export_dmabuf(struct heap_helper_buffer *buffer,
- 					  int fd_flags)
-@@ -37,6 +38,7 @@ struct dma_buf *heap_helper_export_dmabuf(struct heap_helper_buffer *buffer,
- 
- 	return dma_buf_export(&exp_info);
- }
-+EXPORT_SYMBOL_GPL(heap_helper_export_dmabuf);
- 
- static void *dma_heap_map_kernel(struct heap_helper_buffer *buffer)
- {

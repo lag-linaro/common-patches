@@ -1,8 +1,8 @@
 #
 # android-mainline patches
 #
-# Applies onto upstream a409ed156a90 Linux v5.10-11825-ga409ed156a90
-# Matches android-mainline 5ade8f493f20 ("ANDROID: GKI: enable CONFIG_SRAM")
+# Applies onto upstream a0b96314870f Linux v5.10-12032-ga0b96314870f
+# Matches android-mainline 20aa838e0424 ("Merge a0b96314870f ("Merge tag 'xfs-5.11-merge-4' of git://git.kernel.org/pub/scm/fs/xfs/xfs-linux") into android-mainline")
 #
 Revert-Merge-345b17acb1aa-Merge-tag-for-linus-5.11-rc1-of-git-git.kernel.org-pub-scm-linux-kernel-git-rw-uml-into-android-mainline.patch
 Revert-block-grant-IOPRIO_CLASS_RT-to-CAP_SYS_NICE.patch
@@ -189,11 +189,6 @@ ANDROID-dma-heap-Provide-accessors-so-that-in-kernel-drivers-can-allocate-dmabuf
 ANDROID-dma-buf-Cleanup-minor-usage-in-Add-proper-kref-handling-on-dma-buf-heaps.patch
 ANDROID-dma-Rework-so-dev_get_cma_area-can-be-called-from-a-module.patch
 ANDROID-dma-buf-heaps-Allow-cma-heaps-to-be-configured-as-a-module.patch
-BACKPORT-dma-buf-system_heap-Rework-system-heap-to-use-sgtables-instead-of-pagelists.patch
-BACKPORT-dma-buf-heaps-Move-heap-helper-logic-into-the-cma_heap-implementation.patch
-BACKPORT-dma-buf-heaps-Remove-heap-helpers-code.patch
-BACKPORT-dma-buf-heaps-Skip-sync-if-not-mapped.patch
-BACKPORT-dma-buf-system_heap-Allocate-higher-order-pages-if-available.patch
 _____ANNOTATION-driver-framework-and-misc-driver-changes_____.patch
 FROMLIST-drivers-irqchip-pdc-additionally-set-type-in-SPI-config-registers.patch
 FROMLIST-dt-bindings-interrupt-controller-pdc-add-SPI-config-register.patch

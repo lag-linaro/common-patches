@@ -16,9 +16,9 @@ Bug: 154341375
 ---
  drivers/dma-buf/dma-heap.c          | 44 +++++++++++++++++++++++------
  drivers/dma-buf/heaps/cma_heap.c    | 21 +++++---------
- drivers/dma-buf/heaps/system_heap.c | 21 +++++---------
+ drivers/dma-buf/heaps/system_heap.c | 20 +++++--------
  include/linux/dma-heap.h            |  6 ++--
- 4 files changed, 52 insertions(+), 40 deletions(-)
+ 4 files changed, 52 insertions(+), 39 deletions(-)
 
 diff --git a/drivers/dma-buf/dma-heap.c b/drivers/dma-buf/dma-heap.c
 --- a/drivers/dma-buf/dma-heap.c
@@ -98,33 +98,33 @@ diff --git a/drivers/dma-buf/dma-heap.c b/drivers/dma-buf/dma-heap.c
 diff --git a/drivers/dma-buf/heaps/cma_heap.c b/drivers/dma-buf/heaps/cma_heap.c
 --- a/drivers/dma-buf/heaps/cma_heap.c
 +++ b/drivers/dma-buf/heaps/cma_heap.c
-@@ -40,10 +40,10 @@ static void cma_heap_free(struct heap_helper_buffer *buffer)
- }
+@@ -267,10 +267,10 @@ static const struct dma_buf_ops cma_heap_buf_ops = {
+ 	.release = cma_heap_dma_buf_release,
+ };
  
- /* dmabuf heap CMA operations functions */
 -static int cma_heap_allocate(struct dma_heap *heap,
--			     unsigned long len,
--			     unsigned long fd_flags,
--			     unsigned long heap_flags)
-+struct dma_buf *cma_heap_allocate(struct dma_heap *heap,
-+				  unsigned long len,
-+				  unsigned long fd_flags,
-+				  unsigned long heap_flags)
+-				  unsigned long len,
+-				  unsigned long fd_flags,
+-				  unsigned long heap_flags)
++static struct dma_buf *cma_heap_allocate(struct dma_heap *heap,
++					 unsigned long len,
++					 unsigned long fd_flags,
++					 unsigned long heap_flags)
  {
  	struct cma_heap *cma_heap = dma_heap_get_drvdata(heap);
- 	struct heap_helper_buffer *helper_buffer;
-@@ -60,7 +60,7 @@ static int cma_heap_allocate(struct dma_heap *heap,
+ 	struct cma_heap_buffer *buffer;
+@@ -285,7 +285,7 @@ static int cma_heap_allocate(struct dma_heap *heap,
  
- 	helper_buffer = kzalloc(sizeof(*helper_buffer), GFP_KERNEL);
- 	if (!helper_buffer)
+ 	buffer = kzalloc(sizeof(*buffer), GFP_KERNEL);
+ 	if (!buffer)
 -		return -ENOMEM;
 +		return ERR_PTR(-ENOMEM);
  
- 	init_heap_helper_buffer(helper_buffer, cma_heap_free);
- 	helper_buffer->heap = heap;
-@@ -115,14 +115,7 @@ static int cma_heap_allocate(struct dma_heap *heap,
- 	helper_buffer->dmabuf = dmabuf;
- 	helper_buffer->priv_virt = cma_pages;
+ 	INIT_LIST_HEAD(&buffer->attachments);
+ 	mutex_init(&buffer->lock);
+@@ -345,14 +345,7 @@ static int cma_heap_allocate(struct dma_heap *heap,
+ 		goto free_pages;
+ 	}
  
 -	ret = dma_buf_fd(dmabuf, fd_flags);
 -	if (ret < 0) {
@@ -137,11 +137,11 @@ diff --git a/drivers/dma-buf/heaps/cma_heap.c b/drivers/dma-buf/heaps/cma_heap.c
 +	return dmabuf;
  
  free_pages:
- 	kfree(helper_buffer->pages);
-@@ -130,7 +123,7 @@ static int cma_heap_allocate(struct dma_heap *heap,
- 	cma_release(cma_heap->cma, cma_pages, nr_pages);
- free_buf:
- 	kfree(helper_buffer);
+ 	kfree(buffer->pages);
+@@ -361,7 +354,7 @@ static int cma_heap_allocate(struct dma_heap *heap,
+ free_buffer:
+ 	kfree(buffer);
+ 
 -	return ret;
 +	return ERR_PTR(ret);
  }
@@ -150,8 +150,8 @@ diff --git a/drivers/dma-buf/heaps/cma_heap.c b/drivers/dma-buf/heaps/cma_heap.c
 diff --git a/drivers/dma-buf/heaps/system_heap.c b/drivers/dma-buf/heaps/system_heap.c
 --- a/drivers/dma-buf/heaps/system_heap.c
 +++ b/drivers/dma-buf/heaps/system_heap.c
-@@ -32,10 +32,10 @@ static void system_heap_free(struct heap_helper_buffer *buffer)
- 	kfree(buffer);
+@@ -331,10 +331,10 @@ static struct page *alloc_largest_available(unsigned long size,
+ 	return NULL;
  }
  
 -static int system_heap_allocate(struct dma_heap *heap,
@@ -163,20 +163,20 @@ diff --git a/drivers/dma-buf/heaps/system_heap.c b/drivers/dma-buf/heaps/system_
 +					    unsigned long fd_flags,
 +					    unsigned long heap_flags)
  {
- 	struct heap_helper_buffer *helper_buffer;
- 	struct dma_buf *dmabuf;
-@@ -44,7 +44,7 @@ static int system_heap_allocate(struct dma_heap *heap,
+ 	struct system_heap_buffer *buffer;
+ 	DEFINE_DMA_BUF_EXPORT_INFO(exp_info);
+@@ -349,7 +349,7 @@ static int system_heap_allocate(struct dma_heap *heap,
  
- 	helper_buffer = kzalloc(sizeof(*helper_buffer), GFP_KERNEL);
- 	if (!helper_buffer)
+ 	buffer = kzalloc(sizeof(*buffer), GFP_KERNEL);
+ 	if (!buffer)
 -		return -ENOMEM;
 +		return ERR_PTR(-ENOMEM);
  
- 	init_heap_helper_buffer(helper_buffer, system_heap_free);
- 	helper_buffer->heap = heap;
-@@ -81,14 +81,7 @@ static int system_heap_allocate(struct dma_heap *heap,
- 
- 	helper_buffer->dmabuf = dmabuf;
+ 	INIT_LIST_HEAD(&buffer->attachments);
+ 	mutex_init(&buffer->lock);
+@@ -398,13 +398,7 @@ static int system_heap_allocate(struct dma_heap *heap,
+ 		goto free_pages;
+ 	}
  
 -	ret = dma_buf_fd(dmabuf, fd_flags);
 -	if (ret < 0) {
@@ -184,15 +184,14 @@ diff --git a/drivers/dma-buf/heaps/system_heap.c b/drivers/dma-buf/heaps/system_
 -		/* just return, as put will call release and that will free */
 -		return ret;
 -	}
--
 -	return ret;
 +	return dmabuf;
  
- err1:
- 	while (pg > 0)
-@@ -97,7 +90,7 @@ static int system_heap_allocate(struct dma_heap *heap,
- err0:
- 	kfree(helper_buffer);
+ free_pages:
+ 	for_each_sgtable_sg(table, sg, i) {
+@@ -418,7 +412,7 @@ static int system_heap_allocate(struct dma_heap *heap,
+ 		__free_pages(page, compound_order(page));
+ 	kfree(buffer);
  
 -	return ret;
 +	return ERR_PTR(ret);
