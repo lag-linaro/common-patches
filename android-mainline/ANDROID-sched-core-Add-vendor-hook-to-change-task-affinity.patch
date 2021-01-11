@@ -19,7 +19,7 @@ Signed-off-by: Satya Durga Srinivasu Prabhala <satyap@codeaurora.org>
 diff --git a/drivers/android/vendor_hooks.c b/drivers/android/vendor_hooks.c
 --- a/drivers/android/vendor_hooks.c
 +++ b/drivers/android/vendor_hooks.c
-@@ -69,4 +69,5 @@ EXPORT_TRACEPOINT_SYMBOL_GPL(android_rvh_migrate_queued_task);
+@@ -70,4 +70,5 @@ EXPORT_TRACEPOINT_SYMBOL_GPL(android_rvh_migrate_queued_task);
  EXPORT_TRACEPOINT_SYMBOL_GPL(android_rvh_find_energy_efficient_cpu);
  EXPORT_TRACEPOINT_SYMBOL_GPL(android_vh_set_sugov_sched_attr);
  EXPORT_TRACEPOINT_SYMBOL_GPL(android_rvh_set_iowait);

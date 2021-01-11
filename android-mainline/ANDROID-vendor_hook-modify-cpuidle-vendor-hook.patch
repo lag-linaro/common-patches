@@ -1,0 +1,88 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: Park Bumgyu <bumgyu.park@samsung.com>
+Date: Wed, 23 Dec 2020 09:44:37 +0900
+Subject: ANDROID: vendor_hook: modify cpuidle vendor hook
+
+When entering cluster-wide or system-wide power mode, Exynos cpu
+power management driver checks the next hrtimer events of cpu
+composing the power domain to prevent unnecessary attempts to enter
+the power mode. Since struct cpuidle_device has next_hrtimer, it
+can be solved by passing cpuidle device as a parameter of vh.
+
+In order to improve responsiveness, it is necessary to prevent
+entering the deep idle state in boosting scenario. So, vendor
+driver should be able to control the idle state.
+
+Due to above requirements, the parameters required for idle enter
+and exit different, so the vendor hook is separated into
+cpu_idle_enter and cpu_idle_exit.
+
+Bug: 176198732
+
+Change-Id: I2262ba1bae5e6622a8e76bc1d5d16fb27af0bb8a
+Signed-off-by: Park Bumgyu <bumgyu.park@samsung.com>
+---
+ drivers/android/vendor_hooks.c |  3 ++-
+ drivers/cpuidle/cpuidle.c      |  4 ++--
+ include/trace/hooks/cpuidle.h  | 14 ++++++++++----
+ 3 files changed, 14 insertions(+), 7 deletions(-)
+
+diff --git a/drivers/android/vendor_hooks.c b/drivers/android/vendor_hooks.c
+--- a/drivers/android/vendor_hooks.c
++++ b/drivers/android/vendor_hooks.c
+@@ -49,7 +49,8 @@ EXPORT_TRACEPOINT_SYMBOL_GPL(android_vh_rwsem_read_wait_finish);
+ EXPORT_TRACEPOINT_SYMBOL_GPL(android_vh_rwsem_write_wait_start);
+ EXPORT_TRACEPOINT_SYMBOL_GPL(android_vh_rwsem_write_wait_finish);
+ EXPORT_TRACEPOINT_SYMBOL_GPL(android_vh_sched_show_task);
+-EXPORT_TRACEPOINT_SYMBOL_GPL(android_vh_cpu_idle);
++EXPORT_TRACEPOINT_SYMBOL_GPL(android_vh_cpu_idle_enter);
++EXPORT_TRACEPOINT_SYMBOL_GPL(android_vh_cpu_idle_exit);
+ EXPORT_TRACEPOINT_SYMBOL_GPL(android_vh_mpam_set);
+ EXPORT_TRACEPOINT_SYMBOL_GPL(android_rvh_find_busiest_group);
+ EXPORT_TRACEPOINT_SYMBOL_GPL(android_vh_wq_lockup_pool);
+diff --git a/drivers/cpuidle/cpuidle.c b/drivers/cpuidle/cpuidle.c
+--- a/drivers/cpuidle/cpuidle.c
++++ b/drivers/cpuidle/cpuidle.c
+@@ -229,7 +229,7 @@ int cpuidle_enter_state(struct cpuidle_device *dev, struct cpuidle_driver *drv,
+ 	/* Take note of the planned idle state. */
+ 	sched_idle_set_state(target_state);
+ 
+-	trace_android_vh_cpu_idle(0, index, dev->cpu);
++	trace_android_vh_cpu_idle_enter(&index, dev);
+ 	trace_cpu_idle(index, dev->cpu);
+ 	time_start = ns_to_ktime(local_clock());
+ 
+@@ -244,7 +244,7 @@ int cpuidle_enter_state(struct cpuidle_device *dev, struct cpuidle_driver *drv,
+ 	sched_clock_idle_wakeup_event();
+ 	time_end = ns_to_ktime(local_clock());
+ 	trace_cpu_idle(PWR_EVENT_EXIT, dev->cpu);
+-	trace_android_vh_cpu_idle(PWR_EVENT_EXIT, entered_state, dev->cpu);
++	trace_android_vh_cpu_idle_exit(entered_state, dev);
+ 
+ 	/* The cpu is no longer idle or about to enter idle. */
+ 	sched_idle_set_state(NULL);
+diff --git a/include/trace/hooks/cpuidle.h b/include/trace/hooks/cpuidle.h
+--- a/include/trace/hooks/cpuidle.h
++++ b/include/trace/hooks/cpuidle.h
+@@ -11,11 +11,17 @@
+ #include <trace/hooks/vendor_hooks.h>
+ 
+ #if defined(CONFIG_TRACEPOINTS) && defined(CONFIG_ANDROID_VENDOR_HOOKS)
+-DECLARE_HOOK(android_vh_cpu_idle,
+-	TP_PROTO(int event, int state, int cpu),
+-	TP_ARGS(event, state, cpu))
++struct cpuidle_device;
++
++DECLARE_HOOK(android_vh_cpu_idle_enter,
++	TP_PROTO(int *state, struct cpuidle_device *dev),
++	TP_ARGS(state, dev))
++DECLARE_HOOK(android_vh_cpu_idle_exit,
++	TP_PROTO(int state, struct cpuidle_device *dev),
++	TP_ARGS(state, dev))
+ #else
+-#define trace_android_vh_cpu_idle(event, state, cpu)
++#define trace_android_vh_cpu_idle_enter(state, dev)
++#define trace_android_vh_cpu_idle_exit(state, dev)
+ #endif
+ 
+ #endif /* _TRACE_HOOK_CPUIDLE_H */

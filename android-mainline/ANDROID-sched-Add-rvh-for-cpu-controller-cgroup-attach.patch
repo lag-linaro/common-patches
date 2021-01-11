@@ -18,7 +18,7 @@ Signed-off-by: Abhijeet Dharmapurikar <adharmap@codeaurora.org>
 diff --git a/drivers/android/vendor_hooks.c b/drivers/android/vendor_hooks.c
 --- a/drivers/android/vendor_hooks.c
 +++ b/drivers/android/vendor_hooks.c
-@@ -92,3 +92,4 @@ EXPORT_TRACEPOINT_SYMBOL_GPL(android_rvh_account_irq);
+@@ -93,3 +93,4 @@ EXPORT_TRACEPOINT_SYMBOL_GPL(android_rvh_account_irq);
  EXPORT_TRACEPOINT_SYMBOL_GPL(android_rvh_place_entity);
  EXPORT_TRACEPOINT_SYMBOL_GPL(android_rvh_update_cpu_capacity);
  EXPORT_TRACEPOINT_SYMBOL_GPL(android_rvh_update_misfit_status);

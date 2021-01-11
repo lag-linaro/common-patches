@@ -2,7 +2,7 @@
 # android-mainline patches
 #
 # Applies onto upstream 1db98bcf56b1 Linux v5.10-12052-g1db98bcf56b1
-# Matches android-mainline 6e1c66afcee8 ("Merge 1db98bcf56b1 ("Merge branch 'akpm' (patches from Andrew)") into android-mainline")
+# Matches android-mainline ae8ff465c5cd ("ANDROID: vendor_hook: modify cpuidle vendor hook")
 #
 Revert-Merge-345b17acb1aa-Merge-tag-for-linus-5.11-rc1-of-git-git.kernel.org-pub-scm-linux-kernel-git-rw-uml-into-android-mainline.patch
 Revert-block-grant-IOPRIO_CLASS_RT-to-CAP_SYS_NICE.patch
@@ -102,6 +102,7 @@ ANDROID-Export-some-scheduler-APIs-for-vendor-modules.patch
 ANDROID-sched-add-vendor-hooks-to-handle-scheduling-priority.patch
 ANDROID-vendor_hooks-add-waiting-information-for-blocked-tasks.patch
 ANDROID-vendor_hooks-add-cpuidle-event.patch
+ANDROID-vendor_hook-modify-cpuidle-vendor-hook.patch
 ANDROID-sched-Use-normal-vendor-hook-in-scheduler-tick.patch
 ANDROID-sched-add-vendor-hook-for-correcting-cpu-capacity.patch
 ANDROID-sched-add-restrict-vendor-hook-to-modify-load-balance-behavior.patch
@@ -304,6 +305,7 @@ FROMLIST-iomap-support-direct-I-O-with-fscrypt-using-blk-crypto.patch
 FROMLIST-ext4-support-direct-I-O-with-fscrypt-using-blk-crypto.patch
 FROMLIST-f2fs-support-direct-I-O-with-fscrypt-using-blk-crypto.patch
 ANDROID-f2fs-add-back-compress-inode-check.patch
+ANDROID-fs-epoll-use-freezable-blocking-call.patch
 ANDROID-fs-FS-tracepoints-to-track-IO.patch
 ANDROID-Add-a-tracepoint-for-mapping-inode-to-full-path.patch
 ANDROID-ext4-Handle-casefolding-with-encryption.patch
@@ -389,6 +391,7 @@ ANDROID-Incremental-fs-Fix-incfs_test-use-of-atol-open.patch
 ANDROID-Incremental-fs-Set-credentials-before-reading-writing.patch
 ANDROID-Incremental-fs-sha.h-has-been-split-into-two-handle-this.patch
 ANDROID-Incremental-fs-switch-ksys_close-to-close_fd.patch
+ANDROID-Incremental-fs-fix-.blocks_written.patch
 _____ANNOTATION-networking-changes_____.patch
 ANDROID-net-xfrm-make-PF_KEY-SHA256-use-RFC-compliant-truncation.patch
 ANDROID-net-xfrm-always-export-pktgen_xfrm_outer_mode_output.patch
@@ -713,6 +716,7 @@ ANDROID-GKI-remove-CONFIG_IOMMU_LIMIT_IOVA_ALIGNMENT-y.patch
 ANDROID-db845c_gki.fragment-make-sure-MSM_PINCTRL-m.patch
 ANDROID-GKI-Enable-CRYPTO_MD5.patch
 ANDROID-GKI-enable-CONFIG_SRAM.patch
+ANDROID-GKI-Enable-XFRM_MIGRATE.patch
 _____ANNOTATION-Patches-for-bringing-up-new-SoCs_____.patch
 ANDROID-serial-msm_geni_serial_earlycon-Add-Earlycon-support.patch
 ANDROID-arm64-Add-support-for-asymmetric-AArch32-EL0-configurations.patch

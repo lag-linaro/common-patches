@@ -30,7 +30,7 @@ diff --git a/drivers/android/vendor_hooks.c b/drivers/android/vendor_hooks.c
  
  /*
   * Export tracepoints that act as a bare tracehook (ie: have no trace event
-@@ -59,3 +60,5 @@ EXPORT_TRACEPOINT_SYMBOL_GPL(android_vh_ipi_stop);
+@@ -60,3 +61,5 @@ EXPORT_TRACEPOINT_SYMBOL_GPL(android_vh_ipi_stop);
  EXPORT_TRACEPOINT_SYMBOL_GPL(android_vh_dump_throttled_rt_tasks);
  EXPORT_TRACEPOINT_SYMBOL_GPL(android_vh_printk_hotplug);
  EXPORT_TRACEPOINT_SYMBOL_GPL(android_vh_jiffies_update);

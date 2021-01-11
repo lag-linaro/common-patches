@@ -34,7 +34,7 @@ Signed-off-by: Pavankumar Kondeti <pkondeti@codeaurora.org>
 diff --git a/drivers/android/vendor_hooks.c b/drivers/android/vendor_hooks.c
 --- a/drivers/android/vendor_hooks.c
 +++ b/drivers/android/vendor_hooks.c
-@@ -62,3 +62,7 @@ EXPORT_TRACEPOINT_SYMBOL_GPL(android_vh_printk_hotplug);
+@@ -63,3 +63,7 @@ EXPORT_TRACEPOINT_SYMBOL_GPL(android_vh_printk_hotplug);
  EXPORT_TRACEPOINT_SYMBOL_GPL(android_vh_jiffies_update);
  EXPORT_TRACEPOINT_SYMBOL_GPL(android_vh_show_suspend_epoch_val);
  EXPORT_TRACEPOINT_SYMBOL_GPL(android_vh_show_resume_epoch_val);
