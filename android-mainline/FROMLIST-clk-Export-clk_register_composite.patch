@@ -19,7 +19,7 @@ Signed-off-by: Chun-Hung Wu <chun-hung.wu@mediatek.com>
 diff --git a/drivers/clk/clk-composite.c b/drivers/clk/clk-composite.c
 --- a/drivers/clk/clk-composite.c
 +++ b/drivers/clk/clk-composite.c
-@@ -361,6 +361,7 @@ struct clk *clk_register_composite(struct device *dev, const char *name,
+@@ -362,6 +362,7 @@ struct clk *clk_register_composite(struct device *dev, const char *name,
  		return ERR_CAST(hw);
  	return hw->clk;
  }

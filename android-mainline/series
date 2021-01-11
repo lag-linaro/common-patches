@@ -1,8 +1,8 @@
 #
 # android-mainline patches
 #
-# Applies onto upstream e37b12e4bb21 Linux v5.10-12564-ge37b12e4bb21
-# Matches android-mainline 90d2a23656fe ("FROMLIST: KVM: SVM: Add register operand to vmsave call in sev_es_vcpu_load")
+# Applies onto upstream 8653b778e454 Linux v5.10-12725-g8653b778e454
+# Matches android-mainline 0f83010fc252 ("Merge 8653b778e454 ("Merge tag 'clk-for-linus' of git://git.kernel.org/pub/scm/linux/kernel/git/clk/linux") into android-mainline")
 #
 Revert-Merge-345b17acb1aa-Merge-tag-for-linus-5.11-rc1-of-git-git.kernel.org-pub-scm-linux-kernel-git-rw-uml-into-android-mainline.patch
 Revert-block-grant-IOPRIO_CLASS_RT-to-CAP_SYS_NICE.patch
