@@ -1,8 +1,8 @@
 #
 # android-mainline patches
 #
-# Applies onto upstream a0b96314870f Linux v5.10-12032-ga0b96314870f
-# Matches android-mainline d07b0181d651 ("Revert "ANDROID: fs: epoll: use freezable blocking call"")
+# Applies onto upstream 1db98bcf56b1 Linux v5.10-12052-g1db98bcf56b1
+# Matches android-mainline 6e1c66afcee8 ("Merge 1db98bcf56b1 ("Merge branch 'akpm' (patches from Andrew)") into android-mainline")
 #
 Revert-Merge-345b17acb1aa-Merge-tag-for-linus-5.11-rc1-of-git-git.kernel.org-pub-scm-linux-kernel-git-rw-uml-into-android-mainline.patch
 Revert-block-grant-IOPRIO_CLASS_RT-to-CAP_SYS_NICE.patch
