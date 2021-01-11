@@ -1,8 +1,8 @@
 #
 # android-mainline patches
 #
-# Applies onto upstream 8653b778e454 Linux v5.10-12725-g8653b778e454
-# Matches android-mainline a3c57fcffc25 ("ANDROID: add flags to android_rvh_enqueue_task/dequeue_task parameter")
+# Applies onto upstream e9e541ecfee3 Linux v5.10-12728-ge9e541ecfee3
+# Matches android-mainline fc09e97c66a4 ("Merge e9e541ecfee3 ("Merge tag 'exfat-for-5.11-rc1' of git://git.kernel.org/pub/scm/linux/kernel/git/linkinjeon/exfat") into android-mainline")
 #
 Revert-Merge-345b17acb1aa-Merge-tag-for-linus-5.11-rc1-of-git-git.kernel.org-pub-scm-linux-kernel-git-rw-uml-into-android-mainline.patch
 Revert-block-grant-IOPRIO_CLASS_RT-to-CAP_SYS_NICE.patch
