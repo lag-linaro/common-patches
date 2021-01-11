@@ -2,7 +2,7 @@
 # android-mainline patches
 #
 # Applies onto upstream a0b96314870f Linux v5.10-12032-ga0b96314870f
-# Matches android-mainline 20aa838e0424 ("Merge a0b96314870f ("Merge tag 'xfs-5.11-merge-4' of git://git.kernel.org/pub/scm/fs/xfs/xfs-linux") into android-mainline")
+# Matches android-mainline d07b0181d651 ("Revert "ANDROID: fs: epoll: use freezable blocking call"")
 #
 Revert-Merge-345b17acb1aa-Merge-tag-for-linus-5.11-rc1-of-git-git.kernel.org-pub-scm-linux-kernel-git-rw-uml-into-android-mainline.patch
 Revert-block-grant-IOPRIO_CLASS_RT-to-CAP_SYS_NICE.patch
@@ -304,7 +304,6 @@ FROMLIST-iomap-support-direct-I-O-with-fscrypt-using-blk-crypto.patch
 FROMLIST-ext4-support-direct-I-O-with-fscrypt-using-blk-crypto.patch
 FROMLIST-f2fs-support-direct-I-O-with-fscrypt-using-blk-crypto.patch
 ANDROID-f2fs-add-back-compress-inode-check.patch
-ANDROID-fs-epoll-use-freezable-blocking-call.patch
 ANDROID-fs-FS-tracepoints-to-track-IO.patch
 ANDROID-Add-a-tracepoint-for-mapping-inode-to-full-path.patch
 ANDROID-ext4-Handle-casefolding-with-encryption.patch
