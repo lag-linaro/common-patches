@@ -2,7 +2,7 @@
 # android-mainline patches
 #
 # Applies onto upstream 8653b778e454 Linux v5.10-12725-g8653b778e454
-# Matches android-mainline 0f83010fc252 ("Merge 8653b778e454 ("Merge tag 'clk-for-linus' of git://git.kernel.org/pub/scm/linux/kernel/git/clk/linux") into android-mainline")
+# Matches android-mainline a3c57fcffc25 ("ANDROID: add flags to android_rvh_enqueue_task/dequeue_task parameter")
 #
 Revert-Merge-345b17acb1aa-Merge-tag-for-linus-5.11-rc1-of-git-git.kernel.org-pub-scm-linux-kernel-git-rw-uml-into-android-mainline.patch
 Revert-block-grant-IOPRIO_CLASS_RT-to-CAP_SYS_NICE.patch
@@ -12,6 +12,7 @@ Revert-security-lockdown-selinux-implement-SELinux-lockdown.patch
 _____ANNOTATION-pending-upstream_____.patch
 UPSTREAM-um-Convert-tasklets-to-use-new-tasklet_setup-API.patch
 UPSTREAM-um-random-Register-random-as-hwrng-core-device.patch
+FROMLIST-Revert-init-console-Use-ttynull-as-a-fallback-when-there-is-no-console.patch
 FROMLIST-modpost-Make-static-exports-fatal.patch
 FROMLIST-clk-Export-clk_register_composite.patch
 FROMLIST-clk-versatile-remove-dependency-on-ARCH_.patch
@@ -148,6 +149,7 @@ ANDROID-cgroup-Export-functions-used-by-modules.patch
 ANDROID-sched-Export-key-used-by-module.patch
 ANDROID-sched-Export-sched_setattr_nocheck.patch
 ANDROID-sched-Export-sched_switch-tracepoint-symbol.patch
+ANDROID-add-flags-to-android_rvh_enqueue_task-dequeue_task-parameter.patch
 _____ANNOTATION-uid_sys_stats-support_____.patch
 ANDROID-uid_cputime-Adds-accounting-for-the-cputimes-per-uid.patch
 ANDROID-uid_cputime-add-per-uid-IO-usage-accounting.patch
