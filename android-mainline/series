@@ -2,7 +2,7 @@
 # android-mainline patches
 #
 # Applies onto upstream e37b12e4bb21 Linux v5.10-12564-ge37b12e4bb21
-# Matches android-mainline b3dde85bf411 ("Merge e37b12e4bb21 ("Merge tag 'for-linus-5.11-ofs1' of git://git.kernel.org/pub/scm/linux/kernel/git/hubcap/linux") into android-mainline")
+# Matches android-mainline 90d2a23656fe ("FROMLIST: KVM: SVM: Add register operand to vmsave call in sev_es_vcpu_load")
 #
 Revert-Merge-345b17acb1aa-Merge-tag-for-linus-5.11-rc1-of-git-git.kernel.org-pub-scm-linux-kernel-git-rw-uml-into-android-mainline.patch
 Revert-block-grant-IOPRIO_CLASS_RT-to-CAP_SYS_NICE.patch
@@ -24,6 +24,7 @@ FROMLIST-fuse-Use-daemon-creds-in-passthrough-mode.patch
 FROMLIST-USB-gadget-f_fs-add-SuperSpeed-Plus-support.patch
 FROMLIST-scsi-ufs-clear-uac-for-RPMB-after-ufshcd-resets.patch
 FROMLIST-scripts-merge_config-add-strict-mode-to-fail-upon-any-redefinition.patch
+FROMLIST-KVM-SVM-Add-register-operand-to-vmsave-call-in-sev_es_vcpu_load.patch
 _____ANNOTATION-Android-vendor-hooks_____.patch
 ANDROID-GKI-add-android_vendor.h.patch
 ANDROID-add-support-for-vendor-hooks.patch

@@ -1,0 +1,57 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: Nathan Chancellor <natechancellor@gmail.com>
+Date: Fri, 18 Dec 2020 23:37:11 -0700
+Subject: FROMLIST: KVM: SVM: Add register operand to vmsave call in
+ sev_es_vcpu_load
+
+When using LLVM's integrated assembler (LLVM_IAS=1) while building
+x86_64_defconfig + CONFIG_KVM=y + CONFIG_KVM_AMD=y, the following build
+error occurs:
+
+ $ make LLVM=1 LLVM_IAS=1 arch/x86/kvm/svm/sev.o
+ arch/x86/kvm/svm/sev.c:2004:15: error: too few operands for instruction
+         asm volatile(__ex("vmsave") : : "a" (__sme_page_pa(sd->save_area)) : "memory");
+                      ^
+ arch/x86/kvm/svm/sev.c:28:17: note: expanded from macro '__ex'
+ #define __ex(x) __kvm_handle_fault_on_reboot(x)
+                 ^
+ ./arch/x86/include/asm/kvm_host.h:1646:10: note: expanded from macro '__kvm_handle_fault_on_reboot'
+         "666: \n\t"                                                     \
+                 ^
+ <inline asm>:2:2: note: instantiated into assembly here
+         vmsave
+         ^
+ 1 error generated.
+
+This happens because LLVM currently does not support calling vmsave
+without the fixed register operand (%rax for 64-bit and %eax for
+32-bit). This will be fixed in LLVM 12 but the kernel currently supports
+LLVM 10.0.1 and newer so this needs to be handled.
+
+Add the proper register using the _ASM_AX macro, which matches the
+vmsave call in vmenter.S.
+
+Bug: 176884053
+Fixes: 861377730aa9 ("KVM: SVM: Provide support for SEV-ES vCPU loading")
+Link: https://reviews.llvm.org/D93524
+Link: https://github.com/ClangBuiltLinux/linux/issues/1216
+Link: https://lore.kernel.org/kvm/20201219063711.3526947-1-natechancellor@gmail.com/
+Signed-off-by: Nathan Chancellor <natechancellor@gmail.com>
+Signed-off-by: Greg Kroah-Hartman <gregkh@google.com>
+Change-Id: I2456e6c19db8075d82e897617bf442feb6ab996b
+---
+ arch/x86/kvm/svm/sev.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/arch/x86/kvm/svm/sev.c b/arch/x86/kvm/svm/sev.c
+--- a/arch/x86/kvm/svm/sev.c
++++ b/arch/x86/kvm/svm/sev.c
+@@ -2001,7 +2001,7 @@ void sev_es_vcpu_load(struct vcpu_svm *svm, int cpu)
+ 	 * of which one step is to perform a VMLOAD. Since hardware does not
+ 	 * perform a VMSAVE on VMRUN, the host savearea must be updated.
+ 	 */
+-	asm volatile(__ex("vmsave") : : "a" (__sme_page_pa(sd->save_area)) : "memory");
++	asm volatile(__ex("vmsave %%"_ASM_AX) : : "a" (__sme_page_pa(sd->save_area)) : "memory");
+ 
+ 	/*
+ 	 * Certain MSRs are restored on VMEXIT, only save ones that aren't
