@@ -1,8 +1,8 @@
 #
 # android-mainline patches
 #
-# Applies onto upstream 4f06f210673e Linux v5.10-12730-g4f06f210673e
-# Matches android-mainline aa2fba396ef3 ("Merge 4f06f210673e ("Merge tag 'configfs-5.11' of git://git.infradead.org/users/hch/configfs") into android-mainline")
+# Applies onto upstream 347d81b68b8f Linux v5.10-12737-g347d81b68b8f
+# Matches android-mainline 09b7a57d6003 ("Merge 347d81b68b8f ("Merge tag 'dma-mapping-5.11' of git://git.infradead.org/users/hch/dma-mapping") into android-mainline")
 #
 Revert-Merge-345b17acb1aa-Merge-tag-for-linus-5.11-rc1-of-git-git.kernel.org-pub-scm-linux-kernel-git-rw-uml-into-android-mainline.patch
 Revert-block-grant-IOPRIO_CLASS_RT-to-CAP_SYS_NICE.patch
