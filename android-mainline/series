@@ -1,8 +1,8 @@
 #
 # android-mainline patches
 #
-# Applies onto upstream 2762db756f42 Linux v5.10-12892-g2762db756f42
-# Matches android-mainline 635bc3a9e059 ("Merge 2762db756f42 ("Merge tag 'kconfig-v5.11' of git://git.kernel.org/pub/scm/linux/kernel/git/masahiroy/linux-kbuild") into android-mainline")
+# Applies onto upstream 4960821a4d80 Linux v5.10-12904-g4960821a4d80
+# Matches android-mainline e9fe33ae5958 ("Merge 4960821a4d80 ("Merge tag 'pm-5.11-rc1-2' of git://git.kernel.org/pub/scm/linux/kernel/git/rafael/linux-pm") into android-mainline")
 #
 Revert-Merge-345b17acb1aa-Merge-tag-for-linus-5.11-rc1-of-git-git.kernel.org-pub-scm-linux-kernel-git-rw-uml-into-android-mainline.patch
 Revert-block-grant-IOPRIO_CLASS_RT-to-CAP_SYS_NICE.patch
