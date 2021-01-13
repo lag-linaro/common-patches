@@ -56,7 +56,7 @@ diff --git a/include/trace/hooks/sched.h b/include/trace/hooks/sched.h
 diff --git a/kernel/sched/core.c b/kernel/sched/core.c
 --- a/kernel/sched/core.c
 +++ b/kernel/sched/core.c
-@@ -4575,7 +4575,7 @@ void scheduler_tick(void)
+@@ -4561,7 +4561,7 @@ void scheduler_tick(void)
  	trigger_load_balance(rq);
  #endif
  

@@ -190,7 +190,7 @@ diff --git a/kernel/sched/core.c b/kernel/sched/core.c
  
  	activate_task(rq, p, ENQUEUE_NOCLOCK);
  	trace_sched_wakeup_new(p);
-@@ -4267,6 +4277,7 @@ static struct rq *finish_task_switch(struct task_struct *prev)
+@@ -4253,6 +4263,7 @@ static struct rq *finish_task_switch(struct task_struct *prev)
  		 * task and put them back on the free list.
  		 */
  		kprobe_flush_task(prev);
@@ -198,7 +198,7 @@ diff --git a/kernel/sched/core.c b/kernel/sched/core.c
  
  		/* Task is done with its stack. */
  		put_task_stack(prev);
-@@ -4578,6 +4589,7 @@ void scheduler_tick(void)
+@@ -4564,6 +4575,7 @@ void scheduler_tick(void)
  
  	rq_lock(rq, &rf);
  
@@ -206,7 +206,7 @@ diff --git a/kernel/sched/core.c b/kernel/sched/core.c
  	update_rq_clock(rq);
  	thermal_pressure = arch_scale_thermal_pressure(cpu_of(rq));
  	update_thermal_load_avg(rq_clock_thermal(rq), rq, thermal_pressure);
-@@ -5084,6 +5096,7 @@ static void __sched notrace __schedule(bool preempt)
+@@ -5070,6 +5082,7 @@ static void __sched notrace __schedule(bool preempt)
  	clear_tsk_need_resched(prev);
  	clear_preempt_need_resched();
  
@@ -214,7 +214,7 @@ diff --git a/kernel/sched/core.c b/kernel/sched/core.c
  	if (likely(prev != next)) {
  		rq->nr_switches++;
  		/*
-@@ -7581,6 +7594,7 @@ int sched_cpu_starting(unsigned int cpu)
+@@ -7571,6 +7584,7 @@ int sched_cpu_starting(unsigned int cpu)
  {
  	sched_rq_cpu_starting(cpu);
  	sched_tick_start(cpu);
@@ -222,7 +222,7 @@ diff --git a/kernel/sched/core.c b/kernel/sched/core.c
  	return 0;
  }
  
-@@ -7632,6 +7646,8 @@ int sched_cpu_dying(unsigned int cpu)
+@@ -7622,6 +7636,8 @@ int sched_cpu_dying(unsigned int cpu)
  	BUG_ON(rq->nr_running != 1 || rq_has_pinned_tasks(rq));
  	rq_unlock_irqrestore(rq, &rf);
  

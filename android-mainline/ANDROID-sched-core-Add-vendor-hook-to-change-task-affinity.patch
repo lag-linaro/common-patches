@@ -51,7 +51,7 @@ diff --git a/include/trace/hooks/sched.h b/include/trace/hooks/sched.h
 diff --git a/kernel/sched/core.c b/kernel/sched/core.c
 --- a/kernel/sched/core.c
 +++ b/kernel/sched/core.c
-@@ -6557,6 +6557,9 @@ long sched_setaffinity(pid_t pid, const struct cpumask *in_mask)
+@@ -6543,6 +6543,9 @@ long sched_setaffinity(pid_t pid, const struct cpumask *in_mask)
  			goto again;
  		}
  	}

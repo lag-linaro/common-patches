@@ -1,8 +1,8 @@
 #
 # android-mainline patches
 #
-# Applies onto upstream 614cb5894306 Linux v5.10-12913-g614cb5894306
-# Matches android-mainline 1bc25c60c18b ("Merge 614cb5894306 ("Merge tag 'acpi-5.11-rc1-2' of git://git.kernel.org/pub/scm/linux/kernel/git/rafael/linux-pm") into android-mainline")
+# Applies onto upstream 3b80dee70eaa Linux v5.10-13264-g3b80dee70eaa
+# Matches android-mainline 1e5e020b085d ("Merge 3b80dee70eaa ("Merge tag 'sched-urgent-2020-12-27' of git://git.kernel.org/pub/scm/linux/kernel/git/tip/tip") into android-mainline")
 #
 Revert-Merge-345b17acb1aa-Merge-tag-for-linus-5.11-rc1-of-git-git.kernel.org-pub-scm-linux-kernel-git-rw-uml-into-android-mainline.patch
 Revert-block-grant-IOPRIO_CLASS_RT-to-CAP_SYS_NICE.patch

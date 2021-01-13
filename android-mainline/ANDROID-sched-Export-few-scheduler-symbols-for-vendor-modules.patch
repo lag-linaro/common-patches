@@ -63,7 +63,7 @@ diff --git a/kernel/sched/core.c b/kernel/sched/core.c
 diff --git a/kernel/sched/sched.h b/kernel/sched/sched.h
 --- a/kernel/sched/sched.h
 +++ b/kernel/sched/sched.h
-@@ -1405,8 +1405,6 @@ enum numa_faults_stats {
+@@ -1406,8 +1406,6 @@ enum numa_faults_stats {
  };
  extern void sched_setnuma(struct task_struct *p, int node);
  extern int migrate_task_to(struct task_struct *p, int cpu);
@@ -72,13 +72,13 @@ diff --git a/kernel/sched/sched.h b/kernel/sched/sched.h
  extern void init_numa_balancing(unsigned long clone_flags, struct task_struct *p);
  #else
  static inline void
-@@ -1417,6 +1415,9 @@ init_numa_balancing(unsigned long clone_flags, struct task_struct *p)
+@@ -1418,6 +1416,9 @@ init_numa_balancing(unsigned long clone_flags, struct task_struct *p)
  
  #ifdef CONFIG_SMP
  
 +extern int migrate_swap(struct task_struct *p, struct task_struct *t,
 +			int cpu, int scpu);
 +
- #define BALANCE_WORK	0x01
- #define BALANCE_PUSH	0x02
- 
+ static inline void
+ queue_balance_callback(struct rq *rq,
+ 		       struct callback_head *head,
