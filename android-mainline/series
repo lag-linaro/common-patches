@@ -1,8 +1,8 @@
 #
 # android-mainline patches
 #
-# Applies onto upstream 1375b9803e00 Linux v5.10-12863-g1375b9803e00
-# Matches android-mainline 0ed6d0c2a966 ("Merge 1375b9803e00 ("Merge branch 'akpm' (patches from Andrew)") into android-mainline")
+# Applies onto upstream 7b95f0563ab5 Linux v5.10-12883-g7b95f0563ab5
+# Matches android-mainline a0196781fb06 ("Merge 7b95f0563ab5 ("Merge tag 'kbuild-v5.11' of git://git.kernel.org/pub/scm/linux/kernel/git/masahiroy/linux-kbuild") into android-mainline")
 #
 Revert-Merge-345b17acb1aa-Merge-tag-for-linus-5.11-rc1-of-git-git.kernel.org-pub-scm-linux-kernel-git-rw-uml-into-android-mainline.patch
 Revert-block-grant-IOPRIO_CLASS_RT-to-CAP_SYS_NICE.patch

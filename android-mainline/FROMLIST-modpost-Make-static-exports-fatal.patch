@@ -14,22 +14,18 @@ Link: https://lore.kernel.org/lkml/20201124182420.2202514-1-qperret@google.com/
 Signed-off-by: Quentin Perret <qperret@google.com>
 Change-Id: Ic1382bfa24db556161cf1a184a4d44724d7849a1
 ---
- scripts/mod/modpost.c | 6 +++---
- 1 file changed, 3 insertions(+), 3 deletions(-)
+ scripts/mod/modpost.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/scripts/mod/modpost.c b/scripts/mod/modpost.c
 --- a/scripts/mod/modpost.c
 +++ b/scripts/mod/modpost.c
-@@ -2663,9 +2663,9 @@ int main(int argc, char **argv)
+@@ -2648,7 +2648,7 @@ int main(int argc, char **argv)
  
  		for (s = symbolhash[n]; s; s = s->next) {
  			if (s->is_static)
--				warn("\"%s\" [%s] is a static %s\n",
--				     s->name, s->module->name,
--				     export_str(s->export));
+-				error("\"%s\" [%s] is a static %s\n",
 +				fatal("\"%s\" [%s] is a static %s\n",
-+				      s->name, s->module->name,
-+				      export_str(s->export));
+ 				      s->name, s->module->name,
+ 				      export_str(s->export));
  		}
- 	}
- 
