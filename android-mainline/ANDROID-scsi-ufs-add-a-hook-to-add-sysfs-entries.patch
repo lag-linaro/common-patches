@@ -21,7 +21,7 @@ Change-Id: Id8c1197ec704e998e89dc25cc69b0f6a1b86e978
 diff --git a/drivers/scsi/ufs/ufs-sysfs.c b/drivers/scsi/ufs/ufs-sysfs.c
 --- a/drivers/scsi/ufs/ufs-sysfs.c
 +++ b/drivers/scsi/ufs/ufs-sysfs.c
-@@ -869,15 +869,23 @@ const struct attribute_group ufs_sysfs_lun_attributes_group = {
+@@ -870,15 +870,23 @@ const struct attribute_group ufs_sysfs_lun_attributes_group = {
  	.attrs = ufs_sysfs_lun_attributes,
  };
  

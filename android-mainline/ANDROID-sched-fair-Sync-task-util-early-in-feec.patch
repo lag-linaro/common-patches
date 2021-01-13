@@ -1,0 +1,39 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: Quentin Perret <qperret@google.com>
+Date: Thu, 7 Jan 2021 09:15:08 +0000
+Subject: ANDROID: sched/fair: Sync task util early in feec
+
+The vendor hook in find_energy_efficient_cpu() currently sees a
+potentially stale task utilization. Make sure to sync it beforehand to
+avoid any issues by moving the call at the top of the function. This
+also ensures the check on task_fits_capacity() when the sync flag is set
+sees an up-to-date task util.
+
+Fixes: a9c5fcfe9c76 ("ANDROID: sched/fair: Have sync honor fits_capacity")
+Fixes: 147a9b3d9eab ("ANDROID: sched: Add vendor hooks for find_energy_efficient_cpu")
+Signed-off-by: Quentin Perret <qperret@google.com>
+Change-Id: Ie9a6c89249a2aefbccced4786ce4d4728e39dd12
+(cherry picked from commit eadbc20d0d93535c6c67ead93f0d32d74639f5f7)
+---
+ kernel/sched/fair.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/kernel/sched/fair.c b/kernel/sched/fair.c
+--- a/kernel/sched/fair.c
++++ b/kernel/sched/fair.c
+@@ -6625,6 +6625,7 @@ static int find_energy_efficient_cpu(struct task_struct *p, int prev_cpu, int sy
+ 	struct perf_domain *pd;
+ 	int new_cpu = INT_MAX;
+ 
++	sync_entity_load_avg(&p->se);
+ 	trace_android_rvh_find_energy_efficient_cpu(p, prev_cpu, sync, &new_cpu);
+ 	if (new_cpu != INT_MAX)
+ 		return new_cpu;
+@@ -6652,7 +6653,6 @@ static int find_energy_efficient_cpu(struct task_struct *p, int prev_cpu, int sy
+ 	if (!sd)
+ 		goto fail;
+ 
+-	sync_entity_load_avg(&p->se);
+ 	if (!task_util_est(p))
+ 		goto unlock;
+ 

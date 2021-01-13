@@ -2,16 +2,18 @@
 # android-mainline patches
 #
 # Applies onto upstream c45647f9f562 Linux v5.10-12802-gc45647f9f562
-# Matches android-mainline b8be7c54a789 ("Merge c45647f9f562 ("Merge tag 'for-linus' of git://git.armlinux.org.uk/~rmk/linux") into android-mainline")
+# Matches android-mainline 5405a323b9e0 ("ANDROID: sched/fair: Sync task util early in feec")
 #
 Revert-Merge-345b17acb1aa-Merge-tag-for-linus-5.11-rc1-of-git-git.kernel.org-pub-scm-linux-kernel-git-rw-uml-into-android-mainline.patch
 Revert-block-grant-IOPRIO_CLASS_RT-to-CAP_SYS_NICE.patch
 Revert-arm64-dts-qcom-sdm845-db845c-Fix-hdmi-nodes.patch
 Revert-ubsan-enable-for-all-config-builds.patch
 Revert-security-lockdown-selinux-implement-SELinux-lockdown.patch
+Revert-ARM-9017-2-Enable-KASan-for-ARM.patch
 _____ANNOTATION-pending-upstream_____.patch
 UPSTREAM-um-Convert-tasklets-to-use-new-tasklet_setup-API.patch
 UPSTREAM-um-random-Register-random-as-hwrng-core-device.patch
+FROMGIT-scsi-ufs-Fix-livelock-of-ufshcd_clear_ua_wluns.patch
 FROMLIST-Revert-init-console-Use-ttynull-as-a-fallback-when-there-is-no-console.patch
 FROMLIST-modpost-Make-static-exports-fatal.patch
 FROMLIST-clk-Export-clk_register_composite.patch
@@ -24,6 +26,7 @@ FROMLIST-fuse-Handle-asynchronous-read-and-write-in-passthrough.patch
 FROMLIST-fuse-Use-daemon-creds-in-passthrough-mode.patch
 FROMLIST-USB-gadget-f_fs-add-SuperSpeed-Plus-support.patch
 FROMLIST-scsi-ufs-clear-uac-for-RPMB-after-ufshcd-resets.patch
+FROMLIST-scsi-ufs-WB-is-only-available-on-LUN-0-to-7.patch
 FROMLIST-scripts-merge_config-add-strict-mode-to-fail-upon-any-redefinition.patch
 FROMLIST-KVM-SVM-Add-register-operand-to-vmsave-call-in-sev_es_vcpu_load.patch
 _____ANNOTATION-Android-vendor-hooks_____.patch
@@ -150,6 +153,7 @@ ANDROID-sched-Export-key-used-by-module.patch
 ANDROID-sched-Export-sched_setattr_nocheck.patch
 ANDROID-sched-Export-sched_switch-tracepoint-symbol.patch
 ANDROID-add-flags-to-android_rvh_enqueue_task-dequeue_task-parameter.patch
+ANDROID-sched-fair-Sync-task-util-early-in-feec.patch
 _____ANNOTATION-uid_sys_stats-support_____.patch
 ANDROID-uid_cputime-Adds-accounting-for-the-cputimes-per-uid.patch
 ANDROID-uid_cputime-add-per-uid-IO-usage-accounting.patch
@@ -298,6 +302,7 @@ ANDROID-dm-enable-may_passthrough_inline_crypto-on-some-targets.patch
 ANDROID-dm-add-dm-default-key-target-for-metadata-encryption.patch
 ANDROID-uapi-Add-dm-user-structure-definition.patch
 ANDROID-dm-dm-user-New-target-that-proxies-BIOs-to-userspace.patch
+ANDROID-dm-user-Add-some-missing-static.patch
 _____ANNOTATION-filesystem-changes_____.patch
 FROMLIST-Add-flags-option-to-get-xattr-method-paired-to-__vfs_getxattr.patch
 FROMLIST-overlayfs-handle-XATTR_NOSECURITY-flag-for-get-xattr-method.patch
@@ -395,6 +400,9 @@ ANDROID-Incremental-fs-Set-credentials-before-reading-writing.patch
 ANDROID-Incremental-fs-sha.h-has-been-split-into-two-handle-this.patch
 ANDROID-Incremental-fs-switch-ksys_close-to-close_fd.patch
 ANDROID-Incremental-fs-fix-.blocks_written.patch
+ANDROID-Incremental-fs-Fix-selinux-issues.patch
+ANDROID-Incremental-fs-Free-mount-info-after-files-are-flushed.patch
+ANDROID-Incremental-fs-Make-data-validation-failure-a-warn.patch
 _____ANNOTATION-networking-changes_____.patch
 ANDROID-net-xfrm-make-PF_KEY-SHA256-use-RFC-compliant-truncation.patch
 ANDROID-net-xfrm-always-export-pktgen_xfrm_outer_mode_output.patch
