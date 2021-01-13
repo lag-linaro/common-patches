@@ -32,7 +32,7 @@ Signed-off-by: Alistair Delva <adelva@google.com>
 diff --git a/drivers/md/Kconfig b/drivers/md/Kconfig
 --- a/drivers/md/Kconfig
 +++ b/drivers/md/Kconfig
-@@ -537,6 +537,17 @@ config DM_VERITY_VERIFY_ROOTHASH_SIG
+@@ -557,6 +557,17 @@ config DM_VERITY_VERIFY_ROOTHASH_SIG_SECONDARY_KEYRING
  
  	  If unsure, say N.
  
@@ -53,7 +53,7 @@ diff --git a/drivers/md/Kconfig b/drivers/md/Kconfig
 diff --git a/drivers/md/Makefile b/drivers/md/Makefile
 --- a/drivers/md/Makefile
 +++ b/drivers/md/Makefile
-@@ -86,6 +86,10 @@ ifeq ($(CONFIG_DM_UEVENT),y)
+@@ -92,6 +92,10 @@ ifeq ($(CONFIG_DM_UEVENT),y)
  dm-mod-objs			+= dm-uevent.o
  endif
  

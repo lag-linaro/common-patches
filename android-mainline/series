@@ -1,8 +1,8 @@
 #
 # android-mainline patches
 #
-# Applies onto upstream 4e31dcc0a923 Linux v5.10-12739-g4e31dcc0a923
-# Matches android-mainline 96e66a507086 ("ANDROID: GKI: Enable CONFIG_KUNIT")
+# Applies onto upstream d8355e740f41 Linux v5.10-12751-gd8355e740f41
+# Matches android-mainline c1863a4175f1 ("Merge d8355e740f41 ("Merge tag 'for-5.11/dm-changes' of git://git.kernel.org/pub/scm/linux/kernel/git/device-mapper/linux-dm") into android-mainline")
 #
 Revert-Merge-345b17acb1aa-Merge-tag-for-linus-5.11-rc1-of-git-git.kernel.org-pub-scm-linux-kernel-git-rw-uml-into-android-mainline.patch
 Revert-block-grant-IOPRIO_CLASS_RT-to-CAP_SYS_NICE.patch

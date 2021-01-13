@@ -99,7 +99,7 @@ diff --git a/drivers/md/Kconfig b/drivers/md/Kconfig
 diff --git a/drivers/md/Makefile b/drivers/md/Makefile
 --- a/drivers/md/Makefile
 +++ b/drivers/md/Makefile
-@@ -52,6 +52,7 @@ obj-$(CONFIG_DM_UNSTRIPED)	+= dm-unstripe.o
+@@ -57,6 +57,7 @@ obj-$(CONFIG_DM_UNSTRIPED)	+= dm-unstripe.o
  obj-$(CONFIG_DM_BUFIO)		+= dm-bufio.o
  obj-$(CONFIG_DM_BIO_PRISON)	+= dm-bio-prison.o
  obj-$(CONFIG_DM_CRYPT)		+= dm-crypt.o
