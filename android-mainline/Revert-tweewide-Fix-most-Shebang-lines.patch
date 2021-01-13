@@ -1,0 +1,282 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: Greg Kroah-Hartman <gregkh@google.com>
+Date: Wed, 13 Jan 2021 10:07:42 +0100
+Subject: Revert "tweewide: Fix most Shebang lines"
+
+This reverts commit c25ce589dca10d64dde139ae093abc258a32869c.
+
+Looks like some of the Android build systems do NOT have /usr/bin/env so
+revert this change until that happens.
+
+Specifically the following builds fail without this change reverted:
+	kernel_kasan_aarch64 on aosp_kernel-common-android-mainline
+	kernel_virt_kasan_aarch64 on aosp_kernel-common-android-mainline
+	kernel_virt_kasan_x86_64 on aosp_kernel-common-android-mainline
+	kernel_kasan_x86_64 on aosp_kernel-common-android-mainline
+
+Fixes: c25ce589dca1 ("tweewide: Fix most Shebang lines")
+Signed-off-by: Greg Kroah-Hartman <gregkh@google.com>
+Change-Id: I8077c5c1a4b9934f6d40aebb67212cc0b0f2513e
+---
+ Documentation/sphinx/parse-headers.pl                           | 2 +-
+ Documentation/target/tcm_mod_builder.py                         | 2 +-
+ Documentation/trace/postprocess/decode_msr.py                   | 2 +-
+ Documentation/trace/postprocess/trace-pagealloc-postprocess.pl  | 2 +-
+ Documentation/trace/postprocess/trace-vmscan-postprocess.pl     | 2 +-
+ arch/ia64/scripts/unwcheck.py                                   | 2 +-
+ scripts/bloat-o-meter                                           | 2 +-
+ scripts/config                                                  | 2 +-
+ scripts/diffconfig                                              | 2 +-
+ scripts/get_abi.pl                                              | 2 +-
+ scripts/show_delta                                              | 2 +-
+ scripts/sphinx-pre-install                                      | 2 +-
+ scripts/split-man.pl                                            | 2 +-
+ scripts/tracing/draw_functrace.py                               | 2 +-
+ tools/perf/python/tracepoint.py                                 | 2 +-
+ tools/perf/python/twatch.py                                     | 2 +-
+ tools/power/x86/intel_pstate_tracer/intel_pstate_tracer.py      | 2 +-
+ tools/testing/ktest/compare-ktest-sample.pl                     | 2 +-
+ tools/testing/kunit/kunit.py                                    | 2 +-
+ tools/testing/kunit/kunit_tool_test.py                          | 2 +-
+ tools/testing/selftests/bpf/test_offload.py                     | 2 +-
+ .../selftests/drivers/net/mlxsw/sharedbuffer_configuration.py   | 2 +-
+ tools/testing/selftests/kselftest/prefix.pl                     | 2 +-
+ tools/testing/selftests/net/devlink_port_split.py               | 2 +-
+ tools/testing/selftests/tc-testing/tdc_batch.py                 | 2 +-
+ tools/testing/selftests/tc-testing/tdc_multibatch.py            | 2 +-
+ 26 files changed, 26 insertions(+), 26 deletions(-)
+
+diff --git a/Documentation/sphinx/parse-headers.pl b/Documentation/sphinx/parse-headers.pl
+--- a/Documentation/sphinx/parse-headers.pl
++++ b/Documentation/sphinx/parse-headers.pl
+@@ -1,4 +1,4 @@
+-#!/usr/bin/env perl
++#!/usr/bin/perl
+ use strict;
+ use Text::Tabs;
+ use Getopt::Long;
+diff --git a/Documentation/target/tcm_mod_builder.py b/Documentation/target/tcm_mod_builder.py
+--- a/Documentation/target/tcm_mod_builder.py
++++ b/Documentation/target/tcm_mod_builder.py
+@@ -1,4 +1,4 @@
+-#!/usr/bin/env python
++#!/usr/bin/python
+ # The TCM v4 multi-protocol fabric module generation script for drivers/target/$NEW_MOD
+ #
+ # Copyright (c) 2010 Rising Tide Systems
+diff --git a/Documentation/trace/postprocess/decode_msr.py b/Documentation/trace/postprocess/decode_msr.py
+--- a/Documentation/trace/postprocess/decode_msr.py
++++ b/Documentation/trace/postprocess/decode_msr.py
+@@ -1,4 +1,4 @@
+-#!/usr/bin/env python
++#!/usr/bin/python
+ # add symbolic names to read_msr / write_msr in trace
+ # decode_msr msr-index.h < trace
+ import sys
+diff --git a/Documentation/trace/postprocess/trace-pagealloc-postprocess.pl b/Documentation/trace/postprocess/trace-pagealloc-postprocess.pl
+--- a/Documentation/trace/postprocess/trace-pagealloc-postprocess.pl
++++ b/Documentation/trace/postprocess/trace-pagealloc-postprocess.pl
+@@ -1,4 +1,4 @@
+-#!/usr/bin/env perl
++#!/usr/bin/perl
+ # This is a POC (proof of concept or piece of crap, take your pick) for reading the
+ # text representation of trace output related to page allocation. It makes an attempt
+ # to extract some high-level information on what is going on. The accuracy of the parser
+diff --git a/Documentation/trace/postprocess/trace-vmscan-postprocess.pl b/Documentation/trace/postprocess/trace-vmscan-postprocess.pl
+--- a/Documentation/trace/postprocess/trace-vmscan-postprocess.pl
++++ b/Documentation/trace/postprocess/trace-vmscan-postprocess.pl
+@@ -1,4 +1,4 @@
+-#!/usr/bin/env perl
++#!/usr/bin/perl
+ # This is a POC for reading the text representation of trace output related to
+ # page reclaim. It makes an attempt to extract some high-level information on
+ # what is going on. The accuracy of the parser may vary
+diff --git a/arch/ia64/scripts/unwcheck.py b/arch/ia64/scripts/unwcheck.py
+--- a/arch/ia64/scripts/unwcheck.py
++++ b/arch/ia64/scripts/unwcheck.py
+@@ -1,4 +1,4 @@
+-#!/usr/bin/env python
++#!/usr/bin/python
+ # SPDX-License-Identifier: GPL-2.0
+ #
+ # Usage: unwcheck.py FILE
+diff --git a/scripts/bloat-o-meter b/scripts/bloat-o-meter
+--- a/scripts/bloat-o-meter
++++ b/scripts/bloat-o-meter
+@@ -1,4 +1,4 @@
+-#!/usr/bin/env python
++#!/usr/bin/python
+ #
+ # Copyright 2004 Matt Mackall <mpm@selenic.com>
+ #
+diff --git a/scripts/config b/scripts/config
+--- a/scripts/config
++++ b/scripts/config
+@@ -1,4 +1,4 @@
+-#!/usr/bin/env bash
++#!/bin/bash
+ # SPDX-License-Identifier: GPL-2.0
+ # Manipulate options in a .config file from the command line
+ 
+diff --git a/scripts/diffconfig b/scripts/diffconfig
+--- a/scripts/diffconfig
++++ b/scripts/diffconfig
+@@ -1,4 +1,4 @@
+-#!/usr/bin/env python
++#!/usr/bin/python
+ # SPDX-License-Identifier: GPL-2.0
+ #
+ # diffconfig - a tool to compare .config files.
+diff --git a/scripts/get_abi.pl b/scripts/get_abi.pl
+--- a/scripts/get_abi.pl
++++ b/scripts/get_abi.pl
+@@ -1,4 +1,4 @@
+-#!/usr/bin/env perl
++#!/usr/bin/perl
+ # SPDX-License-Identifier: GPL-2.0
+ 
+ use strict;
+diff --git a/scripts/show_delta b/scripts/show_delta
+--- a/scripts/show_delta
++++ b/scripts/show_delta
+@@ -1,4 +1,4 @@
+-#!/usr/bin/env python
++#!/usr/bin/python
+ # SPDX-License-Identifier: GPL-2.0-only
+ #
+ # show_deltas: Read list of printk messages instrumented with
+diff --git a/scripts/sphinx-pre-install b/scripts/sphinx-pre-install
+--- a/scripts/sphinx-pre-install
++++ b/scripts/sphinx-pre-install
+@@ -1,4 +1,4 @@
+-#!/usr/bin/env perl
++#!/usr/bin/perl
+ # SPDX-License-Identifier: GPL-2.0-or-later
+ use strict;
+ 
+diff --git a/scripts/split-man.pl b/scripts/split-man.pl
+--- a/scripts/split-man.pl
++++ b/scripts/split-man.pl
+@@ -1,4 +1,4 @@
+-#!/usr/bin/env perl
++#!/usr/bin/perl
+ # SPDX-License-Identifier: GPL-2.0
+ #
+ # Author: Mauro Carvalho Chehab <mchehab+samsung@kernel.org>
+diff --git a/scripts/tracing/draw_functrace.py b/scripts/tracing/draw_functrace.py
+--- a/scripts/tracing/draw_functrace.py
++++ b/scripts/tracing/draw_functrace.py
+@@ -1,4 +1,4 @@
+-#!/usr/bin/env python
++#!/usr/bin/python
+ # SPDX-License-Identifier: GPL-2.0-only
+ 
+ """
+diff --git a/tools/perf/python/tracepoint.py b/tools/perf/python/tracepoint.py
+--- a/tools/perf/python/tracepoint.py
++++ b/tools/perf/python/tracepoint.py
+@@ -1,4 +1,4 @@
+-#! /usr/bin/env python
++#! /usr/bin/python
+ # SPDX-License-Identifier: GPL-2.0
+ # -*- python -*-
+ # -*- coding: utf-8 -*-
+diff --git a/tools/perf/python/twatch.py b/tools/perf/python/twatch.py
+--- a/tools/perf/python/twatch.py
++++ b/tools/perf/python/twatch.py
+@@ -1,4 +1,4 @@
+-#! /usr/bin/env python
++#! /usr/bin/python
+ # SPDX-License-Identifier: GPL-2.0-only
+ # -*- python -*-
+ # -*- coding: utf-8 -*-
+diff --git a/tools/power/x86/intel_pstate_tracer/intel_pstate_tracer.py b/tools/power/x86/intel_pstate_tracer/intel_pstate_tracer.py
+--- a/tools/power/x86/intel_pstate_tracer/intel_pstate_tracer.py
++++ b/tools/power/x86/intel_pstate_tracer/intel_pstate_tracer.py
+@@ -1,4 +1,4 @@
+-#!/usr/bin/env python
++#!/usr/bin/python
+ # SPDX-License-Identifier: GPL-2.0-only
+ # -*- coding: utf-8 -*-
+ #
+diff --git a/tools/testing/ktest/compare-ktest-sample.pl b/tools/testing/ktest/compare-ktest-sample.pl
+--- a/tools/testing/ktest/compare-ktest-sample.pl
++++ b/tools/testing/ktest/compare-ktest-sample.pl
+@@ -1,4 +1,4 @@
+-#!/usr/bin/env perl
++#!/usr/bin/perl
+ # SPDX-License-Identifier: GPL-2.0
+ 
+ open (IN,"ktest.pl");
+diff --git a/tools/testing/kunit/kunit.py b/tools/testing/kunit/kunit.py
+--- a/tools/testing/kunit/kunit.py
++++ b/tools/testing/kunit/kunit.py
+@@ -1,4 +1,4 @@
+-#!/usr/bin/env python3
++#!/usr/bin/python3
+ # SPDX-License-Identifier: GPL-2.0
+ #
+ # A thin wrapper on top of the KUnit Kernel
+diff --git a/tools/testing/kunit/kunit_tool_test.py b/tools/testing/kunit/kunit_tool_test.py
+--- a/tools/testing/kunit/kunit_tool_test.py
++++ b/tools/testing/kunit/kunit_tool_test.py
+@@ -1,4 +1,4 @@
+-#!/usr/bin/env python3
++#!/usr/bin/python3
+ # SPDX-License-Identifier: GPL-2.0
+ #
+ # A collection of tests for tools/testing/kunit/kunit.py
+diff --git a/tools/testing/selftests/bpf/test_offload.py b/tools/testing/selftests/bpf/test_offload.py
+--- a/tools/testing/selftests/bpf/test_offload.py
++++ b/tools/testing/selftests/bpf/test_offload.py
+@@ -1,4 +1,4 @@
+-#!/usr/bin/env python3
++#!/usr/bin/python3
+ 
+ # Copyright (C) 2017 Netronome Systems, Inc.
+ # Copyright (c) 2019 Mellanox Technologies. All rights reserved
+diff --git a/tools/testing/selftests/drivers/net/mlxsw/sharedbuffer_configuration.py b/tools/testing/selftests/drivers/net/mlxsw/sharedbuffer_configuration.py
+--- a/tools/testing/selftests/drivers/net/mlxsw/sharedbuffer_configuration.py
++++ b/tools/testing/selftests/drivers/net/mlxsw/sharedbuffer_configuration.py
+@@ -1,4 +1,4 @@
+-#!/usr/bin/env python
++#!/usr/bin/python
+ # SPDX-License-Identifier: GPL-2.0
+ 
+ import subprocess
+diff --git a/tools/testing/selftests/kselftest/prefix.pl b/tools/testing/selftests/kselftest/prefix.pl
+--- a/tools/testing/selftests/kselftest/prefix.pl
++++ b/tools/testing/selftests/kselftest/prefix.pl
+@@ -1,4 +1,4 @@
+-#!/usr/bin/env perl
++#!/usr/bin/perl
+ # SPDX-License-Identifier: GPL-2.0
+ # Prefix all lines with "# ", unbuffered. Command being piped in may need
+ # to have unbuffering forced with "stdbuf -i0 -o0 -e0 $cmd".
+diff --git a/tools/testing/selftests/net/devlink_port_split.py b/tools/testing/selftests/net/devlink_port_split.py
+--- a/tools/testing/selftests/net/devlink_port_split.py
++++ b/tools/testing/selftests/net/devlink_port_split.py
+@@ -1,4 +1,4 @@
+-#!/usr/bin/env python3
++#!/usr/bin/python3
+ # SPDX-License-Identifier: GPL-2.0
+ 
+ from subprocess import PIPE, Popen
+diff --git a/tools/testing/selftests/tc-testing/tdc_batch.py b/tools/testing/selftests/tc-testing/tdc_batch.py
+--- a/tools/testing/selftests/tc-testing/tdc_batch.py
++++ b/tools/testing/selftests/tc-testing/tdc_batch.py
+@@ -1,4 +1,4 @@
+-#!/usr/bin/env python3
++#!/usr/bin/python3
+ 
+ """
+ tdc_batch.py - a script to generate TC batch file
+diff --git a/tools/testing/selftests/tc-testing/tdc_multibatch.py b/tools/testing/selftests/tc-testing/tdc_multibatch.py
+--- a/tools/testing/selftests/tc-testing/tdc_multibatch.py
++++ b/tools/testing/selftests/tc-testing/tdc_multibatch.py
+@@ -1,4 +1,4 @@
+-#!/usr/bin/env python3
++#!/usr/bin/python3
+ # SPDX-License-Identifier: GPL-2.0
+ """
+ tdc_multibatch.py - a thin wrapper over tdc_batch.py to generate multiple batch

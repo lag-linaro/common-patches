@@ -2,7 +2,7 @@
 # android-mainline patches
 #
 # Applies onto upstream 7b95f0563ab5 Linux v5.10-12883-g7b95f0563ab5
-# Matches android-mainline a0196781fb06 ("Merge 7b95f0563ab5 ("Merge tag 'kbuild-v5.11' of git://git.kernel.org/pub/scm/linux/kernel/git/masahiroy/linux-kbuild") into android-mainline")
+# Matches android-mainline ab9895b78e1b ("Revert "tweewide: Fix most Shebang lines"")
 #
 Revert-Merge-345b17acb1aa-Merge-tag-for-linus-5.11-rc1-of-git-git.kernel.org-pub-scm-linux-kernel-git-rw-uml-into-android-mainline.patch
 Revert-block-grant-IOPRIO_CLASS_RT-to-CAP_SYS_NICE.patch
@@ -10,6 +10,7 @@ Revert-arm64-dts-qcom-sdm845-db845c-Fix-hdmi-nodes.patch
 Revert-ubsan-enable-for-all-config-builds.patch
 Revert-security-lockdown-selinux-implement-SELinux-lockdown.patch
 Revert-ARM-9017-2-Enable-KASan-for-ARM.patch
+Revert-tweewide-Fix-most-Shebang-lines.patch
 _____ANNOTATION-pending-upstream_____.patch
 UPSTREAM-um-Convert-tasklets-to-use-new-tasklet_setup-API.patch
 UPSTREAM-um-random-Register-random-as-hwrng-core-device.patch
