@@ -2,7 +2,7 @@
 # android-mainline patches
 #
 # Applies onto upstream 3b80dee70eaa Linux v5.10-13264-g3b80dee70eaa
-# Matches android-mainline 1e5e020b085d ("Merge 3b80dee70eaa ("Merge tag 'sched-urgent-2020-12-27' of git://git.kernel.org/pub/scm/linux/kernel/git/tip/tip") into android-mainline")
+# Matches android-mainline 60ef99656951 ("FROMLIST: genirq: Export irq_check_status_bit")
 #
 Revert-Merge-345b17acb1aa-Merge-tag-for-linus-5.11-rc1-of-git-git.kernel.org-pub-scm-linux-kernel-git-rw-uml-into-android-mainline.patch
 Revert-block-grant-IOPRIO_CLASS_RT-to-CAP_SYS_NICE.patch
@@ -30,6 +30,7 @@ FROMLIST-scsi-ufs-clear-uac-for-RPMB-after-ufshcd-resets.patch
 FROMLIST-scsi-ufs-WB-is-only-available-on-LUN-0-to-7.patch
 FROMLIST-scripts-merge_config-add-strict-mode-to-fail-upon-any-redefinition.patch
 FROMLIST-KVM-SVM-Add-register-operand-to-vmsave-call-in-sev_es_vcpu_load.patch
+FROMLIST-genirq-Export-irq_check_status_bit.patch
 _____ANNOTATION-Android-vendor-hooks_____.patch
 ANDROID-GKI-add-android_vendor.h.patch
 ANDROID-add-support-for-vendor-hooks.patch
