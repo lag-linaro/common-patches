@@ -1,8 +1,8 @@
 #
 # android-mainline patches
 #
-# Applies onto upstream c45647f9f562 Linux v5.10-12802-gc45647f9f562
-# Matches android-mainline 5405a323b9e0 ("ANDROID: sched/fair: Sync task util early in feec")
+# Applies onto upstream 1375b9803e00 Linux v5.10-12863-g1375b9803e00
+# Matches android-mainline 0ed6d0c2a966 ("Merge 1375b9803e00 ("Merge branch 'akpm' (patches from Andrew)") into android-mainline")
 #
 Revert-Merge-345b17acb1aa-Merge-tag-for-linus-5.11-rc1-of-git-git.kernel.org-pub-scm-linux-kernel-git-rw-uml-into-android-mainline.patch
 Revert-block-grant-IOPRIO_CLASS_RT-to-CAP_SYS_NICE.patch
