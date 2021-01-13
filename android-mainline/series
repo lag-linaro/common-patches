@@ -1,8 +1,8 @@
 #
 # android-mainline patches
 #
-# Applies onto upstream d8355e740f41 Linux v5.10-12751-gd8355e740f41
-# Matches android-mainline c1863a4175f1 ("Merge d8355e740f41 ("Merge tag 'for-5.11/dm-changes' of git://git.kernel.org/pub/scm/linux/kernel/git/device-mapper/linux-dm") into android-mainline")
+# Applies onto upstream c45647f9f562 Linux v5.10-12802-gc45647f9f562
+# Matches android-mainline b8be7c54a789 ("Merge c45647f9f562 ("Merge tag 'for-linus' of git://git.armlinux.org.uk/~rmk/linux") into android-mainline")
 #
 Revert-Merge-345b17acb1aa-Merge-tag-for-linus-5.11-rc1-of-git-git.kernel.org-pub-scm-linux-kernel-git-rw-uml-into-android-mainline.patch
 Revert-block-grant-IOPRIO_CLASS_RT-to-CAP_SYS_NICE.patch
