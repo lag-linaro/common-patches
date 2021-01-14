@@ -1,8 +1,8 @@
 #
 # android-mainline patches
 #
-# Applies onto upstream 3b80dee70eaa Linux v5.10-13264-g3b80dee70eaa
-# Matches android-mainline 60ef99656951 ("FROMLIST: genirq: Export irq_check_status_bit")
+# Applies onto upstream 5c8fe583cce5 Linux v5.11-rc1
+# Matches android-mainline 6a70670ac05c ("Merge v5.11-rc1 into android-mainline")
 #
 Revert-Merge-345b17acb1aa-Merge-tag-for-linus-5.11-rc1-of-git-git.kernel.org-pub-scm-linux-kernel-git-rw-uml-into-android-mainline.patch
 Revert-block-grant-IOPRIO_CLASS_RT-to-CAP_SYS_NICE.patch
