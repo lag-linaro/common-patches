@@ -2,7 +2,7 @@
 # android-mainline patches
 #
 # Applies onto upstream 7c53f6b671f4 Linux v5.11-rc3
-# Matches android-mainline 1f799200cd1a ("UPSTREAM: um: Simplify os_idle_sleep() and sleep longer")
+# Matches android-mainline 9b8d6cea2113 ("UPSTREAM: um: Fix build w/o CONFIG_PM_SLEEP")
 #
 Revert-block-grant-IOPRIO_CLASS_RT-to-CAP_SYS_NICE.patch
 Revert-arm64-dts-qcom-sdm845-db845c-Fix-hdmi-nodes.patch
@@ -738,4 +738,3 @@ ANDROID-arm64-Enable-KVM-for-Asym-AArch32.patch
 _____ANNOTATION-remove-ANNOTATIONS-file_____.patch
 DROP-ME-minor-out-of-tree-difference.patch
 DROP-ME-obsolete-ION-documentation.patch
-DROP-ME-out-of-tree-difference-after-reverting-the-um-revert.patch
