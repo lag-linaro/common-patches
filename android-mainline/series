@@ -2,7 +2,7 @@
 # android-mainline patches
 #
 # Applies onto upstream 65f0d2414b70 Linux v5.11-rc3-68-g65f0d2414b70
-# Matches android-mainline f3dd9c9ab712 ("Merge 65f0d2414b70 ("Merge tag 'sound-5.11-rc4' of git://git.kernel.org/pub/scm/linux/kernel/git/tiwai/sound") into android-mainline")
+# Matches android-mainline 943c3b3124d2 ("ANDROID: simplify vendor hooks for non-GKI builds")
 #
 Revert-block-grant-IOPRIO_CLASS_RT-to-CAP_SYS_NICE.patch
 Revert-arm64-dts-qcom-sdm845-db845c-Fix-hdmi-nodes.patch
@@ -150,6 +150,7 @@ ANDROID-sched-Export-sched_setattr_nocheck.patch
 ANDROID-sched-Export-sched_switch-tracepoint-symbol.patch
 ANDROID-add-flags-to-android_rvh_enqueue_task-dequeue_task-parameter.patch
 ANDROID-sched-fair-Sync-task-util-early-in-feec.patch
+ANDROID-simplify-vendor-hooks-for-non-GKI-builds.patch
 _____ANNOTATION-uid_sys_stats-support_____.patch
 ANDROID-uid_cputime-Adds-accounting-for-the-cputimes-per-uid.patch
 ANDROID-uid_cputime-add-per-uid-IO-usage-accounting.patch
