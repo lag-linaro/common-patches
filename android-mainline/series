@@ -2,9 +2,8 @@
 # android-mainline patches
 #
 # Applies onto upstream 7c53f6b671f4 Linux v5.11-rc3
-# Matches android-mainline 253cfb7cfdcd ("Merge v5.11-rc3 into android-mainline")
+# Matches android-mainline 1f799200cd1a ("UPSTREAM: um: Simplify os_idle_sleep() and sleep longer")
 #
-Revert-Merge-345b17acb1aa-Merge-tag-for-linus-5.11-rc1-of-git-git.kernel.org-pub-scm-linux-kernel-git-rw-uml-into-android-mainline.patch
 Revert-block-grant-IOPRIO_CLASS_RT-to-CAP_SYS_NICE.patch
 Revert-arm64-dts-qcom-sdm845-db845c-Fix-hdmi-nodes.patch
 Revert-ubsan-enable-for-all-config-builds.patch
@@ -12,8 +11,6 @@ Revert-security-lockdown-selinux-implement-SELinux-lockdown.patch
 Revert-ARM-9017-2-Enable-KASan-for-ARM.patch
 Revert-tweewide-Fix-most-Shebang-lines.patch
 _____ANNOTATION-pending-upstream_____.patch
-UPSTREAM-um-Convert-tasklets-to-use-new-tasklet_setup-API.patch
-UPSTREAM-um-random-Register-random-as-hwrng-core-device.patch
 FROMGIT-scsi-ufs-Fix-livelock-of-ufshcd_clear_ua_wluns.patch
 FROMLIST-modpost-Make-static-exports-fatal.patch
 FROMLIST-clk-Export-clk_register_composite.patch
@@ -301,6 +298,7 @@ ANDROID-dm-add-dm-default-key-target-for-metadata-encryption.patch
 ANDROID-uapi-Add-dm-user-structure-definition.patch
 ANDROID-dm-dm-user-New-target-that-proxies-BIOs-to-userspace.patch
 ANDROID-dm-user-Add-some-missing-static.patch
+ANDROID-dm-user-fix-typo-in-channel_free.patch
 _____ANNOTATION-filesystem-changes_____.patch
 FROMLIST-Add-flags-option-to-get-xattr-method-paired-to-__vfs_getxattr.patch
 FROMLIST-overlayfs-handle-XATTR_NOSECURITY-flag-for-get-xattr-method.patch
@@ -729,6 +727,7 @@ ANDROID-GKI-Enable-XFRM_MIGRATE.patch
 ANDROID-GKI-disable-CONFIG_MEMCG.patch
 ANDROID-GKI-make-VIDEOBUF2_DMA_CONTIG-under-GKI_HIDDEN_MEDIA_CONFIGS.patch
 ANDROID-GKI-Enable-CONFIG_KUNIT.patch
+ANDROID-GKI-remove-CONFIG_ENABLE_MUST_CHECK-from-gki-defconfigs.patch
 _____ANNOTATION-Patches-for-bringing-up-new-SoCs_____.patch
 ANDROID-serial-msm_geni_serial_earlycon-Add-Earlycon-support.patch
 ANDROID-arm64-Add-support-for-asymmetric-AArch32-EL0-configurations.patch
@@ -739,3 +738,4 @@ ANDROID-arm64-Enable-KVM-for-Asym-AArch32.patch
 _____ANNOTATION-remove-ANNOTATIONS-file_____.patch
 DROP-ME-minor-out-of-tree-difference.patch
 DROP-ME-obsolete-ION-documentation.patch
+DROP-ME-out-of-tree-difference-after-reverting-the-um-revert.patch

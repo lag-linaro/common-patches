@@ -1,0 +1,937 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: Matthias Maennich <maennich@google.com>
+Date: Thu, 14 Jan 2021 17:05:35 +0000
+Subject: DROP ME: out of tree difference after reverting the um revert
+
+Signed-off-by: Matthias Maennich <maennich@google.com>
+Change-Id: I4ecee7348106d9fefaed218499575d343fc3a64f
+---
+ arch/um/Kconfig                         |   6 --
+ arch/um/drivers/chan_user.c             |   4 +-
+ arch/um/drivers/ubd_kern.c              |   2 +-
+ arch/um/drivers/xterm.c                 |   5 --
+ arch/um/include/asm/pgtable.h           |   3 -
+ arch/um/include/asm/set_memory.h        |   1 -
+ arch/um/include/shared/common-offsets.h |   3 -
+ arch/um/include/shared/kern_util.h      |   5 +-
+ arch/um/include/shared/os.h             |  15 ----
+ arch/um/kernel/irq.c                    | 103 +-----------------------
+ arch/um/kernel/process.c                |  13 ++-
+ arch/um/kernel/time.c                   |  80 +-----------------
+ arch/um/kernel/tlb.c                    |  54 -------------
+ arch/um/kernel/um_arch.c                |  67 ---------------
+ arch/um/os-Linux/helper.c               |   4 +-
+ arch/um/os-Linux/irq.c                  |   2 +-
+ arch/um/os-Linux/sigio.c                |  47 ++++-------
+ arch/um/os-Linux/signal.c               |  22 +----
+ arch/um/os-Linux/skas/process.c         |  15 +---
+ 19 files changed, 34 insertions(+), 417 deletions(-)
+ delete mode 100644 arch/um/include/asm/set_memory.h
+
+diff --git a/arch/um/Kconfig b/arch/um/Kconfig
+--- a/arch/um/Kconfig
++++ b/arch/um/Kconfig
+@@ -15,7 +15,6 @@ config UML
+ 	select HAVE_DEBUG_KMEMLEAK
+ 	select HAVE_DEBUG_BUGVERBOSE
+ 	select NO_DMA
+-	select ARCH_HAS_SET_MEMORY
+ 	select GENERIC_IRQ_SHOW
+ 	select GENERIC_CPU_DEVICES
+ 	select HAVE_GCC_PLUGINS
+@@ -192,8 +191,3 @@ config UML_TIME_TRAVEL_SUPPORT
+ endmenu
+ 
+ source "arch/um/drivers/Kconfig"
+-
+-config ARCH_SUSPEND_POSSIBLE
+-	def_bool y
+-
+-source "kernel/power/Kconfig"
+diff --git a/arch/um/drivers/chan_user.c b/arch/um/drivers/chan_user.c
+--- a/arch/um/drivers/chan_user.c
++++ b/arch/um/drivers/chan_user.c
+@@ -26,10 +26,10 @@ int generic_read(int fd, char *c_out, void *unused)
+ 	n = read(fd, c_out, sizeof(*c_out));
+ 	if (n > 0)
+ 		return n;
+-	else if (n == 0)
+-		return -EIO;
+ 	else if (errno == EAGAIN)
+ 		return 0;
++	else if (n == 0)
++		return -EIO;
+ 	return -errno;
+ }
+ 
+diff --git a/arch/um/drivers/ubd_kern.c b/arch/um/drivers/ubd_kern.c
+--- a/arch/um/drivers/ubd_kern.c
++++ b/arch/um/drivers/ubd_kern.c
+@@ -1241,7 +1241,7 @@ static int __init ubd_driver_init(void){
+ 		/* Letting ubd=sync be like using ubd#s= instead of ubd#= is
+ 		 * enough. So use anyway the io thread. */
+ 	}
+-	stack = alloc_stack(0);
++	stack = alloc_stack(0, 0);
+ 	io_pid = start_io_thread(stack + PAGE_SIZE - sizeof(void *),
+ 				 &thread_fd);
+ 	if(io_pid < 0){
+diff --git a/arch/um/drivers/xterm.c b/arch/um/drivers/xterm.c
+--- a/arch/um/drivers/xterm.c
++++ b/arch/um/drivers/xterm.c
+@@ -18,7 +18,6 @@
+ struct xterm_chan {
+ 	int pid;
+ 	int helper_pid;
+-	int chan_fd;
+ 	char *title;
+ 	int device;
+ 	int raw;
+@@ -34,7 +33,6 @@ static void *xterm_init(char *str, int device, const struct chan_opts *opts)
+ 		return NULL;
+ 	*data = ((struct xterm_chan) { .pid 		= -1,
+ 				       .helper_pid 	= -1,
+-				       .chan_fd		= -1,
+ 				       .device 		= device,
+ 				       .title 		= opts->xterm_title,
+ 				       .raw  		= opts->raw } );
+@@ -151,7 +149,6 @@ static int xterm_open(int input, int output, int primary, void *d,
+ 		goto out_kill;
+ 	}
+ 
+-	data->chan_fd = fd;
+ 	new = xterm_fd(fd, &data->helper_pid);
+ 	if (new < 0) {
+ 		err = new;
+@@ -209,8 +206,6 @@ static void xterm_close(int fd, void *d)
+ 		os_kill_process(data->helper_pid, 0);
+ 	data->helper_pid = -1;
+ 
+-	if (data->chan_fd != -1)
+-		os_close_file(data->chan_fd);
+ 	os_close_file(fd);
+ }
+ 
+diff --git a/arch/um/include/asm/pgtable.h b/arch/um/include/asm/pgtable.h
+--- a/arch/um/include/asm/pgtable.h
++++ b/arch/um/include/asm/pgtable.h
+@@ -55,15 +55,12 @@ extern unsigned long end_iomem;
+ #define _PAGE_CHG_MASK	(PAGE_MASK | _PAGE_ACCESSED | _PAGE_DIRTY)
+ #define __PAGE_KERNEL_EXEC                                              \
+ 	 (_PAGE_PRESENT | _PAGE_RW | _PAGE_DIRTY | _PAGE_ACCESSED)
+-#define __PAGE_KERNEL_RO						\
+-	 (_PAGE_PRESENT | _PAGE_DIRTY | _PAGE_ACCESSED)
+ #define PAGE_NONE	__pgprot(_PAGE_PROTNONE | _PAGE_ACCESSED)
+ #define PAGE_SHARED	__pgprot(_PAGE_PRESENT | _PAGE_RW | _PAGE_USER | _PAGE_ACCESSED)
+ #define PAGE_COPY	__pgprot(_PAGE_PRESENT | _PAGE_USER | _PAGE_ACCESSED)
+ #define PAGE_READONLY	__pgprot(_PAGE_PRESENT | _PAGE_USER | _PAGE_ACCESSED)
+ #define PAGE_KERNEL	__pgprot(_PAGE_PRESENT | _PAGE_RW | _PAGE_DIRTY | _PAGE_ACCESSED)
+ #define PAGE_KERNEL_EXEC	__pgprot(__PAGE_KERNEL_EXEC)
+-#define PAGE_KERNEL_RO		__pgprot(__PAGE_KERNEL_RO)
+ 
+ /*
+  * The i386 can't do page protection for execute, and considers that the same
+diff --git a/arch/um/include/asm/set_memory.h b/arch/um/include/asm/set_memory.h
+deleted file mode 100644
+index 24266c63720d..000000000000
+--- a/arch/um/include/asm/set_memory.h
++++ /dev/null
+@@ -1 +0,0 @@
+-#include <asm-generic/set_memory.h>
+diff --git a/arch/um/include/shared/common-offsets.h b/arch/um/include/shared/common-offsets.h
+--- a/arch/um/include/shared/common-offsets.h
++++ b/arch/um/include/shared/common-offsets.h
+@@ -40,6 +40,3 @@ DEFINE(UML_CONFIG_UML_X86, CONFIG_UML_X86);
+ #ifdef CONFIG_64BIT
+ DEFINE(UML_CONFIG_64BIT, CONFIG_64BIT);
+ #endif
+-#ifdef CONFIG_UML_TIME_TRAVEL_SUPPORT
+-DEFINE(UML_CONFIG_UML_TIME_TRAVEL_SUPPORT, CONFIG_UML_TIME_TRAVEL_SUPPORT);
+-#endif
+diff --git a/arch/um/include/shared/kern_util.h b/arch/um/include/shared/kern_util.h
+--- a/arch/um/include/shared/kern_util.h
++++ b/arch/um/include/shared/kern_util.h
+@@ -19,7 +19,7 @@ extern int kmalloc_ok;
+ #define UML_ROUND_UP(addr) \
+ 	((((unsigned long) addr) + PAGE_SIZE - 1) & PAGE_MASK)
+ 
+-extern unsigned long alloc_stack(int atomic);
++extern unsigned long alloc_stack(int order, int atomic);
+ extern void free_stack(unsigned long stack, int order);
+ 
+ struct pt_regs;
+@@ -39,8 +39,6 @@ extern int is_syscall(unsigned long addr);
+ 
+ extern void timer_handler(int sig, struct siginfo *unused_si, struct uml_pt_regs *regs);
+ 
+-extern void uml_pm_wake(void);
+-
+ extern int start_uml(void);
+ extern void paging_init(void);
+ 
+@@ -68,6 +66,5 @@ extern void bus_handler(int sig, struct siginfo *si, struct uml_pt_regs *regs);
+ extern void winch(int sig, struct siginfo *unused_si, struct uml_pt_regs *regs);
+ extern void fatal_sigsegv(void) __attribute__ ((noreturn));
+ 
+-void um_idle_sleep(void);
+ 
+ #endif
+diff --git a/arch/um/include/shared/os.h b/arch/um/include/shared/os.h
+--- a/arch/um/include/shared/os.h
++++ b/arch/um/include/shared/os.h
+@@ -233,7 +233,6 @@ extern void timer_set_signal_handler(void);
+ extern void set_sigstack(void *sig_stack, int size);
+ extern void remove_sigstack(void);
+ extern void set_handler(int sig);
+-extern void send_sigio_to_self(void);
+ extern int change_sig(int signal, int on);
+ extern void block_signals(void);
+ extern void unblock_signals(void);
+@@ -242,7 +241,6 @@ extern int set_signals(int enable);
+ extern int set_signals_trace(int enable);
+ extern int os_is_signal_stack(void);
+ extern void deliver_alarm(void);
+-extern void register_pm_wake_signal(void);
+ 
+ /* util.c */
+ extern void stack_protections(unsigned long address);
+@@ -308,22 +306,12 @@ extern int os_mod_epoll_fd(int events, int fd, void *data);
+ extern int os_del_epoll_fd(int fd);
+ extern void os_set_ioignore(void);
+ extern void os_close_epoll_fd(void);
+-extern void um_irqs_suspend(void);
+-extern void um_irqs_resume(void);
+ 
+ /* sigio.c */
+ extern int add_sigio_fd(int fd);
+ extern int ignore_sigio_fd(int fd);
+ extern void maybe_sigio_broken(int fd);
+ extern void sigio_broken(int fd);
+-/*
+- * unlocked versions for IRQ controller code.
+- *
+- * This is safe because it's used at suspend/resume and nothing
+- * else is running.
+- */
+-extern int __add_sigio_fd(int fd);
+-extern int __ignore_sigio_fd(int fd);
+ 
+ /* prctl.c */
+ extern int os_arch_prctl(int pid, int option, unsigned long *arg2);
+@@ -342,7 +330,4 @@ extern void unblock_signals_trace(void);
+ extern void um_trace_signals_on(void);
+ extern void um_trace_signals_off(void);
+ 
+-/* time-travel */
+-extern void deliver_time_travel_irqs(void);
+-
+ #endif
+diff --git a/arch/um/kernel/irq.c b/arch/um/kernel/irq.c
+--- a/arch/um/kernel/irq.c
++++ b/arch/um/kernel/irq.c
+@@ -20,7 +20,6 @@
+ #include <os.h>
+ #include <irq_user.h>
+ #include <irq_kern.h>
+-#include <as-layout.h>
+ 
+ 
+ extern void free_irqs(void);
+@@ -37,15 +36,12 @@ struct irq_reg {
+ 	int events;
+ 	bool active;
+ 	bool pending;
+-	bool wakeup;
+ };
+ 
+ struct irq_entry {
+ 	struct list_head list;
+ 	int fd;
+ 	struct irq_reg reg[NUM_IRQ_TYPES];
+-	bool suspended;
+-	bool sigio_workaround;
+ };
+ 
+ static DEFINE_SPINLOCK(irq_lock);
+@@ -74,11 +70,6 @@ static void irq_io_loop(struct irq_reg *irq, struct uml_pt_regs *regs)
+ 	}
+ }
+ 
+-void sigio_handler_suspend(int sig, struct siginfo *unused_si, struct uml_pt_regs *regs)
+-{
+-	/* nothing */
+-}
+-
+ void sigio_handler(int sig, struct siginfo *unused_si, struct uml_pt_regs *regs)
+ {
+ 	struct irq_entry *irq_entry;
+@@ -374,99 +365,8 @@ int um_request_irq(int irq, int fd, enum um_irq_type type,
+ 	clear_bit(irq, irqs_allocated);
+ 	return err;
+ }
+-EXPORT_SYMBOL(um_request_irq);
+-
+-#ifdef CONFIG_PM_SLEEP
+-void um_irqs_suspend(void)
+-{
+-	struct irq_entry *entry;
+-	unsigned long flags;
+-
+-	sig_info[SIGIO] = sigio_handler_suspend;
+-
+-	spin_lock_irqsave(&irq_lock, flags);
+-	list_for_each_entry(entry, &active_fds, list) {
+-		enum um_irq_type t;
+-		bool wake = false;
+-
+-		for (t = 0; t < NUM_IRQ_TYPES; t++) {
+-			if (!entry->reg[t].events)
+-				continue;
+-
+-			/*
+-			 * For the SIGIO_WRITE_IRQ, which is used to handle the
+-			 * SIGIO workaround thread, we need special handling:
+-			 * enable wake for it itself, but below we tell it about
+-			 * any FDs that should be suspended.
+-			 */
+-			if (entry->reg[t].wakeup ||
+-			    entry->reg[t].irq == SIGIO_WRITE_IRQ) {
+-				wake = true;
+-				break;
+-			}
+-		}
+-
+-		if (!wake) {
+-			entry->suspended = true;
+-			os_clear_fd_async(entry->fd);
+-			entry->sigio_workaround =
+-				!__ignore_sigio_fd(entry->fd);
+-		}
+-	}
+-	spin_unlock_irqrestore(&irq_lock, flags);
+-}
+-
+-void um_irqs_resume(void)
+-{
+-	struct irq_entry *entry;
+-	unsigned long flags;
+ 
+-	spin_lock_irqsave(&irq_lock, flags);
+-	list_for_each_entry(entry, &active_fds, list) {
+-		if (entry->suspended) {
+-			int err = os_set_fd_async(entry->fd);
+-
+-			WARN(err < 0, "os_set_fd_async returned %d\n", err);
+-			entry->suspended = false;
+-
+-			if (entry->sigio_workaround) {
+-				err = __add_sigio_fd(entry->fd);
+-				WARN(err < 0, "add_sigio_returned %d\n", err);
+-			}
+-		}
+-	}
+-	spin_unlock_irqrestore(&irq_lock, flags);
+-
+-	sig_info[SIGIO] = sigio_handler;
+-	send_sigio_to_self();
+-}
+-
+-static int normal_irq_set_wake(struct irq_data *d, unsigned int on)
+-{
+-	struct irq_entry *entry;
+-	unsigned long flags;
+-
+-	spin_lock_irqsave(&irq_lock, flags);
+-	list_for_each_entry(entry, &active_fds, list) {
+-		enum um_irq_type t;
+-
+-		for (t = 0; t < NUM_IRQ_TYPES; t++) {
+-			if (!entry->reg[t].events)
+-				continue;
+-
+-			if (entry->reg[t].irq != d->irq)
+-				continue;
+-			entry->reg[t].wakeup = on;
+-			goto unlock;
+-		}
+-	}
+-unlock:
+-	spin_unlock_irqrestore(&irq_lock, flags);
+-	return 0;
+-}
+-#else
+-#define normal_irq_set_wake NULL
+-#endif
++EXPORT_SYMBOL(um_request_irq);
+ 
+ /*
+  * irq_chip must define at least enable/disable and ack when
+@@ -484,7 +384,6 @@ static struct irq_chip normal_irq_type = {
+ 	.irq_ack = dummy,
+ 	.irq_mask = dummy,
+ 	.irq_unmask = dummy,
+-	.irq_set_wake = normal_irq_set_wake,
+ };
+ 
+ static struct irq_chip alarm_irq_type = {
+diff --git a/arch/um/kernel/process.c b/arch/um/kernel/process.c
+--- a/arch/um/kernel/process.c
++++ b/arch/um/kernel/process.c
+@@ -32,7 +32,6 @@
+ #include <os.h>
+ #include <skas.h>
+ #include <linux/time-internal.h>
+-#include <asm/set_memory.h>
+ 
+ /*
+  * This is a per-cpu array.  A processor only modifies its entry and it only
+@@ -63,18 +62,16 @@ void free_stack(unsigned long stack, int order)
+ 	free_pages(stack, order);
+ }
+ 
+-unsigned long alloc_stack(int atomic)
++unsigned long alloc_stack(int order, int atomic)
+ {
+-	unsigned long addr;
++	unsigned long page;
+ 	gfp_t flags = GFP_KERNEL;
+ 
+ 	if (atomic)
+ 		flags = GFP_ATOMIC;
+-	addr = __get_free_pages(flags, 1);
++	page = __get_free_pages(flags, order);
+ 
+-	set_memory_ro(addr, 1);
+-
+-	return addr + PAGE_SIZE;
++	return page;
+ }
+ 
+ static inline void set_current(struct task_struct *task)
+@@ -206,7 +203,7 @@ void initial_thread_cb(void (*proc)(void *), void *arg)
+ 	kmalloc_ok = save_kmalloc_ok;
+ }
+ 
+-void um_idle_sleep(void)
++static void um_idle_sleep(void)
+ {
+ 	if (time_travel_mode != TT_MODE_OFF)
+ 		time_travel_sleep();
+diff --git a/arch/um/kernel/time.c b/arch/um/kernel/time.c
+--- a/arch/um/kernel/time.c
++++ b/arch/um/kernel/time.c
+@@ -31,7 +31,6 @@ static bool time_travel_start_set;
+ static unsigned long long time_travel_start;
+ static unsigned long long time_travel_time;
+ static LIST_HEAD(time_travel_events);
+-static LIST_HEAD(time_travel_irqs);
+ static unsigned long long time_travel_timer_interval;
+ static unsigned long long time_travel_next_event;
+ static struct time_travel_event time_travel_timer_event;
+@@ -184,14 +183,6 @@ static void time_travel_ext_update_request(unsigned long long time)
+ 	    time == time_travel_ext_prev_request)
+ 		return;
+ 
+-	/*
+-	 * if we're running and are allowed to run past the request
+-	 * then we don't need to update it either
+-	 */
+-	if (!time_travel_ext_waiting && time_travel_ext_free_until_valid &&
+-	    time < time_travel_ext_free_until)
+-		return;
+-
+ 	time_travel_ext_prev_request = time;
+ 	time_travel_ext_prev_request_valid = true;
+ 	time_travel_ext_req(UM_TIMETRAVEL_REQUEST, time);
+@@ -199,13 +190,7 @@ static void time_travel_ext_update_request(unsigned long long time)
+ 
+ void __time_travel_propagate_time(void)
+ {
+-	static unsigned long long last_propagated;
+-
+-	if (last_propagated == time_travel_time)
+-		return;
+-
+ 	time_travel_ext_req(UM_TIMETRAVEL_UPDATE, time_travel_time);
+-	last_propagated = time_travel_time;
+ }
+ EXPORT_SYMBOL_GPL(__time_travel_propagate_time);
+ 
+@@ -232,7 +217,6 @@ static void time_travel_ext_wait(bool idle)
+ 	};
+ 
+ 	time_travel_ext_prev_request_valid = false;
+-	time_travel_ext_free_until_valid = false;
+ 	time_travel_ext_waiting++;
+ 
+ 	time_travel_ext_req(UM_TIMETRAVEL_WAIT, -1);
+@@ -325,35 +309,6 @@ void time_travel_periodic_timer(struct time_travel_event *e)
+ 	deliver_alarm();
+ }
+ 
+-void deliver_time_travel_irqs(void)
+-{
+-	struct time_travel_event *e;
+-	unsigned long flags;
+-
+-	/*
+-	 * Don't do anything for most cases. Note that because here we have
+-	 * to disable IRQs (and re-enable later) we'll actually recurse at
+-	 * the end of the function, so this is strictly necessary.
+-	 */
+-	if (likely(list_empty(&time_travel_irqs)))
+-		return;
+-
+-	local_irq_save(flags);
+-	irq_enter();
+-	while ((e = list_first_entry_or_null(&time_travel_irqs,
+-					     struct time_travel_event,
+-					     list))) {
+-		WARN(e->time != time_travel_time,
+-		     "time moved from %lld to %lld before IRQ delivery\n",
+-		     time_travel_time, e->time);
+-		list_del(&e->list);
+-		e->pending = false;
+-		e->fn(e);
+-	}
+-	irq_exit();
+-	local_irq_restore(flags);
+-}
+-
+ static void time_travel_deliver_event(struct time_travel_event *e)
+ {
+ 	if (e == &time_travel_timer_event) {
+@@ -362,14 +317,6 @@ static void time_travel_deliver_event(struct time_travel_event *e)
+ 		 * by itself, so must handle it specially here
+ 		 */
+ 		e->fn(e);
+-	} else if (irqs_disabled()) {
+-		list_add_tail(&e->list, &time_travel_irqs);
+-		/*
+-		 * set pending again, it was set to false when the
+-		 * event was deleted from the original list, but
+-		 * now it's still pending until we deliver the IRQ.
+-		 */
+-		e->pending = true;
+ 	} else {
+ 		unsigned long flags;
+ 
+@@ -539,7 +486,6 @@ static int time_travel_connect_external(const char *socket)
+ #define time_travel_start_set 0
+ #define time_travel_start 0
+ #define time_travel_time 0
+-#define time_travel_ext_waiting 0
+ 
+ static inline void time_travel_update_time(unsigned long long ns, bool retearly)
+ {
+@@ -685,8 +631,7 @@ static u64 timer_read(struct clocksource *cs)
+ 		 * "what do I do next" and onstack event we use to know when
+ 		 * to return from time_travel_update_time().
+ 		 */
+-		if (!irqs_disabled() && !in_interrupt() && !in_softirq() &&
+-		    !time_travel_ext_waiting)
++		if (!irqs_disabled() && !in_interrupt() && !in_softirq())
+ 			time_travel_update_time(time_travel_time +
+ 						TIMER_MULTIPLIER,
+ 						false);
+@@ -731,8 +676,10 @@ void read_persistent_clock64(struct timespec64 *ts)
+ {
+ 	long long nsecs;
+ 
+-	if (time_travel_mode != TT_MODE_OFF)
++	if (time_travel_start_set)
+ 		nsecs = time_travel_start + time_travel_time;
++	else if (time_travel_mode == TT_MODE_EXTERNAL)
++		nsecs = time_travel_ext_req(UM_TIMETRAVEL_GET_TOD, -1);
+ 	else
+ 		nsecs = os_persistent_clock_emulation();
+ 
+@@ -742,25 +689,6 @@ void read_persistent_clock64(struct timespec64 *ts)
+ 
+ void __init time_init(void)
+ {
+-#ifdef CONFIG_UML_TIME_TRAVEL_SUPPORT
+-	switch (time_travel_mode) {
+-	case TT_MODE_EXTERNAL:
+-		time_travel_start = time_travel_ext_req(UM_TIMETRAVEL_GET_TOD, -1);
+-		/* controller gave us the *current* time, so adjust by that */
+-		time_travel_ext_get_time();
+-		time_travel_start -= time_travel_time;
+-		break;
+-	case TT_MODE_INFCPU:
+-	case TT_MODE_BASIC:
+-		if (!time_travel_start_set)
+-			time_travel_start = os_persistent_clock_emulation();
+-		break;
+-	case TT_MODE_OFF:
+-		/* we just read the host clock with os_persistent_clock_emulation() */
+-		break;
+-	}
+-#endif
+-
+ 	timer_set_signal_handler();
+ 	late_time_init = um_timer_setup;
+ }
+diff --git a/arch/um/kernel/tlb.c b/arch/um/kernel/tlb.c
+--- a/arch/um/kernel/tlb.c
++++ b/arch/um/kernel/tlb.c
+@@ -608,57 +608,3 @@ void force_flush_all(void)
+ 		vma = vma->vm_next;
+ 	}
+ }
+-
+-struct page_change_data {
+-	unsigned int set_mask, clear_mask;
+-};
+-
+-static int change_page_range(pte_t *ptep, unsigned long addr, void *data)
+-{
+-	struct page_change_data *cdata = data;
+-	pte_t pte = READ_ONCE(*ptep);
+-
+-	pte_clear_bits(pte, cdata->clear_mask);
+-	pte_set_bits(pte, cdata->set_mask);
+-
+-	set_pte(ptep, pte);
+-	return 0;
+-}
+-
+-static int change_memory(unsigned long start, unsigned long pages,
+-			 unsigned int set_mask, unsigned int clear_mask)
+-{
+-	unsigned long size = pages * PAGE_SIZE;
+-	struct page_change_data data;
+-	int ret;
+-
+-	data.set_mask = set_mask;
+-	data.clear_mask = clear_mask;
+-
+-	ret = apply_to_page_range(&init_mm, start, size, change_page_range,
+-				  &data);
+-
+-	flush_tlb_kernel_range(start, start + size);
+-
+-	return ret;
+-}
+-
+-int set_memory_ro(unsigned long addr, int numpages)
+-{
+-	return change_memory(addr, numpages, 0, _PAGE_RW);
+-}
+-
+-int set_memory_rw(unsigned long addr, int numpages)
+-{
+-	return change_memory(addr, numpages, _PAGE_RW, 0);
+-}
+-
+-int set_memory_nx(unsigned long addr, int numpages)
+-{
+-	return -EOPNOTSUPP;
+-}
+-
+-int set_memory_x(unsigned long addr, int numpages)
+-{
+-	return -EOPNOTSUPP;
+-}
+diff --git a/arch/um/kernel/um_arch.c b/arch/um/kernel/um_arch.c
+--- a/arch/um/kernel/um_arch.c
++++ b/arch/um/kernel/um_arch.c
+@@ -13,7 +13,6 @@
+ #include <linux/sched.h>
+ #include <linux/sched/task.h>
+ #include <linux/kmsg_dump.h>
+-#include <linux/suspend.h>
+ 
+ #include <asm/processor.h>
+ #include <asm/sections.h>
+@@ -378,69 +377,3 @@ void *text_poke(void *addr, const void *opcode, size_t len)
+ void text_poke_sync(void)
+ {
+ }
+-
+-void uml_pm_wake(void)
+-{
+-	pm_system_wakeup();
+-}
+-
+-#ifdef CONFIG_PM_SLEEP
+-static int um_suspend_valid(suspend_state_t state)
+-{
+-	return state == PM_SUSPEND_MEM;
+-}
+-
+-static int um_suspend_prepare(void)
+-{
+-	um_irqs_suspend();
+-	return 0;
+-}
+-
+-static int um_suspend_enter(suspend_state_t state)
+-{
+-	if (WARN_ON(state != PM_SUSPEND_MEM))
+-		return -EINVAL;
+-
+-	/*
+-	 * This is identical to the idle sleep, but we've just
+-	 * (during suspend) turned off all interrupt sources
+-	 * except for the ones we want, so now we can only wake
+-	 * up on something we actually want to wake up on. All
+-	 * timing has also been suspended.
+-	 */
+-	um_idle_sleep();
+-	return 0;
+-}
+-
+-static void um_suspend_finish(void)
+-{
+-	um_irqs_resume();
+-}
+-
+-const struct platform_suspend_ops um_suspend_ops = {
+-	.valid = um_suspend_valid,
+-	.prepare = um_suspend_prepare,
+-	.enter = um_suspend_enter,
+-	.finish = um_suspend_finish,
+-};
+-
+-static int init_pm_wake_signal(void)
+-{
+-	/*
+-	 * In external time-travel mode we can't use signals to wake up
+-	 * since that would mess with the scheduling. We'll have to do
+-	 * some additional work to support wakeup on virtio devices or
+-	 * similar, perhaps implementing a fake RTC controller that can
+-	 * trigger wakeup (and request the appropriate scheduling from
+-	 * the external scheduler when going to suspend.)
+-	 */
+-	if (time_travel_mode != TT_MODE_EXTERNAL)
+-		register_pm_wake_signal();
+-
+-	suspend_set_ops(&um_suspend_ops);
+-
+-	return 0;
+-}
+-
+-late_initcall(init_pm_wake_signal);
+-#endif
+diff --git a/arch/um/os-Linux/helper.c b/arch/um/os-Linux/helper.c
+--- a/arch/um/os-Linux/helper.c
++++ b/arch/um/os-Linux/helper.c
+@@ -45,7 +45,7 @@ int run_helper(void (*pre_exec)(void *), void *pre_data, char **argv)
+ 	unsigned long stack, sp;
+ 	int pid, fds[2], ret, n;
+ 
+-	stack = alloc_stack(__cant_sleep());
++	stack = alloc_stack(0, __cant_sleep());
+ 	if (stack == 0)
+ 		return -ENOMEM;
+ 
+@@ -116,7 +116,7 @@ int run_helper_thread(int (*proc)(void *), void *arg, unsigned int flags,
+ 	unsigned long stack, sp;
+ 	int pid, status, err;
+ 
+-	stack = alloc_stack(__cant_sleep());
++	stack = alloc_stack(0, __cant_sleep());
+ 	if (stack == 0)
+ 		return -ENOMEM;
+ 
+diff --git a/arch/um/os-Linux/irq.c b/arch/um/os-Linux/irq.c
+--- a/arch/um/os-Linux/irq.c
++++ b/arch/um/os-Linux/irq.c
+@@ -48,7 +48,7 @@ int os_epoll_triggered(int index, int events)
+ int os_event_mask(enum um_irq_type irq_type)
+ {
+ 	if (irq_type == IRQ_READ)
+-		return EPOLLIN | EPOLLPRI | EPOLLERR | EPOLLHUP | EPOLLRDHUP;
++		return EPOLLIN | EPOLLPRI;
+ 	if (irq_type == IRQ_WRITE)
+ 		return EPOLLOUT;
+ 	return 0;
+diff --git a/arch/um/os-Linux/sigio.c b/arch/um/os-Linux/sigio.c
+--- a/arch/um/os-Linux/sigio.c
++++ b/arch/um/os-Linux/sigio.c
+@@ -164,55 +164,47 @@ static void update_thread(void)
+ 	set_signals_trace(flags);
+ }
+ 
+-int __add_sigio_fd(int fd)
++int add_sigio_fd(int fd)
+ {
+ 	struct pollfd *p;
+ 	int err, i, n;
+ 
++	sigio_lock();
+ 	for (i = 0; i < all_sigio_fds.used; i++) {
+ 		if (all_sigio_fds.poll[i].fd == fd)
+ 			break;
+ 	}
+-	if (i == all_sigio_fds.used)
+-		return -ENOSPC;
++	if (i == all_sigio_fds.used) {
++		err = -ENOSPC;
++		goto out;
++	}
+ 
+ 	p = &all_sigio_fds.poll[i];
+ 
+ 	for (i = 0; i < current_poll.used; i++) {
+ 		if (current_poll.poll[i].fd == fd)
+-			return 0;
++			goto out;
+ 	}
+ 
+ 	n = current_poll.used;
+ 	err = need_poll(&next_poll, n + 1);
+ 	if (err)
+-		return err;
++		goto out;
+ 
+ 	memcpy(next_poll.poll, current_poll.poll,
+ 	       current_poll.used * sizeof(struct pollfd));
+ 	next_poll.poll[n] = *p;
+ 	next_poll.used = n + 1;
+ 	update_thread();
+-
+-	return 0;
+-}
+-
+-
+-int add_sigio_fd(int fd)
+-{
+-	int err;
+-
+-	sigio_lock();
+-	err = __add_sigio_fd(fd);
++ out:
+ 	sigio_unlock();
+-
+ 	return err;
+ }
+ 
+-int __ignore_sigio_fd(int fd)
++int ignore_sigio_fd(int fd)
+ {
+ 	struct pollfd *p;
+-	int err, i, n = 0;
++	int err = 0, i, n = 0;
+ 
+ 	/*
+ 	 * This is called from exitcalls elsewhere in UML - if
+@@ -222,16 +214,17 @@ int __ignore_sigio_fd(int fd)
+ 	if (write_sigio_pid == -1)
+ 		return -EIO;
+ 
++	sigio_lock();
+ 	for (i = 0; i < current_poll.used; i++) {
+ 		if (current_poll.poll[i].fd == fd)
+ 			break;
+ 	}
+ 	if (i == current_poll.used)
+-		return -ENOENT;
++		goto out;
+ 
+ 	err = need_poll(&next_poll, current_poll.used - 1);
+ 	if (err)
+-		return err;
++		goto out;
+ 
+ 	for (i = 0; i < current_poll.used; i++) {
+ 		p = &current_poll.poll[i];
+@@ -241,18 +234,8 @@ int __ignore_sigio_fd(int fd)
+ 	next_poll.used = current_poll.used - 1;
+ 
+ 	update_thread();
+-
+-	return 0;
+-}
+-
+-int ignore_sigio_fd(int fd)
+-{
+-	int err;
+-
+-	sigio_lock();
+-	err = __ignore_sigio_fd(fd);
++ out:
+ 	sigio_unlock();
+-
+ 	return err;
+ }
+ 
+diff --git a/arch/um/os-Linux/signal.c b/arch/um/os-Linux/signal.c
+--- a/arch/um/os-Linux/signal.c
++++ b/arch/um/os-Linux/signal.c
+@@ -136,16 +136,6 @@ void set_sigstack(void *sig_stack, int size)
+ 		panic("enabling signal stack failed, errno = %d\n", errno);
+ }
+ 
+-static void sigusr1_handler(int sig, struct siginfo *unused_si, mcontext_t *mc)
+-{
+-	uml_pm_wake();
+-}
+-
+-void register_pm_wake_signal(void)
+-{
+-	set_handler(SIGUSR1);
+-}
+-
+ static void (*handlers[_NSIG])(int sig, struct siginfo *si, mcontext_t *mc) = {
+ 	[SIGSEGV] = sig_handler,
+ 	[SIGBUS] = sig_handler,
+@@ -155,9 +145,7 @@ static void (*handlers[_NSIG])(int sig, struct siginfo *si, mcontext_t *mc) = {
+ 
+ 	[SIGIO] = sig_handler,
+ 	[SIGWINCH] = sig_handler,
+-	[SIGALRM] = timer_alarm_handler,
+-
+-	[SIGUSR1] = sigusr1_handler,
++	[SIGALRM] = timer_alarm_handler
+ };
+ 
+ static void hard_handler(int sig, siginfo_t *si, void *p)
+@@ -234,11 +222,6 @@ void set_handler(int sig)
+ 		panic("sigprocmask failed - errno = %d\n", errno);
+ }
+ 
+-void send_sigio_to_self(void)
+-{
+-	kill(os_getpid(), SIGIO);
+-}
+-
+ int change_sig(int signal, int on)
+ {
+ 	sigset_t sigset;
+@@ -271,9 +254,6 @@ void unblock_signals(void)
+ 		return;
+ 
+ 	signals_enabled = 1;
+-#ifdef UML_CONFIG_UML_TIME_TRAVEL_SUPPORT
+-	deliver_time_travel_irqs();
+-#endif
+ 
+ 	/*
+ 	 * We loop because the IRQ handler returns with interrupts off.  So,
+diff --git a/arch/um/os-Linux/skas/process.c b/arch/um/os-Linux/skas/process.c
+--- a/arch/um/os-Linux/skas/process.c
++++ b/arch/um/os-Linux/skas/process.c
+@@ -400,20 +400,7 @@ void userspace(struct uml_pt_regs *regs, unsigned long *aux_fp_regs)
+ 		if (WIFSTOPPED(status)) {
+ 			int sig = WSTOPSIG(status);
+ 
+-			/* These signal handlers need the si argument.
+-			 * The SIGIO and SIGALARM handlers which constitute the
+-			 * majority of invocations, do not use it.
+-			 */
+-			switch (sig) {
+-			case SIGSEGV:
+-			case SIGTRAP:
+-			case SIGILL:
+-			case SIGBUS:
+-			case SIGFPE:
+-			case SIGWINCH:
+-				ptrace(PTRACE_GETSIGINFO, pid, 0, (struct siginfo *)&si);
+-				break;
+-			}
++			ptrace(PTRACE_GETSIGINFO, pid, 0, (struct siginfo *)&si);
+ 
+ 			switch (sig) {
+ 			case SIGSEGV:
