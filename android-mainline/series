@@ -1,8 +1,8 @@
 #
 # android-mainline patches
 #
-# Applies onto upstream 7c53f6b671f4 Linux v5.11-rc3
-# Matches android-mainline 9b8d6cea2113 ("UPSTREAM: um: Fix build w/o CONFIG_PM_SLEEP")
+# Applies onto upstream 65f0d2414b70 Linux v5.11-rc3-68-g65f0d2414b70
+# Matches android-mainline f3dd9c9ab712 ("Merge 65f0d2414b70 ("Merge tag 'sound-5.11-rc4' of git://git.kernel.org/pub/scm/linux/kernel/git/tiwai/sound") into android-mainline")
 #
 Revert-block-grant-IOPRIO_CLASS_RT-to-CAP_SYS_NICE.patch
 Revert-arm64-dts-qcom-sdm845-db845c-Fix-hdmi-nodes.patch

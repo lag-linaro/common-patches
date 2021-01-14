@@ -564,7 +564,7 @@ diff --git a/fs/kernfs/inode.c b/fs/kernfs/inode.c
 diff --git a/fs/nfs/nfs4proc.c b/fs/nfs/nfs4proc.c
 --- a/fs/nfs/nfs4proc.c
 +++ b/fs/nfs/nfs4proc.c
-@@ -7506,7 +7506,8 @@ static int nfs4_xattr_set_nfs4_acl(const struct xattr_handler *handler,
+@@ -7500,7 +7500,8 @@ static int nfs4_xattr_set_nfs4_acl(const struct xattr_handler *handler,
  
  static int nfs4_xattr_get_nfs4_acl(const struct xattr_handler *handler,
  				   struct dentry *unused, struct inode *inode,
@@ -574,7 +574,7 @@ diff --git a/fs/nfs/nfs4proc.c b/fs/nfs/nfs4proc.c
  {
  	return nfs4_proc_get_acl(inode, buf, buflen);
  }
-@@ -7531,7 +7532,8 @@ static int nfs4_xattr_set_nfs4_label(const struct xattr_handler *handler,
+@@ -7525,7 +7526,8 @@ static int nfs4_xattr_set_nfs4_label(const struct xattr_handler *handler,
  
  static int nfs4_xattr_get_nfs4_label(const struct xattr_handler *handler,
  				     struct dentry *unused, struct inode *inode,
@@ -584,7 +584,7 @@ diff --git a/fs/nfs/nfs4proc.c b/fs/nfs/nfs4proc.c
  {
  	if (security_ismaclabel(key))
  		return nfs4_get_security_label(inode, buf, buflen);
-@@ -7608,7 +7610,8 @@ static int nfs4_xattr_set_nfs4_user(const struct xattr_handler *handler,
+@@ -7602,7 +7604,8 @@ static int nfs4_xattr_set_nfs4_user(const struct xattr_handler *handler,
  
  static int nfs4_xattr_get_nfs4_user(const struct xattr_handler *handler,
  				    struct dentry *unused, struct inode *inode,
