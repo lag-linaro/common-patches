@@ -86,7 +86,7 @@ diff --git a/drivers/usb/gadget/configfs.c b/drivers/usb/gadget/configfs.c
  };
  
  static inline struct gadget_info *to_gadget_info(struct config_item *item)
-@@ -259,7 +278,7 @@ static ssize_t gadget_dev_desc_UDC_store(struct config_item *item,
+@@ -266,7 +285,7 @@ static ssize_t gadget_dev_desc_UDC_store(struct config_item *item,
  
  	mutex_lock(&gi->lock);
  
@@ -95,7 +95,7 @@ diff --git a/drivers/usb/gadget/configfs.c b/drivers/usb/gadget/configfs.c
  		ret = unregister_gadget(gi);
  		if (ret)
  			goto err;
-@@ -1409,6 +1428,57 @@ static int configfs_composite_bind(struct usb_gadget *gadget,
+@@ -1416,6 +1435,57 @@ static int configfs_composite_bind(struct usb_gadget *gadget,
  	return ret;
  }
  
@@ -153,7 +153,7 @@ diff --git a/drivers/usb/gadget/configfs.c b/drivers/usb/gadget/configfs.c
  static void configfs_composite_unbind(struct usb_gadget *gadget)
  {
  	struct usb_composite_dev	*cdev;
-@@ -1434,6 +1504,80 @@ static void configfs_composite_unbind(struct usb_gadget *gadget)
+@@ -1441,6 +1511,80 @@ static void configfs_composite_unbind(struct usb_gadget *gadget)
  	spin_unlock_irqrestore(&gi->spinlock, flags);
  }
  
@@ -234,7 +234,7 @@ diff --git a/drivers/usb/gadget/configfs.c b/drivers/usb/gadget/configfs.c
  static int configfs_composite_setup(struct usb_gadget *gadget,
  		const struct usb_ctrlrequest *ctrl)
  {
-@@ -1481,6 +1625,8 @@ static void configfs_composite_disconnect(struct usb_gadget *gadget)
+@@ -1488,6 +1632,8 @@ static void configfs_composite_disconnect(struct usb_gadget *gadget)
  	spin_unlock_irqrestore(&gi->spinlock, flags);
  }
  
@@ -243,7 +243,7 @@ diff --git a/drivers/usb/gadget/configfs.c b/drivers/usb/gadget/configfs.c
  static void configfs_composite_suspend(struct usb_gadget *gadget)
  {
  	struct usb_composite_dev *cdev;
-@@ -1529,10 +1675,15 @@ static const struct usb_gadget_driver configfs_driver_template = {
+@@ -1536,10 +1682,15 @@ static const struct usb_gadget_driver configfs_driver_template = {
  	.bind           = configfs_composite_bind,
  	.unbind         = configfs_composite_unbind,
  
@@ -260,7 +260,7 @@ diff --git a/drivers/usb/gadget/configfs.c b/drivers/usb/gadget/configfs.c
  	.suspend	= configfs_composite_suspend,
  	.resume		= configfs_composite_resume,
  
-@@ -1593,6 +1744,12 @@ static struct config_group *gadgets_make(
+@@ -1600,6 +1751,12 @@ static struct config_group *gadgets_make(
  	gi->composite.gadget_driver.function = kstrdup(name, GFP_KERNEL);
  	gi->composite.name = gi->composite.gadget_driver.function;
  
@@ -273,7 +273,7 @@ diff --git a/drivers/usb/gadget/configfs.c b/drivers/usb/gadget/configfs.c
  	if (!gi->composite.gadget_driver.function)
  		goto err;
  
-@@ -1644,6 +1801,13 @@ static int __init gadget_cfs_init(void)
+@@ -1651,6 +1808,13 @@ static int __init gadget_cfs_init(void)
  	config_group_init(&gadget_subsys.su_group);
  
  	ret = configfs_register_subsystem(&gadget_subsys);

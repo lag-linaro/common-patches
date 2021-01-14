@@ -1,8 +1,8 @@
 #
 # android-mainline patches
 #
-# Applies onto upstream e71ba9452f0b Linux v5.11-rc2
-# Matches android-mainline 279177734bdc ("Merge v5.11-rc2 into android-mainline")
+# Applies onto upstream 7c53f6b671f4 Linux v5.11-rc3
+# Matches android-mainline 253cfb7cfdcd ("Merge v5.11-rc3 into android-mainline")
 #
 Revert-Merge-345b17acb1aa-Merge-tag-for-linus-5.11-rc1-of-git-git.kernel.org-pub-scm-linux-kernel-git-rw-uml-into-android-mainline.patch
 Revert-block-grant-IOPRIO_CLASS_RT-to-CAP_SYS_NICE.patch
@@ -15,7 +15,6 @@ _____ANNOTATION-pending-upstream_____.patch
 UPSTREAM-um-Convert-tasklets-to-use-new-tasklet_setup-API.patch
 UPSTREAM-um-random-Register-random-as-hwrng-core-device.patch
 FROMGIT-scsi-ufs-Fix-livelock-of-ufshcd_clear_ua_wluns.patch
-FROMLIST-Revert-init-console-Use-ttynull-as-a-fallback-when-there-is-no-console.patch
 FROMLIST-modpost-Make-static-exports-fatal.patch
 FROMLIST-clk-Export-clk_register_composite.patch
 FROMLIST-clk-versatile-remove-dependency-on-ARCH_.patch
@@ -28,7 +27,6 @@ FROMLIST-fuse-Use-daemon-creds-in-passthrough-mode.patch
 FROMLIST-USB-gadget-f_fs-add-SuperSpeed-Plus-support.patch
 FROMLIST-scsi-ufs-WB-is-only-available-on-LUN-0-to-7.patch
 FROMLIST-scripts-merge_config-add-strict-mode-to-fail-upon-any-redefinition.patch
-FROMLIST-KVM-SVM-Add-register-operand-to-vmsave-call-in-sev_es_vcpu_load.patch
 FROMLIST-genirq-Export-irq_check_status_bit.patch
 _____ANNOTATION-Android-vendor-hooks_____.patch
 ANDROID-GKI-add-android_vendor.h.patch
@@ -265,7 +263,6 @@ ANDROID-drivers-gpu-drm-export-drm_mode_convert_umode-symbol.patch
 ANDROID-drm-expose-drm_mode_convert_to_umode-to-display-module.patch
 FROMLIST-dma-buf-add-support-for-virtio-exported-objects.patch
 FROMLIST-drm-prime-add-support-for-virtio-exported-objects.patch
-FROMLIST-drm-msm-Fix-WARN_ON-splat-in-_free_object.patch
 _____ANNOTATION-sound-changes_____.patch
 ANDROID-SoC-core-Introduce-macro-SOC_SINGLE_MULTI_EXT.patch
 _____ANNOTATION-media-changes_____.patch
@@ -742,4 +739,3 @@ ANDROID-arm64-Enable-KVM-for-Asym-AArch32.patch
 _____ANNOTATION-remove-ANNOTATIONS-file_____.patch
 DROP-ME-minor-out-of-tree-difference.patch
 DROP-ME-obsolete-ION-documentation.patch
-DROP-ME-Out-of-tree-difference-caused-by-the-ION-deletion.patch

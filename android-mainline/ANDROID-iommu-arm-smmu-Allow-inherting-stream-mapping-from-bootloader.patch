@@ -83,7 +83,7 @@ diff --git a/drivers/iommu/arm/arm-smmu/arm-smmu-qcom.c b/drivers/iommu/arm/arm-
  static struct qcom_smmu *to_qcom_smmu(struct arm_smmu_device *smmu)
  {
  	return container_of(smmu, struct qcom_smmu, smmu);
-@@ -292,6 +330,7 @@ static int qcom_smmu500_reset(struct arm_smmu_device *smmu)
+@@ -294,6 +332,7 @@ static int qcom_smmu500_reset(struct arm_smmu_device *smmu)
  static const struct arm_smmu_impl qcom_smmu_impl = {
  	.cfg_probe = qcom_smmu_cfg_probe,
  	.def_domain_type = qcom_smmu_def_domain_type,

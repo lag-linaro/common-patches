@@ -22,7 +22,7 @@ Signed-off-by: Will McVicker <willmcvicker@google.com>
 diff --git a/drivers/spi/spi.c b/drivers/spi/spi.c
 --- a/drivers/spi/spi.c
 +++ b/drivers/spi/spi.c
-@@ -2035,6 +2035,7 @@ of_register_spi_device(struct spi_controller *ctlr, struct device_node *nc)
+@@ -2039,6 +2039,7 @@ of_register_spi_device(struct spi_controller *ctlr, struct device_node *nc)
  	/* Store a pointer to the node in the device structure */
  	of_node_get(nc);
  	spi->dev.of_node = nc;

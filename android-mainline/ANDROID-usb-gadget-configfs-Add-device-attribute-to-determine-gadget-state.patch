@@ -23,7 +23,7 @@ Signed-off-by: Amit Pundir <amit.pundir@linaro.org>
 diff --git a/drivers/usb/gadget/configfs.c b/drivers/usb/gadget/configfs.c
 --- a/drivers/usb/gadget/configfs.c
 +++ b/drivers/usb/gadget/configfs.c
-@@ -1743,6 +1743,54 @@ static struct device_attribute *android_usb_attributes[] = {
+@@ -1750,6 +1750,54 @@ static struct device_attribute *android_usb_attributes[] = {
  	&dev_attr_state,
  	NULL
  };
@@ -78,7 +78,7 @@ diff --git a/drivers/usb/gadget/configfs.c b/drivers/usb/gadget/configfs.c
  #endif
  
  static struct config_group *gadgets_make(
-@@ -1750,9 +1798,6 @@ static struct config_group *gadgets_make(
+@@ -1757,9 +1805,6 @@ static struct config_group *gadgets_make(
  		const char *name)
  {
  	struct gadget_info *gi;
@@ -88,7 +88,7 @@ diff --git a/drivers/usb/gadget/configfs.c b/drivers/usb/gadget/configfs.c
  
  	gi = kzalloc(sizeof(*gi), GFP_KERNEL);
  	if (!gi)
-@@ -1797,37 +1842,14 @@ static struct config_group *gadgets_make(
+@@ -1804,37 +1849,14 @@ static struct config_group *gadgets_make(
  	gi->composite.gadget_driver.function = kstrdup(name, GFP_KERNEL);
  	gi->composite.name = gi->composite.gadget_driver.function;
  
@@ -129,7 +129,7 @@ diff --git a/drivers/usb/gadget/configfs.c b/drivers/usb/gadget/configfs.c
  err:
  	kfree(gi);
  	return ERR_PTR(-ENOMEM);
-@@ -1835,17 +1857,8 @@ static struct config_group *gadgets_make(
+@@ -1842,17 +1864,8 @@ static struct config_group *gadgets_make(
  
  static void gadgets_drop(struct config_group *group, struct config_item *item)
  {

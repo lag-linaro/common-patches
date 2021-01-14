@@ -65,7 +65,7 @@ diff --git a/drivers/usb/gadget/Kconfig b/drivers/usb/gadget/Kconfig
  # this first set of drivers all depend on bulk-capable hardware.
  
  config USB_CONFIGFS
-@@ -377,6 +380,14 @@ config USB_CONFIGFS_F_FS
+@@ -379,6 +382,14 @@ config USB_CONFIGFS_F_FS
  	  implemented in kernel space (for instance Ethernet, serial or
  	  mass storage) and other are implemented in user space.
  

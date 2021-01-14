@@ -44,7 +44,7 @@ diff --git a/drivers/usb/gadget/Kconfig b/drivers/usb/gadget/Kconfig
  # this first set of drivers all depend on bulk-capable hardware.
  
  config USB_CONFIGFS
-@@ -388,6 +391,15 @@ config USB_CONFIGFS_F_ACC
+@@ -390,6 +393,15 @@ config USB_CONFIGFS_F_ACC
  	help
  	  USB gadget Accessory support
  
