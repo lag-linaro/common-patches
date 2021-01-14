@@ -20,7 +20,7 @@ Signed-off-by: Stanley Chu <stanley.chu@mediatek.com>
 diff --git a/drivers/scsi/ufs/ufshcd.c b/drivers/scsi/ufs/ufshcd.c
 --- a/drivers/scsi/ufs/ufshcd.c
 +++ b/drivers/scsi/ufs/ufshcd.c
-@@ -2595,7 +2595,12 @@ static int ufshcd_queuecommand(struct Scsi_Host *host, struct scsi_cmnd *cmd)
+@@ -2612,7 +2612,12 @@ static int ufshcd_queuecommand(struct Scsi_Host *host, struct scsi_cmnd *cmd)
  	lrbp->lun = ufshcd_scsi_to_upiu_lun(cmd->device->lun);
  	lrbp->intr_cmd = !ufshcd_is_intr_aggr_allowed(hba) ? true : false;
  
@@ -46,7 +46,7 @@ diff --git a/drivers/scsi/ufs/ufshcd.h b/drivers/scsi/ufs/ufshcd.h
  				struct request *rq, struct ufshcd_lrb *lrbp);
  	int     (*update_sysfs)(struct ufs_hba *hba);
  	void	(*send_command)(struct ufs_hba *hba, struct ufshcd_lrb *lrbp);
-@@ -1291,11 +1291,12 @@ static inline int ufshcd_vops_fill_prdt(struct ufs_hba *hba,
+@@ -1287,11 +1287,12 @@ static inline int ufshcd_vops_fill_prdt(struct ufs_hba *hba,
  	return 0;
  }
  

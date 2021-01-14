@@ -1,8 +1,8 @@
 #
 # android-mainline patches
 #
-# Applies onto upstream 5c8fe583cce5 Linux v5.11-rc1
-# Matches android-mainline 6a70670ac05c ("Merge v5.11-rc1 into android-mainline")
+# Applies onto upstream e71ba9452f0b Linux v5.11-rc2
+# Matches android-mainline 279177734bdc ("Merge v5.11-rc2 into android-mainline")
 #
 Revert-Merge-345b17acb1aa-Merge-tag-for-linus-5.11-rc1-of-git-git.kernel.org-pub-scm-linux-kernel-git-rw-uml-into-android-mainline.patch
 Revert-block-grant-IOPRIO_CLASS_RT-to-CAP_SYS_NICE.patch
@@ -26,7 +26,6 @@ FROMLIST-fuse-Introduce-synchronous-read-and-write-for-passthrough.patch
 FROMLIST-fuse-Handle-asynchronous-read-and-write-in-passthrough.patch
 FROMLIST-fuse-Use-daemon-creds-in-passthrough-mode.patch
 FROMLIST-USB-gadget-f_fs-add-SuperSpeed-Plus-support.patch
-FROMLIST-scsi-ufs-clear-uac-for-RPMB-after-ufshcd-resets.patch
 FROMLIST-scsi-ufs-WB-is-only-available-on-LUN-0-to-7.patch
 FROMLIST-scripts-merge_config-add-strict-mode-to-fail-upon-any-redefinition.patch
 FROMLIST-KVM-SVM-Add-register-operand-to-vmsave-call-in-sev_es_vcpu_load.patch
@@ -744,4 +743,3 @@ _____ANNOTATION-remove-ANNOTATIONS-file_____.patch
 DROP-ME-minor-out-of-tree-difference.patch
 DROP-ME-obsolete-ION-documentation.patch
 DROP-ME-Out-of-tree-difference-caused-by-the-ION-deletion.patch
-DROP-ME-minor-out-of-tree-difference-after-merging-scsi-misc.patch

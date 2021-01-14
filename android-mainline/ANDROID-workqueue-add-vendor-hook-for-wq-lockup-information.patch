@@ -80,7 +80,7 @@ diff --git a/kernel/workqueue.c b/kernel/workqueue.c
  enum {
  	/*
  	 * worker_pool flags
-@@ -5799,6 +5803,7 @@ static void wq_watchdog_timer_fn(struct timer_list *unused)
+@@ -5806,6 +5810,7 @@ static void wq_watchdog_timer_fn(struct timer_list *unused)
  			pr_cont_pool_info(pool);
  			pr_cont(" stuck for %us!\n",
  				jiffies_to_msecs(jiffies - pool_ts) / 1000);

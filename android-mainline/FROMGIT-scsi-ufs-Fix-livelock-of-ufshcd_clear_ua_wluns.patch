@@ -31,7 +31,7 @@ Signed-off-by: Jaegeuk Kim <jaegeuk@google.com>
 diff --git a/drivers/scsi/ufs/ufshcd.c b/drivers/scsi/ufs/ufshcd.c
 --- a/drivers/scsi/ufs/ufshcd.c
 +++ b/drivers/scsi/ufs/ufshcd.c
-@@ -7702,6 +7702,8 @@ static int ufshcd_add_lus(struct ufs_hba *hba)
+@@ -7721,6 +7721,8 @@ static int ufshcd_add_lus(struct ufs_hba *hba)
  	if (ret)
  		goto out;
  
@@ -40,7 +40,7 @@ diff --git a/drivers/scsi/ufs/ufshcd.c b/drivers/scsi/ufs/ufshcd.c
  	/* Initialize devfreq after UFS device is detected */
  	if (ufshcd_is_clkscaling_supported(hba)) {
  		memcpy(&hba->clk_scaling.saved_pwr_info.info,
-@@ -7903,8 +7905,6 @@ static void ufshcd_async_scan(void *data, async_cookie_t cookie)
+@@ -7922,8 +7924,6 @@ static void ufshcd_async_scan(void *data, async_cookie_t cookie)
  		pm_runtime_put_sync(hba->dev);
  		ufshcd_exit_clk_scaling(hba);
  		ufshcd_hba_exit(hba);
