@@ -32,7 +32,7 @@ Signed-off-by: Siarhei Vishniakou <svv@google.com>
 diff --git a/MAINTAINERS b/MAINTAINERS
 --- a/MAINTAINERS
 +++ b/MAINTAINERS
-@@ -12568,6 +12568,12 @@ W:	http://www.netlab.is.tsukuba.ac.jp/~yokota/izumi/ninja/
+@@ -12562,6 +12562,12 @@ W:	http://www.netlab.is.tsukuba.ac.jp/~yokota/izumi/ninja/
  F:	Documentation/scsi/NinjaSCSI.rst
  F:	drivers/scsi/nsp32*
  
@@ -80,7 +80,7 @@ diff --git a/drivers/hid/Makefile b/drivers/hid/Makefile
 diff --git a/drivers/hid/hid-ids.h b/drivers/hid/hid-ids.h
 --- a/drivers/hid/hid-ids.h
 +++ b/drivers/hid/hid-ids.h
-@@ -897,6 +897,9 @@
+@@ -898,6 +898,9 @@
  #define USB_VENDOR_ID_NINTENDO		0x057e
  #define USB_DEVICE_ID_NINTENDO_WIIMOTE	0x0306
  #define USB_DEVICE_ID_NINTENDO_WIIMOTE2	0x0330
