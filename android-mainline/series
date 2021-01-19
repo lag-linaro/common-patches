@@ -2,7 +2,7 @@
 # android-mainline patches
 #
 # Applies onto upstream 19c329f68089 Linux v5.11-rc4
-# Matches android-mainline 902943e0329c ("Merge v5.11-rc4 into android-mainline")
+# Matches android-mainline 160fc6a57cb8 ("Revert "um: ubd: Set device serial attribute from cmdline"")
 #
 Revert-block-grant-IOPRIO_CLASS_RT-to-CAP_SYS_NICE.patch
 Revert-arm64-dts-qcom-sdm845-db845c-Fix-hdmi-nodes.patch
@@ -10,6 +10,7 @@ Revert-ubsan-enable-for-all-config-builds.patch
 Revert-security-lockdown-selinux-implement-SELinux-lockdown.patch
 Revert-ARM-9017-2-Enable-KASan-for-ARM.patch
 Revert-tweewide-Fix-most-Shebang-lines.patch
+Revert-um-ubd-Set-device-serial-attribute-from-cmdline.patch
 _____ANNOTATION-pending-upstream_____.patch
 FROMGIT-scsi-ufs-Fix-livelock-of-ufshcd_clear_ua_wluns.patch
 FROMLIST-modpost-Make-static-exports-fatal.patch
@@ -56,6 +57,7 @@ ANDROID-arm64-smp-fix-Lockdep-warning-RCU-used-illegally-from-idle-CPU.patch
 ANDROID-arm64-allow-hooks-into-ipi.patch
 ANDROID-arm-allow-hooks-into-ipi.patch
 ANDROID-ARM-Bump-command-line-size.patch
+ANDROID-arm64-Export-show_regs-for-vendor-module-usage.patch
 _____ANNOTATION-iommu-changes_____.patch
 FROMGIT-iommu-arm-smmu-Don-t-bypass-pinned-stream-mappings.patch
 ANDROID-iommu-arm-smmu-Allow-inherting-stream-mapping-from-bootloader.patch
@@ -737,5 +739,4 @@ ANDROID-arm64-Disallow-offlining-the-last-aarch32-cpu.patch
 ANDROID-arm64-kvm-Hide-asym-aarch32-systems-from-KVM.patch
 ANDROID-arm64-Enable-KVM-for-Asym-AArch32.patch
 _____ANNOTATION-remove-ANNOTATIONS-file_____.patch
-DROP-ME-minor-out-of-tree-difference.patch
 DROP-ME-obsolete-ION-documentation.patch

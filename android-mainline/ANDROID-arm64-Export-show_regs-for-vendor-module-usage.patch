@@ -1,0 +1,26 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: Prasad Sodagudi <psodagud@codeaurora.org>
+Date: Tue, 12 Jan 2021 13:07:19 -0800
+Subject: ANDROID: arm64: Export show_regs for vendor module usage
+
+Export show_regs for vendor module usage to print cpu back trace
+from trace_android_vh_ipi_stop vendor hook.
+
+Bug: 177348820
+Change-Id: Idcbe887dfc02626d4af1a4cb53dafe3d5a2ba1dd
+Signed-off-by: Prasad Sodagudi <psodagud@codeaurora.org>
+---
+ arch/arm64/kernel/process.c | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/arch/arm64/kernel/process.c b/arch/arm64/kernel/process.c
+--- a/arch/arm64/kernel/process.c
++++ b/arch/arm64/kernel/process.c
+@@ -306,6 +306,7 @@ void show_regs(struct pt_regs * regs)
+ 	__show_regs(regs);
+ 	dump_backtrace(regs, NULL, KERN_DEFAULT);
+ }
++EXPORT_SYMBOL_GPL(show_regs);
+ 
+ static void tls_thread_flush(void)
+ {
