@@ -33,7 +33,7 @@ diff --git a/arch/arm64/include/asm/processor.h b/arch/arm64/include/asm/process
  
  #include <vdso/processor.h>
  
-@@ -140,6 +141,8 @@ struct thread_struct {
+@@ -139,6 +140,8 @@ struct thread_struct {
  		struct user_fpsimd_state fpsimd_state;
  	} uw;
  

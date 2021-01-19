@@ -1,8 +1,8 @@
 #
 # android-mainline patches
 #
-# Applies onto upstream 5ee88057889b Linux v5.11-rc3-193-g5ee88057889b
-# Matches android-mainline 0fc055fbb1b1 ("Merge 5ee88057889b ("Merge tag 'drm-fixes-2021-01-15' of git://anongit.freedesktop.org/drm/drm") into android-mainline")
+# Applies onto upstream 19c329f68089 Linux v5.11-rc4
+# Matches android-mainline 902943e0329c ("Merge v5.11-rc4 into android-mainline")
 #
 Revert-block-grant-IOPRIO_CLASS_RT-to-CAP_SYS_NICE.patch
 Revert-arm64-dts-qcom-sdm845-db845c-Fix-hdmi-nodes.patch

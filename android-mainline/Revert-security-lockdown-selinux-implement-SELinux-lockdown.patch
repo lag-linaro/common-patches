@@ -106,7 +106,7 @@ diff --git a/security/lsm_audit.c b/security/lsm_audit.c
  
  /**
   * ipv4_skb_to_auditdata : fill auditdata from skb
-@@ -426,10 +425,6 @@ static void dump_common_audit_data(struct audit_buffer *ab,
+@@ -429,10 +428,6 @@ static void dump_common_audit_data(struct audit_buffer *ab,
  				 a->u.ibendport->dev_name,
  				 a->u.ibendport->port);
  		break;
