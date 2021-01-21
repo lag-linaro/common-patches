@@ -1,0 +1,54 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: Choonghoon Park <choong.park@samsung.com>
+Date: Wed, 16 Dec 2020 13:31:34 +0900
+Subject: ANDROID: sched: Add rvh for cpu controller cgroup can attach
+
+Add a restricted vendor hook to check whether a set of tasks can
+move to other cgroup.
+
+Bug: 175808144
+
+Signed-off-by: Choonghoon Park <choong.park@samsung.com>
+Change-Id: If7bac83e0d2d1069b1436331989c3926645eab19
+---
+ drivers/android/vendor_hooks.c | 1 +
+ include/trace/hooks/sched.h    | 4 ++++
+ kernel/sched/core.c            | 3 +++
+ 3 files changed, 8 insertions(+)
+
+diff --git a/drivers/android/vendor_hooks.c b/drivers/android/vendor_hooks.c
+--- a/drivers/android/vendor_hooks.c
++++ b/drivers/android/vendor_hooks.c
+@@ -94,4 +94,5 @@ EXPORT_TRACEPOINT_SYMBOL_GPL(android_rvh_place_entity);
+ EXPORT_TRACEPOINT_SYMBOL_GPL(android_rvh_update_cpu_capacity);
+ EXPORT_TRACEPOINT_SYMBOL_GPL(android_rvh_update_misfit_status);
+ EXPORT_TRACEPOINT_SYMBOL_GPL(android_rvh_cpu_cgroup_attach);
++EXPORT_TRACEPOINT_SYMBOL_GPL(android_rvh_cpu_cgroup_can_attach);
+ EXPORT_TRACEPOINT_SYMBOL_GPL(android_vh_map_util_freq);
+diff --git a/include/trace/hooks/sched.h b/include/trace/hooks/sched.h
+--- a/include/trace/hooks/sched.h
++++ b/include/trace/hooks/sched.h
+@@ -190,6 +190,10 @@ DECLARE_RESTRICTED_HOOK(android_rvh_cpu_cgroup_attach,
+ 	TP_PROTO(struct cgroup_taskset *tset),
+ 	TP_ARGS(tset), 1);
+ 
++DECLARE_RESTRICTED_HOOK(android_rvh_cpu_cgroup_can_attach,
++	TP_PROTO(struct cgroup_taskset *tset, int *retval),
++	TP_ARGS(tset, retval), 1);
++
+ DECLARE_HOOK(android_vh_map_util_freq,
+ 	TP_PROTO(unsigned long util, unsigned long freq,
+ 		unsigned long cap, unsigned long *next_freq),
+diff --git a/kernel/sched/core.c b/kernel/sched/core.c
+--- a/kernel/sched/core.c
++++ b/kernel/sched/core.c
+@@ -8369,6 +8369,9 @@ static int cpu_cgroup_can_attach(struct cgroup_taskset *tset)
+ 		if (ret)
+ 			break;
+ 	}
++
++	trace_android_rvh_cpu_cgroup_can_attach(tset, &ret);
++
+ 	return ret;
+ }
+ 

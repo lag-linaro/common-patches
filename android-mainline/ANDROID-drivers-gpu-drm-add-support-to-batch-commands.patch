@@ -29,10 +29,10 @@ diff --git a/drivers/gpu/drm/drm_mipi_dsi.c b/drivers/gpu/drm/drm_mipi_dsi.c
 diff --git a/include/drm/drm_mipi_dsi.h b/include/drm/drm_mipi_dsi.h
 --- a/include/drm/drm_mipi_dsi.h
 +++ b/include/drm/drm_mipi_dsi.h
-@@ -21,6 +21,8 @@ struct drm_dsc_picture_parameter_set;
+@@ -19,6 +19,8 @@ struct drm_dsc_picture_parameter_set;
+ #define MIPI_DSI_MSG_REQ_ACK	BIT(0)
+ /* use Low Power Mode to transmit message */
  #define MIPI_DSI_MSG_USE_LPM	BIT(1)
- /* read mipi_dsi_msg.ctrl and unicast to only that ctrls */
- #define MIPI_DSI_MSG_UNICAST	BIT(2)
 +/* Stack all commands until lastcommand bit and trigger all in one go */
 +#define MIPI_DSI_MSG_LASTCOMMAND BIT(3)
  

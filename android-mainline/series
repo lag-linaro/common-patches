@@ -2,7 +2,7 @@
 # android-mainline patches
 #
 # Applies onto upstream 45dfb8a5659a Linux v5.11-rc4-15-g45dfb8a5659a
-# Matches android-mainline 9fa96fa1fe36 ("Merge 45dfb8a5659a ("Merge tag 'task_work-2021-01-19' of git://git.kernel.dk/linux-block") into android-mainline")
+# Matches android-mainline b5a8eefc03fc ("ANDROID: sched: add em_cpu_energy vendor hook")
 #
 Revert-block-grant-IOPRIO_CLASS_RT-to-CAP_SYS_NICE.patch
 Revert-arm64-dts-qcom-sdm845-db845c-Fix-hdmi-nodes.patch
@@ -154,6 +154,8 @@ ANDROID-add-flags-to-android_rvh_enqueue_task-dequeue_task-parameter.patch
 ANDROID-sched-fair-Sync-task-util-early-in-feec.patch
 ANDROID-simplify-vendor-hooks-for-non-GKI-builds.patch
 ANDROID-schedutil-add-vendor-hook-for-adjusting-util-to-freq-calculation.patch
+ANDROID-sched-Add-rvh-for-cpu-controller-cgroup-can-attach.patch
+ANDROID-sched-add-em_cpu_energy-vendor-hook.patch
 _____ANNOTATION-uid_sys_stats-support_____.patch
 ANDROID-uid_cputime-Adds-accounting-for-the-cputimes-per-uid.patch
 ANDROID-uid_cputime-add-per-uid-IO-usage-accounting.patch
@@ -216,6 +218,7 @@ ANDROID-clk-Enable-writable-debugfs-files.patch
 ANDROID-add-vendor-hooks-to-override-show_cpufinfo_max_freq.patch
 ANDROID-pcie-dwc-driver-export-dw_handle_msi_irq.patch
 ANDROID-spi-of-Populate-fwnode-in-of_register_spi_device.patch
+ANDROID-staging-add-debug-kinfo-driver.patch
 _____ANNOTATION-tty-changes_____.patch
 Revert-Revert-tty-serial-samsung_tty-build-it-for-any-platform.patch
 FROMLIST-hvc_dcc-bind-driver-to-core0-for-reads-and-writes.patch
@@ -253,12 +256,11 @@ ANDROID-usb-f_accessory-Cancel-any-pending-work-before-teardown.patch
 ANDROID-usb-f_accessory-Avoid-bitfields-for-shared-variables.patch
 ANDROID-usb-f_accessory-Don-t-drop-NULL-reference-in-acc_disconnect.patch
 ANDROID-usb-gadget-f_accessory-fix-CTS-test-stuck.patch
+ANDROID-usb-gadget-Resolve-NULL-pointer-dereference-in-composite_disconnect.patch
 _____ANNOTATION-graphics-changes_____.patch
 Revert-drm-virtio-fix-DRM_FORMAT_-handling.patch
 ANDROID-Allow-DRM_IOCTL_MODE_-_DUMB-for-render-clients.patch
 ANDROID-include-drm-increase-DRM-max-property-count-to-64.patch
-ANDROID-include-drm-support-unicasting-mipi-cmds-to-dsi-ctrls.patch
-ANDROID-drm-dsi-add-two-DSI-mode-flags-for-BLLP.patch
 ANDROID-drivers-gpu-drm-add-support-to-batch-commands.patch
 ANDROID-drivers-gpu-drm-export-drm_mode_convert_umode-symbol.patch
 ANDROID-drm-expose-drm_mode_convert_to_umode-to-display-module.patch
@@ -732,6 +734,7 @@ ANDROID-GKI-disable-CONFIG_MEMCG.patch
 ANDROID-GKI-make-VIDEOBUF2_DMA_CONTIG-under-GKI_HIDDEN_MEDIA_CONFIGS.patch
 ANDROID-GKI-Enable-CONFIG_KUNIT.patch
 ANDROID-GKI-remove-CONFIG_ENABLE_MUST_CHECK-from-gki-defconfigs.patch
+ANDROID-gki_defconfig-add-CONFIG_DEBUG_KINFO-y.patch
 _____ANNOTATION-Patches-for-bringing-up-new-SoCs_____.patch
 ANDROID-serial-msm_geni_serial_earlycon-Add-Earlycon-support.patch
 ANDROID-arm64-Add-support-for-asymmetric-AArch32-EL0-configurations.patch
@@ -741,3 +744,4 @@ ANDROID-arm64-kvm-Hide-asym-aarch32-systems-from-KVM.patch
 ANDROID-arm64-Enable-KVM-for-Asym-AArch32.patch
 _____ANNOTATION-remove-ANNOTATIONS-file_____.patch
 DROP-ME-obsolete-ION-documentation.patch
+DROP-ME-Out-of-tree-difference-introduced-by-unclean-revert.patch

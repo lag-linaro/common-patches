@@ -1,0 +1,26 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: Matthias Maennich <maennich@google.com>
+Date: Fri, 22 Jan 2021 14:01:13 +0000
+Subject: DROP ME: Out of tree difference introduced by unclean revert
+
+0e9cdc986313 ("Revert "ANDROID: include: drm: support unicasting mipi
+cmds to dsi ctrls"") left an out-of-tree difference that this patch
+compensates.
+
+Signed-off-by: Matthias Maennich <maennich@google.com>
+Change-Id: Ia19364df2d65f8c9f3284a47400bcd34e932abdd
+---
+ include/drm/drm_mipi_dsi.h | 1 -
+ 1 file changed, 1 deletion(-)
+
+diff --git a/include/drm/drm_mipi_dsi.h b/include/drm/drm_mipi_dsi.h
+--- a/include/drm/drm_mipi_dsi.h
++++ b/include/drm/drm_mipi_dsi.h
+@@ -19,7 +19,6 @@ struct drm_dsc_picture_parameter_set;
+ #define MIPI_DSI_MSG_REQ_ACK	BIT(0)
+ /* use Low Power Mode to transmit message */
+ #define MIPI_DSI_MSG_USE_LPM	BIT(1)
+-/* Stack all commands until lastcommand bit and trigger all in one go */
+ #define MIPI_DSI_MSG_LASTCOMMAND BIT(3)
+ 
+ /**
