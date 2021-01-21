@@ -1,8 +1,8 @@
 #
 # android-mainline patches
 #
-# Applies onto upstream 19c329f68089 Linux v5.11-rc4
-# Matches android-mainline 695f244d6587 ("Revert "ANDROID: arm64: gki_defconfig: Disable VHE"")
+# Applies onto upstream 45dfb8a5659a Linux v5.11-rc4-15-g45dfb8a5659a
+# Matches android-mainline 9fa96fa1fe36 ("Merge 45dfb8a5659a ("Merge tag 'task_work-2021-01-19' of git://git.kernel.dk/linux-block") into android-mainline")
 #
 Revert-block-grant-IOPRIO_CLASS_RT-to-CAP_SYS_NICE.patch
 Revert-arm64-dts-qcom-sdm845-db845c-Fix-hdmi-nodes.patch
