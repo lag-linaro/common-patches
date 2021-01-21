@@ -2,7 +2,7 @@
 # android-mainline patches
 #
 # Applies onto upstream 19c329f68089 Linux v5.11-rc4
-# Matches android-mainline 160fc6a57cb8 ("Revert "um: ubd: Set device serial attribute from cmdline"")
+# Matches android-mainline 695f244d6587 ("Revert "ANDROID: arm64: gki_defconfig: Disable VHE"")
 #
 Revert-block-grant-IOPRIO_CLASS_RT-to-CAP_SYS_NICE.patch
 Revert-arm64-dts-qcom-sdm845-db845c-Fix-hdmi-nodes.patch
@@ -153,6 +153,7 @@ ANDROID-sched-Export-sched_switch-tracepoint-symbol.patch
 ANDROID-add-flags-to-android_rvh_enqueue_task-dequeue_task-parameter.patch
 ANDROID-sched-fair-Sync-task-util-early-in-feec.patch
 ANDROID-simplify-vendor-hooks-for-non-GKI-builds.patch
+ANDROID-schedutil-add-vendor-hook-for-adjusting-util-to-freq-calculation.patch
 _____ANNOTATION-uid_sys_stats-support_____.patch
 ANDROID-uid_cputime-Adds-accounting-for-the-cputimes-per-uid.patch
 ANDROID-uid_cputime-add-per-uid-IO-usage-accounting.patch
@@ -302,6 +303,7 @@ ANDROID-uapi-Add-dm-user-structure-definition.patch
 ANDROID-dm-dm-user-New-target-that-proxies-BIOs-to-userspace.patch
 ANDROID-dm-user-Add-some-missing-static.patch
 ANDROID-dm-user-fix-typo-in-channel_free.patch
+ANDROID-dm-user-Fix-the-list-walk-and-delete-code.patch
 _____ANNOTATION-filesystem-changes_____.patch
 FROMLIST-Add-flags-option-to-get-xattr-method-paired-to-__vfs_getxattr.patch
 FROMLIST-overlayfs-handle-XATTR_NOSECURITY-flag-for-get-xattr-method.patch
@@ -706,7 +708,6 @@ ANDROID-GKI-enable-a-bunch-of-HID-config-options-y.patch
 ANDROID-GKI-enable-CONFIG_SCSI_UFS_DWC_TC_PLATFORM.patch
 ANDROID-GKI-Enable-CONFIG_USB_TYPEC_UCSI.patch
 ANDROID-GKI-enable-CONFIG_SCSI_UFS_BSG-y.patch
-ANDROID-arm64-gki_defconfig-Disable-VHE.patch
 ANDROID-db845c_gki.fragment-Remove-USB_XHCI_HCD-and-XHCI_PCI_RENESAS-configs.patch
 ANDROID-configs-gki-add-CONFIG_PRINTK_CALLER.patch
 ANDROID-configs-gki-add-CONFIG_LEDS_TRIGGER_TRANSIENT.patch

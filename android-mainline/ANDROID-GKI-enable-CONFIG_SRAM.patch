@@ -17,7 +17,7 @@ Signed-off-by: Amir Vajid <avajid@codeaurora.org>
 diff --git a/arch/arm64/configs/gki_defconfig b/arch/arm64/configs/gki_defconfig
 --- a/arch/arm64/configs/gki_defconfig
 +++ b/arch/arm64/configs/gki_defconfig
-@@ -242,6 +242,7 @@ CONFIG_BLK_DEV_LOOP=y
+@@ -241,6 +241,7 @@ CONFIG_BLK_DEV_LOOP=y
  CONFIG_BLK_DEV_LOOP_MIN_COUNT=16
  CONFIG_BLK_DEV_RAM=y
  CONFIG_BLK_DEV_RAM_SIZE=8192

@@ -1,0 +1,64 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: Yun Hsiang <yun.hsiang@mediatek.com>
+Date: Wed, 13 Jan 2021 17:00:22 +0800
+Subject: ANDROID: schedutil: add vendor hook for adjusting util to freq
+ calculation
+
+Currently, the frequency is calculated by max freq * 1.25 * util / max cap.
+Add a vendor hook to adjust the frequency when the calculation
+overestimate.
+
+android_vh_map_util_freq
+	adjust util to freq calculation
+
+Bug: 177845439
+
+Signed-off-by: Yun Hsiang <yun.hsiang@mediatek.com>
+Change-Id: I9aa9079f00af7d3380b19f2fe21b75cddd107d15
+(cherry picked from commit 3122e3ec9672036384304fdeaa1b1815f60ba817)
+---
+ drivers/android/vendor_hooks.c   | 1 +
+ include/trace/hooks/sched.h      | 4 ++++
+ kernel/sched/cpufreq_schedutil.c | 7 ++++++-
+ 3 files changed, 11 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/android/vendor_hooks.c b/drivers/android/vendor_hooks.c
+--- a/drivers/android/vendor_hooks.c
++++ b/drivers/android/vendor_hooks.c
+@@ -94,3 +94,4 @@ EXPORT_TRACEPOINT_SYMBOL_GPL(android_rvh_place_entity);
+ EXPORT_TRACEPOINT_SYMBOL_GPL(android_rvh_update_cpu_capacity);
+ EXPORT_TRACEPOINT_SYMBOL_GPL(android_rvh_update_misfit_status);
+ EXPORT_TRACEPOINT_SYMBOL_GPL(android_rvh_cpu_cgroup_attach);
++EXPORT_TRACEPOINT_SYMBOL_GPL(android_vh_map_util_freq);
+diff --git a/include/trace/hooks/sched.h b/include/trace/hooks/sched.h
+--- a/include/trace/hooks/sched.h
++++ b/include/trace/hooks/sched.h
+@@ -190,6 +190,10 @@ DECLARE_RESTRICTED_HOOK(android_rvh_cpu_cgroup_attach,
+ 	TP_PROTO(struct cgroup_taskset *tset),
+ 	TP_ARGS(tset), 1);
+ 
++DECLARE_HOOK(android_vh_map_util_freq,
++	TP_PROTO(unsigned long util, unsigned long freq,
++		unsigned long cap, unsigned long *next_freq),
++	TP_ARGS(util, freq, cap, next_freq));
+ #endif /* _TRACE_HOOK_SCHED_H */
+ /* This part must be outside protection */
+ #include <trace/define_trace.h>
+diff --git a/kernel/sched/cpufreq_schedutil.c b/kernel/sched/cpufreq_schedutil.c
+--- a/kernel/sched/cpufreq_schedutil.c
++++ b/kernel/sched/cpufreq_schedutil.c
+@@ -168,8 +168,13 @@ static unsigned int get_next_freq(struct sugov_policy *sg_policy,
+ 	struct cpufreq_policy *policy = sg_policy->policy;
+ 	unsigned int freq = arch_scale_freq_invariant() ?
+ 				policy->cpuinfo.max_freq : policy->cur;
++	unsigned long next_freq = 0;
+ 
+-	freq = map_util_freq(util, freq, max);
++	trace_android_vh_map_util_freq(util, freq, max, &next_freq);
++	if (next_freq)
++		freq = next_freq;
++	else
++		freq = map_util_freq(util, freq, max);
+ 
+ 	if (freq == sg_policy->cached_raw_freq && !sg_policy->need_freq_update)
+ 		return sg_policy->next_freq;
