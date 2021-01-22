@@ -17,7 +17,7 @@ Signed-off-by: Will McVicker <willmcvicker@google.com>
 diff --git a/arch/arm64/configs/gki_defconfig b/arch/arm64/configs/gki_defconfig
 --- a/arch/arm64/configs/gki_defconfig
 +++ b/arch/arm64/configs/gki_defconfig
-@@ -458,6 +458,7 @@ CONFIG_UIO=y
+@@ -457,6 +457,7 @@ CONFIG_UIO=y
  CONFIG_VHOST_VSOCK=y
  CONFIG_STAGING=y
  CONFIG_ASHMEM=y

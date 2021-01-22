@@ -2,7 +2,7 @@
 # android-mainline patches
 #
 # Applies onto upstream 9791581c049c Linux v5.11-rc4-86-g9791581c049c
-# Matches android-mainline 27ac6e361103 ("Merge 9791581c049c ("Merge tag 'for-5.11-rc4-tag' of git://git.kernel.org/pub/scm/linux/kernel/git/kdave/linux") into android-mainline")
+# Matches android-mainline 107a2199eaa1 ("Revert "ANDROID: gki_defconfig: Enable SERIAL_MSM_GENI_EARLY_CONSOLE"")
 #
 Revert-block-grant-IOPRIO_CLASS_RT-to-CAP_SYS_NICE.patch
 Revert-arm64-dts-qcom-sdm845-db845c-Fix-hdmi-nodes.patch
@@ -704,7 +704,6 @@ ANDROID-ARM-Use-zImage-instead-of-Image.patch
 ANDROID-enable-LLVM_IAS-1-for-clang-s-integrated-assembler-for-x86_64.patch
 ANDROID-GKI-enable-CONFIG_SUN4I_TIMER.patch
 ANDROID-gki_defconfig-Remove-QCOM_COMMAND_DB-y.patch
-ANDROID-gki_defconfig-Enable-SERIAL_MSM_GENI_EARLY_CONSOLE.patch
 ANDROID-GKI-Enable-CONFIG_USB_XHCI_HCD.patch
 ANDROID-GKI-enable-a-bunch-of-HID-config-options-y.patch
 ANDROID-GKI-enable-CONFIG_SCSI_UFS_DWC_TC_PLATFORM.patch
@@ -736,7 +735,6 @@ ANDROID-GKI-Enable-CONFIG_KUNIT.patch
 ANDROID-GKI-remove-CONFIG_ENABLE_MUST_CHECK-from-gki-defconfigs.patch
 ANDROID-gki_defconfig-add-CONFIG_DEBUG_KINFO-y.patch
 _____ANNOTATION-Patches-for-bringing-up-new-SoCs_____.patch
-ANDROID-serial-msm_geni_serial_earlycon-Add-Earlycon-support.patch
 ANDROID-arm64-Add-support-for-asymmetric-AArch32-EL0-configurations.patch
 ANDROID-arm64-Handle-AArch32-tasks-running-on-non-AArch32-cpu.patch
 ANDROID-arm64-Disallow-offlining-the-last-aarch32-cpu.patch

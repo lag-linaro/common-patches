@@ -24,7 +24,7 @@ Change-Id: I353eec6ed4f73525408033f283081b8013ede874
 diff --git a/arch/arm64/configs/gki_defconfig b/arch/arm64/configs/gki_defconfig
 --- a/arch/arm64/configs/gki_defconfig
 +++ b/arch/arm64/configs/gki_defconfig
-@@ -434,6 +434,7 @@ CONFIG_USB_CONFIGFS_F_HID=y
+@@ -433,6 +433,7 @@ CONFIG_USB_CONFIGFS_F_HID=y
  CONFIG_TYPEC=y
  CONFIG_TYPEC_TCPM=y
  CONFIG_TYPEC_TCPCI=y

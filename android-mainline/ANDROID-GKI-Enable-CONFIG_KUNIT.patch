@@ -19,7 +19,7 @@ Signed-off-by: Alistair Delva <adelva@google.com>
 diff --git a/arch/arm64/configs/gki_defconfig b/arch/arm64/configs/gki_defconfig
 --- a/arch/arm64/configs/gki_defconfig
 +++ b/arch/arm64/configs/gki_defconfig
-@@ -601,4 +601,6 @@ CONFIG_WQ_WATCHDOG=y
+@@ -600,4 +600,6 @@ CONFIG_WQ_WATCHDOG=y
  CONFIG_SCHEDSTATS=y
  # CONFIG_DEBUG_PREEMPT is not set
  CONFIG_BUG_ON_DATA_CORRUPTION=y

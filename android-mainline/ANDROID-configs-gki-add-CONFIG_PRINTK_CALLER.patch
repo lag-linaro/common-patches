@@ -20,7 +20,7 @@ Signed-off-by: Will McVicker <willmcvicker@google.com>
 diff --git a/arch/arm64/configs/gki_defconfig b/arch/arm64/configs/gki_defconfig
 --- a/arch/arm64/configs/gki_defconfig
 +++ b/arch/arm64/configs/gki_defconfig
-@@ -578,6 +578,7 @@ CONFIG_CRC8=y
+@@ -577,6 +577,7 @@ CONFIG_CRC8=y
  CONFIG_XZ_DEC=y
  CONFIG_DMA_CMA=y
  CONFIG_PRINTK_TIME=y

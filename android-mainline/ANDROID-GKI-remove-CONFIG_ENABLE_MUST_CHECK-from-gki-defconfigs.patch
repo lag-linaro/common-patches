@@ -18,7 +18,7 @@ Change-Id: I5e823676f5e68b373d7998b63a1c87af52c4a838
 diff --git a/arch/arm64/configs/gki_defconfig b/arch/arm64/configs/gki_defconfig
 --- a/arch/arm64/configs/gki_defconfig
 +++ b/arch/arm64/configs/gki_defconfig
-@@ -586,7 +586,6 @@ CONFIG_PRINTK_CALLER=y
+@@ -585,7 +585,6 @@ CONFIG_PRINTK_CALLER=y
  CONFIG_DYNAMIC_DEBUG_CORE=y
  CONFIG_DEBUG_INFO=y
  CONFIG_DEBUG_INFO_DWARF4=y
