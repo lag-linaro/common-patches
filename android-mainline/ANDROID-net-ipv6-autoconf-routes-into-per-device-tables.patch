@@ -149,7 +149,7 @@ diff --git a/net/ipv6/addrconf.c b/net/ipv6/addrconf.c
  
  	table = fib6_get_table(dev_net(dev), tb_id);
  	if (!table)
-@@ -6713,6 +6735,13 @@ static const struct ctl_table addrconf_sysctl[] = {
+@@ -6714,6 +6736,13 @@ static const struct ctl_table addrconf_sysctl[] = {
  	},
  #endif
  #endif

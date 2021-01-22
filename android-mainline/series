@@ -1,8 +1,8 @@
 #
 # android-mainline patches
 #
-# Applies onto upstream 45dfb8a5659a Linux v5.11-rc4-15-g45dfb8a5659a
-# Matches android-mainline b5a8eefc03fc ("ANDROID: sched: add em_cpu_energy vendor hook")
+# Applies onto upstream 9791581c049c Linux v5.11-rc4-86-g9791581c049c
+# Matches android-mainline 27ac6e361103 ("Merge 9791581c049c ("Merge tag 'for-5.11-rc4-tag' of git://git.kernel.org/pub/scm/linux/kernel/git/kdave/linux") into android-mainline")
 #
 Revert-block-grant-IOPRIO_CLASS_RT-to-CAP_SYS_NICE.patch
 Revert-arm64-dts-qcom-sdm845-db845c-Fix-hdmi-nodes.patch
