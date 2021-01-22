@@ -1,8 +1,8 @@
 #
 # android-mainline patches
 #
-# Applies onto upstream 9791581c049c Linux v5.11-rc4-86-g9791581c049c
-# Matches android-mainline 107a2199eaa1 ("Revert "ANDROID: gki_defconfig: Enable SERIAL_MSM_GENI_EARLY_CONSOLE"")
+# Applies onto upstream 83d09ad4b950 Linux v5.11-rc4-164-g83d09ad4b950
+# Matches android-mainline a32e861bfbe1 ("Merge 83d09ad4b950 ("Merge tag 'for-linus' of git://github.com/openrisc/linux") into android-mainline")
 #
 Revert-block-grant-IOPRIO_CLASS_RT-to-CAP_SYS_NICE.patch
 Revert-arm64-dts-qcom-sdm845-db845c-Fix-hdmi-nodes.patch
