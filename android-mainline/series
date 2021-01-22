@@ -2,7 +2,7 @@
 # android-mainline patches
 #
 # Applies onto upstream 83d09ad4b950 Linux v5.11-rc4-164-g83d09ad4b950
-# Matches android-mainline a32e861bfbe1 ("Merge 83d09ad4b950 ("Merge tag 'for-linus' of git://github.com/openrisc/linux") into android-mainline")
+# Matches android-mainline 52eaf83d7b17 ("ANDROID: fix up merge issues in drm_mipi_dsi.h")
 #
 Revert-block-grant-IOPRIO_CLASS_RT-to-CAP_SYS_NICE.patch
 Revert-arm64-dts-qcom-sdm845-db845c-Fix-hdmi-nodes.patch
@@ -742,4 +742,3 @@ ANDROID-arm64-kvm-Hide-asym-aarch32-systems-from-KVM.patch
 ANDROID-arm64-Enable-KVM-for-Asym-AArch32.patch
 _____ANNOTATION-remove-ANNOTATIONS-file_____.patch
 DROP-ME-obsolete-ION-documentation.patch
-DROP-ME-Out-of-tree-difference-introduced-by-unclean-revert.patch

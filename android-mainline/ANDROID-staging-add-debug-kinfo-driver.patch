@@ -19,9 +19,9 @@ Change-Id: Ida76bf90315652b8debc081a010bc5720a5a186e
 ---
  drivers/staging/android/Kconfig       |  11 ++
  drivers/staging/android/Makefile      |   1 +
- drivers/staging/android/debug_kinfo.c | 181 ++++++++++++++++++++++++++
+ drivers/staging/android/debug_kinfo.c | 176 ++++++++++++++++++++++++++
  drivers/staging/android/debug_kinfo.h |  63 +++++++++
- 4 files changed, 256 insertions(+)
+ 4 files changed, 251 insertions(+)
  create mode 100644 drivers/staging/android/debug_kinfo.c
  create mode 100644 drivers/staging/android/debug_kinfo.h
 
@@ -56,10 +56,10 @@ diff --git a/drivers/staging/android/Makefile b/drivers/staging/android/Makefile
 +obj-$(CONFIG_DEBUG_KINFO)	+= debug_kinfo.o
 diff --git a/drivers/staging/android/debug_kinfo.c b/drivers/staging/android/debug_kinfo.c
 new file mode 100644
-index 000000000000..03b2ea4a28fe
+index 000000000000..6e657371fa62
 --- /dev/null
 +++ b/drivers/staging/android/debug_kinfo.c
-@@ -0,0 +1,181 @@
+@@ -0,0 +1,176 @@
 +// SPDX-License-Identifier: GPL-2.0
 +/*
 + * debug_kinfo.c - backup kernel information for bootloader usage
@@ -170,11 +170,6 @@ index 000000000000..03b2ea4a28fe
 +		dev_warn(&pdev->dev, "no such reserved mem of node name %s\n",
 +				pdev->dev.of_node->name);
 +		return -ENODEV;
-+	}
-+
-+	/* Deferred until dss.ko(dpm.o) and debug-snapshot-debug-kinfo.ko are ready */
-+	if (!rmem->priv) {
-+		return -EPROBE_DEFER;
 +	}
 +
 +	if (!rmem->base || !rmem->size) {
