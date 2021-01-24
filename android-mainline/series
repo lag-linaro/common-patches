@@ -1,8 +1,8 @@
 #
 # android-mainline patches
 #
-# Applies onto upstream 83d09ad4b950 Linux v5.11-rc4-164-g83d09ad4b950
-# Matches android-mainline 52eaf83d7b17 ("ANDROID: fix up merge issues in drm_mipi_dsi.h")
+# Applies onto upstream fe75a21824e7 Linux v5.11-rc4-202-gfe75a21824e7
+# Matches android-mainline 4b625ef38c3d ("Merge fe75a21824e7 ("Merge tag 'for-5.11/dm-fixes-2' of git://git.kernel.org/pub/scm/linux/kernel/git/device-mapper/linux-dm") into android-mainline")
 #
 Revert-block-grant-IOPRIO_CLASS_RT-to-CAP_SYS_NICE.patch
 Revert-arm64-dts-qcom-sdm845-db845c-Fix-hdmi-nodes.patch
