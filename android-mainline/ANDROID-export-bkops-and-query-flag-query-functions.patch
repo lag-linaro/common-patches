@@ -58,7 +58,7 @@ diff --git a/drivers/scsi/ufs/ufshcd.c b/drivers/scsi/ufs/ufshcd.c
  
  /**
   * struct uc_string_id - unicode string
-@@ -5308,7 +5311,7 @@ static inline int ufshcd_get_bkops_status(struct ufs_hba *hba, u32 *status)
+@@ -5311,7 +5314,7 @@ static inline int ufshcd_get_bkops_status(struct ufs_hba *hba, u32 *status)
   * to know whether auto bkops is enabled or disabled after this function
   * returns control to it.
   */
@@ -67,7 +67,7 @@ diff --git a/drivers/scsi/ufs/ufshcd.c b/drivers/scsi/ufs/ufshcd.c
  			     enum bkops_status status)
  {
  	int err;
-@@ -5333,6 +5336,7 @@ static int ufshcd_bkops_ctrl(struct ufs_hba *hba,
+@@ -5336,6 +5339,7 @@ static int ufshcd_bkops_ctrl(struct ufs_hba *hba,
  out:
  	return err;
  }

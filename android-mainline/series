@@ -1,8 +1,8 @@
 #
 # android-mainline patches
 #
-# Applies onto upstream fe75a21824e7 Linux v5.11-rc4-202-gfe75a21824e7
-# Matches android-mainline 4b625ef38c3d ("Merge fe75a21824e7 ("Merge tag 'for-5.11/dm-fixes-2' of git://git.kernel.org/pub/scm/linux/kernel/git/device-mapper/linux-dm") into android-mainline")
+# Applies onto upstream e1ae4b0be158 Linux v5.11-rc4-234-ge1ae4b0be158
+# Matches android-mainline cb3162779d5f ("Merge e1ae4b0be158 ("Merge branch 'mtd/fixes' of git://git.kernel.org/pub/scm/linux/kernel/git/mtd/linux") into android-mainline")
 #
 Revert-block-grant-IOPRIO_CLASS_RT-to-CAP_SYS_NICE.patch
 Revert-arm64-dts-qcom-sdm845-db845c-Fix-hdmi-nodes.patch
@@ -12,7 +12,6 @@ Revert-ARM-9017-2-Enable-KASan-for-ARM.patch
 Revert-tweewide-Fix-most-Shebang-lines.patch
 Revert-um-ubd-Set-device-serial-attribute-from-cmdline.patch
 _____ANNOTATION-pending-upstream_____.patch
-FROMGIT-scsi-ufs-Fix-livelock-of-ufshcd_clear_ua_wluns.patch
 FROMLIST-modpost-Make-static-exports-fatal.patch
 FROMLIST-clk-Export-clk_register_composite.patch
 FROMLIST-clk-versatile-remove-dependency-on-ARCH_.patch
