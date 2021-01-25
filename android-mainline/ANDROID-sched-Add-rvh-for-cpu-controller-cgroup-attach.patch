@@ -18,18 +18,18 @@ Signed-off-by: Abhijeet Dharmapurikar <adharmap@codeaurora.org>
 diff --git a/drivers/android/vendor_hooks.c b/drivers/android/vendor_hooks.c
 --- a/drivers/android/vendor_hooks.c
 +++ b/drivers/android/vendor_hooks.c
-@@ -93,3 +93,4 @@ EXPORT_TRACEPOINT_SYMBOL_GPL(android_rvh_account_irq);
- EXPORT_TRACEPOINT_SYMBOL_GPL(android_rvh_place_entity);
- EXPORT_TRACEPOINT_SYMBOL_GPL(android_rvh_update_cpu_capacity);
- EXPORT_TRACEPOINT_SYMBOL_GPL(android_rvh_update_misfit_status);
+@@ -78,3 +78,4 @@ EXPORT_TRACEPOINT_SYMBOL_GPL(android_rvh_preempt_disable);
+ EXPORT_TRACEPOINT_SYMBOL_GPL(android_rvh_preempt_enable);
+ EXPORT_TRACEPOINT_SYMBOL_GPL(android_rvh_irqs_disable);
+ EXPORT_TRACEPOINT_SYMBOL_GPL(android_rvh_irqs_enable);
 +EXPORT_TRACEPOINT_SYMBOL_GPL(android_rvh_cpu_cgroup_attach);
 diff --git a/include/trace/hooks/sched.h b/include/trace/hooks/sched.h
 --- a/include/trace/hooks/sched.h
 +++ b/include/trace/hooks/sched.h
-@@ -185,6 +185,11 @@ DECLARE_RESTRICTED_HOOK(android_rvh_update_cpu_capacity,
- DECLARE_RESTRICTED_HOOK(android_rvh_update_misfit_status,
- 	TP_PROTO(struct task_struct *p, struct rq *rq, bool *need_update),
- 	TP_ARGS(p, rq, need_update), 1);
+@@ -124,6 +124,11 @@ DECLARE_RESTRICTED_HOOK(android_rvh_update_cpus_allowed,
+ 	TP_PROTO(struct task_struct *p, cpumask_var_t cpus_requested,
+ 		 const struct cpumask *new_mask, int *ret),
+ 	TP_ARGS(p, cpus_requested, new_mask, ret), 1);
 +
 +struct cgroup_taskset;
 +DECLARE_RESTRICTED_HOOK(android_rvh_cpu_cgroup_attach,
@@ -38,10 +38,10 @@ diff --git a/include/trace/hooks/sched.h b/include/trace/hooks/sched.h
  #else
  #define trace_android_rvh_select_task_rq_fair(p, prev_cpu, sd_flag, wake_flags, new_cpu)
  #define trace_android_rvh_select_task_rq_rt(p, prev_cpu, sd_flag, wake_flags, new_cpu)
-@@ -227,6 +232,7 @@ DECLARE_RESTRICTED_HOOK(android_rvh_update_misfit_status,
- #define trace_android_rvh_place_entity(se, vruntime)
- #define trace_android_rvh_update_cpu_capacity(cpu, capacity)
- #define trace_android_rvh_update_misfit_status(p, rq, need_update)
+@@ -151,6 +156,7 @@ DECLARE_RESTRICTED_HOOK(android_rvh_update_cpus_allowed,
+ #define trace_android_rvh_set_sugov_update(sg_policy, next_freq, should_update)
+ #define trace_android_rvh_sched_setaffinity(p, in_mask, retval)
+ #define trace_android_rvh_update_cpus_allowed(p, cpus_requested, new_mask, ret)
 +#define trace_android_rvh_cpu_cgroup_attach(tset)
  #endif
  #endif /* _TRACE_HOOK_SCHED_H */
@@ -49,7 +49,7 @@ diff --git a/include/trace/hooks/sched.h b/include/trace/hooks/sched.h
 diff --git a/kernel/sched/core.c b/kernel/sched/core.c
 --- a/kernel/sched/core.c
 +++ b/kernel/sched/core.c
-@@ -8376,6 +8376,8 @@ static void cpu_cgroup_attach(struct cgroup_taskset *tset)
+@@ -8360,6 +8360,8 @@ static void cpu_cgroup_attach(struct cgroup_taskset *tset)
  
  	cgroup_taskset_for_each(task, css, tset)
  		sched_move_task(task);

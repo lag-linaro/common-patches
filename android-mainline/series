@@ -2,7 +2,7 @@
 # android-mainline patches
 #
 # Applies onto upstream e1ae4b0be158 Linux v5.11-rc4-234-ge1ae4b0be158
-# Matches android-mainline cb3162779d5f ("Merge e1ae4b0be158 ("Merge branch 'mtd/fixes' of git://git.kernel.org/pub/scm/linux/kernel/git/mtd/linux") into android-mainline")
+# Matches android-mainline 627a494ef337 ("Revert "ANDROID: Sched: Add restricted vendor hooks for scheduler"")
 #
 Revert-block-grant-IOPRIO_CLASS_RT-to-CAP_SYS_NICE.patch
 Revert-arm64-dts-qcom-sdm845-db845c-Fix-hdmi-nodes.patch
@@ -143,7 +143,6 @@ ANDROID-sched-cpuset-Add-vendor-hook-to-change-tasks-affinity.patch
 ANDROID-sched-Track-wake_q-length.patch
 ANDROID-Sched-Export-scheduler-symbols-needed-by-vendor-modules.patch
 ANDROID-tracing-Add-restricted-vendor-hooks-for-preemptirq-events.patch
-ANDROID-Sched-Add-restricted-vendor-hooks-for-scheduler.patch
 ANDROID-sched-Add-rvh-for-cpu-controller-cgroup-attach.patch
 ANDROID-cgroup-Export-functions-used-by-modules.patch
 ANDROID-sched-Export-key-used-by-module.patch

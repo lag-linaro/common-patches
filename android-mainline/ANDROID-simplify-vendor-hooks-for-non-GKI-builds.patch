@@ -14,9 +14,9 @@ Bug: 177416721
 Signed-off-by: Todd Kjos <tkjos@google.com>
 Change-Id: I01acc389d315a5d509b0c48116854342a42e1058
 ---
- include/trace/hooks/sched.h        | 46 +-----------------------------
- include/trace/hooks/vendor_hooks.h |  9 ++++++
- 2 files changed, 10 insertions(+), 45 deletions(-)
+ include/trace/hooks/sched.h        | 31 +-----------------------------
+ include/trace/hooks/vendor_hooks.h |  9 +++++++++
+ 2 files changed, 10 insertions(+), 30 deletions(-)
 
 diff --git a/include/trace/hooks/sched.h b/include/trace/hooks/sched.h
 --- a/include/trace/hooks/sched.h
@@ -29,7 +29,7 @@ diff --git a/include/trace/hooks/sched.h b/include/trace/hooks/sched.h
  struct task_struct;
  DECLARE_RESTRICTED_HOOK(android_rvh_select_task_rq_fair,
  	TP_PROTO(struct task_struct *p, int prev_cpu, int sd_flag, int wake_flags, int *new_cpu),
-@@ -190,50 +189,7 @@ struct cgroup_taskset;
+@@ -129,35 +128,7 @@ struct cgroup_taskset;
  DECLARE_RESTRICTED_HOOK(android_rvh_cpu_cgroup_attach,
  	TP_PROTO(struct cgroup_taskset *tset),
  	TP_ARGS(tset), 1);
@@ -60,21 +60,6 @@ diff --git a/include/trace/hooks/sched.h b/include/trace/hooks/sched.h
 -#define trace_android_rvh_set_sugov_update(sg_policy, next_freq, should_update)
 -#define trace_android_rvh_sched_setaffinity(p, in_mask, retval)
 -#define trace_android_rvh_update_cpus_allowed(p, cpus_requested, new_mask, ret)
--#define trace_android_rvh_set_task_cpu(p, new_cpu)
--#define trace_android_rvh_try_to_wake_up(p)
--#define trace_android_rvh_try_to_wake_up_success(p)
--#define trace_android_rvh_sched_fork(p)
--#define trace_android_rvh_wake_up_new_task(p)
--#define trace_android_rvh_new_task_stats(p)
--#define trace_android_rvh_flush_task(prev)
--#define trace_android_rvh_tick_entry(rq)
--#define trace_android_rvh_schedule(prev, next, rq)
--#define trace_android_rvh_sched_cpu_starting(cpu)
--#define trace_android_rvh_sched_cpu_dying(cpu)
--#define trace_android_rvh_account_irq(curr, cpu, delta)
--#define trace_android_rvh_place_entity(se, vruntime)
--#define trace_android_rvh_update_cpu_capacity(cpu, capacity)
--#define trace_android_rvh_update_misfit_status(p, rq, need_update)
 -#define trace_android_rvh_cpu_cgroup_attach(tset)
 -#endif
 +

@@ -25,15 +25,15 @@ Change-Id: I9aa9079f00af7d3380b19f2fe21b75cddd107d15
 diff --git a/drivers/android/vendor_hooks.c b/drivers/android/vendor_hooks.c
 --- a/drivers/android/vendor_hooks.c
 +++ b/drivers/android/vendor_hooks.c
-@@ -94,3 +94,4 @@ EXPORT_TRACEPOINT_SYMBOL_GPL(android_rvh_place_entity);
- EXPORT_TRACEPOINT_SYMBOL_GPL(android_rvh_update_cpu_capacity);
- EXPORT_TRACEPOINT_SYMBOL_GPL(android_rvh_update_misfit_status);
+@@ -79,3 +79,4 @@ EXPORT_TRACEPOINT_SYMBOL_GPL(android_rvh_preempt_enable);
+ EXPORT_TRACEPOINT_SYMBOL_GPL(android_rvh_irqs_disable);
+ EXPORT_TRACEPOINT_SYMBOL_GPL(android_rvh_irqs_enable);
  EXPORT_TRACEPOINT_SYMBOL_GPL(android_rvh_cpu_cgroup_attach);
 +EXPORT_TRACEPOINT_SYMBOL_GPL(android_vh_map_util_freq);
 diff --git a/include/trace/hooks/sched.h b/include/trace/hooks/sched.h
 --- a/include/trace/hooks/sched.h
 +++ b/include/trace/hooks/sched.h
-@@ -190,6 +190,10 @@ DECLARE_RESTRICTED_HOOK(android_rvh_cpu_cgroup_attach,
+@@ -129,6 +129,10 @@ DECLARE_RESTRICTED_HOOK(android_rvh_cpu_cgroup_attach,
  	TP_PROTO(struct cgroup_taskset *tset),
  	TP_ARGS(tset), 1);
  

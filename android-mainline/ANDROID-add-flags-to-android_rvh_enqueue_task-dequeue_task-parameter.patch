@@ -35,7 +35,7 @@ diff --git a/include/trace/hooks/sched.h b/include/trace/hooks/sched.h
  
  DECLARE_RESTRICTED_HOOK(android_rvh_can_migrate_task,
  	TP_PROTO(struct task_struct *p, int dst_cpu, int *can_migrate),
-@@ -195,8 +195,8 @@ DECLARE_RESTRICTED_HOOK(android_rvh_cpu_cgroup_attach,
+@@ -134,8 +134,8 @@ DECLARE_RESTRICTED_HOOK(android_rvh_cpu_cgroup_attach,
  #define trace_android_rvh_select_task_rq_rt(p, prev_cpu, sd_flag, wake_flags, new_cpu)
  #define trace_android_rvh_select_fallback_rq(cpu, p, dest_cpu)
  #define trace_android_vh_scheduler_tick(rq)

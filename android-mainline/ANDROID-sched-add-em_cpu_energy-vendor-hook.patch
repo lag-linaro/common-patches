@@ -22,7 +22,7 @@ Change-Id: Iae772cf07881602eea3f27aeb75fba753e7c2635
 diff --git a/drivers/android/vendor_hooks.c b/drivers/android/vendor_hooks.c
 --- a/drivers/android/vendor_hooks.c
 +++ b/drivers/android/vendor_hooks.c
-@@ -96,3 +96,4 @@ EXPORT_TRACEPOINT_SYMBOL_GPL(android_rvh_update_misfit_status);
+@@ -81,3 +81,4 @@ EXPORT_TRACEPOINT_SYMBOL_GPL(android_rvh_irqs_enable);
  EXPORT_TRACEPOINT_SYMBOL_GPL(android_rvh_cpu_cgroup_attach);
  EXPORT_TRACEPOINT_SYMBOL_GPL(android_rvh_cpu_cgroup_can_attach);
  EXPORT_TRACEPOINT_SYMBOL_GPL(android_vh_map_util_freq);
@@ -30,7 +30,7 @@ diff --git a/drivers/android/vendor_hooks.c b/drivers/android/vendor_hooks.c
 diff --git a/include/trace/hooks/sched.h b/include/trace/hooks/sched.h
 --- a/include/trace/hooks/sched.h
 +++ b/include/trace/hooks/sched.h
-@@ -198,6 +198,13 @@ DECLARE_HOOK(android_vh_map_util_freq,
+@@ -137,6 +137,13 @@ DECLARE_HOOK(android_vh_map_util_freq,
  	TP_PROTO(unsigned long util, unsigned long freq,
  		unsigned long cap, unsigned long *next_freq),
  	TP_ARGS(util, freq, cap, next_freq));
@@ -47,7 +47,7 @@ diff --git a/include/trace/hooks/sched.h b/include/trace/hooks/sched.h
 diff --git a/kernel/sched/fair.c b/kernel/sched/fair.c
 --- a/kernel/sched/fair.c
 +++ b/kernel/sched/fair.c
-@@ -6532,6 +6532,7 @@ compute_energy(struct task_struct *p, int dst_cpu, struct perf_domain *pd)
+@@ -6528,6 +6528,7 @@ compute_energy(struct task_struct *p, int dst_cpu, struct perf_domain *pd)
  	struct cpumask *pd_mask = perf_domain_span(pd);
  	unsigned long cpu_cap = arch_scale_cpu_capacity(cpumask_first(pd_mask));
  	unsigned long max_util = 0, sum_util = 0;
@@ -55,7 +55,7 @@ diff --git a/kernel/sched/fair.c b/kernel/sched/fair.c
  	int cpu;
  
  	/*
-@@ -6568,7 +6569,11 @@ compute_energy(struct task_struct *p, int dst_cpu, struct perf_domain *pd)
+@@ -6564,7 +6565,11 @@ compute_energy(struct task_struct *p, int dst_cpu, struct perf_domain *pd)
  		max_util = max(max_util, cpu_util);
  	}
  
