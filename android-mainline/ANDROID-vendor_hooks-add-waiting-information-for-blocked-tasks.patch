@@ -234,7 +234,7 @@ diff --git a/kernel/sched/core.c b/kernel/sched/core.c
  
  /*
   * Export tracepoints that act as a bare tracehook (ie: have no trace event
-@@ -7002,6 +7003,7 @@ void sched_show_task(struct task_struct *p)
+@@ -7016,6 +7017,7 @@ void sched_show_task(struct task_struct *p)
  
  	print_worker_info(KERN_INFO, p);
  	print_stop_info(KERN_INFO, p);

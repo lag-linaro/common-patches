@@ -87,7 +87,7 @@ diff --git a/include/trace/hooks/sched.h b/include/trace/hooks/sched.h
 diff --git a/kernel/sched/core.c b/kernel/sched/core.c
 --- a/kernel/sched/core.c
 +++ b/kernel/sched/core.c
-@@ -1839,12 +1839,24 @@ static inline bool is_cpu_allowed(struct task_struct *p, int cpu)
+@@ -1854,12 +1854,24 @@ static inline bool is_cpu_allowed(struct task_struct *p, int cpu)
  static struct rq *move_queued_task(struct rq *rq, struct rq_flags *rf,
  				   struct task_struct *p, int new_cpu)
  {

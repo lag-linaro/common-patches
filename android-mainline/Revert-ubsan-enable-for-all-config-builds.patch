@@ -32,7 +32,7 @@ Change-Id: Ia7c51274268d1a64ed19837825a5fb1debaaeea1
 diff --git a/arch/powerpc/kernel/vmlinux.lds.S b/arch/powerpc/kernel/vmlinux.lds.S
 --- a/arch/powerpc/kernel/vmlinux.lds.S
 +++ b/arch/powerpc/kernel/vmlinux.lds.S
-@@ -304,10 +304,6 @@ SECTIONS
+@@ -311,10 +311,6 @@ SECTIONS
  #else
  	.data : AT(ADDR(.data) - LOAD_OFFSET) {
  		DATA_DATA
@@ -46,7 +46,7 @@ diff --git a/arch/powerpc/kernel/vmlinux.lds.S b/arch/powerpc/kernel/vmlinux.lds
 diff --git a/lib/Kconfig.ubsan b/lib/Kconfig.ubsan
 --- a/lib/Kconfig.ubsan
 +++ b/lib/Kconfig.ubsan
-@@ -160,7 +160,7 @@ config UBSAN_ENUM
+@@ -161,7 +161,7 @@ config UBSAN_ENUM
  config UBSAN_ALIGNMENT
  	bool "Perform checking for misaligned pointer usage"
  	default !HAVE_EFFICIENT_UNALIGNED_ACCESS
@@ -55,7 +55,7 @@ diff --git a/lib/Kconfig.ubsan b/lib/Kconfig.ubsan
  	depends on $(cc-option,-fsanitize=alignment)
  	help
  	  This option enables the check of unaligned memory accesses.
-@@ -170,6 +170,7 @@ config UBSAN_ALIGNMENT
+@@ -171,6 +171,7 @@ config UBSAN_ALIGNMENT
  config UBSAN_SANITIZE_ALL
  	bool "Enable instrumentation for the entire kernel"
  	depends on ARCH_HAS_UBSAN_SANITIZE_ALL

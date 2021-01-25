@@ -1,8 +1,8 @@
 #
 # android-mainline patches
 #
-# Applies onto upstream e1ae4b0be158 Linux v5.11-rc4-234-ge1ae4b0be158
-# Matches android-mainline 627a494ef337 ("Revert "ANDROID: Sched: Add restricted vendor hooks for scheduler"")
+# Applies onto upstream 6ee1d745b7c9 Linux v5.11-rc5
+# Matches android-mainline 64efebc63c14 ("Merge v5.11-rc5 into android-mainline")
 #
 Revert-block-grant-IOPRIO_CLASS_RT-to-CAP_SYS_NICE.patch
 Revert-arm64-dts-qcom-sdm845-db845c-Fix-hdmi-nodes.patch
@@ -24,7 +24,6 @@ FROMLIST-fuse-Use-daemon-creds-in-passthrough-mode.patch
 FROMLIST-USB-gadget-f_fs-add-SuperSpeed-Plus-support.patch
 FROMLIST-scsi-ufs-WB-is-only-available-on-LUN-0-to-7.patch
 FROMLIST-scripts-merge_config-add-strict-mode-to-fail-upon-any-redefinition.patch
-FROMLIST-genirq-Export-irq_check_status_bit.patch
 _____ANNOTATION-Android-vendor-hooks_____.patch
 ANDROID-GKI-add-android_vendor.h.patch
 ANDROID-add-support-for-vendor-hooks.patch

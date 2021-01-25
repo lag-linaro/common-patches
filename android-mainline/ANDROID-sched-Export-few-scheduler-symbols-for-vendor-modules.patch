@@ -43,7 +43,7 @@ diff --git a/kernel/sched/core.c b/kernel/sched/core.c
  
  #ifdef CONFIG_SCHED_HRTICK
  /*
-@@ -2461,7 +2462,6 @@ void set_task_cpu(struct task_struct *p, unsigned int new_cpu)
+@@ -2468,7 +2469,6 @@ void set_task_cpu(struct task_struct *p, unsigned int new_cpu)
  }
  EXPORT_SYMBOL_GPL(set_task_cpu);
  
@@ -51,7 +51,7 @@ diff --git a/kernel/sched/core.c b/kernel/sched/core.c
  static void __migrate_swap_task(struct task_struct *p, int cpu)
  {
  	if (task_on_rq_queued(p)) {
-@@ -2576,7 +2576,7 @@ int migrate_swap(struct task_struct *cur, struct task_struct *p,
+@@ -2583,7 +2583,7 @@ int migrate_swap(struct task_struct *cur, struct task_struct *p,
  out:
  	return ret;
  }
@@ -63,7 +63,7 @@ diff --git a/kernel/sched/core.c b/kernel/sched/core.c
 diff --git a/kernel/sched/sched.h b/kernel/sched/sched.h
 --- a/kernel/sched/sched.h
 +++ b/kernel/sched/sched.h
-@@ -1406,8 +1406,6 @@ enum numa_faults_stats {
+@@ -1407,8 +1407,6 @@ enum numa_faults_stats {
  };
  extern void sched_setnuma(struct task_struct *p, int node);
  extern int migrate_task_to(struct task_struct *p, int cpu);
@@ -72,7 +72,7 @@ diff --git a/kernel/sched/sched.h b/kernel/sched/sched.h
  extern void init_numa_balancing(unsigned long clone_flags, struct task_struct *p);
  #else
  static inline void
-@@ -1418,6 +1416,9 @@ init_numa_balancing(unsigned long clone_flags, struct task_struct *p)
+@@ -1419,6 +1417,9 @@ init_numa_balancing(unsigned long clone_flags, struct task_struct *p)
  
  #ifdef CONFIG_SMP
  
