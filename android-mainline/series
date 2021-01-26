@@ -1,8 +1,8 @@
 #
 # android-mainline patches
 #
-# Applies onto upstream 6ee1d745b7c9 Linux v5.11-rc5
-# Matches android-mainline b8ae019e7f98 ("Revert "ANDROID: configs: GKI: disable ARMv8.3 PAC"")
+# Applies onto upstream 13391c60da33 Linux v5.11-rc5-7-g13391c60da33
+# Matches android-mainline 3622d45892fd ("Merge 13391c60da33 ("Merge branch 'linus' of git://git.kernel.org/pub/scm/linux/kernel/git/herbert/crypto-2.6") into android-mainline")
 #
 Revert-block-grant-IOPRIO_CLASS_RT-to-CAP_SYS_NICE.patch
 Revert-arm64-dts-qcom-sdm845-db845c-Fix-hdmi-nodes.patch
