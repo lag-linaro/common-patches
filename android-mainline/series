@@ -2,7 +2,7 @@
 # android-mainline patches
 #
 # Applies onto upstream 6ee1d745b7c9 Linux v5.11-rc5
-# Matches android-mainline 64efebc63c14 ("Merge v5.11-rc5 into android-mainline")
+# Matches android-mainline b8ae019e7f98 ("Revert "ANDROID: configs: GKI: disable ARMv8.3 PAC"")
 #
 Revert-block-grant-IOPRIO_CLASS_RT-to-CAP_SYS_NICE.patch
 Revert-arm64-dts-qcom-sdm845-db845c-Fix-hdmi-nodes.patch
@@ -717,7 +717,6 @@ ANDROID-Disable-hermetic-toolchain-for-allmodconfig-builds.patch
 ANDROID-GKI-enable-CONFIG_USB_DWC3-to-be-build-in.patch
 ANDROID-db845c_gki.fragment-Drop-CONFIG_USB_DWC3-from-config-frament.patch
 ANDROID-x86-configs-gki-add-missing-CONFIG_BLK_CGROUP.patch
-ANDROID-configs-GKI-disable-ARMv8.3-PAC.patch
 ANDROID-GKI-Unhide-VIRTIO_DMA_SHARED_BUFFER.patch
 ANDROID-build.config.common-allow-overriding-of-HERMETIC_TOOLCHAIN.patch
 ANDROID-GKI-remove-CONFIG_CRC8-y.patch
@@ -731,6 +730,7 @@ ANDROID-GKI-make-VIDEOBUF2_DMA_CONTIG-under-GKI_HIDDEN_MEDIA_CONFIGS.patch
 ANDROID-GKI-Enable-CONFIG_KUNIT.patch
 ANDROID-GKI-remove-CONFIG_ENABLE_MUST_CHECK-from-gki-defconfigs.patch
 ANDROID-gki_defconfig-add-CONFIG_DEBUG_KINFO-y.patch
+ANDROID-clang-update-to-12.0.1.patch
 _____ANNOTATION-Patches-for-bringing-up-new-SoCs_____.patch
 ANDROID-arm64-Add-support-for-asymmetric-AArch32-EL0-configurations.patch
 ANDROID-arm64-Handle-AArch32-tasks-running-on-non-AArch32-cpu.patch

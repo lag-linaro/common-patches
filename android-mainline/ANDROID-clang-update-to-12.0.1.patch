@@ -1,0 +1,24 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: Alistair Delva <adelva@google.com>
+Date: Fri, 22 Jan 2021 09:33:09 -0800
+Subject: ANDROID: clang: update to 12.0.1
+
+Bug: 176824850
+Signed-off-by: Alistair Delva <adelva@google.com>
+Change-Id: I74b00c1aa754362616b002718eb2eeb8fc6ef8e9
+---
+ build.config.common | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/build.config.common b/build.config.common
+--- a/build.config.common
++++ b/build.config.common
+@@ -4,7 +4,7 @@ KMI_GENERATION=0
+ LLVM=1
+ DEPMOD=depmod
+ DTC=dtc
+-CLANG_PREBUILT_BIN=prebuilts-master/clang/host/linux-x86/clang-r399163b/bin
++CLANG_PREBUILT_BIN=prebuilts-master/clang/host/linux-x86/clang-r407598/bin
+ BUILDTOOLS_PREBUILT_BIN=build/build-tools/path/linux-x86
+ 
+ EXTRA_CMDS=''
