@@ -198,7 +198,7 @@ diff --git a/arch/arm64/boot/dts/qcom/sdm845-db845c.dts b/arch/arm64/boot/dts/qc
 diff --git a/arch/arm64/boot/dts/qcom/sdm845.dtsi b/arch/arm64/boot/dts/qcom/sdm845.dtsi
 --- a/arch/arm64/boot/dts/qcom/sdm845.dtsi
 +++ b/arch/arm64/boot/dts/qcom/sdm845.dtsi
-@@ -4486,7 +4486,6 @@ apps_smmu: iommu@15000000 {
+@@ -4487,7 +4487,6 @@ apps_smmu: iommu@15000000 {
  			compatible = "qcom,sdm845-smmu-500", "arm,mmu-500";
  			reg = <0 0x15000000 0 0x80000>;
  			#iommu-cells = <2>;

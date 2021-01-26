@@ -1,0 +1,96 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: Alessio Balsini <balsini@google.com>
+Date: Mon, 25 Jan 2021 17:01:30 +0000
+Subject: FROMLIST: fuse: 32-bit user space ioctl compat for fuse device
+
+With a 64-bit kernel build the FUSE device cannot handle ioctl requests
+coming from 32-bit user space.
+This is due to the ioctl command translation that generates different
+command identifiers that thus cannot be used for direct comparisons
+without proper manipulation.
+
+Explicitly extract type and number from the ioctl command to enable
+32-bit user space compatibility on 64-bit kernel builds.
+
+Bug: 168023149
+Link: https://lore.kernel.org/lkml/20210125153057.3623715-3-balsini@android.com/
+Signed-off-by: Alessio Balsini <balsini@android.com>
+Change-Id: I595517c54d551be70e83c7fcb4b62397a3615004
+Signed-off-by: Alessio Balsini <balsini@google.com>
+---
+ fs/fuse/dev.c             | 29 ++++++++++++++++++-----------
+ include/uapi/linux/fuse.h |  3 ++-
+ 2 files changed, 20 insertions(+), 12 deletions(-)
+
+diff --git a/fs/fuse/dev.c b/fs/fuse/dev.c
+--- a/fs/fuse/dev.c
++++ b/fs/fuse/dev.c
+@@ -2233,37 +2233,44 @@ static int fuse_device_clone(struct fuse_conn *fc, struct file *new)
+ static long fuse_dev_ioctl(struct file *file, unsigned int cmd,
+ 			   unsigned long arg)
+ {
+-	int err = -ENOTTY;
++	int res;
++	int oldfd;
++	struct fuse_dev *fud = NULL;
+ 
+-	if (cmd == FUSE_DEV_IOC_CLONE) {
+-		int oldfd;
++	if (_IOC_TYPE(cmd) != FUSE_DEV_IOC_MAGIC)
++		return -EINVAL;
+ 
+-		err = -EFAULT;
+-		if (!get_user(oldfd, (__u32 __user *) arg)) {
++	switch (_IOC_NR(cmd)) {
++	case _IOC_NR(FUSE_DEV_IOC_CLONE):
++		res = -EFAULT;
++		if (!get_user(oldfd, (__u32 __user *)arg)) {
+ 			struct file *old = fget(oldfd);
+ 
+-			err = -EINVAL;
++			res = -EINVAL;
+ 			if (old) {
+-				struct fuse_dev *fud = NULL;
+-
+ 				/*
+ 				 * Check against file->f_op because CUSE
+ 				 * uses the same ioctl handler.
+ 				 */
+ 				if (old->f_op == file->f_op &&
+-				    old->f_cred->user_ns == file->f_cred->user_ns)
++				    old->f_cred->user_ns ==
++					    file->f_cred->user_ns)
+ 					fud = fuse_get_dev(old);
+ 
+ 				if (fud) {
+ 					mutex_lock(&fuse_mutex);
+-					err = fuse_device_clone(fud->fc, file);
++					res = fuse_device_clone(fud->fc, file);
+ 					mutex_unlock(&fuse_mutex);
+ 				}
+ 				fput(old);
+ 			}
+ 		}
++		break;
++	default:
++		res = -ENOTTY;
++		break;
+ 	}
+-	return err;
++	return res;
+ }
+ 
+ const struct file_operations fuse_dev_operations = {
+diff --git a/include/uapi/linux/fuse.h b/include/uapi/linux/fuse.h
+--- a/include/uapi/linux/fuse.h
++++ b/include/uapi/linux/fuse.h
+@@ -903,7 +903,8 @@ struct fuse_notify_retrieve_in {
+ };
+ 
+ /* Device ioctls: */
+-#define FUSE_DEV_IOC_CLONE	_IOR(229, 0, uint32_t)
++#define FUSE_DEV_IOC_MAGIC		229
++#define FUSE_DEV_IOC_CLONE		_IOR(FUSE_DEV_IOC_MAGIC, 0, uint32_t)
+ 
+ struct fuse_lseek_in {
+ 	uint64_t	fh;

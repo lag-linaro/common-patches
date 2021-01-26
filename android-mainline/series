@@ -2,7 +2,7 @@
 # android-mainline patches
 #
 # Applies onto upstream 13391c60da33 Linux v5.11-rc5-7-g13391c60da33
-# Matches android-mainline 3622d45892fd ("Merge 13391c60da33 ("Merge branch 'linus' of git://git.kernel.org/pub/scm/linux/kernel/git/herbert/crypto-2.6") into android-mainline")
+# Matches android-mainline 5f339265fd1a ("FROMLIST: fuse: Introduce passthrough for mmap")
 #
 Revert-block-grant-IOPRIO_CLASS_RT-to-CAP_SYS_NICE.patch
 Revert-arm64-dts-qcom-sdm845-db845c-Fix-hdmi-nodes.patch
@@ -16,11 +16,14 @@ FROMLIST-modpost-Make-static-exports-fatal.patch
 FROMLIST-clk-Export-clk_register_composite.patch
 FROMLIST-clk-versatile-remove-dependency-on-ARCH_.patch
 FROMLIST-cpuidle-governor-export-cpuidle-governor-functions.patch
+FROMLIST-fs-Generic-function-to-convert-iocb-to-rw-flags.patch
+FROMLIST-fuse-32-bit-user-space-ioctl-compat-for-fuse-device.patch
 FROMLIST-fuse-Definitions-and-ioctl-for-passthrough.patch
 FROMLIST-fuse-Passthrough-initialization-and-release.patch
 FROMLIST-fuse-Introduce-synchronous-read-and-write-for-passthrough.patch
 FROMLIST-fuse-Handle-asynchronous-read-and-write-in-passthrough.patch
 FROMLIST-fuse-Use-daemon-creds-in-passthrough-mode.patch
+FROMLIST-fuse-Introduce-passthrough-for-mmap.patch
 FROMLIST-USB-gadget-f_fs-add-SuperSpeed-Plus-support.patch
 FROMLIST-scsi-ufs-WB-is-only-available-on-LUN-0-to-7.patch
 FROMLIST-scripts-merge_config-add-strict-mode-to-fail-upon-any-redefinition.patch
@@ -216,6 +219,7 @@ ANDROID-add-vendor-hooks-to-override-show_cpufinfo_max_freq.patch
 ANDROID-pcie-dwc-driver-export-dw_handle_msi_irq.patch
 ANDROID-spi-of-Populate-fwnode-in-of_register_spi_device.patch
 ANDROID-staging-add-debug-kinfo-driver.patch
+ANDROID-Workaround-for-cryptobam-driver-not-working-with-modular-clk-drivers.patch
 _____ANNOTATION-tty-changes_____.patch
 Revert-Revert-tty-serial-samsung_tty-build-it-for-any-platform.patch
 FROMLIST-hvc_dcc-bind-driver-to-core0-for-reads-and-writes.patch

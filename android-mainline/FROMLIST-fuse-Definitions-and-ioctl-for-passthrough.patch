@@ -1,39 +1,37 @@
 From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
-From: Alessio Balsini <balsini@android.com>
-Date: Thu, 10 Sep 2020 17:57:36 +0100
-Subject: FROMLIST: fuse: Definitions and ioctl() for passthrough
+From: Alessio Balsini <balsini@google.com>
+Date: Mon, 25 Jan 2021 17:02:28 +0000
+Subject: FROMLIST: fuse: Definitions and ioctl for passthrough
 
-Expose the FUSE_PASSTHROUGH interface to userspace and declare all the
+Expose the FUSE_PASSTHROUGH interface to user space and declare all the
 basic data structures and functions as the skeleton on top of which the
 FUSE passthrough functionality will be built.
 
-As part of this, introduce the new FUSE passthrough ioctl(), which
-allows
+As part of this, introduce the new FUSE passthrough ioctl, which allows
 the FUSE daemon to specify a direct connection between a FUSE file and a
-lower file system file. Such ioctl() requires userspace to pass the file
+lower file system file. Such ioctl requires user space to pass the file
 descriptor of one of its opened files through the fuse_passthrough_out
-data
-structure introduced in this patch. This structure includes extra fields
-for possible future extensions.
+data structure introduced in this patch. This structure includes extra
+fields for possible future extensions.
 Also, add the passthrough functions for the set-up and tear-down of the
 data structures and locks that will be used both when fuse_conns and
 fuse_files are created/deleted.
 
 Bug: 168023149
-Link: https://lore.kernel.org/lkml/20201026125016.1905945-2-balsini@android.com/
+Link: https://lore.kernel.org/lkml/20210125153057.3623715-4-balsini@android.com/
 Signed-off-by: Alessio Balsini <balsini@android.com>
+Change-Id: I732532581348adadda5b5048a9346c2b0868d539
 Signed-off-by: Alessio Balsini <balsini@google.com>
-Change-Id: I6dd150b93607e10ed53f7e7975b35b6090080fa2
 ---
  fs/fuse/Makefile          |  1 +
- fs/fuse/dev.c             | 40 ++++++++++++++++++++++++++++-----------
+ fs/fuse/dev.c             | 12 ++++++++++++
  fs/fuse/dir.c             |  2 ++
  fs/fuse/file.c            |  4 +++-
- fs/fuse/fuse_i.h          | 26 +++++++++++++++++++++++++
- fs/fuse/inode.c           | 18 +++++++++++++++++-
- fs/fuse/passthrough.c     | 21 ++++++++++++++++++++
- include/uapi/linux/fuse.h | 13 +++++++++++--
- 8 files changed, 110 insertions(+), 15 deletions(-)
+ fs/fuse/fuse_i.h          | 27 +++++++++++++++++++++++++++
+ fs/fuse/inode.c           | 17 ++++++++++++++++-
+ fs/fuse/passthrough.c     | 21 +++++++++++++++++++++
+ include/uapi/linux/fuse.h | 11 ++++++++++-
+ 8 files changed, 92 insertions(+), 3 deletions(-)
  create mode 100644 fs/fuse/passthrough.c
 
 diff --git a/fs/fuse/Makefile b/fs/fuse/Makefile
@@ -50,54 +48,19 @@ diff --git a/fs/fuse/Makefile b/fs/fuse/Makefile
 diff --git a/fs/fuse/dev.c b/fs/fuse/dev.c
 --- a/fs/fuse/dev.c
 +++ b/fs/fuse/dev.c
-@@ -2233,37 +2233,55 @@ static int fuse_device_clone(struct fuse_conn *fc, struct file *new)
- static long fuse_dev_ioctl(struct file *file, unsigned int cmd,
- 			   unsigned long arg)
- {
--	int err = -ENOTTY;
--
--	if (cmd == FUSE_DEV_IOC_CLONE) {
--		int oldfd;
-+	int res;
-+	int oldfd;
-+	struct fuse_dev *fud;
+@@ -2236,6 +2236,7 @@ static long fuse_dev_ioctl(struct file *file, unsigned int cmd,
+ 	int res;
+ 	int oldfd;
+ 	struct fuse_dev *fud = NULL;
 +	struct fuse_passthrough_out pto;
  
--		err = -EFAULT;
--		if (!get_user(oldfd, (__u32 __user *) arg)) {
-+	switch (cmd) {
-+	case FUSE_DEV_IOC_CLONE:
-+		res = -EFAULT;
-+		if (!get_user(oldfd, (__u32 __user *)arg)) {
- 			struct file *old = fget(oldfd);
- 
--			err = -EINVAL;
-+			res = -EINVAL;
- 			if (old) {
--				struct fuse_dev *fud = NULL;
-+				fud = NULL;
- 
- 				/*
- 				 * Check against file->f_op because CUSE
- 				 * uses the same ioctl handler.
- 				 */
- 				if (old->f_op == file->f_op &&
--				    old->f_cred->user_ns == file->f_cred->user_ns)
-+				    old->f_cred->user_ns ==
-+					    file->f_cred->user_ns)
- 					fud = fuse_get_dev(old);
- 
- 				if (fud) {
- 					mutex_lock(&fuse_mutex);
--					err = fuse_device_clone(fud->fc, file);
-+					res = fuse_device_clone(fud->fc, file);
- 					mutex_unlock(&fuse_mutex);
- 				}
- 				fput(old);
+ 	if (_IOC_TYPE(cmd) != FUSE_DEV_IOC_MAGIC)
+ 		return -EINVAL;
+@@ -2266,6 +2267,17 @@ static long fuse_dev_ioctl(struct file *file, unsigned int cmd,
  			}
  		}
-+		break;
-+	case FUSE_DEV_IOC_PASSTHROUGH_OPEN:
+ 		break;
++	case _IOC_NR(FUSE_DEV_IOC_PASSTHROUGH_OPEN):
 +		res = -EFAULT;
 +		if (!copy_from_user(&pto,
 +				    (struct fuse_passthrough_out __user *)arg,
@@ -108,26 +71,20 @@ diff --git a/fs/fuse/dev.c b/fs/fuse/dev.c
 +				res = fuse_passthrough_open(fud, &pto);
 +		}
 +		break;
-+	default:
-+		res = -ENOTTY;
-+		break;
- 	}
--	return err;
-+	return res;
- }
- 
- const struct file_operations fuse_dev_operations = {
+ 	default:
+ 		res = -ENOTTY;
+ 		break;
 diff --git a/fs/fuse/dir.c b/fs/fuse/dir.c
 --- a/fs/fuse/dir.c
 +++ b/fs/fuse/dir.c
-@@ -514,6 +514,7 @@ static int fuse_create_open(struct inode *dir, struct dentry *entry,
+@@ -513,6 +513,7 @@ static int fuse_create_open(struct inode *dir, struct dentry *entry,
+ {
  	int err;
  	struct inode *inode;
- 	struct fuse_mount *fm = get_fuse_mount(dir);
 +	struct fuse_conn *fc = get_fuse_conn(dir);
+ 	struct fuse_mount *fm = get_fuse_mount(dir);
  	FUSE_ARGS(args);
  	struct fuse_forget_link *forget;
- 	struct fuse_create_in inarg;
 @@ -574,6 +575,7 @@ static int fuse_create_open(struct inode *dir, struct dentry *entry,
  	ff->fh = outopen.fh;
  	ff->nodeid = outentry.nodeid;
@@ -208,10 +165,11 @@ diff --git a/fs/fuse/fuse_i.h b/fs/fuse/fuse_i.h
  };
  
  /*
-@@ -1213,4 +1233,10 @@ void fuse_dax_inode_cleanup(struct inode *inode);
+@@ -1213,4 +1233,11 @@ void fuse_dax_inode_cleanup(struct inode *inode);
  bool fuse_dax_check_alignment(struct fuse_conn *fc, unsigned int map_alignment);
  void fuse_dax_cancel_work(struct fuse_conn *fc);
  
++/* passthrough.c */
 +int fuse_passthrough_open(struct fuse_dev *fud,
 +			  struct fuse_passthrough_out *pto);
 +int fuse_passthrough_setup(struct fuse_conn *fc, struct fuse_file *ff,
@@ -251,17 +209,16 @@ diff --git a/fs/fuse/inode.c b/fs/fuse/inode.c
  		} else {
  			ra_pages = fc->max_read / PAGE_SIZE;
  			fc->no_lock = 1;
-@@ -1095,7 +1103,8 @@ void fuse_send_init(struct fuse_mount *fm)
+@@ -1095,7 +1103,7 @@ void fuse_send_init(struct fuse_mount *fm)
  		FUSE_PARALLEL_DIROPS | FUSE_HANDLE_KILLPRIV | FUSE_POSIX_ACL |
  		FUSE_ABORT_ERROR | FUSE_MAX_PAGES | FUSE_CACHE_SYMLINKS |
  		FUSE_NO_OPENDIR_SUPPORT | FUSE_EXPLICIT_INVAL_DATA |
 -		FUSE_HANDLE_KILLPRIV_V2;
-+		FUSE_HANDLE_KILLPRIV_V2 |
-+		FUSE_PASSTHROUGH;
++		FUSE_HANDLE_KILLPRIV_V2 | FUSE_PASSTHROUGH;
  #ifdef CONFIG_FUSE_DAX
  	if (fm->fc->dax)
  		ia->in.flags |= FUSE_MAP_ALIGNMENT;
-@@ -1123,9 +1132,16 @@ void fuse_send_init(struct fuse_mount *fm)
+@@ -1123,9 +1131,16 @@ void fuse_send_init(struct fuse_mount *fm)
  }
  EXPORT_SYMBOL_GPL(fuse_send_init);
  
@@ -339,13 +296,11 @@ diff --git a/include/uapi/linux/fuse.h b/include/uapi/linux/fuse.h
  struct fuse_out_header {
  	uint32_t	len;
  	int32_t		error;
-@@ -903,7 +911,8 @@ struct fuse_notify_retrieve_in {
- };
- 
+@@ -905,6 +913,7 @@ struct fuse_notify_retrieve_in {
  /* Device ioctls: */
--#define FUSE_DEV_IOC_CLONE	_IOR(229, 0, uint32_t)
-+#define FUSE_DEV_IOC_CLONE		_IOR(229, 0, uint32_t)
-+#define FUSE_DEV_IOC_PASSTHROUGH_OPEN	_IOW(229, 1, struct fuse_passthrough_out)
+ #define FUSE_DEV_IOC_MAGIC		229
+ #define FUSE_DEV_IOC_CLONE		_IOR(FUSE_DEV_IOC_MAGIC, 0, uint32_t)
++#define FUSE_DEV_IOC_PASSTHROUGH_OPEN	_IOW(FUSE_DEV_IOC_MAGIC, 1, struct fuse_passthrough_out)
  
  struct fuse_lseek_in {
  	uint64_t	fh;

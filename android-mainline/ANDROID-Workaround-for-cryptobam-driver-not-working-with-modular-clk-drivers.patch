@@ -1,0 +1,33 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: John Stultz <john.stultz@linaro.org>
+Date: Mon, 11 Jan 2021 20:24:38 +0000
+Subject: ANDROID: Workaround for cryptobam driver not working with modular clk
+ drivers
+
+Bjorn reported the cryptobam driver which landed in 5.11-rc1 causes
+hard crashes on bootup with db845c, due to the bam_clk failing to load
+if its a module. Unfortunately in some cases the driver expects to
+see null clks, so that's not considered a failure, but accessing the
+hardware without the clk causes a hard crash.
+
+For now, disable the cryptobam node to avoid this crash while fixups
+are sorted out upstream.
+
+Fixes: 3e482859f1ef ("dts: qcom: sdm845: Add dt entries to support crypto engine.")
+Signed-off-by: John Stultz <john.stultz@linaro.org>
+Change-Id: I42f56f9894fb3c7773d03cf133fa68b6748a6226
+---
+ arch/arm64/boot/dts/qcom/sdm845.dtsi | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/arch/arm64/boot/dts/qcom/sdm845.dtsi b/arch/arm64/boot/dts/qcom/sdm845.dtsi
+--- a/arch/arm64/boot/dts/qcom/sdm845.dtsi
++++ b/arch/arm64/boot/dts/qcom/sdm845.dtsi
+@@ -2313,6 +2313,7 @@ cryptobam: dma@1dc4000 {
+ 				 <&apps_smmu 0x706 0x1>,
+ 				 <&apps_smmu 0x714 0x1>,
+ 				 <&apps_smmu 0x716 0x1>;
++			status = "disabled";
+ 		};
+ 
+ 		crypto: crypto@1dfa000 {
