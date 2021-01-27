@@ -13,8 +13,8 @@ Change-Id: I30270c667c26e1a7039580b33011665bb3a8cce7
 ---
  arch/arm64/kernel/process.c    |  6 ++++++
  drivers/android/vendor_hooks.c |  2 ++
- include/trace/hooks/mpam.h     | 24 ++++++++++++++++++++++++
- 3 files changed, 32 insertions(+)
+ include/trace/hooks/mpam.h     | 21 +++++++++++++++++++++
+ 3 files changed, 29 insertions(+)
  create mode 100644 include/trace/hooks/mpam.h
 
 diff --git a/arch/arm64/kernel/process.c b/arch/arm64/kernel/process.c
@@ -57,10 +57,10 @@ diff --git a/drivers/android/vendor_hooks.c b/drivers/android/vendor_hooks.c
 +EXPORT_TRACEPOINT_SYMBOL_GPL(android_vh_mpam_set);
 diff --git a/include/trace/hooks/mpam.h b/include/trace/hooks/mpam.h
 new file mode 100644
-index 000000000000..1a89dae9b1fb
+index 000000000000..7d28bc8834f0
 --- /dev/null
 +++ b/include/trace/hooks/mpam.h
-@@ -0,0 +1,24 @@
+@@ -0,0 +1,21 @@
 +/* SPDX-License-Identifier: GPL-2.0 */
 +#undef TRACE_SYSTEM
 +#define TRACE_SYSTEM mpam
@@ -74,14 +74,11 @@ index 000000000000..1a89dae9b1fb
 + * Following tracepoints are not exported in tracefs and provide a
 + * mechanism for vendor modules to hook and extend functionality
 + */
-+#if defined(CONFIG_TRACEPOINTS) && defined(CONFIG_ANDROID_VENDOR_HOOKS)
 +struct task_struct;
 +DECLARE_HOOK(android_vh_mpam_set,
 +	TP_PROTO(struct task_struct *prev, struct task_struct *next),
 +	TP_ARGS(prev, next));
-+#else
-+#define trace_android_vh_mpam_set(prev, next)
-+#endif
++
 +#endif /* _TRACE_HOOK_MPAM_H */
 +/* This part must be outside protection */
 +#include <trace/define_trace.h>

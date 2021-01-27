@@ -16,13 +16,13 @@ Signed-off-by: Sangmoon Kim <sangmoon.kim@samsung.com>
 Change-Id: Ib436fbd8d0ad509c3b5a73ea8f5170e0761a13fd
 (cherry picked from commit b519ac423787d38f467ca479d2126b7204d6f498)
 ---
- drivers/android/vendor_hooks.c |  8 +++++
+ drivers/android/vendor_hooks.c |  8 +++++++
  include/linux/sched.h          |  2 ++
- include/trace/hooks/dtask.h    | 53 ++++++++++++++++++++++++++++++++++
+ include/trace/hooks/dtask.h    | 43 ++++++++++++++++++++++++++++++++++
  kernel/locking/mutex.c         |  5 ++++
- kernel/locking/rwsem.c         |  7 +++++
+ kernel/locking/rwsem.c         |  7 ++++++
  kernel/sched/core.c            |  2 ++
- 6 files changed, 77 insertions(+)
+ 6 files changed, 67 insertions(+)
  create mode 100644 include/trace/hooks/dtask.h
 
 diff --git a/drivers/android/vendor_hooks.c b/drivers/android/vendor_hooks.c
@@ -71,10 +71,10 @@ diff --git a/include/linux/sched.h b/include/linux/sched.h
  	struct llist_head               kretprobe_instances;
 diff --git a/include/trace/hooks/dtask.h b/include/trace/hooks/dtask.h
 new file mode 100644
-index 000000000000..f4fafbfedc23
+index 000000000000..8856bdceed06
 --- /dev/null
 +++ b/include/trace/hooks/dtask.h
-@@ -0,0 +1,53 @@
+@@ -0,0 +1,43 @@
 +/* SPDX-License-Identifier: GPL-2.0 */
 +#undef TRACE_SYSTEM
 +#define TRACE_SYSTEM dtask
@@ -88,7 +88,6 @@ index 000000000000..f4fafbfedc23
 + * Following tracepoints are not exported in tracefs and provide a
 + * mechanism for vendor modules to hook and extend functionality
 + */
-+#if defined(CONFIG_TRACEPOINTS) && defined(CONFIG_ANDROID_VENDOR_HOOKS)
 +struct mutex;
 +DECLARE_HOOK(android_vh_mutex_wait_start,
 +	TP_PROTO(struct mutex *lock),
@@ -115,15 +114,6 @@ index 000000000000..f4fafbfedc23
 +DECLARE_HOOK(android_vh_sched_show_task,
 +	TP_PROTO(struct task_struct *task),
 +	TP_ARGS(task));
-+#else
-+#define trace_android_vh_mutex_wait_start(lock)
-+#define trace_android_vh_mutex_wait_finish(lock)
-+#define trace_android_vh_rwsem_read_wait_start(sem)
-+#define trace_android_vh_rwsem_read_wait_finish(sem)
-+#define trace_android_vh_rwsem_write_wait_start(sem)
-+#define trace_android_vh_rwsem_write_wait_finish(sem)
-+#define trace_android_vh_sched_show_task(task)
-+#endif
 +
 +#endif /* _TRACE_HOOK_DTASK_H */
 +/* This part must be outside protection */

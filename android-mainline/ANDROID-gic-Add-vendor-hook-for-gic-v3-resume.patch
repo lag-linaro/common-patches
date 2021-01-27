@@ -11,8 +11,8 @@ Signed-off-by: Elliot Berman <eberman@codeaurora.org>
 ---
  drivers/android/vendor_hooks.c |  2 ++
  drivers/irqchip/irq-gic-v3.c   | 24 ++++++++++++++++++++++++
- include/trace/hooks/gic.h      | 29 +++++++++++++++++++++++++++++
- 3 files changed, 55 insertions(+)
+ include/trace/hooks/gic.h      | 21 +++++++++++++++++++++
+ 3 files changed, 47 insertions(+)
  create mode 100644 include/trace/hooks/gic.h
 
 diff --git a/drivers/android/vendor_hooks.c b/drivers/android/vendor_hooks.c
@@ -91,10 +91,10 @@ diff --git a/drivers/irqchip/irq-gic-v3.c b/drivers/irqchip/irq-gic-v3.c
  		its_init(handle, &gic_data.rdists, gic_data.domain);
 diff --git a/include/trace/hooks/gic.h b/include/trace/hooks/gic.h
 new file mode 100644
-index 000000000000..bdc923552809
+index 000000000000..e9d9fce0ee77
 --- /dev/null
 +++ b/include/trace/hooks/gic.h
-@@ -0,0 +1,29 @@
+@@ -0,0 +1,21 @@
 +/* SPDX-License-Identifier: GPL-2.0 */
 +#undef TRACE_SYSTEM
 +#define TRACE_SYSTEM gic
@@ -109,17 +109,9 @@ index 000000000000..bdc923552809
 +#include <linux/tracepoint.h>
 +#include <trace/hooks/vendor_hooks.h>
 +
-+#if defined(CONFIG_TRACEPOINTS) && defined(CONFIG_ANDROID_VENDOR_HOOKS)
-+
 +DECLARE_HOOK(android_vh_gic_resume,
 +	TP_PROTO(struct irq_domain *domain, void __iomem *dist_base),
 +	TP_ARGS(domain, dist_base));
-+
-+#else
-+
-+#define trace_android_vh_gic_resume(domain, dist_base)
-+
-+#endif
 +
 +#endif /* _TRACE_HOOK_GIC_H */
 +/* This part must be outside protection */

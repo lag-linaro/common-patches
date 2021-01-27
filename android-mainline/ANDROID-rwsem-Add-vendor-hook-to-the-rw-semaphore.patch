@@ -18,9 +18,9 @@ Change-Id: I007a5e26f3db2adaeaf4e5ccea414ce7abfa83b8
 ---
  drivers/android/vendor_hooks.c |  5 +++++
  include/linux/rwsem.h          |  2 ++
- include/trace/hooks/rwsem.h    | 38 ++++++++++++++++++++++++++++++++++
- kernel/locking/rwsem.c         | 20 ++++++++++++++++--
- 4 files changed, 63 insertions(+), 2 deletions(-)
+ include/trace/hooks/rwsem.h    | 32 ++++++++++++++++++++++++++++++++
+ kernel/locking/rwsem.c         | 20 ++++++++++++++++++--
+ 4 files changed, 57 insertions(+), 2 deletions(-)
  create mode 100644 include/trace/hooks/rwsem.h
 
 diff --git a/drivers/android/vendor_hooks.c b/drivers/android/vendor_hooks.c
@@ -65,10 +65,10 @@ diff --git a/include/linux/rwsem.h b/include/linux/rwsem.h
  /* In all implementations count != 0 means locked */
 diff --git a/include/trace/hooks/rwsem.h b/include/trace/hooks/rwsem.h
 new file mode 100644
-index 000000000000..7c7a1f786369
+index 000000000000..8408974007d3
 --- /dev/null
 +++ b/include/trace/hooks/rwsem.h
-@@ -0,0 +1,38 @@
+@@ -0,0 +1,32 @@
 +/* SPDX-License-Identifier: GPL-2.0 */
 +#undef TRACE_SYSTEM
 +#define TRACE_SYSTEM rwsem
@@ -81,7 +81,6 @@ index 000000000000..7c7a1f786369
 + * Following tracepoints are not exported in tracefs and provide a
 + * mechanism for vendor modules to hook and extend functionality
 + */
-+#if defined(CONFIG_TRACEPOINTS) && defined(CONFIG_ANDROID_VENDOR_HOOKS)
 +struct rw_semaphore;
 +struct rwsem_waiter;
 +DECLARE_HOOK(android_vh_rwsem_init,
@@ -98,12 +97,7 @@ index 000000000000..7c7a1f786369
 +		 struct rw_semaphore *sem,
 +		 bool *already_on_list),
 +	TP_ARGS(waiter, sem, already_on_list));
-+#else
-+#define trace_android_vh_rwsem_init(sem)
-+#define trace_android_vh_rwsem_wake(sem)
-+#define trace_android_vh_rwsem_write_finished(sem)
-+#define trace_android_vh_alter_rwsem_list_add(waiter, sem, already_on_list)
-+#endif
++
 +#endif /* _TRACE_HOOK_RWSEM_H */
 +/* This part must be outside protection */
 +#include <trace/define_trace.h>

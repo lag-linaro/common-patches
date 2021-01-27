@@ -12,9 +12,9 @@ Signed-off-by: JianMin Liu <jian-min.liu@mediatek.com>
 Change-Id: I68218b89c35b23aa5529099bb0bbbd031bdeafef
 ---
  drivers/android/vendor_hooks.c |  2 ++
- include/trace/hooks/futex.h    | 26 ++++++++++++++++++++++++++
+ include/trace/hooks/futex.h    | 22 ++++++++++++++++++++++
  kernel/futex.c                 |  6 +++++-
- 3 files changed, 33 insertions(+), 1 deletion(-)
+ 3 files changed, 29 insertions(+), 1 deletion(-)
  create mode 100644 include/trace/hooks/futex.h
 
 diff --git a/drivers/android/vendor_hooks.c b/drivers/android/vendor_hooks.c
@@ -37,10 +37,10 @@ diff --git a/drivers/android/vendor_hooks.c b/drivers/android/vendor_hooks.c
  EXPORT_TRACEPOINT_SYMBOL_GPL(android_vh_ipi_stop);
 diff --git a/include/trace/hooks/futex.h b/include/trace/hooks/futex.h
 new file mode 100644
-index 000000000000..cbf6abb66a57
+index 000000000000..9330f034a2ae
 --- /dev/null
 +++ b/include/trace/hooks/futex.h
-@@ -0,0 +1,26 @@
+@@ -0,0 +1,22 @@
 +/* SPDX-License-Identifier: GPL-2.0 */
 +#undef TRACE_SYSTEM
 +#define TRACE_SYSTEM futex
@@ -55,15 +55,11 @@ index 000000000000..cbf6abb66a57
 + * Following tracepoints are not exported in tracefs and provide a
 + * mechanism for vendor modules to hook and extend functionality
 + */
-+#if defined(CONFIG_TRACEPOINTS) && defined(CONFIG_ANDROID_VENDOR_HOOKS)
 +DECLARE_HOOK(android_vh_alter_futex_plist_add,
 +	TP_PROTO(struct plist_node *node,
 +		 struct plist_head *head,
 +		 bool *already_on_hb),
 +	TP_ARGS(node, head, already_on_hb));
-+#else
-+#define trace_android_vh_alter_futex_plist_add(node, head, already_on_hb)
-+#endif
 +#endif /* _TRACE_HOOK_FUTEX_H */
 +/* This part must be outside protection */
 +#include <trace/define_trace.h>

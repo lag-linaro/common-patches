@@ -13,9 +13,9 @@ Change-Id: I203dbc6faa77687ea48769f76658d28b29ef46fd
 (cherry picked from commit 2ea974a00c7bdbbee140d68d8867ddcbfb529ecc)
 ---
  drivers/android/vendor_hooks.c |  3 +++
- include/trace/hooks/wqlockup.h | 24 ++++++++++++++++++++++++
+ include/trace/hooks/wqlockup.h | 20 ++++++++++++++++++++
  kernel/workqueue.c             |  5 +++++
- 3 files changed, 32 insertions(+)
+ 3 files changed, 28 insertions(+)
  create mode 100644 include/trace/hooks/wqlockup.h
 
 diff --git a/drivers/android/vendor_hooks.c b/drivers/android/vendor_hooks.c
@@ -38,10 +38,10 @@ diff --git a/drivers/android/vendor_hooks.c b/drivers/android/vendor_hooks.c
  EXPORT_TRACEPOINT_SYMBOL_GPL(android_vh_ipi_stop);
 diff --git a/include/trace/hooks/wqlockup.h b/include/trace/hooks/wqlockup.h
 new file mode 100644
-index 000000000000..de70eacaa8c8
+index 000000000000..3cb33cd7847f
 --- /dev/null
 +++ b/include/trace/hooks/wqlockup.h
-@@ -0,0 +1,24 @@
+@@ -0,0 +1,20 @@
 +/* SPDX-License-Identifier: GPL-2.0 */
 +#undef TRACE_SYSTEM
 +#define TRACE_SYSTEM wqlockup
@@ -55,13 +55,9 @@ index 000000000000..de70eacaa8c8
 + * Following tracepoints are not exported in tracefs and provide a
 + * mechanism for vendor modules to hook and extend functionality
 + */
-+#if defined(CONFIG_TRACEPOINTS) && defined(CONFIG_ANDROID_VENDOR_HOOKS)
 +DECLARE_HOOK(android_vh_wq_lockup_pool,
 +	TP_PROTO(int cpu, unsigned long pool_ts),
 +	TP_ARGS(cpu, pool_ts));
-+#else
-+#define trace_android_vh_wq_lockup_pool(cpu, pool_ts)
-+#endif
 +
 +#endif /* _TRACE_HOOK_WQLOCKUP_H */
 +/* This part must be outside protection */

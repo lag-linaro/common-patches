@@ -1,0 +1,30 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: Todd Kjos <tkjos@google.com>
+Date: Tue, 26 Jan 2021 13:29:50 -0800
+Subject: ANDROID: add macros to create OEM data fields
+
+Adds ANDROID_OEM_DATA and ANDROID_OEM_DATA_ARRAY macros
+to add OEM-specific fields to kernel data structures
+to enable value-added features implemented in vendor modules.
+Fields defined with these macros must not be used by
+SoC vendors who must use the ANDROID_VENDOR_DATA* macros
+to add vendor fields.
+
+Bug: 156285741
+Signed-off-by: Todd Kjos <tkjos@google.com>
+Change-Id: I93a8a182a17854cc4f0a86835e833bf9b00ea0b8
+---
+ include/linux/android_vendor.h | 3 +++
+ 1 file changed, 3 insertions(+)
+
+diff --git a/include/linux/android_vendor.h b/include/linux/android_vendor.h
+--- a/include/linux/android_vendor.h
++++ b/include/linux/android_vendor.h
+@@ -29,4 +29,7 @@
+ #define ANDROID_VENDOR_DATA(n)		u64 android_vendor_data##n
+ #define ANDROID_VENDOR_DATA_ARRAY(n, s)	u64 android_vendor_data##n[s]
+ 
++#define ANDROID_OEM_DATA(n)		u64 android_oem_data##n
++#define ANDROID_OEM_DATA_ARRAY(n, s)	u64 android_oem_data##n[s]
++
+ #endif /* _ANDROID_VENDOR_H */

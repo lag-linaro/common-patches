@@ -16,8 +16,8 @@ Change-Id: If60870623ce2669200238172737dd8455ac34b02
  drivers/android/binder.c          |  7 +++++++
  drivers/android/binder_internal.h |  1 +
  drivers/android/vendor_hooks.c    |  4 ++++
- include/trace/hooks/binder.h      | 33 +++++++++++++++++++++++++++++++
- 4 files changed, 45 insertions(+)
+ include/trace/hooks/binder.h      | 27 +++++++++++++++++++++++++++
+ 4 files changed, 39 insertions(+)
  create mode 100644 include/trace/hooks/binder.h
 
 diff --git a/drivers/android/binder.c b/drivers/android/binder.c
@@ -113,10 +113,10 @@ diff --git a/drivers/android/vendor_hooks.c b/drivers/android/vendor_hooks.c
  EXPORT_TRACEPOINT_SYMBOL_GPL(android_vh_rwsem_write_finished);
 diff --git a/include/trace/hooks/binder.h b/include/trace/hooks/binder.h
 new file mode 100644
-index 000000000000..48ef1ebb65ba
+index 000000000000..807c463442ff
 --- /dev/null
 +++ b/include/trace/hooks/binder.h
-@@ -0,0 +1,33 @@
+@@ -0,0 +1,27 @@
 +/* SPDX-License-Identifier: GPL-2.0 */
 +#undef TRACE_SYSTEM
 +#define TRACE_SYSTEM binder
@@ -130,7 +130,6 @@ index 000000000000..48ef1ebb65ba
 + * Following tracepoints are not exported in tracefs and provide a
 + * mechanism for vendor modules to hook and extend functionality
 + */
-+#if defined(CONFIG_TRACEPOINTS) && defined(CONFIG_ANDROID_VENDOR_HOOKS)
 +struct binder_transaction;
 +struct task_struct;
 +DECLARE_HOOK(android_vh_binder_transaction_init,
@@ -142,11 +141,6 @@ index 000000000000..48ef1ebb65ba
 +DECLARE_HOOK(android_vh_binder_restore_priority,
 +	TP_PROTO(struct binder_transaction *t, struct task_struct *task),
 +	TP_ARGS(t, task));
-+#else
-+#define trace_android_vh_binder_transaction_init(t)
-+#define trace_android_vh_binder_set_priority(t, task)
-+#define trace_android_vh_binder_restore_priority(t, task)
-+#endif
 +#endif /* _TRACE_HOOK_BINDER_H */
 +/* This part must be outside protection */
 +#include <trace/define_trace.h>

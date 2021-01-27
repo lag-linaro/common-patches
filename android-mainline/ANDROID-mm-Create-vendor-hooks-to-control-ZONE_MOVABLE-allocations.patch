@@ -15,13 +15,13 @@ Change-Id: I4a4f0b724267ee120a1e5661f6da5d43d7ef6fc6
 Signed-off-by: Chris Goldsworthy <cgoldswo@codeaurora.org>
 ---
  drivers/android/vendor_hooks.c |  4 ++++
- include/linux/gfp.h            | 11 +---------
+ include/linux/gfp.h            | 11 +----------
  include/linux/pagemap.h        |  5 +----
- include/trace/hooks/mm.h       | 38 ++++++++++++++++++++++++++++++++++
+ include/trace/hooks/mm.h       | 28 ++++++++++++++++++++++++++++
  mm/memory.c                    |  7 +++++--
- mm/mmzone.c                    | 17 +++++++++++++++
- mm/readahead.c                 | 10 +++++++++
- 7 files changed, 76 insertions(+), 16 deletions(-)
+ mm/mmzone.c                    | 17 +++++++++++++++++
+ mm/readahead.c                 | 10 ++++++++++
+ 7 files changed, 66 insertions(+), 16 deletions(-)
  create mode 100644 include/trace/hooks/mm.h
 
 diff --git a/drivers/android/vendor_hooks.c b/drivers/android/vendor_hooks.c
@@ -83,10 +83,10 @@ diff --git a/include/linux/pagemap.h b/include/linux/pagemap.h
  
 diff --git a/include/trace/hooks/mm.h b/include/trace/hooks/mm.h
 new file mode 100644
-index 000000000000..b7fb70f6d8d7
+index 000000000000..22dcee0d90a1
 --- /dev/null
 +++ b/include/trace/hooks/mm.h
-@@ -0,0 +1,38 @@
+@@ -0,0 +1,28 @@
 +/* SPDX-License-Identifier: GPL-2.0 */
 +#undef TRACE_SYSTEM
 +#define TRACE_SYSTEM mm
@@ -101,8 +101,6 @@ index 000000000000..b7fb70f6d8d7
 +#include <linux/tracepoint.h>
 +#include <trace/hooks/vendor_hooks.h>
 +
-+#if defined(CONFIG_TRACEPOINTS) && defined(CONFIG_ANDROID_VENDOR_HOOKS)
-+
 +DECLARE_RESTRICTED_HOOK(android_rvh_set_skip_swapcache_flags,
 +			TP_PROTO(gfp_t *flags),
 +			TP_ARGS(flags), 1);
@@ -112,14 +110,6 @@ index 000000000000..b7fb70f6d8d7
 +DECLARE_RESTRICTED_HOOK(android_rvh_set_readahead_gfp_mask,
 +			TP_PROTO(gfp_t *flags),
 +			TP_ARGS(flags), 1);
-+
-+#else
-+
-+#define trace_android_rvh_set_skip_swapcache_flags(gfp_flags)
-+#define trace_android_rvh_set_gfp_zone_flags(gfp_flags)
-+#define trace_android_rvh_set_readahead_gfp_mask(gfp_flags)
-+
-+#endif
 +
 +#endif /* _TRACE_HOOK_MM_H */
 +

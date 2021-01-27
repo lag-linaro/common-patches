@@ -13,8 +13,8 @@ Change-Id: Ida11256f399f0730bc1228524b9687df3e7b8bf4
  drivers/android/vendor_hooks.c |  3 +++
  drivers/cpufreq/cpufreq.c      | 10 +++++++++-
  drivers/cpufreq/freq_table.c   |  2 ++
- include/trace/hooks/cpufreq.h  | 32 ++++++++++++++++++++++++++++++++
- 4 files changed, 46 insertions(+), 1 deletion(-)
+ include/trace/hooks/cpufreq.h  | 24 ++++++++++++++++++++++++
+ 4 files changed, 38 insertions(+), 1 deletion(-)
  create mode 100644 include/trace/hooks/cpufreq.h
 
 diff --git a/drivers/android/vendor_hooks.c b/drivers/android/vendor_hooks.c
@@ -86,10 +86,10 @@ diff --git a/drivers/cpufreq/freq_table.c b/drivers/cpufreq/freq_table.c
  
 diff --git a/include/trace/hooks/cpufreq.h b/include/trace/hooks/cpufreq.h
 new file mode 100644
-index 000000000000..79e6ddf31cb8
+index 000000000000..95dafafb2da1
 --- /dev/null
 +++ b/include/trace/hooks/cpufreq.h
-@@ -0,0 +1,32 @@
+@@ -0,0 +1,24 @@
 +/* SPDX-License-Identifier: GPL-2.0 */
 +#undef TRACE_SYSTEM
 +#define TRACE_SYSTEM cpufreq
@@ -102,8 +102,6 @@ index 000000000000..79e6ddf31cb8
 +#include <linux/tracepoint.h>
 +#include <trace/hooks/vendor_hooks.h>
 +
-+#if defined(CONFIG_TRACEPOINTS) && defined(CONFIG_ANDROID_VENDOR_HOOKS)
-+
 +DECLARE_HOOK(android_vh_show_max_freq,
 +	TP_PROTO(struct cpufreq_policy *policy, unsigned int *max_freq),
 +	TP_ARGS(policy, max_freq));
@@ -112,12 +110,6 @@ index 000000000000..79e6ddf31cb8
 +	TP_PROTO(struct cpufreq_policy *policy, unsigned int min_freq,
 +		 unsigned int max_freq),
 +	TP_ARGS(policy, min_freq, max_freq));
-+#else
-+
-+#define trace_android_vh_show_max_freq(policy, max_freq)
-+#define trace_android_vh_freq_table_limits(policy, min_freq, max_freq)
-+
-+#endif
 +
 +#endif /* _TRACE_HOOK_CPUFREQ_H */
 +/* This part must be outside protection */

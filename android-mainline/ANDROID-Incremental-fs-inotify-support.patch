@@ -1,0 +1,565 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: Paul Lawrence <paullawrence@google.com>
+Date: Tue, 22 Dec 2020 12:25:51 -0800
+Subject: ANDROID: Incremental fs: inotify support
+
+Bug: 175323815
+Test: incfs_test passes
+Signed-off-by: Paul Lawrence <paullawrence@google.com>
+Change-Id: Ife372fa2f10dd51f61def9feb461e965d276c6bf
+---
+ fs/incfs/pseudo_files.c                       | 106 ++++++++++++--
+ fs/incfs/vfs.c                                |  93 +++++++++---
+ include/uapi/linux/incrementalfs.h            |   2 +
+ .../selftests/filesystems/incfs/incfs_test.c  | 132 +++++++++++++++++-
+ 4 files changed, 304 insertions(+), 29 deletions(-)
+
+diff --git a/fs/incfs/pseudo_files.c b/fs/incfs/pseudo_files.c
+--- a/fs/incfs/pseudo_files.c
++++ b/fs/incfs/pseudo_files.c
+@@ -5,6 +5,7 @@
+ 
+ #include <linux/file.h>
+ #include <linux/fs.h>
++#include <linux/fsnotify.h>
+ #include <linux/namei.h>
+ #include <linux/poll.h>
+ #include <linux/syscalls.h>
+@@ -231,13 +232,16 @@ static int validate_name(char *file_name)
+ static int dir_relative_path_resolve(
+ 			struct mount_info *mi,
+ 			const char __user *relative_path,
+-			struct path *result_path)
++			struct path *result_path,
++			struct path *base_path)
+ {
+-	struct path *base_path = &mi->mi_backing_dir_path;
+ 	int dir_fd = get_unused_fd_flags(0);
+ 	struct file *dir_f = NULL;
+ 	int error = 0;
+ 
++	if (!base_path)
++		base_path = &mi->mi_backing_dir_path;
++
+ 	if (dir_fd < 0)
+ 		return dir_fd;
+ 
+@@ -262,7 +266,7 @@ static int dir_relative_path_resolve(
+ out:
+ 	close_fd(dir_fd);
+ 	if (error)
+-		pr_debug("incfs: %s %d\n", __func__, error);
++		pr_debug("Error: %d\n", error);
+ 	return error;
+ }
+ 
+@@ -364,6 +368,7 @@ static int init_new_file(struct mount_info *mi, struct dentry *dentry,
+ 
+ 	if (error)
+ 		goto out;
++
+ out:
+ 	if (bfc) {
+ 		mutex_unlock(&bfc->bc_mutex);
+@@ -377,9 +382,84 @@ static int init_new_file(struct mount_info *mi, struct dentry *dentry,
+ 	return error;
+ }
+ 
+-static long ioctl_create_file(struct mount_info *mi,
++static void notify_create(struct file *pending_reads_file,
++			  const char  __user *dir_name, const char *file_name,
++			  const char *file_id_str, bool incomplete_file)
++{
++	struct mount_info *mi =
++		get_mount_info(file_superblock(pending_reads_file));
++	struct path base_path = {
++		.mnt = pending_reads_file->f_path.mnt,
++		.dentry = pending_reads_file->f_path.dentry->d_parent,
++	};
++	struct path dir_path = {};
++	struct dentry *file = NULL;
++	struct dentry *dir = NULL;
++	int error;
++
++	error = dir_relative_path_resolve(mi, dir_name, &dir_path, &base_path);
++	if (error)
++		goto out;
++
++	file = incfs_lookup_dentry(dir_path.dentry, file_name);
++	if (IS_ERR(file)) {
++		error = PTR_ERR(file);
++		file = NULL;
++		goto out;
++	}
++
++	fsnotify_create(d_inode(dir_path.dentry), file);
++
++	dir = incfs_lookup_dentry(base_path.dentry, INCFS_INDEX_NAME);
++	if (IS_ERR(dir)) {
++		error = PTR_ERR(dir);
++		dir = NULL;
++		goto out;
++	}
++
++	dput(file);
++	file = incfs_lookup_dentry(dir, file_id_str);
++	if (IS_ERR(file)) {
++		error = PTR_ERR(file);
++		file = NULL;
++		goto out;
++	}
++
++	fsnotify_create(d_inode(dir), file);
++
++	if (incomplete_file) {
++		dput(dir);
++		dir = incfs_lookup_dentry(base_path.dentry,
++					  INCFS_INCOMPLETE_NAME);
++		if (IS_ERR(dir)) {
++			error = PTR_ERR(dir);
++			dir = NULL;
++			goto out;
++		}
++
++		dput(file);
++		file = incfs_lookup_dentry(dir, file_id_str);
++		if (IS_ERR(file)) {
++			error = PTR_ERR(file);
++			file = NULL;
++			goto out;
++		}
++
++		fsnotify_create(d_inode(dir), file);
++	}
++out:
++	if (error)
++		pr_warn("%s failed with error %d\n", __func__, error);
++
++	dput(dir);
++	dput(file);
++	path_put(&dir_path);
++}
++
++static long ioctl_create_file(struct file *file,
+ 			struct incfs_new_file_args __user *usr_args)
+ {
++	struct mount_info *mi = get_mount_info(file_superblock(file));
+ 	struct incfs_new_file_args args;
+ 	char *file_id_str = NULL;
+ 	struct dentry *index_file_dentry = NULL;
+@@ -431,7 +511,7 @@ static long ioctl_create_file(struct mount_info *mi,
+ 	/* Find a directory to put the file into. */
+ 	error = dir_relative_path_resolve(mi,
+ 			u64_to_user_ptr(args.directory_path),
+-			&parent_dir_path);
++			&parent_dir_path, NULL);
+ 	if (error)
+ 		goto out;
+ 
+@@ -590,6 +670,9 @@ static long ioctl_create_file(struct mount_info *mi,
+ 		incomplete_linked = true;
+ 	}
+ 
++	notify_create(file, u64_to_user_ptr(args.directory_path), file_name,
++		      file_id_str, args.size != 0);
++
+ out:
+ 	if (error) {
+ 		pr_debug("incfs: %s err:%d\n", __func__, error);
+@@ -610,6 +693,7 @@ static long ioctl_create_file(struct mount_info *mi,
+ 	path_put(&parent_dir_path);
+ 	if (locked)
+ 		mutex_unlock(&mi->mi_dir_struct_mutex);
++
+ 	return error;
+ }
+ 
+@@ -742,7 +826,7 @@ static long ioctl_create_mapped_file(struct mount_info *mi, void __user *arg)
+ 	/* Find a directory to put the file into. */
+ 	error = dir_relative_path_resolve(mi,
+ 			u64_to_user_ptr(args.directory_path),
+-			&parent_dir_path);
++			&parent_dir_path, NULL);
+ 	if (error)
+ 		goto out;
+ 
+@@ -902,7 +986,7 @@ static long pending_reads_dispatch_ioctl(struct file *f, unsigned int req,
+ 
+ 	switch (req) {
+ 	case INCFS_IOC_CREATE_FILE:
+-		return ioctl_create_file(mi, (void __user *)arg);
++		return ioctl_create_file(f, (void __user *)arg);
+ 	case INCFS_IOC_PERMIT_FILL:
+ 		return ioctl_permit_fill(f, (void __user *)arg);
+ 	case INCFS_IOC_CREATE_MAPPED_FILE:
+@@ -985,15 +1069,15 @@ static ssize_t log_read(struct file *f, char __user *buf, size_t len,
+ 			min_t(ssize_t, reads_to_collect, reads_per_page));
+ 		if (reads_collected <= 0) {
+ 			result = total_reads_collected ?
+-					       total_reads_collected * record_size :
+-					       reads_collected;
++				       total_reads_collected * record_size :
++				       reads_collected;
+ 			goto out;
+ 		}
+ 		if (copy_to_user(buf, (void *)page,
+ 				 reads_collected * record_size)) {
+ 			result = total_reads_collected ?
+-					       total_reads_collected * record_size :
+-					       -EFAULT;
++				       total_reads_collected * record_size :
++				       -EFAULT;
+ 			goto out;
+ 		}
+ 
+diff --git a/fs/incfs/vfs.c b/fs/incfs/vfs.c
+--- a/fs/incfs/vfs.c
++++ b/fs/incfs/vfs.c
+@@ -7,6 +7,7 @@
+ #include <linux/file.h>
+ #include <linux/fs.h>
+ #include <linux/fs_stack.h>
++#include <linux/fsnotify.h>
+ #include <linux/namei.h>
+ #include <linux/parser.h>
+ #include <linux/seq_file.h>
+@@ -545,12 +546,62 @@ static int incfs_rmdir(struct dentry *dentry)
+ 	return error;
+ }
+ 
+-static void maybe_delete_incomplete_file(struct data_file *df)
++static void notify_unlink(struct dentry *dentry, const char *file_id_str,
++			  const char *special_directory)
++{
++	struct dentry *root = dentry;
++	struct dentry *file = NULL;
++	struct dentry *dir = NULL;
++	int error = 0;
++	bool take_lock = root->d_parent != root->d_parent->d_parent;
++
++	while (root != root->d_parent)
++		root = root->d_parent;
++
++	if (take_lock)
++		dir = incfs_lookup_dentry(root, special_directory);
++	else
++		dir = lookup_one_len(special_directory, root,
++				     strlen(special_directory));
++
++	if (IS_ERR(dir)) {
++		error = PTR_ERR(dir);
++		goto out;
++	}
++	if (d_is_negative(dir)) {
++		error = -ENOENT;
++		goto out;
++	}
++
++	file = incfs_lookup_dentry(dir, file_id_str);
++	if (IS_ERR(file)) {
++		error = PTR_ERR(file);
++		goto out;
++	}
++	if (d_is_negative(file)) {
++		error = -ENOENT;
++		goto out;
++	}
++
++	fsnotify_unlink(d_inode(dir), file);
++	d_delete(file);
++
++out:
++	if (error)
++		pr_warn("%s failed with error %d\n", __func__, error);
++
++	dput(dir);
++	dput(file);
++}
++
++static void maybe_delete_incomplete_file(struct file *f,
++					 struct data_file *df)
+ {
+ 	struct mount_info *mi = df->df_mount_info;
+ 	char *file_id_str = NULL;
+ 	struct dentry *incomplete_file_dentry = NULL;
+ 	const struct cred *old_cred = override_creds(mi->mi_owner);
++	int error;
+ 
+ 	if (atomic_read(&df->df_data_blocks_written) < df->df_data_block_count)
+ 		goto out;
+@@ -572,9 +623,16 @@ static void maybe_delete_incomplete_file(struct data_file *df)
+ 		goto out;
+ 
+ 	vfs_fsync(df->df_backing_file_context->bc_file, 0);
+-	incfs_unlink(incomplete_file_dentry);
++	error = incfs_unlink(incomplete_file_dentry);
++	if (error)
++		goto out;
++
++	notify_unlink(f->f_path.dentry, file_id_str, INCFS_INCOMPLETE_NAME);
+ 
+ out:
++	if (error)
++		pr_warn("incfs: Deleting incomplete file failed: %d\n", error);
++
+ 	dput(incomplete_file_dentry);
+ 	kfree(file_id_str);
+ 	revert_creds(old_cred);
+@@ -641,7 +699,7 @@ static long ioctl_fill_blocks(struct file *f, void __user *arg)
+ 	if (data_buf)
+ 		free_pages((unsigned long)data_buf, get_order(data_buf_size));
+ 
+-	maybe_delete_incomplete_file(df);
++	maybe_delete_incomplete_file(f, df);
+ 
+ 	/*
+ 	 * Only report the error if no records were processed, otherwise
+@@ -918,9 +976,8 @@ static int dir_mkdir(struct inode *dir, struct dentry *dentry, umode_t mode)
+  * Delete file referenced by backing_dentry and if appropriate its hardlink
+  * from .index and .incomplete
+  */
+-static int file_delete(struct mount_info *mi,
+-			struct dentry *backing_dentry,
+-			int nlink)
++static int file_delete(struct mount_info *mi, struct dentry *dentry,
++			struct dentry *backing_dentry, int nlink)
+ {
+ 	struct dentry *index_file_dentry = NULL;
+ 	struct dentry *incomplete_file_dentry = NULL;
+@@ -973,15 +1030,19 @@ static int file_delete(struct mount_info *mi,
+ 	if (nlink > 1)
+ 		goto just_unlink;
+ 
+-	if (d_really_is_positive(index_file_dentry))
++	if (d_really_is_positive(index_file_dentry)) {
+ 		error = incfs_unlink(index_file_dentry);
+-	if (error)
+-		goto out;
++		if (error)
++			goto out;
++		notify_unlink(dentry, file_id_str, INCFS_INDEX_NAME);
++	}
+ 
+-	if (d_really_is_positive(incomplete_file_dentry))
++	if (d_really_is_positive(incomplete_file_dentry)) {
+ 		error = incfs_unlink(incomplete_file_dentry);
+-	if (error)
+-		goto out;
++		if (error)
++			goto out;
++		notify_unlink(dentry, file_id_str, INCFS_INCOMPLETE_NAME);
++	}
+ 
+ just_unlink:
+ 	error = incfs_unlink(backing_dentry);
+@@ -1031,7 +1092,7 @@ static int dir_unlink(struct inode *dir, struct dentry *dentry)
+ 	if (err)
+ 		goto out;
+ 
+-	err = file_delete(mi, backing_path.dentry, stat.nlink);
++	err = file_delete(mi, dentry, backing_path.dentry, stat.nlink);
+ 
+ 	d_drop(dentry);
+ out:
+@@ -1517,8 +1578,6 @@ static ssize_t incfs_listxattr(struct dentry *d, char *list, size_t size)
+ struct dentry *incfs_mount_fs(struct file_system_type *type, int flags,
+ 			      const char *dev_name, void *data)
+ {
+-	static const char index_name[] = ".index";
+-	static const char incomplete_name[] = ".incomplete";
+ 	struct mount_options options = {};
+ 	struct mount_info *mi = NULL;
+ 	struct path backing_dir_path = {};
+@@ -1577,7 +1636,7 @@ struct dentry *incfs_mount_fs(struct file_system_type *type, int flags,
+ 	}
+ 
+ 	index_dir = open_or_create_special_dir(backing_dir_path.dentry,
+-					       index_name);
++					       INCFS_INDEX_NAME);
+ 	if (IS_ERR_OR_NULL(index_dir)) {
+ 		error = PTR_ERR(index_dir);
+ 		pr_err("incfs: Can't find or create .index dir in %s\n",
+@@ -1588,7 +1647,7 @@ struct dentry *incfs_mount_fs(struct file_system_type *type, int flags,
+ 	mi->mi_index_dir = index_dir;
+ 
+ 	incomplete_dir = open_or_create_special_dir(backing_dir_path.dentry,
+-						    incomplete_name);
++						    INCFS_INCOMPLETE_NAME);
+ 	if (IS_ERR_OR_NULL(incomplete_dir)) {
+ 		error = PTR_ERR(incomplete_dir);
+ 		pr_err("incfs: Can't find or create .incomplete dir in %s\n",
+diff --git a/include/uapi/linux/incrementalfs.h b/include/uapi/linux/incrementalfs.h
+--- a/include/uapi/linux/incrementalfs.h
++++ b/include/uapi/linux/incrementalfs.h
+@@ -28,6 +28,8 @@
+ #define INCFS_MAX_HASH_SIZE 32
+ #define INCFS_MAX_FILE_ATTR_SIZE 512
+ 
++#define INCFS_INDEX_NAME ".index"
++#define INCFS_INCOMPLETE_NAME ".incomplete"
+ #define INCFS_PENDING_READS_FILENAME ".pending_reads"
+ #define INCFS_LOG_FILENAME ".log"
+ #define INCFS_BLOCKS_WRITTEN_FILENAME ".blocks_written"
+diff --git a/tools/testing/selftests/filesystems/incfs/incfs_test.c b/tools/testing/selftests/filesystems/incfs/incfs_test.c
+--- a/tools/testing/selftests/filesystems/incfs/incfs_test.c
++++ b/tools/testing/selftests/filesystems/incfs/incfs_test.c
+@@ -17,6 +17,7 @@
+ #include <unistd.h>
+ #include <zstd.h>
+ 
++#include <sys/inotify.h>
+ #include <sys/mount.h>
+ #include <sys/stat.h>
+ #include <sys/types.h>
+@@ -1632,7 +1633,7 @@ static int work_after_remount_test(const char *mount_dir)
+ 			goto failure;
+ 		}
+ 
+-		if (access(filename_in_index, F_OK) != 0) {
++		if (access(filename_in_index, F_OK) != -1) {
+ 			ksft_print_msg("File %s is still present.\n",
+ 				filename_in_index);
+ 			goto failure;
+@@ -3472,6 +3473,134 @@ static int per_uid_read_timeouts_test(const char *mount_dir)
+ 	return result;
+ }
+ 
++#define DIRS 3
++static int inotify_test(const char *mount_dir)
++{
++	struct test_file file = {
++		.name = "file",
++		.size = 16 * INCFS_DATA_FILE_BLOCK_SIZE
++	};
++
++	int result = TEST_FAILURE;
++	char *backing_dir = NULL, *index_dir = NULL, *incomplete_dir = NULL;
++	char *file_name = NULL;
++	int cmd_fd = -1;
++	int notify_fd = -1;
++	int wds[DIRS];
++	char buffer[DIRS * (sizeof(struct inotify_event) + NAME_MAX + 1)];
++	char *ptr = buffer;
++	struct inotify_event *event;
++	struct inotify_event *events[DIRS] = {};
++	const char *names[DIRS] = {};
++	int res;
++	char id[sizeof(incfs_uuid_t) * 2 + 1];
++
++	/* File creation triggers inotify events in .index and .incomplete? */
++	TEST(backing_dir = create_backing_dir(mount_dir), backing_dir);
++	TEST(index_dir = concat_file_name(mount_dir, ".index"), index_dir);
++	TEST(incomplete_dir = concat_file_name(mount_dir, ".incomplete"),
++	     incomplete_dir);
++	TESTEQUAL(mount_fs(mount_dir, backing_dir, 50), 0);
++	TEST(cmd_fd = open_commands_file(mount_dir), cmd_fd != -1);
++	TEST(notify_fd = inotify_init1(IN_NONBLOCK | IN_CLOEXEC),
++	     notify_fd != -1);
++	TEST(wds[0] = inotify_add_watch(notify_fd, mount_dir,
++					IN_CREATE | IN_DELETE),
++	     wds[0] != -1);
++	TEST(wds[1] = inotify_add_watch(notify_fd, index_dir,
++					IN_CREATE | IN_DELETE),
++	     wds[1] != -1);
++	TEST(wds[2] = inotify_add_watch(notify_fd, incomplete_dir,
++					IN_CREATE | IN_DELETE),
++	     wds[2] != -1);
++	TESTEQUAL(emit_file(cmd_fd, NULL, file.name, &file.id, file.size,
++			   NULL), 0);
++	TEST(res = read(notify_fd, buffer, sizeof(buffer)), res != -1);
++
++	while (ptr < buffer + res) {
++		int i;
++
++		event = (struct inotify_event *) ptr;
++		TESTCOND(ptr + sizeof(*event) <= buffer + res);
++		for (i = 0; i < DIRS; ++i)
++			if (event->wd == wds[i]) {
++				TESTEQUAL(events[i], NULL);
++				events[i] = event;
++				ptr += sizeof(*event);
++				names[i] = ptr;
++				ptr += events[i]->len;
++				TESTCOND(ptr <= buffer + res);
++				break;
++			}
++		TESTCOND(i < DIRS);
++	}
++
++	TESTNE(events[0], NULL);
++	TESTNE(events[1], NULL);
++	TESTNE(events[2], NULL);
++
++	bin2hex(id, file.id.bytes, sizeof(incfs_uuid_t));
++
++	TESTEQUAL(events[0]->mask, IN_CREATE);
++	TESTEQUAL(events[1]->mask, IN_CREATE);
++	TESTEQUAL(events[2]->mask, IN_CREATE);
++	TESTEQUAL(strcmp(names[0], file.name), 0);
++	TESTEQUAL(strcmp(names[1], id), 0);
++	TESTEQUAL(strcmp(names[2], id), 0);
++
++	/* File completion triggers inotify event in .incomplete? */
++	TESTEQUAL(emit_test_file_data(mount_dir, &file), 0);
++	TEST(res = read(notify_fd, buffer, sizeof(buffer)), res != -1);
++	event = (struct inotify_event *) buffer;
++	TESTEQUAL(event->wd, wds[2]);
++	TESTEQUAL(event->mask, IN_DELETE);
++	TESTEQUAL(strcmp(event->name, id), 0);
++
++	/* File unlinking triggers inotify event in .index? */
++	TEST(file_name = concat_file_name(mount_dir, file.name), file_name);
++	TESTEQUAL(unlink(file_name), 0);
++	TEST(res = read(notify_fd, buffer, sizeof(buffer)), res != -1);
++	memset(events, 0, sizeof(events));
++	memset(names, 0, sizeof(names));
++	for (ptr = buffer; ptr < buffer + res;) {
++		event = (struct inotify_event *) ptr;
++		int i;
++
++		TESTCOND(ptr + sizeof(*event) <= buffer + res);
++		for (i = 0; i < DIRS; ++i)
++			if (event->wd == wds[i]) {
++				TESTEQUAL(events[i], NULL);
++				events[i] = event;
++				ptr += sizeof(*event);
++				names[i] = ptr;
++				ptr += events[i]->len;
++				TESTCOND(ptr <= buffer + res);
++				break;
++			}
++		TESTCOND(i < DIRS);
++	}
++
++	TESTNE(events[0], NULL);
++	TESTNE(events[1], NULL);
++	TESTEQUAL(events[2], NULL);
++
++	TESTEQUAL(events[0]->mask, IN_DELETE);
++	TESTEQUAL(events[1]->mask, IN_DELETE);
++	TESTEQUAL(strcmp(names[0], file.name), 0);
++	TESTEQUAL(strcmp(names[1], id), 0);
++
++	result = TEST_SUCCESS;
++out:
++	free(file_name);
++	close(notify_fd);
++	close(cmd_fd);
++	umount(mount_dir);
++	free(backing_dir);
++	free(index_dir);
++	free(incomplete_dir);
++	return result;
++}
++
+ static char *setup_mount_dir()
+ {
+ 	struct stat st;
+@@ -3585,6 +3714,7 @@ int main(int argc, char *argv[])
+ 		MAKE_TEST(data_block_count_test),
+ 		MAKE_TEST(hash_block_count_test),
+ 		MAKE_TEST(per_uid_read_timeouts_test),
++		MAKE_TEST(inotify_test),
+ 	};
+ #undef MAKE_TEST
+ 

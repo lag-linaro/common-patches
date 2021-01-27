@@ -14,9 +14,9 @@ Change-Id: I82a01e348d05a46c9c3921869cc9d2fc0fd28867
 Signed-off-by: Murali Nalajala <mnalajal@codeaurora.org>
 ---
  drivers/android/vendor_hooks.c |  3 +++
- include/trace/hooks/epoch.h    | 31 +++++++++++++++++++++++++++++++
+ include/trace/hooks/epoch.h    | 23 +++++++++++++++++++++++
  kernel/time/sched_clock.c      |  3 +++
- 3 files changed, 37 insertions(+)
+ 3 files changed, 29 insertions(+)
  create mode 100644 include/trace/hooks/epoch.h
 
 diff --git a/drivers/android/vendor_hooks.c b/drivers/android/vendor_hooks.c
@@ -38,10 +38,10 @@ diff --git a/drivers/android/vendor_hooks.c b/drivers/android/vendor_hooks.c
 +EXPORT_TRACEPOINT_SYMBOL_GPL(android_vh_show_resume_epoch_val);
 diff --git a/include/trace/hooks/epoch.h b/include/trace/hooks/epoch.h
 new file mode 100644
-index 000000000000..7da3139dfeb0
+index 000000000000..13dd9a6d7849
 --- /dev/null
 +++ b/include/trace/hooks/epoch.h
-@@ -0,0 +1,31 @@
+@@ -0,0 +1,23 @@
 +/* SPDX-License-Identifier: GPL-2.0 */
 +#undef TRACE_SYSTEM
 +#define TRACE_SYSTEM epoch
@@ -54,8 +54,6 @@ index 000000000000..7da3139dfeb0
 +#include <linux/tracepoint.h>
 +#include <trace/hooks/vendor_hooks.h>
 +
-+#if defined(CONFIG_TRACEPOINTS) && defined(CONFIG_ANDROID_VENDOR_HOOKS)
-+
 +DECLARE_HOOK(android_vh_show_suspend_epoch_val,
 +	TP_PROTO(u64 suspend_ns, u64 suspend_cycles),
 +	TP_ARGS(suspend_ns, suspend_cycles));
@@ -63,12 +61,6 @@ index 000000000000..7da3139dfeb0
 +DECLARE_HOOK(android_vh_show_resume_epoch_val,
 +	TP_PROTO(u64 resume_cycles),
 +	TP_ARGS(resume_cycles));
-+#else
-+
-+#define trace_android_vh_show_suspend_epoch_val(suspend_ns, suspend_cycles)
-+#define trace_android_vh_show_resume_epoch_val(resume_cycles)
-+
-+#endif
 +
 +#endif /* _TRACE_HOOK_EPOCH_H */
 +/* This part must be outside protection */

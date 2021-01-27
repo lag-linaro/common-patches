@@ -13,8 +13,8 @@ Signed-off-by: Prasad Sodagudi <psodagud@codeaurora.org>
 ---
  drivers/android/vendor_hooks.c |  3 +++
  drivers/irqchip/irq-gic-v3.c   | 10 ++++++++--
- include/trace/hooks/gic_v3.h   | 29 +++++++++++++++++++++++++++++
- 3 files changed, 40 insertions(+), 2 deletions(-)
+ include/trace/hooks/gic_v3.h   | 25 +++++++++++++++++++++++++
+ 3 files changed, 36 insertions(+), 2 deletions(-)
  create mode 100644 include/trace/hooks/gic_v3.h
 
 diff --git a/drivers/android/vendor_hooks.c b/drivers/android/vendor_hooks.c
@@ -76,10 +76,10 @@ diff --git a/drivers/irqchip/irq-gic-v3.c b/drivers/irqchip/irq-gic-v3.c
  	/*
 diff --git a/include/trace/hooks/gic_v3.h b/include/trace/hooks/gic_v3.h
 new file mode 100644
-index 000000000000..8cf67e51f79e
+index 000000000000..964fa80a4979
 --- /dev/null
 +++ b/include/trace/hooks/gic_v3.h
-@@ -0,0 +1,29 @@
+@@ -0,0 +1,25 @@
 +/* SPDX-License-Identifier: GPL-2.0-only */
 +#undef TRACE_SYSTEM
 +#define TRACE_SYSTEM gic_v3
@@ -92,7 +92,6 @@ index 000000000000..8cf67e51f79e
 + * Following tracepoints are not exported in tracefs and provide a
 + * mechanism for vendor modules to hook and extend functionality
 + */
-+#if defined(CONFIG_TRACEPOINTS) && defined(CONFIG_ANDROID_VENDOR_HOOKS)
 +struct irq_data;
 +struct cpumask;
 +DECLARE_HOOK(android_vh_gic_v3_affinity_init,
@@ -102,10 +101,7 @@ index 000000000000..8cf67e51f79e
 +	TP_PROTO(struct irq_data *d, const struct cpumask *mask_val,
 +		 u64 *affinity),
 +	TP_ARGS(d, mask_val, affinity));
-+#else
-+#define trace_android_vh_gic_v3_affinity_init(irq, offset, affinity)
-+#define trace_android_vh_gic_v3_set_affinity(d, mask_val, affinity)
-+#endif
++
 +#endif /* _TRACE_HOOK_GIC_V3_H */
 +/* This part must be outside protection */
 +#include <trace/define_trace.h>

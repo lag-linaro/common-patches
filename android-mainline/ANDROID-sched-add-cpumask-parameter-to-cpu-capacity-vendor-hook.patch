@@ -12,8 +12,8 @@ Signed-off-by: Yun Hsiang <yun.hsiang@mediatek.com>
 Change-Id: I983a3aca2195f7c37c43d31fa588c999a825ee49
 ---
  drivers/base/arch_topology.c   | 2 +-
- include/trace/hooks/topology.h | 8 +++++---
- 2 files changed, 6 insertions(+), 4 deletions(-)
+ include/trace/hooks/topology.h | 6 ++++--
+ 2 files changed, 5 insertions(+), 3 deletions(-)
 
 diff --git a/drivers/base/arch_topology.c b/drivers/base/arch_topology.c
 --- a/drivers/base/arch_topology.c
@@ -30,13 +30,11 @@ diff --git a/drivers/base/arch_topology.c b/drivers/base/arch_topology.c
 diff --git a/include/trace/hooks/topology.h b/include/trace/hooks/topology.h
 --- a/include/trace/hooks/topology.h
 +++ b/include/trace/hooks/topology.h
-@@ -9,16 +9,18 @@
+@@ -9,10 +9,12 @@
  
  #include <linux/tracepoint.h>
  #include <trace/hooks/vendor_hooks.h>
 +#include <linux/cpumask.h>
- 
- #if defined(CONFIG_TRACEPOINTS) && defined(CONFIG_ANDROID_VENDOR_HOOKS)
  
  DECLARE_HOOK(android_vh_arch_set_freq_scale,
 -	TP_PROTO(unsigned long freq, unsigned long max, unsigned long *scale),
@@ -45,10 +43,5 @@ diff --git a/include/trace/hooks/topology.h b/include/trace/hooks/topology.h
 +		 unsigned long max, unsigned long *scale),
 +	TP_ARGS(cpus, freq, max, scale));
  
- #else
- 
--#define trace_android_vh_arch_set_freq_scale(freq, max, scale)
-+#define trace_android_vh_arch_set_freq_scale(cpus, freq, max, scale)
- 
- #endif
- 
+ #endif /* _TRACE_HOOK_TOPOLOGY_H */
+ /* This part must be outside protection */

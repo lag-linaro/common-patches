@@ -20,8 +20,8 @@ Signed-off-by: Eric Biggers <ebiggers@google.com>
 ---
  drivers/android/vendor_hooks.c |  2 ++
  drivers/base/arch_topology.c   |  3 +++
- include/trace/hooks/topology.h | 27 +++++++++++++++++++++++++++
- 3 files changed, 32 insertions(+)
+ include/trace/hooks/topology.h | 19 +++++++++++++++++++
+ 3 files changed, 24 insertions(+)
  create mode 100644 include/trace/hooks/topology.h
 
 diff --git a/drivers/android/vendor_hooks.c b/drivers/android/vendor_hooks.c
@@ -65,10 +65,10 @@ diff --git a/drivers/base/arch_topology.c b/drivers/base/arch_topology.c
  }
 diff --git a/include/trace/hooks/topology.h b/include/trace/hooks/topology.h
 new file mode 100644
-index 000000000000..65ee1962b833
+index 000000000000..30b3eb00c300
 --- /dev/null
 +++ b/include/trace/hooks/topology.h
-@@ -0,0 +1,27 @@
+@@ -0,0 +1,19 @@
 +/* SPDX-License-Identifier: GPL-2.0 */
 +#undef TRACE_SYSTEM
 +#define TRACE_SYSTEM topology
@@ -81,17 +81,9 @@ index 000000000000..65ee1962b833
 +#include <linux/tracepoint.h>
 +#include <trace/hooks/vendor_hooks.h>
 +
-+#if defined(CONFIG_TRACEPOINTS) && defined(CONFIG_ANDROID_VENDOR_HOOKS)
-+
 +DECLARE_HOOK(android_vh_arch_set_freq_scale,
 +	TP_PROTO(unsigned long freq, unsigned long max, unsigned long *scale),
 +	TP_ARGS(freq, max, scale));
-+
-+#else
-+
-+#define trace_android_vh_arch_set_freq_scale(freq, max, scale)
-+
-+#endif
 +
 +#endif /* _TRACE_HOOK_TOPOLOGY_H */
 +/* This part must be outside protection */

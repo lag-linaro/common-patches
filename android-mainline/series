@@ -2,7 +2,7 @@
 # android-mainline patches
 #
 # Applies onto upstream 13391c60da33 Linux v5.11-rc5-7-g13391c60da33
-# Matches android-mainline 5f339265fd1a ("FROMLIST: fuse: Introduce passthrough for mmap")
+# Matches android-mainline 6c3665470dfb ("ANDROID: use ANDROID_OEM_DATA for OEM data")
 #
 Revert-block-grant-IOPRIO_CLASS_RT-to-CAP_SYS_NICE.patch
 Revert-arm64-dts-qcom-sdm845-db845c-Fix-hdmi-nodes.patch
@@ -31,6 +31,7 @@ _____ANNOTATION-Android-vendor-hooks_____.patch
 ANDROID-GKI-add-android_vendor.h.patch
 ANDROID-add-support-for-vendor-hooks.patch
 ANDROID-use-static_call-for-restricted-hooks.patch
+ANDROID-add-macros-to-create-OEM-data-fields.patch
 _____ANNOTATION-kbuild-changes_____.patch
 FROMLIST-kbuild-Add-dtc-flag-test.patch
 ANDROID-Kbuild-LLVMLinux-allow-overriding-clang-target-triple.patch
@@ -41,7 +42,6 @@ ANDROID-GKI-scripts-Makefile-update-the-lz4-command.patch
 ANDROID-modpost-Forbid-double-exports.patch
 _____ANNOTATION-x86-changes_____.patch
 ANDROID-Setting-up-GS-before-calling-__restore_processor_state.patch
-ANDROID-x86-entry-work-around-LLVM_IAS-1-bug-in-LSL.patch
 _____ANNOTATION-arm-and-arm64-changes_____.patch
 ANDROID-of-Support-CONFIG_CMDLINE_EXTEND-config-option.patch
 ANDROID-vendor_hooks-FPSIMD-save-restore-by-using-vendor_hooks.patch
@@ -156,6 +156,7 @@ ANDROID-simplify-vendor-hooks-for-non-GKI-builds.patch
 ANDROID-schedutil-add-vendor-hook-for-adjusting-util-to-freq-calculation.patch
 ANDROID-sched-Add-rvh-for-cpu-controller-cgroup-can-attach.patch
 ANDROID-sched-add-em_cpu_energy-vendor-hook.patch
+ANDROID-use-ANDROID_OEM_DATA-for-OEM-data.patch
 _____ANNOTATION-uid_sys_stats-support_____.patch
 ANDROID-uid_cputime-Adds-accounting-for-the-cputimes-per-uid.patch
 ANDROID-uid_cputime-add-per-uid-IO-usage-accounting.patch
@@ -407,6 +408,7 @@ ANDROID-Incremental-fs-fix-.blocks_written.patch
 ANDROID-Incremental-fs-Fix-selinux-issues.patch
 ANDROID-Incremental-fs-Free-mount-info-after-files-are-flushed.patch
 ANDROID-Incremental-fs-Make-data-validation-failure-a-warn.patch
+ANDROID-Incremental-fs-inotify-support.patch
 _____ANNOTATION-networking-changes_____.patch
 ANDROID-net-xfrm-make-PF_KEY-SHA256-use-RFC-compliant-truncation.patch
 ANDROID-net-xfrm-always-export-pktgen_xfrm_outer_mode_output.patch
@@ -735,6 +737,7 @@ ANDROID-GKI-Enable-CONFIG_KUNIT.patch
 ANDROID-GKI-remove-CONFIG_ENABLE_MUST_CHECK-from-gki-defconfigs.patch
 ANDROID-gki_defconfig-add-CONFIG_DEBUG_KINFO-y.patch
 ANDROID-clang-update-to-12.0.1.patch
+ANDROID-GKI-select-DMADEVICES-if-GKI_HIDDEN_SND_SOC_CONFIGS-is-set.patch
 _____ANNOTATION-Patches-for-bringing-up-new-SoCs_____.patch
 ANDROID-arm64-Add-support-for-asymmetric-AArch32-EL0-configurations.patch
 ANDROID-arm64-Handle-AArch32-tasks-running-on-non-AArch32-cpu.patch

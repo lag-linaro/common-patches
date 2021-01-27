@@ -15,8 +15,8 @@ Signed-off-by: Park Bumgyu <bumgyu.park@samsung.com>
 ---
  drivers/android/vendor_hooks.c |  2 ++
  drivers/cpuidle/cpuidle.c      |  3 +++
- include/trace/hooks/cpuidle.h  | 24 ++++++++++++++++++++++++
- 3 files changed, 29 insertions(+)
+ include/trace/hooks/cpuidle.h  | 20 ++++++++++++++++++++
+ 3 files changed, 25 insertions(+)
  create mode 100644 include/trace/hooks/cpuidle.h
 
 diff --git a/drivers/android/vendor_hooks.c b/drivers/android/vendor_hooks.c
@@ -67,10 +67,10 @@ diff --git a/drivers/cpuidle/cpuidle.c b/drivers/cpuidle/cpuidle.c
  	sched_idle_set_state(NULL);
 diff --git a/include/trace/hooks/cpuidle.h b/include/trace/hooks/cpuidle.h
 new file mode 100644
-index 000000000000..826e98e37690
+index 000000000000..6921b2c2e9ec
 --- /dev/null
 +++ b/include/trace/hooks/cpuidle.h
-@@ -0,0 +1,24 @@
+@@ -0,0 +1,20 @@
 +/* SPDX-License-Identifier: GPL-2.0 */
 +#undef TRACE_SYSTEM
 +#define TRACE_SYSTEM cpuidle
@@ -83,13 +83,9 @@ index 000000000000..826e98e37690
 +#include <linux/tracepoint.h>
 +#include <trace/hooks/vendor_hooks.h>
 +
-+#if defined(CONFIG_TRACEPOINTS) && defined(CONFIG_ANDROID_VENDOR_HOOKS)
 +DECLARE_HOOK(android_vh_cpu_idle,
 +	TP_PROTO(int event, int state, int cpu),
 +	TP_ARGS(event, state, cpu))
-+#else
-+#define trace_android_vh_cpu_idle(event, state, cpu)
-+#endif
 +
 +#endif /* _TRACE_HOOK_CPUIDLE_H */
 +/* This part must be outside protection */

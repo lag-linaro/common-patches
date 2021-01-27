@@ -14,8 +14,8 @@ Change-Id: Ib8f14eaa639b2ef959e911d611515868ff9f193d
 ---
  drivers/android/vendor_hooks.c   |  2 ++
  drivers/tty/sysrq.c              |  4 ++++
- include/trace/hooks/sysrqcrash.h | 24 ++++++++++++++++++++++++
- 3 files changed, 30 insertions(+)
+ include/trace/hooks/sysrqcrash.h | 20 ++++++++++++++++++++
+ 3 files changed, 26 insertions(+)
  create mode 100644 include/trace/hooks/sysrqcrash.h
 
 diff --git a/drivers/android/vendor_hooks.c b/drivers/android/vendor_hooks.c
@@ -60,10 +60,10 @@ diff --git a/drivers/tty/sysrq.c b/drivers/tty/sysrq.c
  static const struct sysrq_key_op sysrq_crash_op = {
 diff --git a/include/trace/hooks/sysrqcrash.h b/include/trace/hooks/sysrqcrash.h
 new file mode 100644
-index 000000000000..e5d9102ba4e1
+index 000000000000..e109d21be499
 --- /dev/null
 +++ b/include/trace/hooks/sysrqcrash.h
-@@ -0,0 +1,24 @@
+@@ -0,0 +1,20 @@
 +/* SPDX-License-Identifier: GPL-2.0 */
 +#undef TRACE_SYSTEM
 +#define TRACE_SYSTEM sysrqcrash
@@ -77,13 +77,9 @@ index 000000000000..e5d9102ba4e1
 + * Following tracepoints are not exported in tracefs and provide a
 + * mechanism for vendor modules to hook and extend functionality
 + */
-+#if defined(CONFIG_TRACEPOINTS) && defined(CONFIG_ANDROID_VENDOR_HOOKS)
 +DECLARE_HOOK(android_vh_sysrq_crash,
 +	TP_PROTO(void *data),
 +	TP_ARGS(data));
-+#else
-+#define trace_android_vh_sysrq_crash(data)
-+#endif
 +
 +#endif /* _TRACE_HOOK_SYSRQCRASH_H */
 +/* This part must be outside protection */

@@ -18,8 +18,8 @@ Change-Id: I853e1b6a9a51e24f770423bbc39fdd84265d78fc
  arch/arm64/include/asm/processor.h |  3 +++
  arch/arm64/kernel/process.c        |  3 +++
  drivers/android/vendor_hooks.c     |  3 ++-
- include/trace/hooks/fpsimd.h       | 26 ++++++++++++++++++++++++++
- 4 files changed, 34 insertions(+), 1 deletion(-)
+ include/trace/hooks/fpsimd.h       | 21 +++++++++++++++++++++
+ 4 files changed, 29 insertions(+), 1 deletion(-)
  create mode 100644 include/trace/hooks/fpsimd.h
 
 diff --git a/arch/arm64/include/asm/processor.h b/arch/arm64/include/asm/processor.h
@@ -79,10 +79,10 @@ diff --git a/drivers/android/vendor_hooks.c b/drivers/android/vendor_hooks.c
 +EXPORT_TRACEPOINT_SYMBOL_GPL(android_vh_is_fpsimd_save);
 diff --git a/include/trace/hooks/fpsimd.h b/include/trace/hooks/fpsimd.h
 new file mode 100644
-index 000000000000..73ad2c0009c3
+index 000000000000..3c107f8c1dac
 --- /dev/null
 +++ b/include/trace/hooks/fpsimd.h
-@@ -0,0 +1,26 @@
+@@ -0,0 +1,21 @@
 +/* SPDX-License-Identifier: GPL-2.0 */
 +#undef TRACE_SYSTEM
 +#define TRACE_SYSTEM fpsimd
@@ -95,16 +95,11 @@ index 000000000000..73ad2c0009c3
 +#include <linux/tracepoint.h>
 +#include <trace/hooks/vendor_hooks.h>
 +
-+#if defined(CONFIG_TRACEPOINTS) && defined(CONFIG_ANDROID_VENDOR_HOOKS)
 +struct task_struct;
 +
 +DECLARE_HOOK(android_vh_is_fpsimd_save,
 +	TP_PROTO(struct task_struct *prev, struct task_struct *next),
 +	TP_ARGS(prev, next))
-+#else
-+
-+#define trace_android_vh_is_fpsimd_save(prev, next)
-+#endif
 +
 +#endif /* _TRACE_HOOK_FPSIMD_H */
 +/* This part must be outside protection */

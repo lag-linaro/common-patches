@@ -18,9 +18,9 @@ Change-Id: Ic8d3cdd1c1aa6a9267d0b755694fedffa2ea8e36
 Signed-off-by: Pavankumar Kondeti <pkondeti@codeaurora.org>
 ---
  drivers/android/vendor_hooks.c   |  5 ++++
- include/trace/hooks/preemptirq.h | 43 ++++++++++++++++++++++++++++++++
- kernel/trace/trace_preemptirq.c  | 40 +++++++++++++++++++++++------
- 3 files changed, 80 insertions(+), 8 deletions(-)
+ include/trace/hooks/preemptirq.h | 32 +++++++++++++++++++++++++
+ kernel/trace/trace_preemptirq.c  | 40 +++++++++++++++++++++++++-------
+ 3 files changed, 69 insertions(+), 8 deletions(-)
  create mode 100644 include/trace/hooks/preemptirq.h
 
 diff --git a/drivers/android/vendor_hooks.c b/drivers/android/vendor_hooks.c
@@ -44,10 +44,10 @@ diff --git a/drivers/android/vendor_hooks.c b/drivers/android/vendor_hooks.c
 +EXPORT_TRACEPOINT_SYMBOL_GPL(android_rvh_irqs_enable);
 diff --git a/include/trace/hooks/preemptirq.h b/include/trace/hooks/preemptirq.h
 new file mode 100644
-index 000000000000..be96261280a6
+index 000000000000..7a5d64833fdf
 --- /dev/null
 +++ b/include/trace/hooks/preemptirq.h
-@@ -0,0 +1,43 @@
+@@ -0,0 +1,32 @@
 +/* SPDX-License-Identifier: GPL-2.0 */
 +#undef TRACE_SYSTEM
 +#define TRACE_SYSTEM preemptirq
@@ -60,8 +60,6 @@ index 000000000000..be96261280a6
 +
 +#include <linux/tracepoint.h>
 +#include <trace/hooks/vendor_hooks.h>
-+
-+#if defined(CONFIG_TRACEPOINTS) && defined(CONFIG_ANDROID_VENDOR_HOOKS)
 +
 +DECLARE_RESTRICTED_HOOK(android_rvh_preempt_disable,
 +	TP_PROTO(unsigned long ip, unsigned long parent_ip),
@@ -78,15 +76,6 @@ index 000000000000..be96261280a6
 +DECLARE_RESTRICTED_HOOK(android_rvh_irqs_enable,
 +	TP_PROTO(unsigned long ip, unsigned long parent_ip),
 +	TP_ARGS(ip, parent_ip), 1);
-+
-+#else
-+
-+#define trace_android_rvh_preempt_disable(ip, parent_ip)
-+#define trace_android_rvh_preempt_enable(ip, parent_ip)
-+#define trace_android_rvh_irqs_disable(ip, parent_ip)
-+#define trace_android_rvh_irqs_enable(ip, parent_ip)
-+
-+#endif
 +
 +#endif /* _TRACE_HOOK_PREEMPTIRQ_H */
 +/* This part must be outside protection */

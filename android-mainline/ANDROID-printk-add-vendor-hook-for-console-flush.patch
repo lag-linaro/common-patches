@@ -10,9 +10,9 @@ Change-Id: I167e1595bbb50e57371bfabfde638624761d5f8a
 Signed-off-by: Prasad Sodagudi <psodagud@codeaurora.org>
 ---
  drivers/android/vendor_hooks.c |  2 ++
- include/trace/hooks/printk.h   | 27 +++++++++++++++++++++++++++
+ include/trace/hooks/printk.h   | 19 +++++++++++++++++++
  kernel/printk/printk.c         |  8 ++++++++
- 3 files changed, 37 insertions(+)
+ 3 files changed, 29 insertions(+)
  create mode 100644 include/trace/hooks/printk.h
 
 diff --git a/drivers/android/vendor_hooks.c b/drivers/android/vendor_hooks.c
@@ -33,10 +33,10 @@ diff --git a/drivers/android/vendor_hooks.c b/drivers/android/vendor_hooks.c
 +EXPORT_TRACEPOINT_SYMBOL_GPL(android_vh_printk_hotplug);
 diff --git a/include/trace/hooks/printk.h b/include/trace/hooks/printk.h
 new file mode 100644
-index 000000000000..83f8ad5e710d
+index 000000000000..44599c9cd9a2
 --- /dev/null
 +++ b/include/trace/hooks/printk.h
-@@ -0,0 +1,27 @@
+@@ -0,0 +1,19 @@
 +/* SPDX-License-Identifier: GPL-2.0 */
 +#undef TRACE_SYSTEM
 +#define TRACE_SYSTEM printk
@@ -49,17 +49,9 @@ index 000000000000..83f8ad5e710d
 +#include <linux/tracepoint.h>
 +#include <trace/hooks/vendor_hooks.h>
 +
-+#if defined(CONFIG_TRACEPOINTS) && defined(CONFIG_ANDROID_VENDOR_HOOKS)
-+
 +DECLARE_HOOK(android_vh_printk_hotplug,
 +	TP_PROTO(int *flag),
 +	TP_ARGS(flag));
-+
-+#else
-+
-+#define trace_android_vh_printk_hotplug(flag)
-+
-+#endif
 +
 +#endif /* _TRACE_HOOK_PRINTK_H */
 +/* This part must be outside protection */
