@@ -1,0 +1,171 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: Paul Lawrence <paullawrence@google.com>
+Date: Thu, 28 Jan 2021 07:58:08 -0800
+Subject: ANDROID: Incremental fs: inotify on create mapped file
+
+Bug: 175323815
+Test: incfs_test passes
+Signed-off-by: Paul Lawrence <paullawrence@google.com>
+Change-Id: I670e8a7f4a68012d68718a431be3450646a614c0
+---
+ fs/incfs/pseudo_files.c                       | 52 +++++++++++--------
+ fs/incfs/vfs.c                                |  7 ++-
+ .../selftests/filesystems/incfs/incfs_test.c  | 19 +++++++
+ 3 files changed, 51 insertions(+), 27 deletions(-)
+
+diff --git a/fs/incfs/pseudo_files.c b/fs/incfs/pseudo_files.c
+--- a/fs/incfs/pseudo_files.c
++++ b/fs/incfs/pseudo_files.c
+@@ -410,27 +410,8 @@ static void notify_create(struct file *pending_reads_file,
+ 
+ 	fsnotify_create(d_inode(dir_path.dentry), file);
+ 
+-	dir = incfs_lookup_dentry(base_path.dentry, INCFS_INDEX_NAME);
+-	if (IS_ERR(dir)) {
+-		error = PTR_ERR(dir);
+-		dir = NULL;
+-		goto out;
+-	}
+-
+-	dput(file);
+-	file = incfs_lookup_dentry(dir, file_id_str);
+-	if (IS_ERR(file)) {
+-		error = PTR_ERR(file);
+-		file = NULL;
+-		goto out;
+-	}
+-
+-	fsnotify_create(d_inode(dir), file);
+-
+-	if (incomplete_file) {
+-		dput(dir);
+-		dir = incfs_lookup_dentry(base_path.dentry,
+-					  INCFS_INCOMPLETE_NAME);
++	if (file_id_str) {
++		dir = incfs_lookup_dentry(base_path.dentry, INCFS_INDEX_NAME);
+ 		if (IS_ERR(dir)) {
+ 			error = PTR_ERR(dir);
+ 			dir = NULL;
+@@ -446,6 +427,27 @@ static void notify_create(struct file *pending_reads_file,
+ 		}
+ 
+ 		fsnotify_create(d_inode(dir), file);
++
++		if (incomplete_file) {
++			dput(dir);
++			dir = incfs_lookup_dentry(base_path.dentry,
++						  INCFS_INCOMPLETE_NAME);
++			if (IS_ERR(dir)) {
++				error = PTR_ERR(dir);
++				dir = NULL;
++				goto out;
++			}
++
++			dput(file);
++			file = incfs_lookup_dentry(dir, file_id_str);
++			if (IS_ERR(file)) {
++				error = PTR_ERR(file);
++				file = NULL;
++				goto out;
++			}
++
++			fsnotify_create(d_inode(dir), file);
++		}
+ 	}
+ out:
+ 	if (error)
+@@ -745,8 +747,9 @@ static int init_new_mapped_file(struct mount_info *mi, struct dentry *dentry,
+ 	return error;
+ }
+ 
+-static long ioctl_create_mapped_file(struct mount_info *mi, void __user *arg)
++static long ioctl_create_mapped_file(struct file *file, void __user *arg)
+ {
++	struct mount_info *mi = get_mount_info(file_superblock(file));
+ 	struct incfs_create_mapped_file_args __user *args_usr_ptr = arg;
+ 	struct incfs_create_mapped_file_args args = {};
+ 	char *file_name;
+@@ -875,6 +878,9 @@ static long ioctl_create_mapped_file(struct mount_info *mi, void __user *arg)
+ 	if (error)
+ 		goto delete_file;
+ 
++	notify_create(file, u64_to_user_ptr(args.directory_path), file_name,
++		      NULL, false);
++
+ 	goto out;
+ 
+ delete_file:
+@@ -990,7 +996,7 @@ static long pending_reads_dispatch_ioctl(struct file *f, unsigned int req,
+ 	case INCFS_IOC_PERMIT_FILL:
+ 		return ioctl_permit_fill(f, (void __user *)arg);
+ 	case INCFS_IOC_CREATE_MAPPED_FILE:
+-		return ioctl_create_mapped_file(mi, (void __user *)arg);
++		return ioctl_create_mapped_file(f, (void __user *)arg);
+ 	case INCFS_IOC_GET_READ_TIMEOUTS:
+ 		return ioctl_get_read_timeouts(mi, (void __user *)arg);
+ 	case INCFS_IOC_SET_READ_TIMEOUTS:
+diff --git a/fs/incfs/vfs.c b/fs/incfs/vfs.c
+--- a/fs/incfs/vfs.c
++++ b/fs/incfs/vfs.c
+@@ -624,15 +624,14 @@ static void maybe_delete_incomplete_file(struct file *f,
+ 
+ 	vfs_fsync(df->df_backing_file_context->bc_file, 0);
+ 	error = incfs_unlink(incomplete_file_dentry);
+-	if (error)
++	if (error) {
++		pr_warn("incfs: Deleting incomplete file failed: %d\n", error);
+ 		goto out;
++	}
+ 
+ 	notify_unlink(f->f_path.dentry, file_id_str, INCFS_INCOMPLETE_NAME);
+ 
+ out:
+-	if (error)
+-		pr_warn("incfs: Deleting incomplete file failed: %d\n", error);
+-
+ 	dput(incomplete_file_dentry);
+ 	kfree(file_id_str);
+ 	revert_creds(old_cred);
+diff --git a/tools/testing/selftests/filesystems/incfs/incfs_test.c b/tools/testing/selftests/filesystems/incfs/incfs_test.c
+--- a/tools/testing/selftests/filesystems/incfs/incfs_test.c
++++ b/tools/testing/selftests/filesystems/incfs/incfs_test.c
+@@ -3476,6 +3476,7 @@ static int per_uid_read_timeouts_test(const char *mount_dir)
+ #define DIRS 3
+ static int inotify_test(const char *mount_dir)
+ {
++	const char *mapped_file_name = "mapped_name";
+ 	struct test_file file = {
+ 		.name = "file",
+ 		.size = 16 * INCFS_DATA_FILE_BLOCK_SIZE
+@@ -3494,6 +3495,7 @@ static int inotify_test(const char *mount_dir)
+ 	const char *names[DIRS] = {};
+ 	int res;
+ 	char id[sizeof(incfs_uuid_t) * 2 + 1];
++	struct incfs_create_mapped_file_args mfa;
+ 
+ 	/* File creation triggers inotify events in .index and .incomplete? */
+ 	TEST(backing_dir = create_backing_dir(mount_dir), backing_dir);
+@@ -3548,6 +3550,23 @@ static int inotify_test(const char *mount_dir)
+ 	TESTEQUAL(strcmp(names[1], id), 0);
+ 	TESTEQUAL(strcmp(names[2], id), 0);
+ 
++	/* Creating a mapped file triggers inotify event */
++	mfa = (struct incfs_create_mapped_file_args) {
++		.size = INCFS_DATA_FILE_BLOCK_SIZE,
++		.mode = 0664,
++		.file_name = ptr_to_u64(mapped_file_name),
++		.source_file_id = file.id,
++		.source_offset = INCFS_DATA_FILE_BLOCK_SIZE,
++	};
++
++	TEST(res = ioctl(cmd_fd, INCFS_IOC_CREATE_MAPPED_FILE, &mfa),
++	     res != -1);
++	TEST(res = read(notify_fd, buffer, sizeof(buffer)), res != -1);
++	event = (struct inotify_event *) buffer;
++	TESTEQUAL(event->wd, wds[0]);
++	TESTEQUAL(event->mask, IN_CREATE);
++	TESTEQUAL(strcmp(event->name, mapped_file_name), 0);
++
+ 	/* File completion triggers inotify event in .incomplete? */
+ 	TESTEQUAL(emit_test_file_data(mount_dir, &file), 0);
+ 	TEST(res = read(notify_fd, buffer, sizeof(buffer)), res != -1);

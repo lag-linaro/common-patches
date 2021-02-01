@@ -2,7 +2,7 @@
 # android-mainline patches
 #
 # Applies onto upstream 1048ba83fb1c Linux v5.11-rc6
-# Matches android-mainline 9ecdd51ae358 ("Merge 'v5.11-rc6' into android-mainline")
+# Matches android-mainline d52341bb666f ("ANDROID: Incremental fs: inotify on create mapped file")
 #
 Revert-block-grant-IOPRIO_CLASS_RT-to-CAP_SYS_NICE.patch
 Revert-arm64-dts-qcom-sdm845-db845c-Fix-hdmi-nodes.patch
@@ -413,6 +413,7 @@ ANDROID-Incremental-fs-Fix-selinux-issues.patch
 ANDROID-Incremental-fs-Free-mount-info-after-files-are-flushed.patch
 ANDROID-Incremental-fs-Make-data-validation-failure-a-warn.patch
 ANDROID-Incremental-fs-inotify-support.patch
+ANDROID-Incremental-fs-inotify-on-create-mapped-file.patch
 _____ANNOTATION-networking-changes_____.patch
 ANDROID-net-xfrm-make-PF_KEY-SHA256-use-RFC-compliant-truncation.patch
 ANDROID-net-xfrm-always-export-pktgen_xfrm_outer_mode_output.patch
