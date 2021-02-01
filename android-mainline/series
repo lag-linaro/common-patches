@@ -2,7 +2,7 @@
 # android-mainline patches
 #
 # Applies onto upstream 0e9bcda5d286 Linux v5.11-rc5-303-g0e9bcda5d286
-# Matches android-mainline da8c4ad2d7df ("Merge 0e9bcda5d286 ("Merge tag 'arm64-fixes' of git://git.kernel.org/pub/scm/linux/kernel/git/arm64/linux") into android-mainline")
+# Matches android-mainline 384ecffc9374 ("ANDROID: x86: Add objtool to MAKE_GOALS")
 #
 Revert-block-grant-IOPRIO_CLASS_RT-to-CAP_SYS_NICE.patch
 Revert-arm64-dts-qcom-sdm845-db845c-Fix-hdmi-nodes.patch
@@ -29,6 +29,7 @@ FROMLIST-fuse-Allocate-unlikely-used-ioctl-number-for-passthrough-V1.patch
 FROMLIST-USB-gadget-f_fs-add-SuperSpeed-Plus-support.patch
 FROMLIST-scsi-ufs-WB-is-only-available-on-LUN-0-to-7.patch
 FROMLIST-scripts-merge_config-add-strict-mode-to-fail-upon-any-redefinition.patch
+FROMLIST-kbuild-improve-libelf-detection.patch
 _____ANNOTATION-Android-vendor-hooks_____.patch
 ANDROID-GKI-add-android_vendor.h.patch
 ANDROID-add-support-for-vendor-hooks.patch
@@ -742,6 +743,7 @@ ANDROID-GKI-remove-CONFIG_ENABLE_MUST_CHECK-from-gki-defconfigs.patch
 ANDROID-gki_defconfig-add-CONFIG_DEBUG_KINFO-y.patch
 ANDROID-clang-update-to-12.0.1.patch
 ANDROID-GKI-select-DMADEVICES-if-GKI_HIDDEN_SND_SOC_CONFIGS-is-set.patch
+ANDROID-x86-Add-objtool-to-MAKE_GOALS.patch
 _____ANNOTATION-Patches-for-bringing-up-new-SoCs_____.patch
 ANDROID-arm64-Add-support-for-asymmetric-AArch32-EL0-configurations.patch
 ANDROID-arm64-Handle-AArch32-tasks-running-on-non-AArch32-cpu.patch

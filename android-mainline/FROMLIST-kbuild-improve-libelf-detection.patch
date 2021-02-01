@@ -1,0 +1,37 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: Alistair Delva <adelva@google.com>
+Date: Mon, 11 Jan 2021 12:04:38 -0800
+Subject: FROMLIST: kbuild: improve libelf detection
+
+When `pkg-config --libs' wasn't used or didn't return anything useful,
+the test for libelf would fail even if the headers and libraries were
+available to kbuild via KBUILD_CFLAGS and KBUILD_LDFLAGS.
+
+This makes the check in the core Makefile match the check that is done
+in tools/objtool/Makefile. Specifically, the C compiler is passed the
+full KBUILD_CFLAGS and KBUILD_LDFLAGS, which may have set up additional
+sysroot/include/library search paths to find libelf.
+
+Signed-off-by: Alistair Delva <adelva@google.com>
+Link: https://lore.kernel.org/lkml/20210112190010.1582888-1-adelva@google.com/
+Bug: 175705438
+Change-Id: I06b0997c2df8545877d8b2d29b7a3045551c92e2
+---
+ Makefile | 5 +++--
+ 1 file changed, 3 insertions(+), 2 deletions(-)
+
+diff --git a/Makefile b/Makefile
+--- a/Makefile
++++ b/Makefile
+@@ -1074,8 +1074,9 @@ export mod_sign_cmd
+ 
+ HOST_LIBELF_LIBS = $(shell pkg-config libelf --libs 2>/dev/null || echo -lelf)
+ 
+-has_libelf = $(call try-run,\
+-               echo "int main() {}" | $(HOSTCC) -xc -o /dev/null $(HOST_LIBELF_LIBS) -,1,0)
++has_libelf := $(call try-run,\
++                echo "int main() {}" | \
++                $(HOSTCC) $(KBUILD_HOSTCFLAGS) -xc -o /dev/null $(KBUILD_HOSTLDFLAGS) $(HOST_LIBELF_LIBS) -,1,0)
+ 
+ ifdef CONFIG_STACK_VALIDATION
+   ifeq ($(has_libelf),1)
