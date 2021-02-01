@@ -1,8 +1,8 @@
 #
 # android-mainline patches
 #
-# Applies onto upstream 13391c60da33 Linux v5.11-rc5-7-g13391c60da33
-# Matches android-mainline 6c3665470dfb ("ANDROID: use ANDROID_OEM_DATA for OEM data")
+# Applies onto upstream 2ab38c17aac1 Linux v5.11-rc5-37-g2ab38c17aac1
+# Matches android-mainline 30da6e8e49a0 ("Merge 2ab38c17aac1 ("mailmap: remove the "repo-abbrev" comment") into android-mainline")
 #
 Revert-block-grant-IOPRIO_CLASS_RT-to-CAP_SYS_NICE.patch
 Revert-arm64-dts-qcom-sdm845-db845c-Fix-hdmi-nodes.patch
