@@ -1,8 +1,8 @@
 #
 # android-mainline patches
 #
-# Applies onto upstream 2ab38c17aac1 Linux v5.11-rc5-37-g2ab38c17aac1
-# Matches android-mainline 4ff70ea40c56 ("FROMGIT: f2fs: flush data when enabling checkpoint back")
+# Applies onto upstream bec4c2968fce Linux v5.11-rc5-239-gbec4c2968fce
+# Matches android-mainline 494e51034815 ("Merge bec4c2968fce ("Merge tag 'ecryptfs-5.11-rc6-setxattr-fix' of git://git.kernel.org/pub/scm/linux/kernel/git/tyhicks/ecryptfs") into android-mainline")
 #
 Revert-block-grant-IOPRIO_CLASS_RT-to-CAP_SYS_NICE.patch
 Revert-arm64-dts-qcom-sdm845-db845c-Fix-hdmi-nodes.patch

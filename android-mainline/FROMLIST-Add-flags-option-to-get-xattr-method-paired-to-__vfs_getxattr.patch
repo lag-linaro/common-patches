@@ -238,7 +238,7 @@ diff --git a/fs/cifs/xattr.c b/fs/cifs/xattr.c
 diff --git a/fs/ecryptfs/inode.c b/fs/ecryptfs/inode.c
 --- a/fs/ecryptfs/inode.c
 +++ b/fs/ecryptfs/inode.c
-@@ -1040,7 +1040,8 @@ ecryptfs_getxattr_lower(struct dentry *lower_dentry, struct inode *lower_inode,
+@@ -1044,7 +1044,8 @@ ecryptfs_getxattr_lower(struct dentry *lower_dentry, struct inode *lower_inode,
  		goto out;
  	}
  	inode_lock(lower_inode);
@@ -248,7 +248,7 @@ diff --git a/fs/ecryptfs/inode.c b/fs/ecryptfs/inode.c
  	inode_unlock(lower_inode);
  out:
  	return rc;
-@@ -1125,7 +1126,8 @@ const struct inode_operations ecryptfs_main_iops = {
+@@ -1129,7 +1130,8 @@ const struct inode_operations ecryptfs_main_iops = {
  
  static int ecryptfs_xattr_get(const struct xattr_handler *handler,
  			      struct dentry *dentry, struct inode *inode,
