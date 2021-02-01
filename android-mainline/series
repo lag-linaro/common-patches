@@ -1,8 +1,8 @@
 #
 # android-mainline patches
 #
-# Applies onto upstream 6642d600b541 Linux v5.11-rc5-328-g6642d600b541
-# Matches android-mainline 7c0551d428c1 ("Revert "FROMLIST: modpost: Make static exports fatal"")
+# Applies onto upstream 1048ba83fb1c Linux v5.11-rc6
+# Matches android-mainline 9ecdd51ae358 ("Merge 'v5.11-rc6' into android-mainline")
 #
 Revert-block-grant-IOPRIO_CLASS_RT-to-CAP_SYS_NICE.patch
 Revert-arm64-dts-qcom-sdm845-db845c-Fix-hdmi-nodes.patch
