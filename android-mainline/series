@@ -1,8 +1,8 @@
 #
 # android-mainline patches
 #
-# Applies onto upstream bec4c2968fce Linux v5.11-rc5-239-gbec4c2968fce
-# Matches android-mainline 40499ff09c4e ("FROMLIST: fuse: Allocate unlikely used ioctl number for passthrough V1")
+# Applies onto upstream 0e9bcda5d286 Linux v5.11-rc5-303-g0e9bcda5d286
+# Matches android-mainline da8c4ad2d7df ("Merge 0e9bcda5d286 ("Merge tag 'arm64-fixes' of git://git.kernel.org/pub/scm/linux/kernel/git/arm64/linux") into android-mainline")
 #
 Revert-block-grant-IOPRIO_CLASS_RT-to-CAP_SYS_NICE.patch
 Revert-arm64-dts-qcom-sdm845-db845c-Fix-hdmi-nodes.patch
