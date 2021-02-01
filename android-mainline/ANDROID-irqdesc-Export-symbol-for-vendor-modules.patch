@@ -1,0 +1,40 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: Prateek Sood <prsood@codeaurora.org>
+Date: Wed, 6 Jan 2021 21:14:55 +0530
+Subject: ANDROID: irqdesc: Export symbol for vendor modules
+
+Export kstat_irqs_usr and kstat_irqs_cpu symbols for vendor
+loadable modules. These symbols are useful for continuous
+monitoring of irq stats to detect problems like interrupt
+storms.
+
+1) kstat_irqs_usr: it helps in getting total interrupt count
+   for an IRQ.
+
+2) kstat_irqs_cpu: it helps in getting per cpu interrupt count
+   for an IRQ.
+
+Bug: 177393442
+Change-Id: I6f65c5759cd096db391e1c41e4260aa4ebc40fb4
+Signed-off-by: Prateek Sood <prsood@codeaurora.org>
+Signed-off-by: Mukesh Ojha <mojha@codeaurora.org>
+---
+ kernel/irq/irqdesc.c | 2 ++
+ 1 file changed, 2 insertions(+)
+
+diff --git a/kernel/irq/irqdesc.c b/kernel/irq/irqdesc.c
+--- a/kernel/irq/irqdesc.c
++++ b/kernel/irq/irqdesc.c
+@@ -920,6 +920,7 @@ unsigned int kstat_irqs_cpu(unsigned int irq, int cpu)
+ 	return desc && desc->kstat_irqs ?
+ 			*per_cpu_ptr(desc->kstat_irqs, cpu) : 0;
+ }
++EXPORT_SYMBOL_GPL(kstat_irqs_cpu);
+ 
+ static bool irq_is_nmi(struct irq_desc *desc)
+ {
+@@ -977,3 +978,4 @@ void __irq_set_lockdep_class(unsigned int irq, struct lock_class_key *lock_class
+ }
+ EXPORT_SYMBOL_GPL(__irq_set_lockdep_class);
+ #endif
++EXPORT_SYMBOL_GPL(kstat_irqs_usr);

@@ -1,0 +1,223 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: Prateek Sood <prsood@codeaurora.org>
+Date: Mon, 28 Dec 2020 17:46:43 +0530
+Subject: ANDROID: ftrace: vendor hook for ftrace dump on oops
+
+Add following vendor hooks in ftrace oops path to allow
+vendor modules to get ftrace buffer data.
+
+1) android_vh_ftrace_oops_enter
+2) android_vh_ftrace_size_check
+3) android_vh_ftrace_format_check
+4) android_vh_ftrace_dump_buffer
+5) android_vh_ftrace_oops_exit
+
+Ftrace dump on oops can be controlled with kernel command
+line parameter ftrace_dump_on_oops.
+
+Bug: 177387994
+Change-Id: I898026bfc3e5c5c5ab1eaa0e86a019a6a720408e
+Signed-off-by: Prateek Sood <prsood@codeaurora.org>
+Signed-off-by: Mukesh Ojha <mojha@codeaurora.org>
+---
+ drivers/android/vendor_hooks.c    |  6 ++++
+ include/trace/hooks/ftrace_dump.h | 50 +++++++++++++++++++++++++++++++
+ kernel/trace/trace.c              | 37 +++++++++++++++++++++--
+ 3 files changed, 91 insertions(+), 2 deletions(-)
+ create mode 100644 include/trace/hooks/ftrace_dump.h
+
+diff --git a/drivers/android/vendor_hooks.c b/drivers/android/vendor_hooks.c
+--- a/drivers/android/vendor_hooks.c
++++ b/drivers/android/vendor_hooks.c
+@@ -21,6 +21,7 @@
+ #include <trace/hooks/printk.h>
+ #include <trace/hooks/epoch.h>
+ #include <trace/hooks/preemptirq.h>
++#include <trace/hooks/ftrace_dump.h>
+ 
+ /*
+  * Export tracepoints that act as a bare tracehook (ie: have no trace event
+@@ -82,3 +83,8 @@ EXPORT_TRACEPOINT_SYMBOL_GPL(android_rvh_cpu_cgroup_attach);
+ EXPORT_TRACEPOINT_SYMBOL_GPL(android_rvh_cpu_cgroup_can_attach);
+ EXPORT_TRACEPOINT_SYMBOL_GPL(android_vh_map_util_freq);
+ EXPORT_TRACEPOINT_SYMBOL_GPL(android_vh_em_cpu_energy);
++EXPORT_TRACEPOINT_SYMBOL_GPL(android_vh_ftrace_oops_enter);
++EXPORT_TRACEPOINT_SYMBOL_GPL(android_vh_ftrace_oops_exit);
++EXPORT_TRACEPOINT_SYMBOL_GPL(android_vh_ftrace_size_check);
++EXPORT_TRACEPOINT_SYMBOL_GPL(android_vh_ftrace_format_check);
++EXPORT_TRACEPOINT_SYMBOL_GPL(android_vh_ftrace_dump_buffer);
+diff --git a/include/trace/hooks/ftrace_dump.h b/include/trace/hooks/ftrace_dump.h
+new file mode 100644
+index 000000000000..ce33479cb17b
+--- /dev/null
++++ b/include/trace/hooks/ftrace_dump.h
+@@ -0,0 +1,50 @@
++/* SPDX-License-Identifier: GPL-2.0 */
++#undef TRACE_SYSTEM
++#define TRACE_SYSTEM ftrace_dump
++
++#define TRACE_INCLUDE_PATH trace/hooks
++
++#if !defined(_TRACE_HOOK_FTRACE_DUMP_H) || defined(TRACE_HEADER_MULTI_READ)
++#define _TRACE_HOOK_FTRACE_DUMP_H
++
++#include <linux/trace_seq.h>
++#include <linux/trace_events.h>
++
++#include <linux/tracepoint.h>
++#include <trace/hooks/vendor_hooks.h>
++
++#if defined(CONFIG_TRACEPOINTS) && defined(CONFIG_ANDROID_VENDOR_HOOKS)
++
++DECLARE_HOOK(android_vh_ftrace_oops_enter,
++	TP_PROTO(bool *ftrace_check),
++	TP_ARGS(ftrace_check));
++
++DECLARE_HOOK(android_vh_ftrace_oops_exit,
++	TP_PROTO(bool *ftrace_check),
++	TP_ARGS(ftrace_check));
++
++DECLARE_HOOK(android_vh_ftrace_size_check,
++	TP_PROTO(unsigned long size, bool *ftrace_check),
++	TP_ARGS(size, ftrace_check));
++
++DECLARE_HOOK(android_vh_ftrace_format_check,
++	TP_PROTO(bool *ftrace_check),
++	TP_ARGS(ftrace_check));
++
++DECLARE_HOOK(android_vh_ftrace_dump_buffer,
++	TP_PROTO(struct trace_seq *trace_buf, bool *dump_printk),
++	TP_ARGS(trace_buf, dump_printk));
++
++#else
++
++#define trace_android_vh_ftrace_oops_enter(ftrace_check)
++#define trace_android_vh_ftrace_oops_exit(ftrace_check)
++#define trace_android_vh_ftrace_size_check(size, ftrace_check)
++#define trace_android_vh_ftrace_format_check(ftrace_check)
++#define trace_android_vh_ftrace_dump_buffer(trace_buf, dump_printk)
++
++#endif
++
++#endif /* _TRACE_HOOK_FTRACE_DUMP_H */
++/* This part must be outside protection */
++#include <trace/define_trace.h>
+diff --git a/kernel/trace/trace.c b/kernel/trace/trace.c
+--- a/kernel/trace/trace.c
++++ b/kernel/trace/trace.c
+@@ -48,6 +48,7 @@
+ #include <linux/fsnotify.h>
+ #include <linux/irq_work.h>
+ #include <linux/workqueue.h>
++#include <trace/hooks/ftrace_dump.h>
+ 
+ #include "trace.h"
+ #include "trace_output.h"
+@@ -9231,8 +9232,17 @@ static __init int tracer_init_tracefs(void)
+ static int trace_panic_handler(struct notifier_block *this,
+ 			       unsigned long event, void *unused)
+ {
++	bool ftrace_check = false;
++
++	trace_android_vh_ftrace_oops_enter(&ftrace_check);
++
++	if (ftrace_check)
++		return NOTIFY_OK;
++
+ 	if (ftrace_dump_on_oops)
+ 		ftrace_dump(ftrace_dump_on_oops);
++
++	trace_android_vh_ftrace_oops_exit(&ftrace_check);
+ 	return NOTIFY_OK;
+ }
+ 
+@@ -9246,6 +9256,13 @@ static int trace_die_handler(struct notifier_block *self,
+ 			     unsigned long val,
+ 			     void *data)
+ {
++	bool ftrace_check = false;
++
++	trace_android_vh_ftrace_oops_enter(&ftrace_check);
++
++	if (ftrace_check)
++		return NOTIFY_OK;
++
+ 	switch (val) {
+ 	case DIE_OOPS:
+ 		if (ftrace_dump_on_oops)
+@@ -9254,6 +9271,8 @@ static int trace_die_handler(struct notifier_block *self,
+ 	default:
+ 		break;
+ 	}
++
++	trace_android_vh_ftrace_oops_exit(&ftrace_check);
+ 	return NOTIFY_OK;
+ }
+ 
+@@ -9278,6 +9297,8 @@ static struct notifier_block trace_die_notifier = {
+ void
+ trace_printk_seq(struct trace_seq *s)
+ {
++	bool dump_printk = true;
++
+ 	/* Probably should print a warning here. */
+ 	if (s->seq.len >= TRACE_MAX_PRINT)
+ 		s->seq.len = TRACE_MAX_PRINT;
+@@ -9293,7 +9314,9 @@ trace_printk_seq(struct trace_seq *s)
+ 	/* should be zero ended, but we are paranoid. */
+ 	s->buffer[s->seq.len] = 0;
+ 
+-	printk(KERN_TRACE "%s", s->buffer);
++	trace_android_vh_ftrace_dump_buffer(s, &dump_printk);
++	if (dump_printk)
++		printk(KERN_TRACE "%s", s->buffer);
+ 
+ 	trace_seq_init(s);
+ }
+@@ -9326,6 +9349,8 @@ void ftrace_dump(enum ftrace_dump_mode oops_dump_mode)
+ 	unsigned int old_userobj;
+ 	unsigned long flags;
+ 	int cnt = 0, cpu;
++	bool ftrace_check = false;
++	unsigned long size;
+ 
+ 	/* Only allow one dump user at a time. */
+ 	if (atomic_inc_return(&dump_running) != 1) {
+@@ -9354,6 +9379,8 @@ void ftrace_dump(enum ftrace_dump_mode oops_dump_mode)
+ 
+ 	for_each_tracing_cpu(cpu) {
+ 		atomic_inc(&per_cpu_ptr(iter.array_buffer->data, cpu)->disabled);
++		size = ring_buffer_size(iter.array_buffer->buffer, cpu);
++		trace_android_vh_ftrace_size_check(size, &ftrace_check);
+ 	}
+ 
+ 	old_userobj = tr->trace_flags & TRACE_ITER_SYM_USEROBJ;
+@@ -9361,6 +9388,9 @@ void ftrace_dump(enum ftrace_dump_mode oops_dump_mode)
+ 	/* don't look at user memory in panic mode */
+ 	tr->trace_flags &= ~TRACE_ITER_SYM_USEROBJ;
+ 
++	if (ftrace_check)
++		goto out_enable;
++
+ 	switch (oops_dump_mode) {
+ 	case DUMP_ALL:
+ 		iter.cpu_file = RING_BUFFER_ALL_CPUS;
+@@ -9391,6 +9421,7 @@ void ftrace_dump(enum ftrace_dump_mode oops_dump_mode)
+ 	 */
+ 
+ 	while (!trace_empty(&iter)) {
++		ftrace_check = true;
+ 
+ 		if (!cnt)
+ 			printk(KERN_TRACE "---------------------------------\n");
+@@ -9398,7 +9429,9 @@ void ftrace_dump(enum ftrace_dump_mode oops_dump_mode)
+ 		cnt++;
+ 
+ 		trace_iterator_reset(&iter);
+-		iter.iter_flags |= TRACE_FILE_LAT_FMT;
++		trace_android_vh_ftrace_format_check(&ftrace_check);
++		if (ftrace_check)
++			iter.iter_flags |= TRACE_FILE_LAT_FMT;
+ 
+ 		if (trace_find_next_entry_inc(&iter) != NULL) {
+ 			int ret;

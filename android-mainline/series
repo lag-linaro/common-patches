@@ -2,7 +2,7 @@
 # android-mainline patches
 #
 # Applies onto upstream bec4c2968fce Linux v5.11-rc5-239-gbec4c2968fce
-# Matches android-mainline 494e51034815 ("Merge bec4c2968fce ("Merge tag 'ecryptfs-5.11-rc6-setxattr-fix' of git://git.kernel.org/pub/scm/linux/kernel/git/tyhicks/ecryptfs") into android-mainline")
+# Matches android-mainline 40499ff09c4e ("FROMLIST: fuse: Allocate unlikely used ioctl number for passthrough V1")
 #
 Revert-block-grant-IOPRIO_CLASS_RT-to-CAP_SYS_NICE.patch
 Revert-arm64-dts-qcom-sdm845-db845c-Fix-hdmi-nodes.patch
@@ -25,6 +25,7 @@ FROMLIST-fuse-Introduce-synchronous-read-and-write-for-passthrough.patch
 FROMLIST-fuse-Handle-asynchronous-read-and-write-in-passthrough.patch
 FROMLIST-fuse-Use-daemon-creds-in-passthrough-mode.patch
 FROMLIST-fuse-Introduce-passthrough-for-mmap.patch
+FROMLIST-fuse-Allocate-unlikely-used-ioctl-number-for-passthrough-V1.patch
 FROMLIST-USB-gadget-f_fs-add-SuperSpeed-Plus-support.patch
 FROMLIST-scsi-ufs-WB-is-only-available-on-LUN-0-to-7.patch
 FROMLIST-scripts-merge_config-add-strict-mode-to-fail-upon-any-redefinition.patch
@@ -158,6 +159,7 @@ ANDROID-schedutil-add-vendor-hook-for-adjusting-util-to-freq-calculation.patch
 ANDROID-sched-Add-rvh-for-cpu-controller-cgroup-can-attach.patch
 ANDROID-sched-add-em_cpu_energy-vendor-hook.patch
 ANDROID-use-ANDROID_OEM_DATA-for-OEM-data.patch
+ANDROID-ftrace-vendor-hook-for-ftrace-dump-on-oops.patch
 _____ANNOTATION-uid_sys_stats-support_____.patch
 ANDROID-uid_cputime-Adds-accounting-for-the-cputimes-per-uid.patch
 ANDROID-uid_cputime-add-per-uid-IO-usage-accounting.patch
@@ -222,6 +224,7 @@ ANDROID-pcie-dwc-driver-export-dw_handle_msi_irq.patch
 ANDROID-spi-of-Populate-fwnode-in-of_register_spi_device.patch
 ANDROID-staging-add-debug-kinfo-driver.patch
 ANDROID-Workaround-for-cryptobam-driver-not-working-with-modular-clk-drivers.patch
+ANDROID-irqdesc-Export-symbol-for-vendor-modules.patch
 _____ANNOTATION-tty-changes_____.patch
 Revert-Revert-tty-serial-samsung_tty-build-it-for-any-platform.patch
 FROMLIST-hvc_dcc-bind-driver-to-core0-for-reads-and-writes.patch
