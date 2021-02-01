@@ -1,8 +1,8 @@
 #
 # android-mainline patches
 #
-# Applies onto upstream 0e9bcda5d286 Linux v5.11-rc5-303-g0e9bcda5d286
-# Matches android-mainline 384ecffc9374 ("ANDROID: x86: Add objtool to MAKE_GOALS")
+# Applies onto upstream 6642d600b541 Linux v5.11-rc5-328-g6642d600b541
+# Matches android-mainline c9bdbd3ed7ab ("Merge 6642d600b541 ("Merge tag '5.11-rc5-smb3' of git://git.samba.org/sfrench/cifs-2.6") into android-mainline")
 #
 Revert-block-grant-IOPRIO_CLASS_RT-to-CAP_SYS_NICE.patch
 Revert-arm64-dts-qcom-sdm845-db845c-Fix-hdmi-nodes.patch
