@@ -2,7 +2,7 @@
 # android-mainline patches
 #
 # Applies onto upstream 3aaf0a27ffc2 Linux v5.11-rc6-55-g3aaf0a27ffc2
-# Matches android-mainline 4fb49de70224 ("Merge 3aaf0a27ffc2 ("Merge tag 'clang-format-for-linux-v5.11-rc7' of git://github.com/ojeda/linux") into android-mainline")
+# Matches android-mainline 09059c6fca19 ("ANDROID: modpost.c: fix up incorrect merge resolution")
 #
 Revert-block-grant-IOPRIO_CLASS_RT-to-CAP_SYS_NICE.patch
 Revert-arm64-dts-qcom-sdm845-db845c-Fix-hdmi-nodes.patch
@@ -753,4 +753,3 @@ ANDROID-arm64-kvm-Hide-asym-aarch32-systems-from-KVM.patch
 ANDROID-arm64-Enable-KVM-for-Asym-AArch32.patch
 _____ANNOTATION-remove-ANNOTATIONS-file_____.patch
 DROP-ME-obsolete-ION-documentation.patch
-DROP-ME-Out-of-tree-difference-caused-by-unclean-revert.patch
