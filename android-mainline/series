@@ -2,7 +2,7 @@
 # android-mainline patches
 #
 # Applies onto upstream 1048ba83fb1c Linux v5.11-rc6
-# Matches android-mainline d52341bb666f ("ANDROID: Incremental fs: inotify on create mapped file")
+# Matches android-mainline 8f15907b7461 ("ANDROID: ipi: Add function to return nr_ipi and ipi_desc")
 #
 Revert-block-grant-IOPRIO_CLASS_RT-to-CAP_SYS_NICE.patch
 Revert-arm64-dts-qcom-sdm845-db845c-Fix-hdmi-nodes.patch
@@ -61,6 +61,7 @@ ANDROID-arm64-allow-hooks-into-ipi.patch
 ANDROID-arm-allow-hooks-into-ipi.patch
 ANDROID-ARM-Bump-command-line-size.patch
 ANDROID-arm64-Export-show_regs-for-vendor-module-usage.patch
+ANDROID-ipi-Add-function-to-return-nr_ipi-and-ipi_desc.patch
 _____ANNOTATION-iommu-changes_____.patch
 FROMGIT-iommu-arm-smmu-Don-t-bypass-pinned-stream-mappings.patch
 ANDROID-iommu-arm-smmu-Allow-inherting-stream-mapping-from-bootloader.patch

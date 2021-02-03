@@ -1,0 +1,58 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: Prateek Sood <prsood@codeaurora.org>
+Date: Wed, 6 Jan 2021 21:18:49 +0530
+Subject: ANDROID: ipi: Add function to return nr_ipi and ipi_desc
+
+For implementation of IPI stats, nr_ipi and ipi_desc are useful.
+This information helps in getting per cpu IPI count and total
+IPI count from vendor module.
+
+Presently, there are no helper functions to get nr_ipi and
+ipi_desc on vendor side. And if we do with a new exported symbol
+that does kallsyms_lookup_name on each static variable takes
+more than 80ms during boot up or for the first access of each
+static variable is an overhead.
+
+So lets add helper functions to return nr_ipi and ipi_desc
+value to get things done in an efficient way.
+
+Bug: 177393446
+Change-Id: I698dbbb0301d4f1529ef7484f25fe7540378008c
+Signed-off-by: Prateek Sood <prsood@codeaurora.org>
+Signed-off-by: Mukesh Ojha <mojha@codeaurora.org>
+---
+ arch/arm64/include/asm/smp.h |  2 ++
+ arch/arm64/kernel/smp.c      | 12 ++++++++++++
+ 2 files changed, 14 insertions(+)
+
+diff --git a/arch/arm64/include/asm/smp.h b/arch/arm64/include/asm/smp.h
+--- a/arch/arm64/include/asm/smp.h
++++ b/arch/arm64/include/asm/smp.h
+@@ -89,6 +89,8 @@ extern void secondary_entry(void);
+ 
+ extern void arch_send_call_function_single_ipi(int cpu);
+ extern void arch_send_call_function_ipi_mask(const struct cpumask *mask);
++extern int nr_ipi_get(void);
++extern struct irq_desc **ipi_desc_get(void);
+ 
+ #ifdef CONFIG_ARM64_ACPI_PARKING_PROTOCOL
+ extern void arch_send_wakeup_ipi_mask(const struct cpumask *mask);
+diff --git a/arch/arm64/kernel/smp.c b/arch/arm64/kernel/smp.c
+--- a/arch/arm64/kernel/smp.c
++++ b/arch/arm64/kernel/smp.c
+@@ -1136,3 +1136,15 @@ bool cpus_are_stuck_in_kernel(void)
+ 
+ 	return !!cpus_stuck_in_kernel || smp_spin_tables;
+ }
++
++int nr_ipi_get(void)
++{
++	return nr_ipi;
++}
++EXPORT_SYMBOL_GPL(nr_ipi_get);
++
++struct irq_desc **ipi_desc_get(void)
++{
++	return ipi_desc;
++}
++EXPORT_SYMBOL_GPL(ipi_desc_get);
