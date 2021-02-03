@@ -2,7 +2,7 @@
 # android-mainline patches
 #
 # Applies onto upstream 3aaf0a27ffc2 Linux v5.11-rc6-55-g3aaf0a27ffc2
-# Matches android-mainline 09059c6fca19 ("ANDROID: modpost.c: fix up incorrect merge resolution")
+# Matches android-mainline 5743e27cb803 ("ANDROID: Incremental fs: Fix memory leak on closing file")
 #
 Revert-block-grant-IOPRIO_CLASS_RT-to-CAP_SYS_NICE.patch
 Revert-arm64-dts-qcom-sdm845-db845c-Fix-hdmi-nodes.patch
@@ -415,6 +415,7 @@ ANDROID-Incremental-fs-Free-mount-info-after-files-are-flushed.patch
 ANDROID-Incremental-fs-Make-data-validation-failure-a-warn.patch
 ANDROID-Incremental-fs-inotify-support.patch
 ANDROID-Incremental-fs-inotify-on-create-mapped-file.patch
+ANDROID-Incremental-fs-Fix-memory-leak-on-closing-file.patch
 _____ANNOTATION-networking-changes_____.patch
 ANDROID-net-xfrm-make-PF_KEY-SHA256-use-RFC-compliant-truncation.patch
 ANDROID-net-xfrm-always-export-pktgen_xfrm_outer_mode_output.patch
