@@ -1,8 +1,8 @@
 #
 # android-mainline patches
 #
-# Applies onto upstream 1048ba83fb1c Linux v5.11-rc6
-# Matches android-mainline 8f15907b7461 ("ANDROID: ipi: Add function to return nr_ipi and ipi_desc")
+# Applies onto upstream 3aaf0a27ffc2 Linux v5.11-rc6-55-g3aaf0a27ffc2
+# Matches android-mainline 4fb49de70224 ("Merge 3aaf0a27ffc2 ("Merge tag 'clang-format-for-linux-v5.11-rc7' of git://github.com/ojeda/linux") into android-mainline")
 #
 Revert-block-grant-IOPRIO_CLASS_RT-to-CAP_SYS_NICE.patch
 Revert-arm64-dts-qcom-sdm845-db845c-Fix-hdmi-nodes.patch
