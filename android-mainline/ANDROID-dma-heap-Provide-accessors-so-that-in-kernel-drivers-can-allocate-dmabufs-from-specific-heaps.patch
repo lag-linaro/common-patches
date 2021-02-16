@@ -31,7 +31,7 @@ Bug: 154341375
 diff --git a/drivers/dma-buf/dma-heap.c b/drivers/dma-buf/dma-heap.c
 --- a/drivers/dma-buf/dma-heap.c
 +++ b/drivers/dma-buf/dma-heap.c
-@@ -50,7 +50,7 @@ static dev_t dma_heap_devt;
+@@ -51,7 +51,7 @@ static dev_t dma_heap_devt;
  static struct class *dma_heap_class;
  static DEFINE_XARRAY_ALLOC(dma_heap_minors);
  
@@ -40,7 +40,7 @@ diff --git a/drivers/dma-buf/dma-heap.c b/drivers/dma-buf/dma-heap.c
  {
  	struct dma_heap *h;
  
-@@ -65,11 +65,14 @@ static struct dma_heap *dma_heap_find(const char *name)
+@@ -66,11 +66,14 @@ static struct dma_heap *dma_heap_find(const char *name)
  	mutex_unlock(&heap_list_lock);
  	return NULL;
  }
@@ -55,7 +55,7 @@ diff --git a/drivers/dma-buf/dma-heap.c b/drivers/dma-buf/dma-heap.c
  
  struct dma_buf *dma_heap_buffer_alloc(struct dma_heap *heap, size_t len,
  				      unsigned int fd_flags,
-@@ -90,6 +93,7 @@ struct dma_buf *dma_heap_buffer_alloc(struct dma_heap *heap, size_t len,
+@@ -91,6 +94,7 @@ struct dma_buf *dma_heap_buffer_alloc(struct dma_heap *heap, size_t len,
  
  	return heap->ops->allocate(heap, len, fd_flags, heap_flags);
  }
@@ -63,7 +63,7 @@ diff --git a/drivers/dma-buf/dma-heap.c b/drivers/dma-buf/dma-heap.c
  
  int dma_heap_bufferfd_alloc(struct dma_heap *heap, size_t len,
  			    unsigned int fd_flags,
-@@ -111,6 +115,7 @@ int dma_heap_bufferfd_alloc(struct dma_heap *heap, size_t len,
+@@ -112,6 +116,7 @@ int dma_heap_bufferfd_alloc(struct dma_heap *heap, size_t len,
  	return fd;
  
  }
@@ -74,7 +74,7 @@ diff --git a/drivers/dma-buf/dma-heap.c b/drivers/dma-buf/dma-heap.c
 diff --git a/include/linux/dma-heap.h b/include/linux/dma-heap.h
 --- a/include/linux/dma-heap.h
 +++ b/include/linux/dma-heap.h
-@@ -62,4 +62,43 @@ struct dma_heap *dma_heap_add(const struct dma_heap_export_info *exp_info);
+@@ -71,4 +71,43 @@ struct dma_heap *dma_heap_add(const struct dma_heap_export_info *exp_info);
   */
  void dma_heap_put(struct dma_heap *heap);
  

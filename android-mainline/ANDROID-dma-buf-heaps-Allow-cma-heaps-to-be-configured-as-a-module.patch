@@ -42,7 +42,7 @@ Signed-off-by: Hridya Valsaraju <hridya@google.com>
 diff --git a/drivers/dma-buf/dma-heap.c b/drivers/dma-buf/dma-heap.c
 --- a/drivers/dma-buf/dma-heap.c
 +++ b/drivers/dma-buf/dma-heap.c
-@@ -236,6 +236,7 @@ void *dma_heap_get_drvdata(struct dma_heap *heap)
+@@ -238,6 +238,7 @@ void *dma_heap_get_drvdata(struct dma_heap *heap)
  {
  	return heap->priv;
  }

@@ -1,0 +1,26 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: Prasad Sodagudi <psodagud@codeaurora.org>
+Date: Mon, 21 Dec 2020 13:09:29 -0800
+Subject: ANDROID: percpu: Export per_cpu_ptr_to_phys for loadable modules
+
+per_cpu_ptr_to_phys symbols is needed for vendor loadable modules
+to find the per cpu physical address of symbols.
+
+Bug: 176125613
+Change-Id: Ifc23a8a9cae8eb11c94107eb9b9237a838f830bc
+Signed-off-by: Prasad Sodagudi <psodagud@codeaurora.org>
+---
+ mm/percpu.c | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/mm/percpu.c b/mm/percpu.c
+--- a/mm/percpu.c
++++ b/mm/percpu.c
+@@ -2231,6 +2231,7 @@ phys_addr_t per_cpu_ptr_to_phys(void *addr)
+ 		return page_to_phys(pcpu_addr_to_page(addr)) +
+ 		       offset_in_page(addr);
+ }
++EXPORT_SYMBOL_GPL(per_cpu_ptr_to_phys);
+ 
+ /**
+  * pcpu_alloc_alloc_info - allocate percpu allocation info

@@ -1,0 +1,40 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: Quentin Perret <qperret@google.com>
+Date: Fri, 22 Jan 2021 10:42:02 +0000
+Subject: ANDROID: sched: time: Export symbols needed for schedutil module
+
+Export symbols needed to allow building a schedutil-based vendor module
+with GKI.
+
+This is a small price to pay to give vendors the flexibility they need,
+and avoids littering cpufreq_schedutil.c with many vendor hooks.
+
+Bug: 170511085
+Signed-off-by: Quentin Perret <qperret@google.com>
+Change-Id: I8ff8bdb32df5d47124236819efba881c1a2a538d
+(cherry picked from commit 34cd6916744b8b2d2107d2d5f10cbacb181e4f6c)
+Signed-off-by: Palmer Dabbelt <palmerdabbelt@google.com>
+---
+ kernel/sched/cpufreq.c   | 1 +
+ kernel/time/tick-sched.c | 1 +
+ 2 files changed, 2 insertions(+)
+
+diff --git a/kernel/sched/cpufreq.c b/kernel/sched/cpufreq.c
+--- a/kernel/sched/cpufreq.c
++++ b/kernel/sched/cpufreq.c
+@@ -75,3 +75,4 @@ bool cpufreq_this_cpu_can_update(struct cpufreq_policy *policy)
+ 		(policy->dvfs_possible_from_any_cpu &&
+ 		 rcu_dereference_sched(*this_cpu_ptr(&cpufreq_update_util_data)));
+ }
++EXPORT_SYMBOL_GPL(cpufreq_this_cpu_can_update);
+diff --git a/kernel/time/tick-sched.c b/kernel/time/tick-sched.c
+--- a/kernel/time/tick-sched.c
++++ b/kernel/time/tick-sched.c
+@@ -1175,6 +1175,7 @@ unsigned long tick_nohz_get_idle_calls_cpu(int cpu)
+ 
+ 	return ts->idle_calls;
+ }
++EXPORT_SYMBOL_GPL(tick_nohz_get_idle_calls_cpu);
+ 
+ /**
+  * tick_nohz_get_idle_calls - return the current idle calls counter value

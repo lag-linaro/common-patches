@@ -16,14 +16,14 @@ Bug: 154341375
 ---
  drivers/dma-buf/dma-heap.c          | 44 +++++++++++++++++++++++------
  drivers/dma-buf/heaps/cma_heap.c    | 21 +++++---------
- drivers/dma-buf/heaps/system_heap.c | 20 +++++--------
+ drivers/dma-buf/heaps/system_heap.c | 23 ++++++---------
  include/linux/dma-heap.h            |  6 ++--
- 4 files changed, 52 insertions(+), 39 deletions(-)
+ 4 files changed, 53 insertions(+), 41 deletions(-)
 
 diff --git a/drivers/dma-buf/dma-heap.c b/drivers/dma-buf/dma-heap.c
 --- a/drivers/dma-buf/dma-heap.c
 +++ b/drivers/dma-buf/dma-heap.c
-@@ -66,26 +66,52 @@ static struct dma_heap *dma_heap_find(const char *name)
+@@ -67,26 +67,52 @@ static struct dma_heap *dma_heap_find(const char *name)
  	return NULL;
  }
  
@@ -82,7 +82,7 @@ diff --git a/drivers/dma-buf/dma-heap.c b/drivers/dma-buf/dma-heap.c
  static int dma_heap_open(struct inode *inode, struct file *file)
  {
  	struct dma_heap *heap;
-@@ -112,9 +138,9 @@ static long dma_heap_ioctl_allocate(struct file *file, void *data)
+@@ -113,9 +139,9 @@ static long dma_heap_ioctl_allocate(struct file *file, void *data)
  	if (heap_allocation->fd)
  		return -EINVAL;
  
@@ -150,22 +150,24 @@ diff --git a/drivers/dma-buf/heaps/cma_heap.c b/drivers/dma-buf/heaps/cma_heap.c
 diff --git a/drivers/dma-buf/heaps/system_heap.c b/drivers/dma-buf/heaps/system_heap.c
 --- a/drivers/dma-buf/heaps/system_heap.c
 +++ b/drivers/dma-buf/heaps/system_heap.c
-@@ -331,10 +331,10 @@ static struct page *alloc_largest_available(unsigned long size,
+@@ -354,11 +354,11 @@ static struct page *alloc_largest_available(unsigned long size,
  	return NULL;
  }
  
--static int system_heap_allocate(struct dma_heap *heap,
--				unsigned long len,
--				unsigned long fd_flags,
--				unsigned long heap_flags)
-+static struct dma_buf *system_heap_allocate(struct dma_heap *heap,
-+					    unsigned long len,
-+					    unsigned long fd_flags,
-+					    unsigned long heap_flags)
+-static int system_heap_do_allocate(struct dma_heap *heap,
+-				   unsigned long len,
+-				   unsigned long fd_flags,
+-				   unsigned long heap_flags,
+-				   bool uncached)
++static struct dma_buf *system_heap_do_allocate(struct dma_heap *heap,
++					       unsigned long len,
++					       unsigned long fd_flags,
++					       unsigned long heap_flags,
++					       bool uncached)
  {
  	struct system_heap_buffer *buffer;
  	DEFINE_DMA_BUF_EXPORT_INFO(exp_info);
-@@ -349,7 +349,7 @@ static int system_heap_allocate(struct dma_heap *heap,
+@@ -373,7 +373,7 @@ static int system_heap_do_allocate(struct dma_heap *heap,
  
  	buffer = kzalloc(sizeof(*buffer), GFP_KERNEL);
  	if (!buffer)
@@ -174,7 +176,7 @@ diff --git a/drivers/dma-buf/heaps/system_heap.c b/drivers/dma-buf/heaps/system_
  
  	INIT_LIST_HEAD(&buffer->attachments);
  	mutex_init(&buffer->lock);
-@@ -398,13 +398,7 @@ static int system_heap_allocate(struct dma_heap *heap,
+@@ -423,13 +423,6 @@ static int system_heap_do_allocate(struct dma_heap *heap,
  		goto free_pages;
  	}
  
@@ -184,12 +186,20 @@ diff --git a/drivers/dma-buf/heaps/system_heap.c b/drivers/dma-buf/heaps/system_
 -		/* just return, as put will call release and that will free */
 -		return ret;
 -	}
+-
+ 	/*
+ 	 * For uncached buffers, we need to initially flush cpu cache, since
+ 	 * the __GFP_ZERO on the allocation means the zeroing was done by the
+@@ -441,7 +434,7 @@ static int system_heap_do_allocate(struct dma_heap *heap,
+ 		dma_unmap_sgtable(dma_heap_get_dev(heap), table, DMA_BIDIRECTIONAL, 0);
+ 	}
+ 
 -	return ret;
 +	return dmabuf;
  
  free_pages:
  	for_each_sgtable_sg(table, sg, i) {
-@@ -418,7 +412,7 @@ static int system_heap_allocate(struct dma_heap *heap,
+@@ -455,7 +448,7 @@ static int system_heap_do_allocate(struct dma_heap *heap,
  		__free_pages(page, compound_order(page));
  	kfree(buffer);
  
@@ -197,7 +207,7 @@ diff --git a/drivers/dma-buf/heaps/system_heap.c b/drivers/dma-buf/heaps/system_
 +	return ERR_PTR(ret);
  }
  
- static const struct dma_heap_ops system_heap_ops = {
+ static struct dma_buf *system_heap_allocate(struct dma_heap *heap,
 diff --git a/include/linux/dma-heap.h b/include/linux/dma-heap.h
 --- a/include/linux/dma-heap.h
 +++ b/include/linux/dma-heap.h

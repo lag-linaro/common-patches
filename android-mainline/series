@@ -2,7 +2,7 @@
 # android-mainline patches
 #
 # Applies onto upstream 3aaf0a27ffc2 Linux v5.11-rc6-55-g3aaf0a27ffc2
-# Matches android-mainline 5743e27cb803 ("ANDROID: Incremental fs: Fix memory leak on closing file")
+# Matches android-mainline 86015b02d621 ("Revert "Revert "um: ubd: Set device serial attribute from cmdline""")
 #
 Revert-block-grant-IOPRIO_CLASS_RT-to-CAP_SYS_NICE.patch
 Revert-arm64-dts-qcom-sdm845-db845c-Fix-hdmi-nodes.patch
@@ -10,7 +10,6 @@ Revert-ubsan-enable-for-all-config-builds.patch
 Revert-security-lockdown-selinux-implement-SELinux-lockdown.patch
 Revert-ARM-9017-2-Enable-KASan-for-ARM.patch
 Revert-tweewide-Fix-most-Shebang-lines.patch
-Revert-um-ubd-Set-device-serial-attribute-from-cmdline.patch
 _____ANNOTATION-pending-upstream_____.patch
 FROMGIT-f2fs-flush-data-when-enabling-checkpoint-back.patch
 FROMLIST-clk-Export-clk_register_composite.patch
@@ -29,6 +28,8 @@ FROMLIST-USB-gadget-f_fs-add-SuperSpeed-Plus-support.patch
 FROMLIST-scsi-ufs-WB-is-only-available-on-LUN-0-to-7.patch
 FROMLIST-scripts-merge_config-add-strict-mode-to-fail-upon-any-redefinition.patch
 FROMLIST-kbuild-improve-libelf-detection.patch
+FROMLIST-dma-buf-dma-heap-Keep-track-of-the-heap-device-struct.patch
+FROMLIST-dma-buf-system_heap-Add-a-system-uncached-heap-re-using-the-system-heap.patch
 _____ANNOTATION-Android-vendor-hooks_____.patch
 ANDROID-GKI-add-android_vendor.h.patch
 ANDROID-add-support-for-vendor-hooks.patch
@@ -161,6 +162,9 @@ ANDROID-sched-Add-rvh-for-cpu-controller-cgroup-can-attach.patch
 ANDROID-sched-add-em_cpu_energy-vendor-hook.patch
 ANDROID-use-ANDROID_OEM_DATA-for-OEM-data.patch
 ANDROID-ftrace-vendor-hook-for-ftrace-dump-on-oops.patch
+ANDROID-sched-fair-Sync-task-util-for-strf-hook.patch
+ANDROID-percpu-Export-per_cpu_ptr_to_phys-for-loadable-modules.patch
+ANDROID-sched-time-Export-symbols-needed-for-schedutil-module.patch
 _____ANNOTATION-uid_sys_stats-support_____.patch
 ANDROID-uid_cputime-Adds-accounting-for-the-cputimes-per-uid.patch
 ANDROID-uid_cputime-add-per-uid-IO-usage-accounting.patch
@@ -201,9 +205,9 @@ ANDROID-dma-heap-Add-proper-kref-handling-on-dma-buf-heaps.patch
 ANDROID-dma-heap-Refactor-code-to-allow-for-future-in-kernel-users.patch
 ANDROID-dma-heap-Rework-allocation-calls-to-return-struct-dma_buf-instead-of-fd.patch
 ANDROID-dma-heap-Provide-accessors-so-that-in-kernel-drivers-can-allocate-dmabufs-from-specific-heaps.patch
-ANDROID-dma-buf-Cleanup-minor-usage-in-Add-proper-kref-handling-on-dma-buf-heaps.patch
 ANDROID-dma-Rework-so-dev_get_cma_area-can-be-called-from-a-module.patch
 ANDROID-dma-buf-heaps-Allow-cma-heaps-to-be-configured-as-a-module.patch
+ANDROID-dma-buf-heaps-Allow-the-DMA-BUF-system-heap-to-be-a-module.patch
 _____ANNOTATION-driver-framework-and-misc-driver-changes_____.patch
 FROMLIST-drivers-irqchip-pdc-additionally-set-type-in-SPI-config-registers.patch
 FROMLIST-dt-bindings-interrupt-controller-pdc-add-SPI-config-register.patch
@@ -746,6 +750,10 @@ ANDROID-gki_defconfig-add-CONFIG_DEBUG_KINFO-y.patch
 ANDROID-clang-update-to-12.0.1.patch
 ANDROID-GKI-select-DMADEVICES-if-GKI_HIDDEN_SND_SOC_CONFIGS-is-set.patch
 ANDROID-x86-Add-objtool-to-MAKE_GOALS.patch
+ANDROID-GKI-bfq-enable-bfq-i-o-group-scheduling.patch
+ANDROID-GKI-enable-networking-add-hidden-network-configs.patch
+ANDROID-GKI-Kconfig.gki-add-hidden-PHY-configs.patch
+ANDROID-defconfig-Enable-DMA-BUF-system-heap-as-a-module.patch
 _____ANNOTATION-Patches-for-bringing-up-new-SoCs_____.patch
 ANDROID-arm64-Add-support-for-asymmetric-AArch32-EL0-configurations.patch
 ANDROID-arm64-Handle-AArch32-tasks-running-on-non-AArch32-cpu.patch

@@ -1,0 +1,29 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: Quentin Perret <qperret@google.com>
+Date: Thu, 7 Jan 2021 09:20:25 +0000
+Subject: ANDROID: sched/fair: Sync task util for strf hook
+
+The vendor hook in select_task_rq_fair() currently sees a potentially
+stale task utilization. Make sure to sync it beforehand to avoid any
+issues.
+
+Fixes: a1fc1fba460b ("ANDROID: sched: add restrict vendor hook to modify task placement policy in EAS")
+Signed-off-by: Quentin Perret <qperret@google.com>
+Change-Id: I7675ce9fd37b160f8a7ba9651ae73b69a16d6d12
+(cherry picked from commit c7ba09ce6aa54f9f851b8cf1a9a0b145d0f42f9e)
+---
+ kernel/sched/fair.c | 2 ++
+ 1 file changed, 2 insertions(+)
+
+diff --git a/kernel/sched/fair.c b/kernel/sched/fair.c
+--- a/kernel/sched/fair.c
++++ b/kernel/sched/fair.c
+@@ -6789,6 +6789,8 @@ select_task_rq_fair(struct task_struct *p, int prev_cpu, int wake_flags)
+ 	/* SD_flags and WF_flags share the first nibble */
+ 	int sd_flag = wake_flags & 0xF;
+ 
++	if (trace_android_rvh_select_task_rq_fair_enabled())
++		sync_entity_load_avg(&p->se);
+ 	trace_android_rvh_select_task_rq_fair(p, prev_cpu, sd_flag,
+ 			wake_flags, &target_cpu);
+ 	if (target_cpu >= 0)

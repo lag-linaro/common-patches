@@ -15,7 +15,7 @@ Bug: 154341375
 diff --git a/drivers/dma-buf/dma-heap.c b/drivers/dma-buf/dma-heap.c
 --- a/drivers/dma-buf/dma-heap.c
 +++ b/drivers/dma-buf/dma-heap.c
-@@ -50,10 +50,31 @@ static dev_t dma_heap_devt;
+@@ -51,10 +51,31 @@ static dev_t dma_heap_devt;
  static struct class *dma_heap_class;
  static DEFINE_XARRAY_ALLOC(dma_heap_minors);
  
@@ -47,7 +47,7 @@ diff --git a/drivers/dma-buf/dma-heap.c b/drivers/dma-buf/dma-heap.c
  	/*
  	 * Allocations from all heaps have to begin
  	 * and end on page boundaries.
-@@ -91,12 +112,6 @@ static long dma_heap_ioctl_allocate(struct file *file, void *data)
+@@ -92,12 +113,6 @@ static long dma_heap_ioctl_allocate(struct file *file, void *data)
  	if (heap_allocation->fd)
  		return -EINVAL;
  
@@ -60,16 +60,16 @@ diff --git a/drivers/dma-buf/dma-heap.c b/drivers/dma-buf/dma-heap.c
  	fd = dma_heap_buffer_alloc(heap, heap_allocation->len,
  				   heap_allocation->fd_flags,
  				   heap_allocation->heap_flags);
-@@ -219,7 +234,7 @@ void dma_heap_put(struct dma_heap *h)
+@@ -233,7 +248,7 @@ struct device *dma_heap_get_dev(struct dma_heap *heap)
  
  struct dma_heap *dma_heap_add(const struct dma_heap_export_info *exp_info)
  {
 -	struct dma_heap *heap, *h, *err_ret;
 +	struct dma_heap *heap, *err_ret;
- 	struct device *dev_ret;
+ 	unsigned int minor;
  	int ret;
  
-@@ -234,16 +249,13 @@ struct dma_heap *dma_heap_add(const struct dma_heap_export_info *exp_info)
+@@ -248,16 +263,13 @@ struct dma_heap *dma_heap_add(const struct dma_heap_export_info *exp_info)
  	}
  
  	/* check the name is unique */

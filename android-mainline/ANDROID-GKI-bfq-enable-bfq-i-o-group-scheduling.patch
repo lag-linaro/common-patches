@@ -1,0 +1,42 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: Daeho Jeong <daehojeong@google.com>
+Date: Thu, 7 Jan 2021 09:40:58 +0900
+Subject: ANDROID: GKI: bfq: enable bfq i/o group scheduling
+
+To enable bfq i/o group scheduling for separating i/o groups to
+foreground and background i/o groups, we need to set CONFIG_IOSCHED_BFQ
+and CONFIG_BFQ_GROUP_IOSCHED to "y".
+
+Bug: 171739280
+Bug: 172520400
+Signed-off-by: Daeho Jeong <daehojeong@google.com>
+Change-Id: If9b5664ecfc8f78d9792d7ee5d3ea5a88a50b9d7
+---
+ arch/arm64/configs/gki_defconfig | 2 ++
+ arch/x86/configs/gki_defconfig   | 2 ++
+ 2 files changed, 4 insertions(+)
+
+diff --git a/arch/arm64/configs/gki_defconfig b/arch/arm64/configs/gki_defconfig
+--- a/arch/arm64/configs/gki_defconfig
++++ b/arch/arm64/configs/gki_defconfig
+@@ -90,6 +90,8 @@ CONFIG_MODULE_UNLOAD=y
+ CONFIG_MODVERSIONS=y
+ CONFIG_BLK_INLINE_ENCRYPTION=y
+ CONFIG_BLK_INLINE_ENCRYPTION_FALLBACK=y
++CONFIG_IOSCHED_BFQ=y
++CONFIG_BFQ_GROUP_IOSCHED=y
+ CONFIG_GKI_HACKS_TO_FIX=y
+ # CONFIG_CORE_DUMP_DEFAULT_ELF_HEADERS is not set
+ CONFIG_BINFMT_MISC=y
+diff --git a/arch/x86/configs/gki_defconfig b/arch/x86/configs/gki_defconfig
+--- a/arch/x86/configs/gki_defconfig
++++ b/arch/x86/configs/gki_defconfig
+@@ -70,6 +70,8 @@ CONFIG_MODULE_UNLOAD=y
+ CONFIG_MODVERSIONS=y
+ CONFIG_BLK_INLINE_ENCRYPTION=y
+ CONFIG_BLK_INLINE_ENCRYPTION_FALLBACK=y
++CONFIG_IOSCHED_BFQ=y
++CONFIG_BFQ_GROUP_IOSCHED=y
+ CONFIG_GKI_HACKS_TO_FIX=y
+ # CONFIG_CORE_DUMP_DEFAULT_ELF_HEADERS is not set
+ CONFIG_BINFMT_MISC=y
