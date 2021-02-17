@@ -19,8 +19,8 @@ Change-Id: I93f76c6bbdf465bdfe40067445e47a8e3b3c23cd
 diff --git a/arch/arm64/boot/dts/qcom/sdm845-db845c.dts b/arch/arm64/boot/dts/qcom/sdm845-db845c.dts
 --- a/arch/arm64/boot/dts/qcom/sdm845-db845c.dts
 +++ b/arch/arm64/boot/dts/qcom/sdm845-db845c.dts
-@@ -418,37 +418,11 @@ &gcc {
- 			   <GCC_QSPI_CNOC_PERIPH_AHB_CLK>;
+@@ -420,37 +420,11 @@ &gcc {
+ 			   <GCC_LPASS_SWAY_CLK>;
  };
  
 -&pcie0 {
@@ -62,7 +62,7 @@ diff --git a/arch/arm64/boot/dts/qcom/sdm845-db845c.dts b/arch/arm64/boot/dts/qc
  };
  
  &i2c10 {
-@@ -477,103 +451,18 @@ ports {
+@@ -479,103 +453,18 @@ ports {
  			port@0 {
  				reg = <0>;
  
@@ -166,7 +166,7 @@ diff --git a/arch/arm64/boot/dts/qcom/sdm845-db845c.dts b/arch/arm64/boot/dts/qc
  		};
  	};
  };
-@@ -932,12 +821,6 @@ wake-n {
+@@ -934,12 +823,6 @@ wake-n {
  		};
  	};
  
@@ -179,7 +179,7 @@ diff --git a/arch/arm64/boot/dts/qcom/sdm845-db845c.dts b/arch/arm64/boot/dts/qc
  	pcie0_pwren_state: pcie0-pwren {
  		pins = "gpio90";
  		function = "gpio";
-@@ -1018,15 +901,6 @@ wcd_intr_default: wcd_intr_default {
+@@ -1020,15 +903,6 @@ wcd_intr_default: wcd_intr_default {
  		bias-pull-down;
  		drive-strength = <2>;
  	};

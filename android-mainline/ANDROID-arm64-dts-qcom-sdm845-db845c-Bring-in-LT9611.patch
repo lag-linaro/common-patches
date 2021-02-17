@@ -21,7 +21,7 @@ Change-Id: I7bf2b82abeca7274f8e2dc69c592ed8303e3fbc6
 diff --git a/arch/arm64/boot/dts/qcom/sdm845-db845c.dts b/arch/arm64/boot/dts/qcom/sdm845-db845c.dts
 --- a/arch/arm64/boot/dts/qcom/sdm845-db845c.dts
 +++ b/arch/arm64/boot/dts/qcom/sdm845-db845c.dts
-@@ -451,6 +451,66 @@ &pcie1_phy {
+@@ -453,6 +453,66 @@ &pcie1_phy {
  	vdda-pll-supply = <&vreg_l26a_1p2>;
  };
  
@@ -88,7 +88,7 @@ diff --git a/arch/arm64/boot/dts/qcom/sdm845-db845c.dts b/arch/arm64/boot/dts/qc
  &gpu {
  	zap-shader {
  		memory-region = <&gpu_mem>;
-@@ -854,6 +914,12 @@ wake-n {
+@@ -856,6 +916,12 @@ wake-n {
  		};
  	};
  
@@ -101,7 +101,7 @@ diff --git a/arch/arm64/boot/dts/qcom/sdm845-db845c.dts b/arch/arm64/boot/dts/qc
  	pcie0_pwren_state: pcie0-pwren {
  		pins = "gpio90";
  		function = "gpio";
-@@ -934,11 +1000,15 @@ wcd_intr_default: wcd_intr_default {
+@@ -936,11 +1002,15 @@ wcd_intr_default: wcd_intr_default {
  		bias-pull-down;
  		drive-strength = <2>;
  	};

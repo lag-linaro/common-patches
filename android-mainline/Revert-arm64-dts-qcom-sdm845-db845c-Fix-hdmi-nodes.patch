@@ -16,7 +16,7 @@ Change-Id: I4c73e66f0a89cf3ed96fd67b49c9103f35db0e8a
 diff --git a/arch/arm64/boot/dts/qcom/sdm845-db845c.dts b/arch/arm64/boot/dts/qcom/sdm845-db845c.dts
 --- a/arch/arm64/boot/dts/qcom/sdm845-db845c.dts
 +++ b/arch/arm64/boot/dts/qcom/sdm845-db845c.dts
-@@ -451,16 +451,16 @@ ports {
+@@ -453,16 +453,16 @@ ports {
  			port@0 {
  				reg = <0>;
  

@@ -18,7 +18,7 @@ Change-Id: I03b457230641fdbf30adf1bf8730e0ff95354b7c
 diff --git a/arch/arm64/boot/dts/qcom/sdm845-db845c.dts b/arch/arm64/boot/dts/qcom/sdm845-db845c.dts
 --- a/arch/arm64/boot/dts/qcom/sdm845-db845c.dts
 +++ b/arch/arm64/boot/dts/qcom/sdm845-db845c.dts
-@@ -503,6 +503,24 @@ lt9611_b: endpoint {
+@@ -505,6 +505,24 @@ lt9611_b: endpoint {
  	};
  };
  
@@ -43,7 +43,7 @@ diff --git a/arch/arm64/boot/dts/qcom/sdm845-db845c.dts b/arch/arm64/boot/dts/qc
  &mdss {
  	status = "okay";
  };
-@@ -1011,6 +1029,11 @@ dsi_sw_sel: dsi-sw-sel {
+@@ -1013,6 +1031,11 @@ dsi_sw_sel: dsi-sw-sel {
  	};
  };
  

@@ -1,8 +1,8 @@
 #
 # android-mainline patches
 #
-# Applies onto upstream 3aaf0a27ffc2 Linux v5.11-rc6-55-g3aaf0a27ffc2
-# Matches android-mainline 86015b02d621 ("Revert "Revert "um: ubd: Set device serial attribute from cmdline""")
+# Applies onto upstream 61556703b610 Linux v5.11-rc6-126-g61556703b610
+# Matches android-mainline a5b753aafb8d ("Merge 61556703b610 ("Merge tag 'for-linus-5.11-rc7' of git://git.kernel.org/pub/scm/linux/kernel/git/rw/uml") into android-mainline")
 #
 Revert-block-grant-IOPRIO_CLASS_RT-to-CAP_SYS_NICE.patch
 Revert-arm64-dts-qcom-sdm845-db845c-Fix-hdmi-nodes.patch
