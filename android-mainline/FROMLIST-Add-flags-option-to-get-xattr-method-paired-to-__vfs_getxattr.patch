@@ -643,7 +643,7 @@ diff --git a/fs/orangefs/xattr.c b/fs/orangefs/xattr.c
 diff --git a/fs/overlayfs/super.c b/fs/overlayfs/super.c
 --- a/fs/overlayfs/super.c
 +++ b/fs/overlayfs/super.c
-@@ -973,7 +973,7 @@ static unsigned int ovl_split_lowerdirs(char *str)
+@@ -982,7 +982,7 @@ static unsigned int ovl_split_lowerdirs(char *str)
  static int __maybe_unused
  ovl_posix_acl_xattr_get(const struct xattr_handler *handler,
  			struct dentry *dentry, struct inode *inode,
@@ -652,7 +652,7 @@ diff --git a/fs/overlayfs/super.c b/fs/overlayfs/super.c
  {
  	return ovl_xattr_get(dentry, inode, handler->name, buffer, size);
  }
-@@ -1038,7 +1038,8 @@ ovl_posix_acl_xattr_set(const struct xattr_handler *handler,
+@@ -1047,7 +1047,8 @@ ovl_posix_acl_xattr_set(const struct xattr_handler *handler,
  
  static int ovl_own_xattr_get(const struct xattr_handler *handler,
  			     struct dentry *dentry, struct inode *inode,
@@ -662,7 +662,7 @@ diff --git a/fs/overlayfs/super.c b/fs/overlayfs/super.c
  {
  	return -EOPNOTSUPP;
  }
-@@ -1053,7 +1054,8 @@ static int ovl_own_xattr_set(const struct xattr_handler *handler,
+@@ -1062,7 +1063,8 @@ static int ovl_own_xattr_set(const struct xattr_handler *handler,
  
  static int ovl_other_xattr_get(const struct xattr_handler *handler,
  			       struct dentry *dentry, struct inode *inode,
@@ -914,7 +914,7 @@ diff --git a/security/commoncap.c b/security/commoncap.c
  	return error > 0;
  }
  
-@@ -585,7 +586,8 @@ int get_vfs_caps_from_disk(const struct dentry *dentry, struct cpu_vfs_cap_data
+@@ -604,7 +605,8 @@ int get_vfs_caps_from_disk(const struct dentry *dentry, struct cpu_vfs_cap_data
  
  	fs_ns = inode->i_sb->s_user_ns;
  	size = __vfs_getxattr((struct dentry *)dentry, inode,

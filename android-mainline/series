@@ -1,8 +1,8 @@
 #
 # android-mainline patches
 #
-# Applies onto upstream 61556703b610 Linux v5.11-rc6-126-g61556703b610
-# Matches android-mainline 6b208fe57eff ("ANDROID: gki_defconfig: Enable NL80211_TESTMODE")
+# Applies onto upstream dd86e7fa07a3 Linux v5.11-rc6-139-gdd86e7fa07a3
+# Matches android-mainline a658db825a7b ("Merge dd86e7fa07a3 ("Merge tag 'pci-v5.11-fixes-2' of git://git.kernel.org/pub/scm/linux/kernel/git/helgaas/pci") into android-mainline")
 #
 Revert-block-grant-IOPRIO_CLASS_RT-to-CAP_SYS_NICE.patch
 Revert-arm64-dts-qcom-sdm845-db845c-Fix-hdmi-nodes.patch
