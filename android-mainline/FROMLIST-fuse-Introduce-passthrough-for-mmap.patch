@@ -55,7 +55,7 @@ diff --git a/fs/fuse/fuse_i.h b/fs/fuse/fuse_i.h
 diff --git a/fs/fuse/passthrough.c b/fs/fuse/passthrough.c
 --- a/fs/fuse/passthrough.c
 +++ b/fs/fuse/passthrough.c
-@@ -135,6 +135,47 @@ ssize_t fuse_passthrough_write_iter(struct kiocb *iocb_fuse,
+@@ -138,6 +138,47 @@ ssize_t fuse_passthrough_write_iter(struct kiocb *iocb_fuse,
  	return ret;
  }
  
