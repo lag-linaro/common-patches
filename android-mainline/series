@@ -1,8 +1,8 @@
 #
 # android-mainline patches
 #
-# Applies onto upstream e0756cfc7d7c Linux v5.11-rc7-2-ge0756cfc7d7c
-# Matches android-mainline bb24b363f75e ("ANDROID: GKI: amlogic: add DTB overlays")
+# Applies onto upstream 291009f656e8 Linux v5.11-rc7-84-g291009f656e8
+# Matches android-mainline 793826ba7fd0 ("Merge 291009f656e8 ("Merge tag 'pm-5.11-rc8' of git://git.kernel.org/pub/scm/linux/kernel/git/rafael/linux-pm") into android-mainline")
 #
 Revert-block-grant-IOPRIO_CLASS_RT-to-CAP_SYS_NICE.patch
 Revert-arm64-dts-qcom-sdm845-db845c-Fix-hdmi-nodes.patch
