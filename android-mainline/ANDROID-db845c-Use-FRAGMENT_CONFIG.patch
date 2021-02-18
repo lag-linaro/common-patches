@@ -1,0 +1,31 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: Elliot Berman <eberman@codeaurora.org>
+Date: Wed, 13 Jan 2021 08:28:47 -0800
+Subject: ANDROID: db845c: Use FRAGMENT_CONFIG
+
+./build/config.sh provides Kbuild's configuration editor in kernel/build
+environment, plus support for editing config fragments. Set
+FRAGMENT_CONFIG for ./build/config.sh.
+
+Bug: 169398826
+Signed-off-by: Elliot Berman <eberman@codeaurora.org>
+[jstultz: Dropped sorting the config fragment]
+Signed-off-by: John Stultz <john.stultz@linaro.org>
+Change-Id: Id09967bb06d0652788d17373ade2619a310c9e87
+---
+ build.config.db845c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
+
+diff --git a/build.config.db845c b/build.config.db845c
+--- a/build.config.db845c
++++ b/build.config.db845c
+@@ -3,7 +3,8 @@
+ 
+ BUILD_INITRAMFS=1
+ DEFCONFIG=db845c_gki_defconfig
+-PRE_DEFCONFIG_CMDS="KCONFIG_CONFIG=${ROOT_DIR}/${KERNEL_DIR}/arch/arm64/configs/${DEFCONFIG} ${ROOT_DIR}/${KERNEL_DIR}/scripts/kconfig/merge_config.sh -m -r ${ROOT_DIR}/${KERNEL_DIR}/arch/arm64/configs/gki_defconfig ${ROOT_DIR}/${KERNEL_DIR}/arch/arm64/configs/db845c_gki.fragment"
++FRAGMENT_CONFIG=${KERNEL_DIR}/arch/arm64/configs/db845c_gki.fragment
++PRE_DEFCONFIG_CMDS="KCONFIG_CONFIG=${ROOT_DIR}/${KERNEL_DIR}/arch/arm64/configs/${DEFCONFIG} ${ROOT_DIR}/${KERNEL_DIR}/scripts/kconfig/merge_config.sh -m -r ${ROOT_DIR}/${KERNEL_DIR}/arch/arm64/configs/gki_defconfig ${ROOT_DIR}/${FRAGMENT_CONFIG}"
+ POST_DEFCONFIG_CMDS="rm ${ROOT_DIR}/${KERNEL_DIR}/arch/arm64/configs/${DEFCONFIG}"
+ 
+ MAKE_GOALS="${MAKE_GOALS}

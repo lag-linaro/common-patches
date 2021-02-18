@@ -1,0 +1,55 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: Suren Baghdasaryan <surenb@google.com>
+Date: Mon, 30 Nov 2020 10:19:36 -0800
+Subject: ANDROID: gki_defconfig: Enable CONFIG_PAGE_OWNER
+
+Bug: 171354330
+Signed-off-by: Suren Baghdasaryan <surenb@google.com>
+Change-Id: I45416805c8e651af442f51ffe9aa46b21e7d3f13
+---
+ arch/arm64/configs/gki_defconfig | 4 +++-
+ arch/x86/configs/gki_defconfig   | 4 +++-
+ 2 files changed, 6 insertions(+), 2 deletions(-)
+
+diff --git a/arch/arm64/configs/gki_defconfig b/arch/arm64/configs/gki_defconfig
+--- a/arch/arm64/configs/gki_defconfig
++++ b/arch/arm64/configs/gki_defconfig
+@@ -57,6 +57,8 @@ CONFIG_CP15_BARRIER_EMULATION=y
+ CONFIG_SETEND_EMULATION=y
+ CONFIG_RANDOMIZE_BASE=y
+ # CONFIG_RANDOMIZE_MODULE_REGION_FULL is not set
++CONFIG_CMDLINE="stack_depot_disable=on"
++CONFIG_CMDLINE_EXTEND=y
+ # CONFIG_DMI is not set
+ CONFIG_PM_WAKELOCKS=y
+ CONFIG_PM_WAKELOCKS_LIMIT=0
+@@ -592,7 +594,7 @@ CONFIG_DEBUG_INFO_DWARF4=y
+ CONFIG_HEADERS_INSTALL=y
+ # CONFIG_SECTION_MISMATCH_WARN_ONLY is not set
+ CONFIG_MAGIC_SYSRQ=y
+-CONFIG_DEBUG_FS=y
++CONFIG_PAGE_OWNER=y
+ CONFIG_DEBUG_STACK_USAGE=y
+ CONFIG_DEBUG_MEMORY_INIT=y
+ CONFIG_PANIC_ON_OOPS=y
+diff --git a/arch/x86/configs/gki_defconfig b/arch/x86/configs/gki_defconfig
+--- a/arch/x86/configs/gki_defconfig
++++ b/arch/x86/configs/gki_defconfig
+@@ -51,6 +51,8 @@ CONFIG_HYPERVISOR_GUEST=y
+ CONFIG_PARAVIRT=y
+ CONFIG_NR_CPUS=32
+ CONFIG_EFI=y
++CONFIG_CMDLINE_BOOL=y
++CONFIG_CMDLINE="stack_depot_disable=on"
+ CONFIG_PM_WAKELOCKS=y
+ CONFIG_PM_WAKELOCKS_LIMIT=0
+ # CONFIG_PM_WAKELOCKS_GC is not set
+@@ -537,7 +539,7 @@ CONFIG_DEBUG_INFO_DWARF4=y
+ CONFIG_HEADERS_INSTALL=y
+ # CONFIG_SECTION_MISMATCH_WARN_ONLY is not set
+ CONFIG_MAGIC_SYSRQ=y
+-CONFIG_DEBUG_FS=y
++CONFIG_PAGE_OWNER=y
+ CONFIG_DEBUG_STACK_USAGE=y
+ CONFIG_DEBUG_MEMORY_INIT=y
+ CONFIG_PANIC_ON_OOPS=y
