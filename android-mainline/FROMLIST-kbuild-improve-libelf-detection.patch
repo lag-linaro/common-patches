@@ -23,7 +23,7 @@ Change-Id: I06b0997c2df8545877d8b2d29b7a3045551c92e2
 diff --git a/Makefile b/Makefile
 --- a/Makefile
 +++ b/Makefile
-@@ -1074,8 +1074,9 @@ export mod_sign_cmd
+@@ -1069,8 +1069,9 @@ export mod_sign_cmd
  
  HOST_LIBELF_LIBS = $(shell pkg-config libelf --libs 2>/dev/null || echo -lelf)
  

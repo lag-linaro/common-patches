@@ -16,7 +16,7 @@ Signed-off-by: Sudarshan Rajagopalan <sudaraja@codeaurora.org>
 diff --git a/mm/memblock.c b/mm/memblock.c
 --- a/mm/memblock.c
 +++ b/mm/memblock.c
-@@ -1659,6 +1659,7 @@ phys_addr_t __init_memblock memblock_end_of_DRAM(void)
+@@ -1622,6 +1622,7 @@ phys_addr_t __init_memblock memblock_end_of_DRAM(void)
  
  	return (memblock.memory.regions[idx].base + memblock.memory.regions[idx].size);
  }

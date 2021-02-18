@@ -30,7 +30,7 @@ Change-Id: Iecaa3264a440f795f2f3a44bdf74fe28ad4ed1cc
 diff --git a/Makefile b/Makefile
 --- a/Makefile
 +++ b/Makefile
-@@ -562,11 +562,7 @@ endif
+@@ -561,11 +561,7 @@ endif
  
  ifneq ($(shell $(CC) --version 2>&1 | head -n 1 | grep clang),)
  ifneq ($(CROSS_COMPILE),)

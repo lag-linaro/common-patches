@@ -95,8 +95,8 @@ diff --git a/arch/ia64/scripts/unwcheck.py b/arch/ia64/scripts/unwcheck.py
 --- a/arch/ia64/scripts/unwcheck.py
 +++ b/arch/ia64/scripts/unwcheck.py
 @@ -1,4 +1,4 @@
--#!/usr/bin/env python
-+#!/usr/bin/python
+-#!/usr/bin/env python3
++#!/usr/bin/python3
  # SPDX-License-Identifier: GPL-2.0
  #
  # Usage: unwcheck.py FILE
@@ -104,8 +104,8 @@ diff --git a/scripts/bloat-o-meter b/scripts/bloat-o-meter
 --- a/scripts/bloat-o-meter
 +++ b/scripts/bloat-o-meter
 @@ -1,4 +1,4 @@
--#!/usr/bin/env python
-+#!/usr/bin/python
+-#!/usr/bin/env python3
++#!/usr/bin/python3
  #
  # Copyright 2004 Matt Mackall <mpm@selenic.com>
  #
@@ -122,8 +122,8 @@ diff --git a/scripts/diffconfig b/scripts/diffconfig
 --- a/scripts/diffconfig
 +++ b/scripts/diffconfig
 @@ -1,4 +1,4 @@
--#!/usr/bin/env python
-+#!/usr/bin/python
+-#!/usr/bin/env python3
++#!/usr/bin/python3
  # SPDX-License-Identifier: GPL-2.0
  #
  # diffconfig - a tool to compare .config files.

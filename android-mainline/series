@@ -1,8 +1,8 @@
 #
 # android-mainline patches
 #
-# Applies onto upstream dd86e7fa07a3 Linux v5.11-rc6-139-gdd86e7fa07a3
-# Matches android-mainline a658db825a7b ("Merge dd86e7fa07a3 ("Merge tag 'pci-v5.11-fixes-2' of git://git.kernel.org/pub/scm/linux/kernel/git/helgaas/pci") into android-mainline")
+# Applies onto upstream 92bf22614b21 Linux v5.11-rc7
+# Matches android-mainline 19594b801f67 ("Merge v5.11-rc7 into android-mainline")
 #
 Revert-block-grant-IOPRIO_CLASS_RT-to-CAP_SYS_NICE.patch
 Revert-arm64-dts-qcom-sdm845-db845c-Fix-hdmi-nodes.patch
