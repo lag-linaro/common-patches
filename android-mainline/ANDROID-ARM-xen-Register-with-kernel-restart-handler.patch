@@ -54,7 +54,7 @@ diff --git a/arch/arm/xen/enlighten.c b/arch/arm/xen/enlighten.c
  
  static void xen_power_off(void)
  {
-@@ -406,7 +414,7 @@ static int __init xen_pm_init(void)
+@@ -404,7 +412,7 @@ static int __init xen_pm_init(void)
  		return -ENODEV;
  
  	pm_power_off = xen_power_off;
