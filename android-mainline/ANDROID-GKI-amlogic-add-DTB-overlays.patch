@@ -1,0 +1,422 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: Kevin Hilman <khilman@baylibre.com>
+Date: Tue, 9 Feb 2021 17:05:30 -0800
+Subject: ANDROID: GKI: amlogic: add DTB overlays
+
+Add Android DTB overlays for sei510, sei610, VIM3 and VIM3L.
+
+Copied from yukawa v5.10 kernel
+- repo: kernel/hikey-linaro
+- branch: amlogic-bmeson-5.10
+
+Bug: 179406580
+Change-Id: Ie257351f7dec6765feb162dff014eb1d97eb1039
+Signed-off-by: Kevin Hilman <khilman@baylibre.com>
+---
+ arch/arm64/boot/dts/amlogic/Makefile          |   4 +
+ .../dts/amlogic/meson-g12a-sei510-android.dts |  58 ++++++++
+ .../meson-g12b-a311d-khadas-vim3-android.dts  |  55 ++++++++
+ .../meson-sm1-khadas-vim3l-android.dts        | 133 ++++++++++++++++++
+ .../dts/amlogic/meson-sm1-sei610-android.dts  |  71 ++++++++++
+ build.config.amlogic                          |  13 +-
+ 6 files changed, 326 insertions(+), 8 deletions(-)
+ create mode 100644 arch/arm64/boot/dts/amlogic/meson-g12a-sei510-android.dts
+ create mode 100644 arch/arm64/boot/dts/amlogic/meson-g12b-a311d-khadas-vim3-android.dts
+ create mode 100644 arch/arm64/boot/dts/amlogic/meson-sm1-khadas-vim3l-android.dts
+ create mode 100644 arch/arm64/boot/dts/amlogic/meson-sm1-sei610-android.dts
+
+diff --git a/arch/arm64/boot/dts/amlogic/Makefile b/arch/arm64/boot/dts/amlogic/Makefile
+--- a/arch/arm64/boot/dts/amlogic/Makefile
++++ b/arch/arm64/boot/dts/amlogic/Makefile
+@@ -1,11 +1,13 @@
+ # SPDX-License-Identifier: GPL-2.0
+ dtb-$(CONFIG_ARCH_MESON) += meson-axg-s400.dtb
+ dtb-$(CONFIG_ARCH_MESON) += meson-g12a-sei510.dtb
++dtb-$(CONFIG_ARCH_MESON) += meson-g12a-sei510-android.dtb
+ dtb-$(CONFIG_ARCH_MESON) += meson-g12a-u200.dtb
+ dtb-$(CONFIG_ARCH_MESON) += meson-g12a-x96-max.dtb
+ dtb-$(CONFIG_ARCH_MESON) += meson-g12b-gtking.dtb
+ dtb-$(CONFIG_ARCH_MESON) += meson-g12b-gtking-pro.dtb
+ dtb-$(CONFIG_ARCH_MESON) += meson-g12b-a311d-khadas-vim3.dtb
++dtb-$(CONFIG_ARCH_MESON) += meson-g12b-a311d-khadas-vim3-android.dtb
+ dtb-$(CONFIG_ARCH_MESON) += meson-g12b-s922x-khadas-vim3.dtb
+ dtb-$(CONFIG_ARCH_MESON) += meson-g12b-odroid-n2.dtb
+ dtb-$(CONFIG_ARCH_MESON) += meson-g12b-odroid-n2-plus.dtb
+@@ -45,6 +47,8 @@ dtb-$(CONFIG_ARCH_MESON) += meson-gxm-s912-libretech-pc.dtb
+ dtb-$(CONFIG_ARCH_MESON) += meson-gxm-vega-s96.dtb
+ dtb-$(CONFIG_ARCH_MESON) += meson-gxm-wetek-core2.dtb
+ dtb-$(CONFIG_ARCH_MESON) += meson-sm1-sei610.dtb
++dtb-$(CONFIG_ARCH_MESON) += meson-sm1-sei610-android.dtb
+ dtb-$(CONFIG_ARCH_MESON) += meson-sm1-khadas-vim3l.dtb
++dtb-$(CONFIG_ARCH_MESON) += meson-sm1-khadas-vim3l-android.dtb
+ dtb-$(CONFIG_ARCH_MESON) += meson-sm1-odroid-c4.dtb
+ dtb-$(CONFIG_ARCH_MESON) += meson-a1-ad401.dtb
+diff --git a/arch/arm64/boot/dts/amlogic/meson-g12a-sei510-android.dts b/arch/arm64/boot/dts/amlogic/meson-g12a-sei510-android.dts
+new file mode 100644
+index 000000000000..2f89a01c04b5
+--- /dev/null
++++ b/arch/arm64/boot/dts/amlogic/meson-g12a-sei510-android.dts
+@@ -0,0 +1,58 @@
++// SPDX-License-Identifier: (GPL-2.0+ OR MIT)
++/*
++ * Copyright (c) 2020 BayLibre SAS. All rights reserved.
++ */
++
++/dts-v1/;
++/plugin/;
++
++#include <dt-bindings/gpio/gpio.h>
++#include <dt-bindings/gpio/meson-g12a-gpio.h>
++#include <dt-bindings/input/input.h>
++#include <dt-bindings/interrupt-controller/irq.h>
++#include <dt-bindings/interrupt-controller/arm-gic.h>
++
++/ {
++  compatible = "seirobotics,sei510", "amlogic,g12a";
++  model = "SEI Robotics SEI510";
++  fragment@101 {
++        target-path = "/";
++
++        __overlay__ {
++                reserved-memory {
++                        #address-cells = <2>;
++                        #size-cells = <2>;
++                        ramoops@d000000 {
++                                compatible = "ramoops";
++                                reg = <0x0 0x0d000000 0x0 0x00100000>;
++                                record-size = <0x8000>;
++                                console-size = <0x8000>;
++                                ftrace-size = <0x0>;
++                                pmsg-size = <0x8000>;
++                        };
++                };
++
++                adc_keys {
++                        button-onoff {
++                                linux,code = <BTN_0>;
++                        };
++                };
++
++                cvbs-connector {
++                        status = "disabled";
++                };
++        };
++  };
++};
++
++&vddao_3v3_t {
++	gpio-open-drain;
++};
++
++&uart_A {
++	bluetooth {
++        interrupt-parent = <&gpio_intc>;
++        interrupts = <95 IRQ_TYPE_LEVEL_HIGH>;
++		interrupt-names = "host-wakeup";
++    };
++};
+diff --git a/arch/arm64/boot/dts/amlogic/meson-g12b-a311d-khadas-vim3-android.dts b/arch/arm64/boot/dts/amlogic/meson-g12b-a311d-khadas-vim3-android.dts
+new file mode 100644
+index 000000000000..3ab19e275321
+--- /dev/null
++++ b/arch/arm64/boot/dts/amlogic/meson-g12b-a311d-khadas-vim3-android.dts
+@@ -0,0 +1,55 @@
++// SPDX-License-Identifier: (GPL-2.0+ OR MIT)
++/*
++ * Copyright (c) 2019 BayLibre SAS. All rights reserved.
++ */
++
++/dts-v1/;
++/plugin/;
++
++#include <dt-bindings/phy/phy.h>
++#include <dt-bindings/gpio/gpio.h>
++#include <dt-bindings/gpio/meson-g12a-gpio.h>
++#include <dt-bindings/input/input.h>
++#include <dt-bindings/interrupt-controller/irq.h>
++
++/ {
++  compatible = "khadas,vim3", "amlogic,a311d", "amlogic,g12b";
++  model = "Khadas VIM3";
++  fragment@101 {
++        target-path = "/";
++        __overlay__ {
++                reserved-memory {
++                        #address-cells = <2>;
++                        #size-cells = <2>;
++                        ramoops@d000000 {
++                                compatible = "ramoops";
++                                reg = <0x0 0x0d000000 0x0 0x00100000>;
++                                record-size = <0x8000>;
++                                console-size = <0x8000>;
++                                ftrace-size = <0x0>;
++                                pmsg-size = <0x8000>;
++                        };
++                };
++
++        };
++  };
++};
++
++&vcc_5v {
++	gpio-open-drain;
++};
++
++&uart_C {
++        status = "okay";
++        pinctrl-0 = <&uart_c_pins>;
++        pinctrl-names = "default";
++};
++
++&emmc_pwrseq{
++	status = "okay";
++};
++
++&sd_emmc_a {
++     /* WiFi firmware requires power to be kept while in suspend */
++    keep-power-in-suspend;
++};
+\ No newline at end of file
+diff --git a/arch/arm64/boot/dts/amlogic/meson-sm1-khadas-vim3l-android.dts b/arch/arm64/boot/dts/amlogic/meson-sm1-khadas-vim3l-android.dts
+new file mode 100644
+index 000000000000..4b06bf24fc48
+--- /dev/null
++++ b/arch/arm64/boot/dts/amlogic/meson-sm1-khadas-vim3l-android.dts
+@@ -0,0 +1,133 @@
++// SPDX-License-Identifier: (GPL-2.0+ OR MIT)
++/*
++ * Copyright (c) 2019 BayLibre SAS. All rights reserved.
++ */
++
++/dts-v1/;
++/plugin/;
++
++#include <dt-bindings/phy/phy.h>
++#include <dt-bindings/gpio/gpio.h>
++#include <dt-bindings/gpio/meson-g12a-gpio.h>
++#include <dt-bindings/input/input.h>
++#include <dt-bindings/interrupt-controller/irq.h>
++
++/ {
++  compatible = "khadas,vim3l", "amlogic,sm1";
++  model = "Khadas VIM3L";
++  fragment@101 {
++        target-path = "/";
++        __overlay__ {
++                reserved-memory {
++                        #address-cells = <2>;
++                        #size-cells = <2>;
++                        ramoops@d000000 {
++                                compatible = "ramoops";
++                                reg = <0x0 0x0d000000 0x0 0x00100000>;
++                                record-size = <0x8000>;
++                                console-size = <0x8000>;
++                                ftrace-size = <0x0>;
++                                pmsg-size = <0x8000>;
++                        };
++                };
++        };
++  };
++};
++
++&vcc_5v {
++    gpio-open-drain;
++};
++
++&uart_A {
++	bluetooth {
++        interrupt-parent = <&gpio_intc>;
++        interrupts = <95 IRQ_TYPE_LEVEL_HIGH>;
++		interrupt-names = "host-wakeup";
++    };
++};
++
++&uart_C {
++        status = "disabled";
++        pinctrl-0 = <&uart_c_pins>;
++        pinctrl-names = "default";
++};
++
++&emmc_pwrseq{
++	status = "okay";
++};
++
++&sd_emmc_a {
++     /* WiFi firmware requires power to be kept while in suspend */
++    keep-power-in-suspend;
++};
++
++&spicc1 {
++	status = "okay";
++	pinctrl-names = "default";
++	pinctrl-0 = <&spicc1_pins>;
++	cs-gpios = <&gpio GPIOH_6 GPIO_ACTIVE_LOW>;
++	#address-cells = <1>;
++	#size-cells = <0>;
++
++	spidev@0 {
++		compatible = "rohm,dh2228fv";
++		reg = <0>;
++		spi-max-frequency = <500000>;
++		status = "okay";
++	};
++
++	neonkey@0 {
++		compatible = "nanohub";
++		reg = <0>;
++		spi-max-frequency = <500000>;
++
++		sensorhub,nreset-gpio = <&gpio GPIOA_0 0>;
++		sensorhub,boot0-gpio = <&gpio GPIOA_3 0>;   /* Fake */
++		sensorhub,wakeup-gpio = <&gpio GPIOA_2 0>;  /* A2 -> PB9 */
++		sensorhub,irq1-gpio = <&gpio GPIOA_1 0>;    /* A1 -> PB5 */
++		interrupt-parent = <&gpio_intc>;
++		interrupts = <62 IRQ_TYPE_EDGE_RISING>;     /* A1 */
++		/* sensorhub,spi-cs-gpio = <&gpio GPIOH_6 GPIO_ACTIVE_LOW>; Optional */
++		sensorhub,bl-addr = <0x08000000>;
++		sensorhub,kernel-addr = <0x0800C000>;
++		sensorhub,shared-addr = <0x08040000>;
++		sensorhub,flash-banks = <0 0x08000000 0x04000>,
++					<3 0x0800C000 0x04000>,
++					<4 0x08010000 0x10000>,
++					<5 0x08020000 0x20000>,
++					<6 0x08040000 0x20000>,
++					<7 0x08060000 0x20000>;
++		sensorhub,num-flash-banks = <6>;
++		status = "disabled";
++	};
++
++	argonkey@0 {
++		compatible = "nanohub";
++		reg = <0>;
++		spi-max-frequency = <500000>;
++		spi-cpol;
++
++		sensorhub,nreset-gpio = <&gpio GPIOA_0 0>;
++		sensorhub,boot0-gpio = <&gpio GPIOA_3 0>;
++		sensorhub,wakeup-gpio = <&gpio GPIOA_1 0>;  /* A1 -> PA0 */
++		sensorhub,irq1-gpio = <&gpio GPIOA_2 0>;    /* A2 -> PA1 */
++		interrupt-parent = <&gpio_intc>;
++		interrupts = <63 IRQ_TYPE_EDGE_RISING>;     /* A2 */
++		sensorhub,bl-addr = <0x08000000>;
++		sensorhub,kernel-addr = <0x0800C000>;
++		sensorhub,num-flash-banks = <4>;
++		sensorhub,flash-banks =	<0 0x08000000 0x04000>,
++					<3 0x0800C000 0x04000>,
++					<4 0x08010000 0x10000>,
++					<5 0x08020000 0x20000>;
++		sensorhub,shared-addr = <0x08040000>;
++		sensorhub,num-shared-flash-banks = <6>;
++		sensorhub,shared-flash-banks = <6 0x08040000 0x20000>,
++					<7 0x08060000 0x20000>,
++					<8 0x08080000 0x20000>,
++					<9 0x080A0000 0x20000>,
++					<10 0x080C0000 0x20000>,
++					<11 0x080E0000 0x20000>;
++		status = "disabled";
++	};
++};
+diff --git a/arch/arm64/boot/dts/amlogic/meson-sm1-sei610-android.dts b/arch/arm64/boot/dts/amlogic/meson-sm1-sei610-android.dts
+new file mode 100644
+index 000000000000..363d6c4cbc70
+--- /dev/null
++++ b/arch/arm64/boot/dts/amlogic/meson-sm1-sei610-android.dts
+@@ -0,0 +1,71 @@
++// SPDX-License-Identifier: (GPL-2.0+ OR MIT)
++/*
++ * Copyright (c) 2020 BayLibre SAS. All rights reserved.
++ */
++
++/dts-v1/;
++/plugin/;
++
++#include <dt-bindings/gpio/gpio.h>
++#include <dt-bindings/gpio/meson-g12a-gpio.h>
++#include <dt-bindings/input/input.h>
++#include <dt-bindings/interrupt-controller/irq.h>
++#include <dt-bindings/interrupt-controller/arm-gic.h>
++
++/ {
++  compatible = "seirobotics,sei610", "amlogic,sm1";
++  model = "SEI Robotics SEI610";
++  fragment@101 {
++	target-path = "/";
++	__overlay__ {
++
++		reserved-memory {
++			#address-cells = <2>;
++			#size-cells = <2>;
++			ramoops@d000000 {
++				compatible = "ramoops";
++				reg = <0x0 0x0d000000 0x0 0x00100000>;
++				record-size = <0x8000>;
++				console-size = <0x8000>;
++				ftrace-size = <0x0>;
++				pmsg-size = <0x8000>;
++			};
++		};
++	};
++   };
++};
++
++&vddao_3v3_t {
++	gpio-open-drain;
++};
++
++&emmc_pwrseq {
++	status = "okay";
++};
++
++&sd_emmc_a {
++	/* WiFi firmware requires power to be kept while in suspend */
++	keep-power-in-suspend;
++};
++
++&uart_C {
++        status = "disabled";
++        pinctrl-0 = <&uart_c_pins>;
++        pinctrl-names = "default";
++};
++
++&spicc0 {
++        status = "disabled";
++        pinctrl-names = "default";
++        pinctrl-0 = <&spicc0_x_pins>;
++        cs-gpios = <&gpio GPIOX_10 GPIO_ACTIVE_LOW>;
++        #address-cells = <1>;
++        #size-cells = <0>;
++
++        spidev@0 {
++            compatible = "rohm,dh2228fv";
++            reg = <0>;
++            spi-max-frequency = <500000>;
++            status = "disabled";
++        };
++};
+diff --git a/build.config.amlogic b/build.config.amlogic
+--- a/build.config.amlogic
++++ b/build.config.amlogic
+@@ -10,18 +10,15 @@ POST_DEFCONFIG_CMDS="rm ${ROOT_DIR}/${KERNEL_DIR}/arch/arm64/configs/${DEFCONFIG
+ DTC_FLAGS="-@"
+ 
+ MAKE_GOALS="${MAKE_GOALS}
+-amlogic/meson-g12a-sei510.dtb
+-amlogic/meson-sm1-sei610.dtb
+-amlogic/meson-sm1-khadas-vim3l.dtb
+-amlogic/meson-g12b-a311d-khadas-vim3.dtb
++dtbs
+ "
+ 
+ FILES="${FILES}
+ arch/arm64/boot/Image.lz4
+-arch/arm64/boot/dts/amlogic/meson-g12a-sei510.dtb
+-arch/arm64/boot/dts/amlogic/meson-sm1-sei610.dtb
+-arch/arm64/boot/dts/amlogic/meson-sm1-khadas-vim3l.dtb
+-arch/arm64/boot/dts/amlogic/meson-g12b-a311d-khadas-vim3.dtb
++arch/arm64/boot/dts/amlogic/meson-g12a-sei510*.dtb
++arch/arm64/boot/dts/amlogic/meson-sm1-sei610*.dtb
++arch/arm64/boot/dts/amlogic/meson-sm1-khadas-vim3l*.dtb
++arch/arm64/boot/dts/amlogic/meson-g12b-a311d-khadas-vim3*.dtb
+ "
+ 
+ #

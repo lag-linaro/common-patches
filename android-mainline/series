@@ -2,7 +2,7 @@
 # android-mainline patches
 #
 # Applies onto upstream e0756cfc7d7c Linux v5.11-rc7-2-ge0756cfc7d7c
-# Matches android-mainline 886a4d2382f3 ("Merge e0756cfc7d7c ("Merge tag 'trace-v5.11-rc7' of git://git.kernel.org/pub/scm/linux/kernel/git/rostedt/linux-trace") into android-mainline")
+# Matches android-mainline bb24b363f75e ("ANDROID: GKI: amlogic: add DTB overlays")
 #
 Revert-block-grant-IOPRIO_CLASS_RT-to-CAP_SYS_NICE.patch
 Revert-arm64-dts-qcom-sdm845-db845c-Fix-hdmi-nodes.patch
@@ -30,6 +30,8 @@ FROMLIST-scripts-merge_config-add-strict-mode-to-fail-upon-any-redefinition.patc
 FROMLIST-kbuild-improve-libelf-detection.patch
 FROMLIST-dma-buf-dma-heap-Keep-track-of-the-heap-device-struct.patch
 FROMLIST-dma-buf-system_heap-Add-a-system-uncached-heap-re-using-the-system-heap.patch
+FROMLIST-irqchip-irq-meson-gpio-make-it-possible-to-build-as-a-module.patch
+FROMLIST-arm64-meson-remove-MESON_IRQ_GPIO-selection.patch
 _____ANNOTATION-Android-vendor-hooks_____.patch
 ANDROID-GKI-add-android_vendor.h.patch
 ANDROID-add-support-for-vendor-hooks.patch
@@ -335,6 +337,7 @@ ANDROID-ext4-Optimize-match-for-casefolded-encrypted-dirs.patch
 ANDROID-GKI-Don-t-compact-fuse_req-when-CONFIG_VIRTIO_FS-n.patch
 ANDROID-vfs-d_canonical_path-for-stacked-FS.patch
 ANDROID-fuse-Add-support-for-d_canonical_path.patch
+ANDROID-fs-verity-Export-function-to-check-signatures.patch
 _____ANNOTATION-Incremental-filesystem_____.patch
 ANDROID-Initial-commit-of-Incremental-FS.patch
 ANDROID-Make-incfs-selftests-pass.patch
@@ -420,6 +423,11 @@ ANDROID-Incremental-fs-Make-data-validation-failure-a-warn.patch
 ANDROID-Incremental-fs-inotify-support.patch
 ANDROID-Incremental-fs-inotify-on-create-mapped-file.patch
 ANDROID-Incremental-fs-Fix-memory-leak-on-closing-file.patch
+ANDROID-Incremental-fs-Add-FS_IOC_ENABLE_VERITY.patch
+ANDROID-Incremental-fs-Add-FS_IOC_GETFLAGS.patch
+ANDROID-Incremental-fs-Store-fs-verity-state-in-backing-file.patch
+ANDROID-Incremental-fs-Add-FS_IOC_MEASURE_VERITY.patch
+ANDROID-Incremental-fs-Build-merkle-tree-when-enabling-verity.patch
 _____ANNOTATION-networking-changes_____.patch
 ANDROID-net-xfrm-make-PF_KEY-SHA256-use-RFC-compliant-truncation.patch
 ANDROID-net-xfrm-always-export-pktgen_xfrm_outer_mode_output.patch
@@ -755,6 +763,8 @@ ANDROID-GKI-enable-networking-add-hidden-network-configs.patch
 ANDROID-GKI-Kconfig.gki-add-hidden-PHY-configs.patch
 ANDROID-defconfig-Enable-DMA-BUF-system-heap-as-a-module.patch
 ANDROID-gki_defconfig-Enable-NL80211_TESTMODE.patch
+ANDROID-GKI-add-support-for-Amlogic-SoCs-everything-as-modules.patch
+ANDROID-GKI-amlogic-add-DTB-overlays.patch
 _____ANNOTATION-Patches-for-bringing-up-new-SoCs_____.patch
 ANDROID-arm64-Add-support-for-asymmetric-AArch32-EL0-configurations.patch
 ANDROID-arm64-Handle-AArch32-tasks-running-on-non-AArch32-cpu.patch
