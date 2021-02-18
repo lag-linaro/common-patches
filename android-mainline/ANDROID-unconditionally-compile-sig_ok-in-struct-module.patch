@@ -23,7 +23,7 @@ Signed-off-by: Steve Muckle <smuckle@google.com>
 diff --git a/include/linux/module.h b/include/linux/module.h
 --- a/include/linux/module.h
 +++ b/include/linux/module.h
-@@ -404,10 +404,12 @@ struct module {
+@@ -405,10 +405,12 @@ struct module {
  	const s32 *unused_gpl_crcs;
  #endif
  

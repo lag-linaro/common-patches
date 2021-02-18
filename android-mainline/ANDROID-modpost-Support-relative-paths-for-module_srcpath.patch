@@ -1,0 +1,40 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: Will McVicker <willmcvicker@google.com>
+Date: Thu, 11 Feb 2021 11:40:05 -0800
+Subject: ANDROID: modpost: Support relative paths for module_srcpath
+
+If a relative path is used for EXT_MODULES and -O is defined, then we
+need to set the module_srcpath as relative to $(srctree) vs $(objtree).
+Refer to [1] for more details.
+
+[1] https://lore.kernel.org/lkml/20210120193100.3414664-1-masahiroy@kernel.org/
+
+Bug: 180027765
+Signed-off-by: Will McVicker <willmcvicker@google.com>
+Change-Id: I17065f2dc7d5c3297f88500390a6f45aceea7229
+---
+ scripts/Makefile.modpost | 12 +++++++++++-
+ 1 file changed, 11 insertions(+), 1 deletion(-)
+
+diff --git a/scripts/Makefile.modpost b/scripts/Makefile.modpost
+--- a/scripts/Makefile.modpost
++++ b/scripts/Makefile.modpost
+@@ -83,7 +83,17 @@ MODPOST += -e
+ 
+ input-symdump := Module.symvers $(KBUILD_EXTRA_SYMBOLS)
+ output-symdump := $(KBUILD_EXTMOD)/Module.symvers
+-module_srcpath := $(KBUILD_EXTMOD)
++
++# Get the external module's source path. KBUILD_EXTMOD could either be an
++# absolute path or relative path from $(srctree). This makes sure that we
++# aren't using a relative path from a separate working directory (O= or
++# KBUILD_OUTPUT) since that may not be the actual module's SCM project path. So
++# check the path relative to $(srctree) first.
++ifneq ($(realpath $(srctree)/$(KBUILD_EXTMOD) 2>/dev/null),)
++	module_srcpath := $(srctree)/$(KBUILD_EXTMOD)
++else
++	module_srcpath := $(KBUILD_EXTMOD)
++endif
+ 
+ endif
+ 

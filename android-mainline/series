@@ -2,7 +2,7 @@
 # android-mainline patches
 #
 # Applies onto upstream 291009f656e8 Linux v5.11-rc7-84-g291009f656e8
-# Matches android-mainline 793826ba7fd0 ("Merge 291009f656e8 ("Merge tag 'pm-5.11-rc8' of git://git.kernel.org/pub/scm/linux/kernel/git/rafael/linux-pm") into android-mainline")
+# Matches android-mainline 85aaa5812a4b ("ANDROID: GKI: Enable CONFIG_MODULE_SCMVERSION=y")
 #
 Revert-block-grant-IOPRIO_CLASS_RT-to-CAP_SYS_NICE.patch
 Revert-arm64-dts-qcom-sdm845-db845c-Fix-hdmi-nodes.patch
@@ -45,6 +45,9 @@ ANDROID-Makefile-append-BUILD_NUMBER-to-version-string-when-defined.patch
 ANDROID-update-the-kernel-release-format-for-GKI.patch
 ANDROID-GKI-scripts-Makefile-update-the-lz4-command.patch
 ANDROID-modpost-Forbid-double-exports.patch
+ANDROID-scripts-setlocalversion-allow-running-in-a-subdir.patch
+ANDROID-modules-introduce-the-MODULE_SCMVERSION-config.patch
+ANDROID-modpost-Support-relative-paths-for-module_srcpath.patch
 _____ANNOTATION-x86-changes_____.patch
 ANDROID-Setting-up-GS-before-calling-__restore_processor_state.patch
 _____ANNOTATION-arm-and-arm64-changes_____.patch
@@ -765,6 +768,10 @@ ANDROID-defconfig-Enable-DMA-BUF-system-heap-as-a-module.patch
 ANDROID-gki_defconfig-Enable-NL80211_TESTMODE.patch
 ANDROID-GKI-add-support-for-Amlogic-SoCs-everything-as-modules.patch
 ANDROID-GKI-amlogic-add-DTB-overlays.patch
+ANDROID-GKI-Enable-CONFIG_CMA_DEBUGFS.patch
+ANDROID-GKI-enable-CONFIG_FAIR_GROUP_SCHED.patch
+ANDROID-GKI-bring-WPAN-into-GKI.patch
+ANDROID-GKI-Enable-CONFIG_MODULE_SCMVERSION-y.patch
 _____ANNOTATION-Patches-for-bringing-up-new-SoCs_____.patch
 ANDROID-arm64-Add-support-for-asymmetric-AArch32-EL0-configurations.patch
 ANDROID-arm64-Handle-AArch32-tasks-running-on-non-AArch32-cpu.patch

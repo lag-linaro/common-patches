@@ -1,0 +1,40 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: Will McVicker <willmcvicker@google.com>
+Date: Thu, 11 Feb 2021 12:13:53 -0800
+Subject: ANDROID: GKI: Enable CONFIG_MODULE_SCMVERSION=y
+
+This config enables the module attribute `scmversion` to allow
+identifying the SCM versions of kernel modules. In particular, this can
+be used to identity the SCM version of vendor kernel modules and
+external modules which will vary from the GKI kernel's SCM version.
+
+Bug: 180027765
+Change-Id: I7ef84228e5cf0b1c792d022ae4bf8e5302c2dc5e
+Signed-off-by: Will McVicker <willmcvicker@google.com>
+---
+ arch/arm64/configs/gki_defconfig | 1 +
+ arch/x86/configs/gki_defconfig   | 1 +
+ 2 files changed, 2 insertions(+)
+
+diff --git a/arch/arm64/configs/gki_defconfig b/arch/arm64/configs/gki_defconfig
+--- a/arch/arm64/configs/gki_defconfig
++++ b/arch/arm64/configs/gki_defconfig
+@@ -87,6 +87,7 @@ CONFIG_SHADOW_CALL_STACK=y
+ CONFIG_MODULES=y
+ CONFIG_MODULE_UNLOAD=y
+ CONFIG_MODVERSIONS=y
++CONFIG_MODULE_SCMVERSION=y
+ CONFIG_BLK_INLINE_ENCRYPTION=y
+ CONFIG_BLK_INLINE_ENCRYPTION_FALLBACK=y
+ CONFIG_IOSCHED_BFQ=y
+diff --git a/arch/x86/configs/gki_defconfig b/arch/x86/configs/gki_defconfig
+--- a/arch/x86/configs/gki_defconfig
++++ b/arch/x86/configs/gki_defconfig
+@@ -67,6 +67,7 @@ CONFIG_JUMP_LABEL=y
+ CONFIG_MODULES=y
+ CONFIG_MODULE_UNLOAD=y
+ CONFIG_MODVERSIONS=y
++CONFIG_MODULE_SCMVERSION=y
+ CONFIG_BLK_INLINE_ENCRYPTION=y
+ CONFIG_BLK_INLINE_ENCRYPTION_FALLBACK=y
+ CONFIG_IOSCHED_BFQ=y

@@ -1,0 +1,56 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: Jaegeuk Kim <jaegeuk@google.com>
+Date: Thu, 28 Jan 2021 12:44:44 -0800
+Subject: ANDROID: GKI: bring WPAN into GKI
+
+https://developer.android.com/things/sdk/apis/lowpan:
+On these networks, Android devices can communicate directly with
+other peer devices, even ultra-low power battery operated nodes
+that may not have WiFi or Bluetooth connectivity (such as door
+locks and window sensors).
+
+Bug: 175144495
+Change-Id: I58203325e70570a37e7f55c2b45bb77a8cf88554
+Signed-off-by: Jaegeuk Kim <jaegeuk@google.com>
+Signed-off-by: Palmer Dabbelt <palmerdabbelt@google.com>
+---
+ arch/arm64/configs/gki_defconfig | 5 ++++-
+ arch/x86/configs/gki_defconfig   | 4 ++++
+ 2 files changed, 8 insertions(+), 1 deletion(-)
+
+diff --git a/arch/arm64/configs/gki_defconfig b/arch/arm64/configs/gki_defconfig
+--- a/arch/arm64/configs/gki_defconfig
++++ b/arch/arm64/configs/gki_defconfig
+@@ -202,6 +202,10 @@ CONFIG_IP6_NF_RAW=y
+ CONFIG_TIPC=y
+ CONFIG_L2TP=y
+ CONFIG_BRIDGE=y
++CONFIG_6LOWPAN=y
++CONFIG_IEEE802154=y
++CONFIG_IEEE802154_6LOWPAN=y
++CONFIG_MAC802154=y
+ CONFIG_NET_SCHED=y
+ CONFIG_NET_SCH_HTB=y
+ CONFIG_NET_SCH_INGRESS=y
+@@ -577,7 +581,6 @@ CONFIG_CRYPTO_MD5=y
+ CONFIG_CRYPTO_LZ4=y
+ CONFIG_CRYPTO_ZSTD=y
+ CONFIG_CRYPTO_ANSI_CPRNG=y
+-CONFIG_CRC_CCITT=y
+ CONFIG_XZ_DEC=y
+ CONFIG_DMA_CMA=y
+ CONFIG_PRINTK_TIME=y
+diff --git a/arch/x86/configs/gki_defconfig b/arch/x86/configs/gki_defconfig
+--- a/arch/x86/configs/gki_defconfig
++++ b/arch/x86/configs/gki_defconfig
+@@ -182,6 +182,10 @@ CONFIG_IP6_NF_RAW=y
+ CONFIG_TIPC=y
+ CONFIG_L2TP=y
+ CONFIG_BRIDGE=y
++CONFIG_6LOWPAN=y
++CONFIG_IEEE802154=y
++CONFIG_IEEE802154_6LOWPAN=y
++CONFIG_MAC802154=y
+ CONFIG_NET_SCHED=y
+ CONFIG_NET_SCH_HTB=y
+ CONFIG_NET_SCH_INGRESS=y
