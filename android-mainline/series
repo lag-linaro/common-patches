@@ -1,8 +1,8 @@
 #
 # android-mainline patches
 #
-# Applies onto upstream 358feceebbf6 Linux v5.11-rc7-141-g358feceebbf6
-# Matches android-mainline 542ddf1f44bf ("Merge 358feceebbf6 ("Merge tag 'clk-fixes-for-linus' of git://git.kernel.org/pub/scm/linux/kernel/git/clk/linux") into android-mainline")
+# Applies onto upstream f40ddce88593 Linux v5.11
+# Matches android-mainline 10b13f4e2b19 ("Merge 'v5.11' into android-mainline")
 #
 Revert-block-grant-IOPRIO_CLASS_RT-to-CAP_SYS_NICE.patch
 Revert-arm64-dts-qcom-sdm845-db845c-Fix-hdmi-nodes.patch
