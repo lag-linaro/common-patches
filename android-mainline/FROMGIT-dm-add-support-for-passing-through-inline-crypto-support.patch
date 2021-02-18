@@ -1,0 +1,357 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: Satya Tangirala <satyat@google.com>
+Date: Mon, 1 Feb 2021 05:10:17 +0000
+Subject: FROMGIT: dm: add support for passing through inline crypto support
+
+Update the device-mapper core to support exposing the inline crypto
+support of the underlying device(s) through the device-mapper device.
+
+This works by creating a "passthrough keyslot manager" for the dm
+device, which declares support for encryption settings which all
+underlying devices support.  When a supported setting is used, the bio
+cloning code handles cloning the crypto context to the bios for all the
+underlying devices.  When an unsupported setting is used, the blk-crypto
+fallback is used as usual.
+
+Crypto support on each underlying device is ignored unless the
+corresponding dm target opts into exposing it.  This is needed because
+for inline crypto to semantically operate on the original bio, the data
+must not be transformed by the dm target.  Thus, targets like dm-linear
+can expose crypto support of the underlying device, but targets like
+dm-crypt can't.  (dm-crypt could use inline crypto itself, though.)
+
+A DM device's table can only be changed if the "new" inline encryption
+capabilities are a (*not* necessarily strict) superset of the "old" inline
+encryption capabilities.  Attempts to make changes to the table that result
+in some inline encryption capability becoming no longer supported will be
+rejected.
+
+For the sake of clarity, key eviction from underlying devices will be
+handled in a future patch.
+
+Co-developed-by: Eric Biggers <ebiggers@google.com>
+Signed-off-by: Eric Biggers <ebiggers@google.com>
+Signed-off-by: Satya Tangirala <satyat@google.com>
+Signed-off-by: Mike Snitzer <snitzer@redhat.com>
+
+(cherry picked from commit aa6ce87a768226802f9a231b3909fe81c503852c
+ https://git.kernel.org/pub/scm/linux/kernel/git/device-mapper/linux-dm.git/log/?h=for-next)
+Bug: 162257830
+Change-Id: I4bdb68891604a9e5be4edfb51425e74d9ea5ac48
+Signed-off-by: Eric Biggers <ebiggers@google.com>
+---
+ drivers/md/dm-core.h          |   5 ++
+ drivers/md/dm-table.c         | 162 ++++++++++++++++++++++++++++++++++
+ drivers/md/dm.c               |  18 +++-
+ include/linux/device-mapper.h |  11 +++
+ include/uapi/linux/dm-ioctl.h |   4 +-
+ 5 files changed, 197 insertions(+), 3 deletions(-)
+
+diff --git a/drivers/md/dm-core.h b/drivers/md/dm-core.h
+--- a/drivers/md/dm-core.h
++++ b/drivers/md/dm-core.h
+@@ -13,6 +13,7 @@
+ #include <linux/ktime.h>
+ #include <linux/genhd.h>
+ #include <linux/blk-mq.h>
++#include <linux/keyslot-manager.h>
+ 
+ #include <trace/events/block.h>
+ 
+@@ -162,6 +163,10 @@ struct dm_table {
+ 	void *event_context;
+ 
+ 	struct dm_md_mempools *mempools;
++
++#ifdef CONFIG_BLK_INLINE_ENCRYPTION
++	struct blk_keyslot_manager *ksm;
++#endif
+ };
+ 
+ static inline struct completion *dm_get_completion_from_kobject(struct kobject *kobj)
+diff --git a/drivers/md/dm-table.c b/drivers/md/dm-table.c
+--- a/drivers/md/dm-table.c
++++ b/drivers/md/dm-table.c
+@@ -187,6 +187,8 @@ static void free_devices(struct list_head *devices, struct mapped_device *md)
+ 	}
+ }
+ 
++static void dm_table_destroy_keyslot_manager(struct dm_table *t);
++
+ void dm_table_destroy(struct dm_table *t)
+ {
+ 	unsigned int i;
+@@ -215,6 +217,8 @@ void dm_table_destroy(struct dm_table *t)
+ 
+ 	dm_free_md_mempools(t->mempools);
+ 
++	dm_table_destroy_keyslot_manager(t);
++
+ 	kfree(t);
+ }
+ 
+@@ -1203,6 +1207,157 @@ static int dm_table_register_integrity(struct dm_table *t)
+ 	return 0;
+ }
+ 
++#ifdef CONFIG_BLK_INLINE_ENCRYPTION
++
++struct dm_keyslot_manager {
++	struct blk_keyslot_manager ksm;
++	struct mapped_device *md;
++};
++
++static int device_intersect_crypto_modes(struct dm_target *ti,
++					 struct dm_dev *dev, sector_t start,
++					 sector_t len, void *data)
++{
++	struct blk_keyslot_manager *parent = data;
++	struct blk_keyslot_manager *child = bdev_get_queue(dev->bdev)->ksm;
++
++	blk_ksm_intersect_modes(parent, child);
++	return 0;
++}
++
++void dm_destroy_keyslot_manager(struct blk_keyslot_manager *ksm)
++{
++	struct dm_keyslot_manager *dksm = container_of(ksm,
++						       struct dm_keyslot_manager,
++						       ksm);
++
++	if (!ksm)
++		return;
++
++	blk_ksm_destroy(ksm);
++	kfree(dksm);
++}
++
++static void dm_table_destroy_keyslot_manager(struct dm_table *t)
++{
++	dm_destroy_keyslot_manager(t->ksm);
++	t->ksm = NULL;
++}
++
++/*
++ * Constructs and initializes t->ksm with a keyslot manager that
++ * represents the common set of crypto capabilities of the devices
++ * described by the dm_table. However, if the constructed keyslot
++ * manager does not support a superset of the crypto capabilities
++ * supported by the current keyslot manager of the mapped_device,
++ * it returns an error instead, since we don't support restricting
++ * crypto capabilities on table changes. Finally, if the constructed
++ * keyslot manager doesn't actually support any crypto modes at all,
++ * it just returns NULL.
++ */
++static int dm_table_construct_keyslot_manager(struct dm_table *t)
++{
++	struct dm_keyslot_manager *dksm;
++	struct blk_keyslot_manager *ksm;
++	struct dm_target *ti;
++	unsigned int i;
++	bool ksm_is_empty = true;
++
++	dksm = kmalloc(sizeof(*dksm), GFP_KERNEL);
++	if (!dksm)
++		return -ENOMEM;
++	dksm->md = t->md;
++
++	ksm = &dksm->ksm;
++	blk_ksm_init_passthrough(ksm);
++	ksm->max_dun_bytes_supported = UINT_MAX;
++	memset(ksm->crypto_modes_supported, 0xFF,
++	       sizeof(ksm->crypto_modes_supported));
++
++	for (i = 0; i < dm_table_get_num_targets(t); i++) {
++		ti = dm_table_get_target(t, i);
++
++		if (!dm_target_passes_crypto(ti->type)) {
++			blk_ksm_intersect_modes(ksm, NULL);
++			break;
++		}
++		if (!ti->type->iterate_devices)
++			continue;
++		ti->type->iterate_devices(ti, device_intersect_crypto_modes,
++					  ksm);
++	}
++
++	if (t->md->queue && !blk_ksm_is_superset(ksm, t->md->queue->ksm)) {
++		DMWARN("Inline encryption capabilities of new DM table were more restrictive than the old table's. This is not supported!");
++		dm_destroy_keyslot_manager(ksm);
++		return -EINVAL;
++	}
++
++	/*
++	 * If the new KSM doesn't actually support any crypto modes, we may as
++	 * well represent it with a NULL ksm.
++	 */
++	ksm_is_empty = true;
++	for (i = 0; i < ARRAY_SIZE(ksm->crypto_modes_supported); i++) {
++		if (ksm->crypto_modes_supported[i]) {
++			ksm_is_empty = false;
++			break;
++		}
++	}
++
++	if (ksm_is_empty) {
++		dm_destroy_keyslot_manager(ksm);
++		ksm = NULL;
++	}
++
++	/*
++	 * t->ksm is only set temporarily while the table is being set
++	 * up, and it gets set to NULL after the capabilities have
++	 * been transferred to the request_queue.
++	 */
++	t->ksm = ksm;
++
++	return 0;
++}
++
++static void dm_update_keyslot_manager(struct request_queue *q,
++				      struct dm_table *t)
++{
++	if (!t->ksm)
++		return;
++
++	/* Make the ksm less restrictive */
++	if (!q->ksm) {
++		blk_ksm_register(t->ksm, q);
++	} else {
++		blk_ksm_update_capabilities(q->ksm, t->ksm);
++		dm_destroy_keyslot_manager(t->ksm);
++	}
++	t->ksm = NULL;
++}
++
++#else /* CONFIG_BLK_INLINE_ENCRYPTION */
++
++static int dm_table_construct_keyslot_manager(struct dm_table *t)
++{
++	return 0;
++}
++
++void dm_destroy_keyslot_manager(struct blk_keyslot_manager *ksm)
++{
++}
++
++static void dm_table_destroy_keyslot_manager(struct dm_table *t)
++{
++}
++
++static void dm_update_keyslot_manager(struct request_queue *q,
++				      struct dm_table *t)
++{
++}
++
++#endif /* !CONFIG_BLK_INLINE_ENCRYPTION */
++
+ /*
+  * Prepares the table for use by building the indices,
+  * setting the type, and allocating mempools.
+@@ -1229,6 +1384,12 @@ int dm_table_complete(struct dm_table *t)
+ 		return r;
+ 	}
+ 
++	r = dm_table_construct_keyslot_manager(t);
++	if (r) {
++		DMERR("could not construct keyslot manager.");
++		return r;
++	}
++
+ 	r = dm_table_alloc_md_mempools(t, t->md);
+ 	if (r)
+ 		DMERR("unable to allocate mempools");
+@@ -1891,6 +2052,7 @@ void dm_table_set_restrictions(struct dm_table *t, struct request_queue *q,
+ 	}
+ #endif
+ 
++	dm_update_keyslot_manager(q, t);
+ 	blk_queue_update_readahead(q);
+ }
+ 
+diff --git a/drivers/md/dm.c b/drivers/md/dm.c
+--- a/drivers/md/dm.c
++++ b/drivers/md/dm.c
+@@ -28,6 +28,7 @@
+ #include <linux/refcount.h>
+ #include <linux/part_stat.h>
+ #include <linux/blk-crypto.h>
++#include <linux/keyslot-manager.h>
+ 
+ #define DM_MSG_PREFIX "core"
+ 
+@@ -1718,6 +1719,19 @@ static const struct dax_operations dm_dax_ops;
+ 
+ static void dm_wq_work(struct work_struct *work);
+ 
++#ifdef CONFIG_BLK_INLINE_ENCRYPTION
++static void dm_queue_destroy_keyslot_manager(struct request_queue *q)
++{
++	dm_destroy_keyslot_manager(q->ksm);
++}
++
++#else /* CONFIG_BLK_INLINE_ENCRYPTION */
++
++static inline void dm_queue_destroy_keyslot_manager(struct request_queue *q)
++{
++}
++#endif /* !CONFIG_BLK_INLINE_ENCRYPTION */
++
+ static void cleanup_mapped_device(struct mapped_device *md)
+ {
+ 	if (md->wq)
+@@ -1739,8 +1753,10 @@ static void cleanup_mapped_device(struct mapped_device *md)
+ 		put_disk(md->disk);
+ 	}
+ 
+-	if (md->queue)
++	if (md->queue) {
++		dm_queue_destroy_keyslot_manager(md->queue);
+ 		blk_cleanup_queue(md->queue);
++	}
+ 
+ 	cleanup_srcu_struct(&md->io_barrier);
+ 
+diff --git a/include/linux/device-mapper.h b/include/linux/device-mapper.h
+--- a/include/linux/device-mapper.h
++++ b/include/linux/device-mapper.h
+@@ -257,6 +257,12 @@ struct target_type {
+ #define DM_TARGET_NOWAIT		0x00000080
+ #define dm_target_supports_nowait(type) ((type)->features & DM_TARGET_NOWAIT)
+ 
++/*
++ * A target supports passing through inline crypto support.
++ */
++#define DM_TARGET_PASSES_CRYPTO		0x00000100
++#define dm_target_passes_crypto(type) ((type)->features & DM_TARGET_PASSES_CRYPTO)
++
+ struct dm_target {
+ 	struct dm_table *table;
+ 	struct target_type *type;
+@@ -533,6 +539,11 @@ void dm_table_run_md_queue_async(struct dm_table *t);
+ struct dm_table *dm_swap_table(struct mapped_device *md,
+ 			       struct dm_table *t);
+ 
++/*
++ * Table keyslot manager functions
++ */
++void dm_destroy_keyslot_manager(struct blk_keyslot_manager *ksm);
++
+ /*
+  * A wrapper around vmalloc.
+  */
+diff --git a/include/uapi/linux/dm-ioctl.h b/include/uapi/linux/dm-ioctl.h
+--- a/include/uapi/linux/dm-ioctl.h
++++ b/include/uapi/linux/dm-ioctl.h
+@@ -272,9 +272,9 @@ enum {
+ #define DM_DEV_SET_GEOMETRY	_IOWR(DM_IOCTL, DM_DEV_SET_GEOMETRY_CMD, struct dm_ioctl)
+ 
+ #define DM_VERSION_MAJOR	4
+-#define DM_VERSION_MINOR	43
++#define DM_VERSION_MINOR	44
+ #define DM_VERSION_PATCHLEVEL	0
+-#define DM_VERSION_EXTRA	"-ioctl (2020-10-01)"
++#define DM_VERSION_EXTRA	"-ioctl (2021-02-01)"
+ 
+ /* Status bits */
+ #define DM_READONLY_FLAG	(1 << 0) /* In/Out */

@@ -17,8 +17,8 @@ Bug: 160885805
 Change-Id: I64bf98aecabe891c188b30dd50124aacb1e008ca
 Signed-off-by: Eric Biggers <ebiggers@google.com>
 ---
- block/blk-crypto.c | 4 ++++
- 1 file changed, 4 insertions(+)
+ block/blk-crypto.c | 3 +++
+ 1 file changed, 3 insertions(+)
 
 diff --git a/block/blk-crypto.c b/block/blk-crypto.c
 --- a/block/blk-crypto.c
@@ -47,8 +47,3 @@ diff --git a/block/blk-crypto.c b/block/blk-crypto.c
  
  /**
   * blk_crypto_evict_key() - Evict a key from any inline encryption hardware
-@@ -409,3 +412,4 @@ int blk_crypto_evict_key(struct request_queue *q,
- 	 */
- 	return blk_crypto_fallback_evict_key(key);
- }
-+EXPORT_SYMBOL_GPL(blk_crypto_evict_key);

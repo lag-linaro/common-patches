@@ -44,13 +44,13 @@ Signed-off-by: Eric Biggers <ebiggers@google.com>
  block/blk-crypto-fallback.c |   2 +
  drivers/md/Kconfig          |  21 ++
  drivers/md/Makefile         |   1 +
- drivers/md/dm-default-key.c | 415 ++++++++++++++++++++++++++++++++++++
+ drivers/md/dm-default-key.c | 414 ++++++++++++++++++++++++++++++++++++
  fs/crypto/inline_crypt.c    |  14 +-
  fs/f2fs/data.c              |   6 +-
  include/linux/blk-crypto.h  |  36 ++++
  include/linux/blk_types.h   |   3 +
  include/linux/fscrypt.h     |  14 ++
- 9 files changed, 510 insertions(+), 2 deletions(-)
+ 9 files changed, 509 insertions(+), 2 deletions(-)
  create mode 100644 drivers/md/dm-default-key.c
 
 diff --git a/block/blk-crypto-fallback.c b/block/blk-crypto-fallback.c
@@ -109,10 +109,10 @@ diff --git a/drivers/md/Makefile b/drivers/md/Makefile
  obj-$(CONFIG_DM_FLAKEY)		+= dm-flakey.o
 diff --git a/drivers/md/dm-default-key.c b/drivers/md/dm-default-key.c
 new file mode 100644
-index 000000000000..ce99da3a3b98
+index 000000000000..8af81114ecdf
 --- /dev/null
 +++ b/drivers/md/dm-default-key.c
-@@ -0,0 +1,415 @@
+@@ -0,0 +1,414 @@
 +// SPDX-License-Identifier: GPL-2.0
 +/*
 + * Copyright (C) 2017 Google, Inc.
@@ -362,8 +362,6 @@ index 000000000000..ce99da3a3b98
 +
 +	ti->num_flush_bios = 1;
 +
-+	ti->may_passthrough_inline_crypto = true;
-+
 +	err = 0;
 +	goto out;
 +
@@ -500,6 +498,7 @@ index 000000000000..ce99da3a3b98
 +static struct target_type default_key_target = {
 +	.name			= "default-key",
 +	.version		= {2, 0, 0},
++	.features		= DM_TARGET_PASSES_CRYPTO,
 +	.module			= THIS_MODULE,
 +	.ctr			= default_key_ctr,
 +	.dtr			= default_key_dtr,

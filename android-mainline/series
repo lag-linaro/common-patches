@@ -2,7 +2,7 @@
 # android-mainline patches
 #
 # Applies onto upstream f40ddce88593 Linux v5.11
-# Matches android-mainline 197212f24f4a ("ANDROID: db845c: Use FRAGMENT_CONFIG")
+# Matches android-mainline d7afb756ee11 ("ANDROID: dm: sync inline crypto support with patches going upstream")
 #
 Revert-block-grant-IOPRIO_CLASS_RT-to-CAP_SYS_NICE.patch
 Revert-arm64-dts-qcom-sdm845-db845c-Fix-hdmi-nodes.patch
@@ -32,6 +32,11 @@ FROMLIST-dma-buf-dma-heap-Keep-track-of-the-heap-device-struct.patch
 FROMLIST-dma-buf-system_heap-Add-a-system-uncached-heap-re-using-the-system-heap.patch
 FROMLIST-irqchip-irq-meson-gpio-make-it-possible-to-build-as-a-module.patch
 FROMLIST-arm64-meson-remove-MESON_IRQ_GPIO-selection.patch
+FROMGIT-block-keyslot-manager-Introduce-passthrough-keyslot-manager.patch
+FROMGIT-block-keyslot-manager-Introduce-functions-for-device-mapper-support.patch
+FROMGIT-dm-add-support-for-passing-through-inline-crypto-support.patch
+FROMGIT-dm-support-key-eviction-from-keyslot-managers-of-underlying-devices.patch
+FROMGIT-dm-set-DM_TARGET_PASSES_CRYPTO-feature-for-some-targets.patch
 _____ANNOTATION-Android-vendor-hooks_____.patch
 ANDROID-GKI-add-android_vendor.h.patch
 ANDROID-add-support-for-vendor-hooks.patch
@@ -309,13 +314,10 @@ ANDROID-mmc-core-Add-ignore-mmc-pm-notify-functionality.patch
 _____ANNOTATION-block-changes_____.patch
 ANDROID-virtio_blk-Remove-BUG_ON-for-discard-zero-ops.patch
 ANDROID-modularize-BLK_MQ_VIRTIO.patch
-ANDROID-block-Introduce-passthrough-keyslot-manager.patch
 ANDROID-block-export-symbols-needed-for-modules-to-use-inline-crypto.patch
 _____ANNOTATION-device-mapper-changes_____.patch
 ANDROID-AVB-error-handler-to-invalidate-vbmeta-partition.patch
 ANDROID-dm-bow-Add-dm-bow-feature.patch
-ANDROID-dm-add-support-for-passing-through-inline-crypto-support.patch
-ANDROID-dm-enable-may_passthrough_inline_crypto-on-some-targets.patch
 ANDROID-dm-add-dm-default-key-target-for-metadata-encryption.patch
 ANDROID-uapi-Add-dm-user-structure-definition.patch
 ANDROID-dm-dm-user-New-target-that-proxies-BIOs-to-userspace.patch

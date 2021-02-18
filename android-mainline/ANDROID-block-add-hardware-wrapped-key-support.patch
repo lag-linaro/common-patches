@@ -34,6 +34,7 @@ android-mainline commits, including:
    935b0c41ff62 ("ANDROID: block: require drivers to declare supported crypto key type(s)")
    c2b86b727a41 ("FROMLIST: Update Inline Encryption from v6 to upstream version of patch series")
    9c9596e9803d ("ANDROID: block: fix checking for wrapped key support")
+   d7afb756ee11 ("ANDROID: dm: sync inline crypto support with patches going upstream")
 
 Bug: 147209885
 Bug: 160883801
@@ -41,15 +42,15 @@ Change-Id: I29c2a7cda88f8804f54b61e611cbb30a1ade9bff
 Signed-off-by: Eric Biggers <ebiggers@google.com>
 ---
  block/blk-crypto-fallback.c      |  1 +
- block/blk-crypto.c               | 40 +++++++++++++++++++++------
- block/keyslot-manager.c          | 47 ++++++++++++++++++++++++++++++++
+ block/blk-crypto.c               | 40 ++++++++++++++++++------
+ block/keyslot-manager.c          | 52 ++++++++++++++++++++++++++++++++
  drivers/md/dm-default-key.c      |  3 +-
- drivers/md/dm.c                  |  2 ++
+ drivers/md/dm-table.c            |  2 ++
  drivers/scsi/ufs/ufshcd-crypto.c |  1 +
  fs/crypto/inline_crypt.c         |  6 ++--
- include/linux/blk-crypto.h       | 11 ++++++--
- include/linux/keyslot-manager.h  | 27 ++++++++++++++++++
- 9 files changed, 124 insertions(+), 14 deletions(-)
+ include/linux/blk-crypto.h       | 11 +++++--
+ include/linux/keyslot-manager.h  | 27 +++++++++++++++++
+ 9 files changed, 129 insertions(+), 14 deletions(-)
 
 diff --git a/block/blk-crypto-fallback.c b/block/blk-crypto-fallback.c
 --- a/block/blk-crypto-fallback.c
@@ -166,9 +167,9 @@ diff --git a/block/keyslot-manager.c b/block/keyslot-manager.c
  	return true;
  }
  
-@@ -425,6 +432,44 @@ void blk_ksm_unregister(struct request_queue *q)
+@@ -424,6 +431,44 @@ void blk_ksm_unregister(struct request_queue *q)
+ 	q->ksm = NULL;
  }
- EXPORT_SYMBOL_GPL(blk_ksm_unregister);
  
 +/**
 + * blk_ksm_derive_raw_secret() - Derive software secret from wrapped key
@@ -211,22 +212,38 @@ diff --git a/block/keyslot-manager.c b/block/keyslot-manager.c
  /**
   * blk_ksm_intersect_modes() - restrict supported modes by child device
   * @parent: The keyslot manager for parent device
-@@ -445,6 +490,7 @@ void blk_ksm_intersect_modes(struct blk_keyslot_manager *parent,
- 		parent->max_dun_bytes_supported =
- 			min(parent->max_dun_bytes_supported,
- 			    child->max_dun_bytes_supported);
-+		parent->features &= child->features;
- 		for (i = 0; i < ARRAY_SIZE(child->crypto_modes_supported);
- 		     i++) {
+@@ -449,10 +494,12 @@ void blk_ksm_intersect_modes(struct blk_keyslot_manager *parent,
  			parent->crypto_modes_supported[i] &=
-@@ -452,6 +498,7 @@ void blk_ksm_intersect_modes(struct blk_keyslot_manager *parent,
+ 				child->crypto_modes_supported[i];
  		}
++		parent->features &= child->features;
  	} else {
  		parent->max_dun_bytes_supported = 0;
-+		parent->features = 0;
  		memset(parent->crypto_modes_supported, 0,
  		       sizeof(parent->crypto_modes_supported));
++		parent->features = 0;
  	}
+ }
+ EXPORT_SYMBOL_GPL(blk_ksm_intersect_modes);
+@@ -492,6 +539,9 @@ bool blk_ksm_is_superset(struct blk_keyslot_manager *ksm_superset,
+ 		return false;
+ 	}
+ 
++	if (ksm_subset->features & ~ksm_superset->features)
++		return false;
++
+ 	return true;
+ }
+ EXPORT_SYMBOL_GPL(blk_ksm_is_superset);
+@@ -528,6 +578,8 @@ void blk_ksm_update_capabilities(struct blk_keyslot_manager *target_ksm,
+ 
+ 	target_ksm->max_dun_bytes_supported =
+ 				reference_ksm->max_dun_bytes_supported;
++
++	target_ksm->features = reference_ksm->features;
+ }
+ EXPORT_SYMBOL_GPL(blk_ksm_update_capabilities);
+ 
 diff --git a/drivers/md/dm-default-key.c b/drivers/md/dm-default-key.c
 --- a/drivers/md/dm-default-key.c
 +++ b/drivers/md/dm-default-key.c
@@ -240,18 +257,18 @@ diff --git a/drivers/md/dm-default-key.c b/drivers/md/dm-default-key.c
  				  dun_bytes, dkc->sector_size);
  	if (err) {
  		ti->error = "Error initializing blk-crypto key";
-diff --git a/drivers/md/dm.c b/drivers/md/dm.c
---- a/drivers/md/dm.c
-+++ b/drivers/md/dm.c
-@@ -2145,6 +2145,8 @@ static void dm_init_inline_encryption(struct mapped_device *md)
- 	 * the device restrictions.
- 	 */
- 	md->ksm.max_dun_bytes_supported = UINT_MAX;
-+	md->ksm.features = BLK_CRYPTO_FEATURE_STANDARD_KEYS |
-+			   BLK_CRYPTO_FEATURE_WRAPPED_KEYS;
- 	memset(md->ksm.crypto_modes_supported, 0xFF,
- 	       sizeof(md->ksm.crypto_modes_supported));
+diff --git a/drivers/md/dm-table.c b/drivers/md/dm-table.c
+--- a/drivers/md/dm-table.c
++++ b/drivers/md/dm-table.c
+@@ -1326,6 +1326,8 @@ static int dm_table_construct_keyslot_manager(struct dm_table *t)
+ 	ksm->max_dun_bytes_supported = UINT_MAX;
+ 	memset(ksm->crypto_modes_supported, 0xFF,
+ 	       sizeof(ksm->crypto_modes_supported));
++	ksm->features = BLK_CRYPTO_FEATURE_STANDARD_KEYS |
++			BLK_CRYPTO_FEATURE_WRAPPED_KEYS;
  
+ 	for (i = 0; i < dm_table_get_num_targets(t); i++) {
+ 		ti = dm_table_get_target(t, i);
 diff --git a/drivers/scsi/ufs/ufshcd-crypto.c b/drivers/scsi/ufs/ufshcd-crypto.c
 --- a/drivers/scsi/ufs/ufshcd-crypto.c
 +++ b/drivers/scsi/ufs/ufshcd-crypto.c
@@ -349,10 +366,10 @@ diff --git a/include/linux/keyslot-manager.h b/include/linux/keyslot-manager.h
 +	BLK_CRYPTO_FEATURE_WRAPPED_KEYS = BIT(1),
 +};
 +
- #ifdef CONFIG_BLK_INLINE_ENCRYPTION
- 
  struct blk_keyslot_manager;
-@@ -21,6 +30,9 @@ struct blk_keyslot_manager;
+ 
+ /**
+@@ -19,6 +28,9 @@ struct blk_keyslot_manager;
   *			The key is provided so that e.g. dm layers can evict
   *			keys from the devices that they map over.
   *			Returns 0 on success, -errno otherwise.
@@ -362,7 +379,7 @@ diff --git a/include/linux/keyslot-manager.h b/include/linux/keyslot-manager.h
   *
   * This structure should be provided by storage device drivers when they set up
   * a keyslot manager - this structure holds the function ptrs that the keyslot
-@@ -33,6 +45,10 @@ struct blk_ksm_ll_ops {
+@@ -31,6 +43,10 @@ struct blk_ksm_ll_ops {
  	int (*keyslot_evict)(struct blk_keyslot_manager *ksm,
  			     const struct blk_crypto_key *key,
  			     unsigned int slot);
@@ -373,7 +390,7 @@ diff --git a/include/linux/keyslot-manager.h b/include/linux/keyslot-manager.h
  };
  
  struct blk_keyslot_manager {
-@@ -49,6 +65,12 @@ struct blk_keyslot_manager {
+@@ -47,6 +63,12 @@ struct blk_keyslot_manager {
  	 */
  	unsigned int max_dun_bytes_supported;
  
@@ -386,15 +403,15 @@ diff --git a/include/linux/keyslot-manager.h b/include/linux/keyslot-manager.h
  	/*
  	 * Array of size BLK_ENCRYPTION_MODE_MAX of bitmasks that represents
  	 * whether a crypto mode and data unit size are supported. The i'th
-@@ -108,6 +130,11 @@ void blk_ksm_destroy(struct blk_keyslot_manager *ksm);
- void blk_ksm_intersect_modes(struct blk_keyslot_manager *parent,
- 			     const struct blk_keyslot_manager *child);
+@@ -103,6 +125,11 @@ void blk_ksm_reprogram_all_keys(struct blk_keyslot_manager *ksm);
+ 
+ void blk_ksm_destroy(struct blk_keyslot_manager *ksm);
  
 +int blk_ksm_derive_raw_secret(struct blk_keyslot_manager *ksm,
 +			      const u8 *wrapped_key,
 +			      unsigned int wrapped_key_size,
 +			      u8 *secret, unsigned int secret_size);
 +
- void blk_ksm_init_passthrough(struct blk_keyslot_manager *ksm);
+ void blk_ksm_intersect_modes(struct blk_keyslot_manager *parent,
+ 			     const struct blk_keyslot_manager *child);
  
- #endif /* CONFIG_BLK_INLINE_ENCRYPTION */

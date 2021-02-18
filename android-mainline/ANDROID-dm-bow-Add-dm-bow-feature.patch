@@ -79,8 +79,8 @@ Signed-off-by: Eric Biggers <ebiggers@google.com>
  Documentation/device-mapper/dm-bow.txt |   99 ++
  drivers/md/Kconfig                     |   12 +
  drivers/md/Makefile                    |    1 +
- drivers/md/dm-bow.c                    | 1296 ++++++++++++++++++++++++
- 4 files changed, 1408 insertions(+)
+ drivers/md/dm-bow.c                    | 1297 ++++++++++++++++++++++++
+ 4 files changed, 1409 insertions(+)
  create mode 100644 Documentation/device-mapper/dm-bow.txt
  create mode 100644 drivers/md/dm-bow.c
 
@@ -222,10 +222,10 @@ diff --git a/drivers/md/Makefile b/drivers/md/Makefile
  dm-mod-objs			+= dm-init.o
 diff --git a/drivers/md/dm-bow.c b/drivers/md/dm-bow.c
 new file mode 100644
-index 000000000000..dccc5cc5a4df
+index 000000000000..cfd1fa63ff97
 --- /dev/null
 +++ b/drivers/md/dm-bow.c
-@@ -0,0 +1,1296 @@
+@@ -0,0 +1,1297 @@
 +/*
 + * Copyright (C) 2018 Google Limited.
 + *
@@ -1494,6 +1494,7 @@ index 000000000000..dccc5cc5a4df
 +static struct target_type bow_target = {
 +	.name   = "bow",
 +	.version = {1, 2, 0},
++	.features = DM_TARGET_PASSES_CRYPTO,
 +	.module = THIS_MODULE,
 +	.ctr    = dm_bow_ctr,
 +	.dtr    = dm_bow_dtr,

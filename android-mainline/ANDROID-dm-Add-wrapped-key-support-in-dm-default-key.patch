@@ -106,7 +106,7 @@ diff --git a/drivers/md/dm-default-key.c b/drivers/md/dm-default-key.c
  				  dun_bytes, dkc->sector_size);
  	if (err) {
  		ti->error = "Error initializing blk-crypto key";
-@@ -333,6 +340,8 @@ static void default_key_status(struct dm_target *ti, status_type_t type,
+@@ -331,6 +338,8 @@ static void default_key_status(struct dm_target *ti, status_type_t type,
  		num_feature_args += !!ti->num_discard_bios;
  		if (dkc->sector_size != SECTOR_SIZE)
  			num_feature_args += 2;
@@ -115,7 +115,7 @@ diff --git a/drivers/md/dm-default-key.c b/drivers/md/dm-default-key.c
  		if (num_feature_args != 0) {
  			DMEMIT(" %d", num_feature_args);
  			if (ti->num_discard_bios)
-@@ -341,6 +350,8 @@ static void default_key_status(struct dm_target *ti, status_type_t type,
+@@ -339,6 +348,8 @@ static void default_key_status(struct dm_target *ti, status_type_t type,
  				DMEMIT(" sector_size:%u", dkc->sector_size);
  				DMEMIT(" iv_large_sectors");
  			}
@@ -124,12 +124,12 @@ diff --git a/drivers/md/dm-default-key.c b/drivers/md/dm-default-key.c
  		}
  		break;
  	}
-@@ -385,7 +396,7 @@ static void default_key_io_hints(struct dm_target *ti,
+@@ -383,7 +394,7 @@ static void default_key_io_hints(struct dm_target *ti,
  
  static struct target_type default_key_target = {
  	.name			= "default-key",
 -	.version		= {2, 0, 0},
 +	.version		= {2, 1, 0},
+ 	.features		= DM_TARGET_PASSES_CRYPTO,
  	.module			= THIS_MODULE,
  	.ctr			= default_key_ctr,
- 	.dtr			= default_key_dtr,
