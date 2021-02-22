@@ -2,7 +2,7 @@
 # android-mainline patches
 #
 # Applies onto upstream f40ddce88593 Linux v5.11
-# Matches android-mainline d7afb756ee11 ("ANDROID: dm: sync inline crypto support with patches going upstream")
+# Matches android-mainline efac1ec143b9 ("ANDROID: GKI: Build in VIRTIO_FS")
 #
 Revert-block-grant-IOPRIO_CLASS_RT-to-CAP_SYS_NICE.patch
 Revert-arm64-dts-qcom-sdm845-db845c-Fix-hdmi-nodes.patch
@@ -777,6 +777,7 @@ ANDROID-GKI-Enable-CONFIG_MODULE_SCMVERSION-y.patch
 ANDROID-gki_defconfig-Enable-CONFIG_PAGE_OWNER.patch
 ANDROID-db845c-Use-FRAGMENT_CONFIG.patch
 ANDROID-build_config-drop-CONFIG_KASAN_PANIC_ON_WARN.patch
+ANDROID-GKI-Build-in-VIRTIO_FS.patch
 _____ANNOTATION-Patches-for-bringing-up-new-SoCs_____.patch
 ANDROID-arm64-Add-support-for-asymmetric-AArch32-EL0-configurations.patch
 ANDROID-arm64-Handle-AArch32-tasks-running-on-non-AArch32-cpu.patch
