@@ -1,8 +1,8 @@
 #
 # android-mainline patches
 #
-# Applies onto upstream f40ddce88593 Linux v5.11
-# Matches android-mainline 42daaf8760f7 ("ANDROID: dma-buf: heap: export dma_heap_put")
+# Applies onto upstream 51e6d17809c8 Linux v5.11-1962-g51e6d17809c8
+# Matches android-mainline 4d1e11edccba ("Merge 51e6d17809c8 ("Merge git://git.kernel.org/pub/scm/linux/kernel/git/netdev/net-next") into android-mainline")
 #
 Revert-block-grant-IOPRIO_CLASS_RT-to-CAP_SYS_NICE.patch
 Revert-arm64-dts-qcom-sdm845-db845c-Fix-hdmi-nodes.patch
@@ -446,7 +446,6 @@ ANDROID-virt_wifi-Add-data-ops-for-scan-data-simulation.patch
 ANDROID-virtio-net-Skip-set_features-on-non-cvq-devices.patch
 ANDROID-net-wireless-Add-module_param-mac_prefix-to-mac80211_hwsim.patch
 ANDROID-Unconditionally-create-bridge-tracepoints.patch
-ANDROID-net-bpf-permit-redirect-from-ingress-L3-to-egress-L2-devices-at-near-max-mtu.patch
 ANDROID-Temporarily-disable-XFRM_USER_COMPAT-filtering.patch
 _____ANNOTATION-hardware-wrapped-key-support_____.patch
 ANDROID-block-add-hardware-wrapped-key-support.patch

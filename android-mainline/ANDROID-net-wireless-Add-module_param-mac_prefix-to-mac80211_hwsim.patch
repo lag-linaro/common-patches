@@ -41,7 +41,7 @@ diff --git a/drivers/net/wireless/mac80211_hwsim.c b/drivers/net/wireless/mac802
  /**
   * enum hwsim_regtest - the type of regulatory tests we offer
   *
-@@ -2998,6 +3002,8 @@ static int mac80211_hwsim_new_radio(struct genl_info *info,
+@@ -3068,6 +3072,8 @@ static int mac80211_hwsim_new_radio(struct genl_info *info,
  	if (!param->perm_addr) {
  		eth_zero_addr(addr);
  		addr[0] = 0x02;
