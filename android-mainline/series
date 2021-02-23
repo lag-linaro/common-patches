@@ -2,7 +2,7 @@
 # android-mainline patches
 #
 # Applies onto upstream f40ddce88593 Linux v5.11
-# Matches android-mainline efac1ec143b9 ("ANDROID: GKI: Build in VIRTIO_FS")
+# Matches android-mainline 42daaf8760f7 ("ANDROID: dma-buf: heap: export dma_heap_put")
 #
 Revert-block-grant-IOPRIO_CLASS_RT-to-CAP_SYS_NICE.patch
 Revert-arm64-dts-qcom-sdm845-db845c-Fix-hdmi-nodes.patch
@@ -175,6 +175,7 @@ ANDROID-ftrace-vendor-hook-for-ftrace-dump-on-oops.patch
 ANDROID-sched-fair-Sync-task-util-for-strf-hook.patch
 ANDROID-percpu-Export-per_cpu_ptr_to_phys-for-loadable-modules.patch
 ANDROID-sched-time-Export-symbols-needed-for-schedutil-module.patch
+ANDROID-make-per-cgroup-PSI-tracking-configurable.patch
 _____ANNOTATION-uid_sys_stats-support_____.patch
 ANDROID-uid_cputime-Adds-accounting-for-the-cputimes-per-uid.patch
 ANDROID-uid_cputime-add-per-uid-IO-usage-accounting.patch
@@ -218,6 +219,7 @@ ANDROID-dma-heap-Provide-accessors-so-that-in-kernel-drivers-can-allocate-dmabuf
 ANDROID-dma-Rework-so-dev_get_cma_area-can-be-called-from-a-module.patch
 ANDROID-dma-buf-heaps-Allow-cma-heaps-to-be-configured-as-a-module.patch
 ANDROID-dma-buf-heaps-Allow-the-DMA-BUF-system-heap-to-be-a-module.patch
+ANDROID-dma-buf-heap-export-dma_heap_put.patch
 _____ANNOTATION-driver-framework-and-misc-driver-changes_____.patch
 FROMLIST-drivers-irqchip-pdc-additionally-set-type-in-SPI-config-registers.patch
 FROMLIST-dt-bindings-interrupt-controller-pdc-add-SPI-config-register.patch
@@ -433,6 +435,7 @@ ANDROID-Incremental-fs-Add-FS_IOC_GETFLAGS.patch
 ANDROID-Incremental-fs-Store-fs-verity-state-in-backing-file.patch
 ANDROID-Incremental-fs-Add-FS_IOC_MEASURE_VERITY.patch
 ANDROID-Incremental-fs-Build-merkle-tree-when-enabling-verity.patch
+ANDROID-Incremental-fs-set-the-correct-access-to-mapped-files.patch
 _____ANNOTATION-networking-changes_____.patch
 ANDROID-net-xfrm-make-PF_KEY-SHA256-use-RFC-compliant-truncation.patch
 ANDROID-net-xfrm-always-export-pktgen_xfrm_outer_mode_output.patch
@@ -778,6 +781,7 @@ ANDROID-gki_defconfig-Enable-CONFIG_PAGE_OWNER.patch
 ANDROID-db845c-Use-FRAGMENT_CONFIG.patch
 ANDROID-build_config-drop-CONFIG_KASAN_PANIC_ON_WARN.patch
 ANDROID-GKI-Build-in-VIRTIO_FS.patch
+ANDROID-gki_defconfig-Enable-QCOM-geni-console.patch
 _____ANNOTATION-Patches-for-bringing-up-new-SoCs_____.patch
 ANDROID-arm64-Add-support-for-asymmetric-AArch32-EL0-configurations.patch
 ANDROID-arm64-Handle-AArch32-tasks-running-on-non-AArch32-cpu.patch

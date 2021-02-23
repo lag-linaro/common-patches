@@ -1,0 +1,62 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: Suren Baghdasaryan <surenb@google.com>
+Date: Mon, 1 Feb 2021 15:31:40 -0800
+Subject: ANDROID: make per-cgroup PSI tracking configurable
+
+With cgroup v2 hierarchy enabled PSI accounts stalls for each cgroup
+separately and aggregates at each level of the hierarchy. That causes
+additional overhead since psi_avgs_work would be called for each
+cgroup in the hierarchy.
+In Android we use PSI only at the system level, therefore this overhead
+can be avoided.
+Introduce CONFIG_PSI_PER_CGROUP_ACCT that controls per-cgroup PSI
+tracking and is disabled by default.
+
+Bug: 178872719
+Signed-off-by: Suren Baghdasaryan <surenb@google.com>
+Change-Id: I70a418aba76b46a27eb9e66080434aa870496384
+(cherry picked from commit bd3983c8a85b5e69e0e7596449824d8b419af746)
+(cherry picked from commit 5e00dceecb6d26c2d7382045b488fd9d1ced1c11)
+Signed-off-by: Palmer Dabbelt <palmerdabbelt@google.com>
+---
+ init/Kconfig       | 15 +++++++++++++++
+ kernel/sched/psi.c |  2 +-
+ 2 files changed, 16 insertions(+), 1 deletion(-)
+
+diff --git a/init/Kconfig b/init/Kconfig
+--- a/init/Kconfig
++++ b/init/Kconfig
+@@ -635,6 +635,21 @@ config PSI_DEFAULT_DISABLED
+ 
+ 	  Say N if unsure.
+ 
++config PSI_PER_CGROUP_ACCT
++	bool "Enable per-cgroup pressure stall information tracking"
++	default n
++	depends on PSI
++	depends on CGROUPS
++	help
++	  If set, pressure stall information will be tracked for each
++	  individual cgroup. Otherwise, pressure stall information will
++	  be tracked only at the system level under /proc/pressure/.
++
++	  This feature generates overhead that depends on the number of
++	  cgroups in the cgroup v2 hierarchy.
++
++	  Say N if unsure.
++
+ endmenu # "CPU/Task time and stats accounting"
+ 
+ config CPU_ISOLATION
+diff --git a/kernel/sched/psi.c b/kernel/sched/psi.c
+--- a/kernel/sched/psi.c
++++ b/kernel/sched/psi.c
+@@ -743,7 +743,7 @@ static void psi_group_change(struct psi_group *group, int cpu,
+ 
+ static struct psi_group *iterate_groups(struct task_struct *task, void **iter)
+ {
+-#ifdef CONFIG_CGROUPS
++#if defined CONFIG_CGROUPS && defined CONFIG_PSI_PER_CGROUP_ACCT
+ 	struct cgroup *cgroup = NULL;
+ 
+ 	if (!*iter)

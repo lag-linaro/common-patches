@@ -1,0 +1,34 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: Akash Asthana <akashast@codeaurora.org>
+Date: Mon, 15 Feb 2021 14:37:37 +0530
+Subject: ANDROID: gki_defconfig: Enable QCOM geni console
+
+Enable earlycon and real console for QCOM's QUPv3 HW.
+
+Bug: 144074026
+Signed-off-by: Akash Asthana <akashast@codeaurora.org>
+Change-Id: I0e9dc0a75b77ab6375aefc6e422abd3ffd180ae6
+---
+ arch/arm64/configs/gki_defconfig | 3 +++
+ 1 file changed, 3 insertions(+)
+
+diff --git a/arch/arm64/configs/gki_defconfig b/arch/arm64/configs/gki_defconfig
+--- a/arch/arm64/configs/gki_defconfig
++++ b/arch/arm64/configs/gki_defconfig
+@@ -328,6 +328,8 @@ CONFIG_SERIAL_AMBA_PL011=y
+ CONFIG_SERIAL_AMBA_PL011_CONSOLE=y
+ CONFIG_SERIAL_SAMSUNG=y
+ CONFIG_SERIAL_SAMSUNG_CONSOLE=y
++CONFIG_SERIAL_QCOM_GENI=y
++CONFIG_SERIAL_QCOM_GENI_CONSOLE=y
+ CONFIG_SERIAL_SPRD=y
+ CONFIG_SERIAL_SPRD_CONSOLE=y
+ CONFIG_HVC_DCC=y
+@@ -474,6 +476,7 @@ CONFIG_MAILBOX=y
+ CONFIG_REMOTEPROC=y
+ CONFIG_REMOTEPROC_CDEV=y
+ CONFIG_RPMSG_CHAR=y
++CONFIG_QCOM_GENI_SE=y
+ CONFIG_DEVFREQ_GOV_PERFORMANCE=y
+ CONFIG_DEVFREQ_GOV_POWERSAVE=y
+ CONFIG_DEVFREQ_GOV_USERSPACE=y
