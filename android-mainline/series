@@ -2,7 +2,7 @@
 # android-mainline patches
 #
 # Applies onto upstream 51e6d17809c8 Linux v5.11-1962-g51e6d17809c8
-# Matches android-mainline 4d1e11edccba ("Merge 51e6d17809c8 ("Merge git://git.kernel.org/pub/scm/linux/kernel/git/netdev/net-next") into android-mainline")
+# Matches android-mainline 600066b974ad ("ANDROID: modpost: update nits from late review")
 #
 Revert-block-grant-IOPRIO_CLASS_RT-to-CAP_SYS_NICE.patch
 Revert-arm64-dts-qcom-sdm845-db845c-Fix-hdmi-nodes.patch
