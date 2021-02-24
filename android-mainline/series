@@ -1,8 +1,8 @@
 #
 # android-mainline patches
 #
-# Applies onto upstream e767b3530acb Linux v5.11-2809-ge767b3530acb
-# Matches android-mainline 9b0dfa3d20a2 ("Merge e767b3530acb ("Merge tag 'arm-drivers-v5.12' of git://git.kernel.org/pub/scm/linux/kernel/git/soc/soc") into android-mainline")
+# Applies onto upstream 2c405d1ab8b3 Linux v5.11-2899-g2c405d1ab8b3
+# Matches android-mainline 114062dd11a8 ("Merge 2c405d1ab8b3 ("Merge tag 'x86_asm_for_v5.12' of git://git.kernel.org/pub/scm/linux/kernel/git/tip/tip") into android-mainline")
 #
 Revert-block-grant-IOPRIO_CLASS_RT-to-CAP_SYS_NICE.patch
 Revert-arm64-dts-qcom-sdm845-db845c-Fix-hdmi-nodes.patch

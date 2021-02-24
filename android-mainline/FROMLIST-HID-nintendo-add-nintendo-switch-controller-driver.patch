@@ -32,7 +32,7 @@ Signed-off-by: Siarhei Vishniakou <svv@google.com>
 diff --git a/MAINTAINERS b/MAINTAINERS
 --- a/MAINTAINERS
 +++ b/MAINTAINERS
-@@ -12534,6 +12534,12 @@ W:	http://www.netlab.is.tsukuba.ac.jp/~yokota/izumi/ninja/
+@@ -12535,6 +12535,12 @@ W:	http://www.netlab.is.tsukuba.ac.jp/~yokota/izumi/ninja/
  F:	Documentation/scsi/NinjaSCSI.rst
  F:	drivers/scsi/nsp32*
  
