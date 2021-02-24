@@ -1,8 +1,8 @@
 #
 # android-mainline patches
 #
-# Applies onto upstream 51e6d17809c8 Linux v5.11-1962-g51e6d17809c8
-# Matches android-mainline 600066b974ad ("ANDROID: modpost: update nits from late review")
+# Applies onto upstream e767b3530acb Linux v5.11-2809-ge767b3530acb
+# Matches android-mainline 9b0dfa3d20a2 ("Merge e767b3530acb ("Merge tag 'arm-drivers-v5.12' of git://git.kernel.org/pub/scm/linux/kernel/git/soc/soc") into android-mainline")
 #
 Revert-block-grant-IOPRIO_CLASS_RT-to-CAP_SYS_NICE.patch
 Revert-arm64-dts-qcom-sdm845-db845c-Fix-hdmi-nodes.patch
@@ -59,7 +59,6 @@ _____ANNOTATION-arm-and-arm64-changes_____.patch
 ANDROID-of-Support-CONFIG_CMDLINE_EXTEND-config-option.patch
 ANDROID-vendor_hooks-FPSIMD-save-restore-by-using-vendor_hooks.patch
 ANDROID-mpam-add-vendor-hook-to-record-MPAM.patch
-ANDROID-ARM-prima2-Register-with-kernel-restart-handler.patch
 ANDROID-ARM-xen-Register-with-kernel-restart-handler.patch
 ANDROID-ARM-Register-with-kernel-restart-handler.patch
 ANDROID-ARM64-Remove-arm_pm_restart.patch
