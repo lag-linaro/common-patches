@@ -2,7 +2,7 @@
 # android-mainline patches
 #
 # Applies onto upstream 5d99aa093b56 Linux v5.11-3461-g5d99aa093b56
-# Matches android-mainline c979eb9d8180 ("Merge 5d99aa093b56 ("Merge tag 'staging-5.12-rc1' of git://git.kernel.org/pub/scm/linux/kernel/git/gregkh/staging") into android-mainline")
+# Matches android-mainline 1d1197098c31 ("ANDROID: add initial set of OWNERS")
 #
 Revert-block-grant-IOPRIO_CLASS_RT-to-CAP_SYS_NICE.patch
 Revert-arm64-dts-qcom-sdm845-db845c-Fix-hdmi-nodes.patch
@@ -780,6 +780,7 @@ ANDROID-db845c-Use-FRAGMENT_CONFIG.patch
 ANDROID-build_config-drop-CONFIG_KASAN_PANIC_ON_WARN.patch
 ANDROID-GKI-Build-in-VIRTIO_FS.patch
 ANDROID-gki_defconfig-Enable-QCOM-geni-console.patch
+ANDROID-add-initial-set-of-OWNERS.patch
 _____ANNOTATION-Patches-for-bringing-up-new-SoCs_____.patch
 ANDROID-arm64-Add-support-for-asymmetric-AArch32-EL0-configurations.patch
 ANDROID-arm64-Handle-AArch32-tasks-running-on-non-AArch32-cpu.patch
