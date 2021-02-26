@@ -28,7 +28,7 @@ Change-Id: Ie8a2372d7b7db3c3580f19d724be183f988a5895
 diff --git a/arch/arm64/Kconfig b/arch/arm64/Kconfig
 --- a/arch/arm64/Kconfig
 +++ b/arch/arm64/Kconfig
-@@ -1905,8 +1905,10 @@ config ASYMMETRIC_AARCH32
+@@ -1904,8 +1904,10 @@ config ASYMMETRIC_AARCH32
  	  CPU configurations. Once the AArch32 EL0 support is detected
  	  on a CPU, the feature is made available to user space to allow
  	  the execution of 32-bit (compat) applications by migrating

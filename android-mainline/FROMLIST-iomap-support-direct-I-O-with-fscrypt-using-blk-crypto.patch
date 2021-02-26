@@ -44,7 +44,7 @@ diff --git a/fs/iomap/direct-io.c b/fs/iomap/direct-io.c
  	bio_set_dev(bio, iomap->bdev);
  	bio->bi_iter.bi_sector = iomap_sector(iomap, pos);
  	bio->bi_private = dio;
-@@ -255,6 +259,7 @@ iomap_dio_bio_actor(struct inode *inode, loff_t pos, loff_t length,
+@@ -284,6 +288,7 @@ iomap_dio_bio_actor(struct inode *inode, loff_t pos, loff_t length,
  		ret = nr_pages;
  		goto out;
  	}
@@ -52,7 +52,7 @@ diff --git a/fs/iomap/direct-io.c b/fs/iomap/direct-io.c
  
  	if (need_zeroout) {
  		/* zero out from the start of the block to the write offset */
-@@ -272,6 +277,8 @@ iomap_dio_bio_actor(struct inode *inode, loff_t pos, loff_t length,
+@@ -308,6 +313,8 @@ iomap_dio_bio_actor(struct inode *inode, loff_t pos, loff_t length,
  		}
  
  		bio = bio_alloc(GFP_KERNEL, nr_pages);
@@ -61,7 +61,7 @@ diff --git a/fs/iomap/direct-io.c b/fs/iomap/direct-io.c
  		bio_set_dev(bio, iomap->bdev);
  		bio->bi_iter.bi_sector = iomap_sector(iomap, pos);
  		bio->bi_write_hint = dio->iocb->ki_hint;
-@@ -309,6 +316,7 @@ iomap_dio_bio_actor(struct inode *inode, loff_t pos, loff_t length,
+@@ -340,6 +347,7 @@ iomap_dio_bio_actor(struct inode *inode, loff_t pos, loff_t length,
  		copied += n;
  
  		nr_pages = iov_iter_npages(dio->submit.iter, BIO_MAX_PAGES);

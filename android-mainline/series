@@ -1,8 +1,8 @@
 #
 # android-mainline patches
 #
-# Applies onto upstream 5d99aa093b56 Linux v5.11-3461-g5d99aa093b56
-# Matches android-mainline 1d1197098c31 ("ANDROID: add initial set of OWNERS")
+# Applies onto upstream 6f3952cbe00b Linux v5.11-3795-g6f3952cbe00b
+# Matches android-mainline 170fc3254c0e ("Merge 6f3952cbe00b ("Merge tag 'for-5.12-tag' of git://git.kernel.org/pub/scm/linux/kernel/git/kdave/linux") into android-mainline")
 #
 Revert-block-grant-IOPRIO_CLASS_RT-to-CAP_SYS_NICE.patch
 Revert-arm64-dts-qcom-sdm845-db845c-Fix-hdmi-nodes.patch
