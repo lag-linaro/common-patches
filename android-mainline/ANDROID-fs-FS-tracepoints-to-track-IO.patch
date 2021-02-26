@@ -253,15 +253,15 @@ diff --git a/fs/ext4/readpage.c b/fs/ext4/readpage.c
 diff --git a/fs/f2fs/data.c b/fs/f2fs/data.c
 --- a/fs/f2fs/data.c
 +++ b/fs/f2fs/data.c
-@@ -27,6 +27,7 @@
+@@ -26,6 +26,7 @@
+ #include "node.h"
  #include "segment.h"
- #include "trace.h"
  #include <trace/events/f2fs.h>
 +#include <trace/events/android_fs.h>
  
  #define NUM_PREALLOC_POST_READ_CTXS	128
  
-@@ -3397,6 +3398,16 @@ static int f2fs_write_begin(struct file *file, struct address_space *mapping,
+@@ -3298,6 +3299,16 @@ static int f2fs_write_begin(struct file *file, struct address_space *mapping,
  	block_t blkaddr = NULL_ADDR;
  	int err = 0;
  
@@ -278,7 +278,7 @@ diff --git a/fs/f2fs/data.c b/fs/f2fs/data.c
  	trace_f2fs_write_begin(inode, pos, len, flags);
  
  	if (!f2fs_is_checkpoint_ready(sbi)) {
-@@ -3524,6 +3535,7 @@ static int f2fs_write_end(struct file *file,
+@@ -3425,6 +3436,7 @@ static int f2fs_write_end(struct file *file,
  {
  	struct inode *inode = page->mapping->host;
  
@@ -286,7 +286,7 @@ diff --git a/fs/f2fs/data.c b/fs/f2fs/data.c
  	trace_f2fs_write_end(inode, pos, len, copied);
  
  	/*
-@@ -3657,6 +3669,29 @@ static ssize_t f2fs_direct_IO(struct kiocb *iocb, struct iov_iter *iter)
+@@ -3558,6 +3570,29 @@ static ssize_t f2fs_direct_IO(struct kiocb *iocb, struct iov_iter *iter)
  
  	trace_f2fs_direct_IO_enter(inode, offset, count, rw);
  
@@ -316,7 +316,7 @@ diff --git a/fs/f2fs/data.c b/fs/f2fs/data.c
  	if (rw == WRITE && whint_mode == WHINT_MODE_OFF)
  		iocb->ki_hint = WRITE_LIFE_NOT_SET;
  
-@@ -3712,6 +3747,13 @@ static ssize_t f2fs_direct_IO(struct kiocb *iocb, struct iov_iter *iter)
+@@ -3613,6 +3648,13 @@ static ssize_t f2fs_direct_IO(struct kiocb *iocb, struct iov_iter *iter)
  	}
  
  out:
