@@ -1,39 +1,34 @@
 From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
 From: Eric Biggers <ebiggers@google.com>
-Date: Thu, 9 Jul 2020 19:47:47 +0000
+Date: Fri, 24 Jul 2020 18:44:55 +0000
 Subject: FROMLIST: fscrypt: Add functions for direct I/O support
 
 Introduce fscrypt_dio_supported() to check whether a direct I/O request
-is unsupported due to encryption constraints, and
-fscrypt_limit_dio_pages() to check how many pages may be added to a bio
-being prepared for direct I/O.
+is unsupported due to encryption constraints.
 
-The IV_INO_LBLK_32 fscrypt policy introduces the possibility that DUNs
-in logically continuous file blocks might wrap from 0xffffffff to 0.
-Bios in which the DUN wraps around like this cannot be submitted. This
-is especially difficult to handle when block_size != PAGE_SIZE, since in
-that case the DUN can wrap in the middle of a page.
-
-For now, we add direct I/O support while using IV_INO_LBLK_32 policies
-only for the case when block_size == PAGE_SIZE. When IV_INO_LBLK_32
-policy is used, fscrypt_dio_supported() rejects the bio when
-block_size != PAGE_SIZE. fscrypt_limit_dio_pages() returns the number of
-pages that may be added to the bio without causing the DUN to wrap
-around within the bio.
+Also introduce fscrypt_limit_io_blocks() to limit how many blocks can be
+added to a bio being prepared for direct I/O. This is needed for
+filesystems that use the iomap direct I/O implementation to avoid DUN
+wraparound in the middle of a bio (which is possible with the
+IV_INO_LBLK_32 IV generation method). Elsewhere fscrypt_mergeable_bio()
+is used for this, but iomap operates on logical ranges directly, so
+filesystems using iomap won't have a chance to call fscrypt_mergeable_bio()
+on every block added to a bio. So we need this function which limits a
+logical range in one go.
 
 Signed-off-by: Eric Biggers <ebiggers@google.com>
+Co-developed-by: Satya Tangirala <satyat@google.com>
 Signed-off-by: Satya Tangirala <satyat@google.com>
 
-Bug: 137270441
-Bug: 144046242
 Bug: 162255927
-Link: https://lore.kernel.org/r/20200709194751.2579207-2-satyat@google.com
-Change-Id: Ib9e77373e3967a6509802b594b4dc5731154ecbc
+Link: https://lore.kernel.org/r/20200724184501.1651378-2-satyat@google.com
+Change-Id: I1dbd4f382d510d9b779d5e44a77fadf7040cf077
+Signed-off-by: Eric Biggers <ebiggers@google.com>
 ---
  fs/crypto/crypto.c       |  8 +++++
- fs/crypto/inline_crypt.c | 72 ++++++++++++++++++++++++++++++++++++++++
- include/linux/fscrypt.h  | 19 +++++++++++
- 3 files changed, 99 insertions(+)
+ fs/crypto/inline_crypt.c | 74 ++++++++++++++++++++++++++++++++++++++++
+ include/linux/fscrypt.h  | 18 ++++++++++
+ 3 files changed, 100 insertions(+)
 
 diff --git a/fs/crypto/crypto.c b/fs/crypto/crypto.c
 --- a/fs/crypto/crypto.c
@@ -46,7 +41,7 @@ diff --git a/fs/crypto/crypto.c b/fs/crypto/crypto.c
 + * Generate the IV for the given logical block number within the given file.
 + * For filenames encryption, lblk_num == 0.
 + *
-+ * Keep this in sync with fscrypt_limit_dio_pages().  fscrypt_limit_dio_pages()
++ * Keep this in sync with fscrypt_limit_io_blocks().  fscrypt_limit_io_blocks()
 + * needs to know about any IV generation methods where the low bits of IV don't
 + * simply contain the lblk_num (e.g., IV_INO_LBLK_32).
 + */
@@ -64,7 +59,7 @@ diff --git a/fs/crypto/inline_crypt.c b/fs/crypto/inline_crypt.c
  
  #include "fscrypt_private.h"
  
-@@ -375,3 +376,74 @@ bool fscrypt_mergeable_bio_bh(struct bio *bio,
+@@ -375,3 +376,76 @@ bool fscrypt_mergeable_bio_bh(struct bio *bio,
  	return fscrypt_mergeable_bio(bio, inode, next_lblk);
  }
  EXPORT_SYMBOL_GPL(fscrypt_mergeable_bio_bh);
@@ -102,59 +97,60 @@ diff --git a/fs/crypto/inline_crypt.c b/fs/crypto/inline_crypt.c
 +EXPORT_SYMBOL_GPL(fscrypt_dio_supported);
 +
 +/**
-+ * fscrypt_limit_dio_pages() - limit I/O pages to avoid discontiguous DUNs
++ * fscrypt_limit_io_blocks() - limit I/O blocks to avoid discontiguous DUNs
 + * @inode: the file on which I/O is being done
-+ * @pos: the file position (in bytes) at which the I/O is being done
-+ * @nr_pages: the number of pages we want to submit starting at @pos
++ * @lblk: the block at which the I/O is being started from
++ * @nr_blocks: the number of blocks we want to submit starting at @pos
 + *
-+ * For direct I/O: limit the number of pages that will be submitted in the bio
-+ * targeting @pos, in order to avoid crossing a data unit number (DUN)
-+ * discontinuity.  This is only needed for certain IV generation methods.
++ * Determine the limit to the number of blocks that can be submitted in the bio
++ * targeting @pos without causing a data unit number (DUN) discontinuity.
 + *
-+ * This assumes block_size == PAGE_SIZE; see fscrypt_dio_supported().
++ * This is normally just @nr_blocks, as normally the DUNs just increment along
++ * with the logical blocks.  (Or the file is not encrypted.)
 + *
-+ * Return: the actual number of pages that can be submitted
++ * In rare cases, fscrypt can be using an IV generation method that allows the
++ * DUN to wrap around within logically continuous blocks, and that wraparound
++ * will occur.  If this happens, a value less than @nr_blocks will be returned
++ * so that the wraparound doesn't occur in the middle of the bio.
++ *
++ * Return: the actual number of blocks that can be submitted
 + */
-+int fscrypt_limit_dio_pages(const struct inode *inode, loff_t pos, int nr_pages)
++u64 fscrypt_limit_io_blocks(const struct inode *inode, u64 lblk, u64 nr_blocks)
 +{
 +	const struct fscrypt_info *ci = inode->i_crypt_info;
 +	u32 dun;
 +
 +	if (!fscrypt_inode_uses_inline_crypto(inode))
-+		return nr_pages;
++		return nr_blocks;
 +
-+	if (nr_pages <= 1)
-+		return nr_pages;
++	if (nr_blocks <= 1)
++		return nr_blocks;
 +
 +	if (!(fscrypt_policy_flags(&ci->ci_policy) &
 +	      FSCRYPT_POLICY_FLAG_IV_INO_LBLK_32))
-+		return nr_pages;
-+
-+	if (WARN_ON_ONCE(i_blocksize(inode) != PAGE_SIZE))
-+		return 1;
++		return nr_blocks;
 +
 +	/* With IV_INO_LBLK_32, the DUN can wrap around from U32_MAX to 0. */
 +
-+	dun = ci->ci_hashed_ino + (pos >> inode->i_blkbits);
++	dun = ci->ci_hashed_ino + lblk;
 +
-+	return min_t(u64, nr_pages, (u64)U32_MAX + 1 - dun);
++	return min_t(u64, nr_blocks, (u64)U32_MAX + 1 - dun);
 +}
 diff --git a/include/linux/fscrypt.h b/include/linux/fscrypt.h
 --- a/include/linux/fscrypt.h
 +++ b/include/linux/fscrypt.h
-@@ -609,6 +609,11 @@ bool fscrypt_mergeable_bio(struct bio *bio, const struct inode *inode,
+@@ -609,6 +609,10 @@ bool fscrypt_mergeable_bio(struct bio *bio, const struct inode *inode,
  bool fscrypt_mergeable_bio_bh(struct bio *bio,
  			      const struct buffer_head *next_bh);
  
 +bool fscrypt_dio_supported(struct kiocb *iocb, struct iov_iter *iter);
 +
-+int fscrypt_limit_dio_pages(const struct inode *inode, loff_t pos,
-+			    int nr_pages);
++u64 fscrypt_limit_io_blocks(const struct inode *inode, u64 lblk, u64 nr_blocks);
 +
  #else /* CONFIG_FS_ENCRYPTION_INLINE_CRYPT */
  
  static inline bool __fscrypt_inode_uses_inline_crypto(const struct inode *inode)
-@@ -637,6 +642,20 @@ static inline bool fscrypt_mergeable_bio_bh(struct bio *bio,
+@@ -637,6 +641,20 @@ static inline bool fscrypt_mergeable_bio_bh(struct bio *bio,
  {
  	return true;
  }
@@ -167,10 +163,10 @@ diff --git a/include/linux/fscrypt.h b/include/linux/fscrypt.h
 +	return !fscrypt_needs_contents_encryption(inode);
 +}
 +
-+static inline int fscrypt_limit_dio_pages(const struct inode *inode, loff_t pos,
-+					  int nr_pages)
++static inline u64 fscrypt_limit_io_blocks(const struct inode *inode, u64 lblk,
++					  u64 nr_blocks)
 +{
-+	return nr_pages;
++	return nr_blocks;
 +}
  #endif /* !CONFIG_FS_ENCRYPTION_INLINE_CRYPT */
  

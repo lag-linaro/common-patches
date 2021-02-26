@@ -1,6 +1,6 @@
 From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
 From: Eric Biggers <ebiggers@google.com>
-Date: Thu, 9 Jul 2020 19:47:48 +0000
+Date: Fri, 24 Jul 2020 18:44:56 +0000
 Subject: FROMLIST: direct-io: add support for fscrypt using blk-crypto
 
 Set bio crypt contexts on bios by calling into fscrypt when required,
@@ -10,13 +10,14 @@ this is not the case when using certain fscrypt IV generation methods
 like IV_INO_LBLK_32).
 
 Signed-off-by: Eric Biggers <ebiggers@google.com>
+Co-developed-by: Satya Tangirala <satyat@google.com>
 Signed-off-by: Satya Tangirala <satyat@google.com>
+Reviewed-by: Jaegeuk Kim <jaegeuk@kernel.org>
 
-Bug: 137270441
-Bug: 144046242
 Bug: 162255927
-Link: https://lore.kernel.org/r/20200709194751.2579207-3-satyat@google.com
-Change-Id: I34b4432a6d820e8bf3e051b196e72c79a180e565
+Link: https://lore.kernel.org/r/20200724184501.1651378-3-satyat@google.com
+Change-Id: I57ff74185004371c01ec35d806b0749583375c58
+Signed-off-by: Eric Biggers <ebiggers@google.com>
 ---
  fs/direct-io.c | 15 ++++++++++++++-
  1 file changed, 14 insertions(+), 1 deletion(-)

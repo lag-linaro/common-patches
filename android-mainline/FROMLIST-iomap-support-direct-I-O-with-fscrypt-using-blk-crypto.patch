@@ -1,22 +1,25 @@
 From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
 From: Eric Biggers <ebiggers@google.com>
-Date: Thu, 9 Jul 2020 19:47:49 +0000
+Date: Fri, 24 Jul 2020 18:44:57 +0000
 Subject: FROMLIST: iomap: support direct I/O with fscrypt using blk-crypto
 
-Wire up iomap direct I/O with the fscrypt additions for direct I/O,
-and set bio crypt contexts on bios when appropriate.
+Set bio crypt contexts on bios by calling into fscrypt when required.
+No DUN contiguity checks are done - callers are expected to set up the
+iomap correctly to ensure that each bio submitted by iomap will not have
+blocks with incontiguous DUNs by calling fscrypt_limit_io_blocks()
+appropriately.
 
 Signed-off-by: Eric Biggers <ebiggers@google.com>
+Co-developed-by: Satya Tangirala <satyat@google.com>
 Signed-off-by: Satya Tangirala <satyat@google.com>
 
-Bug: 137270441
-Bug: 144046242
 Bug: 162255927
-Link: https://lore.kernel.org/r/20200709194751.2579207-4-satyat@google.com
-Change-Id: I6e4f427e6c9956be66c179d7353882aae61e9470
+Link: https://lore.kernel.org/r/20200724184501.1651378-4-satyat@google.com
+Change-Id: I34bd73001d53c854b5905799d3a9c31762914763
+Signed-off-by: Eric Biggers <ebiggers@google.com>
 ---
- fs/iomap/direct-io.c | 8 ++++++++
- 1 file changed, 8 insertions(+)
+ fs/iomap/direct-io.c | 6 ++++++
+ 1 file changed, 6 insertions(+)
 
 diff --git a/fs/iomap/direct-io.c b/fs/iomap/direct-io.c
 --- a/fs/iomap/direct-io.c
@@ -44,15 +47,7 @@ diff --git a/fs/iomap/direct-io.c b/fs/iomap/direct-io.c
  	bio_set_dev(bio, iomap->bdev);
  	bio->bi_iter.bi_sector = iomap_sector(iomap, pos);
  	bio->bi_private = dio;
-@@ -284,6 +288,7 @@ iomap_dio_bio_actor(struct inode *inode, loff_t pos, loff_t length,
- 		ret = nr_pages;
- 		goto out;
- 	}
-+	nr_pages = fscrypt_limit_dio_pages(inode, pos, nr_pages);
- 
- 	if (need_zeroout) {
- 		/* zero out from the start of the block to the write offset */
-@@ -308,6 +313,8 @@ iomap_dio_bio_actor(struct inode *inode, loff_t pos, loff_t length,
+@@ -308,6 +312,8 @@ iomap_dio_bio_actor(struct inode *inode, loff_t pos, loff_t length,
  		}
  
  		bio = bio_alloc(GFP_KERNEL, nr_pages);
@@ -61,11 +56,3 @@ diff --git a/fs/iomap/direct-io.c b/fs/iomap/direct-io.c
  		bio_set_dev(bio, iomap->bdev);
  		bio->bi_iter.bi_sector = iomap_sector(iomap, pos);
  		bio->bi_write_hint = dio->iocb->ki_hint;
-@@ -340,6 +347,7 @@ iomap_dio_bio_actor(struct inode *inode, loff_t pos, loff_t length,
- 		copied += n;
- 
- 		nr_pages = iov_iter_npages(dio->submit.iter, BIO_MAX_PAGES);
-+		nr_pages = fscrypt_limit_dio_pages(inode, pos, nr_pages);
- 		iomap_dio_submit_bio(dio, iomap, bio, pos);
- 		pos += n;
- 	} while (nr_pages);

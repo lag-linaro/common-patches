@@ -1,8 +1,8 @@
 #
 # android-mainline patches
 #
-# Applies onto upstream 99f1a5872b70 Linux v5.11-3897-g99f1a5872b70
-# Matches android-mainline c17a74916816 ("Merge 99f1a5872b70 ("Merge tag 'nfsd-5.12' of git://git.kernel.org/pub/scm/linux/kernel/git/cel/linux") into android-mainline")
+# Applies onto upstream bd018bbaa586 Linux v5.11-4026-gbd018bbaa586
+# Matches android-mainline 9169a937f0cf ("FROMLIST: f2fs: support direct I/O with fscrypt using blk-crypto")
 #
 Revert-block-grant-IOPRIO_CLASS_RT-to-CAP_SYS_NICE.patch
 Revert-arm64-dts-qcom-sdm845-db845c-Fix-hdmi-nodes.patch
@@ -329,11 +329,11 @@ FROMLIST-Add-flags-option-to-get-xattr-method-paired-to-__vfs_getxattr.patch
 FROMLIST-overlayfs-handle-XATTR_NOSECURITY-flag-for-get-xattr-method.patch
 FROMLIST-overlayfs-internal-getxattr-operations-without-sepolicy-checking.patch
 FROMLIST-fscrypt-Add-functions-for-direct-I-O-support.patch
+ANDROID-export-fscrypt_limit_io_blocks.patch
 FROMLIST-direct-io-add-support-for-fscrypt-using-blk-crypto.patch
 FROMLIST-iomap-support-direct-I-O-with-fscrypt-using-blk-crypto.patch
 FROMLIST-ext4-support-direct-I-O-with-fscrypt-using-blk-crypto.patch
 FROMLIST-f2fs-support-direct-I-O-with-fscrypt-using-blk-crypto.patch
-ANDROID-f2fs-add-back-compress-inode-check.patch
 ANDROID-fs-epoll-use-freezable-blocking-call.patch
 ANDROID-fs-FS-tracepoints-to-track-IO.patch
 ANDROID-Add-a-tracepoint-for-mapping-inode-to-full-path.patch
@@ -780,6 +780,9 @@ ANDROID-build_config-drop-CONFIG_KASAN_PANIC_ON_WARN.patch
 ANDROID-GKI-Build-in-VIRTIO_FS.patch
 ANDROID-gki_defconfig-Enable-QCOM-geni-console.patch
 ANDROID-add-initial-set-of-OWNERS.patch
+ANDROID-add-me-for-block-and-drivers-scsi.patch
+ANDROID-gki_defconfig-enable-BLAKE2b-support.patch
+ANDROID-GKI-amlogic-enable-GPIO-LEDs-as-module.patch
 _____ANNOTATION-Patches-for-bringing-up-new-SoCs_____.patch
 ANDROID-arm64-Add-support-for-asymmetric-AArch32-EL0-configurations.patch
 ANDROID-arm64-Handle-AArch32-tasks-running-on-non-AArch32-cpu.patch
