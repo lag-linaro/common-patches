@@ -26,9 +26,9 @@ Change-Id: If28027bdacfdf8511be0ea54766970fb73bc3d96
 diff --git a/drivers/usb/typec/tcpm/tcpm.c b/drivers/usb/typec/tcpm/tcpm.c
 --- a/drivers/usb/typec/tcpm/tcpm.c
 +++ b/drivers/usb/typec/tcpm/tcpm.c
-@@ -381,6 +381,9 @@ struct tcpm_port {
- 	/* Sink caps have been queried */
- 	bool sink_cap_done;
+@@ -438,6 +438,9 @@ struct tcpm_port {
+ 	enum tcpm_ams next_ams;
+ 	bool in_ams;
  
 +	/* Port is still in tCCDebounce */
 +	bool debouncing;
@@ -36,7 +36,7 @@ diff --git a/drivers/usb/typec/tcpm/tcpm.c b/drivers/usb/typec/tcpm/tcpm.c
  #ifdef CONFIG_DEBUG_FS
  	struct dentry *dentry;
  	struct mutex logbuffer_lock;	/* log buffer access lock */
-@@ -764,6 +767,21 @@ static int tcpm_set_vconn(struct tcpm_port *port, bool enable)
+@@ -909,6 +912,21 @@ static int tcpm_set_vconn(struct tcpm_port *port, bool enable)
  	return ret;
  }
  
@@ -58,7 +58,7 @@ diff --git a/drivers/usb/typec/tcpm/tcpm.c b/drivers/usb/typec/tcpm/tcpm.c
  static u32 tcpm_get_current_limit(struct tcpm_port *port)
  {
  	enum typec_cc_status cc;
-@@ -2868,6 +2886,7 @@ static int tcpm_src_attach(struct tcpm_port *port)
+@@ -3444,6 +3462,7 @@ static int tcpm_src_attach(struct tcpm_port *port)
  	port->partner = NULL;
  
  	port->attached = true;
@@ -66,7 +66,7 @@ diff --git a/drivers/usb/typec/tcpm/tcpm.c b/drivers/usb/typec/tcpm/tcpm.c
  	port->send_discover = true;
  
  	return 0;
-@@ -2991,6 +3010,7 @@ static int tcpm_snk_attach(struct tcpm_port *port)
+@@ -3579,6 +3598,7 @@ static int tcpm_snk_attach(struct tcpm_port *port)
  	port->partner = NULL;
  
  	port->attached = true;
@@ -74,7 +74,7 @@ diff --git a/drivers/usb/typec/tcpm/tcpm.c b/drivers/usb/typec/tcpm/tcpm.c
  	port->send_discover = true;
  
  	return 0;
-@@ -3018,6 +3038,7 @@ static int tcpm_acc_attach(struct tcpm_port *port)
+@@ -3606,6 +3626,7 @@ static int tcpm_acc_attach(struct tcpm_port *port)
  	tcpm_typec_connect(port);
  
  	port->attached = true;
@@ -82,7 +82,7 @@ diff --git a/drivers/usb/typec/tcpm/tcpm.c b/drivers/usb/typec/tcpm/tcpm.c
  
  	return 0;
  }
-@@ -3100,6 +3121,15 @@ static void run_state_machine(struct tcpm_port *port)
+@@ -3689,6 +3710,15 @@ static void run_state_machine(struct tcpm_port *port)
  		if (!port->non_pd_role_swap)
  			tcpm_swap_complete(port, -ENOTCONN);
  		tcpm_src_detach(port);
@@ -98,7 +98,7 @@ diff --git a/drivers/usb/typec/tcpm/tcpm.c b/drivers/usb/typec/tcpm/tcpm.c
  		if (tcpm_start_toggling(port, tcpm_rp_cc(port))) {
  			tcpm_set_state(port, TOGGLING, 0);
  			break;
-@@ -3109,6 +3139,7 @@ static void run_state_machine(struct tcpm_port *port)
+@@ -3698,6 +3728,7 @@ static void run_state_machine(struct tcpm_port *port)
  			tcpm_set_state(port, SNK_UNATTACHED, PD_T_DRP_SNK);
  		break;
  	case SRC_ATTACH_WAIT:
@@ -106,7 +106,7 @@ diff --git a/drivers/usb/typec/tcpm/tcpm.c b/drivers/usb/typec/tcpm/tcpm.c
  		if (tcpm_port_is_debug(port))
  			tcpm_set_state(port, DEBUG_ACC_ATTACHED,
  				       PD_T_CC_DEBOUNCE);
-@@ -3123,6 +3154,7 @@ static void run_state_machine(struct tcpm_port *port)
+@@ -3712,6 +3743,7 @@ static void run_state_machine(struct tcpm_port *port)
  		break;
  
  	case SNK_TRY:
@@ -114,7 +114,7 @@ diff --git a/drivers/usb/typec/tcpm/tcpm.c b/drivers/usb/typec/tcpm/tcpm.c
  		port->try_snk_count++;
  		/*
  		 * Requirements:
-@@ -3297,6 +3329,15 @@ static void run_state_machine(struct tcpm_port *port)
+@@ -3911,6 +3943,15 @@ static void run_state_machine(struct tcpm_port *port)
  			tcpm_swap_complete(port, -ENOTCONN);
  		tcpm_pps_complete(port, -ENOTCONN);
  		tcpm_snk_detach(port);
@@ -130,7 +130,7 @@ diff --git a/drivers/usb/typec/tcpm/tcpm.c b/drivers/usb/typec/tcpm/tcpm.c
  		if (tcpm_start_toggling(port, TYPEC_CC_RD)) {
  			tcpm_set_state(port, TOGGLING, 0);
  			break;
-@@ -3306,6 +3347,7 @@ static void run_state_machine(struct tcpm_port *port)
+@@ -3920,6 +3961,7 @@ static void run_state_machine(struct tcpm_port *port)
  			tcpm_set_state(port, SRC_UNATTACHED, PD_T_DRP_SRC);
  		break;
  	case SNK_ATTACH_WAIT:
@@ -138,7 +138,7 @@ diff --git a/drivers/usb/typec/tcpm/tcpm.c b/drivers/usb/typec/tcpm/tcpm.c
  		if ((port->cc1 == TYPEC_CC_OPEN &&
  		     port->cc2 != TYPEC_CC_OPEN) ||
  		    (port->cc1 != TYPEC_CC_OPEN &&
-@@ -3317,17 +3359,20 @@ static void run_state_machine(struct tcpm_port *port)
+@@ -3931,17 +3973,20 @@ static void run_state_machine(struct tcpm_port *port)
  				       PD_T_PD_DEBOUNCE);
  		break;
  	case SNK_DEBOUNCED:
@@ -162,7 +162,7 @@ diff --git a/drivers/usb/typec/tcpm/tcpm.c b/drivers/usb/typec/tcpm/tcpm.c
  		break;
  
  	case SRC_TRY:
-@@ -4231,6 +4276,7 @@ static void _tcpm_pd_vbus_off(struct tcpm_port *port)
+@@ -4930,6 +4975,7 @@ static void _tcpm_pd_vbus_off(struct tcpm_port *port)
  	case SNK_TRYWAIT_DEBOUNCE:
  		break;
  	case SNK_ATTACH_WAIT:
@@ -173,10 +173,10 @@ diff --git a/drivers/usb/typec/tcpm/tcpm.c b/drivers/usb/typec/tcpm/tcpm.c
 diff --git a/include/linux/usb/tcpm.h b/include/linux/usb/tcpm.h
 --- a/include/linux/usb/tcpm.h
 +++ b/include/linux/usb/tcpm.h
-@@ -104,6 +104,14 @@ enum tcpm_transmit_type {
-  *		is supported by TCPC, set this callback for TCPM to query
-  *		whether vbus is at VSAFE0V when needed.
-  *		Returns true when vbus is at VSAFE0V, false otherwise.
+@@ -112,6 +112,14 @@ enum tcpm_transmit_type {
+  *              Optional; The USB Communications Capable bit indicates if port
+  *              partner is capable of communication over the USB data lines
+  *              (e.g. D+/- or SS Tx/Rx). Called to notify the status of the bit.
 + * @check_contaminant:
 + *		Optional; The callback is called when CC pins report open status
 + *		at the end of the toggling period. Chip level drivers are
@@ -188,15 +188,15 @@ diff --git a/include/linux/usb/tcpm.h b/include/linux/usb/tcpm.h
   */
  struct tcpc_dev {
  	struct fwnode_handle *fwnode;
-@@ -135,6 +143,7 @@ struct tcpc_dev {
- 	int (*set_auto_vbus_discharge_threshold)(struct tcpc_dev *dev, enum typec_pwr_opmode mode,
+@@ -144,6 +152,7 @@ struct tcpc_dev {
  						 bool pps_active, u32 requested_vbus_voltage);
  	bool (*is_vbus_vsafe0v)(struct tcpc_dev *dev);
+ 	void (*set_partner_usb_comm_capable)(struct tcpc_dev *dev, bool enable);
 +	int (*check_contaminant)(struct tcpc_dev *dev);
  };
  
  struct tcpm_port;
-@@ -152,5 +161,6 @@ void tcpm_pd_transmit_complete(struct tcpm_port *port,
+@@ -161,5 +170,6 @@ void tcpm_pd_transmit_complete(struct tcpm_port *port,
  			       enum tcpm_transmit_status status);
  void tcpm_pd_hard_reset(struct tcpm_port *port);
  void tcpm_tcpc_reset(struct tcpm_port *port);

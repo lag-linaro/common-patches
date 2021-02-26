@@ -19,7 +19,7 @@ Signed-off-by: Badhri Jagan Sridharan <badhri@google.com>
 diff --git a/drivers/usb/gadget/configfs.c b/drivers/usb/gadget/configfs.c
 --- a/drivers/usb/gadget/configfs.c
 +++ b/drivers/usb/gadget/configfs.c
-@@ -1717,11 +1717,49 @@ static const struct usb_gadget_driver configfs_driver_template = {
+@@ -1739,11 +1739,49 @@ static const struct usb_gadget_driver configfs_driver_template = {
  	.match_existing_only = 1,
  };
  
@@ -69,7 +69,7 @@ diff --git a/drivers/usb/gadget/configfs.c b/drivers/usb/gadget/configfs.c
  
  	gi = kzalloc(sizeof(*gi), GFP_KERNEL);
  	if (!gi)
-@@ -1772,12 +1810,31 @@ static struct config_group *gadgets_make(
+@@ -1794,12 +1832,31 @@ static struct config_group *gadgets_make(
  				MKDEV(0, 0), NULL, "android0");
  	if (IS_ERR(android_device))
  		goto err;
@@ -102,7 +102,7 @@ diff --git a/drivers/usb/gadget/configfs.c b/drivers/usb/gadget/configfs.c
  err:
  	kfree(gi);
  	return ERR_PTR(-ENOMEM);
-@@ -1785,8 +1842,15 @@ static struct config_group *gadgets_make(
+@@ -1807,8 +1864,15 @@ static struct config_group *gadgets_make(
  
  static void gadgets_drop(struct config_group *group, struct config_item *item)
  {

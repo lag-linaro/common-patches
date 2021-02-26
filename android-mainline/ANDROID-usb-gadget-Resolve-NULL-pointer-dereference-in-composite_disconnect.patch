@@ -97,10 +97,10 @@ diff --git a/drivers/usb/gadget/configfs.c b/drivers/usb/gadget/configfs.c
  
 -#endif // CONFIG_USB_CONFIGFS_UEVENT
 -
- static void configfs_composite_suspend(struct usb_gadget *gadget)
+ static void configfs_composite_reset(struct usb_gadget *gadget)
  {
  	struct usb_composite_dev *cdev;
-@@ -1697,13 +1679,11 @@ static const struct usb_gadget_driver configfs_driver_template = {
+@@ -1719,13 +1701,11 @@ static const struct usb_gadget_driver configfs_driver_template = {
  
  #ifdef CONFIG_USB_CONFIGFS_UEVENT
  	.setup          = android_setup,
@@ -109,7 +109,7 @@ diff --git a/drivers/usb/gadget/configfs.c b/drivers/usb/gadget/configfs.c
  #else
  	.setup          = configfs_composite_setup,
 +#endif
- 	.reset          = configfs_composite_disconnect,
+ 	.reset          = configfs_composite_reset,
  	.disconnect     = configfs_composite_disconnect,
 -#endif
  	.suspend	= configfs_composite_suspend,

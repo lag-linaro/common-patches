@@ -65,7 +65,7 @@ diff --git a/drivers/usb/gadget/configfs.c b/drivers/usb/gadget/configfs.c
  		pr_info("%s: sent uevent %s\n", __func__, disconnected[0]);
  		uevent_sent = true;
  	}
-@@ -1757,21 +1755,23 @@ static int android_device_create(struct gadget_info *gi)
+@@ -1779,21 +1777,23 @@ static int android_device_create(struct gadget_info *gi)
  	struct device_attribute *attr;
  
  	INIT_WORK(&gi->work, android_work);
@@ -97,7 +97,7 @@ diff --git a/drivers/usb/gadget/configfs.c b/drivers/usb/gadget/configfs.c
  			return err;
  		}
  	}
-@@ -1779,15 +1779,15 @@ static int android_device_create(struct gadget_info *gi)
+@@ -1801,15 +1801,15 @@ static int android_device_create(struct gadget_info *gi)
  	return 0;
  }
  
@@ -116,7 +116,7 @@ diff --git a/drivers/usb/gadget/configfs.c b/drivers/usb/gadget/configfs.c
  }
  #else
  static inline int android_device_create(struct gadget_info *gi)
-@@ -1795,7 +1795,7 @@ static inline int android_device_create(struct gadget_info *gi)
+@@ -1817,7 +1817,7 @@ static inline int android_device_create(struct gadget_info *gi)
  	return 0;
  }
  
@@ -125,7 +125,7 @@ diff --git a/drivers/usb/gadget/configfs.c b/drivers/usb/gadget/configfs.c
  {
  }
  #endif
-@@ -1864,8 +1864,11 @@ static struct config_group *gadgets_make(
+@@ -1886,8 +1886,11 @@ static struct config_group *gadgets_make(
  
  static void gadgets_drop(struct config_group *group, struct config_item *item)
  {

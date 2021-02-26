@@ -1,8 +1,8 @@
 #
 # android-mainline patches
 #
-# Applies onto upstream 2c405d1ab8b3 Linux v5.11-2899-g2c405d1ab8b3
-# Matches android-mainline 114062dd11a8 ("Merge 2c405d1ab8b3 ("Merge tag 'x86_asm_for_v5.12' of git://git.kernel.org/pub/scm/linux/kernel/git/tip/tip") into android-mainline")
+# Applies onto upstream 5d99aa093b56 Linux v5.11-3461-g5d99aa093b56
+# Matches android-mainline c979eb9d8180 ("Merge 5d99aa093b56 ("Merge tag 'staging-5.12-rc1' of git://git.kernel.org/pub/scm/linux/kernel/git/gregkh/staging") into android-mainline")
 #
 Revert-block-grant-IOPRIO_CLASS_RT-to-CAP_SYS_NICE.patch
 Revert-arm64-dts-qcom-sdm845-db845c-Fix-hdmi-nodes.patch
