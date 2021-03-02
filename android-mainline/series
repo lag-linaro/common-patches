@@ -2,7 +2,7 @@
 # android-mainline patches
 #
 # Applies onto upstream bd018bbaa586 Linux v5.11-4026-gbd018bbaa586
-# Matches android-mainline 9169a937f0cf ("FROMLIST: f2fs: support direct I/O with fscrypt using blk-crypto")
+# Matches android-mainline f50320a9841e ("ANDROID: power_supply: Update power_supply enums")
 #
 Revert-block-grant-IOPRIO_CLASS_RT-to-CAP_SYS_NICE.patch
 Revert-arm64-dts-qcom-sdm845-db845c-Fix-hdmi-nodes.patch
@@ -103,6 +103,7 @@ ANDROID-power_supply-Add-POWER_SUPPLY_CHARGE_TYPE_TAPER.patch
 ANDROID-PM-sleep-export-device_pm_callback_start-end-trace-event.patch
 ANDROID-perf-Export-clock_set_rate-tracepoint.patch
 ANDROID-GKI-export-dev_pm_qos_read_value.patch
+ANDROID-power_supply-Update-power_supply-enums.patch
 _____ANNOTATION-scheduler-changes_____.patch
 Revert-sched-core-Prevent-race-condition-between-cpuset-and-__sched_setscheduler.patch
 Revert-sched-Remove-sched_setscheduler-EXPORTs.patch
@@ -783,6 +784,7 @@ ANDROID-add-initial-set-of-OWNERS.patch
 ANDROID-add-me-for-block-and-drivers-scsi.patch
 ANDROID-gki_defconfig-enable-BLAKE2b-support.patch
 ANDROID-GKI-amlogic-enable-GPIO-LEDs-as-module.patch
+ANDROID-gki_defconfig-enable-CONFIG_KASAN_HW_TAGS.patch
 _____ANNOTATION-Patches-for-bringing-up-new-SoCs_____.patch
 ANDROID-arm64-Add-support-for-asymmetric-AArch32-EL0-configurations.patch
 ANDROID-arm64-Handle-AArch32-tasks-running-on-non-AArch32-cpu.patch
