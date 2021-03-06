@@ -46,16 +46,17 @@ Signed-off-by: Eric Biggers <ebiggers@google.com>
  block/keyslot-manager.c          | 52 ++++++++++++++++++++++++++++++++
  drivers/md/dm-default-key.c      |  3 +-
  drivers/md/dm-table.c            |  2 ++
+ drivers/mmc/host/cqhci-crypto.c  |  2 ++
  drivers/scsi/ufs/ufshcd-crypto.c |  1 +
  fs/crypto/inline_crypt.c         |  6 ++--
  include/linux/blk-crypto.h       | 11 +++++--
  include/linux/keyslot-manager.h  | 27 +++++++++++++++++
- 9 files changed, 129 insertions(+), 14 deletions(-)
+ 10 files changed, 131 insertions(+), 14 deletions(-)
 
 diff --git a/block/blk-crypto-fallback.c b/block/blk-crypto-fallback.c
 --- a/block/blk-crypto-fallback.c
 +++ b/block/blk-crypto-fallback.c
-@@ -545,6 +545,7 @@ static int blk_crypto_fallback_init(void)
+@@ -553,6 +553,7 @@ static int blk_crypto_fallback_init(void)
  
  	blk_crypto_ksm.ksm_ll_ops = blk_crypto_ksm_ll_ops;
  	blk_crypto_ksm.max_dun_bytes_supported = BLK_CRYPTO_MAX_IV_SIZE;
@@ -153,7 +154,7 @@ diff --git a/block/blk-crypto.c b/block/blk-crypto.c
 diff --git a/block/keyslot-manager.c b/block/keyslot-manager.c
 --- a/block/keyslot-manager.c
 +++ b/block/keyslot-manager.c
-@@ -311,6 +311,13 @@ bool blk_ksm_crypto_cfg_supported(struct blk_keyslot_manager *ksm,
+@@ -340,6 +340,13 @@ bool blk_ksm_crypto_cfg_supported(struct blk_keyslot_manager *ksm,
  		return false;
  	if (ksm->max_dun_bytes_supported < cfg->dun_bytes)
  		return false;
@@ -167,7 +168,7 @@ diff --git a/block/keyslot-manager.c b/block/keyslot-manager.c
  	return true;
  }
  
-@@ -424,6 +431,44 @@ void blk_ksm_unregister(struct request_queue *q)
+@@ -453,6 +460,44 @@ void blk_ksm_unregister(struct request_queue *q)
  	q->ksm = NULL;
  }
  
@@ -212,7 +213,7 @@ diff --git a/block/keyslot-manager.c b/block/keyslot-manager.c
  /**
   * blk_ksm_intersect_modes() - restrict supported modes by child device
   * @parent: The keyslot manager for parent device
-@@ -449,10 +494,12 @@ void blk_ksm_intersect_modes(struct blk_keyslot_manager *parent,
+@@ -478,10 +523,12 @@ void blk_ksm_intersect_modes(struct blk_keyslot_manager *parent,
  			parent->crypto_modes_supported[i] &=
  				child->crypto_modes_supported[i];
  		}
@@ -225,7 +226,7 @@ diff --git a/block/keyslot-manager.c b/block/keyslot-manager.c
  	}
  }
  EXPORT_SYMBOL_GPL(blk_ksm_intersect_modes);
-@@ -492,6 +539,9 @@ bool blk_ksm_is_superset(struct blk_keyslot_manager *ksm_superset,
+@@ -521,6 +568,9 @@ bool blk_ksm_is_superset(struct blk_keyslot_manager *ksm_superset,
  		return false;
  	}
  
@@ -235,7 +236,7 @@ diff --git a/block/keyslot-manager.c b/block/keyslot-manager.c
  	return true;
  }
  EXPORT_SYMBOL_GPL(blk_ksm_is_superset);
-@@ -528,6 +578,8 @@ void blk_ksm_update_capabilities(struct blk_keyslot_manager *target_ksm,
+@@ -557,6 +607,8 @@ void blk_ksm_update_capabilities(struct blk_keyslot_manager *target_ksm,
  
  	target_ksm->max_dun_bytes_supported =
  				reference_ksm->max_dun_bytes_supported;
@@ -269,6 +270,18 @@ diff --git a/drivers/md/dm-table.c b/drivers/md/dm-table.c
  
  	for (i = 0; i < dm_table_get_num_targets(t); i++) {
  		ti = dm_table_get_target(t, i);
+diff --git a/drivers/mmc/host/cqhci-crypto.c b/drivers/mmc/host/cqhci-crypto.c
+--- a/drivers/mmc/host/cqhci-crypto.c
++++ b/drivers/mmc/host/cqhci-crypto.c
+@@ -209,6 +209,8 @@ int cqhci_crypto_init(struct cqhci_host *cq_host)
+ 	/* Unfortunately, CQHCI crypto only supports 32 DUN bits. */
+ 	ksm->max_dun_bytes_supported = 4;
+ 
++	ksm->features = BLK_CRYPTO_FEATURE_STANDARD_KEYS;
++
+ 	/*
+ 	 * Cache all the crypto capabilities and advertise the supported crypto
+ 	 * modes and data unit sizes to the block layer.
 diff --git a/drivers/scsi/ufs/ufshcd-crypto.c b/drivers/scsi/ufs/ufshcd-crypto.c
 --- a/drivers/scsi/ufs/ufshcd-crypto.c
 +++ b/drivers/scsi/ufs/ufshcd-crypto.c
@@ -403,7 +416,7 @@ diff --git a/include/linux/keyslot-manager.h b/include/linux/keyslot-manager.h
  	/*
  	 * Array of size BLK_ENCRYPTION_MODE_MAX of bitmasks that represents
  	 * whether a crypto mode and data unit size are supported. The i'th
-@@ -103,6 +125,11 @@ void blk_ksm_reprogram_all_keys(struct blk_keyslot_manager *ksm);
+@@ -106,6 +128,11 @@ void blk_ksm_reprogram_all_keys(struct blk_keyslot_manager *ksm);
  
  void blk_ksm_destroy(struct blk_keyslot_manager *ksm);
  

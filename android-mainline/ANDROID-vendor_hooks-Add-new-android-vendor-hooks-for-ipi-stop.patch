@@ -33,7 +33,7 @@ diff --git a/arch/arm64/kernel/smp.c b/arch/arm64/kernel/smp.c
  
  DEFINE_PER_CPU_READ_MOSTLY(int, cpu_number);
  EXPORT_PER_CPU_SYMBOL(cpu_number);
-@@ -903,6 +905,7 @@ static void do_handle_IPI(int ipinr)
+@@ -905,6 +907,7 @@ static void do_handle_IPI(int ipinr)
  		break;
  
  	case IPI_CPU_STOP:

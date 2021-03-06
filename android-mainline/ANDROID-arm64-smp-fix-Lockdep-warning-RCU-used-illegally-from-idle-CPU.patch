@@ -19,7 +19,7 @@ Signed-off-by: Todd Kjos <tkjos@google.com>
 diff --git a/arch/arm64/kernel/smp.c b/arch/arm64/kernel/smp.c
 --- a/arch/arm64/kernel/smp.c
 +++ b/arch/arm64/kernel/smp.c
-@@ -905,7 +905,7 @@ static void do_handle_IPI(int ipinr)
+@@ -907,7 +907,7 @@ static void do_handle_IPI(int ipinr)
  		break;
  
  	case IPI_CPU_STOP:

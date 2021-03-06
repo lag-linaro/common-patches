@@ -136,7 +136,7 @@ diff --git a/Makefile b/Makefile
  # Deprecated. It is no-op now.
  PHONY += headers_check
  headers_check:
-@@ -1750,6 +1758,8 @@ help:
+@@ -1753,6 +1761,8 @@ help:
  	@echo  ''
  	@echo  '  modules         - default target, build the module(s)'
  	@echo  '  modules_install - install the module'

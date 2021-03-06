@@ -141,7 +141,7 @@ diff --git a/include/linux/clk-provider.h b/include/linux/clk-provider.h
  
  struct clk;
  struct clk_hw;
-@@ -1123,6 +1124,7 @@ void devm_clk_unregister(struct device *dev, struct clk *clk);
+@@ -1125,6 +1126,7 @@ void devm_clk_unregister(struct device *dev, struct clk *clk);
  
  void clk_hw_unregister(struct clk_hw *hw);
  void devm_clk_hw_unregister(struct device *dev, struct clk_hw *hw);

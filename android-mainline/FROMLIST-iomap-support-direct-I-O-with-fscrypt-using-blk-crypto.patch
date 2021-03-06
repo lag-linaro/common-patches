@@ -47,7 +47,7 @@ diff --git a/fs/iomap/direct-io.c b/fs/iomap/direct-io.c
  	bio_set_dev(bio, iomap->bdev);
  	bio->bi_iter.bi_sector = iomap_sector(iomap, pos);
  	bio->bi_private = dio;
-@@ -308,6 +312,8 @@ iomap_dio_bio_actor(struct inode *inode, loff_t pos, loff_t length,
+@@ -306,6 +310,8 @@ iomap_dio_bio_actor(struct inode *inode, loff_t pos, loff_t length,
  		}
  
  		bio = bio_alloc(GFP_KERNEL, nr_pages);

@@ -36,7 +36,7 @@ diff --git a/drivers/scsi/ufs/ufshcd-crypto.c b/drivers/scsi/ufs/ufshcd-crypto.c
 diff --git a/drivers/scsi/ufs/ufshcd.h b/drivers/scsi/ufs/ufshcd.h
 --- a/drivers/scsi/ufs/ufshcd.h
 +++ b/drivers/scsi/ufs/ufshcd.h
-@@ -559,6 +559,13 @@ enum ufshcd_quirks {
+@@ -580,6 +580,13 @@ enum ufshcd_quirks {
  	 * ufs_hba_variant_ops::init() must do it instead.
  	 */
  	UFSHCD_QUIRK_CUSTOM_KEYSLOT_MANAGER		= 1 << 20,

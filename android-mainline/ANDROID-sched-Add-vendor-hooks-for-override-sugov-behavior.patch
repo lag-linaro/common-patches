@@ -69,7 +69,7 @@ diff --git a/kernel/sched/cpufreq_schedutil.c b/kernel/sched/cpufreq_schedutil.c
  
  #define IOWAIT_BOOST_MIN	(SCHED_CAPACITY_SCALE / 8)
  
-@@ -700,6 +701,7 @@ static int sugov_kthread_create(struct sugov_policy *sg_policy)
+@@ -594,6 +595,7 @@ static int sugov_kthread_create(struct sugov_policy *sg_policy)
  	if (policy->fast_switch_enabled)
  		return 0;
  
@@ -80,7 +80,7 @@ diff --git a/kernel/sched/cpufreq_schedutil.c b/kernel/sched/cpufreq_schedutil.c
 diff --git a/kernel/sched/fair.c b/kernel/sched/fair.c
 --- a/kernel/sched/fair.c
 +++ b/kernel/sched/fair.c
-@@ -5501,6 +5501,7 @@ enqueue_task_fair(struct rq *rq, struct task_struct *p, int flags)
+@@ -5494,6 +5494,7 @@ enqueue_task_fair(struct rq *rq, struct task_struct *p, int flags)
  	struct sched_entity *se = &p->se;
  	int idle_h_nr_running = task_has_idle_policy(p);
  	int task_new = !(flags & ENQUEUE_WAKEUP);
@@ -88,7 +88,7 @@ diff --git a/kernel/sched/fair.c b/kernel/sched/fair.c
  
  	/*
  	 * The code below (indirectly) updates schedutil which looks at
-@@ -5515,7 +5516,9 @@ enqueue_task_fair(struct rq *rq, struct task_struct *p, int flags)
+@@ -5508,7 +5509,9 @@ enqueue_task_fair(struct rq *rq, struct task_struct *p, int flags)
  	 * utilization updates, so do it here explicitly with the IOWAIT flag
  	 * passed.
  	 */

@@ -18,7 +18,7 @@ Change-Id: I58cadfd975af8b2911c05b61e6a3fa184efb1a8e
 diff --git a/kernel/sched/core.c b/kernel/sched/core.c
 --- a/kernel/sched/core.c
 +++ b/kernel/sched/core.c
-@@ -6058,11 +6058,13 @@ int sched_setscheduler(struct task_struct *p, int policy,
+@@ -6367,11 +6367,13 @@ int sched_setscheduler(struct task_struct *p, int policy,
  {
  	return _sched_setscheduler(p, policy, param, true);
  }
@@ -32,7 +32,7 @@ diff --git a/kernel/sched/core.c b/kernel/sched/core.c
  
  int sched_setattr_nocheck(struct task_struct *p, const struct sched_attr *attr)
  {
-@@ -6087,6 +6089,7 @@ int sched_setscheduler_nocheck(struct task_struct *p, int policy,
+@@ -6396,6 +6398,7 @@ int sched_setscheduler_nocheck(struct task_struct *p, int policy,
  {
  	return _sched_setscheduler(p, policy, param, false);
  }

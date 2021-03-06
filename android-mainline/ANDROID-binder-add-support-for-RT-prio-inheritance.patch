@@ -24,6 +24,9 @@ Signed-off-by: Amit Pundir <amit.pundir@linaro.org>
          c847b48f8cda ("ANDROID: binder: init desired_prio.sched_policy before use it")]
 Signed-off-by: Alistair Delva <adelva@google.com>
 Signed-off-by: Matthias Maennich <maennich@google.com>
+[ebiggers: Folded the following changes into this patch:
+          547ee338cd3c ("ANDROID: binder: fix up use of MAX_USER_RT_PRIO")]
+Signed-off-by: Eric Biggers <ebiggers@google.com>
 ---
  drivers/android/binder.c            | 213 ++++++++++++++++++++++++----
  drivers/android/binder_internal.h   |  30 +++-
@@ -68,7 +71,7 @@ diff --git a/drivers/android/binder.c b/drivers/android/binder.c
 +	if (is_fair_policy(policy))
 +		return PRIO_TO_NICE(kernel_priority);
 +	else
-+		return MAX_USER_RT_PRIO - 1 - kernel_priority;
++		return MAX_RT_PRIO - 1 - kernel_priority;
 +}
 +
 +static int to_kernel_prio(int policy, int user_priority)
@@ -76,7 +79,7 @@ diff --git a/drivers/android/binder.c b/drivers/android/binder.c
 +	if (is_fair_policy(policy))
 +		return NICE_TO_PRIO(user_priority);
 +	else
-+		return MAX_USER_RT_PRIO - 1 - user_priority;
++		return MAX_RT_PRIO - 1 - user_priority;
 +}
  
 -	if (can_nice(current, nice)) {

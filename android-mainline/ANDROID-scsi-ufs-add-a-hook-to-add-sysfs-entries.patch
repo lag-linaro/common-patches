@@ -3,25 +3,47 @@ From: Jaegeuk Kim <jaegeuk@google.com>
 Date: Sun, 13 Sep 2020 22:17:05 -0700
 Subject: ANDROID: scsi: ufs: add a hook to add sysfs entries
 
-This patch adds a variant in UFS driver:
+This patch adds one vendor hook in UFS driver:
 
-int     (*update_sysfs)(struct ufs_hba *hba);
+DECLARE_HOOK(android_vh_ufs_update_sysfs,
+	TP_PROTO(struct ufs_hba *hba),
+	TP_ARGS(hba));
+
  -> called after creating sysfs for vendor to add more sysfs entries
 
 Bug: 158050260
+Bug: 181359082
 Signed-off-by: Jaegeuk Kim <jaegeuk@google.com>
 Change-Id: Id8c1197ec704e998e89dc25cc69b0f6a1b86e978
 ---
- drivers/scsi/ufs/ufs-sysfs.c | 16 ++++++++++++----
- drivers/scsi/ufs/ufs-sysfs.h |  2 +-
- drivers/scsi/ufs/ufshcd.c    |  2 +-
- drivers/scsi/ufs/ufshcd.h    |  9 +++++++++
- 4 files changed, 23 insertions(+), 6 deletions(-)
+ drivers/android/vendor_hooks.c |  1 +
+ drivers/scsi/ufs/ufs-sysfs.c   | 14 ++++++++++----
+ drivers/scsi/ufs/ufs-sysfs.h   |  2 +-
+ drivers/scsi/ufs/ufshcd.c      |  2 +-
+ include/trace/hooks/ufshcd.h   |  4 ++++
+ 5 files changed, 17 insertions(+), 6 deletions(-)
 
+diff --git a/drivers/android/vendor_hooks.c b/drivers/android/vendor_hooks.c
+--- a/drivers/android/vendor_hooks.c
++++ b/drivers/android/vendor_hooks.c
+@@ -111,3 +111,4 @@ EXPORT_TRACEPOINT_SYMBOL_GPL(android_vh_ftrace_format_check);
+ EXPORT_TRACEPOINT_SYMBOL_GPL(android_vh_ftrace_dump_buffer);
+ EXPORT_TRACEPOINT_SYMBOL_GPL(android_vh_ufs_fill_prdt);
+ EXPORT_TRACEPOINT_SYMBOL_GPL(android_vh_ufs_prepare_command);
++EXPORT_TRACEPOINT_SYMBOL_GPL(android_vh_ufs_update_sysfs);
 diff --git a/drivers/scsi/ufs/ufs-sysfs.c b/drivers/scsi/ufs/ufs-sysfs.c
 --- a/drivers/scsi/ufs/ufs-sysfs.c
 +++ b/drivers/scsi/ufs/ufs-sysfs.c
-@@ -870,15 +870,23 @@ const struct attribute_group ufs_sysfs_lun_attributes_group = {
+@@ -9,6 +9,8 @@
+ #include "ufs.h"
+ #include "ufs-sysfs.h"
+ 
++#include <trace/hooks/ufshcd.h>
++
+ static const char *ufschd_uic_link_state_to_string(
+ 			enum uic_link_state state)
+ {
+@@ -990,15 +992,19 @@ const struct attribute_group ufs_sysfs_lun_attributes_group = {
  	.attrs = ufs_sysfs_lun_attributes,
  };
  
@@ -41,11 +63,7 @@ diff --git a/drivers/scsi/ufs/ufs-sysfs.c b/drivers/scsi/ufs/ufs-sysfs.c
 +		return;
 +	}
 +
-+	ret = ufshcd_vops_update_sysfs(hba);
-+	if (ret)
-+		dev_err(hba->dev,
-+			"%s: vops sysfs groups update failed (err = %d)\n",
-+			__func__, ret);
++	trace_android_vh_ufs_update_sysfs(hba);
  }
  
  void ufs_sysfs_remove_nodes(struct device *dev)
@@ -64,7 +82,7 @@ diff --git a/drivers/scsi/ufs/ufs-sysfs.h b/drivers/scsi/ufs/ufs-sysfs.h
 diff --git a/drivers/scsi/ufs/ufshcd.c b/drivers/scsi/ufs/ufshcd.c
 --- a/drivers/scsi/ufs/ufshcd.c
 +++ b/drivers/scsi/ufs/ufshcd.c
-@@ -9433,7 +9433,7 @@ int ufshcd_init(struct ufs_hba *hba, void __iomem *mmio_base, unsigned int irq)
+@@ -9479,7 +9479,7 @@ int ufshcd_init(struct ufs_hba *hba, void __iomem *mmio_base, unsigned int irq)
  	ufshcd_set_ufs_dev_active(hba);
  
  	async_schedule(ufshcd_async_scan, hba);
@@ -73,36 +91,17 @@ diff --git a/drivers/scsi/ufs/ufshcd.c b/drivers/scsi/ufs/ufshcd.c
  
  	return 0;
  
-diff --git a/drivers/scsi/ufs/ufshcd.h b/drivers/scsi/ufs/ufshcd.h
---- a/drivers/scsi/ufs/ufshcd.h
-+++ b/drivers/scsi/ufs/ufshcd.h
-@@ -327,6 +327,7 @@ struct ufs_pwr_mode_info {
-  * @fill_prdt: called after initializing the standard PRDT fields so that any
-  *	       variant-specific PRDT fields can be initialized too
-  * @prepare_command: called when receiving a request in the first place
-+ * @update_sysfs: adds vendor-specific sysfs entries
-  */
- struct ufs_hba_variant_ops {
- 	const char *name;
-@@ -367,6 +368,7 @@ struct ufs_hba_variant_ops {
- 			     unsigned int segments);
- 	void    (*prepare_command)(struct ufs_hba *hba,
- 				struct request *rq, struct ufshcd_lrb *lrbp);
-+	int     (*update_sysfs)(struct ufs_hba *hba);
- };
+diff --git a/include/trace/hooks/ufshcd.h b/include/trace/hooks/ufshcd.h
+--- a/include/trace/hooks/ufshcd.h
++++ b/include/trace/hooks/ufshcd.h
+@@ -24,6 +24,10 @@ DECLARE_HOOK(android_vh_ufs_prepare_command,
+ 		 struct ufshcd_lrb *lrbp, int *err),
+ 	TP_ARGS(hba, rq, lrbp, err));
  
- /* clock gating state  */
-@@ -1288,6 +1290,13 @@ static inline void ufshcd_vops_prepare_command(struct ufs_hba *hba,
- 		hba->vops->prepare_command(hba, rq, lrbp);
- }
- 
-+static inline int ufshcd_vops_update_sysfs(struct ufs_hba *hba)
-+{
-+	if (hba->vops && hba->vops->update_sysfs)
-+		return hba->vops->update_sysfs(hba);
-+	return 0;
-+}
++DECLARE_HOOK(android_vh_ufs_update_sysfs,
++	TP_PROTO(struct ufs_hba *hba),
++	TP_ARGS(hba));
 +
- extern struct ufs_pm_lvl_states ufs_pm_lvl_states[];
- 
- /*
+ #endif /* _TRACE_HOOK_UFSHCD_H */
+ /* This part must be outside protection */
+ #include <trace/define_trace.h>

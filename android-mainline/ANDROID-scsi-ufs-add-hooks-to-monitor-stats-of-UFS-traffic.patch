@@ -6,71 +6,58 @@ Subject: ANDROID: scsi: ufs: add hooks to monitor stats of UFS traffic
 This requires for UFS stat implementations.
 
 Bug: 158050260
+Bug: 181359082
 Signed-off-by: Jaegeuk Kim <jaegeuk@google.com>
 Change-Id: I7b692ad1dbca1aa3f37b10d7ab91e89499bb68cd
 ---
- drivers/scsi/ufs/ufshcd.c |  2 ++
- drivers/scsi/ufs/ufshcd.h | 18 ++++++++++++++++++
- 2 files changed, 20 insertions(+)
+ drivers/android/vendor_hooks.c | 2 ++
+ drivers/scsi/ufs/ufshcd.c      | 2 ++
+ include/trace/hooks/ufshcd.h   | 8 ++++++++
+ 3 files changed, 12 insertions(+)
 
+diff --git a/drivers/android/vendor_hooks.c b/drivers/android/vendor_hooks.c
+--- a/drivers/android/vendor_hooks.c
++++ b/drivers/android/vendor_hooks.c
+@@ -112,3 +112,5 @@ EXPORT_TRACEPOINT_SYMBOL_GPL(android_vh_ftrace_dump_buffer);
+ EXPORT_TRACEPOINT_SYMBOL_GPL(android_vh_ufs_fill_prdt);
+ EXPORT_TRACEPOINT_SYMBOL_GPL(android_vh_ufs_prepare_command);
+ EXPORT_TRACEPOINT_SYMBOL_GPL(android_vh_ufs_update_sysfs);
++EXPORT_TRACEPOINT_SYMBOL_GPL(android_vh_ufs_send_command);
++EXPORT_TRACEPOINT_SYMBOL_GPL(android_vh_ufs_compl_command);
 diff --git a/drivers/scsi/ufs/ufshcd.c b/drivers/scsi/ufs/ufshcd.c
 --- a/drivers/scsi/ufs/ufshcd.c
 +++ b/drivers/scsi/ufs/ufshcd.c
-@@ -2001,6 +2001,7 @@ void ufshcd_send_command(struct ufs_hba *hba, unsigned int task_tag)
+@@ -2041,6 +2041,7 @@ void ufshcd_send_command(struct ufs_hba *hba, unsigned int task_tag)
  	lrbp->issue_time_stamp = ktime_get();
  	lrbp->compl_time_stamp = ktime_set(0, 0);
  	ufshcd_vops_setup_xfer_req(hba, task_tag, (lrbp->cmd ? true : false));
-+	ufshcd_vops_send_command(hba, lrbp);
- 	ufshcd_add_command_trace(hba, task_tag, "send");
++	trace_android_vh_ufs_send_command(hba, lrbp);
+ 	ufshcd_add_command_trace(hba, task_tag, UFS_CMD_SEND);
  	ufshcd_clk_scaling_start_busy(hba);
  	__set_bit(task_tag, &hba->outstanding_reqs);
-@@ -5065,6 +5066,7 @@ static void __ufshcd_transfer_req_compl(struct ufs_hba *hba,
+@@ -5116,6 +5117,7 @@ static void __ufshcd_transfer_req_compl(struct ufs_hba *hba,
  		lrbp->compl_time_stamp = ktime_get();
  		cmd = lrbp->cmd;
  		if (cmd) {
-+			ufshcd_vops_compl_command(hba, lrbp);
- 			ufshcd_add_command_trace(hba, index, "complete");
++			trace_android_vh_ufs_compl_command(hba, lrbp);
+ 			ufshcd_add_command_trace(hba, index, UFS_CMD_COMP);
  			result = ufshcd_transfer_rsp_status(hba, lrbp);
  			scsi_dma_unmap(cmd);
-diff --git a/drivers/scsi/ufs/ufshcd.h b/drivers/scsi/ufs/ufshcd.h
---- a/drivers/scsi/ufs/ufshcd.h
-+++ b/drivers/scsi/ufs/ufshcd.h
-@@ -328,6 +328,8 @@ struct ufs_pwr_mode_info {
-  *	       variant-specific PRDT fields can be initialized too
-  * @prepare_command: called when receiving a request in the first place
-  * @update_sysfs: adds vendor-specific sysfs entries
-+ * @send_command: adds vendor-specific work when sending a command
-+ * @compl_command: adds vendor-specific work when completing a command
-  */
- struct ufs_hba_variant_ops {
- 	const char *name;
-@@ -369,6 +371,8 @@ struct ufs_hba_variant_ops {
- 	void    (*prepare_command)(struct ufs_hba *hba,
- 				struct request *rq, struct ufshcd_lrb *lrbp);
- 	int     (*update_sysfs)(struct ufs_hba *hba);
-+	void	(*send_command)(struct ufs_hba *hba, struct ufshcd_lrb *lrbp);
-+	void	(*compl_command)(struct ufs_hba *hba, struct ufshcd_lrb *lrbp);
- };
+diff --git a/include/trace/hooks/ufshcd.h b/include/trace/hooks/ufshcd.h
+--- a/include/trace/hooks/ufshcd.h
++++ b/include/trace/hooks/ufshcd.h
+@@ -28,6 +28,14 @@ DECLARE_HOOK(android_vh_ufs_update_sysfs,
+ 	TP_PROTO(struct ufs_hba *hba),
+ 	TP_ARGS(hba));
  
- /* clock gating state  */
-@@ -1297,6 +1301,20 @@ static inline int ufshcd_vops_update_sysfs(struct ufs_hba *hba)
- 	return 0;
- }
- 
-+static inline void ufshcd_vops_send_command(struct ufs_hba *hba,
-+				struct ufshcd_lrb *lrbp)
-+{
-+	if (hba->vops && hba->vops->send_command)
-+		hba->vops->send_command(hba, lrbp);
-+}
++DECLARE_HOOK(android_vh_ufs_send_command,
++	TP_PROTO(struct ufs_hba *hba, struct ufshcd_lrb *lrbp),
++	TP_ARGS(hba, lrbp));
 +
-+static inline void ufshcd_vops_compl_command(struct ufs_hba *hba,
-+				struct ufshcd_lrb *lrbp)
-+{
-+	if (hba->vops && hba->vops->compl_command)
-+		hba->vops->compl_command(hba, lrbp);
-+}
++DECLARE_HOOK(android_vh_ufs_compl_command,
++	TP_PROTO(struct ufs_hba *hba, struct ufshcd_lrb *lrbp),
++	TP_ARGS(hba, lrbp));
 +
- extern struct ufs_pm_lvl_states ufs_pm_lvl_states[];
- 
- /*
+ #endif /* _TRACE_HOOK_UFSHCD_H */
+ /* This part must be outside protection */
+ #include <trace/define_trace.h>

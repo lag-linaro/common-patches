@@ -1,10 +1,11 @@
 #
 # android-mainline patches
 #
-# Applies onto upstream bd018bbaa586 Linux v5.11-4026-gbd018bbaa586
-# Matches android-mainline f50320a9841e ("ANDROID: power_supply: Update power_supply enums")
+# Applies onto upstream 7b7028edf939 Linux v5.11-9231-g7b7028edf939
+# Matches android-mainline aa21ac2d003f ("Merge 7b7028edf939 ("Merge tag 'memblock-v5.12-rc1' of git://git.kernel.org/pub/scm/linux/kernel/git/rppt/memblock") into android-mainline")
 #
 Revert-block-grant-IOPRIO_CLASS_RT-to-CAP_SYS_NICE.patch
+Merge-tag-block-5.12-2021-02-27-of-git-git.kernel.dk-linux-block-into-android-mainline.patch
 Revert-arm64-dts-qcom-sdm845-db845c-Fix-hdmi-nodes.patch
 Revert-ubsan-enable-for-all-config-builds.patch
 Revert-security-lockdown-selinux-implement-SELinux-lockdown.patch
@@ -24,18 +25,12 @@ FROMLIST-fuse-Use-daemon-creds-in-passthrough-mode.patch
 FROMLIST-fuse-Introduce-passthrough-for-mmap.patch
 FROMLIST-fuse-Allocate-unlikely-used-ioctl-number-for-passthrough-V1.patch
 FROMLIST-USB-gadget-f_fs-add-SuperSpeed-Plus-support.patch
-FROMLIST-scsi-ufs-WB-is-only-available-on-LUN-0-to-7.patch
 FROMLIST-scripts-merge_config-add-strict-mode-to-fail-upon-any-redefinition.patch
 FROMLIST-kbuild-improve-libelf-detection.patch
 FROMLIST-dma-buf-dma-heap-Keep-track-of-the-heap-device-struct.patch
 FROMLIST-dma-buf-system_heap-Add-a-system-uncached-heap-re-using-the-system-heap.patch
 FROMLIST-irqchip-irq-meson-gpio-make-it-possible-to-build-as-a-module.patch
 FROMLIST-arm64-meson-remove-MESON_IRQ_GPIO-selection.patch
-FROMGIT-block-keyslot-manager-Introduce-passthrough-keyslot-manager.patch
-FROMGIT-block-keyslot-manager-Introduce-functions-for-device-mapper-support.patch
-FROMGIT-dm-add-support-for-passing-through-inline-crypto-support.patch
-FROMGIT-dm-support-key-eviction-from-keyslot-managers-of-underlying-devices.patch
-FROMGIT-dm-set-DM_TARGET_PASSES_CRYPTO-feature-for-some-targets.patch
 _____ANNOTATION-Android-vendor-hooks_____.patch
 ANDROID-GKI-add-android_vendor.h.patch
 ANDROID-add-support-for-vendor-hooks.patch
@@ -239,7 +234,6 @@ ANDROID-add-vendor-hooks-to-override-show_cpufinfo_max_freq.patch
 ANDROID-pcie-dwc-driver-export-dw_handle_msi_irq.patch
 ANDROID-spi-of-Populate-fwnode-in-of_register_spi_device.patch
 ANDROID-staging-add-debug-kinfo-driver.patch
-ANDROID-Workaround-for-cryptobam-driver-not-working-with-modular-clk-drivers.patch
 ANDROID-irqdesc-Export-symbol-for-vendor-modules.patch
 _____ANNOTATION-tty-changes_____.patch
 Revert-Revert-tty-serial-samsung_tty-build-it-for-any-platform.patch
@@ -303,13 +297,12 @@ FROMLIST-scsi-ufs-export-hibern8-entry-and-exit.patch
 ANDROID-scsi-ufs-allow-overriding-the-blk_keyslot_manager.patch
 ANDROID-scsi-ufs-add-UFSHCD_QUIRK_BROKEN_CRYPTO_ENABLE.patch
 ANDROID-scsi-ufs-allow-ufs-variants-to-override-sg-entry-size.patch
-ANDROID-scsi-ufs-add-fill_prdt-variant-op.patch
+ANDROID-scsi-ufs-add-fill_prdt-vendor-hook.patch
 ANDROID-scsi-ufs-add-UFSHCD_QUIRK_KEYS_IN_PRDT.patch
 ANDROID-export-bkops-and-query-flag-query-functions.patch
 ANDROID-scsi-ufs-add-a-hook-to-prepare-command.patch
 ANDROID-scsi-ufs-add-a-hook-to-add-sysfs-entries.patch
 ANDROID-scsi-ufs-add-hooks-to-monitor-stats-of-UFS-traffic.patch
-ANDROID-scsi-ufs-Allow-prepare_command-to-return-error-code.patch
 _____ANNOTATION-MMC-driver-changes_____.patch
 ANDROID-mmc-core-Add-ignore-mmc-pm-notify-functionality.patch
 _____ANNOTATION-block-changes_____.patch
@@ -785,11 +778,16 @@ ANDROID-add-me-for-block-and-drivers-scsi.patch
 ANDROID-gki_defconfig-enable-BLAKE2b-support.patch
 ANDROID-GKI-amlogic-enable-GPIO-LEDs-as-module.patch
 ANDROID-gki_defconfig-enable-CONFIG_KASAN_HW_TAGS.patch
+ANDROID-GKI-amlogic-enable-BCM-WLAN-as-modules.patch
+ANDROID-db845c_gki.fragment-Remove-QCOM_GENI_CONSOLE-modules-now-they-are-built-in.patch
+ANDROID-GKI-Enable-more-networking-configs.patch
+ANDROID-GKI-enable-CONFIG_EROFS_FS-y.patch
+ANDROID-GKI-Enable-CONFIG_USERFAULTFD.patch
+ANDROID-gki_defconfig-enable-CONFIG_MMC_CRYPTO.patch
+ANDROID-allmodconfig-drop-openssl-from-ADDITIONAL_HOST_TOOLS.patch
+ANDROID-clang-update-to-12.0.3.patch
+ANDROID-Adding-kprobes-build-configs-for-Cuttlefish.patch
 _____ANNOTATION-Patches-for-bringing-up-new-SoCs_____.patch
-ANDROID-arm64-Add-support-for-asymmetric-AArch32-EL0-configurations.patch
-ANDROID-arm64-Handle-AArch32-tasks-running-on-non-AArch32-cpu.patch
-ANDROID-arm64-Disallow-offlining-the-last-aarch32-cpu.patch
-ANDROID-arm64-kvm-Hide-asym-aarch32-systems-from-KVM.patch
-ANDROID-arm64-Enable-KVM-for-Asym-AArch32.patch
 _____ANNOTATION-remove-ANNOTATIONS-file_____.patch
 DROP-ME-obsolete-ION-documentation.patch
+DROP-ME-block-keyslot-manager-move-function-declaration.patch

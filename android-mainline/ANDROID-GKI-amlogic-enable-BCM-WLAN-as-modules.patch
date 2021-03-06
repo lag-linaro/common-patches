@@ -1,0 +1,35 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: Kevin Hilman <khilman@baylibre.com>
+Date: Mon, 1 Mar 2021 10:35:12 -0800
+Subject: ANDROID: GKI: amlogic: enable BCM WLAN as modules
+
+Broadcom FMAC (brcmfmac) drivers are used on several Amlogic-based
+designs, including Khadas VIM3/VIM3L.
+
+Bug: 179406580
+Change-Id: I9f441facbf6c98d25483634105c915fd52ea87c6
+Cc: Dmitry Shmidt <dimitrysh@google.com>
+Signed-off-by: Kevin Hilman <khilman@baylibre.com>
+---
+ arch/arm64/configs/amlogic_gki.fragment | 9 +++++++++
+ 1 file changed, 9 insertions(+)
+
+diff --git a/arch/arm64/configs/amlogic_gki.fragment b/arch/arm64/configs/amlogic_gki.fragment
+--- a/arch/arm64/configs/amlogic_gki.fragment
++++ b/arch/arm64/configs/amlogic_gki.fragment
+@@ -15,6 +15,15 @@ CONFIG_REALTEK_PHY=m
+ CONFIG_STMMAC_ETH=m
+ CONFIG_STMMAC_PLATFORM=m
+ 
++#
++# WLAN
++#
++CONFIG_WLAN_VENDOR_BROADCOM=y
++CONFIG_BRCMUTIL=m
++CONFIG_BRCMFMAC=m
++CONFIG_BRCMFMAC_PROTO_BCDC=y
++CONFIG_BRCMFMAC_SDIO=y
++
+ #
+ # Amlogic
+ #

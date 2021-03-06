@@ -42,7 +42,7 @@ diff --git a/drivers/scsi/ufs/ufshcd-crypto.h b/drivers/scsi/ufs/ufshcd-crypto.h
  bool ufshcd_crypto_enable(struct ufs_hba *hba);
  
  int ufshcd_hba_init_crypto_capabilities(struct ufs_hba *hba);
-@@ -54,6 +67,9 @@ static inline void
+@@ -52,6 +65,9 @@ static inline void
  ufshcd_prepare_req_desc_hdr_crypto(struct ufshcd_lrb *lrbp, u32 *dword_0,
  				   u32 *dword_1, u32 *dword_3) { }
  
@@ -55,7 +55,7 @@ diff --git a/drivers/scsi/ufs/ufshcd-crypto.h b/drivers/scsi/ufs/ufshcd-crypto.h
 diff --git a/drivers/scsi/ufs/ufshcd.c b/drivers/scsi/ufs/ufshcd.c
 --- a/drivers/scsi/ufs/ufshcd.c
 +++ b/drivers/scsi/ufs/ufshcd.c
-@@ -5064,6 +5064,7 @@ static void __ufshcd_transfer_req_compl(struct ufs_hba *hba,
+@@ -5110,6 +5110,7 @@ static void __ufshcd_transfer_req_compl(struct ufs_hba *hba,
  			result = ufshcd_transfer_rsp_status(hba, lrbp);
  			scsi_dma_unmap(cmd);
  			cmd->result = result;
@@ -66,7 +66,7 @@ diff --git a/drivers/scsi/ufs/ufshcd.c b/drivers/scsi/ufs/ufshcd.c
 diff --git a/drivers/scsi/ufs/ufshcd.h b/drivers/scsi/ufs/ufshcd.h
 --- a/drivers/scsi/ufs/ufshcd.h
 +++ b/drivers/scsi/ufs/ufshcd.h
-@@ -570,6 +570,13 @@ enum ufshcd_quirks {
+@@ -587,6 +587,13 @@ enum ufshcd_quirks {
  	 * breaks the HCE sequence if used.
  	 */
  	UFSHCD_QUIRK_BROKEN_CRYPTO_ENABLE		= 1 << 21,

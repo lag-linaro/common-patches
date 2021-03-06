@@ -19,7 +19,7 @@ Change-Id: I8448584ed8af204deaa991c5a60b04a39b47ac2f
 diff --git a/arch/arm64/kernel/stacktrace.c b/arch/arm64/kernel/stacktrace.c
 --- a/arch/arm64/kernel/stacktrace.c
 +++ b/arch/arm64/kernel/stacktrace.c
-@@ -190,6 +190,7 @@ void dump_backtrace(struct pt_regs *regs, struct task_struct *tsk,
+@@ -185,6 +185,7 @@ void dump_backtrace(struct pt_regs *regs, struct task_struct *tsk,
  
  	put_task_stack(tsk);
  }

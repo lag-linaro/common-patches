@@ -32,7 +32,7 @@ Signed-off-by: Alistair Delva <adelva@google.com>
 diff --git a/drivers/md/Kconfig b/drivers/md/Kconfig
 --- a/drivers/md/Kconfig
 +++ b/drivers/md/Kconfig
-@@ -557,6 +557,17 @@ config DM_VERITY_VERIFY_ROOTHASH_SIG_SECONDARY_KEYRING
+@@ -558,6 +558,17 @@ config DM_VERITY_VERIFY_ROOTHASH_SIG_SECONDARY_KEYRING
  
  	  If unsure, say N.
  

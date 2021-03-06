@@ -147,7 +147,7 @@ diff --git a/kernel/sched/wait.c b/kernel/sched/wait.c
 diff --git a/mm/filemap.c b/mm/filemap.c
 --- a/mm/filemap.c
 +++ b/mm/filemap.c
-@@ -1193,7 +1193,7 @@ static inline bool trylock_page_bit_common(struct page *page, int bit_nr,
+@@ -1195,7 +1195,7 @@ static inline bool trylock_page_bit_common(struct page *page, int bit_nr,
  /* How many times do we accept lock stealing from under a waiter? */
  int sysctl_page_lock_unfairness = 5;
  
@@ -156,7 +156,7 @@ diff --git a/mm/filemap.c b/mm/filemap.c
  	struct page *page, int bit_nr, int state, enum behavior behavior)
  {
  	int unfairness = sysctl_page_lock_unfairness;
-@@ -1332,14 +1332,14 @@ static inline int wait_on_page_bit_common(wait_queue_head_t *q,
+@@ -1334,14 +1334,14 @@ static inline int wait_on_page_bit_common(wait_queue_head_t *q,
  	return wait->flags & WQ_FLAG_WOKEN ? 0 : -EINTR;
  }
  
@@ -173,7 +173,7 @@ diff --git a/mm/filemap.c b/mm/filemap.c
  {
  	wait_queue_head_t *q = page_waitqueue(page);
  	return wait_on_page_bit_common(q, page, bit_nr, TASK_KILLABLE, SHARED);
-@@ -1536,7 +1536,7 @@ EXPORT_SYMBOL_GPL(page_endio);
+@@ -1538,7 +1538,7 @@ EXPORT_SYMBOL_GPL(page_endio);
   * __lock_page - get a lock on the page, assuming we need to sleep to get it
   * @__page: the page to lock
   */
@@ -182,7 +182,7 @@ diff --git a/mm/filemap.c b/mm/filemap.c
  {
  	struct page *page = compound_head(__page);
  	wait_queue_head_t *q = page_waitqueue(page);
-@@ -1545,7 +1545,7 @@ void __lock_page(struct page *__page)
+@@ -1547,7 +1547,7 @@ void __lock_page(struct page *__page)
  }
  EXPORT_SYMBOL(__lock_page);
  
@@ -191,7 +191,7 @@ diff --git a/mm/filemap.c b/mm/filemap.c
  {
  	struct page *page = compound_head(__page);
  	wait_queue_head_t *q = page_waitqueue(page);
-@@ -1554,7 +1554,7 @@ int __lock_page_killable(struct page *__page)
+@@ -1556,7 +1556,7 @@ int __lock_page_killable(struct page *__page)
  }
  EXPORT_SYMBOL_GPL(__lock_page_killable);
  
@@ -200,7 +200,7 @@ diff --git a/mm/filemap.c b/mm/filemap.c
  {
  	return __wait_on_page_locked_async(page, wait, true);
  }
-@@ -1570,7 +1570,7 @@ int __lock_page_async(struct page *page, struct wait_page_queue *wait)
+@@ -1572,7 +1572,7 @@ int __lock_page_async(struct page *page, struct wait_page_queue *wait)
   * If neither ALLOW_RETRY nor KILLABLE are set, will always return 1
   * with the page locked and the mmap_lock unperturbed.
   */

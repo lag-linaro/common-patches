@@ -18,7 +18,7 @@ Change-Id: I7675ce9fd37b160f8a7ba9651ae73b69a16d6d12
 diff --git a/kernel/sched/fair.c b/kernel/sched/fair.c
 --- a/kernel/sched/fair.c
 +++ b/kernel/sched/fair.c
-@@ -6789,6 +6789,8 @@ select_task_rq_fair(struct task_struct *p, int prev_cpu, int wake_flags)
+@@ -6773,6 +6773,8 @@ select_task_rq_fair(struct task_struct *p, int prev_cpu, int wake_flags)
  	/* SD_flags and WF_flags share the first nibble */
  	int sd_flag = wake_flags & 0xF;
  

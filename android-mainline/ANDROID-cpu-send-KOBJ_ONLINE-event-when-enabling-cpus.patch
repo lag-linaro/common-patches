@@ -17,7 +17,7 @@ Signed-off-by: Thierry Strudel <tstrudel@google.com>
 diff --git a/kernel/cpu.c b/kernel/cpu.c
 --- a/kernel/cpu.c
 +++ b/kernel/cpu.c
-@@ -1416,6 +1416,7 @@ void __weak arch_thaw_secondary_cpus_end(void)
+@@ -1423,6 +1423,7 @@ void __weak arch_thaw_secondary_cpus_end(void)
  void thaw_secondary_cpus(void)
  {
  	int cpu, error;
@@ -25,7 +25,7 @@ diff --git a/kernel/cpu.c b/kernel/cpu.c
  
  	/* Allow everyone to use the CPU hotplug again */
  	cpu_maps_update_begin();
-@@ -1433,6 +1434,12 @@ void thaw_secondary_cpus(void)
+@@ -1440,6 +1441,12 @@ void thaw_secondary_cpus(void)
  		trace_suspend_resume(TPS("CPU_ON"), cpu, false);
  		if (!error) {
  			pr_info("CPU%d is up\n", cpu);

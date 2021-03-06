@@ -21,7 +21,7 @@ Change-Id: I5ddbd1f363b1c23520f2c55f04e05d2ead409dae
 diff --git a/arch/arm64/Kconfig.platforms b/arch/arm64/Kconfig.platforms
 --- a/arch/arm64/Kconfig.platforms
 +++ b/arch/arm64/Kconfig.platforms
-@@ -166,7 +166,6 @@ config ARCH_MEDIATEK
+@@ -168,7 +168,6 @@ config ARCH_MEDIATEK
  
  config ARCH_MESON
  	bool "Amlogic Platforms"

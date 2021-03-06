@@ -51,7 +51,7 @@ diff --git a/fs/direct-io.c b/fs/direct-io.c
  	bio_set_dev(bio, bdev);
  	bio->bi_iter.bi_sector = first_sector;
  	bio_set_op_attrs(bio, dio->op, dio->op_flags);
-@@ -763,9 +768,17 @@ static inline int dio_send_cur_page(struct dio *dio, struct dio_submit *sdio,
+@@ -765,9 +770,17 @@ static inline int dio_send_cur_page(struct dio *dio, struct dio_submit *sdio,
  		 * current logical offset in the file does not equal what would
  		 * be the next logical offset in the bio, submit the bio we
  		 * have.
