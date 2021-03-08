@@ -21,7 +21,7 @@ Change-Id: I674c9c9c327849503e94d79654e6288411a830af
 diff --git a/scripts/mod/modpost.c b/scripts/mod/modpost.c
 --- a/scripts/mod/modpost.c
 +++ b/scripts/mod/modpost.c
-@@ -430,10 +430,9 @@ static struct symbol *sym_add_exported(const char *name, struct module *mod,
+@@ -407,10 +407,9 @@ static struct symbol *sym_add_exported(const char *name, struct module *mod,
  		s = new_symbol(name, mod, export);
  	} else if (!external_module || s->module->is_vmlinux ||
  		   s->module == mod) {

@@ -82,7 +82,7 @@ diff --git a/include/linux/module.h b/include/linux/module.h
 diff --git a/init/Kconfig b/init/Kconfig
 --- a/init/Kconfig
 +++ b/init/Kconfig
-@@ -2130,6 +2130,20 @@ config MODULE_SRCVERSION_ALL
+@@ -2141,6 +2141,20 @@ config MODULE_SRCVERSION_ALL
  	  the version).  With this option, such a "srcversion" field
  	  will be created for all modules.  If unsure, say N.
  
@@ -106,7 +106,7 @@ diff --git a/init/Kconfig b/init/Kconfig
 diff --git a/kernel/module.c b/kernel/module.c
 --- a/kernel/module.c
 +++ b/kernel/module.c
-@@ -837,6 +837,7 @@ static struct module_attribute modinfo_##field = {                    \
+@@ -738,6 +738,7 @@ static struct module_attribute modinfo_##field = {                    \
  
  MODINFO_ATTR(version);
  MODINFO_ATTR(srcversion);
@@ -114,7 +114,7 @@ diff --git a/kernel/module.c b/kernel/module.c
  
  static char last_unloaded_module[MODULE_NAME_LEN+1];
  
-@@ -1298,6 +1299,7 @@ static struct module_attribute *modinfo_attrs[] = {
+@@ -1202,6 +1203,7 @@ static struct module_attribute *modinfo_attrs[] = {
  	&module_uevent,
  	&modinfo_version,
  	&modinfo_srcversion,
@@ -125,7 +125,7 @@ diff --git a/kernel/module.c b/kernel/module.c
 diff --git a/scripts/Makefile.modpost b/scripts/Makefile.modpost
 --- a/scripts/Makefile.modpost
 +++ b/scripts/Makefile.modpost
-@@ -66,6 +66,7 @@ ifeq ($(KBUILD_EXTMOD),)
+@@ -69,6 +69,7 @@ ifeq ($(KBUILD_EXTMOD),)
  
  input-symdump := vmlinux.symvers
  output-symdump := Module.symvers
@@ -133,7 +133,7 @@ diff --git a/scripts/Makefile.modpost b/scripts/Makefile.modpost
  
  else
  
-@@ -82,9 +83,20 @@ MODPOST += -e
+@@ -85,9 +86,20 @@ MODPOST += -e
  
  input-symdump := Module.symvers $(KBUILD_EXTRA_SYMBOLS)
  output-symdump := $(KBUILD_EXTMOD)/Module.symvers
@@ -157,7 +157,7 @@ diff --git a/scripts/Makefile.modpost b/scripts/Makefile.modpost
 diff --git a/scripts/mod/modpost.c b/scripts/mod/modpost.c
 --- a/scripts/mod/modpost.c
 +++ b/scripts/mod/modpost.c
-@@ -30,6 +30,8 @@ static int have_vmlinux = 0;
+@@ -29,6 +29,8 @@ static int have_vmlinux = 0;
  static int all_versions = 0;
  /* If we are modposting external module set to 1 */
  static int external_module = 0;
@@ -166,7 +166,7 @@ diff --git a/scripts/mod/modpost.c b/scripts/mod/modpost.c
  /* Only warn about unresolved symbols */
  static int warn_unresolved = 0;
  /* How a symbol is exported */
-@@ -2263,6 +2265,20 @@ static void add_intree_flag(struct buffer *b, int is_intree)
+@@ -2217,6 +2219,20 @@ static void add_intree_flag(struct buffer *b, int is_intree)
  		buf_printf(b, "\nMODULE_INFO(intree, \"Y\");\n");
  }
  
@@ -187,7 +187,7 @@ diff --git a/scripts/mod/modpost.c b/scripts/mod/modpost.c
  /* Cannot check for assembler */
  static void add_retpoline(struct buffer *b)
  {
-@@ -2545,7 +2561,7 @@ int main(int argc, char **argv)
+@@ -2499,7 +2515,7 @@ int main(int argc, char **argv)
  	struct dump_list *dump_read_start = NULL;
  	struct dump_list **dump_read_iter = &dump_read_start;
  
@@ -196,7 +196,7 @@ diff --git a/scripts/mod/modpost.c b/scripts/mod/modpost.c
  		switch (opt) {
  		case 'e':
  			external_module = 1;
-@@ -2583,6 +2599,9 @@ int main(int argc, char **argv)
+@@ -2537,6 +2553,9 @@ int main(int argc, char **argv)
  		case 'd':
  			missing_namespace_deps = optarg;
  			break;
@@ -206,7 +206,7 @@ diff --git a/scripts/mod/modpost.c b/scripts/mod/modpost.c
  		default:
  			exit(1);
  		}
-@@ -2629,6 +2648,7 @@ int main(int argc, char **argv)
+@@ -2583,6 +2602,7 @@ int main(int argc, char **argv)
  		add_depends(&buf, mod);
  		add_moddevtable(&buf, mod);
  		add_srcversion(&buf, mod);

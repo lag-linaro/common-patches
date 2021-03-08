@@ -914,7 +914,7 @@ diff --git a/security/commoncap.c b/security/commoncap.c
  	return error > 0;
  }
  
-@@ -604,7 +605,8 @@ int get_vfs_caps_from_disk(const struct dentry *dentry, struct cpu_vfs_cap_data
+@@ -614,7 +615,8 @@ int get_vfs_caps_from_disk(const struct dentry *dentry, struct cpu_vfs_cap_data
  
  	fs_ns = inode->i_sb->s_user_ns;
  	size = __vfs_getxattr((struct dentry *)dentry, inode,

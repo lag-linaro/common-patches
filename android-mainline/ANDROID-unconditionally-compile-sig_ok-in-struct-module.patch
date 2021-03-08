@@ -23,9 +23,9 @@ Signed-off-by: Steve Muckle <smuckle@google.com>
 diff --git a/include/linux/module.h b/include/linux/module.h
 --- a/include/linux/module.h
 +++ b/include/linux/module.h
-@@ -405,10 +405,12 @@ struct module {
- 	const s32 *unused_gpl_crcs;
- #endif
+@@ -393,10 +393,12 @@ struct module {
+ 	const s32 *gpl_crcs;
+ 	bool using_gplonly_symbols;
  
 -#ifdef CONFIG_MODULE_SIG
 -	/* Signature was verified. */

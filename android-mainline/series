@@ -1,8 +1,8 @@
 #
 # android-mainline patches
 #
-# Applies onto upstream 6ff6f86bc4d0 Linux v5.11-9495-g6ff6f86bc4d0
-# Matches android-mainline 51681321c0ef ("ANDROID: fixup restricted hooks after tracepont refactoring")
+# Applies onto upstream 21a6ab2131ab Linux v5.11-9859-g21a6ab2131ab
+# Matches android-mainline 368ecbcb2ff7 ("Merge 21a6ab2131ab ("Merge tag 'modules-for-v5.12' of git://git.kernel.org/pub/scm/linux/kernel/git/jeyu/linux") into android-mainline")
 #
 Revert-block-grant-IOPRIO_CLASS_RT-to-CAP_SYS_NICE.patch
 Merge-tag-block-5.12-2021-02-27-of-git-git.kernel.dk-linux-block-into-android-mainline.patch
