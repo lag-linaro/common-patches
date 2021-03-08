@@ -2,7 +2,7 @@
 # android-mainline patches
 #
 # Applies onto upstream 6ff6f86bc4d0 Linux v5.11-9495-g6ff6f86bc4d0
-# Matches android-mainline 48f7c289b115 ("Merge e6ff6f86bc4d0 ("Merge tag 'for-linus' of git://git.armlinux.org.uk/~rmk/linux-arm") into android-mainline")
+# Matches android-mainline 51681321c0ef ("ANDROID: fixup restricted hooks after tracepont refactoring")
 #
 Revert-block-grant-IOPRIO_CLASS_RT-to-CAP_SYS_NICE.patch
 Merge-tag-block-5.12-2021-02-27-of-git-git.kernel.dk-linux-block-into-android-mainline.patch
@@ -161,6 +161,7 @@ ANDROID-sched-Export-sched_switch-tracepoint-symbol.patch
 ANDROID-add-flags-to-android_rvh_enqueue_task-dequeue_task-parameter.patch
 ANDROID-sched-fair-Sync-task-util-early-in-feec.patch
 ANDROID-simplify-vendor-hooks-for-non-GKI-builds.patch
+ANDROID-fixup-restricted-hooks-after-tracepont-refactoring.patch
 ANDROID-schedutil-add-vendor-hook-for-adjusting-util-to-freq-calculation.patch
 ANDROID-sched-Add-rvh-for-cpu-controller-cgroup-can-attach.patch
 ANDROID-sched-add-em_cpu_energy-vendor-hook.patch
