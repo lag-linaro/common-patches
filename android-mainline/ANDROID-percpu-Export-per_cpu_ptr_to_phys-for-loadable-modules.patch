@@ -16,7 +16,7 @@ Signed-off-by: Prasad Sodagudi <psodagud@codeaurora.org>
 diff --git a/mm/percpu.c b/mm/percpu.c
 --- a/mm/percpu.c
 +++ b/mm/percpu.c
-@@ -2231,6 +2231,7 @@ phys_addr_t per_cpu_ptr_to_phys(void *addr)
+@@ -2232,6 +2232,7 @@ phys_addr_t per_cpu_ptr_to_phys(void *addr)
  		return page_to_phys(pcpu_addr_to_page(addr)) +
  		       offset_in_page(addr);
  }
