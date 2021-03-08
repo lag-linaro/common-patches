@@ -1,8 +1,8 @@
 #
 # android-mainline patches
 #
-# Applies onto upstream 7b7028edf939 Linux v5.11-9231-g7b7028edf939
-# Matches android-mainline 9de75d9cb528 ("ANDROID: GKI: Enable bounds sanitizer")
+# Applies onto upstream 3a36281a1719 Linux v5.11-9433-g3a36281a1719
+# Matches android-mainline 666f4ce1b02d ("Merge 3a36281a1719 ("Merge tag 'perf-tools-for-v5.12-2020-02-19' of git://git.kernel.org/pub/scm/linux/kernel/git/acme/linux") into android-mainline")
 #
 Revert-block-grant-IOPRIO_CLASS_RT-to-CAP_SYS_NICE.patch
 Merge-tag-block-5.12-2021-02-27-of-git-git.kernel.dk-linux-block-into-android-mainline.patch
