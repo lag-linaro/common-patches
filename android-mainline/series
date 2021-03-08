@@ -2,7 +2,7 @@
 # android-mainline patches
 #
 # Applies onto upstream 7b7028edf939 Linux v5.11-9231-g7b7028edf939
-# Matches android-mainline aa21ac2d003f ("Merge 7b7028edf939 ("Merge tag 'memblock-v5.12-rc1' of git://git.kernel.org/pub/scm/linux/kernel/git/rppt/memblock") into android-mainline")
+# Matches android-mainline 9de75d9cb528 ("ANDROID: GKI: Enable bounds sanitizer")
 #
 Revert-block-grant-IOPRIO_CLASS_RT-to-CAP_SYS_NICE.patch
 Merge-tag-block-5.12-2021-02-27-of-git-git.kernel.dk-linux-block-into-android-mainline.patch
@@ -787,6 +787,7 @@ ANDROID-gki_defconfig-enable-CONFIG_MMC_CRYPTO.patch
 ANDROID-allmodconfig-drop-openssl-from-ADDITIONAL_HOST_TOOLS.patch
 ANDROID-clang-update-to-12.0.3.patch
 ANDROID-Adding-kprobes-build-configs-for-Cuttlefish.patch
+ANDROID-GKI-Enable-bounds-sanitizer.patch
 _____ANNOTATION-Patches-for-bringing-up-new-SoCs_____.patch
 _____ANNOTATION-remove-ANNOTATIONS-file_____.patch
 DROP-ME-obsolete-ION-documentation.patch
