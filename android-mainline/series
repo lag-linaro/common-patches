@@ -1,8 +1,8 @@
 #
 # android-mainline patches
 #
-# Applies onto upstream 3a36281a1719 Linux v5.11-9433-g3a36281a1719
-# Matches android-mainline 666f4ce1b02d ("Merge 3a36281a1719 ("Merge tag 'perf-tools-for-v5.12-2020-02-19' of git://git.kernel.org/pub/scm/linux/kernel/git/acme/linux") into android-mainline")
+# Applies onto upstream 6ff6f86bc4d0 Linux v5.11-9495-g6ff6f86bc4d0
+# Matches android-mainline 48f7c289b115 ("Merge e6ff6f86bc4d0 ("Merge tag 'for-linus' of git://git.armlinux.org.uk/~rmk/linux-arm") into android-mainline")
 #
 Revert-block-grant-IOPRIO_CLASS_RT-to-CAP_SYS_NICE.patch
 Merge-tag-block-5.12-2021-02-27-of-git-git.kernel.dk-linux-block-into-android-mainline.patch

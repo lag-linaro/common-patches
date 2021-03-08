@@ -113,7 +113,7 @@ diff --git a/kernel/trace/trace.c b/kernel/trace/trace.c
  
  #include "trace.h"
  #include "trace_output.h"
-@@ -9231,8 +9232,17 @@ static __init int tracer_init_tracefs(void)
+@@ -9285,8 +9286,17 @@ static __init int tracer_init_tracefs(void)
  static int trace_panic_handler(struct notifier_block *this,
  			       unsigned long event, void *unused)
  {
@@ -131,7 +131,7 @@ diff --git a/kernel/trace/trace.c b/kernel/trace/trace.c
  	return NOTIFY_OK;
  }
  
-@@ -9246,6 +9256,13 @@ static int trace_die_handler(struct notifier_block *self,
+@@ -9300,6 +9310,13 @@ static int trace_die_handler(struct notifier_block *self,
  			     unsigned long val,
  			     void *data)
  {
@@ -145,7 +145,7 @@ diff --git a/kernel/trace/trace.c b/kernel/trace/trace.c
  	switch (val) {
  	case DIE_OOPS:
  		if (ftrace_dump_on_oops)
-@@ -9254,6 +9271,8 @@ static int trace_die_handler(struct notifier_block *self,
+@@ -9308,6 +9325,8 @@ static int trace_die_handler(struct notifier_block *self,
  	default:
  		break;
  	}
@@ -154,7 +154,7 @@ diff --git a/kernel/trace/trace.c b/kernel/trace/trace.c
  	return NOTIFY_OK;
  }
  
-@@ -9278,6 +9297,8 @@ static struct notifier_block trace_die_notifier = {
+@@ -9332,6 +9351,8 @@ static struct notifier_block trace_die_notifier = {
  void
  trace_printk_seq(struct trace_seq *s)
  {
@@ -163,7 +163,7 @@ diff --git a/kernel/trace/trace.c b/kernel/trace/trace.c
  	/* Probably should print a warning here. */
  	if (s->seq.len >= TRACE_MAX_PRINT)
  		s->seq.len = TRACE_MAX_PRINT;
-@@ -9293,7 +9314,9 @@ trace_printk_seq(struct trace_seq *s)
+@@ -9347,7 +9368,9 @@ trace_printk_seq(struct trace_seq *s)
  	/* should be zero ended, but we are paranoid. */
  	s->buffer[s->seq.len] = 0;
  
@@ -174,7 +174,7 @@ diff --git a/kernel/trace/trace.c b/kernel/trace/trace.c
  
  	trace_seq_init(s);
  }
-@@ -9326,6 +9349,8 @@ void ftrace_dump(enum ftrace_dump_mode oops_dump_mode)
+@@ -9380,6 +9403,8 @@ void ftrace_dump(enum ftrace_dump_mode oops_dump_mode)
  	unsigned int old_userobj;
  	unsigned long flags;
  	int cnt = 0, cpu;
@@ -183,7 +183,7 @@ diff --git a/kernel/trace/trace.c b/kernel/trace/trace.c
  
  	/* Only allow one dump user at a time. */
  	if (atomic_inc_return(&dump_running) != 1) {
-@@ -9354,6 +9379,8 @@ void ftrace_dump(enum ftrace_dump_mode oops_dump_mode)
+@@ -9410,6 +9435,8 @@ void ftrace_dump(enum ftrace_dump_mode oops_dump_mode)
  
  	for_each_tracing_cpu(cpu) {
  		atomic_inc(&per_cpu_ptr(iter.array_buffer->data, cpu)->disabled);
@@ -192,7 +192,7 @@ diff --git a/kernel/trace/trace.c b/kernel/trace/trace.c
  	}
  
  	old_userobj = tr->trace_flags & TRACE_ITER_SYM_USEROBJ;
-@@ -9361,6 +9388,9 @@ void ftrace_dump(enum ftrace_dump_mode oops_dump_mode)
+@@ -9417,6 +9444,9 @@ void ftrace_dump(enum ftrace_dump_mode oops_dump_mode)
  	/* don't look at user memory in panic mode */
  	tr->trace_flags &= ~TRACE_ITER_SYM_USEROBJ;
  
@@ -202,7 +202,7 @@ diff --git a/kernel/trace/trace.c b/kernel/trace/trace.c
  	switch (oops_dump_mode) {
  	case DUMP_ALL:
  		iter.cpu_file = RING_BUFFER_ALL_CPUS;
-@@ -9391,6 +9421,7 @@ void ftrace_dump(enum ftrace_dump_mode oops_dump_mode)
+@@ -9447,6 +9477,7 @@ void ftrace_dump(enum ftrace_dump_mode oops_dump_mode)
  	 */
  
  	while (!trace_empty(&iter)) {
@@ -210,7 +210,7 @@ diff --git a/kernel/trace/trace.c b/kernel/trace/trace.c
  
  		if (!cnt)
  			printk(KERN_TRACE "---------------------------------\n");
-@@ -9398,7 +9429,9 @@ void ftrace_dump(enum ftrace_dump_mode oops_dump_mode)
+@@ -9454,7 +9485,9 @@ void ftrace_dump(enum ftrace_dump_mode oops_dump_mode)
  		cnt++;
  
  		trace_iterator_reset(&iter);

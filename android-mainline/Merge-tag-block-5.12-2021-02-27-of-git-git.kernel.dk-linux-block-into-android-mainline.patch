@@ -1146,7 +1146,7 @@ diff --git a/include/trace/events/block.h b/include/trace/events/block.h
 diff --git a/kernel/trace/blktrace.c b/kernel/trace/blktrace.c
 --- a/kernel/trace/blktrace.c
 +++ b/kernel/trace/blktrace.c
-@@ -311,8 +311,6 @@ static void __blk_add_trace(struct blk_trace *bt, sector_t sector, int bytes,
+@@ -312,8 +312,6 @@ static void __blk_add_trace(struct blk_trace *bt, sector_t sector, int bytes,
  
  static void blk_trace_free(struct blk_trace *bt)
  {
@@ -1155,7 +1155,7 @@ diff --git a/kernel/trace/blktrace.c b/kernel/trace/blktrace.c
  	relay_close(bt->rchan);
  	debugfs_remove(bt->dir);
  	free_percpu(bt->sequence);
-@@ -544,10 +542,8 @@ static int do_blk_trace_setup(struct request_queue *q, char *name, dev_t dev,
+@@ -545,10 +543,8 @@ static int do_blk_trace_setup(struct request_queue *q, char *name, dev_t dev,
  	INIT_LIST_HEAD(&bt->running_list);
  
  	ret = -EIO;
@@ -1168,7 +1168,7 @@ diff --git a/kernel/trace/blktrace.c b/kernel/trace/blktrace.c
  
  	bt->rchan = relay_open("trace", dir, buts->buf_size,
  				buts->buf_nr, &blk_relay_callbacks, bt);
-@@ -1867,7 +1863,17 @@ void blk_trace_remove_sysfs(struct device *dev)
+@@ -1868,7 +1864,17 @@ void blk_trace_remove_sysfs(struct device *dev)
  
  #ifdef CONFIG_EVENT_TRACING
  

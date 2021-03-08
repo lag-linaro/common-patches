@@ -34,7 +34,7 @@ diff --git a/arch/arm64/configs/gki_defconfig b/arch/arm64/configs/gki_defconfig
 diff --git a/drivers/clocksource/Kconfig b/drivers/clocksource/Kconfig
 --- a/drivers/clocksource/Kconfig
 +++ b/drivers/clocksource/Kconfig
-@@ -126,7 +126,7 @@ config RDA_TIMER
+@@ -127,7 +127,7 @@ config RDA_TIMER
  	  Enables the support for the RDA Micro timer driver.
  
  config SUN4I_TIMER
