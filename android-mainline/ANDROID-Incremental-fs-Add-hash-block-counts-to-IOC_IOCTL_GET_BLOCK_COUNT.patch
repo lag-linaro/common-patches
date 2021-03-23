@@ -188,7 +188,7 @@ diff --git a/fs/incfs/format.h b/fs/incfs/format.h
 diff --git a/fs/incfs/vfs.c b/fs/incfs/vfs.c
 --- a/fs/incfs/vfs.c
 +++ b/fs/incfs/vfs.c
-@@ -672,8 +672,11 @@ static long ioctl_get_block_count(struct file *f, void __user *arg)
+@@ -671,8 +671,11 @@ static long ioctl_get_block_count(struct file *f, void __user *arg)
  	if (!df)
  		return -EINVAL;
  

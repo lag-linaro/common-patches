@@ -532,7 +532,7 @@ diff --git a/fs/incfs/data_mgmt.h b/fs/incfs/data_mgmt.h
 diff --git a/fs/incfs/vfs.c b/fs/incfs/vfs.c
 --- a/fs/incfs/vfs.c
 +++ b/fs/incfs/vfs.c
-@@ -641,7 +641,7 @@ static __poll_t log_poll(struct file *file, poll_table *wait)
+@@ -640,7 +640,7 @@ static __poll_t log_poll(struct file *file, poll_table *wait)
  	__poll_t ret = 0;
  
  	poll_wait(file, &mi->mi_log.ml_notif_wq, wait);

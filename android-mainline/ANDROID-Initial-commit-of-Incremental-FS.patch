@@ -24,7 +24,7 @@ Change-Id: I14741a61ce7891a0f9054e70f026917712cbef78
  fs/incfs/integrity.h                          |   72 +
  fs/incfs/internal.h                           |   21 +
  fs/incfs/main.c                               |  103 +
- fs/incfs/vfs.c                                | 2202 +++++++++++++++
+ fs/incfs/vfs.c                                | 2201 +++++++++++++++
  fs/incfs/vfs.h                                |   13 +
  include/uapi/linux/incrementalfs.h            |  244 ++
  .../selftests/filesystems/incfs/Makefile      |   16 +
@@ -32,7 +32,7 @@ Change-Id: I14741a61ce7891a0f9054e70f026917712cbef78
  .../selftests/filesystems/incfs/incfs_test.c  | 2421 +++++++++++++++++
  .../selftests/filesystems/incfs/utils.c       |  377 +++
  .../selftests/filesystems/incfs/utils.h       |   59 +
- 21 files changed, 8334 insertions(+)
+ 21 files changed, 8333 insertions(+)
  create mode 100644 fs/incfs/Kconfig
  create mode 100644 fs/incfs/Makefile
  create mode 100644 fs/incfs/compat.h
@@ -3142,10 +3142,10 @@ index 000000000000..d9eec7496846
 +MODULE_DESCRIPTION("Incremental File System");
 diff --git a/fs/incfs/vfs.c b/fs/incfs/vfs.c
 new file mode 100644
-index 000000000000..46045dc72242
+index 000000000000..2b5d8e102ad6
 --- /dev/null
 +++ b/fs/incfs/vfs.c
-@@ -0,0 +1,2202 @@
+@@ -0,0 +1,2201 @@
 +// SPDX-License-Identifier: GPL-2.0
 +/*
 + * Copyright 2018 Google LLC
@@ -3324,8 +3324,7 @@ index 000000000000..46045dc72242
 +
 +static int incfs_handler_getxattr(const struct xattr_handler *xh,
 +				  struct dentry *d, struct inode *inode,
-+				  const char *name, void *buffer, size_t size,
-+				  int flags)
++				  const char *name, void *buffer, size_t size)
 +{
 +	return incfs_getxattr(d, name, buffer, size);
 +}

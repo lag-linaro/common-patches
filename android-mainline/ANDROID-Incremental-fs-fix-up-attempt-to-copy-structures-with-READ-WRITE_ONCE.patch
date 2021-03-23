@@ -21,7 +21,7 @@ Change-Id: I7ecd3d05bd94c936dd5e69c63028458786f37a78
 diff --git a/fs/incfs/vfs.c b/fs/incfs/vfs.c
 --- a/fs/incfs/vfs.c
 +++ b/fs/incfs/vfs.c
-@@ -605,8 +605,11 @@ static ssize_t log_read(struct file *f, char __user *buf, size_t len,
+@@ -604,8 +604,11 @@ static ssize_t log_read(struct file *f, char __user *buf, size_t len,
  
  	reads_to_collect = min_t(ssize_t, rl_size, reads_to_collect);
  	while (reads_to_collect > 0) {
@@ -35,7 +35,7 @@ diff --git a/fs/incfs/vfs.c b/fs/incfs/vfs.c
  			mi, &next_state, reads_buf,
  			min_t(ssize_t, reads_to_collect, reads_per_page));
  		if (reads_collected <= 0) {
-@@ -625,7 +628,7 @@ static ssize_t log_read(struct file *f, char __user *buf, size_t len,
+@@ -624,7 +627,7 @@ static ssize_t log_read(struct file *f, char __user *buf, size_t len,
  			goto out;
  		}
  

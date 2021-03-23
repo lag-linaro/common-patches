@@ -107,7 +107,7 @@ diff --git a/fs/incfs/pseudo_files.c b/fs/incfs/pseudo_files.c
 diff --git a/fs/incfs/vfs.c b/fs/incfs/vfs.c
 --- a/fs/incfs/vfs.c
 +++ b/fs/incfs/vfs.c
-@@ -624,15 +624,14 @@ static void maybe_delete_incomplete_file(struct file *f,
+@@ -623,15 +623,14 @@ static void maybe_delete_incomplete_file(struct file *f,
  
  	vfs_fsync(df->df_backing_file_context->bc_file, 0);
  	error = incfs_unlink(incomplete_file_dentry);

@@ -15,7 +15,7 @@ Signed-off-by: Eric Biggers <ebiggers@google.com>
 diff --git a/fs/incfs/vfs.c b/fs/incfs/vfs.c
 --- a/fs/incfs/vfs.c
 +++ b/fs/incfs/vfs.c
-@@ -669,7 +669,6 @@ static long ioctl_get_block_count(struct file *f, void __user *arg)
+@@ -668,7 +668,6 @@ static long ioctl_get_block_count(struct file *f, void __user *arg)
  	struct incfs_get_block_count_args __user *args_usr_ptr = arg;
  	struct incfs_get_block_count_args args = {};
  	struct data_file *df = get_incfs_data_file(f);
@@ -23,7 +23,7 @@ diff --git a/fs/incfs/vfs.c b/fs/incfs/vfs.c
  
  	if (!df)
  		return -EINVAL;
-@@ -683,7 +682,7 @@ static long ioctl_get_block_count(struct file *f, void __user *arg)
+@@ -682,7 +681,7 @@ static long ioctl_get_block_count(struct file *f, void __user *arg)
  	if (copy_to_user(args_usr_ptr, &args, sizeof(args)))
  		return -EFAULT;
  

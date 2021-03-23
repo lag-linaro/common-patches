@@ -18,7 +18,7 @@ Change-Id: I8939c4afa514d39d251c044d7680cfc69272669e
 diff --git a/fs/incfs/vfs.c b/fs/incfs/vfs.c
 --- a/fs/incfs/vfs.c
 +++ b/fs/incfs/vfs.c
-@@ -207,6 +207,8 @@ struct inode_search {
+@@ -206,6 +206,8 @@ struct inode_search {
  	unsigned long ino;
  
  	struct dentry *backing_dentry;
@@ -27,7 +27,7 @@ diff --git a/fs/incfs/vfs.c b/fs/incfs/vfs.c
  };
  
  enum parse_parameter {
-@@ -365,7 +367,7 @@ static int inode_set(struct inode *inode, void *opaque)
+@@ -364,7 +366,7 @@ static int inode_set(struct inode *inode, void *opaque)
  
  		fsstack_copy_attr_all(inode, backing_inode);
  		if (S_ISREG(inode->i_mode)) {
@@ -36,7 +36,7 @@ diff --git a/fs/incfs/vfs.c b/fs/incfs/vfs.c
  
  			inode->i_size = size;
  			inode->i_blocks = get_blocks_count_for_size(size);
-@@ -441,7 +443,8 @@ static struct inode *fetch_regular_inode(struct super_block *sb,
+@@ -440,7 +442,8 @@ static struct inode *fetch_regular_inode(struct super_block *sb,
  	struct inode *backing_inode = d_inode(backing_dentry);
  	struct inode_search search = {
  		.ino = backing_inode->i_ino,

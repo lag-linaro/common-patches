@@ -19,7 +19,7 @@ Change-Id: Iba303bbc42b431fe4a4fbacb40584faaff4b14b7
 diff --git a/fs/incfs/vfs.c b/fs/incfs/vfs.c
 --- a/fs/incfs/vfs.c
 +++ b/fs/incfs/vfs.c
-@@ -2006,10 +2006,8 @@ static int dentry_revalidate(struct dentry *d, unsigned int flags)
+@@ -2005,10 +2005,8 @@ static int dentry_revalidate(struct dentry *d, unsigned int flags)
  
  	get_incfs_backing_path(d, &backing_path);
  	backing_dentry = backing_path.dentry;

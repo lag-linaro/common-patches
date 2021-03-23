@@ -664,7 +664,7 @@ diff --git a/fs/incfs/integrity.h b/fs/incfs/integrity.h
 diff --git a/fs/incfs/vfs.c b/fs/incfs/vfs.c
 --- a/fs/incfs/vfs.c
 +++ b/fs/incfs/vfs.c
-@@ -838,104 +838,39 @@ static char *file_id_to_str(incfs_uuid_t id)
+@@ -837,104 +837,39 @@ static char *file_id_to_str(incfs_uuid_t id)
  	return result;
  }
  
@@ -784,7 +784,7 @@ diff --git a/fs/incfs/vfs.c b/fs/incfs/vfs.c
  	struct mtree *hash_tree = NULL;
  
  	if (!mi || !dentry || !uuid)
-@@ -985,44 +920,27 @@ static int init_new_file(struct mount_info *mi, struct dentry *dentry,
+@@ -984,44 +919,27 @@ static int init_new_file(struct mount_info *mi, struct dentry *dentry,
  			goto out;
  	}
  
@@ -845,7 +845,7 @@ diff --git a/fs/incfs/vfs.c b/fs/incfs/vfs.c
  	}
  
  out:
-@@ -1031,8 +949,7 @@ static int init_new_file(struct mount_info *mi, struct dentry *dentry,
+@@ -1030,8 +948,7 @@ static int init_new_file(struct mount_info *mi, struct dentry *dentry,
  		incfs_free_bfc(bfc);
  	}
  	incfs_free_mtree(hash_tree);
@@ -855,7 +855,7 @@ diff --git a/fs/incfs/vfs.c b/fs/incfs/vfs.c
  
  	if (error)
  		pr_debug("incfs: %s error: %d\n", __func__, error);
-@@ -1290,7 +1207,7 @@ static long ioctl_create_file(struct mount_info *mi,
+@@ -1289,7 +1206,7 @@ static long ioctl_create_file(struct mount_info *mi,
  		goto delete_index_file;
  	}
  
@@ -864,7 +864,7 @@ diff --git a/fs/incfs/vfs.c b/fs/incfs/vfs.c
  	if (args.file_attr_len && args.file_attr) {
  		if (args.file_attr_len > INCFS_MAX_FILE_ATTR_SIZE) {
  			error = -E2BIG;
-@@ -1321,9 +1238,9 @@ static long ioctl_create_file(struct mount_info *mi,
+@@ -1320,9 +1237,9 @@ static long ioctl_create_file(struct mount_info *mi,
  
  	/* Initializing a newly created file. */
  	error = init_new_file(mi, index_file_dentry, &args.file_id, args.size,

@@ -49,7 +49,7 @@ diff --git a/fs/incfs/vfs.c b/fs/incfs/vfs.c
  };
  
  const struct inode_operations incfs_file_inode_ops = {
-@@ -806,6 +814,13 @@ static long ioctl_get_block_count(struct file *f, void __user *arg)
+@@ -805,6 +813,13 @@ static long ioctl_get_block_count(struct file *f, void __user *arg)
  	return 0;
  }
  
@@ -63,7 +63,7 @@ diff --git a/fs/incfs/vfs.c b/fs/incfs/vfs.c
  static long dispatch_ioctl(struct file *f, unsigned int req, unsigned long arg)
  {
  	switch (req) {
-@@ -819,11 +834,34 @@ static long dispatch_ioctl(struct file *f, unsigned int req, unsigned long arg)
+@@ -818,11 +833,34 @@ static long dispatch_ioctl(struct file *f, unsigned int req, unsigned long arg)
  		return ioctl_get_block_count(f, (void __user *)arg);
  	case FS_IOC_ENABLE_VERITY:
  		return incfs_ioctl_enable_verity(f, (const void __user *)arg);

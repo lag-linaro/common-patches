@@ -77,7 +77,7 @@ diff --git a/fs/incfs/vfs.c b/fs/incfs/vfs.c
  	.read_iter = generic_file_read_iter,
  	.mmap = generic_file_mmap,
  	.splice_read = generic_file_splice_read,
-@@ -795,9 +792,6 @@ static int read_single_page(struct file *f, struct page *page)
+@@ -794,9 +791,6 @@ static int read_single_page(struct file *f, struct page *page)
  	size = df->df_size;
  	timeout_ms = df->df_mount_info->mi_options.read_timeout_ms;
  
@@ -87,7 +87,7 @@ diff --git a/fs/incfs/vfs.c b/fs/incfs/vfs.c
  	if (offset < size) {
  		struct mem_range tmp = {
  			.len = 2 * INCFS_DATA_FILE_BLOCK_SIZE
-@@ -1357,6 +1351,72 @@ static long ioctl_create_file(struct mount_info *mi,
+@@ -1356,6 +1350,72 @@ static long ioctl_create_file(struct mount_info *mi,
  	return error;
  }
  
@@ -160,7 +160,7 @@ diff --git a/fs/incfs/vfs.c b/fs/incfs/vfs.c
  static long ioctl_read_file_signature(struct file *f, void __user *arg)
  {
  	struct incfs_get_file_sig_args __user *args_usr_ptr = arg;
-@@ -1412,6 +1472,8 @@ static long dispatch_ioctl(struct file *f, unsigned int req, unsigned long arg)
+@@ -1411,6 +1471,8 @@ static long dispatch_ioctl(struct file *f, unsigned int req, unsigned long arg)
  	switch (req) {
  	case INCFS_IOC_CREATE_FILE:
  		return ioctl_create_file(mi, (void __user *)arg);
@@ -169,7 +169,7 @@ diff --git a/fs/incfs/vfs.c b/fs/incfs/vfs.c
  	case INCFS_IOC_READ_FILE_SIGNATURE:
  		return ioctl_read_file_signature(f, (void __user *)arg);
  	default:
-@@ -1879,70 +1941,6 @@ static int file_release(struct inode *inode, struct file *file)
+@@ -1878,70 +1940,6 @@ static int file_release(struct inode *inode, struct file *file)
  	return 0;
  }
  

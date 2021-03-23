@@ -14,7 +14,7 @@ Signed-off-by: Paul Lawrence <paullawrence@google.com>
 diff --git a/fs/incfs/vfs.c b/fs/incfs/vfs.c
 --- a/fs/incfs/vfs.c
 +++ b/fs/incfs/vfs.c
-@@ -866,9 +866,10 @@ static struct signature_info *incfs_copy_signature_info_from_user(
+@@ -865,9 +865,10 @@ static struct signature_info *incfs_copy_signature_info_from_user(
  			goto err;
  		}
  
@@ -28,7 +28,7 @@ diff --git a/fs/incfs/vfs.c b/fs/incfs/vfs.c
  		result->root_hash = range(p, INCFS_MAX_HASH_SIZE);
  		if (copy_from_user(p, u64_to_user_ptr(usr_si.root_hash),
  				result->root_hash.len) > 0) {
-@@ -1003,8 +1004,9 @@ static int init_new_file(struct mount_info *mi, struct dentry *dentry,
+@@ -1002,8 +1003,9 @@ static int init_new_file(struct mount_info *mi, struct dentry *dentry,
  				goto out;
  			}
  

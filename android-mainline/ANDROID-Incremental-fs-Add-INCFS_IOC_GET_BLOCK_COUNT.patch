@@ -245,7 +245,7 @@ diff --git a/fs/incfs/vfs.c b/fs/incfs/vfs.c
  };
  
  static const struct dentry_operations incfs_dentry_ops = {
-@@ -664,6 +662,25 @@ static long ioctl_get_filled_blocks(struct file *f, void __user *arg)
+@@ -663,6 +661,25 @@ static long ioctl_get_filled_blocks(struct file *f, void __user *arg)
  	return error;
  }
  
@@ -271,7 +271,7 @@ diff --git a/fs/incfs/vfs.c b/fs/incfs/vfs.c
  static long dispatch_ioctl(struct file *f, unsigned int req, unsigned long arg)
  {
  	switch (req) {
-@@ -673,6 +690,8 @@ static long dispatch_ioctl(struct file *f, unsigned int req, unsigned long arg)
+@@ -672,6 +689,8 @@ static long dispatch_ioctl(struct file *f, unsigned int req, unsigned long arg)
  		return ioctl_read_file_signature(f, (void __user *)arg);
  	case INCFS_IOC_GET_FILLED_BLOCKS:
  		return ioctl_get_filled_blocks(f, (void __user *)arg);

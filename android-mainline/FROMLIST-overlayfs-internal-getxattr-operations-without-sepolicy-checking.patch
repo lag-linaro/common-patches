@@ -52,10 +52,9 @@ Change-Id: I34d99cc46e9e87a79efc8d05f85980bbc137f7eb
 [maennich: folded 8d5dc2cf06e9 ("ANDROID: overlayfs: fixup after upstream merge")]
 Signed-off-by: Matthias Maennich <maennich@google.com>
 ---
- fs/overlayfs/namei.c     | 7 ++++---
- fs/overlayfs/overlayfs.h | 4 +++-
- fs/overlayfs/util.c      | 8 ++++----
- 3 files changed, 11 insertions(+), 8 deletions(-)
+ fs/overlayfs/namei.c | 7 ++++---
+ fs/overlayfs/util.c  | 8 ++++----
+ 2 files changed, 8 insertions(+), 7 deletions(-)
 
 diff --git a/fs/overlayfs/namei.c b/fs/overlayfs/namei.c
 --- a/fs/overlayfs/namei.c
@@ -83,20 +82,6 @@ diff --git a/fs/overlayfs/namei.c b/fs/overlayfs/namei.c
  	goto out;
  }
  
-diff --git a/fs/overlayfs/overlayfs.h b/fs/overlayfs/overlayfs.h
---- a/fs/overlayfs/overlayfs.h
-+++ b/fs/overlayfs/overlayfs.h
-@@ -186,7 +186,9 @@ static inline ssize_t ovl_do_getxattr(struct ovl_fs *ofs, struct dentry *dentry,
- 				      size_t size)
- {
- 	const char *name = ovl_xattr(ofs, ox);
--	return vfs_getxattr(dentry, name, value, size);
-+	struct inode *ip = d_inode(dentry);
-+
-+	return __vfs_getxattr(dentry, ip, name, value, size, XATTR_NOSECURITY);
- }
- 
- static inline int ovl_do_setxattr(struct ovl_fs *ofs, struct dentry *dentry,
 diff --git a/fs/overlayfs/util.c b/fs/overlayfs/util.c
 --- a/fs/overlayfs/util.c
 +++ b/fs/overlayfs/util.c

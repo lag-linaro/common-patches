@@ -301,7 +301,7 @@ diff --git a/fs/incfs/format.h b/fs/incfs/format.h
 diff --git a/fs/incfs/vfs.c b/fs/incfs/vfs.c
 --- a/fs/incfs/vfs.c
 +++ b/fs/incfs/vfs.c
-@@ -736,26 +736,6 @@ static int incfs_init_dentry(struct dentry *dentry, struct path *path)
+@@ -735,26 +735,6 @@ static int incfs_init_dentry(struct dentry *dentry, struct path *path)
  	return 0;
  }
  
@@ -328,7 +328,7 @@ diff --git a/fs/incfs/vfs.c b/fs/incfs/vfs.c
  static struct dentry *open_or_create_index_dir(struct dentry *backing_dir)
  {
  	static const char name[] = ".index";
-@@ -810,7 +790,8 @@ static int read_single_page(struct file *f, struct page *page)
+@@ -809,7 +789,8 @@ static int read_single_page(struct file *f, struct page *page)
  
  	page_start = kmap(page);
  	offset = page_offset(page);
@@ -338,7 +338,7 @@ diff --git a/fs/incfs/vfs.c b/fs/incfs/vfs.c
  	size = df->df_size;
  	timeout_ms = df->df_mount_info->mi_options.read_timeout_ms;
  
-@@ -852,19 +833,6 @@ static int read_single_page(struct file *f, struct page *page)
+@@ -851,19 +832,6 @@ static int read_single_page(struct file *f, struct page *page)
  	return result;
  }
  
@@ -358,7 +358,7 @@ diff --git a/fs/incfs/vfs.c b/fs/incfs/vfs.c
  static struct mem_range incfs_copy_signature_info_from_user(u8 __user *original,
  							    u64 size)
  {
-@@ -982,6 +950,54 @@ static int init_new_file(struct mount_info *mi, struct dentry *dentry,
+@@ -981,6 +949,54 @@ static int init_new_file(struct mount_info *mi, struct dentry *dentry,
  	return error;
  }
  
@@ -413,7 +413,7 @@ diff --git a/fs/incfs/vfs.c b/fs/incfs/vfs.c
  static int incfs_link(struct dentry *what, struct dentry *where)
  {
  	struct dentry *parent_dentry = dget_parent(where);
-@@ -1270,7 +1286,7 @@ static long ioctl_create_file(struct mount_info *mi,
+@@ -1269,7 +1285,7 @@ static long ioctl_create_file(struct mount_info *mi,
  	if (error)
  		goto delete_index_file;
  
@@ -422,7 +422,7 @@ diff --git a/fs/incfs/vfs.c b/fs/incfs/vfs.c
  	error = incfs_link(index_file_dentry, named_file_dentry);
  
  	if (!error)
-@@ -1483,6 +1499,150 @@ static long ioctl_get_filled_blocks(struct file *f, void __user *arg)
+@@ -1482,6 +1498,150 @@ static long ioctl_get_filled_blocks(struct file *f, void __user *arg)
  	return error;
  }
  
@@ -573,7 +573,7 @@ diff --git a/fs/incfs/vfs.c b/fs/incfs/vfs.c
  static long dispatch_ioctl(struct file *f, unsigned int req, unsigned long arg)
  {
  	struct mount_info *mi = get_mount_info(file_superblock(f));
-@@ -1498,6 +1658,8 @@ static long dispatch_ioctl(struct file *f, unsigned int req, unsigned long arg)
+@@ -1497,6 +1657,8 @@ static long dispatch_ioctl(struct file *f, unsigned int req, unsigned long arg)
  		return ioctl_read_file_signature(f, (void __user *)arg);
  	case INCFS_IOC_GET_FILLED_BLOCKS:
  		return ioctl_get_filled_blocks(f, (void __user *)arg);

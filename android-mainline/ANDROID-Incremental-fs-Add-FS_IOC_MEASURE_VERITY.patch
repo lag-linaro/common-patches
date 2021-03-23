@@ -86,7 +86,7 @@ diff --git a/fs/incfs/verity.h b/fs/incfs/verity.h
 diff --git a/fs/incfs/vfs.c b/fs/incfs/vfs.c
 --- a/fs/incfs/vfs.c
 +++ b/fs/incfs/vfs.c
-@@ -848,6 +848,8 @@ static long dispatch_ioctl(struct file *f, unsigned int req, unsigned long arg)
+@@ -847,6 +847,8 @@ static long dispatch_ioctl(struct file *f, unsigned int req, unsigned long arg)
  		return incfs_ioctl_enable_verity(f, (const void __user *)arg);
  	case FS_IOC_GETFLAGS:
  		return incfs_ioctl_get_flags(f, (void __user *) arg);
@@ -95,7 +95,7 @@ diff --git a/fs/incfs/vfs.c b/fs/incfs/vfs.c
  	default:
  		return -EINVAL;
  	}
-@@ -866,6 +868,7 @@ static long incfs_compat_ioctl(struct file *file, unsigned int cmd,
+@@ -865,6 +867,7 @@ static long incfs_compat_ioctl(struct file *file, unsigned int cmd,
  	case INCFS_IOC_GET_FILLED_BLOCKS:
  	case INCFS_IOC_GET_BLOCK_COUNT:
  	case FS_IOC_ENABLE_VERITY:

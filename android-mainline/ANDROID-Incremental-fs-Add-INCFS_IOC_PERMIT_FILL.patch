@@ -30,7 +30,7 @@ diff --git a/fs/incfs/vfs.c b/fs/incfs/vfs.c
  static const struct file_operations incfs_pending_read_file_ops = {
  	.read = pending_reads_read,
  	.poll = pending_reads_poll,
-@@ -1282,6 +1287,9 @@ static long ioctl_fill_blocks(struct file *f, void __user *arg)
+@@ -1281,6 +1286,9 @@ static long ioctl_fill_blocks(struct file *f, void __user *arg)
  	if (!df)
  		return -EBADF;
  
@@ -40,7 +40,7 @@ diff --git a/fs/incfs/vfs.c b/fs/incfs/vfs.c
  	if (copy_from_user(&fill_blocks, usr_fill_blocks, sizeof(fill_blocks)))
  		return -EFAULT;
  
-@@ -1334,6 +1342,53 @@ static long ioctl_fill_blocks(struct file *f, void __user *arg)
+@@ -1333,6 +1341,53 @@ static long ioctl_fill_blocks(struct file *f, void __user *arg)
  	return i;
  }
  
@@ -94,7 +94,7 @@ diff --git a/fs/incfs/vfs.c b/fs/incfs/vfs.c
  static long ioctl_read_file_signature(struct file *f, void __user *arg)
  {
  	struct incfs_get_file_sig_args __user *args_usr_ptr = arg;
-@@ -1391,6 +1446,8 @@ static long dispatch_ioctl(struct file *f, unsigned int req, unsigned long arg)
+@@ -1390,6 +1445,8 @@ static long dispatch_ioctl(struct file *f, unsigned int req, unsigned long arg)
  		return ioctl_create_file(mi, (void __user *)arg);
  	case INCFS_IOC_FILL_BLOCKS:
  		return ioctl_fill_blocks(f, (void __user *)arg);
@@ -103,7 +103,7 @@ diff --git a/fs/incfs/vfs.c b/fs/incfs/vfs.c
  	case INCFS_IOC_READ_FILE_SIGNATURE:
  		return ioctl_read_file_signature(f, (void __user *)arg);
  	default:
-@@ -1821,9 +1878,10 @@ static int file_open(struct inode *inode, struct file *file)
+@@ -1820,9 +1877,10 @@ static int file_open(struct inode *inode, struct file *file)
  		goto out;
  	}
  

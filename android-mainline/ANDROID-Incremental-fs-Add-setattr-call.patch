@@ -47,7 +47,7 @@ diff --git a/fs/incfs/vfs.c b/fs/incfs/vfs.c
  	.getattr = simple_getattr,
  	.listxattr = incfs_listxattr
  };
-@@ -370,6 +372,7 @@ static int inode_set(struct inode *inode, void *opaque)
+@@ -369,6 +371,7 @@ static int inode_set(struct inode *inode, void *opaque)
  			inode->i_mapping->a_ops = &incfs_address_space_ops;
  			inode->i_op = &incfs_file_inode_ops;
  			inode->i_fop = &incfs_file_ops;
@@ -55,7 +55,7 @@ diff --git a/fs/incfs/vfs.c b/fs/incfs/vfs.c
  		} else if (S_ISDIR(inode->i_mode)) {
  			inode->i_size = 0;
  			inode->i_blocks = 1;
-@@ -2030,6 +2033,45 @@ static void evict_inode(struct inode *inode)
+@@ -2029,6 +2032,45 @@ static void evict_inode(struct inode *inode)
  	clear_inode(inode);
  }
  

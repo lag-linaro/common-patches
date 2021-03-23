@@ -274,7 +274,7 @@ diff --git a/fs/incfs/pseudo_files.c b/fs/incfs/pseudo_files.c
 diff --git a/fs/incfs/vfs.c b/fs/incfs/vfs.c
 --- a/fs/incfs/vfs.c
 +++ b/fs/incfs/vfs.c
-@@ -416,6 +416,39 @@ static struct dentry *open_or_create_special_dir(struct dentry *backing_dir,
+@@ -415,6 +415,39 @@ static struct dentry *open_or_create_special_dir(struct dentry *backing_dir,
  	return index_dentry;
  }
  
@@ -314,7 +314,7 @@ diff --git a/fs/incfs/vfs.c b/fs/incfs/vfs.c
  static int read_single_page(struct file *f, struct page *page)
  {
  	loff_t offset = 0;
-@@ -426,7 +459,6 @@ static int read_single_page(struct file *f, struct page *page)
+@@ -425,7 +458,6 @@ static int read_single_page(struct file *f, struct page *page)
  	int result = 0;
  	void *page_start;
  	int block_index;
@@ -322,7 +322,7 @@ diff --git a/fs/incfs/vfs.c b/fs/incfs/vfs.c
  
  	if (!df) {
  		SetPageError(page);
-@@ -439,22 +471,20 @@ static int read_single_page(struct file *f, struct page *page)
+@@ -438,22 +470,20 @@ static int read_single_page(struct file *f, struct page *page)
  	block_index = (offset + df->df_mapped_offset) /
  		INCFS_DATA_FILE_BLOCK_SIZE;
  	size = df->df_size;

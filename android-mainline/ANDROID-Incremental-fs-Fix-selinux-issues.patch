@@ -73,7 +73,7 @@ diff --git a/fs/incfs/pseudo_files.c b/fs/incfs/pseudo_files.c
 diff --git a/fs/incfs/vfs.c b/fs/incfs/vfs.c
 --- a/fs/incfs/vfs.c
 +++ b/fs/incfs/vfs.c
-@@ -547,16 +547,18 @@ static int incfs_rmdir(struct dentry *dentry)
+@@ -546,16 +546,18 @@ static int incfs_rmdir(struct dentry *dentry)
  
  static void maybe_delete_incomplete_file(struct data_file *df)
  {
@@ -96,7 +96,7 @@ diff --git a/fs/incfs/vfs.c b/fs/incfs/vfs.c
  
  	incomplete_file_dentry = incfs_lookup_dentry(
  					df->df_mount_info->mi_incomplete_dir,
-@@ -575,6 +577,7 @@ static void maybe_delete_incomplete_file(struct data_file *df)
+@@ -574,6 +576,7 @@ static void maybe_delete_incomplete_file(struct data_file *df)
  out:
  	dput(incomplete_file_dentry);
  	kfree(file_id_str);
@@ -104,7 +104,7 @@ diff --git a/fs/incfs/vfs.c b/fs/incfs/vfs.c
  }
  
  static long ioctl_fill_blocks(struct file *f, void __user *arg)
-@@ -1229,6 +1232,7 @@ static int file_open(struct inode *inode, struct file *file)
+@@ -1228,6 +1231,7 @@ static int file_open(struct inode *inode, struct file *file)
  	int err = 0;
  	int flags = O_NOATIME | O_LARGEFILE |
  		(S_ISDIR(inode->i_mode) ? O_RDONLY : O_RDWR);
@@ -112,7 +112,7 @@ diff --git a/fs/incfs/vfs.c b/fs/incfs/vfs.c
  
  	WARN_ON(file->private_data);
  
-@@ -1239,7 +1243,9 @@ static int file_open(struct inode *inode, struct file *file)
+@@ -1238,7 +1242,9 @@ static int file_open(struct inode *inode, struct file *file)
  	if (!backing_path.dentry)
  		return -EBADF;
  

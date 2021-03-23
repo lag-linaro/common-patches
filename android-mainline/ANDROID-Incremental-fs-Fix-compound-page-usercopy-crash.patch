@@ -28,7 +28,7 @@ diff --git a/fs/incfs/data_mgmt.c b/fs/incfs/data_mgmt.c
 diff --git a/fs/incfs/vfs.c b/fs/incfs/vfs.c
 --- a/fs/incfs/vfs.c
 +++ b/fs/incfs/vfs.c
-@@ -859,7 +859,7 @@ static struct mem_range incfs_copy_signature_info_from_user(u8 __user *original,
+@@ -858,7 +858,7 @@ static struct mem_range incfs_copy_signature_info_from_user(u8 __user *original,
  	if (size > INCFS_MAX_SIGNATURE_SIZE)
  		return range(ERR_PTR(-EFAULT), 0);
  
@@ -37,7 +37,7 @@ diff --git a/fs/incfs/vfs.c b/fs/incfs/vfs.c
  	if (!result)
  		return range(ERR_PTR(-ENOMEM), 0);
  
-@@ -1297,7 +1297,8 @@ static long ioctl_fill_blocks(struct file *f, void __user *arg)
+@@ -1296,7 +1296,8 @@ static long ioctl_fill_blocks(struct file *f, void __user *arg)
  		return -EFAULT;
  
  	usr_fill_block_array = u64_to_user_ptr(fill_blocks.fill_blocks);
@@ -47,7 +47,7 @@ diff --git a/fs/incfs/vfs.c b/fs/incfs/vfs.c
  	if (!data_buf)
  		return -ENOMEM;
  
-@@ -1412,7 +1413,7 @@ static long ioctl_read_file_signature(struct file *f, void __user *arg)
+@@ -1411,7 +1412,7 @@ static long ioctl_read_file_signature(struct file *f, void __user *arg)
  	if (sig_buf_size > INCFS_MAX_SIGNATURE_SIZE)
  		return -E2BIG;
  

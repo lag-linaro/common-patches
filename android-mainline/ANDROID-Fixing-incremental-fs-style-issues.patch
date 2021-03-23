@@ -200,7 +200,7 @@ diff --git a/fs/incfs/vfs.c b/fs/incfs/vfs.c
  static const struct inode_operations incfs_file_inode_ops = {
  	.setattr = simple_setattr,
  	.getattr = simple_getattr,
-@@ -192,9 +179,6 @@ const struct xattr_handler *incfs_xattr_ops[] = {
+@@ -191,9 +178,6 @@ const struct xattr_handler *incfs_xattr_ops[] = {
  	NULL,
  };
  
@@ -210,7 +210,7 @@ diff --git a/fs/incfs/vfs.c b/fs/incfs/vfs.c
  /* State of an open .pending_reads file, unique for each file descriptor. */
  struct pending_reads_state {
  	/* A serial number of the last pending read obtained from this file. */
-@@ -1646,12 +1630,8 @@ static int dir_unlink(struct inode *dir, struct dentry *dentry)
+@@ -1645,12 +1629,8 @@ static int dir_unlink(struct inode *dir, struct dentry *dentry)
  		goto out;
  	}
  
@@ -223,7 +223,7 @@ diff --git a/fs/incfs/vfs.c b/fs/incfs/vfs.c
  	if (err)
  		goto out;
  
-@@ -2077,9 +2057,7 @@ struct dentry *incfs_mount_fs(struct file_system_type *type, int flags,
+@@ -2076,9 +2056,7 @@ struct dentry *incfs_mount_fs(struct file_system_type *type, int flags,
  	sb->s_time_gran = 1;
  	sb->s_blocksize = INCFS_DATA_FILE_BLOCK_SIZE;
  	sb->s_blocksize_bits = blksize_bits(sb->s_blocksize);

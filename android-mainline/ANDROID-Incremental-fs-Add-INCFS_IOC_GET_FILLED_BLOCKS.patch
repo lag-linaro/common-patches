@@ -429,7 +429,7 @@ diff --git a/fs/incfs/format.h b/fs/incfs/format.h
 diff --git a/fs/incfs/vfs.c b/fs/incfs/vfs.c
 --- a/fs/incfs/vfs.c
 +++ b/fs/incfs/vfs.c
-@@ -905,19 +905,6 @@ static int init_new_file(struct mount_info *mi, struct dentry *dentry,
+@@ -904,19 +904,6 @@ static int init_new_file(struct mount_info *mi, struct dentry *dentry,
  	if (error)
  		goto out;
  
@@ -449,7 +449,7 @@ diff --git a/fs/incfs/vfs.c b/fs/incfs/vfs.c
  	if (attr.data && attr.len) {
  		error = incfs_write_file_attr_to_backing_file(bfc,
  							attr, NULL);
-@@ -925,6 +912,8 @@ static int init_new_file(struct mount_info *mi, struct dentry *dentry,
+@@ -924,6 +911,8 @@ static int init_new_file(struct mount_info *mi, struct dentry *dentry,
  			goto out;
  	}
  
@@ -458,7 +458,7 @@ diff --git a/fs/incfs/vfs.c b/fs/incfs/vfs.c
  	if (user_signature_info) {
  		raw_signature = incfs_copy_signature_info_from_user(
  			user_signature_info, signature_size);
-@@ -946,8 +935,16 @@ static int init_new_file(struct mount_info *mi, struct dentry *dentry,
+@@ -945,8 +934,16 @@ static int init_new_file(struct mount_info *mi, struct dentry *dentry,
  			bfc, raw_signature, hash_tree->hash_tree_area_size);
  		if (error)
  			goto out;
@@ -475,7 +475,7 @@ diff --git a/fs/incfs/vfs.c b/fs/incfs/vfs.c
  out:
  	if (bfc) {
  		mutex_unlock(&bfc->bc_mutex);
-@@ -1437,6 +1434,27 @@ static long ioctl_read_file_signature(struct file *f, void __user *arg)
+@@ -1436,6 +1433,27 @@ static long ioctl_read_file_signature(struct file *f, void __user *arg)
  	return error;
  }
  
@@ -503,7 +503,7 @@ diff --git a/fs/incfs/vfs.c b/fs/incfs/vfs.c
  static long dispatch_ioctl(struct file *f, unsigned int req, unsigned long arg)
  {
  	struct mount_info *mi = get_mount_info(file_superblock(f));
-@@ -1450,6 +1468,8 @@ static long dispatch_ioctl(struct file *f, unsigned int req, unsigned long arg)
+@@ -1449,6 +1467,8 @@ static long dispatch_ioctl(struct file *f, unsigned int req, unsigned long arg)
  		return ioctl_permit_fill(f, (void __user *)arg);
  	case INCFS_IOC_READ_FILE_SIGNATURE:
  		return ioctl_read_file_signature(f, (void __user *)arg);

@@ -19,7 +19,7 @@ Change-Id: Id9258401570cc2cc7cd5735aace89d379a9b043d
 diff --git a/fs/incfs/vfs.c b/fs/incfs/vfs.c
 --- a/fs/incfs/vfs.c
 +++ b/fs/incfs/vfs.c
-@@ -348,7 +348,6 @@ static int inode_set(struct inode *inode, void *opaque)
+@@ -347,7 +347,6 @@ static int inode_set(struct inode *inode, void *opaque)
  		struct dentry *backing_dentry = search->backing_dentry;
  		struct inode *backing_inode = d_inode(backing_dentry);
  
@@ -27,7 +27,7 @@ diff --git a/fs/incfs/vfs.c b/fs/incfs/vfs.c
  		fsstack_copy_attr_all(inode, backing_inode);
  		if (S_ISREG(inode->i_mode)) {
  			u64 size = read_size_attr(backing_dentry);
-@@ -380,6 +379,7 @@ static int inode_set(struct inode *inode, void *opaque)
+@@ -379,6 +378,7 @@ static int inode_set(struct inode *inode, void *opaque)
  			pr_warn("incfs: ino conflict with backing FS %ld\n",
  				backing_inode->i_ino);
  		}
@@ -35,7 +35,7 @@ diff --git a/fs/incfs/vfs.c b/fs/incfs/vfs.c
  		return 0;
  	} else if (search->ino == INCFS_PENDING_READS_INODE) {
  		/* It's an inode for .pending_reads pseudo file. */
-@@ -1138,6 +1138,27 @@ static int validate_name(char *file_name)
+@@ -1137,6 +1137,27 @@ static int validate_name(char *file_name)
  	return 0;
  }
  
@@ -63,7 +63,7 @@ diff --git a/fs/incfs/vfs.c b/fs/incfs/vfs.c
  static long ioctl_create_file(struct mount_info *mi,
  			struct incfs_new_file_args __user *usr_args)
  {
-@@ -1238,8 +1259,8 @@ static long ioctl_create_file(struct mount_info *mi,
+@@ -1237,8 +1258,8 @@ static long ioctl_create_file(struct mount_info *mi,
  	/* Creating a file in the .index dir. */
  	index_dir_inode = d_inode(mi->mi_index_dir);
  	inode_lock_nested(index_dir_inode, I_MUTEX_PARENT);
@@ -74,7 +74,7 @@ diff --git a/fs/incfs/vfs.c b/fs/incfs/vfs.c
  	inode_unlock(index_dir_inode);
  
  	if (error)
-@@ -1249,6 +1270,12 @@ static long ioctl_create_file(struct mount_info *mi,
+@@ -1248,6 +1269,12 @@ static long ioctl_create_file(struct mount_info *mi,
  		goto out;
  	}
  
@@ -87,7 +87,7 @@ diff --git a/fs/incfs/vfs.c b/fs/incfs/vfs.c
  	/* Save the file's ID as an xattr for easy fetching in future. */
  	error = vfs_setxattr(index_file_dentry, INCFS_XATTR_ID_NAME,
  		file_id_str, strlen(file_id_str), XATTR_CREATE);
-@@ -1538,7 +1565,7 @@ static int dir_mkdir(struct inode *dir, struct dentry *dentry, umode_t mode)
+@@ -1537,7 +1564,7 @@ static int dir_mkdir(struct inode *dir, struct dentry *dentry, umode_t mode)
  	}
  
  	inode_lock_nested(dir_node->n_backing_inode, I_MUTEX_PARENT);

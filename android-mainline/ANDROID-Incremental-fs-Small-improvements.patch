@@ -268,7 +268,7 @@ diff --git a/fs/incfs/pseudo_files.c b/fs/incfs/pseudo_files.c
 diff --git a/fs/incfs/vfs.c b/fs/incfs/vfs.c
 --- a/fs/incfs/vfs.c
 +++ b/fs/incfs/vfs.c
-@@ -153,8 +153,6 @@ struct inode_search {
+@@ -152,8 +152,6 @@ struct inode_search {
  enum parse_parameter {
  	Opt_read_timeout,
  	Opt_readahead_pages,
@@ -277,7 +277,7 @@ diff --git a/fs/incfs/vfs.c b/fs/incfs/vfs.c
  	Opt_rlog_pages,
  	Opt_rlog_wakeup_cnt,
  	Opt_report_uid,
-@@ -164,8 +162,6 @@ enum parse_parameter {
+@@ -163,8 +161,6 @@ enum parse_parameter {
  static const match_table_t option_tokens = {
  	{ Opt_read_timeout, "read_timeout_ms=%u" },
  	{ Opt_readahead_pages, "readahead=%u" },
@@ -286,7 +286,7 @@ diff --git a/fs/incfs/vfs.c b/fs/incfs/vfs.c
  	{ Opt_rlog_pages, "rlog_pages=%u" },
  	{ Opt_rlog_wakeup_cnt, "rlog_wakeup_cnt=%u" },
  	{ Opt_report_uid, "report_uid" },
-@@ -210,16 +206,6 @@ static int parse_options(struct mount_options *opts, char *str)
+@@ -209,16 +205,6 @@ static int parse_options(struct mount_options *opts, char *str)
  				return -EINVAL;
  			opts->readahead_pages = value;
  			break;
@@ -303,7 +303,7 @@ diff --git a/fs/incfs/vfs.c b/fs/incfs/vfs.c
  		case Opt_rlog_pages:
  			if (match_int(&args[0], &value))
  				return -EINVAL;
-@@ -1675,10 +1661,6 @@ static int show_options(struct seq_file *m, struct dentry *root)
+@@ -1674,10 +1660,6 @@ static int show_options(struct seq_file *m, struct dentry *root)
  		seq_printf(m, ",rlog_wakeup_cnt=%u",
  			   mi->mi_options.read_log_wakeup_count);
  	}

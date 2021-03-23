@@ -57,7 +57,7 @@ diff --git a/fs/incfs/vfs.c b/fs/incfs/vfs.c
  static ssize_t incfs_listxattr(struct dentry *d, char *list, size_t size);
  
  static int show_options(struct seq_file *, struct dentry *);
-@@ -167,9 +169,18 @@ static int incfs_handler_getxattr(const struct xattr_handler *xh,
+@@ -166,9 +168,18 @@ static int incfs_handler_getxattr(const struct xattr_handler *xh,
  	return incfs_getxattr(d, name, buffer, size);
  }
  
@@ -76,7 +76,7 @@ diff --git a/fs/incfs/vfs.c b/fs/incfs/vfs.c
  };
  
  static const struct xattr_handler *incfs_xattr_ops[] = {
-@@ -2046,11 +2057,74 @@ static ssize_t incfs_getxattr(struct dentry *d, const char *name,
+@@ -2045,11 +2056,74 @@ static ssize_t incfs_getxattr(struct dentry *d, const char *name,
  			void *value, size_t size)
  {
  	struct dentry_info *di = get_incfs_dentry(d);

@@ -218,7 +218,7 @@ diff --git a/fs/incfs/vfs.c b/fs/incfs/vfs.c
  #include "internal.h"
  #include "pseudo_files.h"
  
-@@ -381,9 +382,9 @@ static int incfs_init_dentry(struct dentry *dentry, struct path *path)
+@@ -380,9 +381,9 @@ static int incfs_init_dentry(struct dentry *dentry, struct path *path)
  	return 0;
  }
  
@@ -230,7 +230,7 @@ diff --git a/fs/incfs/vfs.c b/fs/incfs/vfs.c
  	struct dentry *index_dentry;
  	struct inode *backing_inode = d_inode(backing_dir);
  	int err = 0;
-@@ -520,6 +521,38 @@ static int incfs_rmdir(struct dentry *dentry)
+@@ -519,6 +520,38 @@ static int incfs_rmdir(struct dentry *dentry)
  	return error;
  }
  
@@ -269,7 +269,7 @@ diff --git a/fs/incfs/vfs.c b/fs/incfs/vfs.c
  static long ioctl_fill_blocks(struct file *f, void __user *arg)
  {
  	struct incfs_fill_blocks __user *usr_fill_blocks = arg;
-@@ -581,6 +614,8 @@ static long ioctl_fill_blocks(struct file *f, void __user *arg)
+@@ -580,6 +613,8 @@ static long ioctl_fill_blocks(struct file *f, void __user *arg)
  	if (data_buf)
  		free_pages((unsigned long)data_buf, get_order(data_buf_size));
  
@@ -278,7 +278,7 @@ diff --git a/fs/incfs/vfs.c b/fs/incfs/vfs.c
  	/*
  	 * Only report the error if no records were processed, otherwise
  	 * just return how many were processed successfully.
-@@ -815,6 +850,11 @@ static int dir_mkdir(struct inode *dir, struct dentry *dentry, umode_t mode)
+@@ -814,6 +849,11 @@ static int dir_mkdir(struct inode *dir, struct dentry *dentry, umode_t mode)
  		goto out;
  	}
  
@@ -290,7 +290,7 @@ diff --git a/fs/incfs/vfs.c b/fs/incfs/vfs.c
  	inode_lock_nested(dir_node->n_backing_inode, I_MUTEX_PARENT);
  	err = vfs_mkdir(dir_node->n_backing_inode, backing_dentry, mode | 0222);
  	inode_unlock(dir_node->n_backing_inode);
-@@ -847,17 +887,26 @@ static int dir_mkdir(struct inode *dir, struct dentry *dentry, umode_t mode)
+@@ -846,17 +886,26 @@ static int dir_mkdir(struct inode *dir, struct dentry *dentry, umode_t mode)
  	return err;
  }
  
@@ -320,7 +320,7 @@ diff --git a/fs/incfs/vfs.c b/fs/incfs/vfs.c
  	uuid_size = vfs_getxattr(backing_dentry, INCFS_XATTR_ID_NAME,
  			file_id_str, 2 * sizeof(incfs_uuid_t));
  	if (uuid_size < 0) {
-@@ -873,17 +922,46 @@ static int final_file_delete(struct mount_info *mi,
+@@ -872,17 +921,46 @@ static int final_file_delete(struct mount_info *mi,
  	index_file_dentry = incfs_lookup_dentry(mi->mi_index_dir, file_id_str);
  	if (IS_ERR(index_file_dentry)) {
  		error = PTR_ERR(index_file_dentry);
@@ -369,7 +369,7 @@ diff --git a/fs/incfs/vfs.c b/fs/incfs/vfs.c
  	if (error)
  		pr_debug("incfs: delete_file_from_index err:%d\n", error);
  	return error;
-@@ -915,21 +993,18 @@ static int dir_unlink(struct inode *dir, struct dentry *dentry)
+@@ -914,21 +992,18 @@ static int dir_unlink(struct inode *dir, struct dentry *dentry)
  		goto out;
  	}
  
@@ -398,7 +398,7 @@ diff --git a/fs/incfs/vfs.c b/fs/incfs/vfs.c
  
  	d_drop(dentry);
  out:
-@@ -965,6 +1040,12 @@ static int dir_link(struct dentry *old_dentry, struct inode *dir,
+@@ -964,6 +1039,12 @@ static int dir_link(struct dentry *old_dentry, struct inode *dir,
  		goto out;
  	}
  
@@ -411,7 +411,7 @@ diff --git a/fs/incfs/vfs.c b/fs/incfs/vfs.c
  	error = incfs_link(backing_old_path.dentry, backing_new_path.dentry);
  	if (!error) {
  		struct inode *inode = NULL;
-@@ -1017,6 +1098,12 @@ static int dir_rmdir(struct inode *dir, struct dentry *dentry)
+@@ -1016,6 +1097,12 @@ static int dir_rmdir(struct inode *dir, struct dentry *dentry)
  		goto out;
  	}
  
@@ -424,7 +424,7 @@ diff --git a/fs/incfs/vfs.c b/fs/incfs/vfs.c
  	err = incfs_rmdir(backing_path.dentry);
  	if (!err)
  		d_drop(dentry);
-@@ -1048,8 +1135,9 @@ static int dir_rename(struct inode *old_dir, struct dentry *old_dentry,
+@@ -1047,8 +1134,9 @@ static int dir_rename(struct inode *old_dir, struct dentry *old_dentry,
  
  	backing_old_dentry = get_incfs_dentry(old_dentry)->backing_path.dentry;
  
@@ -436,7 +436,7 @@ diff --git a/fs/incfs/vfs.c b/fs/incfs/vfs.c
  		error = -EBUSY;
  		goto exit;
  	}
-@@ -1062,8 +1150,9 @@ static int dir_rename(struct inode *old_dir, struct dentry *old_dentry,
+@@ -1061,8 +1149,9 @@ static int dir_rename(struct inode *old_dir, struct dentry *old_dentry,
  	backing_new_dir_dentry = dget_parent(backing_new_dentry);
  	target_inode = d_inode(new_dentry);
  
@@ -448,7 +448,7 @@ diff --git a/fs/incfs/vfs.c b/fs/incfs/vfs.c
  		error = -EBUSY;
  		goto out;
  	}
-@@ -1401,10 +1490,13 @@ static ssize_t incfs_listxattr(struct dentry *d, char *list, size_t size)
+@@ -1400,10 +1489,13 @@ static ssize_t incfs_listxattr(struct dentry *d, char *list, size_t size)
  struct dentry *incfs_mount_fs(struct file_system_type *type, int flags,
  			      const char *dev_name, void *data)
  {
@@ -463,7 +463,7 @@ diff --git a/fs/incfs/vfs.c b/fs/incfs/vfs.c
  	struct super_block *src_fs_sb = NULL;
  	struct inode *root_inode = NULL;
  	struct super_block *sb = sget(type, NULL, set_anon_super, flags, NULL);
-@@ -1457,15 +1549,28 @@ struct dentry *incfs_mount_fs(struct file_system_type *type, int flags,
+@@ -1456,15 +1548,28 @@ struct dentry *incfs_mount_fs(struct file_system_type *type, int flags,
  		goto err;
  	}
  

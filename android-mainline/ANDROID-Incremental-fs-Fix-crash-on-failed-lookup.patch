@@ -16,7 +16,7 @@ Bug: 133435829
 diff --git a/fs/incfs/vfs.c b/fs/incfs/vfs.c
 --- a/fs/incfs/vfs.c
 +++ b/fs/incfs/vfs.c
-@@ -1482,6 +1482,7 @@ static struct dentry *dir_lookup(struct inode *dir_inode, struct dentry *dentry,
+@@ -1481,6 +1481,7 @@ static struct dentry *dir_lookup(struct inode *dir_inode, struct dentry *dentry,
  		err = IS_ERR(backing_dentry)
  			? PTR_ERR(backing_dentry)
  			: -EFAULT;

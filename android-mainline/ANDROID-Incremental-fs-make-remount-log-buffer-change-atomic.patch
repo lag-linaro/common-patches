@@ -314,7 +314,7 @@ diff --git a/fs/incfs/data_mgmt.h b/fs/incfs/data_mgmt.h
 diff --git a/fs/incfs/vfs.c b/fs/incfs/vfs.c
 --- a/fs/incfs/vfs.c
 +++ b/fs/incfs/vfs.c
-@@ -582,22 +582,27 @@ static ssize_t log_read(struct file *f, char __user *buf, size_t len,
+@@ -581,22 +581,27 @@ static ssize_t log_read(struct file *f, char __user *buf, size_t len,
  {
  	struct log_file_state *log_state = f->private_data;
  	struct mount_info *mi = get_mount_info(file_superblock(f));

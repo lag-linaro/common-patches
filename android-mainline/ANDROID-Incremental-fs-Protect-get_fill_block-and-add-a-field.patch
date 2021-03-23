@@ -34,7 +34,7 @@ diff --git a/fs/incfs/data_mgmt.c b/fs/incfs/data_mgmt.c
 diff --git a/fs/incfs/vfs.c b/fs/incfs/vfs.c
 --- a/fs/incfs/vfs.c
 +++ b/fs/incfs/vfs.c
-@@ -1445,6 +1445,9 @@ static long ioctl_get_filled_blocks(struct file *f, void __user *arg)
+@@ -1444,6 +1444,9 @@ static long ioctl_get_filled_blocks(struct file *f, void __user *arg)
  	if (!df)
  		return -EINVAL;
  

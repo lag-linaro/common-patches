@@ -15,7 +15,7 @@ Change-Id: Iaecfcd40e8c089d11b34c7aff2090fbfe0c36219
 diff --git a/fs/incfs/vfs.c b/fs/incfs/vfs.c
 --- a/fs/incfs/vfs.c
 +++ b/fs/incfs/vfs.c
-@@ -894,7 +894,8 @@ static int init_new_file(struct mount_info *mi, struct dentry *dentry,
+@@ -893,7 +893,8 @@ static int init_new_file(struct mount_info *mi, struct dentry *dentry,
  		.mnt = mi->mi_backing_dir_path.mnt,
  		.dentry = dentry
  	};
@@ -25,7 +25,7 @@ diff --git a/fs/incfs/vfs.c b/fs/incfs/vfs.c
  
  	if (IS_ERR(new_file)) {
  		error = PTR_ERR(new_file);
-@@ -1902,8 +1903,8 @@ static int file_open(struct inode *inode, struct file *file)
+@@ -1901,8 +1902,8 @@ static int file_open(struct inode *inode, struct file *file)
  	int err = 0;
  
  	get_incfs_backing_path(file->f_path.dentry, &backing_path);

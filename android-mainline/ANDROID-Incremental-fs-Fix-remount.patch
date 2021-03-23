@@ -93,7 +93,7 @@ diff --git a/fs/incfs/data_mgmt.h b/fs/incfs/data_mgmt.h
 diff --git a/fs/incfs/vfs.c b/fs/incfs/vfs.c
 --- a/fs/incfs/vfs.c
 +++ b/fs/incfs/vfs.c
-@@ -2216,10 +2216,9 @@ static int incfs_remount_fs(struct super_block *sb, int *flags, char *data)
+@@ -2215,10 +2215,9 @@ static int incfs_remount_fs(struct super_block *sb, int *flags, char *data)
  	if (err)
  		return err;
  

@@ -87,7 +87,7 @@ diff --git a/fs/incfs/format.c b/fs/incfs/format.c
 diff --git a/fs/incfs/vfs.c b/fs/incfs/vfs.c
 --- a/fs/incfs/vfs.c
 +++ b/fs/incfs/vfs.c
-@@ -1931,17 +1931,17 @@ static int file_open(struct inode *inode, struct file *file)
+@@ -1930,17 +1930,17 @@ static int file_open(struct inode *inode, struct file *file)
  	struct file *backing_file = NULL;
  	struct path backing_path = {};
  	int err = 0;

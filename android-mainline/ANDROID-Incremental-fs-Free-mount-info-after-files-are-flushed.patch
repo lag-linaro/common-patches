@@ -14,7 +14,7 @@ Change-Id: I24b0d4bf5353834900f868f65e7510529867b615
 diff --git a/fs/incfs/vfs.c b/fs/incfs/vfs.c
 --- a/fs/incfs/vfs.c
 +++ b/fs/incfs/vfs.c
-@@ -1656,8 +1656,8 @@ void incfs_kill_sb(struct super_block *sb)
+@@ -1655,8 +1655,8 @@ void incfs_kill_sb(struct super_block *sb)
  	struct mount_info *mi = sb->s_fs_info;
  
  	pr_debug("incfs: unmount\n");

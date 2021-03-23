@@ -2,7 +2,7 @@
 # android-mainline patches
 #
 # Applies onto upstream aa8e3291729f Linux v5.11-9863-gaa8e3291729f
-# Matches android-mainline 54b3c7d8a2d4 ("Merge aa8e3291729f ("Merge branch 'for-5.12' of git://git.kernel.org/pub/scm/linux/kernel/git/dennis/percpu") into android-mainline")
+# Matches android-mainline a29a6fabf99d ("Revert "ANDROID: overlayfs: fixup after upstream merge"")
 #
 Revert-block-grant-IOPRIO_CLASS_RT-to-CAP_SYS_NICE.patch
 Merge-tag-block-5.12-2021-02-27-of-git-git.kernel.dk-linux-block-into-android-mainline.patch
@@ -320,7 +320,6 @@ ANDROID-dm-user-Add-some-missing-static.patch
 ANDROID-dm-user-fix-typo-in-channel_free.patch
 ANDROID-dm-user-Fix-the-list-walk-and-delete-code.patch
 _____ANNOTATION-filesystem-changes_____.patch
-FROMLIST-Add-flags-option-to-get-xattr-method-paired-to-__vfs_getxattr.patch
 FROMLIST-overlayfs-handle-XATTR_NOSECURITY-flag-for-get-xattr-method.patch
 FROMLIST-overlayfs-internal-getxattr-operations-without-sepolicy-checking.patch
 FROMLIST-fscrypt-Add-functions-for-direct-I-O-support.patch

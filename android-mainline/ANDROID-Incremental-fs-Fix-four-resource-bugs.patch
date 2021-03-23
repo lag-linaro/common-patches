@@ -20,7 +20,7 @@ Change-Id: I88f11f5d4269c22d9073e5eb671d0c7cc4629f6c
 diff --git a/fs/incfs/vfs.c b/fs/incfs/vfs.c
 --- a/fs/incfs/vfs.c
 +++ b/fs/incfs/vfs.c
-@@ -347,8 +347,8 @@ static int inode_test(struct inode *inode, void *opaque)
+@@ -346,8 +346,8 @@ static int inode_test(struct inode *inode, void *opaque)
  
  		return (node->n_backing_inode == backing_inode) &&
  			inode->i_ino == search->ino;
@@ -31,7 +31,7 @@ diff --git a/fs/incfs/vfs.c b/fs/incfs/vfs.c
  }
  
  static int inode_set(struct inode *inode, void *opaque)
-@@ -894,6 +894,7 @@ static int init_new_file(struct mount_info *mi, struct dentry *dentry,
+@@ -893,6 +893,7 @@ static int init_new_file(struct mount_info *mi, struct dentry *dentry,
  	}
  
  	bfc = incfs_alloc_bfc(new_file);
@@ -39,7 +39,7 @@ diff --git a/fs/incfs/vfs.c b/fs/incfs/vfs.c
  	if (IS_ERR(bfc)) {
  		error = PTR_ERR(bfc);
  		bfc = NULL;
-@@ -1676,6 +1677,7 @@ static int final_file_delete(struct mount_info *mi,
+@@ -1675,6 +1676,7 @@ static int final_file_delete(struct mount_info *mi,
  	if (d_really_is_positive(index_file_dentry))
  		error = incfs_unlink(index_file_dentry);
  out:
@@ -47,7 +47,7 @@ diff --git a/fs/incfs/vfs.c b/fs/incfs/vfs.c
  	if (error)
  		pr_debug("incfs: delete_file_from_index err:%d\n", error);
  	return error;
-@@ -1978,6 +1980,7 @@ static void dentry_release(struct dentry *d)
+@@ -1977,6 +1979,7 @@ static void dentry_release(struct dentry *d)
  
  	if (di)
  		path_put(&di->backing_path);
@@ -55,7 +55,7 @@ diff --git a/fs/incfs/vfs.c b/fs/incfs/vfs.c
  	d->d_fsdata = NULL;
  }
  
-@@ -2189,7 +2192,7 @@ struct dentry *incfs_mount_fs(struct file_system_type *type, int flags,
+@@ -2188,7 +2191,7 @@ struct dentry *incfs_mount_fs(struct file_system_type *type, int flags,
  	path_put(&backing_dir_path);
  	sb->s_flags |= SB_ACTIVE;
  
@@ -64,7 +64,7 @@ diff --git a/fs/incfs/vfs.c b/fs/incfs/vfs.c
  	return dget(sb->s_root);
  err:
  	sb->s_fs_info = NULL;
-@@ -2215,7 +2218,7 @@ static int incfs_remount_fs(struct super_block *sb, int *flags, char *data)
+@@ -2214,7 +2217,7 @@ static int incfs_remount_fs(struct super_block *sb, int *flags, char *data)
  		pr_debug("incfs: new timeout_ms=%d", options.read_timeout_ms);
  	}
  
@@ -73,7 +73,7 @@ diff --git a/fs/incfs/vfs.c b/fs/incfs/vfs.c
  	return 0;
  }
  
-@@ -2223,7 +2226,7 @@ void incfs_kill_sb(struct super_block *sb)
+@@ -2222,7 +2225,7 @@ void incfs_kill_sb(struct super_block *sb)
  {
  	struct mount_info *mi = sb->s_fs_info;
  

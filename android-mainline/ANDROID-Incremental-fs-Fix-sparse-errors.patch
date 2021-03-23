@@ -60,7 +60,7 @@ diff --git a/fs/incfs/vfs.c b/fs/incfs/vfs.c
  #include "data_mgmt.h"
  #include "format.h"
  #include "integrity.h"
-@@ -174,7 +175,7 @@ static const struct xattr_handler incfs_xattr_handler = {
+@@ -173,7 +174,7 @@ static const struct xattr_handler incfs_xattr_handler = {
  	.get = incfs_handler_getxattr,
  };
  
@@ -69,7 +69,7 @@ diff --git a/fs/incfs/vfs.c b/fs/incfs/vfs.c
  	&incfs_xattr_handler,
  	NULL,
  };
-@@ -934,11 +935,11 @@ static int init_new_file(struct mount_info *mi, struct dentry *dentry,
+@@ -933,11 +934,11 @@ static int init_new_file(struct mount_info *mi, struct dentry *dentry,
  	struct path path = {};
  	struct file *new_file;
  	int error = 0;

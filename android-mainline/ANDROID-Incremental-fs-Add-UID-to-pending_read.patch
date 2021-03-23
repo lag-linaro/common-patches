@@ -231,7 +231,7 @@ diff --git a/fs/incfs/main.c b/fs/incfs/main.c
 diff --git a/fs/incfs/vfs.c b/fs/incfs/vfs.c
 --- a/fs/incfs/vfs.c
 +++ b/fs/incfs/vfs.c
-@@ -218,6 +218,7 @@ enum parse_parameter {
+@@ -217,6 +217,7 @@ enum parse_parameter {
  	Opt_no_backing_file_readahead,
  	Opt_rlog_pages,
  	Opt_rlog_wakeup_cnt,
@@ -239,7 +239,7 @@ diff --git a/fs/incfs/vfs.c b/fs/incfs/vfs.c
  	Opt_err
  };
  
-@@ -240,6 +241,7 @@ static const match_table_t option_tokens = {
+@@ -239,6 +240,7 @@ static const match_table_t option_tokens = {
  	{ Opt_no_backing_file_readahead, "no_bf_readahead=%u" },
  	{ Opt_rlog_pages, "rlog_pages=%u" },
  	{ Opt_rlog_wakeup_cnt, "rlog_wakeup_cnt=%u" },
@@ -247,7 +247,7 @@ diff --git a/fs/incfs/vfs.c b/fs/incfs/vfs.c
  	{ Opt_err, NULL }
  };
  
-@@ -300,6 +302,9 @@ static int parse_options(struct mount_options *opts, char *str)
+@@ -299,6 +301,9 @@ static int parse_options(struct mount_options *opts, char *str)
  				return -EINVAL;
  			opts->read_log_wakeup_count = value;
  			break;
@@ -257,7 +257,7 @@ diff --git a/fs/incfs/vfs.c b/fs/incfs/vfs.c
  		default:
  			return -EINVAL;
  		}
-@@ -463,8 +468,12 @@ static ssize_t pending_reads_read(struct file *f, char __user *buf, size_t len,
+@@ -462,8 +467,12 @@ static ssize_t pending_reads_read(struct file *f, char __user *buf, size_t len,
  {
  	struct pending_reads_state *pr_state = f->private_data;
  	struct mount_info *mi = get_mount_info(file_superblock(f));
@@ -271,7 +271,7 @@ diff --git a/fs/incfs/vfs.c b/fs/incfs/vfs.c
  	int last_known_read_sn = READ_ONCE(pr_state->last_pending_read_sn);
  	int new_max_sn = last_known_read_sn;
  	int reads_collected = 0;
-@@ -473,18 +482,29 @@ static ssize_t pending_reads_read(struct file *f, char __user *buf, size_t len,
+@@ -472,18 +481,29 @@ static ssize_t pending_reads_read(struct file *f, char __user *buf, size_t len,
  	if (!mi)
  		return -EFAULT;
  
@@ -306,7 +306,7 @@ diff --git a/fs/incfs/vfs.c b/fs/incfs/vfs.c
  	if (reads_collected < 0) {
  		result = reads_collected;
  		goto out;
-@@ -495,19 +515,19 @@ static ssize_t pending_reads_read(struct file *f, char __user *buf, size_t len,
+@@ -494,19 +514,19 @@ static ssize_t pending_reads_read(struct file *f, char __user *buf, size_t len,
  	 * to reads buffer than userspace can handle.
  	 */
  	reads_collected = min_t(size_t, reads_collected, reads_to_collect);
@@ -330,7 +330,7 @@ diff --git a/fs/incfs/vfs.c b/fs/incfs/vfs.c
  	return result;
  }
  
-@@ -589,18 +609,35 @@ static ssize_t log_read(struct file *f, char __user *buf, size_t len,
+@@ -588,18 +608,35 @@ static ssize_t log_read(struct file *f, char __user *buf, size_t len,
  	int total_reads_collected = 0;
  	int rl_size;
  	ssize_t result = 0;
@@ -371,7 +371,7 @@ diff --git a/fs/incfs/vfs.c b/fs/incfs/vfs.c
  	reads_to_collect = min_t(ssize_t, rl_size, reads_to_collect);
  	while (reads_to_collect > 0) {
  		struct read_log_state next_state;
-@@ -608,35 +645,32 @@ static ssize_t log_read(struct file *f, char __user *buf, size_t len,
+@@ -607,35 +644,32 @@ static ssize_t log_read(struct file *f, char __user *buf, size_t len,
  
  		memcpy(&next_state, &log_state->state, sizeof(next_state));
  		reads_collected = incfs_collect_logged_reads(
@@ -415,7 +415,7 @@ diff --git a/fs/incfs/vfs.c b/fs/incfs/vfs.c
  	return result;
  }
  
-@@ -2474,6 +2508,11 @@ static int incfs_remount_fs(struct super_block *sb, int *flags, char *data)
+@@ -2473,6 +2507,11 @@ static int incfs_remount_fs(struct super_block *sb, int *flags, char *data)
  	if (err)
  		return err;
  
@@ -427,7 +427,7 @@ diff --git a/fs/incfs/vfs.c b/fs/incfs/vfs.c
  	err = incfs_realloc_mount_info(mi, &options);
  	if (err)
  		return err;
-@@ -2506,5 +2545,7 @@ static int show_options(struct seq_file *m, struct dentry *root)
+@@ -2505,5 +2544,7 @@ static int show_options(struct seq_file *m, struct dentry *root)
  		seq_puts(m, ",no_bf_cache");
  	if (mi->mi_options.no_backing_file_readahead)
  		seq_puts(m, ",no_bf_readahead");

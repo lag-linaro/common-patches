@@ -474,7 +474,7 @@ diff --git a/fs/incfs/vfs.c b/fs/incfs/vfs.c
  
  static int incfs_remount_fs(struct super_block *sb, int *flags, char *data);
  
-@@ -815,6 +817,8 @@ static long dispatch_ioctl(struct file *f, unsigned int req, unsigned long arg)
+@@ -814,6 +816,8 @@ static long dispatch_ioctl(struct file *f, unsigned int req, unsigned long arg)
  		return ioctl_get_filled_blocks(f, (void __user *)arg);
  	case INCFS_IOC_GET_BLOCK_COUNT:
  		return ioctl_get_block_count(f, (void __user *)arg);

@@ -1225,7 +1225,7 @@ diff --git a/fs/incfs/vfs.c b/fs/incfs/vfs.c
  	.setattr = incfs_setattr,
  	.getattr = simple_getattr,
  	.listxattr = incfs_listxattr
-@@ -192,17 +143,6 @@ static const struct xattr_handler *incfs_xattr_ops[] = {
+@@ -191,17 +142,6 @@ static const struct xattr_handler *incfs_xattr_ops[] = {
  	NULL,
  };
  
@@ -1243,7 +1243,7 @@ diff --git a/fs/incfs/vfs.c b/fs/incfs/vfs.c
  struct inode_search {
  	unsigned long ino;
  
-@@ -222,18 +162,6 @@ enum parse_parameter {
+@@ -221,18 +161,6 @@ enum parse_parameter {
  	Opt_err
  };
  
@@ -1262,7 +1262,7 @@ diff --git a/fs/incfs/vfs.c b/fs/incfs/vfs.c
  static const match_table_t option_tokens = {
  	{ Opt_read_timeout, "read_timeout_ms=%u" },
  	{ Opt_readahead_pages, "readahead=%u" },
-@@ -313,21 +241,6 @@ static int parse_options(struct mount_options *opts, char *str)
+@@ -312,21 +240,6 @@ static int parse_options(struct mount_options *opts, char *str)
  	return 0;
  }
  
@@ -1284,7 +1284,7 @@ diff --git a/fs/incfs/vfs.c b/fs/incfs/vfs.c
  /* Read file size from the attribute. Quicker than reading the header */
  static u64 read_size_attr(struct dentry *backing_dentry)
  {
-@@ -347,96 +260,53 @@ static int inode_test(struct inode *inode, void *opaque)
+@@ -346,96 +259,53 @@ static int inode_test(struct inode *inode, void *opaque)
  {
  	struct inode_search *search = opaque;
  	struct inode_info *node = get_incfs_node(inode);
@@ -1413,7 +1413,7 @@ diff --git a/fs/incfs/vfs.c b/fs/incfs/vfs.c
  	}
  
  	return 0;
-@@ -463,249 +333,6 @@ static struct inode *fetch_regular_inode(struct super_block *sb,
+@@ -462,249 +332,6 @@ static struct inode *fetch_regular_inode(struct super_block *sb,
  	return inode;
  }
  
@@ -1663,7 +1663,7 @@ diff --git a/fs/incfs/vfs.c b/fs/incfs/vfs.c
  static int iterate_incfs_dir(struct file *file, struct dir_context *ctx)
  {
  	struct dir_file *dir = get_incfs_dir_file(file);
-@@ -721,29 +348,15 @@ static int iterate_incfs_dir(struct file *file, struct dir_context *ctx)
+@@ -720,29 +347,15 @@ static int iterate_incfs_dir(struct file *file, struct dir_context *ctx)
  	root = dir->backing_dir->f_inode
  			== d_inode(mi->mi_backing_dir_path.dentry);
  
@@ -1698,7 +1698,7 @@ diff --git a/fs/incfs/vfs.c b/fs/incfs/vfs.c
  	file->f_pos = dir->backing_dir->f_pos;
  out:
  	if (error)
-@@ -867,172 +480,7 @@ static int read_single_page(struct file *f, struct page *page)
+@@ -866,172 +479,7 @@ static int read_single_page(struct file *f, struct page *page)
  	return result;
  }
  
@@ -1872,7 +1872,7 @@ diff --git a/fs/incfs/vfs.c b/fs/incfs/vfs.c
  {
  	struct dentry *parent_dentry = dget_parent(where);
  	struct inode *pinode = d_inode(parent_dentry);
-@@ -1046,7 +494,7 @@ static int incfs_link(struct dentry *what, struct dentry *where)
+@@ -1045,7 +493,7 @@ static int incfs_link(struct dentry *what, struct dentry *where)
  	return error;
  }
  
@@ -1881,7 +1881,7 @@ diff --git a/fs/incfs/vfs.c b/fs/incfs/vfs.c
  {
  	struct dentry *parent_dentry = dget_parent(dentry);
  	struct inode *pinode = d_inode(parent_dentry);
-@@ -1074,276 +522,6 @@ static int incfs_rmdir(struct dentry *dentry)
+@@ -1073,276 +521,6 @@ static int incfs_rmdir(struct dentry *dentry)
  	return error;
  }
  
@@ -2158,7 +2158,7 @@ diff --git a/fs/incfs/vfs.c b/fs/incfs/vfs.c
  static long ioctl_fill_blocks(struct file *f, void __user *arg)
  {
  	struct incfs_fill_blocks __user *usr_fill_blocks = arg;
-@@ -1414,53 +592,6 @@ static long ioctl_fill_blocks(struct file *f, void __user *arg)
+@@ -1413,53 +591,6 @@ static long ioctl_fill_blocks(struct file *f, void __user *arg)
  	return i;
  }
  
@@ -2212,7 +2212,7 @@ diff --git a/fs/incfs/vfs.c b/fs/incfs/vfs.c
  static long ioctl_read_file_signature(struct file *f, void __user *arg)
  {
  	struct incfs_get_file_sig_args __user *args_usr_ptr = arg;
-@@ -1533,167 +664,15 @@ static long ioctl_get_filled_blocks(struct file *f, void __user *arg)
+@@ -1532,167 +663,15 @@ static long ioctl_get_filled_blocks(struct file *f, void __user *arg)
  	return error;
  }
  
@@ -2380,7 +2380,7 @@ diff --git a/fs/incfs/vfs.c b/fs/incfs/vfs.c
  	default:
  		return -EINVAL;
  	}
-@@ -1707,8 +686,6 @@ static struct dentry *dir_lookup(struct inode *dir_inode, struct dentry *dentry,
+@@ -1706,8 +685,6 @@ static struct dentry *dir_lookup(struct inode *dir_inode, struct dentry *dentry,
  	struct dentry *backing_dentry = NULL;
  	struct path dir_backing_path = {};
  	struct inode_info *dir_info = get_incfs_node(dir_inode);
@@ -2389,7 +2389,7 @@ diff --git a/fs/incfs/vfs.c b/fs/incfs/vfs.c
  	int err = 0;
  
  	if (!mi || !dir_info || !dir_info->n_backing_inode)
-@@ -1717,33 +694,10 @@ static struct dentry *dir_lookup(struct inode *dir_inode, struct dentry *dentry,
+@@ -1716,33 +693,10 @@ static struct dentry *dir_lookup(struct inode *dir_inode, struct dentry *dentry,
  	if (d_inode(mi->mi_backing_dir_path.dentry) ==
  		dir_info->n_backing_inode) {
  		/* We do lookup in the FS root. Show pseudo files. */

@@ -492,7 +492,7 @@ diff --git a/fs/incfs/verity.h b/fs/incfs/verity.h
 diff --git a/fs/incfs/vfs.c b/fs/incfs/vfs.c
 --- a/fs/incfs/vfs.c
 +++ b/fs/incfs/vfs.c
-@@ -159,6 +159,8 @@ struct inode_search {
+@@ -158,6 +158,8 @@ struct inode_search {
  	struct dentry *backing_dentry;
  
  	size_t size;
@@ -501,7 +501,7 @@ diff --git a/fs/incfs/vfs.c b/fs/incfs/vfs.c
  };
  
  enum parse_parameter {
-@@ -255,6 +257,13 @@ static u64 read_size_attr(struct dentry *backing_dentry)
+@@ -254,6 +256,13 @@ static u64 read_size_attr(struct dentry *backing_dentry)
  	return le64_to_cpu(attr_value);
  }
  
@@ -515,7 +515,7 @@ diff --git a/fs/incfs/vfs.c b/fs/incfs/vfs.c
  static int inode_test(struct inode *inode, void *opaque)
  {
  	struct inode_search *search = opaque;
-@@ -285,6 +294,8 @@ static int inode_set(struct inode *inode, void *opaque)
+@@ -284,6 +293,8 @@ static int inode_set(struct inode *inode, void *opaque)
  		inode->i_op = &incfs_file_inode_ops;
  		inode->i_fop = &incfs_file_ops;
  		inode->i_mode &= ~0222;
@@ -524,7 +524,7 @@ diff --git a/fs/incfs/vfs.c b/fs/incfs/vfs.c
  	} else if (S_ISDIR(inode->i_mode)) {
  		inode->i_size = 0;
  		inode->i_blocks = 1;
-@@ -319,6 +330,7 @@ static struct inode *fetch_regular_inode(struct super_block *sb,
+@@ -318,6 +329,7 @@ static struct inode *fetch_regular_inode(struct super_block *sb,
  		.ino = backing_inode->i_ino,
  		.backing_dentry = backing_dentry,
  		.size = read_size_attr(backing_dentry),
@@ -532,7 +532,7 @@ diff --git a/fs/incfs/vfs.c b/fs/incfs/vfs.c
  	};
  	struct inode *inode = iget5_locked(sb, search.ino, inode_test,
  				inode_set, &search);
-@@ -1370,7 +1382,12 @@ static int file_open(struct inode *inode, struct file *file)
+@@ -1369,7 +1381,12 @@ static int file_open(struct inode *inode, struct file *file)
  		file->private_data = fd;
  
  		err = make_inode_ready_for_data_ops(mi, inode, backing_file);
