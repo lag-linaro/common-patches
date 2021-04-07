@@ -27,7 +27,7 @@ diff --git a/drivers/scsi/ufs/ufshcd.c b/drivers/scsi/ufs/ufshcd.c
  static inline void ufshcd_add_delay_before_dme_cmd(struct ufs_hba *hba);
  static int ufshcd_host_reset_and_restore(struct ufs_hba *hba);
  static void ufshcd_resume_clkscaling(struct ufs_hba *hba);
-@@ -4043,7 +4042,7 @@ int ufshcd_link_recovery(struct ufs_hba *hba)
+@@ -4045,7 +4044,7 @@ int ufshcd_link_recovery(struct ufs_hba *hba)
  }
  EXPORT_SYMBOL_GPL(ufshcd_link_recovery);
  
@@ -36,7 +36,7 @@ diff --git a/drivers/scsi/ufs/ufshcd.c b/drivers/scsi/ufs/ufshcd.c
  {
  	int ret;
  	struct uic_command uic_cmd = {0};
-@@ -4065,6 +4064,7 @@ static int ufshcd_uic_hibern8_enter(struct ufs_hba *hba)
+@@ -4067,6 +4066,7 @@ static int ufshcd_uic_hibern8_enter(struct ufs_hba *hba)
  
  	return ret;
  }
