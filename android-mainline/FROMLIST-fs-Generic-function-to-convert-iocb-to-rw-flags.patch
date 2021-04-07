@@ -79,7 +79,7 @@ diff --git a/fs/overlayfs/file.c b/fs/overlayfs/file.c
 diff --git a/include/linux/fs.h b/include/linux/fs.h
 --- a/include/linux/fs.h
 +++ b/include/linux/fs.h
-@@ -3293,6 +3293,11 @@ static inline int kiocb_set_rw_flags(struct kiocb *ki, rwf_t flags)
+@@ -3392,6 +3392,11 @@ static inline int kiocb_set_rw_flags(struct kiocb *ki, rwf_t flags)
  	return 0;
  }
  

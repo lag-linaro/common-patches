@@ -70,7 +70,7 @@ diff --git a/fs/ext4/file.c b/fs/ext4/file.c
 diff --git a/fs/ext4/inode.c b/fs/ext4/inode.c
 --- a/fs/ext4/inode.c
 +++ b/fs/ext4/inode.c
-@@ -3482,6 +3482,14 @@ static int ext4_iomap_begin(struct inode *inode, loff_t offset, loff_t length,
+@@ -3483,6 +3483,14 @@ static int ext4_iomap_begin(struct inode *inode, loff_t offset, loff_t length,
  	if (ret < 0)
  		return ret;
  out:

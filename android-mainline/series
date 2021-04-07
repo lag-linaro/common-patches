@@ -1,8 +1,8 @@
 #
 # android-mainline patches
 #
-# Applies onto upstream aa8e3291729f Linux v5.11-9863-gaa8e3291729f
-# Matches android-mainline a29a6fabf99d ("Revert "ANDROID: overlayfs: fixup after upstream merge"")
+# Applies onto upstream 7d6beb71da3c Linux v5.11-9905-g7d6beb71da3c
+# Matches android-mainline bbf615b8e18a ("Merge 7d6beb71da3c ("Merge tag 'idmapped-mounts-v5.12' of git://git.kernel.org/pub/scm/linux/kernel/git/brauner/linux") into android-mainline")
 #
 Revert-block-grant-IOPRIO_CLASS_RT-to-CAP_SYS_NICE.patch
 Merge-tag-block-5.12-2021-02-27-of-git-git.kernel.dk-linux-block-into-android-mainline.patch
@@ -320,7 +320,6 @@ ANDROID-dm-user-Add-some-missing-static.patch
 ANDROID-dm-user-fix-typo-in-channel_free.patch
 ANDROID-dm-user-Fix-the-list-walk-and-delete-code.patch
 _____ANNOTATION-filesystem-changes_____.patch
-FROMLIST-overlayfs-handle-XATTR_NOSECURITY-flag-for-get-xattr-method.patch
 FROMLIST-overlayfs-internal-getxattr-operations-without-sepolicy-checking.patch
 FROMLIST-fscrypt-Add-functions-for-direct-I-O-support.patch
 ANDROID-export-fscrypt_limit_io_blocks.patch
