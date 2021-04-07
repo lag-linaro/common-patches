@@ -2,7 +2,7 @@
 # android-mainline patches
 #
 # Applies onto upstream fecfd015394e Linux v5.11-11501-gfecfd015394e
-# Matches android-mainline 14f1854cdb8a ("Merge fecfd015394e ("Merge tag 'leds-5.12-rc1' of git://git.kernel.org/pub/scm/linux/kernel/git/pavel/linux-leds") into android-mainline")
+# Matches android-mainline 76ed7ddeecfe ("ANDROID: GKI: CONFIG_UBSAN_SIGNED_OVERFLOW is now gone, so delete it from gki_defconfig")
 #
 Revert-block-grant-IOPRIO_CLASS_RT-to-CAP_SYS_NICE.patch
 Merge-tag-block-5.12-2021-02-27-of-git-git.kernel.dk-linux-block-into-android-mainline.patch
@@ -789,6 +789,7 @@ ANDROID-clang-update-to-12.0.3.patch
 ANDROID-Adding-kprobes-build-configs-for-Cuttlefish.patch
 ANDROID-GKI-Enable-bounds-sanitizer.patch
 ANDROID-mark-FTRACE_MCOUNT_USE_OBJTOOL-as-BROKEN.patch
+ANDROID-GKI-CONFIG_UBSAN_SIGNED_OVERFLOW-is-now-gone-so-delete-it-from-gki_defconfig.patch
 _____ANNOTATION-Patches-for-bringing-up-new-SoCs_____.patch
 _____ANNOTATION-remove-ANNOTATIONS-file_____.patch
 DROP-ME-obsolete-ION-documentation.patch

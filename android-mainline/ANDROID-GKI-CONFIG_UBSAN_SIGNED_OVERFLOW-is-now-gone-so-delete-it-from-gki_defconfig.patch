@@ -1,0 +1,41 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: Greg Kroah-Hartman <gregkh@google.com>
+Date: Sun, 7 Mar 2021 10:46:24 +0100
+Subject: ANDROID: GKI: CONFIG_UBSAN_SIGNED_OVERFLOW is now gone, so delete it
+ from gki_defconfig
+
+In commit 6aaa31aeb9cf ("ubsan: remove overflow checks"),
+CONFIG_UBSAN_SIGNED_OVERFLOW and CONFIG_UBSAN_UNSIGNED_OVERFLOW are
+removed, so the gki_defconfig files also need to be updated with that
+removal.
+
+Fixes: 6aaa31aeb9cf ("ubsan: remove overflow checks")
+Signed-off-by: Greg Kroah-Hartman <gregkh@google.com>
+Change-Id: I60236e591c63bd5866d4410ae7e9d7e315cdf431
+---
+ arch/arm64/configs/gki_defconfig | 1 -
+ arch/x86/configs/gki_defconfig   | 1 -
+ 2 files changed, 2 deletions(-)
+
+diff --git a/arch/arm64/configs/gki_defconfig b/arch/arm64/configs/gki_defconfig
+--- a/arch/arm64/configs/gki_defconfig
++++ b/arch/arm64/configs/gki_defconfig
+@@ -612,7 +612,6 @@ CONFIG_UBSAN=y
+ CONFIG_UBSAN_TRAP=y
+ CONFIG_UBSAN_LOCAL_BOUNDS=y
+ # CONFIG_UBSAN_SHIFT is not set
+-# CONFIG_UBSAN_SIGNED_OVERFLOW is not set
+ # CONFIG_UBSAN_OBJECT_SIZE is not set
+ # CONFIG_UBSAN_BOOL is not set
+ # CONFIG_UBSAN_ENUM is not set
+diff --git a/arch/x86/configs/gki_defconfig b/arch/x86/configs/gki_defconfig
+--- a/arch/x86/configs/gki_defconfig
++++ b/arch/x86/configs/gki_defconfig
+@@ -554,7 +554,6 @@ CONFIG_UBSAN=y
+ CONFIG_UBSAN_TRAP=y
+ CONFIG_UBSAN_LOCAL_BOUNDS=y
+ # CONFIG_UBSAN_SHIFT is not set
+-# CONFIG_UBSAN_SIGNED_OVERFLOW is not set
+ # CONFIG_UBSAN_OBJECT_SIZE is not set
+ # CONFIG_UBSAN_BOOL is not set
+ # CONFIG_UBSAN_ENUM is not set
