@@ -1,8 +1,8 @@
 #
 # android-mainline patches
 #
-# Applies onto upstream fe07bfda2fb9 Linux v5.12-rc1
-# Matches android-mainline 74d7bb3a4495 ("Merge 'v5.12-rc1-dontuse' into android-mainline")
+# Applies onto upstream a38fd8748464 Linux v5.12-rc2
+# Matches android-mainline 7a18ac49635d ("Merge 'v5.12-rc2' into android-mainline")
 #
 Revert-block-grant-IOPRIO_CLASS_RT-to-CAP_SYS_NICE.patch
 Revert-arm64-dts-qcom-sdm845-db845c-Fix-hdmi-nodes.patch
