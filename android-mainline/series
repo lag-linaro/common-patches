@@ -1,8 +1,8 @@
 #
 # android-mainline patches
 #
-# Applies onto upstream a38fd8748464 Linux v5.12-rc2
-# Matches android-mainline 17254a8cc04c ("ANDROID: block: keyslot-manager: move function declaration")
+# Applies onto upstream 144c79ef3353 Linux v5.12-rc2-59-g144c79ef3353
+# Matches android-mainline 095e3ec97456 ("Merge 144c79ef3353 ("Merge tag 'perf-tools-fixes-for-v5.12-2020-03-07' of git://git.kernel.org/pub/scm/linux/kernel/git/acme/linux") into android-mainline")
 #
 Revert-block-grant-IOPRIO_CLASS_RT-to-CAP_SYS_NICE.patch
 Revert-arm64-dts-qcom-sdm845-db845c-Fix-hdmi-nodes.patch
