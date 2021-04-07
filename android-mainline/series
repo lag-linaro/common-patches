@@ -2,7 +2,7 @@
 # android-mainline patches
 #
 # Applies onto upstream a38fd8748464 Linux v5.12-rc2
-# Matches android-mainline 7a18ac49635d ("Merge 'v5.12-rc2' into android-mainline")
+# Matches android-mainline 17254a8cc04c ("ANDROID: block: keyslot-manager: move function declaration")
 #
 Revert-block-grant-IOPRIO_CLASS_RT-to-CAP_SYS_NICE.patch
 Revert-arm64-dts-qcom-sdm845-db845c-Fix-hdmi-nodes.patch
@@ -792,4 +792,3 @@ ANDROID-GKI-CONFIG_UBSAN_SIGNED_OVERFLOW-is-now-gone-so-delete-it-from-gki_defco
 _____ANNOTATION-Patches-for-bringing-up-new-SoCs_____.patch
 _____ANNOTATION-remove-ANNOTATIONS-file_____.patch
 DROP-ME-obsolete-ION-documentation.patch
-DROP-ME-block-keyslot-manager-move-function-declaration.patch
