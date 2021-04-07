@@ -48,7 +48,7 @@ Signed-off-by: Eric Biggers <ebiggers@google.com>
 diff --git a/drivers/misc/Kconfig b/drivers/misc/Kconfig
 --- a/drivers/misc/Kconfig
 +++ b/drivers/misc/Kconfig
-@@ -448,6 +448,12 @@ config MISC_RTSX
+@@ -427,6 +427,12 @@ config MISC_RTSX
  	tristate
  	default MISC_RTSX_PCI || MISC_RTSX_USB
  
@@ -64,7 +64,7 @@ diff --git a/drivers/misc/Kconfig b/drivers/misc/Kconfig
 diff --git a/drivers/misc/Makefile b/drivers/misc/Makefile
 --- a/drivers/misc/Makefile
 +++ b/drivers/misc/Makefile
-@@ -57,3 +57,4 @@ obj-$(CONFIG_HABANA_AI)		+= habanalabs/
+@@ -56,3 +56,4 @@ obj-$(CONFIG_HABANA_AI)		+= habanalabs/
  obj-$(CONFIG_UACCE)		+= uacce/
  obj-$(CONFIG_XILINX_SDFEC)	+= xilinx_sdfec.o
  obj-$(CONFIG_HISI_HIKEY_USB)	+= hisi_hikey_usb.o

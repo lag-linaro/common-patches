@@ -32,7 +32,7 @@ diff --git a/fs/fuse/dev.c b/fs/fuse/dev.c
  #include <linux/pagemap.h>
  #include <linux/file.h>
  #include <linux/slab.h>
-@@ -1908,6 +1909,14 @@ static ssize_t fuse_dev_do_write(struct fuse_dev *fud,
+@@ -1904,6 +1905,14 @@ static ssize_t fuse_dev_do_write(struct fuse_dev *fud,
  		err = copy_out_args(cs, req->args, nbytes);
  	fuse_copy_finish(cs);
  

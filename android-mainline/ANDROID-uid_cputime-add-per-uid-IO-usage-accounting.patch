@@ -47,7 +47,7 @@ Signed-off-by: Eric Biggers <ebiggers@google.com>
 diff --git a/drivers/misc/Kconfig b/drivers/misc/Kconfig
 --- a/drivers/misc/Kconfig
 +++ b/drivers/misc/Kconfig
-@@ -450,9 +450,18 @@ config MISC_RTSX
+@@ -429,9 +429,18 @@ config MISC_RTSX
  
  config UID_SYS_STATS
  	bool "Per-UID statistics"

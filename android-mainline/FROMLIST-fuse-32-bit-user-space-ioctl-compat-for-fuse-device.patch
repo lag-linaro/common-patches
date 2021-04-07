@@ -25,7 +25,7 @@ Signed-off-by: Alessio Balsini <balsini@google.com>
 diff --git a/fs/fuse/dev.c b/fs/fuse/dev.c
 --- a/fs/fuse/dev.c
 +++ b/fs/fuse/dev.c
-@@ -2233,37 +2233,44 @@ static int fuse_device_clone(struct fuse_conn *fc, struct file *new)
+@@ -2229,37 +2229,44 @@ static int fuse_device_clone(struct fuse_conn *fc, struct file *new)
  static long fuse_dev_ioctl(struct file *file, unsigned int cmd,
  			   unsigned long arg)
  {

@@ -48,7 +48,7 @@ diff --git a/fs/fuse/Makefile b/fs/fuse/Makefile
 diff --git a/fs/fuse/dev.c b/fs/fuse/dev.c
 --- a/fs/fuse/dev.c
 +++ b/fs/fuse/dev.c
-@@ -2236,6 +2236,7 @@ static long fuse_dev_ioctl(struct file *file, unsigned int cmd,
+@@ -2232,6 +2232,7 @@ static long fuse_dev_ioctl(struct file *file, unsigned int cmd,
  	int res;
  	int oldfd;
  	struct fuse_dev *fud = NULL;
@@ -56,7 +56,7 @@ diff --git a/fs/fuse/dev.c b/fs/fuse/dev.c
  
  	if (_IOC_TYPE(cmd) != FUSE_DEV_IOC_MAGIC)
  		return -EINVAL;
-@@ -2266,6 +2267,17 @@ static long fuse_dev_ioctl(struct file *file, unsigned int cmd,
+@@ -2262,6 +2263,17 @@ static long fuse_dev_ioctl(struct file *file, unsigned int cmd,
  			}
  		}
  		break;

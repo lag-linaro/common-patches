@@ -1,8 +1,8 @@
 #
 # android-mainline patches
 #
-# Applies onto upstream 7ac1161c2789 Linux v5.11-10279-g7ac1161c2789
-# Matches android-mainline b0fb19d692ff ("Merge 7ac1161c2789 ("Merge tag 'driver-core-5.12-rc1' of git://git.kernel.org/pub/scm/linux/kernel/git/gregkh/driver-core") into android-mainline")
+# Applies onto upstream 5b47b10e8fb9 Linux v5.11-10963-g5b47b10e8fb9
+# Matches android-mainline 3db2a7149710 ("Merge 5b47b10e8fb9 ("Merge tag 'pci-v5.12-changes' of git://git.kernel.org/pub/scm/linux/kernel/git/helgaas/pci") into android-mainline")
 #
 Revert-block-grant-IOPRIO_CLASS_RT-to-CAP_SYS_NICE.patch
 Merge-tag-block-5.12-2021-02-27-of-git-git.kernel.dk-linux-block-into-android-mainline.patch
