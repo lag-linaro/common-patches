@@ -126,7 +126,7 @@ diff --git a/mm/memory.c b/mm/memory.c
  
  #include <trace/events/kmem.h>
  
-@@ -3318,8 +3319,10 @@ vm_fault_t do_swap_page(struct vm_fault *vmf)
+@@ -3317,8 +3318,10 @@ vm_fault_t do_swap_page(struct vm_fault *vmf)
  		if (data_race(si->flags & SWP_SYNCHRONOUS_IO) &&
  		    __swap_count(entry) == 1) {
  			/* skip swapcache */

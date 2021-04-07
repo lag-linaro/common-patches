@@ -39,7 +39,7 @@ diff --git a/drivers/dma-buf/dma-heap.c b/drivers/dma-buf/dma-heap.c
  };
  
  static LIST_HEAD(heap_list);
-@@ -190,10 +192,21 @@ void *dma_heap_get_drvdata(struct dma_heap *heap)
+@@ -202,10 +204,21 @@ void *dma_heap_get_drvdata(struct dma_heap *heap)
  	return heap->priv;
  }
  
@@ -62,7 +62,7 @@ diff --git a/drivers/dma-buf/dma-heap.c b/drivers/dma-buf/dma-heap.c
  	unsigned int minor;
  	int ret;
  
-@@ -247,16 +260,20 @@ struct dma_heap *dma_heap_add(const struct dma_heap_export_info *exp_info)
+@@ -259,16 +272,20 @@ struct dma_heap *dma_heap_add(const struct dma_heap_export_info *exp_info)
  		goto err1;
  	}
  

@@ -17,7 +17,7 @@ Signed-off-by: Alistair Delva <adelva@google.com>
 diff --git a/drivers/virtio/Kconfig b/drivers/virtio/Kconfig
 --- a/drivers/virtio/Kconfig
 +++ b/drivers/virtio/Kconfig
-@@ -133,7 +133,7 @@ config VIRTIO_MMIO_CMDLINE_DEVICES
+@@ -142,7 +142,7 @@ config VIRTIO_MMIO_CMDLINE_DEVICES
  	 If unsure, say 'N'.
  
  config VIRTIO_DMA_SHARED_BUFFER

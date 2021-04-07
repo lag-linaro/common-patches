@@ -1,8 +1,8 @@
 #
 # android-mainline patches
 #
-# Applies onto upstream 5b47b10e8fb9 Linux v5.11-10963-g5b47b10e8fb9
-# Matches android-mainline 3db2a7149710 ("Merge 5b47b10e8fb9 ("Merge tag 'pci-v5.12-changes' of git://git.kernel.org/pub/scm/linux/kernel/git/helgaas/pci") into android-mainline")
+# Applies onto upstream fecfd015394e Linux v5.11-11501-gfecfd015394e
+# Matches android-mainline 14f1854cdb8a ("Merge fecfd015394e ("Merge tag 'leds-5.12-rc1' of git://git.kernel.org/pub/scm/linux/kernel/git/pavel/linux-leds") into android-mainline")
 #
 Revert-block-grant-IOPRIO_CLASS_RT-to-CAP_SYS_NICE.patch
 Merge-tag-block-5.12-2021-02-27-of-git-git.kernel.dk-linux-block-into-android-mainline.patch

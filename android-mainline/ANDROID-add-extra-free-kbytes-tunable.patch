@@ -133,7 +133,7 @@ diff --git a/mm/page_alloc.c b/mm/page_alloc.c
  static unsigned long nr_kernel_pages __initdata;
  static unsigned long nr_all_pages __initdata;
  static unsigned long dma_reserve __initdata;
-@@ -7889,6 +7901,7 @@ static void setup_per_zone_lowmem_reserve(void)
+@@ -7890,6 +7902,7 @@ static void setup_per_zone_lowmem_reserve(void)
  static void __setup_per_zone_wmarks(void)
  {
  	unsigned long pages_min = min_free_kbytes >> (PAGE_SHIFT - 10);
@@ -141,7 +141,7 @@ diff --git a/mm/page_alloc.c b/mm/page_alloc.c
  	unsigned long lowmem_pages = 0;
  	struct zone *zone;
  	unsigned long flags;
-@@ -7900,11 +7913,13 @@ static void __setup_per_zone_wmarks(void)
+@@ -7901,11 +7914,13 @@ static void __setup_per_zone_wmarks(void)
  	}
  
  	for_each_zone(zone) {
@@ -156,7 +156,7 @@ diff --git a/mm/page_alloc.c b/mm/page_alloc.c
  		if (is_highmem(zone)) {
  			/*
  			 * __GFP_HIGH and PF_MEMALLOC allocations usually don't
-@@ -7938,8 +7953,8 @@ static void __setup_per_zone_wmarks(void)
+@@ -7939,8 +7954,8 @@ static void __setup_per_zone_wmarks(void)
  				      watermark_scale_factor, 10000));
  
  		zone->watermark_boost = 0;
@@ -167,7 +167,7 @@ diff --git a/mm/page_alloc.c b/mm/page_alloc.c
  
  		spin_unlock_irqrestore(&zone->lock, flags);
  	}
-@@ -8024,7 +8039,7 @@ postcore_initcall(init_per_zone_wmark_min)
+@@ -8025,7 +8040,7 @@ postcore_initcall(init_per_zone_wmark_min)
  /*
   * min_free_kbytes_sysctl_handler - just a wrapper around proc_dointvec() so
   *	that we can call two helper functions whenever min_free_kbytes

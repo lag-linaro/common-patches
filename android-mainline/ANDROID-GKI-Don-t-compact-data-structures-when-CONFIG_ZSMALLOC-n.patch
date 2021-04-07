@@ -31,7 +31,7 @@ diff --git a/include/linux/mmzone.h b/include/linux/mmzone.h
 diff --git a/mm/vmstat.c b/mm/vmstat.c
 --- a/mm/vmstat.c
 +++ b/mm/vmstat.c
-@@ -1158,9 +1158,7 @@ const char * const vmstat_text[] = {
+@@ -1170,9 +1170,7 @@ const char * const vmstat_text[] = {
  	"nr_zone_write_pending",
  	"nr_mlock",
  	"nr_bounce",

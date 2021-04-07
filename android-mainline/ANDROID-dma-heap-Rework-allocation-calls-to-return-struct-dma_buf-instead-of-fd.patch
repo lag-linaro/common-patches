@@ -14,16 +14,13 @@ Signed-off-by: John Stultz <john.stultz@linaro.org>
 Change-Id: Id6fd7e8471b9555a08bcdf8ca210feb589fa51c1
 Bug: 154341375
 ---
- drivers/dma-buf/dma-heap.c          | 44 +++++++++++++++++++++++------
- drivers/dma-buf/heaps/cma_heap.c    | 21 +++++---------
- drivers/dma-buf/heaps/system_heap.c | 23 ++++++---------
- include/linux/dma-heap.h            |  6 ++--
- 4 files changed, 53 insertions(+), 41 deletions(-)
+ drivers/dma-buf/dma-heap.c | 37 +++++++++++++++++++++++++++----------
+ 1 file changed, 27 insertions(+), 10 deletions(-)
 
 diff --git a/drivers/dma-buf/dma-heap.c b/drivers/dma-buf/dma-heap.c
 --- a/drivers/dma-buf/dma-heap.c
 +++ b/drivers/dma-buf/dma-heap.c
-@@ -67,26 +67,52 @@ static struct dma_heap *dma_heap_find(const char *name)
+@@ -67,24 +67,40 @@ static struct dma_heap *dma_heap_find(const char *name)
  	return NULL;
  }
  
@@ -54,10 +51,10 @@ diff --git a/drivers/dma-buf/dma-heap.c b/drivers/dma-buf/dma-heap.c
  	if (!len)
 -		return -EINVAL;
 +		return ERR_PTR(-EINVAL);
- 
- 	return heap->ops->allocate(heap, len, fd_flags, heap_flags);
- }
- 
++
++	return heap->ops->allocate(heap, len, fd_flags, heap_flags);
++}
++
 +int dma_heap_bufferfd_alloc(struct dma_heap *heap, size_t len,
 +			    unsigned int fd_flags,
 +			    unsigned int heap_flags)
@@ -66,23 +63,20 @@ diff --git a/drivers/dma-buf/dma-heap.c b/drivers/dma-buf/dma-heap.c
 +	int fd;
 +
 +	dmabuf = dma_heap_buffer_alloc(heap, len, fd_flags, heap_flags);
+ 
+-	dmabuf = heap->ops->allocate(heap, len, fd_flags, heap_flags);
+ 	if (IS_ERR(dmabuf))
+ 		return PTR_ERR(dmabuf);
+ 
+@@ -94,6 +110,7 @@ static int dma_heap_buffer_alloc(struct dma_heap *heap, size_t len,
+ 		/* just return, as put will call release and that will free */
+ 	}
+ 	return fd;
 +
-+	if (IS_ERR(dmabuf))
-+		return PTR_ERR(dmabuf);
-+
-+	fd = dma_buf_fd(dmabuf, fd_flags);
-+	if (fd < 0) {
-+		dma_buf_put(dmabuf);
-+		/* just return, as put will call release and that will free */
-+	}
-+	return fd;
-+
-+}
-+
+ }
+ 
  static int dma_heap_open(struct inode *inode, struct file *file)
- {
- 	struct dma_heap *heap;
-@@ -113,9 +139,9 @@ static long dma_heap_ioctl_allocate(struct file *file, void *data)
+@@ -122,9 +139,9 @@ static long dma_heap_ioctl_allocate(struct file *file, void *data)
  	if (heap_allocation->fd)
  		return -EINVAL;
  
@@ -95,135 +89,3 @@ diff --git a/drivers/dma-buf/dma-heap.c b/drivers/dma-buf/dma-heap.c
  	if (fd < 0)
  		return fd;
  
-diff --git a/drivers/dma-buf/heaps/cma_heap.c b/drivers/dma-buf/heaps/cma_heap.c
---- a/drivers/dma-buf/heaps/cma_heap.c
-+++ b/drivers/dma-buf/heaps/cma_heap.c
-@@ -271,10 +271,10 @@ static const struct dma_buf_ops cma_heap_buf_ops = {
- 	.release = cma_heap_dma_buf_release,
- };
- 
--static int cma_heap_allocate(struct dma_heap *heap,
--				  unsigned long len,
--				  unsigned long fd_flags,
--				  unsigned long heap_flags)
-+static struct dma_buf *cma_heap_allocate(struct dma_heap *heap,
-+					 unsigned long len,
-+					 unsigned long fd_flags,
-+					 unsigned long heap_flags)
- {
- 	struct cma_heap *cma_heap = dma_heap_get_drvdata(heap);
- 	struct cma_heap_buffer *buffer;
-@@ -289,7 +289,7 @@ static int cma_heap_allocate(struct dma_heap *heap,
- 
- 	buffer = kzalloc(sizeof(*buffer), GFP_KERNEL);
- 	if (!buffer)
--		return -ENOMEM;
-+		return ERR_PTR(-ENOMEM);
- 
- 	INIT_LIST_HEAD(&buffer->attachments);
- 	mutex_init(&buffer->lock);
-@@ -349,14 +349,7 @@ static int cma_heap_allocate(struct dma_heap *heap,
- 		goto free_pages;
- 	}
- 
--	ret = dma_buf_fd(dmabuf, fd_flags);
--	if (ret < 0) {
--		dma_buf_put(dmabuf);
--		/* just return, as put will call release and that will free */
--		return ret;
--	}
--
--	return ret;
-+	return dmabuf;
- 
- free_pages:
- 	kfree(buffer->pages);
-@@ -365,7 +358,7 @@ static int cma_heap_allocate(struct dma_heap *heap,
- free_buffer:
- 	kfree(buffer);
- 
--	return ret;
-+	return ERR_PTR(ret);
- }
- 
- static const struct dma_heap_ops cma_heap_ops = {
-diff --git a/drivers/dma-buf/heaps/system_heap.c b/drivers/dma-buf/heaps/system_heap.c
---- a/drivers/dma-buf/heaps/system_heap.c
-+++ b/drivers/dma-buf/heaps/system_heap.c
-@@ -354,11 +354,11 @@ static struct page *alloc_largest_available(unsigned long size,
- 	return NULL;
- }
- 
--static int system_heap_do_allocate(struct dma_heap *heap,
--				   unsigned long len,
--				   unsigned long fd_flags,
--				   unsigned long heap_flags,
--				   bool uncached)
-+static struct dma_buf *system_heap_do_allocate(struct dma_heap *heap,
-+					       unsigned long len,
-+					       unsigned long fd_flags,
-+					       unsigned long heap_flags,
-+					       bool uncached)
- {
- 	struct system_heap_buffer *buffer;
- 	DEFINE_DMA_BUF_EXPORT_INFO(exp_info);
-@@ -373,7 +373,7 @@ static int system_heap_do_allocate(struct dma_heap *heap,
- 
- 	buffer = kzalloc(sizeof(*buffer), GFP_KERNEL);
- 	if (!buffer)
--		return -ENOMEM;
-+		return ERR_PTR(-ENOMEM);
- 
- 	INIT_LIST_HEAD(&buffer->attachments);
- 	mutex_init(&buffer->lock);
-@@ -423,13 +423,6 @@ static int system_heap_do_allocate(struct dma_heap *heap,
- 		goto free_pages;
- 	}
- 
--	ret = dma_buf_fd(dmabuf, fd_flags);
--	if (ret < 0) {
--		dma_buf_put(dmabuf);
--		/* just return, as put will call release and that will free */
--		return ret;
--	}
--
- 	/*
- 	 * For uncached buffers, we need to initially flush cpu cache, since
- 	 * the __GFP_ZERO on the allocation means the zeroing was done by the
-@@ -441,7 +434,7 @@ static int system_heap_do_allocate(struct dma_heap *heap,
- 		dma_unmap_sgtable(dma_heap_get_dev(heap), table, DMA_BIDIRECTIONAL, 0);
- 	}
- 
--	return ret;
-+	return dmabuf;
- 
- free_pages:
- 	for_each_sgtable_sg(table, sg, i) {
-@@ -455,7 +448,7 @@ static int system_heap_do_allocate(struct dma_heap *heap,
- 		__free_pages(page, compound_order(page));
- 	kfree(buffer);
- 
--	return ret;
-+	return ERR_PTR(ret);
- }
- 
- static struct dma_buf *system_heap_allocate(struct dma_heap *heap,
-diff --git a/include/linux/dma-heap.h b/include/linux/dma-heap.h
---- a/include/linux/dma-heap.h
-+++ b/include/linux/dma-heap.h
-@@ -16,12 +16,12 @@ struct dma_heap;
- 
- /**
-  * struct dma_heap_ops - ops to operate on a given heap
-- * @allocate:		allocate dmabuf and return fd
-+ * @allocate:		allocate dmabuf and return struct dma_buf ptr
-  *
-- * allocate returns dmabuf fd  on success, -errno on error.
-+ * allocate returns dmabuf on success, ERR_PTR(-errno) on error.
-  */
- struct dma_heap_ops {
--	int (*allocate)(struct dma_heap *heap,
-+	struct dma_buf *(*allocate)(struct dma_heap *heap,
- 			unsigned long len,
- 			unsigned long fd_flags,
- 			unsigned long heap_flags);

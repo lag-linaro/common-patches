@@ -192,19 +192,19 @@ diff --git a/drivers/dma-buf/heaps/system_heap.c b/drivers/dma-buf/heaps/system_
  	return NULL;
  }
  
--static int system_heap_allocate(struct dma_heap *heap,
--				unsigned long len,
--				unsigned long fd_flags,
--				unsigned long heap_flags)
-+static int system_heap_do_allocate(struct dma_heap *heap,
-+				   unsigned long len,
-+				   unsigned long fd_flags,
-+				   unsigned long heap_flags,
-+				   bool uncached)
+-static struct dma_buf *system_heap_allocate(struct dma_heap *heap,
+-					    unsigned long len,
+-					    unsigned long fd_flags,
+-					    unsigned long heap_flags)
++static struct dma_buf *system_heap_do_allocate(struct dma_heap *heap,
++					       unsigned long len,
++					       unsigned long fd_flags,
++					       unsigned long heap_flags,
++					       bool uncached)
  {
  	struct system_heap_buffer *buffer;
  	DEFINE_DMA_BUF_EXPORT_INFO(exp_info);
-@@ -355,6 +379,7 @@ static int system_heap_allocate(struct dma_heap *heap,
+@@ -355,6 +379,7 @@ static struct dma_buf *system_heap_allocate(struct dma_heap *heap,
  	mutex_init(&buffer->lock);
  	buffer->heap = heap;
  	buffer->len = len;
@@ -212,9 +212,9 @@ diff --git a/drivers/dma-buf/heaps/system_heap.c b/drivers/dma-buf/heaps/system_
  
  	INIT_LIST_HEAD(&pages);
  	i = 0;
-@@ -404,6 +429,18 @@ static int system_heap_allocate(struct dma_heap *heap,
- 		/* just return, as put will call release and that will free */
- 		return ret;
+@@ -399,6 +424,18 @@ static struct dma_buf *system_heap_allocate(struct dma_heap *heap,
+ 		ret = PTR_ERR(dmabuf);
+ 		goto free_pages;
  	}
 +
 +	/*
@@ -228,11 +228,11 @@ diff --git a/drivers/dma-buf/heaps/system_heap.c b/drivers/dma-buf/heaps/system_
 +		dma_unmap_sgtable(dma_heap_get_dev(heap), table, DMA_BIDIRECTIONAL, 0);
 +	}
 +
- 	return ret;
+ 	return dmabuf;
  
  free_pages:
-@@ -421,10 +458,40 @@ static int system_heap_allocate(struct dma_heap *heap,
- 	return ret;
+@@ -416,10 +453,40 @@ static struct dma_buf *system_heap_allocate(struct dma_heap *heap,
+ 	return ERR_PTR(ret);
  }
  
 +static struct dma_buf *system_heap_allocate(struct dma_heap *heap,
@@ -272,7 +272,7 @@ diff --git a/drivers/dma-buf/heaps/system_heap.c b/drivers/dma-buf/heaps/system_
  static int system_heap_create(void)
  {
  	struct dma_heap_export_info exp_info;
-@@ -437,6 +504,18 @@ static int system_heap_create(void)
+@@ -432,6 +499,18 @@ static int system_heap_create(void)
  	if (IS_ERR(sys_heap))
  		return PTR_ERR(sys_heap);
  

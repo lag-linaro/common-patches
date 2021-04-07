@@ -35,9 +35,9 @@ Signed-off-by: Alistair Delva <adelva@google.com>
 diff --git a/Makefile b/Makefile
 --- a/Makefile
 +++ b/Makefile
-@@ -560,7 +560,11 @@ endif
+@@ -564,7 +564,11 @@ CC_VERSION_TEXT = $(shell $(CC) --version 2>/dev/null | head -n 1 | sed 's/\#//g
  
- ifneq ($(shell $(CC) --version 2>&1 | head -n 1 | grep clang),)
+ ifneq ($(findstring clang,$(CC_VERSION_TEXT)),)
  ifneq ($(CROSS_COMPILE),)
 -CLANG_FLAGS	+= --target=$(notdir $(CROSS_COMPILE:%-=%))
 +CLANG_TRIPLE	?= $(CROSS_COMPILE)

@@ -30,9 +30,9 @@ Change-Id: Iecaa3264a440f795f2f3a44bdf74fe28ad4ed1cc
 diff --git a/Makefile b/Makefile
 --- a/Makefile
 +++ b/Makefile
-@@ -561,11 +561,7 @@ endif
+@@ -565,11 +565,7 @@ CC_VERSION_TEXT = $(shell $(CC) --version 2>/dev/null | head -n 1 | sed 's/\#//g
  
- ifneq ($(shell $(CC) --version 2>&1 | head -n 1 | grep clang),)
+ ifneq ($(findstring clang,$(CC_VERSION_TEXT)),)
  ifneq ($(CROSS_COMPILE),)
 -CLANG_TRIPLE	?= $(CROSS_COMPILE)
 -CLANG_FLAGS	+= --target=$(notdir $(CLANG_TRIPLE:%-=%))
