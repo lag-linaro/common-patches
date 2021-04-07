@@ -43,8 +43,8 @@ diff --git a/Documentation/features/debug/KASAN/arch-support.txt b/Documentation
 -    |         arm: |  ok  |
 +    |         arm: | TODO |
      |       arm64: |  ok  |
-     |         c6x: | TODO |
      |        csky: | TODO |
+     |       h8300: | TODO |
 diff --git a/arch/arm/Kconfig b/arch/arm/Kconfig
 --- a/arch/arm/Kconfig
 +++ b/arch/arm/Kconfig
