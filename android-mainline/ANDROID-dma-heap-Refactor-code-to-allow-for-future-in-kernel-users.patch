@@ -62,7 +62,7 @@ diff --git a/drivers/dma-buf/dma-heap.c b/drivers/dma-buf/dma-heap.c
  	fd = dma_heap_buffer_alloc(heap, heap_allocation->len,
  				   heap_allocation->fd_flags,
  				   heap_allocation->heap_flags);
-@@ -245,7 +257,7 @@ struct device *dma_heap_get_dev(struct dma_heap *heap)
+@@ -257,7 +269,7 @@ const char *dma_heap_get_name(struct dma_heap *heap)
  
  struct dma_heap *dma_heap_add(const struct dma_heap_export_info *exp_info)
  {
@@ -71,7 +71,7 @@ diff --git a/drivers/dma-buf/dma-heap.c b/drivers/dma-buf/dma-heap.c
  	unsigned int minor;
  	int ret;
  
-@@ -260,16 +272,13 @@ struct dma_heap *dma_heap_add(const struct dma_heap_export_info *exp_info)
+@@ -272,16 +284,13 @@ struct dma_heap *dma_heap_add(const struct dma_heap_export_info *exp_info)
  	}
  
  	/* check the name is unique */

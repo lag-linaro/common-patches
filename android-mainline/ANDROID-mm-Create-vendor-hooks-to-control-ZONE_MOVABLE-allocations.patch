@@ -34,8 +34,8 @@ diff --git a/drivers/android/vendor_hooks.c b/drivers/android/vendor_hooks.c
 +#include <trace/hooks/mm.h>
  #include <trace/hooks/preemptirq.h>
  #include <trace/hooks/ftrace_dump.h>
- 
-@@ -75,6 +76,9 @@ EXPORT_TRACEPOINT_SYMBOL_GPL(android_rvh_set_iowait);
+ #include <trace/hooks/cgroup.h>
+@@ -77,6 +78,9 @@ EXPORT_TRACEPOINT_SYMBOL_GPL(android_rvh_set_iowait);
  EXPORT_TRACEPOINT_SYMBOL_GPL(android_rvh_set_sugov_update);
  EXPORT_TRACEPOINT_SYMBOL_GPL(android_rvh_sched_setaffinity);
  EXPORT_TRACEPOINT_SYMBOL_GPL(android_rvh_update_cpus_allowed);

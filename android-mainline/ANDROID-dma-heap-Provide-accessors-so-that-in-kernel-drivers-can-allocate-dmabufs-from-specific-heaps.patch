@@ -74,7 +74,7 @@ diff --git a/drivers/dma-buf/dma-heap.c b/drivers/dma-buf/dma-heap.c
 diff --git a/include/linux/dma-heap.h b/include/linux/dma-heap.h
 --- a/include/linux/dma-heap.h
 +++ b/include/linux/dma-heap.h
-@@ -71,4 +71,43 @@ struct dma_heap *dma_heap_add(const struct dma_heap_export_info *exp_info);
+@@ -80,4 +80,43 @@ struct dma_heap *dma_heap_add(const struct dma_heap_export_info *exp_info);
   */
  void dma_heap_put(struct dma_heap *heap);
  

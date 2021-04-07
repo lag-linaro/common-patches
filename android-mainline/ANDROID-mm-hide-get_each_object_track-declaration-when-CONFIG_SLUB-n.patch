@@ -1,0 +1,39 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: Suren Baghdasaryan <surenb@google.com>
+Date: Mon, 22 Feb 2021 17:26:22 -0800
+Subject: ANDROID: mm: hide get_each_object_track declaration when
+ CONFIG_SLUB=n
+
+struct track and enum track_item are undefined when CONFIG_SLUB=n.
+get_each_object_track which uses these types should not be compiled
+in this configuration. Add missing ifdefs to prevent compilation errors.
+
+Fixes: ee8d2c7884a0 ("ANDROID: mm: add get_each_object_track function")
+Bug: 177377077
+Signed-off-by: Suren Baghdasaryan <surenb@google.com>
+Change-Id: I9ad15e6ef1572ba8f69b746ab837f051614c017c
+(cherry picked from commit 6a0a705473bdf5d5e60173c83ed1fa2712d7cfbb)
+Signed-off-by: Palmer Dabbelt <palmerdabbelt@google.com>
+---
+ mm/slab.h | 2 ++
+ 1 file changed, 2 insertions(+)
+
+diff --git a/mm/slab.h b/mm/slab.h
+--- a/mm/slab.h
++++ b/mm/slab.h
+@@ -241,6 +241,7 @@ extern unsigned long get_each_object_track(struct kmem_cache *s,
+ static inline void print_tracking(struct kmem_cache *s, void *object)
+ {
+ }
++#ifdef CONFIG_SLUB
+ static inline unsigned long get_each_object_track(struct kmem_cache *s,
+ 		struct page *page, enum track_item alloc,
+ 		int (*fn)(const struct kmem_cache *, const void *,
+@@ -249,6 +250,7 @@ static inline unsigned long get_each_object_track(struct kmem_cache *s,
+ 	return 0;
+ }
+ #endif
++#endif
+ 
+ /*
+  * Returns true if any of the specified slub_debug flags is enabled for the

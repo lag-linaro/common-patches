@@ -1,0 +1,30 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: John Stultz <john.stultz@linaro.org>
+Date: Wed, 10 Feb 2021 19:23:09 +0000
+Subject: ANDROID: Add EXPORT_SYMBOL_GPL for dma_heap_get_name
+
+Upstream has no modules that use it, but in common
+we system/cma/etc are modular, so we need to export
+the new dma_heap_get_name() symbol
+
+Signed-off-by: John Stultz <john.stultz@linaro.org>
+Bug: 167709539
+Change-Id: I25d77467742ea9c309c909874e0f1e9adf8a64af
+Signed-off-by: Hridya Valsaraju <hridya@google.com>
+(cherry picked from commit f8c585821898ea87d51dcd520eb3c3889f1bc3ab)
+Signed-off-by: Palmer Dabbelt <palmerdabbelt@google.com>
+---
+ drivers/dma-buf/dma-heap.c | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/drivers/dma-buf/dma-heap.c b/drivers/dma-buf/dma-heap.c
+--- a/drivers/dma-buf/dma-heap.c
++++ b/drivers/dma-buf/dma-heap.c
+@@ -291,6 +291,7 @@ const char *dma_heap_get_name(struct dma_heap *heap)
+ {
+ 	return heap->name;
+ }
++EXPORT_SYMBOL_GPL(dma_heap_get_name);
+ 
+ struct dma_heap *dma_heap_add(const struct dma_heap_export_info *exp_info)
+ {

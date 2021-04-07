@@ -2,7 +2,7 @@
 # android-mainline patches
 #
 # Applies onto upstream 144c79ef3353 Linux v5.12-rc2-59-g144c79ef3353
-# Matches android-mainline 095e3ec97456 ("Merge 144c79ef3353 ("Merge tag 'perf-tools-fixes-for-v5.12-2020-03-07' of git://git.kernel.org/pub/scm/linux/kernel/git/acme/linux") into android-mainline")
+# Matches android-mainline 18bfcc15d54d ("ANDROID: kbuild: Copy out-of-tree kernel headers to INSTALL_HDR_PATH")
 #
 Revert-block-grant-IOPRIO_CLASS_RT-to-CAP_SYS_NICE.patch
 Revert-arm64-dts-qcom-sdm845-db845c-Fix-hdmi-nodes.patch
@@ -28,6 +28,8 @@ FROMLIST-scripts-merge_config-add-strict-mode-to-fail-upon-any-redefinition.patc
 FROMLIST-kbuild-improve-libelf-detection.patch
 FROMLIST-dma-buf-dma-heap-Keep-track-of-the-heap-device-struct.patch
 FROMLIST-dma-buf-system_heap-Add-a-system-uncached-heap-re-using-the-system-heap.patch
+FROMLIST-dma-buf-dma-heap-Provide-accessor-to-get-heap-name.patch
+FROMLIST-dma-buf-heaps-Fix-the-name-used-when-exporting-dmabufs-to-be-the-actual-heap-name.patch
 FROMLIST-irqchip-irq-meson-gpio-make-it-possible-to-build-as-a-module.patch
 FROMLIST-arm64-meson-remove-MESON_IRQ_GPIO-selection.patch
 _____ANNOTATION-Android-vendor-hooks_____.patch
@@ -170,6 +172,9 @@ ANDROID-sched-fair-Sync-task-util-for-strf-hook.patch
 ANDROID-percpu-Export-per_cpu_ptr_to_phys-for-loadable-modules.patch
 ANDROID-sched-time-Export-symbols-needed-for-schedutil-module.patch
 ANDROID-make-per-cgroup-PSI-tracking-configurable.patch
+ANDROID-sched-move-vendor-hook-to-check-scheduling-nice-value.patch
+ANDROID-cgroup-Add-vendor-hook-to-the-cgroup.patch
+ANDROID-Add-vendor-hooks-when-syscall-prctl-finished.patch
 _____ANNOTATION-uid_sys_stats-support_____.patch
 ANDROID-uid_cputime-Adds-accounting-for-the-cputimes-per-uid.patch
 ANDROID-uid_cputime-add-per-uid-IO-usage-accounting.patch
@@ -193,6 +198,8 @@ ANDROID-GKI-Don-t-compact-data-structures-when-CONFIG_ZSMALLOC-n.patch
 ANDROID-mm-cma-retry-allocations-in-cma_alloc.patch
 ANDROID-mm-memblock-export-memblock_end_of_DRAM.patch
 ANDROID-mm-Create-vendor-hooks-to-control-ZONE_MOVABLE-allocations.patch
+ANDROID-mm-add-get_each_object_track-function.patch
+ANDROID-mm-hide-get_each_object_track-declaration-when-CONFIG_SLUB-n.patch
 _____ANNOTATION-security-changes_____.patch
 ANDROID-selinux-modify-RTM_GETLINK-permission.patch
 _____ANNOTATION-binder-changes_____.patch
@@ -214,6 +221,7 @@ ANDROID-dma-Rework-so-dev_get_cma_area-can-be-called-from-a-module.patch
 ANDROID-dma-buf-heaps-Allow-cma-heaps-to-be-configured-as-a-module.patch
 ANDROID-dma-buf-heaps-Allow-the-DMA-BUF-system-heap-to-be-a-module.patch
 ANDROID-dma-buf-heap-export-dma_heap_put.patch
+ANDROID-Add-EXPORT_SYMBOL_GPL-for-dma_heap_get_name.patch
 _____ANNOTATION-driver-framework-and-misc-driver-changes_____.patch
 FROMLIST-drivers-irqchip-pdc-additionally-set-type-in-SPI-config-registers.patch
 FROMLIST-dt-bindings-interrupt-controller-pdc-add-SPI-config-register.patch
@@ -312,6 +320,8 @@ ANDROID-block-export-symbols-needed-for-modules-to-use-inline-crypto.patch
 _____ANNOTATION-device-mapper-changes_____.patch
 ANDROID-AVB-error-handler-to-invalidate-vbmeta-partition.patch
 ANDROID-dm-bow-Add-dm-bow-feature.patch
+ANDROID-dm-bow-Synchronize-destruction.patch
+ANDROID-dm-bow-Fix-SECTOR0_CURRENT-corruption.patch
 ANDROID-dm-add-dm-default-key-target-for-metadata-encryption.patch
 ANDROID-uapi-Add-dm-user-structure-definition.patch
 ANDROID-dm-dm-user-New-target-that-proxies-BIOs-to-userspace.patch
@@ -789,6 +799,8 @@ ANDROID-Adding-kprobes-build-configs-for-Cuttlefish.patch
 ANDROID-GKI-Enable-bounds-sanitizer.patch
 ANDROID-mark-FTRACE_MCOUNT_USE_OBJTOOL-as-BROKEN.patch
 ANDROID-GKI-CONFIG_UBSAN_SIGNED_OVERFLOW-is-now-gone-so-delete-it-from-gki_defconfig.patch
+ANDROID-GKI-Enable-CONFIG_NETFILTER_XT_TARGET_TEE-y.patch
+ANDROID-kbuild-Copy-out-of-tree-kernel-headers-to-INSTALL_HDR_PATH.patch
 _____ANNOTATION-Patches-for-bringing-up-new-SoCs_____.patch
 _____ANNOTATION-remove-ANNOTATIONS-file_____.patch
 DROP-ME-obsolete-ION-documentation.patch

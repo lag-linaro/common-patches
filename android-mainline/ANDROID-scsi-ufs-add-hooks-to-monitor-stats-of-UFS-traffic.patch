@@ -18,12 +18,14 @@ Change-Id: I7b692ad1dbca1aa3f37b10d7ab91e89499bb68cd
 diff --git a/drivers/android/vendor_hooks.c b/drivers/android/vendor_hooks.c
 --- a/drivers/android/vendor_hooks.c
 +++ b/drivers/android/vendor_hooks.c
-@@ -112,3 +112,5 @@ EXPORT_TRACEPOINT_SYMBOL_GPL(android_vh_ftrace_dump_buffer);
+@@ -114,5 +114,7 @@ EXPORT_TRACEPOINT_SYMBOL_GPL(android_vh_ftrace_dump_buffer);
  EXPORT_TRACEPOINT_SYMBOL_GPL(android_vh_ufs_fill_prdt);
  EXPORT_TRACEPOINT_SYMBOL_GPL(android_vh_ufs_prepare_command);
  EXPORT_TRACEPOINT_SYMBOL_GPL(android_vh_ufs_update_sysfs);
 +EXPORT_TRACEPOINT_SYMBOL_GPL(android_vh_ufs_send_command);
 +EXPORT_TRACEPOINT_SYMBOL_GPL(android_vh_ufs_compl_command);
+ EXPORT_TRACEPOINT_SYMBOL_GPL(android_vh_cgroup_set_task);
+ EXPORT_TRACEPOINT_SYMBOL_GPL(android_vh_syscall_prctl_finished);
 diff --git a/drivers/scsi/ufs/ufshcd.c b/drivers/scsi/ufs/ufshcd.c
 --- a/drivers/scsi/ufs/ufshcd.c
 +++ b/drivers/scsi/ufs/ufshcd.c

@@ -40,8 +40,8 @@ diff --git a/drivers/dma-buf/dma-heap.c b/drivers/dma-buf/dma-heap.c
  }
 +EXPORT_SYMBOL_GPL(dma_heap_get_dev);
  
- struct dma_heap *dma_heap_add(const struct dma_heap_export_info *exp_info)
- {
+ /**
+  * dma_heap_get_name() - get heap name
 diff --git a/drivers/dma-buf/heaps/Kconfig b/drivers/dma-buf/heaps/Kconfig
 --- a/drivers/dma-buf/heaps/Kconfig
 +++ b/drivers/dma-buf/heaps/Kconfig

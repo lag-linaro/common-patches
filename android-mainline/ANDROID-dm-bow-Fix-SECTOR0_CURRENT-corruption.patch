@@ -1,0 +1,57 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: Sebastian Achim <sebastian.1.achim@sony.com>
+Date: Thu, 25 Feb 2021 16:08:53 +0100
+Subject: ANDROID: dm-bow: Fix SECTOR0_CURRENT corruption
+
+In prepare_log() dm-bow searches for a free bow range
+to accomodate SECTOR0_CURRENT. This range will be further
+divided in:
+- actual memory space used for sector zero
+- free space that is added again to the trimmed_list.
+But dm-bow never removes the memory space used for sector 0
+from the trimmed_list.
+
+This means that there is a probability that SECTOR0_CURRENT
+will be used by dm-bow to store actual log data, corrupting it
+in the process.
+
+This is more obvious in this case:
+1. In prepare_log(), the first free bow range have the same
+   size as sector zero
+2. split_range will not add any new free memory space to the
+   trimmed_list
+3. When searching for a new free bow range to back up original
+   sector zero, the same bow range is returned as in step 1)
+4. Because the sector type have already been set to SECTOR0_CURRENT
+   it will not be removed from trimmed_list when set_type()
+   is called.
+
+Bug: 181138982
+Signed-off-by: Sebastian Achim <sebastian.1.achim@sony.com>
+Signed-off-by: Oleksiy Avramchenko <oleksiy.avramchenko@sony.com>
+Signed-off-by: Paul Lawrence <paullawrence@google.com>
+Change-Id: I0d10d11e743862e8a6e7c42b8951ae6be49a1a72
+---
+ drivers/md/dm-bow.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/md/dm-bow.c b/drivers/md/dm-bow.c
+--- a/drivers/md/dm-bow.c
++++ b/drivers/md/dm-bow.c
+@@ -446,7 +446,6 @@ static int prepare_log(struct bow_context *bc)
+ 	ret = split_range(bc, &free_br, &bi_iter);
+ 	if (ret)
+ 		return ret;
+-	free_br->type = SECTOR0_CURRENT;
+ 
+ 	/* Copy data */
+ 	ret = copy_data(bc, first_br, free_br, NULL);
+@@ -455,6 +454,8 @@ static int prepare_log(struct bow_context *bc)
+ 
+ 	bc->log_sector->sector0 = free_br->sector;
+ 
++	set_type(bc, &free_br, SECTOR0_CURRENT);
++
+ 	/* Find free sector to back up original sector zero */
+ 	free_br = find_free_range(bc);
+ 	if (!free_br)

@@ -1,0 +1,82 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: John Stultz <john.stultz@linaro.org>
+Date: Sat, 6 Feb 2021 05:28:51 +0000
+Subject: FROMLIST: dma-buf: dma-heap: Provide accessor to get heap name
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+It can be useful to access the name for the heap,
+so provide an accessor to do so.
+
+Cc: Daniel Vetter <daniel@ffwll.ch>
+Cc: Sumit Semwal <sumit.semwal@linaro.org>
+Cc: Liam Mark <lmark@codeaurora.org>
+Cc: Chris Goldsworthy <cgoldswo@codeaurora.org>
+Cc: Laura Abbott <labbott@kernel.org>
+Cc: Brian Starkey <Brian.Starkey@arm.com>
+Cc: Hridya Valsaraju <hridya@google.com>
+Cc: Suren Baghdasaryan <surenb@google.com>
+Cc: Sandeep Patil <sspatil@google.com>
+Cc: Daniel Mentz <danielmentz@google.com>
+Cc: Ørjan Eide <orjan.eide@arm.com>
+Cc: Robin Murphy <robin.murphy@arm.com>
+Cc: Ezequiel Garcia <ezequiel@collabora.com>
+Cc: Simon Ser <contact@emersion.fr>
+Cc: James Jones <jajones@nvidia.com>
+Cc: linux-media@vger.kernel.org
+Cc: dri-devel@lists.freedesktop.org
+Signed-off-by: John Stultz <john.stultz@linaro.org>
+[jstultz: Minor collision resolution w/ conflict in common.git]
+Link: https://lore.kernel.org/lkml/20210209194818.2459062-1-john.stultz@linaro.org/
+Bug: 167709539
+Change-Id: I3d2126118336077ab1caa2b9312c94cb146dd194
+Signed-off-by: Hridya Valsaraju <hridya@google.com>
+(cherry picked from commit 8f6cc5adf0958fe824440c1841e6639333319cbf)
+Signed-off-by: Palmer Dabbelt <palmerdabbelt@google.com>
+---
+ drivers/dma-buf/dma-heap.c | 12 ++++++++++++
+ include/linux/dma-heap.h   |  9 +++++++++
+ 2 files changed, 21 insertions(+)
+
+diff --git a/drivers/dma-buf/dma-heap.c b/drivers/dma-buf/dma-heap.c
+--- a/drivers/dma-buf/dma-heap.c
++++ b/drivers/dma-buf/dma-heap.c
+@@ -216,6 +216,18 @@ struct device *dma_heap_get_dev(struct dma_heap *heap)
+ 	return heap->heap_dev;
+ }
+ 
++/**
++ * dma_heap_get_name() - get heap name
++ * @heap: DMA-Heap to retrieve private data for
++ *
++ * Returns:
++ * The char* for the heap name.
++ */
++const char *dma_heap_get_name(struct dma_heap *heap)
++{
++	return heap->name;
++}
++
+ struct dma_heap *dma_heap_add(const struct dma_heap_export_info *exp_info)
+ {
+ 	struct dma_heap *heap, *h, *err_ret;
+diff --git a/include/linux/dma-heap.h b/include/linux/dma-heap.h
+--- a/include/linux/dma-heap.h
++++ b/include/linux/dma-heap.h
+@@ -59,6 +59,15 @@ void *dma_heap_get_drvdata(struct dma_heap *heap);
+  */
+ struct device *dma_heap_get_dev(struct dma_heap *heap);
+ 
++/**
++ * dma_heap_get_name() - get heap name
++ * @heap: DMA-Heap to retrieve private data for
++ *
++ * Returns:
++ * The char* for the heap name.
++ */
++const char *dma_heap_get_name(struct dma_heap *heap);
++
+ /**
+  * dma_heap_add - adds a heap to dmabuf heaps
+  * @exp_info:		information needed to register this heap

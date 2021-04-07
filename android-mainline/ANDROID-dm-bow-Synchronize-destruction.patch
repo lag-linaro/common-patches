@@ -1,0 +1,52 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: Peter Enderborg <peter.enderborg@sony.com>
+Date: Tue, 23 Feb 2021 16:20:26 +0100
+Subject: ANDROID: dm-bow: Synchronize destruction
+
+Stop the workqueue and bufio client before cleaning range data
+that is used by the workq. The workq is running bow_write and
+can still be active when the dtr is called. Compare to dm-snap that
+also doing synchronize within the destruction.
+
+Bug: 181138982
+Signed-off-by: Peter Enderborg <peter.enderborg@sony.com>
+Signed-off-by: Oleksiy Avramchenko <oleksiy.avramchenko@sony.com>
+Signed-off-by: Paul Lawrence <paullawrence@google.com>
+Change-Id: I413fdcb316ab1e6de6ecabad26022bd76e435d88
+---
+ drivers/md/dm-bow.c | 16 +++++++++-------
+ 1 file changed, 9 insertions(+), 7 deletions(-)
+
+diff --git a/drivers/md/dm-bow.c b/drivers/md/dm-bow.c
+--- a/drivers/md/dm-bow.c
++++ b/drivers/md/dm-bow.c
+@@ -599,13 +599,6 @@ static void dm_bow_dtr(struct dm_target *ti)
+ 	struct bow_context *bc = (struct bow_context *) ti->private;
+ 	struct kobject *kobj;
+ 
+-	while (rb_first(&bc->ranges)) {
+-		struct bow_range *br = container_of(rb_first(&bc->ranges),
+-						    struct bow_range, node);
+-
+-		rb_erase(&br->node, &bc->ranges);
+-		kfree(br);
+-	}
+ 	if (bc->workqueue)
+ 		destroy_workqueue(bc->workqueue);
+ 	if (bc->bufio)
+@@ -617,6 +610,15 @@ static void dm_bow_dtr(struct dm_target *ti)
+ 		wait_for_completion(dm_get_completion_from_kobject(kobj));
+ 	}
+ 
++	while (rb_first(&bc->ranges)) {
++		struct bow_range *br = container_of(rb_first(&bc->ranges),
++					      struct bow_range, node);
++
++		rb_erase(&br->node, &bc->ranges);
++		kfree(br);
++	}
++
++	mutex_destroy(&bc->ranges_lock);
+ 	kfree(bc->log_sector);
+ 	kfree(bc);
+ }

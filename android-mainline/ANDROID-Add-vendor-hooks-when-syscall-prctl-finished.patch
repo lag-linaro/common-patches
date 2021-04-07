@@ -1,0 +1,78 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: Frankie Chang <frankie.chang@mediatek.com>
+Date: Wed, 13 Jan 2021 10:45:58 +0800
+Subject: ANDROID: Add vendor hooks when syscall prctl finished
+
+Add vendor hook when syscall prctl finished for vendor-specific tuning.
+
+Bug: 181819699
+
+Signed-off-by: Frankie Chang <frankie.chang@mediatek.com>
+Change-Id: Ica42d80ab4b540045330e9c5b211e0e814eed0ff
+(cherry picked from commit d150b26653e7a3d15383a09384aace140b537ff4)
+---
+ drivers/android/vendor_hooks.c |  2 ++
+ include/trace/hooks/sys.h      | 17 +++++++++++++++++
+ kernel/sys.c                   |  3 +++
+ 3 files changed, 22 insertions(+)
+ create mode 100644 include/trace/hooks/sys.h
+
+diff --git a/drivers/android/vendor_hooks.c b/drivers/android/vendor_hooks.c
+--- a/drivers/android/vendor_hooks.c
++++ b/drivers/android/vendor_hooks.c
+@@ -23,6 +23,7 @@
+ #include <trace/hooks/preemptirq.h>
+ #include <trace/hooks/ftrace_dump.h>
+ #include <trace/hooks/cgroup.h>
++#include <trace/hooks/sys.h>
+ 
+ /*
+  * Export tracepoints that act as a bare tracehook (ie: have no trace event
+@@ -90,3 +91,4 @@ EXPORT_TRACEPOINT_SYMBOL_GPL(android_vh_ftrace_size_check);
+ EXPORT_TRACEPOINT_SYMBOL_GPL(android_vh_ftrace_format_check);
+ EXPORT_TRACEPOINT_SYMBOL_GPL(android_vh_ftrace_dump_buffer);
+ EXPORT_TRACEPOINT_SYMBOL_GPL(android_vh_cgroup_set_task);
++EXPORT_TRACEPOINT_SYMBOL_GPL(android_vh_syscall_prctl_finished);
+diff --git a/include/trace/hooks/sys.h b/include/trace/hooks/sys.h
+new file mode 100644
+index 000000000000..9e5d7a5cb2cf
+--- /dev/null
++++ b/include/trace/hooks/sys.h
+@@ -0,0 +1,17 @@
++/* SPDX-License-Identifier: GPL-2.0 */
++#undef TRACE_SYSTEM
++#define TRACE_SYSTEM sys
++#undef TRACE_INCLUDE_PATH
++#define TRACE_INCLUDE_PATH trace/hooks
++#if !defined(_TRACE_HOOK_SYS_H) || defined(TRACE_HEADER_MULTI_READ)
++#define _TRACE_HOOK_SYS_H
++#include <linux/tracepoint.h>
++#include <trace/hooks/vendor_hooks.h>
++
++struct task_struct;
++DECLARE_HOOK(android_vh_syscall_prctl_finished,
++	TP_PROTO(int option, struct task_struct *task),
++	TP_ARGS(option, task));
++#endif
++
++#include <trace/define_trace.h>
+diff --git a/kernel/sys.c b/kernel/sys.c
+--- a/kernel/sys.c
++++ b/kernel/sys.c
+@@ -74,6 +74,8 @@
+ 
+ #include "uid16.h"
+ 
++#include <trace/hooks/sys.h>
++
+ #ifndef SET_UNALIGN_CTL
+ # define SET_UNALIGN_CTL(a, b)	(-EINVAL)
+ #endif
+@@ -2538,6 +2540,7 @@ SYSCALL_DEFINE5(prctl, int, option, unsigned long, arg2, unsigned long, arg3,
+ 		error = -EINVAL;
+ 		break;
+ 	}
++	trace_android_vh_syscall_prctl_finished(option, me);
+ 	return error;
+ }
+ 
