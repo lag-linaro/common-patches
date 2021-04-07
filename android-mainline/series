@@ -2,7 +2,7 @@
 # android-mainline patches
 #
 # Applies onto upstream 05a59d79793d Linux v5.12-rc2-271-g05a59d79793d
-# Matches android-mainline d892ad24b8d0 ("Merge 05a59d79793d ("Merge git://git.kernel.org:/pub/scm/linux/kernel/git/netdev/net") into android-mainline")
+# Matches android-mainline 99b1f99af909 ("FROMGIT: ASoC: codecs: wcd934x: add a sanity check in set channel map")
 #
 Revert-block-grant-IOPRIO_CLASS_RT-to-CAP_SYS_NICE.patch
 Revert-arm64-dts-qcom-sdm845-db845c-Fix-hdmi-nodes.patch
@@ -11,6 +11,9 @@ Revert-security-lockdown-selinux-implement-SELinux-lockdown.patch
 Revert-ARM-9017-2-Enable-KASan-for-ARM.patch
 Revert-tweewide-Fix-most-Shebang-lines.patch
 _____ANNOTATION-pending-upstream_____.patch
+FROMGIT-ASoC-qcom-sdm845-Fix-array-out-of-bounds-access.patch
+FROMGIT-ASoC-qcom-sdm845-Fix-array-out-of-range-on-rx-slim-channels.patch
+FROMGIT-ASoC-codecs-wcd934x-add-a-sanity-check-in-set-channel-map.patch
 FROMLIST-clk-Export-clk_register_composite.patch
 FROMLIST-clk-versatile-remove-dependency-on-ARCH_.patch
 FROMLIST-cpuidle-governor-export-cpuidle-governor-functions.patch
