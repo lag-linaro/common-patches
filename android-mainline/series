@@ -2,7 +2,7 @@
 # android-mainline patches
 #
 # Applies onto upstream 7d6beb71da3c Linux v5.11-9905-g7d6beb71da3c
-# Matches android-mainline bbf615b8e18a ("Merge 7d6beb71da3c ("Merge tag 'idmapped-mounts-v5.12' of git://git.kernel.org/pub/scm/linux/kernel/git/brauner/linux") into android-mainline")
+# Matches android-mainline 2fec06369386 ("ANDROID: Incremental fs: fix up for recent vfs changes")
 #
 Revert-block-grant-IOPRIO_CLASS_RT-to-CAP_SYS_NICE.patch
 Merge-tag-block-5.12-2021-02-27-of-git-git.kernel.dk-linux-block-into-android-mainline.patch
@@ -427,6 +427,7 @@ ANDROID-Incremental-fs-Store-fs-verity-state-in-backing-file.patch
 ANDROID-Incremental-fs-Add-FS_IOC_MEASURE_VERITY.patch
 ANDROID-Incremental-fs-Build-merkle-tree-when-enabling-verity.patch
 ANDROID-Incremental-fs-set-the-correct-access-to-mapped-files.patch
+ANDROID-Incremental-fs-fix-up-for-recent-vfs-changes.patch
 _____ANNOTATION-networking-changes_____.patch
 ANDROID-net-xfrm-make-PF_KEY-SHA256-use-RFC-compliant-truncation.patch
 ANDROID-net-xfrm-always-export-pktgen_xfrm_outer_mode_output.patch
