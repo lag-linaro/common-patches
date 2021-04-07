@@ -1,8 +1,8 @@
 #
 # android-mainline patches
 #
-# Applies onto upstream 144c79ef3353 Linux v5.12-rc2-59-g144c79ef3353
-# Matches android-mainline 18bfcc15d54d ("ANDROID: kbuild: Copy out-of-tree kernel headers to INSTALL_HDR_PATH")
+# Applies onto upstream 05a59d79793d Linux v5.12-rc2-271-g05a59d79793d
+# Matches android-mainline d892ad24b8d0 ("Merge 05a59d79793d ("Merge git://git.kernel.org:/pub/scm/linux/kernel/git/netdev/net") into android-mainline")
 #
 Revert-block-grant-IOPRIO_CLASS_RT-to-CAP_SYS_NICE.patch
 Revert-arm64-dts-qcom-sdm845-db845c-Fix-hdmi-nodes.patch
