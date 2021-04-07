@@ -21,7 +21,7 @@ Change-Id: Ibfd2b2dd41f6a22c832afb3d8e805c3602acba95
 diff --git a/include/linux/pci_ids.h b/include/linux/pci_ids.h
 --- a/include/linux/pci_ids.h
 +++ b/include/linux/pci_ids.h
-@@ -2424,6 +2424,8 @@
+@@ -2425,6 +2425,8 @@
  #define PCI_VENDOR_ID_LENOVO		0x17aa
  
  #define PCI_VENDOR_ID_QCOM		0x17cb
