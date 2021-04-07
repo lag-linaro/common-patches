@@ -23,7 +23,7 @@ Signed-off-by: Eric Biggers <ebiggers@google.com>
 diff --git a/Makefile b/Makefile
 --- a/Makefile
 +++ b/Makefile
-@@ -457,7 +457,7 @@ KGZIP		= gzip
+@@ -458,7 +458,7 @@ KGZIP		= gzip
  KBZIP2		= bzip2
  KLZOP		= lzop
  LZMA		= lzma

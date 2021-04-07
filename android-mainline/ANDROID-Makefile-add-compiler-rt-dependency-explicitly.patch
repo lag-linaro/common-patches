@@ -35,7 +35,7 @@ Change-Id: Ied7bd6fadd30fe56b85c2bfa59b5ea0a87d476d8
 diff --git a/Makefile b/Makefile
 --- a/Makefile
 +++ b/Makefile
-@@ -432,7 +432,7 @@ OBJCOPY		= llvm-objcopy
+@@ -433,7 +433,7 @@ OBJCOPY		= llvm-objcopy
  OBJDUMP		= llvm-objdump
  READELF		= llvm-readelf
  STRIP		= llvm-strip
