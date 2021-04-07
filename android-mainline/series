@@ -1,8 +1,8 @@
 #
 # android-mainline patches
 #
-# Applies onto upstream a4dec04c7ff4 Linux v5.11-10242-ga4dec04c7ff4
-# Matches android-mainline bd9ae521d96b ("ANDROID: mark FTRACE_MCOUNT_USE_OBJTOOL as BROKEN")
+# Applies onto upstream 7ac1161c2789 Linux v5.11-10279-g7ac1161c2789
+# Matches android-mainline b0fb19d692ff ("Merge 7ac1161c2789 ("Merge tag 'driver-core-5.12-rc1' of git://git.kernel.org/pub/scm/linux/kernel/git/gregkh/driver-core") into android-mainline")
 #
 Revert-block-grant-IOPRIO_CLASS_RT-to-CAP_SYS_NICE.patch
 Merge-tag-block-5.12-2021-02-27-of-git-git.kernel.dk-linux-block-into-android-mainline.patch
