@@ -1,8 +1,8 @@
 #
 # android-mainline patches
 #
-# Applies onto upstream e0fbd25bb37e Linux v5.11-10068-ge0fbd25bb37e
-# Matches android-mainline 92527faa4e66 ("Merge e0fbd25bb37e ("Merge branch 'for-linus' of git://git.kernel.org/pub/scm/linux/kernel/git/dtor/input") into android-mainline")
+# Applies onto upstream 143983e58507 Linux v5.11-10141-g143983e58507
+# Matches android-mainline 933970053660 ("Merge 143983e58507 ("Merge tag 'dmaengine-5.12-rc1' of git://git.kernel.org/pub/scm/linux/kernel/git/vkoul/dmaengine") into android-mainline")
 #
 Revert-block-grant-IOPRIO_CLASS_RT-to-CAP_SYS_NICE.patch
 Merge-tag-block-5.12-2021-02-27-of-git-git.kernel.dk-linux-block-into-android-mainline.patch
