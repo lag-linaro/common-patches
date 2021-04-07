@@ -1,8 +1,8 @@
 #
 # android-mainline patches
 #
-# Applies onto upstream 7d6beb71da3c Linux v5.11-9905-g7d6beb71da3c
-# Matches android-mainline 2fec06369386 ("ANDROID: Incremental fs: fix up for recent vfs changes")
+# Applies onto upstream e0fbd25bb37e Linux v5.11-10068-ge0fbd25bb37e
+# Matches android-mainline 92527faa4e66 ("Merge e0fbd25bb37e ("Merge branch 'for-linus' of git://git.kernel.org/pub/scm/linux/kernel/git/dtor/input") into android-mainline")
 #
 Revert-block-grant-IOPRIO_CLASS_RT-to-CAP_SYS_NICE.patch
 Merge-tag-block-5.12-2021-02-27-of-git-git.kernel.dk-linux-block-into-android-mainline.patch
