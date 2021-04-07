@@ -2,7 +2,7 @@
 # android-mainline patches
 #
 # Applies onto upstream a4dec04c7ff4 Linux v5.11-10242-ga4dec04c7ff4
-# Matches android-mainline 972945aebc69 ("Merge a4dec04c7ff4 ("Merge tag 'dma-mapping-5.12' of git://git.infradead.org/users/hch/dma-mapping") into android-mainline")
+# Matches android-mainline bd9ae521d96b ("ANDROID: mark FTRACE_MCOUNT_USE_OBJTOOL as BROKEN")
 #
 Revert-block-grant-IOPRIO_CLASS_RT-to-CAP_SYS_NICE.patch
 Merge-tag-block-5.12-2021-02-27-of-git-git.kernel.dk-linux-block-into-android-mainline.patch
@@ -788,6 +788,7 @@ ANDROID-allmodconfig-drop-openssl-from-ADDITIONAL_HOST_TOOLS.patch
 ANDROID-clang-update-to-12.0.3.patch
 ANDROID-Adding-kprobes-build-configs-for-Cuttlefish.patch
 ANDROID-GKI-Enable-bounds-sanitizer.patch
+ANDROID-mark-FTRACE_MCOUNT_USE_OBJTOOL-as-BROKEN.patch
 _____ANNOTATION-Patches-for-bringing-up-new-SoCs_____.patch
 _____ANNOTATION-remove-ANNOTATIONS-file_____.patch
 DROP-ME-obsolete-ION-documentation.patch

@@ -1,0 +1,27 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: Greg Kroah-Hartman <gregkh@google.com>
+Date: Sun, 7 Mar 2021 08:37:58 +0100
+Subject: ANDROID: mark FTRACE_MCOUNT_USE_OBJTOOL as BROKEN
+
+The android build system does not have libelf in it just yet, so mark
+FTRACE_MCOUNT_USE_OBJTOOL as BROKEN so as not to break the
+x86-allmodconfig builds in TreeHugger.
+
+Fixes: 22c8542d7b22 ("tracing: add support for objtool mcount")
+Signed-off-by: Greg Kroah-Hartman <gregkh@google.com>
+Change-Id: I420e7e7e40749a7b6223650ae67d331a9f8e9b04
+---
+ kernel/trace/Kconfig | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/kernel/trace/Kconfig b/kernel/trace/Kconfig
+--- a/kernel/trace/Kconfig
++++ b/kernel/trace/Kconfig
+@@ -619,6 +619,7 @@ config FTRACE_MCOUNT_USE_CC
+ 
+ config FTRACE_MCOUNT_USE_OBJTOOL
+ 	def_bool y
++	depends on BROKEN
+ 	depends on HAVE_OBJTOOL_MCOUNT
+ 	depends on !FTRACE_MCOUNT_USE_PATCHABLE_FUNCTION_ENTRY
+ 	depends on !FTRACE_MCOUNT_USE_CC
