@@ -1,8 +1,8 @@
 #
 # android-mainline patches
 #
-# Applies onto upstream f296bfd5cd04 Linux v5.12-rc2-487-gf296bfd5cd04
-# Matches android-mainline 4c2fb69cfa1f ("ANDROID: GKI: remove CONFIG_CMDLINE_EXTEND from arm64 gki_defconfig")
+# Applies onto upstream 88fe49249c99 Linux v5.12-rc2-570-g88fe49249c99
+# Matches android-mainline 127a28d8e9cc ("Merge 88fe49249c99 ("Merge tag 'char-misc-5.12-rc3' of git://git.kernel.org/pub/scm/linux/kernel/git/gregkh/char-misc") into android-mainline")
 #
 Revert-block-grant-IOPRIO_CLASS_RT-to-CAP_SYS_NICE.patch
 Revert-arm64-dts-qcom-sdm845-db845c-Fix-hdmi-nodes.patch
