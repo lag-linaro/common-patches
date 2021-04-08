@@ -22,7 +22,7 @@ Signed-off-by: J. Avila <elavila@google.com>
 diff --git a/init/Kconfig b/init/Kconfig
 --- a/init/Kconfig
 +++ b/init/Kconfig
-@@ -1221,6 +1221,17 @@ config SCHED_AUTOGROUP
+@@ -1220,6 +1220,17 @@ config SCHED_AUTOGROUP
  	  desktop applications.  Task group autogeneration is currently based
  	  upon task session.
  

@@ -33,7 +33,7 @@ diff --git a/include/trace/hooks/sched.h b/include/trace/hooks/sched.h
 diff --git a/kernel/sched/core.c b/kernel/sched/core.c
 --- a/kernel/sched/core.c
 +++ b/kernel/sched/core.c
-@@ -5743,12 +5743,13 @@ static inline int rt_effective_prio(struct task_struct *p, int prio)
+@@ -5741,12 +5741,13 @@ static inline int rt_effective_prio(struct task_struct *p, int prio)
  
  void set_user_nice(struct task_struct *p, long nice)
  {
@@ -49,7 +49,7 @@ diff --git a/kernel/sched/core.c b/kernel/sched/core.c
  		return;
  	/*
  	 * We have to be careful, if called from sys_setpriority(),
-@@ -5756,7 +5757,6 @@ void set_user_nice(struct task_struct *p, long nice)
+@@ -5754,7 +5755,6 @@ void set_user_nice(struct task_struct *p, long nice)
  	 */
  	rq = task_rq_lock(p, &rf);
  	update_rq_clock(rq);

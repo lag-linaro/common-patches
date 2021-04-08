@@ -414,7 +414,7 @@ diff --git a/kernel/fork.c b/kernel/fork.c
  	scs_release(tsk);
  
  #ifndef CONFIG_THREAD_INFO_IN_TASK
-@@ -1944,6 +1946,8 @@ static __latent_entropy struct task_struct *copy_process(
+@@ -1952,6 +1954,8 @@ static __latent_entropy struct task_struct *copy_process(
  	if (args->io_thread)
  		p->flags |= PF_IO_WORKER;
  
@@ -423,7 +423,7 @@ diff --git a/kernel/fork.c b/kernel/fork.c
  	/*
  	 * This _must_ happen before we call free_task(), i.e. before we jump
  	 * to any of the bad_fork_* labels. This is to avoid freeing
-@@ -2497,6 +2501,8 @@ pid_t kernel_clone(struct kernel_clone_args *args)
+@@ -2505,6 +2509,8 @@ pid_t kernel_clone(struct kernel_clone_args *args)
  	if (IS_ERR(p))
  		return PTR_ERR(p);
  

@@ -42,7 +42,7 @@ diff --git a/include/trace/hooks/sched.h b/include/trace/hooks/sched.h
 diff --git a/kernel/sched/core.c b/kernel/sched/core.c
 --- a/kernel/sched/core.c
 +++ b/kernel/sched/core.c
-@@ -8782,6 +8782,9 @@ static int cpu_cgroup_can_attach(struct cgroup_taskset *tset)
+@@ -8780,6 +8780,9 @@ static int cpu_cgroup_can_attach(struct cgroup_taskset *tset)
  		if (ret)
  			break;
  	}

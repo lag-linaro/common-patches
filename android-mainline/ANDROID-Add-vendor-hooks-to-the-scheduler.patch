@@ -131,7 +131,7 @@ diff --git a/kernel/sched/core.c b/kernel/sched/core.c
  }
  
  void activate_task(struct rq *rq, struct task_struct *p, int flags)
-@@ -2731,7 +2737,11 @@ static int select_fallback_rq(int cpu, struct task_struct *p)
+@@ -2729,7 +2735,11 @@ static int select_fallback_rq(int cpu, struct task_struct *p)
  	int nid = cpu_to_node(cpu);
  	const struct cpumask *nodemask = NULL;
  	enum { cpuset, possible, fail } state = cpuset;
@@ -144,7 +144,7 @@ diff --git a/kernel/sched/core.c b/kernel/sched/core.c
  
  	/*
  	 * If the node that the CPU is on has been offlined, cpu_to_node()
-@@ -4554,6 +4564,8 @@ void scheduler_tick(void)
+@@ -4552,6 +4562,8 @@ void scheduler_tick(void)
  	rq->idle_balance = idle_cpu(cpu);
  	trigger_load_balance(rq);
  #endif

@@ -16,7 +16,7 @@ Signed-off-by: Prasad Sodagudi <psodagud@codeaurora.org>
 diff --git a/kernel/events/core.c b/kernel/events/core.c
 --- a/kernel/events/core.c
 +++ b/kernel/events/core.c
-@@ -4336,6 +4336,7 @@ int perf_event_read_local(struct perf_event *event, u64 *value,
+@@ -4369,6 +4369,7 @@ int perf_event_read_local(struct perf_event *event, u64 *value,
  
  	return ret;
  }
