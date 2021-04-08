@@ -2,7 +2,7 @@
 # android-mainline patches
 #
 # Applies onto upstream f296bfd5cd04 Linux v5.12-rc2-487-gf296bfd5cd04
-# Matches android-mainline 9bd8d344e54f ("Merge f296bfd5cd04 ("Merge tag 'nfs-for-5.12-2' of git://git.linux-nfs.org/projects/anna/linux-nfs") into android-mainline")
+# Matches android-mainline 4c2fb69cfa1f ("ANDROID: GKI: remove CONFIG_CMDLINE_EXTEND from arm64 gki_defconfig")
 #
 Revert-block-grant-IOPRIO_CLASS_RT-to-CAP_SYS_NICE.patch
 Revert-arm64-dts-qcom-sdm845-db845c-Fix-hdmi-nodes.patch
@@ -806,6 +806,7 @@ ANDROID-mark-FTRACE_MCOUNT_USE_OBJTOOL-as-BROKEN.patch
 ANDROID-GKI-CONFIG_UBSAN_SIGNED_OVERFLOW-is-now-gone-so-delete-it-from-gki_defconfig.patch
 ANDROID-GKI-Enable-CONFIG_NETFILTER_XT_TARGET_TEE-y.patch
 ANDROID-kbuild-Copy-out-of-tree-kernel-headers-to-INSTALL_HDR_PATH.patch
+ANDROID-GKI-remove-CONFIG_CMDLINE_EXTEND-from-arm64-gki_defconfig.patch
 _____ANNOTATION-Patches-for-bringing-up-new-SoCs_____.patch
 _____ANNOTATION-remove-ANNOTATIONS-file_____.patch
 DROP-ME-obsolete-ION-documentation.patch
