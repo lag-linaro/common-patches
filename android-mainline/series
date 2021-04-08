@@ -2,7 +2,7 @@
 # android-mainline patches
 #
 # Applies onto upstream 1e28eed17697 Linux v5.12-rc3
-# Matches android-mainline 6bb5c8b522b3 ("Merge 5.12-rc3 into android-mainline")
+# Matches android-mainline e35d771d9ca0 ("Revert "Revert "ANDROID: enable LLVM_IAS=1 for clang's integrated assembler for arm""")
 #
 Revert-block-grant-IOPRIO_CLASS_RT-to-CAP_SYS_NICE.patch
 Revert-arm64-dts-qcom-sdm845-db845c-Fix-hdmi-nodes.patch
@@ -35,6 +35,8 @@ FROMLIST-dma-buf-dma-heap-Provide-accessor-to-get-heap-name.patch
 FROMLIST-dma-buf-heaps-Fix-the-name-used-when-exporting-dmabufs-to-be-the-actual-heap-name.patch
 FROMLIST-irqchip-irq-meson-gpio-make-it-possible-to-build-as-a-module.patch
 FROMLIST-arm64-meson-remove-MESON_IRQ_GPIO-selection.patch
+FROMLIST-ARM-kprobes-fix-UNPREDICTABLE-warnings.patch
+FROMLIST-ARM-kprobes-rewrite-test-arm.c-in-UAL.patch
 _____ANNOTATION-Android-vendor-hooks_____.patch
 ANDROID-GKI-add-android_vendor.h.patch
 ANDROID-add-support-for-vendor-hooks.patch
@@ -314,8 +316,10 @@ ANDROID-export-bkops-and-query-flag-query-functions.patch
 ANDROID-scsi-ufs-add-a-hook-to-prepare-command.patch
 ANDROID-scsi-ufs-add-a-hook-to-add-sysfs-entries.patch
 ANDROID-scsi-ufs-add-hooks-to-monitor-stats-of-UFS-traffic.patch
+ANDROID-scsi-ufs-add-hooks-to-track-ufs-commands.patch
 _____ANNOTATION-MMC-driver-changes_____.patch
 ANDROID-mmc-core-Add-ignore-mmc-pm-notify-functionality.patch
+ANDROID-mmc-support-hardware-that-takes-key-directly.patch
 _____ANNOTATION-block-changes_____.patch
 ANDROID-virtio_blk-Remove-BUG_ON-for-discard-zero-ops.patch
 ANDROID-modularize-BLK_MQ_VIRTIO.patch
@@ -807,6 +811,11 @@ ANDROID-GKI-CONFIG_UBSAN_SIGNED_OVERFLOW-is-now-gone-so-delete-it-from-gki_defco
 ANDROID-GKI-Enable-CONFIG_NETFILTER_XT_TARGET_TEE-y.patch
 ANDROID-kbuild-Copy-out-of-tree-kernel-headers-to-INSTALL_HDR_PATH.patch
 ANDROID-GKI-remove-CONFIG_CMDLINE_EXTEND-from-arm64-gki_defconfig.patch
+ANDROID-OWNERS-add-f2fs-related-files.patch
+ANDROID-enable-LLVM_IAS-1-for-clang-s-integrated-assembler-for-arm.patch
+ANDROID-clang-update-to-12.0.4.patch
+ANDROID-GKI-Enable-KFENCE.patch
+ANDROID-re-enable-BIG_ENDIAN-in-allmodconfig-testing.patch
 _____ANNOTATION-Patches-for-bringing-up-new-SoCs_____.patch
 _____ANNOTATION-remove-ANNOTATIONS-file_____.patch
 DROP-ME-obsolete-ION-documentation.patch

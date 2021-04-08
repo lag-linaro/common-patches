@@ -1,0 +1,24 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: Nick Desaulniers <ndesaulniers@google.com>
+Date: Wed, 17 Mar 2021 16:10:58 -0700
+Subject: ANDROID: clang: update to 12.0.4
+
+Bug: 183031914
+Signed-off-by: Nick Desaulniers <ndesaulniers@google.com>
+Change-Id: I7b5219a9f91aa2554b6206d98f3c2140c9d24629
+---
+ build.config.common | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/build.config.common b/build.config.common
+--- a/build.config.common
++++ b/build.config.common
+@@ -4,7 +4,7 @@ KMI_GENERATION=0
+ LLVM=1
+ DEPMOD=depmod
+ DTC=dtc
+-CLANG_PREBUILT_BIN=prebuilts-master/clang/host/linux-x86/clang-r412851/bin
++CLANG_PREBUILT_BIN=prebuilts-master/clang/host/linux-x86/clang-r416183/bin
+ BUILDTOOLS_PREBUILT_BIN=build/build-tools/path/linux-x86
+ 
+ EXTRA_CMDS=''

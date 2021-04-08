@@ -1,0 +1,90 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: Jaegeuk Kim <jaegeuk@google.com>
+Date: Mon, 1 Mar 2021 17:21:30 -0800
+Subject: ANDROID: scsi: ufs: add hooks to track ufs commands
+
+This adds some missing hooks for ufs commands, including request,
+query, uic, task manager commands, and interrupt events for vendor.
+Those can be used for vendor module to understand command history.
+
+Bug: 172305874
+Bug: 176940922
+Signed-off-by: Jaegeuk Kim <jaegeuk@google.com>
+Change-Id: Ie447860290f4fbc1e03ad8ae5f50bd02121756cb
+---
+ drivers/android/vendor_hooks.c |  3 +++
+ drivers/scsi/ufs/ufshcd.c      |  7 +++++++
+ include/trace/hooks/ufshcd.h   | 13 +++++++++++++
+ 3 files changed, 23 insertions(+)
+
+diff --git a/drivers/android/vendor_hooks.c b/drivers/android/vendor_hooks.c
+--- a/drivers/android/vendor_hooks.c
++++ b/drivers/android/vendor_hooks.c
+@@ -118,3 +118,6 @@ EXPORT_TRACEPOINT_SYMBOL_GPL(android_vh_ufs_send_command);
+ EXPORT_TRACEPOINT_SYMBOL_GPL(android_vh_ufs_compl_command);
+ EXPORT_TRACEPOINT_SYMBOL_GPL(android_vh_cgroup_set_task);
+ EXPORT_TRACEPOINT_SYMBOL_GPL(android_vh_syscall_prctl_finished);
++EXPORT_TRACEPOINT_SYMBOL_GPL(android_vh_ufs_send_uic_command);
++EXPORT_TRACEPOINT_SYMBOL_GPL(android_vh_ufs_send_tm_command);
++EXPORT_TRACEPOINT_SYMBOL_GPL(android_vh_ufs_check_int_errors);
+diff --git a/drivers/scsi/ufs/ufshcd.c b/drivers/scsi/ufs/ufshcd.c
+--- a/drivers/scsi/ufs/ufshcd.c
++++ b/drivers/scsi/ufs/ufshcd.c
+@@ -334,6 +334,8 @@ static void ufshcd_add_tm_upiu_trace(struct ufs_hba *hba, unsigned int tag,
+ 	int off = (int)tag - hba->nutrs;
+ 	struct utp_task_req_desc *descp = &hba->utmrdl_base_addr[off];
+ 
++	trace_android_vh_ufs_send_tm_command(hba, tag, (int)str_t);
++
+ 	if (!trace_ufshcd_upiu_enabled())
+ 		return;
+ 
+@@ -351,6 +353,8 @@ static void ufshcd_add_uic_command_trace(struct ufs_hba *hba,
+ {
+ 	u32 cmd;
+ 
++	trace_android_vh_ufs_send_uic_command(hba, ucmd, (int)str_t);
++
+ 	if (!trace_ufshcd_uic_command_enabled())
+ 		return;
+ 
+@@ -5133,6 +5137,7 @@ static void __ufshcd_transfer_req_compl(struct ufs_hba *hba,
+ 		} else if (lrbp->command_type == UTP_CMD_TYPE_DEV_MANAGE ||
+ 			lrbp->command_type == UTP_CMD_TYPE_UFS_STORAGE) {
+ 			if (hba->dev_cmd.complete) {
++				trace_android_vh_ufs_compl_command(hba, lrbp);
+ 				ufshcd_add_command_trace(hba, index,
+ 							 UFS_DEV_COMP);
+ 				complete(hba->dev_cmd.complete);
+@@ -6224,6 +6229,8 @@ static irqreturn_t ufshcd_check_errors(struct ufs_hba *hba)
+ 		queue_eh_work = true;
+ 	}
+ 
++	trace_android_vh_ufs_check_int_errors(hba, queue_eh_work);
++
+ 	if (queue_eh_work) {
+ 		/*
+ 		 * update the transfer error masks to sticky bits, let's do this
+diff --git a/include/trace/hooks/ufshcd.h b/include/trace/hooks/ufshcd.h
+--- a/include/trace/hooks/ufshcd.h
++++ b/include/trace/hooks/ufshcd.h
+@@ -36,6 +36,19 @@ DECLARE_HOOK(android_vh_ufs_compl_command,
+ 	TP_PROTO(struct ufs_hba *hba, struct ufshcd_lrb *lrbp),
+ 	TP_ARGS(hba, lrbp));
+ 
++struct uic_command;
++DECLARE_HOOK(android_vh_ufs_send_uic_command,
++	TP_PROTO(struct ufs_hba *hba, struct uic_command *ucmd, int str_t),
++	TP_ARGS(hba, ucmd, str_t));
++
++DECLARE_HOOK(android_vh_ufs_send_tm_command,
++	TP_PROTO(struct ufs_hba *hba, int tag, int str_t),
++	TP_ARGS(hba, tag, str_t));
++
++DECLARE_HOOK(android_vh_ufs_check_int_errors,
++	TP_PROTO(struct ufs_hba *hba, bool queue_eh_work),
++	TP_ARGS(hba, queue_eh_work));
++
+ #endif /* _TRACE_HOOK_UFSHCD_H */
+ /* This part must be outside protection */
+ #include <trace/define_trace.h>

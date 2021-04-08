@@ -1,0 +1,61 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: Jaegeuk Kim <jaegeuk@google.com>
+Date: Wed, 17 Mar 2021 14:52:14 -0700
+Subject: ANDROID: OWNERS: add f2fs-related files
+
+Add OWNERS for f2fs files.
+
+Signed-off-by: Jaegeuk Kim <jaegeuk@google.com>
+Change-Id: Id293b17a448b8719d6efd4a54d828067a5ffe50e
+---
+ Documentation/filesystems/OWNERS | 1 +
+ fs/OWNERS                        | 1 -
+ fs/f2fs/OWNERS                   | 1 +
+ include/linux/OWNERS             | 1 +
+ include/trace/events/OWNERS      | 1 +
+ include/uapi/linux/OWNERS        | 1 +
+ 6 files changed, 5 insertions(+), 1 deletion(-)
+ create mode 100644 Documentation/filesystems/OWNERS
+ create mode 100644 fs/f2fs/OWNERS
+ create mode 100644 include/trace/events/OWNERS
+
+diff --git a/Documentation/filesystems/OWNERS b/Documentation/filesystems/OWNERS
+new file mode 100644
+index 000000000000..52df53b8cfd2
+--- /dev/null
++++ b/Documentation/filesystems/OWNERS
+@@ -0,0 +1 @@
++per-file f2fs*=file:/fs/f2fs/OWNERS
+diff --git a/fs/OWNERS b/fs/OWNERS
+--- a/fs/OWNERS
++++ b/fs/OWNERS
+@@ -1,3 +1,2 @@
+-per-file f2fs/*=jaegeuk@google.com
+ per-file crypto/*=ebiggers@google.com
+ per-file verity/*=ebiggers@google.com
+diff --git a/fs/f2fs/OWNERS b/fs/f2fs/OWNERS
+new file mode 100644
+index 000000000000..6a5c01163993
+--- /dev/null
++++ b/fs/f2fs/OWNERS
+@@ -0,0 +1 @@
++jaegeuk@google.com
+diff --git a/include/linux/OWNERS b/include/linux/OWNERS
+--- a/include/linux/OWNERS
++++ b/include/linux/OWNERS
+@@ -1 +1,2 @@
++per-file f2fs*=file:/fs/f2fs/OWNERS
+ per-file net*=file:/net/OWNERS
+diff --git a/include/trace/events/OWNERS b/include/trace/events/OWNERS
+new file mode 100644
+index 000000000000..52df53b8cfd2
+--- /dev/null
++++ b/include/trace/events/OWNERS
+@@ -0,0 +1 @@
++per-file f2fs*=file:/fs/f2fs/OWNERS
+diff --git a/include/uapi/linux/OWNERS b/include/uapi/linux/OWNERS
+--- a/include/uapi/linux/OWNERS
++++ b/include/uapi/linux/OWNERS
+@@ -1 +1,2 @@
++per-file f2fs*=file:/fs/f2fs/OWNERS
+ per-file net*=file:/net/OWNERS

@@ -1,0 +1,92 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: Eric Biggers <ebiggers@google.com>
+Date: Fri, 12 Mar 2021 11:38:46 -0800
+Subject: ANDROID: mmc: support hardware that takes key directly
+
+Currently when an MMC host driver declares crypto support, the MMC core
+passes a keyslot and 32-bit DUN down to the driver in each request.
+
+This is enough for the "standard" eMMC v5.2 crypto (cqhci-crypto).
+However some SoCs don't follow this standard.  They don't have keyslots
+but rather take keys directly, and they support longer DUNs.
+
+To allow such hardware to be supported, modify the MMC core to pass a
+pointer to the bio_crypt_ctx along with each request, replacing the
+crypto_enabled and data_unit_num fields.  This way is more flexible.
+
+Also update cqhci-crypto accordingly to keep it working.
+
+(Not being sent upstream yet because this isn't really useful by itself;
+it would need support for hardware that needs it to be upstreamed too.)
+
+Bug: 180886435
+Bug: 182283899
+Change-Id: I8faf3135f570ca3f2798cf812b4245a5df5515ba
+Signed-off-by: Eric Biggers <ebiggers@google.com>
+---
+ drivers/mmc/core/crypto.c       | 15 ++++-----------
+ drivers/mmc/host/cqhci-crypto.h |  7 +++++--
+ include/linux/mmc/core.h        |  3 +--
+ 3 files changed, 10 insertions(+), 15 deletions(-)
+
+diff --git a/drivers/mmc/core/crypto.c b/drivers/mmc/core/crypto.c
+--- a/drivers/mmc/core/crypto.c
++++ b/drivers/mmc/core/crypto.c
+@@ -31,18 +31,11 @@ void mmc_crypto_prepare_req(struct mmc_queue_req *mqrq)
+ 	struct request *req = mmc_queue_req_to_req(mqrq);
+ 	struct mmc_request *mrq = &mqrq->brq.mrq;
+ 
+-	if (!req->crypt_keyslot)
++	if (!req->crypt_ctx)
+ 		return;
+ 
+-	mrq->crypto_enabled = true;
+-	mrq->crypto_key_slot = blk_ksm_get_slot_idx(req->crypt_keyslot);
+-
+-	/*
+-	 * For now we assume that all MMC drivers set max_dun_bytes_supported=4,
+-	 * which is the limit for CQHCI crypto.  So all DUNs should be 32-bit.
+-	 */
+-	WARN_ON_ONCE(req->crypt_ctx->bc_dun[0] > U32_MAX);
+-
+-	mrq->data_unit_num = req->crypt_ctx->bc_dun[0];
++	mrq->crypto_ctx = req->crypt_ctx;
++	if (req->crypt_keyslot)
++		mrq->crypto_key_slot = blk_ksm_get_slot_idx(req->crypt_keyslot);
+ }
+ EXPORT_SYMBOL_GPL(mmc_crypto_prepare_req);
+diff --git a/drivers/mmc/host/cqhci-crypto.h b/drivers/mmc/host/cqhci-crypto.h
+--- a/drivers/mmc/host/cqhci-crypto.h
++++ b/drivers/mmc/host/cqhci-crypto.h
+@@ -22,12 +22,15 @@ int cqhci_crypto_init(struct cqhci_host *host);
+  */
+ static inline u64 cqhci_crypto_prep_task_desc(struct mmc_request *mrq)
+ {
+-	if (!mrq->crypto_enabled)
++	if (!mrq->crypto_ctx)
+ 		return 0;
+ 
++	/* We set max_dun_bytes_supported=4, so all DUNs should be 32-bit. */
++	WARN_ON_ONCE(mrq->crypto_ctx->bc_dun[0] > U32_MAX);
++
+ 	return CQHCI_CRYPTO_ENABLE_BIT |
+ 	       CQHCI_CRYPTO_KEYSLOT(mrq->crypto_key_slot) |
+-	       mrq->data_unit_num;
++	       mrq->crypto_ctx->bc_dun[0];
+ }
+ 
+ #else /* CONFIG_MMC_CRYPTO */
+diff --git a/include/linux/mmc/core.h b/include/linux/mmc/core.h
+--- a/include/linux/mmc/core.h
++++ b/include/linux/mmc/core.h
+@@ -164,9 +164,8 @@ struct mmc_request {
+ 	int			tag;
+ 
+ #ifdef CONFIG_MMC_CRYPTO
+-	bool			crypto_enabled;
++	const struct bio_crypt_ctx *crypto_ctx;
+ 	int			crypto_key_slot;
+-	u32			data_unit_num;
+ #endif
+ };
+ 
