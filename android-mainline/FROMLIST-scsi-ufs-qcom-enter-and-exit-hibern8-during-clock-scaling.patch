@@ -18,7 +18,7 @@ Signed-off-by: Asutosh Das <asutoshd@codeaurora.org>
 diff --git a/drivers/scsi/ufs/ufs-qcom.c b/drivers/scsi/ufs/ufs-qcom.c
 --- a/drivers/scsi/ufs/ufs-qcom.c
 +++ b/drivers/scsi/ufs/ufs-qcom.c
-@@ -1208,24 +1208,34 @@ static int ufs_qcom_clk_scale_notify(struct ufs_hba *hba,
+@@ -1218,24 +1218,34 @@ static int ufs_qcom_clk_scale_notify(struct ufs_hba *hba,
  	int err = 0;
  
  	if (status == PRE_CHANGE) {

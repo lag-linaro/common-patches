@@ -51,7 +51,7 @@ diff --git a/drivers/scsi/ufs/ufshcd.c b/drivers/scsi/ufs/ufshcd.c
  #define UFSHCD_ENABLE_INTRS	(UTP_TRANSFER_REQ_COMPL |\
  				 UTP_TASK_REQ_COMPL |\
  				 UFSHCD_ERROR_MASK)
-@@ -2291,6 +2294,7 @@ static int ufshcd_map_sg(struct ufs_hba *hba, struct ufshcd_lrb *lrbp)
+@@ -2289,6 +2292,7 @@ static int ufshcd_map_sg(struct ufs_hba *hba, struct ufshcd_lrb *lrbp)
  	struct scsi_cmnd *cmd;
  	int sg_segments;
  	int i;
@@ -59,7 +59,7 @@ diff --git a/drivers/scsi/ufs/ufshcd.c b/drivers/scsi/ufs/ufshcd.c
  
  	cmd = lrbp->cmd;
  	sg_segments = scsi_dma_map(cmd);
-@@ -2322,7 +2326,9 @@ static int ufshcd_map_sg(struct ufs_hba *hba, struct ufshcd_lrb *lrbp)
+@@ -2320,7 +2324,9 @@ static int ufshcd_map_sg(struct ufs_hba *hba, struct ufshcd_lrb *lrbp)
  		lrbp->utr_descriptor_ptr->prd_table_length = 0;
  	}
  

@@ -1,8 +1,8 @@
 #
 # android-mainline patches
 #
-# Applies onto upstream f78d76e72a46 Linux v5.12-rc2-338-gf78d76e72a46
-# Matches android-mainline 4be8d9ec94e7 ("Merge f78d76e72a46 ("Merge tag 'drm-fixes-2021-03-12-1' of git://anongit.freedesktop.org/drm/drm") into android-mainline")
+# Applies onto upstream f296bfd5cd04 Linux v5.12-rc2-487-gf296bfd5cd04
+# Matches android-mainline 9bd8d344e54f ("Merge f296bfd5cd04 ("Merge tag 'nfs-for-5.12-2' of git://git.linux-nfs.org/projects/anna/linux-nfs") into android-mainline")
 #
 Revert-block-grant-IOPRIO_CLASS_RT-to-CAP_SYS_NICE.patch
 Revert-arm64-dts-qcom-sdm845-db845c-Fix-hdmi-nodes.patch
