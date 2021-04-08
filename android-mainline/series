@@ -2,7 +2,7 @@
 # android-mainline patches
 #
 # Applies onto upstream a74e6a014c9d Linux v5.12-rc2-296-ga74e6a014c9d
-# Matches android-mainline 2866a74576be ("Merge a74e6a014c9d ("Merge tag 's390-5.12-3' of git://git.kernel.org/pub/scm/linux/kernel/git/s390/linux") into android-mainline")
+# Matches android-mainline fe2917fdb90f ("ANDROID: Incremental fs: Finer readlog compression internally")
 #
 Revert-block-grant-IOPRIO_CLASS_RT-to-CAP_SYS_NICE.patch
 Revert-arm64-dts-qcom-sdm845-db845c-Fix-hdmi-nodes.patch
@@ -440,6 +440,8 @@ ANDROID-Incremental-fs-Add-FS_IOC_MEASURE_VERITY.patch
 ANDROID-Incremental-fs-Build-merkle-tree-when-enabling-verity.patch
 ANDROID-Incremental-fs-set-the-correct-access-to-mapped-files.patch
 ANDROID-Incremental-fs-fix-up-for-recent-vfs-changes.patch
+ANDROID-Incremental-fs-Support-STATX_ATTR_VERITY.patch
+ANDROID-Incremental-fs-Finer-readlog-compression-internally.patch
 _____ANNOTATION-networking-changes_____.patch
 ANDROID-net-xfrm-make-PF_KEY-SHA256-use-RFC-compliant-truncation.patch
 ANDROID-net-xfrm-always-export-pktgen_xfrm_outer_mode_output.patch
