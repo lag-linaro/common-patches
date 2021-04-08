@@ -1,8 +1,8 @@
 #
 # android-mainline patches
 #
-# Applies onto upstream a74e6a014c9d Linux v5.12-rc2-296-ga74e6a014c9d
-# Matches android-mainline fe2917fdb90f ("ANDROID: Incremental fs: Finer readlog compression internally")
+# Applies onto upstream f78d76e72a46 Linux v5.12-rc2-338-gf78d76e72a46
+# Matches android-mainline 4be8d9ec94e7 ("Merge f78d76e72a46 ("Merge tag 'drm-fixes-2021-03-12-1' of git://anongit.freedesktop.org/drm/drm") into android-mainline")
 #
 Revert-block-grant-IOPRIO_CLASS_RT-to-CAP_SYS_NICE.patch
 Revert-arm64-dts-qcom-sdm845-db845c-Fix-hdmi-nodes.patch
