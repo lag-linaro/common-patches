@@ -1,8 +1,8 @@
 #
 # android-mainline patches
 #
-# Applies onto upstream 05a59d79793d Linux v5.12-rc2-271-g05a59d79793d
-# Matches android-mainline 99b1f99af909 ("FROMGIT: ASoC: codecs: wcd934x: add a sanity check in set channel map")
+# Applies onto upstream a74e6a014c9d Linux v5.12-rc2-296-ga74e6a014c9d
+# Matches android-mainline 2866a74576be ("Merge a74e6a014c9d ("Merge tag 's390-5.12-3' of git://git.kernel.org/pub/scm/linux/kernel/git/s390/linux") into android-mainline")
 #
 Revert-block-grant-IOPRIO_CLASS_RT-to-CAP_SYS_NICE.patch
 Revert-arm64-dts-qcom-sdm845-db845c-Fix-hdmi-nodes.patch
