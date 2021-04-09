@@ -1,0 +1,56 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Maciej=20=C5=BBenczykowski?= <maze@google.com>
+Date: Mon, 28 Dec 2020 06:42:35 -0800
+Subject: FROMLIST: configfs: make directories inherit uid/gid from creator
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+Currently a non-root user may have the rights to create directories
+in configfs, but they default to being owned by root, so you can't
+create anything inside of the directories you yourself created.
+
+phone:/config/usb_gadget/g1/configs $ id; mkdir b.2; ls -lZ; chown system:system b.2
+uid=1000(system) gid=1000(system) groups=1000(system),1004(input),1007(log),1011(adb),...
+drwxr-xr-x 3 system  system u:object_r:configfs:s0  0 2020-12-28 06:03 b.1
+drwxr-xr-x 3 root    root   u:object_r:configfs:s0  0 2020-12-28 06:51 b.2
+chown: 'b.2' to 'system:system': Operation not permitted
+
+phone:/config/usb_gadget/g1/configs $ ln -s ../../../../usb_gadget/g1/functions/ffs.adb b.2/function0
+ln: cannot create symbolic link from '../../../../usb_gadget/g1/functions/ffs.adb' to 'b.2/function0': Permission denied
+
+Test: With this change b.2 is owned by system:system and the ln succeeds.
+Link: https://lore.kernel.org/lkml/20210123205516.2738060-1-zenczykowski@gmail.com/
+Bug: 172793258
+Signed-off-by: Maciej Żenczykowski <maze@google.com>
+Change-Id: Ia907b2def940197b44aa87b337d37c5dde9c5b91
+---
+ fs/configfs/dir.c | 16 ++++++++++++++++
+ 1 file changed, 16 insertions(+)
+
+diff --git a/fs/configfs/dir.c b/fs/configfs/dir.c
+--- a/fs/configfs/dir.c
++++ b/fs/configfs/dir.c
+@@ -1411,6 +1411,22 @@ static int configfs_mkdir(struct user_namespace *mnt_userns, struct inode *dir,
+ 	else
+ 		ret = configfs_attach_item(parent_item, item, dentry, frag);
+ 
++	/* inherit uid/gid from process creating the directory */
++	if (!uid_eq(current_fsuid(), GLOBAL_ROOT_UID) ||
++	    !gid_eq(current_fsgid(), GLOBAL_ROOT_GID)) {
++		struct inode *inode = d_inode(dentry);
++		struct iattr ia = {
++			.ia_uid = current_fsuid(),
++			.ia_gid = current_fsgid(),
++			.ia_valid = ATTR_UID | ATTR_GID,
++		};
++
++		inode->i_uid = ia.ia_uid;
++		inode->i_gid = ia.ia_gid;
++		/* the above manual assignments skip the permission checks */
++		configfs_setattr(mnt_userns, dentry, &ia);
++	}
++
+ 	spin_lock(&configfs_dirent_lock);
+ 	sd->s_type &= ~CONFIGFS_USET_IN_MKDIR;
+ 	if (!ret)

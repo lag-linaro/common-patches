@@ -1,0 +1,49 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: Choonghoon Park <choong.park@samsung.com>
+Date: Thu, 25 Mar 2021 21:47:21 +0900
+Subject: ANDROID: cpuidle: Move vendor hook to enter proper state
+
+The hook may modify index. In that case, target_state and
+related values should be assigned and pre-processing should
+be executed according to the modified index.
+
+Bug: 183690687
+
+Signed-off-by: Choonghoon Park <choong.park@samsung.com>
+Change-Id: Ie641270f9560d0e4a5b4890b7f63ccc5a31277db
+---
+ drivers/cpuidle/cpuidle.c | 13 ++++++++++---
+ 1 file changed, 10 insertions(+), 3 deletions(-)
+
+diff --git a/drivers/cpuidle/cpuidle.c b/drivers/cpuidle/cpuidle.c
+--- a/drivers/cpuidle/cpuidle.c
++++ b/drivers/cpuidle/cpuidle.c
+@@ -203,10 +203,18 @@ int cpuidle_enter_state(struct cpuidle_device *dev, struct cpuidle_driver *drv,
+ {
+ 	int entered_state;
+ 
+-	struct cpuidle_state *target_state = &drv->states[index];
+-	bool broadcast = !!(target_state->flags & CPUIDLE_FLAG_TIMER_STOP);
++	struct cpuidle_state *target_state;
++	bool broadcast;
+ 	ktime_t time_start, time_end;
+ 
++	/*
++	 * The vendor hook may modify index, which means target_state and
++	 * broadcast must be assigned after the vendor hook.
++	 */
++	trace_android_vh_cpu_idle_enter(&index, dev);
++	target_state = &drv->states[index];
++	broadcast = !!(target_state->flags & CPUIDLE_FLAG_TIMER_STOP);
++
+ 	/*
+ 	 * Tell the time framework to switch to a broadcast timer because our
+ 	 * local timer will be shut down.  If a local timer is used from another
+@@ -229,7 +237,6 @@ int cpuidle_enter_state(struct cpuidle_device *dev, struct cpuidle_driver *drv,
+ 	/* Take note of the planned idle state. */
+ 	sched_idle_set_state(target_state);
+ 
+-	trace_android_vh_cpu_idle_enter(&index, dev);
+ 	trace_cpu_idle(index, dev->cpu);
+ 	time_start = ns_to_ktime(local_clock());
+ 

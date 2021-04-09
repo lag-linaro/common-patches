@@ -2,7 +2,7 @@
 # android-mainline patches
 #
 # Applies onto upstream 7acac4b3196c Linux v5.12-rc4-7-g7acac4b3196c
-# Matches android-mainline df7cea1b5a06 ("Merge 7acac4b3196c ("Merge tag 'linux-kselftest-kunit-fixes-5.12-rc5.1' of git://git.kernel.org/pub/scm/linux/kernel/git/shuah/linux-kselftest") into android-mainline")
+# Matches android-mainline 5890d5859c02 ("ANDROID: gki_defconfig: Enable NET_CLS_{BASIC,TCINDEX,MATCHALL} & NET_ACT_{GACT,MIRRED}")
 #
 Revert-block-grant-IOPRIO_CLASS_RT-to-CAP_SYS_NICE.patch
 Revert-arm64-dts-qcom-sdm845-db845c-Fix-hdmi-nodes.patch
@@ -34,6 +34,7 @@ FROMLIST-irqchip-irq-meson-gpio-make-it-possible-to-build-as-a-module.patch
 FROMLIST-arm64-meson-remove-MESON_IRQ_GPIO-selection.patch
 FROMLIST-ARM-kprobes-fix-UNPREDICTABLE-warnings.patch
 FROMLIST-ARM-kprobes-rewrite-test-arm.c-in-UAL.patch
+FROMLIST-configfs-make-directories-inherit-uid-gid-from-creator.patch
 _____ANNOTATION-Android-vendor-hooks_____.patch
 ANDROID-GKI-add-android_vendor.h.patch
 ANDROID-add-support-for-vendor-hooks.patch
@@ -178,6 +179,8 @@ ANDROID-sched-move-vendor-hook-to-check-scheduling-nice-value.patch
 ANDROID-cgroup-Add-vendor-hook-to-the-cgroup.patch
 ANDROID-Add-vendor-hooks-when-syscall-prctl-finished.patch
 ANDROID-sched-fair-Do-not-sync-task-util-with-SD_BALANCE_FORK.patch
+ANDROID-sched-core-Move-en-dequeue-hooks-before-related-callbacks.patch
+ANDROID-cpuidle-Move-vendor-hook-to-enter-proper-state.patch
 _____ANNOTATION-uid_sys_stats-support_____.patch
 ANDROID-uid_cputime-Adds-accounting-for-the-cputimes-per-uid.patch
 ANDROID-uid_cputime-add-per-uid-IO-usage-accounting.patch
@@ -246,6 +249,7 @@ ANDROID-pcie-dwc-driver-export-dw_handle_msi_irq.patch
 ANDROID-spi-of-Populate-fwnode-in-of_register_spi_device.patch
 ANDROID-staging-add-debug-kinfo-driver.patch
 ANDROID-irqdesc-Export-symbol-for-vendor-modules.patch
+ANDROID-Make-vsock-virtio-packet-buff-size-configurable.patch
 _____ANNOTATION-tty-changes_____.patch
 Revert-Revert-tty-serial-samsung_tty-build-it-for-any-platform.patch
 FROMLIST-hvc_dcc-bind-driver-to-core0-for-reads-and-writes.patch
@@ -444,6 +448,8 @@ ANDROID-Incremental-fs-set-the-correct-access-to-mapped-files.patch
 ANDROID-Incremental-fs-fix-up-for-recent-vfs-changes.patch
 ANDROID-Incremental-fs-Support-STATX_ATTR_VERITY.patch
 ANDROID-Incremental-fs-Finer-readlog-compression-internally.patch
+ANDROID-Incremental-fs-Fix-mlock-to-fail-gracefully-on-corrupt-files.patch
+ANDROID-Incremental-fs-Truncate-file-when-complete.patch
 _____ANNOTATION-networking-changes_____.patch
 ANDROID-net-xfrm-make-PF_KEY-SHA256-use-RFC-compliant-truncation.patch
 ANDROID-net-xfrm-always-export-pktgen_xfrm_outer_mode_output.patch
@@ -817,6 +823,8 @@ ANDROID-re-enable-BIG_ENDIAN-in-allmodconfig-testing.patch
 ANDROID-gki_defconfig-Enable-USB_NET_AQC111.patch
 ANDROID-gki_defconfig-Enable-USB_NET_CDC_NCM.patch
 ANDROID-gki_defconfig-Enable-IFB-NET_SCH_TBF-NET_ACT_POLICE.patch
+ANDROID-GKI-enable-KFENCE-by-setting-the-sample-interval-to-500ms.patch
+ANDROID-gki_defconfig-Enable-NET_CLS_-BASIC-TCINDEX-MATCHALL-NET_ACT_-GACT-MIRRED.patch
 _____ANNOTATION-Patches-for-bringing-up-new-SoCs_____.patch
 _____ANNOTATION-remove-ANNOTATIONS-file_____.patch
 DROP-ME-obsolete-ION-documentation.patch

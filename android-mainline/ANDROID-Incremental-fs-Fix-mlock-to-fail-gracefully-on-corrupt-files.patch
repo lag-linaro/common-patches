@@ -1,0 +1,148 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: Paul Lawrence <paullawrence@google.com>
+Date: Wed, 10 Mar 2021 08:40:53 -0800
+Subject: ANDROID: Incremental fs: Fix mlock to fail gracefully on corrupt
+ files
+
+Test: incfs_test passes
+Bug: 174875107
+Signed-off-by: Paul Lawrence <paullawrence@google.com>
+Change-Id: I93ce3600e88ddd89cf69f032ea858d169b0a7bec
+---
+ fs/incfs/vfs.c                                | 28 ++++++++-
+ .../selftests/filesystems/incfs/incfs_test.c  | 60 +++++++++++++++++++
+ 2 files changed, 87 insertions(+), 1 deletion(-)
+
+diff --git a/fs/incfs/vfs.c b/fs/incfs/vfs.c
+--- a/fs/incfs/vfs.c
++++ b/fs/incfs/vfs.c
+@@ -10,6 +10,7 @@
+ #include <linux/fs_stack.h>
+ #include <linux/fsnotify.h>
+ #include <linux/fsverity.h>
++#include <linux/mmap_lock.h>
+ #include <linux/namei.h>
+ #include <linux/parser.h>
+ #include <linux/seq_file.h>
+@@ -113,11 +114,36 @@ static const struct address_space_operations incfs_address_space_ops = {
+ 	/* .readpages = readpages */
+ };
+ 
++static vm_fault_t incfs_fault(struct vm_fault *vmf)
++{
++	vmf->flags &= ~FAULT_FLAG_ALLOW_RETRY;
++	return filemap_fault(vmf);
++}
++
++static const struct vm_operations_struct incfs_file_vm_ops = {
++	.fault		= incfs_fault,
++	.map_pages	= filemap_map_pages,
++	.page_mkwrite	= filemap_page_mkwrite,
++};
++
++/* This is used for a general mmap of a disk file */
++
++static int incfs_file_mmap(struct file *file, struct vm_area_struct *vma)
++{
++	struct address_space *mapping = file->f_mapping;
++
++	if (!mapping->a_ops->readpage)
++		return -ENOEXEC;
++	file_accessed(file);
++	vma->vm_ops = &incfs_file_vm_ops;
++	return 0;
++}
++
+ const struct file_operations incfs_file_ops = {
+ 	.open = file_open,
+ 	.release = file_release,
+ 	.read_iter = generic_file_read_iter,
+-	.mmap = generic_file_mmap,
++	.mmap = incfs_file_mmap,
+ 	.splice_read = generic_file_splice_read,
+ 	.llseek = generic_file_llseek,
+ 	.unlocked_ioctl = dispatch_ioctl,
+diff --git a/tools/testing/selftests/filesystems/incfs/incfs_test.c b/tools/testing/selftests/filesystems/incfs/incfs_test.c
+--- a/tools/testing/selftests/filesystems/incfs/incfs_test.c
++++ b/tools/testing/selftests/filesystems/incfs/incfs_test.c
+@@ -18,6 +18,7 @@
+ #include <zstd.h>
+ 
+ #include <sys/inotify.h>
++#include <sys/mman.h>
+ #include <sys/mount.h>
+ #include <sys/stat.h>
+ #include <sys/types.h>
+@@ -4057,6 +4058,64 @@ static int enable_verity_test(const char *mount_dir)
+ 	return result;
+ }
+ 
++static int mmap_test(const char *mount_dir)
++{
++	int result = TEST_FAILURE;
++	char *backing_dir = NULL;
++	int cmd_fd = -1;
++	/*
++	 * File is big enough to have a two layer tree with two hashes in the
++	 * higher level, so we can corrupt the second one
++	 */
++	int shas_per_block = INCFS_DATA_FILE_BLOCK_SIZE / SHA256_DIGEST_SIZE;
++	struct test_file file = {
++		  .name = "file",
++		  .size = INCFS_DATA_FILE_BLOCK_SIZE * shas_per_block * 2,
++	};
++	char *filename = NULL;
++	int fd = -1;
++	char *addr = (void *)-1;
++
++	TEST(backing_dir = create_backing_dir(mount_dir), backing_dir);
++	TESTEQUAL(mount_fs(mount_dir, backing_dir, 0), 0);
++	TEST(cmd_fd = open_commands_file(mount_dir), cmd_fd != -1);
++
++	TESTEQUAL(build_mtree(&file), 0);
++	file.mtree[1].data[INCFS_DATA_FILE_BLOCK_SIZE] ^= 0xff;
++	TESTEQUAL(crypto_emit_file(cmd_fd, NULL, file.name, &file.id,
++			       file.size, file.root_hash,
++			       file.sig.add_data), 0);
++	TESTEQUAL(emit_test_file_data(mount_dir, &file), 0);
++	TESTEQUAL(load_hash_tree(mount_dir, &file), 0);
++	TEST(filename = concat_file_name(mount_dir, file.name), filename);
++	TEST(fd = open(filename, O_RDONLY | O_CLOEXEC), fd != -1);
++	TEST(addr = mmap(NULL, file.size, PROT_READ, MAP_PRIVATE, fd, 0),
++	     addr != (void *) -1);
++	TESTEQUAL(mlock(addr, INCFS_DATA_FILE_BLOCK_SIZE), 0);
++	TESTEQUAL(munlock(addr, INCFS_DATA_FILE_BLOCK_SIZE), 0);
++	TESTEQUAL(mlock(addr + shas_per_block * INCFS_DATA_FILE_BLOCK_SIZE,
++			INCFS_DATA_FILE_BLOCK_SIZE), -1);
++	TESTEQUAL(mlock(addr + (shas_per_block - 1) *
++			       INCFS_DATA_FILE_BLOCK_SIZE,
++			INCFS_DATA_FILE_BLOCK_SIZE), 0);
++	TESTEQUAL(munlock(addr + (shas_per_block - 1) *
++				 INCFS_DATA_FILE_BLOCK_SIZE,
++			  INCFS_DATA_FILE_BLOCK_SIZE), 0);
++	TESTEQUAL(mlock(addr + (shas_per_block - 1) *
++			       INCFS_DATA_FILE_BLOCK_SIZE,
++			INCFS_DATA_FILE_BLOCK_SIZE * 2), -1);
++	TESTEQUAL(munmap(addr, file.size), 0);
++
++	result = TEST_SUCCESS;
++out:
++	close(fd);
++	free(filename);
++	close(cmd_fd);
++	umount(mount_dir);
++	free(backing_dir);
++	return result;
++}
++
+ static char *setup_mount_dir()
+ {
+ 	struct stat st;
+@@ -4173,6 +4232,7 @@ int main(int argc, char *argv[])
+ 		MAKE_TEST(inotify_test),
+ 		MAKE_TEST(verity_test),
+ 		MAKE_TEST(enable_verity_test),
++		MAKE_TEST(mmap_test),
+ 	};
+ #undef MAKE_TEST
+ 

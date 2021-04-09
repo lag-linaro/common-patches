@@ -1,0 +1,115 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: Paul Lawrence <paullawrence@google.com>
+Date: Wed, 17 Mar 2021 13:35:44 -0700
+Subject: ANDROID: Incremental fs: Truncate file when complete
+
+Bug: 182185202
+Test: incfs_test passes
+Signed-off-by: Paul Lawrence <paullawrence@google.com>
+Change-Id: I96a192011f19efa1c597275dafc6c216f8ed0b56
+---
+ fs/incfs/vfs.c                                | 17 ++++++++
+ .../selftests/filesystems/incfs/incfs_test.c  | 43 +++++++++++++++++++
+ 2 files changed, 60 insertions(+)
+
+diff --git a/fs/incfs/vfs.c b/fs/incfs/vfs.c
+--- a/fs/incfs/vfs.c
++++ b/fs/incfs/vfs.c
+@@ -651,6 +651,7 @@ static void notify_unlink(struct dentry *dentry, const char *file_id_str,
+ static void maybe_delete_incomplete_file(struct file *f,
+ 					 struct data_file *df)
+ {
++	struct backing_file_context *bfc;
+ 	struct mount_info *mi = df->df_mount_info;
+ 	char *file_id_str = NULL;
+ 	struct dentry *incomplete_file_dentry = NULL;
+@@ -660,6 +661,22 @@ static void maybe_delete_incomplete_file(struct file *f,
+ 	if (atomic_read(&df->df_data_blocks_written) < df->df_data_block_count)
+ 		goto out;
+ 
++	/* Truncate file to remove any preallocated space */
++	bfc = df->df_backing_file_context;
++	if (bfc) {
++		struct file *f = bfc->bc_file;
++
++		if (f) {
++			loff_t size = i_size_read(file_inode(f));
++
++			error = vfs_truncate(&f->f_path, size);
++			if (error)
++				/* No useful action on failure */
++				pr_warn("incfs: Failed to truncate complete file: %d\n",
++					error);
++		}
++	}
++
+ 	/* This is best effort - there is no useful action to take on failure */
+ 	file_id_str = file_id_to_str(df->df_id);
+ 	if (!file_id_str)
+diff --git a/tools/testing/selftests/filesystems/incfs/incfs_test.c b/tools/testing/selftests/filesystems/incfs/incfs_test.c
+--- a/tools/testing/selftests/filesystems/incfs/incfs_test.c
++++ b/tools/testing/selftests/filesystems/incfs/incfs_test.c
+@@ -2,6 +2,8 @@
+ /*
+  * Copyright 2018 Google LLC
+  */
++#define _GNU_SOURCE
++
+ #include <alloca.h>
+ #include <dirent.h>
+ #include <errno.h>
+@@ -4116,6 +4118,46 @@ static int mmap_test(const char *mount_dir)
+ 	return result;
+ }
+ 
++static int truncate_test(const char *mount_dir)
++{
++	int result = TEST_FAILURE;
++	char *backing_dir = NULL;
++	int cmd_fd = -1;
++	struct test_file file = {
++		  .name = "file",
++		  .size = INCFS_DATA_FILE_BLOCK_SIZE,
++	};
++	char *backing_file = NULL;
++	int fd = -1;
++	struct stat st;
++
++	TEST(backing_dir = create_backing_dir(mount_dir), backing_dir);
++	TESTEQUAL(mount_fs(mount_dir, backing_dir, 0), 0);
++	TEST(cmd_fd = open_commands_file(mount_dir), cmd_fd != -1);
++	TESTEQUAL(emit_file(cmd_fd, NULL, file.name, &file.id, file.size, NULL),
++		  0);
++	TEST(backing_file = concat_file_name(backing_dir, file.name),
++	     backing_file);
++	TEST(fd = open(backing_file, O_RDWR | O_CLOEXEC), fd != -1);
++	TESTEQUAL(stat(backing_file, &st), 0);
++	TESTCOND(st.st_blocks < 128);
++	TESTEQUAL(fallocate(fd, FALLOC_FL_KEEP_SIZE, 0, 1 << 24), 0);
++	TESTEQUAL(stat(backing_file, &st), 0);
++	TESTCOND(st.st_blocks > 32768);
++	TESTEQUAL(emit_test_file_data(mount_dir, &file), 0);
++	TESTEQUAL(stat(backing_file, &st), 0);
++	TESTCOND(st.st_blocks < 128);
++
++	result = TEST_SUCCESS;
++out:
++	close(fd);
++	free(backing_file);
++	close(cmd_fd);
++	umount(mount_dir);
++	free(backing_dir);
++	return result;
++}
++
+ static char *setup_mount_dir()
+ {
+ 	struct stat st;
+@@ -4233,6 +4275,7 @@ int main(int argc, char *argv[])
+ 		MAKE_TEST(verity_test),
+ 		MAKE_TEST(enable_verity_test),
+ 		MAKE_TEST(mmap_test),
++		MAKE_TEST(truncate_test),
+ 	};
+ #undef MAKE_TEST
+ 

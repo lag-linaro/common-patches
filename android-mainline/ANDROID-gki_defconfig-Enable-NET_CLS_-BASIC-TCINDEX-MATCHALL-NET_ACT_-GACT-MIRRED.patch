@@ -1,0 +1,64 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Maciej=20=C5=BBenczykowski?= <maze@google.com>
+Date: Thu, 25 Mar 2021 01:42:47 -0700
+Subject: ANDROID: gki_defconfig: Enable NET_CLS_{BASIC,TCINDEX,MATCHALL} &
+ NET_ACT_{GACT,MIRRED}
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+This is for rate limiting, I'm surprised to discover these weren't already on.
+
+Test: TreeHugger
+Bug: 179454839
+Signed-off-by: Maciej Żenczykowski <maze@google.com>
+Change-Id: I3a82dc91215c1d233b16566d965af2acaf72c25c
+---
+ arch/arm64/configs/gki_defconfig | 5 +++++
+ arch/x86/configs/gki_defconfig   | 5 +++++
+ 2 files changed, 10 insertions(+)
+
+diff --git a/arch/arm64/configs/gki_defconfig b/arch/arm64/configs/gki_defconfig
+--- a/arch/arm64/configs/gki_defconfig
++++ b/arch/arm64/configs/gki_defconfig
+@@ -219,13 +219,18 @@ CONFIG_NET_SCH_HTB=y
+ CONFIG_NET_SCH_PRIO=y
+ CONFIG_NET_SCH_TBF=y
+ CONFIG_NET_SCH_INGRESS=y
++CONFIG_NET_CLS_BASIC=y
++CONFIG_NET_CLS_TCINDEX=y
+ CONFIG_NET_CLS_FW=y
+ CONFIG_NET_CLS_U32=y
+ CONFIG_NET_CLS_BPF=y
++CONFIG_NET_CLS_MATCHALL=y
+ CONFIG_NET_EMATCH=y
+ CONFIG_NET_EMATCH_U32=y
+ CONFIG_NET_CLS_ACT=y
+ CONFIG_NET_ACT_POLICE=y
++CONFIG_NET_ACT_GACT=y
++CONFIG_NET_ACT_MIRRED=y
+ CONFIG_VSOCKETS=y
+ CONFIG_BPF_JIT=y
+ CONFIG_BT=y
+diff --git a/arch/x86/configs/gki_defconfig b/arch/x86/configs/gki_defconfig
+--- a/arch/x86/configs/gki_defconfig
++++ b/arch/x86/configs/gki_defconfig
+@@ -200,13 +200,18 @@ CONFIG_NET_SCH_HTB=y
+ CONFIG_NET_SCH_PRIO=y
+ CONFIG_NET_SCH_TBF=y
+ CONFIG_NET_SCH_INGRESS=y
++CONFIG_NET_CLS_BASIC=y
++CONFIG_NET_CLS_TCINDEX=y
+ CONFIG_NET_CLS_FW=y
+ CONFIG_NET_CLS_U32=y
+ CONFIG_NET_CLS_BPF=y
++CONFIG_NET_CLS_MATCHALL=y
+ CONFIG_NET_EMATCH=y
+ CONFIG_NET_EMATCH_U32=y
+ CONFIG_NET_CLS_ACT=y
+ CONFIG_NET_ACT_POLICE=y
++CONFIG_NET_ACT_GACT=y
++CONFIG_NET_ACT_MIRRED=y
+ CONFIG_VSOCKETS=y
+ CONFIG_BPF_JIT=y
+ CONFIG_BT=y
