@@ -1,0 +1,73 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Maciej=20=C5=BBenczykowski?= <maze@google.com>
+Date: Tue, 23 Mar 2021 20:17:58 -0700
+Subject: ANDROID: gki_defconfig: Enable IFB, NET_SCH_TBF, NET_ACT_POLICE
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+This is for rate limiting.
+
+Test: TreeHugger
+Bug: 179454839
+Signed-off-by: Maciej Żenczykowski <maze@google.com>
+Change-Id: I3bb4540791e0db408ab996b270a2d85ca5dd3bda
+---
+ arch/arm64/configs/gki_defconfig | 3 +++
+ arch/x86/configs/gki_defconfig   | 3 +++
+ 2 files changed, 6 insertions(+)
+
+diff --git a/arch/arm64/configs/gki_defconfig b/arch/arm64/configs/gki_defconfig
+--- a/arch/arm64/configs/gki_defconfig
++++ b/arch/arm64/configs/gki_defconfig
+@@ -217,6 +217,7 @@ CONFIG_MAC802154=y
+ CONFIG_NET_SCHED=y
+ CONFIG_NET_SCH_HTB=y
+ CONFIG_NET_SCH_PRIO=y
++CONFIG_NET_SCH_TBF=y
+ CONFIG_NET_SCH_INGRESS=y
+ CONFIG_NET_CLS_FW=y
+ CONFIG_NET_CLS_U32=y
+@@ -224,6 +225,7 @@ CONFIG_NET_CLS_BPF=y
+ CONFIG_NET_EMATCH=y
+ CONFIG_NET_EMATCH_U32=y
+ CONFIG_NET_CLS_ACT=y
++CONFIG_NET_ACT_POLICE=y
+ CONFIG_VSOCKETS=y
+ CONFIG_BPF_JIT=y
+ CONFIG_BT=y
+@@ -282,6 +284,7 @@ CONFIG_DM_BOW=y
+ CONFIG_NETDEVICES=y
+ CONFIG_DUMMY=y
+ CONFIG_WIREGUARD=y
++CONFIG_IFB=y
+ CONFIG_TUN=y
+ CONFIG_VETH=y
+ CONFIG_PHYLIB=y
+diff --git a/arch/x86/configs/gki_defconfig b/arch/x86/configs/gki_defconfig
+--- a/arch/x86/configs/gki_defconfig
++++ b/arch/x86/configs/gki_defconfig
+@@ -198,6 +198,7 @@ CONFIG_MAC802154=y
+ CONFIG_NET_SCHED=y
+ CONFIG_NET_SCH_HTB=y
+ CONFIG_NET_SCH_PRIO=y
++CONFIG_NET_SCH_TBF=y
+ CONFIG_NET_SCH_INGRESS=y
+ CONFIG_NET_CLS_FW=y
+ CONFIG_NET_CLS_U32=y
+@@ -205,6 +206,7 @@ CONFIG_NET_CLS_BPF=y
+ CONFIG_NET_EMATCH=y
+ CONFIG_NET_EMATCH_U32=y
+ CONFIG_NET_CLS_ACT=y
++CONFIG_NET_ACT_POLICE=y
+ CONFIG_VSOCKETS=y
+ CONFIG_BPF_JIT=y
+ CONFIG_BT=y
+@@ -259,6 +261,7 @@ CONFIG_DM_BOW=y
+ CONFIG_NETDEVICES=y
+ CONFIG_DUMMY=y
+ CONFIG_WIREGUARD=y
++CONFIG_IFB=y
+ CONFIG_TUN=y
+ CONFIG_VETH=y
+ CONFIG_PHYLIB=y

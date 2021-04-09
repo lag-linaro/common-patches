@@ -2,7 +2,7 @@
 # android-mainline patches
 #
 # Applies onto upstream 84196390620a Linux v5.12-rc4-4-g84196390620a
-# Matches android-mainline b9a74a307699 ("Merge 84196390620a ("Merge tag 'selinux-pr-20210322' of git://git.kernel.org/pub/scm/linux/kernel/git/pcmoore/selinux") into android-mainline")
+# Matches android-mainline 2b30d715648a ("ANDROID: gki_defconfig: Enable IFB, NET_SCH_TBF, NET_ACT_POLICE")
 #
 Revert-block-grant-IOPRIO_CLASS_RT-to-CAP_SYS_NICE.patch
 Revert-arm64-dts-qcom-sdm845-db845c-Fix-hdmi-nodes.patch
@@ -814,6 +814,9 @@ ANDROID-enable-LLVM_IAS-1-for-clang-s-integrated-assembler-for-arm.patch
 ANDROID-clang-update-to-12.0.4.patch
 ANDROID-GKI-Enable-KFENCE.patch
 ANDROID-re-enable-BIG_ENDIAN-in-allmodconfig-testing.patch
+ANDROID-gki_defconfig-Enable-USB_NET_AQC111.patch
+ANDROID-gki_defconfig-Enable-USB_NET_CDC_NCM.patch
+ANDROID-gki_defconfig-Enable-IFB-NET_SCH_TBF-NET_ACT_POLICE.patch
 _____ANNOTATION-Patches-for-bringing-up-new-SoCs_____.patch
 _____ANNOTATION-remove-ANNOTATIONS-file_____.patch
 DROP-ME-obsolete-ION-documentation.patch
