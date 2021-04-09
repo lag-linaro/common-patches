@@ -13,8 +13,8 @@ Change-Id: Ida11256f399f0730bc1228524b9687df3e7b8bf4
  drivers/android/vendor_hooks.c |  3 +++
  drivers/cpufreq/cpufreq.c      | 10 +++++++++-
  drivers/cpufreq/freq_table.c   |  2 ++
- include/trace/hooks/cpufreq.h  | 24 ++++++++++++++++++++++++
- 4 files changed, 38 insertions(+), 1 deletion(-)
+ include/trace/hooks/cpufreq.h  | 25 +++++++++++++++++++++++++
+ 4 files changed, 39 insertions(+), 1 deletion(-)
  create mode 100644 include/trace/hooks/cpufreq.h
 
 diff --git a/drivers/android/vendor_hooks.c b/drivers/android/vendor_hooks.c
@@ -86,10 +86,10 @@ diff --git a/drivers/cpufreq/freq_table.c b/drivers/cpufreq/freq_table.c
  	/*
 diff --git a/include/trace/hooks/cpufreq.h b/include/trace/hooks/cpufreq.h
 new file mode 100644
-index 000000000000..95dafafb2da1
+index 000000000000..68cced175ac8
 --- /dev/null
 +++ b/include/trace/hooks/cpufreq.h
-@@ -0,0 +1,24 @@
+@@ -0,0 +1,25 @@
 +/* SPDX-License-Identifier: GPL-2.0 */
 +#undef TRACE_SYSTEM
 +#define TRACE_SYSTEM cpufreq
@@ -99,6 +99,7 @@ index 000000000000..95dafafb2da1
 +#if !defined(_TRACE_HOOK_CPUFREQ_H) || defined(TRACE_HEADER_MULTI_READ)
 +#define _TRACE_HOOK_CPUFREQ_H
 +
++#include <linux/cpufreq.h>
 +#include <linux/tracepoint.h>
 +#include <trace/hooks/vendor_hooks.h>
 +

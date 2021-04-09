@@ -2,7 +2,7 @@
 # android-mainline patches
 #
 # Applies onto upstream 0d02ec6b3136 Linux v5.12-rc4
-# Matches android-mainline ae001f3b8f5f ("Merge tag 'v5.12-rc4' into android-mainline")
+# Matches android-mainline ad5b9d3a9e73 ("ANDROID: Fix compilation error when CPU_FREQ is disabled")
 #
 Revert-block-grant-IOPRIO_CLASS_RT-to-CAP_SYS_NICE.patch
 Revert-arm64-dts-qcom-sdm845-db845c-Fix-hdmi-nodes.patch
@@ -177,6 +177,7 @@ ANDROID-make-per-cgroup-PSI-tracking-configurable.patch
 ANDROID-sched-move-vendor-hook-to-check-scheduling-nice-value.patch
 ANDROID-cgroup-Add-vendor-hook-to-the-cgroup.patch
 ANDROID-Add-vendor-hooks-when-syscall-prctl-finished.patch
+ANDROID-sched-fair-Do-not-sync-task-util-with-SD_BALANCE_FORK.patch
 _____ANNOTATION-uid_sys_stats-support_____.patch
 ANDROID-uid_cputime-Adds-accounting-for-the-cputimes-per-uid.patch
 ANDROID-uid_cputime-add-per-uid-IO-usage-accounting.patch
