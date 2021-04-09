@@ -1,8 +1,8 @@
 #
 # android-mainline patches
 #
-# Applies onto upstream 1c273e10bc0c Linux v5.12-rc3-187-g1c273e10bc0c
-# Matches android-mainline c36e49e512c1 ("Merge 1c273e10bc0c ("Merge tag 'zonefs-5.12-rc4' of git://git.kernel.org/pub/scm/linux/kernel/git/dlemoal/zonefs") into android-mainline")
+# Applies onto upstream 812da4d39463 Linux v5.12-rc3-220-g812da4d39463
+# Matches android-mainline b1c827c21b57 ("Merge 812da4d39463 ("Merge tag 'riscv-for-linus-5.12-rc4' of git://git.kernel.org/pub/scm/linux/kernel/git/riscv/linux") into android-mainline")
 #
 Revert-block-grant-IOPRIO_CLASS_RT-to-CAP_SYS_NICE.patch
 Revert-arm64-dts-qcom-sdm845-db845c-Fix-hdmi-nodes.patch
