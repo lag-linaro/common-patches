@@ -21,7 +21,7 @@ Change-Id: Id6024fc2a3bbde1e46a29070981fa64b3f667075
 diff --git a/fs/ext4/ext4.h b/fs/ext4/ext4.h
 --- a/fs/ext4/ext4.h
 +++ b/fs/ext4/ext4.h
-@@ -2637,9 +2637,9 @@ extern unsigned ext4_free_clusters_after_init(struct super_block *sb,
+@@ -2638,9 +2638,9 @@ extern unsigned ext4_free_clusters_after_init(struct super_block *sb,
  ext4_fsblk_t ext4_inode_to_goal_block(struct inode *);
  
  #ifdef CONFIG_UNICODE
@@ -33,7 +33,7 @@ diff --git a/fs/ext4/ext4.h b/fs/ext4/ext4.h
  #endif
  
  #ifdef CONFIG_FS_ENCRYPTION
-@@ -2670,9 +2670,9 @@ static inline int ext4_fname_setup_filename(struct inode *dir,
+@@ -2671,9 +2671,9 @@ static inline int ext4_fname_setup_filename(struct inode *dir,
  	ext4_fname_from_fscrypt_name(fname, &name);
  
  #ifdef CONFIG_UNICODE
@@ -45,7 +45,7 @@ diff --git a/fs/ext4/ext4.h b/fs/ext4/ext4.h
  }
  
  static inline int ext4_fname_prepare_lookup(struct inode *dir,
-@@ -2689,9 +2689,9 @@ static inline int ext4_fname_prepare_lookup(struct inode *dir,
+@@ -2690,9 +2690,9 @@ static inline int ext4_fname_prepare_lookup(struct inode *dir,
  	ext4_fname_from_fscrypt_name(fname, &name);
  
  #ifdef CONFIG_UNICODE
@@ -57,7 +57,7 @@ diff --git a/fs/ext4/ext4.h b/fs/ext4/ext4.h
  }
  
  static inline void ext4_fname_free_filename(struct ext4_filename *fname)
-@@ -2716,15 +2716,16 @@ static inline int ext4_fname_setup_filename(struct inode *dir,
+@@ -2717,15 +2717,16 @@ static inline int ext4_fname_setup_filename(struct inode *dir,
  					    int lookup,
  					    struct ext4_filename *fname)
  {

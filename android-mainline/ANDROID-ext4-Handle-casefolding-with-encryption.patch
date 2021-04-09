@@ -202,7 +202,7 @@ diff --git a/fs/ext4/dir.c b/fs/ext4/dir.c
 diff --git a/fs/ext4/ext4.h b/fs/ext4/ext4.h
 --- a/fs/ext4/ext4.h
 +++ b/fs/ext4/ext4.h
-@@ -2195,6 +2195,17 @@ struct ext4_dir_entry {
+@@ -2196,6 +2196,17 @@ struct ext4_dir_entry {
  	char	name[EXT4_NAME_LEN];	/* File name */
  };
  
@@ -220,7 +220,7 @@ diff --git a/fs/ext4/ext4.h b/fs/ext4/ext4.h
  /*
   * The new version of the directory entry.  Since EXT4 structures are
   * stored in intel byte order, and the name_len field could never be
-@@ -2209,6 +2220,22 @@ struct ext4_dir_entry_2 {
+@@ -2210,6 +2221,22 @@ struct ext4_dir_entry_2 {
  	char	name[EXT4_NAME_LEN];	/* File name */
  };
  
@@ -243,7 +243,7 @@ diff --git a/fs/ext4/ext4.h b/fs/ext4/ext4.h
  /*
   * This is a bogus directory entry at the end of each leaf block that
   * records checksums.
-@@ -2250,10 +2277,24 @@ struct ext4_dir_entry_tail {
+@@ -2251,10 +2278,24 @@ struct ext4_dir_entry_tail {
   */
  #define EXT4_DIR_PAD			4
  #define EXT4_DIR_ROUND			(EXT4_DIR_PAD - 1)
@@ -270,7 +270,7 @@ diff --git a/fs/ext4/ext4.h b/fs/ext4/ext4.h
  /*
   * If we ever get support for fs block sizes > page_size, we'll need
   * to remove the #if statements in the next two functions...
-@@ -2310,6 +2351,7 @@ static inline __le16 ext4_rec_len_to_disk(unsigned len, unsigned blocksize)
+@@ -2311,6 +2352,7 @@ static inline __le16 ext4_rec_len_to_disk(unsigned len, unsigned blocksize)
  #define DX_HASH_LEGACY_UNSIGNED		3
  #define DX_HASH_HALF_MD4_UNSIGNED	4
  #define DX_HASH_TEA_UNSIGNED		5
@@ -278,7 +278,7 @@ diff --git a/fs/ext4/ext4.h b/fs/ext4/ext4.h
  
  static inline u32 ext4_chksum(struct ext4_sb_info *sbi, u32 crc,
  			      const void *address, unsigned int length)
-@@ -2364,6 +2406,7 @@ struct ext4_filename {
+@@ -2365,6 +2407,7 @@ struct ext4_filename {
  };
  
  #define fname_name(p) ((p)->disk_name.name)
@@ -286,7 +286,7 @@ diff --git a/fs/ext4/ext4.h b/fs/ext4/ext4.h
  #define fname_len(p)  ((p)->disk_name.len)
  
  /*
-@@ -2705,21 +2748,22 @@ extern int __ext4_check_dir_entry(const char *, unsigned int, struct inode *,
+@@ -2706,21 +2749,22 @@ extern int __ext4_check_dir_entry(const char *, unsigned int, struct inode *,
  				  struct file *,
  				  struct ext4_dir_entry_2 *,
  				  struct buffer_head *, char *, int,
@@ -313,7 +313,7 @@ diff --git a/fs/ext4/ext4.h b/fs/ext4/ext4.h
  			struct ext4_dir_entry_2 *de,
  			int buf_size,
  			struct ext4_filename *fname);
-@@ -2945,10 +2989,11 @@ extern int ext4_search_dir(struct buffer_head *bh,
+@@ -2948,10 +2992,11 @@ extern int ext4_search_dir(struct buffer_head *bh,
  			   int buf_size,
  			   struct inode *dir,
  			   struct ext4_filename *fname,
@@ -326,7 +326,7 @@ diff --git a/fs/ext4/ext4.h b/fs/ext4/ext4.h
  				     struct buffer_head *bh,
  				     void *entry_buf,
  				     int buf_size,
-@@ -3516,9 +3561,6 @@ extern void ext4_initialize_dirent_tail(struct buffer_head *bh,
+@@ -3519,9 +3564,6 @@ extern void ext4_initialize_dirent_tail(struct buffer_head *bh,
  					unsigned int blocksize);
  extern int ext4_handle_dirty_dirblock(handle_t *handle, struct inode *inode,
  				      struct buffer_head *bh);
@@ -1418,7 +1418,7 @@ diff --git a/fs/ext4/namei.c b/fs/ext4/namei.c
  	struct buffer_head *bh;
  	struct ext4_dir_entry_2 *de;
  	int inlined;
-@@ -3619,12 +3732,13 @@ static int ext4_find_delete_entry(handle_t *handle, struct inode *dir,
+@@ -3644,12 +3757,13 @@ static int ext4_find_delete_entry(handle_t *handle, struct inode *dir,
  	int retval = -ENOENT;
  	struct buffer_head *bh;
  	struct ext4_dir_entry_2 *de;
@@ -1434,7 +1434,7 @@ diff --git a/fs/ext4/namei.c b/fs/ext4/namei.c
  		brelse(bh);
  	}
  	return retval;
-@@ -3648,7 +3762,8 @@ static void ext4_rename_delete(handle_t *handle, struct ext4_renament *ent,
+@@ -3673,7 +3787,8 @@ static void ext4_rename_delete(handle_t *handle, struct ext4_renament *ent,
  		retval = ext4_find_delete_entry(handle, ent->dir,
  						&ent->dentry->d_name);
  	} else {
@@ -1444,7 +1444,7 @@ diff --git a/fs/ext4/namei.c b/fs/ext4/namei.c
  		if (retval == -ENOENT) {
  			retval = ext4_find_delete_entry(handle, ent->dir,
  							&ent->dentry->d_name);
-@@ -3763,7 +3878,8 @@ static int ext4_rename(struct user_namespace *mnt_userns, struct inode *old_dir,
+@@ -3788,7 +3903,8 @@ static int ext4_rename(struct user_namespace *mnt_userns, struct inode *old_dir,
  			return retval;
  	}
  
@@ -1454,8 +1454,8 @@ diff --git a/fs/ext4/namei.c b/fs/ext4/namei.c
  	if (IS_ERR(old.bh))
  		return PTR_ERR(old.bh);
  	/*
-@@ -3777,7 +3893,7 @@ static int ext4_rename(struct user_namespace *mnt_userns, struct inode *old_dir,
- 		goto end_rename;
+@@ -3802,7 +3918,7 @@ static int ext4_rename(struct user_namespace *mnt_userns, struct inode *old_dir,
+ 		goto release_bh;
  
  	new.bh = ext4_find_entry(new.dir, &new.dentry->d_name,
 -				 &new.de, &new.inlined);
@@ -1463,7 +1463,7 @@ diff --git a/fs/ext4/namei.c b/fs/ext4/namei.c
  	if (IS_ERR(new.bh)) {
  		retval = PTR_ERR(new.bh);
  		new.bh = NULL;
-@@ -3987,7 +4103,7 @@ static int ext4_cross_rename(struct inode *old_dir, struct dentry *old_dentry,
+@@ -4015,7 +4131,7 @@ static int ext4_cross_rename(struct inode *old_dir, struct dentry *old_dentry,
  		return retval;
  
  	old.bh = ext4_find_entry(old.dir, &old.dentry->d_name,
@@ -1472,7 +1472,7 @@ diff --git a/fs/ext4/namei.c b/fs/ext4/namei.c
  	if (IS_ERR(old.bh))
  		return PTR_ERR(old.bh);
  	/*
-@@ -4001,7 +4117,7 @@ static int ext4_cross_rename(struct inode *old_dir, struct dentry *old_dentry,
+@@ -4029,7 +4145,7 @@ static int ext4_cross_rename(struct inode *old_dir, struct dentry *old_dentry,
  		goto end_rename;
  
  	new.bh = ext4_find_entry(new.dir, &new.dentry->d_name,
@@ -1484,7 +1484,7 @@ diff --git a/fs/ext4/namei.c b/fs/ext4/namei.c
 diff --git a/fs/ext4/super.c b/fs/ext4/super.c
 --- a/fs/ext4/super.c
 +++ b/fs/ext4/super.c
-@@ -4291,12 +4291,6 @@ static int ext4_fill_super(struct super_block *sb, void *data, int silent)
+@@ -4292,12 +4292,6 @@ static int ext4_fill_super(struct super_block *sb, void *data, int silent)
  		struct unicode_map *encoding;
  		__u16 encoding_flags;
  

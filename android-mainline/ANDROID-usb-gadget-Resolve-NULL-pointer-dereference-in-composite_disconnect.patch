@@ -22,7 +22,7 @@ Signed-off-by: Jack Pham <jackp@codeaurora.org>
 diff --git a/drivers/usb/gadget/configfs.c b/drivers/usb/gadget/configfs.c
 --- a/drivers/usb/gadget/configfs.c
 +++ b/drivers/usb/gadget/configfs.c
-@@ -1566,36 +1566,6 @@ static int android_setup(struct usb_gadget *gadget,
+@@ -1572,36 +1572,6 @@ static int android_setup(struct usb_gadget *gadget,
  	return value;
  }
  
@@ -59,7 +59,7 @@ diff --git a/drivers/usb/gadget/configfs.c b/drivers/usb/gadget/configfs.c
  #else // CONFIG_USB_CONFIGFS_UEVENT
  
  static int configfs_composite_setup(struct usb_gadget *gadget,
-@@ -1623,6 +1593,8 @@ static int configfs_composite_setup(struct usb_gadget *gadget,
+@@ -1629,6 +1599,8 @@ static int configfs_composite_setup(struct usb_gadget *gadget,
  	return ret;
  }
  
@@ -68,7 +68,7 @@ diff --git a/drivers/usb/gadget/configfs.c b/drivers/usb/gadget/configfs.c
  static void configfs_composite_disconnect(struct usb_gadget *gadget)
  {
  	struct usb_composite_dev *cdev;
-@@ -1633,6 +1605,14 @@ static void configfs_composite_disconnect(struct usb_gadget *gadget)
+@@ -1639,6 +1611,14 @@ static void configfs_composite_disconnect(struct usb_gadget *gadget)
  	if (!cdev)
  		return;
  
@@ -83,7 +83,7 @@ diff --git a/drivers/usb/gadget/configfs.c b/drivers/usb/gadget/configfs.c
  	gi = container_of(cdev, struct gadget_info, cdev);
  	spin_lock_irqsave(&gi->spinlock, flags);
  	cdev = get_gadget_data(gadget);
-@@ -1641,12 +1621,14 @@ static void configfs_composite_disconnect(struct usb_gadget *gadget)
+@@ -1647,12 +1627,14 @@ static void configfs_composite_disconnect(struct usb_gadget *gadget)
  		return;
  	}
  
@@ -100,7 +100,7 @@ diff --git a/drivers/usb/gadget/configfs.c b/drivers/usb/gadget/configfs.c
  static void configfs_composite_reset(struct usb_gadget *gadget)
  {
  	struct usb_composite_dev *cdev;
-@@ -1719,13 +1701,11 @@ static const struct usb_gadget_driver configfs_driver_template = {
+@@ -1725,13 +1707,11 @@ static const struct usb_gadget_driver configfs_driver_template = {
  
  #ifdef CONFIG_USB_CONFIGFS_UEVENT
  	.setup          = android_setup,
