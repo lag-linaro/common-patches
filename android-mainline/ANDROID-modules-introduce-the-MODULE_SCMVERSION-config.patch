@@ -71,7 +71,7 @@ diff --git a/Documentation/ABI/stable/sysfs-module b/Documentation/ABI/stable/sy
 diff --git a/include/linux/module.h b/include/linux/module.h
 --- a/include/linux/module.h
 +++ b/include/linux/module.h
-@@ -372,6 +372,7 @@ struct module {
+@@ -369,6 +369,7 @@ struct module {
  	struct module_attribute *modinfo_attrs;
  	const char *version;
  	const char *srcversion;

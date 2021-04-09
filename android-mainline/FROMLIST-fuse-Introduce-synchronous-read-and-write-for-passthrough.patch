@@ -67,7 +67,7 @@ diff --git a/fs/fuse/file.c b/fs/fuse/file.c
 diff --git a/fs/fuse/fuse_i.h b/fs/fuse/fuse_i.h
 --- a/fs/fuse/fuse_i.h
 +++ b/fs/fuse/fuse_i.h
-@@ -1239,5 +1239,7 @@ int fuse_passthrough_open(struct fuse_dev *fud,
+@@ -1240,5 +1240,7 @@ int fuse_passthrough_open(struct fuse_dev *fud,
  int fuse_passthrough_setup(struct fuse_conn *fc, struct fuse_file *ff,
  			   struct fuse_open_out *openarg);
  void fuse_passthrough_release(struct fuse_passthrough *passthrough);

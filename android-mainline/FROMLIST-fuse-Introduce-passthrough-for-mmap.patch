@@ -45,7 +45,7 @@ diff --git a/fs/fuse/file.c b/fs/fuse/file.c
 diff --git a/fs/fuse/fuse_i.h b/fs/fuse/fuse_i.h
 --- a/fs/fuse/fuse_i.h
 +++ b/fs/fuse/fuse_i.h
-@@ -1244,5 +1244,6 @@ int fuse_passthrough_setup(struct fuse_conn *fc, struct fuse_file *ff,
+@@ -1245,5 +1245,6 @@ int fuse_passthrough_setup(struct fuse_conn *fc, struct fuse_file *ff,
  void fuse_passthrough_release(struct fuse_passthrough *passthrough);
  ssize_t fuse_passthrough_read_iter(struct kiocb *iocb, struct iov_iter *to);
  ssize_t fuse_passthrough_write_iter(struct kiocb *iocb, struct iov_iter *from);

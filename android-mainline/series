@@ -1,8 +1,8 @@
 #
 # android-mainline patches
 #
-# Applies onto upstream 1e28eed17697 Linux v5.12-rc3
-# Matches android-mainline e35d771d9ca0 ("Revert "Revert "ANDROID: enable LLVM_IAS=1 for clang's integrated assembler for arm""")
+# Applies onto upstream 6417f03132a6 Linux v5.12-rc3-25-g6417f03132a6
+# Matches android-mainline 7ca039f50b89 ("Merge 6417f03132a6 ("module: remove never implemented MODULE_SUPPORTED_DEVICE") into android-mainline")
 #
 Revert-block-grant-IOPRIO_CLASS_RT-to-CAP_SYS_NICE.patch
 Revert-arm64-dts-qcom-sdm845-db845c-Fix-hdmi-nodes.patch
