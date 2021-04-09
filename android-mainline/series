@@ -1,8 +1,8 @@
 #
 # android-mainline patches
 #
-# Applies onto upstream 7acac4b3196c Linux v5.12-rc4-7-g7acac4b3196c
-# Matches android-mainline 5890d5859c02 ("ANDROID: gki_defconfig: Enable NET_CLS_{BASIC,TCINDEX,MATCHALL} & NET_ACT_{GACT,MIRRED}")
+# Applies onto upstream db24726bfefa Linux v5.12-rc4-266-gdb24726bfefa
+# Matches android-mainline 469c64d06418 ("Merge db24726bfefa ("Merge tag 'integrity-v5.12-fix' of git://git.kernel.org/pub/scm/linux/kernel/git/zohar/linux-integrity") into android-mainline")
 #
 Revert-block-grant-IOPRIO_CLASS_RT-to-CAP_SYS_NICE.patch
 Revert-arm64-dts-qcom-sdm845-db845c-Fix-hdmi-nodes.patch

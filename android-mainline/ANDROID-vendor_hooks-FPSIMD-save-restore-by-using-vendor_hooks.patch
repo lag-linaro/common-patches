@@ -53,7 +53,7 @@ diff --git a/arch/arm64/kernel/process.c b/arch/arm64/kernel/process.c
  
  #include <asm/alternative.h>
  #include <asm/arch_gicv3.h>
-@@ -560,6 +561,8 @@ __notrace_funcgraph struct task_struct *__switch_to(struct task_struct *prev,
+@@ -562,6 +563,8 @@ __notrace_funcgraph struct task_struct *__switch_to(struct task_struct *prev,
  	 */
  	mte_thread_switch(next);
  
