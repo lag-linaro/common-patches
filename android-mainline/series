@@ -1,8 +1,8 @@
 #
 # android-mainline patches
 #
-# Applies onto upstream 0d02ec6b3136 Linux v5.12-rc4
-# Matches android-mainline ad5b9d3a9e73 ("ANDROID: Fix compilation error when CPU_FREQ is disabled")
+# Applies onto upstream 84196390620a Linux v5.12-rc4-4-g84196390620a
+# Matches android-mainline b9a74a307699 ("Merge 84196390620a ("Merge tag 'selinux-pr-20210322' of git://git.kernel.org/pub/scm/linux/kernel/git/pcmoore/selinux") into android-mainline")
 #
 Revert-block-grant-IOPRIO_CLASS_RT-to-CAP_SYS_NICE.patch
 Revert-arm64-dts-qcom-sdm845-db845c-Fix-hdmi-nodes.patch
