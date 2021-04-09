@@ -1,0 +1,56 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: Nick Desaulniers <ndesaulniers@google.com>
+Date: Thu, 18 Mar 2021 17:07:06 -0700
+Subject: FROMLIST: Makefile: fix GDB warning with CONFIG_RELR
+
+GDB produces the following warning when debugging kernels built with
+CONFIG_RELR:
+
+BFD: /android0/linux-next/vmlinux: unknown type [0x13] section `.relr.dyn'
+
+when loading a kernel built with CONFIG_RELR into GDB. It can also
+prevent debugging symbols using such relocations.
+
+Peter sugguests:
+  [That flag] means that lld will use dynamic tags and section type
+  numbers in the OS-specific range rather than the generic range. The
+  kernel itself doesn't care about these numbers; it determines the
+  location of the RELR section using symbols defined by a linker script.
+
+Suggested-by: Peter Collingbourne <pcc@google.com>
+Signed-off-by: Nick Desaulniers <ndesaulniers@google.com>
+Reviewed-by: Nathan Chancellor <nathan@kernel.org>
+Link: https://github.com/ClangBuiltLinux/linux/issues/1057
+Bug: 182884953
+(am from https://lore.kernel.org/linux-kbuild/20210319000708.1694662-1-ndesaulniers@google.com/T/#u)
+Change-Id: I2c2508da33fcf3cf8485d63be60c523970e3d120
+---
+ Makefile                      | 2 +-
+ scripts/tools-support-relr.sh | 3 ++-
+ 2 files changed, 3 insertions(+), 2 deletions(-)
+
+diff --git a/Makefile b/Makefile
+--- a/Makefile
++++ b/Makefile
+@@ -998,7 +998,7 @@ LDFLAGS_vmlinux	+= $(call ld-option, -X,)
+ endif
+ 
+ ifeq ($(CONFIG_RELR),y)
+-LDFLAGS_vmlinux	+= --pack-dyn-relocs=relr
++LDFLAGS_vmlinux	+= --pack-dyn-relocs=relr --use-android-relr-tags
+ endif
+ 
+ # We never want expected sections to be placed heuristically by the
+diff --git a/scripts/tools-support-relr.sh b/scripts/tools-support-relr.sh
+--- a/scripts/tools-support-relr.sh
++++ b/scripts/tools-support-relr.sh
+@@ -7,7 +7,8 @@ trap "rm -f $tmp_file.o $tmp_file $tmp_file.bin" EXIT
+ cat << "END" | $CC -c -x c - -o $tmp_file.o >/dev/null 2>&1
+ void *p = &p;
+ END
+-$LD $tmp_file.o -shared -Bsymbolic --pack-dyn-relocs=relr -o $tmp_file
++$LD $tmp_file.o -shared -Bsymbolic --pack-dyn-relocs=relr \
++  --use-android-relr-tags -o $tmp_file
+ 
+ # Despite printing an error message, GNU nm still exits with exit code 0 if it
+ # sees a relr section. So we need to check that nothing is printed to stderr.
