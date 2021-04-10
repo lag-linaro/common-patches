@@ -1,0 +1,29 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: Alistair Delva <adelva@google.com>
+Date: Mon, 29 Mar 2021 17:41:32 -0700
+Subject: ANDROID: Add QEMU testing drivers to rockpi4
+
+Enable some additional virtio modules (pci, block, net) so the kernel
+config used on rockpi4 can also be used to complete a debootstrap using
+QEMU.
+
+This enables us to avoid all use of qemu-user to build userspace.
+
+Bug: 183963484
+Change-Id: Idfbe3c51f095a8c7795bcfdcf9f475772be194a9
+Signed-off-by: Alistair Delva <adelva@google.com>
+---
+ arch/arm64/configs/rockpi4_gki.fragment | 4 ++++
+ 1 file changed, 4 insertions(+)
+
+diff --git a/arch/arm64/configs/rockpi4_gki.fragment b/arch/arm64/configs/rockpi4_gki.fragment
+--- a/arch/arm64/configs/rockpi4_gki.fragment
++++ b/arch/arm64/configs/rockpi4_gki.fragment
+@@ -54,3 +54,7 @@ CONFIG_PHY_ROCKCHIP_INNO_USB2=m
+ CONFIG_PHY_ROCKCHIP_USB=m
+ CONFIG_ROCKCHIP_EFUSE=m
+ CONFIG_CRYPTO_DEV_ROCKCHIP=m
++# To bootstrap rootfs with QEMU
++CONFIG_VIRTIO_PCI=m
++CONFIG_VIRTIO_BLK=m
++CONFIG_VIRTIO_NET=m

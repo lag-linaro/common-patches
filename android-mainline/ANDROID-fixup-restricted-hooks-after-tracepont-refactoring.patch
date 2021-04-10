@@ -20,7 +20,7 @@ Signed-off-by: Greg Kroah-Hartman <gregkh@google.com>
 diff --git a/include/trace/hooks/vendor_hooks.h b/include/trace/hooks/vendor_hooks.h
 --- a/include/trace/hooks/vendor_hooks.h
 +++ b/include/trace/hooks/vendor_hooks.h
-@@ -53,32 +53,39 @@
+@@ -57,32 +57,39 @@ int android_rvh_probe_register(struct tracepoint *tp, void *probe, void *data);
  #undef TRACE_HEADER_MULTI_READ
  #else /* TRACE_HEADER_MULTI_READ */
  
@@ -71,7 +71,7 @@ diff --git a/include/trace/hooks/vendor_hooks.h b/include/trace/hooks/vendor_hoo
  	}								\
  	static inline bool						\
  	trace_##name##_enabled(void)					\
-@@ -98,10 +105,9 @@
+@@ -99,10 +106,9 @@ int android_rvh_probe_register(struct tracepoint *tp, void *probe, void *data);
  
  #undef DECLARE_RESTRICTED_HOOK
  #define DECLARE_RESTRICTED_HOOK(name, proto, args, cond)		\

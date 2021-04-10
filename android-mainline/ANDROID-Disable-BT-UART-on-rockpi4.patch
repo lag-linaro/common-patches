@@ -1,0 +1,28 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: Alistair Delva <adelva@google.com>
+Date: Mon, 29 Mar 2021 16:11:39 -0700
+Subject: ANDROID: Disable BT UART on rockpi4.
+
+Enabling the BT UART seems to break boot. Corruption can be seen on the
+serial UART (uart2) just before the device restarts. As we aren't using
+this device anyway, disable it until we have time to diagnose it.
+
+Bug: 183963484
+Change-Id: I8b11c6573258164335cd3d13aa143a361eec5971
+Signed-off-by: Alistair Delva <adelva@google.com>
+---
+ arch/arm64/boot/dts/rockchip/rk3399-rock-pi-4b.dts | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/arch/arm64/boot/dts/rockchip/rk3399-rock-pi-4b.dts b/arch/arm64/boot/dts/rockchip/rk3399-rock-pi-4b.dts
+--- a/arch/arm64/boot/dts/rockchip/rk3399-rock-pi-4b.dts
++++ b/arch/arm64/boot/dts/rockchip/rk3399-rock-pi-4b.dts
+@@ -27,7 +27,7 @@ brcmf: wifi@1 {
+ };
+ 
+ &uart0 {
+-	status = "okay";
++	status = "disabled";
+ 
+ 	bluetooth {
+ 		compatible = "brcm,bcm43438-bt";

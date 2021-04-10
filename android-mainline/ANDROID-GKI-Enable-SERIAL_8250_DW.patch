@@ -1,0 +1,33 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: Alistair Delva <adelva@google.com>
+Date: Mon, 29 Mar 2021 15:41:43 -0700
+Subject: ANDROID: GKI: Enable SERIAL_8250_DW
+
+Enable support for designware quirks in the 8250 driver. This could be
+built as a module, but if the 8250 earlycon driver is being used, doing
+so causes problems at boot. When clk_unused_disable() disables the uart
+clocks while the earlycon driver is using them, but before the full
+driver loads to take over the clocks, the device will reboot.
+
+This adds a relatively small amount of code to GKI so it should be
+harmless, at least until a way is found to split the 8250 earlycon
+support from the full driver.
+
+Bug: 183963484
+Change-Id: I6e54dfce347f546e954703af083a9c55cf2ddd88
+Signed-off-by: Alistair Delva <adelva@google.com>
+---
+ arch/arm64/configs/gki_defconfig | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/arch/arm64/configs/gki_defconfig b/arch/arm64/configs/gki_defconfig
+--- a/arch/arm64/configs/gki_defconfig
++++ b/arch/arm64/configs/gki_defconfig
+@@ -337,6 +337,7 @@ CONFIG_SERIAL_8250=y
+ # CONFIG_SERIAL_8250_DEPRECATED_OPTIONS is not set
+ CONFIG_SERIAL_8250_CONSOLE=y
+ # CONFIG_SERIAL_8250_EXAR is not set
++CONFIG_SERIAL_8250_DW=y
+ CONFIG_SERIAL_OF_PLATFORM=y
+ CONFIG_SERIAL_AMBA_PL011=y
+ CONFIG_SERIAL_AMBA_PL011_CONSOLE=y

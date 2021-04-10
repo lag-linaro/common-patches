@@ -1,0 +1,47 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: Eric Biggers <ebiggers@google.com>
+Date: Tue, 30 Mar 2021 15:20:50 -0700
+Subject: ANDROID: scsi: ufs: set crypto keyslot before prepare_command
+
+Move the call to ufshcd_prepare_lrbp_crypto() to before
+trace_android_vh_ufs_prepare_command() rather than after.
+
+This allows trace_android_vh_ufs_prepare_command() to adjust the crypto
+keyslot number in order to support nonstandard hardware that numbers the
+crypto keyslots as 1..N instead of 0..N-1 as expected.
+
+Alternatively we could add a hook just for remapping the keyslot number.
+But it seems better to just use the existing prepare_command hook.
+
+This should be folded into
+ANDROID-scsi-ufs-add-a-hook-to-prepare-command.patch.
+
+Bug: 166139333
+Bug: 162257402
+Change-Id: I5f4e3a0d3322145ded4e70e011446fb51825877e
+Signed-off-by: Eric Biggers <ebiggers@google.com>
+---
+ drivers/scsi/ufs/ufshcd.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/drivers/scsi/ufs/ufshcd.c b/drivers/scsi/ufs/ufshcd.c
+--- a/drivers/scsi/ufs/ufshcd.c
++++ b/drivers/scsi/ufs/ufshcd.c
+@@ -2660,6 +2660,8 @@ static int ufshcd_queuecommand(struct Scsi_Host *host, struct scsi_cmnd *cmd)
+ 	lrbp->lun = ufshcd_scsi_to_upiu_lun(cmd->device->lun);
+ 	lrbp->intr_cmd = !ufshcd_is_intr_aggr_allowed(hba) ? true : false;
+ 
++	ufshcd_prepare_lrbp_crypto(cmd->request, lrbp);
++
+ 	trace_android_vh_ufs_prepare_command(hba, cmd->request, lrbp, &err);
+ 	if (err) {
+ 		lrbp->cmd = NULL;
+@@ -2667,8 +2669,6 @@ static int ufshcd_queuecommand(struct Scsi_Host *host, struct scsi_cmnd *cmd)
+ 		goto out;
+ 	}
+ 
+-	ufshcd_prepare_lrbp_crypto(cmd->request, lrbp);
+-
+ 	lrbp->req_abort_skip = false;
+ 
+ 	ufshcd_comp_scsi_upiu(hba, lrbp);

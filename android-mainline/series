@@ -2,7 +2,7 @@
 # android-mainline patches
 #
 # Applies onto upstream a5e13c6df0e4 Linux v5.12-rc5
-# Matches android-mainline dbcdd09969ef ("Merge tag 'v5.12-rc5' into `android-mainline`")
+# Matches android-mainline 66be66608f05 ("ANDROID: scsi: ufs: set crypto keyslot before prepare_command")
 #
 Revert-block-grant-IOPRIO_CLASS_RT-to-CAP_SYS_NICE.patch
 Revert-arm64-dts-qcom-sdm845-db845c-Fix-hdmi-nodes.patch
@@ -36,11 +36,13 @@ FROMLIST-arm64-meson-remove-MESON_IRQ_GPIO-selection.patch
 FROMLIST-ARM-kprobes-fix-UNPREDICTABLE-warnings.patch
 FROMLIST-ARM-kprobes-rewrite-test-arm.c-in-UAL.patch
 FROMLIST-configfs-make-directories-inherit-uid-gid-from-creator.patch
+FROMLIST-drm-msm-Fix-removal-of-valid-error-case-when-checking-speed_bin.patch
 _____ANNOTATION-Android-vendor-hooks_____.patch
 ANDROID-GKI-add-android_vendor.h.patch
 ANDROID-add-support-for-vendor-hooks.patch
 ANDROID-use-static_call-for-restricted-hooks.patch
 ANDROID-add-macros-to-create-OEM-data-fields.patch
+ANDROID-vendor_hooks-Allow-multiple-attachments-to-restricted-hooks.patch
 _____ANNOTATION-kbuild-changes_____.patch
 FROMLIST-kbuild-Add-dtc-flag-test.patch
 ANDROID-Kbuild-LLVMLinux-allow-overriding-clang-target-triple.patch
@@ -251,6 +253,7 @@ ANDROID-spi-of-Populate-fwnode-in-of_register_spi_device.patch
 ANDROID-staging-add-debug-kinfo-driver.patch
 ANDROID-irqdesc-Export-symbol-for-vendor-modules.patch
 ANDROID-Make-vsock-virtio-packet-buff-size-configurable.patch
+ANDROID-Disable-BT-UART-on-rockpi4.patch
 _____ANNOTATION-tty-changes_____.patch
 Revert-Revert-tty-serial-samsung_tty-build-it-for-any-platform.patch
 FROMLIST-hvc_dcc-bind-driver-to-core0-for-reads-and-writes.patch
@@ -320,6 +323,7 @@ ANDROID-scsi-ufs-add-a-hook-to-prepare-command.patch
 ANDROID-scsi-ufs-add-a-hook-to-add-sysfs-entries.patch
 ANDROID-scsi-ufs-add-hooks-to-monitor-stats-of-UFS-traffic.patch
 ANDROID-scsi-ufs-add-hooks-to-track-ufs-commands.patch
+ANDROID-scsi-ufs-set-crypto-keyslot-before-prepare_command.patch
 _____ANNOTATION-MMC-driver-changes_____.patch
 ANDROID-mmc-core-Add-ignore-mmc-pm-notify-functionality.patch
 ANDROID-mmc-support-hardware-that-takes-key-directly.patch
@@ -462,6 +466,7 @@ ANDROID-virtio-net-Skip-set_features-on-non-cvq-devices.patch
 ANDROID-net-wireless-Add-module_param-mac_prefix-to-mac80211_hwsim.patch
 ANDROID-Unconditionally-create-bridge-tracepoints.patch
 ANDROID-Temporarily-disable-XFRM_USER_COMPAT-filtering.patch
+ANDROID-roll-back-xt_IDLETIMER-to-5.10.21-upstream-vanilla-version.patch
 _____ANNOTATION-hardware-wrapped-key-support_____.patch
 ANDROID-block-add-hardware-wrapped-key-support.patch
 ANDROID-dm-add-support-for-passing-through-derive_raw_secret.patch
@@ -826,6 +831,10 @@ ANDROID-gki_defconfig-Enable-USB_NET_CDC_NCM.patch
 ANDROID-gki_defconfig-Enable-IFB-NET_SCH_TBF-NET_ACT_POLICE.patch
 ANDROID-GKI-enable-KFENCE-by-setting-the-sample-interval-to-500ms.patch
 ANDROID-gki_defconfig-Enable-NET_CLS_-BASIC-TCINDEX-MATCHALL-NET_ACT_-GACT-MIRRED.patch
+ANDROID-GKI-Enable-POWER_RESET_SYSCON.patch
+ANDROID-GKI-Enable-SERIAL_8250_DW.patch
+ANDROID-GKI-Add-rockpi4-fragment-and-build.config.patch
+ANDROID-Add-QEMU-testing-drivers-to-rockpi4.patch
 _____ANNOTATION-Patches-for-bringing-up-new-SoCs_____.patch
 _____ANNOTATION-remove-ANNOTATIONS-file_____.patch
 DROP-ME-obsolete-ION-documentation.patch
