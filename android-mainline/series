@@ -2,7 +2,7 @@
 # android-mainline patches
 #
 # Applies onto upstream 2d743660786e Linux v5.12-rc6-6-g2d743660786e
-# Matches android-mainline cb0ffb7ffccc ("Merge 2d743660786e ("Merge branch 'fixes' of git://git.kernel.org/pub/scm/linux/kernel/git/viro/vfs") into android-mainline")
+# Matches android-mainline 0041f84975dc ("ANDROID: Add GKI_HIDDEN_MM_CONFIGS to support ballooning.")
 #
 Revert-block-grant-IOPRIO_CLASS_RT-to-CAP_SYS_NICE.patch
 Revert-arm64-dts-qcom-sdm845-db845c-Fix-hdmi-nodes.patch
@@ -835,6 +835,8 @@ ANDROID-GKI-Enable-POWER_RESET_SYSCON.patch
 ANDROID-GKI-Enable-SERIAL_8250_DW.patch
 ANDROID-GKI-Add-rockpi4-fragment-and-build.config.patch
 ANDROID-Add-QEMU-testing-drivers-to-rockpi4.patch
+ANDROID-Add-Image.lz4-to-arm64-GKI-outputs.patch
+ANDROID-Add-GKI_HIDDEN_MM_CONFIGS-to-support-ballooning.patch
 _____ANNOTATION-Patches-for-bringing-up-new-SoCs_____.patch
 _____ANNOTATION-remove-ANNOTATIONS-file_____.patch
 DROP-ME-obsolete-ION-documentation.patch
