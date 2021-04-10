@@ -1,8 +1,8 @@
 #
 # android-mainline patches
 #
-# Applies onto upstream 0f4498cef9f5 Linux v5.12-rc4-354-g0f4498cef9f5
-# Matches android-mainline 36203b431ad8 ("Merge 0f4498cef9f5 ("Merge tag 'for-5.12/dm-fixes-2' of git://git.kernel.org/pub/scm/linux/kernel/git/device-mapper/linux-dm") into android-mainline")
+# Applies onto upstream a5e13c6df0e4 Linux v5.12-rc5
+# Matches android-mainline dbcdd09969ef ("Merge tag 'v5.12-rc5' into `android-mainline`")
 #
 Revert-block-grant-IOPRIO_CLASS_RT-to-CAP_SYS_NICE.patch
 Revert-arm64-dts-qcom-sdm845-db845c-Fix-hdmi-nodes.patch

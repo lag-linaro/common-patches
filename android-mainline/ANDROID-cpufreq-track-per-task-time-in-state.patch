@@ -414,9 +414,9 @@ diff --git a/kernel/fork.c b/kernel/fork.c
  	scs_release(tsk);
  
  #ifndef CONFIG_THREAD_INFO_IN_TASK
-@@ -1952,6 +1954,8 @@ static __latent_entropy struct task_struct *copy_process(
- 	if (args->io_thread)
- 		p->flags |= PF_IO_WORKER;
+@@ -1958,6 +1960,8 @@ static __latent_entropy struct task_struct *copy_process(
+ 		siginitsetinv(&p->blocked, sigmask(SIGKILL)|sigmask(SIGSTOP));
+ 	}
  
 +	cpufreq_task_times_init(p);
 +
