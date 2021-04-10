@@ -1,8 +1,8 @@
 #
 # android-mainline patches
 #
-# Applies onto upstream e49d033bddf5 Linux v5.12-rc6
-# Matches android-mainline 2fca85226caa ("Merge tag 'v5.12-rc6' into android-mainline")
+# Applies onto upstream 2d743660786e Linux v5.12-rc6-6-g2d743660786e
+# Matches android-mainline cb0ffb7ffccc ("Merge 2d743660786e ("Merge branch 'fixes' of git://git.kernel.org/pub/scm/linux/kernel/git/viro/vfs") into android-mainline")
 #
 Revert-block-grant-IOPRIO_CLASS_RT-to-CAP_SYS_NICE.patch
 Revert-arm64-dts-qcom-sdm845-db845c-Fix-hdmi-nodes.patch
