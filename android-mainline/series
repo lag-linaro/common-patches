@@ -1,8 +1,8 @@
 #
 # android-mainline patches
 #
-# Applies onto upstream 1678e493d530 Linux v5.12-rc5-91-g1678e493d530
-# Matches android-mainline 27d387eb96cc ("Merge 1678e493d530 ("Merge tag 'lto-v5.12-rc6' of git://git.kernel.org/pub/scm/linux/kernel/git/kees/linux") into android-mainline")
+# Applies onto upstream d93a0d43e3d0 Linux v5.12-rc5-117-gd93a0d43e3d0
+# Matches android-mainline be0f6a9dfb1f ("Merge d93a0d43e3d0 ("Merge tag 'block-5.12-2021-04-02' of git://git.kernel.dk/linux-block") into android-mainline")
 #
 Revert-block-grant-IOPRIO_CLASS_RT-to-CAP_SYS_NICE.patch
 Revert-arm64-dts-qcom-sdm845-db845c-Fix-hdmi-nodes.patch
