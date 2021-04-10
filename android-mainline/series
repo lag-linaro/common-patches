@@ -1,8 +1,8 @@
 #
 # android-mainline patches
 #
-# Applies onto upstream ffd9fb546d49 Linux v5.12-rc5-48-gffd9fb546d49
-# Matches android-mainline 2b7b834461d3 ("Merge ffd9fb546d49 ("Merge tag 'sound-5.12-rc6' of git://git.kernel.org/pub/scm/linux/kernel/git/tiwai/sound") into android-mainline")
+# Applies onto upstream 1678e493d530 Linux v5.12-rc5-91-g1678e493d530
+# Matches android-mainline 27d387eb96cc ("Merge 1678e493d530 ("Merge tag 'lto-v5.12-rc6' of git://git.kernel.org/pub/scm/linux/kernel/git/kees/linux") into android-mainline")
 #
 Revert-block-grant-IOPRIO_CLASS_RT-to-CAP_SYS_NICE.patch
 Revert-arm64-dts-qcom-sdm845-db845c-Fix-hdmi-nodes.patch
