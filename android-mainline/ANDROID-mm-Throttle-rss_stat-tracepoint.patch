@@ -60,7 +60,7 @@ diff --git a/mm/memory.c b/mm/memory.c
 +++ b/mm/memory.c
 @@ -168,9 +168,21 @@ static int __init init_zero_pfn(void)
  }
- core_initcall(init_zero_pfn);
+ early_initcall(init_zero_pfn);
  
 -void mm_trace_rss_stat(struct mm_struct *mm, int member, long count)
 +/*
