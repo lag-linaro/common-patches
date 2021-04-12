@@ -1,0 +1,26 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: Alistair Delva <adelva@google.com>
+Date: Thu, 1 Apr 2021 09:43:33 -0700
+Subject: ANDROID: Add virtio-rng to rockpi4 qemu modules
+
+This enables the crng to initialize a bit more quickly, which is useful
+for testing net tests.
+
+Bug: 183963484
+Change-Id: I05bed1a5e22006842c69e74f624c2cb7a435cfdd
+Signed-off-by: Alistair Delva <adelva@google.com>
+---
+ arch/arm64/configs/rockpi4_gki.fragment | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/arch/arm64/configs/rockpi4_gki.fragment b/arch/arm64/configs/rockpi4_gki.fragment
+--- a/arch/arm64/configs/rockpi4_gki.fragment
++++ b/arch/arm64/configs/rockpi4_gki.fragment
+@@ -76,6 +76,7 @@ CONFIG_SND_SOC_ROCKCHIP_I2S=m
+ CONFIG_DEVTMPFS=y
+ 
+ # To bootstrap rootfs with QEMU
++CONFIG_HW_RANDOM_VIRTIO=m
+ CONFIG_VIRTIO_PCI=m
+ CONFIG_VIRTIO_BLK=m
+ CONFIG_VIRTIO_NET=m

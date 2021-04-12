@@ -2,7 +2,7 @@
 # android-mainline patches
 #
 # Applies onto upstream 2d743660786e Linux v5.12-rc6-6-g2d743660786e
-# Matches android-mainline 0041f84975dc ("ANDROID: Add GKI_HIDDEN_MM_CONFIGS to support ballooning.")
+# Matches android-mainline 34bddd170120 ("ANDROID: Build LZ4 ramdisk for rockpi4")
 #
 Revert-block-grant-IOPRIO_CLASS_RT-to-CAP_SYS_NICE.patch
 Revert-arm64-dts-qcom-sdm845-db845c-Fix-hdmi-nodes.patch
@@ -837,6 +837,9 @@ ANDROID-GKI-Add-rockpi4-fragment-and-build.config.patch
 ANDROID-Add-QEMU-testing-drivers-to-rockpi4.patch
 ANDROID-Add-Image.lz4-to-arm64-GKI-outputs.patch
 ANDROID-Add-GKI_HIDDEN_MM_CONFIGS-to-support-ballooning.patch
+ANDROID-rockpi4-Update-with-probed-drivers.patch
+ANDROID-Add-virtio-rng-to-rockpi4-qemu-modules.patch
+ANDROID-Build-LZ4-ramdisk-for-rockpi4.patch
 _____ANNOTATION-Patches-for-bringing-up-new-SoCs_____.patch
 _____ANNOTATION-remove-ANNOTATIONS-file_____.patch
 DROP-ME-obsolete-ION-documentation.patch
