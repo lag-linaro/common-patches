@@ -22,7 +22,7 @@ diff --git a/arch/x86/configs/gki_defconfig b/arch/x86/configs/gki_defconfig
  CONFIG_FW_LOADER_USER_HELPER=y
  CONFIG_FW_LOADER_USER_HELPER_FALLBACK=y
  # CONFIG_FW_CACHE is not set
-@@ -250,6 +251,7 @@ CONFIG_SERIAL_8250_CONSOLE=y
+@@ -249,6 +250,7 @@ CONFIG_SERIAL_8250_CONSOLE=y
  CONFIG_SERIAL_OF_PLATFORM=y
  CONFIG_SERIAL_DEV_BUS=y
  CONFIG_HW_RANDOM=y
@@ -30,7 +30,7 @@ diff --git a/arch/x86/configs/gki_defconfig b/arch/x86/configs/gki_defconfig
  # CONFIG_I2C_COMPAT is not set
  # CONFIG_I2C_HELPER_AUTO is not set
  CONFIG_SPI=y
-@@ -257,6 +259,7 @@ CONFIG_GPIOLIB=y
+@@ -256,6 +258,7 @@ CONFIG_GPIOLIB=y
  # CONFIG_HWMON is not set
  CONFIG_DEVFREQ_THERMAL=y
  # CONFIG_X86_PKG_TEMP_THERMAL is not set

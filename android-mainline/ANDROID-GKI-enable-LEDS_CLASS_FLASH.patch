@@ -17,7 +17,7 @@ Change-Id: I19fa50c328ed0ddda7a11a0ab49f878544ac9b46
 diff --git a/arch/arm64/configs/gki_defconfig b/arch/arm64/configs/gki_defconfig
 --- a/arch/arm64/configs/gki_defconfig
 +++ b/arch/arm64/configs/gki_defconfig
-@@ -367,6 +367,7 @@ CONFIG_MMC_SDHCI=y
+@@ -366,6 +366,7 @@ CONFIG_MMC_SDHCI=y
  CONFIG_MMC_SDHCI_PLTFM=y
  CONFIG_NEW_LEDS=y
  CONFIG_LEDS_CLASS=y
@@ -28,7 +28,7 @@ diff --git a/arch/arm64/configs/gki_defconfig b/arch/arm64/configs/gki_defconfig
 diff --git a/arch/x86/configs/gki_defconfig b/arch/x86/configs/gki_defconfig
 --- a/arch/x86/configs/gki_defconfig
 +++ b/arch/x86/configs/gki_defconfig
-@@ -326,6 +326,7 @@ CONFIG_MMC_SDHCI=y
+@@ -325,6 +325,7 @@ CONFIG_MMC_SDHCI=y
  CONFIG_MMC_SDHCI_PLTFM=y
  CONFIG_NEW_LEDS=y
  CONFIG_LEDS_CLASS=y

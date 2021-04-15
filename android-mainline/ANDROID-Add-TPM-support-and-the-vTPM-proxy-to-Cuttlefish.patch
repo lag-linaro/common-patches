@@ -28,7 +28,7 @@ Signed-off-by: A. Cody Schuffelen <schuffelen@google.com>
 diff --git a/arch/arm64/configs/gki_defconfig b/arch/arm64/configs/gki_defconfig
 --- a/arch/arm64/configs/gki_defconfig
 +++ b/arch/arm64/configs/gki_defconfig
-@@ -448,6 +448,7 @@ CONFIG_NLS_MAC_ROMANIAN=y
+@@ -447,6 +447,7 @@ CONFIG_NLS_MAC_ROMANIAN=y
  CONFIG_NLS_MAC_TURKISH=y
  CONFIG_NLS_UTF8=y
  CONFIG_SECURITY=y
@@ -39,7 +39,7 @@ diff --git a/arch/arm64/configs/gki_defconfig b/arch/arm64/configs/gki_defconfig
 diff --git a/arch/x86/configs/gki_defconfig b/arch/x86/configs/gki_defconfig
 --- a/arch/x86/configs/gki_defconfig
 +++ b/arch/x86/configs/gki_defconfig
-@@ -390,6 +390,7 @@ CONFIG_NLS_MAC_ROMANIAN=y
+@@ -389,6 +389,7 @@ CONFIG_NLS_MAC_ROMANIAN=y
  CONFIG_NLS_MAC_TURKISH=y
  CONFIG_NLS_UTF8=y
  CONFIG_SECURITY=y

@@ -18,7 +18,7 @@ Signed-off-by: Greg Kroah-Hartman <gregkh@google.com>
 diff --git a/arch/arm64/configs/gki_defconfig b/arch/arm64/configs/gki_defconfig
 --- a/arch/arm64/configs/gki_defconfig
 +++ b/arch/arm64/configs/gki_defconfig
-@@ -342,6 +342,7 @@ CONFIG_GPIO_GENERIC_PLATFORM=y
+@@ -341,6 +341,7 @@ CONFIG_GPIO_GENERIC_PLATFORM=y
  CONFIG_POWER_RESET_HISI=y
  # CONFIG_HWMON is not set
  CONFIG_THERMAL=y
@@ -29,7 +29,7 @@ diff --git a/arch/arm64/configs/gki_defconfig b/arch/arm64/configs/gki_defconfig
 diff --git a/arch/x86/configs/gki_defconfig b/arch/x86/configs/gki_defconfig
 --- a/arch/x86/configs/gki_defconfig
 +++ b/arch/x86/configs/gki_defconfig
-@@ -301,6 +301,7 @@ CONFIG_SPI=y
+@@ -300,6 +300,7 @@ CONFIG_SPI=y
  CONFIG_GPIOLIB=y
  CONFIG_GPIO_GENERIC_PLATFORM=y
  # CONFIG_HWMON is not set

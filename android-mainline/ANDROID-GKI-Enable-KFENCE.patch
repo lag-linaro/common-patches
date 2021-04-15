@@ -17,7 +17,7 @@ Signed-off-by: Alistair Delva <adelva@google.com>
 diff --git a/arch/arm64/configs/gki_defconfig b/arch/arm64/configs/gki_defconfig
 --- a/arch/arm64/configs/gki_defconfig
 +++ b/arch/arm64/configs/gki_defconfig
-@@ -620,6 +620,8 @@ CONFIG_DEBUG_STACK_USAGE=y
+@@ -619,6 +619,8 @@ CONFIG_DEBUG_STACK_USAGE=y
  CONFIG_DEBUG_MEMORY_INIT=y
  CONFIG_KASAN=y
  CONFIG_KASAN_HW_TAGS=y
@@ -29,7 +29,7 @@ diff --git a/arch/arm64/configs/gki_defconfig b/arch/arm64/configs/gki_defconfig
 diff --git a/arch/x86/configs/gki_defconfig b/arch/x86/configs/gki_defconfig
 --- a/arch/x86/configs/gki_defconfig
 +++ b/arch/x86/configs/gki_defconfig
-@@ -561,6 +561,8 @@ CONFIG_UBSAN_LOCAL_BOUNDS=y
+@@ -560,6 +560,8 @@ CONFIG_UBSAN_LOCAL_BOUNDS=y
  CONFIG_PAGE_OWNER=y
  CONFIG_DEBUG_STACK_USAGE=y
  CONFIG_DEBUG_MEMORY_INIT=y

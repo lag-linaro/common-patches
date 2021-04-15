@@ -16,18 +16,18 @@ Signed-off-by: John Stultz <john.stultz@linaro.org>
 Change-Id: I685ccea29efc7ba14f7b0a24f41983e37203f9a2
 Signed-off-by: Matthias Maennich <maennich@google.com>
 ---
- arch/arm64/configs/gki_defconfig | 411 +++++++++++++++++++++++++++++++
- arch/x86/configs/gki_defconfig   | 342 +++++++++++++++++++++++++
- 2 files changed, 753 insertions(+)
+ arch/arm64/configs/gki_defconfig | 410 +++++++++++++++++++++++++++++++
+ arch/x86/configs/gki_defconfig   | 341 +++++++++++++++++++++++++
+ 2 files changed, 751 insertions(+)
  create mode 100644 arch/arm64/configs/gki_defconfig
  create mode 100644 arch/x86/configs/gki_defconfig
 
 diff --git a/arch/arm64/configs/gki_defconfig b/arch/arm64/configs/gki_defconfig
 new file mode 100644
-index 000000000000..bb378ecabc30
+index 000000000000..3111b6d28a7a
 --- /dev/null
 +++ b/arch/arm64/configs/gki_defconfig
-@@ -0,0 +1,411 @@
+@@ -0,0 +1,410 @@
 +CONFIG_LOCALVERSION="-mainline"
 +CONFIG_AUDIT=y
 +CONFIG_NO_HZ=y
@@ -242,7 +242,6 @@ index 000000000000..bb378ecabc30
 +CONFIG_DM_CRYPT=y
 +CONFIG_DM_UEVENT=y
 +CONFIG_DM_VERITY=y
-+CONFIG_DM_VERITY_AVB=y
 +CONFIG_DM_VERITY_FEC=y
 +CONFIG_DM_BOW=y
 +CONFIG_NETDEVICES=y
@@ -441,10 +440,10 @@ index 000000000000..bb378ecabc30
 +CONFIG_CORESIGHT_STM=y
 diff --git a/arch/x86/configs/gki_defconfig b/arch/x86/configs/gki_defconfig
 new file mode 100644
-index 000000000000..58ca0e0e0126
+index 000000000000..05b4c2ce1631
 --- /dev/null
 +++ b/arch/x86/configs/gki_defconfig
-@@ -0,0 +1,342 @@
+@@ -0,0 +1,341 @@
 +CONFIG_LOCALVERSION="-mainline"
 +CONFIG_AUDIT=y
 +CONFIG_NO_HZ=y
@@ -632,7 +631,6 @@ index 000000000000..58ca0e0e0126
 +CONFIG_DM_CRYPT=y
 +CONFIG_DM_UEVENT=y
 +CONFIG_DM_VERITY=y
-+CONFIG_DM_VERITY_AVB=y
 +CONFIG_DM_VERITY_FEC=y
 +CONFIG_DM_BOW=y
 +CONFIG_NETDEVICES=y

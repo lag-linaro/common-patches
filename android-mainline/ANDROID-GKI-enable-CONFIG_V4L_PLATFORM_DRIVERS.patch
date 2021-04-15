@@ -23,7 +23,7 @@ Bug: 165592876
 diff --git a/arch/arm64/configs/gki_defconfig b/arch/arm64/configs/gki_defconfig
 --- a/arch/arm64/configs/gki_defconfig
 +++ b/arch/arm64/configs/gki_defconfig
-@@ -322,6 +322,8 @@ CONFIG_REGULATOR=y
+@@ -321,6 +321,8 @@ CONFIG_REGULATOR=y
  CONFIG_REGULATOR_FIXED_VOLTAGE=y
  CONFIG_MEDIA_CEC_SUPPORT=y
  CONFIG_MEDIA_SUPPORT_FILTER=y
@@ -35,7 +35,7 @@ diff --git a/arch/arm64/configs/gki_defconfig b/arch/arm64/configs/gki_defconfig
 diff --git a/arch/x86/configs/gki_defconfig b/arch/x86/configs/gki_defconfig
 --- a/arch/x86/configs/gki_defconfig
 +++ b/arch/x86/configs/gki_defconfig
-@@ -285,6 +285,8 @@ CONFIG_REGULATOR=y
+@@ -284,6 +284,8 @@ CONFIG_REGULATOR=y
  CONFIG_REGULATOR_FIXED_VOLTAGE=y
  CONFIG_MEDIA_CEC_SUPPORT=y
  CONFIG_MEDIA_SUPPORT_FILTER=y

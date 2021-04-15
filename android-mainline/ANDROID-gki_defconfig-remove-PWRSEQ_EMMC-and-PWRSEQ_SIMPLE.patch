@@ -15,7 +15,7 @@ Change-Id: I9a82010eb326b0a336725037e0356a63a0c9f053
 diff --git a/arch/x86/configs/gki_defconfig b/arch/x86/configs/gki_defconfig
 --- a/arch/x86/configs/gki_defconfig
 +++ b/arch/x86/configs/gki_defconfig
-@@ -289,6 +289,8 @@ CONFIG_USB_CONFIGFS_F_ACC=y
+@@ -288,6 +288,8 @@ CONFIG_USB_CONFIGFS_F_ACC=y
  CONFIG_USB_CONFIGFS_F_AUDIO_SRC=y
  CONFIG_USB_CONFIGFS_F_MIDI=y
  CONFIG_MMC=m

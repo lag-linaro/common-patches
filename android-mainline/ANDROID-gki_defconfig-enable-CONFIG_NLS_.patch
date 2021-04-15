@@ -20,7 +20,7 @@ Signed-off-by: Ram Muthiah <rammuthiah@google.com>
 diff --git a/arch/arm64/configs/gki_defconfig b/arch/arm64/configs/gki_defconfig
 --- a/arch/arm64/configs/gki_defconfig
 +++ b/arch/arm64/configs/gki_defconfig
-@@ -386,6 +386,55 @@ CONFIG_VFAT_FS=y
+@@ -385,6 +385,55 @@ CONFIG_VFAT_FS=y
  CONFIG_PSTORE=y
  CONFIG_PSTORE_CONSOLE=y
  CONFIG_PSTORE_RAM=y
@@ -79,7 +79,7 @@ diff --git a/arch/arm64/configs/gki_defconfig b/arch/arm64/configs/gki_defconfig
 diff --git a/arch/x86/configs/gki_defconfig b/arch/x86/configs/gki_defconfig
 --- a/arch/x86/configs/gki_defconfig
 +++ b/arch/x86/configs/gki_defconfig
-@@ -320,6 +320,55 @@ CONFIG_TMPFS_POSIX_ACL=y
+@@ -319,6 +319,55 @@ CONFIG_TMPFS_POSIX_ACL=y
  CONFIG_PSTORE=y
  CONFIG_PSTORE_CONSOLE=y
  CONFIG_PSTORE_RAM=y

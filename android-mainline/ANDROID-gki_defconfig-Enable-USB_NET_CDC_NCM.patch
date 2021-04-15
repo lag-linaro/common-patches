@@ -23,7 +23,7 @@ Change-Id: I2ca14791e641f242f677d3f3b164b678396e6ca0
 diff --git a/arch/arm64/configs/gki_defconfig b/arch/arm64/configs/gki_defconfig
 --- a/arch/arm64/configs/gki_defconfig
 +++ b/arch/arm64/configs/gki_defconfig
-@@ -295,8 +295,6 @@ CONFIG_USB_RTL8152=y
+@@ -294,8 +294,6 @@ CONFIG_USB_RTL8152=y
  CONFIG_USB_USBNET=y
  # CONFIG_USB_NET_AX8817X is not set
  # CONFIG_USB_NET_AX88179_178A is not set
@@ -35,7 +35,7 @@ diff --git a/arch/arm64/configs/gki_defconfig b/arch/arm64/configs/gki_defconfig
 diff --git a/arch/x86/configs/gki_defconfig b/arch/x86/configs/gki_defconfig
 --- a/arch/x86/configs/gki_defconfig
 +++ b/arch/x86/configs/gki_defconfig
-@@ -272,8 +272,6 @@ CONFIG_USB_RTL8152=y
+@@ -271,8 +271,6 @@ CONFIG_USB_RTL8152=y
  CONFIG_USB_USBNET=y
  # CONFIG_USB_NET_AX8817X is not set
  # CONFIG_USB_NET_AX88179_178A is not set

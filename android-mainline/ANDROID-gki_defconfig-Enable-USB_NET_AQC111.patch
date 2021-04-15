@@ -27,7 +27,7 @@ Change-Id: I4ac418ed4a16c12900fe4ad334407fe58dd64afa
 diff --git a/arch/arm64/configs/gki_defconfig b/arch/arm64/configs/gki_defconfig
 --- a/arch/arm64/configs/gki_defconfig
 +++ b/arch/arm64/configs/gki_defconfig
-@@ -300,6 +300,7 @@ CONFIG_USB_USBNET=y
+@@ -299,6 +299,7 @@ CONFIG_USB_USBNET=y
  # CONFIG_USB_NET_NET1080 is not set
  # CONFIG_USB_NET_CDC_SUBSET is not set
  # CONFIG_USB_NET_ZAURUS is not set
@@ -38,7 +38,7 @@ diff --git a/arch/arm64/configs/gki_defconfig b/arch/arm64/configs/gki_defconfig
 diff --git a/arch/x86/configs/gki_defconfig b/arch/x86/configs/gki_defconfig
 --- a/arch/x86/configs/gki_defconfig
 +++ b/arch/x86/configs/gki_defconfig
-@@ -277,6 +277,7 @@ CONFIG_USB_USBNET=y
+@@ -276,6 +276,7 @@ CONFIG_USB_USBNET=y
  # CONFIG_USB_NET_NET1080 is not set
  # CONFIG_USB_NET_CDC_SUBSET is not set
  # CONFIG_USB_NET_ZAURUS is not set

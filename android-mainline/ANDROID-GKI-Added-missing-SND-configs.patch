@@ -15,7 +15,7 @@ Change-Id: I809392ffe06327839be7574195b1f080db2d1f2e
 diff --git a/arch/x86/configs/gki_defconfig b/arch/x86/configs/gki_defconfig
 --- a/arch/x86/configs/gki_defconfig
 +++ b/arch/x86/configs/gki_defconfig
-@@ -276,7 +276,8 @@ CONFIG_SND_DYNAMIC_MINORS=y
+@@ -275,7 +275,8 @@ CONFIG_SND_DYNAMIC_MINORS=y
  # CONFIG_SND_SUPPORT_OLD_API is not set
  # CONFIG_SND_VERBOSE_PROCFS is not set
  # CONFIG_SND_DRIVERS is not set

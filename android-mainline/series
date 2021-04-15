@@ -2,7 +2,7 @@
 # android-mainline patches
 #
 # Applies onto upstream 2d743660786e Linux v5.12-rc6-6-g2d743660786e
-# Matches android-mainline 34bddd170120 ("ANDROID: Build LZ4 ramdisk for rockpi4")
+# Matches android-mainline ee1b16e80d45 ("ANDROID: Kbuild: Add support for KBUILD_MIXED_TREE")
 #
 Revert-block-grant-IOPRIO_CLASS_RT-to-CAP_SYS_NICE.patch
 Revert-arm64-dts-qcom-sdm845-db845c-Fix-hdmi-nodes.patch
@@ -11,6 +11,7 @@ Revert-security-lockdown-selinux-implement-SELinux-lockdown.patch
 Revert-ARM-9017-2-Enable-KASan-for-ARM.patch
 Revert-tweewide-Fix-most-Shebang-lines.patch
 _____ANNOTATION-pending-upstream_____.patch
+FROMGIT-virt_wifi-Return-micros-for-BSS-TSF-values.patch
 FROMLIST-clk-Export-clk_register_composite.patch
 FROMLIST-clk-versatile-remove-dependency-on-ARCH_.patch
 FROMLIST-cpuidle-governor-export-cpuidle-governor-functions.patch
@@ -54,6 +55,7 @@ ANDROID-modpost-Forbid-double-exports.patch
 ANDROID-scripts-setlocalversion-allow-running-in-a-subdir.patch
 ANDROID-modules-introduce-the-MODULE_SCMVERSION-config.patch
 ANDROID-modpost-Support-relative-paths-for-module_srcpath.patch
+ANDROID-Kbuild-Add-support-for-KBUILD_MIXED_TREE.patch
 _____ANNOTATION-x86-changes_____.patch
 ANDROID-Setting-up-GS-before-calling-__restore_processor_state.patch
 _____ANNOTATION-arm-and-arm64-changes_____.patch
@@ -106,6 +108,7 @@ ANDROID-PM-sleep-export-device_pm_callback_start-end-trace-event.patch
 ANDROID-perf-Export-clock_set_rate-tracepoint.patch
 ANDROID-GKI-export-dev_pm_qos_read_value.patch
 ANDROID-power_supply-Update-power_supply-enums.patch
+ANDROID-power_supply-inline-empty-power_supply_get_by_phandle_array.patch
 _____ANNOTATION-scheduler-changes_____.patch
 Revert-sched-core-Prevent-race-condition-between-cpuset-and-__sched_setscheduler.patch
 Revert-sched-Remove-sched_setscheduler-EXPORTs.patch
@@ -332,7 +335,6 @@ ANDROID-virtio_blk-Remove-BUG_ON-for-discard-zero-ops.patch
 ANDROID-modularize-BLK_MQ_VIRTIO.patch
 ANDROID-block-export-symbols-needed-for-modules-to-use-inline-crypto.patch
 _____ANNOTATION-device-mapper-changes_____.patch
-ANDROID-AVB-error-handler-to-invalidate-vbmeta-partition.patch
 ANDROID-dm-bow-Add-dm-bow-feature.patch
 ANDROID-dm-bow-Synchronize-destruction.patch
 ANDROID-dm-bow-Fix-SECTOR0_CURRENT-corruption.patch
@@ -455,6 +457,8 @@ ANDROID-Incremental-fs-Support-STATX_ATTR_VERITY.patch
 ANDROID-Incremental-fs-Finer-readlog-compression-internally.patch
 ANDROID-Incremental-fs-Fix-mlock-to-fail-gracefully-on-corrupt-files.patch
 ANDROID-Incremental-fs-Truncate-file-when-complete.patch
+ANDROID-Incremental-fs-Add-FS_IOC_READ_VERITY_METADATA.patch
+ANDROID-Incremental-fs-stat-should-return-actual-used-blocks.patch
 _____ANNOTATION-networking-changes_____.patch
 ANDROID-net-xfrm-make-PF_KEY-SHA256-use-RFC-compliant-truncation.patch
 ANDROID-net-xfrm-always-export-pktgen_xfrm_outer_mode_output.patch
@@ -840,6 +844,8 @@ ANDROID-Add-GKI_HIDDEN_MM_CONFIGS-to-support-ballooning.patch
 ANDROID-rockpi4-Update-with-probed-drivers.patch
 ANDROID-Add-virtio-rng-to-rockpi4-qemu-modules.patch
 ANDROID-Build-LZ4-ramdisk-for-rockpi4.patch
+ANDROID-build.config-Add-vmlinux.symvers-and-modules.builtin-to-DIST_DIR.patch
+ANDROID-Kconfig.gki-Add-SND_SOC_TOPOLOGY.patch
 _____ANNOTATION-Patches-for-bringing-up-new-SoCs_____.patch
 _____ANNOTATION-remove-ANNOTATIONS-file_____.patch
 DROP-ME-obsolete-ION-documentation.patch

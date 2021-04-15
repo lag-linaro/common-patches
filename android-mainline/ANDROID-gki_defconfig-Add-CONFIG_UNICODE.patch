@@ -17,7 +17,7 @@ Change-Id: I177d0b301087733234de3d6d283af946213eebca
 diff --git a/arch/arm64/configs/gki_defconfig b/arch/arm64/configs/gki_defconfig
 --- a/arch/arm64/configs/gki_defconfig
 +++ b/arch/arm64/configs/gki_defconfig
-@@ -462,6 +462,7 @@ CONFIG_NLS_MAC_INUIT=y
+@@ -461,6 +461,7 @@ CONFIG_NLS_MAC_INUIT=y
  CONFIG_NLS_MAC_ROMANIAN=y
  CONFIG_NLS_MAC_TURKISH=y
  CONFIG_NLS_UTF8=y
@@ -28,7 +28,7 @@ diff --git a/arch/arm64/configs/gki_defconfig b/arch/arm64/configs/gki_defconfig
 diff --git a/arch/x86/configs/gki_defconfig b/arch/x86/configs/gki_defconfig
 --- a/arch/x86/configs/gki_defconfig
 +++ b/arch/x86/configs/gki_defconfig
-@@ -407,6 +407,7 @@ CONFIG_NLS_MAC_INUIT=y
+@@ -406,6 +406,7 @@ CONFIG_NLS_MAC_INUIT=y
  CONFIG_NLS_MAC_ROMANIAN=y
  CONFIG_NLS_MAC_TURKISH=y
  CONFIG_NLS_UTF8=y

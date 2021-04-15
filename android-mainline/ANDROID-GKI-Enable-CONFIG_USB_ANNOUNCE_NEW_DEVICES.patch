@@ -16,7 +16,7 @@ Change-Id: I9838d5aff51fe9c6cfa3b5e7c46cbe84ee878090
 diff --git a/arch/arm64/configs/gki_defconfig b/arch/arm64/configs/gki_defconfig
 --- a/arch/arm64/configs/gki_defconfig
 +++ b/arch/arm64/configs/gki_defconfig
-@@ -395,6 +395,7 @@ CONFIG_HID_SONY=y
+@@ -394,6 +394,7 @@ CONFIG_HID_SONY=y
  CONFIG_SONY_FF=y
  CONFIG_HID_STEAM=y
  CONFIG_USB_HIDDEV=y
@@ -27,7 +27,7 @@ diff --git a/arch/arm64/configs/gki_defconfig b/arch/arm64/configs/gki_defconfig
 diff --git a/arch/x86/configs/gki_defconfig b/arch/x86/configs/gki_defconfig
 --- a/arch/x86/configs/gki_defconfig
 +++ b/arch/x86/configs/gki_defconfig
-@@ -352,6 +352,7 @@ CONFIG_HID_SONY=y
+@@ -351,6 +351,7 @@ CONFIG_HID_SONY=y
  CONFIG_SONY_FF=y
  CONFIG_HID_STEAM=y
  CONFIG_USB_HIDDEV=y

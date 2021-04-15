@@ -1,0 +1,25 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: Gyeongtaek Lee <gt82.lee@samsung.com>
+Date: Fri, 10 Apr 2020 13:26:43 +0900
+Subject: ANDROID: Kconfig.gki Add SND_SOC_TOPOLOGY
+
+Enable hidden config SND_SOC_TOPOLOGY need by SND_SOC=m
+
+Bug: 153682187
+Change-Id: I47dabfaa6f0d138f78fbc1c9fc0d4ac3c7c73986
+Signed-off-by: Gyeongtaek Lee <gt82.lee@samsung.com>
+---
+ init/Kconfig.gki | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/init/Kconfig.gki b/init/Kconfig.gki
+--- a/init/Kconfig.gki
++++ b/init/Kconfig.gki
+@@ -48,6 +48,7 @@ config GKI_HIDDEN_SND_SOC_CONFIGS
+ 	select SND_SOC_GENERIC_DMAENGINE_PCM if (SND_SOC && SND)
+ 	select SND_PCM_IEC958
+ 	select SND_SOC_COMPRESS if (SND_SOC && SND)
++	select SND_SOC_TOPOLOGY if (SND_SOC && SND)
+ 	select DMADEVICES
+ 	select DMA_VIRTUAL_CHANNELS
+ 	help

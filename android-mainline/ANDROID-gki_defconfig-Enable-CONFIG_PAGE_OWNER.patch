@@ -23,7 +23,7 @@ diff --git a/arch/arm64/configs/gki_defconfig b/arch/arm64/configs/gki_defconfig
  # CONFIG_DMI is not set
  CONFIG_PM_WAKELOCKS=y
  CONFIG_PM_WAKELOCKS_LIMIT=0
-@@ -592,7 +594,7 @@ CONFIG_DEBUG_INFO_DWARF4=y
+@@ -591,7 +593,7 @@ CONFIG_DEBUG_INFO_DWARF4=y
  CONFIG_HEADERS_INSTALL=y
  # CONFIG_SECTION_MISMATCH_WARN_ONLY is not set
  CONFIG_MAGIC_SYSRQ=y
@@ -44,7 +44,7 @@ diff --git a/arch/x86/configs/gki_defconfig b/arch/x86/configs/gki_defconfig
  CONFIG_PM_WAKELOCKS=y
  CONFIG_PM_WAKELOCKS_LIMIT=0
  # CONFIG_PM_WAKELOCKS_GC is not set
-@@ -537,7 +539,7 @@ CONFIG_DEBUG_INFO_DWARF4=y
+@@ -536,7 +538,7 @@ CONFIG_DEBUG_INFO_DWARF4=y
  CONFIG_HEADERS_INSTALL=y
  # CONFIG_SECTION_MISMATCH_WARN_ONLY is not set
  CONFIG_MAGIC_SYSRQ=y

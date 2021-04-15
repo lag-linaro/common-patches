@@ -23,7 +23,7 @@ Signed-off-by: Connor O'Brien <connoro@google.com>
 diff --git a/arch/arm64/configs/gki_defconfig b/arch/arm64/configs/gki_defconfig
 --- a/arch/arm64/configs/gki_defconfig
 +++ b/arch/arm64/configs/gki_defconfig
-@@ -355,6 +355,8 @@ CONFIG_USB_OTG=y
+@@ -354,6 +354,8 @@ CONFIG_USB_OTG=y
  CONFIG_USB_EHCI_HCD=y
  CONFIG_USB_EHCI_HCD_PLATFORM=y
  CONFIG_USB_ACM=y
@@ -35,7 +35,7 @@ diff --git a/arch/arm64/configs/gki_defconfig b/arch/arm64/configs/gki_defconfig
 diff --git a/arch/x86/configs/gki_defconfig b/arch/x86/configs/gki_defconfig
 --- a/arch/x86/configs/gki_defconfig
 +++ b/arch/x86/configs/gki_defconfig
-@@ -316,6 +316,8 @@ CONFIG_USB_HIDDEV=y
+@@ -315,6 +315,8 @@ CONFIG_USB_HIDDEV=y
  CONFIG_USB_EHCI_HCD=y
  CONFIG_USB_EHCI_HCD_PLATFORM=y
  CONFIG_USB_ACM=y

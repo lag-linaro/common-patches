@@ -16,7 +16,7 @@ Change-Id: Iafb8e2fa2d8027b2848e93d2d39b0ea42028289b
 diff --git a/arch/arm64/configs/gki_defconfig b/arch/arm64/configs/gki_defconfig
 --- a/arch/arm64/configs/gki_defconfig
 +++ b/arch/arm64/configs/gki_defconfig
-@@ -297,7 +297,6 @@ CONFIG_MEDIA_CONTROLLER=y
+@@ -296,7 +296,6 @@ CONFIG_MEDIA_CONTROLLER=y
  CONFIG_DRM=y
  # CONFIG_DRM_FBDEV_EMULATION is not set
  CONFIG_DRM_VIRTIO_GPU=y
@@ -27,7 +27,7 @@ diff --git a/arch/arm64/configs/gki_defconfig b/arch/arm64/configs/gki_defconfig
 diff --git a/arch/x86/configs/gki_defconfig b/arch/x86/configs/gki_defconfig
 --- a/arch/x86/configs/gki_defconfig
 +++ b/arch/x86/configs/gki_defconfig
-@@ -255,7 +255,6 @@ CONFIG_MEDIA_CAMERA_SUPPORT=y
+@@ -254,7 +254,6 @@ CONFIG_MEDIA_CAMERA_SUPPORT=y
  CONFIG_DRM=y
  # CONFIG_DRM_FBDEV_EMULATION is not set
  CONFIG_DRM_VIRTIO_GPU=m

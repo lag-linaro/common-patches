@@ -17,7 +17,7 @@ Change-Id: I5453b40fd6047e4258942242259292f50419d28a
 diff --git a/arch/arm64/configs/gki_defconfig b/arch/arm64/configs/gki_defconfig
 --- a/arch/arm64/configs/gki_defconfig
 +++ b/arch/arm64/configs/gki_defconfig
-@@ -359,6 +359,7 @@ CONFIG_USB_CONFIGFS_F_AUDIO_SRC=y
+@@ -358,6 +358,7 @@ CONFIG_USB_CONFIGFS_F_AUDIO_SRC=y
  CONFIG_USB_CONFIGFS_F_MIDI=y
  CONFIG_USB_CONFIGFS_F_HID=y
  CONFIG_TYPEC=y

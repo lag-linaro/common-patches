@@ -1,0 +1,47 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: Carlos Llamas <cmllamas@google.com>
+Date: Mon, 12 Apr 2021 17:45:50 +0000
+Subject: ANDROID: power_supply: inline empty
+ power_supply_get_by_phandle_array()
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+The static empty definition of power_supply_get_by_phandle_array(), used
+when CONFIG_OF is not set, is missing an inline keyword. This generates
+multiple compiler warnings and adds function-call overhead. This patch
+inlines the definition to address such issues.
+
+Fixes:
+./include/linux/power_supply.h:405:12: warning: ‘power_supply_get_by_phandle_array’ defined but not used [-Wunused-function]
+  405 | static int power_supply_get_by_phandle_array(struct device_node *np,
+      |            ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Bug: 183339614
+Fixes: dea1a925f6a1 (ANDROID: power_supply: Add a helper function to retrieve psy array from phandle)
+Reported-by: kernelci.org bot <bot@kernelci.org>
+Signed-off-by: Carlos Llamas <cmllamas@google.com>
+Change-Id: I6ad919673d0f649d7701c573196c11795663182d
+---
+ include/linux/power_supply.h | 9 +++++----
+ 1 file changed, 5 insertions(+), 4 deletions(-)
+
+diff --git a/include/linux/power_supply.h b/include/linux/power_supply.h
+--- a/include/linux/power_supply.h
++++ b/include/linux/power_supply.h
+@@ -402,10 +402,11 @@ extern struct power_supply *devm_power_supply_get_by_phandle(
+ static inline struct power_supply *
+ power_supply_get_by_phandle(struct device_node *np, const char *property)
+ { return NULL; }
+-static int power_supply_get_by_phandle_array(struct device_node *np,
+-					     const char *property,
+-					     struct power_supply **psy,
+-					     int size)
++static inline int
++power_supply_get_by_phandle_array(struct device_node *np,
++				  const char *property,
++				  struct power_supply **psy,
++				  int size)
+ { return 0; }
+ static inline struct power_supply *
+ devm_power_supply_get_by_phandle(struct device *dev, const char *property)

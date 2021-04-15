@@ -17,7 +17,7 @@ Signed-off-by: Huang Jianan <huangjianan@oppo.com>
 diff --git a/arch/arm64/configs/gki_defconfig b/arch/arm64/configs/gki_defconfig
 --- a/arch/arm64/configs/gki_defconfig
 +++ b/arch/arm64/configs/gki_defconfig
-@@ -526,6 +526,7 @@ CONFIG_PSTORE=y
+@@ -525,6 +525,7 @@ CONFIG_PSTORE=y
  CONFIG_PSTORE_CONSOLE=y
  CONFIG_PSTORE_PMSG=y
  CONFIG_PSTORE_RAM=y
@@ -28,7 +28,7 @@ diff --git a/arch/arm64/configs/gki_defconfig b/arch/arm64/configs/gki_defconfig
 diff --git a/arch/x86/configs/gki_defconfig b/arch/x86/configs/gki_defconfig
 --- a/arch/x86/configs/gki_defconfig
 +++ b/arch/x86/configs/gki_defconfig
-@@ -466,6 +466,7 @@ CONFIG_PSTORE=y
+@@ -465,6 +465,7 @@ CONFIG_PSTORE=y
  CONFIG_PSTORE_CONSOLE=y
  CONFIG_PSTORE_PMSG=y
  CONFIG_PSTORE_RAM=y

@@ -36,7 +36,7 @@ diff --git a/arch/arm64/configs/gki_defconfig b/arch/arm64/configs/gki_defconfig
  CONFIG_VSOCKETS=y
  CONFIG_BPF_JIT=y
  CONFIG_BT=y
-@@ -282,6 +284,7 @@ CONFIG_DM_BOW=y
+@@ -281,6 +283,7 @@ CONFIG_DM_BOW=y
  CONFIG_NETDEVICES=y
  CONFIG_DUMMY=y
  CONFIG_WIREGUARD=y
@@ -63,7 +63,7 @@ diff --git a/arch/x86/configs/gki_defconfig b/arch/x86/configs/gki_defconfig
  CONFIG_VSOCKETS=y
  CONFIG_BPF_JIT=y
  CONFIG_BT=y
-@@ -259,6 +261,7 @@ CONFIG_DM_BOW=y
+@@ -258,6 +260,7 @@ CONFIG_DM_BOW=y
  CONFIG_NETDEVICES=y
  CONFIG_DUMMY=y
  CONFIG_WIREGUARD=y

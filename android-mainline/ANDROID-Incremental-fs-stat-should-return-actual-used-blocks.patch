@@ -1,0 +1,123 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: Paul Lawrence <paullawrence@google.com>
+Date: Thu, 1 Apr 2021 10:08:32 -0700
+Subject: ANDROID: Incremental fs: stat should return actual used blocks
+
+Test: incfs_test passes
+Bug: 182182100
+Signed-off-by: Paul Lawrence <paullawrence@google.com>
+Change-Id: I4c9e5f111fbb659798ef79bc20d8a65b64b44ded
+---
+ fs/incfs/vfs.c                                | 27 +++++++---
+ .../selftests/filesystems/incfs/incfs_test.c  | 51 +++++++++++++++++++
+ 2 files changed, 70 insertions(+), 8 deletions(-)
+
+diff --git a/fs/incfs/vfs.c b/fs/incfs/vfs.c
+--- a/fs/incfs/vfs.c
++++ b/fs/incfs/vfs.c
+@@ -1618,18 +1618,29 @@ static int incfs_getattr(struct user_namespace *ns, const struct path *path,
+ {
+ 	struct inode *inode = d_inode(path->dentry);
+ 
++	generic_fillattr(ns, inode, stat);
++
++	stat->attributes &= ~STATX_ATTR_VERITY;
+ 	if (IS_VERITY(inode))
+ 		stat->attributes |= STATX_ATTR_VERITY;
+ 	stat->attributes_mask |= STATX_ATTR_VERITY;
+-	generic_fillattr(ns, inode, stat);
+ 
+-	/*
+-	 * TODO: stat->blocks is wrong at this point. It should be number of
+-	 * blocks in the backing file. But that information is not (necessarily)
+-	 * available yet - incfs_open_dir_file may not have been called.
+-	 * Solution is probably to store the backing file block count in an
+-	 * xattr whenever it's changed.
+-	 */
++	if (request_mask & STATX_BLOCKS) {
++		struct kstat backing_kstat;
++		struct dentry_info *di = get_incfs_dentry(path->dentry);
++		int error = 0;
++		struct path *backing_path;
++
++		if (!di)
++			return -EFSCORRUPTED;
++		backing_path = &di->backing_path;
++		error = vfs_getattr(backing_path, &backing_kstat, STATX_BLOCKS,
++				    AT_STATX_SYNC_AS_STAT);
++		if (error)
++			return error;
++
++		stat->blocks = backing_kstat.blocks;
++	}
+ 
+ 	return 0;
+ }
+diff --git a/tools/testing/selftests/filesystems/incfs/incfs_test.c b/tools/testing/selftests/filesystems/incfs/incfs_test.c
+--- a/tools/testing/selftests/filesystems/incfs/incfs_test.c
++++ b/tools/testing/selftests/filesystems/incfs/incfs_test.c
+@@ -4277,6 +4277,56 @@ static int truncate_test(const char *mount_dir)
+ 	return result;
+ }
+ 
++static int stat_file_test(const char *mount_dir, int cmd_fd,
++			  struct test_file *file)
++{
++	int result = TEST_FAILURE;
++	struct stat st;
++	char *filename = NULL;
++
++	TESTEQUAL(emit_file(cmd_fd, NULL, file->name, &file->id,
++				     file->size, NULL), 0);
++	TEST(filename = concat_file_name(mount_dir, file->name), filename);
++	TESTEQUAL(stat(filename, &st), 0);
++	TESTCOND(st.st_blocks < 32);
++	TESTEQUAL(emit_test_file_data(mount_dir, file), 0);
++	TESTEQUAL(stat(filename, &st), 0);
++	TESTCOND(st.st_blocks > file->size / 512);
++
++	result = TEST_SUCCESS;
++out:
++	free(filename);
++	return result;
++}
++
++static int stat_test(const char *mount_dir)
++{
++	int result = TEST_FAILURE;
++	char *backing_dir = NULL;
++	int cmd_fd = -1;
++	int i;
++	struct test_files_set test = get_test_files_set();
++	const int file_num = test.files_count;
++
++	TEST(backing_dir = create_backing_dir(mount_dir), backing_dir);
++	TESTEQUAL(mount_fs(mount_dir, backing_dir, 0), 0);
++	TEST(cmd_fd = open_commands_file(mount_dir), cmd_fd != -1);
++
++	for (i = 0; i < file_num; i++) {
++		struct test_file *file = &test.files[i];
++
++		TESTEQUAL(stat_file_test(mount_dir, cmd_fd, file), 0);
++	}
++
++	result = TEST_SUCCESS;
++out:
++
++	close(cmd_fd);
++	umount(mount_dir);
++	free(backing_dir);
++	return result;
++}
++
+ static char *setup_mount_dir()
+ {
+ 	struct stat st;
+@@ -4395,6 +4445,7 @@ int main(int argc, char *argv[])
+ 		MAKE_TEST(enable_verity_test),
+ 		MAKE_TEST(mmap_test),
+ 		MAKE_TEST(truncate_test),
++		MAKE_TEST(stat_test),
+ 	};
+ #undef MAKE_TEST
+ 

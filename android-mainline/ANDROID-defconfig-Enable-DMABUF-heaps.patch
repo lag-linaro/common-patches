@@ -16,7 +16,7 @@ Signed-off-by: Hridya Valsaraju <hridya@google.com>
 diff --git a/arch/arm64/configs/gki_defconfig b/arch/arm64/configs/gki_defconfig
 --- a/arch/arm64/configs/gki_defconfig
 +++ b/arch/arm64/configs/gki_defconfig
-@@ -372,6 +372,8 @@ CONFIG_RTC_CLASS=y
+@@ -371,6 +371,8 @@ CONFIG_RTC_CLASS=y
  CONFIG_RTC_DRV_PL030=y
  CONFIG_RTC_DRV_PL031=y
  CONFIG_DMADEVICES=y
@@ -28,7 +28,7 @@ diff --git a/arch/arm64/configs/gki_defconfig b/arch/arm64/configs/gki_defconfig
 diff --git a/arch/x86/configs/gki_defconfig b/arch/x86/configs/gki_defconfig
 --- a/arch/x86/configs/gki_defconfig
 +++ b/arch/x86/configs/gki_defconfig
-@@ -327,6 +327,8 @@ CONFIG_NEW_LEDS=y
+@@ -326,6 +326,8 @@ CONFIG_NEW_LEDS=y
  CONFIG_LEDS_CLASS=y
  CONFIG_LEDS_TRIGGERS=y
  CONFIG_RTC_CLASS=y

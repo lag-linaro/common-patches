@@ -1,0 +1,167 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: Elliot Berman <eberman@codeaurora.org>
+Date: Wed, 7 Apr 2021 08:03:11 -0700
+Subject: ANDROID: Kbuild: Add support for KBUILD_MIXED_TREE
+
+When KBUILD_MIXED_TREE points to the output folder of another kernel's
+build output, Kbuild can compile a complete kernel tree's modules
+against that other kernel tree's vmlinux. This is useful when two
+kernel trees exist: a "Generic Kernel Image" tree and a "device kernel"
+tree.  Both trees are complete kernel source trees, and the "Generic
+Kernel Image" should provide the kernel Image and device kernel tree
+provides device driver modules.
+
+To accomplish this, references to vmlinux.symvers in the device kernel
+should point to the generic kernel's vmlinux.symvers and the device
+kernel should skip compilation of built-in files.
+
+Bug: 178469391
+Change-Id: I614f3e87519236c4e2c5da74937cb0ecd98a278a
+Signed-off-by: Elliot Berman <eberman@codeaurora.org>
+---
+ Makefile                 | 30 +++++++++++++++++++++++++-----
+ scripts/Makefile.modpost |  4 +++-
+ scripts/depmod.sh        |  9 +++++----
+ 3 files changed, 33 insertions(+), 10 deletions(-)
+
+diff --git a/Makefile b/Makefile
+--- a/Makefile
++++ b/Makefile
+@@ -131,6 +131,20 @@ $(if $(word 2, $(KBUILD_EXTMOD)), \
+ 
+ export KBUILD_EXTMOD
+ 
++# ANDROID: set up mixed-build support. mixed-build allows device kernel modules
++# to be compiled against a GKI kernel. This approach still uses the headers and
++# Kbuild from device kernel, so care must be taken to ensure that those headers match.
++ifdef KBUILD_MIXED_TREE
++# Need vmlinux.symvers for modpost and System.map for depmod, check whether they exist in KBUILD_MIXED_TREE
++required_mixed_files=vmlinux.symvers System.map
++$(if $(filter-out $(words $(required_mixed_files)), \
++		$(words $(wildcard $(add-prefix $(KBUILD_MIXED_TREE)/,$(required_mixed_files))))),,\
++	$(error KBUILD_MIXED_TREE=$(KBUILD_MIXED_TREE) doesn't contain $(required_mixed_files)))
++endif
++
++mixed-build-prefix = $(if $(KBUILD_MIXED_TREE),$(KBUILD_MIXED_TREE)/)
++export KBUILD_MIXED_TREE
++
+ # Kbuild will save output files in the current working directory.
+ # This does not need to match to the root of the kernel source tree.
+ #
+@@ -658,11 +672,13 @@ drivers-y	+= virt/
+ libs-y		:= lib/
+ endif # KBUILD_EXTMOD
+ 
++ifndef KBUILD_MIXED_TREE
+ # The all: target is the default when no target is given on the
+ # command line.
+ # This allow a user to issue only 'make' to build a kernel including modules
+ # Defaults to vmlinux, but the arch makefile usually adds further targets
+ all: vmlinux
++endif
+ 
+ CFLAGS_GCOV	:= -fprofile-arcs -ftest-coverage \
+ 	$(call cc-option,-fno-tree-loop-im) \
+@@ -1235,8 +1251,10 @@ cmd_link-vmlinux =                                                 \
+ 	$(CONFIG_SHELL) $< "$(LD)" "$(KBUILD_LDFLAGS)" "$(LDFLAGS_vmlinux)";    \
+ 	$(if $(ARCH_POSTLINK), $(MAKE) -f $(ARCH_POSTLINK) $@, true)
+ 
++ifndef KBUILD_MIXED_TREE
+ vmlinux: scripts/link-vmlinux.sh autoksyms_recursive $(vmlinux-deps) FORCE
+ 	+$(call if_changed,link-vmlinux)
++endif
+ 
+ targets := vmlinux
+ 
+@@ -1457,7 +1475,9 @@ endif
+ # using awk while concatenating to the final file.
+ 
+ PHONY += modules
+-modules: $(if $(KBUILD_BUILTIN),vmlinux) modules_check modules_prepare
++# if KBUILD_BUILTIN && !KBUILD_MIXED_TREE, depend on vmlinux
++modules: $(if $(KBUILD_BUILTIN), $(if $(KBUILD_MIXED_TREE),,vmlinux))
++modules: modules_check modules_prepare
+ 	$(Q)$(MAKE) -f $(srctree)/scripts/Makefile.modpost
+ 
+ PHONY += modules_check
+@@ -1491,8 +1511,8 @@ _modinst_:
+ 		ln -s $(CURDIR) $(MODLIB)/build ; \
+ 	fi
+ 	@sed 's:^:kernel/:' modules.order > $(MODLIB)/modules.order
+-	@cp -f modules.builtin $(MODLIB)/
+-	@cp -f $(objtree)/modules.builtin.modinfo $(MODLIB)/
++	@cp -f $(mixed-build-prefix)modules.builtin $(MODLIB)/
++	@cp -f $(or $(mixed-build-prefix),$(objtree)/)modules.builtin.modinfo $(MODLIB)/
+ 	$(Q)$(MAKE) -f $(srctree)/scripts/Makefile.modinst
+ 
+ # This depmod is only for convenience to give the initial
+@@ -1871,7 +1891,7 @@ descend: $(build-dirs)
+ $(build-dirs): prepare
+ 	$(Q)$(MAKE) $(build)=$@ \
+ 	single-build=$(if $(filter-out $@/, $(filter $@/%, $(KBUILD_SINGLE_TARGETS))),1) \
+-	need-builtin=1 need-modorder=1
++	$(if $(KBUILD_MIXED_TREE),,need-builtin=1) need-modorder=1
+ 
+ clean-dirs := $(addprefix _clean_, $(clean-dirs))
+ PHONY += $(clean-dirs) clean
+@@ -2005,7 +2025,7 @@ quiet_cmd_rmfiles = $(if $(wildcard $(rm-files)),CLEAN   $(wildcard $(rm-files))
+ # Run depmod only if we have System.map and depmod is executable
+ quiet_cmd_depmod = DEPMOD  $(KERNELRELEASE)
+       cmd_depmod = $(CONFIG_SHELL) $(srctree)/scripts/depmod.sh $(DEPMOD) \
+-                   $(KERNELRELEASE)
++                   $(KERNELRELEASE) $(mixed-build-prefix)
+ 
+ # read saved command lines for existing targets
+ existing-targets := $(wildcard $(sort $(targets)))
+diff --git a/scripts/Makefile.modpost b/scripts/Makefile.modpost
+--- a/scripts/Makefile.modpost
++++ b/scripts/Makefile.modpost
+@@ -46,6 +46,8 @@ include scripts/Kbuild.include
+ # for ld_flags
+ include scripts/Makefile.lib
+ 
++mixed-build-prefix = $(if $(KBUILD_MIXED_TREE),$(KBUILD_MIXED_TREE)/)
++
+ MODPOST = scripts/mod/modpost								\
+ 	$(if $(CONFIG_MODVERSIONS),-m)							\
+ 	$(if $(CONFIG_MODULE_SRCVERSION_ALL),-a)					\
+@@ -67,7 +69,7 @@ else
+ 
+ ifeq ($(KBUILD_EXTMOD),)
+ 
+-input-symdump := vmlinux.symvers
++input-symdump := $(mixed-build-prefix)vmlinux.symvers
+ output-symdump := Module.symvers
+ module_srcpath := $(srctree)
+ 
+diff --git a/scripts/depmod.sh b/scripts/depmod.sh
+--- a/scripts/depmod.sh
++++ b/scripts/depmod.sh
+@@ -3,14 +3,15 @@
+ #
+ # A depmod wrapper used by the toplevel Makefile
+ 
+-if test $# -ne 2; then
+-	echo "Usage: $0 /sbin/depmod <kernelrelease>" >&2
++if test $# -ne 2 -a $# -ne 3; then
++	echo "Usage: $0 /sbin/depmod <kernelrelease> [System.map folder]" >&2
+ 	exit 1
+ fi
+ DEPMOD=$1
+ KERNELRELEASE=$2
++KBUILD_MIXED_TREE=$3
+ 
+-if ! test -r System.map ; then
++if ! test -r ${KBUILD_MIXED_TREE}System.map ; then
+ 	echo "Warning: modules_install: missing 'System.map' file. Skipping depmod." >&2
+ 	exit 0
+ fi
+@@ -41,7 +42,7 @@ if $depmod_hack_needed; then
+ 	KERNELRELEASE=99.98.$KERNELRELEASE
+ fi
+ 
+-set -- -ae -F System.map
++set -- -ae -F ${KBUILD_MIXED_TREE}System.map
+ if test -n "$INSTALL_MOD_PATH"; then
+ 	set -- "$@" -b "$INSTALL_MOD_PATH"
+ fi

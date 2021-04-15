@@ -18,7 +18,7 @@ Change-Id: I739c9e7f152c253e1037eb57aa5fdf6b3d902d5f
 diff --git a/arch/arm64/configs/gki_defconfig b/arch/arm64/configs/gki_defconfig
 --- a/arch/arm64/configs/gki_defconfig
 +++ b/arch/arm64/configs/gki_defconfig
-@@ -576,7 +576,6 @@ CONFIG_CRYPTO_LZ4=y
+@@ -575,7 +575,6 @@ CONFIG_CRYPTO_LZ4=y
  CONFIG_CRYPTO_ZSTD=y
  CONFIG_CRYPTO_ANSI_CPRNG=y
  CONFIG_CRC_CCITT=y

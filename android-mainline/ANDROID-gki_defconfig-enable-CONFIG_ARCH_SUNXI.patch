@@ -32,7 +32,7 @@ diff --git a/arch/arm64/configs/gki_defconfig b/arch/arm64/configs/gki_defconfig
  CONFIG_GNSS=y
  CONFIG_BLK_DEV_LOOP=y
  CONFIG_BLK_DEV_LOOP_MIN_COUNT=16
-@@ -310,6 +313,12 @@ CONFIG_HW_RANDOM=y
+@@ -309,6 +312,12 @@ CONFIG_HW_RANDOM=y
  CONFIG_SPI=y
  CONFIG_SPMI=y
  # CONFIG_SPMI_MSM_PMIC_ARB is not set
@@ -45,7 +45,7 @@ diff --git a/arch/arm64/configs/gki_defconfig b/arch/arm64/configs/gki_defconfig
  CONFIG_POWER_RESET_HISI=y
  # CONFIG_HWMON is not set
  CONFIG_THERMAL=y
-@@ -395,7 +404,10 @@ CONFIG_UIO=y
+@@ -394,7 +403,10 @@ CONFIG_UIO=y
  CONFIG_STAGING=y
  CONFIG_ASHMEM=y
  CONFIG_COMMON_CLK_SCPI=y

@@ -15,7 +15,7 @@ Change-Id: I463528236bdfd640cdaefbac7dee932dc28d7005
 diff --git a/arch/arm64/configs/gki_defconfig b/arch/arm64/configs/gki_defconfig
 --- a/arch/arm64/configs/gki_defconfig
 +++ b/arch/arm64/configs/gki_defconfig
-@@ -298,6 +298,7 @@ CONFIG_POWER_RESET_HISI=y
+@@ -297,6 +297,7 @@ CONFIG_POWER_RESET_HISI=y
  # CONFIG_HWMON is not set
  CONFIG_THERMAL=y
  CONFIG_THERMAL_GOV_USER_SPACE=y

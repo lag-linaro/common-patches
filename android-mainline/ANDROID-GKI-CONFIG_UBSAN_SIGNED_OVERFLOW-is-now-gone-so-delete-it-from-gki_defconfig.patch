@@ -20,7 +20,7 @@ Change-Id: I60236e591c63bd5866d4410ae7e9d7e315cdf431
 diff --git a/arch/arm64/configs/gki_defconfig b/arch/arm64/configs/gki_defconfig
 --- a/arch/arm64/configs/gki_defconfig
 +++ b/arch/arm64/configs/gki_defconfig
-@@ -612,7 +612,6 @@ CONFIG_UBSAN=y
+@@ -611,7 +611,6 @@ CONFIG_UBSAN=y
  CONFIG_UBSAN_TRAP=y
  CONFIG_UBSAN_LOCAL_BOUNDS=y
  # CONFIG_UBSAN_SHIFT is not set
@@ -31,7 +31,7 @@ diff --git a/arch/arm64/configs/gki_defconfig b/arch/arm64/configs/gki_defconfig
 diff --git a/arch/x86/configs/gki_defconfig b/arch/x86/configs/gki_defconfig
 --- a/arch/x86/configs/gki_defconfig
 +++ b/arch/x86/configs/gki_defconfig
-@@ -554,7 +554,6 @@ CONFIG_UBSAN=y
+@@ -553,7 +553,6 @@ CONFIG_UBSAN=y
  CONFIG_UBSAN_TRAP=y
  CONFIG_UBSAN_LOCAL_BOUNDS=y
  # CONFIG_UBSAN_SHIFT is not set

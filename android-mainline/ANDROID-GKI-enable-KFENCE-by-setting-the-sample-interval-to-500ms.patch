@@ -22,7 +22,7 @@ Change-Id: I69cb0fc8fdebba36c9166b275ad245240314d811
 diff --git a/arch/arm64/configs/gki_defconfig b/arch/arm64/configs/gki_defconfig
 --- a/arch/arm64/configs/gki_defconfig
 +++ b/arch/arm64/configs/gki_defconfig
-@@ -623,7 +623,7 @@ CONFIG_DEBUG_MEMORY_INIT=y
+@@ -622,7 +622,7 @@ CONFIG_DEBUG_MEMORY_INIT=y
  CONFIG_KASAN=y
  CONFIG_KASAN_HW_TAGS=y
  CONFIG_KFENCE=y
@@ -34,7 +34,7 @@ diff --git a/arch/arm64/configs/gki_defconfig b/arch/arm64/configs/gki_defconfig
 diff --git a/arch/x86/configs/gki_defconfig b/arch/x86/configs/gki_defconfig
 --- a/arch/x86/configs/gki_defconfig
 +++ b/arch/x86/configs/gki_defconfig
-@@ -564,7 +564,7 @@ CONFIG_PAGE_OWNER=y
+@@ -563,7 +563,7 @@ CONFIG_PAGE_OWNER=y
  CONFIG_DEBUG_STACK_USAGE=y
  CONFIG_DEBUG_MEMORY_INIT=y
  CONFIG_KFENCE=y

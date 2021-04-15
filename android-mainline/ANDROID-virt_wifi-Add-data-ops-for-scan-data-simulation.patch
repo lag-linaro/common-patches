@@ -16,15 +16,15 @@ Signed-off-by: Alistair Delva <adelva@google.com>
 diff --git a/drivers/net/wireless/virt_wifi.c b/drivers/net/wireless/virt_wifi.c
 --- a/drivers/net/wireless/virt_wifi.c
 +++ b/drivers/net/wireless/virt_wifi.c
-@@ -13,6 +13,7 @@
- #include <net/rtnetlink.h>
+@@ -14,6 +14,7 @@
  #include <linux/etherdevice.h>
+ #include <linux/math64.h>
  #include <linux/module.h>
 +#include <net/virt_wifi.h>
  
  static struct wiphy *common_wiphy;
  
-@@ -20,6 +21,7 @@ struct virt_wifi_wiphy_priv {
+@@ -21,6 +22,7 @@ struct virt_wifi_wiphy_priv {
  	struct delayed_work scan_result;
  	struct cfg80211_scan_request *scan_request;
  	bool being_deleted;
@@ -32,7 +32,7 @@ diff --git a/drivers/net/wireless/virt_wifi.c b/drivers/net/wireless/virt_wifi.c
  };
  
  static struct ieee80211_channel channel_2ghz = {
-@@ -148,6 +150,9 @@ static int virt_wifi_scan(struct wiphy *wiphy,
+@@ -149,6 +151,9 @@ static int virt_wifi_scan(struct wiphy *wiphy,
  
  	priv->scan_request = request;
  	schedule_delayed_work(&priv->scan_result, HZ * 2);
@@ -42,7 +42,7 @@ diff --git a/drivers/net/wireless/virt_wifi.c b/drivers/net/wireless/virt_wifi.c
  
  	return 0;
  }
-@@ -178,6 +183,12 @@ static void virt_wifi_scan_result(struct work_struct *work)
+@@ -179,6 +184,12 @@ static void virt_wifi_scan_result(struct work_struct *work)
  					   DBM_TO_MBM(-50), GFP_KERNEL);
  	cfg80211_put_bss(wiphy, informed_bss);
  
@@ -55,7 +55,7 @@ diff --git a/drivers/net/wireless/virt_wifi.c b/drivers/net/wireless/virt_wifi.c
  	/* Schedules work which acquires and releases the rtnl lock. */
  	cfg80211_scan_done(priv->scan_request, &scan_info);
  	priv->scan_request = NULL;
-@@ -365,6 +376,8 @@ static struct wiphy *virt_wifi_make_wiphy(void)
+@@ -366,6 +377,8 @@ static struct wiphy *virt_wifi_make_wiphy(void)
  	priv = wiphy_priv(wiphy);
  	priv->being_deleted = false;
  	priv->scan_request = NULL;
@@ -64,7 +64,7 @@ diff --git a/drivers/net/wireless/virt_wifi.c b/drivers/net/wireless/virt_wifi.c
  	INIT_DELAYED_WORK(&priv->scan_result, virt_wifi_scan_result);
  
  	err = wiphy_register(wiphy);
-@@ -380,7 +393,6 @@ static struct wiphy *virt_wifi_make_wiphy(void)
+@@ -381,7 +394,6 @@ static struct wiphy *virt_wifi_make_wiphy(void)
  static void virt_wifi_destroy_wiphy(struct wiphy *wiphy)
  {
  	struct virt_wifi_wiphy_priv *priv;
@@ -72,7 +72,7 @@ diff --git a/drivers/net/wireless/virt_wifi.c b/drivers/net/wireless/virt_wifi.c
  	WARN(!wiphy, "%s called with null wiphy", __func__);
  	if (!wiphy)
  		return;
-@@ -414,8 +426,13 @@ static netdev_tx_t virt_wifi_start_xmit(struct sk_buff *skb,
+@@ -415,8 +427,13 @@ static netdev_tx_t virt_wifi_start_xmit(struct sk_buff *skb,
  static int virt_wifi_net_device_open(struct net_device *dev)
  {
  	struct virt_wifi_netdev_priv *priv = netdev_priv(dev);
@@ -87,7 +87,7 @@ diff --git a/drivers/net/wireless/virt_wifi.c b/drivers/net/wireless/virt_wifi.c
  	return 0;
  }
  
-@@ -423,16 +440,22 @@ static int virt_wifi_net_device_open(struct net_device *dev)
+@@ -424,16 +441,22 @@ static int virt_wifi_net_device_open(struct net_device *dev)
  static int virt_wifi_net_device_stop(struct net_device *dev)
  {
  	struct virt_wifi_netdev_priv *n_priv = netdev_priv(dev);
@@ -110,7 +110,7 @@ diff --git a/drivers/net/wireless/virt_wifi.c b/drivers/net/wireless/virt_wifi.c
  	return 0;
  }
  
-@@ -675,6 +698,27 @@ static void __exit virt_wifi_cleanup_module(void)
+@@ -676,6 +699,27 @@ static void __exit virt_wifi_cleanup_module(void)
  	unregister_netdevice_notifier(&virt_wifi_notifier);
  }
  

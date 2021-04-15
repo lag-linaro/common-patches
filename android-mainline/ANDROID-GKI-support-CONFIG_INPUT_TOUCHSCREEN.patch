@@ -17,7 +17,7 @@ Change-Id: I3b1d348791aa9e762374a4965893b3a4a490394b
 diff --git a/arch/arm64/configs/gki_defconfig b/arch/arm64/configs/gki_defconfig
 --- a/arch/arm64/configs/gki_defconfig
 +++ b/arch/arm64/configs/gki_defconfig
-@@ -282,6 +282,7 @@ CONFIG_INPUT_EVDEV=y
+@@ -281,6 +281,7 @@ CONFIG_INPUT_EVDEV=y
  CONFIG_KEYBOARD_GPIO=y
  # CONFIG_INPUT_MOUSE is not set
  CONFIG_INPUT_JOYSTICK=y
@@ -28,7 +28,7 @@ diff --git a/arch/arm64/configs/gki_defconfig b/arch/arm64/configs/gki_defconfig
 diff --git a/arch/x86/configs/gki_defconfig b/arch/x86/configs/gki_defconfig
 --- a/arch/x86/configs/gki_defconfig
 +++ b/arch/x86/configs/gki_defconfig
-@@ -255,6 +255,7 @@ CONFIG_INPUT_EVDEV=y
+@@ -254,6 +254,7 @@ CONFIG_INPUT_EVDEV=y
  CONFIG_KEYBOARD_GPIO=y
  # CONFIG_INPUT_MOUSE is not set
  CONFIG_INPUT_JOYSTICK=y

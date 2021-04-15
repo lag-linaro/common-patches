@@ -18,7 +18,7 @@ Signed-off-by: Alistair Delva <adelva@google.com>
 diff --git a/arch/arm64/configs/gki_defconfig b/arch/arm64/configs/gki_defconfig
 --- a/arch/arm64/configs/gki_defconfig
 +++ b/arch/arm64/configs/gki_defconfig
-@@ -364,6 +364,7 @@ CONFIG_COMMON_CLK_SCPI=y
+@@ -363,6 +363,7 @@ CONFIG_COMMON_CLK_SCPI=y
  CONFIG_HWSPINLOCK=y
  CONFIG_MAILBOX=y
  CONFIG_ARM_SMMU=y
@@ -29,7 +29,7 @@ diff --git a/arch/arm64/configs/gki_defconfig b/arch/arm64/configs/gki_defconfig
 diff --git a/arch/x86/configs/gki_defconfig b/arch/x86/configs/gki_defconfig
 --- a/arch/x86/configs/gki_defconfig
 +++ b/arch/x86/configs/gki_defconfig
-@@ -314,6 +314,7 @@ CONFIG_RTC_CLASS=y
+@@ -313,6 +313,7 @@ CONFIG_RTC_CLASS=y
  CONFIG_UIO=y
  CONFIG_STAGING=y
  CONFIG_ASHMEM=y

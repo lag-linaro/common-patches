@@ -57,7 +57,7 @@ diff --git a/arch/arm64/configs/gki_defconfig b/arch/arm64/configs/gki_defconfig
  CONFIG_CMDLINE_EXTEND=y
  # CONFIG_DMI is not set
  CONFIG_PM_WAKELOCKS=y
-@@ -602,6 +602,8 @@ CONFIG_MAGIC_SYSRQ=y
+@@ -601,6 +601,8 @@ CONFIG_MAGIC_SYSRQ=y
  CONFIG_PAGE_OWNER=y
  CONFIG_DEBUG_STACK_USAGE=y
  CONFIG_DEBUG_MEMORY_INIT=y

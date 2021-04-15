@@ -23,7 +23,7 @@ diff --git a/arch/arm64/configs/gki_defconfig b/arch/arm64/configs/gki_defconfig
  CONFIG_CPU_FREQ_TIMES=y
  CONFIG_CPU_FREQ_GOV_POWERSAVE=y
  CONFIG_CPU_FREQ_GOV_CONSERVATIVE=y
-@@ -331,10 +332,13 @@ CONFIG_SPMI=y
+@@ -330,10 +331,13 @@ CONFIG_SPMI=y
  CONFIG_POWER_RESET_HISI=y
  # CONFIG_HWMON is not set
  CONFIG_THERMAL=y
@@ -48,7 +48,7 @@ diff --git a/arch/x86/configs/gki_defconfig b/arch/x86/configs/gki_defconfig
  CONFIG_CPU_FREQ_TIMES=y
  CONFIG_CPU_FREQ_GOV_POWERSAVE=y
  CONFIG_CPU_FREQ_GOV_CONSERVATIVE=y
-@@ -291,7 +292,12 @@ CONFIG_HPET=y
+@@ -290,7 +291,12 @@ CONFIG_HPET=y
  CONFIG_SPI=y
  CONFIG_GPIOLIB=y
  # CONFIG_HWMON is not set

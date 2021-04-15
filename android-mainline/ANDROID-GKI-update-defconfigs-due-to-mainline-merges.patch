@@ -16,7 +16,7 @@ Change-Id: I3829363da0fb8edb89967770f36431a8b4a56335
 diff --git a/arch/arm64/configs/gki_defconfig b/arch/arm64/configs/gki_defconfig
 --- a/arch/arm64/configs/gki_defconfig
 +++ b/arch/arm64/configs/gki_defconfig
-@@ -479,7 +479,6 @@ CONFIG_FORTIFY_SOURCE=y
+@@ -478,7 +478,6 @@ CONFIG_FORTIFY_SOURCE=y
  CONFIG_STATIC_USERMODEHELPER=y
  CONFIG_STATIC_USERMODEHELPER_PATH=""
  CONFIG_SECURITY_SELINUX=y
@@ -27,7 +27,7 @@ diff --git a/arch/arm64/configs/gki_defconfig b/arch/arm64/configs/gki_defconfig
 diff --git a/arch/x86/configs/gki_defconfig b/arch/x86/configs/gki_defconfig
 --- a/arch/x86/configs/gki_defconfig
 +++ b/arch/x86/configs/gki_defconfig
-@@ -426,7 +426,6 @@ CONFIG_FORTIFY_SOURCE=y
+@@ -425,7 +425,6 @@ CONFIG_FORTIFY_SOURCE=y
  CONFIG_STATIC_USERMODEHELPER=y
  CONFIG_STATIC_USERMODEHELPER_PATH=""
  CONFIG_SECURITY_SELINUX=y

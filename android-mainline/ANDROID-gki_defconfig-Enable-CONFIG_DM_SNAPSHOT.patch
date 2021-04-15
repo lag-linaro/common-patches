@@ -27,7 +27,7 @@ diff --git a/arch/arm64/configs/gki_defconfig b/arch/arm64/configs/gki_defconfig
 +CONFIG_DM_SNAPSHOT=y
  CONFIG_DM_UEVENT=y
  CONFIG_DM_VERITY=y
- CONFIG_DM_VERITY_AVB=y
+ CONFIG_DM_VERITY_FEC=y
 diff --git a/arch/x86/configs/gki_defconfig b/arch/x86/configs/gki_defconfig
 --- a/arch/x86/configs/gki_defconfig
 +++ b/arch/x86/configs/gki_defconfig
@@ -38,4 +38,4 @@ diff --git a/arch/x86/configs/gki_defconfig b/arch/x86/configs/gki_defconfig
 +CONFIG_DM_SNAPSHOT=y
  CONFIG_DM_UEVENT=y
  CONFIG_DM_VERITY=y
- CONFIG_DM_VERITY_AVB=y
+ CONFIG_DM_VERITY_FEC=y

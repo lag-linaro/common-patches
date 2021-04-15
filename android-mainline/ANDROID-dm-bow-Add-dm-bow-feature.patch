@@ -192,7 +192,7 @@ index 000000000000..e3fc4d22e0f4
 diff --git a/drivers/md/Kconfig b/drivers/md/Kconfig
 --- a/drivers/md/Kconfig
 +++ b/drivers/md/Kconfig
-@@ -651,4 +651,16 @@ config DM_ZONED
+@@ -640,4 +640,16 @@ config DM_ZONED
  
  	  If unsure, say N.
  

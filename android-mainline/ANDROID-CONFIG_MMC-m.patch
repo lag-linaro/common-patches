@@ -16,7 +16,7 @@ Change-Id: Ie6002cde4d964920c71edd347851df9ceec4ee0f
 diff --git a/arch/arm64/configs/gki_defconfig b/arch/arm64/configs/gki_defconfig
 --- a/arch/arm64/configs/gki_defconfig
 +++ b/arch/arm64/configs/gki_defconfig
-@@ -322,11 +322,11 @@ CONFIG_USB_CONFIGFS_F_FS=y
+@@ -321,11 +321,11 @@ CONFIG_USB_CONFIGFS_F_FS=y
  CONFIG_USB_CONFIGFS_F_ACC=y
  CONFIG_USB_CONFIGFS_F_AUDIO_SRC=y
  CONFIG_USB_CONFIGFS_F_MIDI=y
@@ -34,7 +34,7 @@ diff --git a/arch/arm64/configs/gki_defconfig b/arch/arm64/configs/gki_defconfig
 diff --git a/arch/x86/configs/gki_defconfig b/arch/x86/configs/gki_defconfig
 --- a/arch/x86/configs/gki_defconfig
 +++ b/arch/x86/configs/gki_defconfig
-@@ -280,8 +280,7 @@ CONFIG_USB_CONFIGFS_F_FS=y
+@@ -279,8 +279,7 @@ CONFIG_USB_CONFIGFS_F_FS=y
  CONFIG_USB_CONFIGFS_F_ACC=y
  CONFIG_USB_CONFIGFS_F_AUDIO_SRC=y
  CONFIG_USB_CONFIGFS_F_MIDI=y

@@ -22,7 +22,7 @@ Signed-off-by: Connor O'Brien <connoro@google.com>
 diff --git a/arch/arm64/configs/gki_defconfig b/arch/arm64/configs/gki_defconfig
 --- a/arch/arm64/configs/gki_defconfig
 +++ b/arch/arm64/configs/gki_defconfig
-@@ -352,6 +352,7 @@ CONFIG_HID_SONY=y
+@@ -351,6 +351,7 @@ CONFIG_HID_SONY=y
  CONFIG_HID_STEAM=y
  CONFIG_USB_HIDDEV=y
  CONFIG_USB_OTG=y
@@ -33,7 +33,7 @@ diff --git a/arch/arm64/configs/gki_defconfig b/arch/arm64/configs/gki_defconfig
 diff --git a/arch/x86/configs/gki_defconfig b/arch/x86/configs/gki_defconfig
 --- a/arch/x86/configs/gki_defconfig
 +++ b/arch/x86/configs/gki_defconfig
-@@ -313,6 +313,7 @@ CONFIG_HID_PLANTRONICS=y
+@@ -312,6 +312,7 @@ CONFIG_HID_PLANTRONICS=y
  CONFIG_HID_SONY=y
  CONFIG_HID_STEAM=y
  CONFIG_USB_HIDDEV=y

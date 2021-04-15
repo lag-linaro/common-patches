@@ -33,7 +33,7 @@ diff --git a/arch/arm64/configs/db845c_gki.fragment b/arch/arm64/configs/db845c_
 diff --git a/arch/arm64/configs/gki_defconfig b/arch/arm64/configs/gki_defconfig
 --- a/arch/arm64/configs/gki_defconfig
 +++ b/arch/arm64/configs/gki_defconfig
-@@ -365,7 +365,6 @@ CONFIG_HWSPINLOCK=y
+@@ -364,7 +364,6 @@ CONFIG_HWSPINLOCK=y
  CONFIG_MAILBOX=y
  CONFIG_ARM_SMMU=y
  CONFIG_QCOM_COMMAND_DB=y

@@ -23,7 +23,7 @@ Change-Id: Ibb065f8311d4b5b1ff84bb2226cd9214e0912de9
 diff --git a/arch/arm64/configs/gki_defconfig b/arch/arm64/configs/gki_defconfig
 --- a/arch/arm64/configs/gki_defconfig
 +++ b/arch/arm64/configs/gki_defconfig
-@@ -478,6 +478,7 @@ CONFIG_FORTIFY_SOURCE=y
+@@ -477,6 +477,7 @@ CONFIG_FORTIFY_SOURCE=y
  CONFIG_STATIC_USERMODEHELPER=y
  CONFIG_STATIC_USERMODEHELPER_PATH=""
  CONFIG_SECURITY_SELINUX=y
@@ -34,7 +34,7 @@ diff --git a/arch/arm64/configs/gki_defconfig b/arch/arm64/configs/gki_defconfig
 diff --git a/arch/x86/configs/gki_defconfig b/arch/x86/configs/gki_defconfig
 --- a/arch/x86/configs/gki_defconfig
 +++ b/arch/x86/configs/gki_defconfig
-@@ -426,6 +426,7 @@ CONFIG_FORTIFY_SOURCE=y
+@@ -425,6 +425,7 @@ CONFIG_FORTIFY_SOURCE=y
  CONFIG_STATIC_USERMODEHELPER=y
  CONFIG_STATIC_USERMODEHELPER_PATH=""
  CONFIG_SECURITY_SELINUX=y

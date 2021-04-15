@@ -15,7 +15,7 @@ Change-Id: Id1723b7b5a59c53671df19dddbd07f16d13da16f
 diff --git a/arch/arm64/configs/gki_defconfig b/arch/arm64/configs/gki_defconfig
 --- a/arch/arm64/configs/gki_defconfig
 +++ b/arch/arm64/configs/gki_defconfig
-@@ -367,7 +367,6 @@ CONFIG_MMC_SDHCI_PLTFM=y
+@@ -366,7 +366,6 @@ CONFIG_MMC_SDHCI_PLTFM=y
  CONFIG_NEW_LEDS=y
  CONFIG_LEDS_CLASS=y
  CONFIG_LEDS_TRIGGERS=y

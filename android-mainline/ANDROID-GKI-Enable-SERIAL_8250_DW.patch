@@ -23,7 +23,7 @@ Signed-off-by: Alistair Delva <adelva@google.com>
 diff --git a/arch/arm64/configs/gki_defconfig b/arch/arm64/configs/gki_defconfig
 --- a/arch/arm64/configs/gki_defconfig
 +++ b/arch/arm64/configs/gki_defconfig
-@@ -337,6 +337,7 @@ CONFIG_SERIAL_8250=y
+@@ -336,6 +336,7 @@ CONFIG_SERIAL_8250=y
  # CONFIG_SERIAL_8250_DEPRECATED_OPTIONS is not set
  CONFIG_SERIAL_8250_CONSOLE=y
  # CONFIG_SERIAL_8250_EXAR is not set

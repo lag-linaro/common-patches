@@ -46,7 +46,7 @@ diff --git a/arch/arm64/configs/db845c_gki.fragment b/arch/arm64/configs/db845c_
 diff --git a/arch/arm64/configs/gki_defconfig b/arch/arm64/configs/gki_defconfig
 --- a/arch/arm64/configs/gki_defconfig
 +++ b/arch/arm64/configs/gki_defconfig
-@@ -451,7 +451,6 @@ CONFIG_RTC_CLASS=y
+@@ -450,7 +450,6 @@ CONFIG_RTC_CLASS=y
  CONFIG_RTC_DRV_PL030=y
  CONFIG_RTC_DRV_PL031=y
  CONFIG_DMABUF_HEAPS=y
@@ -57,7 +57,7 @@ diff --git a/arch/arm64/configs/gki_defconfig b/arch/arm64/configs/gki_defconfig
 diff --git a/arch/x86/configs/gki_defconfig b/arch/x86/configs/gki_defconfig
 --- a/arch/x86/configs/gki_defconfig
 +++ b/arch/x86/configs/gki_defconfig
-@@ -406,7 +406,6 @@ CONFIG_LEDS_TRIGGER_TRANSIENT=y
+@@ -405,7 +405,6 @@ CONFIG_LEDS_TRIGGER_TRANSIENT=y
  CONFIG_EDAC=y
  CONFIG_RTC_CLASS=y
  CONFIG_DMABUF_HEAPS=y

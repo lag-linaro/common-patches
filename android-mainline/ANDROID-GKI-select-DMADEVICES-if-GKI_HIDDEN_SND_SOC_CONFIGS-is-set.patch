@@ -27,7 +27,7 @@ Change-Id: I1de491c10542f1b7c9c8754c65415b028d3bc922
 diff --git a/arch/arm64/configs/gki_defconfig b/arch/arm64/configs/gki_defconfig
 --- a/arch/arm64/configs/gki_defconfig
 +++ b/arch/arm64/configs/gki_defconfig
-@@ -449,7 +449,6 @@ CONFIG_EDAC=y
+@@ -448,7 +448,6 @@ CONFIG_EDAC=y
  CONFIG_RTC_CLASS=y
  CONFIG_RTC_DRV_PL030=y
  CONFIG_RTC_DRV_PL031=y

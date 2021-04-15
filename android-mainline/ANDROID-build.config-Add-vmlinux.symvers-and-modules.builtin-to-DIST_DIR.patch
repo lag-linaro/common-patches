@@ -1,0 +1,42 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: Elliot Berman <eberman@codeaurora.org>
+Date: Wed, 7 Apr 2021 08:03:10 -0700
+Subject: ANDROID: build.config: Add vmlinux.symvers and modules.builtin to
+ DIST_DIR
+
+Copy vmlinux.symvers and modules.builtin to the DIST_DIR for mixed tree
+builds. These files are used by the device kernel to modpost against the
+GKI kernel.
+
+These 3 new files add ~300 KB to the DIST_DIR
+
+Bug: 178469391
+Change-Id: Ic21a524aac05eafe18925982e860b0be9e6d8728
+Signed-off-by: Elliot Berman <eberman@codeaurora.org>
+---
+ build.config.aarch64 | 3 +++
+ build.config.x86_64  | 3 +++
+ 2 files changed, 6 insertions(+)
+
+diff --git a/build.config.aarch64 b/build.config.aarch64
+--- a/build.config.aarch64
++++ b/build.config.aarch64
+@@ -13,4 +13,7 @@ FILES="
+ arch/arm64/boot/Image
+ vmlinux
+ System.map
++vmlinux.symvers
++modules.builtin
++modules.builtin.modinfo
+ "
+diff --git a/build.config.x86_64 b/build.config.x86_64
+--- a/build.config.x86_64
++++ b/build.config.x86_64
+@@ -14,4 +14,7 @@ FILES="
+ arch/x86/boot/bzImage
+ vmlinux
+ System.map
++vmlinux.symvers
++modules.builtin
++modules.builtin.modinfo
+ "

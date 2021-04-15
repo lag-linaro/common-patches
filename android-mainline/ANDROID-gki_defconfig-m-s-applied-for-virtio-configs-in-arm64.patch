@@ -40,7 +40,7 @@ diff --git a/arch/arm64/configs/gki_defconfig b/arch/arm64/configs/gki_defconfig
  CONFIG_UID_SYS_STATS=y
  CONFIG_SCSI=y
  # CONFIG_SCSI_PROC_FS is not set
-@@ -229,7 +231,7 @@ CONFIG_DM_VERITY_FEC=y
+@@ -228,7 +230,7 @@ CONFIG_DM_VERITY_FEC=y
  CONFIG_DM_BOW=y
  CONFIG_NETDEVICES=y
  CONFIG_TUN=y
@@ -49,7 +49,7 @@ diff --git a/arch/arm64/configs/gki_defconfig b/arch/arm64/configs/gki_defconfig
  # CONFIG_ETHERNET is not set
  CONFIG_PHYLIB=y
  CONFIG_PPP=y
-@@ -263,7 +265,7 @@ CONFIG_USB_USBNET=y
+@@ -262,7 +264,7 @@ CONFIG_USB_USBNET=y
  # CONFIG_WLAN_VENDOR_TI is not set
  # CONFIG_WLAN_VENDOR_ZYDAS is not set
  # CONFIG_WLAN_VENDOR_QUANTENNA is not set
@@ -58,7 +58,7 @@ diff --git a/arch/arm64/configs/gki_defconfig b/arch/arm64/configs/gki_defconfig
  CONFIG_INPUT_EVDEV=y
  CONFIG_KEYBOARD_GPIO=y
  # CONFIG_INPUT_MOUSE is not set
-@@ -281,9 +283,9 @@ CONFIG_SERIAL_OF_PLATFORM=m
+@@ -280,9 +282,9 @@ CONFIG_SERIAL_OF_PLATFORM=m
  CONFIG_SERIAL_AMBA_PL011=y
  CONFIG_SERIAL_AMBA_PL011_CONSOLE=y
  CONFIG_SERIAL_DEV_BUS=y
@@ -70,7 +70,7 @@ diff --git a/arch/arm64/configs/gki_defconfig b/arch/arm64/configs/gki_defconfig
  # CONFIG_HW_RANDOM_CAVIUM is not set
  # CONFIG_DEVPORT is not set
  # CONFIG_I2C_COMPAT is not set
-@@ -307,7 +309,7 @@ CONFIG_MEDIA_CONTROLLER=y
+@@ -306,7 +308,7 @@ CONFIG_MEDIA_CONTROLLER=y
  # CONFIG_VGA_ARB is not set
  CONFIG_DRM=y
  # CONFIG_DRM_FBDEV_EMULATION is not set
@@ -79,7 +79,7 @@ diff --git a/arch/arm64/configs/gki_defconfig b/arch/arm64/configs/gki_defconfig
  CONFIG_BACKLIGHT_CLASS_DEVICE=y
  CONFIG_SOUND=y
  CONFIG_SND=y
-@@ -348,14 +350,15 @@ CONFIG_LEDS_TRIGGERS=y
+@@ -347,14 +349,15 @@ CONFIG_LEDS_TRIGGERS=y
  CONFIG_EDAC=y
  CONFIG_RTC_CLASS=y
  # CONFIG_RTC_SYSTOHC is not set
@@ -98,7 +98,7 @@ diff --git a/arch/arm64/configs/gki_defconfig b/arch/arm64/configs/gki_defconfig
  CONFIG_VIRTIO_MMIO_CMDLINE_DEVICES=y
  CONFIG_STAGING=y
  CONFIG_ASHMEM=y
-@@ -456,7 +459,6 @@ CONFIG_CRYPTO_MD4=y
+@@ -455,7 +458,6 @@ CONFIG_CRYPTO_MD4=y
  CONFIG_CRYPTO_LZ4=y
  CONFIG_CRYPTO_ZSTD=y
  CONFIG_CRYPTO_ANSI_CPRNG=y
@@ -109,7 +109,7 @@ diff --git a/arch/arm64/configs/gki_defconfig b/arch/arm64/configs/gki_defconfig
 diff --git a/arch/x86/configs/gki_defconfig b/arch/x86/configs/gki_defconfig
 --- a/arch/x86/configs/gki_defconfig
 +++ b/arch/x86/configs/gki_defconfig
-@@ -253,6 +253,7 @@ CONFIG_SERIAL_8250=y
+@@ -252,6 +252,7 @@ CONFIG_SERIAL_8250=y
  CONFIG_SERIAL_8250_CONSOLE=y
  CONFIG_SERIAL_OF_PLATFORM=m
  CONFIG_SERIAL_DEV_BUS=y
@@ -117,7 +117,7 @@ diff --git a/arch/x86/configs/gki_defconfig b/arch/x86/configs/gki_defconfig
  CONFIG_HW_RANDOM=y
  CONFIG_HW_RANDOM_VIRTIO=m
  # CONFIG_I2C_COMPAT is not set
-@@ -297,6 +298,8 @@ CONFIG_USB_CONFIGFS_F_MIDI=y
+@@ -296,6 +297,8 @@ CONFIG_USB_CONFIGFS_F_MIDI=y
  CONFIG_MMC=m
  # CONFIG_PWRSEQ_EMMC is not set
  # CONFIG_PWRSEQ_SIMPLE is not set
