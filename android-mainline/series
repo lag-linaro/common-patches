@@ -2,7 +2,7 @@
 # android-mainline patches
 #
 # Applies onto upstream 2d743660786e Linux v5.12-rc6-6-g2d743660786e
-# Matches android-mainline ee1b16e80d45 ("ANDROID: Kbuild: Add support for KBUILD_MIXED_TREE")
+# Matches android-mainline 6405f4f64dbf ("ANDROID: gki_defconfig: reduce KFENCE pool size")
 #
 Revert-block-grant-IOPRIO_CLASS_RT-to-CAP_SYS_NICE.patch
 Revert-arm64-dts-qcom-sdm845-db845c-Fix-hdmi-nodes.patch
@@ -459,6 +459,8 @@ ANDROID-Incremental-fs-Fix-mlock-to-fail-gracefully-on-corrupt-files.patch
 ANDROID-Incremental-fs-Truncate-file-when-complete.patch
 ANDROID-Incremental-fs-Add-FS_IOC_READ_VERITY_METADATA.patch
 ANDROID-Incremental-fs-stat-should-return-actual-used-blocks.patch
+ANDROID-Incremental-fs-fix-minor-printk-format-warning.patch
+ANDROID-Incremental-fs-fix-u64-integer-cast-to-pointer.patch
 _____ANNOTATION-networking-changes_____.patch
 ANDROID-net-xfrm-make-PF_KEY-SHA256-use-RFC-compliant-truncation.patch
 ANDROID-net-xfrm-always-export-pktgen_xfrm_outer_mode_output.patch
@@ -846,6 +848,7 @@ ANDROID-Add-virtio-rng-to-rockpi4-qemu-modules.patch
 ANDROID-Build-LZ4-ramdisk-for-rockpi4.patch
 ANDROID-build.config-Add-vmlinux.symvers-and-modules.builtin-to-DIST_DIR.patch
 ANDROID-Kconfig.gki-Add-SND_SOC_TOPOLOGY.patch
+ANDROID-gki_defconfig-reduce-KFENCE-pool-size.patch
 _____ANNOTATION-Patches-for-bringing-up-new-SoCs_____.patch
 _____ANNOTATION-remove-ANNOTATIONS-file_____.patch
 DROP-ME-obsolete-ION-documentation.patch
