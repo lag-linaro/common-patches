@@ -51,7 +51,7 @@ Signed-off-by: Amit Pundir <amit.pundir@linaro.org>
 diff --git a/drivers/of/fdt.c b/drivers/of/fdt.c
 --- a/drivers/of/fdt.c
 +++ b/drivers/of/fdt.c
-@@ -1033,43 +1033,67 @@ int __init early_init_dt_scan_memory(unsigned long node, const char *uname,
+@@ -1043,43 +1043,67 @@ int __init early_init_dt_scan_memory(unsigned long node, const char *uname,
  	return 0;
  }
  

@@ -162,7 +162,7 @@ diff --git a/security/selinux/ss/policydb.h b/security/selinux/ss/policydb.h
 diff --git a/security/selinux/ss/services.c b/security/selinux/ss/services.c
 --- a/security/selinux/ss/services.c
 +++ b/security/selinux/ss/services.c
-@@ -2140,6 +2140,9 @@ static void security_load_policycaps(struct selinux_state *state,
+@@ -2157,6 +2157,9 @@ static void security_load_policycaps(struct selinux_state *state,
  			pr_info("SELinux:  unknown policy capability %u\n",
  				i);
  	}

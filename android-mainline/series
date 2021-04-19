@@ -1,8 +1,8 @@
 #
 # android-mainline patches
 #
-# Applies onto upstream 2d743660786e Linux v5.12-rc6-6-g2d743660786e
-# Matches android-mainline 6405f4f64dbf ("ANDROID: gki_defconfig: reduce KFENCE pool size")
+# Applies onto upstream 3b9784350f99 Linux v5.12-rc6-138-g3b9784350f99
+# Matches android-mainline 32f323bc4dc8 ("Merge 3b9784350f99 ("Merge tag 'io_uring-5.12-2021-04-09' of git://git.kernel.dk/linux-block") into android-mainline")
 #
 Revert-block-grant-IOPRIO_CLASS_RT-to-CAP_SYS_NICE.patch
 Revert-arm64-dts-qcom-sdm845-db845c-Fix-hdmi-nodes.patch
@@ -37,7 +37,6 @@ FROMLIST-arm64-meson-remove-MESON_IRQ_GPIO-selection.patch
 FROMLIST-ARM-kprobes-fix-UNPREDICTABLE-warnings.patch
 FROMLIST-ARM-kprobes-rewrite-test-arm.c-in-UAL.patch
 FROMLIST-configfs-make-directories-inherit-uid-gid-from-creator.patch
-FROMLIST-drm-msm-Fix-removal-of-valid-error-case-when-checking-speed_bin.patch
 _____ANNOTATION-Android-vendor-hooks_____.patch
 ANDROID-GKI-add-android_vendor.h.patch
 ANDROID-add-support-for-vendor-hooks.patch
