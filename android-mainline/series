@@ -2,7 +2,7 @@
 # android-mainline patches
 #
 # Applies onto upstream 3b9784350f99 Linux v5.12-rc6-138-g3b9784350f99
-# Matches android-mainline 32f323bc4dc8 ("Merge 3b9784350f99 ("Merge tag 'io_uring-5.12-2021-04-09' of git://git.kernel.dk/linux-block") into android-mainline")
+# Matches android-mainline 7ec815f5dfed ("ANDROID: clang: update to 12.0.5")
 #
 Revert-block-grant-IOPRIO_CLASS_RT-to-CAP_SYS_NICE.patch
 Revert-arm64-dts-qcom-sdm845-db845c-Fix-hdmi-nodes.patch
@@ -848,6 +848,7 @@ ANDROID-Build-LZ4-ramdisk-for-rockpi4.patch
 ANDROID-build.config-Add-vmlinux.symvers-and-modules.builtin-to-DIST_DIR.patch
 ANDROID-Kconfig.gki-Add-SND_SOC_TOPOLOGY.patch
 ANDROID-gki_defconfig-reduce-KFENCE-pool-size.patch
+ANDROID-clang-update-to-12.0.5.patch
 _____ANNOTATION-Patches-for-bringing-up-new-SoCs_____.patch
 _____ANNOTATION-remove-ANNOTATIONS-file_____.patch
 DROP-ME-obsolete-ION-documentation.patch
