@@ -2,7 +2,7 @@
 # android-mainline patches
 #
 # Applies onto upstream 9f4ad9e425a1 Linux v5.12
-# Matches android-mainline c1b4f7d9ab16 ("Merge tag 'v5.12' into android-mainline")
+# Matches android-mainline fef6bc00f5d5 ("FROMLIST: export: Make CRCs robust to symbol trimming")
 #
 Revert-block-grant-IOPRIO_CLASS_RT-to-CAP_SYS_NICE.patch
 Revert-arm64-dts-qcom-sdm845-db845c-Fix-hdmi-nodes.patch
@@ -37,6 +37,7 @@ FROMLIST-arm64-meson-remove-MESON_IRQ_GPIO-selection.patch
 FROMLIST-ARM-kprobes-fix-UNPREDICTABLE-warnings.patch
 FROMLIST-ARM-kprobes-rewrite-test-arm.c-in-UAL.patch
 FROMLIST-configfs-make-directories-inherit-uid-gid-from-creator.patch
+FROMLIST-export-Make-CRCs-robust-to-symbol-trimming.patch
 _____ANNOTATION-Android-vendor-hooks_____.patch
 ANDROID-GKI-add-android_vendor.h.patch
 ANDROID-add-support-for-vendor-hooks.patch
