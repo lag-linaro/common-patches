@@ -1,8 +1,8 @@
 #
 # android-mainline patches
 #
-# Applies onto upstream d434405aaab7 Linux v5.12-rc7
-# Matches android-mainline 67a1678948dc ("Merge tag 'v5.12-rc7' into android-mainline")
+# Applies onto upstream bf05bf16c76b Linux v5.12-rc8
+# Matches android-mainline 184b79e124af ("Merge tag 'v5.12-rc8' into android-mainline")
 #
 Revert-block-grant-IOPRIO_CLASS_RT-to-CAP_SYS_NICE.patch
 Revert-arm64-dts-qcom-sdm845-db845c-Fix-hdmi-nodes.patch
