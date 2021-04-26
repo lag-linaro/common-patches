@@ -1,8 +1,8 @@
 #
 # android-mainline patches
 #
-# Applies onto upstream 7af08140979a Linux v5.12-rc8-1-g7af08140979a
-# Matches android-mainline 5ab47c085c07 ("ANDROID: Revert "net: wireless: Add module_param(mac_prefix) to mac80211_hwsim"")
+# Applies onto upstream 18a3c5f7abfd Linux v5.12-rc8-11-g18a3c5f7abfd
+# Matches android-mainline 6edc8254a333 ("Merge 18a3c5f7abfd ("Merge tag 'for_linus' of git://git.kernel.org/pub/scm/linux/kernel/git/mst/vhost") into android-mainline")
 #
 Revert-block-grant-IOPRIO_CLASS_RT-to-CAP_SYS_NICE.patch
 Revert-arm64-dts-qcom-sdm845-db845c-Fix-hdmi-nodes.patch
