@@ -1,8 +1,8 @@
 #
 # android-mainline patches
 #
-# Applies onto upstream 8db5efb83fa9 Linux v5.12-rc8-43-g8db5efb83fa9
-# Matches android-mainline d919fd05cfe4 ("ANDROID: OWNERS: add Bart for block/scsi")
+# Applies onto upstream 9f4ad9e425a1 Linux v5.12
+# Matches android-mainline c1b4f7d9ab16 ("Merge tag 'v5.12' into android-mainline")
 #
 Revert-block-grant-IOPRIO_CLASS_RT-to-CAP_SYS_NICE.patch
 Revert-arm64-dts-qcom-sdm845-db845c-Fix-hdmi-nodes.patch
