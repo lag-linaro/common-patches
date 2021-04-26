@@ -2,7 +2,7 @@
 # android-mainline patches
 #
 # Applies onto upstream 7af08140979a Linux v5.12-rc8-1-g7af08140979a
-# Matches android-mainline 8f58eda4deac ("Merge 7af08140979a ("Revert "gcov: clang: fix clang-11+ build"") into android-mainline")
+# Matches android-mainline 5ab47c085c07 ("ANDROID: Revert "net: wireless: Add module_param(mac_prefix) to mac80211_hwsim"")
 #
 Revert-block-grant-IOPRIO_CLASS_RT-to-CAP_SYS_NICE.patch
 Revert-arm64-dts-qcom-sdm845-db845c-Fix-hdmi-nodes.patch
@@ -463,6 +463,7 @@ ANDROID-Incremental-fs-fix-minor-printk-format-warning.patch
 ANDROID-Incremental-fs-fix-u64-integer-cast-to-pointer.patch
 ANDROID-Incremental-fs-Add-status-to-sysfs.patch
 ANDROID-Incremental-fs-Fix-INCFS_MAGIC_NUMBER-casts.patch
+ANDROID-Incremental-fs-Add-INCFS_IOC_GET_LAST_READ_ERROR.patch
 _____ANNOTATION-networking-changes_____.patch
 ANDROID-net-xfrm-make-PF_KEY-SHA256-use-RFC-compliant-truncation.patch
 ANDROID-net-xfrm-always-export-pktgen_xfrm_outer_mode_output.patch
@@ -471,7 +472,6 @@ ANDROID-netfilter-xt_IDLETIMER-Add-new-netlink-msg-type.patch
 ANDROID-net-ipv6-autoconf-routes-into-per-device-tables.patch
 ANDROID-virt_wifi-Add-data-ops-for-scan-data-simulation.patch
 ANDROID-virtio-net-Skip-set_features-on-non-cvq-devices.patch
-ANDROID-net-wireless-Add-module_param-mac_prefix-to-mac80211_hwsim.patch
 ANDROID-Unconditionally-create-bridge-tracepoints.patch
 ANDROID-Temporarily-disable-XFRM_USER_COMPAT-filtering.patch
 ANDROID-roll-back-xt_IDLETIMER-to-5.10.21-upstream-vanilla-version.patch
@@ -852,6 +852,7 @@ ANDROID-build.config-Add-vmlinux.symvers-and-modules.builtin-to-DIST_DIR.patch
 ANDROID-Kconfig.gki-Add-SND_SOC_TOPOLOGY.patch
 ANDROID-gki_defconfig-reduce-KFENCE-pool-size.patch
 ANDROID-clang-update-to-12.0.5.patch
+ANDROID-GKI-enable-hid-playstation-driver-rumble.patch
 _____ANNOTATION-Patches-for-bringing-up-new-SoCs_____.patch
 _____ANNOTATION-remove-ANNOTATIONS-file_____.patch
 DROP-ME-obsolete-ION-documentation.patch

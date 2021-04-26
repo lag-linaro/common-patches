@@ -1,0 +1,42 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: Chris Ye <lzye@google.com>
+Date: Wed, 21 Apr 2021 23:56:05 -0700
+Subject: ANDROID: GKI: enable hid-playstation driver/rumble
+
+To enable DualSense driver, i.e. hid-playstation, we need to set
+CONFIG_HID_PLAYSTATION to "y". To enable Dualsense rumble, we need to
+set CONFIG_PLAYSTATION_FF to "y".
+
+Bug: 167947264
+
+Signed-off-by: Chris Ye <lzye@google.com>
+Change-Id: I376b3e2c1a155632ec52f110cff8ac7a3d9a6191
+---
+ arch/arm64/configs/gki_defconfig | 2 ++
+ arch/x86/configs/gki_defconfig   | 2 ++
+ 2 files changed, 4 insertions(+)
+
+diff --git a/arch/arm64/configs/gki_defconfig b/arch/arm64/configs/gki_defconfig
+--- a/arch/arm64/configs/gki_defconfig
++++ b/arch/arm64/configs/gki_defconfig
+@@ -429,6 +429,8 @@ CONFIG_HID_MULTITOUCH=y
+ CONFIG_HID_NINTENDO=y
+ CONFIG_HID_PICOLCD=y
+ CONFIG_HID_PLANTRONICS=y
++CONFIG_HID_PLAYSTATION=y
++CONFIG_PLAYSTATION_FF=y
+ CONFIG_HID_ROCCAT=y
+ CONFIG_HID_SONY=y
+ CONFIG_SONY_FF=y
+diff --git a/arch/x86/configs/gki_defconfig b/arch/x86/configs/gki_defconfig
+--- a/arch/x86/configs/gki_defconfig
++++ b/arch/x86/configs/gki_defconfig
+@@ -385,6 +385,8 @@ CONFIG_HID_MULTITOUCH=y
+ CONFIG_HID_NINTENDO=y
+ CONFIG_HID_PICOLCD=y
+ CONFIG_HID_PLANTRONICS=y
++CONFIG_HID_PLAYSTATION=y
++CONFIG_PLAYSTATION_FF=y
+ CONFIG_HID_ROCCAT=y
+ CONFIG_HID_SONY=y
+ CONFIG_SONY_FF=y
