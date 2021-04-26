@@ -1,8 +1,8 @@
 #
 # android-mainline patches
 #
-# Applies onto upstream bf05bf16c76b Linux v5.12-rc8
-# Matches android-mainline 184b79e124af ("Merge tag 'v5.12-rc8' into android-mainline")
+# Applies onto upstream 7af08140979a Linux v5.12-rc8-1-g7af08140979a
+# Matches android-mainline 8f58eda4deac ("Merge 7af08140979a ("Revert "gcov: clang: fix clang-11+ build"") into android-mainline")
 #
 Revert-block-grant-IOPRIO_CLASS_RT-to-CAP_SYS_NICE.patch
 Revert-arm64-dts-qcom-sdm845-db845c-Fix-hdmi-nodes.patch
