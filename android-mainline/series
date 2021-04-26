@@ -1,8 +1,8 @@
 #
 # android-mainline patches
 #
-# Applies onto upstream 18a3c5f7abfd Linux v5.12-rc8-11-g18a3c5f7abfd
-# Matches android-mainline 6edc8254a333 ("Merge 18a3c5f7abfd ("Merge tag 'for_linus' of git://git.kernel.org/pub/scm/linux/kernel/git/mst/vhost") into android-mainline")
+# Applies onto upstream 8db5efb83fa9 Linux v5.12-rc8-43-g8db5efb83fa9
+# Matches android-mainline 6ecf1ebff1ce ("Merge 8db5efb83fa9 ("Merge tag 'pinctrl-v5.12-3' of git://git.kernel.org/pub/scm/linux/kernel/git/linusw/linux-pinctrl") into android-mainline")
 #
 Revert-block-grant-IOPRIO_CLASS_RT-to-CAP_SYS_NICE.patch
 Revert-arm64-dts-qcom-sdm845-db845c-Fix-hdmi-nodes.patch
