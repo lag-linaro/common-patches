@@ -1,0 +1,30 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: Greg Kroah-Hartman <gregkh@google.com>
+Date: Thu, 22 Apr 2021 09:48:09 +0200
+Subject: Revert "bpf: program: Refuse non-O_RDWR flags in BPF_OBJ_GET"
+
+This reverts commit d37300ed182131f1757895a62e556332857417e5.
+
+Looks like it breaks vts-core/gce/vts-presubmit-kernel-kernel-triggered
+on kernel_virt_x86_64 on aosp_kernel-common-android-mainline
+
+Will do more digging later, revert it for now.
+
+Signed-off-by: Greg Kroah-Hartman <gregkh@google.com>
+Change-Id: Ide1562bce106d02f4058874f5696fa0662a85731
+---
+ kernel/bpf/inode.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/kernel/bpf/inode.c b/kernel/bpf/inode.c
+--- a/kernel/bpf/inode.c
++++ b/kernel/bpf/inode.c
+@@ -543,7 +543,7 @@ int bpf_obj_get_user(const char __user *pathname, int flags)
+ 		return PTR_ERR(raw);
+ 
+ 	if (type == BPF_TYPE_PROG)
+-		ret = (f_flags != O_RDWR) ? -EINVAL : bpf_prog_new_fd(raw);
++		ret = bpf_prog_new_fd(raw);
+ 	else if (type == BPF_TYPE_MAP)
+ 		ret = bpf_map_new_fd(raw, f_flags);
+ 	else if (type == BPF_TYPE_LINK)

@@ -1,8 +1,8 @@
 #
 # android-mainline patches
 #
-# Applies onto upstream 3b9784350f99 Linux v5.12-rc6-138-g3b9784350f99
-# Matches android-mainline 7ec815f5dfed ("ANDROID: clang: update to 12.0.5")
+# Applies onto upstream d434405aaab7 Linux v5.12-rc7
+# Matches android-mainline 67a1678948dc ("Merge tag 'v5.12-rc7' into android-mainline")
 #
 Revert-block-grant-IOPRIO_CLASS_RT-to-CAP_SYS_NICE.patch
 Revert-arm64-dts-qcom-sdm845-db845c-Fix-hdmi-nodes.patch
@@ -10,8 +10,8 @@ Revert-ubsan-enable-for-all-config-builds.patch
 Revert-security-lockdown-selinux-implement-SELinux-lockdown.patch
 Revert-ARM-9017-2-Enable-KASan-for-ARM.patch
 Revert-tweewide-Fix-most-Shebang-lines.patch
+Revert-bpf-program-Refuse-non-O_RDWR-flags-in-BPF_OBJ_GET.patch
 _____ANNOTATION-pending-upstream_____.patch
-FROMGIT-virt_wifi-Return-micros-for-BSS-TSF-values.patch
 FROMLIST-clk-Export-clk_register_composite.patch
 FROMLIST-clk-versatile-remove-dependency-on-ARCH_.patch
 FROMLIST-cpuidle-governor-export-cpuidle-governor-functions.patch
@@ -256,6 +256,7 @@ ANDROID-staging-add-debug-kinfo-driver.patch
 ANDROID-irqdesc-Export-symbol-for-vendor-modules.patch
 ANDROID-Make-vsock-virtio-packet-buff-size-configurable.patch
 ANDROID-Disable-BT-UART-on-rockpi4.patch
+ANDROID-kernel-clear-debug_kinfo-precisely.patch
 _____ANNOTATION-tty-changes_____.patch
 Revert-Revert-tty-serial-samsung_tty-build-it-for-any-platform.patch
 FROMLIST-hvc_dcc-bind-driver-to-core0-for-reads-and-writes.patch
@@ -460,6 +461,8 @@ ANDROID-Incremental-fs-Add-FS_IOC_READ_VERITY_METADATA.patch
 ANDROID-Incremental-fs-stat-should-return-actual-used-blocks.patch
 ANDROID-Incremental-fs-fix-minor-printk-format-warning.patch
 ANDROID-Incremental-fs-fix-u64-integer-cast-to-pointer.patch
+ANDROID-Incremental-fs-Add-status-to-sysfs.patch
+ANDROID-Incremental-fs-Fix-INCFS_MAGIC_NUMBER-casts.patch
 _____ANNOTATION-networking-changes_____.patch
 ANDROID-net-xfrm-make-PF_KEY-SHA256-use-RFC-compliant-truncation.patch
 ANDROID-net-xfrm-always-export-pktgen_xfrm_outer_mode_output.patch

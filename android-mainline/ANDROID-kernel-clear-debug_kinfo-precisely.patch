@@ -1,0 +1,28 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: Jone Chou <jonechou@google.com>
+Date: Wed, 21 Apr 2021 22:54:26 +0800
+Subject: ANDROID: kernel: clear debug_kinfo precisely
+
+Clear debug_kinfo itself instead of whole reserved memory
+
+Bug: 176088154
+Bug: 175726952
+Bug: 185982588
+Signed-off-by: Jone Chou <jonechou@google.com>
+Change-Id: Ic322f6289b508a51c19cad17a2e264974d0b3e0e
+---
+ drivers/staging/android/debug_kinfo.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/drivers/staging/android/debug_kinfo.c b/drivers/staging/android/debug_kinfo.c
+--- a/drivers/staging/android/debug_kinfo.c
++++ b/drivers/staging/android/debug_kinfo.c
+@@ -123,7 +123,7 @@ static int debug_kinfo_probe(struct platform_device *pdev)
+ 	all_info_addr = rmem->priv;
+ 	all_info_size = rmem->size;
+ 
+-	memset(all_info_addr, 0, all_info_size);
++	memset(all_info_addr, 0, sizeof(struct kernel_all_info));
+ 	all_info = (struct kernel_all_info *)all_info_addr;
+ 	info = &(all_info->info);
+ 	info->enabled_all = IS_ENABLED(CONFIG_KALLSYMS_ALL);

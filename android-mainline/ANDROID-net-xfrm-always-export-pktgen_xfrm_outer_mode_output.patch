@@ -25,7 +25,7 @@ diff --git a/include/net/xfrm.h b/include/net/xfrm.h
 --- a/include/net/xfrm.h
 +++ b/include/net/xfrm.h
 @@ -1560,9 +1560,7 @@ int xfrm_trans_queue(struct sk_buff *skb,
- int xfrm_output_resume(struct sk_buff *skb, int err);
+ int xfrm_output_resume(struct sock *sk, struct sk_buff *skb, int err);
  int xfrm_output(struct sock *sk, struct sk_buff *skb);
  
 -#if IS_ENABLED(CONFIG_NET_PKTGEN)
