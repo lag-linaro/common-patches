@@ -2,7 +2,7 @@
 # android-mainline patches
 #
 # Applies onto upstream 8db5efb83fa9 Linux v5.12-rc8-43-g8db5efb83fa9
-# Matches android-mainline 6ecf1ebff1ce ("Merge 8db5efb83fa9 ("Merge tag 'pinctrl-v5.12-3' of git://git.kernel.org/pub/scm/linux/kernel/git/linusw/linux-pinctrl") into android-mainline")
+# Matches android-mainline d919fd05cfe4 ("ANDROID: OWNERS: add Bart for block/scsi")
 #
 Revert-block-grant-IOPRIO_CLASS_RT-to-CAP_SYS_NICE.patch
 Revert-arm64-dts-qcom-sdm845-db845c-Fix-hdmi-nodes.patch
@@ -853,6 +853,7 @@ ANDROID-Kconfig.gki-Add-SND_SOC_TOPOLOGY.patch
 ANDROID-gki_defconfig-reduce-KFENCE-pool-size.patch
 ANDROID-clang-update-to-12.0.5.patch
 ANDROID-GKI-enable-hid-playstation-driver-rumble.patch
+ANDROID-OWNERS-add-Bart-for-block-scsi.patch
 _____ANNOTATION-Patches-for-bringing-up-new-SoCs_____.patch
 _____ANNOTATION-remove-ANNOTATIONS-file_____.patch
 DROP-ME-obsolete-ION-documentation.patch
