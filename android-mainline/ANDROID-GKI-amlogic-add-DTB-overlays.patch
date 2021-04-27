@@ -55,7 +55,6 @@ diff --git a/arch/arm64/boot/dts/amlogic/Makefile b/arch/arm64/boot/dts/amlogic/
  dtb-$(CONFIG_ARCH_MESON) += meson-a1-ad401.dtb
 diff --git a/arch/arm64/boot/dts/amlogic/meson-g12a-sei510-android.dts b/arch/arm64/boot/dts/amlogic/meson-g12a-sei510-android.dts
 new file mode 100644
-index 000000000000..2f89a01c04b5
 --- /dev/null
 +++ b/arch/arm64/boot/dts/amlogic/meson-g12a-sei510-android.dts
 @@ -0,0 +1,58 @@
@@ -119,7 +118,6 @@ index 000000000000..2f89a01c04b5
 +};
 diff --git a/arch/arm64/boot/dts/amlogic/meson-g12b-a311d-khadas-vim3-android.dts b/arch/arm64/boot/dts/amlogic/meson-g12b-a311d-khadas-vim3-android.dts
 new file mode 100644
-index 000000000000..3ab19e275321
 --- /dev/null
 +++ b/arch/arm64/boot/dts/amlogic/meson-g12b-a311d-khadas-vim3-android.dts
 @@ -0,0 +1,55 @@
@@ -181,7 +179,6 @@ index 000000000000..3ab19e275321
 \ No newline at end of file
 diff --git a/arch/arm64/boot/dts/amlogic/meson-sm1-khadas-vim3l-android.dts b/arch/arm64/boot/dts/amlogic/meson-sm1-khadas-vim3l-android.dts
 new file mode 100644
-index 000000000000..4b06bf24fc48
 --- /dev/null
 +++ b/arch/arm64/boot/dts/amlogic/meson-sm1-khadas-vim3l-android.dts
 @@ -0,0 +1,133 @@
@@ -320,7 +317,6 @@ index 000000000000..4b06bf24fc48
 +};
 diff --git a/arch/arm64/boot/dts/amlogic/meson-sm1-sei610-android.dts b/arch/arm64/boot/dts/amlogic/meson-sm1-sei610-android.dts
 new file mode 100644
-index 000000000000..363d6c4cbc70
 --- /dev/null
 +++ b/arch/arm64/boot/dts/amlogic/meson-sm1-sei610-android.dts
 @@ -0,0 +1,71 @@

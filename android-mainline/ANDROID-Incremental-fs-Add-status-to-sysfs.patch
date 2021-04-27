@@ -40,7 +40,6 @@ Signed-off-by: Paul Lawrence <paullawrence@google.com>
 
 diff --git a/Documentation/ABI/testing/sysfs-fs-incfs b/Documentation/ABI/testing/sysfs-fs-incfs
 new file mode 100644
-index 000000000000..690c687c67ab
 --- /dev/null
 +++ b/Documentation/ABI/testing/sysfs-fs-incfs
 @@ -0,0 +1,64 @@
@@ -110,7 +109,6 @@ index 000000000000..690c687c67ab
 +Description:	Returns number of reads that timed out.
 diff --git a/Documentation/filesystems/incfs.rst b/Documentation/filesystems/incfs.rst
 new file mode 100644
-index 000000000000..03ae39ec72dc
 --- /dev/null
 +++ b/Documentation/filesystems/incfs.rst
 @@ -0,0 +1,82 @@
@@ -593,7 +591,6 @@ diff --git a/fs/incfs/main.c b/fs/incfs/main.c
  
 diff --git a/fs/incfs/sysfs.c b/fs/incfs/sysfs.c
 new file mode 100644
-index 000000000000..27aee9ed4341
 --- /dev/null
 +++ b/fs/incfs/sysfs.c
 @@ -0,0 +1,195 @@
@@ -794,7 +791,6 @@ index 000000000000..27aee9ed4341
 +}
 diff --git a/fs/incfs/sysfs.h b/fs/incfs/sysfs.h
 new file mode 100644
-index 000000000000..446813fac205
 --- /dev/null
 +++ b/fs/incfs/sysfs.h
 @@ -0,0 +1,48 @@

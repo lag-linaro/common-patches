@@ -21,7 +21,6 @@ Change-Id: Id293b17a448b8719d6efd4a54d828067a5ffe50e
 
 diff --git a/Documentation/filesystems/OWNERS b/Documentation/filesystems/OWNERS
 new file mode 100644
-index 000000000000..52df53b8cfd2
 --- /dev/null
 +++ b/Documentation/filesystems/OWNERS
 @@ -0,0 +1 @@
@@ -35,7 +34,6 @@ diff --git a/fs/OWNERS b/fs/OWNERS
  per-file verity/*=ebiggers@google.com
 diff --git a/fs/f2fs/OWNERS b/fs/f2fs/OWNERS
 new file mode 100644
-index 000000000000..6a5c01163993
 --- /dev/null
 +++ b/fs/f2fs/OWNERS
 @@ -0,0 +1 @@
@@ -48,7 +46,6 @@ diff --git a/include/linux/OWNERS b/include/linux/OWNERS
  per-file net*=file:/net/OWNERS
 diff --git a/include/trace/events/OWNERS b/include/trace/events/OWNERS
 new file mode 100644
-index 000000000000..52df53b8cfd2
 --- /dev/null
 +++ b/include/trace/events/OWNERS
 @@ -0,0 +1 @@

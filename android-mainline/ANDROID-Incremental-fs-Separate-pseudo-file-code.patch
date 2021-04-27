@@ -37,7 +37,6 @@ diff --git a/fs/incfs/Makefile b/fs/incfs/Makefile
  	vfs.o
 diff --git a/fs/incfs/pseudo_files.c b/fs/incfs/pseudo_files.c
 new file mode 100644
-index 000000000000..5d61d8e866dc
 --- /dev/null
 +++ b/fs/incfs/pseudo_files.c
 @@ -0,0 +1,1063 @@
@@ -1106,7 +1105,6 @@ index 000000000000..5d61d8e866dc
 +}
 diff --git a/fs/incfs/pseudo_files.h b/fs/incfs/pseudo_files.h
 new file mode 100644
-index 000000000000..14a8cc513363
 --- /dev/null
 +++ b/fs/incfs/pseudo_files.h
 @@ -0,0 +1,15 @@

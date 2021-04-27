@@ -33,7 +33,6 @@ Signed-off-by: Alistair Delva <adelva@google.com>
 
 diff --git a/arch/arm64/configs/rockpi4_defconfig b/arch/arm64/configs/rockpi4_defconfig
 deleted file mode 100644
-index 58a1a2e5e6ac..000000000000
 --- a/arch/arm64/configs/rockpi4_defconfig
 +++ /dev/null
 @@ -1,538 +0,0 @@
@@ -577,7 +576,6 @@ index 58a1a2e5e6ac..000000000000
 -CONFIG_CORESIGHT_STM=y
 diff --git a/arch/arm64/configs/rockpi4_gki.fragment b/arch/arm64/configs/rockpi4_gki.fragment
 new file mode 100644
-index 000000000000..2b26853936ac
 --- /dev/null
 +++ b/arch/arm64/configs/rockpi4_gki.fragment
 @@ -0,0 +1,56 @@
@@ -639,7 +637,6 @@ index 000000000000..2b26853936ac
 +CONFIG_CRYPTO_DEV_ROCKCHIP=m
 diff --git a/build.config.rockpi4 b/build.config.rockpi4
 new file mode 100644
-index 000000000000..2aae142dc5c0
 --- /dev/null
 +++ b/build.config.rockpi4
 @@ -0,0 +1,18 @@

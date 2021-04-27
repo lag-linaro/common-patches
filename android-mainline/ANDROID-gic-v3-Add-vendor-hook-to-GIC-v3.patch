@@ -76,7 +76,6 @@ diff --git a/drivers/irqchip/irq-gic-v3.c b/drivers/irqchip/irq-gic-v3.c
  	/*
 diff --git a/include/trace/hooks/gic_v3.h b/include/trace/hooks/gic_v3.h
 new file mode 100644
-index 000000000000..964fa80a4979
 --- /dev/null
 +++ b/include/trace/hooks/gic_v3.h
 @@ -0,0 +1,25 @@

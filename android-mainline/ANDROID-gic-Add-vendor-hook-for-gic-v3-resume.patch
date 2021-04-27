@@ -91,7 +91,6 @@ diff --git a/drivers/irqchip/irq-gic-v3.c b/drivers/irqchip/irq-gic-v3.c
  		its_init(handle, &gic_data.rdists, gic_data.domain);
 diff --git a/include/trace/hooks/gic.h b/include/trace/hooks/gic.h
 new file mode 100644
-index 000000000000..e9d9fce0ee77
 --- /dev/null
 +++ b/include/trace/hooks/gic.h
 @@ -0,0 +1,21 @@

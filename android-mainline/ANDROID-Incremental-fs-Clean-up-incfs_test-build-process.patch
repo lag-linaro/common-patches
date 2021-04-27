@@ -45,7 +45,6 @@ diff --git a/tools/testing/selftests/filesystems/incfs/Makefile b/tools/testing/
 +include ../../lib.mk
 diff --git a/tools/testing/selftests/filesystems/incfs/config b/tools/testing/selftests/filesystems/incfs/config
 deleted file mode 100644
-index b6749837a318..000000000000
 --- a/tools/testing/selftests/filesystems/incfs/config
 +++ /dev/null
 @@ -1 +0,0 @@

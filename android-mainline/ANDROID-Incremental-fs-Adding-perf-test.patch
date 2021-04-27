@@ -39,7 +39,6 @@ diff --git a/tools/testing/selftests/filesystems/incfs/Makefile b/tools/testing/
  
 diff --git a/tools/testing/selftests/filesystems/incfs/incfs_perf.c b/tools/testing/selftests/filesystems/incfs/incfs_perf.c
 new file mode 100644
-index 000000000000..ed36bbd774e3
 --- /dev/null
 +++ b/tools/testing/selftests/filesystems/incfs/incfs_perf.c
 @@ -0,0 +1,717 @@

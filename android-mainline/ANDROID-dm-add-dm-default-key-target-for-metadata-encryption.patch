@@ -109,7 +109,6 @@ diff --git a/drivers/md/Makefile b/drivers/md/Makefile
  obj-$(CONFIG_DM_FLAKEY)		+= dm-flakey.o
 diff --git a/drivers/md/dm-default-key.c b/drivers/md/dm-default-key.c
 new file mode 100644
-index 000000000000..8af81114ecdf
 --- /dev/null
 +++ b/drivers/md/dm-default-key.c
 @@ -0,0 +1,414 @@

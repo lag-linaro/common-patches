@@ -19,7 +19,6 @@ Change-Id: I97ca538fbd7e73e467416590190d85894db42e7d
 
 diff --git a/include/uapi/linux/dm-user.h b/include/uapi/linux/dm-user.h
 new file mode 100644
-index 000000000000..6d8f535b3542
 --- /dev/null
 +++ b/include/uapi/linux/dm-user.h
 @@ -0,0 +1,68 @@

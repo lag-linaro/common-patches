@@ -442,7 +442,6 @@ diff --git a/fs/mpage.c b/fs/mpage.c
  	guard_bio_eod(bio);
 diff --git a/include/trace/events/android_fs.h b/include/trace/events/android_fs.h
 new file mode 100644
-index 000000000000..7edb6bcfe482
 --- /dev/null
 +++ b/include/trace/events/android_fs.h
 @@ -0,0 +1,66 @@
@@ -514,7 +513,6 @@ index 000000000000..7edb6bcfe482
 +#endif
 diff --git a/include/trace/events/android_fs_template.h b/include/trace/events/android_fs_template.h
 new file mode 100644
-index 000000000000..efc487816e83
 --- /dev/null
 +++ b/include/trace/events/android_fs_template.h
 @@ -0,0 +1,64 @@

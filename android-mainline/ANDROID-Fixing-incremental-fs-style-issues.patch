@@ -21,7 +21,6 @@ Change-Id: I8a9e9ead48a65fd09c2d01d22f65d9a352f118e2
 
 diff --git a/fs/incfs/compat.h b/fs/incfs/compat.h
 deleted file mode 100644
-index f6fd9b2b3cb2..000000000000
 --- a/fs/incfs/compat.h
 +++ /dev/null
 @@ -1,33 +0,0 @@

@@ -33,7 +33,6 @@ diff --git a/fs/incfs/Kconfig b/fs/incfs/Kconfig
  	select ASYMMETRIC_KEY_TYPE
 diff --git a/tools/testing/selftests/filesystems/incfs/.gitignore b/tools/testing/selftests/filesystems/incfs/.gitignore
 new file mode 100644
-index 000000000000..4cba9c219a92
 --- /dev/null
 +++ b/tools/testing/selftests/filesystems/incfs/.gitignore
 @@ -0,0 +1 @@

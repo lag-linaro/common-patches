@@ -44,7 +44,6 @@ Signed-off-by: Connor O'Brien <connoro@google.com>
 
 diff --git a/Documentation/ABI/testing/procfs-concurrent_time b/Documentation/ABI/testing/procfs-concurrent_time
 new file mode 100644
-index 000000000000..55b414289b40
 --- /dev/null
 +++ b/Documentation/ABI/testing/procfs-concurrent_time
 @@ -0,0 +1,16 @@

@@ -17,7 +17,6 @@ Signed-off-by: Michael Specter <mikespecter@google.com>
 
 diff --git a/build.config.gki_kprobes b/build.config.gki_kprobes
 new file mode 100644
-index 000000000000..d4a7e7ae9cd4
 --- /dev/null
 +++ b/build.config.gki_kprobes
 @@ -0,0 +1,20 @@
@@ -43,7 +42,6 @@ index 000000000000..d4a7e7ae9cd4
 +
 diff --git a/build.config.gki_kprobes.aarch64 b/build.config.gki_kprobes.aarch64
 new file mode 100644
-index 000000000000..627c2176f971
 --- /dev/null
 +++ b/build.config.gki_kprobes.aarch64
 @@ -0,0 +1,4 @@
@@ -53,7 +51,6 @@ index 000000000000..627c2176f971
 +
 diff --git a/build.config.gki_kprobes.x86_64 b/build.config.gki_kprobes.x86_64
 new file mode 100644
-index 000000000000..a1d3da740b36
 --- /dev/null
 +++ b/build.config.gki_kprobes.x86_64
 @@ -0,0 +1,4 @@

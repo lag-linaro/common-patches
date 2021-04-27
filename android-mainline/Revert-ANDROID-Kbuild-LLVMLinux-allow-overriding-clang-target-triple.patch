@@ -93,7 +93,6 @@ diff --git a/build.config.x86_64 b/build.config.x86_64
  MAKE_GOALS="
 diff --git a/scripts/clang-android.sh b/scripts/clang-android.sh
 deleted file mode 100755
-index 9186c4f48576..000000000000
 --- a/scripts/clang-android.sh
 +++ /dev/null
 @@ -1,4 +0,0 @@

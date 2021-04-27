@@ -152,7 +152,6 @@ diff --git a/fs/namei.c b/fs/namei.c
  		status = -ESTALE;
 diff --git a/include/trace/events/namei.h b/include/trace/events/namei.h
 new file mode 100644
-index 000000000000..e8c3e216a0a7
 --- /dev/null
 +++ b/include/trace/events/namei.h
 @@ -0,0 +1,42 @@

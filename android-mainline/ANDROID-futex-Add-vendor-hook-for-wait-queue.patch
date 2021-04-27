@@ -37,7 +37,6 @@ diff --git a/drivers/android/vendor_hooks.c b/drivers/android/vendor_hooks.c
  EXPORT_TRACEPOINT_SYMBOL_GPL(android_vh_ipi_stop);
 diff --git a/include/trace/hooks/futex.h b/include/trace/hooks/futex.h
 new file mode 100644
-index 000000000000..9330f034a2ae
 --- /dev/null
 +++ b/include/trace/hooks/futex.h
 @@ -0,0 +1,22 @@

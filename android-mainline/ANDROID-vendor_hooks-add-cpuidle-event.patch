@@ -67,7 +67,6 @@ diff --git a/drivers/cpuidle/cpuidle.c b/drivers/cpuidle/cpuidle.c
  	sched_idle_set_state(NULL);
 diff --git a/include/trace/hooks/cpuidle.h b/include/trace/hooks/cpuidle.h
 new file mode 100644
-index 000000000000..6921b2c2e9ec
 --- /dev/null
 +++ b/include/trace/hooks/cpuidle.h
 @@ -0,0 +1,20 @@

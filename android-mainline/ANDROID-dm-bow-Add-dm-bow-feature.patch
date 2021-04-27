@@ -86,7 +86,6 @@ Signed-off-by: Eric Biggers <ebiggers@google.com>
 
 diff --git a/Documentation/device-mapper/dm-bow.txt b/Documentation/device-mapper/dm-bow.txt
 new file mode 100644
-index 000000000000..e3fc4d22e0f4
 --- /dev/null
 +++ b/Documentation/device-mapper/dm-bow.txt
 @@ -0,0 +1,99 @@
@@ -222,7 +221,6 @@ diff --git a/drivers/md/Makefile b/drivers/md/Makefile
  dm-mod-objs			+= dm-init.o
 diff --git a/drivers/md/dm-bow.c b/drivers/md/dm-bow.c
 new file mode 100644
-index 000000000000..cfd1fa63ff97
 --- /dev/null
 +++ b/drivers/md/dm-bow.c
 @@ -0,0 +1,1297 @@

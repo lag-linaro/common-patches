@@ -21,7 +21,6 @@ Signed-off-by: Matthias Maennich <maennich@google.com>
 
 diff --git a/build.config.allmodconfig b/build.config.allmodconfig
 new file mode 100644
-index 000000000000..b39bc1b877c7
 --- /dev/null
 +++ b/build.config.allmodconfig
 @@ -0,0 +1,17 @@
@@ -44,7 +43,6 @@ index 000000000000..b39bc1b877c7
 +}
 diff --git a/build.config.allmodconfig.aarch64 b/build.config.allmodconfig.aarch64
 new file mode 100644
-index 000000000000..863ab1caddab
 --- /dev/null
 +++ b/build.config.allmodconfig.aarch64
 @@ -0,0 +1,4 @@
@@ -54,7 +52,6 @@ index 000000000000..863ab1caddab
 +
 diff --git a/build.config.allmodconfig.x86_64 b/build.config.allmodconfig.x86_64
 new file mode 100644
-index 000000000000..bedb3869d99b
 --- /dev/null
 +++ b/build.config.allmodconfig.x86_64
 @@ -0,0 +1,4 @@

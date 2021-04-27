@@ -20,7 +20,6 @@ Signed-off-by: Matthias Maennich <maennich@google.com>
 
 diff --git a/arch/arm64/configs/rockpi4_defconfig b/arch/arm64/configs/rockpi4_defconfig
 new file mode 100644
-index 000000000000..c016008b652d
 --- /dev/null
 +++ b/arch/arm64/configs/rockpi4_defconfig
 @@ -0,0 +1,539 @@

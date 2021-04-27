@@ -35,7 +35,6 @@ diff --git a/drivers/android/vendor_hooks.c b/drivers/android/vendor_hooks.c
 +EXPORT_TRACEPOINT_SYMBOL_GPL(android_vh_syscall_prctl_finished);
 diff --git a/include/trace/hooks/sys.h b/include/trace/hooks/sys.h
 new file mode 100644
-index 000000000000..9e5d7a5cb2cf
 --- /dev/null
 +++ b/include/trace/hooks/sys.h
 @@ -0,0 +1,17 @@

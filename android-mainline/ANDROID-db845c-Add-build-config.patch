@@ -28,7 +28,6 @@ Change-Id: Ib32bb07590adcb10e9e208f33773900054202e68
 
 diff --git a/build.config.db845c b/build.config.db845c
 new file mode 100644
-index 000000000000..65b768fb1fb3
 --- /dev/null
 +++ b/build.config.db845c
 @@ -0,0 +1,11 @@

@@ -15,7 +15,6 @@ Change-Id: I1313c9425d76b78c970470553f03885fbf2f3a7d
 
 diff --git a/arch/arm64/configs/db845c_gki.fragment b/arch/arm64/configs/db845c_gki.fragment
 new file mode 100644
-index 000000000000..a90c573de4f9
 --- /dev/null
 +++ b/arch/arm64/configs/db845c_gki.fragment
 @@ -0,0 +1,62 @@

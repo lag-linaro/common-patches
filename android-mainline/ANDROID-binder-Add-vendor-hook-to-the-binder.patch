@@ -113,7 +113,6 @@ diff --git a/drivers/android/vendor_hooks.c b/drivers/android/vendor_hooks.c
  EXPORT_TRACEPOINT_SYMBOL_GPL(android_vh_rwsem_write_finished);
 diff --git a/include/trace/hooks/binder.h b/include/trace/hooks/binder.h
 new file mode 100644
-index 000000000000..807c463442ff
 --- /dev/null
 +++ b/include/trace/hooks/binder.h
 @@ -0,0 +1,27 @@

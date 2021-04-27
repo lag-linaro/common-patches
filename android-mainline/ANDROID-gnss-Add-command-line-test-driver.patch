@@ -67,7 +67,6 @@ diff --git a/drivers/gnss/Makefile b/drivers/gnss/Makefile
 +gnss-cmdline-y := cmdline.o
 diff --git a/drivers/gnss/cmdline.c b/drivers/gnss/cmdline.c
 new file mode 100644
-index 000000000000..3e1d24636b8c
 --- /dev/null
 +++ b/drivers/gnss/cmdline.c
 @@ -0,0 +1,139 @@

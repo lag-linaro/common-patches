@@ -92,7 +92,6 @@ diff --git a/drivers/hid/hid-ids.h b/drivers/hid/hid-ids.h
  #define USB_DEVICE_ID_NOVATEK_PCT	0x0600
 diff --git a/drivers/hid/hid-nintendo.c b/drivers/hid/hid-nintendo.c
 new file mode 100644
-index 000000000000..3695b96694bd
 --- /dev/null
 +++ b/drivers/hid/hid-nintendo.c
 @@ -0,0 +1,820 @@

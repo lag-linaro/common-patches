@@ -66,7 +66,6 @@ diff --git a/drivers/cpufreq/Makefile b/drivers/cpufreq/Makefile
  # Link order matters. K8 is preferred to ACPI because of firmware bugs in early
 diff --git a/drivers/cpufreq/dummy-cpufreq.c b/drivers/cpufreq/dummy-cpufreq.c
 new file mode 100644
-index 000000000000..e74ef6782e5a
 --- /dev/null
 +++ b/drivers/cpufreq/dummy-cpufreq.c
 @@ -0,0 +1,60 @@

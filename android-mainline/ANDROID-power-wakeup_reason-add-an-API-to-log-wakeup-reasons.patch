@@ -42,7 +42,6 @@ Signed-off-by: Alistair Delva <adelva@google.com>
 
 diff --git a/Documentation/ABI/testing/sysfs-kernel-wakeup_reasons b/Documentation/ABI/testing/sysfs-kernel-wakeup_reasons
 new file mode 100644
-index 000000000000..acb19b91c192
 --- /dev/null
 +++ b/Documentation/ABI/testing/sysfs-kernel-wakeup_reasons
 @@ -0,0 +1,16 @@
@@ -176,7 +175,6 @@ diff --git a/include/linux/suspend.h b/include/linux/suspend.h
  extern void unlock_system_sleep(void);
 diff --git a/include/linux/wakeup_reason.h b/include/linux/wakeup_reason.h
 new file mode 100644
-index 000000000000..9fbe209c7177
 --- /dev/null
 +++ b/include/linux/wakeup_reason.h
 @@ -0,0 +1,30 @@
@@ -356,7 +354,6 @@ diff --git a/kernel/power/suspend.c b/kernel/power/suspend.c
  	suspend_test_finish("suspend devices");
 diff --git a/kernel/power/wakeup_reason.c b/kernel/power/wakeup_reason.c
 new file mode 100644
-index 000000000000..3ce5c902e3d3
 --- /dev/null
 +++ b/kernel/power/wakeup_reason.c
 @@ -0,0 +1,215 @@

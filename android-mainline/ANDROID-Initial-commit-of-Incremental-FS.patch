@@ -77,7 +77,6 @@ diff --git a/fs/Makefile b/fs/Makefile
  obj-$(CONFIG_OMFS_FS)		+= omfs/
 diff --git a/fs/incfs/Kconfig b/fs/incfs/Kconfig
 new file mode 100644
-index 000000000000..d860c07664c3
 --- /dev/null
 +++ b/fs/incfs/Kconfig
 @@ -0,0 +1,18 @@
@@ -101,7 +100,6 @@ index 000000000000..d860c07664c3
 +	  module will be called incrementalfs.
 diff --git a/fs/incfs/Makefile b/fs/incfs/Makefile
 new file mode 100644
-index 000000000000..8d734bf91ecd
 --- /dev/null
 +++ b/fs/incfs/Makefile
 @@ -0,0 +1,9 @@
@@ -116,7 +114,6 @@ index 000000000000..8d734bf91ecd
 +	vfs.o
 diff --git a/fs/incfs/compat.h b/fs/incfs/compat.h
 new file mode 100644
-index 000000000000..f6fd9b2b3cb2
 --- /dev/null
 +++ b/fs/incfs/compat.h
 @@ -0,0 +1,33 @@
@@ -155,7 +152,6 @@ index 000000000000..f6fd9b2b3cb2
 +#endif /* _INCFS_COMPAT_H */
 diff --git a/fs/incfs/data_mgmt.c b/fs/incfs/data_mgmt.c
 new file mode 100644
-index 000000000000..25ea1099946d
 --- /dev/null
 +++ b/fs/incfs/data_mgmt.c
 @@ -0,0 +1,1142 @@
@@ -1303,7 +1299,6 @@ index 000000000000..25ea1099946d
 +}
 diff --git a/fs/incfs/data_mgmt.h b/fs/incfs/data_mgmt.h
 new file mode 100644
-index 000000000000..82ccab3be4bb
 --- /dev/null
 +++ b/fs/incfs/data_mgmt.h
 @@ -0,0 +1,339 @@
@@ -1648,7 +1643,6 @@ index 000000000000..82ccab3be4bb
 +#endif /* _INCFS_DATA_MGMT_H */
 diff --git a/fs/incfs/format.c b/fs/incfs/format.c
 new file mode 100644
-index 000000000000..27498b9c3d34
 --- /dev/null
 +++ b/fs/incfs/format.c
 @@ -0,0 +1,696 @@
@@ -2350,7 +2344,6 @@ index 000000000000..27498b9c3d34
 +}
 diff --git a/fs/incfs/format.h b/fs/incfs/format.h
 new file mode 100644
-index 000000000000..0978f8a89b34
 --- /dev/null
 +++ b/fs/incfs/format.h
 @@ -0,0 +1,349 @@
@@ -2705,7 +2698,6 @@ index 000000000000..0978f8a89b34
 +#endif /* _INCFS_FORMAT_H */
 diff --git a/fs/incfs/integrity.c b/fs/incfs/integrity.c
 new file mode 100644
-index 000000000000..c6444e73e4d8
 --- /dev/null
 +++ b/fs/incfs/integrity.c
 @@ -0,0 +1,217 @@
@@ -2928,7 +2920,6 @@ index 000000000000..c6444e73e4d8
 +
 diff --git a/fs/incfs/integrity.h b/fs/incfs/integrity.h
 new file mode 100644
-index 000000000000..da1c38486b2f
 --- /dev/null
 +++ b/fs/incfs/integrity.h
 @@ -0,0 +1,72 @@
@@ -3006,7 +2997,6 @@ index 000000000000..da1c38486b2f
 +#endif /* _INCFS_INTEGRITY_H */
 diff --git a/fs/incfs/internal.h b/fs/incfs/internal.h
 new file mode 100644
-index 000000000000..0a85eaed41d3
 --- /dev/null
 +++ b/fs/incfs/internal.h
 @@ -0,0 +1,21 @@
@@ -3033,7 +3023,6 @@ index 000000000000..0a85eaed41d3
 +#endif /* _INCFS_INTERNAL_H */
 diff --git a/fs/incfs/main.c b/fs/incfs/main.c
 new file mode 100644
-index 000000000000..d9eec7496846
 --- /dev/null
 +++ b/fs/incfs/main.c
 @@ -0,0 +1,103 @@
@@ -3142,7 +3131,6 @@ index 000000000000..d9eec7496846
 +MODULE_DESCRIPTION("Incremental File System");
 diff --git a/fs/incfs/vfs.c b/fs/incfs/vfs.c
 new file mode 100644
-index 000000000000..2b5d8e102ad6
 --- /dev/null
 +++ b/fs/incfs/vfs.c
 @@ -0,0 +1,2201 @@
@@ -5349,7 +5337,6 @@ index 000000000000..2b5d8e102ad6
 +}
 diff --git a/fs/incfs/vfs.h b/fs/incfs/vfs.h
 new file mode 100644
-index 000000000000..eaa490e19072
 --- /dev/null
 +++ b/fs/incfs/vfs.h
 @@ -0,0 +1,13 @@
@@ -5368,7 +5355,6 @@ index 000000000000..eaa490e19072
 +#endif
 diff --git a/include/uapi/linux/incrementalfs.h b/include/uapi/linux/incrementalfs.h
 new file mode 100644
-index 000000000000..8a06e2e48fc4
 --- /dev/null
 +++ b/include/uapi/linux/incrementalfs.h
 @@ -0,0 +1,244 @@
@@ -5618,7 +5604,6 @@ index 000000000000..8a06e2e48fc4
 +#endif /* _UAPI_LINUX_INCREMENTALFS_H */
 diff --git a/tools/testing/selftests/filesystems/incfs/Makefile b/tools/testing/selftests/filesystems/incfs/Makefile
 new file mode 100644
-index 000000000000..7cff78cf5131
 --- /dev/null
 +++ b/tools/testing/selftests/filesystems/incfs/Makefile
 @@ -0,0 +1,16 @@
@@ -5640,7 +5625,6 @@ index 000000000000..7cff78cf5131
 +	rm -rf $(OUTPUT)incfs_test *.o
 diff --git a/tools/testing/selftests/filesystems/incfs/config b/tools/testing/selftests/filesystems/incfs/config
 new file mode 100644
-index 000000000000..b6749837a318
 --- /dev/null
 +++ b/tools/testing/selftests/filesystems/incfs/config
 @@ -0,0 +1 @@
@@ -5648,7 +5632,6 @@ index 000000000000..b6749837a318
 \ No newline at end of file
 diff --git a/tools/testing/selftests/filesystems/incfs/incfs_test.c b/tools/testing/selftests/filesystems/incfs/incfs_test.c
 new file mode 100644
-index 000000000000..9bfb271628a8
 --- /dev/null
 +++ b/tools/testing/selftests/filesystems/incfs/incfs_test.c
 @@ -0,0 +1,2421 @@
@@ -8075,7 +8058,6 @@ index 000000000000..9bfb271628a8
 +}
 diff --git a/tools/testing/selftests/filesystems/incfs/utils.c b/tools/testing/selftests/filesystems/incfs/utils.c
 new file mode 100644
-index 000000000000..08b8452ad0bc
 --- /dev/null
 +++ b/tools/testing/selftests/filesystems/incfs/utils.c
 @@ -0,0 +1,377 @@
@@ -8458,7 +8440,6 @@ index 000000000000..08b8452ad0bc
 +}
 diff --git a/tools/testing/selftests/filesystems/incfs/utils.h b/tools/testing/selftests/filesystems/incfs/utils.h
 new file mode 100644
-index 000000000000..9c9ba3c5f70a
 --- /dev/null
 +++ b/tools/testing/selftests/filesystems/incfs/utils.h
 @@ -0,0 +1,59 @@

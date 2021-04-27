@@ -15,7 +15,6 @@ Change-Id: Iceecde2ac85d1431d75207194fd25a50e8867959
 
 diff --git a/Documentation/ABI/testing/sysfs-kernel-ion b/Documentation/ABI/testing/sysfs-kernel-ion
 new file mode 100644
-index 000000000000..f57f970574ae
 --- /dev/null
 +++ b/Documentation/ABI/testing/sysfs-kernel-ion
 @@ -0,0 +1,27 @@

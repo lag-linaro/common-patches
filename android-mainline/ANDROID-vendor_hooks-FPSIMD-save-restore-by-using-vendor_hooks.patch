@@ -79,7 +79,6 @@ diff --git a/drivers/android/vendor_hooks.c b/drivers/android/vendor_hooks.c
 +EXPORT_TRACEPOINT_SYMBOL_GPL(android_vh_is_fpsimd_save);
 diff --git a/include/trace/hooks/fpsimd.h b/include/trace/hooks/fpsimd.h
 new file mode 100644
-index 000000000000..3c107f8c1dac
 --- /dev/null
 +++ b/include/trace/hooks/fpsimd.h
 @@ -0,0 +1,21 @@

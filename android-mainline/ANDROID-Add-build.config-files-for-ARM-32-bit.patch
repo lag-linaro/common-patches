@@ -18,7 +18,6 @@ Signed-off-by: Alistair Delva <adelva@google.com>
 
 diff --git a/build.config.allmodconfig.arm b/build.config.allmodconfig.arm
 new file mode 100644
-index 000000000000..5dd94819c871
 --- /dev/null
 +++ b/build.config.allmodconfig.arm
 @@ -0,0 +1,4 @@
@@ -28,7 +27,6 @@ index 000000000000..5dd94819c871
 +
 diff --git a/build.config.arm b/build.config.arm
 new file mode 100644
-index 000000000000..8eb547e21593
 --- /dev/null
 +++ b/build.config.arm
 @@ -0,0 +1,12 @@

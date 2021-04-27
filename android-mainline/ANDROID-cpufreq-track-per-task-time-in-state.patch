@@ -92,7 +92,6 @@ diff --git a/drivers/cpufreq/cpufreq.c b/drivers/cpufreq/cpufreq.c
  		list_add(&policy->policy_list, &cpufreq_policy_list);
 diff --git a/drivers/cpufreq/cpufreq_times.c b/drivers/cpufreq/cpufreq_times.c
 new file mode 100644
-index 000000000000..339a3e9cf082
 --- /dev/null
 +++ b/drivers/cpufreq/cpufreq_times.c
 @@ -0,0 +1,207 @@
@@ -336,7 +335,6 @@ diff --git a/fs/proc/base.c b/fs/proc/base.c
  static int proc_tid_base_readdir(struct file *file, struct dir_context *ctx)
 diff --git a/include/linux/cpufreq_times.h b/include/linux/cpufreq_times.h
 new file mode 100644
-index 000000000000..bfef6e62c68a
 --- /dev/null
 +++ b/include/linux/cpufreq_times.h
 @@ -0,0 +1,41 @@

@@ -24,7 +24,6 @@ Signed-off-by: Matthias Maennich <maennich@google.com>
 
 diff --git a/arch/arm64/configs/gki_defconfig b/arch/arm64/configs/gki_defconfig
 new file mode 100644
-index 000000000000..3111b6d28a7a
 --- /dev/null
 +++ b/arch/arm64/configs/gki_defconfig
 @@ -0,0 +1,410 @@
@@ -440,7 +439,6 @@ index 000000000000..3111b6d28a7a
 +CONFIG_CORESIGHT_STM=y
 diff --git a/arch/x86/configs/gki_defconfig b/arch/x86/configs/gki_defconfig
 new file mode 100644
-index 000000000000..05b4c2ce1631
 --- /dev/null
 +++ b/arch/x86/configs/gki_defconfig
 @@ -0,0 +1,341 @@

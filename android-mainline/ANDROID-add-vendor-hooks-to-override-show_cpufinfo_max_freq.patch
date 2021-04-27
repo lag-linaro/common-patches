@@ -86,7 +86,6 @@ diff --git a/drivers/cpufreq/freq_table.c b/drivers/cpufreq/freq_table.c
  	/*
 diff --git a/include/trace/hooks/cpufreq.h b/include/trace/hooks/cpufreq.h
 new file mode 100644
-index 000000000000..68cced175ac8
 --- /dev/null
 +++ b/include/trace/hooks/cpufreq.h
 @@ -0,0 +1,25 @@

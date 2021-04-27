@@ -91,7 +91,6 @@ diff --git a/drivers/usb/gadget/function/Makefile b/drivers/usb/gadget/function/
 +obj-$(CONFIG_USB_F_ACC)		+= usb_f_accessory.o
 diff --git a/drivers/usb/gadget/function/f_accessory.c b/drivers/usb/gadget/function/f_accessory.c
 new file mode 100644
-index 000000000000..d33229c35282
 --- /dev/null
 +++ b/drivers/usb/gadget/function/f_accessory.c
 @@ -0,0 +1,1358 @@
@@ -1455,7 +1454,6 @@ index 000000000000..d33229c35282
 +MODULE_LICENSE("GPL");
 diff --git a/include/linux/usb/f_accessory.h b/include/linux/usb/f_accessory.h
 new file mode 100644
-index 000000000000..ebe3c4d59309
 --- /dev/null
 +++ b/include/linux/usb/f_accessory.h
 @@ -0,0 +1,23 @@
@@ -1484,7 +1482,6 @@ index 000000000000..ebe3c4d59309
 +#endif /* __LINUX_USB_F_ACCESSORY_H */
 diff --git a/include/uapi/linux/usb/f_accessory.h b/include/uapi/linux/usb/f_accessory.h
 new file mode 100644
-index 000000000000..0baeb7d0d74c
 --- /dev/null
 +++ b/include/uapi/linux/usb/f_accessory.h
 @@ -0,0 +1,146 @@

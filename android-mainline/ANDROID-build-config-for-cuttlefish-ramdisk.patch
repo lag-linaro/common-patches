@@ -22,7 +22,6 @@ Change-Id: I82a410ea3cf9b9177a1c8f2186d88344b9a63488
 
 diff --git a/build.config.cuttlefish.aarch64 b/build.config.cuttlefish.aarch64
 new file mode 100644
-index 000000000000..9450cead4b8e
 --- /dev/null
 +++ b/build.config.cuttlefish.aarch64
 @@ -0,0 +1,10 @@
@@ -38,7 +37,6 @@ index 000000000000..9450cead4b8e
 +FILES=""
 diff --git a/build.config.cuttlefish.x86_64 b/build.config.cuttlefish.x86_64
 new file mode 100644
-index 000000000000..0778c5762b16
 --- /dev/null
 +++ b/build.config.cuttlefish.x86_64
 @@ -0,0 +1,10 @@
@@ -54,7 +52,6 @@ index 000000000000..0778c5762b16
 +FILES=""
 diff --git a/cuttlefish.fragment b/cuttlefish.fragment
 new file mode 100644
-index 000000000000..1e49da8de975
 --- /dev/null
 +++ b/cuttlefish.fragment
 @@ -0,0 +1,20 @@

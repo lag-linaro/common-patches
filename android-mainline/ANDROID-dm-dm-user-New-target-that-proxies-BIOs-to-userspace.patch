@@ -58,7 +58,6 @@ diff --git a/drivers/md/Makefile b/drivers/md/Makefile
  dm-mod-objs			+= dm-init.o
 diff --git a/drivers/md/dm-user.c b/drivers/md/dm-user.c
 new file mode 100644
-index 000000000000..a28c3b0fd02a
 --- /dev/null
 +++ b/drivers/md/dm-user.c
 @@ -0,0 +1,1141 @@

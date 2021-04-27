@@ -60,7 +60,6 @@ diff --git a/drivers/tty/sysrq.c b/drivers/tty/sysrq.c
  static const struct sysrq_key_op sysrq_crash_op = {
 diff --git a/include/trace/hooks/sysrqcrash.h b/include/trace/hooks/sysrqcrash.h
 new file mode 100644
-index 000000000000..e109d21be499
 --- /dev/null
 +++ b/include/trace/hooks/sysrqcrash.h
 @@ -0,0 +1,20 @@

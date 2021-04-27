@@ -72,7 +72,6 @@ diff --git a/drivers/scsi/ufs/ufshcd.c b/drivers/scsi/ufs/ufshcd.c
  /**
 diff --git a/include/trace/hooks/ufshcd.h b/include/trace/hooks/ufshcd.h
 new file mode 100644
-index 000000000000..5259bc9faca6
 --- /dev/null
 +++ b/include/trace/hooks/ufshcd.h
 @@ -0,0 +1,24 @@

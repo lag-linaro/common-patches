@@ -36,7 +36,6 @@ diff --git a/drivers/android/vendor_hooks.c b/drivers/android/vendor_hooks.c
 +EXPORT_TRACEPOINT_SYMBOL_GPL(android_vh_cgroup_set_task);
 diff --git a/include/trace/hooks/cgroup.h b/include/trace/hooks/cgroup.h
 new file mode 100644
-index 000000000000..cc44ccf9e109
 --- /dev/null
 +++ b/include/trace/hooks/cgroup.h
 @@ -0,0 +1,17 @@

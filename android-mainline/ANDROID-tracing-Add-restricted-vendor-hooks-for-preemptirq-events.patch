@@ -44,7 +44,6 @@ diff --git a/drivers/android/vendor_hooks.c b/drivers/android/vendor_hooks.c
 +EXPORT_TRACEPOINT_SYMBOL_GPL(android_rvh_irqs_enable);
 diff --git a/include/trace/hooks/preemptirq.h b/include/trace/hooks/preemptirq.h
 new file mode 100644
-index 000000000000..7a5d64833fdf
 --- /dev/null
 +++ b/include/trace/hooks/preemptirq.h
 @@ -0,0 +1,32 @@

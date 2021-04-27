@@ -65,7 +65,6 @@ diff --git a/include/linux/rwsem.h b/include/linux/rwsem.h
  /* In all implementations count != 0 means locked */
 diff --git a/include/trace/hooks/rwsem.h b/include/trace/hooks/rwsem.h
 new file mode 100644
-index 000000000000..8408974007d3
 --- /dev/null
 +++ b/include/trace/hooks/rwsem.h
 @@ -0,0 +1,32 @@

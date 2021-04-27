@@ -14,7 +14,6 @@ Signed-off-by: Eric Biggers <ebiggers@google.com>
 
 diff --git a/ANNOTATIONS b/ANNOTATIONS
 deleted file mode 100644
-index 0c64b56de820..000000000000
 --- a/ANNOTATIONS
 +++ /dev/null
 @@ -1,33 +0,0 @@

@@ -39,7 +39,6 @@ diff --git a/drivers/android/vendor_hooks.c b/drivers/android/vendor_hooks.c
  EXPORT_TRACEPOINT_SYMBOL_GPL(android_vh_rwsem_wake);
 diff --git a/include/trace/hooks/sched.h b/include/trace/hooks/sched.h
 new file mode 100644
-index 000000000000..e4ef56686a76
 --- /dev/null
 +++ b/include/trace/hooks/sched.h
 @@ -0,0 +1,23 @@

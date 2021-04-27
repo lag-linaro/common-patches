@@ -20,7 +20,6 @@ Change-Id: I1e334dcc71201118aa62115fa5247263e545e8d6
 
 diff --git a/Documentation/ABI/testing/procfs-concurrent_time b/Documentation/ABI/testing/procfs-concurrent_time
 deleted file mode 100644
-index 55b414289b40..000000000000
 --- a/Documentation/ABI/testing/procfs-concurrent_time
 +++ /dev/null
 @@ -1,16 +0,0 @@

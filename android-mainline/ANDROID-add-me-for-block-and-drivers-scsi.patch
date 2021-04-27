@@ -16,7 +16,6 @@ Change-Id: I614ed905d6d6721e846135cda9830e5c433d0f3b
 
 diff --git a/block/OWNERS b/block/OWNERS
 new file mode 100644
-index 000000000000..6a5c01163993
 --- /dev/null
 +++ b/block/OWNERS
 @@ -0,0 +1 @@

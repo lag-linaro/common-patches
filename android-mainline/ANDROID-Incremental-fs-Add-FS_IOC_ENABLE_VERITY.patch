@@ -104,7 +104,6 @@ diff --git a/fs/incfs/internal.h b/fs/incfs/internal.h
  #endif /* _INCFS_INTERNAL_H */
 diff --git a/fs/incfs/verity.c b/fs/incfs/verity.c
 new file mode 100644
-index 000000000000..40cb0b66a265
 --- /dev/null
 +++ b/fs/incfs/verity.c
 @@ -0,0 +1,318 @@
@@ -428,7 +427,6 @@ index 000000000000..40cb0b66a265
 +}
 diff --git a/fs/incfs/verity.h b/fs/incfs/verity.h
 new file mode 100644
-index 000000000000..8902d1489f00
 --- /dev/null
 +++ b/fs/incfs/verity.h
 @@ -0,0 +1,23 @@

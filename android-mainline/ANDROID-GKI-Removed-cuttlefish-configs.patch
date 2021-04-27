@@ -20,7 +20,6 @@ Change-Id: I217422c401c6ea183ce974c1d156abd4d9e209a6
 
 diff --git a/build.config.cuttlefish.aarch64 b/build.config.cuttlefish.aarch64
 deleted file mode 100644
-index 9a685095e934..000000000000
 --- a/build.config.cuttlefish.aarch64
 +++ /dev/null
 @@ -1,11 +0,0 @@
@@ -37,7 +36,6 @@ index 9a685095e934..000000000000
 -FILES=""
 diff --git a/build.config.cuttlefish.x86_64 b/build.config.cuttlefish.x86_64
 deleted file mode 100644
-index d6ce5c3a7306..000000000000
 --- a/build.config.cuttlefish.x86_64
 +++ /dev/null
 @@ -1,11 +0,0 @@
@@ -54,7 +52,6 @@ index d6ce5c3a7306..000000000000
 -FILES=""
 diff --git a/cuttlefish.fragment b/cuttlefish.fragment
 deleted file mode 100644
-index c931d7791ab6..000000000000
 --- a/cuttlefish.fragment
 +++ /dev/null
 @@ -1,22 +0,0 @@

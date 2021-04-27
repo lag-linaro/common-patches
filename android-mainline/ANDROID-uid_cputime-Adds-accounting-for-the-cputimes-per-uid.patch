@@ -71,7 +71,6 @@ diff --git a/drivers/misc/Makefile b/drivers/misc/Makefile
 +obj-$(CONFIG_UID_SYS_STATS)	+= uid_sys_stats.o
 diff --git a/drivers/misc/uid_sys_stats.c b/drivers/misc/uid_sys_stats.c
 new file mode 100644
-index 000000000000..6f47d121fc4d
 --- /dev/null
 +++ b/drivers/misc/uid_sys_stats.c
 @@ -0,0 +1,245 @@

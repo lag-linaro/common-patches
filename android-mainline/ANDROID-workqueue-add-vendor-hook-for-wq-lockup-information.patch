@@ -38,7 +38,6 @@ diff --git a/drivers/android/vendor_hooks.c b/drivers/android/vendor_hooks.c
  EXPORT_TRACEPOINT_SYMBOL_GPL(android_vh_ipi_stop);
 diff --git a/include/trace/hooks/wqlockup.h b/include/trace/hooks/wqlockup.h
 new file mode 100644
-index 000000000000..3cb33cd7847f
 --- /dev/null
 +++ b/include/trace/hooks/wqlockup.h
 @@ -0,0 +1,20 @@

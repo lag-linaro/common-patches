@@ -38,7 +38,6 @@ diff --git a/drivers/android/vendor_hooks.c b/drivers/android/vendor_hooks.c
 +EXPORT_TRACEPOINT_SYMBOL_GPL(android_vh_show_resume_epoch_val);
 diff --git a/include/trace/hooks/epoch.h b/include/trace/hooks/epoch.h
 new file mode 100644
-index 000000000000..13dd9a6d7849
 --- /dev/null
 +++ b/include/trace/hooks/epoch.h
 @@ -0,0 +1,23 @@

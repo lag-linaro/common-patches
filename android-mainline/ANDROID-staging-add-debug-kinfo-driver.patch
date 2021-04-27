@@ -56,7 +56,6 @@ diff --git a/drivers/staging/android/Makefile b/drivers/staging/android/Makefile
 +obj-$(CONFIG_DEBUG_KINFO)	+= debug_kinfo.o
 diff --git a/drivers/staging/android/debug_kinfo.c b/drivers/staging/android/debug_kinfo.c
 new file mode 100644
-index 000000000000..6e657371fa62
 --- /dev/null
 +++ b/drivers/staging/android/debug_kinfo.c
 @@ -0,0 +1,176 @@
@@ -238,7 +237,6 @@ index 000000000000..6e657371fa62
 +MODULE_LICENSE("GPL v2");
 diff --git a/drivers/staging/android/debug_kinfo.h b/drivers/staging/android/debug_kinfo.h
 new file mode 100644
-index 000000000000..d7dbba1d3b59
 --- /dev/null
 +++ b/drivers/staging/android/debug_kinfo.h
 @@ -0,0 +1,63 @@

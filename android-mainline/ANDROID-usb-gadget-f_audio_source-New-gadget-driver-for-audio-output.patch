@@ -71,7 +71,6 @@ diff --git a/drivers/usb/gadget/function/Makefile b/drivers/usb/gadget/function/
 +obj-$(CONFIG_USB_F_AUDIO_SRC)	+= usb_f_audio_source.o
 diff --git a/drivers/usb/gadget/function/f_audio_source.c b/drivers/usb/gadget/function/f_audio_source.c
 new file mode 100644
-index 000000000000..c768a526b315
 --- /dev/null
 +++ b/drivers/usb/gadget/function/f_audio_source.c
 @@ -0,0 +1,1071 @@

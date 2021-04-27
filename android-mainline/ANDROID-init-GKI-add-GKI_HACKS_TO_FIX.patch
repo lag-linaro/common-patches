@@ -31,7 +31,6 @@ diff --git a/init/Kconfig b/init/Kconfig
 +source "init/Kconfig.gki"
 diff --git a/init/Kconfig.gki b/init/Kconfig.gki
 new file mode 100644
-index 000000000000..fafcd618037d
 --- /dev/null
 +++ b/init/Kconfig.gki
 @@ -0,0 +1,15 @@
