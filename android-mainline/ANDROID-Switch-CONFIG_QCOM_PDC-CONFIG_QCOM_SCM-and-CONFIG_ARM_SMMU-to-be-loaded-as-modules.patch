@@ -11,11 +11,12 @@ load from a module.
 Bug: 153049053
 Signed-off-by: John Stultz <john.stultz@linaro.org>
 Change-Id: I0509628322b20dea5f7e16e973d93d369c0c2bff
+[joneslee: Removed defconfig elements]
+Signed-off-by: Lee Jones <lee.jones@linaro.org>
 ---
  arch/arm64/configs/db845c_gki.fragment | 3 +++
- arch/arm64/configs/gki_defconfig       | 2 --
  init/Kconfig.gki                       | 4 ++--
- 3 files changed, 5 insertions(+), 4 deletions(-)
+ 2 files changed, 5 insertions(+), 2 deletions(-)
 
 diff --git a/arch/arm64/configs/db845c_gki.fragment b/arch/arm64/configs/db845c_gki.fragment
 --- a/arch/arm64/configs/db845c_gki.fragment
@@ -30,25 +31,6 @@ diff --git a/arch/arm64/configs/db845c_gki.fragment b/arch/arm64/configs/db845c_
  CONFIG_ARM_QCOM_CPUFREQ_HW=m
  # XXX Audio bits start here
  CONFIG_I2C_CHARDEV=m
-diff --git a/arch/arm64/configs/gki_defconfig b/arch/arm64/configs/gki_defconfig
---- a/arch/arm64/configs/gki_defconfig
-+++ b/arch/arm64/configs/gki_defconfig
-@@ -367,7 +367,6 @@ CONFIG_ASHMEM=y
- CONFIG_COMMON_CLK_SCPI=y
- CONFIG_HWSPINLOCK=y
- CONFIG_MAILBOX=y
--CONFIG_ARM_SMMU=y
- CONFIG_REMOTEPROC=y
- CONFIG_RPMSG_CHAR=y
- CONFIG_QCOM_COMMAND_DB=y
-@@ -379,7 +378,6 @@ CONFIG_IIO=y
- CONFIG_IIO_BUFFER=y
- CONFIG_IIO_TRIGGER=y
- CONFIG_PWM=y
--CONFIG_QCOM_PDC=y
- CONFIG_GENERIC_PHY=y
- CONFIG_ANDROID=y
- CONFIG_ANDROID_BINDER_IPC=y
 diff --git a/init/Kconfig.gki b/init/Kconfig.gki
 --- a/init/Kconfig.gki
 +++ b/init/Kconfig.gki

@@ -13,34 +13,12 @@ Signed-off-by: Todd Kjos <tkjos@google.com>
 [maennich: Folded c387eb07b04c ("ANDROID: fix VIDEOBUF2_CORE dependency
            in 'allmodconfig' builds") into this patch]
 Signed-off-by: Matthias Maennich <maennich@google.com>
+[joneslee: Removed defconfig elements]
+Signed-off-by: Lee Jones <lee.jones@linaro.org>
 ---
- arch/arm64/configs/gki_defconfig | 1 -
- arch/x86/configs/gki_defconfig   | 1 -
- init/Kconfig.gki                 | 9 +++++++++
- 3 files changed, 9 insertions(+), 2 deletions(-)
+ init/Kconfig.gki | 9 +++++++++
+ 1 file changed, 9 insertions(+)
 
-diff --git a/arch/arm64/configs/gki_defconfig b/arch/arm64/configs/gki_defconfig
---- a/arch/arm64/configs/gki_defconfig
-+++ b/arch/arm64/configs/gki_defconfig
-@@ -295,7 +295,6 @@ CONFIG_WATCHDOG=y
- CONFIG_MFD_ACT8945A=y
- CONFIG_MFD_SYSCON=y
- CONFIG_REGULATOR=y
--CONFIG_MEDIA_SUPPORT=y
- CONFIG_MEDIA_CAMERA_SUPPORT=y
- CONFIG_MEDIA_CONTROLLER=y
- # CONFIG_VGA_ARB is not set
-diff --git a/arch/x86/configs/gki_defconfig b/arch/x86/configs/gki_defconfig
---- a/arch/x86/configs/gki_defconfig
-+++ b/arch/x86/configs/gki_defconfig
-@@ -255,7 +255,6 @@ CONFIG_GPIOLIB=y
- CONFIG_DEVFREQ_THERMAL=y
- # CONFIG_X86_PKG_TEMP_THERMAL is not set
- CONFIG_REGULATOR=y
--CONFIG_MEDIA_SUPPORT=y
- CONFIG_MEDIA_CAMERA_SUPPORT=y
- CONFIG_DRM=y
- # CONFIG_DRM_FBDEV_EMULATION is not set
 diff --git a/init/Kconfig.gki b/init/Kconfig.gki
 --- a/init/Kconfig.gki
 +++ b/init/Kconfig.gki
