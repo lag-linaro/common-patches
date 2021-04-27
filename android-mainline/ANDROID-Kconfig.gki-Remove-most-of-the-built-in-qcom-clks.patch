@@ -12,10 +12,11 @@ Bug: 149414941
 Change-Id: I6fecab5f529c5db1d7788e330ce8815dc22c4d1f
 Signed-off-by: John Stultz <john.stultz@linaro.org>
 Signed-off-by: Saravana Kannan <saravanak@google.com>
+[joneslee: Removed init/Kconfig.gki elements]
+Signed-off-by: Lee Jones <lee.jones@linaro.org>
 ---
  arch/arm64/configs/db845c_gki.fragment | 3 +++
- init/Kconfig.gki                       | 4 +---
- 2 files changed, 4 insertions(+), 3 deletions(-)
+ 1 file changed, 3 insertions(+)
 
 diff --git a/arch/arm64/configs/db845c_gki.fragment b/arch/arm64/configs/db845c_gki.fragment
 --- a/arch/arm64/configs/db845c_gki.fragment
@@ -31,24 +32,3 @@ diff --git a/arch/arm64/configs/db845c_gki.fragment b/arch/arm64/configs/db845c_
  CONFIG_MSM_GCC_8998=m
  CONFIG_SDM_DISPCC_845=m
  CONFIG_HWSPINLOCK_QCOM=m
-diff --git a/init/Kconfig.gki b/init/Kconfig.gki
---- a/init/Kconfig.gki
-+++ b/init/Kconfig.gki
-@@ -69,6 +69,7 @@ config GKI_HIDDEN_QCOM_CONFIGS
- 	bool "Hidden QCOM configs needed for GKI"
- 	select QCOM_SMEM_STATE
- 	select QCOM_SCM if (ARM64)
-+	select QCOM_GDSC if (ARCH_QCOM)
- 	select PINCTRL_MSM if (PINCTRL && ARCH_QCOM)
- 	help
- 	  Dummy config option used to enable hidden QCOM configs.
-@@ -77,9 +78,6 @@ config GKI_HIDDEN_QCOM_CONFIGS
- 
- config GKI_QCOM_CLKS_CONFIGS
- 	bool "QCOM clk drivers needed for GKI due to powerdomain restrictions"
--	select COMMON_CLK_QCOM	if (ARCH_QCOM)
--	select QCOM_CLK_RPMH	if (ARCH_QCOM)
--	select SDM_GPUCC_845	if (ARCH_QCOM)
- 	select QCOM_RPMHPD	if (ARCH_QCOM)
- 	help
- 	  This config option selects various QCOM clk drivers that

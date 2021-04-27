@@ -13,11 +13,11 @@ Bug: 146449535
 Change-Id: I364d57e8447a599a9ca838b6f5d9cd23d9a1353e
 Signed-off-by: John Stultz <john.stultz@linaro.org>
 [joneslee: Removed defconfig elements]
+[joneslee: Removed init/Kconfig.gki elements]
 Signed-off-by: Lee Jones <lee.jones@linaro.org>
 ---
- arch/arm64/configs/db845c_gki.fragment |  2 ++
- init/Kconfig.gki                       | 10 ----------
- 2 files changed, 2 insertions(+), 10 deletions(-)
+ arch/arm64/configs/db845c_gki.fragment | 2 ++
+ 1 file changed, 2 insertions(+)
 
 diff --git a/arch/arm64/configs/db845c_gki.fragment b/arch/arm64/configs/db845c_gki.fragment
 --- a/arch/arm64/configs/db845c_gki.fragment
@@ -31,30 +31,3 @@ diff --git a/arch/arm64/configs/db845c_gki.fragment b/arch/arm64/configs/db845c_
  CONFIG_WLAN_VENDOR_ATH=y
  CONFIG_ATH10K_AHB=y
  CONFIG_ATH10K=m
-diff --git a/init/Kconfig.gki b/init/Kconfig.gki
---- a/init/Kconfig.gki
-+++ b/init/Kconfig.gki
-@@ -79,15 +79,6 @@ config GKI_HIDDEN_QCOM_CONFIGS
- 	  These are normally selected implicitly when a module
- 	  that relies on it is configured.
- 
--config GKI_QCOM_CLKS_CONFIGS
--	bool "QCOM clk drivers needed for GKI due to powerdomain restrictions"
--	select QCOM_RPMHPD	if (ARCH_QCOM)
--	help
--	  This config option selects various QCOM clk drivers that
--	  cannot be built as a module currently due to power-domain
--	  deferred probing limitations.
--	  See https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commit/?id=e01afc32502555beb2057ddd74401be38475d851
--
- config GKI_HIDDEN_MEDIA_CONFIGS
- 	bool "Hidden Media configs needed for GKI"
- 	select VIDEOBUF2_CORE
-@@ -145,7 +136,6 @@ config GKI_HACKS_TO_FIX
- 	select GKI_LEGACY_WEXT_ALLCONFIG
- 	select GKI_HIDDEN_MEDIA_CONFIGS
- 	select GKI_HIDDEN_VIRTUAL_CONFIGS
--	select GKI_QCOM_CLKS_CONFIGS
- 	help
- 	  Dummy config option used to enable core functionality used by
- 	  modules that may not be selectable in this config.
