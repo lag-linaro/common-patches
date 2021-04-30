@@ -2,7 +2,7 @@
 # android-mainline patches
 #
 # Applies onto upstream 9f4ad9e425a1d Linux v5.12
-# Matches android-mainline fef6bc00f5d5f ("FROMLIST: export: Make CRCs robust to symbol trimming")
+# Matches android-mainline 5d8cff50519fa ("FROMGIT: kbuild: update config_data.gz only when the content of .config is changed")
 #
 Revert-block-grant-IOPRIO_CLASS_RT-to-CAP_SYS_NICE.patch
 Revert-arm64-dts-qcom-sdm845-db845c-Fix-hdmi-nodes.patch
@@ -601,3 +601,5 @@ ANDROID-OWNERS-add-Bart-for-block-scsi.patch
 _____ANNOTATION-Patches-for-bringing-up-new-SoCs_____.patch
 _____ANNOTATION-remove-ANNOTATIONS-file_____.patch
 DROP-ME-obsolete-ION-documentation.patch
+ANDROID-Incremental-fs-Fix-pseudo-file-attributes.patch
+FROMGIT-kbuild-update-config_data.gz-only-when-the-content-of-.config-is-changed.patch
