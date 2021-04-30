@@ -49,7 +49,7 @@ diff --git a/drivers/tty/sysrq.c b/drivers/tty/sysrq.c
  /* Whether we react on sysrq keys or just ignore them */
  static int __read_mostly sysrq_enabled = CONFIG_MAGIC_SYSRQ_DEFAULT_ENABLE;
  static bool __read_mostly sysrq_always_enabled;
-@@ -151,6 +153,8 @@ static void sysrq_handle_crash(int key)
+@@ -152,6 +154,8 @@ static void sysrq_handle_crash(int key)
  	/* release the RCU read lock before crashing */
  	rcu_read_unlock();
  

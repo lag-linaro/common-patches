@@ -103,7 +103,7 @@ diff --git a/drivers/base/power/wakeup.c b/drivers/base/power/wakeup.c
  #include <trace/events/power.h>
  
  #include "power.h"
-@@ -942,6 +944,7 @@ bool pm_wakeup_pending(void)
+@@ -943,6 +945,7 @@ bool pm_wakeup_pending(void)
  {
  	unsigned long flags;
  	bool ret = false;
@@ -111,7 +111,7 @@ diff --git a/drivers/base/power/wakeup.c b/drivers/base/power/wakeup.c
  
  	raw_spin_lock_irqsave(&events_lock, flags);
  	if (events_check_enabled) {
-@@ -956,6 +959,10 @@ bool pm_wakeup_pending(void)
+@@ -957,6 +960,10 @@ bool pm_wakeup_pending(void)
  	if (ret) {
  		pm_pr_dbg("Wakeup pending, aborting suspend\n");
  		pm_print_active_wakeup_sources();
@@ -122,7 +122,7 @@ diff --git a/drivers/base/power/wakeup.c b/drivers/base/power/wakeup.c
  	}
  
  	return ret || atomic_read(&pm_abort_suspend) > 0;
-@@ -983,6 +990,18 @@ void pm_wakeup_clear(bool reset)
+@@ -984,6 +991,18 @@ void pm_wakeup_clear(bool reset)
  void pm_system_irq_wakeup(unsigned int irq_number)
  {
  	if (pm_wakeup_irq == 0) {

@@ -11,27 +11,15 @@ Change-Id: I021f09097dfc1480abcc998cc8e05e75b2ee828b
 Signed-off-by: Shaleen Agrawal <shalagra@codeaurora.org>
 Signed-off-by: Pavankumar Kondeti <pkondeti@codeaurora.org>
 ---
- drivers/base/arch_topology.c | 1 +
- kernel/cgroup/cgroup.c       | 1 +
- kernel/fork.c                | 1 +
- kernel/irq_work.c            | 2 +-
- kernel/kthread.c             | 1 +
- kernel/sched/core.c          | 3 +++
- kernel/sched/cputime.c       | 1 +
- kernel/softirq.c             | 1 +
- 8 files changed, 10 insertions(+), 1 deletion(-)
+ kernel/cgroup/cgroup.c | 1 +
+ kernel/fork.c          | 1 +
+ kernel/irq_work.c      | 2 +-
+ kernel/kthread.c       | 1 +
+ kernel/sched/core.c    | 3 +++
+ kernel/sched/cputime.c | 1 +
+ kernel/softirq.c       | 1 +
+ 7 files changed, 9 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/base/arch_topology.c b/drivers/base/arch_topology.c
---- a/drivers/base/arch_topology.c
-+++ b/drivers/base/arch_topology.c
-@@ -33,6 +33,7 @@ __weak bool arch_freq_counters_available(const struct cpumask *cpus)
- 	return false;
- }
- DEFINE_PER_CPU(unsigned long, freq_scale) = SCHED_CAPACITY_SCALE;
-+EXPORT_PER_CPU_SYMBOL_GPL(freq_scale);
- 
- void topology_set_freq_scale(const struct cpumask *cpus, unsigned long cur_freq,
- 			     unsigned long max_freq)
 diff --git a/kernel/cgroup/cgroup.c b/kernel/cgroup/cgroup.c
 --- a/kernel/cgroup/cgroup.c
 +++ b/kernel/cgroup/cgroup.c
@@ -88,7 +76,7 @@ diff --git a/kernel/sched/core.c b/kernel/sched/core.c
  
  /*
   * task_rq_lock - lock p->pi_lock and lock the rq @p resides on.
-@@ -8107,7 +8108,9 @@ int in_sched_functions(unsigned long addr)
+@@ -8108,7 +8109,9 @@ int in_sched_functions(unsigned long addr)
   * Every task in system belongs to this group at bootup.
   */
  struct task_group root_task_group;
@@ -112,7 +100,7 @@ diff --git a/kernel/sched/cputime.c b/kernel/sched/cputime.c
 diff --git a/kernel/softirq.c b/kernel/softirq.c
 --- a/kernel/softirq.c
 +++ b/kernel/softirq.c
-@@ -59,6 +59,7 @@ EXPORT_PER_CPU_SYMBOL(irq_stat);
+@@ -61,6 +61,7 @@ EXPORT_PER_CPU_SYMBOL(irq_stat);
  static struct softirq_action softirq_vec[NR_SOFTIRQS] __cacheline_aligned_in_smp;
  
  DEFINE_PER_CPU(struct task_struct *, ksoftirqd);

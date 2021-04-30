@@ -115,7 +115,7 @@ diff --git a/kernel/sched/core.c b/kernel/sched/core.c
  	return retval;
  }
  
-@@ -6464,14 +6455,9 @@ do_sched_setscheduler(pid_t pid, int policy, struct sched_param __user *param)
+@@ -6465,14 +6456,9 @@ do_sched_setscheduler(pid_t pid, int policy, struct sched_param __user *param)
  	rcu_read_lock();
  	retval = -ESRCH;
  	p = find_process_by_pid(pid);

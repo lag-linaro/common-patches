@@ -26,7 +26,7 @@ Signed-off-by: Connor O'Brien <connoro@google.com>
 diff --git a/drivers/cpufreq/cpufreq.c b/drivers/cpufreq/cpufreq.c
 --- a/drivers/cpufreq/cpufreq.c
 +++ b/drivers/cpufreq/cpufreq.c
-@@ -390,7 +390,7 @@ static void cpufreq_notify_transition(struct cpufreq_policy *policy,
+@@ -387,7 +387,7 @@ static void cpufreq_notify_transition(struct cpufreq_policy *policy,
  					 CPUFREQ_POSTCHANGE, freqs);
  
  		cpufreq_stats_record_transition(policy, freqs->new);

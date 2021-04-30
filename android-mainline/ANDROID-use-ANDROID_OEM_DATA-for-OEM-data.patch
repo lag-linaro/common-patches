@@ -17,7 +17,7 @@ Change-Id: Iaf1e80e07bfd78efb5a9b7ff5894ff751f272f23
 diff --git a/include/linux/sched.h b/include/linux/sched.h
 --- a/include/linux/sched.h
 +++ b/include/linux/sched.h
-@@ -1369,6 +1369,7 @@ struct task_struct {
+@@ -1372,6 +1372,7 @@ struct task_struct {
  	struct callback_head		mce_kill_me;
  #endif
  	ANDROID_VENDOR_DATA_ARRAY(1, 64);

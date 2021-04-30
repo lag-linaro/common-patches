@@ -40,7 +40,7 @@ diff --git a/arch/arm64/include/asm/smp.h b/arch/arm64/include/asm/smp.h
 diff --git a/arch/arm64/kernel/smp.c b/arch/arm64/kernel/smp.c
 --- a/arch/arm64/kernel/smp.c
 +++ b/arch/arm64/kernel/smp.c
-@@ -1138,3 +1138,15 @@ bool cpus_are_stuck_in_kernel(void)
+@@ -1139,3 +1139,15 @@ bool cpus_are_stuck_in_kernel(void)
  
  	return !!cpus_stuck_in_kernel || smp_spin_tables;
  }

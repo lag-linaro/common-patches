@@ -32,7 +32,7 @@ diff --git a/kernel/sched/core.c b/kernel/sched/core.c
  
  int sched_setattr_nocheck(struct task_struct *p, const struct sched_attr *attr)
  {
-@@ -6394,6 +6396,7 @@ int sched_setscheduler_nocheck(struct task_struct *p, int policy,
+@@ -6395,6 +6397,7 @@ int sched_setscheduler_nocheck(struct task_struct *p, int policy,
  {
  	return _sched_setscheduler(p, policy, param, false);
  }

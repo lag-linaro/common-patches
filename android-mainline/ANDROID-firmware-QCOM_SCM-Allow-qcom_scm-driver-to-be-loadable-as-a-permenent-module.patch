@@ -27,8 +27,8 @@ diff --git a/drivers/firmware/Kconfig b/drivers/firmware/Kconfig
 -	bool
 +	tristate "Qcom SCM driver"
  	depends on ARM || ARM64
+ 	depends on HAVE_ARM_SMCCC
  	select RESET_CONTROLLER
- 
 diff --git a/drivers/firmware/Makefile b/drivers/firmware/Makefile
 --- a/drivers/firmware/Makefile
 +++ b/drivers/firmware/Makefile
@@ -45,7 +45,7 @@ diff --git a/drivers/firmware/Makefile b/drivers/firmware/Makefile
 diff --git a/drivers/firmware/qcom_scm.c b/drivers/firmware/qcom_scm.c
 --- a/drivers/firmware/qcom_scm.c
 +++ b/drivers/firmware/qcom_scm.c
-@@ -1286,6 +1286,7 @@ static const struct of_device_id qcom_scm_dt_match[] = {
+@@ -1296,6 +1296,7 @@ static const struct of_device_id qcom_scm_dt_match[] = {
  	{ .compatible = "qcom,scm" },
  	{}
  };
@@ -53,7 +53,7 @@ diff --git a/drivers/firmware/qcom_scm.c b/drivers/firmware/qcom_scm.c
  
  static struct platform_driver qcom_scm_driver = {
  	.driver = {
-@@ -1301,3 +1302,6 @@ static int __init qcom_scm_init(void)
+@@ -1312,3 +1313,6 @@ static int __init qcom_scm_init(void)
  	return platform_driver_register(&qcom_scm_driver);
  }
  subsys_initcall(qcom_scm_init);

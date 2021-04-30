@@ -23,7 +23,7 @@ Change-Id: Id8942784089a977cafaf8b5949aeda2b63ac3982
 diff --git a/drivers/irqchip/Kconfig b/drivers/irqchip/Kconfig
 --- a/drivers/irqchip/Kconfig
 +++ b/drivers/irqchip/Kconfig
-@@ -395,8 +395,9 @@ config IRQ_UNIPHIER_AIDET
+@@ -400,8 +400,9 @@ config IRQ_UNIPHIER_AIDET
  	  Support for the UniPhier AIDET (ARM Interrupt Detector).
  
  config MESON_IRQ_GPIO

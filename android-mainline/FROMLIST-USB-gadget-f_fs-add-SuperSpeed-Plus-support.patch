@@ -22,7 +22,7 @@ Signed-off-by: Greg Kroah-Hartman <gregkh@google.com>
 diff --git a/drivers/usb/gadget/function/f_fs.c b/drivers/usb/gadget/function/f_fs.c
 --- a/drivers/usb/gadget/function/f_fs.c
 +++ b/drivers/usb/gadget/function/f_fs.c
-@@ -3227,6 +3227,10 @@ static int _ffs_func_bind(struct usb_configuration *c,
+@@ -3228,6 +3228,10 @@ static int _ffs_func_bind(struct usb_configuration *c,
  	func->function.os_desc_n =
  		c->cdev->use_os_string ? ffs->interfaces_count : 0;
  

@@ -18,7 +18,7 @@ Signed-off-by: Prasad Sodagudi <psodagud@codeaurora.org>
 diff --git a/arch/arm64/kernel/smp.c b/arch/arm64/kernel/smp.c
 --- a/arch/arm64/kernel/smp.c
 +++ b/arch/arm64/kernel/smp.c
-@@ -356,7 +356,7 @@ void __cpu_die(unsigned int cpu)
+@@ -357,7 +357,7 @@ void __cpu_die(unsigned int cpu)
  		pr_crit("CPU%u: cpu didn't die\n", cpu);
  		return;
  	}

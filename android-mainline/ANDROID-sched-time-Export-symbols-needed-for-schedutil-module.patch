@@ -30,7 +30,7 @@ diff --git a/kernel/sched/cpufreq.c b/kernel/sched/cpufreq.c
 diff --git a/kernel/time/tick-sched.c b/kernel/time/tick-sched.c
 --- a/kernel/time/tick-sched.c
 +++ b/kernel/time/tick-sched.c
-@@ -1175,6 +1175,7 @@ unsigned long tick_nohz_get_idle_calls_cpu(int cpu)
+@@ -1179,6 +1179,7 @@ unsigned long tick_nohz_get_idle_calls_cpu(int cpu)
  
  	return ts->idle_calls;
  }

@@ -47,7 +47,7 @@ diff --git a/include/trace/hooks/sched.h b/include/trace/hooks/sched.h
 diff --git a/kernel/sched/cpufreq_schedutil.c b/kernel/sched/cpufreq_schedutil.c
 --- a/kernel/sched/cpufreq_schedutil.c
 +++ b/kernel/sched/cpufreq_schedutil.c
-@@ -168,8 +168,13 @@ static unsigned int get_next_freq(struct sugov_policy *sg_policy,
+@@ -157,8 +157,13 @@ static unsigned int get_next_freq(struct sugov_policy *sg_policy,
  	struct cpufreq_policy *policy = sg_policy->policy;
  	unsigned int freq = arch_scale_freq_invariant() ?
  				policy->cpuinfo.max_freq : policy->cur;

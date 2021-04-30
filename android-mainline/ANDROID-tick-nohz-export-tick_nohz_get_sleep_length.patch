@@ -16,7 +16,7 @@ Change-Id: I0d18638d63c032862ae048bc2c3d49fa1bd90291
 diff --git a/kernel/time/tick-sched.c b/kernel/time/tick-sched.c
 --- a/kernel/time/tick-sched.c
 +++ b/kernel/time/tick-sched.c
-@@ -1158,6 +1158,7 @@ ktime_t tick_nohz_get_sleep_length(ktime_t *delta_next)
+@@ -1162,6 +1162,7 @@ ktime_t tick_nohz_get_sleep_length(ktime_t *delta_next)
  
  	return ktime_sub(next_event, now);
  }

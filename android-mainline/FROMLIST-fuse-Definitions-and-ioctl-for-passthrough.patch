@@ -40,7 +40,7 @@ diff --git a/fs/fuse/Makefile b/fs/fuse/Makefile
 @@ -8,6 +8,7 @@ obj-$(CONFIG_CUSE) += cuse.o
  obj-$(CONFIG_VIRTIO_FS) += virtiofs.o
  
- fuse-y := dev.o dir.o file.o inode.o control.o xattr.o acl.o readdir.o
+ fuse-y := dev.o dir.o file.o inode.o control.o xattr.o acl.o readdir.o ioctl.o
 +fuse-y += passthrough.o
  fuse-$(CONFIG_FUSE_DAX) += dax.o
  
@@ -96,7 +96,7 @@ diff --git a/fs/fuse/dir.c b/fs/fuse/dir.c
 diff --git a/fs/fuse/file.c b/fs/fuse/file.c
 --- a/fs/fuse/file.c
 +++ b/fs/fuse/file.c
-@@ -158,7 +158,7 @@ int fuse_do_open(struct fuse_mount *fm, u64 nodeid, struct file *file,
+@@ -146,7 +146,7 @@ struct fuse_file *fuse_file_open(struct fuse_mount *fm, u64 nodeid,
  		if (!err) {
  			ff->fh = outarg.fh;
  			ff->open_flags = outarg.open_flags;
@@ -104,14 +104,14 @@ diff --git a/fs/fuse/file.c b/fs/fuse/file.c
 +			fuse_passthrough_setup(fc, ff, &outarg);
  		} else if (err != -ENOSYS) {
  			fuse_file_free(ff);
- 			return err;
-@@ -304,6 +304,8 @@ void fuse_release_common(struct file *file, bool isdir)
+ 			return ERR_PTR(err);
+@@ -302,6 +302,8 @@ void fuse_file_release(struct inode *inode, struct fuse_file *ff,
  	struct fuse_release_args *ra = ff->release_args;
  	int opcode = isdir ? FUSE_RELEASEDIR : FUSE_RELEASE;
  
 +	fuse_passthrough_release(&ff->passthrough);
 +
- 	fuse_prepare_release(fi, ff, file->f_flags, opcode);
+ 	fuse_prepare_release(fi, ff, open_flags, opcode);
  
  	if (ff->flock) {
 diff --git a/fs/fuse/fuse_i.h b/fs/fuse/fuse_i.h
@@ -165,9 +165,9 @@ diff --git a/fs/fuse/fuse_i.h b/fs/fuse/fuse_i.h
  };
  
  /*
-@@ -1214,4 +1234,11 @@ void fuse_dax_inode_cleanup(struct inode *inode);
- bool fuse_dax_check_alignment(struct fuse_conn *fc, unsigned int map_alignment);
- void fuse_dax_cancel_work(struct fuse_conn *fc);
+@@ -1252,4 +1272,11 @@ struct fuse_file *fuse_file_open(struct fuse_mount *fm, u64 nodeid,
+ void fuse_file_release(struct inode *inode, struct fuse_file *ff,
+ 		       unsigned int open_flags, fl_owner_t id, bool isdir);
  
 +/* passthrough.c */
 +int fuse_passthrough_open(struct fuse_dev *fud,

@@ -35,7 +35,7 @@ diff --git a/include/linux/arch_topology.h b/include/linux/arch_topology.h
  
  void topology_normalize_cpu_scale(void);
  int topology_update_cpu_topology(void);
-@@ -54,6 +55,8 @@ struct cpu_topology {
+@@ -67,6 +68,8 @@ struct cpu_topology {
  	cpumask_t thread_sibling;
  	cpumask_t core_sibling;
  	cpumask_t llc_sibling;
@@ -47,7 +47,7 @@ diff --git a/include/linux/arch_topology.h b/include/linux/arch_topology.h
 diff --git a/include/linux/sched.h b/include/linux/sched.h
 --- a/include/linux/sched.h
 +++ b/include/linux/sched.h
-@@ -1367,7 +1367,7 @@ struct task_struct {
+@@ -1370,7 +1370,7 @@ struct task_struct {
  					__mce_reserved : 62;
  	struct callback_head		mce_kill_me;
  #endif

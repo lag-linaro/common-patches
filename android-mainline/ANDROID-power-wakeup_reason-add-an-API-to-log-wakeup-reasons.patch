@@ -102,7 +102,7 @@ diff --git a/drivers/base/power/wakeup.c b/drivers/base/power/wakeup.c
  #include <trace/events/power.h>
  
  #include "power.h"
-@@ -872,6 +873,37 @@ void pm_wakeup_dev_event(struct device *dev, unsigned int msec, bool hard)
+@@ -873,6 +874,37 @@ void pm_wakeup_dev_event(struct device *dev, unsigned int msec, bool hard)
  }
  EXPORT_SYMBOL_GPL(pm_wakeup_dev_event);
  

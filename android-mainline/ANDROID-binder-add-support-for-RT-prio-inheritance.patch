@@ -224,7 +224,7 @@ diff --git a/drivers/android/binder.c b/drivers/android/binder.c
  	node->txn_security_ctx = !!(flags & FLAT_BINDER_FLAG_TXN_SECURITY_CTX);
  	spin_lock_init(&node->lock);
  	INIT_LIST_HEAD(&node->work.entry);
-@@ -2339,11 +2468,15 @@ static bool binder_proc_transaction(struct binder_transaction *t,
+@@ -2346,11 +2475,15 @@ static int binder_proc_transaction(struct binder_transaction *t,
  				    struct binder_thread *thread)
  {
  	struct binder_node *node = t->buffer->target_node;
@@ -240,7 +240,7 @@ diff --git a/drivers/android/binder.c b/drivers/android/binder.c
  	if (oneway) {
  		BUG_ON(thread);
  		if (node->has_async_transaction)
-@@ -2363,12 +2496,15 @@ static bool binder_proc_transaction(struct binder_transaction *t,
+@@ -2375,12 +2508,15 @@ static int binder_proc_transaction(struct binder_transaction *t,
  	if (!thread && !pending_async)
  		thread = binder_select_thread_ilocked(proc);
  
@@ -259,7 +259,7 @@ diff --git a/drivers/android/binder.c b/drivers/android/binder.c
  
  	if (!pending_async)
  		binder_wakeup_thread_ilocked(proc, thread, !oneway /* sync */);
-@@ -2489,7 +2625,6 @@ static void binder_transaction(struct binder_proc *proc,
+@@ -2502,7 +2638,6 @@ static void binder_transaction(struct binder_proc *proc,
  		}
  		thread->transaction_stack = in_reply_to->to_parent;
  		binder_inner_proc_unlock(proc);
@@ -267,7 +267,7 @@ diff --git a/drivers/android/binder.c b/drivers/android/binder.c
  		target_thread = binder_get_txn_from_and_acq_inner(in_reply_to);
  		if (target_thread == NULL) {
  			/* annotation for sparse */
-@@ -2688,7 +2823,15 @@ static void binder_transaction(struct binder_proc *proc,
+@@ -2701,7 +2836,15 @@ static void binder_transaction(struct binder_proc *proc,
  	t->to_thread = target_thread;
  	t->code = tr->code;
  	t->flags = tr->flags;
@@ -284,15 +284,15 @@ diff --git a/drivers/android/binder.c b/drivers/android/binder.c
  
  	if (target_node && target_node->txn_security_ctx) {
  		u32 secid;
-@@ -3016,6 +3159,7 @@ static void binder_transaction(struct binder_proc *proc,
- 		binder_enqueue_thread_work_ilocked(target_thread, &t->work);
+@@ -3044,6 +3187,7 @@ static void binder_transaction(struct binder_proc *proc,
+ 		target_proc->outstanding_txns++;
  		binder_inner_proc_unlock(target_proc);
  		wake_up_interruptible_sync(&target_thread->wait);
 +		binder_restore_priority(current, in_reply_to->saved_priority);
  		binder_free_transaction(in_reply_to);
  	} else if (!(t->flags & TF_ONE_WAY)) {
  		BUG_ON(t->buffer->async_transaction != 0);
-@@ -3128,6 +3272,7 @@ static void binder_transaction(struct binder_proc *proc,
+@@ -3158,6 +3302,7 @@ static void binder_transaction(struct binder_proc *proc,
  
  	BUG_ON(thread->return_error.cmd != BR_OK);
  	if (in_reply_to) {
@@ -300,7 +300,7 @@ diff --git a/drivers/android/binder.c b/drivers/android/binder.c
  		thread->return_error.cmd = BR_TRANSACTION_COMPLETE;
  		binder_enqueue_thread_work(thread, &thread->return_error.work);
  		binder_send_failed_reply(in_reply_to, return_error);
-@@ -3795,7 +3940,7 @@ static int binder_thread_read(struct binder_proc *proc,
+@@ -3825,7 +3970,7 @@ static int binder_thread_read(struct binder_proc *proc,
  			wait_event_interruptible(binder_user_error_wait,
  						 binder_stop_on_user_error < 2);
  		}
@@ -309,7 +309,7 @@ diff --git a/drivers/android/binder.c b/drivers/android/binder.c
  	}
  
  	if (non_block) {
-@@ -4017,16 +4162,14 @@ static int binder_thread_read(struct binder_proc *proc,
+@@ -4052,16 +4197,14 @@ static int binder_thread_read(struct binder_proc *proc,
  		BUG_ON(t->buffer == NULL);
  		if (t->buffer->target_node) {
  			struct binder_node *target_node = t->buffer->target_node;
@@ -331,7 +331,7 @@ diff --git a/drivers/android/binder.c b/drivers/android/binder.c
  			cmd = BR_TRANSACTION;
  		} else {
  			trd->target.ptr = 0;
-@@ -4244,6 +4387,8 @@ static struct binder_thread *binder_get_thread_ilocked(
+@@ -4279,6 +4422,8 @@ static struct binder_thread *binder_get_thread_ilocked(
  	binder_stats_created(BINDER_STAT_THREAD);
  	thread->proc = proc;
  	thread->pid = current->pid;
@@ -340,7 +340,7 @@ diff --git a/drivers/android/binder.c b/drivers/android/binder.c
  	atomic_set(&thread->tmp_ref, 0);
  	init_waitqueue_head(&thread->wait);
  	INIT_LIST_HEAD(&thread->todo);
-@@ -4301,6 +4446,7 @@ static void binder_free_thread(struct binder_thread *thread)
+@@ -4339,6 +4484,7 @@ static void binder_free_thread(struct binder_thread *thread)
  	BUG_ON(!list_empty(&thread->todo));
  	binder_stats_deleted(BINDER_STAT_THREAD);
  	binder_proc_dec_tmpref(thread->proc);
@@ -348,10 +348,10 @@ diff --git a/drivers/android/binder.c b/drivers/android/binder.c
  	kfree(thread);
  }
  
-@@ -4810,7 +4956,14 @@ static int binder_open(struct inode *nodp, struct file *filp)
- 	get_task_struct(current->group_leader);
+@@ -5010,7 +5156,14 @@ static int binder_open(struct inode *nodp, struct file *filp)
  	proc->tsk = current->group_leader;
  	INIT_LIST_HEAD(&proc->todo);
+ 	init_waitqueue_head(&proc->freeze_wait);
 -	proc->default_priority = task_nice(current);
 +	if (binder_supported_policy(current->policy)) {
 +		proc->default_priority.sched_policy = current->policy;
@@ -364,7 +364,7 @@ diff --git a/drivers/android/binder.c b/drivers/android/binder.c
  	/* binderfs stashes devices in i_private */
  	if (is_binderfs_device(nodp)) {
  		binder_dev = nodp->i_private;
-@@ -5132,13 +5285,14 @@ static void print_binder_transaction_ilocked(struct seq_file *m,
+@@ -5335,13 +5488,14 @@ static void print_binder_transaction_ilocked(struct seq_file *m,
  	spin_lock(&t->lock);
  	to_proc = t->to_proc;
  	seq_printf(m,
@@ -381,7 +381,7 @@ diff --git a/drivers/android/binder.c b/drivers/android/binder.c
  	spin_unlock(&t->lock);
  
  	if (proc != to_proc) {
-@@ -5256,8 +5410,9 @@ static void print_binder_node_nilocked(struct seq_file *m,
+@@ -5459,8 +5613,9 @@ static void print_binder_node_nilocked(struct seq_file *m,
  	hlist_for_each_entry(ref, &node->refs, node_entry)
  		count++;
  
@@ -395,7 +395,7 @@ diff --git a/drivers/android/binder.c b/drivers/android/binder.c
 diff --git a/drivers/android/binder_internal.h b/drivers/android/binder_internal.h
 --- a/drivers/android/binder_internal.h
 +++ b/drivers/android/binder_internal.h
-@@ -236,10 +236,13 @@ struct binder_error {
+@@ -237,10 +237,13 @@ struct binder_error {
   *                        and by @lock)
   * @has_async_transaction: async transaction to node in progress
   *                        (protected by @lock)
@@ -409,7 +409,7 @@ diff --git a/drivers/android/binder_internal.h b/drivers/android/binder_internal
   * @txn_security_ctx:     require sender's security context
   *                        (invariant after initialized)
   * @async_todo:           list of async work items
-@@ -277,6 +280,8 @@ struct binder_node {
+@@ -278,6 +281,8 @@ struct binder_node {
  		/*
  		 * invariant after initialization
  		 */
@@ -418,7 +418,7 @@ diff --git a/drivers/android/binder_internal.h b/drivers/android/binder_internal
  		u8 accept_fds:1;
  		u8 txn_security_ctx:1;
  		u8 min_priority;
-@@ -345,6 +350,22 @@ struct binder_ref {
+@@ -346,6 +351,22 @@ struct binder_ref {
  	struct binder_ref_death *death;
  };
  
@@ -441,7 +441,7 @@ diff --git a/drivers/android/binder_internal.h b/drivers/android/binder_internal
  /**
   * struct binder_proc - binder process bookkeeping
   * @proc_node:            element for binder_procs list
-@@ -419,7 +440,7 @@ struct binder_proc {
+@@ -440,7 +461,7 @@ struct binder_proc {
  	int requested_threads;
  	int requested_threads_started;
  	int tmp_ref;
@@ -450,7 +450,7 @@ diff --git a/drivers/android/binder_internal.h b/drivers/android/binder_internal
  	struct dentry *debugfs_entry;
  	struct binder_alloc alloc;
  	struct binder_context *context;
-@@ -461,6 +482,7 @@ struct binder_proc {
+@@ -483,6 +504,7 @@ struct binder_proc {
   * @is_dead:              thread is dead and awaiting free
   *                        when outstanding transactions are cleaned up
   *                        (protected by @proc->inner_lock)
@@ -458,7 +458,7 @@ diff --git a/drivers/android/binder_internal.h b/drivers/android/binder_internal
   *
   * Bookkeeping structure for binder threads.
   */
-@@ -480,6 +502,7 @@ struct binder_thread {
+@@ -502,6 +524,7 @@ struct binder_thread {
  	struct binder_stats stats;
  	atomic_t tmp_ref;
  	bool is_dead;
@@ -466,7 +466,7 @@ diff --git a/drivers/android/binder_internal.h b/drivers/android/binder_internal
  };
  
  /**
-@@ -513,8 +536,9 @@ struct binder_transaction {
+@@ -535,8 +558,9 @@ struct binder_transaction {
  	struct binder_buffer *buffer;
  	unsigned int    code;
  	unsigned int    flags;

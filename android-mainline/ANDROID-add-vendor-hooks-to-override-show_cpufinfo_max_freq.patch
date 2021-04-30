@@ -48,7 +48,7 @@ diff --git a/drivers/cpufreq/cpufreq.c b/drivers/cpufreq/cpufreq.c
  
  static LIST_HEAD(cpufreq_policy_list);
  
-@@ -692,8 +693,15 @@ static ssize_t show_##file_name				\
+@@ -689,8 +690,15 @@ static ssize_t show_##file_name				\
  	return sprintf(buf, "%u\n", policy->object);	\
  }
  

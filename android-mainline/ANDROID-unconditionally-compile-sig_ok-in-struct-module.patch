@@ -23,7 +23,7 @@ Signed-off-by: Steve Muckle <smuckle@google.com>
 diff --git a/include/linux/module.h b/include/linux/module.h
 --- a/include/linux/module.h
 +++ b/include/linux/module.h
-@@ -390,10 +390,12 @@ struct module {
+@@ -399,10 +399,12 @@ struct module {
  	const s32 *gpl_crcs;
  	bool using_gplonly_symbols;
  

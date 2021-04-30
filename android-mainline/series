@@ -1,8 +1,8 @@
 #
 # android-mainline patches
 #
-# Applies onto upstream 9f4ad9e425a1d Linux v5.12
-# Matches android-mainline fef6bc00f5d5f ("FROMLIST: export: Make CRCs robust to symbol trimming")
+# Applies onto upstream e7c6e405e171f Linux v5.12-4446-ge7c6e405e171f
+# Matches android-mainline 756151494432e ("Merge commit e7c6e405e171f ("Fix misc new gcc warnings") into android-mainline")
 #
 Revert-block-grant-IOPRIO_CLASS_RT-to-CAP_SYS_NICE.patch
 Revert-arm64-dts-qcom-sdm845-db845c-Fix-hdmi-nodes.patch
@@ -38,6 +38,7 @@ FROMLIST-ARM-kprobes-fix-UNPREDICTABLE-warnings.patch
 FROMLIST-ARM-kprobes-rewrite-test-arm.c-in-UAL.patch
 FROMLIST-configfs-make-directories-inherit-uid-gid-from-creator.patch
 FROMLIST-export-Make-CRCs-robust-to-symbol-trimming.patch
+FROMGIT-kbuild-update-config_data.gz-only-when-the-content-of-.config-is-changed.patch
 _____ANNOTATION-Android-vendor-hooks_____.patch
 ANDROID-GKI-add-android_vendor.h.patch
 ANDROID-add-support-for-vendor-hooks.patch
@@ -166,7 +167,6 @@ ANDROID-tracing-Add-restricted-vendor-hooks-for-preemptirq-events.patch
 ANDROID-sched-Add-rvh-for-cpu-controller-cgroup-attach.patch
 ANDROID-cgroup-Export-functions-used-by-modules.patch
 ANDROID-sched-Export-key-used-by-module.patch
-ANDROID-sched-Export-sched_setattr_nocheck.patch
 ANDROID-sched-Export-sched_switch-tracepoint-symbol.patch
 ANDROID-add-flags-to-android_rvh_enqueue_task-dequeue_task-parameter.patch
 ANDROID-sched-fair-Sync-task-util-early-in-feec.patch
@@ -243,7 +243,6 @@ ANDROID-PCI-qcom-Fix-the-fixup-of-PCI_VENDOR_ID_QCOM.patch
 ANDROID-GKI-clk-Add-support-for-clock-providers-with-sync-state.patch
 ANDROID-GKI-clk-Don-t-disable-unused-clocks-with-sync-state-support.patch
 ANDROID-clk-qcom-Add-sync_state-clk_sync_state-for-db845c-clock-providers.patch
-ANDROID-GKI-driver-core-Set-fw_devlink-on-by-default.patch
 ANDROID-gnss-Add-command-line-test-driver.patch
 ANDROID-Export-functions-to-be-used-with-dma_map_ops-in-modules.patch
 ANDROID-drivers-firmware-psci-Register-with-kernel-restart-handler.patch
@@ -465,6 +464,7 @@ ANDROID-Incremental-fs-fix-u64-integer-cast-to-pointer.patch
 ANDROID-Incremental-fs-Add-status-to-sysfs.patch
 ANDROID-Incremental-fs-Fix-INCFS_MAGIC_NUMBER-casts.patch
 ANDROID-Incremental-fs-Add-INCFS_IOC_GET_LAST_READ_ERROR.patch
+ANDROID-Incremental-fs-Fix-pseudo-file-attributes.patch
 _____ANNOTATION-networking-changes_____.patch
 ANDROID-net-xfrm-make-PF_KEY-SHA256-use-RFC-compliant-truncation.patch
 ANDROID-net-xfrm-always-export-pktgen_xfrm_outer_mode_output.patch

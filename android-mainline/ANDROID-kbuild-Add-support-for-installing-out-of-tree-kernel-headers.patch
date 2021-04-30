@@ -60,7 +60,7 @@ diff --git a/Documentation/kbuild/modules.rst b/Documentation/kbuild/modules.rst
 diff --git a/Makefile b/Makefile
 --- a/Makefile
 +++ b/Makefile
-@@ -1135,6 +1135,41 @@ extmod-prefix = $(if $(KBUILD_EXTMOD),$(KBUILD_EXTMOD)/)
+@@ -1156,6 +1156,41 @@ extmod-prefix = $(if $(KBUILD_EXTMOD),$(KBUILD_EXTMOD)/)
  export MODORDER := $(extmod-prefix)modules.order
  export MODULES_NSDEPS := $(extmod-prefix)modules.nsdeps
  
@@ -102,7 +102,7 @@ diff --git a/Makefile b/Makefile
  ifeq ($(KBUILD_EXTMOD),)
  core-y		+= kernel/ certs/ mm/ fs/ ipc/ security/ crypto/ block/
  
-@@ -1316,33 +1351,6 @@ headerdep:
+@@ -1337,33 +1372,6 @@ headerdep:
  	$(Q)find $(srctree)/include/ -name '*.h' | xargs --max-args 1 \
  	$(srctree)/scripts/headerdep.pl -I$(srctree)/include
  
@@ -136,7 +136,7 @@ diff --git a/Makefile b/Makefile
  # Deprecated. It is no-op now.
  PHONY += headers_check
  headers_check:
-@@ -1789,6 +1797,8 @@ help:
+@@ -1810,6 +1818,8 @@ help:
  	@echo  ''
  	@echo  '  modules         - default target, build the module(s)'
  	@echo  '  modules_install - install the module'

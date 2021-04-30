@@ -69,7 +69,7 @@ diff --git a/kernel/sched/cpufreq_schedutil.c b/kernel/sched/cpufreq_schedutil.c
  
  #define IOWAIT_BOOST_MIN	(SCHED_CAPACITY_SCALE / 8)
  
-@@ -592,6 +593,7 @@ static int sugov_kthread_create(struct sugov_policy *sg_policy)
+@@ -587,6 +588,7 @@ static int sugov_kthread_create(struct sugov_policy *sg_policy)
  	if (policy->fast_switch_enabled)
  		return 0;
  

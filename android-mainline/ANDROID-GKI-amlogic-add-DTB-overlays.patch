@@ -43,7 +43,7 @@ diff --git a/arch/arm64/boot/dts/amlogic/Makefile b/arch/arm64/boot/dts/amlogic/
  dtb-$(CONFIG_ARCH_MESON) += meson-g12b-s922x-khadas-vim3.dtb
  dtb-$(CONFIG_ARCH_MESON) += meson-g12b-odroid-n2.dtb
  dtb-$(CONFIG_ARCH_MESON) += meson-g12b-odroid-n2-plus.dtb
-@@ -46,7 +48,9 @@ dtb-$(CONFIG_ARCH_MESON) += meson-gxm-s912-libretech-pc.dtb
+@@ -49,7 +51,9 @@ dtb-$(CONFIG_ARCH_MESON) += meson-gxm-s912-libretech-pc.dtb
  dtb-$(CONFIG_ARCH_MESON) += meson-gxm-vega-s96.dtb
  dtb-$(CONFIG_ARCH_MESON) += meson-gxm-wetek-core2.dtb
  dtb-$(CONFIG_ARCH_MESON) += meson-sm1-khadas-vim3l.dtb

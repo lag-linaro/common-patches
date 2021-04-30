@@ -36,7 +36,7 @@ Signed-off-by: Eric Biggers <ebiggers@google.com>
 diff --git a/drivers/cpufreq/Kconfig b/drivers/cpufreq/Kconfig
 --- a/drivers/cpufreq/Kconfig
 +++ b/drivers/cpufreq/Kconfig
-@@ -233,6 +233,15 @@ config CPUFREQ_DT_PLATDEV
+@@ -234,6 +234,15 @@ config CPUFREQ_DT_PLATDEV
  
  	  If in doubt, say N.
  

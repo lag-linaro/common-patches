@@ -32,7 +32,7 @@ Change-Id: I2c2508da33fcf3cf8485d63be60c523970e3d120
 diff --git a/Makefile b/Makefile
 --- a/Makefile
 +++ b/Makefile
-@@ -998,7 +998,7 @@ LDFLAGS_vmlinux	+= $(call ld-option, -X,)
+@@ -1019,7 +1019,7 @@ LDFLAGS_vmlinux	+= $(call ld-option, -X,)
  endif
  
  ifeq ($(CONFIG_RELR),y)

@@ -53,9 +53,9 @@ diff --git a/arch/arm64/kernel/process.c b/arch/arm64/kernel/process.c
  
  #include <asm/alternative.h>
  #include <asm/arch_gicv3.h>
-@@ -562,6 +563,8 @@ __notrace_funcgraph struct task_struct *__switch_to(struct task_struct *prev,
- 	 */
- 	mte_thread_switch(next);
+@@ -590,6 +591,8 @@ __notrace_funcgraph struct task_struct *__switch_to(struct task_struct *prev,
+ 	if (prev->thread.sctlr_user != next->thread.sctlr_user)
+ 		update_sctlr_el1(next->thread.sctlr_user);
  
 +	trace_android_vh_is_fpsimd_save(prev, next);
 +

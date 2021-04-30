@@ -67,7 +67,7 @@ diff --git a/kernel/sys.c b/kernel/sys.c
  #ifndef SET_UNALIGN_CTL
  # define SET_UNALIGN_CTL(a, b)	(-EINVAL)
  #endif
-@@ -2538,6 +2540,7 @@ SYSCALL_DEFINE5(prctl, int, option, unsigned long, arg2, unsigned long, arg3,
+@@ -2554,6 +2556,7 @@ SYSCALL_DEFINE5(prctl, int, option, unsigned long, arg2, unsigned long, arg3,
  		error = -EINVAL;
  		break;
  	}
