@@ -2,6 +2,8 @@
 # SPDX-License-Identifier: Apache-2.0
 # Copyright 2021 Google LLC
 
+#set -x
+
 if [ "$#" -gt 3 ]; then
     echo "Usage: $0 <base> <up_to> <name>"
     exit 1
@@ -20,8 +22,8 @@ cat <<EOT > patches/series
 #
 # $name patches
 #
-# Applies onto upstream $(git log -1 --format=%h $base) Linux $(git describe --tags $base)
-# Matches $name $(git show -s --pretty='format:%h ("%s")' $up_to)
+# Applies onto upstream $(git --no-pager log -1 --format=%h $base) Linux $(git describe --tags $base)
+# Matches $name $(git --no-pager show -s --pretty='format:%h ("%s")' $up_to)
 #
 EOT
 

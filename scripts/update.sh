@@ -5,7 +5,8 @@
 #set -x
 set -e
 
-repo sync -n && git fetch --all
+# Lee: This is not a `repo` controlled forest
+#repo sync -n && git fetch --all
 
 base_commit=$(cat patches/series | grep "Applies onto" | awk '{print $5}')
 last_commit=$(cat patches/series | grep "Matches " | awk '{print $4}')
@@ -15,7 +16,8 @@ commit_work () {
     _commit=$1
     echo "CHECK THIS DIFFSTAT!!!"
     git diff --stat $_commit
-    CLEANUP_PATCHES=1 ~/howto/quilt/update_series.sh $base_commit $_commit ${target#*/}
+#    CLEANUP_PATCHES=1 ~/howto/quilt/update_series.sh $base_commit $_commit ${target#*/}
+    CLEANUP_PATCHES=1 $(dirname $0)/update_series.sh $base_commit $_commit ${target#*/}
     git -C patches/ add .
     commit_additional_text=""
     if [ $rebase_active -eq 1 ]; then
@@ -30,8 +32,8 @@ git tag -f processed $_commit
 }
 
 reset_tree () {
-  git reset --hard $base_commit
-  git quiltimport
+    git reset --hard $base_commit
+    git quiltimport
 }
 
 rebase_tree() {
@@ -70,7 +72,7 @@ for commit in $pick_list; do
     fi
 
     set +e
-    echo "Applying" `git one $commit`
+    echo "Applying" `git --no-pager show -s --pretty='format:%h ("%s")' $commit`
     git cherry-pick $commit
     if [ $? != 0 ]; then
         git rm -f abi_gki_*
