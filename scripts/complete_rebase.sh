@@ -12,7 +12,7 @@ git -C patches add .
 git -C patches commit -s -F- <<EOF
 aosp/android-mainline: update series (rebase onto $(git describe --tags $base))
 
-up to $(git one $up_to)
+up to $(git --no-pager show -s --pretty='format:%h ("%s")' $up_to)
 EOF
 
 git tag -f processed $up_to

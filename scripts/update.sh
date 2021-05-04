@@ -24,7 +24,7 @@ commit_work () {
     git -C patches commit -s -F- <<EOF
 $target: update series${commit_additional_text}
 
-up to $(git one $_commit)
+up to $(git --no-pager show -s --pretty='format:%h ("%s")' $_commit)
 EOF
 git tag -f processed $_commit
 }
@@ -70,7 +70,7 @@ for commit in $pick_list; do
     fi
 
     set +e
-    echo "Applying" `git one $commit`
+    echo "Applying" `git --no-pager show -s --pretty='format:%h ("%s")' $commit`
     git cherry-pick $commit
     if [ $? != 0 ]; then
         git rm -f abi_gki_*
