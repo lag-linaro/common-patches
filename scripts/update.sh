@@ -15,7 +15,7 @@ commit_work () {
     _commit=$1
     echo "CHECK THIS DIFFSTAT!!!"
     git diff --stat $_commit
-    CLEANUP_PATCHES=1 ~/howto/quilt/update_series.sh $base_commit $_commit ${target#*/}
+    CLEANUP_PATCHES=1 $(dirname $0)/update_series.sh $base_commit $_commit ${target#*/}
     git -C patches/ add .
     commit_additional_text=""
     if [ $rebase_active -eq 1 ]; then
