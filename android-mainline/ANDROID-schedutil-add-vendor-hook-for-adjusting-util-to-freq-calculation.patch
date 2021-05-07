@@ -25,7 +25,7 @@ Change-Id: I9aa9079f00af7d3380b19f2fe21b75cddd107d15
 diff --git a/drivers/android/vendor_hooks.c b/drivers/android/vendor_hooks.c
 --- a/drivers/android/vendor_hooks.c
 +++ b/drivers/android/vendor_hooks.c
-@@ -79,3 +79,4 @@ EXPORT_TRACEPOINT_SYMBOL_GPL(android_rvh_preempt_enable);
+@@ -81,3 +81,4 @@ EXPORT_TRACEPOINT_SYMBOL_GPL(android_rvh_preempt_enable);
  EXPORT_TRACEPOINT_SYMBOL_GPL(android_rvh_irqs_disable);
  EXPORT_TRACEPOINT_SYMBOL_GPL(android_rvh_irqs_enable);
  EXPORT_TRACEPOINT_SYMBOL_GPL(android_rvh_cpu_cgroup_attach);

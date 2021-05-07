@@ -25,7 +25,7 @@ Signed-off-by: Will McVicker <willmcvicker@google.com>
 diff --git a/drivers/android/vendor_hooks.c b/drivers/android/vendor_hooks.c
 --- a/drivers/android/vendor_hooks.c
 +++ b/drivers/android/vendor_hooks.c
-@@ -68,3 +68,5 @@ EXPORT_TRACEPOINT_SYMBOL_GPL(android_rvh_sched_nohz_balancer_kick);
+@@ -70,3 +70,5 @@ EXPORT_TRACEPOINT_SYMBOL_GPL(android_rvh_sched_nohz_balancer_kick);
  EXPORT_TRACEPOINT_SYMBOL_GPL(android_rvh_find_busiest_queue);
  EXPORT_TRACEPOINT_SYMBOL_GPL(android_rvh_migrate_queued_task);
  EXPORT_TRACEPOINT_SYMBOL_GPL(android_rvh_find_energy_efficient_cpu);

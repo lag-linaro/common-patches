@@ -1,0 +1,107 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: JINHO LIM <jordan.lim@samsung.com>
+Date: Thu, 29 Apr 2021 19:22:05 +0900
+Subject: ANDROID: vendor_hooks: set debugging data when rt_mutex is working
+
+We already applied the 'vendor hook' for Dtask Debugging Information
+in below issue.
+(https://issuetracker.google.com/issues/162776704)
+
+There are vendor hook call in mutex and rw_semaphore, but not for rt_mutex
+Please refer to description in details as below,
+
+1. Description
+This feature writes rt mutex lock waiting information
+on the task_struct structure. We can check mutex information and
+mutex owner through the kernel log and custom analysis tools.
+Like the previous feature in mutex and rw semaphore,
+added data can be checked by ramdump analysis.
+
+2. Vendor Hook Position
+1) VENDOR_DATA
+  - struct task_struct in sched.h
+
+    VENDOR_DATA_ARRAY(2)
+
+    [0] : type   // RTmutex (Mutex, Rwsem, ...)
+    [1] : pointer   // address of lock
+2) VENDOR_HOOKs
+  - __rt_mutex_slowlock() in kernel/locking/rtmutex.c
+
+3. Example
+ - SysRq-w in kernel log
+...
+[   54.164463] [3:  kworker/u16:3:  253] kworker/3:2     D12736   418      2 0x00000228
+[   54.164497] [3:  kworker/u16:3:  253] RTmutex: 0xffffffc051fa3ae8: owner[sh :9003]
+
+[   54.167812] [3:  kworker/u16:3:  253] sh              D12848  9003   6900 0x04000200
+[   54.167824] [3:  kworker/u16:3:  253] RTmutex: 0xffffffc051fa3b08: owner[kworker/3:2 :418]
+...
+
+Bug: 186567468
+
+Signed-off-by: JINHO LIM <jordan.lim@samsung.com>
+Change-Id: I93f9753be0b2c1fa1a6eaea09379d54c31d1ebcf
+---
+ drivers/android/vendor_hooks.c | 2 ++
+ include/trace/hooks/dtask.h    | 8 ++++++++
+ kernel/locking/rtmutex.c       | 3 +++
+ 3 files changed, 13 insertions(+)
+
+diff --git a/drivers/android/vendor_hooks.c b/drivers/android/vendor_hooks.c
+--- a/drivers/android/vendor_hooks.c
++++ b/drivers/android/vendor_hooks.c
+@@ -43,6 +43,8 @@ EXPORT_TRACEPOINT_SYMBOL_GPL(android_vh_alter_rwsem_list_add);
+ EXPORT_TRACEPOINT_SYMBOL_GPL(android_vh_alter_futex_plist_add);
+ EXPORT_TRACEPOINT_SYMBOL_GPL(android_vh_mutex_wait_start);
+ EXPORT_TRACEPOINT_SYMBOL_GPL(android_vh_mutex_wait_finish);
++EXPORT_TRACEPOINT_SYMBOL_GPL(android_vh_rtmutex_wait_start);
++EXPORT_TRACEPOINT_SYMBOL_GPL(android_vh_rtmutex_wait_finish);
+ EXPORT_TRACEPOINT_SYMBOL_GPL(android_vh_rwsem_read_wait_start);
+ EXPORT_TRACEPOINT_SYMBOL_GPL(android_vh_rwsem_read_wait_finish);
+ EXPORT_TRACEPOINT_SYMBOL_GPL(android_vh_rwsem_write_wait_start);
+diff --git a/include/trace/hooks/dtask.h b/include/trace/hooks/dtask.h
+--- a/include/trace/hooks/dtask.h
++++ b/include/trace/hooks/dtask.h
+@@ -19,6 +19,14 @@ DECLARE_HOOK(android_vh_mutex_wait_finish,
+ 	TP_PROTO(struct mutex *lock),
+ 	TP_ARGS(lock));
+ 
++struct rt_mutex;
++DECLARE_HOOK(android_vh_rtmutex_wait_start,
++	TP_PROTO(struct rt_mutex *lock),
++	TP_ARGS(lock));
++DECLARE_HOOK(android_vh_rtmutex_wait_finish,
++	TP_PROTO(struct rt_mutex *lock),
++	TP_ARGS(lock));
++
+ struct rw_semaphore;
+ DECLARE_HOOK(android_vh_rwsem_read_wait_start,
+ 	TP_PROTO(struct rw_semaphore *sem),
+diff --git a/kernel/locking/rtmutex.c b/kernel/locking/rtmutex.c
+--- a/kernel/locking/rtmutex.c
++++ b/kernel/locking/rtmutex.c
+@@ -19,6 +19,7 @@
+ #include <linux/sched/wake_q.h>
+ #include <linux/sched/debug.h>
+ #include <linux/timer.h>
++#include <trace/hooks/dtask.h>
+ 
+ #include "rtmutex_common.h"
+ 
+@@ -1150,6 +1151,7 @@ __rt_mutex_slowlock(struct rt_mutex *lock, int state,
+ {
+ 	int ret = 0;
+ 
++	trace_android_vh_rtmutex_wait_start(lock);
+ 	for (;;) {
+ 		/* Try to acquire the lock: */
+ 		if (try_to_take_rt_mutex(lock, current, waiter))
+@@ -1179,6 +1181,7 @@ __rt_mutex_slowlock(struct rt_mutex *lock, int state,
+ 		set_current_state(state);
+ 	}
+ 
++	trace_android_vh_rtmutex_wait_finish(lock);
+ 	__set_current_state(TASK_RUNNING);
+ 	return ret;
+ }

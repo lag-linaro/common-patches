@@ -2,7 +2,7 @@
 # android-mainline patches
 #
 # Applies onto upstream e7c6e405e171f Linux v5.12-4446-ge7c6e405e171f
-# Matches android-mainline 756151494432e ("Merge commit e7c6e405e171f ("Fix misc new gcc warnings") into android-mainline")
+# Matches android-mainline 963f3d1043058 ("ANDROID: Realign canary strategy with Mainline")
 #
 Revert-block-grant-IOPRIO_CLASS_RT-to-CAP_SYS_NICE.patch
 Revert-arm64-dts-qcom-sdm845-db845c-Fix-hdmi-nodes.patch
@@ -124,6 +124,7 @@ ANDROID-Add-vendor-hooks-to-the-scheduler.patch
 ANDROID-Export-some-scheduler-APIs-for-vendor-modules.patch
 ANDROID-sched-add-vendor-hooks-to-handle-scheduling-priority.patch
 ANDROID-vendor_hooks-add-waiting-information-for-blocked-tasks.patch
+ANDROID-vendor_hooks-set-debugging-data-when-rt_mutex-is-working.patch
 ANDROID-vendor_hooks-add-cpuidle-event.patch
 ANDROID-vendor_hook-modify-cpuidle-vendor-hook.patch
 ANDROID-sched-Use-normal-vendor-hook-in-scheduler-tick.patch

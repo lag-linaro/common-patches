@@ -18,7 +18,7 @@ Signed-off-by: Sai Harshini Nimmala <snimmala@codeaurora.org>
 diff --git a/drivers/android/vendor_hooks.c b/drivers/android/vendor_hooks.c
 --- a/drivers/android/vendor_hooks.c
 +++ b/drivers/android/vendor_hooks.c
-@@ -57,4 +57,5 @@ EXPORT_TRACEPOINT_SYMBOL_GPL(android_vh_mpam_set);
+@@ -59,4 +59,5 @@ EXPORT_TRACEPOINT_SYMBOL_GPL(android_vh_mpam_set);
  EXPORT_TRACEPOINT_SYMBOL_GPL(android_rvh_find_busiest_group);
  EXPORT_TRACEPOINT_SYMBOL_GPL(android_vh_wq_lockup_pool);
  EXPORT_TRACEPOINT_SYMBOL_GPL(android_vh_ipi_stop);

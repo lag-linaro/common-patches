@@ -22,7 +22,7 @@ Change-Id: Iae772cf07881602eea3f27aeb75fba753e7c2635
 diff --git a/drivers/android/vendor_hooks.c b/drivers/android/vendor_hooks.c
 --- a/drivers/android/vendor_hooks.c
 +++ b/drivers/android/vendor_hooks.c
-@@ -81,3 +81,4 @@ EXPORT_TRACEPOINT_SYMBOL_GPL(android_rvh_irqs_enable);
+@@ -83,3 +83,4 @@ EXPORT_TRACEPOINT_SYMBOL_GPL(android_rvh_irqs_enable);
  EXPORT_TRACEPOINT_SYMBOL_GPL(android_rvh_cpu_cgroup_attach);
  EXPORT_TRACEPOINT_SYMBOL_GPL(android_rvh_cpu_cgroup_can_attach);
  EXPORT_TRACEPOINT_SYMBOL_GPL(android_vh_map_util_freq);

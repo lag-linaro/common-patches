@@ -26,7 +26,7 @@ Change-Id: Id8c1197ec704e998e89dc25cc69b0f6a1b86e978
 diff --git a/drivers/android/vendor_hooks.c b/drivers/android/vendor_hooks.c
 --- a/drivers/android/vendor_hooks.c
 +++ b/drivers/android/vendor_hooks.c
-@@ -113,5 +113,6 @@ EXPORT_TRACEPOINT_SYMBOL_GPL(android_vh_ftrace_format_check);
+@@ -115,5 +115,6 @@ EXPORT_TRACEPOINT_SYMBOL_GPL(android_vh_ftrace_format_check);
  EXPORT_TRACEPOINT_SYMBOL_GPL(android_vh_ftrace_dump_buffer);
  EXPORT_TRACEPOINT_SYMBOL_GPL(android_vh_ufs_fill_prdt);
  EXPORT_TRACEPOINT_SYMBOL_GPL(android_vh_ufs_prepare_command);

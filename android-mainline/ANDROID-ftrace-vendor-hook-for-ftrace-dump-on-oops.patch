@@ -37,7 +37,7 @@ diff --git a/drivers/android/vendor_hooks.c b/drivers/android/vendor_hooks.c
  
  /*
   * Export tracepoints that act as a bare tracehook (ie: have no trace event
-@@ -82,3 +83,8 @@ EXPORT_TRACEPOINT_SYMBOL_GPL(android_rvh_cpu_cgroup_attach);
+@@ -84,3 +85,8 @@ EXPORT_TRACEPOINT_SYMBOL_GPL(android_rvh_cpu_cgroup_attach);
  EXPORT_TRACEPOINT_SYMBOL_GPL(android_rvh_cpu_cgroup_can_attach);
  EXPORT_TRACEPOINT_SYMBOL_GPL(android_vh_map_util_freq);
  EXPORT_TRACEPOINT_SYMBOL_GPL(android_vh_em_cpu_energy);

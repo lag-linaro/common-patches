@@ -19,7 +19,7 @@ Signed-off-by: Amir Vajid <avajid@codeaurora.org>
 diff --git a/drivers/android/vendor_hooks.c b/drivers/android/vendor_hooks.c
 --- a/drivers/android/vendor_hooks.c
 +++ b/drivers/android/vendor_hooks.c
-@@ -59,3 +59,4 @@ EXPORT_TRACEPOINT_SYMBOL_GPL(android_vh_wq_lockup_pool);
+@@ -61,3 +61,4 @@ EXPORT_TRACEPOINT_SYMBOL_GPL(android_vh_wq_lockup_pool);
  EXPORT_TRACEPOINT_SYMBOL_GPL(android_vh_ipi_stop);
  EXPORT_TRACEPOINT_SYMBOL_GPL(android_vh_dump_throttled_rt_tasks);
  EXPORT_TRACEPOINT_SYMBOL_GPL(android_vh_printk_hotplug);
