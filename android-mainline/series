@@ -2,7 +2,7 @@
 # android-mainline patches
 #
 # Applies onto upstream c6536676c7fe3 Linux v5.12-4505-gc6536676c7fe3
-# Matches android-mainline 893649a911139 ("Merge c6536676c7fe3 ("Merge 'x86_core_for_v5.13' of git://git.kernel.org/pub/scm/linux/kernel/git/tip/tip into android-mainline")")
+# Matches android-mainline 7491ab39cbb2f ("ANDROID: Sync ext4 casefolded encryption with patches going upstream")
 #
 Revert-block-grant-IOPRIO_CLASS_RT-to-CAP_SYS_NICE.patch
 Revert-arm64-dts-qcom-sdm845-db845c-Fix-hdmi-nodes.patch
@@ -358,6 +358,7 @@ ANDROID-fs-FS-tracepoints-to-track-IO.patch
 ANDROID-Add-a-tracepoint-for-mapping-inode-to-full-path.patch
 ANDROID-ext4-Handle-casefolding-with-encryption.patch
 ANDROID-ext4-Optimize-match-for-casefolded-encrypted-dirs.patch
+ANDROID-Sync-ext4-casefolded-encryption-with-patches-going-upstream.patch
 ANDROID-GKI-Don-t-compact-fuse_req-when-CONFIG_VIRTIO_FS-n.patch
 ANDROID-vfs-d_canonical_path-for-stacked-FS.patch
 ANDROID-fuse-Add-support-for-d_canonical_path.patch

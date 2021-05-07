@@ -1,0 +1,771 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: Daniel Rosenberg <drosen@google.com>
+Date: Thu, 6 May 2021 12:31:21 -0700
+Subject: ANDROID: Sync ext4 casefolded encryption with patches going upstream
+
+This brings the ext4 casefolded encryption implementation in line with
+the patches that have gone upstream.
+
+This is equivalent to reverting
+"ANDROID-ext4-Handle-casefolding-with-encryption.patch"
+"ANDROID-ext4-Optimize-match-for-casefolded-encrypted-dirs.patch"
+and applying the equivalent upstream patches.
+
+This now advertises the feature in sysfs under
+/sys/fs/ext4/features/encrypted_casefold
+
+Change-Id: Ia8f437c5f137f16edf0a90c090a226d10c9e5660
+Bug: 161184936
+Signed-off-by: Daniel Rosenberg <drosen@google.com>
+---
+ fs/ext4/dir.c    |  35 +++++++--------
+ fs/ext4/ext4.h   |  10 ++---
+ fs/ext4/hash.c   |   2 +-
+ fs/ext4/ialloc.c |   5 +--
+ fs/ext4/inline.c |  16 +++----
+ fs/ext4/namei.c  | 110 +++++++++++++++++++----------------------------
+ fs/ext4/sysfs.c  |   2 +
+ 7 files changed, 76 insertions(+), 104 deletions(-)
+
+diff --git a/fs/ext4/dir.c b/fs/ext4/dir.c
+--- a/fs/ext4/dir.c
++++ b/fs/ext4/dir.c
+@@ -30,8 +30,6 @@
+ #include "ext4.h"
+ #include "xattr.h"
+ 
+-#define DOTDOT_OFFSET 12
+-
+ static int ext4_dx_readdir(struct file *, struct dir_context *);
+ 
+ /**
+@@ -57,15 +55,14 @@ static int is_dx_dir(struct inode *inode)
+ 	return 0;
+ }
+ 
+-static bool is_fake_entry(struct inode *dir, ext4_lblk_t lblk,
+-			  unsigned int offset, unsigned int blocksize)
++static bool is_fake_dir_entry(struct ext4_dir_entry_2 *de)
+ {
+-	/* Entries in the first block before this value refer to . or .. */
+-	if (lblk == 0 && offset <= DOTDOT_OFFSET)
++	/* Check if . or .. , or skip if namelen is 0 */
++	if ((de->name_len > 0) && (de->name_len <= 2) && (de->name[0] == '.') &&
++	    (de->name[1] == '.' || de->name[1] == '\0'))
+ 		return true;
+-	/* Check if this is likely the csum entry */
+-	if (ext4_has_metadata_csum(dir->i_sb) && offset % blocksize ==
+-				blocksize - sizeof(struct ext4_dir_entry_tail))
++	/* Check if this is a csum entry */
++	if (de->file_type == EXT4_FT_DIR_CSUM)
+ 		return true;
+ 	return false;
+ }
+@@ -82,16 +79,14 @@ int __ext4_check_dir_entry(const char *function, unsigned int line,
+ 			   struct inode *dir, struct file *filp,
+ 			   struct ext4_dir_entry_2 *de,
+ 			   struct buffer_head *bh, char *buf, int size,
+-			   ext4_lblk_t lblk,
+ 			   unsigned int offset)
+ {
+ 	const char *error_msg = NULL;
+ 	const int rlen = ext4_rec_len_from_disk(de->rec_len,
+ 						dir->i_sb->s_blocksize);
+ 	const int next_offset = ((char *) de - buf) + rlen;
+-	unsigned int blocksize = dir->i_sb->s_blocksize;
+-	bool fake = is_fake_entry(dir, lblk, offset, blocksize);
+-	bool next_fake = is_fake_entry(dir, lblk, next_offset, blocksize);
++	bool fake = is_fake_dir_entry(de);
++	bool has_csum = ext4_has_metadata_csum(dir->i_sb);
+ 
+ 	if (unlikely(rlen < ext4_dir_rec_len(1, fake ? NULL : dir)))
+ 		error_msg = "rec_len is smaller than minimal";
+@@ -103,7 +98,7 @@ int __ext4_check_dir_entry(const char *function, unsigned int line,
+ 	else if (unlikely(next_offset > size))
+ 		error_msg = "directory entry overrun";
+ 	else if (unlikely(next_offset > size - ext4_dir_rec_len(1,
+-						next_fake ? NULL : dir) &&
++						  has_csum ? NULL : dir) &&
+ 			  next_offset != size))
+ 		error_msg = "directory entry too close to block end";
+ 	else if (unlikely(le32_to_cpu(de->inode) >
+@@ -115,15 +110,15 @@ int __ext4_check_dir_entry(const char *function, unsigned int line,
+ 	if (filp)
+ 		ext4_error_file(filp, function, line, bh->b_blocknr,
+ 				"bad entry in directory: %s - offset=%u, "
+-				"inode=%u, rec_len=%d, lblk=%d, size=%d fake=%d",
++				"inode=%u, rec_len=%d, size=%d fake=%d",
+ 				error_msg, offset, le32_to_cpu(de->inode),
+-				rlen, lblk, size, fake);
++				rlen, size, fake);
+ 	else
+ 		ext4_error_inode(dir, function, line, bh->b_blocknr,
+ 				"bad entry in directory: %s - offset=%u, "
+-				"inode=%u, rec_len=%d, lblk=%d, size=%d fake=%d",
++				"inode=%u, rec_len=%d, size=%d fake=%d",
+ 				 error_msg, offset, le32_to_cpu(de->inode),
+-				 rlen, lblk, size, fake);
++				 rlen, size, fake);
+ 
+ 	return 1;
+ }
+@@ -262,7 +257,7 @@ static int ext4_readdir(struct file *file, struct dir_context *ctx)
+ 			de = (struct ext4_dir_entry_2 *) (bh->b_data + offset);
+ 			if (ext4_check_dir_entry(inode, file, de, bh,
+ 						 bh->b_data, bh->b_size,
+-						 map.m_lblk, offset)) {
++						 offset)) {
+ 				/*
+ 				 * On error, skip to the next block
+ 				 */
+@@ -658,7 +653,7 @@ int ext4_check_all_de(struct inode *dir, struct buffer_head *bh, void *buf,
+ 	top = buf + buf_size;
+ 	while ((char *) de < top) {
+ 		if (ext4_check_dir_entry(dir, NULL, de, bh,
+-					 buf, buf_size, 0, offset))
++					 buf, buf_size, offset))
+ 			return -EFSCORRUPTED;
+ 		rlen = ext4_rec_len_from_disk(de->rec_len, buf_size);
+ 		de = (struct ext4_dir_entry_2 *)((char *)de + rlen);
+diff --git a/fs/ext4/ext4.h b/fs/ext4/ext4.h
+--- a/fs/ext4/ext4.h
++++ b/fs/ext4/ext4.h
+@@ -2741,17 +2741,16 @@ extern int __ext4_check_dir_entry(const char *, unsigned int, struct inode *,
+ 				  struct file *,
+ 				  struct ext4_dir_entry_2 *,
+ 				  struct buffer_head *, char *, int,
+-				  ext4_lblk_t, unsigned int);
+-#define ext4_check_dir_entry(dir, filp, de, bh, buf, size, lblk, offset) \
++				  unsigned int);
++#define ext4_check_dir_entry(dir, filp, de, bh, buf, size, offset) \
+ 	unlikely(__ext4_check_dir_entry(__func__, __LINE__, (dir), (filp), \
+-				(de), (bh), (buf), (size), (lblk), (offset)))
++				(de), (bh), (buf), (size), (offset)))
+ extern int ext4_htree_store_dirent(struct file *dir_file, __u32 hash,
+ 				__u32 minor_hash,
+ 				struct ext4_dir_entry_2 *dirent,
+ 				struct fscrypt_str *ent_name);
+ extern void ext4_htree_free_dir_info(struct dir_private_info *p);
+ extern int ext4_find_dest_de(struct inode *dir, struct inode *inode,
+-			     ext4_lblk_t lblk,
+ 			     struct buffer_head *bh,
+ 			     void *buf, int buf_size,
+ 			     struct ext4_filename *fname,
+@@ -2987,11 +2986,10 @@ extern int ext4_search_dir(struct buffer_head *bh,
+ 			   int buf_size,
+ 			   struct inode *dir,
+ 			   struct ext4_filename *fname,
+-			   ext4_lblk_t lblk, unsigned int offset,
++			   unsigned int offset,
+ 			   struct ext4_dir_entry_2 **res_dir);
+ extern int ext4_generic_delete_entry(struct inode *dir,
+ 				     struct ext4_dir_entry_2 *de_del,
+-				     ext4_lblk_t lblk,
+ 				     struct buffer_head *bh,
+ 				     void *entry_buf,
+ 				     int buf_size,
+diff --git a/fs/ext4/hash.c b/fs/ext4/hash.c
+--- a/fs/ext4/hash.c
++++ b/fs/ext4/hash.c
+@@ -297,7 +297,7 @@ int ext4fs_dirhash(const struct inode *dir, const char *name, int len,
+ 	struct qstr qstr = {.name = name, .len = len };
+ 
+ 	if (len && IS_CASEFOLDED(dir) && um &&
+-	    (!IS_ENCRYPTED(dir) || fscrypt_has_encryption_key(dir))) {
++	   (!IS_ENCRYPTED(dir) || fscrypt_has_encryption_key(dir))) {
+ 		buff = kzalloc(sizeof(char) * PATH_MAX, GFP_KERNEL);
+ 		if (!buff)
+ 			return -ENOMEM;
+diff --git a/fs/ext4/ialloc.c b/fs/ext4/ialloc.c
+--- a/fs/ext4/ialloc.c
++++ b/fs/ext4/ialloc.c
+@@ -457,10 +457,7 @@ static int find_group_orlov(struct super_block *sb, struct inode *parent,
+ 		int ret = -1;
+ 
+ 		if (qstr) {
+-			if (ext4_hash_in_dirent(parent))
+-				hinfo.hash_version = DX_HASH_SIPHASH;
+-			else
+-				hinfo.hash_version = DX_HASH_HALF_MD4;
++			hinfo.hash_version = DX_HASH_HALF_MD4;
+ 			hinfo.seed = sbi->s_hash_seed;
+ 			ext4fs_dirhash(parent, qstr->name, qstr->len, &hinfo);
+ 			grp = hinfo.hash;
+diff --git a/fs/ext4/inline.c b/fs/ext4/inline.c
+--- a/fs/ext4/inline.c
++++ b/fs/ext4/inline.c
+@@ -1010,7 +1010,7 @@ void ext4_show_inline_dir(struct inode *dir, struct buffer_head *bh,
+ 			     offset, de_len, de->name_len, de->name,
+ 			     de->name_len, le32_to_cpu(de->inode));
+ 		if (ext4_check_dir_entry(dir, NULL, de, bh,
+-					 inline_start, inline_size, 0, offset))
++					 inline_start, inline_size, offset))
+ 			BUG();
+ 
+ 		offset += de_len;
+@@ -1036,7 +1036,7 @@ static int ext4_add_dirent_to_inline(handle_t *handle,
+ 	int		err;
+ 	struct ext4_dir_entry_2 *de;
+ 
+-	err = ext4_find_dest_de(dir, inode, 0, iloc->bh, inline_start,
++	err = ext4_find_dest_de(dir, inode, iloc->bh, inline_start,
+ 				inline_size, fname, &de);
+ 	if (err)
+ 		return err;
+@@ -1414,7 +1414,7 @@ int ext4_inlinedir_to_tree(struct file *dir_file,
+ 			pos += ext4_rec_len_from_disk(de->rec_len, inline_size);
+ 			if (ext4_check_dir_entry(inode, dir_file, de,
+ 					 iloc.bh, dir_buf,
+-					 inline_size, block, pos)) {
++					 inline_size, pos)) {
+ 				ret = count;
+ 				goto out;
+ 			}
+@@ -1571,7 +1571,7 @@ int ext4_read_inline_dir(struct file *file,
+ 		de = (struct ext4_dir_entry_2 *)
+ 			(dir_buf + ctx->pos - extra_offset);
+ 		if (ext4_check_dir_entry(inode, file, de, iloc.bh, dir_buf,
+-					 extra_size, 0, ctx->pos))
++					 extra_size, ctx->pos))
+ 			goto out;
+ 		if (le32_to_cpu(de->inode)) {
+ 			if (!dir_emit(ctx, de->name, de->name_len,
+@@ -1663,7 +1663,7 @@ struct buffer_head *ext4_find_inline_entry(struct inode *dir,
+ 						EXT4_INLINE_DOTDOT_SIZE;
+ 	inline_size = EXT4_MIN_INLINE_DATA_SIZE - EXT4_INLINE_DOTDOT_SIZE;
+ 	ret = ext4_search_dir(iloc.bh, inline_start, inline_size,
+-			      dir, fname, 0, 0, res_dir);
++			      dir, fname, 0, res_dir);
+ 	if (ret == 1)
+ 		goto out_find;
+ 	if (ret < 0)
+@@ -1676,7 +1676,7 @@ struct buffer_head *ext4_find_inline_entry(struct inode *dir,
+ 	inline_size = ext4_get_inline_size(dir) - EXT4_MIN_INLINE_DATA_SIZE;
+ 
+ 	ret = ext4_search_dir(iloc.bh, inline_start, inline_size,
+-			      dir, fname, 0, 0, res_dir);
++			      dir, fname, 0, res_dir);
+ 	if (ret == 1)
+ 		goto out_find;
+ 
+@@ -1725,7 +1725,7 @@ int ext4_delete_inline_entry(handle_t *handle,
+ 	if (err)
+ 		goto out;
+ 
+-	err = ext4_generic_delete_entry(dir, de_del, 0, bh,
++	err = ext4_generic_delete_entry(dir, de_del, bh,
+ 					inline_start, inline_size, 0);
+ 	if (err)
+ 		goto out;
+@@ -1810,7 +1810,7 @@ bool empty_inline_dir(struct inode *dir, int *has_inline_data)
+ 					   &inline_pos, &inline_size);
+ 		if (ext4_check_dir_entry(dir, NULL, de,
+ 					 iloc.bh, inline_pos,
+-					 inline_size, 0, offset)) {
++					 inline_size, offset)) {
+ 			ext4_warning(dir->i_sb,
+ 				     "bad inline directory (dir #%lu) - "
+ 				     "inode %u, rec_len %u, name_len %d"
+diff --git a/fs/ext4/namei.c b/fs/ext4/namei.c
+--- a/fs/ext4/namei.c
++++ b/fs/ext4/namei.c
+@@ -293,7 +293,7 @@ static int ext4_htree_next_block(struct inode *dir, __u32 hash,
+ 				 __u32 *start_hash);
+ static struct buffer_head * ext4_dx_find_entry(struct inode *dir,
+ 		struct ext4_filename *fname,
+-		struct ext4_dir_entry_2 **res_dir, ext4_lblk_t *lblk);
++		struct ext4_dir_entry_2 **res_dir);
+ static int ext4_dx_add_entry(handle_t *handle, struct ext4_filename *fname,
+ 			     struct inode *dir, struct inode *inode);
+ 
+@@ -1051,7 +1051,7 @@ static int htree_dirblock_to_tree(struct file *dir_file,
+ 
+ 	for (; de < top; de = ext4_next_entry(de, dir->i_sb->s_blocksize)) {
+ 		if (ext4_check_dir_entry(dir, NULL, de, bh,
+-				bh->b_data, bh->b_size, block,
++				bh->b_data, bh->b_size,
+ 				(block<<EXT4_BLOCK_SIZE_BITS(dir->i_sb))
+ 					 + ((char *)de - bh->b_data))) {
+ 			/* silently ignore the rest of the block */
+@@ -1233,12 +1233,11 @@ int ext4_htree_fill_tree(struct file *dir_file, __u32 start_hash,
+ static inline int search_dirblock(struct buffer_head *bh,
+ 				  struct inode *dir,
+ 				  struct ext4_filename *fname,
+-				  ext4_lblk_t lblk,
+ 				  unsigned int offset,
+ 				  struct ext4_dir_entry_2 **res_dir)
+ {
+ 	return ext4_search_dir(bh, bh->b_data, dir->i_sb->s_blocksize, dir,
+-			       fname, lblk, offset, res_dir);
++			       fname, offset, res_dir);
+ }
+ 
+ /*
+@@ -1458,8 +1457,7 @@ static bool ext4_match(struct inode *parent,
+  */
+ int ext4_search_dir(struct buffer_head *bh, char *search_buf, int buf_size,
+ 		    struct inode *dir, struct ext4_filename *fname,
+-		    ext4_lblk_t lblk, unsigned int offset,
+-		    struct ext4_dir_entry_2 **res_dir)
++		    unsigned int offset, struct ext4_dir_entry_2 **res_dir)
+ {
+ 	struct ext4_dir_entry_2 * de;
+ 	char * dlimit;
+@@ -1475,7 +1473,7 @@ int ext4_search_dir(struct buffer_head *bh, char *search_buf, int buf_size,
+ 			/* found a match - just to be sure, do
+ 			 * a full check */
+ 			if (ext4_check_dir_entry(dir, NULL, de, bh, search_buf,
+-						 buf_size, lblk, offset))
++						 buf_size, offset))
+ 				return -1;
+ 			*res_dir = de;
+ 			return 1;
+@@ -1521,7 +1519,7 @@ static int is_dx_internal_node(struct inode *dir, ext4_lblk_t block,
+ static struct buffer_head *__ext4_find_entry(struct inode *dir,
+ 					     struct ext4_filename *fname,
+ 					     struct ext4_dir_entry_2 **res_dir,
+-					     int *inlined, ext4_lblk_t *lblk)
++					     int *inlined)
+ {
+ 	struct super_block *sb;
+ 	struct buffer_head *bh_use[NAMEI_RA_SIZE];
+@@ -1545,8 +1543,6 @@ static struct buffer_head *__ext4_find_entry(struct inode *dir,
+ 		int has_inline_data = 1;
+ 		ret = ext4_find_inline_entry(dir, fname, res_dir,
+ 					     &has_inline_data);
+-		if (lblk)
+-			*lblk = 0;
+ 		if (has_inline_data) {
+ 			if (inlined)
+ 				*inlined = 1;
+@@ -1565,7 +1561,7 @@ static struct buffer_head *__ext4_find_entry(struct inode *dir,
+ 		goto restart;
+ 	}
+ 	if (is_dx(dir)) {
+-		ret = ext4_dx_find_entry(dir, fname, res_dir, lblk);
++		ret = ext4_dx_find_entry(dir, fname, res_dir);
+ 		/*
+ 		 * On success, or if the error was file not found,
+ 		 * return.  Otherwise, fall back to doing a search the
+@@ -1631,11 +1627,9 @@ static struct buffer_head *__ext4_find_entry(struct inode *dir,
+ 			goto cleanup_and_exit;
+ 		}
+ 		set_buffer_verified(bh);
+-		i = search_dirblock(bh, dir, fname, block,
++		i = search_dirblock(bh, dir, fname,
+ 			    block << EXT4_BLOCK_SIZE_BITS(sb), res_dir);
+ 		if (i == 1) {
+-			if (lblk)
+-				*lblk = block;
+ 			EXT4_I(dir)->i_dir_start_lookup = block;
+ 			ret = bh;
+ 			goto cleanup_and_exit;
+@@ -1670,7 +1664,7 @@ static struct buffer_head *__ext4_find_entry(struct inode *dir,
+ static struct buffer_head *ext4_find_entry(struct inode *dir,
+ 					   const struct qstr *d_name,
+ 					   struct ext4_dir_entry_2 **res_dir,
+-					   int *inlined, ext4_lblk_t *lblk)
++					   int *inlined)
+ {
+ 	int err;
+ 	struct ext4_filename fname;
+@@ -1682,7 +1676,7 @@ static struct buffer_head *ext4_find_entry(struct inode *dir,
+ 	if (err)
+ 		return ERR_PTR(err);
+ 
+-	bh = __ext4_find_entry(dir, &fname, res_dir, inlined, lblk);
++	bh = __ext4_find_entry(dir, &fname, res_dir, inlined);
+ 
+ 	ext4_fname_free_filename(&fname);
+ 	return bh;
+@@ -1703,7 +1697,7 @@ static struct buffer_head *ext4_lookup_entry(struct inode *dir,
+ 	if (err)
+ 		return ERR_PTR(err);
+ 
+-	bh = __ext4_find_entry(dir, &fname, res_dir, NULL, NULL);
++	bh = __ext4_find_entry(dir, &fname, res_dir, NULL);
+ 
+ 	ext4_fname_free_filename(&fname);
+ 	return bh;
+@@ -1711,7 +1705,7 @@ static struct buffer_head *ext4_lookup_entry(struct inode *dir,
+ 
+ static struct buffer_head * ext4_dx_find_entry(struct inode *dir,
+ 			struct ext4_filename *fname,
+-			struct ext4_dir_entry_2 **res_dir, ext4_lblk_t *lblk)
++			struct ext4_dir_entry_2 **res_dir)
+ {
+ 	struct super_block * sb = dir->i_sb;
+ 	struct dx_frame frames[EXT4_HTREE_LEVEL], *frame;
+@@ -1727,13 +1721,11 @@ static struct buffer_head * ext4_dx_find_entry(struct inode *dir,
+ 		return (struct buffer_head *) frame;
+ 	do {
+ 		block = dx_get_block(frame->at);
+-		if (lblk)
+-			*lblk = block;
+ 		bh = ext4_read_dirblock(dir, block, DIRENT_HTREE);
+ 		if (IS_ERR(bh))
+ 			goto errout;
+ 
+-		retval = search_dirblock(bh, dir, fname, block,
++		retval = search_dirblock(bh, dir, fname,
+ 					 block << EXT4_BLOCK_SIZE_BITS(sb),
+ 					 res_dir);
+ 		if (retval == 1)
+@@ -1828,7 +1820,7 @@ struct dentry *ext4_get_parent(struct dentry *child)
+ 	struct ext4_dir_entry_2 * de;
+ 	struct buffer_head *bh;
+ 
+-	bh = ext4_find_entry(d_inode(child), &dotdot, &de, NULL, NULL);
++	bh = ext4_find_entry(d_inode(child), &dotdot, &de, NULL);
+ 	if (IS_ERR(bh))
+ 		return ERR_CAST(bh);
+ 	if (!bh)
+@@ -1904,11 +1896,12 @@ static struct ext4_dir_entry_2 *dx_pack_dirents(struct inode *dir, char *base,
+  */
+ static struct ext4_dir_entry_2 *do_split(handle_t *handle, struct inode *dir,
+ 			struct buffer_head **bh, struct dx_frame *frame,
+-			struct dx_hash_info *hinfo, ext4_lblk_t *newblock)
++			struct dx_hash_info *hinfo)
+ {
+ 	unsigned blocksize = dir->i_sb->s_blocksize;
+ 	unsigned count, continued;
+ 	struct buffer_head *bh2;
++	ext4_lblk_t newblock;
+ 	u32 hash2;
+ 	struct dx_map_entry *map;
+ 	char *data1 = (*bh)->b_data, *data2;
+@@ -1920,7 +1913,7 @@ static struct ext4_dir_entry_2 *do_split(handle_t *handle, struct inode *dir,
+ 	if (ext4_has_metadata_csum(dir->i_sb))
+ 		csum_size = sizeof(struct ext4_dir_entry_tail);
+ 
+-	bh2 = ext4_append(handle, dir, newblock);
++	bh2 = ext4_append(handle, dir, &newblock);
+ 	if (IS_ERR(bh2)) {
+ 		brelse(*bh);
+ 		*bh = NULL;
+@@ -1998,7 +1991,7 @@ static struct ext4_dir_entry_2 *do_split(handle_t *handle, struct inode *dir,
+ 		swap(*bh, bh2);
+ 		de = de2;
+ 	}
+-	dx_insert_block(frame, hash2 + continued, *newblock);
++	dx_insert_block(frame, hash2 + continued, newblock);
+ 	err = ext4_handle_dirty_dirblock(handle, dir, bh2);
+ 	if (err)
+ 		goto journal_error;
+@@ -2018,7 +2011,6 @@ static struct ext4_dir_entry_2 *do_split(handle_t *handle, struct inode *dir,
+ }
+ 
+ int ext4_find_dest_de(struct inode *dir, struct inode *inode,
+-		      ext4_lblk_t lblk,
+ 		      struct buffer_head *bh,
+ 		      void *buf, int buf_size,
+ 		      struct ext4_filename *fname,
+@@ -2034,7 +2026,7 @@ int ext4_find_dest_de(struct inode *dir, struct inode *inode,
+ 	top = buf + buf_size - reclen;
+ 	while ((char *) de <= top) {
+ 		if (ext4_check_dir_entry(dir, NULL, de, bh,
+-					 buf, buf_size, lblk, offset))
++					 buf, buf_size, offset))
+ 			return -EFSCORRUPTED;
+ 		if (ext4_match(dir, fname, de))
+ 			return -EEXIST;
+@@ -2095,7 +2087,6 @@ void ext4_insert_dentry(struct inode *dir,
+ static int add_dirent_to_buf(handle_t *handle, struct ext4_filename *fname,
+ 			     struct inode *dir,
+ 			     struct inode *inode, struct ext4_dir_entry_2 *de,
+-			     ext4_lblk_t blk,
+ 			     struct buffer_head *bh)
+ {
+ 	unsigned int	blocksize = dir->i_sb->s_blocksize;
+@@ -2106,7 +2097,7 @@ static int add_dirent_to_buf(handle_t *handle, struct ext4_filename *fname,
+ 		csum_size = sizeof(struct ext4_dir_entry_tail);
+ 
+ 	if (!de) {
+-		err = ext4_find_dest_de(dir, inode, blk, bh, bh->b_data,
++		err = ext4_find_dest_de(dir, inode, bh, bh->b_data,
+ 					blocksize - csum_size, fname, &de);
+ 		if (err)
+ 			return err;
+@@ -2250,13 +2241,13 @@ static int make_indexed_dir(handle_t *handle, struct ext4_filename *fname,
+ 	if (retval)
+ 		goto out_frames;	
+ 
+-	de = do_split(handle, dir, &bh2, frame, &fname->hinfo, &block);
++	de = do_split(handle, dir, &bh2, frame, &fname->hinfo);
+ 	if (IS_ERR(de)) {
+ 		retval = PTR_ERR(de);
+ 		goto out_frames;
+ 	}
+ 
+-	retval = add_dirent_to_buf(handle, fname, dir, inode, de, block, bh2);
++	retval = add_dirent_to_buf(handle, fname, dir, inode, de, bh2);
+ out_frames:
+ 	/*
+ 	 * Even if the block split failed, we have to properly write
+@@ -2356,7 +2347,7 @@ static int ext4_add_entry(handle_t *handle, struct dentry *dentry,
+ 			goto out;
+ 		}
+ 		retval = add_dirent_to_buf(handle, &fname, dir, inode,
+-					   NULL, block, bh);
++					   NULL, bh);
+ 		if (retval != -ENOSPC)
+ 			goto out;
+ 
+@@ -2383,7 +2374,7 @@ static int ext4_add_entry(handle_t *handle, struct dentry *dentry,
+ 	if (csum_size)
+ 		ext4_initialize_dirent_tail(bh, blocksize);
+ 
+-	retval = add_dirent_to_buf(handle, &fname, dir, inode, de, block, bh);
++	retval = add_dirent_to_buf(handle, &fname, dir, inode, de, bh);
+ out:
+ 	ext4_fname_free_filename(&fname);
+ 	brelse(bh);
+@@ -2405,7 +2396,6 @@ static int ext4_dx_add_entry(handle_t *handle, struct ext4_filename *fname,
+ 	struct ext4_dir_entry_2 *de;
+ 	int restart;
+ 	int err;
+-	ext4_lblk_t lblk;
+ 
+ again:
+ 	restart = 0;
+@@ -2414,8 +2404,7 @@ static int ext4_dx_add_entry(handle_t *handle, struct ext4_filename *fname,
+ 		return PTR_ERR(frame);
+ 	entries = frame->entries;
+ 	at = frame->at;
+-	lblk = dx_get_block(frame->at);
+-	bh = ext4_read_dirblock(dir, lblk, DIRENT_HTREE);
++	bh = ext4_read_dirblock(dir, dx_get_block(frame->at), DIRENT_HTREE);
+ 	if (IS_ERR(bh)) {
+ 		err = PTR_ERR(bh);
+ 		bh = NULL;
+@@ -2427,7 +2416,7 @@ static int ext4_dx_add_entry(handle_t *handle, struct ext4_filename *fname,
+ 	if (err)
+ 		goto journal_error;
+ 
+-	err = add_dirent_to_buf(handle, fname, dir, inode, NULL, lblk, bh);
++	err = add_dirent_to_buf(handle, fname, dir, inode, NULL, bh);
+ 	if (err != -ENOSPC)
+ 		goto cleanup;
+ 
+@@ -2546,12 +2535,12 @@ static int ext4_dx_add_entry(handle_t *handle, struct ext4_filename *fname,
+ 			goto journal_error;
+ 		}
+ 	}
+-	de = do_split(handle, dir, &bh, frame, &fname->hinfo, &lblk);
++	de = do_split(handle, dir, &bh, frame, &fname->hinfo);
+ 	if (IS_ERR(de)) {
+ 		err = PTR_ERR(de);
+ 		goto cleanup;
+ 	}
+-	err = add_dirent_to_buf(handle, fname, dir, inode, de, lblk, bh);
++	err = add_dirent_to_buf(handle, fname, dir, inode, de, bh);
+ 	goto cleanup;
+ 
+ journal_error:
+@@ -2573,7 +2562,6 @@ static int ext4_dx_add_entry(handle_t *handle, struct ext4_filename *fname,
+  */
+ int ext4_generic_delete_entry(struct inode *dir,
+ 			      struct ext4_dir_entry_2 *de_del,
+-			      ext4_lblk_t lblk,
+ 			      struct buffer_head *bh,
+ 			      void *entry_buf,
+ 			      int buf_size,
+@@ -2588,7 +2576,7 @@ int ext4_generic_delete_entry(struct inode *dir,
+ 	de = (struct ext4_dir_entry_2 *)entry_buf;
+ 	while (i < buf_size - csum_size) {
+ 		if (ext4_check_dir_entry(dir, NULL, de, bh,
+-					 entry_buf, buf_size, lblk, i))
++					 entry_buf, buf_size, i))
+ 			return -EFSCORRUPTED;
+ 		if (de == de_del)  {
+ 			if (pde)
+@@ -2613,7 +2601,6 @@ int ext4_generic_delete_entry(struct inode *dir,
+ static int ext4_delete_entry(handle_t *handle,
+ 			     struct inode *dir,
+ 			     struct ext4_dir_entry_2 *de_del,
+-			     ext4_lblk_t lblk,
+ 			     struct buffer_head *bh)
+ {
+ 	int err, csum_size = 0;
+@@ -2634,7 +2621,7 @@ static int ext4_delete_entry(handle_t *handle,
+ 	if (unlikely(err))
+ 		goto out;
+ 
+-	err = ext4_generic_delete_entry(dir, de_del, lblk, bh, bh->b_data,
++	err = ext4_generic_delete_entry(dir, de_del, bh, bh->b_data,
+ 					dir->i_sb->s_blocksize, csum_size);
+ 	if (err)
+ 		goto out;
+@@ -2993,7 +2980,7 @@ bool ext4_empty_dir(struct inode *inode)
+ 		return true;
+ 
+ 	de = (struct ext4_dir_entry_2 *) bh->b_data;
+-	if (ext4_check_dir_entry(inode, NULL, de, bh, bh->b_data, bh->b_size, 0,
++	if (ext4_check_dir_entry(inode, NULL, de, bh, bh->b_data, bh->b_size,
+ 				 0) ||
+ 	    le32_to_cpu(de->inode) != inode->i_ino || strcmp(".", de->name)) {
+ 		ext4_warning_inode(inode, "directory missing '.'");
+@@ -3002,7 +2989,7 @@ bool ext4_empty_dir(struct inode *inode)
+ 	}
+ 	offset = ext4_rec_len_from_disk(de->rec_len, sb->s_blocksize);
+ 	de = ext4_next_entry(de, sb->s_blocksize);
+-	if (ext4_check_dir_entry(inode, NULL, de, bh, bh->b_data, bh->b_size, 0,
++	if (ext4_check_dir_entry(inode, NULL, de, bh, bh->b_data, bh->b_size,
+ 				 offset) ||
+ 	    le32_to_cpu(de->inode) == 0 || strcmp("..", de->name)) {
+ 		ext4_warning_inode(inode, "directory missing '..'");
+@@ -3026,7 +3013,7 @@ bool ext4_empty_dir(struct inode *inode)
+ 		de = (struct ext4_dir_entry_2 *) (bh->b_data +
+ 					(offset & (sb->s_blocksize - 1)));
+ 		if (ext4_check_dir_entry(inode, NULL, de, bh,
+-					 bh->b_data, bh->b_size, 0, offset)) {
++					 bh->b_data, bh->b_size, offset)) {
+ 			offset = (offset | (sb->s_blocksize - 1)) + 1;
+ 			continue;
+ 		}
+@@ -3227,8 +3214,6 @@ static int ext4_rmdir(struct inode *dir, struct dentry *dentry)
+ 	struct buffer_head *bh;
+ 	struct ext4_dir_entry_2 *de;
+ 	handle_t *handle = NULL;
+-	ext4_lblk_t lblk;
+-
+ 
+ 	if (unlikely(ext4_forced_shutdown(EXT4_SB(dir->i_sb))))
+ 		return -EIO;
+@@ -3243,7 +3228,7 @@ static int ext4_rmdir(struct inode *dir, struct dentry *dentry)
+ 		return retval;
+ 
+ 	retval = -ENOENT;
+-	bh = ext4_find_entry(dir, &dentry->d_name, &de, NULL, &lblk);
++	bh = ext4_find_entry(dir, &dentry->d_name, &de, NULL);
+ 	if (IS_ERR(bh))
+ 		return PTR_ERR(bh);
+ 	if (!bh)
+@@ -3270,7 +3255,7 @@ static int ext4_rmdir(struct inode *dir, struct dentry *dentry)
+ 	if (IS_DIRSYNC(dir))
+ 		ext4_handle_sync(handle);
+ 
+-	retval = ext4_delete_entry(handle, dir, de, lblk, bh);
++	retval = ext4_delete_entry(handle, dir, de, bh);
+ 	if (retval)
+ 		goto end_rmdir;
+ 	if (!EXT4_DIR_LINK_EMPTY(inode))
+@@ -3319,9 +3304,8 @@ int __ext4_unlink(handle_t *handle, struct inode *dir, const struct qstr *d_name
+ 	struct buffer_head *bh;
+ 	struct ext4_dir_entry_2 *de;
+ 	int skip_remove_dentry = 0;
+-	ext4_lblk_t lblk;
+ 
+-	bh = ext4_find_entry(dir, d_name, &de, NULL, &lblk);
++	bh = ext4_find_entry(dir, d_name, &de, NULL);
+ 	if (IS_ERR(bh))
+ 		return PTR_ERR(bh);
+ 
+@@ -3344,7 +3328,7 @@ int __ext4_unlink(handle_t *handle, struct inode *dir, const struct qstr *d_name
+ 		ext4_handle_sync(handle);
+ 
+ 	if (!skip_remove_dentry) {
+-		retval = ext4_delete_entry(handle, dir, de, lblk, bh);
++		retval = ext4_delete_entry(handle, dir, de, bh);
+ 		if (retval)
+ 			goto out;
+ 		dir->i_ctime = dir->i_mtime = current_time(dir);
+@@ -3650,7 +3634,6 @@ struct ext4_renament {
+ 	int dir_nlink_delta;
+ 
+ 	/* entry for "dentry" */
+-	ext4_lblk_t lblk;
+ 	struct buffer_head *bh;
+ 	struct ext4_dir_entry_2 *de;
+ 	int inlined;
+@@ -3740,7 +3723,7 @@ static void ext4_resetent(handle_t *handle, struct ext4_renament *ent,
+ 	 * so the old->de may no longer valid and need to find it again
+ 	 * before reset old inode info.
+ 	 */
+-	old.bh = ext4_find_entry(old.dir, &old.dentry->d_name, &old.de, NULL, NULL);
++	old.bh = ext4_find_entry(old.dir, &old.dentry->d_name, &old.de, NULL);
+ 	if (IS_ERR(old.bh))
+ 		retval = PTR_ERR(old.bh);
+ 	if (!old.bh)
+@@ -3760,13 +3743,12 @@ static int ext4_find_delete_entry(handle_t *handle, struct inode *dir,
+ 	int retval = -ENOENT;
+ 	struct buffer_head *bh;
+ 	struct ext4_dir_entry_2 *de;
+-	ext4_lblk_t lblk;
+ 
+-	bh = ext4_find_entry(dir, d_name, &de, NULL, &lblk);
++	bh = ext4_find_entry(dir, d_name, &de, NULL);
+ 	if (IS_ERR(bh))
+ 		return PTR_ERR(bh);
+ 	if (bh) {
+-		retval = ext4_delete_entry(handle, dir, de, lblk, bh);
++		retval = ext4_delete_entry(handle, dir, de, bh);
+ 		brelse(bh);
+ 	}
+ 	return retval;
+@@ -3790,8 +3772,7 @@ static void ext4_rename_delete(handle_t *handle, struct ext4_renament *ent,
+ 		retval = ext4_find_delete_entry(handle, ent->dir,
+ 						&ent->dentry->d_name);
+ 	} else {
+-		retval = ext4_delete_entry(handle, ent->dir, ent->de,
+-						ent->lblk, ent->bh);
++		retval = ext4_delete_entry(handle, ent->dir, ent->de, ent->bh);
+ 		if (retval == -ENOENT) {
+ 			retval = ext4_find_delete_entry(handle, ent->dir,
+ 							&ent->dentry->d_name);
+@@ -3906,8 +3887,7 @@ static int ext4_rename(struct user_namespace *mnt_userns, struct inode *old_dir,
+ 			return retval;
+ 	}
+ 
+-	old.bh = ext4_find_entry(old.dir, &old.dentry->d_name, &old.de, NULL,
+-				&old.lblk);
++	old.bh = ext4_find_entry(old.dir, &old.dentry->d_name, &old.de, NULL);
+ 	if (IS_ERR(old.bh))
+ 		return PTR_ERR(old.bh);
+ 	/*
+@@ -3921,7 +3901,7 @@ static int ext4_rename(struct user_namespace *mnt_userns, struct inode *old_dir,
+ 		goto release_bh;
+ 
+ 	new.bh = ext4_find_entry(new.dir, &new.dentry->d_name,
+-				 &new.de, &new.inlined, NULL);
++				 &new.de, &new.inlined);
+ 	if (IS_ERR(new.bh)) {
+ 		retval = PTR_ERR(new.bh);
+ 		new.bh = NULL;
+@@ -4134,7 +4114,7 @@ static int ext4_cross_rename(struct inode *old_dir, struct dentry *old_dentry,
+ 		return retval;
+ 
+ 	old.bh = ext4_find_entry(old.dir, &old.dentry->d_name,
+-				 &old.de, &old.inlined, NULL);
++				 &old.de, &old.inlined);
+ 	if (IS_ERR(old.bh))
+ 		return PTR_ERR(old.bh);
+ 	/*
+@@ -4148,7 +4128,7 @@ static int ext4_cross_rename(struct inode *old_dir, struct dentry *old_dentry,
+ 		goto end_rename;
+ 
+ 	new.bh = ext4_find_entry(new.dir, &new.dentry->d_name,
+-				 &new.de, &new.inlined, NULL);
++				 &new.de, &new.inlined);
+ 	if (IS_ERR(new.bh)) {
+ 		retval = PTR_ERR(new.bh);
+ 		new.bh = NULL;
+diff --git a/fs/ext4/sysfs.c b/fs/ext4/sysfs.c
+--- a/fs/ext4/sysfs.c
++++ b/fs/ext4/sysfs.c
+@@ -313,6 +313,7 @@ EXT4_ATTR_FEATURE(verity);
+ #endif
+ EXT4_ATTR_FEATURE(metadata_csum_seed);
+ EXT4_ATTR_FEATURE(fast_commit);
++EXT4_ATTR_FEATURE(encrypted_casefold);
+ 
+ static struct attribute *ext4_feat_attrs[] = {
+ 	ATTR_LIST(lazy_itable_init),
+@@ -330,6 +331,7 @@ static struct attribute *ext4_feat_attrs[] = {
+ #endif
+ 	ATTR_LIST(metadata_csum_seed),
+ 	ATTR_LIST(fast_commit),
++	ATTR_LIST(encrypted_casefold),
+ 	NULL,
+ };
+ ATTRIBUTE_GROUPS(ext4_feat);
