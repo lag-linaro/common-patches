@@ -5,6 +5,8 @@
 #set -x # Uncomment to enable debugging
 set -e
 
+trap "tput smam; exit 1" SIGINT SIGTERM
+
 print_red()
 {
     echo -e "\e[01;31m$@\e[0m"
@@ -86,7 +88,7 @@ function preamble()
 
     # Ensure repo is in expected state
     if ! git diff ${last_commit} --exit-code > /dev/null; then
-        print_blue "Tree is out of sync with 'common-patches' - resetting"
+        print_blue "Tree is out of sync with 'common-patches' - resetting\n"
         git reset --hard ${base_commit}
         git quiltimport
     fi
@@ -107,6 +109,23 @@ function preamble()
     echo
 }
 
+function rebase_no_fail
+{
+    local args=${@}
+
+    git rebase ${args} && true
+    while [ $? -ne 0 ]; do
+        print_red "\nRebase failed\n"
+        print_blue "Either use another shell or Ctrl+z this one to fix, then \`fg\` and hit return"
+        read
+        if git rebase --show-current-patch 2>&1 | grep -q "No rebase in progress"; then
+            print_blue "Rebase no longer in progress - assuming the issue was rectified"
+        else
+            git rebase --continue && true
+        fi
+    done
+    echo
+}
 function create_series_and_patch_files()
 {
     up_to=${1}
@@ -172,9 +191,7 @@ commit_patches () {
         print_blue "Entering interactive rebase to rearrange (press return to continue or Ctrl+c to exit)"
         read
 
-        # TODO: Handle failure case - once we have a valid use-case
-        git rebase -i ${base_commit}
-        echo
+        rebase_no_fail -i ${base_commit}
     fi
 
     create_series_and_patch_files ${commit}
@@ -201,7 +218,7 @@ function process_merge_commit()
 
     print_blue "Found merge (new base) commit - rebasing onto ${base_commit_desc}\n"
 
-    git rebase ${base_commit}
+    rebase_no_fail ${base_commit}
     echo
 
     commit_additional_text=" (rebase onto ${base_commit_desc})"
