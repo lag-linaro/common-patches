@@ -1,8 +1,8 @@
 #
 # android-mainline patches
 #
-# Applies onto upstream e7c6e405e171f Linux v5.12-4446-ge7c6e405e171f
-# Matches android-mainline 963f3d1043058 ("ANDROID: Realign canary strategy with Mainline")
+# Applies onto upstream c6536676c7fe3 Linux v5.12-4505-gc6536676c7fe3
+# Matches android-mainline 893649a911139 ("Merge c6536676c7fe3 ("Merge 'x86_core_for_v5.13' of git://git.kernel.org/pub/scm/linux/kernel/git/tip/tip into android-mainline")")
 #
 Revert-block-grant-IOPRIO_CLASS_RT-to-CAP_SYS_NICE.patch
 Revert-arm64-dts-qcom-sdm845-db845c-Fix-hdmi-nodes.patch
