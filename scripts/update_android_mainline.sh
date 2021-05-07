@@ -126,6 +126,21 @@ function rebase_no_fail
     done
     echo
 }
+
+function commit_to_common_patches()
+{
+    local commit=${1}
+
+    print_blue "Committing all changes into 'common-patches' repo\n"
+    git -C patches/ add .
+    git -C patches commit -s -F- <<EOF
+$target: update series${commit_additional_text}
+
+up to $(git --no-pager show -s --pretty='format:%h ("%s")' ${commit})
+EOF
+    echo
+}
+
 function create_series_and_patch_files()
 {
     up_to=${1}
@@ -196,14 +211,7 @@ commit_patches () {
 
     create_series_and_patch_files ${commit}
 
-    print_blue "Committing all changes into 'common-patches' repo\n"
-    git -C patches/ add .
-    git -C patches commit -s -F- <<EOF
-$target: update series${commit_additional_text}
-
-up to $(git --no-pager show -s --pretty='format:%h ("%s")' ${commit})
-EOF
-    echo
+    commit_to_common_patches ${commit}
 
     # Read new (base, last and target) variables
     read_series_file
