@@ -5,6 +5,8 @@
 #set -x # Uncomment to enable debugging
 set -e
 
+trap "tput smam; exit 1" SIGINT SIGTERM
+
 print_red()
 {
     echo -e "\e[01;31m$@\e[0m"
