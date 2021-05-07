@@ -231,7 +231,6 @@ function process_normal_commit()
 
     print_blue "Applying: "
 
-    # TODO: Handle failure case - once we have a valid use-case
     git cherry-pick ${commit}
 
     echo
