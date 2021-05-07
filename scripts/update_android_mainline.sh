@@ -88,7 +88,7 @@ function preamble()
 
     # Ensure repo is in expected state
     if ! git diff ${last_commit} --exit-code > /dev/null; then
-        print_blue "Tree is out of sync with 'common-patches' - resetting"
+        print_blue "Tree is out of sync with 'common-patches' - resetting\n"
         git reset --hard ${base_commit}
         git quiltimport
     fi
