@@ -30,9 +30,9 @@ function is_merge_commit()
 
 function read_series_file()
 {
-    base_commit=$(cat patches/series | grep "Applies onto" | awk '{print $5}')
-    last_commit=$(cat patches/series | grep "Matches " | awk '{print $4}')
-    target=aosp/$(cat patches/series | grep "Matches " | awk '{print $3}')
+    base_commit=$(cat patches/series | grep "Applies onto" | awk '{print $5}')  # Last Mainline commit we processed
+    last_commit=$(cat patches/series | grep "Matches " | awk '{print $4}')      # Last ${target} commit we processed
+    target=aosp/$(cat patches/series | grep "Matches " | awk '{print $3}')      # Remote branch (aosp/android-mainline)
 }
 
 function sanity_check()
@@ -98,11 +98,11 @@ function preamble()
 
     # Exit successfully if there's nothing to be done
     if [ -z "$pick_list" ] ; then
-        print_blue "Great news - we're up-to-date"
+        print_blue "Great news - we're up-to-date\n"
         exit 0
     fi
 
-    print_blue "Patches to process from ${target}"
+    print_blue "Patches to process from ${target}:"
     tput rmam    # Don't wrap
     git --no-pager log --first-parent --format="%C(auto)  %h %s" ${last_commit}..${target} --reverse
     tput smam    # Reset wrapping
@@ -270,7 +270,7 @@ function start()
         commit_patches ${commit}    # Commit up to last 'normal commit' processed
     fi
 
-    print_blue "That's it, all done!"
+    print_blue "That's it, all done!\n"
     exit 0
 }
 
