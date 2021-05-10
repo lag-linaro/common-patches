@@ -43,12 +43,8 @@ function sanity_check()
     fi
 }
 
-function setup()
+function check_and_update_remotes()
 {
-    sanity_check
-
-    read_series_file
-
     if ! git remote | grep -q "^stable$"; then
         print_blue "Couldn't find repo 'stable' - adding it now"
         git remote add stable git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable.git
@@ -84,7 +80,7 @@ function setup()
 
 function preamble()
 {
-    setup # Conduct sanity checks, update remotes and read series file
+    check_and_update_remotes
 
     # Ensure repo is in expected state
     if ! git diff ${last_commit} --exit-code > /dev/null; then
@@ -264,7 +260,7 @@ function process_pick_list()
     process_normal_commit ${commit}
 }
 
-function start()
+function sync_with_target()
 {
     preamble    # Start-up checks and initialisation
 
@@ -294,6 +290,15 @@ function start()
 
     print_blue "That's it, all done!\n"
     exit 0
+}
+
+function start()
+{
+    sanity_check
+
+    read_series_file
+
+    sync_with_target
 }
 
 start
