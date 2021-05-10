@@ -10,6 +10,12 @@ trap "tput smam; exit 1" SIGINT SIGTERM
 REFRESH=""
 ONLYREFRESH=""
 
+function usage()
+{
+    echo "Usage: $(basename $0): [--refresh|--refresh-patches]"
+    exit 1
+}
+
 print_red()
 {
     echo -e "\e[01;31m$@\e[0m"
@@ -327,7 +333,7 @@ while [ $# -gt 0 ]; do
         ;;
     *)
         echo "Unknown argument: ${1}"
-	exit 1
+        usage
     esac
     shift
 done
