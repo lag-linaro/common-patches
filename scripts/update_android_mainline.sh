@@ -54,6 +54,8 @@ function sanity_check()
 
 function check_and_update_remotes()
 {
+    # Check public 'stable' / 'mainline' remotes are present
+
     if ! git remote | grep -q "^stable$"; then
         print_blue "Couldn't find repo 'stable' - adding it now"
         git remote add stable git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable.git
@@ -63,6 +65,13 @@ function check_and_update_remotes()
         print_blue "Couldn't find repo 'mainline' - adding it now"
         git remote add mainline git://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git
     fi
+
+    # ... and up-to-date
+
+    print_blue "Fetching from Mainline"
+    git fetch mainline
+    print_blue "Fetching from Stable"
+    git fetch stable
 
     # For `repo checkout` managed repositories (see: https://source.android.com/setup/build/building-kernels)
 
@@ -78,10 +87,6 @@ function check_and_update_remotes()
         git remote add aosp https://android.googlesource.com/kernel/common.git
     fi
 
-    print_blue "Fetching from Mainline"
-    git fetch mainline
-    print_blue "Fetching from Stable"
-    git fetch stable
     print_blue "Fetching from AOSP"
     git fetch aosp
     echo
