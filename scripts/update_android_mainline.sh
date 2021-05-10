@@ -7,6 +7,9 @@ set -e
 
 trap "tput smam; exit 1" SIGINT SIGTERM
 
+REFRESH=""
+ONLYREFRESH=""
+
 print_red()
 {
     echo -e "\e[01;31m$@\e[0m"
@@ -298,7 +301,35 @@ function start()
 
     read_series_file
 
+    if [ ! -z ${REFRESH} ]; then
+        local commit=$(git --no-pager log -n1 --format=%H)    # HEAD
+        print_blue "Refreshing Quilt patches\n"
+        create_series_and_patch_files ${commit}
+
+        print_red "Quilt patches refreshed - please check and commit the result\n"
+
+        if [ ! -z ${ONLYREFRESH} ]; then
+            exit 0
+        fi
+    fi
+
     sync_with_target
 }
+
+while [ $# -gt 0 ]; do
+    case "$1" in
+    --refresh|--refresh-patches)
+        REFRESH=true
+        ;;
+    --only-refresh|--only-refresh-patches)
+        REFRESH=true
+        ONLYREFRESH=true
+        ;;
+    *)
+        echo "Unknown argument: ${1}"
+	exit 1
+    esac
+    shift
+done
 
 start
