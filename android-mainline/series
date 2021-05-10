@@ -2,7 +2,7 @@
 # android-mainline patches
 #
 # Applies onto upstream c6536676c7fe3 Linux v5.12-4505-gc6536676c7fe3
-# Matches android-mainline 7491ab39cbb2f ("ANDROID: Sync ext4 casefolded encryption with patches going upstream")
+# Matches android-mainline 0c3ec15ae09c1 ("Revert "ANDROID: Improve OWNERS file definitions"")
 #
 Revert-block-grant-IOPRIO_CLASS_RT-to-CAP_SYS_NICE.patch
 Revert-arm64-dts-qcom-sdm845-db845c-Fix-hdmi-nodes.patch
