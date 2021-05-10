@@ -16,12 +16,12 @@ function usage()
     exit 1
 }
 
-print_red()
+function print_red()
 {
     echo -e "\e[01;31m$@\e[0m"
 }
 
-print_blue()
+function print_blue()
 {
     echo -e "\e[01;34m$@\e[0m"
 }
