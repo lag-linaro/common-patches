@@ -33,7 +33,7 @@ diff --git a/drivers/clk/qcom/dispcc-sdm845.c b/drivers/clk/qcom/dispcc-sdm845.c
  #include <linux/clk-provider.h>
  #include <linux/module.h>
  #include <linux/platform_device.h>
-@@ -878,6 +879,7 @@ static struct platform_driver disp_cc_sdm845_driver = {
+@@ -869,6 +870,7 @@ static struct platform_driver disp_cc_sdm845_driver = {
  	.driver		= {
  		.name	= "disp_cc-sdm845",
  		.of_match_table = disp_cc_sdm845_match_table,
@@ -55,7 +55,7 @@ diff --git a/drivers/clk/qcom/gcc-msm8998.c b/drivers/clk/qcom/gcc-msm8998.c
 diff --git a/drivers/clk/qcom/gcc-sdm845.c b/drivers/clk/qcom/gcc-sdm845.c
 --- a/drivers/clk/qcom/gcc-sdm845.c
 +++ b/drivers/clk/qcom/gcc-sdm845.c
-@@ -3628,6 +3628,7 @@ static struct platform_driver gcc_sdm845_driver = {
+@@ -3624,6 +3624,7 @@ static struct platform_driver gcc_sdm845_driver = {
  	.driver		= {
  		.name	= "gcc-sdm845",
  		.of_match_table = gcc_sdm845_match_table,
@@ -66,7 +66,7 @@ diff --git a/drivers/clk/qcom/gcc-sdm845.c b/drivers/clk/qcom/gcc-sdm845.c
 diff --git a/drivers/clk/qcom/gpucc-sdm845.c b/drivers/clk/qcom/gpucc-sdm845.c
 --- a/drivers/clk/qcom/gpucc-sdm845.c
 +++ b/drivers/clk/qcom/gpucc-sdm845.c
-@@ -208,6 +208,7 @@ static struct platform_driver gpu_cc_sdm845_driver = {
+@@ -205,6 +205,7 @@ static struct platform_driver gpu_cc_sdm845_driver = {
  	.driver = {
  		.name = "sdm845-gpucc",
  		.of_match_table = gpu_cc_sdm845_match_table,
@@ -77,7 +77,7 @@ diff --git a/drivers/clk/qcom/gpucc-sdm845.c b/drivers/clk/qcom/gpucc-sdm845.c
 diff --git a/drivers/clk/qcom/videocc-sdm845.c b/drivers/clk/qcom/videocc-sdm845.c
 --- a/drivers/clk/qcom/videocc-sdm845.c
 +++ b/drivers/clk/qcom/videocc-sdm845.c
-@@ -338,6 +338,7 @@ static struct platform_driver video_cc_sdm845_driver = {
+@@ -337,6 +337,7 @@ static struct platform_driver video_cc_sdm845_driver = {
  	.driver		= {
  		.name	= "sdm845-videocc",
  		.of_match_table = video_cc_sdm845_match_table,

@@ -36,7 +36,7 @@ diff --git a/drivers/android/vendor_hooks.c b/drivers/android/vendor_hooks.c
 diff --git a/drivers/scsi/ufs/ufshcd.c b/drivers/scsi/ufs/ufshcd.c
 --- a/drivers/scsi/ufs/ufshcd.c
 +++ b/drivers/scsi/ufs/ufshcd.c
-@@ -2655,6 +2655,13 @@ static int ufshcd_queuecommand(struct Scsi_Host *host, struct scsi_cmnd *cmd)
+@@ -2648,6 +2648,13 @@ static int ufshcd_queuecommand(struct Scsi_Host *host, struct scsi_cmnd *cmd)
  	lrbp->lun = ufshcd_scsi_to_upiu_lun(cmd->device->lun);
  	lrbp->intr_cmd = !ufshcd_is_intr_aggr_allowed(hba) ? true : false;
  

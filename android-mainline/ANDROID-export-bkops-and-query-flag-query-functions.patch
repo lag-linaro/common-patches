@@ -16,7 +16,7 @@ Change-Id: Ic989ab580303edaca03e7a47a243524c5e22c8de
 diff --git a/drivers/scsi/ufs/ufshcd.c b/drivers/scsi/ufs/ufshcd.c
 --- a/drivers/scsi/ufs/ufshcd.c
 +++ b/drivers/scsi/ufs/ufshcd.c
-@@ -2944,7 +2944,7 @@ static inline void ufshcd_init_query(struct ufs_hba *hba,
+@@ -2937,7 +2937,7 @@ static inline void ufshcd_init_query(struct ufs_hba *hba,
  	(*request)->upiu_req.selector = selector;
  }
  
@@ -25,7 +25,7 @@ diff --git a/drivers/scsi/ufs/ufshcd.c b/drivers/scsi/ufs/ufshcd.c
  	enum query_opcode opcode, enum flag_idn idn, u8 index, bool *flag_res)
  {
  	int ret;
-@@ -2966,6 +2966,7 @@ static int ufshcd_query_flag_retry(struct ufs_hba *hba,
+@@ -2959,6 +2959,7 @@ static int ufshcd_query_flag_retry(struct ufs_hba *hba,
  			__func__, opcode, idn, ret, retries);
  	return ret;
  }
@@ -33,7 +33,7 @@ diff --git a/drivers/scsi/ufs/ufshcd.c b/drivers/scsi/ufs/ufshcd.c
  
  /**
   * ufshcd_query_flag() - API function for sending flag query requests
-@@ -3113,7 +3114,7 @@ EXPORT_SYMBOL_GPL(ufshcd_query_attr);
+@@ -3106,7 +3107,7 @@ EXPORT_SYMBOL_GPL(ufshcd_query_attr);
   *
   * Returns 0 for success, non-zero in case of failure
  */
@@ -42,7 +42,7 @@ diff --git a/drivers/scsi/ufs/ufshcd.c b/drivers/scsi/ufs/ufshcd.c
  	enum query_opcode opcode, enum attr_idn idn, u8 index, u8 selector,
  	u32 *attr_val)
  {
-@@ -3136,6 +3137,7 @@ static int ufshcd_query_attr_retry(struct ufs_hba *hba,
+@@ -3129,6 +3130,7 @@ static int ufshcd_query_attr_retry(struct ufs_hba *hba,
  			__func__, idn, ret, QUERY_REQ_RETRIES);
  	return ret;
  }
@@ -50,7 +50,7 @@ diff --git a/drivers/scsi/ufs/ufshcd.c b/drivers/scsi/ufs/ufshcd.c
  
  static int __ufshcd_query_descriptor(struct ufs_hba *hba,
  			enum query_opcode opcode, enum desc_idn idn, u8 index,
-@@ -3348,6 +3350,7 @@ int ufshcd_read_desc_param(struct ufs_hba *hba,
+@@ -3341,6 +3343,7 @@ int ufshcd_read_desc_param(struct ufs_hba *hba,
  		kfree(desc_buf);
  	return ret;
  }
@@ -58,7 +58,7 @@ diff --git a/drivers/scsi/ufs/ufshcd.c b/drivers/scsi/ufs/ufshcd.c
  
  /**
   * struct uc_string_id - unicode string
-@@ -5358,7 +5361,7 @@ static inline int ufshcd_get_bkops_status(struct ufs_hba *hba, u32 *status)
+@@ -5365,7 +5368,7 @@ static inline int ufshcd_get_bkops_status(struct ufs_hba *hba, u32 *status)
   * to know whether auto bkops is enabled or disabled after this function
   * returns control to it.
   */
@@ -67,7 +67,7 @@ diff --git a/drivers/scsi/ufs/ufshcd.c b/drivers/scsi/ufs/ufshcd.c
  			     enum bkops_status status)
  {
  	int err;
-@@ -5383,6 +5386,7 @@ static int ufshcd_bkops_ctrl(struct ufs_hba *hba,
+@@ -5390,6 +5393,7 @@ static int ufshcd_bkops_ctrl(struct ufs_hba *hba,
  out:
  	return err;
  }
@@ -78,7 +78,7 @@ diff --git a/drivers/scsi/ufs/ufshcd.c b/drivers/scsi/ufs/ufshcd.c
 diff --git a/drivers/scsi/ufs/ufshcd.h b/drivers/scsi/ufs/ufshcd.h
 --- a/drivers/scsi/ufs/ufshcd.h
 +++ b/drivers/scsi/ufs/ufshcd.h
-@@ -1096,8 +1096,14 @@ int ufshcd_read_desc_param(struct ufs_hba *hba,
+@@ -1101,8 +1101,14 @@ int ufshcd_read_desc_param(struct ufs_hba *hba,
  			   u8 param_size);
  int ufshcd_query_attr(struct ufs_hba *hba, enum query_opcode opcode,
  		      enum attr_idn idn, u8 index, u8 selector, u32 *attr_val);

@@ -27,7 +27,7 @@ Signed-off-by: Eric Biggers <ebiggers@google.com>
 diff --git a/drivers/scsi/ufs/ufshcd.c b/drivers/scsi/ufs/ufshcd.c
 --- a/drivers/scsi/ufs/ufshcd.c
 +++ b/drivers/scsi/ufs/ufshcd.c
-@@ -2660,6 +2660,8 @@ static int ufshcd_queuecommand(struct Scsi_Host *host, struct scsi_cmnd *cmd)
+@@ -2653,6 +2653,8 @@ static int ufshcd_queuecommand(struct Scsi_Host *host, struct scsi_cmnd *cmd)
  	lrbp->lun = ufshcd_scsi_to_upiu_lun(cmd->device->lun);
  	lrbp->intr_cmd = !ufshcd_is_intr_aggr_allowed(hba) ? true : false;
  
@@ -36,7 +36,7 @@ diff --git a/drivers/scsi/ufs/ufshcd.c b/drivers/scsi/ufs/ufshcd.c
  	trace_android_vh_ufs_prepare_command(hba, cmd->request, lrbp, &err);
  	if (err) {
  		lrbp->cmd = NULL;
-@@ -2667,8 +2669,6 @@ static int ufshcd_queuecommand(struct Scsi_Host *host, struct scsi_cmnd *cmd)
+@@ -2660,8 +2662,6 @@ static int ufshcd_queuecommand(struct Scsi_Host *host, struct scsi_cmnd *cmd)
  		goto out;
  	}
  

@@ -105,7 +105,7 @@ diff --git a/drivers/clk/clk.c b/drivers/clk/clk.c
  /*
   * Update the orphan status of @core and all its children.
   */
-@@ -3410,6 +3471,7 @@ static void clk_core_reparent_orphans_nolock(void)
+@@ -3402,6 +3463,7 @@ static void clk_core_reparent_orphans_nolock(void)
  			__clk_set_parent_after(orphan, parent, NULL);
  			__clk_recalc_accuracies(orphan);
  			__clk_recalc_rates(orphan, 0);
@@ -113,7 +113,7 @@ diff --git a/drivers/clk/clk.c b/drivers/clk/clk.c
  		}
  	}
  }
-@@ -3568,6 +3630,8 @@ static int __clk_core_init(struct clk_core *core)
+@@ -3560,6 +3622,8 @@ static int __clk_core_init(struct clk_core *core)
  		rate = 0;
  	core->rate = core->req_rate = rate;
  
@@ -122,7 +122,7 @@ diff --git a/drivers/clk/clk.c b/drivers/clk/clk.c
  	/*
  	 * Enable CLK_IS_CRITICAL clocks so newly added critical clocks
  	 * don't get accidentally disabled when walking the orphan tree and
-@@ -3594,6 +3658,7 @@ static int __clk_core_init(struct clk_core *core)
+@@ -3582,6 +3646,7 @@ static int __clk_core_init(struct clk_core *core)
  		}
  	}
  

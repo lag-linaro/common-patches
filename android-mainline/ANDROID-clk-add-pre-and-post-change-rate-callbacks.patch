@@ -43,7 +43,7 @@ diff --git a/drivers/clk/clk.c b/drivers/clk/clk.c
  	hlist_for_each_entry(child, &core->children, child_node) {
  		/* Skip children who will be reparented to another clock */
  		if (child->new_parent && child->new_parent != core)
-@@ -2133,6 +2140,9 @@ static void clk_change_rate(struct clk_core *core)
+@@ -2125,6 +2132,9 @@ static void clk_change_rate(struct clk_core *core)
  	if (core->flags & CLK_RECALC_NEW_RATES)
  		(void)clk_calc_new_rates(core, core->new_rate);
  

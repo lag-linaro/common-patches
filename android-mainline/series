@@ -1,8 +1,8 @@
 #
 # android-mainline patches
 #
-# Applies onto upstream 16b3d0cf5bad8 Linux v5.12-6810-g16b3d0cf5bad8
-# Matches android-mainline 4797acfb9cac5 ("Merge 16b3d0cf5bad8 Merge tag 'sched-core-2021-04-28' of git://git.kernel.org/pub/scm/linux/kernel/git/tip/tip into android-mainline")
+# Applies onto upstream d72cd4ad4174c Linux v5.12-8136-gd72cd4ad4174c
+# Matches android-mainline 20ef7b8bc5d93 ("Merge d72cd4ad4174c Merge tag 'scsi-misc' of git://git.kernel.org/pub/scm/linux/kernel/git/jejb/scsi into android-mainline")
 #
 Revert-block-grant-IOPRIO_CLASS_RT-to-CAP_SYS_NICE.patch
 Revert-arm64-dts-qcom-sdm845-db845c-Fix-hdmi-nodes.patch

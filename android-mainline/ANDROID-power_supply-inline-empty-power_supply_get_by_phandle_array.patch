@@ -29,7 +29,7 @@ Change-Id: I6ad919673d0f649d7701c573196c11795663182d
 diff --git a/include/linux/power_supply.h b/include/linux/power_supply.h
 --- a/include/linux/power_supply.h
 +++ b/include/linux/power_supply.h
-@@ -402,10 +402,11 @@ extern struct power_supply *devm_power_supply_get_by_phandle(
+@@ -408,10 +408,11 @@ extern struct power_supply *devm_power_supply_get_by_phandle(
  static inline struct power_supply *
  power_supply_get_by_phandle(struct device_node *np, const char *property)
  { return NULL; }

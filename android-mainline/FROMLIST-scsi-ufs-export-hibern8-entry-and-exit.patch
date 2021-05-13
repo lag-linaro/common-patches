@@ -13,13 +13,13 @@ Change-Id: Ie7dc3b953790642e6d2893de6e6cc8c9cfb8be6d
 Signed-off-by: Asutosh Das <asutoshd@codeaurora.org>
 ---
  drivers/scsi/ufs/ufshcd.c | 4 ++--
- drivers/scsi/ufs/ufshcd.h | 3 ++-
- 2 files changed, 4 insertions(+), 3 deletions(-)
+ drivers/scsi/ufs/ufshcd.h | 2 ++
+ 2 files changed, 4 insertions(+), 2 deletions(-)
 
 diff --git a/drivers/scsi/ufs/ufshcd.c b/drivers/scsi/ufs/ufshcd.c
 --- a/drivers/scsi/ufs/ufshcd.c
 +++ b/drivers/scsi/ufs/ufshcd.c
-@@ -229,7 +229,6 @@ static void ufshcd_hba_exit(struct ufs_hba *hba);
+@@ -228,7 +228,6 @@ static void ufshcd_hba_exit(struct ufs_hba *hba);
  static int ufshcd_clear_ua_wluns(struct ufs_hba *hba);
  static int ufshcd_probe_hba(struct ufs_hba *hba, bool async);
  static int ufshcd_setup_clocks(struct ufs_hba *hba, bool on);
@@ -27,7 +27,7 @@ diff --git a/drivers/scsi/ufs/ufshcd.c b/drivers/scsi/ufs/ufshcd.c
  static inline void ufshcd_add_delay_before_dme_cmd(struct ufs_hba *hba);
  static int ufshcd_host_reset_and_restore(struct ufs_hba *hba);
  static void ufshcd_resume_clkscaling(struct ufs_hba *hba);
-@@ -4043,7 +4042,7 @@ int ufshcd_link_recovery(struct ufs_hba *hba)
+@@ -4036,7 +4035,7 @@ int ufshcd_link_recovery(struct ufs_hba *hba)
  }
  EXPORT_SYMBOL_GPL(ufshcd_link_recovery);
  
@@ -36,7 +36,7 @@ diff --git a/drivers/scsi/ufs/ufshcd.c b/drivers/scsi/ufs/ufshcd.c
  {
  	int ret;
  	struct uic_command uic_cmd = {0};
-@@ -4065,6 +4064,7 @@ static int ufshcd_uic_hibern8_enter(struct ufs_hba *hba)
+@@ -4058,6 +4057,7 @@ static int ufshcd_uic_hibern8_enter(struct ufs_hba *hba)
  
  	return ret;
  }
@@ -47,11 +47,10 @@ diff --git a/drivers/scsi/ufs/ufshcd.c b/drivers/scsi/ufs/ufshcd.c
 diff --git a/drivers/scsi/ufs/ufshcd.h b/drivers/scsi/ufs/ufshcd.h
 --- a/drivers/scsi/ufs/ufshcd.h
 +++ b/drivers/scsi/ufs/ufshcd.h
-@@ -1284,5 +1284,6 @@ static inline u8 ufshcd_scsi_to_upiu_lun(unsigned int scsi_lun)
+@@ -1309,4 +1309,6 @@ static inline int ufshcd_update_ee_usr_mask(struct ufs_hba *hba,
+ 					&hba->ee_drv_mask, set, clr);
+ }
  
- int ufshcd_dump_regs(struct ufs_hba *hba, size_t offset, size_t len,
- 		     const char *prefix);
--
 +int ufshcd_uic_hibern8_enter(struct ufs_hba *hba);
 +int ufshcd_uic_hibern8_exit(struct ufs_hba *hba);
  #endif /* End of Header */
