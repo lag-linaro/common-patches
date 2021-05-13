@@ -43,7 +43,7 @@ diff --git a/include/sound/soc.h b/include/sound/soc.h
  
  /* SoC PCM stream information */
  struct snd_soc_pcm_stream {
-@@ -1115,6 +1125,11 @@ struct soc_mreg_control {
+@@ -1133,6 +1143,11 @@ struct soc_mreg_control {
  	unsigned int regbase, regcount, nbits, invert;
  };
  
@@ -58,7 +58,7 @@ diff --git a/include/sound/soc.h b/include/sound/soc.h
 diff --git a/sound/soc/soc-core.c b/sound/soc/soc-core.c
 --- a/sound/soc/soc-core.c
 +++ b/sound/soc/soc-core.c
-@@ -2998,6 +2998,39 @@ int snd_soc_get_dai_id(struct device_node *ep)
+@@ -2995,6 +2995,39 @@ int snd_soc_get_dai_id(struct device_node *ep)
  }
  EXPORT_SYMBOL_GPL(snd_soc_get_dai_id);
  
@@ -95,6 +95,6 @@ diff --git a/sound/soc/soc-core.c b/sound/soc/soc-core.c
 +}
 +EXPORT_SYMBOL_GPL(snd_soc_info_multi_ext);
 +
- int snd_soc_get_dai_name(struct of_phandle_args *args,
+ int snd_soc_get_dai_name(const struct of_phandle_args *args,
  				const char **dai_name)
  {

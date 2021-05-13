@@ -18,7 +18,7 @@ Signed-off-by: Abhijeet Dharmapurikar <adharmap@codeaurora.org>
 diff --git a/kernel/cgroup/cgroup.c b/kernel/cgroup/cgroup.c
 --- a/kernel/cgroup/cgroup.c
 +++ b/kernel/cgroup/cgroup.c
-@@ -2328,6 +2328,7 @@ struct task_struct *cgroup_taskset_first(struct cgroup_taskset *tset,
+@@ -2341,6 +2341,7 @@ struct task_struct *cgroup_taskset_first(struct cgroup_taskset *tset,
  
  	return cgroup_taskset_next(tset, dst_cssp);
  }
@@ -26,7 +26,7 @@ diff --git a/kernel/cgroup/cgroup.c b/kernel/cgroup/cgroup.c
  
  /**
   * cgroup_taskset_next - iterate to the next task in taskset
-@@ -2374,6 +2375,7 @@ struct task_struct *cgroup_taskset_next(struct cgroup_taskset *tset,
+@@ -2387,6 +2388,7 @@ struct task_struct *cgroup_taskset_next(struct cgroup_taskset *tset,
  
  	return NULL;
  }

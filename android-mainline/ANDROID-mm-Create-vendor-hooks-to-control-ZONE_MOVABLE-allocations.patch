@@ -69,7 +69,7 @@ diff --git a/include/linux/gfp.h b/include/linux/gfp.h
 diff --git a/include/linux/pagemap.h b/include/linux/pagemap.h
 --- a/include/linux/pagemap.h
 +++ b/include/linux/pagemap.h
-@@ -296,10 +296,7 @@ static inline struct page *page_cache_alloc(struct address_space *x)
+@@ -306,10 +306,7 @@ static inline struct page *page_cache_alloc(struct address_space *x)
  	return __page_cache_alloc(mapping_gfp_mask(x));
  }
  
@@ -125,7 +125,7 @@ diff --git a/mm/memory.c b/mm/memory.c
  
  #include <trace/events/kmem.h>
  
-@@ -3319,8 +3320,10 @@ vm_fault_t do_swap_page(struct vm_fault *vmf)
+@@ -3362,8 +3363,10 @@ vm_fault_t do_swap_page(struct vm_fault *vmf)
  		if (data_race(si->flags & SWP_SYNCHRONOUS_IO) &&
  		    __swap_count(entry) == 1) {
  			/* skip swapcache */
@@ -136,8 +136,8 @@ diff --git a/mm/memory.c b/mm/memory.c
 +			trace_android_rvh_set_skip_swapcache_flags(&flags);
 +			page = alloc_page_vma(flags, vma, vmf->address);
  			if (page) {
- 				int err;
- 
+ 				__SetPageLocked(page);
+ 				__SetPageSwapBacked(page);
 diff --git a/mm/mmzone.c b/mm/mmzone.c
 --- a/mm/mmzone.c
 +++ b/mm/mmzone.c

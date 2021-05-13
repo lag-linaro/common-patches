@@ -23,7 +23,7 @@ Signed-off-by: Pavankumar Kondeti <pkondeti@codeaurora.org>
 diff --git a/kernel/cgroup/cgroup.c b/kernel/cgroup/cgroup.c
 --- a/kernel/cgroup/cgroup.c
 +++ b/kernel/cgroup/cgroup.c
-@@ -4165,6 +4165,7 @@ struct cgroup_subsys_state *css_next_child(struct cgroup_subsys_state *pos,
+@@ -4178,6 +4178,7 @@ struct cgroup_subsys_state *css_next_child(struct cgroup_subsys_state *pos,
  		return next;
  	return NULL;
  }
@@ -45,7 +45,7 @@ diff --git a/kernel/fork.c b/kernel/fork.c
 diff --git a/kernel/irq_work.c b/kernel/irq_work.c
 --- a/kernel/irq_work.c
 +++ b/kernel/irq_work.c
-@@ -111,7 +111,7 @@ bool irq_work_queue_on(struct irq_work *work, int cpu)
+@@ -116,7 +116,7 @@ bool irq_work_queue_on(struct irq_work *work, int cpu)
  	return true;
  #endif /* CONFIG_SMP */
  }

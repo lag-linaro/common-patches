@@ -382,7 +382,7 @@ new file mode 100644
 diff --git a/include/linux/sched.h b/include/linux/sched.h
 --- a/include/linux/sched.h
 +++ b/include/linux/sched.h
-@@ -906,6 +906,10 @@ struct task_struct {
+@@ -910,6 +910,10 @@ struct task_struct {
  	u64				stimescaled;
  #endif
  	u64				gtime;
@@ -404,7 +404,7 @@ diff --git a/kernel/fork.c b/kernel/fork.c
  
  #include <asm/pgalloc.h>
  #include <linux/uaccess.h>
-@@ -444,6 +445,7 @@ void put_task_stack(struct task_struct *tsk)
+@@ -447,6 +448,7 @@ void put_task_stack(struct task_struct *tsk)
  
  void free_task(struct task_struct *tsk)
  {
@@ -412,7 +412,7 @@ diff --git a/kernel/fork.c b/kernel/fork.c
  	scs_release(tsk);
  
  #ifndef CONFIG_THREAD_INFO_IN_TASK
-@@ -1961,6 +1963,8 @@ static __latent_entropy struct task_struct *copy_process(
+@@ -1964,6 +1966,8 @@ static __latent_entropy struct task_struct *copy_process(
  		siginitsetinv(&p->blocked, sigmask(SIGKILL)|sigmask(SIGSTOP));
  	}
  
@@ -421,7 +421,7 @@ diff --git a/kernel/fork.c b/kernel/fork.c
  	/*
  	 * This _must_ happen before we call free_task(), i.e. before we jump
  	 * to any of the bad_fork_* labels. This is to avoid freeing
-@@ -2511,6 +2515,8 @@ pid_t kernel_clone(struct kernel_clone_args *args)
+@@ -2514,6 +2518,8 @@ pid_t kernel_clone(struct kernel_clone_args *args)
  	if (IS_ERR(p))
  		return PTR_ERR(p);
  

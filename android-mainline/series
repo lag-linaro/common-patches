@@ -1,8 +1,8 @@
 #
 # android-mainline patches
 #
-# Applies onto upstream 8ca5297e7e38f Linux v5.12-11146-g8ca5297e7e38f
-# Matches android-mainline 97ea2b6e2ada7 ("FROMLIST: f2fs: support iflag change given the mask")
+# Applies onto upstream 9ec1efbf9ded6 Linux v5.12-12685-g9ec1efbf9ded6
+# Matches android-mainline 331962b5c516f ("Merge 9ec1efbf9ded6 Merge tag 'fuse-update-5.13' of git://git.kernel.org/pub/scm/linux/kernel/git/mszeredi/fuse into android-mainline")
 #
 Revert-block-grant-IOPRIO_CLASS_RT-to-CAP_SYS_NICE.patch
 Revert-arm64-dts-qcom-sdm845-db845c-Fix-hdmi-nodes.patch
@@ -603,3 +603,4 @@ ANDROID-OWNERS-add-Bart-for-block-scsi.patch
 _____ANNOTATION-Patches-for-bringing-up-new-SoCs_____.patch
 _____ANNOTATION-remove-ANNOTATIONS-file_____.patch
 DROP-ME-obsolete-ION-documentation.patch
+DROP-ME-Disparity-between-the-patches-branch-and-android-mainline.patch

@@ -1,0 +1,937 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: Lee Jones <lee.jones@linaro.org>
+Date: Thu, 13 May 2021 16:52:11 +0100
+Subject: DROP ME: Disparity between the patches branch and android-mainline
+
+It is thought that the machine these changes came from had incorrect
+TZ/Clock settings at the time of merge.  These disparities should
+straighten themselves out once we move to v5.13-rc1.
+
+Signed-off-by: Lee Jones <lee.jones@linaro.org>
+Change-Id: I50b880c4e028a218f3d2b633faee1f00e96ff54b
+---
+ CREDITS                                       |   5 +
+ MAINTAINERS                                   |  16 +-
+ drivers/net/dsa/microchip/ksz8795_spi.c       |   3 +
+ drivers/net/dsa/microchip/ksz8863_smi.c       |   5 +-
+ drivers/net/ethernet/atheros/alx/main.c       |   2 +-
+ .../net/ethernet/atheros/atl1c/atl1c_main.c   |   2 +-
+ .../net/ethernet/broadcom/bnx2x/bnx2x_sriov.c |   1 -
+ drivers/net/ethernet/cadence/macb_main.c      |   4 +-
+ .../net/ethernet/hisilicon/hns3/hns3_enet.c   |  12 +-
+ .../hisilicon/hns3/hns3pf/hclge_err.c         |   3 +-
+ .../hisilicon/hns3/hns3pf/hclge_err.h         |   3 +-
+ .../hisilicon/hns3/hns3pf/hclge_main.c        |   6 +
+ .../hisilicon/hns3/hns3pf/hclge_mbx.c         |   2 +-
+ .../hisilicon/hns3/hns3pf/hclge_mdio.c        |   2 +
+ .../net/ethernet/stmicro/stmmac/stmmac_main.c |   1 +
+ include/net/sctp/command.h                    |   1 -
+ include/uapi/linux/seg6_local.h               |  30 +++
+ net/bridge/br_netlink.c                       |   5 +-
+ net/ipv6/seg6.c                               |   3 -
+ net/ipv6/seg6_local.c                         | 198 +++++++++++++++++-
+ net/openvswitch/actions.c                     |   8 +-
+ net/sched/sch_frag.c                          |   8 +-
+ net/sctp/sm_sideeffect.c                      |  26 ---
+ net/sctp/sm_statefuns.c                       |  50 ++++-
+ net/vmw_vsock/vmci_transport.c                |   2 -
+ 25 files changed, 317 insertions(+), 81 deletions(-)
+
+diff --git a/CREDITS b/CREDITS
+--- a/CREDITS
++++ b/CREDITS
+@@ -1874,6 +1874,11 @@ S: Krosenska' 543
+ S: 181 00 Praha 8
+ S: Czech Republic
+ 
++N: Murali Karicheri
++E: m-karicheri2@ti.com
++D: Keystone NetCP driver
++D: Keystone PCIe host controller driver
++
+ N: Jan "Yenya" Kasprzak
+ E: kas@fi.muni.cz
+ D: Author of the COSA/SRP sync serial board driver.
+diff --git a/MAINTAINERS b/MAINTAINERS
+--- a/MAINTAINERS
++++ b/MAINTAINERS
+@@ -624,6 +624,7 @@ F:	fs/affs/
+ 
+ AFS FILESYSTEM
+ M:	David Howells <dhowells@redhat.com>
++M:	Marc Dionne <marc.dionne@auristor.com>
+ L:	linux-afs@lists.infradead.org
+ S:	Supported
+ W:	https://www.infradead.org/~dhowells/kafs/
+@@ -14058,13 +14059,6 @@ F:	Documentation/devicetree/bindings/pci/ti-pci.txt
+ F:	drivers/pci/controller/cadence/pci-j721e.c
+ F:	drivers/pci/controller/dwc/pci-dra7xx.c
+ 
+-PCI DRIVER FOR TI KEYSTONE
+-M:	Murali Karicheri <m-karicheri2@ti.com>
+-L:	linux-pci@vger.kernel.org
+-L:	linux-arm-kernel@lists.infradead.org (moderated for non-subscribers)
+-S:	Maintained
+-F:	drivers/pci/controller/dwc/pci-keystone.c
+-
+ PCI DRIVER FOR V3 SEMICONDUCTOR V360EPC
+ M:	Linus Walleij <linus.walleij@linaro.org>
+ L:	linux-pci@vger.kernel.org
+@@ -15847,6 +15841,7 @@ F:	drivers/infiniband/ulp/rtrs/
+ 
+ RXRPC SOCKETS (AF_RXRPC)
+ M:	David Howells <dhowells@redhat.com>
++M:	Marc Dionne <marc.dionne@auristor.com>
+ L:	linux-afs@lists.infradead.org
+ S:	Supported
+ W:	https://www.infradead.org/~dhowells/kafs/
+@@ -18263,13 +18258,6 @@ S:	Maintained
+ F:	sound/soc/codecs/isabelle*
+ F:	sound/soc/codecs/lm49453*
+ 
+-TI NETCP ETHERNET DRIVER
+-M:	Wingman Kwok <w-kwok2@ti.com>
+-M:	Murali Karicheri <m-karicheri2@ti.com>
+-L:	netdev@vger.kernel.org
+-S:	Maintained
+-F:	drivers/net/ethernet/ti/netcp*
+-
+ TI PCM3060 ASoC CODEC DRIVER
+ M:	Kirill Marinushkin <kmarinushkin@birdec.com>
+ L:	alsa-devel@alsa-project.org (moderated for non-subscribers)
+diff --git a/drivers/net/dsa/microchip/ksz8795_spi.c b/drivers/net/dsa/microchip/ksz8795_spi.c
+--- a/drivers/net/dsa/microchip/ksz8795_spi.c
++++ b/drivers/net/dsa/microchip/ksz8795_spi.c
+@@ -41,6 +41,9 @@ static int ksz8795_spi_probe(struct spi_device *spi)
+ 	int i, ret = 0;
+ 
+ 	ksz8 = devm_kzalloc(&spi->dev, sizeof(struct ksz8), GFP_KERNEL);
++	if (!ksz8)
++		return -ENOMEM;
++
+ 	ksz8->priv = spi;
+ 
+ 	dev = ksz_switch_alloc(&spi->dev, ksz8);
+diff --git a/drivers/net/dsa/microchip/ksz8863_smi.c b/drivers/net/dsa/microchip/ksz8863_smi.c
+--- a/drivers/net/dsa/microchip/ksz8863_smi.c
++++ b/drivers/net/dsa/microchip/ksz8863_smi.c
+@@ -147,11 +147,14 @@ static int ksz8863_smi_probe(struct mdio_device *mdiodev)
+ 	int i;
+ 
+ 	ksz8 = devm_kzalloc(&mdiodev->dev, sizeof(struct ksz8), GFP_KERNEL);
++	if (!ksz8)
++		return -ENOMEM;
++
+ 	ksz8->priv = mdiodev;
+ 
+ 	dev = ksz_switch_alloc(&mdiodev->dev, ksz8);
+ 	if (!dev)
+-		return -EINVAL;
++		return -ENOMEM;
+ 
+ 	for (i = 0; i < ARRAY_SIZE(ksz8863_regmap_config); i++) {
+ 		rc = ksz8863_regmap_config[i];
+diff --git a/drivers/net/ethernet/atheros/alx/main.c b/drivers/net/ethernet/atheros/alx/main.c
+--- a/drivers/net/ethernet/atheros/alx/main.c
++++ b/drivers/net/ethernet/atheros/alx/main.c
+@@ -2016,7 +2016,7 @@ static struct pci_driver alx_driver = {
+ module_pci_driver(alx_driver);
+ MODULE_DEVICE_TABLE(pci, alx_pci_tbl);
+ MODULE_AUTHOR("Johannes Berg <johannes@sipsolutions.net>");
+-MODULE_AUTHOR("Qualcomm Corporation, <nic-devel@qualcomm.com>");
++MODULE_AUTHOR("Qualcomm Corporation");
+ MODULE_DESCRIPTION(
+ 	"Qualcomm Atheros(R) AR816x/AR817x PCI-E Ethernet Network Driver");
+ MODULE_LICENSE("GPL");
+diff --git a/drivers/net/ethernet/atheros/atl1c/atl1c_main.c b/drivers/net/ethernet/atheros/atl1c/atl1c_main.c
+--- a/drivers/net/ethernet/atheros/atl1c/atl1c_main.c
++++ b/drivers/net/ethernet/atheros/atl1c/atl1c_main.c
+@@ -32,7 +32,7 @@ static const struct pci_device_id atl1c_pci_tbl[] = {
+ MODULE_DEVICE_TABLE(pci, atl1c_pci_tbl);
+ 
+ MODULE_AUTHOR("Jie Yang");
+-MODULE_AUTHOR("Qualcomm Atheros Inc., <nic-devel@qualcomm.com>");
++MODULE_AUTHOR("Qualcomm Atheros Inc.");
+ MODULE_DESCRIPTION("Qualcomm Atheros 100/1000M Ethernet Network Driver");
+ MODULE_LICENSE("GPL");
+ 
+diff --git a/drivers/net/ethernet/broadcom/bnx2x/bnx2x_sriov.c b/drivers/net/ethernet/broadcom/bnx2x/bnx2x_sriov.c
+--- a/drivers/net/ethernet/broadcom/bnx2x/bnx2x_sriov.c
++++ b/drivers/net/ethernet/broadcom/bnx2x/bnx2x_sriov.c
+@@ -1192,7 +1192,6 @@ int bnx2x_iov_init_one(struct bnx2x *bp, int int_mode_param,
+ 		return 0;
+ 	}
+ 
+-	err = -EIO;
+ 	/* verify ari is enabled */
+ 	if (!pci_ari_enabled(bp->pdev->bus)) {
+ 		BNX2X_ERR("ARI not supported (check pci bridge ARI forwarding), SRIOV can not be enabled\n");
+diff --git a/drivers/net/ethernet/cadence/macb_main.c b/drivers/net/ethernet/cadence/macb_main.c
+--- a/drivers/net/ethernet/cadence/macb_main.c
++++ b/drivers/net/ethernet/cadence/macb_main.c
+@@ -4852,7 +4852,7 @@ static int __maybe_unused macb_suspend(struct device *dev)
+ {
+ 	struct net_device *netdev = dev_get_drvdata(dev);
+ 	struct macb *bp = netdev_priv(netdev);
+-	struct macb_queue *queue = bp->queues;
++	struct macb_queue *queue;
+ 	unsigned long flags;
+ 	unsigned int q;
+ 	int err;
+@@ -4939,7 +4939,7 @@ static int __maybe_unused macb_resume(struct device *dev)
+ {
+ 	struct net_device *netdev = dev_get_drvdata(dev);
+ 	struct macb *bp = netdev_priv(netdev);
+-	struct macb_queue *queue = bp->queues;
++	struct macb_queue *queue;
+ 	unsigned long flags;
+ 	unsigned int q;
+ 	int err;
+diff --git a/drivers/net/ethernet/hisilicon/hns3/hns3_enet.c b/drivers/net/ethernet/hisilicon/hns3/hns3_enet.c
+--- a/drivers/net/ethernet/hisilicon/hns3/hns3_enet.c
++++ b/drivers/net/ethernet/hisilicon/hns3/hns3_enet.c
+@@ -575,8 +575,8 @@ static int hns3_nic_net_stop(struct net_device *netdev)
+ 	if (h->ae_algo->ops->set_timer_task)
+ 		h->ae_algo->ops->set_timer_task(priv->ae_handle, false);
+ 
+-	netif_tx_stop_all_queues(netdev);
+ 	netif_carrier_off(netdev);
++	netif_tx_disable(netdev);
+ 
+ 	hns3_nic_net_down(netdev);
+ 
+@@ -824,7 +824,7 @@ static int hns3_get_l4_protocol(struct sk_buff *skb, u8 *ol4_proto,
+  * and it is udp packet, which has a dest port as the IANA assigned.
+  * the hardware is expected to do the checksum offload, but the
+  * hardware will not do the checksum offload when udp dest port is
+- * 4789 or 6081.
++ * 4789, 4790 or 6081.
+  */
+ static bool hns3_tunnel_csum_bug(struct sk_buff *skb)
+ {
+@@ -842,7 +842,8 @@ static bool hns3_tunnel_csum_bug(struct sk_buff *skb)
+ 
+ 	if (!(!skb->encapsulation &&
+ 	      (l4.udp->dest == htons(IANA_VXLAN_UDP_PORT) ||
+-	      l4.udp->dest == htons(GENEVE_UDP_PORT))))
++	      l4.udp->dest == htons(GENEVE_UDP_PORT) ||
++	      l4.udp->dest == htons(4790))))
+ 		return false;
+ 
+ 	skb_checksum_help(skb);
+@@ -4616,6 +4617,11 @@ static int hns3_reset_notify_up_enet(struct hnae3_handle *handle)
+ 	struct hns3_nic_priv *priv = netdev_priv(kinfo->netdev);
+ 	int ret = 0;
+ 
++	if (!test_bit(HNS3_NIC_STATE_INITED, &priv->state)) {
++		netdev_err(kinfo->netdev, "device is not initialized yet\n");
++		return -EFAULT;
++	}
++
+ 	clear_bit(HNS3_NIC_STATE_RESETTING, &priv->state);
+ 
+ 	if (netif_running(kinfo->netdev)) {
+diff --git a/drivers/net/ethernet/hisilicon/hns3/hns3pf/hclge_err.c b/drivers/net/ethernet/hisilicon/hns3/hns3pf/hclge_err.c
+--- a/drivers/net/ethernet/hisilicon/hns3/hns3pf/hclge_err.c
++++ b/drivers/net/ethernet/hisilicon/hns3/hns3pf/hclge_err.c
+@@ -753,8 +753,9 @@ static int hclge_config_igu_egu_hw_err_int(struct hclge_dev *hdev, bool en)
+ 
+ 	/* configure IGU,EGU error interrupts */
+ 	hclge_cmd_setup_basic_desc(&desc, HCLGE_IGU_COMMON_INT_EN, false);
++	desc.data[0] = cpu_to_le32(HCLGE_IGU_ERR_INT_TYPE);
+ 	if (en)
+-		desc.data[0] = cpu_to_le32(HCLGE_IGU_ERR_INT_EN);
++		desc.data[0] |= cpu_to_le32(HCLGE_IGU_ERR_INT_EN);
+ 
+ 	desc.data[1] = cpu_to_le32(HCLGE_IGU_ERR_INT_EN_MASK);
+ 
+diff --git a/drivers/net/ethernet/hisilicon/hns3/hns3pf/hclge_err.h b/drivers/net/ethernet/hisilicon/hns3/hns3pf/hclge_err.h
+--- a/drivers/net/ethernet/hisilicon/hns3/hns3pf/hclge_err.h
++++ b/drivers/net/ethernet/hisilicon/hns3/hns3pf/hclge_err.h
+@@ -32,7 +32,8 @@
+ #define HCLGE_TQP_ECC_ERR_INT_EN_MASK	0x0FFF
+ #define HCLGE_MSIX_SRAM_ECC_ERR_INT_EN_MASK	0x0F000000
+ #define HCLGE_MSIX_SRAM_ECC_ERR_INT_EN	0x0F000000
+-#define HCLGE_IGU_ERR_INT_EN	0x0000066F
++#define HCLGE_IGU_ERR_INT_EN	0x0000000F
++#define HCLGE_IGU_ERR_INT_TYPE	0x00000660
+ #define HCLGE_IGU_ERR_INT_EN_MASK	0x000F
+ #define HCLGE_IGU_TNL_ERR_INT_EN    0x0002AABF
+ #define HCLGE_IGU_TNL_ERR_INT_EN_MASK  0x003F
+diff --git a/drivers/net/ethernet/hisilicon/hns3/hns3pf/hclge_main.c b/drivers/net/ethernet/hisilicon/hns3/hns3pf/hclge_main.c
+--- a/drivers/net/ethernet/hisilicon/hns3/hns3pf/hclge_main.c
++++ b/drivers/net/ethernet/hisilicon/hns3/hns3pf/hclge_main.c
+@@ -3978,6 +3978,12 @@ static void hclge_update_reset_level(struct hclge_dev *hdev)
+ 	struct hnae3_ae_dev *ae_dev = pci_get_drvdata(hdev->pdev);
+ 	enum hnae3_reset_type reset_level;
+ 
++	/* reset request will not be set during reset, so clear
++	 * pending reset request to avoid unnecessary reset
++	 * caused by the same reason.
++	 */
++	hclge_get_reset_level(ae_dev, &hdev->reset_request);
++
+ 	/* if default_reset_request has a higher level reset request,
+ 	 * it should be handled as soon as possible. since some errors
+ 	 * need this kind of reset to fix.
+diff --git a/drivers/net/ethernet/hisilicon/hns3/hns3pf/hclge_mbx.c b/drivers/net/ethernet/hisilicon/hns3/hns3pf/hclge_mbx.c
+--- a/drivers/net/ethernet/hisilicon/hns3/hns3pf/hclge_mbx.c
++++ b/drivers/net/ethernet/hisilicon/hns3/hns3pf/hclge_mbx.c
+@@ -533,7 +533,7 @@ static void hclge_get_link_mode(struct hclge_vport *vport,
+ 	unsigned long advertising;
+ 	unsigned long supported;
+ 	unsigned long send_data;
+-	u8 msg_data[10];
++	u8 msg_data[10] = {};
+ 	u8 dest_vfid;
+ 
+ 	advertising = hdev->hw.mac.advertising[0];
+diff --git a/drivers/net/ethernet/hisilicon/hns3/hns3pf/hclge_mdio.c b/drivers/net/ethernet/hisilicon/hns3/hns3pf/hclge_mdio.c
+--- a/drivers/net/ethernet/hisilicon/hns3/hns3pf/hclge_mdio.c
++++ b/drivers/net/ethernet/hisilicon/hns3/hns3pf/hclge_mdio.c
+@@ -255,6 +255,8 @@ void hclge_mac_start_phy(struct hclge_dev *hdev)
+ 	if (!phydev)
+ 		return;
+ 
++	phy_loopback(phydev, false);
++
+ 	phy_start(phydev);
+ }
+ 
+diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
+--- a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
++++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
+@@ -3180,6 +3180,7 @@ static int stmmac_fpe_start_wq(struct stmmac_priv *priv)
+ 	char *name;
+ 
+ 	clear_bit(__FPE_TASK_SCHED, &priv->fpe_task_state);
++	clear_bit(__FPE_REMOVING,  &priv->fpe_task_state);
+ 
+ 	name = priv->wq_name;
+ 	sprintf(name, "%s-fpe", priv->dev->name);
+diff --git a/include/net/sctp/command.h b/include/net/sctp/command.h
+--- a/include/net/sctp/command.h
++++ b/include/net/sctp/command.h
+@@ -68,7 +68,6 @@ enum sctp_verb {
+ 	SCTP_CMD_ASSOC_FAILED,	 /* Handle association failure. */
+ 	SCTP_CMD_DISCARD_PACKET, /* Discard the whole packet. */
+ 	SCTP_CMD_GEN_SHUTDOWN,   /* Generate a SHUTDOWN chunk. */
+-	SCTP_CMD_UPDATE_ASSOC,   /* Update association information. */
+ 	SCTP_CMD_PURGE_OUTQUEUE, /* Purge all data waiting to be sent. */
+ 	SCTP_CMD_SETUP_T2,       /* Hi-level, setup T2-shutdown parms.  */
+ 	SCTP_CMD_RTO_PENDING,	 /* Set transport's rto_pending. */
+diff --git a/include/uapi/linux/seg6_local.h b/include/uapi/linux/seg6_local.h
+--- a/include/uapi/linux/seg6_local.h
++++ b/include/uapi/linux/seg6_local.h
+@@ -27,6 +27,7 @@ enum {
+ 	SEG6_LOCAL_OIF,
+ 	SEG6_LOCAL_BPF,
+ 	SEG6_LOCAL_VRFTABLE,
++	SEG6_LOCAL_COUNTERS,
+ 	__SEG6_LOCAL_MAX,
+ };
+ #define SEG6_LOCAL_MAX (__SEG6_LOCAL_MAX - 1)
+@@ -78,4 +79,33 @@ enum {
+ 
+ #define SEG6_LOCAL_BPF_PROG_MAX (__SEG6_LOCAL_BPF_PROG_MAX - 1)
+ 
++/* SRv6 Behavior counters are encoded as netlink attributes guaranteeing the
++ * correct alignment.
++ * Each counter is identified by a different attribute type (i.e.
++ * SEG6_LOCAL_CNT_PACKETS).
++ *
++ * - SEG6_LOCAL_CNT_PACKETS: identifies a counter that counts the number of
++ *   packets that have been CORRECTLY processed by an SRv6 Behavior instance
++ *   (i.e., packets that generate errors or are dropped are NOT counted).
++ *
++ * - SEG6_LOCAL_CNT_BYTES: identifies a counter that counts the total amount
++ *   of traffic in bytes of all packets that have been CORRECTLY processed by
++ *   an SRv6 Behavior instance (i.e., packets that generate errors or are
++ *   dropped are NOT counted).
++ *
++ * - SEG6_LOCAL_CNT_ERRORS: identifies a counter that counts the number of
++ *   packets that have NOT been properly processed by an SRv6 Behavior instance
++ *   (i.e., packets that generate errors or are dropped).
++ */
++enum {
++	SEG6_LOCAL_CNT_UNSPEC,
++	SEG6_LOCAL_CNT_PAD,		/* pad for 64 bits values */
++	SEG6_LOCAL_CNT_PACKETS,
++	SEG6_LOCAL_CNT_BYTES,
++	SEG6_LOCAL_CNT_ERRORS,
++	__SEG6_LOCAL_CNT_MAX,
++};
++
++#define SEG6_LOCAL_CNT_MAX (__SEG6_LOCAL_CNT_MAX - 1)
++
+ #endif
+diff --git a/net/bridge/br_netlink.c b/net/bridge/br_netlink.c
+--- a/net/bridge/br_netlink.c
++++ b/net/bridge/br_netlink.c
+@@ -103,8 +103,9 @@ static size_t br_get_link_af_size_filtered(const struct net_device *dev,
+ 
+ 	rcu_read_lock();
+ 	if (netif_is_bridge_port(dev)) {
+-		p = br_port_get_rcu(dev);
+-		vg = nbp_vlan_group_rcu(p);
++		p = br_port_get_check_rcu(dev);
++		if (p)
++			vg = nbp_vlan_group_rcu(p);
+ 	} else if (dev->priv_flags & IFF_EBRIDGE) {
+ 		br = netdev_priv(dev);
+ 		vg = br_vlan_group_rcu(br);
+diff --git a/net/ipv6/seg6.c b/net/ipv6/seg6.c
+--- a/net/ipv6/seg6.c
++++ b/net/ipv6/seg6.c
+@@ -122,9 +122,6 @@ static int seg6_genl_sethmac(struct sk_buff *skb, struct genl_info *info)
+ 	hinfo = seg6_hmac_info_lookup(net, hmackeyid);
+ 
+ 	if (!slen) {
+-		if (!hinfo)
+-			err = -ENOENT;
+-
+ 		err = seg6_hmac_info_del(net, hmackeyid);
+ 
+ 		goto out_unlock;
+diff --git a/net/ipv6/seg6_local.c b/net/ipv6/seg6_local.c
+--- a/net/ipv6/seg6_local.c
++++ b/net/ipv6/seg6_local.c
+@@ -93,6 +93,35 @@ struct seg6_end_dt_info {
+ 	int hdrlen;
+ };
+ 
++struct pcpu_seg6_local_counters {
++	u64_stats_t packets;
++	u64_stats_t bytes;
++	u64_stats_t errors;
++
++	struct u64_stats_sync syncp;
++};
++
++/* This struct groups all the SRv6 Behavior counters supported so far.
++ *
++ * put_nla_counters() makes use of this data structure to collect all counter
++ * values after the per-CPU counter evaluation has been performed.
++ * Finally, each counter value (in seg6_local_counters) is stored in the
++ * corresponding netlink attribute and sent to user space.
++ *
++ * NB: we don't want to expose this structure to user space!
++ */
++struct seg6_local_counters {
++	__u64 packets;
++	__u64 bytes;
++	__u64 errors;
++};
++
++#define seg6_local_alloc_pcpu_counters(__gfp)				\
++	__netdev_alloc_pcpu_stats(struct pcpu_seg6_local_counters,	\
++				  ((__gfp) | __GFP_ZERO))
++
++#define SEG6_F_LOCAL_COUNTERS	SEG6_F_ATTR(SEG6_LOCAL_COUNTERS)
++
+ struct seg6_local_lwt {
+ 	int action;
+ 	struct ipv6_sr_hdr *srh;
+@@ -105,6 +134,7 @@ struct seg6_local_lwt {
+ #ifdef CONFIG_NET_L3_MASTER_DEV
+ 	struct seg6_end_dt_info dt_info;
+ #endif
++	struct pcpu_seg6_local_counters __percpu *pcpu_counters;
+ 
+ 	int headroom;
+ 	struct seg6_action_desc *desc;
+@@ -878,36 +908,43 @@ static struct seg6_action_desc seg6_action_table[] = {
+ 	{
+ 		.action		= SEG6_LOCAL_ACTION_END,
+ 		.attrs		= 0,
++		.optattrs	= SEG6_F_LOCAL_COUNTERS,
+ 		.input		= input_action_end,
+ 	},
+ 	{
+ 		.action		= SEG6_LOCAL_ACTION_END_X,
+ 		.attrs		= SEG6_F_ATTR(SEG6_LOCAL_NH6),
++		.optattrs	= SEG6_F_LOCAL_COUNTERS,
+ 		.input		= input_action_end_x,
+ 	},
+ 	{
+ 		.action		= SEG6_LOCAL_ACTION_END_T,
+ 		.attrs		= SEG6_F_ATTR(SEG6_LOCAL_TABLE),
++		.optattrs	= SEG6_F_LOCAL_COUNTERS,
+ 		.input		= input_action_end_t,
+ 	},
+ 	{
+ 		.action		= SEG6_LOCAL_ACTION_END_DX2,
+ 		.attrs		= SEG6_F_ATTR(SEG6_LOCAL_OIF),
++		.optattrs	= SEG6_F_LOCAL_COUNTERS,
+ 		.input		= input_action_end_dx2,
+ 	},
+ 	{
+ 		.action		= SEG6_LOCAL_ACTION_END_DX6,
+ 		.attrs		= SEG6_F_ATTR(SEG6_LOCAL_NH6),
++		.optattrs	= SEG6_F_LOCAL_COUNTERS,
+ 		.input		= input_action_end_dx6,
+ 	},
+ 	{
+ 		.action		= SEG6_LOCAL_ACTION_END_DX4,
+ 		.attrs		= SEG6_F_ATTR(SEG6_LOCAL_NH4),
++		.optattrs	= SEG6_F_LOCAL_COUNTERS,
+ 		.input		= input_action_end_dx4,
+ 	},
+ 	{
+ 		.action		= SEG6_LOCAL_ACTION_END_DT4,
+ 		.attrs		= SEG6_F_ATTR(SEG6_LOCAL_VRFTABLE),
++		.optattrs	= SEG6_F_LOCAL_COUNTERS,
+ #ifdef CONFIG_NET_L3_MASTER_DEV
+ 		.input		= input_action_end_dt4,
+ 		.slwt_ops	= {
+@@ -919,30 +956,35 @@ static struct seg6_action_desc seg6_action_table[] = {
+ 		.action		= SEG6_LOCAL_ACTION_END_DT6,
+ #ifdef CONFIG_NET_L3_MASTER_DEV
+ 		.attrs		= 0,
+-		.optattrs	= SEG6_F_ATTR(SEG6_LOCAL_TABLE) |
++		.optattrs	= SEG6_F_LOCAL_COUNTERS		|
++				  SEG6_F_ATTR(SEG6_LOCAL_TABLE) |
+ 				  SEG6_F_ATTR(SEG6_LOCAL_VRFTABLE),
+ 		.slwt_ops	= {
+ 					.build_state = seg6_end_dt6_build,
+ 				  },
+ #else
+ 		.attrs		= SEG6_F_ATTR(SEG6_LOCAL_TABLE),
++		.optattrs	= SEG6_F_LOCAL_COUNTERS,
+ #endif
+ 		.input		= input_action_end_dt6,
+ 	},
+ 	{
+ 		.action		= SEG6_LOCAL_ACTION_END_B6,
+ 		.attrs		= SEG6_F_ATTR(SEG6_LOCAL_SRH),
++		.optattrs	= SEG6_F_LOCAL_COUNTERS,
+ 		.input		= input_action_end_b6,
+ 	},
+ 	{
+ 		.action		= SEG6_LOCAL_ACTION_END_B6_ENCAP,
+ 		.attrs		= SEG6_F_ATTR(SEG6_LOCAL_SRH),
++		.optattrs	= SEG6_F_LOCAL_COUNTERS,
+ 		.input		= input_action_end_b6_encap,
+ 		.static_headroom	= sizeof(struct ipv6hdr),
+ 	},
+ 	{
+ 		.action		= SEG6_LOCAL_ACTION_END_BPF,
+ 		.attrs		= SEG6_F_ATTR(SEG6_LOCAL_BPF),
++		.optattrs	= SEG6_F_LOCAL_COUNTERS,
+ 		.input		= input_action_end_bpf,
+ 	},
+ 
+@@ -963,11 +1005,36 @@ static struct seg6_action_desc *__get_action_desc(int action)
+ 	return NULL;
+ }
+ 
++static bool seg6_lwtunnel_counters_enabled(struct seg6_local_lwt *slwt)
++{
++	return slwt->parsed_optattrs & SEG6_F_LOCAL_COUNTERS;
++}
++
++static void seg6_local_update_counters(struct seg6_local_lwt *slwt,
++				       unsigned int len, int err)
++{
++	struct pcpu_seg6_local_counters *pcounters;
++
++	pcounters = this_cpu_ptr(slwt->pcpu_counters);
++	u64_stats_update_begin(&pcounters->syncp);
++
++	if (likely(!err)) {
++		u64_stats_inc(&pcounters->packets);
++		u64_stats_add(&pcounters->bytes, len);
++	} else {
++		u64_stats_inc(&pcounters->errors);
++	}
++
++	u64_stats_update_end(&pcounters->syncp);
++}
++
+ static int seg6_local_input(struct sk_buff *skb)
+ {
+ 	struct dst_entry *orig_dst = skb_dst(skb);
+ 	struct seg6_action_desc *desc;
+ 	struct seg6_local_lwt *slwt;
++	unsigned int len = skb->len;
++	int rc;
+ 
+ 	if (skb->protocol != htons(ETH_P_IPV6)) {
+ 		kfree_skb(skb);
+@@ -977,7 +1044,14 @@ static int seg6_local_input(struct sk_buff *skb)
+ 	slwt = seg6_local_lwtunnel(orig_dst->lwtstate);
+ 	desc = slwt->desc;
+ 
+-	return desc->input(skb, slwt);
++	rc = desc->input(skb, slwt);
++
++	if (!seg6_lwtunnel_counters_enabled(slwt))
++		return rc;
++
++	seg6_local_update_counters(slwt, len, rc);
++
++	return rc;
+ }
+ 
+ static const struct nla_policy seg6_local_policy[SEG6_LOCAL_MAX + 1] = {
+@@ -992,6 +1066,7 @@ static const struct nla_policy seg6_local_policy[SEG6_LOCAL_MAX + 1] = {
+ 	[SEG6_LOCAL_IIF]	= { .type = NLA_U32 },
+ 	[SEG6_LOCAL_OIF]	= { .type = NLA_U32 },
+ 	[SEG6_LOCAL_BPF]	= { .type = NLA_NESTED },
++	[SEG6_LOCAL_COUNTERS]	= { .type = NLA_NESTED },
+ };
+ 
+ static int parse_nla_srh(struct nlattr **attrs, struct seg6_local_lwt *slwt)
+@@ -1296,6 +1371,112 @@ static void destroy_attr_bpf(struct seg6_local_lwt *slwt)
+ 		bpf_prog_put(slwt->bpf.prog);
+ }
+ 
++static const struct
++nla_policy seg6_local_counters_policy[SEG6_LOCAL_CNT_MAX + 1] = {
++	[SEG6_LOCAL_CNT_PACKETS]	= { .type = NLA_U64 },
++	[SEG6_LOCAL_CNT_BYTES]		= { .type = NLA_U64 },
++	[SEG6_LOCAL_CNT_ERRORS]		= { .type = NLA_U64 },
++};
++
++static int parse_nla_counters(struct nlattr **attrs,
++			      struct seg6_local_lwt *slwt)
++{
++	struct pcpu_seg6_local_counters __percpu *pcounters;
++	struct nlattr *tb[SEG6_LOCAL_CNT_MAX + 1];
++	int ret;
++
++	ret = nla_parse_nested_deprecated(tb, SEG6_LOCAL_CNT_MAX,
++					  attrs[SEG6_LOCAL_COUNTERS],
++					  seg6_local_counters_policy, NULL);
++	if (ret < 0)
++		return ret;
++
++	/* basic support for SRv6 Behavior counters requires at least:
++	 * packets, bytes and errors.
++	 */
++	if (!tb[SEG6_LOCAL_CNT_PACKETS] || !tb[SEG6_LOCAL_CNT_BYTES] ||
++	    !tb[SEG6_LOCAL_CNT_ERRORS])
++		return -EINVAL;
++
++	/* counters are always zero initialized */
++	pcounters = seg6_local_alloc_pcpu_counters(GFP_KERNEL);
++	if (!pcounters)
++		return -ENOMEM;
++
++	slwt->pcpu_counters = pcounters;
++
++	return 0;
++}
++
++static int seg6_local_fill_nla_counters(struct sk_buff *skb,
++					struct seg6_local_counters *counters)
++{
++	if (nla_put_u64_64bit(skb, SEG6_LOCAL_CNT_PACKETS, counters->packets,
++			      SEG6_LOCAL_CNT_PAD))
++		return -EMSGSIZE;
++
++	if (nla_put_u64_64bit(skb, SEG6_LOCAL_CNT_BYTES, counters->bytes,
++			      SEG6_LOCAL_CNT_PAD))
++		return -EMSGSIZE;
++
++	if (nla_put_u64_64bit(skb, SEG6_LOCAL_CNT_ERRORS, counters->errors,
++			      SEG6_LOCAL_CNT_PAD))
++		return -EMSGSIZE;
++
++	return 0;
++}
++
++static int put_nla_counters(struct sk_buff *skb, struct seg6_local_lwt *slwt)
++{
++	struct seg6_local_counters counters = { 0, 0, 0 };
++	struct nlattr *nest;
++	int rc, i;
++
++	nest = nla_nest_start(skb, SEG6_LOCAL_COUNTERS);
++	if (!nest)
++		return -EMSGSIZE;
++
++	for_each_possible_cpu(i) {
++		struct pcpu_seg6_local_counters *pcounters;
++		u64 packets, bytes, errors;
++		unsigned int start;
++
++		pcounters = per_cpu_ptr(slwt->pcpu_counters, i);
++		do {
++			start = u64_stats_fetch_begin_irq(&pcounters->syncp);
++
++			packets = u64_stats_read(&pcounters->packets);
++			bytes = u64_stats_read(&pcounters->bytes);
++			errors = u64_stats_read(&pcounters->errors);
++
++		} while (u64_stats_fetch_retry_irq(&pcounters->syncp, start));
++
++		counters.packets += packets;
++		counters.bytes += bytes;
++		counters.errors += errors;
++	}
++
++	rc = seg6_local_fill_nla_counters(skb, &counters);
++	if (rc < 0) {
++		nla_nest_cancel(skb, nest);
++		return rc;
++	}
++
++	return nla_nest_end(skb, nest);
++}
++
++static int cmp_nla_counters(struct seg6_local_lwt *a, struct seg6_local_lwt *b)
++{
++	/* a and b are equal if both have pcpu_counters set or not */
++	return (!!((unsigned long)a->pcpu_counters)) ^
++		(!!((unsigned long)b->pcpu_counters));
++}
++
++static void destroy_attr_counters(struct seg6_local_lwt *slwt)
++{
++	free_percpu(slwt->pcpu_counters);
++}
++
+ struct seg6_action_param {
+ 	int (*parse)(struct nlattr **attrs, struct seg6_local_lwt *slwt);
+ 	int (*put)(struct sk_buff *skb, struct seg6_local_lwt *slwt);
+@@ -1343,6 +1524,10 @@ static struct seg6_action_param seg6_action_params[SEG6_LOCAL_MAX + 1] = {
+ 				    .put = put_nla_vrftable,
+ 				    .cmp = cmp_nla_vrftable },
+ 
++	[SEG6_LOCAL_COUNTERS]	= { .parse = parse_nla_counters,
++				    .put = put_nla_counters,
++				    .cmp = cmp_nla_counters,
++				    .destroy = destroy_attr_counters },
+ };
+ 
+ /* call the destroy() callback (if available) for each set attribute in
+@@ -1645,6 +1830,15 @@ static int seg6_local_get_encap_size(struct lwtunnel_state *lwt)
+ 	if (attrs & SEG6_F_ATTR(SEG6_LOCAL_VRFTABLE))
+ 		nlsize += nla_total_size(4);
+ 
++	if (attrs & SEG6_F_LOCAL_COUNTERS)
++		nlsize += nla_total_size(0) + /* nest SEG6_LOCAL_COUNTERS */
++			  /* SEG6_LOCAL_CNT_PACKETS */
++			  nla_total_size_64bit(sizeof(__u64)) +
++			  /* SEG6_LOCAL_CNT_BYTES */
++			  nla_total_size_64bit(sizeof(__u64)) +
++			  /* SEG6_LOCAL_CNT_ERRORS */
++			  nla_total_size_64bit(sizeof(__u64));
++
+ 	return nlsize;
+ }
+ 
+diff --git a/net/openvswitch/actions.c b/net/openvswitch/actions.c
+--- a/net/openvswitch/actions.c
++++ b/net/openvswitch/actions.c
+@@ -827,17 +827,17 @@ static void ovs_fragment(struct net *net, struct vport *vport,
+ 	}
+ 
+ 	if (key->eth.type == htons(ETH_P_IP)) {
+-		struct dst_entry ovs_dst;
++		struct rtable ovs_rt = { 0 };
+ 		unsigned long orig_dst;
+ 
+ 		prepare_frag(vport, skb, orig_network_offset,
+ 			     ovs_key_mac_proto(key));
+-		dst_init(&ovs_dst, &ovs_dst_ops, NULL, 1,
++		dst_init(&ovs_rt.dst, &ovs_dst_ops, NULL, 1,
+ 			 DST_OBSOLETE_NONE, DST_NOCOUNT);
+-		ovs_dst.dev = vport->dev;
++		ovs_rt.dst.dev = vport->dev;
+ 
+ 		orig_dst = skb->_skb_refdst;
+-		skb_dst_set_noref(skb, &ovs_dst);
++		skb_dst_set_noref(skb, &ovs_rt.dst);
+ 		IPCB(skb)->frag_max_size = mru;
+ 
+ 		ip_do_fragment(net, skb->sk, skb, ovs_vport_output);
+diff --git a/net/sched/sch_frag.c b/net/sched/sch_frag.c
+--- a/net/sched/sch_frag.c
++++ b/net/sched/sch_frag.c
+@@ -90,16 +90,16 @@ static int sch_fragment(struct net *net, struct sk_buff *skb,
+ 	}
+ 
+ 	if (skb_protocol(skb, true) == htons(ETH_P_IP)) {
+-		struct dst_entry sch_frag_dst;
++		struct rtable sch_frag_rt = { 0 };
+ 		unsigned long orig_dst;
+ 
+ 		sch_frag_prepare_frag(skb, xmit);
+-		dst_init(&sch_frag_dst, &sch_frag_dst_ops, NULL, 1,
++		dst_init(&sch_frag_rt.dst, &sch_frag_dst_ops, NULL, 1,
+ 			 DST_OBSOLETE_NONE, DST_NOCOUNT);
+-		sch_frag_dst.dev = skb->dev;
++		sch_frag_rt.dst.dev = skb->dev;
+ 
+ 		orig_dst = skb->_skb_refdst;
+-		skb_dst_set_noref(skb, &sch_frag_dst);
++		skb_dst_set_noref(skb, &sch_frag_rt.dst);
+ 		IPCB(skb)->frag_max_size = mru;
+ 
+ 		ret = ip_do_fragment(net, skb->sk, skb, sch_frag_xmit);
+diff --git a/net/sctp/sm_sideeffect.c b/net/sctp/sm_sideeffect.c
+--- a/net/sctp/sm_sideeffect.c
++++ b/net/sctp/sm_sideeffect.c
+@@ -826,28 +826,6 @@ static void sctp_cmd_setup_t2(struct sctp_cmd_seq *cmds,
+ 	asoc->timeouts[SCTP_EVENT_TIMEOUT_T2_SHUTDOWN] = t->rto;
+ }
+ 
+-static void sctp_cmd_assoc_update(struct sctp_cmd_seq *cmds,
+-				  struct sctp_association *asoc,
+-				  struct sctp_association *new)
+-{
+-	struct net *net = asoc->base.net;
+-	struct sctp_chunk *abort;
+-
+-	if (!sctp_assoc_update(asoc, new))
+-		return;
+-
+-	abort = sctp_make_abort(asoc, NULL, sizeof(struct sctp_errhdr));
+-	if (abort) {
+-		sctp_init_cause(abort, SCTP_ERROR_RSRC_LOW, 0);
+-		sctp_add_cmd_sf(cmds, SCTP_CMD_REPLY, SCTP_CHUNK(abort));
+-	}
+-	sctp_add_cmd_sf(cmds, SCTP_CMD_SET_SK_ERR, SCTP_ERROR(ECONNABORTED));
+-	sctp_add_cmd_sf(cmds, SCTP_CMD_ASSOC_FAILED,
+-			SCTP_PERR(SCTP_ERROR_RSRC_LOW));
+-	SCTP_INC_STATS(net, SCTP_MIB_ABORTEDS);
+-	SCTP_DEC_STATS(net, SCTP_MIB_CURRESTAB);
+-}
+-
+ /* Helper function to change the state of an association. */
+ static void sctp_cmd_new_state(struct sctp_cmd_seq *cmds,
+ 			       struct sctp_association *asoc,
+@@ -1301,10 +1279,6 @@ static int sctp_cmd_interpreter(enum sctp_event_type event_type,
+ 			sctp_endpoint_add_asoc(ep, asoc);
+ 			break;
+ 
+-		case SCTP_CMD_UPDATE_ASSOC:
+-		       sctp_cmd_assoc_update(commands, asoc, cmd->obj.asoc);
+-		       break;
+-
+ 		case SCTP_CMD_PURGE_OUTQUEUE:
+ 		       sctp_outq_teardown(&asoc->outqueue);
+ 		       break;
+diff --git a/net/sctp/sm_statefuns.c b/net/sctp/sm_statefuns.c
+--- a/net/sctp/sm_statefuns.c
++++ b/net/sctp/sm_statefuns.c
+@@ -1773,6 +1773,30 @@ enum sctp_disposition sctp_sf_do_5_2_3_initack(
+ 		return sctp_sf_discard_chunk(net, ep, asoc, type, arg, commands);
+ }
+ 
++static int sctp_sf_do_assoc_update(struct sctp_association *asoc,
++				   struct sctp_association *new,
++				   struct sctp_cmd_seq *cmds)
++{
++	struct net *net = asoc->base.net;
++	struct sctp_chunk *abort;
++
++	if (!sctp_assoc_update(asoc, new))
++		return 0;
++
++	abort = sctp_make_abort(asoc, NULL, sizeof(struct sctp_errhdr));
++	if (abort) {
++		sctp_init_cause(abort, SCTP_ERROR_RSRC_LOW, 0);
++		sctp_add_cmd_sf(cmds, SCTP_CMD_REPLY, SCTP_CHUNK(abort));
++	}
++	sctp_add_cmd_sf(cmds, SCTP_CMD_SET_SK_ERR, SCTP_ERROR(ECONNABORTED));
++	sctp_add_cmd_sf(cmds, SCTP_CMD_ASSOC_FAILED,
++			SCTP_PERR(SCTP_ERROR_RSRC_LOW));
++	SCTP_INC_STATS(net, SCTP_MIB_ABORTEDS);
++	SCTP_DEC_STATS(net, SCTP_MIB_CURRESTAB);
++
++	return -ENOMEM;
++}
++
+ /* Unexpected COOKIE-ECHO handler for peer restart (Table 2, action 'A')
+  *
+  * Section 5.2.4
+@@ -1852,20 +1876,22 @@ static enum sctp_disposition sctp_sf_do_dupcook_a(
+ 			SCTP_TO(SCTP_EVENT_TIMEOUT_T4_RTO));
+ 	sctp_add_cmd_sf(commands, SCTP_CMD_PURGE_ASCONF_QUEUE, SCTP_NULL());
+ 
+-	repl = sctp_make_cookie_ack(new_asoc, chunk);
++	/* Update the content of current association. */
++	if (sctp_sf_do_assoc_update((struct sctp_association *)asoc, new_asoc, commands))
++		goto nomem;
++
++	repl = sctp_make_cookie_ack(asoc, chunk);
+ 	if (!repl)
+ 		goto nomem;
+ 
+ 	/* Report association restart to upper layer. */
+ 	ev = sctp_ulpevent_make_assoc_change(asoc, 0, SCTP_RESTART, 0,
+-					     new_asoc->c.sinit_num_ostreams,
+-					     new_asoc->c.sinit_max_instreams,
++					     asoc->c.sinit_num_ostreams,
++					     asoc->c.sinit_max_instreams,
+ 					     NULL, GFP_ATOMIC);
+ 	if (!ev)
+ 		goto nomem_ev;
+ 
+-	/* Update the content of current association. */
+-	sctp_add_cmd_sf(commands, SCTP_CMD_UPDATE_ASSOC, SCTP_ASOC(new_asoc));
+ 	sctp_add_cmd_sf(commands, SCTP_CMD_EVENT_ULP, SCTP_ULPEVENT(ev));
+ 	if ((sctp_state(asoc, SHUTDOWN_PENDING) ||
+ 	     sctp_state(asoc, SHUTDOWN_SENT)) &&
+@@ -1877,7 +1903,7 @@ static enum sctp_disposition sctp_sf_do_dupcook_a(
+ 		 */
+ 		sctp_add_cmd_sf(commands, SCTP_CMD_REPLY, SCTP_CHUNK(repl));
+ 		return sctp_sf_do_9_2_start_shutdown(net, ep, asoc,
+-						     SCTP_ST_CHUNK(0), repl,
++						     SCTP_ST_CHUNK(0), NULL,
+ 						     commands);
+ 	} else {
+ 		sctp_add_cmd_sf(commands, SCTP_CMD_NEW_STATE,
+@@ -1925,14 +1951,16 @@ static enum sctp_disposition sctp_sf_do_dupcook_b(
+ 	if (!sctp_auth_chunk_verify(net, chunk, new_asoc))
+ 		return SCTP_DISPOSITION_DISCARD;
+ 
+-	/* Update the content of current association.  */
+-	sctp_add_cmd_sf(commands, SCTP_CMD_UPDATE_ASSOC, SCTP_ASOC(new_asoc));
+ 	sctp_add_cmd_sf(commands, SCTP_CMD_NEW_STATE,
+ 			SCTP_STATE(SCTP_STATE_ESTABLISHED));
+ 	SCTP_INC_STATS(net, SCTP_MIB_CURRESTAB);
+ 	sctp_add_cmd_sf(commands, SCTP_CMD_HB_TIMERS_START, SCTP_NULL());
+ 
+-	repl = sctp_make_cookie_ack(new_asoc, chunk);
++	/* Update the content of current association.  */
++	if (sctp_sf_do_assoc_update((struct sctp_association *)asoc, new_asoc, commands))
++		goto nomem;
++
++	repl = sctp_make_cookie_ack(asoc, chunk);
+ 	if (!repl)
+ 		goto nomem;
+ 
+@@ -5521,7 +5549,7 @@ enum sctp_disposition sctp_sf_do_9_2_start_shutdown(
+ 	 * in the Cumulative TSN Ack field the last sequential TSN it
+ 	 * has received from the peer.
+ 	 */
+-	reply = sctp_make_shutdown(asoc, arg);
++	reply = sctp_make_shutdown(asoc, NULL);
+ 	if (!reply)
+ 		goto nomem;
+ 
+@@ -6119,7 +6147,7 @@ enum sctp_disposition sctp_sf_autoclose_timer_expire(
+ 	disposition = SCTP_DISPOSITION_CONSUME;
+ 	if (sctp_outq_is_empty(&asoc->outqueue)) {
+ 		disposition = sctp_sf_do_9_2_start_shutdown(net, ep, asoc, type,
+-							    NULL, commands);
++							    arg, commands);
+ 	}
+ 
+ 	return disposition;
+diff --git a/net/vmw_vsock/vmci_transport.c b/net/vmw_vsock/vmci_transport.c
+--- a/net/vmw_vsock/vmci_transport.c
++++ b/net/vmw_vsock/vmci_transport.c
+@@ -944,8 +944,6 @@ static int vmci_transport_recv_listen(struct sock *sk,
+ 	bool old_request = false;
+ 	bool old_pkt_proto = false;
+ 
+-	err = 0;
+-
+ 	/* Because we are in the listen state, we could be receiving a packet
+ 	 * for ourself or any previous connection requests that we received.
+ 	 * If it's the latter, we try to find a socket in our list of pending

@@ -107,7 +107,7 @@ diff --git a/kernel/sysctl.c b/kernel/sysctl.c
 diff --git a/mm/page_alloc.c b/mm/page_alloc.c
 --- a/mm/page_alloc.c
 +++ b/mm/page_alloc.c
-@@ -319,6 +319,11 @@ compound_page_dtor * const compound_page_dtors[NR_COMPOUND_DTORS] = {
+@@ -329,6 +329,11 @@ compound_page_dtor * const compound_page_dtors[NR_COMPOUND_DTORS] = {
  #endif
  };
  
@@ -119,7 +119,7 @@ diff --git a/mm/page_alloc.c b/mm/page_alloc.c
  int min_free_kbytes = 1024;
  int user_min_free_kbytes = -1;
  #ifdef CONFIG_DISCONTIGMEM
-@@ -337,6 +342,13 @@ int watermark_boost_factor __read_mostly = 15000;
+@@ -347,6 +352,13 @@ int watermark_boost_factor __read_mostly = 15000;
  #endif
  int watermark_scale_factor = 10;
  
@@ -133,7 +133,7 @@ diff --git a/mm/page_alloc.c b/mm/page_alloc.c
  static unsigned long nr_kernel_pages __initdata;
  static unsigned long nr_all_pages __initdata;
  static unsigned long dma_reserve __initdata;
-@@ -7887,6 +7899,7 @@ static void setup_per_zone_lowmem_reserve(void)
+@@ -8079,6 +8091,7 @@ static void setup_per_zone_lowmem_reserve(void)
  static void __setup_per_zone_wmarks(void)
  {
  	unsigned long pages_min = min_free_kbytes >> (PAGE_SHIFT - 10);
@@ -141,7 +141,7 @@ diff --git a/mm/page_alloc.c b/mm/page_alloc.c
  	unsigned long lowmem_pages = 0;
  	struct zone *zone;
  	unsigned long flags;
-@@ -7898,11 +7911,13 @@ static void __setup_per_zone_wmarks(void)
+@@ -8090,11 +8103,13 @@ static void __setup_per_zone_wmarks(void)
  	}
  
  	for_each_zone(zone) {
@@ -156,7 +156,7 @@ diff --git a/mm/page_alloc.c b/mm/page_alloc.c
  		if (is_highmem(zone)) {
  			/*
  			 * __GFP_HIGH and PF_MEMALLOC allocations usually don't
-@@ -7936,8 +7951,8 @@ static void __setup_per_zone_wmarks(void)
+@@ -8128,8 +8143,8 @@ static void __setup_per_zone_wmarks(void)
  				      watermark_scale_factor, 10000));
  
  		zone->watermark_boost = 0;
@@ -167,7 +167,7 @@ diff --git a/mm/page_alloc.c b/mm/page_alloc.c
  
  		spin_unlock_irqrestore(&zone->lock, flags);
  	}
-@@ -8022,7 +8037,7 @@ postcore_initcall(init_per_zone_wmark_min)
+@@ -8214,7 +8229,7 @@ postcore_initcall(init_per_zone_wmark_min)
  /*
   * min_free_kbytes_sysctl_handler - just a wrapper around proc_dointvec() so
   *	that we can call two helper functions whenever min_free_kbytes

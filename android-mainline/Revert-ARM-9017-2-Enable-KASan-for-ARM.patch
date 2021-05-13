@@ -22,14 +22,14 @@ Change-Id: Ie9352cdad01e286ca981692666ceed8d10c9bc23
 diff --git a/Documentation/dev-tools/kasan.rst b/Documentation/dev-tools/kasan.rst
 --- a/Documentation/dev-tools/kasan.rst
 +++ b/Documentation/dev-tools/kasan.rst
-@@ -21,8 +21,8 @@ out-of-bounds accesses for global variables is only supported since Clang 11.
+@@ -35,8 +35,8 @@ This mode is supported in GCC 10+ and Clang 11+.
+ Both software KASAN modes work with SLUB and SLAB memory allocators,
+ while the hardware tag-based KASAN currently only supports SLUB.
  
- Tag-based KASAN is only supported in Clang.
- 
--Currently generic KASAN is supported for the x86_64, arm, arm64, xtensa, s390
+-Currently, generic KASAN is supported for the x86_64, arm, arm64, xtensa, s390,
 -and riscv architectures, and tag-based KASAN modes are supported only for arm64.
-+Currently generic KASAN is supported for the x86_64, arm64, xtensa, s390 and
-+riscv architectures, and tag-based KASAN is supported only for arm64.
++Currently generic KASAN is supported for the x86_64, arm64, xtensa, s390,
++and riscv architectures, and tag-based KASAN is supported only for arm64.
  
  Usage
  -----
@@ -48,7 +48,7 @@ diff --git a/Documentation/features/debug/KASAN/arch-support.txt b/Documentation
 diff --git a/arch/arm/Kconfig b/arch/arm/Kconfig
 --- a/arch/arm/Kconfig
 +++ b/arch/arm/Kconfig
-@@ -69,7 +69,6 @@ config ARM
+@@ -70,7 +70,6 @@ config ARM
  	select HAVE_ARCH_BITREVERSE if (CPU_32v7M || CPU_32v7) && !CPU_32v6
  	select HAVE_ARCH_JUMP_LABEL if !XIP_KERNEL && !CPU_ENDIAN_BE32 && MMU
  	select HAVE_ARCH_KGDB if !CPU_ENDIAN_BE32 && MMU
