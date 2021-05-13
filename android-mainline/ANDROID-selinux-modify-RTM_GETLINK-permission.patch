@@ -98,7 +98,7 @@ diff --git a/security/selinux/nlmsgtab.c b/security/selinux/nlmsgtab.c
  {
  	{ RTM_NEWLINK,		NETLINK_ROUTE_SOCKET__NLMSG_WRITE },
  	{ RTM_DELLINK,		NETLINK_ROUTE_SOCKET__NLMSG_WRITE },
-@@ -211,3 +211,27 @@ int selinux_nlmsg_lookup(u16 sclass, u16 nlmsg_type, u32 *perm)
+@@ -214,3 +214,27 @@ int selinux_nlmsg_lookup(u16 sclass, u16 nlmsg_type, u32 *perm)
  
  	return err;
  }

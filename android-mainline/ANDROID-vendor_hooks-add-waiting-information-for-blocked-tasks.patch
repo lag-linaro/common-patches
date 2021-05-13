@@ -61,7 +61,7 @@ diff --git a/include/linux/sched.h b/include/linux/sched.h
  #include <asm/kmap_size.h>
  
  /* task_struct member predeclarations (sorted alphabetically): */
-@@ -1369,6 +1370,7 @@ struct task_struct {
+@@ -1374,6 +1375,7 @@ struct task_struct {
  					__mce_reserved : 62;
  	struct callback_head		mce_kill_me;
  #endif

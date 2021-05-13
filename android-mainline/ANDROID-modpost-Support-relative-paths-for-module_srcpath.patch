@@ -19,7 +19,7 @@ Change-Id: I17065f2dc7d5c3297f88500390a6f45aceea7229
 diff --git a/scripts/Makefile.modpost b/scripts/Makefile.modpost
 --- a/scripts/Makefile.modpost
 +++ b/scripts/Makefile.modpost
-@@ -86,7 +86,17 @@ MODPOST += -e
+@@ -96,7 +96,17 @@ MODPOST += -e
  
  input-symdump := Module.symvers $(KBUILD_EXTRA_SYMBOLS)
  output-symdump := $(KBUILD_EXTMOD)/Module.symvers

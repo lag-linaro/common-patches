@@ -34,7 +34,7 @@ diff --git a/kernel/cgroup/cgroup.c b/kernel/cgroup/cgroup.c
 diff --git a/kernel/fork.c b/kernel/fork.c
 --- a/kernel/fork.c
 +++ b/kernel/fork.c
-@@ -138,6 +138,7 @@ static const char * const resident_page_types[] = {
+@@ -139,6 +139,7 @@ static const char * const resident_page_types[] = {
  DEFINE_PER_CPU(unsigned long, process_counts) = 0;
  
  __cacheline_aligned DEFINE_RWLOCK(tasklist_lock);  /* outer */

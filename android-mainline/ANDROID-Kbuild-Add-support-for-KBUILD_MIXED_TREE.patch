@@ -19,10 +19,10 @@ Bug: 178469391
 Change-Id: I614f3e87519236c4e2c5da74937cb0ecd98a278a
 Signed-off-by: Elliot Berman <eberman@codeaurora.org>
 ---
- Makefile                 | 30 +++++++++++++++++++++++++-----
+ Makefile                 | 28 ++++++++++++++++++++++++----
  scripts/Makefile.modpost |  4 +++-
  scripts/depmod.sh        |  9 +++++----
- 3 files changed, 33 insertions(+), 10 deletions(-)
+ 3 files changed, 32 insertions(+), 9 deletions(-)
 
 diff --git a/Makefile b/Makefile
 --- a/Makefile
@@ -48,7 +48,7 @@ diff --git a/Makefile b/Makefile
  # Kbuild will save output files in the current working directory.
  # This does not need to match to the root of the kernel source tree.
  #
-@@ -658,11 +672,13 @@ drivers-y	+= virt/
+@@ -675,11 +689,13 @@ drivers-y	+= virt/
  libs-y		:= lib/
  endif # KBUILD_EXTMOD
  
@@ -62,18 +62,18 @@ diff --git a/Makefile b/Makefile
  
  CFLAGS_GCOV	:= -fprofile-arcs -ftest-coverage \
  	$(call cc-option,-fno-tree-loop-im) \
-@@ -1256,8 +1272,10 @@ cmd_link-vmlinux =                                                 \
+@@ -1232,8 +1248,10 @@ cmd_link-vmlinux =                                                 \
  	$(CONFIG_SHELL) $< "$(LD)" "$(KBUILD_LDFLAGS)" "$(LDFLAGS_vmlinux)";    \
  	$(if $(ARCH_POSTLINK), $(MAKE) -f $(ARCH_POSTLINK) $@, true)
  
 +ifndef KBUILD_MIXED_TREE
  vmlinux: scripts/link-vmlinux.sh autoksyms_recursive $(vmlinux-deps) FORCE
- 	+$(call if_changed,link-vmlinux)
+ 	+$(call if_changed_dep,link-vmlinux)
 +endif
  
  targets := vmlinux
  
-@@ -1478,7 +1496,9 @@ endif
+@@ -1458,7 +1476,9 @@ endif
  # using awk while concatenating to the final file.
  
  PHONY += modules
@@ -81,10 +81,10 @@ diff --git a/Makefile b/Makefile
 +# if KBUILD_BUILTIN && !KBUILD_MIXED_TREE, depend on vmlinux
 +modules: $(if $(KBUILD_BUILTIN), $(if $(KBUILD_MIXED_TREE),,vmlinux))
 +modules: modules_check modules_prepare
- 	$(Q)$(MAKE) -f $(srctree)/scripts/Makefile.modpost
  
- PHONY += modules_check
-@@ -1512,8 +1532,8 @@ _modinst_:
+ cmd_modules_order = $(AWK) '!x[$$0]++' $(real-prereqs) > $@
+ 
+@@ -1503,8 +1523,8 @@ __modinst_pre:
  		ln -s $(CURDIR) $(MODLIB)/build ; \
  	fi
  	@sed 's:^:kernel/:' modules.order > $(MODLIB)/modules.order
@@ -92,10 +92,10 @@ diff --git a/Makefile b/Makefile
 -	@cp -f $(objtree)/modules.builtin.modinfo $(MODLIB)/
 +	@cp -f $(mixed-build-prefix)modules.builtin $(MODLIB)/
 +	@cp -f $(or $(mixed-build-prefix),$(objtree)/)modules.builtin.modinfo $(MODLIB)/
- 	$(Q)$(MAKE) -f $(srctree)/scripts/Makefile.modinst
  
- # This depmod is only for convenience to give the initial
-@@ -1892,7 +1912,7 @@ descend: $(build-dirs)
+ endif # CONFIG_MODULES
+ 
+@@ -1875,7 +1895,7 @@ descend: $(build-dirs)
  $(build-dirs): prepare
  	$(Q)$(MAKE) $(build)=$@ \
  	single-build=$(if $(filter-out $@/, $(filter $@/%, $(KBUILD_SINGLE_TARGETS))),1) \
@@ -104,34 +104,25 @@ diff --git a/Makefile b/Makefile
  
  clean-dirs := $(addprefix _clean_, $(clean-dirs))
  PHONY += $(clean-dirs) clean
-@@ -2026,7 +2046,7 @@ quiet_cmd_rmfiles = $(if $(wildcard $(rm-files)),CLEAN   $(wildcard $(rm-files))
- # Run depmod only if we have System.map and depmod is executable
- quiet_cmd_depmod = DEPMOD  $(KERNELRELEASE)
-       cmd_depmod = $(CONFIG_SHELL) $(srctree)/scripts/depmod.sh $(DEPMOD) \
--                   $(KERNELRELEASE)
-+                   $(KERNELRELEASE) $(mixed-build-prefix)
- 
- # read saved command lines for existing targets
- existing-targets := $(wildcard $(sort $(targets)))
 diff --git a/scripts/Makefile.modpost b/scripts/Makefile.modpost
 --- a/scripts/Makefile.modpost
 +++ b/scripts/Makefile.modpost
-@@ -46,6 +46,8 @@ include scripts/Kbuild.include
+@@ -44,6 +44,8 @@ include $(srctree)/scripts/Kbuild.include
  # for ld_flags
- include scripts/Makefile.lib
+ include $(srctree)/scripts/Makefile.lib
  
 +mixed-build-prefix = $(if $(KBUILD_MIXED_TREE),$(KBUILD_MIXED_TREE)/)
 +
  MODPOST = scripts/mod/modpost								\
  	$(if $(CONFIG_MODVERSIONS),-m)							\
  	$(if $(CONFIG_MODULE_SRCVERSION_ALL),-a)					\
-@@ -67,7 +69,7 @@ else
+@@ -64,7 +66,7 @@ else
  
  ifeq ($(KBUILD_EXTMOD),)
  
 -input-symdump := vmlinux.symvers
 +input-symdump := $(mixed-build-prefix)vmlinux.symvers
- output-symdump := Module.symvers
+ output-symdump := modules-only.symvers
  module_srcpath := $(srctree)
  
 diff --git a/scripts/depmod.sh b/scripts/depmod.sh

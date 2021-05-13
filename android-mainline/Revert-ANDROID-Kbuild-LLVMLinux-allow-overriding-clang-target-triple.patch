@@ -30,7 +30,7 @@ Change-Id: Iecaa3264a440f795f2f3a44bdf74fe28ad4ed1cc
 diff --git a/Makefile b/Makefile
 --- a/Makefile
 +++ b/Makefile
-@@ -582,11 +582,7 @@ CC_VERSION_TEXT = $(shell $(CC) --version 2>/dev/null | head -n 1 | sed 's/\#//g
+@@ -595,11 +595,7 @@ CC_VERSION_TEXT = $(subst $(pound),,$(shell $(CC) --version 2>/dev/null | head -
  
  ifneq ($(findstring clang,$(CC_VERSION_TEXT)),)
  ifneq ($(CROSS_COMPILE),)
@@ -40,9 +40,9 @@ diff --git a/Makefile b/Makefile
 -$(error "Clang with Android --target detected. Did you specify CLANG_TRIPLE?")
 -endif
 +CLANG_FLAGS	+= --target=$(notdir $(CROSS_COMPILE:%-=%))
- GCC_TOOLCHAIN_DIR := $(dir $(shell which $(CROSS_COMPILE)elfedit))
- CLANG_FLAGS	+= --prefix=$(GCC_TOOLCHAIN_DIR)$(notdir $(CROSS_COMPILE))
- GCC_TOOLCHAIN	:= $(realpath $(GCC_TOOLCHAIN_DIR)/..)
+ endif
+ ifeq ($(LLVM_IAS),1)
+ CLANG_FLAGS	+= -integrated-as
 diff --git a/build.config.aarch64 b/build.config.aarch64
 --- a/build.config.aarch64
 +++ b/build.config.aarch64

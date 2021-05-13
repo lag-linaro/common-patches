@@ -89,7 +89,7 @@ diff --git a/kernel/sysctl.c b/kernel/sysctl.c
  /* Constants used for minimum and  maximum */
  #ifdef CONFIG_LOCKUP_DETECTOR
  static int sixty = 60;
-@@ -2821,6 +2824,14 @@ static struct ctl_table vm_table[] = {
+@@ -2889,6 +2892,14 @@ static struct ctl_table vm_table[] = {
  		.extra1		= SYSCTL_ONE,
  		.extra2		= &one_thousand,
  	},
