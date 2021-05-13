@@ -51,7 +51,7 @@ diff --git a/init/Kconfig b/init/Kconfig
 diff --git a/kernel/sched/psi.c b/kernel/sched/psi.c
 --- a/kernel/sched/psi.c
 +++ b/kernel/sched/psi.c
-@@ -743,7 +743,7 @@ static void psi_group_change(struct psi_group *group, int cpu,
+@@ -744,7 +744,7 @@ static void psi_group_change(struct psi_group *group, int cpu,
  
  static struct psi_group *iterate_groups(struct task_struct *task, void **iter)
  {

@@ -16,13 +16,13 @@ Signed-off-by: J. Avila <elavila@google.com>
  init/Kconfig          | 11 +++++++++++
  kernel/sched/cpupri.c | 45 +++++++++++++++++++++++++++++++++++++++++--
  kernel/sched/rt.c     | 37 +++++++++++++++++++++++++++++------
- kernel/sched/sched.h  | 12 ++++++++++++
- 4 files changed, 97 insertions(+), 8 deletions(-)
+ kernel/sched/sched.h  | 11 +++++++++++
+ 4 files changed, 96 insertions(+), 8 deletions(-)
 
 diff --git a/init/Kconfig b/init/Kconfig
 --- a/init/Kconfig
 +++ b/init/Kconfig
-@@ -1220,6 +1220,17 @@ config SCHED_AUTOGROUP
+@@ -1234,6 +1234,17 @@ config SCHED_AUTOGROUP
  	  desktop applications.  Task group autogeneration is currently based
  	  upon task session.
  
@@ -203,11 +203,10 @@ diff --git a/kernel/sched/rt.c b/kernel/sched/rt.c
 diff --git a/kernel/sched/sched.h b/kernel/sched/sched.h
 --- a/kernel/sched/sched.h
 +++ b/kernel/sched/sched.h
-@@ -2758,3 +2758,15 @@ static inline bool is_per_cpu_kthread(struct task_struct *p)
+@@ -2787,3 +2787,14 @@ extern int sched_dynamic_mode(const char *str);
+ extern void sched_dynamic_update(int mode);
+ #endif
  
- void swake_up_all_locked(struct swait_queue_head *q);
- void __prepare_to_swait(struct swait_queue_head *q, struct swait_queue *wait);
-+
 +/*
 + * task_may_not_preempt - check whether a task may not be preemptible soon
 + */

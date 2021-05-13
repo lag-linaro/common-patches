@@ -20,7 +20,7 @@ Signed-off-by: Quentin Perret <quentin.perret@arm.com>
 diff --git a/kernel/sched/sched.h b/kernel/sched/sched.h
 --- a/kernel/sched/sched.h
 +++ b/kernel/sched/sched.h
-@@ -2544,6 +2544,11 @@ unsigned long uclamp_rq_util_with(struct rq *rq, unsigned long util,
+@@ -2566,6 +2566,11 @@ unsigned long uclamp_rq_util_with(struct rq *rq, unsigned long util,
  	return clamp(util, min_util, max_util);
  }
  
@@ -32,7 +32,7 @@ diff --git a/kernel/sched/sched.h b/kernel/sched/sched.h
  /*
   * When uclamp is compiled in, the aggregation at rq level is 'turned off'
   * by default in the fast path and only gets turned on once userspace performs
-@@ -2564,12 +2569,36 @@ unsigned long uclamp_rq_util_with(struct rq *rq, unsigned long util,
+@@ -2586,12 +2591,36 @@ unsigned long uclamp_rq_util_with(struct rq *rq, unsigned long util,
  	return util;
  }
  

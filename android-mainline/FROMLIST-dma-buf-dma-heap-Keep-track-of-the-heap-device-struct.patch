@@ -39,7 +39,7 @@ diff --git a/drivers/dma-buf/dma-heap.c b/drivers/dma-buf/dma-heap.c
  };
  
  static LIST_HEAD(heap_list);
-@@ -202,10 +204,21 @@ void *dma_heap_get_drvdata(struct dma_heap *heap)
+@@ -202,6 +204,18 @@ void *dma_heap_get_drvdata(struct dma_heap *heap)
  	return heap->priv;
  }
  
@@ -55,6 +55,10 @@ diff --git a/drivers/dma-buf/dma-heap.c b/drivers/dma-buf/dma-heap.c
 +	return heap->heap_dev;
 +}
 +
+ /**
+  * dma_heap_get_name() - get heap name
+  * @heap: DMA-Heap to retrieve private data for
+@@ -217,7 +231,6 @@ const char *dma_heap_get_name(struct dma_heap *heap)
  struct dma_heap *dma_heap_add(const struct dma_heap_export_info *exp_info)
  {
  	struct dma_heap *heap, *h, *err_ret;
@@ -62,7 +66,7 @@ diff --git a/drivers/dma-buf/dma-heap.c b/drivers/dma-buf/dma-heap.c
  	unsigned int minor;
  	int ret;
  
-@@ -259,16 +272,20 @@ struct dma_heap *dma_heap_add(const struct dma_heap_export_info *exp_info)
+@@ -271,16 +284,20 @@ struct dma_heap *dma_heap_add(const struct dma_heap_export_info *exp_info)
  		goto err1;
  	}
  
@@ -107,5 +111,5 @@ diff --git a/include/linux/dma-heap.h b/include/linux/dma-heap.h
 +struct device *dma_heap_get_dev(struct dma_heap *heap);
 +
  /**
-  * dma_heap_add - adds a heap to dmabuf heaps
-  * @exp_info:		information needed to register this heap
+  * dma_heap_get_name() - get heap name
+  * @heap: DMA-Heap to retrieve private data for

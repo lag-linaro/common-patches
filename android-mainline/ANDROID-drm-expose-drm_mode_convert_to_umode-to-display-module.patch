@@ -15,7 +15,7 @@ Signed-off-by: Will McVicker <willmcvicker@google.com>
 diff --git a/drivers/gpu/drm/drm_modes.c b/drivers/gpu/drm/drm_modes.c
 --- a/drivers/gpu/drm/drm_modes.c
 +++ b/drivers/gpu/drm/drm_modes.c
-@@ -1940,6 +1940,7 @@ void drm_mode_convert_to_umode(struct drm_mode_modeinfo *out,
+@@ -1943,6 +1943,7 @@ void drm_mode_convert_to_umode(struct drm_mode_modeinfo *out,
  	strncpy(out->name, in->name, DRM_DISPLAY_MODE_LEN);
  	out->name[DRM_DISPLAY_MODE_LEN-1] = 0;
  }

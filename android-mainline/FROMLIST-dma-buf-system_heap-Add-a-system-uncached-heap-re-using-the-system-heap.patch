@@ -212,7 +212,7 @@ diff --git a/drivers/dma-buf/heaps/system_heap.c b/drivers/dma-buf/heaps/system_
  
  	INIT_LIST_HEAD(&pages);
  	i = 0;
-@@ -399,6 +424,18 @@ static struct dma_buf *system_heap_allocate(struct dma_heap *heap,
+@@ -400,6 +425,18 @@ static struct dma_buf *system_heap_allocate(struct dma_heap *heap,
  		ret = PTR_ERR(dmabuf);
  		goto free_pages;
  	}
@@ -231,7 +231,7 @@ diff --git a/drivers/dma-buf/heaps/system_heap.c b/drivers/dma-buf/heaps/system_
  	return dmabuf;
  
  free_pages:
-@@ -416,10 +453,40 @@ static struct dma_buf *system_heap_allocate(struct dma_heap *heap,
+@@ -417,10 +454,40 @@ static struct dma_buf *system_heap_allocate(struct dma_heap *heap,
  	return ERR_PTR(ret);
  }
  
@@ -272,7 +272,7 @@ diff --git a/drivers/dma-buf/heaps/system_heap.c b/drivers/dma-buf/heaps/system_
  static int system_heap_create(void)
  {
  	struct dma_heap_export_info exp_info;
-@@ -432,6 +499,18 @@ static int system_heap_create(void)
+@@ -433,6 +500,18 @@ static int system_heap_create(void)
  	if (IS_ERR(sys_heap))
  		return PTR_ERR(sys_heap);
  

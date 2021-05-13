@@ -28,8 +28,8 @@ Signed-off-by: Pavankumar Kondeti <pkondeti@codeaurora.org>
  drivers/android/vendor_hooks.c |  4 ++++
  include/trace/hooks/sched.h    | 25 +++++++++++++++++++++++++
  kernel/sched/core.c            | 14 +++++++++++++-
- kernel/sched/fair.c            | 31 ++++++++++++++++++++++++++++++-
- 4 files changed, 72 insertions(+), 2 deletions(-)
+ kernel/sched/fair.c            | 32 ++++++++++++++++++++++++++++++--
+ 4 files changed, 72 insertions(+), 3 deletions(-)
 
 diff --git a/drivers/android/vendor_hooks.c b/drivers/android/vendor_hooks.c
 --- a/drivers/android/vendor_hooks.c
@@ -87,7 +87,7 @@ diff --git a/include/trace/hooks/sched.h b/include/trace/hooks/sched.h
 diff --git a/kernel/sched/core.c b/kernel/sched/core.c
 --- a/kernel/sched/core.c
 +++ b/kernel/sched/core.c
-@@ -1852,12 +1852,24 @@ static inline bool is_cpu_allowed(struct task_struct *p, int cpu)
+@@ -1862,12 +1862,24 @@ static inline bool is_cpu_allowed(struct task_struct *p, int cpu)
  static struct rq *move_queued_task(struct rq *rq, struct rq_flags *rf,
  				   struct task_struct *p, int new_cpu)
  {
@@ -116,7 +116,7 @@ diff --git a/kernel/sched/core.c b/kernel/sched/core.c
 diff --git a/kernel/sched/fair.c b/kernel/sched/fair.c
 --- a/kernel/sched/fair.c
 +++ b/kernel/sched/fair.c
-@@ -7473,6 +7473,7 @@ struct lb_env {
+@@ -7545,6 +7545,7 @@ struct lb_env {
  	enum fbq_type		fbq_type;
  	enum migration_type	migration_type;
  	struct list_head	tasks;
@@ -124,7 +124,7 @@ diff --git a/kernel/sched/fair.c b/kernel/sched/fair.c
  };
  
  /*
-@@ -7663,8 +7664,20 @@ int can_migrate_task(struct task_struct *p, struct lb_env *env)
+@@ -7746,8 +7747,20 @@ int can_migrate_task(struct task_struct *p, struct lb_env *env)
   */
  static void detach_task(struct task_struct *p, struct lb_env *env)
  {
@@ -145,7 +145,7 @@ diff --git a/kernel/sched/fair.c b/kernel/sched/fair.c
  	deactivate_task(env->src_rq, p, DEQUEUE_NOCLOCK);
  	set_task_cpu(p, env->dst_cpu);
  }
-@@ -9403,7 +9416,11 @@ static struct rq *find_busiest_queue(struct lb_env *env,
+@@ -9441,7 +9454,11 @@ static struct rq *find_busiest_queue(struct lb_env *env,
  	struct rq *busiest = NULL, *rq;
  	unsigned long busiest_util = 0, busiest_load = 0, busiest_capacity = 1;
  	unsigned int busiest_nr = 0;
@@ -158,7 +158,7 @@ diff --git a/kernel/sched/fair.c b/kernel/sched/fair.c
  
  	for_each_cpu_and(i, sched_group_span(group), env->cpus) {
  		unsigned long capacity, load, util;
-@@ -9694,6 +9711,7 @@ static int load_balance(int this_cpu, struct rq *this_rq,
+@@ -9732,6 +9749,7 @@ static int load_balance(int this_cpu, struct rq *this_rq,
  
  more_balance:
  		rq_lock_irqsave(busiest, &rf);
@@ -166,15 +166,16 @@ diff --git a/kernel/sched/fair.c b/kernel/sched/fair.c
  		update_rq_clock(busiest);
  
  		/*
-@@ -9997,6 +10015,7 @@ static int active_load_balance_cpu_stop(void *data)
- 			 * about DST_PINNED.
- 			 */
- 			.flags		= LBF_DST_PINNED,
+@@ -10025,7 +10043,7 @@ static int active_load_balance_cpu_stop(void *data)
+ 			.src_cpu	= busiest_rq->cpu,
+ 			.src_rq		= busiest_rq,
+ 			.idle		= CPU_IDLE,
+-			.flags		= LBF_ACTIVE_LB,
 +			.src_rq_rf	= &rf,
  		};
  
  		schedstat_inc(sd->alb_count);
-@@ -10220,6 +10239,7 @@ static void nohz_balancer_kick(struct rq *rq)
+@@ -10236,6 +10254,7 @@ static void nohz_balancer_kick(struct rq *rq)
  	struct sched_domain *sd;
  	int nr_busy, i, cpu = rq->cpu;
  	unsigned int flags = 0;
@@ -182,7 +183,7 @@ diff --git a/kernel/sched/fair.c b/kernel/sched/fair.c
  
  	if (unlikely(rq->idle_balance))
  		return;
-@@ -10244,6 +10264,10 @@ static void nohz_balancer_kick(struct rq *rq)
+@@ -10260,6 +10279,10 @@ static void nohz_balancer_kick(struct rq *rq)
  	if (time_before(now, nohz.next_balance))
  		goto out;
  
@@ -193,7 +194,7 @@ diff --git a/kernel/sched/fair.c b/kernel/sched/fair.c
  	if (rq->nr_running >= 2) {
  		flags = NOHZ_KICK_MASK;
  		goto out;
-@@ -10618,6 +10642,11 @@ static int newidle_balance(struct rq *this_rq, struct rq_flags *rf)
+@@ -10652,6 +10675,11 @@ static int newidle_balance(struct rq *this_rq, struct rq_flags *rf)
  	struct sched_domain *sd;
  	int pulled_task = 0;
  	u64 curr_cost = 0;

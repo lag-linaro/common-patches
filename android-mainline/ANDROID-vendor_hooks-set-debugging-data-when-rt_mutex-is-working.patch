@@ -89,7 +89,7 @@ diff --git a/kernel/locking/rtmutex.c b/kernel/locking/rtmutex.c
  
  #include "rtmutex_common.h"
  
-@@ -1150,6 +1151,7 @@ __rt_mutex_slowlock(struct rt_mutex *lock, int state,
+@@ -1141,6 +1142,7 @@ static int __sched __rt_mutex_slowlock(struct rt_mutex *lock, int state,
  {
  	int ret = 0;
  
@@ -97,7 +97,7 @@ diff --git a/kernel/locking/rtmutex.c b/kernel/locking/rtmutex.c
  	for (;;) {
  		/* Try to acquire the lock: */
  		if (try_to_take_rt_mutex(lock, current, waiter))
-@@ -1179,6 +1181,7 @@ __rt_mutex_slowlock(struct rt_mutex *lock, int state,
+@@ -1163,6 +1165,7 @@ static int __sched __rt_mutex_slowlock(struct rt_mutex *lock, int state,
  		set_current_state(state);
  	}
  

@@ -57,7 +57,7 @@ diff --git a/kernel/irq_work.c b/kernel/irq_work.c
 diff --git a/kernel/kthread.c b/kernel/kthread.c
 --- a/kernel/kthread.c
 +++ b/kernel/kthread.c
-@@ -455,6 +455,7 @@ void kthread_bind_mask(struct task_struct *p, const struct cpumask *mask)
+@@ -476,6 +476,7 @@ void kthread_bind_mask(struct task_struct *p, const struct cpumask *mask)
  {
  	__kthread_bind_mask(p, mask, TASK_UNINTERRUPTIBLE);
  }
@@ -68,7 +68,7 @@ diff --git a/kernel/kthread.c b/kernel/kthread.c
 diff --git a/kernel/sched/core.c b/kernel/sched/core.c
 --- a/kernel/sched/core.c
 +++ b/kernel/sched/core.c
-@@ -201,6 +201,7 @@ struct rq *__task_rq_lock(struct task_struct *p, struct rq_flags *rf)
+@@ -211,6 +211,7 @@ struct rq *__task_rq_lock(struct task_struct *p, struct rq_flags *rf)
  			cpu_relax();
  	}
  }
@@ -76,7 +76,7 @@ diff --git a/kernel/sched/core.c b/kernel/sched/core.c
  
  /*
   * task_rq_lock - lock p->pi_lock and lock the rq @p resides on.
-@@ -8108,7 +8109,9 @@ int in_sched_functions(unsigned long addr)
+@@ -8116,7 +8117,9 @@ int in_sched_functions(unsigned long addr)
   * Every task in system belongs to this group at bootup.
   */
  struct task_group root_task_group;

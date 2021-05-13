@@ -49,7 +49,7 @@ diff --git a/include/trace/hooks/sched.h b/include/trace/hooks/sched.h
 diff --git a/kernel/sched/core.c b/kernel/sched/core.c
 --- a/kernel/sched/core.c
 +++ b/kernel/sched/core.c
-@@ -1605,7 +1605,7 @@ static inline void enqueue_task(struct rq *rq, struct task_struct *p, int flags)
+@@ -1615,7 +1615,7 @@ static inline void enqueue_task(struct rq *rq, struct task_struct *p, int flags)
  	uclamp_rq_inc(rq, p);
  	p->sched_class->enqueue_task(rq, p, flags);
  
@@ -58,7 +58,7 @@ diff --git a/kernel/sched/core.c b/kernel/sched/core.c
  }
  
  static inline void dequeue_task(struct rq *rq, struct task_struct *p, int flags)
-@@ -1621,7 +1621,7 @@ static inline void dequeue_task(struct rq *rq, struct task_struct *p, int flags)
+@@ -1631,7 +1631,7 @@ static inline void dequeue_task(struct rq *rq, struct task_struct *p, int flags)
  	uclamp_rq_dec(rq, p);
  	p->sched_class->dequeue_task(rq, p, flags);
  

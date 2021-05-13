@@ -90,7 +90,7 @@ diff --git a/drivers/media/Kconfig b/drivers/media/Kconfig
  	help
  	  Enable support for complex cameras, codecs, and other hardware
 @@ -137,8 +131,7 @@ config MEDIA_PLATFORM_SUPPORT
- 	  Say Y when you want to be able so see such devices.
+ 	  Say Y when you want to be able to see such devices.
  
  config MEDIA_TEST_SUPPORT
 -	bool

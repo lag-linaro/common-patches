@@ -382,7 +382,7 @@ new file mode 100644
 diff --git a/include/linux/sched.h b/include/linux/sched.h
 --- a/include/linux/sched.h
 +++ b/include/linux/sched.h
-@@ -906,6 +906,10 @@ struct task_struct {
+@@ -905,6 +905,10 @@ struct task_struct {
  	u64				stimescaled;
  #endif
  	u64				gtime;
@@ -421,7 +421,7 @@ diff --git a/kernel/fork.c b/kernel/fork.c
  	/*
  	 * This _must_ happen before we call free_task(), i.e. before we jump
  	 * to any of the bad_fork_* labels. This is to avoid freeing
-@@ -2504,6 +2508,8 @@ pid_t kernel_clone(struct kernel_clone_args *args)
+@@ -2505,6 +2509,8 @@ pid_t kernel_clone(struct kernel_clone_args *args)
  	if (IS_ERR(p))
  		return PTR_ERR(p);
  

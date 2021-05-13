@@ -45,7 +45,7 @@ diff --git a/include/trace/hooks/sched.h b/include/trace/hooks/sched.h
 diff --git a/kernel/sched/fair.c b/kernel/sched/fair.c
 --- a/kernel/sched/fair.c
 +++ b/kernel/sched/fair.c
-@@ -9418,7 +9418,8 @@ static struct rq *find_busiest_queue(struct lb_env *env,
+@@ -9456,7 +9456,8 @@ static struct rq *find_busiest_queue(struct lb_env *env,
  	unsigned int busiest_nr = 0;
  	int i, done = 0;
  

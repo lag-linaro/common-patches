@@ -23,7 +23,7 @@ Change-Id: I12f8e77054d12a855df10ca9d13a52d417343666
 diff --git a/kernel/sched/core.c b/kernel/sched/core.c
 --- a/kernel/sched/core.c
 +++ b/kernel/sched/core.c
-@@ -1603,9 +1603,8 @@ static inline void enqueue_task(struct rq *rq, struct task_struct *p, int flags)
+@@ -1613,9 +1613,8 @@ static inline void enqueue_task(struct rq *rq, struct task_struct *p, int flags)
  	}
  
  	uclamp_rq_inc(rq, p);
@@ -34,7 +34,7 @@ diff --git a/kernel/sched/core.c b/kernel/sched/core.c
  }
  
  static inline void dequeue_task(struct rq *rq, struct task_struct *p, int flags)
-@@ -1619,9 +1618,8 @@ static inline void dequeue_task(struct rq *rq, struct task_struct *p, int flags)
+@@ -1629,9 +1628,8 @@ static inline void dequeue_task(struct rq *rq, struct task_struct *p, int flags)
  	}
  
  	uclamp_rq_dec(rq, p);

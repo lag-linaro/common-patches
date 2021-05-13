@@ -15,7 +15,7 @@ Signed-off-by: Sai Harshini Nimmala <snimmala@codeaurora.org>
 diff --git a/kernel/printk/printk.c b/kernel/printk/printk.c
 --- a/kernel/printk/printk.c
 +++ b/kernel/printk/printk.c
-@@ -3150,6 +3150,7 @@ int printk_deferred(const char *fmt, ...)
+@@ -3214,6 +3214,7 @@ int printk_deferred(const char *fmt, ...)
  
  	return r;
  }

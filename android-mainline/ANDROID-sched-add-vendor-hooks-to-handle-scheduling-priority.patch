@@ -76,7 +76,7 @@ diff --git a/include/trace/hooks/sched.h b/include/trace/hooks/sched.h
 diff --git a/kernel/sched/core.c b/kernel/sched/core.c
 --- a/kernel/sched/core.c
 +++ b/kernel/sched/core.c
-@@ -3736,6 +3736,7 @@ int sched_fork(unsigned long clone_flags, struct task_struct *p)
+@@ -3755,6 +3755,7 @@ int sched_fork(unsigned long clone_flags, struct task_struct *p)
  	 * Make sure we do not leak PI boosting priority to the child.
  	 */
  	p->prio = current->normal_prio;
@@ -84,7 +84,7 @@ diff --git a/kernel/sched/core.c b/kernel/sched/core.c
  
  	uclamp_fork(p);
  
-@@ -3768,6 +3769,7 @@ int sched_fork(unsigned long clone_flags, struct task_struct *p)
+@@ -3787,6 +3788,7 @@ int sched_fork(unsigned long clone_flags, struct task_struct *p)
  		p->sched_class = &fair_sched_class;
  
  	init_entity_runnable_average(&p->se);
@@ -92,7 +92,7 @@ diff --git a/kernel/sched/core.c b/kernel/sched/core.c
  
  	/*
  	 * The child is not yet in the pid-hash so no cgroup attach races,
-@@ -5595,6 +5597,7 @@ void rt_mutex_setprio(struct task_struct *p, struct task_struct *pi_task)
+@@ -5600,6 +5602,7 @@ void rt_mutex_setprio(struct task_struct *p, struct task_struct *pi_task)
  	struct rq_flags rf;
  	struct rq *rq;
  
@@ -100,7 +100,7 @@ diff --git a/kernel/sched/core.c b/kernel/sched/core.c
  	/* XXX used to be waiter->prio, not waiter->task->prio */
  	prio = __rt_effective_prio(pi_task, p->normal_prio);
  
-@@ -5729,6 +5732,7 @@ void set_user_nice(struct task_struct *p, long nice)
+@@ -5734,6 +5737,7 @@ void set_user_nice(struct task_struct *p, long nice)
  	 */
  	rq = task_rq_lock(p, &rf);
  	update_rq_clock(rq);
@@ -108,7 +108,7 @@ diff --git a/kernel/sched/core.c b/kernel/sched/core.c
  
  	/*
  	 * The RT priorities are set via sched_setscheduler(), but we still
-@@ -6069,6 +6073,8 @@ static void __setscheduler(struct rq *rq, struct task_struct *p,
+@@ -6074,6 +6078,8 @@ static void __setscheduler(struct rq *rq, struct task_struct *p,
  		p->sched_class = &rt_sched_class;
  	else
  		p->sched_class = &fair_sched_class;

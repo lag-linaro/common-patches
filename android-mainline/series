@@ -1,8 +1,8 @@
 #
 # android-mainline patches
 #
-# Applies onto upstream c6536676c7fe3 Linux v5.12-4505-gc6536676c7fe3
-# Matches android-mainline 0c3ec15ae09c1 ("Revert "ANDROID: Improve OWNERS file definitions"")
+# Applies onto upstream 16b3d0cf5bad8 Linux v5.12-6810-g16b3d0cf5bad8
+# Matches android-mainline 4797acfb9cac5 ("Merge 16b3d0cf5bad8 Merge tag 'sched-core-2021-04-28' of git://git.kernel.org/pub/scm/linux/kernel/git/tip/tip into android-mainline")
 #
 Revert-block-grant-IOPRIO_CLASS_RT-to-CAP_SYS_NICE.patch
 Revert-arm64-dts-qcom-sdm845-db845c-Fix-hdmi-nodes.patch
@@ -30,8 +30,6 @@ FROMLIST-kbuild-improve-libelf-detection.patch
 FROMLIST-Makefile-fix-GDB-warning-with-CONFIG_RELR.patch
 FROMLIST-dma-buf-dma-heap-Keep-track-of-the-heap-device-struct.patch
 FROMLIST-dma-buf-system_heap-Add-a-system-uncached-heap-re-using-the-system-heap.patch
-FROMLIST-dma-buf-dma-heap-Provide-accessor-to-get-heap-name.patch
-FROMLIST-dma-buf-heaps-Fix-the-name-used-when-exporting-dmabufs-to-be-the-actual-heap-name.patch
 FROMLIST-irqchip-irq-meson-gpio-make-it-possible-to-build-as-a-module.patch
 FROMLIST-arm64-meson-remove-MESON_IRQ_GPIO-selection.patch
 FROMLIST-ARM-kprobes-fix-UNPREDICTABLE-warnings.patch
