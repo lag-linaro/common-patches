@@ -2,7 +2,7 @@
 # android-mainline patches
 #
 # Applies onto upstream 9ec1efbf9ded6 Linux v5.12-12685-g9ec1efbf9ded6
-# Matches android-mainline 331962b5c516f ("Merge 9ec1efbf9ded6 Merge tag 'fuse-update-5.13' of git://git.kernel.org/pub/scm/linux/kernel/git/mszeredi/fuse into android-mainline")
+# Matches android-mainline 4fd3fbfa13076 ("Revert "fuse: fix matching of FUSE_DEV_IOC_CLONE command"")
 #
 Revert-block-grant-IOPRIO_CLASS_RT-to-CAP_SYS_NICE.patch
 Revert-arm64-dts-qcom-sdm845-db845c-Fix-hdmi-nodes.patch
@@ -361,6 +361,7 @@ ANDROID-Sync-ext4-casefolded-encryption-with-patches-going-upstream.patch
 ANDROID-GKI-Don-t-compact-fuse_req-when-CONFIG_VIRTIO_FS-n.patch
 ANDROID-vfs-d_canonical_path-for-stacked-FS.patch
 ANDROID-fuse-Add-support-for-d_canonical_path.patch
+Revert-fuse-fix-matching-of-FUSE_DEV_IOC_CLONE-command.patch
 ANDROID-fs-verity-Export-function-to-check-signatures.patch
 _____ANNOTATION-Incremental-filesystem_____.patch
 ANDROID-Initial-commit-of-Incremental-FS.patch
