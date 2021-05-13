@@ -2,7 +2,7 @@
 # android-mainline patches
 #
 # Applies onto upstream 8ca5297e7e38f Linux v5.12-11146-g8ca5297e7e38f
-# Matches android-mainline 92f282f338c5a ("Merge 8ca5297e7e38f Merge tag 'kconfig-v5.13' of git://git.kernel.org/pub/scm/linux/kernel/git/masahiroy/linux-kbuild into android-mainline")
+# Matches android-mainline 97ea2b6e2ada7 ("FROMLIST: f2fs: support iflag change given the mask")
 #
 Revert-block-grant-IOPRIO_CLASS_RT-to-CAP_SYS_NICE.patch
 Revert-arm64-dts-qcom-sdm845-db845c-Fix-hdmi-nodes.patch
@@ -351,6 +351,7 @@ FROMLIST-direct-io-add-support-for-fscrypt-using-blk-crypto.patch
 FROMLIST-iomap-support-direct-I-O-with-fscrypt-using-blk-crypto.patch
 FROMLIST-ext4-support-direct-I-O-with-fscrypt-using-blk-crypto.patch
 FROMLIST-f2fs-support-direct-I-O-with-fscrypt-using-blk-crypto.patch
+FROMLIST-f2fs-support-iflag-change-given-the-mask.patch
 ANDROID-fs-epoll-use-freezable-blocking-call.patch
 ANDROID-fs-FS-tracepoints-to-track-IO.patch
 ANDROID-Add-a-tracepoint-for-mapping-inode-to-full-path.patch
@@ -465,6 +466,7 @@ ANDROID-Incremental-fs-Add-status-to-sysfs.patch
 ANDROID-Incremental-fs-Fix-INCFS_MAGIC_NUMBER-casts.patch
 ANDROID-Incremental-fs-Add-INCFS_IOC_GET_LAST_READ_ERROR.patch
 ANDROID-Incremental-fs-Fix-pseudo-file-attributes.patch
+ANDROID-Incremental-fs-Explicitly-include-linux-pagemap.h.patch
 _____ANNOTATION-networking-changes_____.patch
 ANDROID-net-xfrm-make-PF_KEY-SHA256-use-RFC-compliant-truncation.patch
 ANDROID-net-xfrm-always-export-pktgen_xfrm_outer_mode_output.patch

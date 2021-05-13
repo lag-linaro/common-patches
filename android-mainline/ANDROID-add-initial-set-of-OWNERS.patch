@@ -21,6 +21,7 @@ All other permissions are already covered by ref/meta/config:OWNERS.
 Signed-off-by: Matthias Maennich <maennich@google.com>
 Change-Id: I02a6563e4dd63842af37c50f7180bf38e9b9b4be
 ---
+ Documentation/ABI/testing/OWNERS                 |  1 +
  OWNERS                                           | 12 ++++++++++++
  arch/arm/OWNERS                                  |  1 +
  arch/arm64/OWNERS                                |  7 +++++++
@@ -36,7 +37,8 @@ Change-Id: I02a6563e4dd63842af37c50f7180bf38e9b9b4be
  mm/OWNERS                                        |  3 +++
  net/OWNERS                                       |  2 ++
  tools/testing/selftests/filesystems/incfs/OWNERS |  1 +
- 15 files changed, 48 insertions(+)
+ 16 files changed, 49 insertions(+)
+ create mode 100644 Documentation/ABI/testing/OWNERS
  create mode 100644 OWNERS
  create mode 100644 arch/arm/OWNERS
  create mode 100644 arch/arm64/OWNERS
@@ -53,6 +55,12 @@ Change-Id: I02a6563e4dd63842af37c50f7180bf38e9b9b4be
  create mode 100644 net/OWNERS
  create mode 100644 tools/testing/selftests/filesystems/incfs/OWNERS
 
+diff --git a/Documentation/ABI/testing/OWNERS b/Documentation/ABI/testing/OWNERS
+new file mode 100644
+--- /dev/null
++++ b/Documentation/ABI/testing/OWNERS
+@@ -0,0 +1 @@
++per-file sysfs-fs-f2fs=file:/fs/f2fs/OWNERS
 diff --git a/OWNERS b/OWNERS
 new file mode 100644
 --- /dev/null

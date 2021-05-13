@@ -1,0 +1,28 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: Lee Jones <lee.jones@linaro.org>
+Date: Tue, 11 May 2021 16:13:16 +0100
+Subject: ANDROID: Incremental fs: Explicitly include <linux/pagemap.h>
+
+<linux/blkdev.h> no longer includes <linux/pagemap.h>.
+
+Besides, source files should explicitly include headers providing used
+functionality anyway.
+
+Fixes: 4ee60ec156d91 ("include: remove pagemap.h from blkdev.h")
+Signed-off-by: Lee Jones <lee.jones@linaro.org>
+Change-Id: I6d28e5cc100780ecd74f5d772f08fd4b0f977898
+---
+ fs/incfs/vfs.c | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/fs/incfs/vfs.c b/fs/incfs/vfs.c
+--- a/fs/incfs/vfs.c
++++ b/fs/incfs/vfs.c
+@@ -12,6 +12,7 @@
+ #include <linux/fsverity.h>
+ #include <linux/mmap_lock.h>
+ #include <linux/namei.h>
++#include <linux/pagemap.h>
+ #include <linux/parser.h>
+ #include <linux/seq_file.h>
+ 
