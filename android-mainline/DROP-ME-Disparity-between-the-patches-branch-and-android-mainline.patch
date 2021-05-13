@@ -63,7 +63,7 @@ diff --git a/MAINTAINERS b/MAINTAINERS
  L:	linux-afs@lists.infradead.org
  S:	Supported
  W:	https://www.infradead.org/~dhowells/kafs/
-@@ -14058,13 +14059,6 @@ F:	Documentation/devicetree/bindings/pci/ti-pci.txt
+@@ -14074,13 +14075,6 @@ F:	Documentation/devicetree/bindings/pci/ti-pci.txt
  F:	drivers/pci/controller/cadence/pci-j721e.c
  F:	drivers/pci/controller/dwc/pci-dra7xx.c
  
@@ -77,7 +77,7 @@ diff --git a/MAINTAINERS b/MAINTAINERS
  PCI DRIVER FOR V3 SEMICONDUCTOR V360EPC
  M:	Linus Walleij <linus.walleij@linaro.org>
  L:	linux-pci@vger.kernel.org
-@@ -15847,6 +15841,7 @@ F:	drivers/infiniband/ulp/rtrs/
+@@ -15865,6 +15859,7 @@ F:	drivers/infiniband/ulp/rtrs/
  
  RXRPC SOCKETS (AF_RXRPC)
  M:	David Howells <dhowells@redhat.com>
@@ -85,7 +85,7 @@ diff --git a/MAINTAINERS b/MAINTAINERS
  L:	linux-afs@lists.infradead.org
  S:	Supported
  W:	https://www.infradead.org/~dhowells/kafs/
-@@ -18263,13 +18258,6 @@ S:	Maintained
+@@ -18281,13 +18276,6 @@ S:	Maintained
  F:	sound/soc/codecs/isabelle*
  F:	sound/soc/codecs/lm49453*
  

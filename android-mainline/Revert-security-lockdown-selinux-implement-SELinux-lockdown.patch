@@ -120,7 +120,7 @@ diff --git a/security/lsm_audit.c b/security/lsm_audit.c
 diff --git a/security/selinux/hooks.c b/security/selinux/hooks.c
 --- a/security/selinux/hooks.c
 +++ b/security/selinux/hooks.c
-@@ -7031,34 +7031,6 @@ static void selinux_bpf_prog_free(struct bpf_prog_aux *aux)
+@@ -7017,34 +7017,6 @@ static void selinux_bpf_prog_free(struct bpf_prog_aux *aux)
  }
  #endif
  
@@ -155,7 +155,7 @@ diff --git a/security/selinux/hooks.c b/security/selinux/hooks.c
  struct lsm_blob_sizes selinux_blob_sizes __lsm_ro_after_init = {
  	.lbs_cred = sizeof(struct task_security_struct),
  	.lbs_file = sizeof(struct file_security_struct),
-@@ -7367,8 +7339,6 @@ static struct security_hook_list selinux_hooks[] __lsm_ro_after_init = {
+@@ -7353,8 +7325,6 @@ static struct security_hook_list selinux_hooks[] __lsm_ro_after_init = {
  	LSM_HOOK_INIT(perf_event_write, selinux_perf_event_write),
  #endif
  
