@@ -2,12 +2,11 @@
 # android-mainline patches
 #
 # Applies onto upstream 9ccce092fc64d Linux v5.12-13583-g9ccce092fc64d
-# Matches android-mainline e11858ac17256 ("Merge 9ccce092fc64d Merge tag 'for-linus-5.13-ofs-1' of git://git.kernel.org/pub/scm/linux/kernel/git/hubcap/linux into android-mainline")
+# Matches android-mainline 6b42512ec72a4 ("Revert "ANDROID: Revert "security,lockdown,selinux: implement SELinux lockdown""")
 #
 Revert-block-grant-IOPRIO_CLASS_RT-to-CAP_SYS_NICE.patch
 Revert-arm64-dts-qcom-sdm845-db845c-Fix-hdmi-nodes.patch
 Revert-ubsan-enable-for-all-config-builds.patch
-Revert-security-lockdown-selinux-implement-SELinux-lockdown.patch
 Revert-ARM-9017-2-Enable-KASan-for-ARM.patch
 Revert-tweewide-Fix-most-Shebang-lines.patch
 Revert-bpf-program-Refuse-non-O_RDWR-flags-in-BPF_OBJ_GET.patch
@@ -599,6 +598,8 @@ ANDROID-Build-LZ4-ramdisk-for-rockpi4.patch
 ANDROID-build.config-Add-vmlinux.symvers-and-modules.builtin-to-DIST_DIR.patch
 ANDROID-clang-update-to-12.0.5.patch
 ANDROID-OWNERS-add-Bart-for-block-scsi.patch
+ANDROID-db845c_gki.fragment-Add-QCOM_TSENSE-config-to-avoid-thermal-crashes.patch
+ANDROID-Add-balsini-to-the-FUSE-OWNERS-files.patch
 _____ANNOTATION-Patches-for-bringing-up-new-SoCs_____.patch
 _____ANNOTATION-remove-ANNOTATIONS-file_____.patch
 DROP-ME-obsolete-ION-documentation.patch

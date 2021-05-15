@@ -1,0 +1,38 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: John Stultz <john.stultz@linaro.org>
+Date: Tue, 11 May 2021 07:29:32 +0000
+Subject: ANDROID: db845c_gki.fragment: Add QCOM_TSENSE config to avoid thermal
+ crashes
+
+This adds QCOM_TSENSE to the db845c_gki.fragment which is
+needed to avoid hard crashes seen on db845c (which crash into
+USB dump mode). This was causing some troube in our testing
+as we'd occasionally see hard crashes in certian CTS tests
+(also reproducible with a forkbomb).
+
+After lots of debugging we've narrowed down this config as
+the change which avoids the hard crashes.
+
+Thanks to: Vinod Koul <vinod.koul@linaro.org> and
+Bjorn Andersson <bjorn.andersson@linaro.org> for helping debug
+this issue!
+
+Bug: 146449535
+Reported-by: YongQin Liu <yongqin.liu@linaro.org>
+Signed-off-by: John Stultz <john.stultz@linaro.org>
+Change-Id: I0752c85e44028e6272c14b59fa09d2baf2e18feb
+---
+ arch/arm64/configs/db845c_gki.fragment | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/arch/arm64/configs/db845c_gki.fragment b/arch/arm64/configs/db845c_gki.fragment
+--- a/arch/arm64/configs/db845c_gki.fragment
++++ b/arch/arm64/configs/db845c_gki.fragment
+@@ -12,6 +12,7 @@ CONFIG_PINCTRL_QCOM_SPMI_PMIC=m
+ CONFIG_PINCTRL_SDM845=m
+ CONFIG_POWER_RESET_QCOM_PON=m
+ CONFIG_SYSCON_REBOOT_MODE=m
++CONFIG_QCOM_TSENS=m
+ CONFIG_QCOM_WDT=m
+ CONFIG_PM8916_WATCHDOG=m
+ CONFIG_MFD_SPMI_PMIC=m
