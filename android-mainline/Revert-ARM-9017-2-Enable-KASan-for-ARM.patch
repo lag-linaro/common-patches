@@ -48,7 +48,7 @@ diff --git a/Documentation/features/debug/KASAN/arch-support.txt b/Documentation
 diff --git a/arch/arm/Kconfig b/arch/arm/Kconfig
 --- a/arch/arm/Kconfig
 +++ b/arch/arm/Kconfig
-@@ -70,7 +70,6 @@ config ARM
+@@ -71,7 +71,6 @@ config ARM
  	select HAVE_ARCH_BITREVERSE if (CPU_32v7M || CPU_32v7) && !CPU_32v6
  	select HAVE_ARCH_JUMP_LABEL if !XIP_KERNEL && !CPU_ENDIAN_BE32 && MMU
  	select HAVE_ARCH_KGDB if !CPU_ENDIAN_BE32 && MMU

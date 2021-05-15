@@ -40,7 +40,7 @@ diff --git a/fs/eventpoll.c b/fs/eventpoll.c
  #include <linux/uaccess.h>
  #include <asm/io.h>
  #include <asm/mman.h>
-@@ -1839,8 +1840,8 @@ static int ep_poll(struct eventpoll *ep, struct epoll_event __user *events,
+@@ -1845,8 +1846,8 @@ static int ep_poll(struct eventpoll *ep, struct epoll_event __user *events,
  		write_unlock_irq(&ep->lock);
  
  		if (!eavail)

@@ -25,7 +25,7 @@ Signed-off-by: Lee Jones <lee.jones@linaro.org>
 diff --git a/init/Kconfig b/init/Kconfig
 --- a/init/Kconfig
 +++ b/init/Kconfig
-@@ -2412,3 +2412,5 @@ config ARCH_HAS_SYNC_CORE_BEFORE_USERMODE
+@@ -2429,3 +2429,5 @@ config ARCH_HAS_SYNC_CORE_BEFORE_USERMODE
  # <asm/syscall_wrapper.h>.
  config ARCH_HAS_SYSCALL_WRAPPER
  	def_bool n

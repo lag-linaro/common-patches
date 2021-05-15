@@ -31,7 +31,7 @@ Change-Id: Ia907b2def940197b44aa87b337d37c5dde9c5b91
 diff --git a/fs/configfs/dir.c b/fs/configfs/dir.c
 --- a/fs/configfs/dir.c
 +++ b/fs/configfs/dir.c
-@@ -1411,6 +1411,22 @@ static int configfs_mkdir(struct user_namespace *mnt_userns, struct inode *dir,
+@@ -1409,6 +1409,22 @@ static int configfs_mkdir(struct user_namespace *mnt_userns, struct inode *dir,
  	else
  		ret = configfs_attach_item(parent_item, item, dentry, frag);
  

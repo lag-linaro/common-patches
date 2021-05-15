@@ -42,7 +42,7 @@ diff --git a/drivers/scsi/ufs/ufs-sysfs.c b/drivers/scsi/ufs/ufs-sysfs.c
  
 +#include <trace/hooks/ufshcd.h>
 +
- static const char *ufschd_uic_link_state_to_string(
+ static const char *ufshcd_uic_link_state_to_string(
  			enum uic_link_state state)
  {
 @@ -990,15 +992,19 @@ const struct attribute_group ufs_sysfs_lun_attributes_group = {
@@ -84,7 +84,7 @@ diff --git a/drivers/scsi/ufs/ufs-sysfs.h b/drivers/scsi/ufs/ufs-sysfs.h
 diff --git a/drivers/scsi/ufs/ufshcd.c b/drivers/scsi/ufs/ufshcd.c
 --- a/drivers/scsi/ufs/ufshcd.c
 +++ b/drivers/scsi/ufs/ufshcd.c
-@@ -9456,7 +9456,7 @@ int ufshcd_init(struct ufs_hba *hba, void __iomem *mmio_base, unsigned int irq)
+@@ -9459,7 +9459,7 @@ int ufshcd_init(struct ufs_hba *hba, void __iomem *mmio_base, unsigned int irq)
  	ufshcd_set_ufs_dev_active(hba);
  
  	async_schedule(ufshcd_async_scan, hba);

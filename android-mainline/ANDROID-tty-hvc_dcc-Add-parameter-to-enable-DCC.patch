@@ -18,7 +18,7 @@ Signed-off-by: Elliot Berman <eberman@codeaurora.org>
 diff --git a/Documentation/admin-guide/kernel-parameters.txt b/Documentation/admin-guide/kernel-parameters.txt
 --- a/Documentation/admin-guide/kernel-parameters.txt
 +++ b/Documentation/admin-guide/kernel-parameters.txt
-@@ -1581,6 +1581,10 @@
+@@ -1583,6 +1583,10 @@
  				If specified, z/VM IUCV HVC accepts connections
  				from listed z/VM user IDs only.
  

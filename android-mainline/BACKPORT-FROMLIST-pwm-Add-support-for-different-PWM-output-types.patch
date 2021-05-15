@@ -28,10 +28,10 @@ Signed-off-by: Guru Das Srinagesh <gurus@codeaurora.org>
 diff --git a/drivers/pwm/core.c b/drivers/pwm/core.c
 --- a/drivers/pwm/core.c
 +++ b/drivers/pwm/core.c
-@@ -304,6 +304,7 @@ int pwmchip_add_with_polarity(struct pwm_chip *chip,
+@@ -289,6 +289,7 @@ int pwmchip_add(struct pwm_chip *chip)
+ 		pwm->chip = chip;
  		pwm->pwm = chip->base + i;
  		pwm->hwpwm = i;
- 		pwm->state.polarity = polarity;
 +		pwm->state.output_type = PWM_OUTPUT_FIXED;
  
  		radix_tree_insert(&pwm_tree, pwm->pwm, pwm);
@@ -112,7 +112,7 @@ diff --git a/include/linux/pwm.h b/include/linux/pwm.h
  	bool enabled;
  };
  
-@@ -146,6 +158,16 @@ static inline enum pwm_polarity pwm_get_polarity(const struct pwm_device *pwm)
+@@ -151,6 +163,16 @@ static inline enum pwm_polarity pwm_get_polarity(const struct pwm_device *pwm)
  	return state.polarity;
  }
  
@@ -129,7 +129,7 @@ diff --git a/include/linux/pwm.h b/include/linux/pwm.h
  static inline void pwm_get_args(const struct pwm_device *pwm,
  				struct pwm_args *args)
  {
-@@ -249,6 +271,7 @@ pwm_set_relative_duty_cycle(struct pwm_state *state, unsigned int duty_cycle,
+@@ -254,6 +276,7 @@ pwm_set_relative_duty_cycle(struct pwm_state *state, unsigned int duty_cycle,
   * @get_state: get the current PWM state. This function is only
   *	       called once per PWM device when the PWM chip is
   *	       registered.
@@ -137,7 +137,7 @@ diff --git a/include/linux/pwm.h b/include/linux/pwm.h
   * @owner: helps prevent removal of modules exporting active PWMs
   * @config: configure duty cycles and period length for this PWM
   * @set_polarity: configure the polarity of this PWM
-@@ -264,6 +287,8 @@ struct pwm_ops {
+@@ -269,6 +292,8 @@ struct pwm_ops {
  		     const struct pwm_state *state);
  	void (*get_state)(struct pwm_chip *chip, struct pwm_device *pwm,
  			  struct pwm_state *state);
@@ -146,7 +146,7 @@ diff --git a/include/linux/pwm.h b/include/linux/pwm.h
  	struct module *owner;
  
  	/* Only used by legacy drivers */
-@@ -318,6 +343,24 @@ void pwm_free(struct pwm_device *pwm);
+@@ -323,6 +348,24 @@ void pwm_free(struct pwm_device *pwm);
  int pwm_apply_state(struct pwm_device *pwm, const struct pwm_state *state);
  int pwm_adjust_config(struct pwm_device *pwm);
  
@@ -171,7 +171,7 @@ diff --git a/include/linux/pwm.h b/include/linux/pwm.h
  /**
   * pwm_config() - change a PWM device configuration
   * @pwm: PWM device
-@@ -436,6 +479,11 @@ static inline int pwm_adjust_config(struct pwm_device *pwm)
+@@ -439,6 +482,11 @@ static inline int pwm_adjust_config(struct pwm_device *pwm)
  	return -ENOTSUPP;
  }
  

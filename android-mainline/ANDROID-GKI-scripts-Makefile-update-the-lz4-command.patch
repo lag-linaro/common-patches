@@ -23,7 +23,7 @@ Signed-off-by: Eric Biggers <ebiggers@google.com>
 diff --git a/Makefile b/Makefile
 --- a/Makefile
 +++ b/Makefile
-@@ -472,7 +472,7 @@ KGZIP		= gzip
+@@ -467,7 +467,7 @@ KGZIP		= gzip
  KBZIP2		= bzip2
  KLZOP		= lzop
  LZMA		= lzma
@@ -35,7 +35,7 @@ diff --git a/Makefile b/Makefile
 diff --git a/scripts/Makefile.lib b/scripts/Makefile.lib
 --- a/scripts/Makefile.lib
 +++ b/scripts/Makefile.lib
-@@ -421,7 +421,8 @@ quiet_cmd_lzo = LZO     $@
+@@ -424,7 +424,8 @@ quiet_cmd_lzo = LZO     $@
        cmd_lzo = { cat $(real-prereqs) | $(KLZOP) -9; $(size_append); } > $@
  
  quiet_cmd_lz4 = LZ4     $@

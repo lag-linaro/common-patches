@@ -17,7 +17,7 @@ Signed-off-by: Elliot Berman <eberman@codeaurora.org>
 diff --git a/scripts/Makefile.lib b/scripts/Makefile.lib
 --- a/scripts/Makefile.lib
 +++ b/scripts/Makefile.lib
-@@ -296,25 +296,35 @@ quiet_cmd_gzip = GZIP    $@
+@@ -298,25 +298,35 @@ quiet_cmd_gzip = GZIP    $@
  
  # DTC
  # ---------------------------------------------------------------------------

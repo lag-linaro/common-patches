@@ -30,7 +30,7 @@ Change-Id: Iecaa3264a440f795f2f3a44bdf74fe28ad4ed1cc
 diff --git a/Makefile b/Makefile
 --- a/Makefile
 +++ b/Makefile
-@@ -595,11 +595,7 @@ CC_VERSION_TEXT = $(subst $(pound),,$(shell $(CC) --version 2>/dev/null | head -
+@@ -590,11 +590,7 @@ CC_VERSION_TEXT = $(subst $(pound),,$(shell $(CC) --version 2>/dev/null | head -
  
  ifneq ($(findstring clang,$(CC_VERSION_TEXT)),)
  ifneq ($(CROSS_COMPILE),)

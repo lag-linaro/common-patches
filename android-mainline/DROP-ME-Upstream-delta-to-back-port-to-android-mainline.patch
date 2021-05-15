@@ -1,0 +1,39 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: Lee Jones <lee.jones@linaro.org>
+Date: Sat, 15 May 2021 20:55:13 +0100
+Subject: DROP ME: Upstream delta to back-port to android-mainline
+
+Signed-off-by: Lee Jones <lee.jones@linaro.org>
+Change-Id: I07311f1817618081115a101ff857215e1012a10f
+---
+ security/lsm_audit.c                | 1 +
+ security/selinux/include/classmap.h | 4 ++--
+ 2 files changed, 3 insertions(+), 2 deletions(-)
+
+diff --git a/security/lsm_audit.c b/security/lsm_audit.c
+--- a/security/lsm_audit.c
++++ b/security/lsm_audit.c
+@@ -433,6 +433,7 @@ static void dump_common_audit_data(struct audit_buffer *ab,
+ 	case LSM_AUDIT_DATA_LOCKDOWN:
+ 		audit_log_format(ab, " lockdown_reason=\"%s\"",
+ 				 lockdown_reasons[a->u.reason]);
++
+ 		break;
+ 	} /* switch (a->type) */
+ }
+diff --git a/security/selinux/include/classmap.h b/security/selinux/include/classmap.h
+--- a/security/selinux/include/classmap.h
++++ b/security/selinux/include/classmap.h
+@@ -248,10 +248,10 @@ struct security_class_mapping secclass_map[] = {
+ 	  { COMMON_SOCK_PERMS, NULL } },
+ 	{ "perf_event",
+ 	  { "open", "cpu", "kernel", "tracepoint", "read", "write", NULL } },
+-	{ "lockdown",
+-	  { "integrity", "confidentiality", NULL } },
+ 	{ "anon_inode",
+ 	  { COMMON_FILE_PERMS, NULL } },
++	{ "lockdown",
++	  { "integrity", "confidentiality", NULL } },
+ 	{ NULL }
+   };
+ 

@@ -19,10 +19,10 @@ Bug: 178469391
 Change-Id: I614f3e87519236c4e2c5da74937cb0ecd98a278a
 Signed-off-by: Elliot Berman <eberman@codeaurora.org>
 ---
- Makefile                 | 28 ++++++++++++++++++++++++----
+ Makefile                 | 30 +++++++++++++++++++++++++-----
  scripts/Makefile.modpost |  4 +++-
  scripts/depmod.sh        |  9 +++++----
- 3 files changed, 32 insertions(+), 9 deletions(-)
+ 3 files changed, 33 insertions(+), 10 deletions(-)
 
 diff --git a/Makefile b/Makefile
 --- a/Makefile
@@ -48,7 +48,7 @@ diff --git a/Makefile b/Makefile
  # Kbuild will save output files in the current working directory.
  # This does not need to match to the root of the kernel source tree.
  #
-@@ -675,11 +689,13 @@ drivers-y	+= virt/
+@@ -670,11 +684,13 @@ drivers-y	+= virt/
  libs-y		:= lib/
  endif # KBUILD_EXTMOD
  
@@ -62,7 +62,7 @@ diff --git a/Makefile b/Makefile
  
  CFLAGS_GCOV	:= -fprofile-arcs -ftest-coverage \
  	$(call cc-option,-fno-tree-loop-im) \
-@@ -1232,8 +1248,10 @@ cmd_link-vmlinux =                                                 \
+@@ -1227,8 +1243,10 @@ cmd_link-vmlinux =                                                 \
  	$(CONFIG_SHELL) $< "$(LD)" "$(KBUILD_LDFLAGS)" "$(LDFLAGS_vmlinux)";    \
  	$(if $(ARCH_POSTLINK), $(MAKE) -f $(ARCH_POSTLINK) $@, true)
  
@@ -73,7 +73,7 @@ diff --git a/Makefile b/Makefile
  
  targets := vmlinux
  
-@@ -1458,7 +1476,9 @@ endif
+@@ -1457,7 +1475,9 @@ endif
  # using awk while concatenating to the final file.
  
  PHONY += modules
@@ -84,7 +84,7 @@ diff --git a/Makefile b/Makefile
  
  cmd_modules_order = $(AWK) '!x[$$0]++' $(real-prereqs) > $@
  
-@@ -1503,8 +1523,8 @@ __modinst_pre:
+@@ -1502,8 +1522,8 @@ __modinst_pre:
  		ln -s $(CURDIR) $(MODLIB)/build ; \
  	fi
  	@sed 's:^:kernel/:' modules.order > $(MODLIB)/modules.order
@@ -95,7 +95,16 @@ diff --git a/Makefile b/Makefile
  
  endif # CONFIG_MODULES
  
-@@ -1875,7 +1895,7 @@ descend: $(build-dirs)
+@@ -1780,7 +1800,7 @@ modules_check: $(MODORDER)
+ 
+ quiet_cmd_depmod = DEPMOD  $(MODLIB)
+       cmd_depmod = $(CONFIG_SHELL) $(srctree)/scripts/depmod.sh $(DEPMOD) \
+-                   $(KERNELRELEASE)
++                   $(KERNELRELEASE) $(mixed-build-prefix)
+ 
+ modules_install:
+ 	$(Q)$(MAKE) -f $(srctree)/scripts/Makefile.modinst
+@@ -1859,7 +1879,7 @@ descend: $(build-dirs)
  $(build-dirs): prepare
  	$(Q)$(MAKE) $(build)=$@ \
  	single-build=$(if $(filter-out $@/, $(filter $@/%, $(KBUILD_SINGLE_TARGETS))),1) \

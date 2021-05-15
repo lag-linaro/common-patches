@@ -16,7 +16,7 @@ Signed-off-by: Prasad Sodagudi <psodagud@codeaurora.org>
 diff --git a/arch/arm64/kernel/process.c b/arch/arm64/kernel/process.c
 --- a/arch/arm64/kernel/process.c
 +++ b/arch/arm64/kernel/process.c
-@@ -308,6 +308,7 @@ void show_regs(struct pt_regs *regs)
+@@ -305,6 +305,7 @@ void show_regs(struct pt_regs *regs)
  	__show_regs(regs);
  	dump_backtrace(regs, NULL, KERN_DEFAULT);
  }

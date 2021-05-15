@@ -48,7 +48,7 @@ Change-Id: I2f0c8388f9163e0decd631d9ae07bb6ad9ab79c8
 diff --git a/mm/cma.c b/mm/cma.c
 --- a/mm/cma.c
 +++ b/mm/cma.c
-@@ -32,6 +32,8 @@
+@@ -31,6 +31,8 @@
  #include <linux/highmem.h>
  #include <linux/io.h>
  #include <linux/kmemleak.h>
@@ -57,23 +57,23 @@ diff --git a/mm/cma.c b/mm/cma.c
  #include <trace/events/cma.h>
  
  #include "cma.h"
-@@ -433,6 +435,8 @@ struct page *cma_alloc(struct cma *cma, size_t count, unsigned int align,
- 	size_t i;
+@@ -433,6 +435,8 @@ struct page *cma_alloc(struct cma *cma, unsigned long count,
+ 	unsigned long i;
  	struct page *page = NULL;
  	int ret = -ENOMEM;
 +	int num_attempts = 0;
 +	int max_retries = 5;
  
  	if (!cma || !cma->count || !cma->bitmap)
- 		return NULL;
-@@ -457,8 +461,28 @@ struct page *cma_alloc(struct cma *cma, size_t count, unsigned int align,
+ 		goto out;
+@@ -459,8 +463,28 @@ struct page *cma_alloc(struct cma *cma, unsigned long count,
  				bitmap_maxno, start, bitmap_count, mask,
  				offset);
  		if (bitmap_no >= bitmap_maxno) {
--			mutex_unlock(&cma->lock);
+-			spin_unlock_irq(&cma->lock);
 -			break;
 +			if ((num_attempts < max_retries) && (ret == -EBUSY)) {
-+				mutex_unlock(&cma->lock);
++				spin_unlock_irq(&cma->lock);
 +
 +				if (fatal_signal_pending(current))
 +					break;
@@ -91,7 +91,7 @@ diff --git a/mm/cma.c b/mm/cma.c
 +				num_attempts++;
 +				continue;
 +			} else {
-+				mutex_unlock(&cma->lock);
++				spin_unlock_irq(&cma->lock);
 +				break;
 +			}
  		}

@@ -28,8 +28,8 @@ Signed-off-by: Pavankumar Kondeti <pkondeti@codeaurora.org>
  drivers/android/vendor_hooks.c |  4 ++++
  include/trace/hooks/sched.h    | 25 +++++++++++++++++++++++++
  kernel/sched/core.c            | 14 +++++++++++++-
- kernel/sched/fair.c            | 32 ++++++++++++++++++++++++++++++--
- 4 files changed, 72 insertions(+), 3 deletions(-)
+ kernel/sched/fair.c            | 31 ++++++++++++++++++++++++++++++-
+ 4 files changed, 72 insertions(+), 2 deletions(-)
 
 diff --git a/drivers/android/vendor_hooks.c b/drivers/android/vendor_hooks.c
 --- a/drivers/android/vendor_hooks.c
@@ -166,16 +166,15 @@ diff --git a/kernel/sched/fair.c b/kernel/sched/fair.c
  		update_rq_clock(busiest);
  
  		/*
-@@ -10025,7 +10043,7 @@ static int active_load_balance_cpu_stop(void *data)
- 			.src_cpu	= busiest_rq->cpu,
+@@ -10026,6 +10044,7 @@ static int active_load_balance_cpu_stop(void *data)
  			.src_rq		= busiest_rq,
  			.idle		= CPU_IDLE,
--			.flags		= LBF_ACTIVE_LB,
+ 			.flags		= LBF_ACTIVE_LB,
 +			.src_rq_rf	= &rf,
  		};
  
  		schedstat_inc(sd->alb_count);
-@@ -10236,6 +10254,7 @@ static void nohz_balancer_kick(struct rq *rq)
+@@ -10236,6 +10255,7 @@ static void nohz_balancer_kick(struct rq *rq)
  	struct sched_domain *sd;
  	int nr_busy, i, cpu = rq->cpu;
  	unsigned int flags = 0;
@@ -183,7 +182,7 @@ diff --git a/kernel/sched/fair.c b/kernel/sched/fair.c
  
  	if (unlikely(rq->idle_balance))
  		return;
-@@ -10260,6 +10279,10 @@ static void nohz_balancer_kick(struct rq *rq)
+@@ -10260,6 +10280,10 @@ static void nohz_balancer_kick(struct rq *rq)
  	if (time_before(now, nohz.next_balance))
  		goto out;
  
@@ -194,7 +193,7 @@ diff --git a/kernel/sched/fair.c b/kernel/sched/fair.c
  	if (rq->nr_running >= 2) {
  		flags = NOHZ_KICK_MASK;
  		goto out;
-@@ -10652,6 +10675,11 @@ static int newidle_balance(struct rq *this_rq, struct rq_flags *rf)
+@@ -10652,6 +10676,11 @@ static int newidle_balance(struct rq *this_rq, struct rq_flags *rf)
  	struct sched_domain *sd;
  	int pulled_task = 0;
  	u64 curr_cost = 0;

@@ -1,8 +1,8 @@
 #
 # android-mainline patches
 #
-# Applies onto upstream d0195c7d7af6a Linux v5.12-13861-gd0195c7d7af6a
-# Matches android-mainline 818c9f3083e3a ("FROMLIST: f2fs: avoid swapon failure by giving a warning first")
+# Applies onto upstream 6efb943b8616e Linux v5.13-rc1
+# Matches android-mainline 85adc860fdf36 ("Merge 6efb943b8616e Linux 5.13-rc1 into android-mainline")
 #
 Revert-block-grant-IOPRIO_CLASS_RT-to-CAP_SYS_NICE.patch
 Revert-arm64-dts-qcom-sdm845-db845c-Fix-hdmi-nodes.patch
@@ -37,11 +37,8 @@ FROMLIST-dma-buf-dma-heap-Keep-track-of-the-heap-device-struct.patch
 FROMLIST-dma-buf-system_heap-Add-a-system-uncached-heap-re-using-the-system-heap.patch
 FROMLIST-irqchip-irq-meson-gpio-make-it-possible-to-build-as-a-module.patch
 FROMLIST-arm64-meson-remove-MESON_IRQ_GPIO-selection.patch
-FROMLIST-ARM-kprobes-fix-UNPREDICTABLE-warnings.patch
-FROMLIST-ARM-kprobes-rewrite-test-arm.c-in-UAL.patch
 FROMLIST-configfs-make-directories-inherit-uid-gid-from-creator.patch
 FROMLIST-export-Make-CRCs-robust-to-symbol-trimming.patch
-FROMGIT-kbuild-update-config_data.gz-only-when-the-content-of-.config-is-changed.patch
 _____ANNOTATION-Android-vendor-hooks_____.patch
 ANDROID-GKI-add-android_vendor.h.patch
 ANDROID-add-support-for-vendor-hooks.patch
@@ -604,4 +601,4 @@ ANDROID-Add-balsini-to-the-FUSE-OWNERS-files.patch
 _____ANNOTATION-Patches-for-bringing-up-new-SoCs_____.patch
 _____ANNOTATION-remove-ANNOTATIONS-file_____.patch
 DROP-ME-obsolete-ION-documentation.patch
-DROP-ME-Disparity-between-the-patches-branch-and-android-mainline.patch
+DROP-ME-Upstream-delta-to-back-port-to-android-mainline.patch
