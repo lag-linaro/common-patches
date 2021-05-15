@@ -27,7 +27,7 @@ Change-Id: I13fdbc68e407decac4ab5b899ef61da2da0e3114
 diff --git a/fs/f2fs/file.c b/fs/f2fs/file.c
 --- a/fs/f2fs/file.c
 +++ b/fs/f2fs/file.c
-@@ -1818,7 +1818,8 @@ static int f2fs_setflags_common(struct inode *inode, u32 iflags, u32 mask)
+@@ -1817,7 +1817,8 @@ static int f2fs_setflags_common(struct inode *inode, u32 iflags, u32 mask)
  	struct f2fs_inode_info *fi = F2FS_I(inode);
  	u32 masked_flags = fi->i_flags & mask;
  
