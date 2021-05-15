@@ -2,7 +2,7 @@
 # android-mainline patches
 #
 # Applies onto upstream d0195c7d7af6a Linux v5.12-13861-gd0195c7d7af6a
-# Matches android-mainline b5dade28fdc96 ("Merge d0195c7d7af6a Merge tag 'f2fs-for-5.13-rc1' of git://git.kernel.org/pub/scm/linux/kernel/git/jaegeuk/f2fs into android-mainline")
+# Matches android-mainline 818c9f3083e3a ("FROMLIST: f2fs: avoid swapon failure by giving a warning first")
 #
 Revert-block-grant-IOPRIO_CLASS_RT-to-CAP_SYS_NICE.patch
 Revert-arm64-dts-qcom-sdm845-db845c-Fix-hdmi-nodes.patch
@@ -352,6 +352,7 @@ FROMLIST-iomap-support-direct-I-O-with-fscrypt-using-blk-crypto.patch
 FROMLIST-ext4-support-direct-I-O-with-fscrypt-using-blk-crypto.patch
 FROMLIST-f2fs-support-direct-I-O-with-fscrypt-using-blk-crypto.patch
 FROMLIST-f2fs-support-iflag-change-given-the-mask.patch
+FROMLIST-f2fs-avoid-swapon-failure-by-giving-a-warning-first.patch
 ANDROID-fs-epoll-use-freezable-blocking-call.patch
 ANDROID-fs-FS-tracepoints-to-track-IO.patch
 ANDROID-Add-a-tracepoint-for-mapping-inode-to-full-path.patch
