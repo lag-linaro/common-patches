@@ -331,7 +331,7 @@ function start()
     read_series_file
 
     if [ ! -z ${REFRESH} ]; then
-        local commit=$(git --no-pager log -n1 --format=%H)    # HEAD
+        local commit=$(git --no-pager log -n1 --format=%H ${last_commit})    # HEAD
         print_blue "Refreshing Quilt patches\n"
         create_series_and_patch_files ${commit}
 
