@@ -305,14 +305,9 @@ function sync_with_target()
         oneline=$(git show -s --pretty='format:%h ("%s")' ${target})
 
         print_red "No meaningful work to be done - was all the work reverted?\n"
-        print_blue "Updating the series file accordingly\n"
 
-        sed -i "/# Matches /c\# Matches ${target#*/} ${oneline}" patches/series
-        git -C patches --no-pager diff -- series
-        echo
-
-        commit_to_common_patches ${target}
-        exit 0
+        print_blue "Processing anyway - don't forget to remove them (press return to continue)"
+        read
     fi
 
     for commit in ${pick_list}; do
