@@ -12,7 +12,7 @@ ONLYREFRESH=""
 
 function usage()
 {
-    echo "Usage: $(basename $0): [--refresh|--refresh-patches]"
+    echo "Usage: $(basename $0): [--refresh|--refresh-patches|--only-refresh|--only-refresh-patches]"
     exit 1
 }
 
