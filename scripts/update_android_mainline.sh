@@ -96,6 +96,14 @@ function preamble()
 {
     check_and_update_remotes
 
+    if [ -d .git ]; then
+        DOTGIT=.git
+    elif [ -f .git ]; then
+        DOTGIT=$(cat .git | sed 's/gitdir: //')
+    else
+        print_red "Internal error: .git appears to be neither a regular file or a directory"
+    fi
+
     # Ensure repo is in expected state
     if ! git diff ${last_commit} --exit-code > /dev/null; then
         print_blue "Tree is out of sync with 'common-patches' - resetting\n"
@@ -124,8 +132,8 @@ function rebase_no_fail
     local args=${@}
 
     git rebase ${args} && true
-    while [ $? -ne 0 ]; do
-        print_red "\nRebase failed\n"
+    while [[ -f ${DOTGIT}/REBASE_HEAD ]]; do
+        print_red "\nRebase needs attention\n"
         print_blue "Either use another shell or Ctrl+z this one to fix, then \`fg\` and hit return"
         read
         if git rebase --show-current-patch 2>&1 | grep -q "No rebase in progress"; then
