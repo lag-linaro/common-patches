@@ -171,7 +171,7 @@ function create_series_and_patch_files()
 #
 # $branch patches
 #
-# Applies onto upstream $(git log -1 --format=%h $base_commit) Linux $(git describe --tags $base_commit)
+# Applies onto upstream $(git log -1 --format=%h $base_commit) Linux $(git describe $base_commit)
 # Matches $branch $(git show -s --pretty='format:%h ("%s")' $up_to)
 #
 EOT
@@ -240,7 +240,7 @@ function process_merge_commit()
     local commit=${1}
 
     base_commit=$(git show --no-patch --format="%p" ${commit} | awk '{print $2}')
-    base_commit_desc=$(git describe --tags $base_commit)
+    base_commit_desc=$(git describe $base_commit)
 
     print_blue "Found merge (new base) commit - rebasing onto ${base_commit_desc}\n"
 
