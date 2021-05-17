@@ -42,6 +42,15 @@ function read_series_file()
     base_commit=$(cat patches/series | grep "Applies onto" | awk '{print $5}')  # Last Mainline commit we processed
     last_commit=$(cat patches/series | grep "Matches " | awk '{print $4}')      # Last ${target} commit we processed
     target=aosp/$(cat patches/series | grep "Matches " | awk '{print $3}')      # Remote branch (aosp/android-mainline)
+
+    if [ ! -z ${LOCAL} ]; then
+        target=$(echo ${target} | sed 's!aosp/!!')
+
+        if ! git branch | grep -q " ${target}$"; then
+            print_red "Local specified, but branch '${target}' does not exist locally"
+            exit 1
+        fi
+    fi
 }
 
 function sanity_check()
@@ -343,6 +352,9 @@ function start()
 
 while [ $# -gt 0 ]; do
     case "$1" in
+    --local)
+        LOCAL=true
+        ;;
     --refresh|--refresh-patches)
         REFRESH=true
         ;;
