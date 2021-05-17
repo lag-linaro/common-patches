@@ -216,11 +216,14 @@ EOT
 commit_patches () {
     local commit=${1}
 
-    if ! git --no-pager diff ${commit} --exit-code > /dev/null; then
-        print_red -e "Failure: Unexpected diff found:\n"
+    while ! git --no-pager diff ${commit} --exit-code > /dev/null; do
+        print_red "Failed to commit patches: Unexpected diff found:\n"
         git --no-pager diff ${commit}
-        exit 1
-    fi
+        echo
+
+        print_blue "Either use another shell or Ctrl+z this one to fix, then \`fg\` and hit return"
+        read
+    done
 
     if ! is_merge_commit ${commit}; then
         print_blue "Entering interactive rebase to rearrange (press return to continue or Ctrl+c to exit)"
