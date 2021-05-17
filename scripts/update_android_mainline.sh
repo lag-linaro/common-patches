@@ -111,6 +111,8 @@ function preamble()
         git quiltimport
     fi
 
+    LOCAL_LAST_COMMIT=$(git log -n1 --format=%H)    # HEAD
+
     # Obtain list of patches to be processed
     pick_list=$(git rev-list --first-parent ${last_commit}..${target} --reverse)
 
@@ -233,6 +235,8 @@ commit_patches () {
 
     # Read new (base, last and target) variables
     read_series_file
+
+    LOCAL_LAST_COMMIT=$(git --no-pager log -n1 --format=%H)    # HEAD
 }
 
 function process_merge_commit()
@@ -270,7 +274,7 @@ function process_pick_list()
     if is_merge_commit ${commit}; then
 
         # Apply any regular patches already processed before this merge
-        if [ "$(git diff ${last_commit}..HEAD)" != "" ]; then
+        if [ "$(git log ${LOCAL_LAST_COMMIT}..HEAD)" != "" ]; then
             commit_additional_text=""
             commit_patches ${commit}~1    # This specifies the last 'normal commit' before the 'merge commit'
         fi
@@ -305,7 +309,7 @@ function sync_with_target()
     done
 
     # Apply any regular patches already processed
-    if [ "$(git diff ${last_commit}..HEAD)" != "" ]; then
+    if [ "$(git log ${LOCAL_LAST_COMMIT}..HEAD)" != "" ]; then
         commit_additional_text=""
         commit_patches ${commit}    # Commit up to last 'normal commit' processed
     fi
