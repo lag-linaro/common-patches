@@ -1,8 +1,8 @@
 #
 # android-mainline patches
 #
-# Applies onto upstream 25a1298726e97 Linux f2fs-5.13-rc1-fix-137-g25a1298726e97
-# Matches android-mainline 3d86ae4fcdff6 ("Merge 25a1298726e9 ("Merge tag 'trace-v5.13-rc1' of git://git.kernel.org/pub/scm/linux/kernel/git/rostedt/linux-trace") into android-mainline")
+# Applies onto upstream d07f6ca923ea0 Linux v5.13-rc2
+# Matches android-mainline ccd25efcb4fe5 ("Merge tag 'v5.13-rc2' into android-mainline")
 #
 Revert-block-grant-IOPRIO_CLASS_RT-to-CAP_SYS_NICE.patch
 Revert-arm64-dts-qcom-sdm845-db845c-Fix-hdmi-nodes.patch
