@@ -249,10 +249,9 @@ function process_merge_commit()
     base_commit=$(git show --no-patch --format="%p" ${commit} | awk '{print $2}')
     base_commit_desc=$(git describe $base_commit)
 
-    print_blue "Found merge (new base) commit - rebasing onto ${base_commit_desc}\n"
+    print_blue "Found merge (new base) commit - rebasing onto upstream commit ${base_commit_desc}\n"
 
     rebase_no_fail ${base_commit}
-    echo
 
     commit_additional_text=" (rebase onto ${base_commit_desc})"
     commit_patches ${commit}
