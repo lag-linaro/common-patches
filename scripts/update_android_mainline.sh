@@ -339,6 +339,9 @@ function start()
 
         if [ ! -z ${ONLYREFRESH} ]; then
             exit 0
+        else
+            print_blue "Once result has been committed, press return to continue syncing or Ctrl+x to exit\n"
+            read
         fi
     fi
 
