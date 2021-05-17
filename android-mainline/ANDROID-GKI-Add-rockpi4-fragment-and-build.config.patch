@@ -25,11 +25,9 @@ Signed-off-by: Alistair Delva <adelva@google.com>
 ---
  arch/arm64/configs/rockpi4_defconfig    | 538 ------------------------
  arch/arm64/configs/rockpi4_gki.fragment |  56 +++
- build.config.rockpi4                    |  18 +
- 3 files changed, 74 insertions(+), 538 deletions(-)
+ 2 files changed, 56 insertions(+), 538 deletions(-)
  delete mode 100644 arch/arm64/configs/rockpi4_defconfig
  create mode 100644 arch/arm64/configs/rockpi4_gki.fragment
- create mode 100644 build.config.rockpi4
 
 diff --git a/arch/arm64/configs/rockpi4_defconfig b/arch/arm64/configs/rockpi4_defconfig
 deleted file mode 100644
@@ -635,26 +633,3 @@ new file mode 100644
 +CONFIG_PHY_ROCKCHIP_USB=m
 +CONFIG_ROCKCHIP_EFUSE=m
 +CONFIG_CRYPTO_DEV_ROCKCHIP=m
-diff --git a/build.config.rockpi4 b/build.config.rockpi4
-new file mode 100644
---- /dev/null
-+++ b/build.config.rockpi4
-@@ -0,0 +1,18 @@
-+. ${ROOT_DIR}/${KERNEL_DIR}/build.config.common
-+. ${ROOT_DIR}/${KERNEL_DIR}/build.config.aarch64
-+TRIM_NONLISTED_KMI=""
-+KMI_SYMBOL_LIST_STRICT_MODE=""
-+
-+BUILD_INITRAMFS=1
-+DEFCONFIG=rockpi4_gki_defconfig
-+FRAGMENT_CONFIG=${KERNEL_DIR}/arch/arm64/configs/rockpi4_gki.fragment
-+PRE_DEFCONFIG_CMDS="KCONFIG_CONFIG=${ROOT_DIR}/${KERNEL_DIR}/arch/arm64/configs/${DEFCONFIG} ${ROOT_DIR}/${KERNEL_DIR}/scripts/kconfig/merge_config.sh -m -r ${ROOT_DIR}/${KERNEL_DIR}/arch/arm64/configs/gki_defconfig ${ROOT_DIR}/${FRAGMENT_CONFIG}"
-+POST_DEFCONFIG_CMDS="rm ${ROOT_DIR}/${KERNEL_DIR}/arch/arm64/configs/${DEFCONFIG}"
-+
-+MAKE_GOALS="${MAKE_GOALS}
-+rockchip/rk3399-rock-pi-4b.dtb
-+"
-+
-+FILES="${FILES}
-+arch/arm64/boot/dts/rockchip/rk3399-rock-pi-4b.dtb
-+"

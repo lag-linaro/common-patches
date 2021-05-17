@@ -18,8 +18,7 @@ Signed-off-by: Kevin Hilman <khilman@baylibre.com>
  .../meson-g12b-a311d-khadas-vim3-android.dts  |  55 ++++++++
  .../meson-sm1-khadas-vim3l-android.dts        | 133 ++++++++++++++++++
  .../dts/amlogic/meson-sm1-sei610-android.dts  |  71 ++++++++++
- build.config.amlogic                          |  13 +-
- 6 files changed, 326 insertions(+), 8 deletions(-)
+ 5 files changed, 321 insertions(+)
  create mode 100644 arch/arm64/boot/dts/amlogic/meson-g12a-sei510-android.dts
  create mode 100644 arch/arm64/boot/dts/amlogic/meson-g12b-a311d-khadas-vim3-android.dts
  create mode 100644 arch/arm64/boot/dts/amlogic/meson-sm1-khadas-vim3l-android.dts
@@ -391,30 +390,3 @@ new file mode 100644
 +            status = "disabled";
 +        };
 +};
-diff --git a/build.config.amlogic b/build.config.amlogic
---- a/build.config.amlogic
-+++ b/build.config.amlogic
-@@ -10,18 +10,15 @@ POST_DEFCONFIG_CMDS="rm ${ROOT_DIR}/${KERNEL_DIR}/arch/arm64/configs/${DEFCONFIG
- DTC_FLAGS="-@"
- 
- MAKE_GOALS="${MAKE_GOALS}
--amlogic/meson-g12a-sei510.dtb
--amlogic/meson-sm1-sei610.dtb
--amlogic/meson-sm1-khadas-vim3l.dtb
--amlogic/meson-g12b-a311d-khadas-vim3.dtb
-+dtbs
- "
- 
- FILES="${FILES}
- arch/arm64/boot/Image.lz4
--arch/arm64/boot/dts/amlogic/meson-g12a-sei510.dtb
--arch/arm64/boot/dts/amlogic/meson-sm1-sei610.dtb
--arch/arm64/boot/dts/amlogic/meson-sm1-khadas-vim3l.dtb
--arch/arm64/boot/dts/amlogic/meson-g12b-a311d-khadas-vim3.dtb
-+arch/arm64/boot/dts/amlogic/meson-g12a-sei510*.dtb
-+arch/arm64/boot/dts/amlogic/meson-sm1-sei610*.dtb
-+arch/arm64/boot/dts/amlogic/meson-sm1-khadas-vim3l*.dtb
-+arch/arm64/boot/dts/amlogic/meson-g12b-a311d-khadas-vim3*.dtb
- "
- 
- #

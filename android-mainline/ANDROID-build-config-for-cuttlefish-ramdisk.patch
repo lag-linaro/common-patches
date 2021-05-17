@@ -12,44 +12,10 @@ Test: Local build and boot of cf
 Signed-off-by: Ram Muthiah <rammuthiah@google.com>
 Change-Id: I82a410ea3cf9b9177a1c8f2186d88344b9a63488
 ---
- build.config.cuttlefish.aarch64 | 10 ++++++++++
- build.config.cuttlefish.x86_64  | 10 ++++++++++
- cuttlefish.fragment             | 20 ++++++++++++++++++++
- 3 files changed, 40 insertions(+)
- create mode 100644 build.config.cuttlefish.aarch64
- create mode 100644 build.config.cuttlefish.x86_64
+ cuttlefish.fragment | 20 ++++++++++++++++++++
+ 1 file changed, 20 insertions(+)
  create mode 100644 cuttlefish.fragment
 
-diff --git a/build.config.cuttlefish.aarch64 b/build.config.cuttlefish.aarch64
-new file mode 100644
---- /dev/null
-+++ b/build.config.cuttlefish.aarch64
-@@ -0,0 +1,10 @@
-+. ${ROOT_DIR}/common/build.config.common
-+. ${ROOT_DIR}/common/build.config.aarch64
-+. ${ROOT_DIR}/common/build.config.gki
-+
-+DEFCONFIG=cf_aarch_64_gki_defconfig
-+PRE_DEFCONFIG_CMDS="cat ./common/arch/arm64/configs/gki_defconfig ./common/cuttlefish.fragment > ./common/arch/arm64/configs/${DEFCONFIG};"
-+POST_DEFCONFIG_CMDS="rm ./common/arch/arm64/configs/${DEFCONFIG}"
-+
-+# Not saving any kernel images. This build step is meant purely to generate the .kos.
-+FILES=""
-diff --git a/build.config.cuttlefish.x86_64 b/build.config.cuttlefish.x86_64
-new file mode 100644
---- /dev/null
-+++ b/build.config.cuttlefish.x86_64
-@@ -0,0 +1,10 @@
-+. ${ROOT_DIR}/common/build.config.common
-+. ${ROOT_DIR}/common/build.config.x86_64
-+. ${ROOT_DIR}/common/build.config.gki
-+
-+DEFCONFIG=cf_x86_64_gki_defconfig
-+PRE_DEFCONFIG_CMDS="cat ./common/arch/x86/configs/gki_defconfig ./common/cuttlefish.fragment > ./common/arch/x86/configs/${DEFCONFIG};"
-+POST_DEFCONFIG_CMDS="rm ./common/arch/x86/configs/${DEFCONFIG}"
-+
-+# Not saving any kernel images. This build step is meant purely to generate the .kos.
-+FILES=""
 diff --git a/cuttlefish.fragment b/cuttlefish.fragment
 new file mode 100644
 --- /dev/null
