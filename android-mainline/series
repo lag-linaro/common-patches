@@ -1,8 +1,8 @@
 #
 # android-mainline patches
 #
-# Applies onto upstream 6efb943b8616e Linux v5.13-rc1
-# Matches android-mainline 85adc860fdf36 ("Merge 6efb943b8616e Linux 5.13-rc1 into android-mainline")
+# Applies onto upstream d07f6ca923ea0 Linux v5.13-rc2
+# Matches android-mainline ccd25efcb4fe5 ("Merge tag 'v5.13-rc2' into android-mainline")
 #
 Revert-block-grant-IOPRIO_CLASS_RT-to-CAP_SYS_NICE.patch
 Revert-arm64-dts-qcom-sdm845-db845c-Fix-hdmi-nodes.patch
@@ -348,8 +348,6 @@ FROMLIST-direct-io-add-support-for-fscrypt-using-blk-crypto.patch
 FROMLIST-iomap-support-direct-I-O-with-fscrypt-using-blk-crypto.patch
 FROMLIST-ext4-support-direct-I-O-with-fscrypt-using-blk-crypto.patch
 FROMLIST-f2fs-support-direct-I-O-with-fscrypt-using-blk-crypto.patch
-FROMLIST-f2fs-support-iflag-change-given-the-mask.patch
-FROMLIST-f2fs-avoid-swapon-failure-by-giving-a-warning-first.patch
 ANDROID-fs-epoll-use-freezable-blocking-call.patch
 ANDROID-fs-FS-tracepoints-to-track-IO.patch
 ANDROID-Add-a-tracepoint-for-mapping-inode-to-full-path.patch
@@ -574,7 +572,6 @@ ANDROID-GKI-amlogic-add-DTB-overlays.patch
 ANDROID-db845c-Use-FRAGMENT_CONFIG.patch
 ANDROID-build_config-drop-CONFIG_KASAN_PANIC_ON_WARN.patch
 ANDROID-add-initial-set-of-OWNERS.patch
-ANDROID-add-me-for-block-and-drivers-scsi.patch
 ANDROID-GKI-amlogic-enable-GPIO-LEDs-as-module.patch
 ANDROID-GKI-amlogic-enable-BCM-WLAN-as-modules.patch
 ANDROID-db845c_gki.fragment-Remove-QCOM_GENI_CONSOLE-modules-now-they-are-built-in.patch
@@ -583,7 +580,6 @@ ANDROID-clang-update-to-12.0.3.patch
 ANDROID-Adding-kprobes-build-configs-for-Cuttlefish.patch
 ANDROID-mark-FTRACE_MCOUNT_USE_OBJTOOL-as-BROKEN.patch
 ANDROID-kbuild-Copy-out-of-tree-kernel-headers-to-INSTALL_HDR_PATH.patch
-ANDROID-OWNERS-add-f2fs-related-files.patch
 ANDROID-enable-LLVM_IAS-1-for-clang-s-integrated-assembler-for-arm.patch
 ANDROID-clang-update-to-12.0.4.patch
 ANDROID-re-enable-BIG_ENDIAN-in-allmodconfig-testing.patch
@@ -595,9 +591,7 @@ ANDROID-Add-virtio-rng-to-rockpi4-qemu-modules.patch
 ANDROID-Build-LZ4-ramdisk-for-rockpi4.patch
 ANDROID-build.config-Add-vmlinux.symvers-and-modules.builtin-to-DIST_DIR.patch
 ANDROID-clang-update-to-12.0.5.patch
-ANDROID-OWNERS-add-Bart-for-block-scsi.patch
 ANDROID-db845c_gki.fragment-Add-QCOM_TSENSE-config-to-avoid-thermal-crashes.patch
-ANDROID-Add-balsini-to-the-FUSE-OWNERS-files.patch
 _____ANNOTATION-Patches-for-bringing-up-new-SoCs_____.patch
 _____ANNOTATION-remove-ANNOTATIONS-file_____.patch
 DROP-ME-obsolete-ION-documentation.patch
