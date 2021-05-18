@@ -12,21 +12,9 @@ Signed-off-by: Alistair Delva <adelva@google.com>
 [joneslee: Removed defconfig elements]
 Signed-off-by: Lee Jones <lee.jones@linaro.org>
 ---
- arch/arm64/configs/db845c_gki.fragment | 1 +
- cuttlefish.fragment                    | 1 +
- 2 files changed, 2 insertions(+)
+ cuttlefish.fragment | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/arch/arm64/configs/db845c_gki.fragment b/arch/arm64/configs/db845c_gki.fragment
---- a/arch/arm64/configs/db845c_gki.fragment
-+++ b/arch/arm64/configs/db845c_gki.fragment
-@@ -60,6 +60,7 @@ CONFIG_QCOM_QFPROM=m
- CONFIG_INTERCONNECT_QCOM=y
- CONFIG_INTERCONNECT_QCOM_OSM_L3=m
- CONFIG_INTERCONNECT_QCOM_SDM845=m
-+CONFIG_INCREMENTAL_FS=m
- CONFIG_WLAN_VENDOR_ATH=y
- CONFIG_ATH10K_AHB=y
- CONFIG_ATH10K=m
 diff --git a/cuttlefish.fragment b/cuttlefish.fragment
 --- a/cuttlefish.fragment
 +++ b/cuttlefish.fragment
