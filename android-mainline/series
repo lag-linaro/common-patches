@@ -395,15 +395,6 @@ ANDROID-gki_defconfig-initial-config.patch
 ANDROID-init-GKI-add-GKI_HACKS_TO_FIX.patch
 ANDROID-add-README.md.patch
 ANDROID-README-Add-add-user-reference-to-backporting-comment.patch
-ANDROID-build-config-for-cuttlefish-ramdisk.patch
-ANDROID-gki-Make-GKI-specific-modules-builtins.patch
-ANDROID-gki_defconfig-enable-NVDIMM-PMEM-options.patch
-ANDROID-gki-Removed-cf-modules-from-gki_defconfig.patch
-ANDROID-gki_defconfig-Relocate-INCREMENTAL_FS.patch
-ANDROID-added-memory-initialization-tests-to-cuttlefish-config.patch
-ANDROID-gki-Enable-BINFMT_MISC-as-part-of-GKI.patch
-ANDROID-Add-TPM-support-and-the-vTPM-proxy-to-Cuttlefish.patch
-ANDROID-GKI-Removed-cuttlefish-configs.patch
 ANDROID-README-Add-requirement-for-Bug-tag-for-FROMLIST.patch
 ANDROID-Re-enable-menus-hidden-by-disabling-MEDIA_SUPPORT_FILTER.patch
 ANDROID-Makefile-add-compiler-rt-dependency-explicitly.patch
