@@ -17,17 +17,19 @@ Signed-off-by: Connor O'Brien <connoro@google.com>
          a6d3de6a7fba ("ANDROID: Reduce use of #ifdef CONFIG_CPU_FREQ_TIMES")
          b89ada5d9c09 ("ANDROID: Fix massive cpufreq_times memory leaks")]
 Signed-off-by: Alistair Delva <adelva@google.com>
+[Lee: Squash in all subsequent changes]
+Signed-off-by: Lee Jones <lee.jones@linaro.org>
 ---
  drivers/cpufreq/Kconfig         |   7 ++
  drivers/cpufreq/Makefile        |   5 +-
  drivers/cpufreq/cpufreq.c       |   3 +
- drivers/cpufreq/cpufreq_times.c | 207 ++++++++++++++++++++++++++++++++
+ drivers/cpufreq/cpufreq_times.c | 211 ++++++++++++++++++++++++++++++++
  fs/proc/base.c                  |   7 ++
- include/linux/cpufreq_times.h   |  41 +++++++
+ include/linux/cpufreq_times.h   |  42 +++++++
  include/linux/sched.h           |   4 +
  kernel/fork.c                   |   6 +
  kernel/sched/cputime.c          |   7 ++
- 9 files changed, 286 insertions(+), 1 deletion(-)
+ 9 files changed, 291 insertions(+), 1 deletion(-)
  create mode 100644 drivers/cpufreq/cpufreq_times.c
  create mode 100644 include/linux/cpufreq_times.h
 
@@ -78,7 +80,7 @@ diff --git a/drivers/cpufreq/cpufreq.c b/drivers/cpufreq/cpufreq.c
  					 CPUFREQ_POSTCHANGE, freqs);
  
  		cpufreq_stats_record_transition(policy, freqs->new);
-+		cpufreq_times_record_transition(freqs);
++		cpufreq_times_record_transition(policy, freqs->new);
  		policy->cur = freqs->new;
  	}
  }
@@ -94,7 +96,7 @@ diff --git a/drivers/cpufreq/cpufreq_times.c b/drivers/cpufreq/cpufreq_times.c
 new file mode 100644
 --- /dev/null
 +++ b/drivers/cpufreq/cpufreq_times.c
-@@ -0,0 +1,207 @@
+@@ -0,0 +1,211 @@
 +/* drivers/cpufreq/cpufreq_times.c
 + *
 + * Copyright (C) 2018 Google, Inc.
@@ -187,6 +189,9 @@ new file mode 100644
 +	unsigned long flags;
 +	void *temp;
 +
++	if (!p->time_in_state)
++		return;
++
 +	spin_lock_irqsave(&task_time_in_state_lock, flags);
 +	temp = p->time_in_state;
 +	p->time_in_state = NULL;
@@ -212,8 +217,6 @@ new file mode 100644
 +
 +		seq_printf(m, "cpu%u\n", cpu);
 +		for (i = 0; i < freqs->max_state; i++) {
-+			if (freqs->freq_table[i] == CPUFREQ_ENTRY_INVALID)
-+				continue;
 +			cputime = 0;
 +			if (freqs->offset + i < p->max_state &&
 +			    p->time_in_state)
@@ -232,7 +235,7 @@ new file mode 100644
 +	unsigned int state;
 +	struct cpu_freqs *freqs = all_freqs[task_cpu(p)];
 +
-+	if (!freqs || p->flags & PF_EXITING)
++	if (!freqs || is_idle_task(p) || p->flags & PF_EXITING)
 +		return;
 +
 +	state = freqs->offset + READ_ONCE(freqs->last_index);
@@ -244,9 +247,19 @@ new file mode 100644
 +	spin_unlock_irqrestore(&task_time_in_state_lock, flags);
 +}
 +
++static int cpufreq_times_get_index(struct cpu_freqs *freqs, unsigned int freq)
++{
++	int index;
++        for (index = 0; index < freqs->max_state; ++index) {
++		if (freqs->freq_table[index] == freq)
++			return index;
++        }
++	return -1;
++}
++
 +void cpufreq_times_create_policy(struct cpufreq_policy *policy)
 +{
-+	int cpu, index;
++	int cpu, index = 0;
 +	unsigned int count = 0;
 +	struct cpufreq_frequency_table *pos, *table;
 +	struct cpu_freqs *freqs;
@@ -259,7 +272,7 @@ new file mode 100644
 +	if (!table)
 +		return;
 +
-+	cpufreq_for_each_entry(pos, table)
++	cpufreq_for_each_valid_entry(pos, table)
 +		count++;
 +
 +	tmp =  kzalloc(sizeof(*freqs) + sizeof(freqs->freq_table[0]) * count,
@@ -270,12 +283,12 @@ new file mode 100644
 +	freqs = tmp;
 +	freqs->max_state = count;
 +
-+	index = cpufreq_frequency_table_get_index(policy, policy->cur);
++	cpufreq_for_each_valid_entry(pos, table)
++		freqs->freq_table[index++] = pos->frequency;
++
++	index = cpufreq_times_get_index(freqs, policy->cur);
 +	if (index >= 0)
 +		WRITE_ONCE(freqs->last_index, index);
-+
-+	cpufreq_for_each_entry(pos, table)
-+		freqs->freq_table[pos - table] = pos->frequency;
 +
 +	freqs->offset = next_offset;
 +	WRITE_ONCE(next_offset, freqs->offset + count);
@@ -283,24 +296,17 @@ new file mode 100644
 +		all_freqs[cpu] = freqs;
 +}
 +
-+void cpufreq_times_record_transition(struct cpufreq_freqs *freq)
++void cpufreq_times_record_transition(struct cpufreq_policy *policy,
++	unsigned int new_freq)
 +{
 +	int index;
-+	struct cpu_freqs *freqs = all_freqs[freq->cpu];
-+	struct cpufreq_policy *policy;
-+
++	struct cpu_freqs *freqs = all_freqs[policy->cpu];
 +	if (!freqs)
 +		return;
 +
-+	policy = cpufreq_cpu_get(freq->cpu);
-+	if (!policy)
-+		return;
-+
-+	index = cpufreq_frequency_table_get_index(policy, freq->new);
++	index = cpufreq_times_get_index(freqs, new_freq);
 +	if (index >= 0)
 +		WRITE_ONCE(freqs->last_index, index);
-+
-+	cpufreq_cpu_put(policy);
 +}
 diff --git a/fs/proc/base.c b/fs/proc/base.c
 --- a/fs/proc/base.c
@@ -337,7 +343,7 @@ diff --git a/include/linux/cpufreq_times.h b/include/linux/cpufreq_times.h
 new file mode 100644
 --- /dev/null
 +++ b/include/linux/cpufreq_times.h
-@@ -0,0 +1,41 @@
+@@ -0,0 +1,42 @@
 +/* drivers/cpufreq/cpufreq_times.c
 + *
 + * Copyright (C) 2018 Google, Inc.
@@ -367,7 +373,8 @@ new file mode 100644
 +			    struct pid *pid, struct task_struct *p);
 +void cpufreq_acct_update_power(struct task_struct *p, u64 cputime);
 +void cpufreq_times_create_policy(struct cpufreq_policy *policy);
-+void cpufreq_times_record_transition(struct cpufreq_freqs *freq);
++void cpufreq_times_record_transition(struct cpufreq_policy *policy,
++                                     unsigned int new_freq);
 +#else
 +static inline void cpufreq_task_times_init(struct task_struct *p) {}
 +static inline void cpufreq_task_times_alloc(struct task_struct *p) {}
@@ -376,7 +383,7 @@ new file mode 100644
 +					     u64 cputime) {}
 +static inline void cpufreq_times_create_policy(struct cpufreq_policy *policy) {}
 +static inline void cpufreq_times_record_transition(
-+	struct cpufreq_freqs *freq) {}
++	struct cpufreq_policy *policy, unsigned int new_freq) {}
 +#endif /* CONFIG_CPU_FREQ_TIMES */
 +#endif /* _LINUX_CPUFREQ_TIMES_H */
 diff --git a/include/linux/sched.h b/include/linux/sched.h

@@ -193,12 +193,6 @@ ANDROID-taskstats-track-fsync-syscalls.patch
 ANDROID-uid_sys_stats-report-uid_cputime-stats-in-microseconds.patch
 _____ANNOTATION-cpufreq-changes_____.patch
 ANDROID-cpufreq-track-per-task-time-in-state.patch
-ANDROID-cpufreq-times-track-per-uid-time-in-state.patch
-ANDROID-cpufreq-times-add-proc-uid_concurrent_-active-policy-_time.patch
-ANDROID-cpufreq-times-record-fast-switch-frequency-transitions.patch
-ANDROID-cpufreq-times-Remove-proc-uid_concurrent_-active-policy-_time.patch
-ANDROID-cpufreq-times-Remove-per-UID-time-in-state-tracking.patch
-ANDROID-cpufreq-times-don-t-copy-invalid-freqs-from-freq-table.patch
 ANDROID-cpufreq-create-dummy-cpufreq-driver.patch
 _____ANNOTATION-mm-memory-management-changes_____.patch
 ANDROID-mm-add-a-field-to-store-names-for-private-anonymous-memory.patch
