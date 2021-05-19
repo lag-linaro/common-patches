@@ -19,24 +19,24 @@ Change-Id: I02cce0b654d0ef74de0a190d30907410b23ab160
  fs/Makefile                              |    1 +
  fs/incfs/Kconfig                         |   13 +
  fs/incfs/Makefile                        |   13 +
- fs/incfs/data_mgmt.c                     | 1880 +++++++++++++++++++++
- fs/incfs/data_mgmt.h                     |  511 ++++++
+ fs/incfs/data_mgmt.c                     | 1890 +++++++++++++++++++++
+ fs/incfs/data_mgmt.h                     |  543 ++++++
  fs/incfs/format.c                        |  752 +++++++++
  fs/incfs/format.h                        |  407 +++++
  fs/incfs/integrity.c                     |  235 +++
  fs/incfs/integrity.h                     |   56 +
  fs/incfs/internal.h                      |   23 +
  fs/incfs/main.c                          |   48 +
- fs/incfs/pseudo_files.c                  | 1388 ++++++++++++++++
+ fs/incfs/pseudo_files.c                  | 1389 ++++++++++++++++
  fs/incfs/pseudo_files.h                  |   20 +
- fs/incfs/sysfs.c                         |  195 +++
- fs/incfs/sysfs.h                         |   48 +
+ fs/incfs/sysfs.c                         |  201 +++
+ fs/incfs/sysfs.h                         |   22 +
  fs/incfs/verity.c                        |  851 ++++++++++
  fs/incfs/verity.h                        |   49 +
- fs/incfs/vfs.c                           | 1908 ++++++++++++++++++++++
+ fs/incfs/vfs.c                           | 1913 ++++++++++++++++++++++
  fs/incfs/vfs.h                           |   33 +
- include/uapi/linux/incrementalfs.h       |  586 +++++++
- 24 files changed, 9171 insertions(+)
+ include/uapi/linux/incrementalfs.h       |  590 +++++++
+ 24 files changed, 9203 insertions(+)
  create mode 100644 Documentation/ABI/testing/sysfs-fs-incfs
  create mode 100644 Documentation/filesystems/incfs.rst
  create mode 100644 fs/incfs/Kconfig
@@ -294,7 +294,7 @@ diff --git a/fs/incfs/data_mgmt.c b/fs/incfs/data_mgmt.c
 new file mode 100644
 --- /dev/null
 +++ b/fs/incfs/data_mgmt.c
-@@ -0,0 +1,1880 @@
+@@ -0,0 +1,1890 @@
 +// SPDX-License-Identifier: GPL-2.0
 +/*
 + * Copyright 2019 Google LLC
@@ -372,7 +372,7 @@ new file mode 100644
 +	INIT_DELAYED_WORK(&mi->mi_zstd_cleanup_work, zstd_free_workspace);
 +	mutex_init(&mi->mi_le_mutex);
 +
-+	node = incfs_add_sysfs_node(options->sysfs_name);
++	node = incfs_add_sysfs_node(options->sysfs_name, mi);
 +	if (IS_ERR(node)) {
 +		error = PTR_ERR(node);
 +		goto err;
@@ -427,13 +427,25 @@ new file mode 100644
 +		kfree(old_buffer);
 +	}
 +
-+	if ((options->sysfs_name && !mi->mi_sysfs_node) ||
-+	    (!options->sysfs_name && mi->mi_sysfs_node) ||
-+	    (options->sysfs_name &&
++	if (options->sysfs_name && !mi->mi_sysfs_node)
++		mi->mi_sysfs_node = incfs_add_sysfs_node(options->sysfs_name,
++							 mi);
++	else if (!options->sysfs_name && mi->mi_sysfs_node) {
++		incfs_free_sysfs_node(mi->mi_sysfs_node);
++		mi->mi_sysfs_node = NULL;
++	} else if (options->sysfs_name &&
 +		strcmp(options->sysfs_name,
-+		       kobject_name(&mi->mi_sysfs_node->isn_sysfs_node)))) {
-+		pr_err("incfs: Can't change sysfs_name mount option on remount\n");
-+		return -EOPNOTSUPP;
++		       kobject_name(&mi->mi_sysfs_node->isn_sysfs_node))) {
++		incfs_free_sysfs_node(mi->mi_sysfs_node);
++		mi->mi_sysfs_node = incfs_add_sysfs_node(options->sysfs_name,
++							 mi);
++	}
++
++	if (IS_ERR(mi->mi_sysfs_node)) {
++		int err = PTR_ERR(mi->mi_sysfs_node);
++
++		mi->mi_sysfs_node = NULL;
++		return err;
 +	}
 +
 +	mi->mi_options = *options;
@@ -1416,6 +1428,7 @@ new file mode 100644
 +	int error;
 +	int wait_res = 0;
 +	unsigned int delayed_pending_us = 0, delayed_min_us = 0;
++	bool delayed_pending = false;
 +
 +	if (!df || !res_block)
 +		return -EFAULT;
@@ -1490,6 +1503,7 @@ new file mode 100644
 +		return wait_res;
 +	}
 +
++	delayed_pending = true;
 +	delayed_pending_us = timeouts->max_pending_time_us -
 +				jiffies_to_usecs(wait_res);
 +	if (timeouts->min_pending_time_us > delayed_pending_us) {
@@ -1527,18 +1541,15 @@ new file mode 100644
 +	if (error)
 +		return error;
 +
-+	if (!mi->mi_sysfs_node)
-+		return 0;
-+
-+	if (delayed_pending_us) {
-+		mi->mi_sysfs_node->isn_reads_delayed_pending++;
-+		mi->mi_sysfs_node->isn_reads_delayed_pending_us +=
++	if (delayed_pending) {
++		mi->mi_reads_delayed_pending++;
++		mi->mi_reads_delayed_pending_us +=
 +			delayed_pending_us;
 +	}
 +
 +	if (delayed_min_us) {
-+		mi->mi_sysfs_node->isn_reads_delayed_min++;
-+		mi->mi_sysfs_node->isn_reads_delayed_min_us += delayed_min_us;
++		mi->mi_reads_delayed_min++;
++		mi->mi_reads_delayed_min_us += delayed_min_us;
 +	}
 +
 +	return 0;
@@ -1560,6 +1571,7 @@ new file mode 100644
 +	mi->mi_le_time_us = ktime_to_us(ktime_get());
 +	mi->mi_le_page = index;
 +	mi->mi_le_errno = result;
++	mi->mi_le_uid = current_uid().val;
 +	mutex_unlock(&mi->mi_le_mutex);
 +
 +	return 0;
@@ -1629,16 +1641,14 @@ new file mode 100644
 +		log_block_read(mi, &df->df_id, index);
 +
 +out:
-+	if (mi->mi_sysfs_node) {
-+		if (result == -ETIME)
-+			mi->mi_sysfs_node->isn_reads_failed_timed_out++;
-+		else if (result == -EBADMSG)
-+			mi->mi_sysfs_node->isn_reads_failed_hash_verification++;
-+		else if (result < 0)
-+			mi->mi_sysfs_node->isn_reads_failed_other++;
++	if (result == -ETIME)
++		mi->mi_reads_failed_timed_out++;
++	else if (result == -EBADMSG)
++		mi->mi_reads_failed_hash_verification++;
++	else if (result < 0)
++		mi->mi_reads_failed_other++;
 +
-+		incfs_update_sysfs_error(f, index, result, mi, df);
-+	}
++	incfs_update_sysfs_error(f, index, result, mi, df);
 +
 +	return result;
 +}
@@ -2179,7 +2189,7 @@ diff --git a/fs/incfs/data_mgmt.h b/fs/incfs/data_mgmt.h
 new file mode 100644
 --- /dev/null
 +++ b/fs/incfs/data_mgmt.h
-@@ -0,0 +1,511 @@
+@@ -0,0 +1,543 @@
 +/* SPDX-License-Identifier: GPL-2.0 */
 +/*
 + * Copyright 2019 Google LLC
@@ -2381,6 +2391,38 @@ new file mode 100644
 +	u64		mi_le_time_us;
 +	u32		mi_le_page;
 +	u32		mi_le_errno;
++	uid_t		mi_le_uid;
++
++	/* Number of reads timed out */
++	u32 mi_reads_failed_timed_out;
++
++	/* Number of reads failed because hash verification failed */
++	u32 mi_reads_failed_hash_verification;
++
++	/* Number of reads failed for another reason */
++	u32 mi_reads_failed_other;
++
++	/* Number of reads delayed because page had to be fetched */
++	u32 mi_reads_delayed_pending;
++
++	/* Total time waiting for pages to be fetched */
++	u64 mi_reads_delayed_pending_us;
++
++	/*
++	 * Number of reads delayed because of per-uid min_time_us or
++	 * min_pending_time_us settings
++	 */
++	u32 mi_reads_delayed_min;
++
++	/* Total time waiting because of per-uid min_time_us or
++	 * min_pending_time_us settings.
++	 *
++	 * Note that if a read is initially delayed because we have to wait for
++	 * the page, then further delayed because of min_pending_time_us
++	 * setting, this counter gets incremented by only the further delay
++	 * time.
++	 */
++	u64 mi_reads_delayed_min_us;
 +};
 +
 +struct data_file_block {
@@ -4246,7 +4288,7 @@ diff --git a/fs/incfs/pseudo_files.c b/fs/incfs/pseudo_files.c
 new file mode 100644
 --- /dev/null
 +++ b/fs/incfs/pseudo_files.c
-@@ -0,0 +1,1388 @@
+@@ -0,0 +1,1389 @@
 +// SPDX-License-Identifier: GPL-2.0
 +/*
 + * Copyright 2020 Google LLC
@@ -5256,6 +5298,7 @@ new file mode 100644
 +	args.time_us_out = mi->mi_le_time_us;
 +	args.page_out = mi->mi_le_page;
 +	args.errno_out = mi->mi_le_errno;
++	args.uid_out = mi->mi_le_uid;
 +
 +	mutex_unlock(&mi->mi_le_mutex);
 +	if (copy_to_user(args_usr_ptr, &args, sizeof(args)) > 0)
@@ -5664,7 +5707,7 @@ diff --git a/fs/incfs/sysfs.c b/fs/incfs/sysfs.c
 new file mode 100644
 --- /dev/null
 +++ b/fs/incfs/sysfs.c
-@@ -0,0 +1,195 @@
+@@ -0,0 +1,201 @@
 +// SPDX-License-Identifier: GPL-2.0
 +/*
 + * Copyright 2021 Google LLC
@@ -5767,7 +5810,7 @@ new file mode 100644
 +	struct incfs_sysfs_node *node = container_of(kobj,		\
 +			struct incfs_sysfs_node, isn_sysfs_node);	\
 +									\
-+	return sysfs_emit(buff, "%d\n", node->isn_##name);		\
++	return sysfs_emit(buff, "%d\n", node->isn_mi->mi_##name);	\
 +}									\
 +									\
 +static struct kobj_attribute name##_attr = __ATTR_RO(name)
@@ -5779,7 +5822,7 @@ new file mode 100644
 +	struct incfs_sysfs_node *node = container_of(kobj,		\
 +			struct incfs_sysfs_node, isn_sysfs_node);	\
 +									\
-+	return sysfs_emit(buff, "%lld\n", node->isn_##name);		\
++	return sysfs_emit(buff, "%lld\n", node->isn_mi->mi_##name);	\
 +}									\
 +									\
 +static struct kobj_attribute name##_attr = __ATTR_RO(name)
@@ -5808,7 +5851,7 @@ new file mode 100644
 +	struct incfs_sysfs_node *node = container_of(kobj,
 +				struct incfs_sysfs_node, isn_sysfs_node);
 +
-+	kfree(node);
++	complete(&node->isn_completion);
 +}
 +
 +static const struct attribute_group mount_attr_group = {
@@ -5820,7 +5863,8 @@ new file mode 100644
 +	.release	= &incfs_sysfs_release,
 +};
 +
-+struct incfs_sysfs_node *incfs_add_sysfs_node(const char *name)
++struct incfs_sysfs_node *incfs_add_sysfs_node(const char *name,
++					      struct mount_info *mi)
 +{
 +	struct incfs_sysfs_node *node = NULL;
 +	int error;
@@ -5832,6 +5876,9 @@ new file mode 100644
 +	if (!node)
 +		return ERR_PTR(-ENOMEM);
 +
++	node->isn_mi = mi;
++
++	init_completion(&node->isn_completion);
 +	kobject_init(&node->isn_sysfs_node, &incfs_kobj_node_ktype);
 +	error = kobject_add(&node->isn_sysfs_node, instances_node, "%s", name);
 +	if (error)
@@ -5859,12 +5906,14 @@ new file mode 100644
 +
 +	sysfs_remove_group(&node->isn_sysfs_node, &mount_attr_group);
 +	kobject_put(&node->isn_sysfs_node);
++	wait_for_completion_interruptible(&node->isn_completion);
++	kfree(node);
 +}
 diff --git a/fs/incfs/sysfs.h b/fs/incfs/sysfs.h
 new file mode 100644
 --- /dev/null
 +++ b/fs/incfs/sysfs.h
-@@ -0,0 +1,48 @@
+@@ -0,0 +1,22 @@
 +/* SPDX-License-Identifier: GPL-2.0 */
 +/*
 + * Copyright 2021 Google LLC
@@ -5875,41 +5924,15 @@ new file mode 100644
 +struct incfs_sysfs_node {
 +	struct kobject isn_sysfs_node;
 +
-+	/* Number of reads timed out */
-+	u32 isn_reads_failed_timed_out;
++	struct completion isn_completion;
 +
-+	/* Number of reads failed because hash verification failed */
-+	u32 isn_reads_failed_hash_verification;
-+
-+	/* Number of reads failed for another reason */
-+	u32 isn_reads_failed_other;
-+
-+	/* Number of reads delayed because page had to be fetched */
-+	u32 isn_reads_delayed_pending;
-+
-+	/* Total time waiting for pages to be fetched */
-+	u64 isn_reads_delayed_pending_us;
-+
-+	/*
-+	 * Number of reads delayed because of per-uid min_time_us or
-+	 * min_pending_time_us settings
-+	 */
-+	u32 isn_reads_delayed_min;
-+
-+	/* Total time waiting because of per-uid min_time_us or
-+	 * min_pending_time_us settings.
-+	 *
-+	 * Note that if a read is initially delayed because we have to wait for
-+	 * the page, then further delayed because of min_pending_time_us
-+	 * setting, this counter gets incremented by only the further delay
-+	 * time.
-+	 */
-+	u64 isn_reads_delayed_min_us;
++	struct mount_info *isn_mi;
 +};
 +
 +int incfs_init_sysfs(void);
 +void incfs_cleanup_sysfs(void);
-+struct incfs_sysfs_node *incfs_add_sysfs_node(const char *name);
++struct incfs_sysfs_node *incfs_add_sysfs_node(const char *name,
++					      struct mount_info *mi);
 +void incfs_free_sysfs_node(struct incfs_sysfs_node *node);
 +
 +#endif
@@ -6827,7 +6850,7 @@ diff --git a/fs/incfs/vfs.c b/fs/incfs/vfs.c
 new file mode 100644
 --- /dev/null
 +++ b/fs/incfs/vfs.c
-@@ -0,0 +1,1908 @@
+@@ -0,0 +1,1913 @@
 +// SPDX-License-Identifier: GPL-2.0
 +/*
 + * Copyright 2018 Google LLC
@@ -6854,6 +6877,7 @@ new file mode 100644
 +#include "format.h"
 +#include "internal.h"
 +#include "pseudo_files.h"
++#include "sysfs.h"
 +#include "verity.h"
 +
 +static int incfs_remount_fs(struct super_block *sb, int *flags, char *data);
@@ -8734,6 +8758,10 @@ new file mode 100644
 +	}
 +	if (mi->mi_options.report_uid)
 +		seq_puts(m, ",report_uid");
++
++	if (mi->mi_sysfs_node)
++		seq_printf(m, ",sysfs_name=%s",
++			   kobject_name(&mi->mi_sysfs_node->isn_sysfs_node));
 +	return 0;
 +}
 diff --git a/fs/incfs/vfs.h b/fs/incfs/vfs.h
@@ -8778,7 +8806,7 @@ diff --git a/include/uapi/linux/incrementalfs.h b/include/uapi/linux/incremental
 new file mode 100644
 --- /dev/null
 +++ b/include/uapi/linux/incrementalfs.h
-@@ -0,0 +1,586 @@
+@@ -0,0 +1,590 @@
 +/* SPDX-License-Identifier: GPL-2.0 WITH Linux-syscall-note */
 +/*
 + * Userspace interface for Incremental FS.
@@ -9361,7 +9389,11 @@ new file mode 100644
 +	/* errno of last read error */
 +	__u32	errno_out;
 +
-+	__u64	reserved;
++	/* uid of last read error */
++	__u32	uid_out;
++
++	__u32	reserved1;
++	__u64	reserved2;
 +};
 +
 +#endif /* _UAPI_LINUX_INCREMENTALFS_H */

@@ -10,7 +10,7 @@ They are not going upstream so history is unimportant in 'common-patches' contex
 Signed-off-by: Lee Jones <lee.jones@linaro.org>
 Change-Id: I273c3968b70daaf60fd01106fb388475a8645c97
 ---
- build.config.aarch64              | 19 +++++++++++++++++
+ build.config.aarch64              | 20 ++++++++++++++++++
  build.config.allmodconfig         | 13 ++++++++++++
  build.config.allmodconfig.aarch64 |  4 ++++
  build.config.allmodconfig.arm     |  4 ++++
@@ -32,7 +32,7 @@ Change-Id: I273c3968b70daaf60fd01106fb388475a8645c97
  build.config.gki_kprobes.x86_64   |  4 ++++
  build.config.rockpi4              | 19 +++++++++++++++++
  build.config.x86_64               | 20 ++++++++++++++++++
- 22 files changed, 249 insertions(+)
+ 22 files changed, 250 insertions(+)
  create mode 100644 build.config.aarch64
  create mode 100644 build.config.allmodconfig
  create mode 100644 build.config.allmodconfig.aarch64
@@ -60,11 +60,12 @@ diff --git a/build.config.aarch64 b/build.config.aarch64
 new file mode 100644
 --- /dev/null
 +++ b/build.config.aarch64
-@@ -0,0 +1,19 @@
+@@ -0,0 +1,20 @@
 +ARCH=arm64
 +
 +LLVM_IAS=1
 +CROSS_COMPILE=aarch64-linux-gnu-
++CROSS_COMPILE_COMPAT=arm-linux-gnueabi-
 +LINUX_GCC_CROSS_COMPILE_PREBUILTS_BIN=prebuilts/gas/linux-x86
 +
 +MAKE_GOALS="

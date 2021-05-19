@@ -2,13 +2,12 @@
 # android-mainline patches
 #
 # Applies onto upstream d07f6ca923ea0 Linux v5.13-rc2
-# Matches android-mainline ccd25efcb4fe5 ("Merge tag 'v5.13-rc2' into android-mainline")
+# Matches android-mainline 6a01054951380 ("ANDROID: add OWNERS for UFS driver")
 #
 Revert-block-grant-IOPRIO_CLASS_RT-to-CAP_SYS_NICE.patch
 Revert-arm64-dts-qcom-sdm845-db845c-Fix-hdmi-nodes.patch
 Revert-ubsan-enable-for-all-config-builds.patch
 Revert-ARM-9017-2-Enable-KASan-for-ARM.patch
-Revert-tweewide-Fix-most-Shebang-lines.patch
 Revert-bpf-program-Refuse-non-O_RDWR-flags-in-BPF_OBJ_GET.patch
 Revert-sched-core-Prevent-race-condition-between-cpuset-and-__sched_setscheduler.patch
 Revert-sched-Remove-sched_setscheduler-EXPORTs.patch
