@@ -1,0 +1,36 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: Lee Jones <lee.jones@linaro.org>
+Date: Thu, 20 May 2021 13:58:14 +0100
+Subject: FROMLIST: fs: ext4: namei: trivial: Fix a couple of small whitespace
+ issues
+
+Upstream attempt.
+
+Link: https://lore.kernel.org/lkml/20210520125558.3476318-1-lee.jones@linaro.org/
+Signed-off-by: Lee Jones <lee.jones@linaro.org>
+Change-Id: Ic2983c5e6b19ccd7500542cf0dd7f90b3ba3ddb6
+---
+ fs/ext4/namei.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/fs/ext4/namei.c b/fs/ext4/namei.c
+--- a/fs/ext4/namei.c
++++ b/fs/ext4/namei.c
+@@ -1901,7 +1901,7 @@ static struct ext4_dir_entry_2 *dx_pack_dirents(struct inode *dir, char *base,
+  * Returns pointer to de in block into which the new entry will be inserted.
+  */
+ static struct ext4_dir_entry_2 *do_split(handle_t *handle, struct inode *dir,
+-			struct buffer_head **bh,struct dx_frame *frame,
++			struct buffer_head **bh, struct dx_frame *frame,
+ 			struct dx_hash_info *hinfo)
+ {
+ 	unsigned blocksize = dir->i_sb->s_blocksize;
+@@ -2248,7 +2248,7 @@ static int make_indexed_dir(handle_t *handle, struct ext4_filename *fname,
+ 	if (retval)
+ 		goto out_frames;
+ 
+-	de = do_split(handle,dir, &bh2, frame, &fname->hinfo);
++	de = do_split(handle, dir, &bh2, frame, &fname->hinfo);
+ 	if (IS_ERR(de)) {
+ 		retval = PTR_ERR(de);
+ 		goto out_frames;

@@ -301,6 +301,7 @@ ANDROID-fs-epoll-use-freezable-blocking-call.patch
 ANDROID-fs-FS-tracepoints-to-track-IO.patch
 ANDROID-Add-a-tracepoint-for-mapping-inode-to-full-path.patch
 ANDROID-ext4-Mainline-disparity.patch
+FROMLIST-fs-ext4-namei-trivial-Fix-a-couple-of-small-whitespace-issues.patch
 ANDROID-GKI-Don-t-compact-fuse_req-when-CONFIG_VIRTIO_FS-n.patch
 ANDROID-vfs-d_canonical_path-for-stacked-FS.patch
 ANDROID-fuse-Add-support-for-d_canonical_path.patch
