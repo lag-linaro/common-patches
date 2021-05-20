@@ -46,7 +46,6 @@ ANDROID-add-macros-to-create-OEM-data-fields.patch
 ANDROID-vendor_hooks-Allow-multiple-attachments-to-restricted-hooks.patch
 _____ANNOTATION-kbuild-changes_____.patch
 FROMLIST-kbuild-Add-dtc-flag-test.patch
-ANDROID-Kbuild-LLVMLinux-allow-overriding-clang-target-triple.patch
 ANDROID-kbuild-Add-support-for-installing-out-of-tree-kernel-headers.patch
 ANDROID-Makefile-append-BUILD_NUMBER-to-version-string-when-defined.patch
 ANDROID-update-the-kernel-release-format-for-GKI.patch
@@ -383,7 +382,6 @@ ANDROID-gki_defconfig-initial-config.patch
 ANDROID-init-GKI-add-GKI_HACKS_TO_FIX.patch
 ANDROID-add-README.md.patch
 ANDROID-Re-enable-menus-hidden-by-disabling-MEDIA_SUPPORT_FILTER.patch
-Revert-ANDROID-Kbuild-LLVMLinux-allow-overriding-clang-target-triple.patch
 ANDROID-GKI-enable-CONFIG_SUN4I_TIMER.patch
 ANDROID-extract-cert-omit-PKCS-11-support-if-building-against-BoringSSL.patch
 ANDROID-GKI-Unhide-VIRTIO_DMA_SHARED_BUFFER.patch
