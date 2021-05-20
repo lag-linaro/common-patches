@@ -42,7 +42,6 @@ _____ANNOTATION-Android-vendor-hooks_____.patch
 ANDROID-GKI-add-android_vendor.h.patch
 ANDROID-add-support-for-vendor-hooks.patch
 ANDROID-use-static_call-for-restricted-hooks.patch
-ANDROID-add-macros-to-create-OEM-data-fields.patch
 ANDROID-vendor_hooks-Allow-multiple-attachments-to-restricted-hooks.patch
 _____ANNOTATION-kbuild-changes_____.patch
 FROMLIST-kbuild-Add-dtc-flag-test.patch
