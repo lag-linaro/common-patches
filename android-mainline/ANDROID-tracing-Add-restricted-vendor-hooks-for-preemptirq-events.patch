@@ -34,7 +34,7 @@ diff --git a/drivers/android/vendor_hooks.c b/drivers/android/vendor_hooks.c
  
  /*
   * Export tracepoints that act as a bare tracehook (ie: have no trace event
-@@ -75,3 +76,7 @@ EXPORT_TRACEPOINT_SYMBOL_GPL(android_rvh_set_iowait);
+@@ -75,6 +76,10 @@ EXPORT_TRACEPOINT_SYMBOL_GPL(android_rvh_set_iowait);
  EXPORT_TRACEPOINT_SYMBOL_GPL(android_rvh_set_sugov_update);
  EXPORT_TRACEPOINT_SYMBOL_GPL(android_rvh_sched_setaffinity);
  EXPORT_TRACEPOINT_SYMBOL_GPL(android_rvh_update_cpus_allowed);
@@ -42,6 +42,9 @@ diff --git a/drivers/android/vendor_hooks.c b/drivers/android/vendor_hooks.c
 +EXPORT_TRACEPOINT_SYMBOL_GPL(android_rvh_preempt_enable);
 +EXPORT_TRACEPOINT_SYMBOL_GPL(android_rvh_irqs_disable);
 +EXPORT_TRACEPOINT_SYMBOL_GPL(android_rvh_irqs_enable);
+ EXPORT_TRACEPOINT_SYMBOL_GPL(android_rvh_cpu_cgroup_attach);
+ EXPORT_TRACEPOINT_SYMBOL_GPL(android_rvh_cpu_cgroup_can_attach);
+ EXPORT_TRACEPOINT_SYMBOL_GPL(android_vh_em_cpu_energy);
 diff --git a/include/trace/hooks/preemptirq.h b/include/trace/hooks/preemptirq.h
 new file mode 100644
 --- /dev/null

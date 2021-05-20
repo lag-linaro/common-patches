@@ -18,32 +18,34 @@ Change-Id: I9aa9079f00af7d3380b19f2fe21b75cddd107d15
 (cherry picked from commit 3122e3ec9672036384304fdeaa1b1815f60ba817)
 ---
  drivers/android/vendor_hooks.c   | 1 +
- include/trace/hooks/sched.h      | 4 ++++
+ include/trace/hooks/sched.h      | 5 +++++
  kernel/sched/cpufreq_schedutil.c | 7 ++++++-
- 3 files changed, 11 insertions(+), 1 deletion(-)
+ 3 files changed, 12 insertions(+), 1 deletion(-)
 
 diff --git a/drivers/android/vendor_hooks.c b/drivers/android/vendor_hooks.c
 --- a/drivers/android/vendor_hooks.c
 +++ b/drivers/android/vendor_hooks.c
-@@ -81,3 +81,4 @@ EXPORT_TRACEPOINT_SYMBOL_GPL(android_rvh_preempt_enable);
- EXPORT_TRACEPOINT_SYMBOL_GPL(android_rvh_irqs_disable);
+@@ -82,4 +82,5 @@ EXPORT_TRACEPOINT_SYMBOL_GPL(android_rvh_irqs_disable);
  EXPORT_TRACEPOINT_SYMBOL_GPL(android_rvh_irqs_enable);
  EXPORT_TRACEPOINT_SYMBOL_GPL(android_rvh_cpu_cgroup_attach);
+ EXPORT_TRACEPOINT_SYMBOL_GPL(android_rvh_cpu_cgroup_can_attach);
 +EXPORT_TRACEPOINT_SYMBOL_GPL(android_vh_map_util_freq);
+ EXPORT_TRACEPOINT_SYMBOL_GPL(android_vh_em_cpu_energy);
 diff --git a/include/trace/hooks/sched.h b/include/trace/hooks/sched.h
 --- a/include/trace/hooks/sched.h
 +++ b/include/trace/hooks/sched.h
-@@ -129,6 +129,10 @@ DECLARE_RESTRICTED_HOOK(android_rvh_cpu_cgroup_attach,
- 	TP_PROTO(struct cgroup_taskset *tset),
- 	TP_ARGS(tset), 1);
+@@ -133,6 +133,11 @@ DECLARE_RESTRICTED_HOOK(android_rvh_cpu_cgroup_can_attach,
+ 	TP_PROTO(struct cgroup_taskset *tset, int *retval),
+ 	TP_ARGS(tset, retval), 1);
  
 +DECLARE_HOOK(android_vh_map_util_freq,
 +	TP_PROTO(unsigned long util, unsigned long freq,
 +		unsigned long cap, unsigned long *next_freq),
 +	TP_ARGS(util, freq, cap, next_freq));
- #endif /* _TRACE_HOOK_SCHED_H */
- /* This part must be outside protection */
- #include <trace/define_trace.h>
++
+ struct em_perf_domain;
+ DECLARE_HOOK(android_vh_em_cpu_energy,
+ 	TP_PROTO(struct em_perf_domain *pd,
 diff --git a/kernel/sched/cpufreq_schedutil.c b/kernel/sched/cpufreq_schedutil.c
 --- a/kernel/sched/cpufreq_schedutil.c
 +++ b/kernel/sched/cpufreq_schedutil.c

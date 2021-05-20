@@ -19,38 +19,36 @@ Signed-off-by: Amir Vajid <avajid@codeaurora.org>
 diff --git a/drivers/android/vendor_hooks.c b/drivers/android/vendor_hooks.c
 --- a/drivers/android/vendor_hooks.c
 +++ b/drivers/android/vendor_hooks.c
-@@ -61,3 +61,4 @@ EXPORT_TRACEPOINT_SYMBOL_GPL(android_vh_wq_lockup_pool);
+@@ -61,6 +61,7 @@ EXPORT_TRACEPOINT_SYMBOL_GPL(android_vh_wq_lockup_pool);
  EXPORT_TRACEPOINT_SYMBOL_GPL(android_vh_ipi_stop);
  EXPORT_TRACEPOINT_SYMBOL_GPL(android_vh_dump_throttled_rt_tasks);
  EXPORT_TRACEPOINT_SYMBOL_GPL(android_vh_printk_hotplug);
 +EXPORT_TRACEPOINT_SYMBOL_GPL(android_vh_jiffies_update);
+ EXPORT_TRACEPOINT_SYMBOL_GPL(android_rvh_sched_newidle_balance);
+ EXPORT_TRACEPOINT_SYMBOL_GPL(android_rvh_sched_nohz_balancer_kick);
+ EXPORT_TRACEPOINT_SYMBOL_GPL(android_rvh_find_busiest_queue);
 diff --git a/include/trace/hooks/sched.h b/include/trace/hooks/sched.h
 --- a/include/trace/hooks/sched.h
 +++ b/include/trace/hooks/sched.h
-@@ -70,11 +70,15 @@ struct sched_group;
- DECLARE_RESTRICTED_HOOK(android_rvh_find_busiest_group,
- 	TP_PROTO(struct sched_group *busiest, struct rq *dst_rq, int *out_balance),
- 		TP_ARGS(busiest, dst_rq, out_balance), 1);
-+
- DECLARE_HOOK(android_vh_dump_throttled_rt_tasks,
- 	TP_PROTO(int cpu, u64 clock, ktime_t rt_period, u64 rt_runtime,
+@@ -76,6 +76,10 @@ DECLARE_HOOK(android_vh_dump_throttled_rt_tasks,
  			s64 rt_period_timer_expires),
  	TP_ARGS(cpu, clock, rt_period, rt_runtime, rt_period_timer_expires));
  
 +DECLARE_HOOK(android_vh_jiffies_update,
 +	TP_PROTO(void *unused),
 +	TP_ARGS(unused));
- #else
- #define trace_android_rvh_select_task_rq_fair(p, prev_cpu, sd_flag, wake_flags, new_cpu)
- #define trace_android_rvh_select_task_rq_rt(p, prev_cpu, sd_flag, wake_flags, new_cpu)
-@@ -91,6 +95,7 @@ DECLARE_HOOK(android_vh_dump_throttled_rt_tasks,
++
+ struct rq_flags;
+ DECLARE_RESTRICTED_HOOK(android_rvh_sched_newidle_balance,
+ 	TP_PROTO(struct rq *this_rq, struct rq_flags *rf,
+@@ -143,6 +147,7 @@ DECLARE_HOOK(android_vh_em_cpu_energy,
  #define trace_android_rvh_setscheduler(p)
  #define trace_android_rvh_find_busiest_group(busiest, dst_rq, out_balance)
  #define trace_android_vh_dump_throttled_rt_tasks(cpu, clock, rt_period, rt_runtime, rt_period_timer_expires)
 +#define trace_android_vh_jiffies_update(unused)
- #endif
- #endif /* _TRACE_HOOK_SCHED_H */
- /* This part must be outside protection */
+ #define trace_android_rvh_sched_newidle_balance(this_rq, rf, pulled_task, done)
+ #define trace_android_rvh_sched_nohz_balancer_kick(rq, flags, done)
+ #define trace_android_rvh_find_busiest_queue(dst_cpu, group, env_cpus, busiest, done)
 diff --git a/kernel/time/tick-common.c b/kernel/time/tick-common.c
 --- a/kernel/time/tick-common.c
 +++ b/kernel/time/tick-common.c
