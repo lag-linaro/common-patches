@@ -1,0 +1,29 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: Akilesh Kailash <akailash@google.com>
+Date: Tue, 18 May 2021 23:08:19 +0000
+Subject: ANDROID: dm-user: Drop additional reference
+
+kref_init already takes one reference during
+initialization. Additional reference will cause
+memory leak when dm-user target is destroyed.
+
+Bug: 188362111
+Test: OTA - verify ref count dropping to 0
+Signed-off-by: Akilesh Kailash <akailash@google.com>
+Change-Id: I0b25135371daefdaf2841e9ff5cdfd6aaa389f3b
+---
+ drivers/md/dm-user.c | 1 -
+ 1 file changed, 1 deletion(-)
+
+diff --git a/drivers/md/dm-user.c b/drivers/md/dm-user.c
+index 4e64adaefdbd7..7593467391485 100644
+--- a/drivers/md/dm-user.c
++++ b/drivers/md/dm-user.c
+@@ -916,7 +916,6 @@ static int user_ctr(struct dm_target *ti, unsigned int argc, char **argv)
+ 	 * channels have been closed.
+ 	 */
+ 	kref_init(&t->references);
+-	kref_get(&t->references);
+ 
+ 	mutex_init(&t->lock);
+ 	init_waitqueue_head(&t->wq);

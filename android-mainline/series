@@ -2,7 +2,7 @@
 # android-mainline patches
 #
 # Applies onto upstream d07f6ca923ea0 Linux v5.13-rc2
-# Matches android-mainline 3d50d6cd80628 ("Revert "FROMLIST: Makefile: add -fuse-ld=lld to KBUILD_HOSTLDFLAGS when LLVM=1"")
+# Matches android-mainline 5a8bf62fd781b ("ANDROID: dm-user: Drop additional reference")
 #
 Revert-block-grant-IOPRIO_CLASS_RT-to-CAP_SYS_NICE.patch
 Revert-arm64-dts-qcom-sdm845-db845c-Fix-hdmi-nodes.patch
@@ -289,6 +289,7 @@ ANDROID-dm-dm-user-New-target-that-proxies-BIOs-to-userspace.patch
 ANDROID-dm-user-Add-some-missing-static.patch
 ANDROID-dm-user-fix-typo-in-channel_free.patch
 ANDROID-dm-user-Fix-the-list-walk-and-delete-code.patch
+ANDROID-dm-user-Drop-additional-reference.patch
 _____ANNOTATION-filesystem-changes_____.patch
 FROMLIST-overlayfs-internal-getxattr-operations-without-sepolicy-checking.patch
 FROMLIST-fscrypt-Add-functions-for-direct-I-O-support.patch
