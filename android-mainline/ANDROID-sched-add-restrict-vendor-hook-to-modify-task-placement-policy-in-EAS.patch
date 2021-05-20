@@ -77,7 +77,7 @@ diff --git a/kernel/sched/fair.c b/kernel/sched/fair.c
  /*
   * Targeted preemption latency for CPU-bound tasks:
   *
-@@ -6825,9 +6827,15 @@ select_task_rq_fair(struct task_struct *p, int prev_cpu, int wake_flags)
+@@ -6782,9 +6784,15 @@ select_task_rq_fair(struct task_struct *p, int prev_cpu, int wake_flags)
  	int cpu = smp_processor_id();
  	int new_cpu = prev_cpu;
  	int want_affine = 0;

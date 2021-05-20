@@ -19,7 +19,7 @@ Signed-off-by: Asutosh Das <asutoshd@codeaurora.org>
 diff --git a/drivers/scsi/ufs/ufshcd.c b/drivers/scsi/ufs/ufshcd.c
 --- a/drivers/scsi/ufs/ufshcd.c
 +++ b/drivers/scsi/ufs/ufshcd.c
-@@ -228,7 +228,6 @@ static void ufshcd_hba_exit(struct ufs_hba *hba);
+@@ -231,7 +231,6 @@ static void ufshcd_hba_exit(struct ufs_hba *hba);
  static int ufshcd_clear_ua_wluns(struct ufs_hba *hba);
  static int ufshcd_probe_hba(struct ufs_hba *hba, bool async);
  static int ufshcd_setup_clocks(struct ufs_hba *hba, bool on);
@@ -27,7 +27,7 @@ diff --git a/drivers/scsi/ufs/ufshcd.c b/drivers/scsi/ufs/ufshcd.c
  static inline void ufshcd_add_delay_before_dme_cmd(struct ufs_hba *hba);
  static int ufshcd_host_reset_and_restore(struct ufs_hba *hba);
  static void ufshcd_resume_clkscaling(struct ufs_hba *hba);
-@@ -4036,7 +4035,7 @@ int ufshcd_link_recovery(struct ufs_hba *hba)
+@@ -4054,7 +4053,7 @@ int ufshcd_link_recovery(struct ufs_hba *hba)
  }
  EXPORT_SYMBOL_GPL(ufshcd_link_recovery);
  
@@ -36,7 +36,7 @@ diff --git a/drivers/scsi/ufs/ufshcd.c b/drivers/scsi/ufs/ufshcd.c
  {
  	int ret;
  	struct uic_command uic_cmd = {0};
-@@ -4058,6 +4057,7 @@ static int ufshcd_uic_hibern8_enter(struct ufs_hba *hba)
+@@ -4076,6 +4075,7 @@ static int ufshcd_uic_hibern8_enter(struct ufs_hba *hba)
  
  	return ret;
  }

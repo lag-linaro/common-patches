@@ -15,7 +15,7 @@ Change-Id: If1529ad4b883f36de1692cd3ac1853ff722e3522
 diff --git a/kernel/sched/core.c b/kernel/sched/core.c
 --- a/kernel/sched/core.c
 +++ b/kernel/sched/core.c
-@@ -3151,6 +3151,7 @@ void wake_up_if_idle(int cpu)
+@@ -3163,6 +3163,7 @@ void wake_up_if_idle(int cpu)
  out:
  	rcu_read_unlock();
  }

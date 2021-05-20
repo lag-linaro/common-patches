@@ -69,7 +69,7 @@ diff --git a/include/linux/gfp.h b/include/linux/gfp.h
 diff --git a/include/linux/pagemap.h b/include/linux/pagemap.h
 --- a/include/linux/pagemap.h
 +++ b/include/linux/pagemap.h
-@@ -311,10 +311,7 @@ static inline struct page *page_cache_alloc(struct address_space *x)
+@@ -310,10 +310,7 @@ static inline struct page *page_cache_alloc(struct address_space *x)
  	return __page_cache_alloc(mapping_gfp_mask(x));
  }
  
@@ -125,7 +125,7 @@ diff --git a/mm/memory.c b/mm/memory.c
  
  #include <trace/events/kmem.h>
  
-@@ -3362,8 +3363,10 @@ vm_fault_t do_swap_page(struct vm_fault *vmf)
+@@ -3349,8 +3350,10 @@ vm_fault_t do_swap_page(struct vm_fault *vmf)
  		if (data_race(si->flags & SWP_SYNCHRONOUS_IO) &&
  		    __swap_count(entry) == 1) {
  			/* skip swapcache */

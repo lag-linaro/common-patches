@@ -21,7 +21,7 @@ Change-Id: Ie9a6c89249a2aefbccced4786ce4d4728e39dd12
 diff --git a/kernel/sched/fair.c b/kernel/sched/fair.c
 --- a/kernel/sched/fair.c
 +++ b/kernel/sched/fair.c
-@@ -6678,6 +6678,7 @@ static int find_energy_efficient_cpu(struct task_struct *p, int prev_cpu, int sy
+@@ -6683,6 +6683,7 @@ static int find_energy_efficient_cpu(struct task_struct *p, int prev_cpu, int sy
  	struct perf_domain *pd;
  	int new_cpu = INT_MAX;
  
@@ -29,7 +29,7 @@ diff --git a/kernel/sched/fair.c b/kernel/sched/fair.c
  	trace_android_rvh_find_energy_efficient_cpu(p, prev_cpu, sync, &new_cpu);
  	if (new_cpu != INT_MAX)
  		return new_cpu;
-@@ -6705,7 +6706,6 @@ static int find_energy_efficient_cpu(struct task_struct *p, int prev_cpu, int sy
+@@ -6710,7 +6711,6 @@ static int find_energy_efficient_cpu(struct task_struct *p, int prev_cpu, int sy
  	if (!sd)
  		goto fail;
  

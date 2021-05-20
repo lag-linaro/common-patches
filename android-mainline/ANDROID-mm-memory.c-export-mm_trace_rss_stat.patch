@@ -20,7 +20,7 @@ Signed-off-by: Alistair Delva <adelva@google.com>
 diff --git a/mm/memory.c b/mm/memory.c
 --- a/mm/memory.c
 +++ b/mm/memory.c
-@@ -172,6 +172,7 @@ void mm_trace_rss_stat(struct mm_struct *mm, int member, long count)
+@@ -173,6 +173,7 @@ void mm_trace_rss_stat(struct mm_struct *mm, int member, long count)
  {
  	trace_rss_stat(mm, member, count);
  }

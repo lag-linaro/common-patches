@@ -27,7 +27,7 @@ Signed-off-by: Amit Pundir <amit.pundir@linaro.org>
 diff --git a/kernel/cgroup/cgroup-v1.c b/kernel/cgroup/cgroup-v1.c
 --- a/kernel/cgroup/cgroup-v1.c
 +++ b/kernel/cgroup/cgroup-v1.c
-@@ -510,7 +510,8 @@ static ssize_t __cgroup1_procs_write(struct kernfs_open_file *of,
+@@ -511,7 +511,8 @@ static ssize_t __cgroup1_procs_write(struct kernfs_open_file *of,
  	tcred = get_task_cred(task);
  	if (!uid_eq(cred->euid, GLOBAL_ROOT_UID) &&
  	    !uid_eq(cred->euid, tcred->uid) &&

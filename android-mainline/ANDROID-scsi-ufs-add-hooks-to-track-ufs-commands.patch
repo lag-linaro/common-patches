@@ -31,7 +31,7 @@ diff --git a/drivers/android/vendor_hooks.c b/drivers/android/vendor_hooks.c
 diff --git a/drivers/scsi/ufs/ufshcd.c b/drivers/scsi/ufs/ufshcd.c
 --- a/drivers/scsi/ufs/ufshcd.c
 +++ b/drivers/scsi/ufs/ufshcd.c
-@@ -325,6 +325,8 @@ static void ufshcd_add_tm_upiu_trace(struct ufs_hba *hba, unsigned int tag,
+@@ -326,6 +326,8 @@ static void ufshcd_add_tm_upiu_trace(struct ufs_hba *hba, unsigned int tag,
  	int off = (int)tag - hba->nutrs;
  	struct utp_task_req_desc *descp = &hba->utmrdl_base_addr[off];
  
@@ -40,7 +40,7 @@ diff --git a/drivers/scsi/ufs/ufshcd.c b/drivers/scsi/ufs/ufshcd.c
  	if (!trace_ufshcd_upiu_enabled())
  		return;
  
-@@ -346,6 +348,8 @@ static void ufshcd_add_uic_command_trace(struct ufs_hba *hba,
+@@ -347,6 +349,8 @@ static void ufshcd_add_uic_command_trace(struct ufs_hba *hba,
  {
  	u32 cmd;
  
@@ -49,7 +49,7 @@ diff --git a/drivers/scsi/ufs/ufshcd.c b/drivers/scsi/ufs/ufshcd.c
  	if (!trace_ufshcd_uic_command_enabled())
  		return;
  
-@@ -5126,6 +5130,7 @@ static void __ufshcd_transfer_req_compl(struct ufs_hba *hba,
+@@ -5118,6 +5122,7 @@ static void __ufshcd_transfer_req_compl(struct ufs_hba *hba,
  		} else if (lrbp->command_type == UTP_CMD_TYPE_DEV_MANAGE ||
  			lrbp->command_type == UTP_CMD_TYPE_UFS_STORAGE) {
  			if (hba->dev_cmd.complete) {
@@ -57,7 +57,7 @@ diff --git a/drivers/scsi/ufs/ufshcd.c b/drivers/scsi/ufs/ufshcd.c
  				ufshcd_add_command_trace(hba, index,
  							 UFS_DEV_COMP);
  				complete(hba->dev_cmd.complete);
-@@ -6221,6 +6226,8 @@ static irqreturn_t ufshcd_check_errors(struct ufs_hba *hba)
+@@ -6212,6 +6217,8 @@ static irqreturn_t ufshcd_check_errors(struct ufs_hba *hba)
  		queue_eh_work = true;
  	}
  

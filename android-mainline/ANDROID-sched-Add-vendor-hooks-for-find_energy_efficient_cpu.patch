@@ -49,8 +49,8 @@ diff --git a/include/trace/hooks/sched.h b/include/trace/hooks/sched.h
 diff --git a/kernel/sched/fair.c b/kernel/sched/fair.c
 --- a/kernel/sched/fair.c
 +++ b/kernel/sched/fair.c
-@@ -6673,6 +6673,11 @@ static int find_energy_efficient_cpu(struct task_struct *p, int prev_cpu, int sy
- 	struct cpuidle_state *idle;
+@@ -6667,6 +6667,11 @@ static int find_energy_efficient_cpu(struct task_struct *p, int prev_cpu)
+ 	int cpu, best_energy_cpu = prev_cpu;
  	struct sched_domain *sd;
  	struct perf_domain *pd;
 +	int new_cpu = INT_MAX;

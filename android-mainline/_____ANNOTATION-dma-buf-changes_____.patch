@@ -12,8 +12,8 @@ Change-Id: Ia8afcfef37d1c6314b39dddf8bc20cad9db64754
 diff --git a/ANNOTATIONS b/ANNOTATIONS
 --- a/ANNOTATIONS
 +++ b/ANNOTATIONS
-@@ -12,3 +12,4 @@ cpufreq changes
+@@ -12,3 +12,4 @@ uid_sys_stats support
+ cpufreq changes
  mm (memory management) changes
  security changes
- binder changes
 +dma-buf changes

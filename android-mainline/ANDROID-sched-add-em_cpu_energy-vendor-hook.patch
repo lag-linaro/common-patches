@@ -47,7 +47,7 @@ diff --git a/include/trace/hooks/sched.h b/include/trace/hooks/sched.h
 diff --git a/kernel/sched/fair.c b/kernel/sched/fair.c
 --- a/kernel/sched/fair.c
 +++ b/kernel/sched/fair.c
-@@ -6569,6 +6569,7 @@ compute_energy(struct task_struct *p, int dst_cpu, struct perf_domain *pd)
+@@ -6568,6 +6568,7 @@ compute_energy(struct task_struct *p, int dst_cpu, struct perf_domain *pd)
  	struct cpumask *pd_mask = perf_domain_span(pd);
  	unsigned long cpu_cap = arch_scale_cpu_capacity(cpumask_first(pd_mask));
  	unsigned long max_util = 0, sum_util = 0;
@@ -55,7 +55,7 @@ diff --git a/kernel/sched/fair.c b/kernel/sched/fair.c
  	int cpu;
  
  	/*
-@@ -6621,7 +6622,11 @@ compute_energy(struct task_struct *p, int dst_cpu, struct perf_domain *pd)
+@@ -6620,7 +6621,11 @@ compute_energy(struct task_struct *p, int dst_cpu, struct perf_domain *pd)
  		max_util = max(max_util, cpu_util);
  	}
  

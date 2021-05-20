@@ -59,7 +59,7 @@ diff --git a/kernel/cgroup/cpuset.c b/kernel/cgroup/cpuset.c
  DEFINE_STATIC_KEY_FALSE(cpusets_pre_enable_key);
  DEFINE_STATIC_KEY_FALSE(cpusets_enabled_key);
  
-@@ -1044,6 +1046,18 @@ void rebuild_sched_domains(void)
+@@ -1036,6 +1038,18 @@ void rebuild_sched_domains(void)
  	put_online_cpus();
  }
  
@@ -78,7 +78,7 @@ diff --git a/kernel/cgroup/cpuset.c b/kernel/cgroup/cpuset.c
  /**
   * update_tasks_cpumask - Update the cpumasks of tasks in the cpuset.
   * @cs: the cpuset in which each task's cpus_allowed mask needs to be changed
-@@ -1059,7 +1073,7 @@ static void update_tasks_cpumask(struct cpuset *cs)
+@@ -1051,7 +1065,7 @@ static void update_tasks_cpumask(struct cpuset *cs)
  
  	css_task_iter_start(&cs->css, 0, &it);
  	while ((task = css_task_iter_next(&it)))
@@ -87,7 +87,7 @@ diff --git a/kernel/cgroup/cpuset.c b/kernel/cgroup/cpuset.c
  	css_task_iter_end(&it);
  }
  
-@@ -2211,7 +2225,7 @@ static void cpuset_attach(struct cgroup_taskset *tset)
+@@ -2201,7 +2215,7 @@ static void cpuset_attach(struct cgroup_taskset *tset)
  		 * can_attach beforehand should guarantee that this doesn't
  		 * fail.  TODO: have a better way to handle failure here
  		 */

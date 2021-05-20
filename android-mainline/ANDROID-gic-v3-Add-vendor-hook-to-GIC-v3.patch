@@ -40,15 +40,15 @@ diff --git a/drivers/android/vendor_hooks.c b/drivers/android/vendor_hooks.c
 diff --git a/drivers/irqchip/irq-gic-v3.c b/drivers/irqchip/irq-gic-v3.c
 --- a/drivers/irqchip/irq-gic-v3.c
 +++ b/drivers/irqchip/irq-gic-v3.c
-@@ -20,6 +20,7 @@
+@@ -19,6 +19,7 @@
+ #include <linux/refcount.h>
  #include <linux/slab.h>
  #include <linux/syscore_ops.h>
- #include <linux/wakeup_reason.h>
 +#include <trace/hooks/gic_v3.h>
  
- 
  #include <linux/irqchip.h>
-@@ -770,11 +771,15 @@ static void __init gic_dist_init(void)
+ #include <linux/irqchip/arm-gic-common.h>
+@@ -767,11 +768,15 @@ static void __init gic_dist_init(void)
  	 * enabled.
  	 */
  	affinity = gic_mpidr_to_affinity(cpu_logical_map(smp_processor_id()));
@@ -66,7 +66,7 @@ diff --git a/drivers/irqchip/irq-gic-v3.c b/drivers/irqchip/irq-gic-v3.c
  }
  
  static int gic_iterate_rdists(int (*fn)(struct redist_region *, void __iomem *))
-@@ -1206,6 +1211,7 @@ static int gic_set_affinity(struct irq_data *d, const struct cpumask *mask_val,
+@@ -1203,6 +1208,7 @@ static int gic_set_affinity(struct irq_data *d, const struct cpumask *mask_val,
  	reg = gic_dist_base(d) + offset + (index * 8);
  	val = gic_mpidr_to_affinity(cpu_logical_map(cpu));
  

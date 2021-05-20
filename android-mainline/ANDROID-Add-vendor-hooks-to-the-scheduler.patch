@@ -156,7 +156,7 @@ diff --git a/kernel/sched/core.c b/kernel/sched/core.c
 diff --git a/kernel/sched/fair.c b/kernel/sched/fair.c
 --- a/kernel/sched/fair.c
 +++ b/kernel/sched/fair.c
-@@ -7649,9 +7649,14 @@ static
+@@ -7606,9 +7606,14 @@ static
  int can_migrate_task(struct task_struct *p, struct lb_env *env)
  {
  	int tsk_cache_hot;

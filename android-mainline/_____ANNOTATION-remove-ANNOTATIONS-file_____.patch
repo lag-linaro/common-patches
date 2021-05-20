@@ -18,6 +18,7 @@ deleted file mode 100644
 +++ /dev/null
 @@ -1,33 +0,0 @@
 -pending upstream
+-binder changes
 -Android vendor hooks
 -kbuild changes
 -x86 changes
@@ -30,7 +31,6 @@ deleted file mode 100644
 -cpufreq changes
 -mm (memory management) changes
 -security changes
--binder changes
 -dma-buf changes
 -driver framework and misc driver changes
 -tty changes

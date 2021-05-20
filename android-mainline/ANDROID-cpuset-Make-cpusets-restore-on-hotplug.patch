@@ -27,7 +27,7 @@ Signed-off-by: Satya Durga Srinivasu Prabhala <satyap@codeaurora.org>
 diff --git a/kernel/cgroup/cpuset.c b/kernel/cgroup/cpuset.c
 --- a/kernel/cgroup/cpuset.c
 +++ b/kernel/cgroup/cpuset.c
-@@ -105,6 +105,7 @@ struct cpuset {
+@@ -107,6 +107,7 @@ struct cpuset {
  
  	/* user-configured CPUs and Memory Nodes allow to tasks */
  	cpumask_var_t cpus_allowed;
@@ -35,7 +35,7 @@ diff --git a/kernel/cgroup/cpuset.c b/kernel/cgroup/cpuset.c
  	nodemask_t mems_allowed;
  
  	/* effective CPUs and Memory Nodes allow to tasks */
-@@ -436,7 +437,7 @@ static void cpuset_update_task_spread_flag(struct cpuset *cs,
+@@ -438,7 +439,7 @@ static void cpuset_update_task_spread_flag(struct cpuset *cs,
  
  static int is_cpuset_subset(const struct cpuset *p, const struct cpuset *q)
  {
@@ -44,7 +44,7 @@ diff --git a/kernel/cgroup/cpuset.c b/kernel/cgroup/cpuset.c
  		nodes_subset(p->mems_allowed, q->mems_allowed) &&
  		is_cpu_exclusive(p) <= is_cpu_exclusive(q) &&
  		is_mem_exclusive(p) <= is_mem_exclusive(q);
-@@ -473,8 +474,13 @@ static inline int alloc_cpumasks(struct cpuset *cs, struct tmpmasks *tmp)
+@@ -475,8 +476,13 @@ static inline int alloc_cpumasks(struct cpuset *cs, struct tmpmasks *tmp)
  	if (!zalloc_cpumask_var(pmask3, GFP_KERNEL))
  		goto free_two;
  
@@ -58,7 +58,7 @@ diff --git a/kernel/cgroup/cpuset.c b/kernel/cgroup/cpuset.c
  free_two:
  	free_cpumask_var(*pmask2);
  free_one:
-@@ -491,6 +497,7 @@ static inline void free_cpumasks(struct cpuset *cs, struct tmpmasks *tmp)
+@@ -493,6 +499,7 @@ static inline void free_cpumasks(struct cpuset *cs, struct tmpmasks *tmp)
  {
  	if (cs) {
  		free_cpumask_var(cs->cpus_allowed);
@@ -66,7 +66,7 @@ diff --git a/kernel/cgroup/cpuset.c b/kernel/cgroup/cpuset.c
  		free_cpumask_var(cs->effective_cpus);
  		free_cpumask_var(cs->subparts_cpus);
  	}
-@@ -519,6 +526,7 @@ static struct cpuset *alloc_trial_cpuset(struct cpuset *cs)
+@@ -521,6 +528,7 @@ static struct cpuset *alloc_trial_cpuset(struct cpuset *cs)
  	}
  
  	cpumask_copy(trial->cpus_allowed, cs->cpus_allowed);
@@ -74,7 +74,7 @@ diff --git a/kernel/cgroup/cpuset.c b/kernel/cgroup/cpuset.c
  	cpumask_copy(trial->effective_cpus, cs->effective_cpus);
  	return trial;
  }
-@@ -587,7 +595,7 @@ static int validate_change(struct cpuset *cur, struct cpuset *trial)
+@@ -589,7 +597,7 @@ static int validate_change(struct cpuset *cur, struct cpuset *trial)
  	cpuset_for_each_child(c, css, par) {
  		if ((is_cpu_exclusive(trial) || is_cpu_exclusive(c)) &&
  		    c != cur &&
@@ -83,7 +83,7 @@ diff --git a/kernel/cgroup/cpuset.c b/kernel/cgroup/cpuset.c
  			goto out;
  		if ((is_mem_exclusive(trial) || is_mem_exclusive(c)) &&
  		    c != cur &&
-@@ -1072,10 +1080,10 @@ static void compute_effective_cpumask(struct cpumask *new_cpus,
+@@ -1086,10 +1094,10 @@ static void compute_effective_cpumask(struct cpumask *new_cpus,
  	if (parent->nr_subparts_cpus) {
  		cpumask_or(new_cpus, parent->effective_cpus,
  			   parent->subparts_cpus);
@@ -96,7 +96,7 @@ diff --git a/kernel/cgroup/cpuset.c b/kernel/cgroup/cpuset.c
  	}
  }
  
-@@ -1506,17 +1514,18 @@ static int update_cpumask(struct cpuset *cs, struct cpuset *trialcs,
+@@ -1520,17 +1528,18 @@ static int update_cpumask(struct cpuset *cs, struct cpuset *trialcs,
  	if (!*buf) {
  		cpumask_clear(trialcs->cpus_allowed);
  	} else {
@@ -119,7 +119,7 @@ diff --git a/kernel/cgroup/cpuset.c b/kernel/cgroup/cpuset.c
  		return 0;
  
  	retval = validate_change(cs, trialcs);
-@@ -1544,6 +1553,7 @@ static int update_cpumask(struct cpuset *cs, struct cpuset *trialcs,
+@@ -1558,6 +1567,7 @@ static int update_cpumask(struct cpuset *cs, struct cpuset *trialcs,
  
  	spin_lock_irq(&callback_lock);
  	cpumask_copy(cs->cpus_allowed, trialcs->cpus_allowed);
@@ -127,7 +127,7 @@ diff --git a/kernel/cgroup/cpuset.c b/kernel/cgroup/cpuset.c
  
  	/*
  	 * Make sure that subparts_cpus is a subset of cpus_allowed.
-@@ -2425,7 +2435,7 @@ static int cpuset_common_seq_show(struct seq_file *sf, void *v)
+@@ -2439,7 +2449,7 @@ static int cpuset_common_seq_show(struct seq_file *sf, void *v)
  
  	switch (type) {
  	case FILE_CPULIST:
@@ -136,7 +136,7 @@ diff --git a/kernel/cgroup/cpuset.c b/kernel/cgroup/cpuset.c
  		break;
  	case FILE_MEMLIST:
  		seq_printf(sf, "%*pbl\n", nodemask_pr_args(&cs->mems_allowed));
-@@ -2794,6 +2804,7 @@ static int cpuset_css_online(struct cgroup_subsys_state *css)
+@@ -2808,6 +2818,7 @@ static int cpuset_css_online(struct cgroup_subsys_state *css)
  	cs->mems_allowed = parent->mems_allowed;
  	cs->effective_mems = parent->mems_allowed;
  	cpumask_copy(cs->cpus_allowed, parent->cpus_allowed);
@@ -144,7 +144,7 @@ diff --git a/kernel/cgroup/cpuset.c b/kernel/cgroup/cpuset.c
  	cpumask_copy(cs->effective_cpus, parent->cpus_allowed);
  	spin_unlock_irq(&callback_lock);
  out_unlock:
-@@ -2910,8 +2921,10 @@ int __init cpuset_init(void)
+@@ -2924,8 +2935,10 @@ int __init cpuset_init(void)
  	BUG_ON(!alloc_cpumask_var(&top_cpuset.cpus_allowed, GFP_KERNEL));
  	BUG_ON(!alloc_cpumask_var(&top_cpuset.effective_cpus, GFP_KERNEL));
  	BUG_ON(!zalloc_cpumask_var(&top_cpuset.subparts_cpus, GFP_KERNEL));

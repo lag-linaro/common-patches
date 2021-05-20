@@ -23,7 +23,7 @@ Signed-off-by: Pavankumar Kondeti <pkondeti@codeaurora.org>
 diff --git a/kernel/cgroup/cgroup.c b/kernel/cgroup/cgroup.c
 --- a/kernel/cgroup/cgroup.c
 +++ b/kernel/cgroup/cgroup.c
-@@ -4178,6 +4178,7 @@ struct cgroup_subsys_state *css_next_child(struct cgroup_subsys_state *pos,
+@@ -4182,6 +4182,7 @@ struct cgroup_subsys_state *css_next_child(struct cgroup_subsys_state *pos,
  		return next;
  	return NULL;
  }

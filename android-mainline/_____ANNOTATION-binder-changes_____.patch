@@ -11,8 +11,6 @@ Signed-off-by: Eric Biggers <ebiggers@google.com>
 diff --git a/ANNOTATIONS b/ANNOTATIONS
 --- a/ANNOTATIONS
 +++ b/ANNOTATIONS
-@@ -11,3 +11,4 @@ uid_sys_stats support
- cpufreq changes
- mm (memory management) changes
- security changes
+@@ -1 +1,2 @@
+ pending upstream
 +binder changes

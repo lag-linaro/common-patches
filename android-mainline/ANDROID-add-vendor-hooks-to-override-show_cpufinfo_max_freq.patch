@@ -40,7 +40,7 @@ diff --git a/drivers/android/vendor_hooks.c b/drivers/android/vendor_hooks.c
 diff --git a/drivers/cpufreq/cpufreq.c b/drivers/cpufreq/cpufreq.c
 --- a/drivers/cpufreq/cpufreq.c
 +++ b/drivers/cpufreq/cpufreq.c
-@@ -30,6 +30,7 @@
+@@ -29,6 +29,7 @@
  #include <linux/syscore_ops.h>
  #include <linux/tick.h>
  #include <trace/events/power.h>
@@ -48,7 +48,7 @@ diff --git a/drivers/cpufreq/cpufreq.c b/drivers/cpufreq/cpufreq.c
  
  static LIST_HEAD(cpufreq_policy_list);
  
-@@ -689,8 +690,15 @@ static ssize_t show_##file_name				\
+@@ -687,8 +688,15 @@ static ssize_t show_##file_name				\
  	return sprintf(buf, "%u\n", policy->object);	\
  }
  

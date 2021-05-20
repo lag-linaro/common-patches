@@ -11,7 +11,7 @@ Signed-off-by: Eric Biggers <ebiggers@google.com>
 diff --git a/ANNOTATIONS b/ANNOTATIONS
 --- a/ANNOTATIONS
 +++ b/ANNOTATIONS
-@@ -2,3 +2,4 @@ pending upstream
+@@ -3,3 +3,4 @@ binder changes
  Android vendor hooks
  kbuild changes
  x86 changes

@@ -80,7 +80,7 @@ diff --git a/kernel/sched/cpufreq_schedutil.c b/kernel/sched/cpufreq_schedutil.c
 diff --git a/kernel/sched/fair.c b/kernel/sched/fair.c
 --- a/kernel/sched/fair.c
 +++ b/kernel/sched/fair.c
-@@ -5518,6 +5518,7 @@ enqueue_task_fair(struct rq *rq, struct task_struct *p, int flags)
+@@ -5517,6 +5517,7 @@ enqueue_task_fair(struct rq *rq, struct task_struct *p, int flags)
  	struct sched_entity *se = &p->se;
  	int idle_h_nr_running = task_has_idle_policy(p);
  	int task_new = !(flags & ENQUEUE_WAKEUP);
@@ -88,7 +88,7 @@ diff --git a/kernel/sched/fair.c b/kernel/sched/fair.c
  
  	/*
  	 * The code below (indirectly) updates schedutil which looks at
-@@ -5532,7 +5533,9 @@ enqueue_task_fair(struct rq *rq, struct task_struct *p, int flags)
+@@ -5531,7 +5532,9 @@ enqueue_task_fair(struct rq *rq, struct task_struct *p, int flags)
  	 * utilization updates, so do it here explicitly with the IOWAIT flag
  	 * passed.
  	 */
