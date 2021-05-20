@@ -16,12 +16,16 @@ Test: Ran the selftests on the version of this I'm developing for Linus'
 Bug: 161496058
 Signed-off-by: Palmer Dabbelt <palmerdabbelt@google.com>
 Change-Id: If5bcd8a43c3db5b556563ba303f474dd0d2902e8
+[Lee: Squash in subsequent fix-ups to this new file]
+Signed-off-by: Lee Jones <lee.jones@linaro.org>
 ---
- drivers/md/Kconfig   |   14 +
- drivers/md/Makefile  |    1 +
- drivers/md/dm-user.c | 1141 ++++++++++++++++++++++++++++++++++++++++++
- 3 files changed, 1156 insertions(+)
+ drivers/md/Kconfig           |   14 +
+ drivers/md/Makefile          |    1 +
+ drivers/md/dm-user.c         | 1140 ++++++++++++++++++++++++++++++++++
+ include/uapi/linux/dm-user.h |   68 ++
+ 4 files changed, 1223 insertions(+)
  create mode 100644 drivers/md/dm-user.c
+ create mode 100644 include/uapi/linux/dm-user.h
 
 diff --git a/drivers/md/Kconfig b/drivers/md/Kconfig
 --- a/drivers/md/Kconfig
@@ -60,7 +64,7 @@ diff --git a/drivers/md/dm-user.c b/drivers/md/dm-user.c
 new file mode 100644
 --- /dev/null
 +++ b/drivers/md/dm-user.c
-@@ -0,0 +1,1141 @@
+@@ -0,0 +1,1140 @@
 +// SPDX-License-Identifier: GPL-2.0+
 +/*
 + * Copyright (C) 2020 Google, Inc
@@ -570,11 +574,11 @@ new file mode 100644
 +static struct message *msg_get_from_user(struct channel *c, u64 seq)
 +{
 +	struct message *m;
-+	struct list_head *cur;
++	struct list_head *cur, *tmp;
 +
 +	lockdep_assert_held(&c->lock);
 +
-+	list_for_each (cur, &c->from_user) {
++	list_for_each_safe (cur, tmp, &c->from_user) {
 +		m = list_entry(cur, struct message, from_user);
 +		if (m->msg.seq == seq) {
 +			list_del(&m->from_user);
@@ -585,7 +589,7 @@ new file mode 100644
 +	return NULL;
 +}
 +
-+void message_kill(struct message *m, mempool_t *pool)
++static void message_kill(struct message *m, mempool_t *pool)
 +{
 +	m->bio->bi_status = BLK_STS_IOERR;
 +	bio_endio(m->bio);
@@ -599,22 +603,22 @@ new file mode 100644
 + * When called without the lock it may spuriously indicate there is remaining
 + * work, but when called with the lock it must be accurate.
 + */
-+int target_poll(struct target *t)
++static int target_poll(struct target *t)
 +{
 +	return !list_empty(&t->to_user) || t->dm_destroyed;
 +}
 +
-+void target_release(struct kref *ref)
++static void target_release(struct kref *ref)
 +{
 +	struct target *t = container_of(ref, struct target, references);
-+	struct list_head *cur;
++	struct list_head *cur, *tmp;
 +
 +	/*
 +	 * There may be outstanding BIOs that have not yet been given to
 +	 * userspace.  At this point there's nothing we can do about them, as
 +	 * there are and will never be any channels.
 +	 */
-+	list_for_each (cur, &t->to_user) {
++	list_for_each_safe (cur, tmp, &t->to_user) {
 +		message_kill(list_entry(cur, struct message, to_user),
 +			     &t->message_pool);
 +	}
@@ -625,7 +629,7 @@ new file mode 100644
 +	kfree(t);
 +}
 +
-+void target_put(struct target *t)
++static void target_put(struct target *t)
 +{
 +	/*
 +	 * This both releases a reference to the target and the lock.  We leave
@@ -638,7 +642,7 @@ new file mode 100644
 +		mutex_unlock(&t->lock);
 +}
 +
-+struct channel *channel_alloc(struct target *t)
++static struct channel *channel_alloc(struct target *t)
 +{
 +	struct channel *c;
 +
@@ -656,9 +660,9 @@ new file mode 100644
 +	return c;
 +}
 +
-+void channel_free(struct channel *c)
++static void channel_free(struct channel *c)
 +{
-+	struct list_head *cur;
++	struct list_head *cur, *tmp;
 +
 +	lockdep_assert_held(&c->lock);
 +
@@ -679,8 +683,8 @@ new file mode 100644
 +		message_kill(c->cur_to_user, &c->target->message_pool);
 +	if (c->cur_from_user != &c->scratch_message_from_user)
 +		message_kill(c->cur_from_user, &c->target->message_pool);
-+	list_for_each (cur, &c->from_user)
-+		message_kill(list_entry(cur, struct message, to_user),
++	list_for_each_safe (cur, tmp, &c->from_user)
++		message_kill(list_entry(cur, struct message, from_user),
 +			     &c->target->message_pool);
 +
 +	mutex_lock(&c->target->lock);
@@ -979,7 +983,6 @@ new file mode 100644
 +	 * channels have been closed.
 +	 */
 +	kref_init(&t->references);
-+	kref_get(&t->references);
 +
 +	mutex_init(&t->lock);
 +	init_waitqueue_head(&t->wq);
@@ -1202,3 +1205,76 @@ new file mode 100644
 +MODULE_AUTHOR("Palmer Dabbelt <palmerdabbelt@google.com>");
 +MODULE_DESCRIPTION(DM_NAME " target returning blocks from userspace");
 +MODULE_LICENSE("GPL");
+diff --git a/include/uapi/linux/dm-user.h b/include/uapi/linux/dm-user.h
+new file mode 100644
+--- /dev/null
++++ b/include/uapi/linux/dm-user.h
+@@ -0,0 +1,68 @@
++/* SPDX-License-Identifier: LGPL-2.0+ WITH Linux-syscall-note */
++/*
++ * Copyright (C) 2020 Google, Inc
++ * Copyright (C) 2020 Palmer Dabbelt <palmerdabbelt@google.com>
++ */
++
++#ifndef _LINUX_DM_USER_H
++#define _LINUX_DM_USER_H
++
++#include <linux/types.h>
++
++/*
++ * dm-user proxies device mapper ops between the kernel and userspace.  It's
++ * essentially just an RPC mechanism: all kernel calls create a request,
++ * userspace handles that with a response.  Userspace obtains requests via
++ * read() and provides responses via write().
++ *
++ * See Documentation/block/dm-user.rst for more information.
++ */
++
++#define DM_USER_REQ_MAP_READ 0
++#define DM_USER_REQ_MAP_WRITE 1
++#define DM_USER_REQ_MAP_FLUSH 2
++#define DM_USER_REQ_MAP_DISCARD 3
++#define DM_USER_REQ_MAP_SECURE_ERASE 4
++#define DM_USER_REQ_MAP_WRITE_SAME 5
++#define DM_USER_REQ_MAP_WRITE_ZEROES 6
++#define DM_USER_REQ_MAP_ZONE_OPEN 7
++#define DM_USER_REQ_MAP_ZONE_CLOSE 8
++#define DM_USER_REQ_MAP_ZONE_FINISH 9
++#define DM_USER_REQ_MAP_ZONE_APPEND 10
++#define DM_USER_REQ_MAP_ZONE_RESET 11
++#define DM_USER_REQ_MAP_ZONE_RESET_ALL 12
++
++#define DM_USER_REQ_MAP_FLAG_FAILFAST_DEV 0x00001
++#define DM_USER_REQ_MAP_FLAG_FAILFAST_TRANSPORT 0x00002
++#define DM_USER_REQ_MAP_FLAG_FAILFAST_DRIVER 0x00004
++#define DM_USER_REQ_MAP_FLAG_SYNC 0x00008
++#define DM_USER_REQ_MAP_FLAG_META 0x00010
++#define DM_USER_REQ_MAP_FLAG_PRIO 0x00020
++#define DM_USER_REQ_MAP_FLAG_NOMERGE 0x00040
++#define DM_USER_REQ_MAP_FLAG_IDLE 0x00080
++#define DM_USER_REQ_MAP_FLAG_INTEGRITY 0x00100
++#define DM_USER_REQ_MAP_FLAG_FUA 0x00200
++#define DM_USER_REQ_MAP_FLAG_PREFLUSH 0x00400
++#define DM_USER_REQ_MAP_FLAG_RAHEAD 0x00800
++#define DM_USER_REQ_MAP_FLAG_BACKGROUND 0x01000
++#define DM_USER_REQ_MAP_FLAG_NOWAIT 0x02000
++#define DM_USER_REQ_MAP_FLAG_CGROUP_PUNT 0x04000
++#define DM_USER_REQ_MAP_FLAG_NOUNMAP 0x08000
++#define DM_USER_REQ_MAP_FLAG_HIPRI 0x10000
++#define DM_USER_REQ_MAP_FLAG_DRV 0x20000
++#define DM_USER_REQ_MAP_FLAG_SWAP 0x40000
++
++#define DM_USER_RESP_SUCCESS 0
++#define DM_USER_RESP_ERROR 1
++#define DM_USER_RESP_UNSUPPORTED 2
++
++struct dm_user_message {
++	__u64 seq;
++	__u64 type;
++	__u64 flags;
++	__u64 sector;
++	__u64 len;
++	__u8 buf[];
++};
++
++#endif
