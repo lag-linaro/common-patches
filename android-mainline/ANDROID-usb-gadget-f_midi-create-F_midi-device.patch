@@ -12,8 +12,8 @@ Change-Id: I0695e00b166fd953f50acea93802245b0d5a5240
 [badhri: The framework should be moved away from this]
 Signed-off-by: Badhri Jagan Sridharan <badhri@google.com>
 ---
- drivers/usb/gadget/function/f_midi.c | 65 ++++++++++++++++++++++++++++
- 1 file changed, 65 insertions(+)
+ drivers/usb/gadget/function/f_midi.c | 66 ++++++++++++++++++++++++++++
+ 1 file changed, 66 insertions(+)
 
 diff --git a/drivers/usb/gadget/function/f_midi.c b/drivers/usb/gadget/function/f_midi.c
 --- a/drivers/usb/gadget/function/f_midi.c
@@ -35,7 +35,7 @@ diff --git a/drivers/usb/gadget/function/f_midi.c b/drivers/usb/gadget/function/
 +
 +	if (fi_midi && fi_midi->f) {
 +		midi = func_to_midi(fi_midi->f);
-+		if (midi->rmidi && midi->rmidi->card)
++		if (midi->rmidi && midi->card && midi->rmidi->card)
 +			return sprintf(buf, "%d %d\n",
 +			midi->rmidi->card->number, midi->rmidi->device);
 +	}
@@ -96,7 +96,15 @@ diff --git a/drivers/usb/gadget/function/f_midi.c b/drivers/usb/gadget/function/
  	config_group_init_type_name(&opts->func_inst.group, "",
  				    &midi_func_type);
  
-@@ -1349,6 +1413,7 @@ static struct usb_function *f_midi_alloc(struct usb_function_instance *fi)
+@@ -1262,6 +1326,7 @@ static void f_midi_free(struct usb_function *f)
+ 		kfifo_free(&midi->in_req_fifo);
+ 		kfree(midi);
+ 		free = true;
++		opts->func_inst.f = NULL;
+ 	}
+ 	mutex_unlock(&opts->lock);
+ 
+@@ -1349,6 +1414,7 @@ static struct usb_function *f_midi_alloc(struct usb_function_instance *fi)
  	midi->func.disable	= f_midi_disable;
  	midi->func.free_func	= f_midi_free;
  

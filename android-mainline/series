@@ -244,11 +244,8 @@ ANDROID-usb-gadget-configfs-Add-usb_function-ptr-to-fi-struct.patch
 ANDROID-usb-gadget-configfs-Add-Uevent-to-notify-userspace.patch
 ANDROID-usb-gadget-f_accessory-Add-Android-Accessory-function.patch
 ANDROID-usb-gadget-f_midi-create-F_midi-device.patch
-ANDROID-usb-gadget-f_midi-set-fi-f-to-NULL-when-free-f_midi-function.patch
-ANDROID-usb-gadget-f_midi-Avoid-invalid-pointer-access.patch
 ANDROID-usb-gadget-f_audio_source-New-gadget-driver-for-audio-output.patch
 ANDROID-usb-typec-tcpm-Add-chip-level-callback-to-check-for-contaminant.patch
-ANDROID-usb-typec-tcpm-Bring-back-tcpm_update_sink_capabilities.patch
 _____ANNOTATION-graphics-changes_____.patch
 ANDROID-Allow-DRM_IOCTL_MODE_-_DUMB-for-render-clients.patch
 ANDROID-include-drm-increase-DRM-max-property-count-to-64.patch

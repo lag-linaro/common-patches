@@ -19,9 +19,9 @@ Bug: 168544734
 Signed-off-by: Badhri Jagan Sridharan <badhri@google.com>
 Change-Id: If28027bdacfdf8511be0ea54766970fb73bc3d96
 ---
- drivers/usb/typec/tcpm/tcpm.c | 53 +++++++++++++++++++++++++++++++++--
- include/linux/usb/tcpm.h      | 10 +++++++
- 2 files changed, 60 insertions(+), 3 deletions(-)
+ drivers/usb/typec/tcpm/tcpm.c | 96 +++++++++++++++++++++++++++++++++--
+ include/linux/usb/tcpm.h      | 14 +++++
+ 2 files changed, 107 insertions(+), 3 deletions(-)
 
 diff --git a/drivers/usb/typec/tcpm/tcpm.c b/drivers/usb/typec/tcpm/tcpm.c
 --- a/drivers/usb/typec/tcpm/tcpm.c
@@ -171,6 +171,56 @@ diff --git a/drivers/usb/typec/tcpm/tcpm.c b/drivers/usb/typec/tcpm/tcpm.c
  		tcpm_set_state(port, SNK_UNATTACHED, 0);
  		break;
  
+@@ -5917,6 +5964,49 @@ static int tcpm_fw_get_caps(struct tcpm_port *port,
+ 	return 0;
+ }
+ 
++static int tcpm_copy_pdos(u32 *dest_pdo, const u32 *src_pdo, unsigned int nr_pdo)
++{
++	unsigned int i;
++
++	if (nr_pdo > PDO_MAX_OBJECTS)
++		nr_pdo = PDO_MAX_OBJECTS;
++
++	for (i = 0; i < nr_pdo; i++)
++		dest_pdo[i] = src_pdo[i];
++
++	return nr_pdo;
++}
++
++int tcpm_update_sink_capabilities(struct tcpm_port *port, const u32 *pdo, unsigned int nr_pdo,
++				  unsigned int operating_snk_mw)
++{
++	if (tcpm_validate_caps(port, pdo, nr_pdo))
++		return -EINVAL;
++
++	mutex_lock(&port->lock);
++	port->nr_snk_pdo = tcpm_copy_pdos(port->snk_pdo, pdo, nr_pdo);
++	port->operating_snk_mw = operating_snk_mw;
++	port->update_sink_caps = true;
++
++	switch (port->state) {
++	case SNK_NEGOTIATE_CAPABILITIES:
++	case SNK_NEGOTIATE_PPS_CAPABILITIES:
++	case SNK_READY:
++	case SNK_TRANSITION_SINK:
++	case SNK_TRANSITION_SINK_VBUS:
++		if (port->pps_data.active)
++			tcpm_set_state(port, SNK_NEGOTIATE_PPS_CAPABILITIES, 0);
++		else
++			tcpm_set_state(port, SNK_NEGOTIATE_CAPABILITIES, 0);
++		break;
++	default:
++		break;
++	}
++	mutex_unlock(&port->lock);
++	return 0;
++}
++EXPORT_SYMBOL_GPL(tcpm_update_sink_capabilities);
++
+ /* Power Supply access to expose source power information */
+ enum tcpm_psy_online_states {
+ 	TCPM_PSY_OFFLINE = 0,
 diff --git a/include/linux/usb/tcpm.h b/include/linux/usb/tcpm.h
 --- a/include/linux/usb/tcpm.h
 +++ b/include/linux/usb/tcpm.h
@@ -197,7 +247,18 @@ diff --git a/include/linux/usb/tcpm.h b/include/linux/usb/tcpm.h
  };
  
  struct tcpm_port;
-@@ -161,5 +170,6 @@ void tcpm_pd_transmit_complete(struct tcpm_port *port,
+@@ -151,6 +160,10 @@ struct tcpm_port;
+ struct tcpm_port *tcpm_register_port(struct device *dev, struct tcpc_dev *tcpc);
+ void tcpm_unregister_port(struct tcpm_port *port);
+ 
++int tcpm_update_sink_capabilities(struct tcpm_port *port, const u32 *pdo,
++				  unsigned int nr_pdo,
++				  unsigned int operating_snk_mw);
++
+ void tcpm_vbus_change(struct tcpm_port *port);
+ void tcpm_cc_change(struct tcpm_port *port);
+ void tcpm_sink_frs(struct tcpm_port *port);
+@@ -161,5 +174,6 @@ void tcpm_pd_transmit_complete(struct tcpm_port *port,
  			       enum tcpm_transmit_status status);
  void tcpm_pd_hard_reset(struct tcpm_port *port);
  void tcpm_tcpc_reset(struct tcpm_port *port);
