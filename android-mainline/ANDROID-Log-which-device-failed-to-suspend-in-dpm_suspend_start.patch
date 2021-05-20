@@ -26,13 +26,13 @@ Change-Id: I326c87ca1263496db79d08ec615f12fc22452d7a
 Signed-off-by: zhuguangqing <zhuguangqing@xiaomi.com>
 ---
  drivers/base/power/main.c | 1 +
- kernel/power/suspend.c    | 7 +++++--
- 2 files changed, 6 insertions(+), 2 deletions(-)
+ kernel/power/suspend.c    | 4 +++-
+ 2 files changed, 4 insertions(+), 1 deletion(-)
 
 diff --git a/drivers/base/power/main.c b/drivers/base/power/main.c
 --- a/drivers/base/power/main.c
 +++ b/drivers/base/power/main.c
-@@ -1905,6 +1905,7 @@ int dpm_prepare(pm_message_t state)
+@@ -1900,6 +1900,7 @@ int dpm_prepare(pm_message_t state)
  			}
  			dev_info(dev, "not prepared for power transition: code %d\n",
  				 error);
@@ -43,7 +43,7 @@ diff --git a/drivers/base/power/main.c b/drivers/base/power/main.c
 diff --git a/kernel/power/suspend.c b/kernel/power/suspend.c
 --- a/kernel/power/suspend.c
 +++ b/kernel/power/suspend.c
-@@ -490,7 +490,7 @@ static int suspend_enter(suspend_state_t state, bool *wakeup)
+@@ -475,7 +475,7 @@ static int suspend_enter(suspend_state_t state, bool *wakeup)
   */
  int suspend_devices_and_enter(suspend_state_t state)
  {
@@ -52,16 +52,12 @@ diff --git a/kernel/power/suspend.c b/kernel/power/suspend.c
  	bool wakeup = false;
  
  	if (!sleep_state_supported(state))
-@@ -509,8 +509,11 @@ int suspend_devices_and_enter(suspend_state_t state)
+@@ -494,6 +494,8 @@ int suspend_devices_and_enter(suspend_state_t state)
  	suspend_test_start();
  	error = dpm_suspend_start(PMSG_SUSPEND);
  	if (error) {
 +		last_dev = suspend_stats.last_failed_dev + REC_FAILED_NUM - 1;
 +		last_dev %= REC_FAILED_NUM;
  		pr_err("Some devices failed to suspend, or early wake event detected\n");
--		log_suspend_abort_reason("Some devices failed to suspend, or early wake event detected");
-+		log_suspend_abort_reason("%s device failed to suspend, or early wake event detected",
-+			suspend_stats.failed_devs[last_dev]);
  		goto Recover_platform;
  	}
- 	suspend_test_finish("suspend devices");

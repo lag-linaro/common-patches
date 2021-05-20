@@ -94,12 +94,8 @@ ANDROID-printk-printk_deferred-for-modules.patch
 ANDROID-Reduce-log-level-for-couple-of-prints-in-hotplug-flow.patch
 ANDROID-printk-add-vendor-hook-for-console-flush.patch
 _____ANNOTATION-power-management-changes_____.patch
-ANDROID-power-wakeup_reason-add-an-API-to-log-wakeup-reasons.patch
 ANDROID-Log-which-device-failed-to-suspend-in-dpm_suspend_start.patch
-ANDROID-power-wakeup_reason-wake-reason-enhancements.patch
-ANDROID-power-wakeup_reason-export-log_threaded_irq_wakeup_reason.patch
-ANDROID-power-wakeup_reason-refine-wakeup-logs.patch
-ANDROID-power-Export-log_-suspend_abort-abnormal_wakeup-_reason.patch
+ANDROID-power-wakeup_reason-add-an-API-to-log-wakeup-reasons.patch
 ANDROID-power_supply-Add-a-helper-function-to-retrieve-psy-array-from-phandle.patch
 ANDROID-power_supply-Add-POWER_SUPPLY_CHARGE_TYPE_TAPER.patch
 ANDROID-PM-sleep-export-device_pm_callback_start-end-trace-event.patch
