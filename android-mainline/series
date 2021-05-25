@@ -1,8 +1,8 @@
 #
 # android-mainline patches
 #
-# Applies onto upstream c3d0e3fd41b7f Linux v5.13-rc2-8-gc3d0e3fd41b7f
-# Matches android-mainline 5e9b6fa9a40d8 ("Merge c3d0e3fd41b7 ("Merge tag 'fs.idmapped.mount_setattr.v5.13-rc3' of gitolite.kernel.org:pub/scm/linux/kernel/git/brauner/linux") into android-mainline")
+# Applies onto upstream 7ac177143caef Linux v5.13-rc2-11-g7ac177143caef
+# Matches android-mainline bd57ad556cd96 ("Merge 7ac177143cae ("Merge tag 'quota_for_v5.13-rc3' of git://git.kernel.org/pub/scm/linux/kernel/git/jack/linux-fs") into android-mainline")
 #
 Revert-block-grant-IOPRIO_CLASS_RT-to-CAP_SYS_NICE.patch
 Revert-arm64-dts-qcom-sdm845-db845c-Fix-hdmi-nodes.patch
