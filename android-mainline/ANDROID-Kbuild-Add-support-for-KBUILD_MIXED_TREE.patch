@@ -20,9 +20,11 @@ Change-Id: I614f3e87519236c4e2c5da74937cb0ecd98a278a
 Signed-off-by: Elliot Berman <eberman@codeaurora.org>
 ---
  Makefile                 | 30 +++++++++++++++++++++++++-----
- scripts/Makefile.modpost |  4 +++-
+ arch/arm64/Makefile      |  3 +++
+ arch/x86/Makefile        |  3 +++
+ scripts/Makefile.modpost |  8 +++++---
  scripts/depmod.sh        |  9 +++++----
- 3 files changed, 33 insertions(+), 10 deletions(-)
+ 5 files changed, 41 insertions(+), 12 deletions(-)
 
 diff --git a/Makefile b/Makefile
 --- a/Makefile
@@ -113,6 +115,35 @@ diff --git a/Makefile b/Makefile
  
  clean-dirs := $(addprefix _clean_, $(clean-dirs))
  PHONY += $(clean-dirs) clean
+diff --git a/arch/arm64/Makefile b/arch/arm64/Makefile
+--- a/arch/arm64/Makefile
++++ b/arch/arm64/Makefile
+@@ -157,7 +157,10 @@ libs-$(CONFIG_EFI_STUB) += $(objtree)/drivers/firmware/efi/libstub/lib.a
+ boot		:= arch/arm64/boot
+ KBUILD_IMAGE	:= $(boot)/Image.gz
+ 
++# Don't compile Image in mixed build with "all" target
++ifndef KBUILD_MIXED_TREE
+ all:	Image.gz
++endif
+ 
+ 
+ Image: vmlinux
+diff --git a/arch/x86/Makefile b/arch/x86/Makefile
+--- a/arch/x86/Makefile
++++ b/arch/x86/Makefile
+@@ -260,8 +260,11 @@ BOOT_TARGETS = bzdisk fdimage fdimage144 fdimage288 isoimage
+ 
+ PHONY += bzImage $(BOOT_TARGETS)
+ 
++# Don't compile Image in mixed build with "all" target
++ifndef KBUILD_MIXED_TREE
+ # Default kernel to build
+ all: bzImage
++endif
+ 
+ # KBUILD_IMAGE specify target image being built
+ KBUILD_IMAGE := $(boot)/bzImage
 diff --git a/scripts/Makefile.modpost b/scripts/Makefile.modpost
 --- a/scripts/Makefile.modpost
 +++ b/scripts/Makefile.modpost
@@ -125,7 +156,7 @@ diff --git a/scripts/Makefile.modpost b/scripts/Makefile.modpost
  MODPOST = scripts/mod/modpost								\
  	$(if $(CONFIG_MODVERSIONS),-m)							\
  	$(if $(CONFIG_MODULE_SRCVERSION_ALL),-a)					\
-@@ -64,7 +66,7 @@ else
+@@ -64,17 +66,17 @@ else
  
  ifeq ($(KBUILD_EXTMOD),)
  
@@ -134,6 +165,18 @@ diff --git a/scripts/Makefile.modpost b/scripts/Makefile.modpost
  output-symdump := modules-only.symvers
  module_srcpath := $(srctree)
  
+ quiet_cmd_cat = GEN     $@
+       cmd_cat = cat $(real-prereqs) > $@
+ 
+-ifneq ($(wildcard vmlinux.symvers),)
++ifneq ($(wildcard $(mixed-build-prefix)vmlinux.symvers),)
+ 
+ __modpost: Module.symvers
+-Module.symvers: vmlinux.symvers modules-only.symvers FORCE
++Module.symvers: $(mixed-build-prefix)vmlinux.symvers modules-only.symvers FORCE
+ 	$(call if_changed,cat)
+ 
+ targets += Module.symvers
 diff --git a/scripts/depmod.sh b/scripts/depmod.sh
 --- a/scripts/depmod.sh
 +++ b/scripts/depmod.sh

@@ -2,7 +2,7 @@
 # android-mainline patches
 #
 # Applies onto upstream d07f6ca923ea0 Linux v5.13-rc2
-# Matches android-mainline 5a8bf62fd781b ("ANDROID: dm-user: Drop additional reference")
+# Matches android-mainline 0d018732af314 ("ANDROID: Don't add image to all target with KBUILD_MIXED_TREE")
 #
 Revert-block-grant-IOPRIO_CLASS_RT-to-CAP_SYS_NICE.patch
 Revert-arm64-dts-qcom-sdm845-db845c-Fix-hdmi-nodes.patch
@@ -28,7 +28,6 @@ FROMLIST-fuse-Handle-asynchronous-read-and-write-in-passthrough.patch
 FROMLIST-fuse-Use-daemon-creds-in-passthrough-mode.patch
 FROMLIST-fuse-Introduce-passthrough-for-mmap.patch
 FROMLIST-fuse-Allocate-unlikely-used-ioctl-number-for-passthrough-V1.patch
-FROMLIST-USB-gadget-f_fs-add-SuperSpeed-Plus-support.patch
 FROMLIST-scripts-merge_config-add-strict-mode-to-fail-upon-any-redefinition.patch
 FROMLIST-kbuild-improve-libelf-detection.patch
 FROMLIST-Makefile-fix-GDB-warning-with-CONFIG_RELR.patch
@@ -232,7 +231,6 @@ ANDROID-staging-add-debug-kinfo-driver.patch
 ANDROID-irqdesc-Export-symbol-for-vendor-modules.patch
 ANDROID-Make-vsock-virtio-packet-buff-size-configurable.patch
 ANDROID-Disable-BT-UART-on-rockpi4.patch
-ANDROID-kernel-clear-debug_kinfo-precisely.patch
 _____ANNOTATION-tty-changes_____.patch
 FROMLIST-hvc_dcc-bind-driver-to-core0-for-reads-and-writes.patch
 ANDROID-serdev-add-platform-device-support.patch
