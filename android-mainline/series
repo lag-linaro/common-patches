@@ -1,8 +1,8 @@
 #
 # android-mainline patches
 #
-# Applies onto upstream d07f6ca923ea0 Linux v5.13-rc2
-# Matches android-mainline 0d018732af314 ("ANDROID: Don't add image to all target with KBUILD_MIXED_TREE")
+# Applies onto upstream 8ac91e6c6033e Linux v5.13-rc2-5-g8ac91e6c6033e
+# Matches android-mainline 531d377ab8966 ("Merge 8ac91e6c6033 ("Merge tag 'for-5.13-rc2-tag' of git://git.kernel.org/pub/scm/linux/kernel/git/kdave/linux") into android-mainline")
 #
 Revert-block-grant-IOPRIO_CLASS_RT-to-CAP_SYS_NICE.patch
 Revert-arm64-dts-qcom-sdm845-db845c-Fix-hdmi-nodes.patch
