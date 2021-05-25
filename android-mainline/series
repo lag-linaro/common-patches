@@ -1,8 +1,8 @@
 #
 # android-mainline patches
 #
-# Applies onto upstream 50f09a3dd5877 Linux v5.13-rc2-95-g50f09a3dd5877
-# Matches android-mainline e774e906a1f45 ("Merge 50f09a3dd587 ("Merge tag 'char-misc-5.13-rc3' of git://git.kernel.org/pub/scm/linux/kernel/git/gregkh/char-misc") into android-mainline")
+# Applies onto upstream f01da525b3de8 Linux v5.13-rc2-140-gf01da525b3de8
+# Matches android-mainline ab652d9d523c0 ("Merge f01da525b3de ("Merge tag 'for-linus' of git://git.kernel.org/pub/scm/linux/kernel/git/rdma/rdma") into android-mainline")
 #
 Revert-block-grant-IOPRIO_CLASS_RT-to-CAP_SYS_NICE.patch
 Revert-arm64-dts-qcom-sdm845-db845c-Fix-hdmi-nodes.patch
