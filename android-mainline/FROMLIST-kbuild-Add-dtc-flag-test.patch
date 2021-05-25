@@ -6,6 +6,8 @@ Subject: FROMLIST: kbuild: Add dtc flag test
 Host dtc may not support the same flags as kernel's copy of dtc. Test
 if dtc supports each flag when the dtc comes from host.
 
+[CPNOTE: 24/05/21] Lee: Poked the MLs
+
 Bug: 162811113
 Link: https://lore.kernel.org/linux-devicetree/1596650328-14869-1-git-send-email-eberman@codeaurora.org/
 Change-Id: Iab4e95c7100817c8b4ad40dcaafa6e6c29a85163

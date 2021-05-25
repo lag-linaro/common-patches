@@ -16,6 +16,8 @@ filesystems using iomap won't have a chance to call fscrypt_mergeable_bio()
 on every block added to a bio. So we need this function which limits a
 logical range in one go.
 
+[CPNOTE: 25/05/21] Lee: No update since v8 was posted in January - poked the MLs
+
 Signed-off-by: Eric Biggers <ebiggers@google.com>
 Co-developed-by: Satya Tangirala <satyat@google.com>
 Signed-off-by: Satya Tangirala <satyat@google.com>

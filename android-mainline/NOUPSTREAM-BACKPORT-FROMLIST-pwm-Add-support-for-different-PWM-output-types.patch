@@ -1,7 +1,8 @@
 From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
 From: Fenglin Wu <fenglinw@codeaurora.org>
 Date: Mon, 4 Dec 2017 09:56:51 +0800
-Subject: BACKPORT: FROMLIST: pwm: Add support for different PWM output types
+Subject: NOUPSTREAM: BACKPORT: FROMLIST: pwm: Add support for different PWM
+ output types
 
 Normally, PWM channels have fixed output until software requests to
 change their settings. There are some PWM devices whose outputs can be
@@ -11,6 +12,8 @@ hardware.
 Add support for such devices by adding a new pwm_output_type enum type
 to identify these two different PWM types and adding helper functions to
 read the PWM output type supported by a PWM.
+
+[CPNOTE: 24/05/21] Lee: This patch was NACKed upstream - requested status via the bug report
 
 Bug: 140290585
 Link: https://lore.kernel.org/lkml/1568415464-20267-1-git-send-email-gurus@codeaurora.org/

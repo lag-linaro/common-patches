@@ -29,6 +29,8 @@ but sepolicy contexts would still need to be crafted.
 It should be noted that there is precedence, __vfs_getxattr is used
 in other filesystems for their own internal trusted xattr management.
 
+[CPNOTE: 25/05/21] Lee: Going to revert this in order to realign with Mainline
+
 Signed-off-by: Mark Salyzyn <salyzyn@android.com>
 Cc: Miklos Szeredi <miklos@szeredi.hu>
 Cc: Jonathan Corbet <corbet@lwn.net>

@@ -17,6 +17,8 @@ NOTE: This re-applies the patch that landed upstream (as part of
 a larger rework of irqchips as platform drivers), but was reverted
 due to problems other patches in the series caused.
 
+[CPNOTE: 25/05/21] Lee: Failed upstream patch (why is this *needed*?)
+
 Signed-off-by: John Stultz <john.stultz@linaro.org>
 Signed-off-by: Marc Zyngier <maz@kernel.org>
 Reviewed-by: Linus Walleij <linus.walleij@linaro.org>

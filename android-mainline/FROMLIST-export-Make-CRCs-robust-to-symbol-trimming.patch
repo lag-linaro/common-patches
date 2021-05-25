@@ -52,6 +52,8 @@ To work around the issue, make sure to keep issuing the
 __GENKSYMS_EXPORT_SYMBOL macros for all trimmed symbols, hence making
 the genksyms parsing insensitive to symbol trimming.
 
+[CPNOTE: 21/05/21] Lee: Should go in real soon - prodded MLs
+
 Bug: 184275771
 Bug: 167230325
 Signed-off-by: Quentin Perret <qperret@google.com>

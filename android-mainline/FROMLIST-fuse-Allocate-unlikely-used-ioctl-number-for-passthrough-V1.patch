@@ -10,6 +10,8 @@ future conflicts with user space binaries.
 The user space implementation in Android will take care of doing all the
 checking to fall into the most appropriate ioctl number.
 
+[CPNOTE: 21/05/21] Lee: Still fresh - hopefully this will land upstream soon
+
 Bug: 167695973
 Link: https://lore.kernel.org/lkml/20210125153057.3623715-3-balsini@android.com/
 Fixes: abbb00d5ae3f ("FROMLIST: fuse: Definitions and ioctl for passthrough")

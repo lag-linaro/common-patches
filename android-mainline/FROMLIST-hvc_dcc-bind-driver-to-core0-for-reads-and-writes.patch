@@ -20,6 +20,8 @@ input and output to core 0.  The DCC driver will create input and
 output FIFOs that all cores will use.  Reads and writes from/to DCC
 are handled by a workqueue that runs only core 0.
 
+[CPNOTE: 24/05/21] Lee: Requested status via the bug report
+
 Bug: 169129589
 Link: https://lore.kernel.org/lkml/1435344756-20901-1-git-send-email-timur@codeaurora.org/
 Signed-off-by: Shanker Donthineni <shankerd@codeaurora.org>

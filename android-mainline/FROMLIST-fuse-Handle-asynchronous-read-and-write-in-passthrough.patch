@@ -15,6 +15,8 @@ passthrough AIO completion callback is executed and propagates the
 completion signal to the FUSE AIO request by triggering its completion
 callback as well.
 
+[CPNOTE: 21/05/21] Lee: Still fresh - hopefully this will land upstream soon
+
 Bug: 168023149
 Link: https://lore.kernel.org/lkml/20210125153057.3623715-7-balsini@android.com/
 Signed-off-by: Alessio Balsini <balsini@android.com>

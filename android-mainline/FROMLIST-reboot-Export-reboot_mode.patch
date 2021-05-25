@@ -5,6 +5,8 @@ Subject: FROMLIST: reboot: Export reboot_mode
 
 Export reboot_mode to support kernel modules wishing to modify reboot_mode.
 
+[CPNOTE: 24/05/21] Lee: Been on the list a couple of years now - poked Andrew anyway
+
 Change-Id: I8d25aec75331a57fab85c12b8527a329e2a4f19d
 Bug: 143964928
 Link: https://lore.kernel.org/patchwork/patch/1151092/

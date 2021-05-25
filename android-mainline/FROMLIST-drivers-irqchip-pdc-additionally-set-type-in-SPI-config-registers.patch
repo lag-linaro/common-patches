@@ -17,6 +17,8 @@ possible that a platform may want to use the GPIO differently. So, in
 addition to configuring the PDC, configure the interface registers as
 well.
 
+[CPNOTE: 24/05/21] Lee: Requested status via the bug report
+
 Signed-off-by: Lina Iyer <ilina@codeaurora.org>
 
 BUG: 141169320

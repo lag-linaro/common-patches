@@ -6,6 +6,8 @@ Subject: FROMLIST: fs: ext4: namei: trivial: Fix a couple of small whitespace
 
 Upstream attempt.
 
+[CPNOTE: 25/05/21] Lee: New patch - still too early to poke
+
 Link: https://lore.kernel.org/lkml/20210520125558.3476318-1-lee.jones@linaro.org/
 Signed-off-by: Lee Jones <lee.jones@linaro.org>
 Change-Id: Ic2983c5e6b19ccd7500542cf0dd7f90b3ba3ddb6

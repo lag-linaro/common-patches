@@ -33,6 +33,8 @@ is because it is still the FUSE daemon responsible for enabling or not
 the passthrough feature at file open time, and should enable the feature
 only after appropriate access policy checks.
 
+[CPNOTE: 21/05/21] Lee: Still fresh - hopefully this will land upstream soon
+
 Bug: 168023149
 Link: https://lore.kernel.org/lkml/20210125153057.3623715-8-balsini@android.com/
 Signed-off-by: Alessio Balsini <balsini@android.com>

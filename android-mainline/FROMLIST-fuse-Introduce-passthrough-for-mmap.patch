@@ -18,6 +18,8 @@ passthrough performance benefits to mmap-ed operations.
 
 [1] https://lore.kernel.org/lkml/20210119110654.11817-1-wu-yan@tcl.com/
 
+[CPNOTE: 21/05/21] Lee: Still fresh - hopefully this will land upstream soon
+
 Bug: 168023149
 Link: https://lore.kernel.org/lkml/20210125153057.3623715-9-balsini@android.com/
 Signed-off-by: Alessio Balsini <balsini@android.com>

@@ -1,13 +1,16 @@
 From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
 From: Lina Iyer <ilina@codeaurora.org>
 Date: Tue, 30 Jun 2020 13:13:08 -0600
-Subject: FROMLIST: cpuidle: governor: export cpuidle governor functions
+Subject: NOUPSTREAM: FROMLIST: cpuidle: governor: export cpuidle governor
+ functions
 
 Commit 83788c0caed3 ("cpuidle: remove unused exports") removed
 capability of registering cpuidle governors, which was unused at that
 time. By exporting the symbol, let's allow platform specific modules to
 register cpuidle governors and use cpuidle_governor_latency_req() to get
 the QoS for the CPU.
+
+[CPNOTE: 20/05/21] Lee: This was rejected by Rafael, as there are no Mainline users
 
 Bug: 169136276
 Link: https://lore.kernel.org/linux-pm/010101746fc98add-45e77496-d2d6-4bc1-a1ce-0692599a9a7a-000000@us-west-2.amazonses.com/

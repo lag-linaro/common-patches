@@ -6,6 +6,8 @@ Subject: FROMLIST: clk: Export clk_register_composite
 clk_register_composite() will be used in mediatek's
 clock kernel module, so export it to GPL modules.
 
+[CPNOTE: 20/05/21] Lee: Poked the MLs
+
 Bug: 154743265
 Link: https://lore.kernel.org/lkml/1595493126-21611-1-git-send-email-wendell.lin@mediatek.com/
 Change-Id: I658a5073b9d6b33ff898f87133c5fbeb693ac6f9

@@ -12,6 +12,8 @@ simplifying the conversion.
 Reduce the OverlayFS code by making the flag conversion function generic
 and reusable.
 
+[CPNOTE: 20/05/21] Lee: Still fresh - hopefully this will land upstream soon
+
 Bug: 168023149
 Link: https://lore.kernel.org/lkml/20210125153057.3623715-2-balsini@android.com/
 Signed-off-by: Alessio Balsini <balsini@android.com>

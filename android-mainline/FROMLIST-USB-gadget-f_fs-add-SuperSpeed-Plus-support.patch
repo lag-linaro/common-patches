@@ -5,6 +5,9 @@ Subject: FROMLIST: USB: gadget: f_fs: add SuperSpeed Plus support
 
 Setup the descriptors for SuperSpeed Plus for f_fs.
 
+[CPNOTE: 21/05/21] Lee: Functionality found upstream.  Submitted a revert:
+      https://android-review.googlesource.com/c/kernel/common/+/1715844
+
 Bug: 170925797
 Signed-off-by: taehyun.cho <taehyun.cho@samsung.com>
 Link: https://lore.kernel.org/r/20201126180937.255892-3-gregkh@linuxfoundation.org

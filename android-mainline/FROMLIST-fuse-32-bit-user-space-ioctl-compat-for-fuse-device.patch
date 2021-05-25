@@ -12,6 +12,8 @@ without proper manipulation.
 Explicitly extract type and number from the ioctl command to enable
 32-bit user space compatibility on 64-bit kernel builds.
 
+[CPNOTE: 20/05/21] Lee: Still fresh - hopefully this will land upstream soon
+
 Bug: 168023149
 Link: https://lore.kernel.org/lkml/20210125153057.3623715-3-balsini@android.com/
 Signed-off-by: Alessio Balsini <balsini@android.com>

@@ -12,6 +12,8 @@ in tools/objtool/Makefile. Specifically, the C compiler is passed the
 full KBUILD_CFLAGS and KBUILD_LDFLAGS, which may have set up additional
 sysroot/include/library search paths to find libelf.
 
+[CPNOTE: 21/05/21] Lee: Submitted my LGTM
+
 Signed-off-by: Alistair Delva <adelva@google.com>
 Link: https://lore.kernel.org/lkml/20210112190010.1582888-1-adelva@google.com/
 Bug: 175705438

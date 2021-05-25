@@ -8,6 +8,8 @@ Keep track of the heap device struct.
 This will be useful for special DMA allocations
 and actions.
 
+[CPNOTE: 21/05/21] Lee: Requested status from John on the MLs
+
 Signed-off-by: John Stultz <john.stultz@linaro.org>
 Link: https://lore.kernel.org/lkml/20201110034934.70898-7-john.stultz@linaro.org/
 Bug: 170887642

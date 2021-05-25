@@ -18,6 +18,8 @@ DUNs. Note that fscrypt_limit_io_blocks() is normally a no-op, as normally
 the DUNs simply increment along with the logical blocks. But it's needed
 to handle an edge case in one of the fscrypt IV generation methods.
 
+[CPNOTE: 25/05/21] Lee: No update since v8 was posted in January - poked the MLs
+
 Signed-off-by: Eric Biggers <ebiggers@google.com>
 Co-developed-by: Satya Tangirala <satyat@google.com>
 Signed-off-by: Satya Tangirala <satyat@google.com>

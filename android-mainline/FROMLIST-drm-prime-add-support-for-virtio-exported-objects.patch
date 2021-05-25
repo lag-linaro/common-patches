@@ -5,6 +5,8 @@ Subject: FROMLIST: drm/prime: add support for virtio exported objects
 
 This change exposes dma-buf's get_uuid callback to PRIME drivers.
 
+[CPNOTE: 24/05/21] Lee: Reached out to David and Alistair for status updates
+
 Signed-off-by: David Stevens <stevensd@chromium.org>
 
 BUG=b:136269340

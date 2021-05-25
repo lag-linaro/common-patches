@@ -15,6 +15,8 @@ precedence over modules", fragments are still allowed to set =m (while
 the base config has =y). Strict mode will tolerate that as demotions
 from =y to =m are ignored when setting -y.
 
+[CPNOTE: 21/05/21] Lee: Submitted my Reviewed-by
+
 Bug: 174454795
 Link: https://lore.kernel.org/linux-kbuild/20201202151238.3776616-1-maennich@google.com/
 Cc: Masahiro Yamada <masahiroy@kernel.org>

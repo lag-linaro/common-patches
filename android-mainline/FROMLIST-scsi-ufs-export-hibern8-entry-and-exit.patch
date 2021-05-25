@@ -7,6 +7,8 @@ Qualcomm controllers need to be in hibern8 before scaling up
 or down the clocks. Hence, export the hibern8 entry and exit
 functions.
 
+[CPNOTE: 25/05/21] Lee: Requested status from Asutosh on the MLs
+
 Bug: 143136976
 Link: https://lore.kernel.org/lkml/1571849351-819-1-git-send-email-asutoshd@codeaurora.org/
 Change-Id: Ie7dc3b953790642e6d2893de6e6cc8c9cfb8be6d

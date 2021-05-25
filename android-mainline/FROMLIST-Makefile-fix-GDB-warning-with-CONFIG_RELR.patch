@@ -17,6 +17,8 @@ Peter sugguests:
   kernel itself doesn't care about these numbers; it determines the
   location of the RELR section using symbols defined by a linker script.
 
+[CPNOTE: 21/05/21] Lee: Poked the MLs
+
 Suggested-by: Peter Collingbourne <pcc@google.com>
 Signed-off-by: Nick Desaulniers <ndesaulniers@google.com>
 Reviewed-by: Nathan Chancellor <nathan@kernel.org>

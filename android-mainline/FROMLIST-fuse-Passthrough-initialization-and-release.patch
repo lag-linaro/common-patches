@@ -36,6 +36,8 @@ for this feature.
 Passthrough comes with another limitation: no further file system
 stacking is allowed for those FUSE file systems using passthrough.
 
+[CPNOTE: 21/05/21] Lee: Still fresh - hopefully this will land upstream soon
+
 Bug: 168023149
 Link: https://lore.kernel.org/lkml/20210125153057.3623715-5-balsini@android.com/
 Signed-off-by: Alessio Balsini <balsini@android.com>

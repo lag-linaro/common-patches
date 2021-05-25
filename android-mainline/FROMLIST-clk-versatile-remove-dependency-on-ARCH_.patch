@@ -10,6 +10,8 @@ CLK_VEXPRESS_OSC which is currently hidden behind a dependency on
 one of several ARCH_* variables. Remove that dependency so that
 CLK_VEXPRESS_OSC may be enabled without it.
 
+[CPNOTE: 20/05/21] Lee: Resent
+
 Signed-off-by: Peter Collingbourne <pcc@google.com>
 Link: https://linux-review.googlesource.com/id/I435a21e2e5f6187db54f4ef2079b60028ab2ea69
 Link: https://lore.kernel.org/linux-arm-kernel/20201016002441.60683-1-pcc@google.com/

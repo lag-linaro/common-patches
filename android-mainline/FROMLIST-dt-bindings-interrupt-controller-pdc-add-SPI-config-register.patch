@@ -11,6 +11,8 @@ SoCs with access restriction to these SPI registers need to be written
 from the firmware using the SCM interface. Add a flag to indicate if the
 register is to be written using SCM interface.
 
+[CPNOTE: 24/05/21] Lee: Requested status via the bug report
+
 Cc: devicetree@vger.kernel.org
 Signed-off-by: Lina Iyer <ilina@codeaurora.org>
 Reviewed-by: Rob Herring <robh@kernel.org>

@@ -18,7 +18,7 @@ Revert-fuse-fix-matching-of-FUSE_DEV_IOC_CLONE-command.patch
 _____ANNOTATION-pending-upstream_____.patch
 FROMLIST-clk-Export-clk_register_composite.patch
 FROMLIST-clk-versatile-remove-dependency-on-ARCH_.patch
-FROMLIST-cpuidle-governor-export-cpuidle-governor-functions.patch
+NOUPSTREAM-FROMLIST-cpuidle-governor-export-cpuidle-governor-functions.patch
 FROMLIST-fs-Generic-function-to-convert-iocb-to-rw-flags.patch
 FROMLIST-fuse-32-bit-user-space-ioctl-compat-for-fuse-device.patch
 FROMLIST-fuse-Definitions-and-ioctl-for-passthrough.patch
@@ -110,7 +110,7 @@ ANDROID-ARM-Bump-command-line-size.patch
 ANDROID-arm64-Export-show_regs-for-vendor-module-usage.patch
 ANDROID-ipi-Add-function-to-return-nr_ipi-and-ipi_desc.patch
 _____ANNOTATION-iommu-changes_____.patch
-FROMGIT-iommu-arm-smmu-Don-t-bypass-pinned-stream-mappings.patch
+NOUPSTREAM-FROMGIT-iommu-arm-smmu-Don-t-bypass-pinned-stream-mappings.patch
 ANDROID-iommu-arm-smmu-Allow-inherting-stream-mapping-from-bootloader.patch
 _____ANNOTATION-core-kernel-changes_____.patch
 FROMLIST-reboot-Export-reboot_mode.patch
@@ -215,7 +215,7 @@ ANDROID-Add-EXPORT_SYMBOL_GPL-for-dma_heap_get_name.patch
 _____ANNOTATION-driver-framework-and-misc-driver-changes_____.patch
 FROMLIST-drivers-irqchip-pdc-additionally-set-type-in-SPI-config-registers.patch
 FROMLIST-dt-bindings-interrupt-controller-pdc-add-SPI-config-register.patch
-BACKPORT-FROMLIST-pwm-Add-support-for-different-PWM-output-types.patch
+NOUPSTREAM-BACKPORT-FROMLIST-pwm-Add-support-for-different-PWM-output-types.patch
 ANDROID-clk-add-pre-and-post-change-rate-callbacks.patch
 ANDROID-PCI-qcom-Fix-the-fixup-of-PCI_VENDOR_ID_QCOM.patch
 ANDROID-GKI-clk-Add-support-for-clock-providers-with-sync-state.patch
@@ -264,7 +264,7 @@ ANDROID-virtio-virtio_input-pass-_DIRECT-only-if-the-device-advertises-_DIRECT.p
 FROMLIST-HID-nintendo-add-nintendo-switch-controller-driver.patch
 _____ANNOTATION-UFS-driver-changes_____.patch
 FROMLIST-scsi-ufs-qcom-enter-and-exit-hibern8-during-clock-scaling.patch
-FROMLIST-scsi-ufs-Export-query-request-interfaces.patch
+NOUPSTREAM-FROMLIST-scsi-ufs-Export-query-request-interfaces.patch
 FROMLIST-scsi-ufs-export-hibern8-entry-and-exit.patch
 ANDROID-scsi-ufs-allow-overriding-the-blk_keyslot_manager.patch
 ANDROID-scsi-ufs-add-UFSHCD_QUIRK_BROKEN_CRYPTO_ENABLE.patch

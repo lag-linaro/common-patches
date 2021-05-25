@@ -1,7 +1,7 @@
 From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
 From: Can Guo <cang@codeaurora.org>
 Date: Thu, 5 Dec 2019 18:16:12 -0800
-Subject: FROMLIST: scsi: ufs: Export query request interfaces
+Subject: NOUPSTREAM: FROMLIST: scsi: ufs: Export query request interfaces
 
 Vendor drivers may need to send query requests in proprietary
 implementations. Hence, export the query request interfaces
@@ -9,6 +9,8 @@ so that vendor drivers can use them.
 
 Removed export of internal helper functions:
 ufshcd_query_attr_retry and ufshcd_query_flag_retry
+
+[CPNOTE: 25/05/21] Lee: NACKed upstream patch - still exported in android12-5.10
 
 Bug: 146013342
 Change-Id: Ibe3082097554e89e03b33a926ef013503bac0e74
