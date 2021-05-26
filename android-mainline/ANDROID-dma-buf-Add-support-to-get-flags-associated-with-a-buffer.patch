@@ -39,16 +39,16 @@ diff --git a/drivers/dma-buf/dma-buf.c b/drivers/dma-buf/dma-buf.c
 +}
 +EXPORT_SYMBOL_GPL(dma_buf_get_flags);
 +
- #ifdef CONFIG_DEBUG_FS
- static int dma_buf_debug_show(struct seq_file *s, void *unused)
+ int dma_buf_get_uuid(struct dma_buf *dmabuf, uuid_t *uuid)
  {
+ 	if (WARN_ON(!dmabuf) || !uuid)
 diff --git a/include/linux/dma-buf.h b/include/linux/dma-buf.h
 --- a/include/linux/dma-buf.h
 +++ b/include/linux/dma-buf.h
-@@ -327,6 +327,20 @@ struct dma_buf_ops {
- 
- 	int (*vmap)(struct dma_buf *dmabuf, struct dma_buf_map *map);
- 	void (*vunmap)(struct dma_buf *dmabuf, struct dma_buf_map *map);
+@@ -342,6 +342,20 @@ struct dma_buf_ops {
+ 	 * will be populated with the buffer's UUID.
+ 	 */
+ 	int (*get_uuid)(struct dma_buf *dmabuf, uuid_t *uuid);
 +
 +	/**
 +	 * @get_flags:
@@ -66,9 +66,11 @@ diff --git a/include/linux/dma-buf.h b/include/linux/dma-buf.h
  };
  
  /**
-@@ -573,4 +587,5 @@ int dma_buf_mmap(struct dma_buf *, struct vm_area_struct *,
+@@ -588,6 +602,7 @@ int dma_buf_mmap(struct dma_buf *, struct vm_area_struct *,
  		 unsigned long);
  int dma_buf_vmap(struct dma_buf *dmabuf, struct dma_buf_map *map);
  void dma_buf_vunmap(struct dma_buf *dmabuf, struct dma_buf_map *map);
 +int dma_buf_get_flags(struct dma_buf *dmabuf, unsigned long *flags);
+ int dma_buf_get_uuid(struct dma_buf *dmabuf, uuid_t *uuid);
+ 
  #endif /* __DMA_BUF_H__ */
