@@ -10,7 +10,9 @@ CLK_VEXPRESS_OSC which is currently hidden behind a dependency on
 one of several ARCH_* variables. Remove that dependency so that
 CLK_VEXPRESS_OSC may be enabled without it.
 
-[CPNOTE: 20/05/21] Lee: Resent
+[CPNOTE: 20/05/21] Lee: Resent to the MLs [0] - CCF Maintainers are hard to reach
+
+[0] https://lore.kernel.org/linux-arm-kernel/20210520161702.3746174-1-lee.jones@linaro.org/
 
 Signed-off-by: Peter Collingbourne <pcc@google.com>
 Link: https://linux-review.googlesource.com/id/I435a21e2e5f6187db54f4ef2079b60028ab2ea69

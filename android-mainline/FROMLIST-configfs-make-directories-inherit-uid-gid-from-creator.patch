@@ -20,6 +20,7 @@ phone:/config/usb_gadget/g1/configs $ ln -s ../../../../usb_gadget/g1/functions/
 ln: cannot create symbolic link from '../../../../usb_gadget/g1/functions/ffs.adb' to 'b.2/function0': Permission denied
 
 [CPNOTE: 21/05/21] Lee: Prodded the MLs
+[CPNOTE: 26/05/21] Lee: Pinged the author privately
 
 Test: With this change b.2 is owned by system:system and the ln succeeds.
 Link: https://lore.kernel.org/lkml/20210123205516.2738060-1-zenczykowski@gmail.com/

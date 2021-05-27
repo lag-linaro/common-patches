@@ -44,6 +44,7 @@ Pending opensource users of this code include:
   - https://android-review.googlesource.com/c/platform/frameworks/av/+/1360640/17/media/codec2/vndk/C2DmaBufAllocator.cpp#325
 
 [CPNOTE: 21/05/21] Lee: Requested status from John on the MLs
+[CPNOTE: 26/05/21] Lee: Daniel is blocking - no upstream user - John is trying to find one
 
 Signed-off-by: John Stultz <john.stultz@linaro.org>
 Link: https://lore.kernel.org/lkml/20201110034934.70898-8-john.stultz@linaro.org/

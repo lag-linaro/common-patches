@@ -18,6 +18,10 @@ a larger rework of irqchips as platform drivers), but was reverted
 due to problems other patches in the series caused.
 
 [CPNOTE: 25/05/21] Lee: Failed upstream patch (why is this *needed*?)
+[CPNOTE: 25/05/21] Lee: New version on the MLs [0] - will ping Marc for status
+[CPNOTE: 26/05/21] Lee: Marc will test this on his Chromebook - aiming for v5.14
+
+[0] https://lore.kernel.org/lkml/20210518211922.3474368-1-john.stultz@linaro.org/
 
 Signed-off-by: John Stultz <john.stultz@linaro.org>
 Signed-off-by: Marc Zyngier <maz@kernel.org>

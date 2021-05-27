@@ -8,6 +8,7 @@ as a module, thus remove it here and let the "default ARCH_MESON" build as
 built-in by default with the option to switch it to module.
 
 [CPNOTE: 21/05/21] Lee: Prodded Neil and Kevin on the MLs
+[CPNOTE: 26/05/21] Lee: Kevin is going to look into Marc's concerns
 
 Signed-off-by: Neil Armstrong <narmstrong@baylibre.com>
 Link: https://lore.kernel.org/r/20201020072532.949137-3-narmstrong@baylibre.com

@@ -13,6 +13,7 @@ to the filesystem block size (which is *not* necessarily the same as the
 block device's block size).
 
 [CPNOTE: 25/05/21] Lee: No update since v8 was posted in January - poked the MLs
+[CPNOTE: 26/05/21] Lee: Satya will work to push these forward over the next week
 
 Signed-off-by: Eric Biggers <ebiggers@google.com>
 Co-developed-by: Satya Tangirala <satyat@google.com>

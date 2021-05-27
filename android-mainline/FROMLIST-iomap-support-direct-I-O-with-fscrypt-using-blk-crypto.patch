@@ -10,6 +10,7 @@ blocks with incontiguous DUNs by calling fscrypt_limit_io_blocks()
 appropriately.
 
 [CPNOTE: 25/05/21] Lee: No update since v8 was posted in January - poked the MLs
+[CPNOTE: 26/05/21] Lee: Satya will work to push these forward over the next week
 
 Signed-off-by: Eric Biggers <ebiggers@google.com>
 Co-developed-by: Satya Tangirala <satyat@google.com>

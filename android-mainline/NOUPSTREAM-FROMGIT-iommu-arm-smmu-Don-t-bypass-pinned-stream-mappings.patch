@@ -19,9 +19,11 @@ from bootloader") [1] that identifies streams that are already configured
  and marked them as pinned. This patch extends that to not re-write pinned
 stream mappings for ARM_SMMU_DOMAIN_BYPASS domains.
 
-[CPNOTE: 24/05/21] Lee: This depends on a failed upstream patch [1]
+[CPNOTE: 24/05/21] Lee: This depends on a failed upstream patch [0]
+[CPNOTE: 26/05/21] Lee: TOREVERT: Sounds like Qualcomm have adopted the upstream solution [1]
 
-[1] https://lore.kernel.org/r/20191226221709.3844244-4-bjorn.andersson@linaro.org
+[0] https://lore.kernel.org/r/20191226221709.3844244-4-bjorn.andersson@linaro.org
+[1] https://lore.kernel.org/linux-arm-kernel/YKxuynamQBTrNksO@yoga/
 
 Signed-off-by: Jordan Crouse <jcrouse@codeaurora.org>
 Signed-off-by: John Stultz <john.stultz@linaro.org>

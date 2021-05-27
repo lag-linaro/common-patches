@@ -53,6 +53,7 @@ Bug: 129319403
 Change-Id: I34d99cc46e9e87a79efc8d05f85980bbc137f7eb
 [maennich: folded 8d5dc2cf06e9 ("ANDROID: overlayfs: fixup after upstream merge")]
 Signed-off-by: Matthias Maennich <maennich@google.com>
+Signed-off-by: Lee Jones <lee.jones@linaro.org>
 ---
  fs/overlayfs/namei.c | 7 ++++---
  fs/overlayfs/util.c  | 8 ++++----

@@ -8,6 +8,7 @@ or down the clocks. Hence, export the hibern8 entry and exit
 functions.
 
 [CPNOTE: 25/05/21] Lee: Requested status from Asutosh on the MLs
+[CPNOTE: 26/05/21] Lee: TOREVERT: Last attempt was more than a year ago
 
 Bug: 143136976
 Link: https://lore.kernel.org/lkml/1571849351-819-1-git-send-email-asutoshd@codeaurora.org/

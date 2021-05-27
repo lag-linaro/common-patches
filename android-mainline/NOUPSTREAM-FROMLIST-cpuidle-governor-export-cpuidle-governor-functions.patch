@@ -11,6 +11,7 @@ register cpuidle governors and use cpuidle_governor_latency_req() to get
 the QoS for the CPU.
 
 [CPNOTE: 20/05/21] Lee: This was rejected by Rafael, as there are no Mainline users
+[CPNOTE: 26/05/21] Lee: Requested clarification from Todd
 
 Bug: 169136276
 Link: https://lore.kernel.org/linux-pm/010101746fc98add-45e77496-d2d6-4bc1-a1ce-0692599a9a7a-000000@us-west-2.amazonses.com/

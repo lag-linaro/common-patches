@@ -19,6 +19,7 @@ the DUNs simply increment along with the logical blocks. But it's needed
 to handle an edge case in one of the fscrypt IV generation methods.
 
 [CPNOTE: 25/05/21] Lee: No update since v8 was posted in January - poked the MLs
+[CPNOTE: 26/05/21] Lee: Satya will work to push these forward over the next week
 
 Signed-off-by: Eric Biggers <ebiggers@google.com>
 Co-developed-by: Satya Tangirala <satyat@google.com>

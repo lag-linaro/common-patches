@@ -17,6 +17,7 @@ on every block added to a bio. So we need this function which limits a
 logical range in one go.
 
 [CPNOTE: 25/05/21] Lee: No update since v8 was posted in January - poked the MLs
+[CPNOTE: 26/05/21] Lee: About to submit a patch to re-align with Mainline
 
 Signed-off-by: Eric Biggers <ebiggers@google.com>
 Co-developed-by: Satya Tangirala <satyat@google.com>

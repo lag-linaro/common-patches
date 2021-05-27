@@ -14,6 +14,7 @@ to identify these two different PWM types and adding helper functions to
 read the PWM output type supported by a PWM.
 
 [CPNOTE: 24/05/21] Lee: This patch was NACKed upstream - requested status via the bug report
+[CPNOTE: 26/05/21] Lee: TOREVERT: Not going upstream and doesn't appear to be in use
 
 Bug: 140290585
 Link: https://lore.kernel.org/lkml/1568415464-20267-1-git-send-email-gurus@codeaurora.org/

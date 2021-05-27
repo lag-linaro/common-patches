@@ -8,7 +8,7 @@ by virtio drivers to share exported objects. The new operation allows
 the importing driver to query the exporting driver for the UUID which
 identifies the underlying exported object.
 
-[CPNOTE: 24/05/21] Lee: Revert me - not been used since android11-5.4
+[CPNOTE: 24/05/21] Lee: TOREVERT: No AOSP caller and not been used since android11-5.4
 
 Signed-off-by: David Stevens <stevensd@chromium.org>
 

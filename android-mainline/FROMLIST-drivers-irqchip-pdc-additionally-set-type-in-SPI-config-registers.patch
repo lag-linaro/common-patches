@@ -18,6 +18,7 @@ addition to configuring the PDC, configure the interface registers as
 well.
 
 [CPNOTE: 24/05/21] Lee: Requested status via the bug report
+[CPNOTE: 26/05/21] Lee: TOREVERT: Failed upstream patch - last attempt was Sept 2019
 
 Signed-off-by: Lina Iyer <ilina@codeaurora.org>
 

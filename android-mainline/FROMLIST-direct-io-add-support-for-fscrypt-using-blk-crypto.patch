@@ -10,6 +10,7 @@ this is not the case when using certain fscrypt IV generation methods
 like IV_INO_LBLK_32).
 
 [CPNOTE: 25/05/21] Lee: No update since v8 was posted in January - poked the MLs
+[CPNOTE: 26/05/21] Lee: Satya will work to push these forward over the next week
 
 Signed-off-by: Eric Biggers <ebiggers@google.com>
 Co-developed-by: Satya Tangirala <satyat@google.com>
