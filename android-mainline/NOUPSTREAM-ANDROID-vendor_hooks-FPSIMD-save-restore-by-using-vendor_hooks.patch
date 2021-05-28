@@ -1,7 +1,8 @@
 From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
 From: Wooyeon Kim <wooy88.kim@samsung.com>
 Date: Thu, 9 Jul 2020 14:43:13 +0900
-Subject: ANDROID: vendor_hooks: FPSIMD save/restore by using vendor_hooks
+Subject: NOUPSTREAM: ANDROID: vendor_hooks: FPSIMD save/restore by using
+ vendor_hooks
 
  - To use fpsimd in kernel task, vendor_hook call is needed to
    save/restore fpsimd at scheduling time.
@@ -9,6 +10,8 @@ Subject: ANDROID: vendor_hooks: FPSIMD save/restore by using vendor_hooks
  - Vendor_hooks is called when thread is switching for save/restore
    fpsimd states.
   (trace_android_vh_is_fpsimd_save(prev, next))
+
+[CPNOTE: 27/05/21] Lee: Vendor related code - maintain forever
 
 Bug: 149632552
 

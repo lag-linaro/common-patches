@@ -1,7 +1,7 @@
 From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
 From: Todd Kjos <tkjos@google.com>
 Date: Mon, 11 May 2020 13:27:22 -0700
-Subject: ANDROID: GKI: add android_vendor.h
+Subject: NOUPSTREAM: ANDROID: GKI: add android_vendor.h
 
 This header file is to be used for various macros to help add
 vendor specific fields to kernel data structures to enable
@@ -9,6 +9,8 @@ value-added features implemented in vendor modules.
 
 They are to be used before the freeze (to anticipate places where
 vendor-specific data is required).
+
+[CPNOTE: 27/05/21] Lee: Vendor related code - maintain forever
 
 Bug: 156285741
 

@@ -1,12 +1,14 @@
 From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
 From: Park Bumgyu <bumgyu.park@samsung.com>
 Date: Thu, 20 Aug 2020 11:17:23 +0900
-Subject: ANDROID: vendor_hooks: add cpuidle event
+Subject: NOUPSTREAM: ANDROID: vendor_hooks: add cpuidle event
 
 An event that gather the idle state that the cpu attempted to enter and
 actually entered is added. Through this, the idle statistics of the cpu
 can be obtained and used for vendor specific algorithms or for system
 analysis.
+
+[CPNOTE: 27/05/21] Lee: Vendor related code - maintain forever
 
 Bug: 162980647
 

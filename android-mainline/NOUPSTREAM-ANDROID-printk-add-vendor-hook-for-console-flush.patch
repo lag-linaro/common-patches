@@ -1,9 +1,11 @@
 From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
 From: Prasad Sodagudi <psodagud@codeaurora.org>
 Date: Thu, 22 Oct 2020 04:26:09 -0700
-Subject: ANDROID: printk: add vendor hook for console flush
+Subject: NOUPSTREAM: ANDROID: printk: add vendor hook for console flush
 
 Add vendor hook for skipping console flush in cpu hotplug.
+
+[CPNOTE: 27/05/21] Lee: Vendor related code - maintain forever
 
 Bug: 165340180
 Change-Id: I167e1595bbb50e57371bfabfde638624761d5f8a

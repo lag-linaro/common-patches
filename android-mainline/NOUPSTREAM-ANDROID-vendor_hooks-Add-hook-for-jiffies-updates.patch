@@ -1,10 +1,12 @@
 From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
 From: Amir Vajid <avajid@codeaurora.org>
 Date: Tue, 20 Oct 2020 15:58:14 -0700
-Subject: ANDROID: vendor_hooks: Add hook for jiffies updates
+Subject: NOUPSTREAM: ANDROID: vendor_hooks: Add hook for jiffies updates
 
 Create a vendor hook for jiffies updates by the
 tick_do_timer_cpu.
+
+[CPNOTE: 27/05/21] Lee: Vendor related code - maintain forever
 
 Bug: 148928265
 Change-Id: Ia442e20d446b8ce4f2b3f2be76655e72919c76eb

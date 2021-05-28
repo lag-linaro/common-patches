@@ -6,6 +6,8 @@ Subject: ANDROID: binder: add support for RT prio inheritance.
 Adds support for SCHED_BATCH/SCHED_FIFO/SCHED_RR
 priority inheritance.
 
+[CPNOTE: 27/05/21] Requested latest status on the bug report
+
 Bug: 34461621
 Bug: 37293077
 Bug: 120446518

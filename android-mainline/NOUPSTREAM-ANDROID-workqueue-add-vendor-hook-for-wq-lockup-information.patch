@@ -1,10 +1,13 @@
 From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
 From: Sangmoon Kim <sangmoon.kim@samsung.com>
 Date: Tue, 29 Sep 2020 10:15:35 +0900
-Subject: ANDROID: workqueue: add vendor hook for wq lockup information
+Subject: NOUPSTREAM: ANDROID: workqueue: add vendor hook for wq lockup
+ information
 
  - Add the hook to provide additional information like
    a task scheduling log.
+
+[CPNOTE: 27/05/21] Lee: Vendor related code - maintain forever
 
 Bug: 169374262
 

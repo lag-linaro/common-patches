@@ -1,7 +1,7 @@
 From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
 From: Yun Hsiang <yun.hsiang@mediatek.com>
 Date: Wed, 20 May 2020 10:31:35 +0800
-Subject: ANDROID: Add vendor hooks to the scheduler
+Subject: NOUPSTREAM: ANDROID: Add vendor hooks to the scheduler
 
 Add vendor hooks for vendor-specific scheduling.
 
@@ -22,6 +22,8 @@ Add vendor hooks for vendor-specific scheduling.
 
   android_rvh_find_lowest_rq:
     To find the lowest rq for RT task with vendor-specific way.
+
+[CPNOTE: 27/05/21] Lee: Vendor related code - maintain forever
 
 Bug: 155241766
 

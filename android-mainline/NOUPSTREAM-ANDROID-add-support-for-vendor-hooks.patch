@@ -1,7 +1,7 @@
 From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
 From: Todd Kjos <tkjos@google.com>
 Date: Fri, 24 Apr 2020 10:12:38 -0700
-Subject: ANDROID: add support for vendor hooks
+Subject: NOUPSTREAM: ANDROID: add support for vendor hooks
 
 Add support for vendor hooks. Adds include/trace/hooks
 directory for trace definition headers where hooks
@@ -76,6 +76,8 @@ to the module:
 	...
 	rc = register_trace_android_vh_sched_exit(my_foo, NULL);
 
+[CPNOTE: 27/05/21] Lee: Vendor related code - maintain forever
+
 Bug: 156285741
 Bug: 163076069
 Signed-off-by: Todd Kjos <tkjos@google.com>
@@ -86,11 +88,12 @@ Change-Id: I6a7d1c8919dae91c965e2a0450df50eac2d282db
            Also split the gki_defconfig changes into a separate patch.]
 Signed-off-by: Eric Biggers <ebiggers@google.com>
 ---
- drivers/android/Kconfig            |  9 ++++
- drivers/android/Makefile           |  1 +
- drivers/android/vendor_hooks.c     | 16 +++++++
- include/trace/hooks/vendor_hooks.h | 76 ++++++++++++++++++++++++++++++
- 4 files changed, 102 insertions(+)
+ drivers/android/Kconfig            |   9 +++
+ drivers/android/Makefile           |   1 +
+ drivers/android/vendor_hooks.c     |  16 +++++
+ include/trace/hooks/vendor_hooks.h | 105 +++++++++++++++++++++++++++++
+ kernel/tracepoint.c                |  79 ++++++++++++++++++++++
+ 5 files changed, 210 insertions(+)
  create mode 100644 drivers/android/vendor_hooks.c
  create mode 100644 include/trace/hooks/vendor_hooks.h
 
@@ -146,7 +149,7 @@ diff --git a/include/trace/hooks/vendor_hooks.h b/include/trace/hooks/vendor_hoo
 new file mode 100644
 --- /dev/null
 +++ b/include/trace/hooks/vendor_hooks.h
-@@ -0,0 +1,76 @@
+@@ -0,0 +1,105 @@
 +/* SPDX-License-Identifier: GPL-2.0 */
 +
 +/*
@@ -160,41 +163,73 @@ new file mode 100644
 +
 +#define DECLARE_HOOK DECLARE_TRACE
 +
++int android_rvh_probe_register(struct tracepoint *tp, void *probe, void *data);
++
 +#ifdef TRACE_HEADER_MULTI_READ
++
++#define DEFINE_HOOK_FN(_name, _reg, _unreg, proto, args)		\
++	static const char __tpstrtab_##_name[]				\
++	__section("__tracepoints_strings") = #_name;			\
++	extern struct static_call_key STATIC_CALL_KEY(tp_func_##_name);	\
++	int __traceiter_##_name(void *__data, proto);			\
++	struct tracepoint __tracepoint_##_name	__used			\
++	__section("__tracepoints") = {					\
++		.name = __tpstrtab_##_name,				\
++		.key = STATIC_KEY_INIT_FALSE,				\
++		.static_call_key = &STATIC_CALL_KEY(tp_func_##_name),	\
++		.static_call_tramp = STATIC_CALL_TRAMP_ADDR(tp_func_##_name), \
++		.iterator = &__traceiter_##_name,			\
++		.regfunc = _reg,					\
++		.unregfunc = _unreg,					\
++		.funcs = NULL };					\
++	__TRACEPOINT_ENTRY(_name);					\
++	int __traceiter_##_name(void *__data, proto)			\
++	{								\
++		struct tracepoint_func *it_func_ptr;			\
++		void *it_func;						\
++									\
++		it_func_ptr = (&__tracepoint_##_name)->funcs;		\
++		it_func = (it_func_ptr)->func;				\
++		do {							\
++			__data = (it_func_ptr)->data;			\
++			((void(*)(void *, proto))(it_func))(__data, args); \
++			it_func = READ_ONCE((++it_func_ptr)->func);	\
++		} while (it_func);					\
++		return 0;						\
++	}								\
++	DEFINE_STATIC_CALL(tp_func_##_name, __traceiter_##_name);
 +
 +#undef DECLARE_RESTRICTED_HOOK
 +#define DECLARE_RESTRICTED_HOOK(name, proto, args, cond) \
-+	DEFINE_TRACE(name)
-+
++	DEFINE_HOOK_FN(name, NULL, NULL, PARAMS(proto), PARAMS(args))
 +
 +/* prevent additional recursion */
 +#undef TRACE_HEADER_MULTI_READ
 +#else /* TRACE_HEADER_MULTI_READ */
 +
-+#define DO_HOOK(tp, proto, args, cond)					\
++#define DO_HOOK(name, proto, args, cond)				\
 +	do {								\
 +		struct tracepoint_func *it_func_ptr;			\
-+		void *it_func;						\
 +		void *__data;						\
 +									\
 +		if (!(cond))						\
 +			return;						\
 +									\
-+		it_func_ptr = (tp)->funcs;				\
++		it_func_ptr = (&__tracepoint_##name)->funcs;		\
 +		if (it_func_ptr) {					\
-+			it_func = (it_func_ptr)->func;			\
 +			__data = (it_func_ptr)->data;			\
-+			((void(*)(proto))(it_func))(args);		\
-+			WARN_ON(((++it_func_ptr)->func));		\
++			__DO_TRACE_CALL(name)(args);			\
 +		}							\
 +	} while (0)
 +
 +#define __DECLARE_HOOK(name, proto, args, cond, data_proto, data_args)	\
++	extern int __traceiter_##name(data_proto);			\
++	DECLARE_STATIC_CALL(tp_func_##name, __traceiter_##name);	\
 +	extern struct tracepoint __tracepoint_##name;			\
 +	static inline void trace_##name(proto)				\
 +	{								\
 +		if (static_key_false(&__tracepoint_##name.key))		\
-+			DO_HOOK(&__tracepoint_##name,			\
++			DO_HOOK(name,					\
 +				TP_PROTO(data_proto),			\
 +				TP_ARGS(data_args),			\
 +				TP_CONDITION(cond));			\
@@ -207,11 +242,8 @@ new file mode 100644
 +	static inline int						\
 +	register_trace_##name(void (*probe)(data_proto), void *data) 	\
 +	{								\
-+		/* only allow a single attachment */			\
-+		if (trace_##name##_enabled())				\
-+			return -EBUSY;					\
-+		return tracepoint_probe_register(&__tracepoint_##name,	\
-+						(void *)probe, data);	\
++		return android_rvh_probe_register(&__tracepoint_##name,	\
++						  (void *)probe, data);	\
 +	}								\
 +	/* vendor hooks cannot be unregistered */			\
 +
@@ -223,3 +255,89 @@ new file mode 100644
 +			PARAMS(__data, args))
 +
 +#endif /* TRACE_HEADER_MULTI_READ */
+diff --git a/kernel/tracepoint.c b/kernel/tracepoint.c
+--- a/kernel/tracepoint.c
++++ b/kernel/tracepoint.c
+@@ -644,3 +644,82 @@ void syscall_unregfunc(void)
+ 	}
+ }
+ #endif
++
++#ifdef CONFIG_ANDROID_VENDOR_HOOKS
++
++static void *rvh_zalloc_funcs(int count)
++{
++	return kzalloc(sizeof(struct tracepoint_func) * count, GFP_KERNEL);
++}
++
++#define ANDROID_RVH_NR_PROBES_MAX	2
++static int rvh_func_add(struct tracepoint *tp, struct tracepoint_func *func)
++{
++	int i;
++
++	if (!static_key_enabled(&tp->key)) {
++		/* '+ 1' for the last NULL element */
++		tp->funcs = rvh_zalloc_funcs(ANDROID_RVH_NR_PROBES_MAX + 1);
++		if (!tp->funcs)
++			return ENOMEM;
++	}
++
++	for (i = 0; i < ANDROID_RVH_NR_PROBES_MAX; i++) {
++		if (!tp->funcs[i].func) {
++			if (!static_key_enabled(&tp->key))
++				tp->funcs[i].data = func->data;
++			WRITE_ONCE(tp->funcs[i].func, func->func);
++
++			return 0;
++		}
++	}
++
++	return -EBUSY;
++}
++
++static int android_rvh_add_func(struct tracepoint *tp, struct tracepoint_func *func)
++{
++	int ret;
++
++	if (tp->regfunc && !static_key_enabled(&tp->key)) {
++		ret = tp->regfunc();
++		if (ret < 0)
++			return ret;
++	}
++
++	ret = rvh_func_add(tp, func);
++	if (ret)
++		return ret;
++	tracepoint_update_call(tp, tp->funcs, false);
++	static_key_enable(&tp->key);
++
++	return 0;
++}
++
++int android_rvh_probe_register(struct tracepoint *tp, void *probe, void *data)
++{
++	struct tracepoint_func tp_func;
++	int ret;
++
++	/*
++	 * Once the static key has been flipped, the array may be read
++	 * concurrently. Although __traceiter_*()  always checks .func first,
++	 * it doesn't enforce read->read dependencies, and we can't strongly
++	 * guarantee it will see the correct .data for the second element
++	 * without adding smp_load_acquire() in the fast path. But this is a
++	 * corner case which is unlikely to be needed by anybody in practice,
++	 * so let's just forbid it and keep the fast path clean.
++	 */
++	if (WARN_ON(static_key_enabled(&tp->key) && data))
++		return -EINVAL;
++
++	mutex_lock(&tracepoints_mutex);
++	tp_func.func = probe;
++	tp_func.data = data;
++	ret = android_rvh_add_func(tp, &tp_func);
++	mutex_unlock(&tracepoints_mutex);
++
++	return ret;
++}
++EXPORT_SYMBOL_GPL(android_rvh_probe_register);
++#endif

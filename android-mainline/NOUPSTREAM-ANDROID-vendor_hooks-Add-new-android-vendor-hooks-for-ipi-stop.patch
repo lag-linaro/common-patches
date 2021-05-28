@@ -1,12 +1,15 @@
 From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
 From: Changki Kim <changki.kim@samsung.com>
 Date: Sun, 23 Aug 2020 14:36:48 +0900
-Subject: ANDROID: vendor_hooks: Add new android vendor hooks for ipi stop
+Subject: NOUPSTREAM: ANDROID: vendor_hooks: Add new android vendor hooks for
+ ipi stop
 
 When a kernel panic occurred, it is sometimes caused by a other cpu
 than the panic cpu. When a panic cpu sends smp stop IPI, it can help to
 solve the problem even more if aonther cpu stores registers and
 run cache flush.
+
+[CPNOTE: 27/05/21] Lee: Vendor related code - maintain forever
 
 Bug: 165956922
 

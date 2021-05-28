@@ -1,7 +1,7 @@
 From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
 From: Park Bumgyu <bumgyu.park@samsung.com>
 Date: Wed, 23 Dec 2020 09:44:37 +0900
-Subject: ANDROID: vendor_hook: modify cpuidle vendor hook
+Subject: NOUPSTREAM: ANDROID: vendor_hook: modify cpuidle vendor hook
 
 When entering cluster-wide or system-wide power mode, Exynos cpu
 power management driver checks the next hrtimer events of cpu
@@ -16,6 +16,8 @@ driver should be able to control the idle state.
 Due to above requirements, the parameters required for idle enter
 and exit different, so the vendor hook is separated into
 cpu_idle_enter and cpu_idle_exit.
+
+[CPNOTE: 27/05/21] Lee: Vendor related code - maintain forever
 
 Bug: 176198732
 

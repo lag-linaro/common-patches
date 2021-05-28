@@ -1,10 +1,12 @@
 From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
 From: JianMin Liu <jian-min.liu@mediatek.com>
 Date: Tue, 11 Aug 2020 15:24:06 +0800
-Subject: ANDROID: futex: Add vendor hook for wait queue
+Subject: NOUPSTREAM: ANDROID: futex: Add vendor hook for wait queue
 
 Add the hook for the waiter list of futex to allow
 vendor perform wait queue enhancement
+
+[CPNOTE: 27/05/21] Lee: Vendor related code - maintain forever
 
 Bug: 163431711
 

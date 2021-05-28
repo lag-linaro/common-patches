@@ -1,10 +1,12 @@
 From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
 From: Sai Harshini Nimmala <snimmala@codeaurora.org>
 Date: Mon, 2 Nov 2020 14:52:34 -0800
-Subject: ANDROID: sched: Add trace hook for rt throttle dump
+Subject: NOUPSTREAM: ANDROID: sched: Add trace hook for rt throttle dump
 
 Create a trace hook when RT tasks are throttled. This allows
 vendors to debug long RT runs.
+
+[CPNOTE: 27/05/21] Lee: Vendor related code - maintain forever
 
 Bug: 172264047
 Change-Id: I534959f8e8d714463aac2f9f1c5627d2e735f543

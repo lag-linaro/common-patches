@@ -1,7 +1,8 @@
 From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
 From: JINHO LIM <jordan.lim@samsung.com>
 Date: Thu, 29 Apr 2021 19:22:05 +0900
-Subject: ANDROID: vendor_hooks: set debugging data when rt_mutex is working
+Subject: NOUPSTREAM: ANDROID: vendor_hooks: set debugging data when rt_mutex
+ is working
 
 We already applied the 'vendor hook' for Dtask Debugging Information
 in below issue.
@@ -37,6 +38,8 @@ added data can be checked by ramdump analysis.
 [   54.167812] [3:  kworker/u16:3:  253] sh              D12848  9003   6900 0x04000200
 [   54.167824] [3:  kworker/u16:3:  253] RTmutex: 0xffffffc051fa3b08: owner[kworker/3:2 :418]
 ...
+
+[CPNOTE: 27/05/21] Lee: Vendor related code - maintain forever
 
 Bug: 186567468
 

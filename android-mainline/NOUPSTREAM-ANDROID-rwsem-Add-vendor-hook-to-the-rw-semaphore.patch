@@ -1,7 +1,7 @@
 From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
 From: JianMin Liu <jian-min.liu@mediatek.com>
 Date: Tue, 21 Jul 2020 13:36:22 +0800
-Subject: ANDROID: rwsem: Add vendor hook to the rw-semaphore
+Subject: NOUPSTREAM: ANDROID: rwsem: Add vendor hook to the rw-semaphore
 
   - Add the hook to apply vendor's performance tune for owner
     of rwsem.
@@ -10,6 +10,8 @@ Subject: ANDROID: rwsem: Add vendor hook to the rw-semaphore
     vendor perform waiting queue enhancement
 
   - ANDROID_VENDOR_DATA added to rw_semaphore
+
+[CPNOTE: 27/05/21] Lee: Vendor related code - maintain forever
 
 Bug: 161400830
 
