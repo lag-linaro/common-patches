@@ -39,8 +39,8 @@ diff --git a/drivers/tty/hvc/hvc_dcc.c b/drivers/tty/hvc/hvc_dcc.c
 +#include <linux/moduleparam.h>
  #include <linux/serial.h>
  #include <linux/serial_core.h>
- #include <linux/spinlock.h>
-@@ -13,6 +14,13 @@
+ 
+@@ -12,6 +13,13 @@
  
  #include "hvc_console.h"
  
@@ -54,7 +54,7 @@ diff --git a/drivers/tty/hvc/hvc_dcc.c b/drivers/tty/hvc/hvc_dcc.c
  /* DCC Status Bits */
  #define DCC_STATUS_RX		(1 << 30)
  #define DCC_STATUS_TX		(1 << 29)
-@@ -244,7 +252,7 @@ static int __init hvc_dcc_console_init(void)
+@@ -92,7 +100,7 @@ static int __init hvc_dcc_console_init(void)
  {
  	int ret;
  
@@ -63,7 +63,7 @@ diff --git a/drivers/tty/hvc/hvc_dcc.c b/drivers/tty/hvc/hvc_dcc.c
  		return -ENODEV;
  
  	/* Returns -1 if error */
-@@ -258,7 +266,7 @@ static int __init hvc_dcc_init(void)
+@@ -106,7 +114,7 @@ static int __init hvc_dcc_init(void)
  {
  	struct hvc_struct *p;
  

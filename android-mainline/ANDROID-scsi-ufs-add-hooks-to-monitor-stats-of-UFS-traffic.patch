@@ -30,7 +30,7 @@ diff --git a/drivers/android/vendor_hooks.c b/drivers/android/vendor_hooks.c
 diff --git a/drivers/scsi/ufs/ufshcd.c b/drivers/scsi/ufs/ufshcd.c
 --- a/drivers/scsi/ufs/ufshcd.c
 +++ b/drivers/scsi/ufs/ufshcd.c
-@@ -2036,6 +2036,7 @@ void ufshcd_send_command(struct ufs_hba *hba, unsigned int task_tag)
+@@ -2037,6 +2037,7 @@ void ufshcd_send_command(struct ufs_hba *hba, unsigned int task_tag)
  	lrbp->issue_time_stamp = ktime_get();
  	lrbp->compl_time_stamp = ktime_set(0, 0);
  	ufshcd_vops_setup_xfer_req(hba, task_tag, (lrbp->cmd ? true : false));

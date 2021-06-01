@@ -29,58 +29,13 @@ Signed-off-by: Lingfeng Yang <lfy@google.com>
            protos for dma_buf/drm_prime get_uuid")]
 Signed-off-by: Eric Biggers <ebiggers@google.com>
 ---
- drivers/dma-buf/dma-buf.c | 12 ++++++++++++
- include/linux/dma-buf.h   | 17 +++++++++++++++++
- 2 files changed, 29 insertions(+)
+ include/linux/dma-buf.h | 2 ++
+ 1 file changed, 2 insertions(+)
 
-diff --git a/drivers/dma-buf/dma-buf.c b/drivers/dma-buf/dma-buf.c
---- a/drivers/dma-buf/dma-buf.c
-+++ b/drivers/dma-buf/dma-buf.c
-@@ -1346,6 +1346,18 @@ void dma_buf_vunmap(struct dma_buf *dmabuf, struct dma_buf_map *map)
- }
- EXPORT_SYMBOL_GPL(dma_buf_vunmap);
- 
-+int dma_buf_get_uuid(struct dma_buf *dmabuf, uuid_t *uuid)
-+{
-+	if (WARN_ON(!dmabuf) || !uuid)
-+		return -EINVAL;
-+
-+	if (!dmabuf->ops->get_uuid)
-+		return -ENODEV;
-+
-+	return dmabuf->ops->get_uuid(dmabuf, uuid);
-+}
-+EXPORT_SYMBOL_GPL(dma_buf_get_uuid);
-+
- #ifdef CONFIG_DEBUG_FS
- static int dma_buf_debug_show(struct seq_file *s, void *unused)
- {
 diff --git a/include/linux/dma-buf.h b/include/linux/dma-buf.h
 --- a/include/linux/dma-buf.h
 +++ b/include/linux/dma-buf.h
-@@ -270,6 +270,21 @@ struct dma_buf_ops {
- 
- 	int (*vmap)(struct dma_buf *dmabuf, struct dma_buf_map *map);
- 	void (*vunmap)(struct dma_buf *dmabuf, struct dma_buf_map *map);
-+
-+	/**
-+	 * @get_uuid
-+	 *
-+	 * This is called by dma_buf_get_uuid to get the UUID which identifies
-+	 * the buffer to virtio devices.
-+	 *
-+	 * This callback is optional.
-+	 *
-+	 * Returns:
-+	 *
-+	 * 0 on success or a negative error code on failure. On success uuid
-+	 * will be populated with the buffer's UUID.
-+	 */
-+	int (*get_uuid)(struct dma_buf *dmabuf, uuid_t *uuid);
- };
- 
- /**
-@@ -507,4 +522,6 @@ int dma_buf_mmap(struct dma_buf *, struct vm_area_struct *,
+@@ -507,4 +507,6 @@ int dma_buf_mmap(struct dma_buf *, struct vm_area_struct *,
  		 unsigned long);
  int dma_buf_vmap(struct dma_buf *dmabuf, struct dma_buf_map *map);
  void dma_buf_vunmap(struct dma_buf *dmabuf, struct dma_buf_map *map);

@@ -31,7 +31,7 @@ diff --git a/drivers/android/vendor_hooks.c b/drivers/android/vendor_hooks.c
 diff --git a/drivers/scsi/ufs/ufshcd.c b/drivers/scsi/ufs/ufshcd.c
 --- a/drivers/scsi/ufs/ufshcd.c
 +++ b/drivers/scsi/ufs/ufshcd.c
-@@ -325,6 +325,8 @@ static void ufshcd_add_tm_upiu_trace(struct ufs_hba *hba, unsigned int tag,
+@@ -326,6 +326,8 @@ static void ufshcd_add_tm_upiu_trace(struct ufs_hba *hba, unsigned int tag,
  	int off = (int)tag - hba->nutrs;
  	struct utp_task_req_desc *descp = &hba->utmrdl_base_addr[off];
  
@@ -40,7 +40,7 @@ diff --git a/drivers/scsi/ufs/ufshcd.c b/drivers/scsi/ufs/ufshcd.c
  	if (!trace_ufshcd_upiu_enabled())
  		return;
  
-@@ -346,6 +348,8 @@ static void ufshcd_add_uic_command_trace(struct ufs_hba *hba,
+@@ -347,6 +349,8 @@ static void ufshcd_add_uic_command_trace(struct ufs_hba *hba,
  {
  	u32 cmd;
  

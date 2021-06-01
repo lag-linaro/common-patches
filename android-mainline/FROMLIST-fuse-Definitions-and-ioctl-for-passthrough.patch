@@ -26,14 +26,14 @@ Change-Id: I732532581348adadda5b5048a9346c2b0868d539
 Signed-off-by: Alessio Balsini <balsini@google.com>
 ---
  fs/fuse/Makefile          |  1 +
- fs/fuse/dev.c             | 12 ++++++++++++
+ fs/fuse/dev.c             |  1 +
  fs/fuse/dir.c             |  2 ++
  fs/fuse/file.c            |  4 +++-
  fs/fuse/fuse_i.h          | 27 +++++++++++++++++++++++++++
  fs/fuse/inode.c           | 16 ++++++++++++++++
  fs/fuse/passthrough.c     | 21 +++++++++++++++++++++
  include/uapi/linux/fuse.h | 11 ++++++++++-
- 8 files changed, 92 insertions(+), 2 deletions(-)
+ 8 files changed, 81 insertions(+), 2 deletions(-)
  create mode 100644 fs/fuse/passthrough.c
 
 diff --git a/fs/fuse/Makefile b/fs/fuse/Makefile
@@ -56,26 +56,8 @@ diff --git a/fs/fuse/dev.c b/fs/fuse/dev.c
  	struct fuse_dev *fud = NULL;
 +	struct fuse_passthrough_out pto;
  
- 	if (_IOC_TYPE(cmd) != FUSE_DEV_IOC_MAGIC)
- 		return -ENOTTY;
-@@ -2262,6 +2263,17 @@ static long fuse_dev_ioctl(struct file *file, unsigned int cmd,
- 			}
- 		}
- 		break;
-+	case _IOC_NR(FUSE_DEV_IOC_PASSTHROUGH_OPEN):
-+		res = -EFAULT;
-+		if (!copy_from_user(&pto,
-+				    (struct fuse_passthrough_out __user *)arg,
-+				    sizeof(pto))) {
-+			res = -EINVAL;
-+			fud = fuse_get_dev(file);
-+			if (fud)
-+				res = fuse_passthrough_open(fud, &pto);
-+		}
-+		break;
- 	default:
- 		res = -ENOTTY;
- 		break;
+ 	switch (cmd) {
+ 	case FUSE_DEV_IOC_CLONE:
 diff --git a/fs/fuse/dir.c b/fs/fuse/dir.c
 --- a/fs/fuse/dir.c
 +++ b/fs/fuse/dir.c

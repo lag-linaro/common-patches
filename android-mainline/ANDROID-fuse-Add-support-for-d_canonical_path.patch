@@ -15,11 +15,12 @@ Change-Id: Iabdca0bbedfbff59e9c820c58636a68ef9683d9f
 Signed-off-by: Daniel Rosenberg <drosen@google.com>
 Signed-off-by: Alessio Balsini <balsini@google.com>
 ---
- fs/fuse/dev.c             |  9 +++++++++
+ fs/fuse/dev.c             | 10 +++++++++-
  fs/fuse/dir.c             | 40 +++++++++++++++++++++++++++++++++++++++
- fs/fuse/fuse_i.h          |  3 +++
- include/uapi/linux/fuse.h |  1 +
- 4 files changed, 53 insertions(+)
+ fs/fuse/fuse_i.h          |  6 ++++--
+ fs/fuse/passthrough.c     |  9 ++-------
+ include/uapi/linux/fuse.h | 14 ++++----------
+ 5 files changed, 59 insertions(+), 20 deletions(-)
 
 diff --git a/fs/fuse/dev.c b/fs/fuse/dev.c
 --- a/fs/fuse/dev.c
@@ -47,6 +48,14 @@ diff --git a/fs/fuse/dev.c b/fs/fuse/dev.c
  	spin_lock(&fpq->lock);
  	clear_bit(FR_LOCKED, &req->flags);
  	if (!fpq->connected)
+@@ -2232,7 +2241,6 @@ static long fuse_dev_ioctl(struct file *file, unsigned int cmd,
+ 	int res;
+ 	int oldfd;
+ 	struct fuse_dev *fud = NULL;
+-	struct fuse_passthrough_out pto;
+ 
+ 	switch (cmd) {
+ 	case FUSE_DEV_IOC_CLONE:
 diff --git a/fs/fuse/dir.c b/fs/fuse/dir.c
 --- a/fs/fuse/dir.c
 +++ b/fs/fuse/dir.c
@@ -117,6 +126,42 @@ diff --git a/fs/fuse/fuse_i.h b/fs/fuse/fuse_i.h
  };
  
  struct fuse_args_pages {
+@@ -1281,8 +1284,7 @@ void fuse_file_release(struct inode *inode, struct fuse_file *ff,
+ 		       unsigned int open_flags, fl_owner_t id, bool isdir);
+ 
+ /* passthrough.c */
+-int fuse_passthrough_open(struct fuse_dev *fud,
+-			  struct fuse_passthrough_out *pto);
++int fuse_passthrough_open(struct fuse_dev *fud, u32 lower_fd);
+ int fuse_passthrough_setup(struct fuse_conn *fc, struct fuse_file *ff,
+ 			   struct fuse_open_out *openarg);
+ void fuse_passthrough_release(struct fuse_passthrough *passthrough);
+diff --git a/fs/fuse/passthrough.c b/fs/fuse/passthrough.c
+--- a/fs/fuse/passthrough.c
++++ b/fs/fuse/passthrough.c
+@@ -179,8 +179,7 @@ ssize_t fuse_passthrough_mmap(struct file *file, struct vm_area_struct *vma)
+ 	return ret;
+ }
+ 
+-int fuse_passthrough_open(struct fuse_dev *fud,
+-			  struct fuse_passthrough_out *pto)
++int fuse_passthrough_open(struct fuse_dev *fud, u32 lower_fd)
+ {
+ 	int res;
+ 	struct file *passthrough_filp;
+@@ -192,11 +191,7 @@ int fuse_passthrough_open(struct fuse_dev *fud,
+ 	if (!fc->passthrough)
+ 		return -EPERM;
+ 
+-	/* This field is reserved for future implementation */
+-	if (pto->len != 0)
+-		return -EINVAL;
+-
+-	passthrough_filp = fget(pto->fd);
++	passthrough_filp = fget(lower_fd);
+ 	if (!passthrough_filp) {
+ 		pr_err("FUSE: invalid file descriptor for passthrough.\n");
+ 		return -EBADF;
 diff --git a/include/uapi/linux/fuse.h b/include/uapi/linux/fuse.h
 --- a/include/uapi/linux/fuse.h
 +++ b/include/uapi/linux/fuse.h
@@ -128,3 +173,30 @@ diff --git a/include/uapi/linux/fuse.h b/include/uapi/linux/fuse.h
  
  	/* CUSE specific operations */
  	CUSE_INIT		= 4096,
+@@ -843,14 +844,6 @@ struct fuse_in_header {
+ 	uint32_t	padding;
+ };
+ 
+-/* fuse_passthrough_out for passthrough V1 */
+-struct fuse_passthrough_out {
+-	uint32_t	fd;
+-	/* For future implementation */
+-	uint32_t	len;
+-	void		*vec;
+-};
+-
+ struct fuse_out_header {
+ 	uint32_t	len;
+ 	int32_t		error;
+@@ -928,8 +921,9 @@ struct fuse_notify_retrieve_in {
+ /* Device ioctls: */
+ #define FUSE_DEV_IOC_MAGIC		229
+ #define FUSE_DEV_IOC_CLONE		_IOR(FUSE_DEV_IOC_MAGIC, 0, uint32_t)
+-/* 127 is reserved for the V1 interface implementation in Android */
+-#define FUSE_DEV_IOC_PASSTHROUGH_OPEN	_IOW(FUSE_DEV_IOC_MAGIC, 127, struct fuse_passthrough_out)
++/* 127 is reserved for the V1 interface implementation in Android (deprecated) */
++/* 126 is reserved for the V2 interface implementation in Android */
++#define FUSE_DEV_IOC_PASSTHROUGH_OPEN	_IOW(FUSE_DEV_IOC_MAGIC, 126, __u32)
+ 
+ struct fuse_lseek_in {
+ 	uint64_t	fh;

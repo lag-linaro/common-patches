@@ -76,7 +76,7 @@ diff --git a/drivers/irqchip/qcom-pdc.c b/drivers/irqchip/qcom-pdc.c
  #include <linux/soc/qcom/irq.h>
  #include <linux/spinlock.h>
  #include <linux/slab.h>
-@@ -551,4 +553,28 @@ static int qcom_pdc_init(struct device_node *node, struct device_node *parent)
+@@ -459,4 +461,28 @@ static int qcom_pdc_init(struct device_node *node, struct device_node *parent)
  	return ret;
  }
  

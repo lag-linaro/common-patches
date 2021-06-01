@@ -2,7 +2,7 @@
 # android-mainline patches
 #
 # Applies onto upstream f01da525b3de8 Linux v5.13-rc2-140-gf01da525b3de8
-# Matches android-mainline ab652d9d523c0 ("Merge f01da525b3de ("Merge tag 'for-linus' of git://git.kernel.org/pub/scm/linux/kernel/git/rdma/rdma") into android-mainline")
+# Matches android-mainline f5ec17375c2be ("UPSTREAM: fuse: fix matching of FUSE_DEV_IOC_CLONE command")
 #
 Revert-block-grant-IOPRIO_CLASS_RT-to-CAP_SYS_NICE.patch
 Revert-arm64-dts-qcom-sdm845-db845c-Fix-hdmi-nodes.patch
@@ -14,11 +14,10 @@ Revert-sched-Remove-sched_setscheduler-EXPORTs.patch
 Revert-binder-Prevent-context-manager-from-incrementing-ref-0.patch
 Revert-Revert-tty-serial-samsung_tty-build-it-for-any-platform.patch
 Revert-drm-virtio-fix-DRM_FORMAT_-handling.patch
-Revert-fuse-fix-matching-of-FUSE_DEV_IOC_CLONE-command.patch
 _____ANNOTATION-pending-upstream_____.patch
-FROMLIST-clk-Export-clk_register_composite.patch
 FROMLIST-clk-versatile-remove-dependency-on-ARCH_.patch
 FROMLIST-fs-Generic-function-to-convert-iocb-to-rw-flags.patch
+UPSTREAM-fuse-fix-matching-of-FUSE_DEV_IOC_CLONE-command.patch
 FROMLIST-fuse-32-bit-user-space-ioctl-compat-for-fuse-device.patch
 FROMLIST-fuse-Definitions-and-ioctl-for-passthrough.patch
 FROMLIST-fuse-Passthrough-initialization-and-release.patch
@@ -38,15 +37,9 @@ FROMLIST-configfs-make-directories-inherit-uid-gid-from-creator.patch
 FROMLIST-export-Make-CRCs-robust-to-symbol-trimming.patch
 FROMLIST-kbuild-Add-dtc-flag-test.patch
 FROMLIST-reboot-Export-reboot_mode.patch
-FROMLIST-drivers-irqchip-pdc-additionally-set-type-in-SPI-config-registers.patch
-FROMLIST-dt-bindings-interrupt-controller-pdc-add-SPI-config-register.patch
 FROMLIST-hvc_dcc-bind-driver-to-core0-for-reads-and-writes.patch
 FROMLIST-dma-buf-add-support-for-virtio-exported-objects.patch
-FROMLIST-drm-prime-add-support-for-virtio-exported-objects.patch
 FROMLIST-HID-nintendo-add-nintendo-switch-controller-driver.patch
-FROMLIST-scsi-ufs-qcom-enter-and-exit-hibern8-during-clock-scaling.patch
-FROMLIST-scsi-ufs-export-hibern8-entry-and-exit.patch
-FROMLIST-overlayfs-internal-getxattr-operations-without-sepolicy-checking.patch
 FROMLIST-fscrypt-Add-functions-for-direct-I-O-support.patch
 FROMLIST-direct-io-add-support-for-fscrypt-using-blk-crypto.patch
 FROMLIST-iomap-support-direct-I-O-with-fscrypt-using-blk-crypto.patch
@@ -55,8 +48,6 @@ FROMLIST-f2fs-support-direct-I-O-with-fscrypt-using-blk-crypto.patch
 FROMLIST-fs-ext4-namei-trivial-Fix-a-couple-of-small-whitespace-issues.patch
 FROMLIST-irqchip-qcom-pdc-Allow-QCOM_PDC-to-be-loadable-as-a-permanent-module.patch
 NOUPSTREAM-FROMLIST-cpuidle-governor-export-cpuidle-governor-functions.patch
-NOUPSTREAM-BACKPORT-FROMLIST-pwm-Add-support-for-different-PWM-output-types.patch
-NOUPSTREAM-FROMGIT-iommu-arm-smmu-Don-t-bypass-pinned-stream-mappings.patch
 NOUPSTREAM-FROMLIST-scsi-ufs-Export-query-request-interfaces.patch
 _____ANNOTATION-binder-changes_____.patch
 ANDROID-binder-add-support-for-RT-prio-inheritance.patch
