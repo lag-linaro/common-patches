@@ -11,7 +11,7 @@ Signed-off-by: Eric Biggers <ebiggers@google.com>
 diff --git a/ANNOTATIONS b/ANNOTATIONS
 --- a/ANNOTATIONS
 +++ b/ANNOTATIONS
-@@ -17,3 +17,4 @@ driver framework and misc driver changes
+@@ -16,3 +16,4 @@ driver framework and misc driver changes
  tty changes
  USB changes
  graphics changes

@@ -2,13 +2,12 @@
 # android-mainline patches
 #
 # Applies onto upstream 8124c8a6b3538 Linux v5.13-rc4
-# Matches android-mainline b1065ab8198b4 ("Merge tag 'v5.13-rc4' into android-mainline")
+# Matches android-mainline 729f55b35d091 ("Revert "ANDROID: iommu/arm-smmu: Allow inherting stream mapping from bootloader"")
 #
 Revert-block-grant-IOPRIO_CLASS_RT-to-CAP_SYS_NICE.patch
 Revert-arm64-dts-qcom-sdm845-db845c-Fix-hdmi-nodes.patch
 Revert-ubsan-enable-for-all-config-builds.patch
 Revert-ARM-9017-2-Enable-KASan-for-ARM.patch
-Revert-bpf-program-Refuse-non-O_RDWR-flags-in-BPF_OBJ_GET.patch
 Revert-sched-core-Prevent-race-condition-between-cpuset-and-__sched_setscheduler.patch
 Revert-sched-Remove-sched_setscheduler-EXPORTs.patch
 Revert-binder-Prevent-context-manager-from-incrementing-ref-0.patch
@@ -116,8 +115,6 @@ ANDROID-arm-allow-hooks-into-ipi.patch
 ANDROID-ARM-Bump-command-line-size.patch
 ANDROID-arm64-Export-show_regs-for-vendor-module-usage.patch
 ANDROID-ipi-Add-function-to-return-nr_ipi-and-ipi_desc.patch
-_____ANNOTATION-iommu-changes_____.patch
-ANDROID-iommu-arm-smmu-Allow-inherting-stream-mapping-from-bootloader.patch
 _____ANNOTATION-core-kernel-changes_____.patch
 ANDROID-cpu-send-KOBJ_ONLINE-event-when-enabling-cpus.patch
 CHROMIUM-cgroups-relax-permissions-on-moving-tasks-between-cgroups.patch
