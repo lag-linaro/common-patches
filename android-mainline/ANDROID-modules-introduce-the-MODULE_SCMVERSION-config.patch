@@ -82,7 +82,7 @@ diff --git a/include/linux/module.h b/include/linux/module.h
 diff --git a/init/Kconfig b/init/Kconfig
 --- a/init/Kconfig
 +++ b/init/Kconfig
-@@ -2155,6 +2155,20 @@ config MODULE_SRCVERSION_ALL
+@@ -2116,6 +2116,20 @@ config MODULE_SRCVERSION_ALL
  	  the version).  With this option, such a "srcversion" field
  	  will be created for all modules.  If unsure, say N.
  

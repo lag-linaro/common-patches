@@ -67,7 +67,7 @@ new file mode 100644
 diff --git a/kernel/workqueue.c b/kernel/workqueue.c
 --- a/kernel/workqueue.c
 +++ b/kernel/workqueue.c
-@@ -53,6 +53,10 @@
+@@ -54,6 +54,10 @@
  
  #include "workqueue_internal.h"
  
@@ -78,10 +78,10 @@ diff --git a/kernel/workqueue.c b/kernel/workqueue.c
  enum {
  	/*
  	 * worker_pool flags
-@@ -5805,6 +5809,7 @@ static void wq_watchdog_timer_fn(struct timer_list *unused)
+@@ -5813,6 +5817,7 @@ static void wq_watchdog_timer_fn(struct timer_list *unused)
  			pr_cont_pool_info(pool);
  			pr_cont(" stuck for %us!\n",
- 				jiffies_to_msecs(jiffies - pool_ts) / 1000);
+ 				jiffies_to_msecs(now - pool_ts) / 1000);
 +			trace_android_vh_wq_lockup_pool(pool->cpu, pool_ts);
  		}
  	}

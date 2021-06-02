@@ -1,8 +1,8 @@
 #
 # android-mainline patches
 #
-# Applies onto upstream f01da525b3de8 Linux v5.13-rc2-140-gf01da525b3de8
-# Matches android-mainline f5ec17375c2be ("UPSTREAM: fuse: fix matching of FUSE_DEV_IOC_CLONE command")
+# Applies onto upstream 8124c8a6b3538 Linux v5.13-rc4
+# Matches android-mainline b1065ab8198b4 ("Merge tag 'v5.13-rc4' into android-mainline")
 #
 Revert-block-grant-IOPRIO_CLASS_RT-to-CAP_SYS_NICE.patch
 Revert-arm64-dts-qcom-sdm845-db845c-Fix-hdmi-nodes.patch

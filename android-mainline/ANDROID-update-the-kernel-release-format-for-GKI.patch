@@ -32,7 +32,7 @@ Signed-off-by: Eric Biggers <ebiggers@google.com>
 diff --git a/Makefile b/Makefile
 --- a/Makefile
 +++ b/Makefile
-@@ -1233,7 +1233,8 @@ targets := vmlinux
+@@ -1238,7 +1238,8 @@ targets := vmlinux
  $(sort $(vmlinux-deps) $(subdir-modorder)): descend ;
  
  filechk_kernel.release = \
@@ -42,7 +42,7 @@ diff --git a/Makefile b/Makefile
  
  # Store (new) KERNELRELEASE string in include/config/kernel.release
  include/config/kernel.release: FORCE
-@@ -1959,7 +1960,8 @@ checkstack:
+@@ -1964,7 +1965,8 @@ checkstack:
  	$(PERL) $(srctree)/scripts/checkstack.pl $(CHECKSTACK_ARCH)
  
  kernelrelease:

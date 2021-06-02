@@ -96,7 +96,7 @@ diff --git a/mm/slub.c b/mm/slub.c
  #ifdef CONFIG_SYSFS
  static int sysfs_slab_add(struct kmem_cache *);
  static int sysfs_slab_alias(struct kmem_cache *, const char *);
-@@ -584,6 +568,39 @@ static struct track *get_track(struct kmem_cache *s, void *object,
+@@ -585,6 +569,39 @@ static struct track *get_track(struct kmem_cache *s, void *object,
  	return kasan_reset_tag(p + alloc);
  }
  

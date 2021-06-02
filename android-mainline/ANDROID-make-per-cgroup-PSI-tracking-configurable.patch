@@ -26,7 +26,7 @@ Signed-off-by: Palmer Dabbelt <palmerdabbelt@google.com>
 diff --git a/init/Kconfig b/init/Kconfig
 --- a/init/Kconfig
 +++ b/init/Kconfig
-@@ -643,6 +643,21 @@ config PSI_DEFAULT_DISABLED
+@@ -644,6 +644,21 @@ config PSI_DEFAULT_DISABLED
  
  	  Say N if unsure.
  

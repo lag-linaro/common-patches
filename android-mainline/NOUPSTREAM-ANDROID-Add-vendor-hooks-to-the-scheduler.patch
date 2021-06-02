@@ -359,7 +359,7 @@ diff --git a/kernel/locking/mutex.c b/kernel/locking/mutex.c
  void
  __mutex_init(struct mutex *lock, const char *name, struct lock_class_key *key)
  {
-@@ -995,6 +997,7 @@ __mutex_lock_common(struct mutex *lock, long state, unsigned int subclass,
+@@ -1005,6 +1007,7 @@ __mutex_lock_common(struct mutex *lock, long state, unsigned int subclass,
  
  	waiter.task = current;
  
@@ -367,7 +367,7 @@ diff --git a/kernel/locking/mutex.c b/kernel/locking/mutex.c
  	set_current_state(state);
  	for (;;) {
  		/*
-@@ -1050,6 +1053,7 @@ __mutex_lock_common(struct mutex *lock, long state, unsigned int subclass,
+@@ -1060,6 +1063,7 @@ __mutex_lock_common(struct mutex *lock, long state, unsigned int subclass,
  	spin_lock(&lock->wait_lock);
  acquired:
  	__set_current_state(TASK_RUNNING);
@@ -375,12 +375,12 @@ diff --git a/kernel/locking/mutex.c b/kernel/locking/mutex.c
  
  	if (ww_ctx) {
  		/*
-@@ -1080,6 +1084,7 @@ __mutex_lock_common(struct mutex *lock, long state, unsigned int subclass,
+@@ -1088,6 +1092,7 @@ __mutex_lock_common(struct mutex *lock, long state, unsigned int subclass,
  
  err:
  	__set_current_state(TASK_RUNNING);
 +	trace_android_vh_mutex_wait_finish(lock);
- 	mutex_remove_waiter(lock, &waiter, current);
+ 	__mutex_remove_waiter(lock, &waiter);
  err_early_kill:
  	spin_unlock(&lock->wait_lock);
 diff --git a/kernel/locking/rwsem.c b/kernel/locking/rwsem.c

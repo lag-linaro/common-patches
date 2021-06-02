@@ -38,7 +38,7 @@ diff --git a/drivers/scsi/ufs/ufshcd.c b/drivers/scsi/ufs/ufshcd.c
  	ufshcd_add_command_trace(hba, task_tag, UFS_CMD_SEND);
  	ufshcd_clk_scaling_start_busy(hba);
  	__set_bit(task_tag, &hba->outstanding_reqs);
-@@ -5106,6 +5107,7 @@ static void __ufshcd_transfer_req_compl(struct ufs_hba *hba,
+@@ -5109,6 +5110,7 @@ static void __ufshcd_transfer_req_compl(struct ufs_hba *hba,
  		lrbp->compl_time_stamp = ktime_get();
  		cmd = lrbp->cmd;
  		if (cmd) {

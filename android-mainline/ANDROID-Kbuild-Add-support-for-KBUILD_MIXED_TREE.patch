@@ -64,7 +64,7 @@ diff --git a/Makefile b/Makefile
  
  CFLAGS_GCOV	:= -fprofile-arcs -ftest-coverage \
  	$(call cc-option,-fno-tree-loop-im) \
-@@ -1223,8 +1239,10 @@ cmd_link-vmlinux =                                                 \
+@@ -1228,8 +1244,10 @@ cmd_link-vmlinux =                                                 \
  	$(CONFIG_SHELL) $< "$(LD)" "$(KBUILD_LDFLAGS)" "$(LDFLAGS_vmlinux)";    \
  	$(if $(ARCH_POSTLINK), $(MAKE) -f $(ARCH_POSTLINK) $@, true)
  
@@ -75,7 +75,7 @@ diff --git a/Makefile b/Makefile
  
  targets := vmlinux
  
-@@ -1453,7 +1471,9 @@ endif
+@@ -1458,7 +1476,9 @@ endif
  # using awk while concatenating to the final file.
  
  PHONY += modules
@@ -86,7 +86,7 @@ diff --git a/Makefile b/Makefile
  
  cmd_modules_order = $(AWK) '!x[$$0]++' $(real-prereqs) > $@
  
-@@ -1498,8 +1518,8 @@ __modinst_pre:
+@@ -1503,8 +1523,8 @@ __modinst_pre:
  		ln -s $(CURDIR) $(MODLIB)/build ; \
  	fi
  	@sed 's:^:kernel/:' modules.order > $(MODLIB)/modules.order
@@ -97,7 +97,7 @@ diff --git a/Makefile b/Makefile
  
  endif # CONFIG_MODULES
  
-@@ -1776,7 +1796,7 @@ modules_check: $(MODORDER)
+@@ -1781,7 +1801,7 @@ modules_check: $(MODORDER)
  
  quiet_cmd_depmod = DEPMOD  $(MODLIB)
        cmd_depmod = $(CONFIG_SHELL) $(srctree)/scripts/depmod.sh $(DEPMOD) \
@@ -106,7 +106,7 @@ diff --git a/Makefile b/Makefile
  
  modules_install:
  	$(Q)$(MAKE) -f $(srctree)/scripts/Makefile.modinst
-@@ -1855,7 +1875,7 @@ descend: $(build-dirs)
+@@ -1860,7 +1880,7 @@ descend: $(build-dirs)
  $(build-dirs): prepare
  	$(Q)$(MAKE) $(build)=$@ \
  	single-build=$(if $(filter-out $@/, $(filter $@/%, $(KBUILD_SINGLE_TARGETS))),1) \
