@@ -43,7 +43,7 @@ diff --git a/include/trace/hooks/sched.h b/include/trace/hooks/sched.h
  struct rq_flags;
  DECLARE_RESTRICTED_HOOK(android_rvh_sched_newidle_balance,
  	TP_PROTO(struct rq *this_rq, struct rq_flags *rf,
-@@ -143,6 +147,7 @@ DECLARE_HOOK(android_vh_em_cpu_energy,
+@@ -152,6 +156,7 @@ DECLARE_HOOK(android_vh_em_cpu_energy,
  #define trace_android_rvh_setscheduler(p)
  #define trace_android_rvh_find_busiest_group(busiest, dst_rq, out_balance)
  #define trace_android_vh_dump_throttled_rt_tasks(cpu, clock, rt_period, rt_runtime, rt_period_timer_expires)
