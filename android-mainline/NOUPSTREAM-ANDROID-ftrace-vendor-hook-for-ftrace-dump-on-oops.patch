@@ -1,7 +1,7 @@
 From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
 From: Prateek Sood <prsood@codeaurora.org>
 Date: Mon, 28 Dec 2020 17:46:43 +0530
-Subject: ANDROID: ftrace: vendor hook for ftrace dump on oops
+Subject: NOUPSTREAM: ANDROID: ftrace: vendor hook for ftrace dump on oops
 
 Add following vendor hooks in ftrace oops path to allow
 vendor modules to get ftrace buffer data.
@@ -14,6 +14,8 @@ vendor modules to get ftrace buffer data.
 
 Ftrace dump on oops can be controlled with kernel command
 line parameter ftrace_dump_on_oops.
+
+[CPNOTE: 02/06/21] Lee: Vendor related code - maintain forever
 
 Bug: 177387994
 Change-Id: I898026bfc3e5c5c5ab1eaa0e86a019a6a720408e

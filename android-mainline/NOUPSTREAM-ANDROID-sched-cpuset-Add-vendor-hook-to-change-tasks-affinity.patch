@@ -1,11 +1,14 @@
 From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
 From: Satya Durga Srinivasu Prabhala <satyap@codeaurora.org>
 Date: Tue, 24 Nov 2020 03:38:47 -0800
-Subject: ANDROID: sched/cpuset: Add vendor hook to change tasks affinity
+Subject: NOUPSTREAM: ANDROID: sched/cpuset: Add vendor hook to change tasks
+ affinity
 
 Vendors might want to change tasks affinity settings when they are
 moving from one cpuset into the other. Add vendor hook to give control
 to vendor to implement what they need.
+
+[CPNOTE: 02/06/21] Lee: Vendor related code - maintain forever
 
 Bug: 174125747
 Change-Id: Icee0405be0bca432002dae4a26ebe945082ce052
@@ -26,7 +29,7 @@ diff --git a/drivers/android/vendor_hooks.c b/drivers/android/vendor_hooks.c
 +EXPORT_TRACEPOINT_SYMBOL_GPL(android_rvh_update_cpus_allowed);
  EXPORT_TRACEPOINT_SYMBOL_GPL(android_rvh_cpu_cgroup_attach);
  EXPORT_TRACEPOINT_SYMBOL_GPL(android_rvh_cpu_cgroup_can_attach);
- EXPORT_TRACEPOINT_SYMBOL_GPL(android_vh_em_cpu_energy);
+ EXPORT_TRACEPOINT_SYMBOL_GPL(android_vh_map_util_freq);
 diff --git a/include/trace/hooks/sched.h b/include/trace/hooks/sched.h
 --- a/include/trace/hooks/sched.h
 +++ b/include/trace/hooks/sched.h
@@ -42,7 +45,7 @@ diff --git a/include/trace/hooks/sched.h b/include/trace/hooks/sched.h
  struct cgroup_taskset;
  DECLARE_RESTRICTED_HOOK(android_rvh_cpu_cgroup_attach,
  	TP_PROTO(struct cgroup_taskset *tset),
-@@ -161,6 +166,7 @@ DECLARE_HOOK(android_vh_em_cpu_energy,
+@@ -166,6 +171,7 @@ DECLARE_HOOK(android_vh_em_cpu_energy,
  #define trace_android_rvh_set_iowait(p, should_iowait_boost)
  #define trace_android_rvh_set_sugov_update(sg_policy, next_freq, should_update)
  #define trace_android_rvh_sched_setaffinity(p, in_mask, retval)

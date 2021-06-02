@@ -2,7 +2,7 @@
 # android-mainline patches
 #
 # Applies onto upstream 8124c8a6b3538 Linux v5.13-rc4
-# Matches android-mainline 729f55b35d091 ("Revert "ANDROID: iommu/arm-smmu: Allow inherting stream mapping from bootloader"")
+# Matches android-mainline 33f5efe988753 ("ANDROID: db845c_gki.fragment: Enable Qcom Venus driver")
 #
 Revert-block-grant-IOPRIO_CLASS_RT-to-CAP_SYS_NICE.patch
 Revert-arm64-dts-qcom-sdm845-db845c-Fix-hdmi-nodes.patch

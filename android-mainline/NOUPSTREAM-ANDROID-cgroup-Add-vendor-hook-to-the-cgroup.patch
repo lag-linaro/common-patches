@@ -1,10 +1,12 @@
 From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
 From: Frankie Chang <frankie.chang@mediatek.com>
 Date: Tue, 12 Jan 2021 14:07:38 +0800
-Subject: ANDROID: cgroup: Add vendor hook to the cgroup
+Subject: NOUPSTREAM: ANDROID: cgroup: Add vendor hook to the cgroup
 
 Add a vendor hook after attaching a task to a cgroup to
 recognize the group_id for performance tuning
+
+[CPNOTE: 02/06/21] Lee: Vendor related code - maintain forever
 
 Bug: 181917687
 

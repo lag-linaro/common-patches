@@ -1,7 +1,8 @@
 From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
 From: Pavankumar Kondeti <pkondeti@codeaurora.org>
 Date: Tue, 1 Dec 2020 14:10:07 +0530
-Subject: ANDROID: tracing: Add restricted vendor hooks for preemptirq events
+Subject: NOUPSTREAM: ANDROID: tracing: Add restricted vendor hooks for
+ preemptirq events
 
 We have debug infrastructure built on top of preempt/irq disable/enable
 events. This requires modifications to the kernel tracing code. Since
@@ -12,6 +13,8 @@ is super high and generic trace events are slow.
 
 Since GKI allows optimized trace events via restricted trace hooks,
 add the same for preemptirq event.
+
+[CPNOTE: 02/06/21] Lee: Vendor related code - maintain forever
 
 Bug: 174541725
 Change-Id: Ic8d3cdd1c1aa6a9267d0b755694fedffa2ea8e36
@@ -44,7 +47,7 @@ diff --git a/drivers/android/vendor_hooks.c b/drivers/android/vendor_hooks.c
 +EXPORT_TRACEPOINT_SYMBOL_GPL(android_rvh_irqs_enable);
  EXPORT_TRACEPOINT_SYMBOL_GPL(android_rvh_cpu_cgroup_attach);
  EXPORT_TRACEPOINT_SYMBOL_GPL(android_rvh_cpu_cgroup_can_attach);
- EXPORT_TRACEPOINT_SYMBOL_GPL(android_vh_em_cpu_energy);
+ EXPORT_TRACEPOINT_SYMBOL_GPL(android_vh_map_util_freq);
 diff --git a/include/trace/hooks/preemptirq.h b/include/trace/hooks/preemptirq.h
 new file mode 100644
 --- /dev/null

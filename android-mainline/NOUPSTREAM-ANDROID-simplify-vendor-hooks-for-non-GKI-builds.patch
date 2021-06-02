@@ -1,7 +1,7 @@
 From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
 From: Todd Kjos <tkjos@google.com>
 Date: Wed, 13 Jan 2021 14:09:53 -0800
-Subject: ANDROID: simplify vendor hooks for non-GKI builds
+Subject: NOUPSTREAM: ANDROID: simplify vendor hooks for non-GKI builds
 
 Vendor hooks required explicitly defining macros or inline functions
 to handle the non-GKI build case (!CONFIG_ANDROID_VENDOR_HOOKS). Added
@@ -9,6 +9,8 @@ support for generating them automatically so the macros are no longer
 required.
 
 Both models are now supported so we can transition.
+
+[CPNOTE: 02/06/21] Lee: Vendor related code - maintain forever
 
 Bug: 177416721
 Signed-off-by: Todd Kjos <tkjos@google.com>
@@ -29,7 +31,7 @@ diff --git a/include/trace/hooks/sched.h b/include/trace/hooks/sched.h
  struct task_struct;
  DECLARE_RESTRICTED_HOOK(android_rvh_select_task_rq_fair,
  	TP_PROTO(struct task_struct *p, int prev_cpu, int sd_flag, int wake_flags, int *new_cpu),
-@@ -140,35 +139,6 @@ DECLARE_HOOK(android_vh_em_cpu_energy,
+@@ -145,35 +144,6 @@ DECLARE_HOOK(android_vh_em_cpu_energy,
  		unsigned long max_util, unsigned long sum_util,
  		unsigned long *energy),
  	TP_ARGS(pd, max_util, sum_util, energy));
@@ -77,8 +79,8 @@ diff --git a/include/trace/hooks/vendor_hooks.h b/include/trace/hooks/vendor_hoo
  #define DECLARE_HOOK DECLARE_TRACE
  
  int android_rvh_probe_register(struct tracepoint *tp, void *probe, void *data);
-@@ -103,3 +105,10 @@ int android_rvh_probe_register(struct tracepoint *tp, void *probe, void *data);
- 			PARAMS(__data, args))
+@@ -109,3 +111,10 @@ int android_rvh_probe_register(struct tracepoint *tp, void *probe, void *data);
+ 			PARAMS(void *__data, proto))
  
  #endif /* TRACE_HEADER_MULTI_READ */
 +
