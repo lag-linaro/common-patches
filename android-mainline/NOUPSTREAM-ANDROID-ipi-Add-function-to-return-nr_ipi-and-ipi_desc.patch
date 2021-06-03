@@ -1,7 +1,7 @@
 From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
 From: Prateek Sood <prsood@codeaurora.org>
 Date: Wed, 6 Jan 2021 21:18:49 +0530
-Subject: ANDROID: ipi: Add function to return nr_ipi and ipi_desc
+Subject: NOUPSTREAM: ANDROID: ipi: Add function to return nr_ipi and ipi_desc
 
 For implementation of IPI stats, nr_ipi and ipi_desc are useful.
 This information helps in getting per cpu IPI count and total
@@ -15,6 +15,8 @@ static variable is an overhead.
 
 So lets add helper functions to return nr_ipi and ipi_desc
 value to get things done in an efficient way.
+
+[CPNOTE: 03/06/21] Lee: These are still exported in `aosp/android12-5.10`
 
 Bug: 177393446
 Change-Id: I698dbbb0301d4f1529ef7484f25fe7540378008c

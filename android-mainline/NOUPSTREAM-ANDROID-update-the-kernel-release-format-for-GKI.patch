@@ -1,7 +1,7 @@
 From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
 From: Will McVicker <willmcvicker@google.com>
 Date: Thu, 9 Jul 2020 15:33:45 -0700
-Subject: ANDROID: update the kernel release format for GKI
+Subject: NOUPSTREAM: ANDROID: update the kernel release format for GKI
 
 The new kernel release format is: w.x.y-zz-k where,
   w.x.y are the current values
@@ -15,6 +15,8 @@ unlikely event that a security patch requires a KMI update.
 
 Here is a local example:
   5.4.51-android12-0-00153-ga972f59040e4-dirty
+
+[CPNOTE: 03/06/21] Lee: Very Android centric
 
 Signed-off-by: Will McVicker <willmcvicker@google.com>
 Bug: 159842160

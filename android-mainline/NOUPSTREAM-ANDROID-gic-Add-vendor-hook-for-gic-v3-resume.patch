@@ -1,9 +1,11 @@
 From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
 From: Elliot Berman <eberman@codeaurora.org>
 Date: Mon, 14 Sep 2020 15:35:41 -0700
-Subject: ANDROID: gic: Add vendor hook for gic-v3 resume
+Subject: NOUPSTREAM: ANDROID: gic: Add vendor hook for gic-v3 resume
 
 Add vendor hook for gic-v3 resume to allow vendor GIC enhancement.
+
+[CPNOTE: 03/06/21] Lee: Vendor related code - maintain forever
 
 Bug: 168730134
 Change-Id: Id3298715355c8f592f58393db6aa903b18dd812c

@@ -1,10 +1,12 @@
 From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
 From: Prasad Sodagudi <psodagud@codeaurora.org>
 Date: Tue, 12 Jan 2021 13:07:19 -0800
-Subject: ANDROID: arm64: Export show_regs for vendor module usage
+Subject: NOUPSTREAM: ANDROID: arm64: Export show_regs for vendor module usage
 
 Export show_regs for vendor module usage to print cpu back trace
 from trace_android_vh_ipi_stop vendor hook.
+
+[CPNOTE: 03/06/21] Lee: 'show_regs' is still exported in `aosp/android12-5.10`
 
 Bug: 177348820
 Change-Id: Idcbe887dfc02626d4af1a4cb53dafe3d5a2ba1dd

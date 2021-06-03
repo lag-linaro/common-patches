@@ -1,7 +1,7 @@
 From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
 From: Jaegeuk Kim <jaegeuk@google.com>
 Date: Sun, 13 Sep 2020 22:17:05 -0700
-Subject: ANDROID: scsi: ufs: add a hook to add sysfs entries
+Subject: NOUPSTREAM: ANDROID: scsi: ufs: add a hook to add sysfs entries
 
 This patch adds one vendor hook in UFS driver:
 
@@ -10,6 +10,8 @@ DECLARE_HOOK(android_vh_ufs_update_sysfs,
 	TP_ARGS(hba));
 
  -> called after creating sysfs for vendor to add more sysfs entries
+
+[CPNOTE: 03/06/21] Lee: Vendor related code - maintain forever
 
 Bug: 158050260
 Bug: 181359082

@@ -1,7 +1,8 @@
 From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
 From: Alex Hong <rurumihong@google.com>
 Date: Fri, 19 Jul 2019 16:37:33 +0800
-Subject: ANDROID: Makefile: append BUILD_NUMBER to version string when defined
+Subject: NOUPSTREAM: ANDROID: Makefile: append BUILD_NUMBER to version string
+ when defined
 
 In current implementation the Linux version string that is attached to
 the kernel linux image as well as the all kernel modules includes the
@@ -10,6 +11,8 @@ sha1 of the main git project for the kernel.
 This Commit adds the BUILD_NUMBER env variable with an 'ab' prefix to
 the Linux version string. This maps to both the Linux Image and all
 kernel modules version strings.
+
+[CPNOTE: 03/06/21] Lee: This change doesn't make sense for Mainline
 
 Bug: 159842160
 Bug: 137521202

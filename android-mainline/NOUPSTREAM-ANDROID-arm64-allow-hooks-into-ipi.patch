@@ -1,10 +1,12 @@
 From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
 From: Lina Iyer <ilina@codeaurora.org>
 Date: Thu, 5 Nov 2020 13:37:19 -0700
-Subject: ANDROID: arm64: allow hooks into ipi
+Subject: NOUPSTREAM: ANDROID: arm64: allow hooks into ipi
 
 Allow drivers to register hooks when IPIs are sent and handled. The
 statistics of these IPIs are helpful in predicting CPU idle states.
+
+[CPNOTE: 03/06/21] Lee: Still exported in `aosp/android13-5.10`
 
 Bug: 172588415
 Signed-off-by: Lina Iyer <ilina@codeaurora.org>

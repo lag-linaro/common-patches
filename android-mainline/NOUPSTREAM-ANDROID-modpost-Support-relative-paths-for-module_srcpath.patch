@@ -1,13 +1,16 @@
 From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
 From: Will McVicker <willmcvicker@google.com>
 Date: Thu, 11 Feb 2021 11:40:05 -0800
-Subject: ANDROID: modpost: Support relative paths for module_srcpath
+Subject: NOUPSTREAM: ANDROID: modpost: Support relative paths for
+ module_srcpath
 
 If a relative path is used for EXT_MODULES and -O is defined, then we
 need to set the module_srcpath as relative to $(srctree) vs $(objtree).
 Refer to [1] for more details.
 
 [1] https://lore.kernel.org/lkml/20210120193100.3414664-1-masahiroy@kernel.org/
+
+[CPNOTE: 03/06/21] Lee: No suitable for Mainline
 
 Bug: 180027765
 Signed-off-by: Will McVicker <willmcvicker@google.com>

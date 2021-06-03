@@ -1,10 +1,12 @@
 From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
 From: Neeraj Upadhyay <neeraju@codeaurora.org>
 Date: Fri, 6 Nov 2020 16:32:22 +0530
-Subject: ANDROID: gic-v3: Add vendor hook to GIC v3
+Subject: NOUPSTREAM: ANDROID: gic-v3: Add vendor hook to GIC v3
 
 Add vendor hook for affinity settings to GIC v3 irqchip
 driver.
+
+[CPNOTE: 03/06/21] Lee: Vendor related code - maintain forever
 
 Bug: 172637074
 Change-Id: I65ec8bedcb88c680ba1d6fcd2ffc5944c5a8a89c

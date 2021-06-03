@@ -1,13 +1,15 @@
 From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
 From: Elliot Berman <eberman@codeaurora.org>
 Date: Fri, 24 Jul 2020 18:12:48 -0700
-Subject: ANDROID: kbuild: Add support for installing out-of-tree kernel
- headers
+Subject: NOUPSTREAM: ANDROID: kbuild: Add support for installing out-of-tree
+ kernel headers
 
 Add support for installing out-of-tree kernel headers. The
 "headers_install" target was copied to the external module compilation
 section (lines 1245:1270), and the src/obj variables were tweaked to
 include $(KBUILD_EXTMODULE).
+
+[CPNOTE: 03/06/21] Lee: Non-upstreamable by its very nature
 
 Bug: 162332589
 Change-Id: I2e2c7598612bea94267e6a9bc6d0793da53915ac

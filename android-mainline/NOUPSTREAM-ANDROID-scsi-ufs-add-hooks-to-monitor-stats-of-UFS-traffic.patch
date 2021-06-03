@@ -1,9 +1,12 @@
 From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
 From: Jaegeuk Kim <jaegeuk@google.com>
 Date: Tue, 6 Oct 2020 17:45:55 -0700
-Subject: ANDROID: scsi: ufs: add hooks to monitor stats of UFS traffic
+Subject: NOUPSTREAM: ANDROID: scsi: ufs: add hooks to monitor stats of UFS
+ traffic
 
 This requires for UFS stat implementations.
+
+[CPNOTE: 03/06/21] Lee: Vendor related code - maintain forever
 
 Bug: 158050260
 Bug: 181359082

@@ -13,6 +13,8 @@ before __restore_processor_state is called. At the same time,
 restore_processor_state is still small enough so that SCS is not on,
 as SCS seems to be on only for large functions.
 
+[CPNOTE: 03/06/21] Lee: Requested status from Haitao
+
 Bug: 166163480
 Change-Id: I3bfe4ac61dee876da57de6578c9a7f01431a1743
 Signed-off-by: Haitao Shan <hshan@google.com>

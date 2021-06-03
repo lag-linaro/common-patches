@@ -1,7 +1,7 @@
 From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
 From: Elliot Berman <eberman@codeaurora.org>
 Date: Wed, 7 Apr 2021 08:03:11 -0700
-Subject: ANDROID: Kbuild: Add support for KBUILD_MIXED_TREE
+Subject: NOUPSTREAM: ANDROID: Kbuild: Add support for KBUILD_MIXED_TREE
 
 When KBUILD_MIXED_TREE points to the output folder of another kernel's
 build output, Kbuild can compile a complete kernel tree's modules
@@ -14,6 +14,8 @@ provides device driver modules.
 To accomplish this, references to vmlinux.symvers in the device kernel
 should point to the generic kernel's vmlinux.symvers and the device
 kernel should skip compilation of built-in files.
+
+[CPNOTE: 03/06/21] Lee: Not suitable for Mainline
 
 Bug: 178469391
 Change-Id: I614f3e87519236c4e2c5da74937cb0ecd98a278a

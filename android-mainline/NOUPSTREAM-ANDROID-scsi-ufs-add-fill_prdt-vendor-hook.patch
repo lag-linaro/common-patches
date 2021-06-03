@@ -1,12 +1,14 @@
 From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
 From: Eric Biggers <ebiggers@google.com>
 Date: Sat, 22 Aug 2020 10:47:33 -0700
-Subject: ANDROID: scsi: ufs: add fill_prdt vendor hook
+Subject: NOUPSTREAM: ANDROID: scsi: ufs: add fill_prdt vendor hook
 
 Add a 'fill_prdt' Android vendor hook so that UFS platform drivers can
 initialize variant-specific PRDT fields.
 
 This is needed for FMP support.
+
+[CPNOTE: 03/06/21] Lee: Vendor related code - maintain forever
 
 Bug: 166139333
 Bug: 162257402

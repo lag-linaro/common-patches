@@ -1,7 +1,7 @@
 From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
 From: Will McVicker <willmcvicker@google.com>
 Date: Thu, 19 Nov 2020 13:46:37 -0800
-Subject: ANDROID: modules: introduce the MODULE_SCMVERSION config
+Subject: NOUPSTREAM: ANDROID: modules: introduce the MODULE_SCMVERSION config
 
 Config MODULE_SCMVERSION introduces a new module attribute --
 `scmversion` -- which can be used to identify a given module's SCM
@@ -29,6 +29,8 @@ You can retrieve the SCM version in two ways,
     > modinfo -F scmversion MODULENAME
 2) By module sysfs node:
     > cat /sys/module/MODULENAME/scmversion
+
+[CPNOTE: 03/06/21] Lee: NACKed on the upstream MLs
 
 Bug: 180027765
 Link: https://lkml.org/lkml/2021/1/21/1388

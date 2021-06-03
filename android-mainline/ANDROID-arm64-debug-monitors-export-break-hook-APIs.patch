@@ -6,6 +6,8 @@ Subject: ANDROID: arm64: debug-monitors: export break hook APIs
 Export register/unregister kernel/user break hook APIs
 for modules to reference.
 
+[CPNOTE: 03/06/21] Lee: Pinged the author (bug is locked-down)
+
 Bug: 169899018
 Signed-off-by: Jonglin Lee <jonglin@google.com>
 Change-Id: I0e58f72f97f2952485dd4318f36b68e8afa0e454

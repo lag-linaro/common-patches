@@ -1,9 +1,11 @@
 From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
 From: Frankie Chang <frankie.chang@mediatek.com>
 Date: Wed, 13 Jan 2021 10:45:58 +0800
-Subject: ANDROID: Add vendor hooks when syscall prctl finished
+Subject: NOUPSTREAM: ANDROID: Add vendor hooks when syscall prctl finished
 
 Add vendor hook when syscall prctl finished for vendor-specific tuning.
+
+[CPNOTE: 03/06/21] Lee: Vendor related code - maintain forever
 
 Bug: 181819699
 

@@ -1,10 +1,13 @@
 From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
 From: Sangmoon Kim <sangmoon.kim@samsung.com>
 Date: Thu, 8 Oct 2020 10:42:06 +0900
-Subject: ANDROID: sysrq: add vendor hook for sysrq crash information
+Subject: NOUPSTREAM: ANDROID: sysrq: add vendor hook for sysrq crash
+ information
 
  - Add the hook to provide additional information
    of sysrq crash.
+
+[CPNOTE: 03/06/21] Lee: Vendor related code - maintain forever
 
 Bug: 170234110
 

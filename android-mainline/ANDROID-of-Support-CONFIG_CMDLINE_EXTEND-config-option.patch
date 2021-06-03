@@ -31,6 +31,8 @@ reference:
 - CMDLINE_FROM_BOOTLOADER=true, dt bootargs=empty, @data is empty string
     CONFIG_CMDLINE (or "" if that's not defined)
 
+[CPNOTE: 03/06/21] Lee: Pinged the bug and re-assigned Doug
+
 Signed-off-by: Doug Anderson <dianders@chromium.org>
 CC: devicetree-discuss@lists.ozlabs.org
 CC: Grant Likely <grant.likely@secretlab.ca>

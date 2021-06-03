@@ -1,11 +1,13 @@
 From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
 From: Jaegeuk Kim <jaegeuk@google.com>
 Date: Mon, 1 Mar 2021 17:21:30 -0800
-Subject: ANDROID: scsi: ufs: add hooks to track ufs commands
+Subject: NOUPSTREAM: ANDROID: scsi: ufs: add hooks to track ufs commands
 
 This adds some missing hooks for ufs commands, including request,
 query, uic, task manager commands, and interrupt events for vendor.
 Those can be used for vendor module to understand command history.
+
+[CPNOTE: 03/06/21] Lee: Vendor related code - maintain forever
 
 Bug: 172305874
 Bug: 176940922

@@ -1,7 +1,8 @@
 From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
 From: Chris Goldsworthy <cgoldswo@codeaurora.org>
 Date: Mon, 9 Nov 2020 22:26:47 -0800
-Subject: ANDROID: mm: Create vendor hooks to control ZONE_MOVABLE allocations
+Subject: NOUPSTREAM: ANDROID: mm: Create vendor hooks to control ZONE_MOVABLE
+ allocations
 
 Create a vendor hook inside of gfp_zone() to modify which allocations
 get to enter ZONE_MOVABLE, by zeroing out __GFP_HIGHMEM inside of the
@@ -9,6 +10,8 @@ trace hook based on certain conditions.
 
 Separately, create separate trace hooks in the swap-in and readahead
 paths to affect the behavior of the tracehook in gfp_zone().
+
+[CPNOTE: 03/06/21] Lee: Vendor related code - maintain forever
 
 Bug: 158645321
 Change-Id: I4a4f0b724267ee120a1e5661f6da5d43d7ef6fc6

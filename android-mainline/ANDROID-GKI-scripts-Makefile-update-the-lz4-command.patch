@@ -6,6 +6,8 @@ Subject: ANDROID: GKI: scripts: Makefile: update the lz4 command
 Use 'lz4' instead of 'lz4c' and increase the compression level. This
 also optimizes for decompression speed at this higher level.
 
+[CPNOTE: 03/06/21] Lee: Asked Alistair if this makes sense to Mainline
+
 Bug: 159285792
 Bug: 160031736
 Test: launch_cvd -kernel_path bzImage

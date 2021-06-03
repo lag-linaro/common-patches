@@ -1,10 +1,13 @@
 From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
 From: Todd Kjos <tkjos@google.com>
 Date: Mon, 23 Nov 2020 11:08:48 -0800
-Subject: ANDROID: add vendor hooks to override show_cpufinfo_max_freq
+Subject: NOUPSTREAM: ANDROID: add vendor hooks to override
+ show_cpufinfo_max_freq
 
 QC value-add requires the ability to override the value displayed
 by show_cpuinfo_max_freq.
+
+[CPNOTE: 03/06/21] Lee: Vendor related code - maintain forever
 
 Bug: 173984660
 Signed-off-by: Todd Kjos <tkjos@google.com>

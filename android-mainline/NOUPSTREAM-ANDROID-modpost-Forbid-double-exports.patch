@@ -1,7 +1,7 @@
 From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
 From: Quentin Perret <qperret@google.com>
 Date: Tue, 24 Nov 2020 14:40:13 +0000
-Subject: ANDROID: modpost: Forbid double exports
+Subject: NOUPSTREAM: ANDROID: modpost: Forbid double exports
 
 In the context of GKI we are exporting quite a few internal kernel
 symbols, some of which may be static functions (yes this is bad, but
@@ -10,6 +10,8 @@ and we really should not allow a symbol to be exported more than once.
 
 To ensure this is the case, turn the modpost check 'fatal' to bail out
 immediately when such a situation is detected.
+
+[CPNOTE: 03/06/21] Lee: Fatal only makes sense for GKI based builds
 
 Bug: 174214891
 Signed-off-by: Quentin Perret <qperret@google.com>

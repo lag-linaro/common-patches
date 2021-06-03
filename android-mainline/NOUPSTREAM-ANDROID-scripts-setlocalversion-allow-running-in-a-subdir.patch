@@ -1,7 +1,8 @@
 From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
 From: Will McVicker <willmcvicker@google.com>
 Date: Thu, 11 Feb 2021 11:33:42 -0800
-Subject: ANDROID: scripts/setlocalversion: allow running in a subdir
+Subject: NOUPSTREAM: ANDROID: scripts/setlocalversion: allow running in a
+ subdir
 
 Getting the scmversion using scripts/setlocalversion currently only
 works when run at the root of a git or mecurial project. This was
@@ -14,6 +15,8 @@ For Android purposes, this isn't a concern. So let's bring back this
 functionality so that we can use scripts/setlocalversion to capture the SCM
 version of external modules that reside within subdirectories of an SCM
 project.
+
+[CPNOTE: 03/06/21] Lee: Previously NACKed on the MLs
 
 Bug: 180027765
 Link: https://lore.kernel.org/lkml/20201125010541.309848-2-willmcvicker@google.com
