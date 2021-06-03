@@ -24,7 +24,7 @@ diff --git a/security/lsm_audit.c b/security/lsm_audit.c
 diff --git a/security/selinux/include/classmap.h b/security/selinux/include/classmap.h
 --- a/security/selinux/include/classmap.h
 +++ b/security/selinux/include/classmap.h
-@@ -248,10 +248,10 @@ struct security_class_mapping secclass_map[] = {
+@@ -249,10 +249,10 @@ struct security_class_mapping secclass_map[] = {
  	  { COMMON_SOCK_PERMS, NULL } },
  	{ "perf_event",
  	  { "open", "cpu", "kernel", "tracepoint", "read", "write", NULL } },
