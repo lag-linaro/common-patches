@@ -2,7 +2,7 @@
 # android-mainline patches
 #
 # Applies onto upstream 8124c8a6b3538 Linux v5.13-rc4
-# Matches android-mainline fac07550bdac9 ("ANDROID: selinux: modify RTM_GETNEIGH{TBL}")
+# Matches android-mainline 1d0fb17cecd7b ("Revert "ANDROID: ARM: Bump command line size"")
 #
 Revert-block-grant-IOPRIO_CLASS_RT-to-CAP_SYS_NICE.patch
 Revert-arm64-dts-qcom-sdm845-db845c-Fix-hdmi-nodes.patch
@@ -36,8 +36,6 @@ FROMLIST-configfs-make-directories-inherit-uid-gid-from-creator.patch
 FROMLIST-export-Make-CRCs-robust-to-symbol-trimming.patch
 FROMLIST-kbuild-Add-dtc-flag-test.patch
 FROMLIST-reboot-Export-reboot_mode.patch
-FROMLIST-hvc_dcc-bind-driver-to-core0-for-reads-and-writes.patch
-FROMLIST-dma-buf-add-support-for-virtio-exported-objects.patch
 FROMLIST-HID-nintendo-add-nintendo-switch-controller-driver.patch
 FROMLIST-fscrypt-Add-functions-for-direct-I-O-support.patch
 FROMLIST-direct-io-add-support-for-fscrypt-using-blk-crypto.patch
@@ -46,7 +44,6 @@ FROMLIST-ext4-support-direct-I-O-with-fscrypt-using-blk-crypto.patch
 FROMLIST-f2fs-support-direct-I-O-with-fscrypt-using-blk-crypto.patch
 FROMLIST-fs-ext4-namei-trivial-Fix-a-couple-of-small-whitespace-issues.patch
 FROMLIST-irqchip-qcom-pdc-Allow-QCOM_PDC-to-be-loadable-as-a-permanent-module.patch
-NOUPSTREAM-FROMLIST-cpuidle-governor-export-cpuidle-governor-functions.patch
 NOUPSTREAM-FROMLIST-scsi-ufs-Export-query-request-interfaces.patch
 _____ANNOTATION-binder-changes_____.patch
 ANDROID-binder-add-support-for-RT-prio-inheritance.patch
@@ -79,6 +76,7 @@ NOUPSTREAM-ANDROID-gic-Add-vendor-hook-for-gic-v3-resume.patch
 NOUPSTREAM-ANDROID-add-vendor-hooks-to-override-show_cpufinfo_max_freq.patch
 NOUPSTREAM-ANDROID-sysrq-add-vendor-hook-for-sysrq-crash-information.patch
 NOUPSTREAM-ANDROID-gic-v3-Add-vendor-hook-to-GIC-v3.patch
+ANDROID-iommu-Add-vendor-hook-for-setting-up-DMA-ops-for-IOMMU-clients.patch
 NOUPSTREAM-ANDROID-scsi-ufs-add-fill_prdt-vendor-hook.patch
 NOUPSTREAM-ANDROID-scsi-ufs-add-a-hook-to-prepare-command.patch
 NOUPSTREAM-ANDROID-scsi-ufs-add-a-hook-to-add-sysfs-entries.patch
@@ -106,7 +104,6 @@ ANDROID-arm64-traps-export-dump_backtrace-symbol.patch
 ANDROID-arm64-debug-monitors-export-break-hook-APIs.patch
 NOUPSTREAM-ANDROID-arm64-allow-hooks-into-ipi.patch
 ANDROID-arm-allow-hooks-into-ipi.patch
-TOSUBMIT-ANDROID-ARM-Bump-command-line-size.patch
 NOUPSTREAM-ANDROID-arm64-Export-show_regs-for-vendor-module-usage.patch
 NOUPSTREAM-ANDROID-ipi-Add-function-to-return-nr_ipi-and-ipi_desc.patch
 _____ANNOTATION-core-kernel-changes_____.patch
@@ -323,5 +320,3 @@ ANDROID-mark-FTRACE_MCOUNT_USE_OBJTOOL-as-BROKEN.patch
 ANDROID-kbuild-Copy-out-of-tree-kernel-headers-to-INSTALL_HDR_PATH.patch
 _____ANNOTATION-Patches-for-bringing-up-new-SoCs_____.patch
 _____ANNOTATION-remove-ANNOTATIONS-file_____.patch
-DROP-ME-obsolete-ION-documentation.patch
-DROP-ME-Upstream-delta-to-back-port-to-android-mainline.patch
