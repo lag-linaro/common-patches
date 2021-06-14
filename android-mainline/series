@@ -2,7 +2,7 @@
 # android-mainline patches
 #
 # Applies onto upstream 009c9aa5be652 Linux v5.13-rc6
-# Matches android-mainline dc3b048b1049d ("Merge tag 'v5.13-rc6' into `android-mainline`")
+# Matches android-mainline 20c8e116ed224 ("UPSTREAM: arm64: meson: select COMMON_CLK")
 #
 Revert-block-grant-IOPRIO_CLASS_RT-to-CAP_SYS_NICE.patch
 Revert-arm64-dts-qcom-sdm845-db845c-Fix-hdmi-nodes.patch
@@ -321,4 +321,3 @@ ANDROID-mark-FTRACE_MCOUNT_USE_OBJTOOL-as-BROKEN.patch
 ANDROID-kbuild-Copy-out-of-tree-kernel-headers-to-INSTALL_HDR_PATH.patch
 _____ANNOTATION-Patches-for-bringing-up-new-SoCs_____.patch
 _____ANNOTATION-remove-ANNOTATIONS-file_____.patch
-DROP-ME-Align-arch-arm64-Kconfig.platforms-with-Mainline.patch
