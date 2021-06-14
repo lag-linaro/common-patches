@@ -12,8 +12,8 @@ Change-Id: I0218d9e64443c881d163e484712edf18e42975fd
 Signed-off-by: Elliot Berman <eberman@codeaurora.org>
 ---
  Documentation/admin-guide/kernel-parameters.txt |  4 ++++
- drivers/tty/hvc/hvc_dcc.c                       | 11 +++++++++--
- 2 files changed, 13 insertions(+), 2 deletions(-)
+ drivers/tty/hvc/hvc_dcc.c                       | 12 ++++++++++--
+ 2 files changed, 14 insertions(+), 2 deletions(-)
 
 diff --git a/Documentation/admin-guide/kernel-parameters.txt b/Documentation/admin-guide/kernel-parameters.txt
 --- a/Documentation/admin-guide/kernel-parameters.txt
@@ -32,7 +32,15 @@ diff --git a/Documentation/admin-guide/kernel-parameters.txt b/Documentation/adm
 diff --git a/drivers/tty/hvc/hvc_dcc.c b/drivers/tty/hvc/hvc_dcc.c
 --- a/drivers/tty/hvc/hvc_dcc.c
 +++ b/drivers/tty/hvc/hvc_dcc.c
-@@ -11,6 +11,13 @@
+@@ -3,6 +3,7 @@
+ 
+ #include <linux/console.h>
+ #include <linux/init.h>
++#include <linux/moduleparam.h>
+ #include <linux/serial.h>
+ #include <linux/serial_core.h>
+ 
+@@ -11,6 +12,13 @@
  
  #include "hvc_console.h"
  
@@ -46,7 +54,7 @@ diff --git a/drivers/tty/hvc/hvc_dcc.c b/drivers/tty/hvc/hvc_dcc.c
  /* DCC Status Bits */
  #define DCC_STATUS_RX		(1 << 30)
  #define DCC_STATUS_TX		(1 << 29)
-@@ -91,7 +98,7 @@ static int __init hvc_dcc_console_init(void)
+@@ -91,7 +99,7 @@ static int __init hvc_dcc_console_init(void)
  {
  	int ret;
  
@@ -55,7 +63,7 @@ diff --git a/drivers/tty/hvc/hvc_dcc.c b/drivers/tty/hvc/hvc_dcc.c
  		return -ENODEV;
  
  	/* Returns -1 if error */
-@@ -105,7 +112,7 @@ static int __init hvc_dcc_init(void)
+@@ -105,7 +113,7 @@ static int __init hvc_dcc_init(void)
  {
  	struct hvc_struct *p;
  

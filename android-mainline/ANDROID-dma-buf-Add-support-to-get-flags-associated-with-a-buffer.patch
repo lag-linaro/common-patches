@@ -15,8 +15,8 @@ Signed-off-by: Isaac J. Manjarres <isaacm@codeaurora.org>
 Signed-off-by: Sandeep Patil <sspatil@google.com>
 ---
  drivers/dma-buf/dma-buf.c | 14 ++++++++++++++
- include/linux/dma-buf.h   | 16 ++++++++++++++++
- 2 files changed, 30 insertions(+)
+ include/linux/dma-buf.h   | 15 +++++++++++++++
+ 2 files changed, 29 insertions(+)
 
 diff --git a/drivers/dma-buf/dma-buf.c b/drivers/dma-buf/dma-buf.c
 --- a/drivers/dma-buf/dma-buf.c
@@ -66,10 +66,9 @@ diff --git a/include/linux/dma-buf.h b/include/linux/dma-buf.h
  };
  
  /**
-@@ -573,4 +587,6 @@ int dma_buf_mmap(struct dma_buf *, struct vm_area_struct *,
+@@ -573,4 +587,5 @@ int dma_buf_mmap(struct dma_buf *, struct vm_area_struct *,
  		 unsigned long);
  int dma_buf_vmap(struct dma_buf *dmabuf, struct dma_buf_map *map);
  void dma_buf_vunmap(struct dma_buf *dmabuf, struct dma_buf_map *map);
 +int dma_buf_get_flags(struct dma_buf *dmabuf, unsigned long *flags);
-+
  #endif /* __DMA_BUF_H__ */

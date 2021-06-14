@@ -2,7 +2,7 @@
 # android-mainline patches
 #
 # Applies onto upstream 8124c8a6b3538 Linux v5.13-rc4
-# Matches android-mainline 1d0fb17cecd7b ("Revert "ANDROID: ARM: Bump command line size"")
+# Matches android-mainline 3777f3811a7f5 ("ANDROID: kernel: Fix passing NULL to __pa_symbol()")
 #
 Revert-block-grant-IOPRIO_CLASS_RT-to-CAP_SYS_NICE.patch
 Revert-arm64-dts-qcom-sdm845-db845c-Fix-hdmi-nodes.patch

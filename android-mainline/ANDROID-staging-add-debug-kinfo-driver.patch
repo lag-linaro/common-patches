@@ -21,9 +21,9 @@ Signed-off-by: Lee Jones <lee.jones@linaro.org>
 ---
  drivers/staging/android/Kconfig       |  11 ++
  drivers/staging/android/Makefile      |   1 +
- drivers/staging/android/debug_kinfo.c | 176 ++++++++++++++++++++++++++
+ drivers/staging/android/debug_kinfo.c | 179 ++++++++++++++++++++++++++
  drivers/staging/android/debug_kinfo.h |  63 +++++++++
- 4 files changed, 251 insertions(+)
+ 4 files changed, 254 insertions(+)
  create mode 100644 drivers/staging/android/debug_kinfo.c
  create mode 100644 drivers/staging/android/debug_kinfo.h
 
@@ -60,7 +60,7 @@ diff --git a/drivers/staging/android/debug_kinfo.c b/drivers/staging/android/deb
 new file mode 100644
 --- /dev/null
 +++ b/drivers/staging/android/debug_kinfo.c
-@@ -0,0 +1,176 @@
+@@ -0,0 +1,179 @@
 +// SPDX-License-Identifier: GPL-2.0
 +/*
 + * debug_kinfo.c - backup kernel information for bootloader usage
@@ -198,14 +198,17 @@ new file mode 100644
 +	info->bit_per_long = BITS_PER_LONG;
 +	info->module_name_len = MODULE_NAME_LEN;
 +	info->symbol_len = KSYM_SYMBOL_LEN;
-+	info->_addresses_pa = (u64)__pa_symbol((volatile void *)kallsyms_addresses);
-+	info->_relative_pa = (u64)__pa_symbol((volatile void *)kallsyms_relative_base);
++	if (!info->enabled_base_relative)
++		info->_addresses_pa = (u64)__pa_symbol((volatile void *)kallsyms_addresses);
++	else {
++		info->_relative_pa = (u64)__pa_symbol((volatile void *)kallsyms_relative_base);
++		info->_offsets_pa = (u64)__pa_symbol((volatile void *)kallsyms_offsets);
++	}
 +	info->_stext_pa = (u64)__pa_symbol(_stext);
 +	info->_etext_pa = (u64)__pa_symbol(_etext);
 +	info->_sinittext_pa = (u64)__pa_symbol(_sinittext);
 +	info->_einittext_pa = (u64)__pa_symbol(_einittext);
 +	info->_end_pa = (u64)__pa_symbol(_end);
-+	info->_offsets_pa = (u64)__pa_symbol((volatile void *)kallsyms_offsets);
 +	info->_names_pa = (u64)__pa_symbol((volatile void *)kallsyms_names);
 +	info->_token_table_pa = (u64)__pa_symbol((volatile void *)kallsyms_token_table);
 +	info->_token_index_pa = (u64)__pa_symbol((volatile void *)kallsyms_token_index);
