@@ -218,7 +218,7 @@ new file mode 100644
 diff --git a/MAINTAINERS b/MAINTAINERS
 --- a/MAINTAINERS
 +++ b/MAINTAINERS
-@@ -8941,6 +8941,13 @@ F:	Documentation/hwmon/ina2xx.rst
+@@ -8943,6 +8943,13 @@ F:	Documentation/hwmon/ina2xx.rst
  F:	drivers/hwmon/ina2xx.c
  F:	include/linux/platform_data/ina2xx.h
  

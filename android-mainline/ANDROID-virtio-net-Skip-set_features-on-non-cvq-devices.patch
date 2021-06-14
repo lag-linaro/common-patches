@@ -70,7 +70,7 @@ Signed-off-by: Alistair Delva <adelva@google.com>
 diff --git a/drivers/net/virtio_net.c b/drivers/net/virtio_net.c
 --- a/drivers/net/virtio_net.c
 +++ b/drivers/net/virtio_net.c
-@@ -2599,6 +2599,9 @@ static int virtnet_set_features(struct net_device *dev,
+@@ -2595,6 +2595,9 @@ static int virtnet_set_features(struct net_device *dev,
  	u64 offloads;
  	int err;
  

@@ -166,7 +166,7 @@ diff --git a/net/ipv6/addrconf.c b/net/ipv6/addrconf.c
 diff --git a/net/ipv6/route.c b/net/ipv6/route.c
 --- a/net/ipv6/route.c
 +++ b/net/ipv6/route.c
-@@ -4133,7 +4133,7 @@ static struct fib6_info *rt6_get_route_info(struct net *net,
+@@ -4137,7 +4137,7 @@ static struct fib6_info *rt6_get_route_info(struct net *net,
  					   const struct in6_addr *gwaddr,
  					   struct net_device *dev)
  {
@@ -175,7 +175,7 @@ diff --git a/net/ipv6/route.c b/net/ipv6/route.c
  	int ifindex = dev->ifindex;
  	struct fib6_node *fn;
  	struct fib6_info *rt = NULL;
-@@ -4187,7 +4187,7 @@ static struct fib6_info *rt6_add_route_info(struct net *net,
+@@ -4191,7 +4191,7 @@ static struct fib6_info *rt6_add_route_info(struct net *net,
  		.fc_nlinfo.nl_net = net,
  	};
  
@@ -184,7 +184,7 @@ diff --git a/net/ipv6/route.c b/net/ipv6/route.c
  	cfg.fc_dst = *prefix;
  	cfg.fc_gateway = *gwaddr;
  
-@@ -4205,7 +4205,7 @@ struct fib6_info *rt6_get_dflt_router(struct net *net,
+@@ -4209,7 +4209,7 @@ struct fib6_info *rt6_get_dflt_router(struct net *net,
  				     const struct in6_addr *addr,
  				     struct net_device *dev)
  {
@@ -193,7 +193,7 @@ diff --git a/net/ipv6/route.c b/net/ipv6/route.c
  	struct fib6_info *rt;
  	struct fib6_table *table;
  
-@@ -4240,7 +4240,7 @@ struct fib6_info *rt6_add_dflt_router(struct net *net,
+@@ -4244,7 +4244,7 @@ struct fib6_info *rt6_add_dflt_router(struct net *net,
  				     u32 defrtr_usr_metric)
  {
  	struct fib6_config cfg = {
@@ -202,7 +202,7 @@ diff --git a/net/ipv6/route.c b/net/ipv6/route.c
  		.fc_metric	= defrtr_usr_metric,
  		.fc_ifindex	= dev->ifindex,
  		.fc_flags	= RTF_GATEWAY | RTF_ADDRCONF | RTF_DEFAULT |
-@@ -4265,47 +4265,24 @@ struct fib6_info *rt6_add_dflt_router(struct net *net,
+@@ -4269,47 +4269,24 @@ struct fib6_info *rt6_add_dflt_router(struct net *net,
  	return rt6_get_dflt_router(net, gwaddr, dev);
  }
  
