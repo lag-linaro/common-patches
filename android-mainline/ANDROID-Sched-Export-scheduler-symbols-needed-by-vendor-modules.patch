@@ -45,7 +45,7 @@ diff --git a/kernel/fork.c b/kernel/fork.c
 diff --git a/kernel/irq_work.c b/kernel/irq_work.c
 --- a/kernel/irq_work.c
 +++ b/kernel/irq_work.c
-@@ -116,7 +116,7 @@ bool irq_work_queue_on(struct irq_work *work, int cpu)
+@@ -113,7 +113,7 @@ bool irq_work_queue_on(struct irq_work *work, int cpu)
  	return true;
  #endif /* CONFIG_SMP */
  }

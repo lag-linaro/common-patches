@@ -1,8 +1,8 @@
 #
 # android-mainline patches
 #
-# Applies onto upstream 614124bea77e4 Linux v5.13-rc5
-# Matches android-mainline 382e68666b7f9 ("ANDROID: core of xt_IDLETIMER send_nl_msg support")
+# Applies onto upstream 8ecfa36cd4db3 Linux v5.13-rc5-241-g8ecfa36cd4db3
+# Matches android-mainline 1a6552d0ed744 ("Merge 8ecfa36cd4db ("Merge tag 'riscv-for-linus-5.13-rc6' of git://git.kernel.org/pub/scm/linux/kernel/git/riscv/linux") into android-mainline")
 #
 Revert-block-grant-IOPRIO_CLASS_RT-to-CAP_SYS_NICE.patch
 Revert-arm64-dts-qcom-sdm845-db845c-Fix-hdmi-nodes.patch

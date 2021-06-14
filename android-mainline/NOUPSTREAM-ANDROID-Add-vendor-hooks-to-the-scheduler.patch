@@ -137,7 +137,7 @@ diff --git a/include/linux/sched.h b/include/linux/sched.h
  #include <asm/kmap_size.h>
  
  /* task_struct member predeclarations (sorted alphabetically): */
-@@ -1378,6 +1379,7 @@ struct task_struct {
+@@ -1386,6 +1387,7 @@ struct task_struct {
  					__mce_reserved : 62;
  	struct callback_head		mce_kill_me;
  #endif
@@ -690,7 +690,7 @@ diff --git a/kernel/sched/fair.c b/kernel/sched/fair.c
  /*
   * Targeted preemption latency for CPU-bound tasks:
   *
-@@ -5515,6 +5517,7 @@ enqueue_task_fair(struct rq *rq, struct task_struct *p, int flags)
+@@ -5521,6 +5523,7 @@ enqueue_task_fair(struct rq *rq, struct task_struct *p, int flags)
  	struct sched_entity *se = &p->se;
  	int idle_h_nr_running = task_has_idle_policy(p);
  	int task_new = !(flags & ENQUEUE_WAKEUP);
@@ -698,7 +698,7 @@ diff --git a/kernel/sched/fair.c b/kernel/sched/fair.c
  
  	/*
  	 * The code below (indirectly) updates schedutil which looks at
-@@ -5529,7 +5532,9 @@ enqueue_task_fair(struct rq *rq, struct task_struct *p, int flags)
+@@ -5535,7 +5538,9 @@ enqueue_task_fair(struct rq *rq, struct task_struct *p, int flags)
  	 * utilization updates, so do it here explicitly with the IOWAIT flag
  	 * passed.
  	 */
@@ -709,7 +709,7 @@ diff --git a/kernel/sched/fair.c b/kernel/sched/fair.c
  		cpufreq_update_util(rq, SCHED_CPUFREQ_IOWAIT);
  
  	for_each_sched_entity(se) {
-@@ -6563,6 +6568,7 @@ compute_energy(struct task_struct *p, int dst_cpu, struct perf_domain *pd)
+@@ -6569,6 +6574,7 @@ compute_energy(struct task_struct *p, int dst_cpu, struct perf_domain *pd)
  	struct cpumask *pd_mask = perf_domain_span(pd);
  	unsigned long cpu_cap = arch_scale_cpu_capacity(cpumask_first(pd_mask));
  	unsigned long max_util = 0, sum_util = 0;
@@ -717,7 +717,7 @@ diff --git a/kernel/sched/fair.c b/kernel/sched/fair.c
  	int cpu;
  
  	/*
-@@ -6615,7 +6621,11 @@ compute_energy(struct task_struct *p, int dst_cpu, struct perf_domain *pd)
+@@ -6621,7 +6627,11 @@ compute_energy(struct task_struct *p, int dst_cpu, struct perf_domain *pd)
  		max_util = max(max_util, cpu_util);
  	}
  
@@ -730,7 +730,7 @@ diff --git a/kernel/sched/fair.c b/kernel/sched/fair.c
  }
  
  /*
-@@ -6665,6 +6675,11 @@ static int find_energy_efficient_cpu(struct task_struct *p, int prev_cpu)
+@@ -6671,6 +6681,11 @@ static int find_energy_efficient_cpu(struct task_struct *p, int prev_cpu)
  	int cpu, best_energy_cpu = prev_cpu;
  	struct sched_domain *sd;
  	struct perf_domain *pd;
@@ -742,7 +742,7 @@ diff --git a/kernel/sched/fair.c b/kernel/sched/fair.c
  
  	rcu_read_lock();
  	pd = rcu_dereference(rd->pd);
-@@ -6782,9 +6797,15 @@ select_task_rq_fair(struct task_struct *p, int prev_cpu, int wake_flags)
+@@ -6788,9 +6803,15 @@ select_task_rq_fair(struct task_struct *p, int prev_cpu, int wake_flags)
  	int cpu = smp_processor_id();
  	int new_cpu = prev_cpu;
  	int want_affine = 0;
@@ -758,7 +758,7 @@ diff --git a/kernel/sched/fair.c b/kernel/sched/fair.c
  	if (wake_flags & WF_TTWU) {
  		record_wakee(p);
  
-@@ -7492,6 +7513,7 @@ struct lb_env {
+@@ -7498,6 +7519,7 @@ struct lb_env {
  	enum fbq_type		fbq_type;
  	enum migration_type	migration_type;
  	struct list_head	tasks;
@@ -766,7 +766,7 @@ diff --git a/kernel/sched/fair.c b/kernel/sched/fair.c
  };
  
  /*
-@@ -7598,9 +7620,14 @@ static
+@@ -7604,9 +7626,14 @@ static
  int can_migrate_task(struct task_struct *p, struct lb_env *env)
  {
  	int tsk_cache_hot;
@@ -781,7 +781,7 @@ diff --git a/kernel/sched/fair.c b/kernel/sched/fair.c
  	/*
  	 * We do not migrate tasks that are:
  	 * 1) throttled_lb_pair, or
-@@ -7688,8 +7715,20 @@ int can_migrate_task(struct task_struct *p, struct lb_env *env)
+@@ -7694,8 +7721,20 @@ int can_migrate_task(struct task_struct *p, struct lb_env *env)
   */
  static void detach_task(struct task_struct *p, struct lb_env *env)
  {
@@ -802,7 +802,7 @@ diff --git a/kernel/sched/fair.c b/kernel/sched/fair.c
  	deactivate_task(env->src_rq, p, DEQUEUE_NOCLOCK);
  	set_task_cpu(p, env->dst_cpu);
  }
-@@ -9259,8 +9298,12 @@ static struct sched_group *find_busiest_group(struct lb_env *env)
+@@ -9265,8 +9304,12 @@ static struct sched_group *find_busiest_group(struct lb_env *env)
  
  	if (sched_energy_enabled()) {
  		struct root_domain *rd = env->dst_rq->rd;
@@ -816,7 +816,7 @@ diff --git a/kernel/sched/fair.c b/kernel/sched/fair.c
  			goto out_balanced;
  	}
  
-@@ -9379,7 +9422,12 @@ static struct rq *find_busiest_queue(struct lb_env *env,
+@@ -9385,7 +9428,12 @@ static struct rq *find_busiest_queue(struct lb_env *env,
  	struct rq *busiest = NULL, *rq;
  	unsigned long busiest_util = 0, busiest_load = 0, busiest_capacity = 1;
  	unsigned int busiest_nr = 0;
@@ -830,7 +830,7 @@ diff --git a/kernel/sched/fair.c b/kernel/sched/fair.c
  
  	for_each_cpu_and(i, sched_group_span(group), env->cpus) {
  		unsigned long capacity, load, util;
-@@ -9670,6 +9718,7 @@ static int load_balance(int this_cpu, struct rq *this_rq,
+@@ -9676,6 +9724,7 @@ static int load_balance(int this_cpu, struct rq *this_rq,
  
  more_balance:
  		rq_lock_irqsave(busiest, &rf);
@@ -838,7 +838,7 @@ diff --git a/kernel/sched/fair.c b/kernel/sched/fair.c
  		update_rq_clock(busiest);
  
  		/*
-@@ -9964,6 +10013,7 @@ static int active_load_balance_cpu_stop(void *data)
+@@ -9970,6 +10019,7 @@ static int active_load_balance_cpu_stop(void *data)
  			.src_rq		= busiest_rq,
  			.idle		= CPU_IDLE,
  			.flags		= LBF_ACTIVE_LB,
@@ -846,7 +846,7 @@ diff --git a/kernel/sched/fair.c b/kernel/sched/fair.c
  		};
  
  		schedstat_inc(sd->alb_count);
-@@ -10174,6 +10224,7 @@ static void nohz_balancer_kick(struct rq *rq)
+@@ -10180,6 +10230,7 @@ static void nohz_balancer_kick(struct rq *rq)
  	struct sched_domain *sd;
  	int nr_busy, i, cpu = rq->cpu;
  	unsigned int flags = 0;
@@ -854,7 +854,7 @@ diff --git a/kernel/sched/fair.c b/kernel/sched/fair.c
  
  	if (unlikely(rq->idle_balance))
  		return;
-@@ -10198,6 +10249,10 @@ static void nohz_balancer_kick(struct rq *rq)
+@@ -10204,6 +10255,10 @@ static void nohz_balancer_kick(struct rq *rq)
  	if (time_before(now, nohz.next_balance))
  		goto out;
  
@@ -865,7 +865,7 @@ diff --git a/kernel/sched/fair.c b/kernel/sched/fair.c
  	if (rq->nr_running >= 2) {
  		flags = NOHZ_KICK_MASK;
  		goto out;
-@@ -10590,6 +10645,11 @@ static int newidle_balance(struct rq *this_rq, struct rq_flags *rf)
+@@ -10596,6 +10651,11 @@ static int newidle_balance(struct rq *this_rq, struct rq_flags *rf)
  	struct sched_domain *sd;
  	int pulled_task = 0;
  	u64 curr_cost = 0;

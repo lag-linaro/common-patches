@@ -58,7 +58,7 @@ diff --git a/include/sound/soc.h b/include/sound/soc.h
 diff --git a/sound/soc/soc-core.c b/sound/soc/soc-core.c
 --- a/sound/soc/soc-core.c
 +++ b/sound/soc/soc-core.c
-@@ -2995,6 +2995,39 @@ int snd_soc_get_dai_id(struct device_node *ep)
+@@ -2997,6 +2997,39 @@ int snd_soc_get_dai_id(struct device_node *ep)
  }
  EXPORT_SYMBOL_GPL(snd_soc_get_dai_id);
  

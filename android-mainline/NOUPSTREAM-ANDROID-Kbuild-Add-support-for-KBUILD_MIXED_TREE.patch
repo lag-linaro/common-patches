@@ -134,7 +134,7 @@ diff --git a/arch/arm64/Makefile b/arch/arm64/Makefile
 diff --git a/arch/x86/Makefile b/arch/x86/Makefile
 --- a/arch/x86/Makefile
 +++ b/arch/x86/Makefile
-@@ -260,8 +260,11 @@ BOOT_TARGETS = bzdisk fdimage fdimage144 fdimage288 isoimage
+@@ -261,8 +261,11 @@ BOOT_TARGETS = bzdisk fdimage fdimage144 fdimage288 isoimage
  
  PHONY += bzImage $(BOOT_TARGETS)
  
