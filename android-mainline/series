@@ -2,7 +2,7 @@
 # android-mainline patches
 #
 # Applies onto upstream 614124bea77e4 Linux v5.13-rc5
-# Matches android-mainline 5f0a72b046719 ("Merge 5.13-rc5 into android-mainline")
+# Matches android-mainline 382e68666b7f9 ("ANDROID: core of xt_IDLETIMER send_nl_msg support")
 #
 Revert-block-grant-IOPRIO_CLASS_RT-to-CAP_SYS_NICE.patch
 Revert-arm64-dts-qcom-sdm845-db845c-Fix-hdmi-nodes.patch
@@ -291,6 +291,8 @@ ANDROID-virtio-net-Skip-set_features-on-non-cvq-devices.patch
 ANDROID-Unconditionally-create-bridge-tracepoints.patch
 ANDROID-Temporarily-disable-XFRM_USER_COMPAT-filtering.patch
 ANDROID-roll-back-xt_IDLETIMER-to-5.10.21-upstream-vanilla-version.patch
+ANDROID-start-to-re-add-xt_IDLETIMER-send_nl_msg-support.patch
+ANDROID-core-of-xt_IDLETIMER-send_nl_msg-support.patch
 _____ANNOTATION-hardware-wrapped-key-support_____.patch
 ANDROID-block-add-hardware-wrapped-key-support.patch
 ANDROID-dm-add-support-for-passing-through-derive_raw_secret.patch
@@ -319,3 +321,4 @@ ANDROID-mark-FTRACE_MCOUNT_USE_OBJTOOL-as-BROKEN.patch
 ANDROID-kbuild-Copy-out-of-tree-kernel-headers-to-INSTALL_HDR_PATH.patch
 _____ANNOTATION-Patches-for-bringing-up-new-SoCs_____.patch
 _____ANNOTATION-remove-ANNOTATIONS-file_____.patch
+DROP-ME-Align-arch-arm64-Kconfig.platforms-with-Mainline.patch

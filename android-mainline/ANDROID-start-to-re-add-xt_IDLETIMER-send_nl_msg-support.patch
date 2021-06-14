@@ -1,0 +1,66 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Maciej=20=C5=BBenczykowski?= <maze@google.com>
+Date: Thu, 13 May 2021 15:08:38 -0700
+Subject: ANDROID: start to re-add xt_IDLETIMER send_nl_msg support
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+This was reverted in ee6918c6f7ef8697012f8cc5bd77e8983ce313b5 due to conflicts with
+upstream, this first patch is just the minimum necessary to make the netfilter
+IDLETIMER target with --send_nl_msg load successfully:
+
+  phone-5.10:/ # iptables-save | egrep IDLETIMER
+  -A idletimer_raw_PREROUTING -i rmnet0 -j IDLETIMER --timeout 10 --label 0 --send_nl_msg
+  -A idletimer_mangle_POSTROUTING -o rmnet0 -j IDLETIMER --timeout 10 --label 0 --send_nl_msg
+  phone-5.10:/ # ip6tables-save | egrep IDLETIMER
+  -A idletimer_raw_PREROUTING -i rmnet0 -j IDLETIMER --timeout 10 --label 0 --send_nl_msg
+  -A idletimer_mangle_POSTROUTING -o rmnet0 -j IDLETIMER --timeout 10 --label 0 --send_nl_msg
+
+Test: builds, and kernel net tests passes, booted on phone, observed ip{,6}tables loading rules
+Bug: 183485987
+Signed-off-by: Maciej Żenczykowski <maze@google.com>
+Change-Id: I1fe2c4e41a092cc82c3d6d49d1217798b2728bcb
+(cherry picked from commit b4355a880a670a66d2f75c68f78d5526f3cc72a6)
+---
+ include/uapi/linux/netfilter/xt_IDLETIMER.h | 2 +-
+ net/netfilter/xt_IDLETIMER.c                | 8 +++++---
+ 2 files changed, 6 insertions(+), 4 deletions(-)
+
+diff --git a/include/uapi/linux/netfilter/xt_IDLETIMER.h b/include/uapi/linux/netfilter/xt_IDLETIMER.h
+--- a/include/uapi/linux/netfilter/xt_IDLETIMER.h
++++ b/include/uapi/linux/netfilter/xt_IDLETIMER.h
+@@ -48,7 +48,7 @@ struct idletimer_tg_info_v1 {
+ 
+ 	char label[MAX_IDLETIMER_LABEL_SIZE];
+ 
+-	__u8 send_nl_msg;   /* unused: for compatibility with Android */
++	__u8 send_nl_msg;
+ 	__u8 timer_type;
+ 
+ 	/* for kernel module internal use only */
+diff --git a/net/netfilter/xt_IDLETIMER.c b/net/netfilter/xt_IDLETIMER.c
+--- a/net/netfilter/xt_IDLETIMER.c
++++ b/net/netfilter/xt_IDLETIMER.c
+@@ -346,9 +346,6 @@ static int idletimer_tg_checkentry_v1(const struct xt_tgchk_param *par)
+ 
+ 	pr_debug("checkentry targinfo%s\n", info->label);
+ 
+-	if (info->send_nl_msg)
+-		return -EOPNOTSUPP;
+-
+ 	ret = idletimer_tg_helper((struct idletimer_tg_info *)info);
+ 	if(ret < 0)
+ 	{
+@@ -361,6 +358,11 @@ static int idletimer_tg_checkentry_v1(const struct xt_tgchk_param *par)
+ 		return -EINVAL;
+ 	}
+ 
++	if (info->send_nl_msg > 1) {
++		pr_debug("invalid value for send_nl_msg\n");
++		return -EINVAL;
++	}
++
+ 	mutex_lock(&list_mutex);
+ 
+ 	info->timer = __idletimer_tg_find_by_label(info->label);

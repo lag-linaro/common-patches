@@ -18,8 +18,8 @@ Signed-off-by: Todd Kjos <tkjos@google.com>
 Signed-off-by: Lee Jones <lee.jones@linaro.org>
 ---
  init/Kconfig     |   2 +
- init/Kconfig.gki | 247 +++++++++++++++++++++++++++++++++++++++++++++++
- 2 files changed, 249 insertions(+)
+ init/Kconfig.gki | 255 +++++++++++++++++++++++++++++++++++++++++++++++
+ 2 files changed, 257 insertions(+)
  create mode 100644 init/Kconfig.gki
 
 diff --git a/init/Kconfig b/init/Kconfig
@@ -35,7 +35,7 @@ diff --git a/init/Kconfig.gki b/init/Kconfig.gki
 new file mode 100644
 --- /dev/null
 +++ b/init/Kconfig.gki
-@@ -0,0 +1,247 @@
+@@ -0,0 +1,255 @@
 +config GKI_HIDDEN_DRM_CONFIGS
 +	bool "Hidden DRM configs needed for GKI"
 +	select DRM_KMS_HELPER if (HAS_IOMEM && DRM)
@@ -248,6 +248,13 @@ new file mode 100644
 +	  Dummy config option used to enable hidden MM configs,
 +	  currently required for VIRTIO_BALLOON
 +
++config GKI_HIDDEN_ETHERNET_CONFIGS
++	bool "Hidden Ethernet configuration needed for GKI"
++	select PHYLINK
++	help
++	  Dummy config option used to enable the hidden Ethernet PHYLINK
++	  configs, required by various ethernet devices.
++
 +# Atrocities needed for
 +# a) building GKI modules in separate tree, or
 +# b) building drivers that are not modularizable
@@ -277,6 +284,7 @@ new file mode 100644
 +	select GKI_HIDDEN_NET_CONFIGS
 +	select GKI_HIDDEN_PHY_CONFIGS
 +	select GKI_HIDDEN_MM_CONFIGS
++	select GKI_HIDDEN_ETHERNET_CONFIGS
 +	help
 +	  Dummy config option used to enable core functionality used by
 +	  modules that may not be selectable in this config.
