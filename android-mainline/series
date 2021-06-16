@@ -1,8 +1,8 @@
 #
 # android-mainline patches
 #
-# Applies onto upstream 009c9aa5be652 Linux v5.13-rc6
-# Matches android-mainline 04da98cac1e8c ("FROMLIST: kbuild: mkcompile_h: consider timestamp if KBUILD_BUILD_TIMESTAMP is set")
+# Applies onto upstream 94f0b2d4a1d0c Linux v5.13-rc6-2-g94f0b2d4a1d0c
+# Matches android-mainline 0e3cbd84f4af9 ("Merge 94f0b2d4a1d0 ("proc: only require mm_struct for writing") into android-mainline")
 #
 Revert-block-grant-IOPRIO_CLASS_RT-to-CAP_SYS_NICE.patch
 Revert-arm64-dts-qcom-sdm845-db845c-Fix-hdmi-nodes.patch
