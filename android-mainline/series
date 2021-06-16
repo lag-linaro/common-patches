@@ -2,7 +2,7 @@
 # android-mainline patches
 #
 # Applies onto upstream 009c9aa5be652 Linux v5.13-rc6
-# Matches android-mainline 20c8e116ed224 ("UPSTREAM: arm64: meson: select COMMON_CLK")
+# Matches android-mainline dcf357e236172 ("ANDROID: gki - CONFIG_NET_SCH_FQ=y")
 #
 Revert-block-grant-IOPRIO_CLASS_RT-to-CAP_SYS_NICE.patch
 Revert-arm64-dts-qcom-sdm845-db845c-Fix-hdmi-nodes.patch

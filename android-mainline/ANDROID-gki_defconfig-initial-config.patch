@@ -18,9 +18,9 @@ Signed-off-by: Matthias Maennich <maennich@google.com>
 [joneslee: Squash latest config changes]
 Signed-off-by: Lee Jones <lee.jones@linaro.org>
 ---
- arch/arm64/configs/gki_defconfig | 662 +++++++++++++++++++++++++++++++
- arch/x86/configs/gki_defconfig   | 601 ++++++++++++++++++++++++++++
- 2 files changed, 1263 insertions(+)
+ arch/arm64/configs/gki_defconfig | 663 +++++++++++++++++++++++++++++++
+ arch/x86/configs/gki_defconfig   | 602 ++++++++++++++++++++++++++++
+ 2 files changed, 1265 insertions(+)
  create mode 100644 arch/arm64/configs/gki_defconfig
  create mode 100644 arch/x86/configs/gki_defconfig
 
@@ -28,7 +28,7 @@ diff --git a/arch/arm64/configs/gki_defconfig b/arch/arm64/configs/gki_defconfig
 new file mode 100644
 --- /dev/null
 +++ b/arch/arm64/configs/gki_defconfig
-@@ -0,0 +1,662 @@
+@@ -0,0 +1,663 @@
 +CONFIG_LOCALVERSION="-mainline"
 +CONFIG_AUDIT=y
 +CONFIG_NO_HZ=y
@@ -255,6 +255,7 @@ new file mode 100644
 +CONFIG_NET_SCH_NETEM=y
 +CONFIG_NET_SCH_CODEL=y
 +CONFIG_NET_SCH_FQ_CODEL=y
++CONFIG_NET_SCH_FQ=y
 +CONFIG_NET_SCH_INGRESS=y
 +CONFIG_NET_CLS_BASIC=y
 +CONFIG_NET_CLS_TCINDEX=y
@@ -695,7 +696,7 @@ diff --git a/arch/x86/configs/gki_defconfig b/arch/x86/configs/gki_defconfig
 new file mode 100644
 --- /dev/null
 +++ b/arch/x86/configs/gki_defconfig
-@@ -0,0 +1,601 @@
+@@ -0,0 +1,602 @@
 +CONFIG_LOCALVERSION="-mainline"
 +CONFIG_KERNEL_LZ4=y
 +# CONFIG_USELIB is not set
@@ -903,6 +904,7 @@ new file mode 100644
 +CONFIG_NET_SCH_NETEM=y
 +CONFIG_NET_SCH_CODEL=y
 +CONFIG_NET_SCH_FQ_CODEL=y
++CONFIG_NET_SCH_FQ=y
 +CONFIG_NET_SCH_INGRESS=y
 +CONFIG_NET_CLS_BASIC=y
 +CONFIG_NET_CLS_TCINDEX=y
