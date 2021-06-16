@@ -2,7 +2,7 @@
 # android-mainline patches
 #
 # Applies onto upstream 009c9aa5be652 Linux v5.13-rc6
-# Matches android-mainline dcf357e236172 ("ANDROID: gki - CONFIG_NET_SCH_FQ=y")
+# Matches android-mainline 04da98cac1e8c ("FROMLIST: kbuild: mkcompile_h: consider timestamp if KBUILD_BUILD_TIMESTAMP is set")
 #
 Revert-block-grant-IOPRIO_CLASS_RT-to-CAP_SYS_NICE.patch
 Revert-arm64-dts-qcom-sdm845-db845c-Fix-hdmi-nodes.patch
@@ -92,6 +92,7 @@ NOUPSTREAM-ANDROID-scripts-setlocalversion-allow-running-in-a-subdir.patch
 NOUPSTREAM-ANDROID-modules-introduce-the-MODULE_SCMVERSION-config.patch
 NOUPSTREAM-ANDROID-modpost-Support-relative-paths-for-module_srcpath.patch
 NOUPSTREAM-ANDROID-Kbuild-Add-support-for-KBUILD_MIXED_TREE.patch
+FROMLIST-kbuild-mkcompile_h-consider-timestamp-if-KBUILD_BUILD_TIMESTAMP-is-set.patch
 _____ANNOTATION-x86-changes_____.patch
 ANDROID-Setting-up-GS-before-calling-__restore_processor_state.patch
 _____ANNOTATION-arm-and-arm64-changes_____.patch
