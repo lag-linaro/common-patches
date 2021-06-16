@@ -2,7 +2,7 @@
 # android-mainline patches
 #
 # Applies onto upstream 94f0b2d4a1d0c Linux v5.13-rc6-2-g94f0b2d4a1d0c
-# Matches android-mainline 0e3cbd84f4af9 ("Merge 94f0b2d4a1d0 ("proc: only require mm_struct for writing") into android-mainline")
+# Matches android-mainline 57d2ff9b16798 ("Revert "ANDROID: cpu: send KOBJ_ONLINE event when enabling cpus"")
 #
 Revert-block-grant-IOPRIO_CLASS_RT-to-CAP_SYS_NICE.patch
 Revert-arm64-dts-qcom-sdm845-db845c-Fix-hdmi-nodes.patch
@@ -108,7 +108,6 @@ ANDROID-arm-allow-hooks-into-ipi.patch
 NOUPSTREAM-ANDROID-arm64-Export-show_regs-for-vendor-module-usage.patch
 NOUPSTREAM-ANDROID-ipi-Add-function-to-return-nr_ipi-and-ipi_desc.patch
 _____ANNOTATION-core-kernel-changes_____.patch
-ANDROID-cpu-send-KOBJ_ONLINE-event-when-enabling-cpus.patch
 CHROMIUM-cgroups-relax-permissions-on-moving-tasks-between-cgroups.patch
 ANDROID-export-Disable-symbol-trimming-on-modules.patch
 ANDROID-unconditionally-compile-sig_ok-in-struct-module.patch
