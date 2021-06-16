@@ -1,10 +1,12 @@
 From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
 From: Lina Iyer <ilina@codeaurora.org>
 Date: Tue, 15 Sep 2020 16:21:38 -0600
-Subject: ANDROID: tick/nohz: export tick_nohz_get_sleep_length()
+Subject: NOUPSTREAM: ANDROID: tick/nohz: export tick_nohz_get_sleep_length()
 
 Export tick_nohz_get_sleep_length() so idle drivers may use this to
 determine the available idle time before the next timer wakeup.
+
+[CPNOTE: 16/06/21] Lee: 'tick_nohz_get_sleep_length' present in aosp/android12-5.10:android/abi_gki_aarch64.xml
 
 Bug: 169136276
 Signed-off-by: Lina Iyer <ilina@codeaurora.org>

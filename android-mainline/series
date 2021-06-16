@@ -113,7 +113,7 @@ ANDROID-export-Disable-symbol-trimming-on-modules.patch
 ANDROID-unconditionally-compile-sig_ok-in-struct-module.patch
 ANDROID-GKI-signal-Export-for-__lock_task_sighand.patch
 ANDROID-GKI-time-Export-for-nsec_to_clock_t.patch
-ANDROID-tick-nohz-export-tick_nohz_get_sleep_length.patch
+NOUPSTREAM-ANDROID-tick-nohz-export-tick_nohz_get_sleep_length.patch
 ANDROID-GKI-pid-Export-for-find_task_by_vpid.patch
 ANDROID-Export-perf_event_read_local-function.patch
 ANDROID-printk-printk_deferred-for-modules.patch

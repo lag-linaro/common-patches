@@ -8,6 +8,8 @@ Subject: ANDROID: GKI: signal: Export for __lock_task_sighand
     - This API is required by loadable driver module from samsung to
       Lock task structure, when reading task/process related information.
 
+[CPNOTE: 16/06/21] Lee: Reopened/assigned bug
+
 Signed-off-by: Abhilasha Rao <abhilasha.hv@samsung.corp-partner.google.com>
 Bug: 158067689
 Change-Id: Ia54e17b1f2630bcc648e7840cf36e743f08ba9c9

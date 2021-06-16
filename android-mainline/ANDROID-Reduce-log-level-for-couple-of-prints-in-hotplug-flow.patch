@@ -7,6 +7,8 @@ During the cpu hot plug stress testing, couple of messages
 continuous flooding on to the console is causing timers
 migration delay.
 
+[CPNOTE: 16/06/21] Lee: Going to attempt to upstream these changes
+
 Bug: 165340180
 Change-Id: I18f96613242a7a821ff707bcdaac794ccefd0bba
 Signed-off-by: Prasad Sodagudi <psodagud@codeaurora.org>

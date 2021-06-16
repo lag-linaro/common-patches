@@ -11,6 +11,8 @@ Subject: ANDROID: GKI: pid: Export for find_task_by_vpid
     To get information on when a certain process or thread was started,
     duration of run, Average load contributed by it.
 
+[CPNOTE: 16/06/21] Lee: 'find_task_by_vpid' present in aosp/android12-5.10:android/abi_gki_aarch64.xml
+
 Signed-off-by: Abhilasha Rao <abhilasha.hv@samsung.corp-partner.google.com>
 Bug: 158067689
 Change-Id: I0db9cc50c93eedff0f3e9dea0ac09a5d17d118f0

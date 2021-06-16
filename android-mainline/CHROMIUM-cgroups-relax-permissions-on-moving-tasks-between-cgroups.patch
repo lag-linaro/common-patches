@@ -8,6 +8,8 @@ cgroups/cpusets, but does not want to be running as root. Let's relax
 permission check so that processes can move other tasks if they have
 CAP_SYS_NICE in the affected task's user namespace.
 
+[CPNOTE: 16/06/21] Lee: Reached out to the author for status
+
 BUG=b:31790445,chromium:647994
 Bug: 147109865
 TEST=Boot android container, examine logcat

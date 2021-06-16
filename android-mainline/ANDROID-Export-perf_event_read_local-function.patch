@@ -6,6 +6,8 @@ Subject: ANDROID: Export perf_event_read_local function
 perf_event_read_local function is used by downstream
 vendor modules, so export perf_event_read_local function.
 
+[CPNOTE: 16/06/21] Lee: 'perf_event_read_local' present in aosp/android12-5.10:android/abi_gki_aarch64.xml
+
 Bug: 151972133
 Change-Id: I61874fda79502f72b348394d96d8a2b02a6727d9
 Signed-off-by: Prasad Sodagudi <psodagud@codeaurora.org>

@@ -5,6 +5,8 @@ Subject: ANDROID: printk: printk_deferred for modules
 
 Allow modules to call printk_deferred().
 
+[CPNOTE: 16/06/21] Lee: 'printk_deferred' present in aosp/android12-5.10:android/abi_gki_aarch64.xml
+
 Bug: 172264047
 Change-Id: Icf2daaa3c990519fb0ee048608a15a9f0b4fdf65
 Signed-off-by: Sai Harshini Nimmala <snimmala@codeaurora.org>

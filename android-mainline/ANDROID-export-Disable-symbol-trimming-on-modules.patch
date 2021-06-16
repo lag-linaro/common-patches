@@ -14,6 +14,8 @@ any (nor we have a good way to differentiate them in the kernel build
 system), let's simply disable the trimming for all modules altogether,
 and get things unblocked for GKI 1.0.
 
+[CPNOTE: 16/06/21] Lee: Reached out to the author for status
+
 Bug: 148277666
 Signed-off-by: Quentin Perret <qperret@google.com>
 Change-Id: I2513d85c46eefc62c59883b724b6153dd27b3671
