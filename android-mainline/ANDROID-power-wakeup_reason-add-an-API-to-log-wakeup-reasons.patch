@@ -6,6 +6,8 @@ Subject: ANDROID: power: wakeup_reason: add an API to log wakeup reasons
 Add API log_wakeup_reason() and expose it to userspace via sysfs path
 /sys/kernel/wakeup_reasons/last_resume_reason
 
+[CPNOTE: 17/06/21] Lee: Reached out to Rafael to gauge possible upstream acceptance
+
 Bug: 120445600
 Signed-off-by: Ruchi Kandoi <kandoiruchi@google.com>
 [AmitP: Folded following android-4.9 commit changes into this patch

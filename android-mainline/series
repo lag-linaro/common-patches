@@ -123,11 +123,9 @@ ANDROID-Log-which-device-failed-to-suspend-in-dpm_suspend_start.patch
 ANDROID-power-wakeup_reason-add-an-API-to-log-wakeup-reasons.patch
 ANDROID-power_supply-Add-a-helper-function-to-retrieve-psy-array-from-phandle.patch
 ANDROID-power_supply-Add-POWER_SUPPLY_CHARGE_TYPE_TAPER.patch
-ANDROID-PM-sleep-export-device_pm_callback_start-end-trace-event.patch
+NOUPSTREAM-ANDROID-PM-sleep-export-device_pm_callback_start-end-trace-event.patch
 ANDROID-perf-Export-clock_set_rate-tracepoint.patch
 ANDROID-GKI-export-dev_pm_qos_read_value.patch
-ANDROID-power_supply-Update-power_supply-enums.patch
-ANDROID-power_supply-inline-empty-power_supply_get_by_phandle_array.patch
 _____ANNOTATION-scheduler-changes_____.patch
 ANDROID-sched-Unconditionally-honor-sync-flag-for-energy-aware-wakeups.patch
 ANDROID-sched-core-Add-a-latency-sensitive-flag-to-uclamp.patch

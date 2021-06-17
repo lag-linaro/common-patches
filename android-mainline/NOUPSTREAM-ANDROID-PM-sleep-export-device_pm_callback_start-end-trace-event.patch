@@ -1,10 +1,13 @@
 From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
 From: Changki Kim <changki.kim@samsung.com>
 Date: Thu, 2 Jul 2020 10:20:49 +0900
-Subject: ANDROID: PM: sleep: export device_pm_callback_start/end trace event
+Subject: NOUPSTREAM: ANDROID: PM: sleep: export device_pm_callback_start/end
+ trace event
 
 Export the device_pm_callback_start/end tracepoint so it can be used
 in loadable modules.
+
+[CPNOTE: 17/06/21] Lee: Vendor related code - maintain forever
 
 Bug: 158528747
 

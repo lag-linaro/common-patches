@@ -9,6 +9,7 @@ permission check so that processes can move other tasks if they have
 CAP_SYS_NICE in the affected task's user namespace.
 
 [CPNOTE: 16/06/21] Lee: Reached out to the author for status
+[CPNOTE: 17/06/21] Lee: NACKed upstream - pinged the bug to gauge its current usefulness
 
 BUG=b:31790445,chromium:647994
 Bug: 147109865

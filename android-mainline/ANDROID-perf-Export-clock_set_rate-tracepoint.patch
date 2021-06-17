@@ -6,6 +6,8 @@ Subject: ANDROID: perf: Export clock_set_rate tracepoint
 This allows for clock rate changes to be reported from
 loadable kernel modules.
 
+[CPNOTE: 17/06/21] Lee: Vendor related code - maintain forever
+
 Bug: 167449286
 Bug: 166776693
 Change-Id: I30eb2d742aecedf3638334f85f510a69b71acb84

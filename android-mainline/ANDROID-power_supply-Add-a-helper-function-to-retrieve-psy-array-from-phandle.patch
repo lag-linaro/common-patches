@@ -18,6 +18,8 @@ pass back all the power_supply objects.
 Patch was sent to mainline linux, however, was deemed incomplete due
 to lack of mainline user.
 
+[CPNOTE: 17/06/21] Lee: No in-tree user.  Maybe this is GKI vendor stuff?  Pinged the bug for info.
+
 Link: https://lore.kernel.org/linux-pm/20200407211243.247362-1-badhri@google.com/T/
 Bug: 161416774
 Bug: 167486462
@@ -25,8 +27,8 @@ Signed-off-by: Badhri Jagan Sridharan <badhri@google.com>
 Change-Id: I6d9c52edb4472e73fc2d3c8eb32a41bec8bbde2a
 ---
  drivers/power/supply/power_supply_core.c | 78 ++++++++++++++++++++++++
- include/linux/power_supply.h             |  9 +++
- 2 files changed, 87 insertions(+)
+ include/linux/power_supply.h             | 10 +++
+ 2 files changed, 88 insertions(+)
 
 diff --git a/drivers/power/supply/power_supply_core.c b/drivers/power/supply/power_supply_core.c
 --- a/drivers/power/supply/power_supply_core.c
@@ -126,7 +128,7 @@ diff --git a/drivers/power/supply/power_supply_core.c b/drivers/power/supply/pow
 diff --git a/include/linux/power_supply.h b/include/linux/power_supply.h
 --- a/include/linux/power_supply.h
 +++ b/include/linux/power_supply.h
-@@ -392,12 +392,21 @@ static inline struct power_supply *power_supply_get_by_name(const char *name)
+@@ -392,12 +392,22 @@ static inline struct power_supply *power_supply_get_by_name(const char *name)
  #ifdef CONFIG_OF
  extern struct power_supply *power_supply_get_by_phandle(struct device_node *np,
  							const char *property);
@@ -140,10 +142,11 @@ diff --git a/include/linux/power_supply.h b/include/linux/power_supply.h
  static inline struct power_supply *
  power_supply_get_by_phandle(struct device_node *np, const char *property)
  { return NULL; }
-+static int power_supply_get_by_phandle_array(struct device_node *np,
-+					     const char *property,
-+					     struct power_supply **psy,
-+					     int size)
++static inline int
++power_supply_get_by_phandle_array(struct device_node *np,
++				  const char *property,
++				  struct power_supply **psy,
++				  int size)
 +{ return 0; }
  static inline struct power_supply *
  devm_power_supply_get_by_phandle(struct device *dev, const char *property)

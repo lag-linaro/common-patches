@@ -6,6 +6,8 @@ Subject: ANDROID: GKI: export dev_pm_qos_read_value
 min_freq and max_freq from sysfs now go to the dev_pm_qos_request
 interface, so porting will require access to dev_pm_qos_read_value.
 
+[CPNOTE: 17/06/21] Lee: Vendor related code - maintain forever
+
 Signed-off-by: Mark Salyzyn <salyzyn@google.com>
 Fixes: 27dbc542f651ed09de910f274b32634904103774 ("PM / devfreq: Use PM QoS for sysfs min/max_freq")
 Bug: 165523817

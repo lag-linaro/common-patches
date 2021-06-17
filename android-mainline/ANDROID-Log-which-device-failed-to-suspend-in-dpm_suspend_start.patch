@@ -19,6 +19,10 @@ patch(https://patchwork.kernel.org/patch/3827331/) for adding
 was merged in AOSP common kernels. So maybe the patch could
 only be sent to AOSP common kernels.
 
+[CPNOTE: 17/06/21] Lee: Reached out to Kelly regarding the usefulness of dpm_save_failed_dev()
+                   Most of this is removed by:
+		     ANDROID: power: wakeup_reason: add an API to log wakeup reasons
+
 Test: manual - Use modified version for daily use two days, from
 bugreport we can see which device failed.
 Bug: 120445600

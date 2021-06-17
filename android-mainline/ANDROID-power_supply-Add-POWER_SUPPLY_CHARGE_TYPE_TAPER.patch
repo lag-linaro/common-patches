@@ -6,6 +6,8 @@ Subject: ANDROID: power_supply: Add POWER_SUPPLY_CHARGE_TYPE_TAPER
 Used to track the constant voltage phase of charging and implement
 tier transition for multi-step charging.
 
+[CPNOTE: 17/06/21] Lee: Doesn't appear to be used - pinged the bug for info
+
 Bug: 168244640
 Signed-off-by: AleX Pelosi <apelosi@google.com>
 Change-Id: I49d3033eec671156ffd113d8d0e3972d2cdad982
@@ -21,7 +23,7 @@ diff --git a/drivers/power/supply/power_supply_sysfs.c b/drivers/power/supply/po
  	[POWER_SUPPLY_CHARGE_TYPE_ADAPTIVE]	= "Adaptive",
  	[POWER_SUPPLY_CHARGE_TYPE_CUSTOM]	= "Custom",
  	[POWER_SUPPLY_CHARGE_TYPE_LONGLIFE]	= "Long Life",
-+	[POWER_SUPPLY_CHARGE_TYPE_TAPER]	= "Taper",
++	[POWER_SUPPLY_CHARGE_TYPE_TAPER_EXT]	= "Taper",
  };
  
  static const char * const POWER_SUPPLY_HEALTH_TEXT[] = {
@@ -37,7 +39,7 @@ diff --git a/include/linux/power_supply.h b/include/linux/power_supply.h
 +	 * force to 50 to minimize the chances of userspace binary
 +	 * incompatibility on newer upstream kernels
 +	 */
-+	POWER_SUPPLY_CHARGE_TYPE_TAPER = 50,	/* charging in CV phase */
++	POWER_SUPPLY_CHARGE_TYPE_TAPER_EXT = 50,	/* charging in CV phase */
  };
  
  enum {
